@@ -7,16 +7,19 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-入力データを {\em afile}の線形予測係数 $K,a(1),\ldots,a(M)$ をもつ
-全極標準形フィルタによりフィルタリングし，標準出力に出力します．
+This command reads excitation information from
+{\em infile} and the linear prediction coefficients
+$K,a(1),\ldots,a(M)$ from {\em afile},
+passes the excitation through the corresponding all pole standard form
+filter and sends the results to the standard output.
 \par
 Input and output data are in float format.
 \par
-全極標準形フィルタの伝達関数 $H(z)$ は，
+The transfer function $H(z)$ of an all pole standard form
+filter is
 \begin{displaymath}
 H(z) = \frac{K}{\displaystyle 1+\sum_{m=1}^M a(m) z^{-m}}
 \end{displaymath}
-です．
 \end{qsection}
 
 \begin{options}
@@ -28,9 +31,12 @@ H(z) = \frac{K}{\displaystyle 1+\sum_{m=1}^M a(m) z^{-m}}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のピッチデータ {\em data.pitch} から励振源を作成し，
-線形予測係数ファイル {\em data.lpc} により標準形合成フィルタを駆動し，
-合成音声を {\em data.syn} に出力する:
+In the example below, the excitation is generated
+from pitch information read from {\em data.pitch} in
+float format, then it is passed through the standard form synthesis
+filter built from the linear prediction coefficients file
+{\em data.lpc}, and synthesized speech is outputed to
+{\em data.syn}:
 \begin{quote}
   \verb!excite < data.pitch | poledf data.lpc > data.syn!
 \end{quote}

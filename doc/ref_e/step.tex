@@ -5,22 +5,25 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-長さ$L$ または次数$N$のユニットステップを標準出力に出力します．つまり，
+This command generates a unit step sequence of length $L$ or order $N$,
+and sends the results to the standard output.
+That is, the sequence 
 \begin{displaymath}
 \underbrace{1, 1, 1, \ldots, 1}_{L}
 \end{displaymath}
-\par
-Output data is in float format.
+is outputed in float format.
 \end{qsection}
 
 \begin{options}
 	\argm{l}{L}{length\\
-                    $ L \le 0 $の場合，無限にステップ列を生成．}{256}
+                        In the case $L \le 0$ then values will be
+                        generated indefinitely.}{256}
 	\argm{n}{N}{order}{255}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-標準形のディジタルフィルタにユニットステップ列を加える:
+In the following example, the unit step sequence passed through
+a digital filter and sent to the standard output:
 \begin{quote}
 \verb!step | dfs -a 1 -0.8 | dmp!
 \end{quote}

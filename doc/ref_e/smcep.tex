@@ -7,7 +7,8 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-2次オールパス関数を1/2乗したシステム関数 $A(z)$
+This command uses the following 2nd-order
+all pass function raised to 1/2 
 \begin{displaymath}
 A(z)=
 \left(
@@ -16,31 +17,31 @@ A(z)=
 \right)^{\frac{1}{2}}
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
 \end{displaymath}
-を用いたメルケプストラム分析を行い，
-メルケプストラム係数 $c(m)$ を標準出力に出力します．
-入力は長さ$L$ の時系列
+to undertake mel-cepstrum analysis,
+and writes into the standard output the mel-cepstrum
+coefficients $c(m)$.
+Let's assume that input data sequence is
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-です．
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-2次オールパス関数を用いたメルケプストラム分析では，
-音声のスペクトルを $M$ 次の
-メルケプストラム $c(m)$ により以下のようにモデル化します．
+In the mel-cepstrum analysis using
+a 2nd-order all pass function,
+the speech spectrum is modeled as  $m$ order cepstrum
+coefficients $c(m)$ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^{M} c(m)\,B_m(e^{j\omega})
 \end{displaymath}
-ただし，
+where
 \begin{displaymath}
 \mbox{Re}\left[B_m(e^{j\omega})\right]
 	=\left\{A^m(e^{j\omega})+A^m(e^{-j\omega})\right\}/2
 \end{displaymath}
-です．
-\par
-ここでは，評価関数を最小にするメルケプストラムを求めるために，
-Newton--Raphson法が用いられています．
+\par The Newton--Raphson method is applied to calculate
+the mel-cepstrum coefficients through the minimization
+of the cost function.
 \end{qsection}
 
 \newpage
@@ -58,8 +59,9 @@ Newton--Raphson法が用いられています．
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float 形式の音声データ {\em data.f} を分析し，{\em data.mcep} に
-メルケプストラム係数を得る:
+In the example below, speech data is read in float format
+from {\em data.f}, analized, and resulting mel-cepstrum
+coefficients are written to {\em data.mcep}:
 \begin{quote}
  \verb!frame < data.f | window | smcep > data.mcep !
 \end{quote}

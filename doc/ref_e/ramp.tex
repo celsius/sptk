@@ -5,26 +5,27 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-ランプ列を標準出力に出力します．つまり，
+This command sends to the standard output a ramp sequence.
+That is, the following sequence is outputed.
 \begin{displaymath}
 \underbrace{S, S+T, S+2T,  \ldots, S+(L-1)T}_{L}
 \end{displaymath}
-を出力します．
 \par
 Output format is in float format.
-最終値を指定した場合は，
+In the case the last value is assigned 
+the generated sequence is,
 \begin{displaymath}
 \underbrace{S, S+T, S+2T,  \ldots, E}_{(E-S)/T}
 \end{displaymath}
 \par
-となります．
--lオプションと-eオプションと-nオプションを2つ以上同時に指定した場合は，
-後で指定したものに従います．
+If the --l option, --e option and --n option are used
+in the same time, then only the last option are taken into account.
 \end{qsection}
 
 \begin{options}
 	\argm{l}{L}{length of ramp sequence\\
-			ただし，$L \le 0$の時は無限に生成する．}{256}
+                    In the case $L \le 0$ then ramp values will be
+                    generated indefinitely.}{256}
 	\argm{n}{N}{order of ramp sequence}{L-1}
 	\argm{s}{S}{start value}{0}
 	\argm{e}{E}{end value}{N/A}
@@ -32,11 +33,10 @@ Output format is in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-数列
+The Following example output the sequence 
 \begin{displaymath}
   y(n)=\exp(-n)
 \end{displaymath}
-を出力する:
 \begin{quote}
 \verb!ramp | sopr -m -1 -E | dmp!
 \end{quote}

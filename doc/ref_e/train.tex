@@ -5,16 +5,16 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-長さ $L$，周期 $P$ のパルス列，あるいはM系列を標準出力に出力します．
+This command generates a pulse train sequence or a sequence with
+values $\pm 1$.
 Output data is in float format.
-\par
-M系列は $\pm 1$ の値をもちます．
 \end{qsection}
 
 \begin{options}
 	\argm{l}{L}{frame length}{256}
 	\argm{p}{P}{frame period\\
-                    if $P=0$ then M sequence is generated.}{0}
+                    if $P=0$ then a sequence with values
+                    $\pm 1$ is generated.}{0}
 	\argm{n}{N}{type of normalization\\
                     When $x(n)$ is impulse sequence\\
 			\begin{tabular}{ll}\\ [-1zh]
@@ -27,7 +27,9 @@ M系列は $\pm 1$ の値をもちます．
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-ディジタルフィルタをM系列で励振した出力のスペクトルを見る:
+The following example displays the spectrum of
+the signal obtained from passing a train pulse sequence through
+digital filter:
 \begin{quote}
 \verb!train | dfs -b 1 0.9 | window | spec | fdrw | xgr!
 \end{quote}

@@ -46,11 +46,11 @@ the difference between the numerator and denominator phases}.
 
 \begin{options}
 	\argm{l}{L}{frame length power of 2}{256}
-	\argm{p}{pfile}{numerator cofficients file
+	\argm{p}{pfile}{numerator cofficients file\\
 			The {\em pfile} should follow this structure in
                         float format:\\
 			\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
-	\argm{z}{zfile}{denominator cofficients file
+	\argm{z}{zfile}{denominator cofficients file\\
 			The {\em zfile} should follow this structure in
                         float format:\\
 			\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\
@@ -64,33 +64,36 @@ the difference between the numerator and denominator phases}.
                         equal to 1.
                         If neither {\bf --p} nor {\bf --z} are
                         assigned, data is read from the standard input.}{NULL}
-	\argm{m}{M}{order of denominator polynomial
-			実際に入力されたデータ数が，
-			$M+1$ より少なかった場合には，
-			$M=(\mbox{実際の入力データ数})-1$ となるので，
-			長さ$M+1$ のデータを何組か続けて入力する場合以外は，
-			$M$ の指定は必要ありません．}{$L-1$}
-	\argm{n}{N}{order of numerator polynomial
-			{\bf --m} オプションと同様，
-			実際に入力されたデータ数が，
-			$N+1$ より少なかった場合には，
-			$N=(\mbox{実際の入力データ数})-1$ となるので，
-			長さ$N+1$ のデータを何組か続けて入力する場合以外は，
-			$N$ の指定は必要ありません．}{$L-1$}
+	\argm{m}{M}{order of denominator polynomial\\
+			In the case where the number of input data
+                        values is less then $M+1$, then $M$ is made
+                        equal to the number of input data values $-1$.
+                        If the input data should not be analyzed in blocks of
+                        size $M+1$, then it is not necessary to assign
+                        a value to $M$.}{$L-1$}
+	\argm{n}{N}{order of numerator polynomial\\
+                        Similary to the --m option,
+			in the case where the number of input data
+                        values is less then $N+1$, then $N$ is made
+                        equal to the number of input data values $-1$.
+                        If the input data should not be analyzed in blocks of
+                        size $N+1$, then it is not necessary to assign
+                        a value to $N$.}{$L-1$}
 	\argm{u}{}{unlapping}{TRUE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル{\em data.p, data.z} で指定された係数をもつ
-ディジタルフィルタの位相特性を表示する:
+In the example below, the phase characteristic of a digital filter
+with coefficients assigned by the files {\em data.p, data.z} 
+in float format is displayed:
 \begin{quote}
   \verb!phase -p data.p -z data.z | fdrw | xgr !
 \end{quote}
-{\em data.p}, {\em data.z} の表すフィルタが安定な場合には，
+If the filter defined by {\em data.p}, {\em data.z} is stable
+then the following command gives rise to a similar result:
 \begin{quote}
   \verb!impulse | dfs -p data.p -z data.z | phase | fdrw | xgr !
 \end{quote}
-としてもほぼ同様の結果が得られます．
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
@@ -98,7 +101,9 @@ float形式のファイル{\em data.p, data.z} で指定された係数をもつ
 \end{qsection}
 
 \begin{qsection}{BUGS}
-サンプル間隔が粗い場合({\bf --l} オプションの指定値が小さい)，
-位相特性が急峻な場合( 極，零点が$z$ 平面の単位円付近にある場合など) には，
-位相のアンラップがうまく行われないことがあります．
+When the sample interval between FFT points is large
+(the value assigned by the --l option is small),
+when the phase characteristic includes steep angles
+(when zeros and/or poles are close to the unit circle in the $z$
+ domain), then sometimes phase is not properly drawn in continuous form.
 \end{qsection}

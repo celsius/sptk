@@ -5,18 +5,18 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-指定された2つのファイルからの入力
+This command evaluates the SNR(Signal Noise Ratio) and
+the $\mbox{SNR}_{\mbox{seg}}$(segmental SNR)
+between two assigned input files as follows.
 \begin{displaymath}
   x_1(0),x_1(1),\ldots,x_1(L-1)
 \end{displaymath}
-と
 \begin{displaymath}
   x_2(0),x_2(1),\ldots,x_2(L-1)
 \end{displaymath}
-からSNR(Signal Noise Ratio)と
-$\mbox{SNR}_{\mbox{seg}}$(セグメンタルSNR)を計算します．
 \par
-SNR， $\mbox{SNR}_{\mbox{seg}}$は次式で計算することができます．
+The SNR and $\mbox{SNR}_{\mbox{seg}}$ can be calculated
+through the following equation.
 \begin{displaymath}
 \mbox{SNR} = 10~\log \frac{\displaystyle\sum_{n} ( x(n) )^{2}}
 {\displaystyle\sum_{n} (e(n))^{2}}~~~\mbox{[dB]}
@@ -25,14 +25,15 @@ SNR， $\mbox{SNR}_{\mbox{seg}}$は次式で計算することができます．
 \mbox{SNR}_{\mbox{seg}} = \frac{1}{N_{i}} \sum_{i = 1}^{N_{i}}
 \mbox{SNR}_{i} ~~~\mbox{[dB]}
 \end{displaymath}
-ただし，
+where
 \begin{displaymath}
 e(n) = x_1(n) - x_2(n)
 \end{displaymath}
-ここで， $N_i$はフレーム数を表しています．
-セグメンタルSNRは子音区間のような
-比較的小振幅区間のSNRも反映されるため，
-主観値との対応が比較的良いという特徴があります．
+The number of frame is represented by $N_i$.
+The segmental SNR has the characteristic that
+for signals with small amplitude such as consonant sounds
+it gives rise to a better
+subjective measure then the SNR.
 \end{qsection}
 
 \newpage
@@ -58,8 +59,9 @@ e(n) = x_1(n) - x_2(n)
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-short形式のファイル {\em data.s} と float形式のファイル {\em data.f} のSNRと
-セグメンタルSNRを出力する:
+The following command reads the input files {\em data.s} in short format
+and {\em data.f} in float format, evaluates the SNR and
+segmantal SNR, and sends the results to the standard output:
 \begin{quote}
  \verb!snr +sf data.s data.f!
 \end{quote} 
