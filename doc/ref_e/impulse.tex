@@ -1,29 +1,30 @@
-\name{impulse}{ユニットパルス列(インパルス列)を発生する}{信号生成}
+\name{impulse}{generate impulse sequence}{signal processing}
 
 \begin{synopsis}
 \item[impulse] [ --l $L$ ] [ --n $N$ ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-長さ $L$ のユニットパルス列を標準出力に出力します．つまり，
+This command generates the unit impulse sequence
+of length $L$ and sends the output to the standard output.
+That is, the following output data in float format is outputed
 \begin{displaymath}
 \underbrace{1, 0, 0, \ldots, 0}_{L}
 \end{displaymath}
 \par
-出力データは，float 形式です．
---lと--nオプションを同時に指定した場合，後に指定したものに従います．
-
+If the options --l and --n are used at the same time,
+the value of the pulse length is taken from the last option.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{ユニットパルス列の長さ．\\
-		    $L < 0$ とすると無限長の数列を生成．}{256}
-	\argm{n}{N}{ユニットパルス列の次数．\\
-		    N+1の系列を生成．}{255}
+	\argm{l}{L}{length of unit impulse\\
+		    if $L < 0$ then endless sequence is generated.}{256}
+	\argm{n}{N}{order of unit impulse}{255}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-標準形のディジタルフィルタをユニットパルス列を加え，値を表示する:
+In the example below, an unit impulse sequence is passed through 
+a digital filter and the results is presented on the screen.
 \begin{quote}
  \verb!impulse | dfs -a 1 0.9 -b 1 2 1 | dmp!
 \end{quote}

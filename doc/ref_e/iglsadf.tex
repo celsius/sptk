@@ -1,5 +1,5 @@
-\name[ref:GLSA-IEICEtaikai90s]{iglsadf}{逆 GLSA ディジタルフィルタ}%
-{音声合成用フィルタ}
+\name[ref:GLSA-IEICEtaikai90s]{iglsadf}{inverse GLSA digital filter}%
+{digital filter}
 
 \begin{synopsis}
 \item [iglsadf] [ --m $M$ ] [ --g $G$ ] [ --p $P$ ] [ --i $I$ ]
@@ -7,25 +7,30 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- {\em iglsadf} は，逆 GLSA フィルタです．
+The {\em iglsadf} command is the inverse GLSA filter.
 \par
-データ形式は入力，出力とも float 形式です．
+Input and output data are in float format.
 
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{一般化ケプストラムの次数．}{25}
-	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma=-1/G$．}{1}
-	\argm{p}{P}{フレーム周期．}{100}
-	\argm{i}{I}{補間周期．}{1}
-	\argm{n}{}{入力を規格化されたケプストラムとみなす．}{FALSE}
-	\argm{k}{}{ゲインを除いたシステム関数でフィルタリングする}{FALSE}
+	\argm{m}{M}{order of generalized cepstrum}{25}
+	\argm{g}{G}{power parameter $\gamma=-1/G$ of generalized cepstrum}{1}
+	\argm{p}{P}{frame period}{100}
+	\argm{i}{I}{interpolation period}{1}
+	\argm{n}{}{regard input as normalized generalized cepstrum}{FALSE}
+	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の音声ファイル {\em data.f} を一般化ケプストラム分析
-(15次，$\gamma = -1/2$)の結果に基づいて
-逆フィルタ出力し，{\em data.e} を求める:
+In the first line of the example below, 
+speech is read in float format from {\em data.f},
+the generalized cepstrum coefficients $(M=15，\gamma = -1/2)$
+are evaluated, and written in {\em data.gc}.
+In the second line,
+speech data and cepstral coefficients are
+inputed to {\em iglsadf} command and the resulting excitation file
+is written to {\em data.e}.
 \begin{quote}
  \verb!frame < data.f | window | gcep -m 15 -g 2 > data.gc!\\
  \verb!iglsadf -m 15 -g 2 data.gc < data.f > data.e!
@@ -33,7 +38,8 @@ float形式の音声ファイル {\em data.f} を一般化ケプストラム分析
 \end{qsection}
 
 \begin{qsection}{BUGS}
-$n$ を自然数として，$\gamma = -1/n$ の場合にしか対応していない．
+Correct response of this command is obtained only when
+$\gamma = -1/n$, with $n$ a natural number.
 \end{qsection}
 \begin{qsection}{SEE ALSO}
 glsadf, gcep

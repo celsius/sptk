@@ -1,29 +1,32 @@
-\name{grpdelay}{郡遅延を求める}{信号処理}
+\name{grpdelay}{group delay of digital filter}{signal processing}
 \begin{synopsis}
  \item[grpdelay] [ --l $L$ ] [ --m $M$ ] [ --a ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-ファイル{\em infile}(省略時は標準入力)からフィルタ係数(FIRフィルタ)
-を読み込み，郡遅延を出力します．データ形式は入出力は共にfloat形式です．
-
-{\bf --m} オプションで $M$ の指定がなく，かつ入力系列長がFFT サイズより短い
-場合，入力系列に0 を付加してFFT を実行します．
-{\bf --a}オプションが指定された場合，入力の零次の項はゲイン項として取り扱い
-ます．
+This command reads the filter coefficients from {\em infile},
+or from the standard input if {\em infile} is not specified.
+Input and output data are in float format.
+\par
+When the {\bf --m} option is omitted
+and the input data sequence length is less than FFT size,
+then the input file is padded with 0 and the FFT is evaluated
+as examplified below.
+When the {\bf --a} option is assigned,
+the gain is obtained from zero order input.%???????????????????????
 \par
 \[
 \begin{array}{lll}
-\mbox{入力系列} & 
+\mbox{Input sequence} & 
 \overbrace{\framebox[4.5cm]{$x_0, x_1, \ldots, x_{M}, 0,
-					\ldots,0$}}^{L}  & \mbox{フィルタ係数}\\
+					\ldots,0$}}^{L}  & \mbox{filter coefficients}\\
 		& \makebox[4.5cm]{0\hfill $L-1$} &
 \end{array}
 \]
 \[
 \begin{array}{lll}
-\mbox{出力系列} & \overbrace{\framebox[4.5cm]{$\tau(\omega)$}}^{L/2+1} &
-	   \mbox{郡遅延}\\
+\mbox{Output sequence} & \overbrace{\framebox[4.5cm]{$\tau(\omega)$}}^{L/2+1} &
+	   \mbox{group delay}\\
 		& \makebox[4.5cm]{0\hfill $L-1$} &
 
 \end{array}
@@ -31,18 +34,18 @@
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{フーリエ変換のサイズ．2のべき乗で指定．}{256}
-	\argm{m}{M}{フィルタの次数．}{L-1}
-	\argm{a}{}{入力系列をARフィルタの係数とみなす．}{FALSE}
+	\argm{l}{L}{FFT size power of 2}{256}
+	\argm{m}{M}{order of filter}{L-1}
+	\argm{a}{}{ARMA filter}{FALSE}
 \end{options}
 
 
 \begin{qsection}{EXAMPLE}
-伝達関数
+This example plots in the screen the group delay of impulse response
+of the filter with the following transfer function.
 \begin{displaymath}
   H(z)=\frac{1}{1+0.9z^{-1}}
 \end{displaymath}
-をもつフィルタのインパルス応答の群遅延を求め，画面にプロットさせる:
 \begin{quote}
 \verb! impluse | dfs -a 1 0.9 | grpdelay | fdrw | xgr !
 \end{quote}  
@@ -51,7 +54,3 @@
 \begin{qsection}{SEE ALSO}
 delay, phase
 \end{qsection}
-
-%\begin{qsection}{BUGS}
-% FFTのサイズは1024以下です．
-%\end{qsection}

@@ -1,31 +1,30 @@
-\name{ivq}{ベクトル量子化のデコーダ}{ベクトル量子化}
+\name{ivq}{decoder of vector quantization}{VQ}
 
 \begin{synopsis}
 \item [ivq] [ --l $L$ ] [ --n $N$ ] {\em cbfile}  [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em ivq}は，指定されたファイルからインデックス $i$ を読み込み，
-コードブックファイル{\em cbfile}に従って，
-符号帳ベクトル
+The {\em ivq} command reads the codebook indexes $i$ from 
+the assigned {\em infile}, as well as the codebook file {\em cbfile}
+and output the decoded vector
 \begin{displaymath}
   c_i(0),c_i(1),\ldots,c_i(L-1)
 \end{displaymath}
-を出力します．
+to the starndard output.
 \par
-データ形式は入力は int 形式，出力は float 形式です．
-
+Input data is in int format, and output data is in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{ベクトルのサイズ．}{26}
-	\argm{n}{N}{ベクトルの次数．ベクトルのサイズはN+1になります．}{L-1}
+	\argm{l}{L}{length of vector}{26}
+	\argm{n}{N}{order of vector}{L-1}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-25次のベクトルに対し，コードブック {\em cbfile} で
-VQ を行った結果である {\em data.vq} に対応する符号帳ベクトルを 
-{\em data.ivq} に出力します．
+In the following example,
+the decoded 25 order output file {\em data.ivq} is obtained
+through the index file {\em data.vq} and codebook {\em cbfile}.
 \begin{quote}
 \verb! ivq cbfile data.vq > data.ivq !
 \end{quote}

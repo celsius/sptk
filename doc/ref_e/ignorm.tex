@@ -1,20 +1,22 @@
-\name{ignorm}{一般化ケプストラムのゲインの逆正規化}{信号処理}
+\name{ignorm}{inverse gain normalization}{signal processing}
 \begin{synopsis}
 \item [ignorm] [ --m $M$ ] [ --g $G$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-正規化された一般化ケプストラム $c_\gamma'(m)$ を正規化されていない
-ものに変換し，標準出力に出力します．
+This command reads normalized generalized cepstrum coefficient
+ $c_\gamma(m)$, and sends the not-normalized generalized
+cepstrum coefficients to the standard output.
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-正規化した一般化ケプストラム $c_\gamma'(m)$ から正規化
-されていない一般化ケプストラム$c_\gamma(m)$は
+To convert normalized generalized cepstrum coefficients
+$c_\gamma'(m)$ into not-normalized generalized cepstrum coefficients
+$c_\gamma(m)$, the following equation can be used.
 \begin{displaymath}
 c_\gamma(m) = \Bigl(c_\gamma'(0)\Bigr)^{\gamma} c_\gamma'(m), ~~~m>0
 \end{displaymath}
-で求められます．ただし，ゲイン項 $c_\gamma(0)$ は
+Also, the gain $K = c_\gamma(0)$ is
 \begin{displaymath}
 c_\gamma(0) = \left\{
 	\begin{array}{ll} \displaystyle
@@ -23,19 +25,20 @@ c_\gamma(0) = \left\{
 	  \log c_\gamma'(0),  & \gamma=0
 	\end{array} \right.
 \end{displaymath}
-となります．
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{一般化ケプストラムの次数．}{25}
-	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma$ ．\\
-			 ただし，$G>1.0$ のときは $\gamma=-1/G$．}{0}
+	\argm{m}{M}{order of generalized cepstrum}{25}
+	\argm{g}{G}{power parameter $\gamma$ of generalized cepstrum\\
+		    if $G>1.0$ then $\gamma=-1/G$.}{0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の正規化されている一般化ケプストラムファイル 
-{\em data.ngcep} $(M=15, \gamma=-0.5)$ を逆正規化し，
-正規化されていない一般化ケプストラムを data.gcepに出力する:
+In this example below,
+normalized generalized cepstrum coefficients in
+float format are read from {\em data.ngcep}$(M=15, \gamma=-0.5)$,
+and the not-normalized generalized cepstrum coefficients
+are outputed to {\em data.gcep}.
 \begin{quote}
  \verb! ignorm -m 15 -g -0.5 < data.ngcep > data.gcep!
 \end{quote} 
