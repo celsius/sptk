@@ -7,7 +7,7 @@
 
 \begin{qsection}{DESCRIPTION}
 This command evaluates the FFT cepstrum analysis
-and output it to the standard output.
+and sends the results to the standard output.
 The windowed input time domain sequence of length $L$ is
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
@@ -30,7 +30,7 @@ analysis method??????????????????????????????????
 
 \begin{qsection}{EXAMPLE}
 In the example below, speech data in float format is read from
-{\em data.f} and cepstrum coefficient are outputed to {\em data.cep}:
+{\em data.f} and the cepstrum coefficients are outputed to {\em data.cep}:
 \begin{quote}
   \verb!frame < data.f | window | fftcep > data.cep !
 \end{quote}

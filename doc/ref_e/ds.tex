@@ -1,4 +1,4 @@
-\name{ds}{Sampling rate conversion (down sampling)}%
+\name{ds}{sampling rate conversion (down sampling)}%
 {sampling rate transformation}
 
 \begin{synopsis}
@@ -8,8 +8,9 @@
 \begin{qsection}{DESCRIPTION}
 This command undertakes down sampling.
 \par
-Input and output data is in float format.
-The following filter coefficient can be used.
+The format of input and output data is float.
+The following filter coefficients can be used.
+
 \begin{tabular}{ll} \\[-1zh]
 	$S=21$ & \$SPTK/lib/lpfcoef.2to1 \\
 	$S=43$ & \$SPTK/lib/lpfcoef.4to3 \\
@@ -18,7 +19,7 @@ The following filter coefficient can be used.
         &(\$SPTK is the directory where toolkit was installed.)
 \end{tabular}
 
-Filter coefficients are in ascii formats.
+Filter coefficients are in ASCII format.
 \end{qsection}
 
 \begin{options}
@@ -34,7 +35,7 @@ Filter coefficients are in ascii formats.
 \begin{qsection}{EXAMPLE}
 In this example, the speech data in the input file {\em data.16},
 which was sampled at 16kHz in float format, is converted to
-sampling rate of 8kHz:
+an 8kHz sampling rate:
 \begin{quote}
 \verb! ds data.16 > data.8 !
 \end{quote}

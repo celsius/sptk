@@ -8,8 +8,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-        This command undertakes adaptive mel-cepstrum analysis,
-        sends the mel-cepstrum coefficients $c_{\alpha}(m)$ to standard output,
+        This command undertakes the adaptive mel-cepstrum analysis,
+        sends the mel-cepstrum coefficients $c_{\alpha}(m)$
+        to the standard output,
         and the prediction error to {\em pefile}, whenever
         {\em pefile} is included in the command line.
  \par
@@ -135,19 +136,20 @@ where
 $\mbox{\boldmath $b$}=[b(1), b(2), \ldots, b(M)]^T$,
 $\mbox{\boldmath $e$}_{\it\Phi}^{(n)}
 =[e_1(n) ,e_2(n), \ldots, e_{M}(n)]^T$,
- $e_m(n)$ is output inverse filter, which is obtained as shown
+ $e_m(n)$ is the output of the inverse filter,
+which is obtained as shown
 in Figure \ref{fig:mcep_Phi}, passing $e(n)$ through the filter
- ${\it\Phi}_m(z)$.
+ ${\Phi}_m(z)$.
 \par
 The coefficients $b(m)$ are equivalent to the coefficients of
 the MLSA filter. The mel-cepstrum coefficients $c_{\alpha}(m)$
-can be obtained through the linear transformation (please refer to
-the commands b2mc and mc2b).
+can be obtained from $b(m)$ through a linear transformation
+(please refer to the commands b2mc and mc2b).
 
 In Figure \ref{fig:mcep_block}, the adaptive mel-cepstrum 
 analysis system is shown.
 
-The filter $1/D(z)$ is realised by a MLSA filter.
+The filter $1/D(z)$ is realized by a MLSA filter.
 
 \begin{figure}[h]
 \begin{center}
@@ -185,13 +187,14 @@ The filter $1/D(z)$ is realised by a MLSA filter.
 	\argm{s}{}{output smoothed mel-cepstrum}{FALSE}
 	\argm{e}{E}{minimum value for $\varepsilon^{(n)}$}{0.0}
 	\argm{P}{Pa}{number of coefficients of the MLSA filter
-                     using the pade approximation. Pa can be 4 or 5.}{4}
+                     using the pade approximation. $Pa$ can be 4 or 5.}{4}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 	In this example, the speech data is in the file {\em data.f}
-        in float format, and the mel-cepstrum coefficients are written in
-        the file {\em data.amcep} for every block of 100 samples,
+        in float format, and the adaptive mel-cepstrum coefficients
+        are written to
+        the file {\em data.amcep} for every block of 100 samples:
 \begin{quote}
  \verb!amcep -m 15 -p 100  < data.f > data.amcep!
 \end{quote} 

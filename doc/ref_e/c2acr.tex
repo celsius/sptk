@@ -17,9 +17,9 @@ r(0), r(1), \ldots, r(M_2)
 \end{displaymath}
 are evaluated.
 \par
-Input and output formats are float¡¥
+The format of input and output format is float¡¥
 \par
-The power spectrum is calculated from logarithm spectrum,
+The power spectrum is calculated from the logarithm spectrum,
 which is obtained from the Fourier transform of the $M_1$
 order cepstrum analysis.
 The autocorrelation coefficients are obtained through the inverse
@@ -35,7 +35,7 @@ Fourier transform of the power spectrum.
 \begin{qsection}{EXAMPLE}
 The output file {\em data.lpc} contains the 15th order linear prediction
 coefficients calculated from the autocorrelation coefficients,
-which were obtained from 30th order cepstrum coefficients
+which were obtained from the 30th order cepstrum coefficients
 file {\em data.cep}:
 \begin{quote}
   \verb!c2acr -m 30 -M 15 < data.cep | lev_dur -n 15 > data.lpc!

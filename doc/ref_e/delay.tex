@@ -5,15 +5,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- This command delaies the signal in the input file.
+ This command includes a delay on the signal in the input file.
  For example, if we want to delay the following data
 \[ x(0), x(1), \ldots , x(T) \]
 as
 \[ \underbrace{0, \ldots , 0}_{S}, x(0), x(1), \ldots , x(T). \]
-we only need to set the ``-f'' option to $S$
+we only need to set the ``--s'' option to $S$
 \[ \underbrace{0, \ldots , 0}_{S}, x(0), x(1), \ldots , x(T-S) \]
 \par
-Input and output data is in float format.
+The format of input and output is float.
 \end{qsection}
 
 \begin{options}

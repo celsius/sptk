@@ -8,7 +8,7 @@
 \begin{qsection}{DESCRIPTION}
  This command plays the input file.
  The output can be sent to the speaker or the headphone.
- If the input file is not assigned, data is read from the starndard
+ If the input file is not assigned, data is read from the standard
  input.
  If the sampling frequency of the audio device is not supported,
  then up sampling to an appropriate sampling frequency is done, and
@@ -31,11 +31,11 @@ DA\_FLOAT & set the input data to float\\
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S}{sampling frequency, we can be used the following
- sampling frequency 8,10,11.025,12,16,22.05,32,44.1,48(kHz).}{16}
+	\argm{s}{S}{sampling frequency, it can be used the following
+ sampling frequencies 8,10,11.025,12,16,22.05,32,44.1,48(kHz).}{16}
 	\argm{g}{G}{gain}{0}
 	\argm{a}{A}{amplitude gain(0..100)}{N/A}
-	\argm{o}{O}{output port(s : speaker, h : head phone)}{s}
+	\argm{o}{O}{output port(s : speaker, h : headphone)}{s}
 	\argm{w}{}{execute byte swap}{FALSE}
 	\argm{H}{H}{header size in byte}{0}
 	\argm{v}{}{display filename}{FALSE}
@@ -44,8 +44,8 @@ DA\_FLOAT & set the input data to float\\
 
 \begin{qsection}{EXAMPLE}
 In the following example, the speech data file {\em data.s}
-is played on the head phone.
-The sampling frequency is 8 kHz, and data is short format.
+is played on the headphone.
+The sampling frequency is 8 kHz, and data is in short format.
 \begin{quote}
 \verb! da -s 8 -o h data.s!
 \end{quote}

@@ -8,8 +8,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-        This command undertakes adaptive generalized cepstrum analysis,
-        sends the cepstrum coefficients $c_\gamma(m)$ to standard output,
+        This command undertakes the adaptive generalized
+        cepstrum analysis\cite{ref:agcep-IEICEtaikai90s},
+        sends the cepstrum coefficients $c_\gamma(m)$ to the standard output,
         and the prediction error to {\em pefile}, whenever
         {\em pefile} is included in the command line.
  \par
@@ -129,9 +130,9 @@ adaptive cepstrum analysis.
 
 \begin{qsection}{EXAMPLE}
 	In this example, the speech data is in the file {\em data.f}
-        in float format, and the cepstrum coefficients are written in
+        in float format, the cepstrum coefficients are written to
         the file {\em data.agcep},
-        and prediction error can be found in {\em data.er}.
+        and the prediction error can be found in {\em data.er}.
 \begin{quote}
  \verb!agcep -m 15 data.er < data.f > data.agcep!
 \end{quote} 
