@@ -24,6 +24,7 @@
 
 /* Default Value */
 #define	RBSIZE		512
+#define	DSIZE		512
 #define	SIZE		256
 #define LINEBUFSIZE	256
 #define STYPE		"58"
@@ -181,7 +182,7 @@ srcnv(fp)
 FILE	*fp;
 {
 	int	is_cont, i, k, nread, count, nwr, delay;
-	float	x[SIZE], y[SIZE];
+	float	x[SIZE], y[DSIZE];
 	void	firin(), firinit();
 	double	firout();
 
