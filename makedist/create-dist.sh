@@ -51,9 +51,11 @@ end
 
 set ARCHIVE	= SPTK-$VERSION
 set DOCUMENT	= SPTKref-$VERSION
+set EDOCUMENT	= SPTKref_e-$VERSION
 if ( $BETA == 1 ) then
 	set ARCHIVE	= ${ARCHIVE}b-$TODAY
 	set DOCUMENT	= ${DOCUMENT}b-$TODAY
+	set EDOCUMENT	= ${EDOCUMENT}b-$TODAY
 endif
 
 if ( ! -d $ARCHIVEDIR ) then
@@ -63,8 +65,9 @@ endif
 
 if ( -f $ARCHIVE.tar.gz ) mv $ARCHIVE.tar.gz{,.old}
 if ( -f $DOCUMENT.tar.gz ) mv $DOCUMENT.tar.gz{,.old}
+if ( -f $EDOCUMENT.tar.gz ) mv $EDOCUMENT.tar.gz{,.old}
 
-rm -rf $ARCHIVE $DOCUMENT
+rm -rf $ARCHIVE $DOCUMENT $EDOCUMENT
 
 make -f $MKDISTDIR/Makefile SOURCEDIR=$BASEDIR TARGETDIR=$ARCHIVE `cat $LIST` \
   && tar cfz $ARCHIVE.tar.gz $ARCHIVE \
@@ -76,10 +79,15 @@ $MKDISTDIR/cp-tex.pl -b $BASEDIR -v -l $LIST -d $DOCUMENT \
   && rm -rf $DOCUMENT
 if ( -f $DOCUMENT.tar.gz ) mv $DOCUMENT.tar.gz $ARCHIVEDIR
 
+$MKDISTDIR/cp-tex-e.pl -b $BASEDIR -v -l $LIST -d $EDOCUMENT \
+  && tar cfz $EDOCUMENT.tar.gz $EDOCUMENT \
+  && rm -rf $EDOCUMENT
+if ( -f $EDOCUMENT.tar.gz ) mv $EDOCUMENT.tar.gz $ARCHIVEDIR
+
 goto END
 
 CLEAR:
-rm -rf $ARCHIVE $DOCUMENT
+rm -rf $ARCHIVE $DOCUMENT $EDOCUMENT
 
 END:
 if ( $BETA == 0 ) then
