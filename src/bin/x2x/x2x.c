@@ -42,6 +42,8 @@ char *BOOL[] = {"FALSE", "TRUE"};
 /*  Default Values  */
 #define ROUND		FA
 #define COL		1
+#define FORM_INT	"%d"
+#define FORM_FLOAT	"%g"
 
 
 /*  Command Name  */
@@ -83,7 +85,7 @@ double r = 0.0;
 
 void main(int argc, char **argv)
 {
-    char        c1, c2, *form = "%g";
+    char        c1, c2, *form = FORM_FLOAT;
     double      x;
     int         size1 = 0, size2 = 0, i = 1, col = COL, atoi();
     FILE	*fp = stdin;
@@ -201,7 +203,10 @@ void main(int argc, char **argv)
 				    while( *(*argv+1) != '\0') (*argv)++;
 				    argc--;
 				}
-				
+				if( !((c1 == 'd') || (c1 == 'f'))){
+					form = (char *)malloc( strlen( FORM_INT)+1);
+					strcpy( form, FORM_INT);
+				}
 			    }
 			    break;
 			default:
