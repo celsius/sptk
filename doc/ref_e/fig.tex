@@ -70,7 +70,7 @@ Command values can be overwritten by entering new command values.
 \end{qsection}
 
 \vspace{-1cm}
-\begin{qsection}{\ ~~~COMMAND PART}
+\begin{qsection}{\ ~~~COMMAND LINES}
 \begin{minipage}[t]{5.5cm}
 x [mel $\alpha$]~ $xmin$ ~$ymax$ [$xa$]\\
 y [mel $\alpha$]~ $xmin$ ~$ymax$ [$ya$]\\
@@ -200,9 +200,9 @@ xgrid ~$x_1$ ~$x_2$ ~$\cdots$\\
 ygrid ~$y_1$ ~$y_2$ ~$\cdots$
 \end{minipage}
 \begin{minipage}[t]{9cm}
-$x_1$ $x_2$ $\cdots$$B!$(B $y_1$ $y_2$ $\cdots$ $B$N0LCV$K!$$=$l$>$l=D$H2#$N%0%j%C%I(B
-$B$r0z$-$^$9!%(B\\
-($BNc(B)\\
+This command makes grids in the positions $x_1$ $x_2$ $\cdots$,
+$y_1$ $y_2$ $\cdots$.\\
+(Example)\\
 \begin{minipage}[t]{4.3cm}
  \epsfxsize=4cm
  \epsffile{fig/grid.eps}
@@ -226,10 +226,11 @@ ygrid 2 4
 mark ~$label$ [$th$]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-$B%G!<%?9T$GM?$($i$l$k:BI8$KJ8;zNs(B $label$ $B$r=q$-$^$9!%(B
-$th$ $B$OJ8;zNs$r=q$/3QEY(B(deg)$B$G$9!%(B
-$label$ $B$K(B $\backslash 0$ $B$r;XDj$9$k$H2r=|$7$^$9!%(B
-$B%^!<%/!$FC<lJ8;z$N=q$-J}$O%G!<%?9T$N(B $label$ $B9`$r;2>H$7$F2<$5$$!%(B
+This command draws a mark in the assigned coordinate position.
+The option $th$ assigns angle(degree) that the string will be draw.
+If $label$ is assigned $\backslash 0$, the mark is released.
+The way to write marks and special characters can be seen
+at the $label$ section of data explanation.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
@@ -237,8 +238,9 @@ hight ~$h$ [$w$]\\
 italic ~$th$
 \end{minipage}
 \begin{minipage}[t]{9cm}
-$B%G!<%?9T$G(B$label$ $B$r;XDj$7$?>l9g$K=q$/J8;z$NBg$-$5(B $h$(mm)$B!$4V3V(B $w$(mm)
-$B$H%$%?%j%C%/;XDj(B $th$(deg)$B$r$7$^$9!%(B 
+This command defines the size of the label through its
+height $h$(mm) and width $w$(mm) whenever it is assigned
+and allows for writing a label in italic.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
@@ -248,11 +250,13 @@ ycircle ~x ~y ~$r_1$ ~$r_2$ ~$\cdots$
 
 \end{minipage}
 \begin{minipage}[t]{9cm}
-(x~ y)$B$rCf?4$H$7H>7B$,(B$r_1$ ~$r_2$ ~$\cdots$ $B$N1_$rIA$-$^$9!%(B
-$BC"$7!$(B$r_x$ $B$NC10L$O(Bcircle$B$O(Bmm$B!$(Bxcircle$B$O%0%i%U$N(B $x$ $B%9%1!<%k!$(Bycircle$B$O%0%i%U(B
-$B$N(B $y$ $B%9%1!<%k$G$9!%(B\\
-
-($BNc(B)\\
+This command writes a circle with radius $r_1$ ~$r_2$ ~$\cdots$
+with center on the coordinate ($x$,~$y$).
+Also, the unit for the radius $r_x$ in the circle command is mm,
+for the xcircle command is the scale of the $x$ axis and
+for the ycircle command is the scale of the $y$ axis,
+as can be seen in the figure below.\\
+(Example)\\
 \begin{minipage}[t]{4.3cm}
  \epsfxsize=4cm
  \epsffile{fig/circle.eps}
@@ -277,14 +281,16 @@ box ~$x_0$ $y_0$ $x_1$ ~$y_1$ [~$x_2$ $y_2$ $\cdots$ ]\\
 paint ~$type$
 \end{minipage}
 \begin{minipage}[t]{9cm}
- ($x_0$ $y_0$)$B!$(B($x_1$ $y_1$)$B$r7k$VD>@~$rBP3Q@~$H$9$kD9J}7A$r(B paint$B$G;XDj(B
-$B$5$l$?(B $type$$B$GIA$-$^$9!%(B
-$BC"$7!$(B~$x_2$ $y_2$ $\cdots$ $B$,;XDj$5$l$?>l9g!$(B ($x_0$ $y_0$),($x_1$ $y_1$),
-($x_2$ $y_2$),$\cdots$ $B$r7k$VB?3Q7A$rIA$-$^$9(B(paint$B$O(B $type$ 1 $B0J30;XDj$7$J$$(B
-$B$G2<$5$$(B)$B!%(B
-paint $B$N%G%U%)%k%H$O(B1$B$G$9!%(B\\
+This command draws a rectangle with paint $type$
+connecting ($x_0$ $y_0$) and ($x_1$ $y_1$) through a solid line.
+The line which connects ($x_0$ $y_0$) and ($x_1$ $y_1$) forms
+a diagonal of the rectangle.
+Also, if $x_2$ $y_2$ $\cdots$ are assigned, a polygon is draw connecting
+($x_0$ $y_0$),($x_1$ $y_1$),($x_2$ $y_2$),$\cdots$.
+In this case, Please do not use paint $type$ different from 1.
+The default of paint is 1.\\
 
-($BNc(B)\\
+(Example)\\
 \begin{minipage}[t]{4.3cm}
  \epsfxsize=4cm
  \epsffile{fig/box.eps}
@@ -310,11 +316,12 @@ box  2 2 8 8 8 2 4 7
 clip ~$x_0$ $y_0$ $x_1$ ~$y_1$ 
 \end{minipage}
 \begin{minipage}[t]{9cm}
-  ($x_0$ $y_0$)$B!$(B($x_1$ $y_1$)$B$r7k$VD>@~$rBP3Q@~$H$9$kD9J}7A$NHO0O$NCf$@$1(B
-$BIA$-$^$9!%(B
-  ($x_0$ $y_0$)$B!$(B($x_1$ $y_1$)$B$,>JN,$5$l$?;~!$(Bclip$B$r2r=|$7$^$9!%(B\\
+This command allows for drawing only inside the box defined by
+($x_0$ $y_0$), ($x_1$ $y_1$).
+When the coordinates ($x_0$ $y_0$), ($x_1$ $y_1$) are omitted,
+then the clip command is released.\\
 
-($BNc(B)\\
+(Example)\\
 \begin{minipage}[t]{4.3cm}
  \epsfxsize=4cm
  \epsffile{fig/clip.eps}
@@ -338,30 +345,40 @@ box  2 2 8 8 8 2 4 7
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
-\# any commet
+\# any comment
 \end{minipage}
 \begin{minipage}[t]{9cm}
- $B%3%a%s%H9T$G$9!%F0:n$K1F6A$r5Z$\$7$^$;$s!%(B
+This is used for comment lines.
+Whatever is written after this symbol
+is ignored by the fig command.
 \end{minipage}\\
 \end{qsection}
 
-\begin{qsection}{\ ~~~$B%G!<%?9T(B}
+\begin{qsection}{\ ~~~DATA LINES}
 \begin{minipage}[t]{5.5cm}
  x ~y [$label$~ [$th$]]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-(x ~y)$B:BI8$O!$%3%^%s%I9T(B x, y $B$G;XDj$5$l$??tCM$G%9%1!<%j%s%0$5$l$^$9!%(B
-$label$ $B$N0LCV$KJ8;zNs$r=q$/$H!$$=$NJ8;zNs$,(B(x ~y)$B$N0LCV$K=q$+$l$^$9!%(B
-$label$ $B$O6uGrJ8;z$r4^$s$G$O$$$1$^$;$s!%(B
-$B%3%^%s%I9T(B mark $B$G(B$label$$B$,;XDj$5$l$F$$$k>l9g$O!$$3$N:BI8$K8B$j;XDj$N(B$label$
-$B$KCV$-49$o$j$^$9!%(B$th$$B$O3QEY$rM?$($^$9!%(B\\
-$label$ $BJ8;zNs$K(B ~$\backslash n$ ~~$0$B!e(Bn$B!e(B15$ $B$r;XDj$9$k$H!$BP1~$9$kHV9f$N(B
-$B%^!<%/$rIA$-$^$9(B($B%^!<%/$N<oN`$OIUO?$r;2>H$7$F2<$5$$(B)$B!%(B
-$B%^!<%/HV9f$K(B-- ($B%^%$%J%9(B)$B$rIU$1$k$H!$%^!<%/$NCf?4$r@~$G7k$S$^$9!%(B
-$BDL>o$O!$%^!<%/$H@~$,=E$J$i$J$$$h$&$KIA$-$^$9!%(B\\
-$n=16(\backslash 16)$ $B$G(B $B%3%^%s%I9T(B hight $B$G;XDj$5$l$?(B h $B$rD>7B$H$9$k>.1_$r(B
-$BIA$-$^$9!%(B
-$B$^$?!$(B $n>32$ $B$G;XDj%3!<%IHV9f$N(BASCII$BJ8;z$^$?$OFC<lJ8;z$rIA$-$^$9!%(B
+The coordinates (x ~y) are scaled by the values assigned in the
+command lines.
+If a string is written on $label$, then it will be written
+in the (x ~y) position.
+No empty character (eg., space character) should be left in $label$.
+When $label$ is assigned in mark command,
+$label$ replacement will take place only for this coordinate.
+The option $th$ assigns the angle.\\
+If $\backslash n$, where $0$B!e(Bn$B!e(B15$, is assigned to $label$,
+the corresponding mark is draw (refer to the appendix for the types of
+marks).
+When a minus sign is written before mark number,
+then the connecting line between marks passes through the center of
+each mark.\\
+If a minus sign is not included, then connecting lines do not pass
+through the center of each mark.
+When $n=16(\backslash 16)$, a small circle is written with
+diameter defined by the hight command.
+Also, special character and ascii character can be written through
+code number when $n>32$.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
@@ -369,13 +386,14 @@ $n=16(\backslash 16)$ $B$G(B $B%3%^%s%I9T(B hight $B$G;XDj$5$l$?(B h $B$r
 EOD
 \end{minipage}
 \begin{minipage}[t]{9cm}
- $B%G!<%?$N6h@Z$j$G$9!%$3$NA08e$N:BI84V$K$O@~$r0z$-$^$;$s!%(B
+This is the end of data sign.
+Coordinates before and after the eod sign are not connected.
 \end{minipage}
 \end{qsection}
 \newpage
-\begin{qsection}{$BIUO?(B}
-{\large \hspace{-1.5ex}$\bullet$ mark $BKt$O%G!<%?9T$G(B $label$ $B$,;XDj$5$l$?>l9g(B
-$B$K=PNO$5$l$k%^!<%/(B:}
+\begin{qsection}{APPENDIX}
+{\large \hspace{-1.5ex}$\bullet$
+The following type of marks can be defined through $label$:}
 
 \begin{center}
 \leavevmode
@@ -384,30 +402,32 @@ EOD
 \end{center}
 
 
-{\large \hspace{-1.5ex}$\bullet$ pen $B$H(B line $B$N%?%$%W(B:}\\
-\hspace{3mm}[psgr$B$G=PNO$7$?>l9g(B]
+{\large \hspace{-1.5ex}$\bullet$
+The following types of pen and line can be defined:}\\
+\hspace{3mm}[When output is obtained through the command ``psgr'']
 
 \leavevmode
 \epsffile{fig/pen-line.eps} \\
 
-($BCm(B)~~ pen$B$N%?%$%W$O=PNO$9$k%W%j%s%?$K0MB8$7$^$9!%(B($B$3$N%Z!<%8$r=PNO$7$F$_$F(B
-$B2<$5$$(B)\\
+(Attention)~~ The types of output generate through the pen command
+depends on the printer(Please try printing this page).
 \newpage
-[xgr $B$G=PNO$7$?>l9g(B]\\
-$B2<I=$K<($9?'$GI=<($5$l$^$9!%(B\\
+[When output is obtained through the command ``xgr'']\\
+The following colors can be used.\\
 
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
  \hline
- pen$B%?%$%W(B& 1& 2& 3& 4& 5& 6& 7& 8& 9&10  \\ \hline
- $B?'(B& $B9u(B& $B@D(B& $B@V(B& $BNP(B& $B%T%s%/(B& $B%*%l%s%8(B& $B%(%a%i%k%I(B& $B3%(B &$BCc(B & $B:0(B 
- \\ \hline
+ pen type& 1& 2& 3& 4& 5& 6& 7& 8& 9&10  \\ \hline
+ color   & black& blue& red& green& pink& orange& emerald& gray&brown & 
+ dark blue \\ \hline
 \end{tabular}\\
 \end{center}
 
 \vspace{5mm}
-{\large \hspace{-1.5ex}$\bullet$ paint$B$N%?%$%W(B:}\\
+{\large \hspace{-1.5ex}$\bullet$ paint type:}\\
 \epsffile{fig/paint.eps}\\
-($BCm(B)~~~$1 \sim 3$ $B$OOH$N$_!$(B$-9 , -19$ $B$OOHL5$7$NGr$G$9!%(B
+(Attention)~~~From $1 \sim 3$ only a frame is draw,
+and for $-9$ and $-19$ the center is white and no frame is draw.
 
 \end{qsection}

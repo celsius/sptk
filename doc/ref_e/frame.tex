@@ -1,13 +1,13 @@
-\name{frame}{フレームの切り出し}{信号処理,音声分析合成関連}
+\name{frame}{extract frame from data sequence}{signal processing,音声分析合成関連}
 
 \begin{synopsis}
  \item [frame] [ --l $L$ ] [ --n ] [ --p $P$ ] [ +{\em type} ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em frame}は、指定されたファイルから、
-入力データをフレーム周期 $P$，フレーム長 $L$ で切り出します．
-入力データを$x(0),x(1),\ldots,x(T)$とした時，出力は
+The frame command reads data from the assigned input file and
+passes it through frame with period $P$ and length $L$.
+If the input data is $x(0),x(1),\ldots,x(T)$, then the output data is
 \begin{center}
 \begin{tabular}{ccccccccccc}
 $0$&$,$&$0$&$,$&$\ldots$&$,$&$x(0)$&$,$&$\ldots$&$,$&$x(L/2)$\\
@@ -16,29 +16,32 @@ $x(2P-L/2)$&$,$&$x(2P-L/2+1)$&$,$&$\ldots$&$,$&$x(2P)$&$,$&$\ldots$&$,$&$x(2P+L/
 &&&&&&$\vdots$&&&&
 \end{tabular}
 \end{center}
-となります．
 
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{切り出すフレーム長．}{256}
-	\argm{p}{P}{フレーム周期．}{100}
-	\argm{n}{}{開始点をフレームの中心にしない．}{FALSE}
-	\argp{t}{入出力データの形式．\\ 
+	\argm{l}{L}{frame length}{256}
+	\argm{p}{P}{frame period}{100}
+	\argm{n}{}{This option is used when instead of having x(0) is
+                   center point in the first frame we want to make x(0)
+                   as the first point of the first frame}{FALSE}
+	\argp{t}{data type\\ 
 		\begin{tabular}{llcll} \\[-1zh]
-			c & char型 (1byte) & \quad &
-			s & short型 (2bytes) \\
-			i & int型 (4bytes) & \quad &
-			l & long型 (4bytes) \\
-			f & float型 (4bytes) & \quad &
-			d & double型 (8bytes) 
+			c & char (1byte) & \quad &
+			s & short (2bytes) \\
+			i & int (4bytes) & \quad &
+			l & long (4bytes) \\
+			f & float (4bytes) & \quad &
+			d & double (8bytes) 
 		\end{tabular}\\\hspace*{\fill}}{f}
 \end{options}
 
 
 \begin{qsection}{EXAMPLE}
-float形式の ファイル {\em data.f} からフレーム周期80で
-データを切りだし，線形予測分析を行い，予測係数を {\em data.lpc} に出力する:
+In the example below, data in float format is read from {\em data.f} file,
+frames of period 80 are applied, a Blackman window is passed, and
+a linear prediction analysis is undertaken. The output is written in
+{\em data.lpc} file:
 \begin{quote}
  \verb!frame -p 80 < data.f | window | lpc > data.lpc!
 \end{quote} 

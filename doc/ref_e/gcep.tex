@@ -1,5 +1,5 @@
 \name[ref:gcep-IEICE,ref:gcep-IEEEASSP,ref:gcep-ICASSP90]{gcep}%
-{一般化ケプストラム分析}{音声分析}
+{generalized cepstral analysis}{speech analysis}
 
 \begin{synopsis}
 \item [gcep] [ --m $M$ ] [ --g $G$ ] [ --l $L$ ] [ --n ]
@@ -8,18 +8,21 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-一般化ケプストラム分析を行い，
-正規化一般化ケプストラム $c_\gamma'(m)$ を標準出力に出力します．
-入力は窓掛けされた長さ $L$ の時系列
+This command undertakes the generalized cepstral analysis,
+evaluates normalized coefficient $c_\gamma'(m)$
+and writes the result to the standard output.
+The windowed input sequence of length $L$ is
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-です．
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-一般化ケプストラム分析では、音声スペクトルを $M$ 次の一般化ケプストラム 
-$c_\gamma(m)$ または正規化一般化ケプストラム $c_\gamma'(m)$ により
+In the generalized cepstral analysis,
+the speech spectrum is estimated by the $M$ order generalized
+cepstrum $c_\gamma(m)$ or by normalized generalized cepstrum 
+$c_\gamma'(m)$ using the log spectrum through the unbiased estimation
+method.
 \begin{eqnarray*}
 H(z) &=& s_\gamma^{-1}\left(
 	\sum_{m=0}^{M} c_\gamma(m)z^{-m} \right) \\
@@ -32,32 +35,41 @@ H(z) &=& s_\gamma^{-1}\left(
 		& \gamma=0
 	\end{array} \right.
 \end{eqnarray*}
-とモデル化し，対数スペクトルの不偏推定法 
-における評価関数を適用します．
-評価関数の最小化は、 $\gamma=-1$ のときには線形予測法での
-線形方程式を解くことと等価になりますが，
-$\gamma=-1$ 以外では非線形方程式を解くことになりますので，
-ここではNewton--Raphson法を利用して解を求めています．
+To find the minimum value of cost function,
+if $\gamma=-1$ then the linear prediction method is used,
+while if $\gamma$ is different from $-1$, then
+Newton--Raphson method applied.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{分析次数．}{25}
-	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma$．\\
-			 ただし，$G>1.0$ のときは $\gamma=-1/G$．}{0}
-	\argm{l}{L}{入力データのフレーム長．}{256}
-	\argm{n}{}{正規化したケプストラムを出力．}{FALSE}
-	\desc[1zh]{通常，以下のオプションの指定は必要ありません．}
-	\argm{i}{I}{分析の最小反復回数．}{2}
-	\argm{j}{J}{分析の最大反復回数．}{30}
-	\argm{d}{D}{Newton-Raphson 法の終了条件．デフォルトは $D=0.001$ で，
-		    このときは $\varepsilon^{(i)}$ の繰り返しによる変化率が
-		    $0.001$ つまり $0.1\%$ 以内になったときに終了．}{0.001}
-	\argm{e}{E}{ピリオドグラムに足し込む小さな値．}{0}
+       -m m  :     [25]
+       -g g  : gamma                            [0]
+       -l l  :                      [256]
+       -n    :        [FALSE]
+     (level2)
+       -i i  :                 [2]
+       -j j  :                 [30]
+       -d d  :                     [0.001]
+       -e e  : small value added to periodgram  [0]
+	\argm{m}{M}{order of generalized cepstrum}{25}
+	\argm{g}{G}{$\gamma$. If $G>1.0$ then $\gamma=-1/G$.}{0}
+	\argm{l}{L}{frame length}{256}
+	\argm{n}{}{output normalized cepstrum}{FALSE}
+	\desc[1zh]{Usually, the options below do not need to be assigned.}
+	\argm{i}{I}{minimum iteration}{2}
+	\argm{j}{J}{maximum iteration}{30}
+	\argm{d}{D}{Newton-Raphson method end condition.
+                    The default value is $D=0.001$.
+                    In this case the end point is achived when
+                    the evaluation rate of $\varepsilon^{(i)}$ is
+                    $0.001$, that is when its value changes less then $0.1\%$.
+	\argm{e}{E}{small value added to periodgram}{0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float 形式のファイル {\em data.f} を次数15次で一般化ケプストラム分析し，
-一般化ケプストラムを {\em data.gcep} に出力する:
+The following example read speech data in float format from {\em data.f}
+file, undertakes the 15 order generalized cepstrum analysis,
+and writes the results in {\em data.gcep}:
 \begin{quote}
  \verb!frame < data.f | window | gcep -m 15 > data.gcep!
 \end{quote} 

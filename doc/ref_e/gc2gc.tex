@@ -1,4 +1,4 @@
-\name{gc2gc}{一般化対数変換}{音声パラメータ変換}
+\name{gc2gc}{generalized cepstral transformation}{speech parameter convertion}
 
 \begin{synopsis}
 \item [gc2gc] [ --m $M_1$ ] [ --g $G_1$ ] [ --n ] [ --u ] 
@@ -6,57 +6,64 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-べきパラメータ $\gamma_1$ の一般化ケプストラムから
-べきパラメータ $\gamma_2$ の一般化ケプストラムを一般化対数変換
-の再帰式により求め，標準出力に出力します．
+This command transforms a sequence of generalized cepstral coefficients
+with power parameter $\gamma_1$ into generalized cepstral coefficients
+with power parameter $\gamma_2$ through a regressive equation,
+and writes the results to the standard output.
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-一般化対数変換は，
+The regressive equation for the generalized cepstral coefficients 
+follows.
 \begin{eqnarray*}
   c_{\gamma_2}(m) &=& c_{\gamma_1}(m) + \sum_{k=1}^{m-1}\frac{k}{m}
 		      (\gamma_2 c_{\gamma_1}(k)c_{\gamma_2}(m-k) \nonumber\\
      		  & & \hspace{25mm} -\gamma_1 c_{\gamma_2}(k)
 			c_{\gamma_1}(m-k)), ~~~m>0
 \end{eqnarray*}
-の再帰式で与えられます．
-この変換式は，$\gamma_1=-1, \gamma_2=0$ とすれば線形予測係数から
- LPCケプストラムの再帰式，$\gamma_1=0, \gamma_2=1$ とすればケプストラムから
-最小位相インパルス応答への再帰式などと等価になります．
+For the above equation, in case $\gamma_1=-1, \gamma_2=0$,
+then LPC cepstral coefficients are obtained from the LPC coefficients,
+in case $\gamma_1=0, \gamma_2=1$, minimum phase inpulse response is
+obtained from cepstral coefficients.
 
-$\gamma$を掛けた形で入出力する場合は，
-$c_\gamma(m)$が正規化されていない場合は，
+If the coefficients $c_\gamma(m)$ have not been normalized,
+then the input and output have following form.
 \begin{displaymath}
 1+\gamma c_\gamma(0), \gamma c_\gamma(1), \ldots, \gamma c_\gamma(M)
 \end{displaymath}
-とし，正規化されている場合は
+The following applies to the case the coefficients are normalized,
 \begin{displaymath}
 K_\alpha,\gamma c_\gamma'(1),\ldots, \gamma c_\gamma'(M)
 \end{displaymath}
-とします．
 
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M_1}{入力される一般化ケプストラムの次数．}{25}
-	\argm{g}{G_1}{入力される一般化ケプストラムの
-			   べきパラメータ$\gamma_1$．
-		 	   \\ ただし，$G_1 > 1.0$ のとき
-			   は $\gamma_1=-1 / G_1$．}{0}
-	\argm{n}{}{入力を正規化されたケプストラムと見なす．}{FALSE}
-	\argm{u}{}{入力を$\gamma_1$を掛けた形とみなす．}{FALSE}
-	\argm{M}{M_2}{出力される一般化ケプストラムの次数．}{25}
-	\argm{G}{G_2}{出力される一般化ケプストラムの
-			   べきパラメータ$\gamma_2$．
-		 	   \\ ただし，$G_2 > 1.0$ のとき 
-			   は $\gamma_2=-1 / G_2$．}{1}
-	\argm{N}{}{出力を正規化された一般化ケプストラムと見なす．}{FALSE}
-	\argm{U}{}{出力を$\gamma_1$を掛けた形とみなす．}{FALSE}
+       -m m  :   [25]
+       -g g  :   [0]
+       -n    :     [FALSE]
+       -u    :     [FALSE]
+       -M M  :  [25]
+       -G G  :  [1]
+       -N    :    [FALSE]
+       -U    :    [FALSE]
+	\argm{m}{M_1}{order of generalized cepstrum (input)}{25}
+	\argm{g}{G_1}{gamma of generalized cepstrum (input)
+  	 	      If $G_1 > 1.0$ then $\gamma_1=-1 / G_1$.}{0}
+	\argm{n}{}{regard input as normalized cepstrum}{FALSE}
+	\argm{u}{}{regard input as multiplied by $\gamma_1$}{FALSE}
+	\argm{M}{M_2}{order of generalized cepstrum (output)}{25}
+	\argm{G}{G_2}{gamma of generalized cepstrum (output)
+		      If $G_2 > 1.0$ then $\gamma_2=-1 / G_2$.}{1}
+	\argm{N}{}{regard output as normalized cepstrum}{FALSE}
+	\argm{U}{}{regard output as multiplied by $\gamma_1$}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の一般化ケプストラムファイル {\em data.gcep} ($M=10, \gamma_1=-0.5$)を
-30次のケプストラムに変換し {\em data.cep} に出力する:
+In the following example, generalized cepstral coefficients
+with $M=10$ and $\gamma_1=-0.5$ are read in float format from
+{\em data.gcep} file, transformed into 30 order cepstral coefficients,
+and written to {\em data.cep}:
 \begin{quote}
  \verb!gc2gc -m 10 -g 2 -M 30 -G 0 < data.gcep > data.cep!
 \end{quote} 
