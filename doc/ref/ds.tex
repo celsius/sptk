@@ -11,10 +11,10 @@
 フィルタ係数は次のものが用いられます．
 
 \begin{tabular}{ll} \\[-1zh]
-	$S=21$ & /usr/local/cmnd/lib/lpfcoef.2to1 \\
-	$S=43$ & /usr/local/cmnd/lib/lpfcoef.4to3 \\
-	$S=52,s=54$ & /usr/local/cmnd/lib/lpfcoef.5to2up \\
-	& /usr/local/cmnd/lib/lpfcoef.5to2dn \\
+	$S=21$ & lpfcoef.2to1 \\
+	$S=43$ & lpfcoef.4to3 \\
+	$S=52,s=54$ & lpfcoef.5to2up \\
+	& lpfcoef.5to2dn \\
 \end{tabular}
 
 なお，ファイルタ係数のファイルはASCII形式となっています．
@@ -28,12 +28,6 @@
 			$S=52$ & 比率 $5 : 2$ でダウンサンプリング \\
 			$S=54$ & 比率 $5 : 4$ でダウンサンプリング
 		\end{tabular}\\\hspace*{\fill}}{21}
-	\argm{e}{E}{フィルタ係数のバイトオーダ． \\
-		\begin{tabular}{ll} \\[-1zh]
-			$E=l$ & リトルエンディアン(Intel,Alphaなど) \\
-			$E=b$ & ビッグエンディアン(SUN,HPなど)
-		\end{tabular}\\\hspace*{\fill}}{b}
-
 \end{options}
 
 \begin{qsection}{EXAMPLE}

@@ -1,7 +1,7 @@
 \name{frame}{フレームの切り出し}
 
 \begin{synopsis}
- \item [frame] [ --l $L$ ] [ --p $P$ ] [ +{\em type} ] [ {\em infile} ]
+ \item [frame] [ --l $L$ ] [ --n ] [ --p $P$ ] [ +{\em type} ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -23,6 +23,7 @@ $x(2P-L/2)$&$,$&$x(2P-L/2+1)$&$,$&$\ldots$&$,$&$x(2P)$&$,$&$\ldots$&$,$&$x(2P+L/
 \begin{options}
 	\argm{l}{L}{切り出すフレーム長．}{256}
 	\argm{p}{P}{フレーム周期．}{100}
+	\argm{n}{}{開始点をフレームの中心にしない．}{FALSE}
 	\argp{t}{入出力データの形式．\\ 
 		\begin{tabular}{llcll} \\[-1zh]
 			c & char型 (1byte) & \quad &
