@@ -4,6 +4,7 @@
 *									*
 *					1990.11 T.Kobayashi		*
 *					1996.5  K.Koishida		*
+*					2000.5  T.Kobayashi		*
 *	usage:								*
 *		sopr [ options ] [ infile ] > stdout			*
 *	options:							*
@@ -27,6 +28,10 @@
 *		-COS     :  cos            (cos(in))                    *
 *		-TAN     :  tan            (tan(in))                    *
 *		-ATAN    :  atan           (atan(in))                   *
+*                                                                       *
+*		-r mn    :  read from memory register n(0-9)            *
+*		-w mn    :  write to memory register n(0-9)	        *
+*                                                                       *
 *	infile:								*
 *		data sequences (float)					*
 *	stdout:								*
@@ -34,7 +39,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.1 2000/03/01 13:58:50 yossie Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.2 2000/06/21 08:18:12 yossie Exp $";
 
 
 /*  Standard C Libraries  */
@@ -46,6 +51,10 @@ static char *rcs_id = "$Id: sopr.c,v 1.1 2000/03/01 13:58:50 yossie Exp $";
 
 /*  Command Name  */
 char	*cmnd;
+
+
+/* Default Value  */
+#define MEMSIZE		10
 
 
 void usage(int status)
@@ -76,6 +85,10 @@ void usage(int status)
     fprintf(stderr, "       -COS   : cos                 (cos(in))\n");
     fprintf(stderr, "       -TAN   : tan                 (tan(in))\n");
     fprintf(stderr, "       -ATAN  : atan                (atan(in))\n");
+    fprintf(stderr, "\n");
+    fprintf(stderr, "       -r mn  : read from memory regisiter n\n");
+    fprintf(stderr, "       -w mn  : write to memory regisiter n\n");
+    fprintf(stderr, "\n");
     fprintf(stderr, "       -h     : print this message\n");
     fprintf(stderr, "  infile:\n");
     fprintf(stderr, "       data sequence (float)        [stdin]\n");
@@ -95,7 +108,7 @@ struct operation {
 	} *optbl;
 int	nopr = 0;
 
-
+static double	mem[MEMSIZE];
 
 main(argc,argv)
 int	argc;
@@ -125,12 +138,31 @@ char	*argv[];
 	        case 'd':
 	        case 'm':
 		case 's':
+	        case 'r':
+	        case 'w':
 		    if(strncmp("dB", s, 2) == 0)
-			optbl[nopr].d = 20 / log(10.0);
+		      optbl[nopr].d = 20 / log(10.0);
 		    else if(strncmp("pi", s, 2) == 0)
-			optbl[nopr].d = PI;
+		      optbl[nopr].d = PI;
+		    else if(strncmp("ln", s, 2) == 0)
+		      optbl[nopr].d = log(atof(s+2));
+		    else if(strncmp("exp", s, 3) == 0)
+		      optbl[nopr].d = exp(atof(s+3));
+		    else if(strncmp("sqrt", s, 4) == 0)
+		      optbl[nopr].d = sqrt(atof(s+4));
+		    else if(*s == 'm') {
+		      optbl[nopr].d = atoi(s+1);
+		      if(c == 'a')
+		        c = '+';
+		      else if(c == 'd')
+		        c = '/';
+		      else if(c == 'm')
+		        c = '*';
+		      else if(c == 's')
+		        c = '-';
+		    }
 		    else
-			optbl[nopr].d = atof(s);
+		      optbl[nopr].d = atof(s);
 		case 'A':
 		case 'C':
 		case 'E':
@@ -177,9 +209,28 @@ FILE	*fp;
     register int  k, i;
 
     while(freadf(&x, sizeof(x), 1, fp) == 1) {
+        for(k = 0; k < MEMSIZE; ++k) mem[k] = 0;
 	for(k = 0; k < nopr; ++k) {
 	    y = optbl[k].d;
 	    switch(optbl[k].op[0]) {
+	        case 'r':
+		    x = mem[(int) y];
+		    break;
+	        case 'w':
+	            mem[(int) y] = x;
+	            break;
+   	        case '+':
+		    x += mem[(int) y];
+		    break;
+	        case '-':
+		    x -= mem[(int) y];
+		    break;
+	        case '*':
+		    x *= mem[(int) y];
+		    break;
+	        case '/':
+		    x /= mem[(int) y];
+		    break;
 	        case 'a':
 		    x += y;
 		    break;
