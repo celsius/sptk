@@ -49,11 +49,11 @@ char *BOOL[] = {"FALSE","TRUE"};
 #define	SIZE		256*400
 #define	RBSIZE		512
 #define	MAXFILES	128
-#define	INITGAIN	2
+#define	INITGAIN	0
 #define	MAXAMPGAIN	255
 
 #define OUTPORT		's'
-#define GAIN		0
+#define GAIN		(0+INITGAIN)
 #define AMPGAIN		0
 #define FREQ		10
 #define HEADERSIZE	0
@@ -79,7 +79,7 @@ void usage(int status)
 	fprintf(stderr, "  usage:\n");
 	fprintf(stderr, "       %s [ options ] infile1 infile2 ... > stdout\n", cmnd);
 	fprintf(stderr, "  options:\n");
-	fprintf(stderr, "       -s s  : sampling frequency (8,10,12,16,20,22 kHz) [%d]\n", FREQ);
+	fprintf(stderr, "       -s s  : sampling frequency (8,10,12,16,20,22,32,44,48 kHz) [%d]\n", FREQ);
 	fprintf(stderr, "       -c c  : filename of low pass filter coefficients  [Default]\n");
 	fprintf(stderr, "       -g g  : gain (..,-2,-1,0,1,2,..)                  [%d]\n",GAIN);
 	fprintf(stderr, "       -a a  : amplitude gain                            [N/A]\n",AMPGAIN);
@@ -123,7 +123,7 @@ char	*argv[];
 	if((s = getenv("DA_SMPLFREQ")) != NULL)
 		freq = atoi(s);
 	if((s = getenv("DA_GAIN")) != NULL)
-		gain = atoi(s);
+		gain = atoi(s) + INITGAIN;
 	if((s = getenv("DA_AMPGAIN")) != NULL)
 		ampgain = atof(s) * MAXAMPGAIN;
 	if((s = getenv("DA_PORT")) != NULL)
@@ -247,6 +247,7 @@ char	*argv[];
 		else
 			direct(stdin);
 	}
+	fclose( adfp);
 	exit(0);
 }
 
@@ -378,6 +379,15 @@ void sndinit()
 	case 22:
 		dtype =_22050_16BIT_LINEAR;
 		break;
+	case 32:
+		dtype =_32000_16BIT_LINEAR;
+		break;
+	case 44:
+		dtype =_44100_16BIT_LINEAR;
+		break;
+	case 48:
+		dtype =_48000_16BIT_LINEAR;
+		break;
 	default:
 		fprintf(stderr,"%s: unavailable sampling frequency\n", cmnd);
 		exit(1);
@@ -397,6 +407,7 @@ void sndout(leng)
 int	leng;
 {
 	fwrite(y, sizeof(short), leng, adfp);
+	write( adfp->_file, y, 0);
 }
 
 void init_audiodev(dtype)
