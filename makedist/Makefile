@@ -302,7 +302,7 @@ ivq: makefiles lib include
 	$(CP) $(SOURCEDIR)/src/bin/ivq/_ivq.c $(TARGETDIR)/src/bin/ivq/_ivq.c
 	$(CP) $(SOURCEDIR)/src/bin/ivq/ivq.c $(TARGETDIR)/src/bin/ivq/ivq.c
 
-lbg: makefiles lib include average nrand vq
+lbg: makefiles lib include nrand vq
 	mkdir -p $(TARGETDIR)/src/bin/lbg
 	$(CP) $(SOURCEDIR)/src/bin/lbg/Makefile $(TARGETDIR)/src/bin/lbg/Makefile
 	$(CP) $(SOURCEDIR)/src/bin/lbg/_lbg.c $(TARGETDIR)/src/bin/lbg/_lbg.c
