@@ -9,7 +9,7 @@
 *		pitch [ options ] [ infile ] > stdout			*
 *	options:							*
 *               -s  s     :  sampling frequency			[10]	*
-*		-l  l     :  frame length (ms)			[40]	*
+*		-l  l     :  frame length 			[400]	*
 *		-a  a	  :  pre-emphasis coefficient		[0.95]	*
 *               -t  t     :  voiced/unvoiced threshhold		[6.0]	*
 *		-L  L	  :  minmum fundamental frequency	[60]	*
@@ -45,7 +45,7 @@ double	pitch();
 
 /*  Default Values  */
 #define FREQ            10
-#define ILNG		40
+#define ILNG		400
 #define THRESH		6.0
 #define LOW		60
 #define HIGH		240
@@ -69,7 +69,7 @@ void usage(int status)
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -s s  : sampling frequency (kHz)        [%d]\n", FREQ);
-    fprintf(stderr, "       -l l  : frame length (ms)               [%d]\n", ILNG);
+    fprintf(stderr, "       -l l  : frame length                    [%d]\n", ILNG);
     fprintf(stderr, "       -t t  : voiced/unvoiced threshold       [%.1f]\n", THRESH);
     fprintf(stderr, "       -a a  : pre-emphasis coefficient        [%g]\n", PRE);
     fprintf(stderr, "       -L L  : minimum fundamental             [%d]\n", LOW);
@@ -154,7 +154,6 @@ void main(int argc, char **argv)
     low = freq * 1000 / H;
     high = freq * 1000 / L;
     m = freq / 10 * 25;
-    n *= freq;
     l = 1;
     while (l < n)l+=l;
 
