@@ -33,8 +33,9 @@ INSTALL		= install -cs
 #DOUBLE		= -DDOUBLE
 
 #
-# If you want to compile da and daplay, fill in your operating system.
-# This option available to
+# If you want to compile 'da' and 'daplay', specify your operating system.
+# These commands will work only on SunOS4.1.x, SunOS5.x(sparc), and linux(i386).
+# Avaliable values are:
 #    SUNOS          SunOS4.1.x
 #    SOLARIS        SunOS5.x(sparc)
 #    LINUX          linux(i386)
