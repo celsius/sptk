@@ -1,0 +1,27 @@
+\name{zcross}{零交差数を求める}{信号処理}
+
+\begin{synopsis}
+\item[zcross] [ --l $L$ ] [ --n ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+標準入力から入力される時系列から零交差数を求めます．
+\par
+データ形式は入力，出力とも float 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{フレーム長（$L \le 0$ の時は何も出力しない）．}{256}
+	\argm{n}{}{零交差数をフレーム長で正規化．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式のデータ {\em data.f} の零交差数を求め， {\em data.zc} に出力する:
+\begin{quote}
+  \verb!zcross < data.f > data.zc!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  frame, spec
+\end{qsection}

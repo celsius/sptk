@@ -1,0 +1,47 @@
+\name{ramp}{ランプ列を発生する}{信号生成}
+
+\begin{synopsis}
+\item[ramp] [ --l $L$ ] [ --n $N$ ] [ --s $S$ ] [ --e $E$ ] [ --t $T$ ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ランプ列を標準出力に出力します．つまり，
+\begin{displaymath}
+\underbrace{S, S+T, S+2T,  \ldots, S+(L-1)T}_{L}
+\end{displaymath}
+を出力します．
+\par
+出力データは，float 形式です．
+最終値を指定した場合は，
+\begin{displaymath}
+\underbrace{S, S+T, S+2T,  \ldots, E}_{(E-S)/T}
+\end{displaymath}
+\par
+となります．
+-lオプションと-eオプションと-nオプションを2つ以上同時に指定した場合は，
+後で指定したものに従います．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ランプ列の長さ．\\
+			ただし，$L \le 0$の時は無限に生成する．}{256}
+	\argm{n}{N}{ランプ列の次数．}{L-1}
+	\argm{s}{S}{初期値．}{0}
+	\argm{e}{E}{最終値．}{N/A}
+	\argm{t}{T}{ステップサイズ．}{1}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+数列
+\begin{displaymath}
+  y(n)=\exp(-n)
+\end{displaymath}
+を出力する:
+\begin{quote}
+\verb!ramp | sopr -m -1 -E | dmp!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  impulse, step, train, sin
+\end{qsection}

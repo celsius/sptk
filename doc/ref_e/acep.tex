@@ -1,0 +1,93 @@
+\name[ref:acep-IEICE,ref:acep-IEEESP]{acep}{adaptive cepstrum analysis}%
+{speech analysis}
+
+\begin{synopsis}
+ \item [acep] [ --m $M$ ] [ --l $L$ ] [ --t $T$ ] [ --k $K$ ]
+	      [ --p $P$ ] [ --s ] [ --e $E$ ] [ --P $Pa$ ]
+\item [\ ~~~~~~~] [ {\em pefile} ] $<$ {\em infile}
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+        This command undertakes adaptive cepstrum analysis,
+        sends the cepstrum coefficients to standard output,
+        and the prediction error to {\em pefile}, whenever
+        {\em pefile} is included in the command line.
+ \par
+	The format for input and output data is float.
+ \par
+	The algorithm to calculate recursively the
+        adaptive cepstrum coefficients is 
+ %
+\begin{eqnarray*}
+  \mbox{\boldmath $c$}^{(n+1)} &=& \mbox{\boldmath $c$}^{(n)} 
+     - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \\
+  \hat{\nabla} \varepsilon_{0}^{(n)} &=& -2 e(n) \mbox{\boldmath $e$}^{(n)} \hspace{3.5cm} ( \tau = 0 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& -2 (1 - \tau) \sum_{i=-\infty}^{n} \tau^{n-i} e(i) \mbox{\boldmath $e$}^{(i)} ~~~ ( 0 \le \tau < 1 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& \tau \hat{\nabla} \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e(n) \mbox{\boldmath $e$}^{(n)} \\
+  \mu^{(n)} &=& \frac{k}{M \varepsilon^{(n)}} \\
+  \varepsilon^{(n)} &=& \lambda \varepsilon^{(n-1)}
+     + (1-\lambda)e^2(n)
+\end{eqnarray*}	
+	where 
+	$\mbox{\boldmath $c$}=[c(1),\ldots,c(M)]^T$,
+	$\mbox{\boldmath $e$}^{(n)}=[e(n-1),\ldots,e(n-M)]^T$.
+	Also, the gain is expressed by $c(0)$ as follows.
+%
+ \begin{displaymath}
+	  c(0) = \frac{1}{2} \log \varepsilon^{(n)}
+ \end{displaymath}
+	In Figure \ref{fig:acep_block}, the system for adaptive cepstrum
+        analysis is shown.
+\setcounter{figure}{0}
+ \begin{figure}[h]
+	\setlength{\unitlength}{.5mm}
+  \begin{center}
+   \begin{picture}(100,50)(0,0)
+	\put(12,39){LMA filter}
+	\put(-17,30){$x(n)$}
+	\put(100,30){$e(n)$}
+	\thicklines
+	\put(0,25){\line(1,0){20}}
+	\put(20,15){\framebox(55,20){
+%		\( 1/D(z) = \exp \displaystyle\sum_{m=1}^{M} -c(m)\,z^{-m}\)
+		$1/D(z)$}}
+	\put(75,25){\vector(1,0){25}}
+	\put(85,25){\circle*{1.5}}
+	\put(85,25){\line(0,-1){20}}
+	\put(85,5){\line(-1,0){47.5}}
+	\put(37.5,5){\line(1,2){5}}
+	\put(52.5,35){\vector(1,2){5}}
+   \end{picture}
+  \end{center}
+	\caption{Adaptive cepstrum analysis system}
+	\label{fig:acep_block}
+ \end{figure}
+\end{qsection}
+%
+%\newpage
+
+\begin{options}
+	\argm{m}{M}{order of cepstrum}{25}
+	\argm{l}{L}{leakage factor $\lambda$}{0.98}
+	\argm{t}{T}{momentum constant $\tau$}{0.9}
+	\argm{k}{K}{step size $k$}{0.1}
+	\argm{p}{P}{output period of cepstrum}{1}
+	\argm{s}{}{output smoothed cepstrum}{FALSE}
+	\argm{e}{E}{minimum value for $\varepsilon^{(n)}$}{0.0}
+	\argm{P}{Pa}{number of coefficients of the LMA filter
+                     using the pade approximation. Pa can be 4 or 5.}{4}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+	In this example, the speech data is in the file {\em data.f}
+        in float format, and the cepstrum coefficients are written in
+        the file {\em data.acep} for every block of 100 samples,
+        and prediction error can be found in {\em data.er}.
+ \begin{quote}
+	\verb!acep -m 15 -p 100 data.er < data.f > data.acep!
+ \end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+	uels, gcep, mcep, mgcep, amcep, agcep, lmadf
+\end{qsection}

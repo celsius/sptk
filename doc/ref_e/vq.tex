@@ -1,0 +1,43 @@
+\name{vq}{ベクトル量子化}{ベクトル量子化}
+
+\begin{synopsis}
+\item [vq] [ --l $L$ ] [ --n $N$ ] [ --q ] {\em cbfile} [{\em infile}]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+指定されたファイルから長さ $L$ の時系列
+\begin{displaymath}
+  x(0),x(1),\ldots,x(L-1)
+\end{displaymath}
+を読み込み，コードブックファイル{\em cbfile}中の各コードベクトルとの
+ユークリッド距離 $d_i$
+\begin{displaymath}
+d_i = \frac{1}{L}\sum_{m=0}^{L-1} (x(m)-c_i(m))^2
+\end{displaymath}
+が最小になるインデックス$i$を出力します．
+-q オプションが指定された場合には，
+コードベクトル $[c_i(0), c_i(1), \cdots, c_i(L-1)]$を
+出力します．
+\par
+データ形式は入力は float 形式，出力は int 形式です．
+ただし, -q オプションが指定された場合には, 出力は float 
+形式になります．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ベクトルのサイズ．}{26}
+	\argm{n}{N}{ベクトルの次数．}{25}
+	\argm{q}{}{量子化されたコードベクトルを出力．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の25次のベクトル列のファイル {\em data.f} に対し，
+コードブック {\em cbfile} でVQ を行い {\em data.vq} に出力する:
+\begin{quote}
+ \verb!vq -q cbfile < data.f > data.vq!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ivq, msvq, imsvq, lbg
+\end{qsection}

@@ -1,0 +1,79 @@
+\name{glogsp}{対数スペクトルのプロット}{グラフ表示}
+
+\begin{synopsis}
+\item[glogsp] [ --O $O$ ] [ --x $X$ ] [ --y $ymin \; ymax$ ] [ --ys $YS$ ] 
+              [ --p $P$ ] [ --ln $LN$ ] 
+\item[\ ~~~~~~~] [ --s $S$ ] [ --l $L$ ] [ --c $comment$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em glogsp}は，float型のデータを標準入力から読み込んで，それをグラフ表示
+するプロッタのコマンド列を生成します．
+従って，{\em xgr}コマンド等と併用して使います．
+\par
+実体はシェルスクリプトで，内部では{\em fig}と{\em fdrw}を用いています．
+\end{qsection}
+
+\begin{options}
+	\argm{O}{O}{グラフの開始点． \\
+		      \begin{minipage}{4.5cm}
+		       \begin{tabular}{ccc}
+			1 & ( 40,205) & [mm] \\
+			2 & (125,205) & [mm] \\
+			3 & ( 40,120) & [mm] \\
+			4 & (125,120) & [mm] \\
+			5 & ( 40, 35) & [mm] \\
+			6 & (125, 35) & [mm]
+		       \end{tabular}\\\hspace*{\fill}
+		      \end{minipage}
+		      \begin{minipage}{4.5cm}
+		       \leavevmode
+		       \epsffile{fig/glogsp-on.eps}
+		      \end{minipage}\\\hspace*{\fill}}{1}
+	\argm{x}{X}{ $x$ 軸のスケール．\\
+		       \begin{tabular}{cl}
+			1 & 正規化された周波数($0 \sim 0.5$) \\
+			2 & 正規化された周波数($0 \sim \pi$) \\
+			4 & 周波数($0 \sim 4$kHz) \\
+			5 & 周波数($0 \sim 5$kHz) \\
+			8 & 周波数($0 \sim 8$kHz) \\
+			10 & 周波数($0 \sim 10$kHz) 
+		       \end{tabular}\\\hspace*{\fill}}{1}
+	\argm{y}{ymin \; ymax}{ $y$ 軸のスケール[dB]．}{0 100}
+	\argm{ys}{YS}{ $y$ 軸のスケーリング率．}{20}
+	\argm{p}{P}{使用するペン番号($1 \sim 10$)．}{1}
+	\argm{ln}{LN}{描画する際の線の種類($0 \sim 5$)．＜fig参照＞．}{1}
+	\argm{s}{S}{入力するデータの何フレーム目からグラフに書くかを指定．}{0}
+	\argm{l}{L}{フレーム長．実際には $\frac{L}{2}$ 個のデータを
+		      グラフに書く．}{256}
+	\argm{c}{\rm comment}{グラフのコメント．}{N/A}
+	\desc[1zh]{通常,以下のオプションの指定の必要はありません．}
+	\argm{W}{W}{グラフの幅($\time 100$mm)．}{0.6}
+	\argm{H}{H}{グラフの高さ($\time 100$mm)．}{0.6}
+	\argm{v}{}{--v オプションが指定されていないと1フレームだけグラフに
+		   書くが，指定されると --s で指定されたフレーム以降を全て
+		   グラフに上書き出力．＜fdrw の --n オプション参照＞}{FALSE}
+	\argm{o}{xo \; yo}{グラフの開始点をmm 単位で指定．--o オプ
+		    	   ションが指定されると --O オプションは無効．}{40 205}
+	\argm{g}{G}{グラフの枠の形式($0 \sim 2$)．＜fig参照＞．}{2}
+	\argm{f}{file}{fig コマンド用の追加データファイル．}{NULL}
+	\argm{help}{}{詳細なヘルプを表示．}{}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+short形式の音声データ (標本化周波数10kHz) のファイル {\em data.s} の
+対数振幅スペクトルを求め，そのグラフを画面に描画する:
+\begin{quote}
+ \verb!x2x +sf data.s | bcut -s 4000 -e 4255 | window -n 2| spec |\! \\
+ \verb!glogsp -x 5 | xgr!
+\end{quote}
+\begin{center}
+ \leavevmode
+ \epsffile{fig/glogsp-sample.eps}
+\end{center}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ fig, fdrw, xgr, psgr, grlogsp, gwave
+\end{qsection}
+

@@ -1,0 +1,74 @@
+\name{bcp}{Copies the whole or part of the data block}{データ操作}
+
+\begin{synopsis}
+\item[bcp] [ --l $l$ ]  [ --L $L$ ]  [ --n $n$ ]  [ --N $N$ ]
+           [ --s $s$ ]  [ --S $S$ ]  [ --e $e$ ]  [ --f $f$ ]
+\item[\ ~~~~~~~] [ +{\em type} ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+The {\em bcp} command sends to the standard output
+the whole or part of an input file.
+The input file as well as block length are determined by
+the option in command line.
+\par
+In the case the data is in ascii format, the unit is
+a sequence of letters of the input file.
+The output block is partitioned by carriage return.
+\par
+In the case the input file is not assigned,
+data is read from the standard input.
+\end{qsection}
+
+\begin{center}
+\leavevmode
+\epsffile{fig/bcp.eps}
+\end{center}
+
+\begin{options}
+	\argm{l}{l}{number of items contained 1 block}{512}
+	\argm{L}{L}{number of destination block size}{N/A}
+	\argm{n}{n}{order of items contained 1 block}{l-1}
+	\argm{N}{N}{order of destination block size}{N/A}
+	\argm{s}{s}{start number}{0}
+	\argm{S}{S}{start number in destination block}{0}
+	\argm{e}{e}{end number}{EOF}
+	\argm{f}{f}{fill into empty block}{0}
+	\argp{t}{data type\\ 
+		\begin{tabular}{llcll} \\[-1zh]
+			c & char (1byte) & \quad &
+			s & short (2bytes) \\
+			i & int (4bytes) & \quad &
+			l & long (4bytes) \\
+			f & float (4bytes) & \quad &
+			d & double (8bytes) \\
+			a & ascii letter sequence\\
+		\end{tabular}}{f}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+The data in the array float format of the input file {\em data.f}
+{a(0), a(1), a(2), ... , a(20)} is recursively written.\\
+If it is desired to copy the array {a(1), a(2), ... , a(10)}, 
+the following command can be used.
+\begin{quote}
+\verb!bcp data.f +f -l 21 -s 1 -e 10 > data.bcp!
+\end{quote}
+
+\par
+A different example with respect to the same input file {\em data.f}
+follows
+
+\begin{quote}
+\verb!bcp data.f +f -l 21 -s 3 -e 5 -S 6 -L 10 > data.bcp!
+\end{quote}
+
+In this example, the output block is
+\begin{quote}
+\verb!0, 0, 0, 0, 0, 0, a(3), a(4), a(5), 0!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+bcut, merge, reverse
+\end{qsection}

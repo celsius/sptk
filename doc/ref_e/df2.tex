@@ -1,0 +1,38 @@
+\name{df2}{2次のディジタルフィルタ}{ディジタルフィルタ}
+
+\begin{synopsis}
+ \item[df2] [ --f $f_0$ ] [ --p $f_1 \; b_1$ ] [ --z $f_2 \; b_2$ ] 
+	    [ {\em infile} ]
+ \end{synopsis}
+
+ \begin{qsection}{DESCRIPTION}
+ 標準入力から読み込まれたデータを，オプションで指定された中心周波数と帯域幅で
+ 与えられる2次のディジタルフィルタで,フィルタリングし，標準出力に出力します．
+ フィルタの伝達関数は，
+ \[
+   H(z)=\frac{1-2\exp(-\pi b_2/f_0)\cos(2\pi f_2/f_0)z^{-1} +
+	\exp(-2\pi b_2/f_0)z^{-2}}
+   {1-2\exp(-\pi b_1/f_0)\cos(2\pi f_1/f_0)z^{-1}+\exp(-2\pi b_1/f_0)z^{-2}}
+ \]
+ で与えられます．\\
+ --p および --z を複数回指定することにより任意のフィルタが構成できます．\\
+ データ形式は，入出力ともにfloat 形式です．
+ \end{qsection}
+
+\begin{options}
+	\argm{f}{f_0}{標本化周波数 $f_0$[Hz]．}{10000}
+	\argm{p}{f_1 \; b_1}{極の中心周波数 $f_1$[Hz]と帯域幅 $b_1$[Hz]．}
+		{N/A}
+	\argm{z}{f_2 \; b_2}{零の中心周波数 $f_2$[Hz]と帯域幅 $b_2$[Hz]．}
+		{N/A}
+\end{options} 
+
+\begin{qsection}{EXAPMLE}
+極の中心が 2000Hz 帯域幅 200Hz のフィルタのインパルス応答を出力する:
+\begin{quote}
+ \verb!impulse | df2 -p 2000 200 !
+\end{quote}
+\hspace{3cm}
+\epsfxsize=4cm
+\epsffile{fig/df2.eps} 
+\end{qsection}

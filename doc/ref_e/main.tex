@@ -1,0 +1,238 @@
+%#!platex main.tex
+\documentclass[12pt]{jbook}
+\usepackage{epsf}
+\usepackage{fleqn}
+\usepackage{makeidx}
+\usepackage{cmndref}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\evensidemargin}{-8mm}
+\setlength{\topmargin}{0in}
+
+\renewcommand{\topfraction}{1}
+\renewcommand{\bottomfraction}{1}
+\renewcommand{\textfraction}{0}
+\renewcommand{\dbltopfraction}{1}
+ 
+\makeindex
+
+\setcategoryorder{%
+	データ操作,%
+	数値演算,%
+	データ処理,%
+	サンプリングレート変換,%
+	DA変換,%
+	グラフ表示,%
+	信号生成,%
+	ディジタルフィルタ,%
+	信号処理,%
+	音声分析合成関連,%
+	音声分析,%
+	音声パラメータ変換,%
+	音声合成用フィルタ,%
+	ベクトル量子化,%
+	パラメータ生成,%
+	その他%
+}
+
+\begin{document}
+
+\begin{titlepage}
+\vspace*{\fill}
+ \begin{center}
+	\LARGE
+	{\rm REFERENCE MANUAL for} \\
+	{\sl Speech Signal Processing Toolkit} Ver. 2.0 \\[10mm]
+	{\rm June 1, 2000}
+ \end{center}
+\vspace*{\fill}
+\vspace*{\fill}
+
+\newpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\noindent
+The help message for every command can be obtained
+with the option ``-h'' 
+the help message brings explanation of the command, how to use, 
+as well as its options.
+
+\begin{quote}
+ Example：for the command \verb!mcep! (\verb!%! is shell prompt)
+ \begin{verbatim}
+> % mcep -h
+> 
+>  mcep - mel cepstral analysis
+> 
+>   usage:
+>        mcep [ options ] [ infile ] > stdout
+>   options:
+>        -a a  : all-pass constant               [0.35]
+>        -m m  : order of mel cepstrum           [25]
+>        -l l  : frame length                    [256]
+>        -h    : print this message
+>      (level 2)
+>        -i i  : minimum iteration               [2]
+>        -j j  : maximum iteration               [30]
+>        -d d  : end condition                   [0.001]
+>        -e e  : small value added to periodgram [0]
+>   infile:
+>        windowed sequences (float)              [stdin]
+>   stdout:
+>        mel-cepstrum (float)
+ \end{verbatim}
+\end{quote}
+\vspace{\baselineskip}
+\noindent
+For more information related to this toolkit,
+please refer to
+\begin{quote}
+\verb!http://kt-lab.ics.nitech.ac.jp/~tokuda/SPTK/!
+\end{quote}
+In this cite,
+``Examples of Using Speech Signal Processing Toolkig''
+can be accessed.
+If you have any bug reports, comments, or questions
+related this toolkit, please sent email to
+\begin{quote}
+\verb!dsp-cmnd@ip.titech.ac.jp!
+\end{quote}
+We will try to answer every question, but we cannot guarantee it.
+\end{titlepage}
+
+\cleardoublepage
+\pagestyle{headings}
+\markboth{目 次}{目 次}
+\pagenumbering{roman}
+\tableofcontents
+
+\cleardoublepage
+\pagestyle{myheadings}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%BEGIN COMMANDS
+\include{acep}
+\include{acorr}
+\include{agcep}
+\include{amcep}
+\include{average}
+\include{b2mc}
+\include{bcp}
+\include{bcut}
+\include{bell}
+\include{c2acr}
+\include{c2ir}
+\include{c2sp}
+\include{ccp}
+\include{cdist}
+\include{clip}
+\include{da}
+\include{dawrite}
+\include{decimate}
+\include{delay}
+\include{df2}
+\include{dfs}
+\include{dmp}
+\include{ds}
+\include{echo2}
+\include{excite}
+\include{extract}
+\include{fd}
+\include{fdrw}
+\include{fft}
+\include{fftcep}
+\include{fft2}
+\include{fftr}
+\include{fftr2}
+\include{fig}
+\include{frame}
+\include{freqt}
+\include{gc2gc}
+\include{gcep}
+\include{glogsp}
+\include{glsadf}
+\include{gnorm}
+\include{grlogsp}
+\include{grpdelay}
+\include{gwave}
+\include{histogram}
+\include{ifft}
+\include{ifft2}
+\include{iglsadf}
+\include{ignorm}
+\include{imglsadf}
+\include{impulse}
+\include{imsvq}
+\include{interpolate}
+\include{ivq}
+\include{lbg}
+\include{levdur}
+\include{linear_intpl}
+\include{lmadf}
+\include{lpc}
+\include{lpc2c}
+\include{lpc2lsp}
+\include{lpc2par}
+\include{lsp2lpc}
+\include{lspcheck}
+\include{lspdf}
+\include{ltcdf}
+\include{mc2b}
+\include{mcep}
+\include{merge}
+\include{mgc2mgc}
+\include{mgc2sp}
+\include{mgcep}
+\include{mgcep2}
+\include{mglsadf}
+\include{minmax}
+\include{mlpg}
+\include{mlsadf}
+\include{msvq}
+\include{nan}
+\include{norm0}
+\include{nrand}
+\include{par2lpc}
+\include{phase}
+\include{pitch}
+\include{poledf}
+\include{psgr}
+\include{ramp}
+\include{reverse}
+\include{rmse}
+\include{root_pol}
+\include{sin}
+\include{smcep}
+\include{snr}
+\include{sopr}
+\include{spec}
+\include{srcnv}
+\include{step}
+\include{swab}
+\include{train}
+\include{uels}
+\include{ulaw}
+\include{us}
+\include{vopr}
+\include{vq}
+\include{vstat}
+\include{vsum}
+\include{window}
+\include{x2x}
+\include{xgr}
+\include{zcross}
+\include{zerodf}
+%END COMMANDS
+
+\cleardoublepage
+\pagestyle{headings}
+\include{ref}
+
+\cleardoublepage
+\printindex
+
+\end{document}
+

@@ -1,0 +1,46 @@
+\name{gnorm}{一般化ケプストラムのゲインの正規化}{音声パラメータ変換}
+
+\begin{synopsis}
+\item [gnorm] [ --m $M$ ] [ --g $G$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+正規化されていない一般化ケプストラム $c_\gamma(m)$ を正規化し，
+標準出力に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+正規化した一般化ケプストラム $c_\gamma'(m)$ は
+\begin{displaymath}
+c_\gamma'(m) = \frac{c_\gamma(m)}{1+\gamma c_\gamma(0)}, ~~~m>0
+\end{displaymath}
+で求められます．ただし，ゲイン項 $K = c_\gamma'(0)$ は
+\begin{displaymath}
+K = \left\{
+	\begin{array}{ll} \displaystyle
+	  \left(\frac{1}{1+\gamma c_\gamma(0)}\right)^{1/\gamma},
+		& 0<|\gamma|\leq 1 \\ \displaystyle
+	  \exp c_\gamma(0),  & \gamma=0
+	\end{array} \right.
+\end{displaymath}
+となります．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{一般化ケプストラムの次数．}{25}
+	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma$ ．\\
+			 ただし，$G>1.0$ のときは $\gamma=-1/G$．}{0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の正規化されていない一般化ケプストラムファイル 
+{\em data.gcep} $(M=15, \gamma=-0.5)$ を正規化し，
+正規化一般化ケプストラムを {\em data.ngcep} に出力する:
+\begin{quote}
+ \verb!gnorm -m 15 -g 2 < data.gcep > data.ngcep!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ ignorm, gcep, mgcep, gc2gc, mgc2mgc, freqt
+\end{qsection}

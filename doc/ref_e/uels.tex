@@ -1,0 +1,53 @@
+\name[ref:UELS-IEICE,ref:UELS-SignalProcessingIV]{uels}%
+{対数スペクトルの不偏推定法}{音声分析}
+
+\begin{synopsis}
+\item [uels] [ --m $M$ ] [ --l $L$ ] [ --i $I$ ] 
+	     [ --j $J$ ] [ --d $D$ ] [ --e $E$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+対数スペクトルの不偏推定法によって得られた
+ケプストラム係数$c(m)$を標準出力に出力します．
+入力は窓掛けされた長さ$L$ の時系列
+\begin{displaymath}
+  x(0),x(1),\ldots,x(L-1)
+\end{displaymath}
+です．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+従来の対数スペクトルの推定法あるいは平滑化法の
+主な問題点は，対数スペクトルに対する平滑化の意味が
+明確ではないことと推定値のバイアスが十分小さいという
+保証がないことでした．
+\par
+対数スペクトルの不偏推定値を得るための計算手順は，
+改良ケプストラム法とほとんど同じですが，
+バイアスが生じないような非線形平滑化を行うようにしている点が
+根本的に異なっています．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{分析次数．}{25}
+	\argm{l}{L}{入力データのフレーム長．}{256}
+	\desc[1zh]{通常，以下のオプションの指定は必要ありません．}
+	\argm{i}{I}{分析の最小反復回数．}{2}
+	\argm{j}{J}{分析の最大反復回数．}{30}
+	\argm{d}{D}{分析の終了条件．}{0.001}
+	\argm{e}{E}{ピリオドグラムに足し込む小さな値}{0.0}
+\end{options}
+
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル {\em data.f}を
+次数15次で対数スペクトルの不偏推定法で分析し，
+ケプストラムを {\em data.cep} に出力する:
+\begin{quote}
+ \verb!frame < data.f | window | uels -m 15 > data.cep!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ icep, gcep, mcep, mgcep, lmadf
+\end{qsection}

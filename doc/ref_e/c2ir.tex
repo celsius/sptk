@@ -1,0 +1,48 @@
+\name{c2ir}{Impulse response evaluation from cepstrum coefficients}%
+{音声パラメータ変換}
+
+\begin{synopsis}
+ \item[c2ir] [ --l $L$ ] [ --m $M_1$ ] [ --M $M_2$ ] [ --i ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+The minimum phase impulse response is evaluated from the minimum phase
+cepstrum contained in the input file {\em infile}(if input file name
+is omitted, the starndard input is used).
+For example, if the input sequence is
+\[c(0),c(1),c(2),\cdots,c(M_1)\]
+then the impulse response is caluclated as
+\[ h(n)=\left\{
+\begin{array}{lc}
+ h(0)=\exp(c(0))&\\
+ h(n)=\displaystyle \sum_{k=1}^{M_1} \frac{k}{n}c(k)h(n-k)& n \geq 1
+\end{array}
+\right. \]
+and the output will contain
+\[ h(0),h(1),h(2),\cdots,h(L -1) \].
+Input and output formats are float.
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{order of impulse response}{256}
+	\argm{m}{M_1}{order of cepstrum}{25}
+	\argm{M}{M_2}{length of impulse response}{L-1}
+	\argm{i}{}{input minimum phase sequence}{FALSE}
+	\desc{If the number of cepstrum coefficients $M$ is not
+             assigend and the number of each cepstrum coefficients
+             inputs is less then $L$, then the number of coefficients
+             read is made equal to $M$.}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+The output file {\em data.ir} contains the impulse response
+in the range $n = 0 \sim 99$ obtained from the 30th order cepstrum
+coefficients file {\em data.cep}, in float format:
+ \begin{quote}
+  \verb!c2ir -l 100 -m 30 data.cep > data.ir!
+ \end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ c2sp, c2acr
+\end{qsection}

@@ -1,0 +1,36 @@
+\name{imsvq}{マルチステージベクトル量子化器のデコーダ}{ベクトル量子化}
+
+\begin{synopsis}
+\item [imsvq] [ --l $L$ ] [ --n $N$ ] [ --s $S \;$ {\em cbfile} ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em imsvq}は，指定されたファイルからインデックスを読み込み，符号帳ベクトルを
+出力します．-s オプションはステージの段数回繰り返して指定します．
+
+\par
+データ形式は入力は int 形式，出力は float 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ベクトルのサイズ．}{26}
+	\argm{n}{N}{ベクトルの次数．ベクトルのサイズはN+1になります．}{L-1}
+	\argm{s}{S \; cbfile}{コードブックの指定．\\
+		\begin{tabular}{ll}\\[-1zh]
+		$S$ & コードブックサイズ \\
+		$cbfile$ & コードブックファイル \\
+		\end{tabular}\\\hspace*{\fill}}{N/A N/A}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+コードブックサイズ 256 のコードブック {\em cbfile1} と {\em cbfile2} で
+2 段 VQ を行った結果であるファイル {\em data.vq} に対応する符号帳ベクトルを
+{\em data.ivq} に出力します:
+\begin{quote}
+\verb! imsvq -s 256 cbfile1 -s 256 cbfile2 < data.vq > data.ivq!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+msvq, ivq, vq
+\end{qsection}

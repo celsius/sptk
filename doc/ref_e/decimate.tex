@@ -1,0 +1,36 @@
+\name{decimate}{デシメーション（データ列の間引き）}{信号処理}
+
+\begin{synopsis}
+\item[decimate] [ --p $P$ ] [ --s $S$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+標準入力から入力される時系列
+\begin{displaymath}
+ x(0), x(1), x(2), \ldots, 
+\end{displaymath}
+から周期 $P$，先頭 $S$ として，
+\begin{displaymath}
+ x(S), x(S+P), x(S+2P), x(S+3P),\ldots, 
+\end{displaymath}
+のようにdecimationします．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{p}{P}{decimation の周期．}{10}
+	\argm{s}{S}{decimation を始める先頭からのサンプル数．}{0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式のデータ {\em data.f} を周期2で decimation し，さらに0を周期2で
+interpolation して {\em data.di} に出力する:
+\begin{quote}
+  \verb!decimate -p 2  < data.f | interpolate -p 2 > data.di!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  interpolate
+\end{qsection}

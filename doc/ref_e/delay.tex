@@ -1,0 +1,51 @@
+\name{delay}{遅延}{信号処理}
+
+\begin{synopsis}
+\item [delay] [ --s $S$ ] [ --f ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em delay} は，入力された信号を遅延させます．つまり，
+\[ x(0), x(1), \ldots , x(T) \]
+を，
+\[ \underbrace{0, \ldots , 0}_{S}, x(0), x(1), \ldots , x(T) \]
+とします．
+-f オプションを指定すると，
+\[ \underbrace{0, \ldots , 0}_{S}, x(0), x(1), \ldots , x(T-S) \]
+となります．
+\par
+データ形式は入力，出力ともにfloat形式です．
+
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{開始サンプル．}{0}
+	\argm{f}{}{入力ファイルのサイズを保つ．}{False}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+
+float形式のファイル {\em data.f} には以下のデータが入っているとする．
+\begin{displaymath}
+ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
+\end{displaymath}
+ここで
+\begin{quote}
+ \verb!delay -s 3 < data.f > data.delay!
+\end{quote}
+とするとファイル {\em data.delay} には以下のデータが入る．
+\begin{displaymath}
+ 0.0, 0.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
+\end{displaymath}
+\begin{quote}
+\verb!delay -s 3 -f < data.f > data.delay!
+\end{quote}
+とするとファイル {\em data.delay} には以下のデータが入る．
+\begin{displaymath}
+ 0.0, 0.0, 0.0, 1.0, 2.0, 3.0
+\end{displaymath}
+\end{qsection}
+
+%\begin{qsection}{SEE ALSO}
+%none
+%\end{qsection}

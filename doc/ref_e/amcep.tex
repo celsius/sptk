@@ -1,0 +1,202 @@
+\name[ref:amcep-IEICE,ref:amcep-ICASSP92]{amcep}{Adaptive mel-cepstrum analysis}%
+{speech analysis}
+
+\begin{synopsis}
+\item [amcep] [ --m $M$ ] [ --a $A$ ] [ --l $L$ ] [ --t $T$ ] [ --k $K$ ]
+	      [ --p $P$ ] [ --s ] [ --e $E$ ]
+\item [\ ~~~~~~~]  [--P $Pa$ ] [ {\em pefile} ] $<$ {\em infile}
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+        This command undertakes adaptive mel-cepstrum analysis,
+        sends the mel-cepstrum coefficients $c_{\alpha}(m)$ to standard output,
+        and the prediction error to {\em pefile}, whenever
+        {\em pefile} is included in the command line.
+ \par
+	The format for input and output data is float.
+ \par
+	The algorithm to calculate recursively the
+        adaptive mel-cepstrum coefficients $b(m)$ is 
+\begin{eqnarray*}
+  \mbox{\boldmath $b$}^{(n+1)} &=& \mbox{\boldmath $b$}^{(n)} 
+     - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \\
+  \hat{\nabla} \varepsilon_0^{(n)} &=& -2 e(n) \mbox{\boldmath $e$}^{(n)}_{\Phi} \hspace{3.5cm} ( \tau = 0 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& -2 (1 - \tau) \sum_{i=-\infty}^{n} \tau^{n-i} e(i) \mbox{\boldmath $e$}^{(i)}_{\Phi} ~~~ ( 0 \le \tau < 1 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& \tau \hat{\nabla} \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e(n) \mbox{\boldmath $e$}^{(n)}_{\Phi} \\
+  \mu^{(n)} &=& \frac{k}{M \varepsilon^{(n)}} \\
+  \varepsilon^{(n)} &=& \lambda \varepsilon^{(n-1)}
+     + (1-\lambda)e^2(n)
+\end{eqnarray*}	
+
+\setcounter{figure}{0}
+\begin{figure}[h]
+\begin{center}
+\setlength{\unitlength}{1.5mm}
+1\begin{picture}(50,24)(-3,-8)
+  \thicklines
+  \put(0,0){\line(0,1){4}}		%right triangle
+  \put(0,0){\line(3,2){3}}
+  \put(0,4){\line(3,-2){3}}
+  \put(2,6){\makebox(0,0){$1-\alpha ^2$}}
+  
+  \put(13.5,7){\line(0,1){4}}  		%left triangle
+  \put(13.5,7){\line(-3,2){3}}
+  \put(13.5,11){\line(-3,-2){3}}
+  \put(12.5,9){\makebox(0,0){\small $\alpha$}}
+
+  \put(31,10){\line(1,0){4}}  		%down triangle
+  \put(31,10){\line(2,-3){2}}
+  \put(35,10){\line(-2,-3){2}}
+  \put(33,9){\makebox(0,0){\small $\alpha$}}
+
+  \put(45,10){\line(1,0){4}}  		%down triangle
+  \put(45,10){\line(2,-3){2}}
+  \put(49,10){\line(-2,-3){2}}
+  \put(47,9){\makebox(0,0){\small $\alpha$}}
+
+  \put(10,0){\framebox(4,4){$z^{-1}$}}
+  \put(24,0){\framebox(4,4){$z^{-1}$}}
+  \put(38,0){\framebox(4,4){$z^{-1}$}}
+  \put(52,0){\framebox(4,4){$z^{-1}$}}
+
+  \put(-3,-2){\makebox(0,0){$e(n)$}}
+  \put(-4,2){\line(1,0){4}}
+  \put(3,2){\vector(1,0){2.5}}
+  \put(6.5,2){\circle{2}}
+  \put(6.5,2){\makebox(0,0){\scriptsize $+$}}
+%  \put(5,0.5){\makebox(0,0){\scriptsize $+$}}
+%  \put(5,3.5){\makebox(0,0){\scriptsize $+$}}
+  \put(7.5,2){\line(1,0){2.5}}
+  \put(14,2){\line(1,0){10}}
+  \put(17.5,2){\line(0,1){7}}
+  \put(17.5,9){\line(-1,0){4}}
+  \put(10.5,9){\line(-1,0){4}}
+  \put(6.5,9){\vector(0,-1){6}}
+
+  \put(17.5,2){\circle*{0.7}}
+  \put(22,2){\circle*{0.7}}
+
+  \put(28,2){\vector(1,0){4}}
+  \put(34,2){\line(1,0){4}}
+  \put(33,2){\circle{2}}
+  \put(33,2){\makebox(0,0){\scriptsize $+$}}
+%  \put(31.5,0.5){\makebox(0,0){\scriptsize $+$}}
+%  \put(31.5,3.5){\makebox(0,0){\scriptsize $+$}}
+  \put(36,2){\circle*{0.7}}
+
+  \put(42,2){\vector(1,0){4}}
+  \put(48,2){\line(1,0){4}}
+  \put(47,2){\circle{2}}
+  \put(47,2){\makebox(0,0){\scriptsize $+$}}
+%  \put(45.5,0.5){\makebox(0,0){\scriptsize $+$}}
+%  \put(45.5,3.5){\makebox(0,0){\scriptsize $+$}}
+  \put(44,2){\circle*{0.7}}
+  \put(50,2){\circle*{0.7}}
+
+  \put(22,2){\line(0,1){2}}
+  \put(22,4){\vector(1,1){10.2}}
+  \put(33,14){\line(0,-1){4}}
+  \put(33,7){\vector(0,-1){4}}
+  \put(44,2){\line(0,1){2}}
+  \put(44,4){\vector(-1,1){10.2}}
+  \put(33,15){\circle{2}}
+  \put(33,15){\makebox(0,0){\scriptsize $+$}}
+  \put(31,15){\makebox(0,0){\scriptsize $-$}}
+%  \put(35,15){\makebox(0,0){\scriptsize $+$}}
+  
+  \put(36,2){\line(0,1){2}}
+  \put(36,4){\vector(1,1){10.2}}
+  \put(47,14){\line(0,-1){4}}
+  \put(47,7){\vector(0,-1){4}}
+  \put(58,2){\line(0,1){2}}
+  \put(58,4){\vector(-1,1){10.2}}
+  \put(47,15){\circle{2}}
+  \put(47,15){\makebox(0,0){\scriptsize $+$}}
+  \put(45,15){\makebox(0,0){\scriptsize $-$}}
+%  \put(49,15){\makebox(0,0){\scriptsize $+$}}
+
+  \put(50,2){\line(0,1){2}}
+  \put(50,4){\vector(1,1){10.2}}
+  \put(56,2){\vector(1,0){4}}
+  \put(58,2){\circle*{0.7}}
+
+  \put(22,2){\vector(0,-1){6}}
+  \put(22,-7){\makebox(0,0){$e_1(n)$}}
+  \put(36,2){\vector(0,-1){6}}
+  \put(36,-7){\makebox(0,0){$e_2(n)$}}
+  \put(50,2){\vector(0,-1){6}}
+  \put(50,-7){\makebox(0,0){$e_3(n)$}}
+\end{picture}
+\caption{Filter $\Phi_m(z)$}
+\label{fig:mcep_Phi}
+\end{center}
+\end{figure}
+where
+$\mbox{\boldmath $b$}=[b(1), b(2), \ldots, b(M)]^T$,
+$\mbox{\boldmath $e$}_{\it\Phi}^{(n)}
+=[e_1(n) ,e_2(n), \ldots, e_{M}(n)]^T$,
+ $e_m(n)$ is output inverse filter, which is obtained as shown
+in Figure \ref{fig:mcep_Phi}, passing $e(n)$ through the filter
+ ${\it\Phi}_m(z)$.
+\par
+The coefficients $b(m)$ are equivalent to the coefficients of
+the MLSA filter. The mel-cepstrum coefficients $c_{\alpha}(m)$
+can be obtained through the linear transformation (please refer to
+the commands b2mc and mc2b).
+
+In Figure \ref{fig:mcep_block}, the adaptive mel-cepstrum 
+analysis system is shown.
+
+The filter $1/D(z)$ is realised by a MLSA filter.
+
+\begin{figure}[h]
+\begin{center}
+\setlength{\unitlength}{1.0mm}
+\begin{picture}(100,38)(0,0)
+  \thicklines
+  \put(20,10){\framebox(60,16){\small
+	$\displaystyle1/D(z)=\exp \sum_{m=1}^{M}-b(m) \,\Phi_m(z)$}}
+  \put(0,18){\line(1,0){20}}
+  \put(80,18){\vector(1,0){25}}
+  \put(93,18){\circle*{1}}
+  \put(93,18){\line(0,-1){16}}
+  \put(93,2){\line(-1,0){17}}
+  \put(61,-3){\framebox(15,10){\normalsize $\Phi_m(z)$}}
+  \put(61,2){\line(-1,0){19}}
+  \put(42,2){\line(1,2){4}}
+  \put(52,26){\vector(1,2){4}}
+  \put(5,20){\makebox(0,0)[lb]{$x(n)$}}
+  \put(97,20){\makebox(0,0)[lb]{$e(n)$}}
+\end{picture}
+\caption{Adaptive mel-cepstrum analysis system}
+\label{fig:mcep_block}
+\end{center}
+\end{figure}
+
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{order of cepstrum}{25}
+	\argm{a}{A}{all-pass constant $\alpha$．}{0.35}
+	\argm{l}{L}{leakage factor $\lambda$}{0.98}
+	\argm{t}{T}{momentum constant $\tau$}{0.9}
+	\argm{k}{K}{step size $k$}{0.1}
+	\argm{p}{P}{output period of mel-cepstrum}{1}
+	\argm{s}{}{output smoothed mel-cepstrum}{FALSE}
+	\argm{e}{E}{minimum value for $\varepsilon^{(n)}$}{0.0}
+	\argm{P}{Pa}{number of coefficients of the MLSA filter
+                     using the pade approximation. Pa can be 4 or 5.}{4}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+	In this example, the speech data is in the file {\em data.f}
+        in float format, and the mel-cepstrum coefficients are written in
+        the file {\em data.amcep} for every block of 100 samples,
+\begin{quote}
+ \verb!amcep -m 15 -p 100  < data.f > data.amcep!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+acep, agcep, mc2b, b2mc, mlsadf
+\end{qsection}
