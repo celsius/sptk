@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 			fprintf(stderr, "%s: cannot open %s\n", cmnd, *argv);
 			exit(1);
 		}
-		while( fgets( buf, 512, fp) > 0){
+		while( fgets( buf, 512, fp) != 0){
 			if( linenum > 0) fprintf( stderr, "%6d  ", linenum++);
 			fputs( buf, stderr);
 		}
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
     }
 
     if( stdinmode == 0 ){
-	    while( fgets( buf, 512, stdin) > 0){
+	    while( fgets( buf, 512, stdin) != 0){
 		    if( linenum > 0) fprintf( stderr, "%6d  ", linenum++);
 	    fputs( buf, stderr);
 	    }
