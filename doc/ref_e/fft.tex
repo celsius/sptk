@@ -1,4 +1,4 @@
-\name{fft}{複素数列の高速フーリエ変換}{信号処理}
+\name{fft}{FFT for complex sequence}{signal processing}
 
 \begin{synopsis}
 \item[fft] [ --l $L$ ] [ --m $M$] [ --\{ A $|$ R $|$ I $|$ P \} ] 
@@ -6,21 +6,24 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-複素数列を{\em infile} から読み込み，FFT アルゴリズムによりDFT を実行します．
-{\em infile} の指定がないときには，標準入力からデータが読み込まれます．
-データ形式は入出力ともfloat 形で，入出力データの順序は次の通りです．
+This command reads a sequence of complex numbers from {\em infile}
+and undertakes its DFT through the FFT algorithm.
+When the inputfile is not assigned, data is read from the starndard
+input.
+Input and output data are in float format, and the order of input
+ and output data are as follows.
 \[
  \begin{array}{lll}
-\mbox{入力系列} & \overbrace{\framebox[4.5cm]{実　部}}^{M+1} &
-	   \overbrace{\framebox[4.5cm]{虚　部}}^{M+1} \\
+\mbox{Input sequence} & \overbrace{\framebox[4.5cm]{real part}}^{M+1} &
+	   \overbrace{\framebox[4.5cm]{imaginary part}}^{M+1} \\
 		& \makebox[4.5cm]{0\hfill $M$} &
 		\makebox[4.5cm]{0\hfill $M$}
 \end{array}
 \]
 \[
 \begin{array}{lll}
-\mbox{出力系列} & \overbrace{\framebox[4.5cm]{実　部}}^{L} &
-	   \overbrace{\framebox[4.5cm]{虚　部}}^{L} \\
+\mbox{Output sequence} & \overbrace{\framebox[4.5cm]{real part}}^{L} &
+	   \overbrace{\framebox[4.5cm]{imaginary part}}^{L} \\
 		& \makebox[4.5cm]{0\hfill $L-1$} &
 		\makebox[4.5cm]{0\hfill $L-1$}
 \end{array}
@@ -28,24 +31,22 @@
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{フーリエ変換のサイズ．2 のべき乗で指定．}{256}
-	\argm{m}{M}{複素数列の次数．}{L-1}
-	\argm{A}{}{振幅スペクトルを出力．}{FALSE}
-	\argm{R}{}{実部のみを出力．}{FALSE}
-	\argm{I}{}{虚部のみを出力．}{FALSE}
-	\argm{P}{}{パワースペクトルを出力．}{FALSE}
+	\argm{l}{L}{FFT size  power of 2}{256}
+	\argm{m}{M}{order of sequence}{L-1}
+	\argm{A}{}{amplitude}{FALSE}
+	\argm{R}{}{real part}{FALSE}
+	\argm{I}{}{imaginary part}{FALSE}
+	\argm{P}{}{output power spectrum}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f} にある複素数列（実部256点，虚部256点）の DFT の振幅を求め，{\em data.dft} に出力する:
+This example reads a sequence of complex number in float format from
+{\em data.f} file (real part with 256 points and imaginary part with
+256 points), evaluates its DFT and outputs it to {\em data.dft} file:
 \begin{quote}
   \verb!fft data.f -l 256 -A > data.dft!
 \end{quote}
 \end{qsection}
-
-%\begin{qsection}{BUGS}
-% FFT のサイズは1024 以下．
-%\end{qsection}
 
 \begin{qsection}{SEE ALSO}
   fftr, spec, phase

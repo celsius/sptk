@@ -1,4 +1,4 @@
-\name{fig}{$B?^$r:n@.$9$k(B}{$B%0%i%UI=<((B}
+\name{fig}{plot a graph}{graph}
 
 \begin{synopsis}
  \item[fig] [ --F $F$ ] [ --R $R$ ] [ --W $W$ ] [ --H $H$] [ --o $xo$ $yo$ ]
@@ -7,43 +7,49 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B%U%!%$%k(B {\em infile} ($B>JN,;~$OI8=`F~NO(B)$B$+$iM?$($i$l$k%3%^%s%I$K$h$j%0%i%U$r(B
-$BIA$-$^$9!%(B
-UNIX$BI8=`%3%^%s%I$N(B graph $B$HF1MM$J5!G=$,$"$kB>!$%0%i%U$N:BI8<4!$L\@9$j!$L>A0$r(B
-$BF~$l$k5!G=$,$"$j$^$9!%=PNO$O%W%m%C%?$N%3%^%s%INs$G$9!%$=$N$?$a!$(BX$BC<Kv$K=PNO(B
-$B$9$k>l9g$O%3%^%s%I(B xgr$B!$%]%9%H%9%/%j%W%H$K=PNO$9$k>l9g$O%3%^%s%I(Bpsgr$B$r;HMQ(B
-$B$7$F2<$5$$!%(B
+This command draws a graph using information from the input file
+{\em infile}. 
+If {\em infile} is not assigned, data is read from the starndard input.
+This command is similar to the unix command ``graph'' but includes
+some labeling functions.
+The output file comes with a sequence of commands for direct printing.
+For this reason, in case the output is printed on the screen,
+one should use the ``xgr'' command.
+In case the output is printed in postscript, one should use the
+``psgr'' command.
 \end{qsection}
 
 \begin{options}
-	\argm{F}{F}{$B%0%i%U$rIA$/G\N(!%(B}{1}
-	\argm{R}{R}{$B%0%i%U$rIA$/3QEY!%(B}{0}
-	\argm{W}{W}{$B%0%i%U$NI}(B($\times 100$mm)$B!%(B}{1}
-	\argm{H}{H}{$B%0%i%U$N9b$5(B($\times 100$mm)$B!%(B}{1}
-	\argm{o}{xo \; yo}{$B%0%i%U$rIA$/0LCV!%(B $BIA2h0h$N:82<$r86E@$H$7$F!$(B
-			   $B%0%i%U$N:82<$N0LCV$r(Bmm $B$G;XDj!%(B}{20 20}
-	\argm{g}{G}{$B%0%i%U$NOH$N7A<0(B($0 \sim 2$)$B!%(B\\
+	\argm{F}{F}{factor}{1}
+	\argm{R}{R}{rotation angle}{0}
+	\argm{W}{W}{width of figure($\times 100$mm)}{1}
+	\argm{H}{H}{height of figure($\times 100$mm)}{1}
+	\argm{o}{xo \; yo}{origin in mm}{20 20}
+	\argm{g}{G}{draw grid($0 \sim 2$)\\
 			\begin{tabular}{cccc}
 			&\epsfxsize=2cm \epsffile{fig/g0.eps}
 			&\epsfxsize=2cm \epsffile{fig/g1.eps}
 			&\epsfxsize=2cm \epsffile{fig/g2.eps}\\
 			$G$&0&1&2	 
 			\end{tabular}\\\hspace*{\fill}}{2}
-	\argm{p}{P}{$B%Z%sHV9f(B($1 \sim 10$)$B!%(B}{1}
-	\argm{s}{S}{$BJ8;z%5%$%:(B($1 \sim 4$)$B!%(B}{1}
-	\argm{f}{file}{$B%3%^%s%I<B9T;~!$:G=i$KFI$_9~$`%U%!%$%k!%(B
-		       ($infile$ $B$h$jM%@h(B)$B!%(B}{NULL}
-	\argm{t}{}{ $x$ $B<4$H(B $y$ $B<4$rF~$l49$($k!%(B}{FALSE}
+	\argm{p}{P}{pen number($1 \sim 10$)}{1}
+	\argm{s}{S}{font size($1 \sim 4$)}{1}
+	\argm{f}{file}{The file assigned after this option is read
+                       before {\em infile}, that is, this option gives
+                       preference.}{NULL}
+	\argm{t}{}{transpose $x$ and $y$ axes}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-{\em data.fig} $B$N%0%i%U$r(BX$BC<Kv$K=PNO$9$k!%(B
+Data in {\em data.fig} file is plotted in an X terminal in the
+example below:
 \vspace{-3mm}
 \begin{quote}
  \verb!fig data.fig |xgr!
 \end{quote}
 \vspace{-3mm}
-{\em data.fig} $B$N%0%i%U$r%]%9%H%9%/%j%W%H$K$7$?%G!<%?$r(Bghostview$B$G8+$k!%(B
+In this example, data in {\em data.fig} file is written in postscript,
+and seen with ghostview:
 \vspace{-3mm}
 \begin{quote}
  \verb!fig data.fig | psgr | ghostview -!
@@ -56,26 +62,28 @@ UNIX$BI8=`%3%^%s%I$N(B graph $B$HF1MM$J5!G=$,$"$kB>!$%0%i%U$N:BI8<4!$L\@9$j!$
 $B!!(B\vspace{-1cm}
 \end{qsection}
 
-\begin{qsection}{\ ~~~$B%3%^%s%I(B}
-$BF~NO%G!<%?$O%3%^%s%I9T$H%G!<%?9T$K$o$1$k$3$H$,$G$-$^$9!%(B
-$B%3%^%s%I9T$O!$%0%i%U$NL\@9$j!$L>A0!$%9%1!<%j%s%0Ey$r;XDj$7$^$9!%(B
-$B%G!<%?9T$O(B($x ~y$)$B:BI8%Z%"$r;XDj$7$^$9!%(B
-$B%3%^%s%I9T$K$h$C$F;XDj$5$l$??tCM$O!$<!$N%3%^%s%I9T$K$h$k@_Dj$,$J$5$l$k$^$G(B
-$BM-8z$G$9!%(B\\
+\begin{qsection}{\ ~~~COMMAND}
+The input data file can contain commands and data.
+Commands can be used for labeling, scaling, etc.
+Data is written in the ($x ~y$) coordinate pair form.
+Command values can be overwritten by entering new command values.
 \end{qsection}
 
 \vspace{-1cm}
-\begin{qsection}{\ ~~~$B%3%^%s%I9T(B}
+\begin{qsection}{\ ~~~COMMAND PART}
 \begin{minipage}[t]{5.5cm}
 x [mel $\alpha$]~ $xmin$ ~$ymax$ [$xa$]\\
 y [mel $\alpha$]~ $xmin$ ~$ymax$ [$ya$]\\
 \end{minipage}
 \begin{minipage}[t]{9cm}
- $x$ $B<4!$(B $y$ $B<4$N%9%1!<%j%s%0$r@_Dj$7$^$9!%(B\\
-$xa$$B!$(B$ya$ $B$OL\@9$j$rBG$D<4$N0LCV$r;XDj$7$^$9!%(B
-$B>JN,$5$l$?>l9g!$(B $xa = xmin$ $B!$(B $ya = ymin$ $B$H$J$j$^$9!%(B\\
-mel $\alpha$ ($\alpha$ $B$O?t;z$G!$(B $BNc$($P(B mel 0.35) $B$r;XDj$9$k$H!$(B
-1$B<!%*!<%k%Q%9%U%#%k%?$N0LAjFC@-$K$h$j<~GH?tJQ49$7$?L\@9$j$H$_$J$7$^$9!%(B
+Assigns $x$ and $y$ scalings.\\
+Marks can be assigned in $x$ and $y$ axes through $xa$ and $ya$.
+If no assigned of $xa$ and $ya$ is done,
+then $xa = xmin$ and $ya = ymin$.
+If the optional ``mel $\alpha$'', where $\alpha$ must be
+a number (for example, mel 0.35), is used,
+then labeling is undertaken as frequancy transformation of
+minimum phase first order all-pass filter.
 \end{minipage} \\
 
 \begin{minipage}[t]{5.5cm}
@@ -83,21 +91,25 @@ xscale ~$x_1$ $x_2$ $x_3$ $\cdots$\\
 yscale ~$y_1$ $y_2$ $y_3$ $\cdots$
 \end{minipage}
 \begin{minipage}[t]{9cm}
-$x$ $B<4!$(B$y$ $B<4$r$=$l$>$lIA$-!$;XDj$5$l$?E@(B $x_1, x_2,$\\$x_3,\cdots$
-$B$*$h$S(B $y_1,y_2,y_3,\cdots$ $B$KL\@9$j!$?tCM$r=q$-$^$9!%(B
-$BC"$7!$Hs?t;z(B+$B?tCM(B($BNc$($P(B '2,*3.14 $BEy(B)$B$K$O!$<!$N5!G=$,$"$j$^$9!%(B\\
+Assigns the points $x_1, x_2,$\\$x_3,\cdots$
+and $y_1,y_2,y_3,\cdots$ in $x$ and $y$ axes.
+These points can be assigned with numbers or marks,
+Also, when a mixture of not-a-number $+$ number (for example, '2,*3.14)
+is needed, following function should be used:
 
 \begin{tabular}{cl}
-s & $BH>J,$N9b$5$NL\@9$j$rIA$-$^$9!%(B\\
-$\backslash$& $B?tCM$@$1$r=q$-$^$9!%(B\\
-@ & $B$J$K$b=q$-$^$;$s(B($BL\@9$j$N0LCV$N$_;XDj(B)$B!%(B\\
-$B$=$NB>(B & $BL\@9$j$@$1$r=q$-$^$9!%(B
+s & draws marks with half size.\\
+$\backslash$& only writes number.\\
+@ & does not write anything but assigns positions of marks.\\
+none of the above & only marks are written.
 \end{tabular}\\
 
-''\ ''$B$G0O$^$l$?J8;zNs$,=P8=$9$k$H!$(B
-$BD>A0$NL\@9$j$N0LCV$K$=$NJ8;zNs$r=q$-$^$9!%(B
-$BJ8;zNsCf$NFC<oJ8;z$N<h$j07$$$K$D$$$F$O!$%3%^%s%I9T(Bx/yname$B9`$r;2>H$7$F2<$5$$!%(B\\
-($BNc(B)\\
+Whenever character is inside quotes,
+it appear in the position assigned
+by the string that precedes it.
+Please refer to the commands ``x/yname'' for information on
+special characters.\\
+(Example)\\
 x ~0 ~5\\
 xscale 0~1.0 ~s1.5 ~'2 ~$\backslash$2.5 ~'3.14 ~''$\backslash$pi'' ~@4 ~''x'' ~5\\
 
@@ -110,11 +122,11 @@ xname ~''$text$''\\
 yname ~''$text$''\\
 \end{minipage}
 \begin{minipage}[t]{9cm}
-$x$ $B<4!$(B $y$ $B<4$KL>A0(B($BJ8;zNs(B $text$)$B$rF~$l$^$9!%(B
-$text$ $B$OI,$:(B''\ ''$B$G0O$s$G2<$5$$!%(B
-$text$ $BCf$K$O(B''$\backslash$''$B$KB3$/!$(B \TeX $B$N?t<04D6-Cf$NFC<oJ8;z$r;HMQ$9$k(B
-$B$3$H$,$G$-$^$9!%(B
-$B$^$?!$(B\TeX $B$HF1MM$K$7$F>e$D$-J8;z!$2<$D$-J8;z$r;HMQ$9$k$3$H$,$G$-$^$9!%(B 
+Labels $x$ and $y$ axes.
+$text$ should be inside quote.
+Inside $text$, \TeX commands can be used.
+Also, characters such as those that can be obtained
+with \TeX can be written with this command.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
@@ -122,9 +134,8 @@ $text$ $BCf$K$O(B''$\backslash$''$B$KB3$/!$(B \TeX $B$N?t<04D6-Cf$NFC<oJ8;z
  printc ~x ~y ~''$text$'' [$th$]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-(x ~y) $B$N0LCV$KJ8;zNs(B $text$ $B$r=q$-$^$9!%(B
-$th$ $B$OJ8;zNs$N3QEY(B(deg)$B$r;XDj$7$^$9!%(B\\  
-$BJ8;zNs$r=q$/0LCV(B:\\
+This command writes $text$ in the assigned position (x ~y).
+The option $th$ assigned the rotation degree.
 
 \begin{tabular}{cc}
 \epsffile{fig/fig-print1.eps}&  
@@ -138,18 +149,20 @@ title ~x ~y ~''$text$'' [$th$]\\
 titlec ~x ~y ~''$text$'' [$th$]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-print(c) $B$HF1$8$G$9!%C"$7!$(B(x ~y)$B$O(B mm $BC10L$GI=$7$?@dBP:BI8$G$9!%(B
-$B86E@$O:82<6y$G$9!%(B
+This command is same as print(c).
+However, the basic unit is expressed in absolute value mm.
+The reference point is on the botton-left.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
 csize ~h [w]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-x/yscale$B!$(Bx/yname$B!$(Bprint/c$B!$(Btitle/c $BEy$G=q$/J8;z$N9b$5(B h $B$HI}(B w $B$r(Bmm$BC10L$G(B
-$B;XDj$7$^$9!%(B
-w $B$r>JN,$7$?>l9g(B w = h $B$H$J$j$^$9!%%G%U%)%k%H$O(B --{\bf s} $B%*%W%7%g%s$NCM$K(B
-$B=>$C$F!$(B\\
+This command assigns in mm the character width and height,
+to be used in the following commands:\\
+x/yscale$B!$(Bx/yname$B!$(Bprint/c$B!$(Btitle/c\\
+When the value of $w$ is omitted, $w$ is made equal to $h$.
+The default values for the option --{\bf s} follows:
 \begin{tabular}{ccc}
 
 --{\bf s} &w &h  \\ \hline
@@ -158,7 +171,6 @@ w $B$r>JN,$7$?>l9g(B w = h $B$H$J$j$^$9!%%G%U%)%k%H$O(B --{\bf s} $B%*%W%7%
 3&2.5&4.4\\
 4&5&4.4
 \end{tabular}\\
-$B$G$9!%(B
 
 \end{minipage}\\
 
@@ -166,18 +178,21 @@ w $B$r>JN,$7$?>l9g(B w = h $B$H$J$j$^$9!%%G%U%)%k%H$O(B --{\bf s} $B%*%W%7%
  pen ~$penno$
 \end{minipage}
 \begin{minipage}[t]{9cm}
- $B;HMQ$9$k%Z%s(B $penno$ $B$rA*$S$^$9!%(B1$B!e(B$penno$$B!e(B10$B!%IUO?;2>H!%(B
+This command chooses the variable $penno$.
+1$B!e(B$penno$$B!e(B10.   %????????????????????????????????????????????
+Please refer to appendix.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
 line ~$ltype$ [$lpt$]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-$B:BI8%G!<%?4V$r7k$V@~$N<oN`(B $ltype$ $B$H%T%C%A(B $lpt$ $B$r;XDj$7$^$9!%(B
-0$B!e(B$ltype$$B!e(B5$B!%(B $lpt$$B$O(Bmm$BC10L$G$9!%(B\\
-$ltype$=0:$B@~$r0z$+$J$$!%(B 1:$B<B@~!%(B 2:$BE@@~!%(B 3:1$BE@:?@~!%(B 4:$BGK@~!%(B 5:$BD9GK@~!%(B\\
-$BIUO?;2>H!%(B
-
+This command assigns the type $ltype$ of the line which will connect
+data as well as the $lpt$ pace. $lpt$ is on mm unit.
+When $ltype$=0: no line is used to connect coordinate points.
+1:~solid~~2:~dotted~~3:~dot and dash~~4:~broken~~5:~dash
+Please refer to the appendix.\\
+	
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}

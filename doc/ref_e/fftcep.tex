@@ -1,4 +1,4 @@
-\name{fftcep}{FFTケプストラム}{信号処理}
+\name{fftcep}{FFT cepstral analysis}{signal processing}
 
 \begin{synopsis}
 \item[fftcep] [ --m $M$ ] [ --l $L$ ] [ --j $J$ ] [ --k $K$ ] 
@@ -6,39 +6,31 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-FFTケプストラム係数 $c(m)$ を
-標準出力に出力します．
-入力は窓掛けされた長さ $L$ の時系列
+This command evaluates the FFT cepstrum analysis
+and output it to the standard output.
+The windowed input time domain sequence of length $L$ is
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-です．
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-%従来のケプストラム法では，ケプストラムの低ケフレンシー成分
-%を取り出すことで平滑化スペクトルを求めていました．
-%しかし，この方法ではスペクトルの微細構造の影響を十分取り除いているとはいえず，
-%得られるスペクトル包絡がフレーム毎に乱れるという欠点がありました．
-\par
-%これに対して，改良ケプストラム法は，スペクトルの微細構造を通る包絡を真の包絡と
-%考え，スペクトルと平滑化スペクトルの差分に対してさらに平滑化を繰り返すことに
-%より，真の包絡を抽出しようとする手法です．
-繰り返し回数$J$および、加速係数$K$を指定した場合，
-改良ケプストラム法によりケプストラム係数を計算します．
+Assignment of the number of iterations $J$ and
+the acceleration factor $K$, allows the use of the improved cepstrum
+analysis method??????????????????????????????????
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{分析次数．}{25}
-	\argm{l}{L}{フレーム長．}{256}
-	\argm{j}{J}{繰り返し回数．}{0}
-	\argm{k}{K}{加速係数．}{0.0}
-	\argm{e}{E}{振幅スペクトルの対数をとる際に足し込む小さな値．}{0.0}
+	\argm{m}{M}{order of cepstrum}{25}
+	\argm{l}{L}{frame length}{256}
+	\argm{j}{J}{number of iteration}{0}
+	\argm{k}{K}{acceleration factor}{0.0}
+	\argm{e}{E}{epsilon}{0.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float 形式の音声データ {\em data.f} を分析し，{\em data.cep}
- にケプストラム係数を得る:
+In the example below, speech data in float format is read from
+{\em data.f} and cepstrum coefficient are outputed to {\em data.cep}:
 \begin{quote}
   \verb!frame < data.f | window | fftcep > data.cep !
 \end{quote}
