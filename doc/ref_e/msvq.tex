@@ -1,30 +1,30 @@
-\name{msvq}{$BB?CJ%Y%/%H%kNL;R2=(B}{$B%Y%/%H%kNL;R2=(B}
+\name{msvq}{multi stage vector quantization}{VQ}
 
 \begin{synopsis}
 \item [msvq] [ --l $L$ ] [ --n $N$ ][ --s $S \;$ {\em cbfile} ] [ --q ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em msvq}$B$O!$;XDj$5$l$?%U%!%$%k$KBP$7!$B?CJ%Y%/%H%kNL;R2=$r9T$$$^$9!%(B
--s$B%*%W%7%g%s$O%9%F!<%8$NCJ?t2s7+$jJV$7$F;XDj$7$^$9!%(B
+{\em msvq}¤Ï¡¤»ØÄê¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤ËÂÐ¤·¡¤Â¿ÃÊ¥Ù¥¯¥È¥ëÎÌ»Ò²½¤ò¹Ô¤¤¤Þ¤¹¡¥
+-s¥ª¥×¥·¥ç¥ó¤Ï¥¹¥Æ¡¼¥¸¤ÎÃÊ¿ô²ó·«¤êÊÖ¤·¤Æ»ØÄê¤·¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO$O(B float $B7A<0!$=PNO$O(B int $B7A<0$G$9!%(B
+Input data is in float format and output data is in int format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%Y%/%H%kD9!%(B}{26}
-        \argm{n}{N}{$B%Y%/%H%k$N<!?t!%(B}{$L-1$}
-	\argm{s}{S \; cbfile}{$B%3!<%I%V%C%/$N;XDj!%(B\\
+	\argm{l}{L}{length of vector}{26}
+        \argm{n}{N}{order of vector}{$L-1$}
+	\argm{s}{S \; cbfile}{codebook\\
 		\begin{tabular}{ll}\\ [-1zh]
-		$S$ & $B%3!<%I%V%C%/%5%$%:(B\\
-		$cbfile$ & $B%3!<%I%V%C%/%U%!%$%k(B\\
+		$S$ & codebook size\\
+		$cbfile$ & codebook file\\
 		\end{tabular}\\\hspace*{\fill}}{N/A N/A}
-	\argm{q}{}{$BNL;R2=$5$l$?%3!<%I%Y%/%H%k$r=PNO!%(B}{FALSE}
+	\argm{q}{}{output quantized vector}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-$B%3!<%I%V%C%/%5%$%:(B 256 $B$N%3!<%I%V%C%/(B{\em cbfile1}$B$H(B{\em cbfile2}$B$K$h$k(B
-2 $BCJ(B VQ $B$G!$(B{\em data.f}$B$rNL;R2=$7!$(B{\em data.vq} $B$K=PNO$7$^$9(B:
+¥³¡¼¥É¥Ö¥Ã¥¯¥µ¥¤¥º 256 ¤Î¥³¡¼¥É¥Ö¥Ã¥¯{\em cbfile1}¤È{\em cbfile2}¤Ë¤è¤ë
+2 ÃÊ VQ ¤Ç¡¤{\em data.f}¤òÎÌ»Ò²½¤·¡¤{\em data.vq} ¤Ë½ÐÎÏ¤·¤Þ¤¹:
 \begin{quote}
 \verb! msvq -s 256 cbfile1 -s 256 cbfile2 < data.f > data.vq!
 \end{quote} 

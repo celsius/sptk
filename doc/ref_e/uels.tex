@@ -1,5 +1,5 @@
 \name[ref:UELS-IEICE,ref:UELS-SignalProcessingIV]{uels}%
-{$BBP?t%9%Z%/%H%k$NITJP?dDjK!(B}{$B2;@<J,@O(B}
+{unbiased estimation of log spectrum}{speech analysis}
 
 \begin{synopsis}
 \item [uels] [ --m $M$ ] [ --l $L$ ] [ --i $I$ ] 
@@ -7,42 +7,42 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BBP?t%9%Z%/%H%k$NITJP?dDjK!$K$h$C$FF@$i$l$?(B
-$B%1%W%9%H%i%`78?t(B$c(m)$$B$rI8=`=PNO$K=PNO$7$^$9!%(B
-$BF~NO$OAk3]$1$5$l$?D9$5(B$L$ $B$N;~7ONs(B
+ÂÐ¿ô¥¹¥Ú¥¯¥È¥ë¤ÎÉÔÊÐ¿äÄêË¡¤Ë¤è¤Ã¤ÆÆÀ¤é¤ì¤¿
+¥±¥×¥¹¥È¥é¥à·¸¿ô$c(m)$¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
+ÆþÎÏ¤ÏÁë³Ý¤±¤µ¤ì¤¿Ä¹¤µ$L$ ¤Î»þ·ÏÎó
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-$B$G$9!%(B
+¤Ç¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+Input and output data are in float format.
 \par
-$B=>Mh$NBP?t%9%Z%/%H%k$N?dDjK!$"$k$$$OJ?3j2=K!$N(B
-$B<g$JLdBjE@$O!$BP?t%9%Z%/%H%k$KBP$9$kJ?3j2=$N0UL#$,(B
-$BL@3N$G$O$J$$$3$H$H?dDjCM$N%P%$%"%9$,==J,>.$5$$$H$$$&(B
-$BJ]>Z$,$J$$$3$H$G$7$?!%(B
+½¾Íè¤ÎÂÐ¿ô¥¹¥Ú¥¯¥È¥ë¤Î¿äÄêË¡¤¢¤ë¤¤¤ÏÊ¿³ê²½Ë¡¤Î
+¼ç¤ÊÌäÂêÅÀ¤Ï¡¤ÂÐ¿ô¥¹¥Ú¥¯¥È¥ë¤ËÂÐ¤¹¤ëÊ¿³ê²½¤Î°ÕÌ£¤¬
+ÌÀ³Î¤Ç¤Ï¤Ê¤¤¤³¤È¤È¿äÄêÃÍ¤Î¥Ð¥¤¥¢¥¹¤¬½½Ê¬¾®¤µ¤¤¤È¤¤¤¦
+ÊÝ¾Ú¤¬¤Ê¤¤¤³¤È¤Ç¤·¤¿¡¥
 \par
-$BBP?t%9%Z%/%H%k$NITJP?dDjCM$rF@$k$?$a$N7W;;<j=g$O!$(B
-$B2~NI%1%W%9%H%i%`K!$H$[$H$s$IF1$8$G$9$,!$(B
-$B%P%$%"%9$,@8$8$J$$$h$&$JHs@~7AJ?3j2=$r9T$&$h$&$K$7$F$$$kE@$,(B
-$B:,K\E*$K0[$J$C$F$$$^$9!%(B
+ÂÐ¿ô¥¹¥Ú¥¯¥È¥ë¤ÎÉÔÊÐ¿äÄêÃÍ¤òÆÀ¤ë¤¿¤á¤Î·×»»¼ê½ç¤Ï¡¤
+²þÎÉ¥±¥×¥¹¥È¥é¥àË¡¤È¤Û¤È¤ó¤ÉÆ±¤¸¤Ç¤¹¤¬¡¤
+¥Ð¥¤¥¢¥¹¤¬À¸¤¸¤Ê¤¤¤è¤¦¤ÊÈóÀþ·ÁÊ¿³ê²½¤ò¹Ô¤¦¤è¤¦¤Ë¤·¤Æ¤¤¤ëÅÀ¤¬
+º¬ËÜÅª¤Ë°Û¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{$BJ,@O<!?t!%(B}{25}
-	\argm{l}{L}{$BF~NO%G!<%?$N%U%l!<%`D9!%(B}{256}
-	\desc[1zh]{$BDL>o!$0J2<$N%*%W%7%g%s$N;XDj$OI,MW$"$j$^$;$s!%(B}
-	\argm{i}{I}{$BJ,@O$N:G>.H?I|2s?t!%(B}{2}
-	\argm{j}{J}{$BJ,@O$N:GBgH?I|2s?t!%(B}{30}
-	\argm{d}{D}{$BJ,@O$N=*N;>r7o!%(B}{0.001}
-	\argm{e}{E}{$B%T%j%*%I%0%i%`$KB-$79~$`>.$5$JCM(B}{0.0}
+	\argm{m}{M}{order of cepstrum}{25}
+	\argm{l}{L}{frame length}{256}
+	\desc[1zh]{Usually, the options below do not need to be assigned.}
+	\argm{i}{I}{minimum iteration}{2}
+	\argm{j}{J}{maximum iteration}{30}
+	\argm{d}{D}{end condition}{0.001}
+	\argm{e}{E}{small value added to periodgram}{0.0}
 \end{options}
 
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%U%!%$%k(B {\em data.f}$B$r(B
-$B<!?t(B15$B<!$GBP?t%9%Z%/%H%k$NITJP?dDjK!$GJ,@O$7!$(B
-$B%1%W%9%H%i%`$r(B {\em data.cep} $B$K=PNO$9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë {\em data.f}¤ò
+¼¡¿ô15¼¡¤ÇÂÐ¿ô¥¹¥Ú¥¯¥È¥ë¤ÎÉÔÊÐ¿äÄêË¡¤ÇÊ¬ÀÏ¤·¡¤
+¥±¥×¥¹¥È¥é¥à¤ò {\em data.cep} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
  \verb!frame < data.f | window | uels -m 15 > data.cep!
 \end{quote} 

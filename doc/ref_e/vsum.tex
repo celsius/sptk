@@ -1,13 +1,13 @@
-\name{vsum}{$B%Y%/%H%k$NAmOB$r$H$k(B}{$B%G!<%?=hM}(B}
+\name{vsum}{summation of vector}{data}
 
 \begin{synopsis}
 \item[vsum] [ --l $L$ ] [ --n $N$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B;XDj$5$l$?%U%!%$%k$+$iFI$_9~$^$l$?(B $L$ $B<!85%Y%/%H%k$N3FMWAGKh$KAmOB$r$H$j!$(B
-$BI8=`=PNO$K=PNO$7$^$9!%(B
-$B$D$^$j!$F~NO%G!<%?(B
+»ØÄê¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ß¹þ¤Þ¤ì¤¿ $L$ ¼¡¸µ¥Ù¥¯¥È¥ë¤Î³ÆÍ×ÁÇËè¤ËÁíÏÂ¤ò¤È¤ê¡¤
+É¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
+¤Ä¤Þ¤ê¡¤ÆþÎÏ¥Ç¡¼¥¿
 \begin{displaymath}
 \overbrace{
   \overbrace{a_1(1),\ldots,a_1(L)}^{L},
@@ -15,38 +15,38 @@
   \overbrace{a_N(1),\ldots,a_N(L)}^{L}
 }^{N \cdot L},\ldots
 \end{displaymath}
-$B$+$i!$(B
+¤«¤é¡¤
 \begin{displaymath}
   \overbrace{s(1),\ldots,s(L)}^{L},\ldots
 \end{displaymath}
-$B$,=PNO$5$l!$(B$s(n)$ $B$O!$(B
+¤¬½ÐÎÏ¤µ¤ì¡¤$s(n)$ ¤Ï¡¤
 \begin{displaymath}
   s(n)=\sum_{k=1}^{N} a_k(n)
 \end{displaymath}
-$B$G7W;;$5$l$^$9!%(B
+¤Ç·×»»¤µ¤ì¤Þ¤¹¡¥
 \par
-$B%U%!%$%k$,;XDj$5$l$J$+$C$?>l9g!$%G!<%?$OI8=`F~NO$+$iFI$_9~$^$l$^$9!%(B
+¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Ê¤«¤Ã¤¿¾ì¹ç¡¤¥Ç¡¼¥¿¤ÏÉ¸½àÆþÎÏ¤«¤éÆÉ¤ß¹þ¤Þ¤ì¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!"=PNO$H$b(Bfloat $B7A<0$G$9!#(B
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%Y%/%H%k$N<!85!%(B}{1}
-	\argm{n}{N}{$BOB$r$H$k%Y%/%H%k$N8D?t!%(B}{EOD}
+	\argm{l}{L}{order of vector}{1}
+	\argm{n}{N}{number of vector}{EOD}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%U%!%$%k(B{\em data.f}$BA4BN$NOB$r5a$a(B{\em data.sum}$B$K=PNO$9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë{\em data.f}Á´ÂÎ¤ÎÏÂ¤òµá¤á{\em data.sum}¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!vsum data.f > data.sum!
 \end{quote}
 \par
-$B<!85(B10$B<!$N%Y%/%H%k$N%N%k%`$r5a$a(B{\em data.n}$B$K=PNO$9$k(B:
+¼¡¸µ10¼¡¤Î¥Ù¥¯¥È¥ë¤Î¥Î¥ë¥à¤òµá¤á{\em data.n}¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!sopr data.f -P | vsum -n 10 | sopr -R > data.n!
 \end{quote}
 \par
-$B<!85(B15$B<!$N78?t%Y%/%H%k$N$H$J$j9g$&(B3$B%U%l!<%`$NJ?6Q$r5a$a(B{\em data.av}$B$K=PNO$9$k(B:
+¼¡¸µ15¼¡¤Î·¸¿ô¥Ù¥¯¥È¥ë¤Î¤È¤Ê¤ê¹ç¤¦3¥Õ¥ì¡¼¥à¤ÎÊ¿¶Ñ¤òµá¤á{\em data.av}¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!vsum -l 15 -n 3 data.f | sopr -d 3 > data.av!
 \end{quote}

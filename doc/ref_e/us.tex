@@ -1,15 +1,15 @@
-\name{us}{$B%5%s%W%j%s%0%l!<%HJQ49!J%"%C%W%5%s%W%j%s%0!K(B}%
-{$B%5%s%W%j%s%0%l!<%HJQ49(B}
+\name{us}{sampling rate convert}%
+{sampling rate convertion}
 
 \begin{synopsis}
 \item [us] [ --s $S$ ] [ --c {\em file} ] [ --u $U$ ] [ --d $D$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- {\em us}$B%"%C%W%5%s%W%j%s%0$r9T$$$^$9!%(B
+ {\em us}¥¢¥Ã¥×¥µ¥ó¥×¥ê¥ó¥°¤ò¹Ô¤¤¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat$B7A<0$G$9!%(B
-$B%U%#%k%?78?t$O<!$N$b$N$,MQ$$$i$l$^$9!%(B
+Input and output data are in float format.
+¥Õ¥£¥ë¥¿·¸¿ô¤Ï¼¡¤Î¤â¤Î¤¬ÍÑ¤¤¤é¤ì¤Þ¤¹¡¥
 
 \begin{tabular}{ll} \\[-1zh]
 	$S=23F$ & \$SPTK/lib/lpfcoef.2to3f \\
@@ -18,38 +18,38 @@
 	$S=45$ & \$SPTK/lib/lpfcoef.4to5 \\
 	$S=57$ & \$SPTK/lib/lpfcoef.5to7 \\
 	$S=58$ & \$SPTK/lib/lpfcoef.5to8 \\
-               &(\$SPTK$B$O%$%s%9%H!<%k$7$?%G%#%l%/%H%j(B)
+               &(\$SPTK¤Ï¥¤¥ó¥¹¥È¡¼¥ë¤·¤¿¥Ç¥£¥ì¥¯¥È¥ê)
 \end{tabular}
 
-{\bf --u$B!$(B--d}$B%*%W%7%g%s$G!$%"%C%W%5%s%W%j%s%0$H%@%&%s%5%s%W%j%s%0$NHf(B
-$BN($rJQ99$9$k$3$H$,$G$-$^$9!%%U%#%k%?78?t$N%U%!%$%k$r;XDj$9$k>l9g$O!$(B
-{\bf --u$B!$(B--d}$B%*%W%7%g%s$bF1;~$K;XDj$7$^$9!%(B
+{\bf --u¡¤--d}¥ª¥×¥·¥ç¥ó¤Ç¡¤¥¢¥Ã¥×¥µ¥ó¥×¥ê¥ó¥°¤È¥À¥¦¥ó¥µ¥ó¥×¥ê¥ó¥°¤ÎÈæ
+Î¨¤òÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡¥¥Õ¥£¥ë¥¿·¸¿ô¤Î¥Õ¥¡¥¤¥ë¤ò»ØÄê¤¹¤ë¾ì¹ç¤Ï¡¤
+{\bf --u¡¤--d}¥ª¥×¥·¥ç¥ó¤âÆ±»þ¤Ë»ØÄê¤·¤Þ¤¹¡¥
 
-$B$J$*!$%U%!%$%k%?78?t$N%U%!%$%k$O(BASCII$B7A<0$H$J$C$F$$$^$9!%(B
+¤Ê¤ª¡¤¥Õ¥¡¥¤¥ë¥¿·¸¿ô¤Î¥Õ¥¡¥¤¥ë¤ÏASCII·Á¼°¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S}{$BJQ49%?%$%W!%(B \\
+	\argm{s}{S}{conversion type\\
 		\begin{tabular}{ll} \\[-1zh]
-			$S=23F$ & $BHfN((B $2 : 3$ $B$G%"%C%W%5%s%W%j%s%0(B \\
-			$S=23S$ & $BHfN((B $2 : 3$ $B$G%"%C%W%5%s%W%j%s%0(B \\
-			$S=34$ & $BHfN((B $3 : 4$ $B$G%"%C%W%5%s%W%j%s%0(B \\
-			$S=45$ & $BHfN((B $4 : 5$ $B$G%"%C%W%5%s%W%j%s%0(B \\
-			$S=57$ & $BHfN((B $5 : 7$ $B$G%"%C%W%5%s%W%j%s%0(B \\
-			$S=58$ & $BHfN((B $5 : 8$ $B$G%"%C%W%5%s%W%j%s%0(B
+			$S=23F$ & up sampling by $2 : 3$\\
+			$S=23S$ & up sampling by $2 : 3$\\
+			$S=34$ & up sampling by $3 : 4$\\
+			$S=45$ & up sampling by $4 : 5$\\
+			$S=57$ & up sampling by $5 : 7$\\
+			$S=58$ & up sampling by $5 : 8$
 		\end{tabular}\\}{58}
-	\argm{c}{\mbox{\em file}}{$B%m!<%Q%9%U%#%k%?78?t%U%!%$%kL>!%(B}{Default}
-	\argm{u}{U}{$B%"%C%W%5%s%W%j%s%0$NHfN((B}{N/A}
-	\argm{d}{D}{$B%@%&%s%5%s%W%j%s%0$NHfN((B}{N/A}
+	\argm{c}{\mbox{\em file}}{filename of low pass filter coefficients}{Default}
+	\argm{u}{U}{up sampling ratio}{N/A}
+	\argm{d}{D}{down sampling ratio}{N/A}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float $B7A<0$NI8K\2=<~GH?t(B 16kHz $B$N2;@<%G!<%?%U%!%$%k(B {\em data.16} $B$rI8K\(B
-$B2=<~GH?t(B 44.1kHz $B$K%"%C%W%5%s%W%j%s%0$7!$(B{\em data.44} $B$K=PNO$9$k(B:
+float ·Á¼°¤ÎÉ¸ËÜ²½¼þÇÈ¿ô 16kHz ¤Î²»À¼¥Ç¡¼¥¿¥Õ¥¡¥¤¥ë {\em data.16} ¤òÉ¸ËÜ
+²½¼þÇÈ¿ô 44.1kHz ¤Ë¥¢¥Ã¥×¥µ¥ó¥×¥ê¥ó¥°¤·¡¤{\em data.44} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
 \verb!us -s 23F data.16 | us -s 23S | us -s 57 | \! \\
 \verb!us -c /usr/local/SPTK/lib/lpfcoef.5to7 -u 7 -d 8 > data.44! \\[5mm]
-$BCm(B:~~
+Ãí:~~
 $\displaystyle\frac{44100}{16000} = 
 	\frac{3\times3\times7\times7\times100}{2\times2\times5\times8\times100}$
 \end{quote}

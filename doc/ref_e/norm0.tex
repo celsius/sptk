@@ -1,30 +1,30 @@
-\name{norm0}{$B%U%#%k%?78?t$r(B0$B<!9`$G@55,2=$9$k!%(B}{$B?.9f=hM}(B}
+\name{norm0}{normalize coefficients}{signal processing}
 
 \begin{synopsis}
 \item[norm0] [ --m $M$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BI8=`F~NO$+$iF~NO$5$l$k%G!<%?Ns(B
+É¸½àÆþÎÏ¤«¤éÆþÎÏ¤µ¤ì¤ë¥Ç¡¼¥¿Îó
 \begin{displaymath}
 x(0), x(1), \ldots, x(M)
 \end{displaymath}
-$B$r(B0$B<!$N9`$G@55,2=(B
+¤ò0¼¡¤Î¹à¤ÇÀµµ¬²½
 \begin{displaymath}
 1/x(0), x(1)/x(0), \ldots, x(M)/x(0)
 \end{displaymath}
-$B$r9T$$!$=PNO$7$^$9!%(B
+¤ò¹Ô¤¤¡¤½ÐÎÏ¤·¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(B float $B7A<0$G$9!%(B
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-        \argm{m}{M}{$BF~NO%G!<%?$N<!?t!%(B}{25}
+        \argm{m}{M}{order of input data}{25}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float $B7A<0$N%U%!%$%k(B {\em data.f} $B$+$i@55,2=$7$?(B15$B<!$N<+8JAj4X78?t$r(B
-$B5a$a!"(B {\em data.nacorr} $B$K=PNO$9$k(B:
+float ·Á¼°¤Î¥Õ¥¡¥¤¥ë {\em data.f} ¤«¤éÀµµ¬²½¤·¤¿15¼¡¤Î¼«¸ÊÁê´Ø·¸¿ô¤ò
+µá¤á¡¢ {\em data.nacorr} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!frame < data.f | window | acorr -m 15 |\ !\\
   \verb!norm0 -m 15 > data.nacorr!

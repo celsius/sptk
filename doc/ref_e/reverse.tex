@@ -1,4 +1,4 @@
-\name{reverse}{$B%G!<%?$N=gHV$rH?BP$KJB$SJQ$($k(B}{$B%G!<%?A`:n(B}
+\name{reverse}{reverse the order of data in each block}{data}
 
 \begin{synopsis}
 \item[reverse] [ --l $L$ ] [ --n $N$ ] [ {\em infile} ]
@@ -6,31 +6,31 @@
 
 \begin{qsection}{DESCRIPTION}
 
-{\em reverse} $B$O!$(Bfloat$B7?$GM?$($i$l$k%G!<%?Ns$rI8=`F~NO$+$iFI$_9~$_!$%*(B
-$B%W%7%g%s$G;XDj$5$l$k%V%m%C%/D9$K6h@Z$C$F%G!<%?Ns$rH?E>$5$;!$I8=`=PNO$K=P(B
-$BNO$7$^$9!%%V%m%C%/D9$r;XDj$7$J$+$C$?>l9g$O%G%U%)%k%H$G%U%!%$%kA4BN$,;XDj(B
-$B$5$l$^$9!%%U%!%$%kA4BN$N%5%$%:$,%V%m%C%/D9$GCzEY3d$j@Z$l$J$$>l9g$OM>$j$N(B
-$B%V%m%C%/$OL5;k$5$l!$=PNO$b$5$l$^$;$s!%(B
+{\em reverse} д╧бдfloat╖┐д╟═┐дидщдьдые╟б╝е┐╬єдЄ╔╕╜р╞■╬╧длдщ╞╔д▀╣■д▀бдек
+е╫е╖ечеєд╟╗╪─ъд╡дьдые╓еэе├еп─╣д╦╢ш└┌д├д╞е╟б╝е┐╬єдЄ╚┐┼╛д╡д╗бд╔╕╜р╜╨╬╧д╦╜╨
+╬╧д╖д▐д╣бее╓еэе├еп─╣дЄ╗╪─ъд╖д╩длд├д┐╛ь╣чд╧е╟е╒ейеые╚д╟е╒ебедеы┴┤┬╬дм╗╪─ъ
+д╡дьд▐д╣бее╒ебедеы┴┤┬╬д╬е╡еде║дме╓еэе├еп─╣д╟├·┼┘│фдъ└┌дьд╩дд╛ь╣чд╧═╛дъд╬
+е╓еэе├епд╧╠╡╗ыд╡дьбд╜╨╬╧дтд╡дьд▐д╗дєбе
 
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%V%m%C%/D9!%(B}{$B%U%!%$%kA4BN(B}
-	\argm{n}{N}{$B%V%m%C%/$N<!?t!%(B}{$B%U%!%$%kA4BN(B-1}
+	\argm{l}{L}{length of block}{EOF}
+	\argm{n}{N}{order of block}{EOF-1}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%U%!%$%k(B{\em data.in}$B$K$O0J2<$N%G!<%?$,F~$C$F$$$k$H$9$k(B.
+float╖┴╝░д╬е╒ебедеы{\em data.in}д╦д╧░╩▓╝д╬е╟б╝е┐дм╞■д├д╞дддыд╚д╣ды.
 \begin{displaymath}
  \underbrace{0.0, ~1.0, ~2.0}, ~
  \underbrace{3.0, ~4.0, ~5.0}, ~
  \underbrace{6.0, ~7.0, ~8.0}, ~9.0
 \end{displaymath}
-$B$3$3$G(B
+д│д│д╟
 \begin{quote}
 \verb!reverse -l 3 data.in > data.out!
 \end{quote}
-$B$H$9$k$H%U%!%$%k(B{\em data.out}$B$K$O0J2<$N%G!<%?$,F~$k(B.
+д╚д╣дыд╚е╒ебедеы{\em data.out}д╦д╧░╩▓╝д╬е╟б╝е┐дм╞■ды.
 \begin{displaymath}
  \underbrace{2.0, ~1.0, ~0.0}, ~
  \underbrace{5.0, ~4.0, ~3.0}, ~

@@ -1,13 +1,13 @@
-\name{vstat}{$B%Y%/%H%k$NJ?6Q!$6&J,;6$r5a$a$k(B}{$B%G!<%?=hM}(B}
+\name{vstat}{vector statistics calculation}{data}
 
 \begin{synopsis}
 \item[vstat] [ --l $L$ ] [ --n $N$ ] [ --t $T$ ] [ --d ] [ --o $O$] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B;XDj$5$l$?%U%!%$%k$+$iFI$_9~$^$l$?(B $L$ $B<!85%Y%/%H%k$NJ?6Q%Y%/%H%k$*$h$S(B
-$B6&J,;69TNs$r(B $T$ $B8DKh$K5a$a!$I8=`=PNO$K=PNO$7$^$9!%(B
-$B$D$^$j!$F~NO%G!<%?(B
+»ØÄê¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ß¹þ¤Þ¤ì¤¿ $L$ ¼¡¸µ¥Ù¥¯¥È¥ë¤ÎÊ¿¶Ñ¥Ù¥¯¥È¥ë¤ª¤è¤Ó
+¶¦Ê¬»¶¹ÔÎó¤ò $T$ ¸ÄËè¤Ëµá¤á¡¤É¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
+¤Ä¤Þ¤ê¡¤ÆþÎÏ¥Ç¡¼¥¿
 \begin{displaymath}
 \overbrace{
   \overbrace{x_1(1),\ldots,x_1(L)}^{L},
@@ -15,7 +15,7 @@
   \overbrace{x_N(1),\ldots,x_N(L)}^{L}
 }^{T \times L},\ldots
 \end{displaymath}
-$B$+$i!$(B
+¤«¤é¡¤
 \begin{displaymath}
   \overbrace{m(1),\ldots,m(L)}^L, 
   \overbrace{
@@ -23,8 +23,8 @@
     \overbrace{U(L1),\ldots,U(LL)}^L
   }^{L\times L}, \ldots
 \end{displaymath}
-$B$,=PNO$5$l$^$9!%(B
-{\boldmath $m$}$B!$(B{\boldmath $U$} $B$O$=$l$>$l!$(B
+¤¬½ÐÎÏ¤µ¤ì¤Þ¤¹¡¥
+{\boldmath $m$}¡¤{\boldmath $U$} ¤Ï¤½¤ì¤¾¤ì¡¤
 \begin{displaymath}
   \mbox{\boldmath $m$} = \frac{1}{N}\sum_{k=1}^{N} \mbox{\boldmath $x$}
 \end{displaymath}
@@ -33,34 +33,35 @@
 	\mbox{\boldmath $x$} \mbox{\boldmath $x$}^T
 	- \mbox{\boldmath $m$} \mbox{\boldmath $m$}^T
 \end{displaymath}
-$B$G7W;;$5$l$^$9!%(B
-$B$?$@$7!$BP3Q6&J,;6$N>l9g$OHsBP3Q@.J,$O=PNO$5$l$^$;$s!%(B
+¤Ç·×»»¤µ¤ì¤Þ¤¹¡¥
+¤¿¤À¤·¡¤ÂÐ³Ñ¶¦Ê¬»¶¤Î¾ì¹ç¤ÏÈóÂÐ³ÑÀ®Ê¬¤Ï½ÐÎÏ¤µ¤ì¤Þ¤»¤ó¡¥
 
-$B%U%!%$%k$,;XDj$5$l$J$+$C$?>l9g!$%G!<%?$OI8=`F~NO$+$iFI$_9~$^$l$^$9!%(B
+¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Ê¤«¤Ã¤¿¾ì¹ç¡¤¥Ç¡¼¥¿¤ÏÉ¸½àÆþÎÏ¤«¤éÆÉ¤ß¹þ¤Þ¤ì¤Þ¤¹¡¥
 
-$B%G!<%?7A<0$OF~NO!"=PNO$H$b(Bfloat $B7A<0$G$9!#(B
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%Y%/%H%k$ND9$5!%(B}{1}
-	\argm{n}{N}{$B%Y%/%H%k$N<!?t!%(B}{L-1}
-	\argm{t}{T}{$BOB$r$H$k%Y%/%H%k$N8D?t!%(B}{N/A}
-	\argm{d}{}{$BBP3Q6&J,;6$N$_=PNO(B}{FALSE}
-	\argm{o}{O}{$B=PNO$N%U%)!<%^%C%H!%(B\\
+	\argm{l}{L}{length of vector}{1}
+	\argm{n}{N}{order of vector}{L-1}
+	\argm{t}{T}{number of vector}{N/A}
+	\argm{o}{O}{output format\\
 		\begin{tabular}{ll} \\[-1zh]
-                        $O=0$ & $BJ?6Q%Y%/%H%k$*$h$S6&J,;69TNs(B \\
-                        $O=1$ & $BJ?6Q%Y%/%H%k$N$_(B \\
-                        $O=2$ & $B6&J,;69TNs$N$_(B \\[1zh]
+                        $O=0$ & mean \& covariance\\
+                        $O=1$ & mean\\
+                        $O=2$ & covariance\\[1zh]
                 \end{tabular}\\\hspace*{\fill}}{0}
+	\argm{d}{}{diagonal covariance}{FALSE}
+	\argm{r}{}{output correlation instead of covariance}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%U%!%$%k(B{\em data.f}$BA4BN$NJ?6Q$*$h$SJ,;6$r5a$a!$(B{\em data.stat}$B$K=PNO$9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë{\em data.f}Á´ÂÎ¤ÎÊ¿¶Ñ¤ª¤è¤ÓÊ¬»¶¤òµá¤á¡¤{\em data.stat}¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!vstat data.f > data.stat!
 \end{quote}
 
-$B<!85(B15$B<!$N78?t%Y%/%H%k$N$H$J$j9g$&(B3$B%U%l!<%`$NJ?6Q$r5a$a(B{\em data.av}$B$K=PNO$9$k(B:
+¼¡¸µ15¼¡¤Î·¸¿ô¥Ù¥¯¥È¥ë¤Î¤È¤Ê¤ê¹ç¤¦3¥Õ¥ì¡¼¥à¤ÎÊ¿¶Ñ¤òµá¤á{\em data.av}¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!vstat -l 15 -t 3 -o 1 data.f > data.av!
 \end{quote}

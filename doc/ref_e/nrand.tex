@@ -1,24 +1,24 @@
-\name{nrand}{$B@55,;(2;$rH/@8$9$k(B.}{$B?.9f@8@.(B}
+\name{nrand}{generate normal distributed random value}{signal generation}
 
 \begin{synopsis}
 \item[nrand] [ --l $L$ ] [ --s $S$ ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em nrand} $B$O!$@55,;(2;$rH/@8$7!$I8=`=PNO$K=PNO$7$^$9!%(B
-$BFbIt$G$O(Bnrand$B$H(Bsrnd$B$r;H$C$F$$$^$9!%(B
+{\em nrand} §œ°§¿µµ¨ª®≤ª§Ú»Ø¿∏§∑°§…∏Ω‡Ω–Œœ§ÀΩ–Œœ§∑§ﬁ§π°•
+∆‚…Ù§«§œnrand§»srnd§Úª»§√§∆§§§ﬁ§π°•
 \par
-$B=PNO%G!<%?$O!$(Bfloat $B7A<0$G$9!%(B
+Output data is in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$BH/@8$9$k;(2;7ONs$ND9$5!%(B\\
-			$B$?$@$7!$(B$L \le 0$$B$N;~$OL58B$K@8@.$7$^$9!%(B}{256}
-	\argm{s}{S}{$BMp?t=i4|2=$N(Bseed$B!%(B}{1}
+	\argm{l}{L}{output length\\
+			if $L \le 0$ then Ãµ∏¬§À¿∏¿Æ§∑§ﬁ§π°•}{256}
+	\argm{s}{S}{seed for nrand}{1}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-$BD9$5(B100$B$N@55,;(2;7ONs$rH/@8$7(B {\em data.rnd} $B$K=PNO$9$k(B:
+ƒπ§µ100§Œ¿µµ¨ª®≤ª∑œŒÛ§Ú»Ø¿∏§∑ {\em data.rnd} §ÀΩ–Œœ§π§Î:
 \begin{quote}
 \verb!nrand -l 100 -s 3 > data.rnd!
 \end{quote}

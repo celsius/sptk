@@ -1,4 +1,4 @@
-\name{xgr}{$B%W%m%C%?%3%^%s%INs$r(BX-Window$B>e$KI=<((B}{$B%0%i%UI=<((B}
+\name{xgr}{XY-plotter simulator for X-window system}{graph}
 
 \begin{synopsis}
  \item[xgr]   [ --s {\em S} ] [ --l ] [ --rv ] [ --m ] [ --bg {\em BG} ]
@@ -8,52 +8,52 @@
 \end{synopsis} 
 
 \begin{qsection}{DESCRIPTION}
-$BI8=`F~NO$+$i(B $B%W%m%C%?%3%^%s%INs$rFI$_9~$_!$%0%i%U=PNO$r(BX-Window$B>e$KI=<($7$^$9!%(B
+╔╕╜р╞■╬╧длдщ е╫еэе├е┐е│е▐еєе╔╬єдЄ╞╔д▀╣■д▀бде░еще╒╜╨╬╧дЄX-Window╛хд╦╔╜╝ид╖д▐д╣бе
 \begin{itemize}
-\item $B%&%#%s%I%&%^%M!<%8%c$N5!G=$K$h$j%&%#%s%I%&%5%$%:$OJQ$o$j$^$9$,!$(B
-  $B2>A[2hLL>e$K=q$+$l$F$$$k%0%i%U?^7A$NI=<($O%:!<%_%s%0$5$l$^$;$s!%(B
-\item $B%&%#%s%I%&%5%$%:$,2>A[2hLL$h$j$b>.$5$$>l9g$K$O!$2>A[2hLL$r(B
-$B%9%/%m!<%k$9$k$3$H$,$G$-$^$9!%!J(Bvi$BIw%-!<%P%$%s%I!K(B
+\item ежегеєе╔еже▐е═б╝е╕еуд╬╡б╟╜д╦дшдъежегеєе╔еже╡еде║д╧╩╤дядъд▐д╣дмбд
+  ▓╛┴█▓ш╠╠╛хд╦╜ёдлдьд╞дддые░еще╒┐▐╖┴д╬╔╜╝ид╧е║б╝е▀еєе░д╡дьд▐д╗дєбе
+\item ежегеєе╔еже╡еде║дм▓╛┴█▓ш╠╠дшдъдт╛од╡дд╛ь╣чд╦д╧бд▓╛┴█▓ш╠╠дЄ
+е╣епеэб╝еыд╣дыд│д╚дмд╟днд▐д╣беб╩vi╔ўенб╝е╨едеєе╔б╦
 \begin{quote}
-		h: $B:8%9%/%m!<%k(B\\
-		j: $B2<%9%/%m!<%k(B\\
-		k: $B>e%9%/%m!<%k(B\\
-		l: $B1&%9%/%m!<%k(B
+		h: ║╕е╣епеэб╝еы\\
+		j: ▓╝е╣епеэб╝еы\\
+		k: ╛хе╣епеэб╝еы\\
+		l: ▒же╣епеэб╝еы
 \end{quote}
-\item $B=*N;$O!$(B"q"$B!$(B"Ctrl-c"$B!$(B"Ctrl-d" $B$N$$$:$l$+$rF~NO$7$F2<$5$$!%(B
+\item ╜к╬╗д╧бд"q"бд"Ctrl-c"бд"Ctrl-d" д╬ддд║дьдлдЄ╞■╬╧д╖д╞▓╝д╡ддбе
 \end{itemize}
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S}{$B%&%#%s%I%&=L>.HfN(!%(B}{3.38667}
-	\argm{l}{}{$B%i%s%I%9%1!<%W%b!<%I!%(B}{FALSE}
-	\argm{rv}{}{$B%j%P!<%9%b!<%I!%(B}{FALSE}
-	\argm{m}{}{$BGr9u%G%#%9%W%l%$%b!<%I!%(B}{FALSE}
-	\argm{bg}{BG}{$B%P%C%/%0%i%&%s%I%+%i!<!%(B}{white}
-	\argm{hl}{HL}{$B%O%$%i%$%H%+%i!<!%(B}{blue}
-	\argm{bd}{BD}{$B%\!<%@!<%+%i!<!%(B}{blue}
-	\argm{ms}{MS}{$B%^%&%9%+%i!<!%(B}{red}
-	\argm{g}{G}{$B%&%#%s%I%&$N%5%$%:5Z$SI=<(0LCV!%(B}{NULL}
-	\argm{d}{D}{$B%G%#%9%W%l%$%5!<%P!%(B}{NULL}
-	\argm{t}{T}{$B%&%#%s%I%&$N%?%$%H%k!%(B}{xgr}
+	\argm{s}{S}{shrink}{3.38667}
+	\argm{l}{}{landscape}{FALSE}
+	\argm{rv}{}{reverse mode}{FALSE}
+	\argm{m}{}{monochrome display mode}{FALSE}
+	\argm{bg}{BG}{background color}{white}
+	\argm{hl}{HL}{highlight color}{blue}
+	\argm{bd}{BD}{border color}{blue}
+	\argm{ms}{MS}{mouse color}{red}
+	\argm{g}{G}{geometry}{NULL}
+	\argm{d}{D}{display}{NULL}
+	\argm{t}{T}{window title}{xgr}
 \end{options}
 \begin{qsection}{EXAMPLE}
-fdrw $B$rMQ$$$F%U%!%$%k(B {\em data.f} $B$K4^$^$l$k%G!<%?$N%0%i%U$rIA$-!$(BX-window$B>e$K=PNO(B:
+fdrw дЄ═╤ддд╞е╒ебедеы {\em data.f} д╦┤▐д▐дьдые╟б╝е┐д╬е░еще╒дЄ╔┴днбдX-window╛хд╦╜╨╬╧:
 \begin{quote}
  \verb!fdrw < data.f | xgr!
 \end{quote}
 \end{qsection}
 \begin{qsection}{BUGS}
 \begin{itemize}
-\item $B%G%#%9%W%l%$%5!<%P$,!$%P%C%-%s%0%9%H%"5!G=$r;}$C$F$$$J$$>l9g$K$O(B
-  $B1#$lLL$,O*=P$7$?:]$K2hLL$N:FIA2h$,9T$J$o$l$^$;$s!%(B
+\item е╟еге╣е╫еьеде╡б╝е╨дмбде╨е├енеєе░е╣е╚ев╡б╟╜дЄ╗¤д├д╞ддд╩дд╛ь╣чд╦д╧
+  ▒гдь╠╠дм╧к╜╨д╖д┐║▌д╦▓ш╠╠д╬║╞╔┴▓шдм╣╘д╩дядьд▐д╗дєбе
 
-\item  $BI=<($NBT$A;~4V$r8:$i$9$?$a!$$^$:@8@.$7$?%&%#%s%I%&>e$K?^7A$rIA$-!$(B
-$B2>A[2hLL$K%3%T!<$7$F%$%a!<%8$rJ];}$7$F:FIA2hEy$r9T$J$$$^$9$N$G!$(B
-"-g"$B%*%W%7%g%s$G%&%#%s%I%&%5%$%:$r>.$5$/$72a$.$?>l9g$d(B
-$BIA2hCf$K%&%#%s%I%&$K1#$lLL$,$G$-$k$HI=<($G$-$J$$ItJ,$,@8$8$^$9!%(B
-$B:G=i$+$i%&%#%s%I%&%5%$%:$r>.$5$/$7$?$$>l9g$K$O!$(B"-s"$B%*%W%7%g%s$r(B
-$BJ;MQ$7$FIA2h%5%$%:$b>.$5$/$7$F$*$/$3$H$rA&$a$^$9!%(B
+\item  ╔╜╝ид╬┬╘д┴╗■┤╓дЄ╕║дщд╣д┐дсбдд▐д║└╕└од╖д┐ежегеєе╔еж╛хд╦┐▐╖┴дЄ╔┴днбд
+▓╛┴█▓ш╠╠д╦е│е╘б╝д╖д╞едесб╝е╕дЄ╩▌╗¤д╖д╞║╞╔┴▓ш┼∙дЄ╣╘д╩ддд▐д╣д╬д╟бд
+"-g"еке╫е╖ечеєд╟ежегеєе╔еже╡еде║дЄ╛од╡дпд╖▓сдод┐╛ь╣чдф
+╔┴▓ш├цд╦ежегеєе╔ежд╦▒гдь╠╠дмд╟дндыд╚╔╜╝ид╟днд╩дд╔Ї╩мдм└╕д╕д▐д╣бе
+║╟╜щдлдщежегеєе╔еже╡еде║дЄ╛од╡дпд╖д┐дд╛ь╣чд╦д╧бд"-s"еке╫е╖ечеєдЄ
+╩╗═╤д╖д╞╔┴▓ше╡еде║дт╛од╡дпд╖д╞дкдпд│д╚дЄ┴ждсд▐д╣бе
 \end{itemize}
 \end{qsection}
 \begin{qsection}{SEE ALSO}

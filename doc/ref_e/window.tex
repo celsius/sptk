@@ -1,45 +1,47 @@
-\name{window}{$BAk$r$+$1$k(B}{$B?.9f=hM}(B,$B2;@<J,@O9g@.4XO"(B}
+\name{window}{data windowing}{¿®¹æ½èÍý,²»À¼Ê¬ÀÏ¹çÀ®´ØÏ¢}
 
 \begin{synopsis}
 \item[window] [ --l $L_1$ ] [ --L $L_2$] [ --n $N$ ] [ --w $W$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BI8=`F~NO$+$iF~NO$5$l$k(B
-$B<B?tNs$K%*%W%7%g%s$G;XDj$5$l$?Ak$r$+$1$^$9!%(B
-$B$D$^$j!$(B
-$BF~NO?tNs$r(B
+É¸½àÆþÎÏ¤«¤éÆþÎÏ¤µ¤ì¤ë
+¼Â¿ôÎó¤Ë¥ª¥×¥·¥ç¥ó¤Ç»ØÄê¤µ¤ì¤¿Áë¤ò¤«¤±¤Þ¤¹¡¥
+¤Ä¤Þ¤ê¡¤
+ÆþÎÏ¿ôÎó¤ò
 \begin{displaymath}
   x(0), x(1), \ldots, x(L_1-1)
 \end{displaymath}
-$BAk$r(B
+Áë¤ò
 \begin{displaymath}
   w(0), w(1), \ldots, w(L_1-1)
 \end{displaymath}
-$B$H$7$F!$(B
+¤È¤·¤Æ¡¤
 \begin{displaymath}
   x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1)
 \end{displaymath}
-$B$,=PNO$5$l$^$9!%(B
-$L_2$$B$,(B$L_1$$B$h$jBg$-$$>l9g$O(B0$B$,IU2C$5$l!$(B
+¤¬½ÐÎÏ¤µ¤ì¤Þ¤¹¡¥
+$L_2$¤¬$L_1$¤è¤êÂç¤­¤¤¾ì¹ç¤Ï0¤¬ÉÕ²Ã¤µ¤ì¡¤
 \begin{displaymath}
   \underbrace{x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1),0,\ldots,0}_{L_2}
 \end{displaymath}
-$B$,=PNO$5$l$^$9!%(B
+¤¬½ÐÎÏ¤µ¤ì¤Þ¤¹¡¥
 
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L_1}{$BAk$ND9$5!%(B $(L\leq 2048)$}{256}
-	\argm{L}{L_2}{$B=PNO$ND9$5!%(B}{$L_1$}
-	\argm{n}{N}{$B@55,2=!%(B \\
+	\argm{l}{L_1}{frame length of input $(L\leq 2048)$}{256}
+	\argm{L}{L_2}{frame length of output}{$L_1$}
+	\argm{n}{N}{type of normalization\\
 			\begin{tabular}{ll}\\ [-1zh]
-			 0 & $B@55,2=$7$J$$!%(B\\
-			 1 & $BAk$N?6I}$r(B $\displaystyle \sum_{n=0}^{L-1} w^2(n) = 1$ $B$H$J$k$h$&$K@55,2=!%(B\\
-			 2 & $BAk$N?6I}$r(B $\displaystyle \sum_{n=0}^{L-1} w(n) = 1$$B$H$J$k$h$&$K@55,2=!%(B\\
+			 0 & no normalization\\
+			 1 & normalization such as
+                             $\displaystyle \sum_{n=0}^{L-1} w^2(n) = 1$\\
+			 2 & normalization such as
+                             $\displaystyle \sum_{n=0}^{L-1} w(n) = 1$\\
 			 \end{tabular}\\\hspace*{\fill}}{1}
-	\argm{w}{W}{$BAk$N7A!%(B\\
+	\argm{w}{W}{type of window\\
 			\begin{tabular}{ll}\\ [-1zh]
 			 0 & blackman \\
 			 1 & hamming \\
@@ -50,13 +52,13 @@ $L_2$$B$,(B$L_1$$B$h$jBg$-$$>l9g$O(B0$B$,IU2C$5$l!$(B
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-$B<~4|(B20$B$N@589GH$K!$%V%i%C%/%^%sAk$r$+$1$?GH7A$rI=<($9$k(B:
+¼þ´ü20¤ÎÀµ¸¹ÇÈ¤Ë¡¤¥Ö¥é¥Ã¥¯¥Þ¥óÁë¤ò¤«¤±¤¿ÇÈ·Á¤òÉ½¼¨¤¹¤ë:
 \begin{quote}
   \verb!sin -p 20 | window | fdrw | xgr !
 \end{quote}
 \par
-$B%Q%k%9Ns$GNe?6$7$?%G%#%8%?%k%U%#%k%?$N=PNO$KAkD9(B256$BE@$N%V%i%C%/%^%sAk$r$+$1!$(B
-$B$=$NBP?t?6I}%9%Z%/%H%k$r(B512$BE@$N(BFFT$B$K$h$C$F7W;;$7I=<($9$k(B:
+¥Ñ¥ë¥¹Îó¤ÇÎå¿¶¤·¤¿¥Ç¥£¥¸¥¿¥ë¥Õ¥£¥ë¥¿¤Î½ÐÎÏ¤ËÁëÄ¹256ÅÀ¤Î¥Ö¥é¥Ã¥¯¥Þ¥óÁë¤ò¤«¤±¡¤
+¤½¤ÎÂÐ¿ô¿¶Éý¥¹¥Ú¥¯¥È¥ë¤ò512ÅÀ¤ÎFFT¤Ë¤è¤Ã¤Æ·×»»¤·É½¼¨¤¹¤ë:
 \begin{quote}
 \verb!train -p 50 | dfs -a 1 0.9 | window -l 50 -L 512 |\! \\
 \verb!spec -l 512 | fdrw | xgr!

@@ -1,34 +1,34 @@
-\name{ulaw}{$\mu$-law$B05=L!&E83+(B}{$B?.9f=hM}(B}
+\name{ulaw}{$\mu$-law compress/uncompress}{signal processing}
 
 \begin{synopsis}
 \item[ulaw] [ --v $V$ ] [ --u $U$ ] [ --c ] [ --d ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-ulaw$B$K$h$j%G!<%?$r05=L!&E83+$7$^$9!%(B
-$BF~NO$r(B$x(n)$$B!$=PNO$r(B$y(n)$$B$H$7!$F~NO$N:GBgCM$r(B$V$$B!$(B
-$B05=L78?t$r(B$U$$B$H$9$k$H05=L$O(B
+ulaw¤Ë¤è¤ê¥Ç¡¼¥¿¤ò°µ½Ì¡¦Å¸³«¤·¤Þ¤¹¡¥
+ÆþÎÏ¤ò$x(n)$¡¤½ÐÎÏ¤ò$y(n)$¤È¤·¡¤ÆþÎÏ¤ÎºÇÂçÃÍ¤ò$V$¡¤
+°µ½Ì·¸¿ô¤ò$U$¤È¤¹¤ë¤È°µ½Ì¤Ï
 \begin{displaymath}
 y(n) = sgn(x(n)) V \frac{\log(1 + U \frac{|x(n)|}{V} )}{\log(1+U)}
 \end{displaymath}
-$B$H$J$j!$E83+$O(B
+¤È¤Ê¤ê¡¤Å¸³«¤Ï
 \begin{displaymath}
 y(n) = sgn(x(n)) V \frac{(1+u)^{|x(n)|/V} - 1}{U}
 \end{displaymath}
-$B$H$J$j$^$9!%(B
+¤È¤Ê¤ê¤Þ¤¹¡¥
 
 
 \end{qsection}
 
 \begin{options}
-	\argm{v}{V}{$BF~NO$N:GBg?t!%(B}{32768}
-	\argm{u}{U}{$B05=L78?t!%(B}{256}
-	\argm{c}{}{$B05=L%b!<%I!%(B}{TRUE}
-	\argm{d}{}{$BE83+%b!<%I!%(B}{FALSE}
+	\argm{v}{V}{maximum of input}{32768}
+	\argm{u}{U}{compression ratio}{256}
+	\argm{c}{}{coder mode}{TRUE}
+	\argm{d}{}{decoder mode}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-16 bit$B$N%G!<%?(B {\em data.s} $B$r(B8 bit $B$K(Bulaw$B05=L$7!$(B{\em data.ulaw}$B$K=PNO$9$k(B:
+16 bit¤Î¥Ç¡¼¥¿ {\em data.s} ¤ò8 bit ¤Ëulaw°µ½Ì¤·¡¤{\em data.ulaw}¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!x2x +sf data.s | ulaw | sopr -d 256 | x2x +fc -r > data.ulaw!
 \end{quote}

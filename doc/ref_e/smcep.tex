@@ -1,5 +1,5 @@
 \name[ref:smcep-IEICE]{smcep}%
-{2$B<!%*!<%k%Q%94X?t$rMQ$$$?%a%k%1%W%9%H%i%`J,@O(B}{$B2;@<J,@O(B}
+{2nd order mel-cepstrum analysis}{speech analysis}
 
 \begin{synopsis}
 \item [smcep] [ --a $A$ ] [ --t $T$ ] [ --m $M$ ] [ --l $L$ ]
@@ -7,7 +7,7 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-2$B<!%*!<%k%Q%94X?t$r(B1/2$B>h$7$?%7%9%F%`4X?t(B $A(z)$
+2¼¡¥ª¡¼¥ë¥Ñ¥¹´Ø¿ô¤ò1/2¾è¤·¤¿¥·¥¹¥Æ¥à´Ø¿ô $A(z)$
 \begin{displaymath}
 A(z)=
 \left(
@@ -16,51 +16,50 @@ A(z)=
 \right)^{\frac{1}{2}}
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
 \end{displaymath}
-$B$rMQ$$$?%a%k%1%W%9%H%i%`J,@O$r9T$$!$(B
-$B%a%k%1%W%9%H%i%`78?t(B $c(m)$ $B$rI8=`=PNO$K=PNO$7$^$9!%(B
-$BF~NO$OD9$5(B$L$ $B$N;~7ONs(B
+¤òÍÑ¤¤¤¿¥á¥ë¥±¥×¥¹¥È¥é¥àÊ¬ÀÏ¤ò¹Ô¤¤¡¤
+¥á¥ë¥±¥×¥¹¥È¥é¥à·¸¿ô $c(m)$ ¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
+ÆþÎÏ¤ÏÄ¹¤µ$L$ ¤Î»þ·ÏÎó
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-$B$G$9!%(B
+¤Ç¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+¥Ç¡¼¥¿·Á¼°¤ÏÆþÎÏ¡¤½ÐÎÏ¤È¤âfloat ·Á¼°¤Ç¤¹¡¥
 \par
-2$B<!%*!<%k%Q%94X?t$rMQ$$$?%a%k%1%W%9%H%i%`J,@O$G$O!$(B
-$B2;@<$N%9%Z%/%H%k$r(B $M$ $B<!$N(B
-$B%a%k%1%W%9%H%i%`(B $c(m)$ $B$K$h$j0J2<$N$h$&$K%b%G%k2=$7$^$9!%(B
+2¼¡¥ª¡¼¥ë¥Ñ¥¹´Ø¿ô¤òÍÑ¤¤¤¿¥á¥ë¥±¥×¥¹¥È¥é¥àÊ¬ÀÏ¤Ç¤Ï¡¤
+²»À¼¤Î¥¹¥Ú¥¯¥È¥ë¤ò $M$ ¼¡¤Î
+¥á¥ë¥±¥×¥¹¥È¥é¥à $c(m)$ ¤Ë¤è¤ê°Ê²¼¤Î¤è¤¦¤Ë¥â¥Ç¥ë²½¤·¤Þ¤¹¡¥
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^{M} c(m)\,B_m(e^{j\omega})
 \end{displaymath}
-$B$?$@$7!$(B
+¤¿¤À¤·¡¤
 \begin{displaymath}
 \mbox{Re}\left[B_m(e^{j\omega})\right]
 	=\left\{A^m(e^{j\omega})+A^m(e^{-j\omega})\right\}/2
 \end{displaymath}
-$B$G$9!%(B
+¤Ç¤¹¡¥
 \par
-$B$3$3$G$O!$I>2A4X?t$r:G>.$K$9$k%a%k%1%W%9%H%i%`$r5a$a$k$?$a$K!$(B
-Newton--Raphson$BK!$,MQ$$$i$l$F$$$^$9!%(B
+¤³¤³¤Ç¤Ï¡¤É¾²Á´Ø¿ô¤òºÇ¾®¤Ë¤¹¤ë¥á¥ë¥±¥×¥¹¥È¥é¥à¤òµá¤á¤ë¤¿¤á¤Ë¡¤
+Newton--RaphsonË¡¤¬ÍÑ¤¤¤é¤ì¤Æ¤¤¤Þ¤¹¡¥
 \end{qsection}
 
 \newpage
 \begin{options}
-	\argm{a}{A}{$B<~GH?t05=L%Q%i%a!<%?(B $\alpha$$B!%(B}{0.35}
-	\argm{t}{T}{$B6/D4$9$k<~GH?t0LCV(B $\theta*\pi$(rad)$B!%(B}{0}
-	\argm{m}{M}{$BJ,@O<!?t!%(B}{25}
-	\argm{l}{L}{$B%U%l!<%`D9!%(B}{256}
-	\desc[1zh]{$BDL>o!$0J2<$N%*%W%7%g%s$N;XDj$OI,MW$"$j$^$;$s!%(B}
-	\argm{i}{I}{Newton-Raphson $BK!$N:G>.H?I|2s?t!%(B}{2}
-	\argm{j}{J}{Newton-Raphson $BK!$N:GBgH?I|2s?t!%(B}{30}
-	\argm{d}{D}{Newton-Raphson $BK!$N=*N;>r7o!%(B\\
-		    $\varepsilon^{(i)}$ $B$N7+$jJV$7$K$h$kJQ2=N($,(B
-		    $D$ $B0JFb$K$J$C$?$H$-$K=*N;!%(B}{0.001}
-	\argm{e}{E}{$B%T%j%*%I%0%i%`$KB-$79~$`>.$5$JCM!%(B}{0.0}
+	\argm{a}{A}{all-pass constant $\alpha$}{0.35}
+	\argm{t}{T}{emphasized frequency $\theta*\pi$(rad)¡¥}{0}
+	\argm{m}{M}{order of mel cepstrum}{25}
+	\argm{l}{L_1}{frame length}{256}
+	\argm{L}{L_2}{ifft size for making matrices}{256}
+	\desc[1zh]{Usually, the options below do not need to be assigned.}
+	\argm{i}{I}{minimum iteration of Newton-Raphson method}{2}
+	\argm{j}{J}{maximum iteration of Newton-Raphson method}{30}
+	\argm{d}{D}{end condition of Newton-Raphson}{0.001}
+	\argm{e}{E}{small value added to periodgram}{0.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float $B7A<0$N2;@<%G!<%?(B {\em data.f} $B$rJ,@O$7!$(B{\em data.mcep} $B$K(B
-$B%a%k%1%W%9%H%i%`78?t$rF@$k(B:
+float ·Á¼°¤Î²»À¼¥Ç¡¼¥¿ {\em data.f} ¤òÊ¬ÀÏ¤·¡¤{\em data.mcep} ¤Ë
+¥á¥ë¥±¥×¥¹¥È¥é¥à·¸¿ô¤òÆÀ¤ë:
 \begin{quote}
  \verb!frame < data.f | window | smcep > data.mcep !
 \end{quote}

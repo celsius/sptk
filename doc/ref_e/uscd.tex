@@ -1,5 +1,5 @@
-\name{uscd}{$B%5%s%W%j%s%0%l!<%HJQ49!J(B44.1kHz$B7O$X$N%"%C%W%5%s%W%j%s%0!K(B}%
-{$B%5%s%W%j%s%0%l!<%HJQ49(B}
+\name{uscd}{sampling rate conversion from
+8|10|12|16kHz to 11.025|22.05|44.1kHz}{sampling rate conversion}
 
 \begin{synopsis}
 \item [uscd] [ --s $S$ $S$] [ +{\em type} ] [ {\em infile} ] [ {\em outfile} ]
@@ -7,36 +7,36 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- {\em us}$B$O!$(B8$B!$(B10$B!$(B12$B!$(B16kHz $B$+$i(B 11.025$B!$(B22.05$B!$(B44.1kHz $B$X$N%"%C%W%5%s%W%j(B
- $B%s%0$r9T$$$^$9!%F~NO%U%!%$%k!$=PNO%U%!%$%k$N;XDj$,L5$$>l9g$O!$$=$l$>(B
- $B$lI8=`F~NO$+$iFI$_9~$_!$I8=`=PNO$X=q$-9~$^$l$^$9!%(B
- $B$^$?!$J#?t$N%U%!%$%k$rF1;~$K;XDj$9$k$3$H$b2DG=$G$9!%(B
- $B$3$N>l9g!$F~NO%U%!%$%kL>$N%5%U%#%C%/%9$,JQ498e$NI8K\2=<~GH?t$KCV$-49(B
- $B$($i$l!$(B{\em outdir} $B0J2<$K=PNO$5$l$^$9!%(B
+ {\em us}¤Ï¡¤8¡¤10¡¤12¡¤16kHz ¤«¤é 11.025¡¤22.05¡¤44.1kHz ¤Ø¤Î¥¢¥Ã¥×¥µ¥ó¥×¥ê
+ ¥ó¥°¤ò¹Ô¤¤¤Þ¤¹¡¥ÆþÎÏ¥Õ¥¡¥¤¥ë¡¤½ÐÎÏ¥Õ¥¡¥¤¥ë¤Î»ØÄê¤¬Ìµ¤¤¾ì¹ç¤Ï¡¤¤½¤ì¤¾
+ ¤ìÉ¸½àÆþÎÏ¤«¤éÆÉ¤ß¹þ¤ß¡¤É¸½à½ÐÎÏ¤Ø½ñ¤­¹þ¤Þ¤ì¤Þ¤¹¡¥
+ ¤Þ¤¿¡¤Ê£¿ô¤Î¥Õ¥¡¥¤¥ë¤òÆ±»þ¤Ë»ØÄê¤¹¤ë¤³¤È¤â²ÄÇ½¤Ç¤¹¡¥
+ ¤³¤Î¾ì¹ç¡¤ÆþÎÏ¥Õ¥¡¥¤¥ëÌ¾¤Î¥µ¥Õ¥£¥Ã¥¯¥¹¤¬ÊÑ´¹¸å¤ÎÉ¸ËÜ²½¼þÇÈ¿ô¤ËÃÖ¤­´¹
+ ¤¨¤é¤ì¡¤{\em outdir} °Ê²¼¤Ë½ÐÎÏ¤µ¤ì¤Þ¤¹¡¥
 
- $B$J$*!$%*%W%7%g%s$G;XDj$9$k(B 11.025$B!$(B22.05$B!$(B44.1kHz $B$O!$$=$l$>$l(B 11$B!$(B22$B!$(B44 $B$N$h$&$K>JN,2DG=$G$9!%(B
+ ¤Ê¤ª¡¤¥ª¥×¥·¥ç¥ó¤Ç»ØÄê¤¹¤ë 11.025¡¤22.05¡¤44.1kHz ¤Ï¡¤¤½¤ì¤¾¤ì 11¡¤22¡¤44 ¤Î¤è¤¦¤Ë¾ÊÎ¬²ÄÇ½¤Ç¤¹¡¥
 \par
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S1~S2}{$BJQ49%?%$%W!%(B \\
+	\argm{s}{S1~S2}{input/output sampling frequency\\
 		\begin{tabular}{lll} \\[-1zh]
-			S1 & $8|10|12|16$ & $BF~NO%G!<%?$NI8K\2=<~GH?t(B\\
-			S2 & $11.025|22.05|44.1$ & $B=PNO%G!<%?$NI8K\2=<~GH?t(B
+			S1 & $8|10|12|16$ & sampling rate of input data\\
+			S2 & $11.025|22.05|44.1$ & sampling rate of output data
 		\end{tabular}
- 		$BC"$7!$(B11.025$B!$(B22.05$B!$(B44.1kHz $B$O!$$=$l$>$l(B 11$B!$(B22$B!$(B44 $B$K>JN,2DG=!%(B}
+ 		where 11.025, 22.05 and 44.1kHz can be abbreviated 11¡¤
+                22 and 44, respectively.}
                 {$10~11.025$}
-	\argp{t}{$BF~NO%G!<%?$N7A<0!%(B\\
+	\argp{t}{input data format\\
 		\begin{tabular}{ll} \\[-1zh]
-			s & short$B7?(B (2bytes) \\
-			f & float$B7?(B (4bytes)
+			s & short (2bytes) \\
+			f & float (4bytes)
 		\end{tabular}\\}{s}
- 
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-short $B7A<0$NI8K\2=<~GH?t(B 16kHz $B$N2;@<%G!<%?%U%!%$%k(B {\em data.16} $B$rI8K\(B
-$B2=<~GH?t(B 22.05kHz $B$K%"%C%W%5%s%W%j%s%0$7!$(B{\em data.22} $B$K=PNO$9$k(B:
+short ·Á¼°¤ÎÉ¸ËÜ²½¼þÇÈ¿ô 16kHz ¤Î²»À¼¥Ç¡¼¥¿¥Õ¥¡¥¤¥ë {\em data.16} ¤òÉ¸ËÜ
+²½¼þÇÈ¿ô 22.05kHz ¤Ë¥¢¥Ã¥×¥µ¥ó¥×¥ê¥ó¥°¤·¡¤{\em data.22} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
 \verb!uscd -s 16 22.05 < data.16 > data.22!
 \end{quote}
