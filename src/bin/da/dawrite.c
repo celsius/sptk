@@ -26,7 +26,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.2 2000/06/30 08:47:17 sako Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.3 2000/07/17 13:39:34 masuko Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -95,7 +95,7 @@ size_t		abuf_size;
 int	org_vol, org_channels, org_precision, org_freq;
 #endif /* LINUX */
 
-#ifdef SOLARIS
+#if defined(SOLARIS) || defined(SUNOS)
 audio_info_t	org_data;
 #endif /* SOLARIS */
 void		reset_audiodev();
