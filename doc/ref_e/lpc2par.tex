@@ -26,9 +26,9 @@ The transformation from LPC coefficients to PARCOR coefficients
 is undertaken as follows.
 \begin{eqnarray*} 
 k(m) &=& a^{(m)}(m) \\
-a^{(m-1)}(i) &=& \frac{a^{(m)}(i)+a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)},\\
-~~~~~~~~~~~~~~~1 \leq i \leq m-1,~~~~~~~m=p, p-1, \ldots, 1
+a^{(m-1)}(i) &=& \frac{a^{(m)}(i)+a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)},
 \end{eqnarray*}
+where $1 \leq i \leq m-1$, $m=p, p-1, \ldots, 1$.
 The initial condition is
 \begin{displaymath}
 a^{(M)}(m) = a(m), ~~~~~1 \leq m \leq M.

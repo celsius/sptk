@@ -1,4 +1,4 @@
-\name{fft2}{$BJ#AG?tNs$N(B2$B<!859bB.%U!<%j%(JQ49(B}{$B?.9f=hM}(B}
+\name{fft2}{Ê£ÁÇ¿ôÎó¤Î2¼¡¸µ¹âÂ®¥Õ¡¼¥ê¥¨ÊÑ´¹}{¿®¹æ½èÍý}
 
 \begin{synopsis}
 \item[fft2] [ --l $L$ ] [ --m $M_1 \; M_2$ ] [ --t ] [ --c ] [ --q ] 
@@ -8,49 +8,49 @@
 
 \begin{qsection}{DESCRIPTION}
 
-{\em fft2} $B$O!$J#AG?t$GM?$($i$l$k%G!<%?Ns$r(B{\em infile}$B$+$iFI$_9~$s$G(B2$B<!85(B
-$B%U!<%j%(JQ49$r9T$J$$!$7k2L$rI8=`=PNO$K=PNO$7$^$9!%(B
-$BF~=PNO$N%G!<%?%U%)!<%^%C%H$O0J2<$NDL$j$G$9!%(B
+{\em fft2} ¤Ï¡¤Ê£ÁÇ¿ô¤ÇÍ¿¤¨¤é¤ì¤ë¥Ç¡¼¥¿Îó¤ò{\em infile}¤«¤éÆÉ¤ß¹þ¤ó¤Ç2¼¡¸µ
+¥Õ¡¼¥ê¥¨ÊÑ´¹¤ò¹Ô¤Ê¤¤¡¤·ë²Ì¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
+Æþ½ÐÎÏ¤Î¥Ç¡¼¥¿¥Õ¥©¡¼¥Þ¥Ã¥È¤Ï°Ê²¼¤ÎÄÌ¤ê¤Ç¤¹¡¥
 \begin{center}
 \leavevmode
-\epsffile{fig/fft2.eps}
+\includegraphics{fig/fft2.eps}
 \end{center}
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%U!<%j%(JQ49$N%5%$%:!%(B 2 $B$N$Y$->h$G;XDj!%(B}{64}
-	\argm{m}{M_1 \; M_2}{$B%G!<%?$N<!?t$r(B $M_1\times M_2$ $B$G;XDj!%(B
-			$B%U%!%$%k%5%$%:(B $k$ $B$,(B $64^2\times 2$ $B$h$j$b>.$5$$>l9g!$(B
-			$\sqrt{k\div 2}$ $B$,@0?t$J$i$P(B $M_1=M_2=\sqrt{k\div 2}$ 
-			$B$H$7!$@0?t$G$J$$>l9g$OI8=`%(%i!<=PNO$K%(%i!<%a%C%;!<%8(B
-			$B$r=PNO$7$F$+$i=hM}$r=*N;!%(B}{$64 , M_1$}
-	\argm{t}{}{FFT$B$N7k2L$r(Btranspose$B$7$F=PNO!%(B
+	\argm{l}{L}{¥Õ¡¼¥ê¥¨ÊÑ´¹¤Î¥µ¥¤¥º¡¥ 2 ¤Î¤Ù¤­¾è¤Ç»ØÄê¡¥}{64}
+	\argm{m}{M_1 \; M_2}{¥Ç¡¼¥¿¤Î¼¡¿ô¤ò $M_1\times M_2$ ¤Ç»ØÄê¡¥
+			¥Õ¥¡¥¤¥ë¥µ¥¤¥º $k$ ¤¬ $64^2\times 2$ ¤è¤ê¤â¾®¤µ¤¤¾ì¹ç¡¤
+			$\sqrt{k\div 2}$ ¤¬À°¿ô¤Ê¤é¤Ð $M_1=M_2=\sqrt{k\div 2}$ 
+			¤È¤·¡¤À°¿ô¤Ç¤Ê¤¤¾ì¹ç¤ÏÉ¸½à¥¨¥é¡¼½ÐÎÏ¤Ë¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸
+			¤ò½ÐÎÏ¤·¤Æ¤«¤é½èÍý¤ò½ªÎ»¡¥}{$64 , M_1$}
+	\argm{t}{}{FFT¤Î·ë²Ì¤òtranspose¤·¤Æ½ÐÎÏ¡¥
 		\begin{center}
 		\leavevmode
-		\epsffile{fig/fft2-trans.eps}
+		\includegraphics{fig/fft2-trans.eps}
 		\end{center}~}{FALSE}
-	\argm{c}{}{transpose$B$9$k:]!$6-3&$N(B1$B%G!<%?$rH?BPB&$+$i;}$C$F$-$F!$(B
-		   $(L+1)\times (L+1)$$B8D$N%G!<%?$r=PNO!%(B
+	\argm{c}{}{transpose¤¹¤ëºÝ¡¤¶­³¦¤Î1¥Ç¡¼¥¿¤òÈ¿ÂÐÂ¦¤«¤é»ý¤Ã¤Æ¤­¤Æ¡¤
+		   $(L+1)\times (L+1)$¸Ä¤Î¥Ç¡¼¥¿¤ò½ÐÎÏ¡¥
 		\begin{center}	
 		\leavevmode
-		\epsffile{fig/fft2-comp.eps}
+		\includegraphics{fig/fft2-comp.eps}
 		\end{center}~}{FALSE}
-	\argm{q}{}{FFT$B$N7k2L$N:G=i$N(B1/4$B$N%G!<%?$N$_$r=PNO!%(B 
-		   $B$3$N:](Bc$B%*%W%7%g%s$HF1MM$K6-3&$NJd=~$r9T$J$$!$(B
-		   $(\frac{L}{2}+1)\times(\frac{L}{2}+1)$ $B8D$N%G!<%?$r=PNO!%(B
+	\argm{q}{}{FFT¤Î·ë²Ì¤ÎºÇ½é¤Î1/4¤Î¥Ç¡¼¥¿¤Î¤ß¤ò½ÐÎÏ¡¥ 
+		   ¤³¤ÎºÝc¥ª¥×¥·¥ç¥ó¤ÈÆ±ÍÍ¤Ë¶­³¦¤ÎÊä½þ¤ò¹Ô¤Ê¤¤¡¤
+		   $(\frac{L}{2}+1)\times(\frac{L}{2}+1)$ ¸Ä¤Î¥Ç¡¼¥¿¤ò½ÐÎÏ¡¥
 		\begin{center}
 		\leavevmode
-		\epsffile{fig/fft2-quad.eps}
+		\includegraphics{fig/fft2-quad.eps}
 		\end{center}~}{FALSE} %\hspace*{\fill}
-	\argm{A}{}{$B?6I}%9%Z%/%H%k$r=PNO!%(B}{FALSE}
-	\argm{R}{}{$B<BIt$N$_$r=PNO!%(B}{FALSE}
-	\argm{I}{}{$B5uIt$N$_$r=PNO!%(B}{FALSE}
-	\argm{P}{}{$B%Q%o!<%9%Z%/%H%k$r=PNO!%(B}{FALSE}
+	\argm{A}{}{¿¶Éý¥¹¥Ú¥¯¥È¥ë¤ò½ÐÎÏ¡¥}{FALSE}
+	\argm{R}{}{¼ÂÉô¤Î¤ß¤ò½ÐÎÏ¡¥}{FALSE}
+	\argm{I}{}{µõÉô¤Î¤ß¤ò½ÐÎÏ¡¥}{FALSE}
+	\argm{P}{}{¥Ñ¥ï¡¼¥¹¥Ú¥¯¥È¥ë¤ò½ÐÎÏ¡¥}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%U%!%$%k(B{\em data.f} $B$K$"$k(B2$B<!85J#AG?tNs$N(B DFT $B$N?6I}$r5a$a!$(B
-{\em data.dft} $B$K=PNO$9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë{\em data.f} ¤Ë¤¢¤ë2¼¡¸µÊ£ÁÇ¿ôÎó¤Î DFT ¤Î¿¶Éý¤òµá¤á¡¤
+{\em data.dft} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!fft2 -A data.f > data.dft!
 \end{quote}

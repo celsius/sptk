@@ -1,4 +1,4 @@
-\name{grlogsp}{draw a running log spectrum graph}{graph}
+\name{grlogsp}{draw a running log spectrum graph}{plotting graphs}
 
 \begin{synopsis}
 \item[grlogsp] [ --t ] [ --O $O$ ] [ --x $X$ ] [ --y $ymin$ ] [ --yy $YY$ ]
@@ -32,7 +32,7 @@ shell script.
 		      \end{tabular}\\\hspace*{\fill}
 		      \end{minipage}
 		      \begin{minipage}{4cm}
-			    \epsffile{fig/grlogsp-on.eps}
+			    \includegraphics{fig/grlogsp-on.eps}
 		      \end{minipage}\\\hspace*{\fill}\\
 		    $(YO + 100 , X)$ [mm] if -t is specified.}{1}
 	\argm{x}{X}{ $x$ scale\\
@@ -59,7 +59,7 @@ shell script.
                         {comment for the graph}{N/A}
 	\desc[1zh]{Usually, the options below do not need to be assigned.}
 	\argm{W}{W}{width of the graph($\times 100$mm)}{0.25}
-	\argm{H}{H}{height of the graph($\times 100$mm)$B!%(B}{1.5}
+	\argm{H}{H}{height of the graph($\times 100$mm)бе}{1.5}
 	\argm{z}{Z}{This option is used when data is written
                     recursively in the $y$ axis. the distance between
                     two graphs in the $y$ axis are given by $Z$.}{1}

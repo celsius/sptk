@@ -1,4 +1,4 @@
-\name{vsum}{summation of vector}{data}
+\name{vsum}{summation of vector}{data processing}
 
 \begin{synopsis}
 \item[vsum] [ --l $L$ ] [ --n $N$ ] [ {\em infile} ]
@@ -50,7 +50,7 @@ evaluated and written to {\em data.n}:
 \par
 In the next example, 15 order coefficents vectors are read
 from {\em data.f}, the average for every 3 frame is evaluated,
-and outputed to {\data.av}:
+and outputed to {\em data.av}:
 \begin{quote}
   \verb!vsum -l 15 -n 3 data.f | sopr -d 3 > data.av!
 \end{quote}

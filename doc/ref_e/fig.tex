@@ -1,4 +1,4 @@
-\name{fig}{plot a graph}{graph}
+\name{fig}{plot a graph}{plotting graphs}
 
 \begin{synopsis}
  \item[fig] [ --F $F$ ] [ --R $R$ ] [ --W $W$ ] [ --H $H$] [ --o $xo$ $yo$ ]
@@ -27,9 +27,9 @@ In case the output is printed in postscript, one should use the
 	\argm{o}{xo \; yo}{origin in mm}{20 20}
 	\argm{g}{G}{draw grid($0 \sim 2$)\\
 			\begin{tabular}{cccc}
-			&\epsfxsize=2cm \epsffile{fig/g0.eps}
-			&\epsfxsize=2cm \epsffile{fig/g1.eps}
-			&\epsfxsize=2cm \epsffile{fig/g2.eps}\\
+			&\includegraphics[width=2cm]{fig/g0.eps}
+			&\includegraphics[width=2cm]{fig/g1.eps}
+			&\includegraphics[width=2cm]{fig/g2.eps}\\
 			$G$&0&1&2	 
 			\end{tabular}\\\hspace*{\fill}}{2}
 	\argm{p}{P}{pen number($1 \sim 10$)}{1}
@@ -59,7 +59,7 @@ and seen with ghostview:
 
 \vspace{-1cm}
 \begin{qsection}{USAGE}
-$B!!(B\vspace{-1cm}
+¡¡\vspace{-1cm}
 \end{qsection}
 
 \begin{qsection}{\ ~~~COMMAND}
@@ -100,7 +100,8 @@ is needed, following function should be used:
 \begin{tabular}{cl}
 s & draws marks with half size.\\
 $\backslash$& only writes number.\\
-@ & does not write anything but assigns positions of marks.\\
+@ & does not write anything \\
+  & but assigns positions of marks.\\
 none of the above & only marks are written.
 \end{tabular}\\
 
@@ -113,8 +114,7 @@ special characters.\\
 x ~0 ~5\\
 xscale 0~1.0 ~s1.5 ~'2 ~$\backslash$2.5 ~'3.14 ~''$\backslash$pi'' ~@4 ~''x'' ~5\\
 
-\epsfxsize=9cm
-\epsffile{fig/scale.eps}
+\includegraphics[width=9cm]{fig/scale.eps}
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
@@ -138,8 +138,8 @@ This command writes $text$ in the assigned position (x ~y).
 The option $th$ assigned the rotation degree.
 
 \begin{tabular}{cc}
-\epsffile{fig/fig-print1.eps}&  
-\epsffile{fig/fig-print2.eps}\\
+\includegraphics{fig/fig-print1.eps}&  
+\includegraphics{fig/fig-print2.eps}\\
 print&printc
 \end{tabular}p
 \end{minipage}\\
@@ -160,7 +160,7 @@ csize ~h [w]
 \begin{minipage}[t]{9cm}
 This command assigns in mm the character width and height,
 to be used in the following commands:\\
-x/yscale$B!$(Bx/yname$B!$(Bprint/c$B!$(Btitle/c\\
+x/yscale¡¤x/yname¡¤print/c¡¤title/c\\
 When the value of $w$ is omitted, $w$ is made equal to $h$.
 The default values for the option --{\bf s} follows:
 \begin{tabular}{ccc}
@@ -179,7 +179,7 @@ The default values for the option --{\bf s} follows:
 \end{minipage}
 \begin{minipage}[t]{9cm}
 This command chooses the variable $penno$.
-1$B!e(B$penno$$B!e(B10.   %????????????????????????????????????????????
+$1 \leq  penno \leq 10$.????????????????????????????????????????????
 Please refer to appendix.
 \end{minipage}\\
 
@@ -204,8 +204,7 @@ This command makes grids in the positions $x_1$ $x_2$ $\cdots$,
 $y_1$ $y_2$ $\cdots$.\\
 (Example)\\
 \begin{minipage}[t]{4.3cm}
- \epsfxsize=4cm
- \epsffile{fig/grid.eps}
+ \includegraphics[width=4cm]{fig/grid.eps}
 \end{minipage}
 \begin{minipage}[b]{4.5cm}
 \baselineskip 5pt
@@ -258,8 +257,7 @@ for the ycircle command is the scale of the $y$ axis,
 as can be seen in the figure below.\\
 (Example)\\
 \begin{minipage}[t]{4.3cm}
- \epsfxsize=4cm
- \epsffile{fig/circle.eps}
+ \includegraphics[width=4cm]{fig/circle.eps}
 \end{minipage}
 \begin{minipage}[b]{4.5cm}
 \baselineskip 5pt
@@ -292,8 +290,7 @@ The default of paint is 1.\\
 
 (Example)\\
 \begin{minipage}[t]{4.3cm}
- \epsfxsize=4cm
- \epsffile{fig/box.eps}
+ \includegraphics[width=4cm]{fig/box.eps}
 \end{minipage}
 \begin{minipage}[b]{4.5cm}
 \baselineskip 5pt
@@ -323,8 +320,7 @@ then the clip command is released.\\
 
 (Example)\\
 \begin{minipage}[t]{4.3cm}
- \epsfxsize=4cm
- \epsffile{fig/clip.eps}
+ \includegraphics[width=4cm]{fig/clip.eps}
 \end{minipage}
 \begin{minipage}[b]{4.5cm}
 \baselineskip 5pt
@@ -367,7 +363,7 @@ No empty character (eg., space character) should be left in $label$.
 When $label$ is assigned in mark command,
 $label$ replacement will take place only for this coordinate.
 The option $th$ assigns the angle.\\
-If $\backslash n$, where $0$B!e(Bn$B!e(B15$, is assigned to $label$,
+If $\backslash n$, where $0 \leq n \leq 15$, is assigned to $label$,
 the corresponding mark is draw (refer to the appendix for the types of
 marks).
 When a minus sign is written before mark number,
@@ -397,8 +393,7 @@ The following type of marks can be defined through $label$:}
 
 \begin{center}
 \leavevmode
-\epsfxsize=12cm
-\epsffile{fig/mark.eps} \\
+\includegraphics[width=12cm]{fig/mark.eps} \\
 \end{center}
 
 
@@ -407,7 +402,7 @@ The following types of pen and line can be defined:}\\
 \hspace{3mm}[When output is obtained through the command ``psgr'']
 
 \leavevmode
-\epsffile{fig/pen-line.eps} \\
+\includegraphics{fig/pen-line.eps} \\
 
 (Attention)~~ The types of output generate through the pen command
 depends on the printer(Please try printing this page).
@@ -426,7 +421,7 @@ The following colors can be used.\\
 
 \vspace{5mm}
 {\large \hspace{-1.5ex}$\bullet$ paint type:}\\
-\epsffile{fig/paint.eps}\\
+\includegraphics{fig/paint.eps}\\
 (Attention)~~~From $1 \sim 3$ only a frame is draw,
 and for $-9$ and $-19$ the center is white and no frame is draw.
 

@@ -1,4 +1,4 @@
-\name{glogsp}{draw a log spectrum graph}{graph}
+\name{glogsp}{draw a log spectrum graph}{plotting graphs}
 
 \begin{synopsis}
 \item[glogsp] [ --O $O$ ] [ --x $X$ ] [ --y $ymin \; ymax$ ] [ --ys $YS$ ] 
@@ -29,9 +29,9 @@ shell script.
 		      \end{minipage}
 		      \begin{minipage}{4.5cm}
 		       \leavevmode
-		       \epsffile{fig/glogsp-on.eps}
+		       \includegraphics{fig/glogsp-on.eps}
 		      \end{minipage}\\\hspace*{\fill}}{1}
-	\argm{x}{X}{ $x$ scale$B!%(B\\
+	\argm{x}{X}{ $x$ scale¡¥\\
 		       \begin{tabular}{cl}
 			1 & normalized frequency($0 \sim 0.5$) \\
 			2 & normalized frequency($0 \sim \pi$) \\
@@ -70,7 +70,7 @@ the magnitude of its log spectrum is evaluated and plotted on the screen:
 \end{quote}
 \begin{center}
  \leavevmode
- \epsffile{fig/glogsp-sample.eps}
+ \includegraphics{fig/glogsp-sample.eps}
 \end{center}
 \end{qsection}
 

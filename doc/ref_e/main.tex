@@ -1,6 +1,6 @@
 %#!platex main.tex
-\documentclass[12pt]{jbook}
-\usepackage{epsf}
+\documentclass[12pt]{book}
+\usepackage[dvips]{graphicx}
 \usepackage{fleqn}
 \usepackage{makeidx}
 \usepackage{cmndref}
@@ -19,22 +19,22 @@
 \makeindex
 
 \setcategoryorder{%
-	$B%G!<%?A`:n(B,%
-	$B?tCM1i;;(B,%
-	$B%G!<%?=hM}(B,%
-	$B%5%s%W%j%s%0%l!<%HJQ49(B,%
-	DA$BJQ49(B,%
-	$B%0%i%UI=<((B,%
-	$B?.9f@8@.(B,%
-	$B%G%#%8%?%k%U%#%k%?(B,%
-	$B?.9f=hM}(B,%
-	$B2;@<J,@O9g@.4XO"(B,%
-	$B2;@<J,@O(B,%
-	$B2;@<%Q%i%a!<%?JQ49(B,%
-	$B2;@<9g@.MQ%U%#%k%?(B,%
-	$B%Y%/%H%kNL;R2=(B,%
-	$B%Q%i%a!<%?@8@.(B,%
-	$B$=$NB>(B%
+    data operation,%
+    number operation,%
+    data processing,%
+    sampling rate transformation,%
+    DA transformation,%
+    plotting graphs,%
+    signal generation,%
+    digital filter,%
+    signal processing,%
+    speech analysis and synthesis,%
+    speech analysis,%
+    speech parameter transformation,%
+    filters for speech synthesis,%
+    vector quantization,%
+    parameter generation,%
+    others%
 }
 
 \begin{document}
@@ -60,7 +60,7 @@ the help message brings explanation of the command, how to use,
 as well as its options.
 
 \begin{quote}
- Example$B!'(Bfor the command \verb!mcep! (\verb!%! is shell prompt)
+ Example¡§for the command \verb!mcep! (\verb!%! is shell prompt)
  \begin{verbatim}
 > % mcep -h
 > 
@@ -104,7 +104,7 @@ We will try to answer every question, but we cannot guarantee it.
 
 \cleardoublepage
 \pagestyle{headings}
-\markboth{$BL\(B $B<!(B}{$BL\(B $B<!(B}
+\markboth{INDEX}{INDEX}
 \pagenumbering{roman}
 \tableofcontents
 
@@ -118,20 +118,20 @@ We will try to answer every question, but we cannot guarantee it.
 \include{acorr}
 \include{agcep}
 \include{amcep}
-\include{average}
+%\include{average}
 \include{b2mc}
 \include{bcp}
 \include{bcut}
-\include{bell}
+%\include{bell}
 \include{c2acr}
 \include{c2ir}
 \include{c2sp}
-\include{ccp}
+%\include{ccp}
 \include{cdist}
 \include{clip}
 \include{da}
-\include{dawrite}
-\include{decimate}
+%\include{dawrite}
+%\include{decimate}
 \include{delay}
 \include{df2}
 \include{dfs}
@@ -144,9 +144,9 @@ We will try to answer every question, but we cannot guarantee it.
 \include{fdrw}
 \include{fft}
 \include{fftcep}
-\include{fft2}
+%\include{fft2}
 \include{fftr}
-\include{fftr2}
+%\include{fftr2}
 \include{fig}
 \include{frame}
 \include{freqt}
@@ -160,17 +160,17 @@ We will try to answer every question, but we cannot guarantee it.
 \include{gwave}
 \include{histogram}
 \include{ifft}
-\include{ifft2}
+%\include{ifft2}
 \include{iglsadf}
 \include{ignorm}
 \include{imglsadf}
 \include{impulse}
 \include{imsvq}
-\include{interpolate}
+%\include{interpolate}
 \include{ivq}
 \include{lbg}
 \include{levdur}
-\include{linear_intpl}
+%\include{linear_intpl}
 \include{lmadf}
 \include{lpc}
 \include{lpc2c}
@@ -186,13 +186,13 @@ We will try to answer every question, but we cannot guarantee it.
 \include{mgc2mgc}
 \include{mgc2sp}
 \include{mgcep}
-\include{mgcep2}
+%\include{mgcep2}
 \include{mglsadf}
 \include{minmax}
 \include{mlpg}
 \include{mlsadf}
 \include{msvq}
-\include{nan}
+%\include{nan}
 \include{norm0}
 \include{nrand}
 \include{par2lpc}
@@ -202,20 +202,21 @@ We will try to answer every question, but we cannot guarantee it.
 \include{psgr}
 \include{ramp}
 \include{reverse}
-\include{rmse}
-\include{root_pol}
+%\include{rmse}
+%\include{root_pol}
 \include{sin}
 \include{smcep}
 \include{snr}
 \include{sopr}
 \include{spec}
-\include{srcnv}
+%\include{srcnv}
 \include{step}
 \include{swab}
 \include{train}
 \include{uels}
 \include{ulaw}
-\include{us}
+%\include{us}
+%\include{us16}
 \include{vopr}
 \include{vq}
 \include{vstat}
@@ -235,4 +236,3 @@ We will try to answer every question, but we cannot guarantee it.
 \printindex
 
 \end{document}
-

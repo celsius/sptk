@@ -1,4 +1,4 @@
-\name{ifft2}{$BJ#AG?tNs$N(B2$B<!859bB.5U%U!<%j%(JQ49(B}{$B?.9f=hM}(B}
+\name{ifft2}{Ê£ÁÇ¿ôÎó¤Î2¼¡¸µ¹âÂ®µÕ¥Õ¡¼¥ê¥¨ÊÑ´¹}{¿®¹æ½èÍý}
 
 \begin{synopsis}
 \item[ifft2] [ --l $L$ ] [ +r ] [ --t ] [ --c ] [ --q ] 
@@ -6,34 +6,34 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em ifft2} $B$O!$J#AG?t7ONs$GM?$($i$l$k%G!<%?Ns$r(B{\em infile}$B$+$iFI$_9~$s$G(B
-2$B<!855U%U!<%j%(JQ49$r9T$J$$!$7k2L$rI8=`=PNO$K=PNO$7$^$9!%(B  
-{\em infile}$B$,;XDj$5$l$J$$;~$OI8=`F~NO$+$iFI$_9~$_$^$9!%(B
-$B%G!<%?$N%U%)!<%^%C%H$O0J2<$NDL$j$G$9!%(B
+{\em ifft2} ¤Ï¡¤Ê£ÁÇ¿ô·ÏÎó¤ÇÍ¿¤¨¤é¤ì¤ë¥Ç¡¼¥¿Îó¤ò{\em infile}¤«¤éÆÉ¤ß¹þ¤ó¤Ç
+2¼¡¸µµÕ¥Õ¡¼¥ê¥¨ÊÑ´¹¤ò¹Ô¤Ê¤¤¡¤·ë²Ì¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥  
+{\em infile}¤¬»ØÄê¤µ¤ì¤Ê¤¤»þ¤ÏÉ¸½àÆþÎÏ¤«¤éÆÉ¤ß¹þ¤ß¤Þ¤¹¡¥
+¥Ç¡¼¥¿¤Î¥Õ¥©¡¼¥Þ¥Ã¥È¤Ï°Ê²¼¤ÎÄÌ¤ê¤Ç¤¹¡¥
 \begin{center}
 \leavevmode
-\epsffile{fig/ifft2.eps}
+\includegraphics{fig/ifft2.eps}
 \end{center}
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%U!<%j%(JQ49$N%5%$%:!%(B2$B$N$Y$->h$G;XDj!%(B}{64}
-	\argp{{\bf r}}{$BF~NO$r<B?t7?$H$9$k!%(B}{FALSE}
-	\argm{t}{}{$B5U(BFFT$B$N7k2L$r(Btranspose$B$7$F=PNO!%!c(Bfft2 $B;2>H!d!%(B}{FALSE}
-	\argm{c}{}{transpose$B$9$k:]!$6-3&$N(B1$B%G!<%?$rH?BPB&$+$i;}$C$F$-$F!$(B
-		   $(L+1)\times (L+1)$ $B8D$N%G!<%?$r=PNO!%!c(Bfft2 $B;2>H!d!%(B}
+	\argm{l}{L}{¥Õ¡¼¥ê¥¨ÊÑ´¹¤Î¥µ¥¤¥º¡¥2¤Î¤Ù¤­¾è¤Ç»ØÄê¡¥}{64}
+	\argp{{\bf r}}{ÆþÎÏ¤ò¼Â¿ô·¿¤È¤¹¤ë¡¥}{FALSE}
+	\argm{t}{}{µÕFFT¤Î·ë²Ì¤òtranspose¤·¤Æ½ÐÎÏ¡¥¡ãfft2 »²¾È¡ä¡¥}{FALSE}
+	\argm{c}{}{transpose¤¹¤ëºÝ¡¤¶­³¦¤Î1¥Ç¡¼¥¿¤òÈ¿ÂÐÂ¦¤«¤é»ý¤Ã¤Æ¤­¤Æ¡¤
+		   $(L+1)\times (L+1)$ ¸Ä¤Î¥Ç¡¼¥¿¤ò½ÐÎÏ¡¥¡ãfft2 »²¾È¡ä¡¥}
 		  {FALSE}
-	\argm{q}{}{$B5U(BFFT$B$N7k2L$N:G=i$N(B1/4$B$N%G!<%?$N$_$r=PNO!%$3$N:](B c$B%*%W%7%g%s(B
-		   $B$HF1MM$K!$6-3&$NJd=~$r9T$J$$!$(B
-		   $(\frac{L}{2}+1)\times (\frac{L}{2}+1)$ $B8D$N%G!<%?$r(B
-		   $B=PNO!%!c(Bfft2 $B;2>H!d!%(B}{FALSE}
-	\argm{R}{}{$B<BIt$N$_$r=PNO!%(B}{FALSE}
-	\argm{I}{}{$B5uIt$N$_$r=PNO!%(B}{FALSE}
+	\argm{q}{}{µÕFFT¤Î·ë²Ì¤ÎºÇ½é¤Î1/4¤Î¥Ç¡¼¥¿¤Î¤ß¤ò½ÐÎÏ¡¥¤³¤ÎºÝ c¥ª¥×¥·¥ç¥ó
+		   ¤ÈÆ±ÍÍ¤Ë¡¤¶­³¦¤ÎÊä½þ¤ò¹Ô¤Ê¤¤¡¤
+		   $(\frac{L}{2}+1)\times (\frac{L}{2}+1)$ ¸Ä¤Î¥Ç¡¼¥¿¤ò
+		   ½ÐÎÏ¡¥¡ãfft2 »²¾È¡ä¡¥}{FALSE}
+	\argm{R}{}{¼ÂÉô¤Î¤ß¤ò½ÐÎÏ¡¥}{FALSE}
+	\argm{I}{}{µõÉô¤Î¤ß¤ò½ÐÎÏ¡¥}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%U%!%$%k(B {\em data.f} $B$K$"$k(B2$B<!85J#AG?tNs$N(B $B5U(BDFT $B$r5a$a!$(B
-{\em data.ifft2} $B$K=PNO$9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë {\em data.f} ¤Ë¤¢¤ë2¼¡¸µÊ£ÁÇ¿ôÎó¤Î µÕDFT ¤òµá¤á¡¤
+{\em data.ifft2} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!ifft2 -A < data.f > data.ifft2!
 \end{quote}

@@ -1,5 +1,5 @@
 \name{c2sp}{transform cepstrum to spectrum}
-{speech parameter transformaiton}
+{speech parameter transformation}
 
 \begin{synopsis}
 \item[c2sp] [ --m $M$ ] [ --l $L$ ] [ --p ] [ --o $O$ ] [ {\em infile} ]
@@ -12,16 +12,6 @@ This {\em c2sp} command evaluates the spectrum from the minimum phase
 \end{qsection}
 
 \begin{options}
-       -l l  :          [256]
-       -p    :          [FALSE]
-       -o o  :         [0]
-                0 (20*log|H(z)|)
-                1 (ln|H(z)|)
-                2 (|H(z)|)
-               -p option is specified
-                0 (arg|H(z)|/pi       [pi rad])
-                1 (arg|H(z)|          [rad])
-                2 (arg|H(z)|*180 / pi [deg])
 	\argm{m}{M}{order of cepstrum}{25}
 	\argm{l}{L}{frame length}{256}
 	\argm{p}{}{output phase}{FALSE}
