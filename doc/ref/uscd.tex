@@ -2,8 +2,8 @@
 {サンプリングレート変換}
 
 \begin{synopsis}
-\item [uscd] [ --s $S$ $S$] [ +{\em type} ] [ {\em infile} ] [ {\em outfile} ]
-\item [uscd] [ --s $S$ $S$] [ +{\em type} ] {\em infile1} $\cdots$ [ {\em infileN}] {\em outdir} 
+\item [uscd] [ --s $S$ ] [ --S $S$ ] [ +{\em type} ] [ {\em infile} ] [ {\em outfile} ]
+\item [uscd] [ --s $S$ ] [ --S $S$ ] [ +{\em type} ] {\em infile1} $\cdots$ [ {\em infileN}] {\em outdir} 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -19,13 +19,11 @@
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S1~S2}{変換タイプ． \\
-		\begin{tabular}{lll} \\[-1zh]
-			S1 & $8|10|12|16$ & 入力データの標本化周波数\\
-			S2 & $11.025|22.05|44.1$ & 出力データの標本化周波数
-		\end{tabular}
- 		但し，11.025，22.05，44.1kHz は，それぞれ 11，22，44 に省略可能．}
-                {$10~11.025$}
+	\argm{s}{S}{入力データの標本化周波数．（8，10，11，12 kHz）}
+                {$10$}
+	\argm{S}{S}{出力データの標本化周波数．（11.025，22.05，44.1 kHz）\\
+        但し，11.025，22.05，44.1kHz は，それぞれ 11，22，44 に省略可能．}
+                {$11.025$}
 	\argp{t}{入力データの形式．\\
 		\begin{tabular}{ll} \\[-1zh]
 			s & short型 (2bytes) \\
@@ -38,7 +36,7 @@
 short 形式の標本化周波数 16kHz の音声データファイル {\em data.16} を標本
 化周波数 22.05kHz にアップサンプリングし，{\em data.22} に出力する:
 \begin{quote}
-\verb!uscd -s 16 22.05 < data.16 > data.22!
+\verb!uscd -s 16 -S 22.05 < data.16 > data.22!
 \end{quote}
 \end{qsection}
 
