@@ -27,33 +27,18 @@
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-short形式のファイル{\em data.s}に入っている整数を1行に10個ずつ表示する:
+ 音声データ sample.wav をアドレス付きでダンプする．
 \begin{quote}
- \verb!fd +s -10 data.s!
+ \verb!fd -a 0 sample.wav!
 \end{quote}
  結果\\
-\verb!      2      3      4      4      2     10     34     12     43    122!
-\verb!     22      1     42     12     23     32     12    442     12     12!
+\verb!000000  52 49 46 46 9a 15 00 00 57 41 56 45 66 6d 74 20 |RIFF....WAVEfmt |!\\
+\verb!000010  10 00 00 00 01 00 01 00 40 1f 00 00 40 1f 00 00 |........@...@...|!\\
+\verb!000020  01 00 08 00 64 61 74 61 76 15 00 00 8a 8a 8f 99 |....datav.......|!
+
 \begin{center}
  $\vdots$\\
 \end{center}
-float形式のファイル{\em data.f}に入っている整数を1行に1個ずつ番号付きで表示する
-（番号は0から初め4で終る）:
-\begin{quote}
- \verb!fd +f -1 -n 0 -m 5 data.f!
-\end{quote}
-結果\\
-\verb!      0    1.583467e-43!\\
-\verb!      1    1.401298e-40!\\
-\verb!      2    5.510138e-39!\\
-\verb!      3   -2.302387e-01!\\
-\verb!      4    1.786671e-02!\\
-\verb!      0    2.517172e-02!\\
-\verb!      1   -2.194112e-01!\\
-\verb!      2   -6.433672e-02!\\
-\verb!      3   -2.109757e-01!\\
-\verb!             !$\vdots$
-\end{qsection}
 
 \begin{qsection}{SEE ALSO}
  dmp

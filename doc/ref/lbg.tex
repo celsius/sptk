@@ -3,7 +3,7 @@
 \begin{synopsis}
 \item [lbg] [ --l $L$ ] [ --n $N$ ] [ --t $T$ ] [ --s $S$ ] [ --e $E$ ]
         [ --f $F$ ] [ --v ] [ --d $D$ ] [ --r $R$ ] 
-\item [\ ~~~~] [ {\em index\_file} ] $<$ {\em infile}
+\item [\ ~~~~] [ {\em indexfile} ] $<$ {\em infile}
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -69,7 +69,7 @@ $\mbox{\boldmath C}_1 = \{ \mbox{\boldmath c}_1(0) \},S = 1$とします．
 
 \begin{options}
 	\argm{l}{L}{ベクトルのサイズ．}{26}
-	\argm{n}{N}{ベクトルの次数．}{25}
+	\argm{n}{N}{ベクトルの次数．ベクトルのサイズはN+1になります．}{L-1}
 	\argm{t}{T}{トレーニングベクトル数．
 		     \\入力がパイプでない場合は省略できます．}{N/A}
 	\argm{s}{S}{初期コードブックサイズ．}{1}
