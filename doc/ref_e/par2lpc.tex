@@ -5,30 +5,32 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-反射係数（PARCOR係数）から線形予測係数を求めます．
-指定されたファイルから $M$ 次の反射係数
+This command evaluates linear prediction coefficients
+from PARCOR coefficients.
+It is reads $M$ order PARCOR coefficients
 \begin{displaymath}
   K, k(1),\ldots, k(M)
 \end{displaymath}
-を読み込み，線形予測係数
+evaluates the corresponding linear predicition coefficients
 \begin{displaymath}
   K, a(1),\ldots, a(M)
 \end{displaymath}
-を標準出力に出力します．
+and send the reaults to the standard output.
 \par
 Input and output data are in float format.
 \par
-反射係数から線形予測係数を求める変換は，
-ダービンの解法の一部である式
+The transformation of PARCOR coefficients into 
+linear prediction coefficients is undertaken 
+by a part of Durbin algorithm as follows.
 \begin{eqnarray*} 
 a^{(m)}(m) &=& k(m) \\
 a^{(m)}(i) &=& a^{(m-1)}(i) + k(m) a^{(m-1)}(m-i), ~~~~~1\leq i \leq m
 \end{eqnarray*}
-を使って， $m=1, 2, \ldots, p$の順に繰り返します．ここで、初期条件は
+where  $m=1, 2, \ldots, p$.
+The initial condition is 
 \begin{displaymath}
-a^{(M)}(m) = a(m), ~~~~~1 \leq m \leq M
+a^{(M)}(m) = a(m), ~~~~~1 \leq m \leq M.
 \end{displaymath}
-です．
 \end{qsection}
 
 \begin{options}
@@ -36,8 +38,9 @@ a^{(M)}(m) = a(m), ~~~~~1 \leq m \leq M
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の反射係数ファイル {\em data.rc} を線形予測係数に変換し、 
-{\em data.lpc} に出力する:
+PARCOR coefficients are read in float format from {\em data.rc}
+and converted into the corresponding linear predition coefficients.
+The output is written to {\em data.lpc}:
 \begin{quote}
  \verb!par2lpc < data.rc > data.lpc!
 \end{quote} 

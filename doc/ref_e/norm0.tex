@@ -5,15 +5,16 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-標準入力から入力されるデータ列
+Assume that the input data sequance read from the standard input
+is
 \begin{displaymath}
-x(0), x(1), \ldots, x(M)
+x(0), x(1), \ldots, x(M).
 \end{displaymath}
-を0次の項で正規化
+The normalization taken from 0 order coefficients is evaluated as
 \begin{displaymath}
 1/x(0), x(1)/x(0), \ldots, x(M)/x(0)
 \end{displaymath}
-を行い，出力します．
+and sent to the output.
 \par
 Input and output data are in float format.
 \end{qsection}
@@ -23,8 +24,9 @@ Input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float 形式のファイル {\em data.f} から正規化した15次の自己相関係数を
-求め、 {\em data.nacorr} に出力する:
+Speech data is read from {\em data.f} in float format,
+the 15-order autocorration coefficients are evaluated
+and normalized, and the results is written to {\em data.nacorr}:
 \begin{quote}
   \verb!frame < data.f | window | acorr -m 15 |\ !\\
   \verb!norm0 -m 15 > data.nacorr!

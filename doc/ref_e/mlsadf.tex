@@ -8,27 +8,32 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-入力データを{\em mcfile}のメルケプストラム
-係数 $c_\alpha(0),c_\alpha(1),\ldots,c_\alpha(M)$ をもつ
-MLSAフィルタによりフィルタリングし，標準出力に出力します．
+This command reads mel-cepstrum coefficients
+$c_\alpha(0),c_\alpha(1),\ldots,c_\alpha(M)$ from {\em mcfile},
+passes the excitation built from {\em infile} through
+the corrsponding MLSA filter, and sends the results to the standard
+output.
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-MLSAフィルタは，$M$ 次のメルケプストラム $c_\alpha(m)$ で表現された
-指数形伝達関数
+The exponential transfer function $H(z)$ related to the MLSA synthesis filter
+is obtained from the $M$ order mel-cepstrum coefficients
+$c_\alpha(m)$ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^M c_\alpha(m) \tilde{z}^{-m}
 \end{displaymath}
-ただし、
+where
 \begin{displaymath}
-\tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
+\tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}.
 \end{displaymath}
-を高精度に近似します．ここで，伝達関数 $H(z)$ からゲイン $K$ を
+The highly accurate approximation method of the above transfer function
+is explained in the follow.
+Firstly, the transfer function $H(z)$ is rewritten as 
 \begin{eqnarray*}
 H(z) &=& \exp \sum_{m=0}^M b(m) {\it\Phi}_m(z) \\
      &=& K \cdot D(z)
 \end{eqnarray*}
-ただし，
+where,
 \begin{displaymath}
 {\it\Phi}_m(z) = \left\{ 
 	\begin{array}{ll}
@@ -38,13 +43,14 @@ H(z) &=& \exp \sum_{m=0}^M b(m) {\it\Phi}_m(z) \\
 	    \tilde{z}^{-(m-1)},& m\geq 1
 	\end{array} \right.
 \end{displaymath}
-および，
+and
 \begin{eqnarray*}
 K    &=& \exp b(0) \\
 D(z) &=& \exp \sum_{m=1}^M b(m) {\it\Phi}_m(z) 
 \end{eqnarray*}
-のようにくくり出します．また，係数 $b(m)$ は $c_\alpha(m)$ と線形変換の
-関係にあります(mc2b, b2mc参照)．
+Also, the coefficients $b(m)$ can be obtained
+through a linear transformation of $c_\alpha(m)$
+(refer to mc2b, b2mc).
 \setcounter{figure}{0}
 \begin{figure}[t]
 \begin{center}
@@ -265,30 +271,32 @@ D(z) &=& \exp \sum_{m=1}^M b(m) {\it\Phi}_m(z)
         Two-stage cascade structure \\
         $R_4(F_1(z))\cdot R_4(F_2(z))\simeq D(z)$}
 \end{center}
-\caption{指数形伝達関数 $1/D(z)$ の実現}
+\caption{Realization of exponential transfer function $1/D(z)$}
 \label{fig:mlsadflt_MLSA}
 \end{figure}
 
 \par
-フィルタ $D(z)$ は次式のIIRフィルタ
+The filter $D(z)$ can be realized as shown in
+figure \ref{fig:mlsadflt_MLSA}(b), where basic
+filter (figure \ref{fig:mlsadflt_MLSA}(a)) is
+the following IIR filter.
 \begin{displaymath}
 F(z) = \sum_{m=1}^M b(m) {\it\Phi}_m(z) \\
 \end{displaymath}
-を基礎フィルタとして(図\ref{fig:mlsadflt_MLSA}(a))，
-図\ref{fig:mlsadflt_MLSA}(b)のように実現することができます．
-ここで，基礎フィルタを図\ref{fig:mlsadflt_MLSA}(c)のように
+If we want to improve the accuracy of the approximation,
+we can decompose the basic filter as shown in figure
+\ref{fig:mlsadflt_MLSA}(c),
 \begin{displaymath}
 F(z) = F_1(z) + F_2(z)
 \end{displaymath}
-ただし，
+where
 \begin{eqnarray*}
 F_1(z) &=& b(1) z^{-1} \\
 F_2(z) &=& \sum_{m=2}^M b(m) {\it\Phi}_m(z)
 \end{eqnarray*}
-と分割することにより，近似精度を上げています．
 \par
-また，図\ref{fig:mlsadflt_MLSA}(b)の係数 $A_{4,l}$
-はLMAフィルタと同じ値を用いています(lmadf 参照)．
+Also, the coefficients $A_{4,l}$ in figure \ref{fig:mlsadflt_MLSA}(b)
+have same value as the LMA filter (refer to lmadf).
 \end{qsection}
 
 \begin{options}
@@ -305,9 +313,13 @@ F_2(z) &=& \sum_{m=2}^M b(m) {\it\Phi}_m(z)
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のピッチデータ {\em data.pitch} から励振源を作成し，
-メルケプストラムファイル {\em data.mcep} によりMLSAフィルタを駆動し，
-合成音声を {\em data.syn} に出力する:
+In the following example,
+the excitation is constructed from pitch data
+read in float format from {\em data.pitch},
+passed through a MLSA filter 
+built from the mel-cepstrum in
+{\em data.mcep},
+and the synthesized speech is written to {\em data.syn}:
 \begin{quote}
  \verb!excite < data.pitch | mlsadf data.mcep > data.syn!
 \end{quote} 

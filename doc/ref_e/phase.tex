@@ -1,4 +1,4 @@
-\name{phase}{transform real seauence to phase}{signal processing}
+\name{phase}{transform real sequence to phase}{signal processing}
 
 \begin{synopsis}
 \item[phase] [ --l $L$ ] [ --p {\em pfile} ] [ --z {\em zfile} ]
@@ -6,13 +6,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-標準入力から入力された実数列のスペクトルの位相を計算します．
-つまり，
-入力数列を
+This command calculates the phase of the spectrum of a real sequance read
+from the standard input.
+Assume that the input sequance is
 \begin{displaymath}
   x(0), x(1), \ldots, x(L-1)
 \end{displaymath}
-として，
+and the FFT is
 \begin{eqnarray*}
   X_k &=& X(e^{j\omega}) \left|
 	\begin{array}{c}
@@ -27,43 +27,43 @@
 	\end{array}
     \right.,\qquad k=0,1,\ldots,L-1
 \end{eqnarray*}
-をFFT により計算し，
+Then the output is given by
 \begin{displaymath}
   Y_k=\arg X_k, \qquad k=0,1,\ldots,L/2
 \end{displaymath}
-を出力します．
-この際，位相はアンラップされます．
-出力されるデータは，角周波数$0\sim \pi$ に対応します．
+In this case the phase is written in continuous form.
+The output data angular frequancy varies from $0\sim \pi$.
 Input and output data are in float format.
 \par
-{\bf --p, --z} オプションが指定されたときには，
-指定されたファイルを係数としてもつディジタルフィルタの位相特性を，
-同様に出力します\footnote{
-この際，フィルタのインパルス応答から位相を求めるのではなく，
-分子係数，分母係数から別々に位相を計算し，
-その差によって全体の位相特性を求めています．}．
+If the {\bf --p, --z} options are assigned
+then the phase of the corresponding filter related to
+the assigned coefficients is calculated
+\footnote{
+In this case the phase is not evaluated from the filter
+impulse response, the phase is evaluated from
+the difference between the numerator and denominator phases}.
 \end{qsection}
 
 \begin{options}
 	\argm{l}{L}{frame length power of 2}{256}
 	\argm{p}{pfile}{numerator cofficients file
-                        伝達関数の分母多項式の係数が書かれたファイル．
-			ファイル内容はfloat 形式で次のように与えます． \\
+			The {\em pfile} should follow this structure in
+                        float format:\\
 			\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
 	\argm{z}{zfile}{denominator cofficients file
-                        伝達関数の分子多項式の係数が書かれたファイル．
-			ファイルの内容はfloat 形式で次のように与えます。
+			The {\em zfile} should follow this structure in
+                        float format:\\
 			\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\
-			{\em pfile}, {\em zfile} の内容は，
-			{\em dfs} の場合と同じです．
-			{\bf --p}、{\bf --z} オプションの内，
-			{\bf --p} オプションだけが指定された場合，
-			分子多項式は1 として扱われ，
-			{\bf --z} オプションだけが指定された場合には，
-			分母多項式，ゲイン$K$ とも1 として扱われます．
-			{\bf --p}，{\bf --z} オプションいずれも
-			省略された場合には，
-			データは標準入力から読まれます．}{NULL}
+			The contents of {\em pfile} and {\em zfile}
+                        should be in a similar form to that used in
+                        command {\em dfs}.
+			When only the {\bf --p} option is assigned
+                        then the denominator is made equal to 1.
+                        Wnen only the {\bf --z} option is assigned
+                        then the numerator and the gain $K$ are made
+                        equal to 1.
+                        If neither {\bf --p} nor {\bf --z} are
+                        assigned, data is read from the standard input.}{NULL}
 	\argm{m}{M}{order of denominator polynomial
 			実際に入力されたデータ数が，
 			$M+1$ より少なかった場合には，
