@@ -118,7 +118,7 @@ switch($arch)
 	case sun4*:
 cat <<EOF
   options:
-       -s s  : sampling frequency (8,10,12,16,20,22,32,44,48 kHz) [10]
+       -s s  : sampling frequency (8,10,11,12,16,20,22,32,44,48 kHz) [10]
        -g g  : gain (..,-2,-1,0,1,2,...)                          [0]
        -a a  : amplitude gain (0..100)                            [N/A]
        -o o  : output port                                        [s]
@@ -139,7 +139,7 @@ EOF
  	case i?86:
 cat <<EOF
   options:
-       -s s  : sampling frequency (8,10,12,16,20,22,44 kHz)      [10]
+       -s s  : sampling frequency (8,10,11,12,16,20,22,44 kHz)   [10]
        -g g  : gain (..,-2,-1,0,1,2,...)                         [0]
        -a a  : amplitude gain (0..100)                           [N/A]
        -H H  : header size in byte                               [0]
@@ -185,6 +185,10 @@ foreach infile ( ${file} )
 			fileconvert $infile |\
 				us -s 58 -d 5 -u 8 |\
 				da $daoption[*] +f -s 16
+			breaksw
+		case 11:
+			fileconvert $infile |\
+				da $daoption[*] +f -s 11
 			breaksw
 		case 12:
 			fileconvert $infile |\
@@ -233,6 +237,9 @@ switch ($freq)
 		breaksw
 	case 10:
 		@ osr = 5
+		breaksw
+	case 11:
+		@ osr = -1
 		breaksw
 	case 12:
 		@ osr = 6
