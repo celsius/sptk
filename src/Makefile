@@ -42,6 +42,7 @@ INSTALL		= install -cs
 #    SUNOS          SunOS4.1.x
 #    SOLARIS        SunOS5.x(sparc)
 #    LINUX          linux(i386)
+#    FreeBSD        FreeBSD(i386 newpcm driver)
 # 
 DA_OSTYPE	= 
 

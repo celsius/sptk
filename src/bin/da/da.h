@@ -2,14 +2,14 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 
-#ifdef LINUX
+#if defined(LINUX) || defined(FreeBSD)
 #include <sys/soundcard.h>
 #define AUDIO_DEV    "/dev/dsp"
 #define MIXER_DEV    "/dev/mixer"
 #define	MAXAMPGAIN	100
 #define AVAILABLE_FREQ "8,11.025,22.05,44.1"
 #define DEFAULT_FREQ	11
-#endif /* LINUX */
+#endif /* LINUX or FreeBSD */
 
 #ifdef SUNOS
 #define SPARC
