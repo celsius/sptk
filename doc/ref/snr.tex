@@ -1,7 +1,7 @@
 \name{snr}{SNRとセグメンタルSNRを求める}
 
 \begin{synopsis}
-\item [snr] [ --l $L$ ] [ +$t_1 t_2$ ] {\em file1} [ {\em infile} ] 
+\item [snr] [ --l $L$ ] [ +$t_1 t_2$ ] [ --o $O$ ] {\em file1} [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -15,8 +15,6 @@
 \end{displaymath}
 からSNR(Signal Noise Ratio)と
 $\mbox{SNR}_{\mbox{seg}}$(セグメンタルSNR)を計算します．
-%\par
-%データ形式は入力，出力ともfloat 形式です．
 \par
 SNR， $\mbox{SNR}_{\mbox{seg}}$は次式で計算することができます．
 \begin{displaymath}
@@ -39,22 +37,21 @@ e(n) = x_1(n) - x_2(n)
 
 \newpage
 \begin{options}
-	\argm{l}{L}{セグメンタルSNRを計算するときのフレーム長}{256}
-	\argp{t_1 t_2}{入力データの形式．$t_1$，$t_2$はそれぞれ {\em file1}，
-		{\em infile} のデータ型を表す． \\
+        \argm{l}{L}{セグメンタルSNRを計算するときのフレーム長}{256}
+        \argp{t_1 t_2}{入力データの形式．$t_1$，$t_2$はそれぞれ {\em file1}，
+                {\em infile} のデータ型を表す． \\
                 \begin{tabular}{llcll} \\[-1zh]
                         s & short型 (2bytes) & \quad &
                         f & float型 (4bytes) \\
-		\end{tabular}\\\hspace*{\fill}}{sf}
-	\argm{o}{O}{出力形式．\\
-			\begin{tabular}{ll} \\[-1zh]
-			  0 & SNR and SNRseg\\
-			  1 & SNR and SNRseg in detail\\
-			  2 & SNR\\
-			  3 & SNRseg
-			\end{tabular}\\\hspace*{\fill}\\
-	0,1 はASCII形式で出力し 2,3 はfloat型で出力します}{0}
-
+                \end{tabular}\\\hspace*{\fill}}{sf}
+        \argm{o}{O}{出力形式．\\
+                        \begin{tabular}{ll} \\[-1zh]
+                          0 & SNR and SNRseg\\
+                          1 & SNR and SNRseg in detail\\
+                          2 & SNR\\
+                          3 & SNRseg
+                        \end{tabular}\\\hspace*{\fill}\\
+        0,1 はASCII形式で出力し 2,3 はfloat型で出力します}{0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
