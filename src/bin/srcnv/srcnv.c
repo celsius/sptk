@@ -11,8 +11,6 @@
 *               -c c  :  filename of low pass filter coef.   [Default]  *
 *               -u u  :  upsampling ratio                          [1]  *
 *               -d d  :  downsampling ratio                        [1]	*
-*               +x    :  data format                               [f]  *
-*                          s (short)      f (float)                     *
 *       infile:                                                         *
 *               data sequence (float)                          [stdin]  *
 *       notice:                                                         *
@@ -62,8 +60,6 @@ void usage(int status)
 	fprintf(stderr, "       -c c  : filename of low pass filter coefficients  [Default]\n");
 	fprintf(stderr, "       -u u  : upsampling ratio                          [N/A]\n");
 	fprintf(stderr, "       -d d  : downsampling ratio                        [N/A]\n");
-	fprintf(stderr, "       +x    : data format                               [s]\n");
-	fprintf(stderr, "                  s(short)    f(float)\n");
 	fprintf(stderr, "       -h    : print this message\n");
 	fprintf(stderr, "  infile:\n");
 	fprintf(stderr, "       data                                              [stdin]\n");
@@ -160,7 +156,7 @@ char	*argv[];
 	}
 	
 	if( d_rate == 0) d_rate = def_d_rate;
-	if( u_rate == 0) d_rate = def_u_rate;
+	if( u_rate == 0) u_rate = def_u_rate;
 
 	if(coef == NULL) {
 		fprintf(stderr, "%s: LPF-coef file not specified\n", cmnd);
