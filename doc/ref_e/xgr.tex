@@ -45,23 +45,28 @@
 \end{synopsis} 
 
 \begin{qsection}{DESCRIPTION}
-This command reads a sequence of plot command from standard input,
-and prints the corresponding graph to the screen in a X-Window
-environment.
+{\em xgr} plots a graph from a sequence of FP5301 plotter commands, 
+displaying the output on the screen in a new X window.
+
+When the X window is created, 
+the keyboard focus is initially assigned to that new window, 
+which responds to a limited set of user interactions:
 \begin{itemize}
-\item Even though the window manager has function to
-change the window size, the graph plotted in a virtual screen
-with ``xgr'' dose not allow for zooming.
-\item  In the case window size is smaller then the virtual screen,
-then scroll function can be used in virtual screen(use vi commands).
+\item Changing the window size truncates or expands the area 
+	in which the graph is displayed, 
+	but the graph stays the same size; 
+	it is not rescaled to fit the new window size.
+\item If the graph is larger than the window, 
+	the position within the window can be changed with 
+	``vi'' cursor movement commands:
 \begin{quote}
 		h: left scroll\\
 		j: down scroll\\
 		k: up scroll\\
 		l: right scroll
 \end{quote}
-\item To delete the virtual screen, one of the following can be used:
-"q","Ctrl-c","Ctrl-d"
+\item To delete the window, type one of the following:
+	``q'',``Ctrl-c'',``Ctrl-d''
 \end{itemize}
 \end{qsection}
 

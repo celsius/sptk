@@ -44,11 +44,12 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em ltcdf} command reads excitation information from
-{\em infile},  passes it through a lattice filter
-obtained from the PARCOR coefficients read from {\em rcfile},
-and sends the results to the standard output.
-\par
+{\em lsp2df} derives an all-pole lattice digital filter 
+from PARCOR coefficients in {\em rcfile} 
+and uses it to filter an excitation sequence
+from {\em infile} (or standard input) to synthesize speech data, 
+sending the result to standard output.
+
 Input and output data are in float format.
 \end{qsection}
 

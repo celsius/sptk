@@ -43,20 +43,22 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command evaluates the histogram from the assigned file
-and sends the results to the standard output.
-\par
+{\em histogram} calculates histograms of frames of input data 
+from {\em infile} (or standard input), 
+sending the results to standard output.
+
 Input and output data are in float format.
-If a graph is wanted, please send the output of ``histogram'' to ``fdrw''.
-\par
-In case a data value is outside of the assigned interval,
-the histogram will evaluate its output but the return value of
-the command will be different from $0$.
+
+The output can be graphed with ``fdrw''.
+
+If an input value is outside the specified interval, 
+the exit status of histogram will be nonzero, 
+but the output histogram will be generated nonetheless.
 \end{qsection}
 
 \begin{options}
         \argm{l}{L}{frame size\\
-          \begin{tabular}{ll}\\ [-1zh]
+          \begin{tabular}{ll}\\ [-1ex]
             $L>0$ & evaluate the histogram for every frame\\
             $L=0$ & evaluate the histogram for the whole file\\
           \end{tabular}\\\hspace*{\fill}}{0}

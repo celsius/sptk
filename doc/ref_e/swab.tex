@@ -43,15 +43,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The command {\em swab} transforms the byte order from
-little endian to big endian, and vice versa(byte swap).
-If input file is not assigned, then data is read from
-the standard input.
-\par
-The range where the swap is undertaken can be assigned by
-the option {\bf --S, --E} or {\bf --s, --e}.
-\par
-Input and output data formats are assigned by +$type$.
+{\em swab} changes the byte order 
+(from big-endian to little-endian or vice versa) 
+of the input data from {\em infile} (or standard input), 
+sending the result to standard output.
+
+The range of input data that is changed can be restricted 
+with the --S, --E or --s, --e options.
+
+The +$type$ option specifies the input and output data formats.
 \end{qsection}
 
 \begin{options}
@@ -60,7 +60,7 @@ Input and output data formats are assigned by +$type$.
 	\argm{E}{E_1}{end address}{EOF}
 	\argm{e}{E_2}{end offset number}{0}
 	\argp{type}{Input and output data format\\
-		\begin{tabular}{llcll} \\[-1zh]
+		\begin{tabular}{llcll} \\[-1ex]
 			s & short (2bytes) & \quad &
 			l & long (4bytes) \\
 			f & float (4bytes) & \quad &

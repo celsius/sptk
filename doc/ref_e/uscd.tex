@@ -44,31 +44,35 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The command {\em uscd} converts from
-8, 10, 12, 16kHz to 11.025, 22.05, 44.1kHz sampling rate.
-If input and/or output files are not assigned,
-then the standard input and/or output are used, respectively.
-Also, several files can be assigned at same time.
-In this case the output is automatically written in the assigned
-{\em outdir} directory for every input file
-changing the corresponding suffix.
-
-Also, the assignment the following sampling rates 11.025, 22.05, 44.1kHz
-can be done by 11, 22, 44, respectively.
-\par
+{\em uscd} converts the sample rate from one of 8, 10, 12, or 16kHz 
+to one of 11.025, 22.04, or 44.1kHz.
+If {\em infile} and {\em outfile} arguments are not given, 
+standard input and standard output are used.
+If the last argument names a directory, 
+each of the preceding argument files is resampled. 
+The results are stored in multiple files in that directory, 
+with base names the same as the input file base names, 
+but with suffixes reflecting the new sample rate.
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S1~S2}{input/output sampling frequency\\
-		\begin{tabular}{lll} \\[-1zh]
-			S1 & $8|10|12|16$ & sampling rate of input data\\
-			S2 & $11.025|22.05|44.1$ & sampling rate of output data
-		\end{tabular}
-                where the assignment the following sampling rates 11.025, 
-                22.05, 44.1kHz can be done by 11, 22, 44, respectively.}
-                {$10~11.025$}
+%	\argm{s}{S1~S2}{input/output sampling frequency\\
+%		\begin{tabular}{lll} \\[-1ex]
+%			S1 & $8|10|12|16$ & sampling rate of input data\\
+%			S2 & $11.025|22.05|44.1$ & sampling rate of output data
+%		\end{tabular}
+%                where the assignment the following sampling rates 11.025, 
+%                22.05, 44.1kHz can be done by 11, 22, 44, respectively.}
+%                {$10~11.025$}
+	\argm{s}{S1}{input sampling frequency  $8|10|12|16$}{10}
+	\argm{S}{S2}{output sampling frequency  $11.025|22.05|44.1$\\
+		$S2$ can be abbreviated as 11, 22, or 44. \\
+		If the last command line argument is a directory name, 
+		the suffix for the output files is 
+		either ``.11'', ``.22'', or ``.44.''}
+		{44.1}
 	\argp{t}{input data format\\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
 			s & short (2bytes) \\
 			f & float (4bytes)
 		\end{tabular}\\}{s}

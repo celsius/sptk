@@ -42,17 +42,19 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-Assume that the input data sequance read from the standard input
-is
+{\em norm0} normalizes vectors from {\em infile} (or standard input) 
+by dividing vector components by the zero-order component, 
+sending the result to standard output.
+
+For the input sequence
 \begin{displaymath}
-x(0), x(1), \ldots, x(M).
+x(0), x(1), \ldots, x(M), 
 \end{displaymath}
-The normalization taken from 0 order coefficients is evaluated as
+the normalized output sequence is
 \begin{displaymath}
-1/x(0), x(1)/x(0), \ldots, x(M)/x(0)
+1/x(0), x(1)/x(0), \ldots, x(M)/x(0). 
 \end{displaymath}
-and sent to the output.
-\par
+
 Input and output data are in float format.
 \end{qsection}
 

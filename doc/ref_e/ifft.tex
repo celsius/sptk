@@ -42,12 +42,10 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em ifft} command reads complex data from input file,
-evaluates its inverse DFT, and sends the results to
-the standard output.
-The input data format is float, and the real part is allocated
-in the first $L$ points and the imaginary part is allocated
-next $L$ points for every block.
+{\em ifft} calculates the Inverse Discrete Fourier Transform (IDFT) 
+of complex-valued data from {\em infile} (or standard input), 
+sending the results to standard output.
+The input and output data is in float format, arranged as follows.
 \begin{center}
  \leavevmode
  \includegraphics{fig/ifft.eps} 

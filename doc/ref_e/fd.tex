@@ -43,9 +43,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command writes to the output file data read from the input file
-with an assigned format.
-If the input file is omitted, data is read from the standard input.
+{\em fd} converts data from {\em infile} (or standard input) 
+to human-readable multi-column format, 
+sending the result to standard output.
 \end{qsection}
 
 \begin{options}
@@ -54,7 +54,7 @@ If the input file is omitted, data is read from the standard input.
 	\argm{m}{M}{modulo for numbering}{EOF}
 	\argm{{\em ent}}{}{number of data in each line}{0}
 	\argp{t}{data type\\
-		\begin{tabular}{llcll} \\[-1zh]
+		\begin{tabular}{llcll} \\[-1ex]
 			c & char (1byte) & \quad &
 			s & short (2bytes) \\
 			i & int (4bytes) & \quad &

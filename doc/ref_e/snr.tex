@@ -42,16 +42,14 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command evaluates the SNR(Signal Noise Ratio) and
-the $\mbox{SNR}_{\mbox{seg}}$(segmental SNR)
-between two assigned input files as follows.
-\begin{displaymath}
-  x_1(0),x_1(1),\ldots,x_1(L-1)
-\end{displaymath}
-\begin{displaymath}
-  x_2(0),x_2(1),\ldots,x_2(L-1)
-\end{displaymath}
-\par
+{\em srn} calculates the SNR (Signal to Noise Ratio) 
+and the $\mbox{SNR}_{\mbox{seg}}$ (segmental SNR) 
+between corresponding $L$-length frames
+of {\em file1} and {\em infile} (or standard input), 
+sending the result to standard output.
+The input format is specified by the + option.
+The output format is specified by the --o option.
+
 The SNR and $\mbox{SNR}_{\mbox{seg}}$ can be calculated
 through the following equation.
 \begin{displaymath}
@@ -78,12 +76,12 @@ subjective measure then the SNR.
         \argm{l}{L}{frame length}{256}
         \argp{t_1 t_2}{$t_1$ and $t_2$ are represented data formats
                       of {\em file1} and {\em infile} respectively\\
-                \begin{tabular}{llcll} \\[-1zh]
+                \begin{tabular}{llcll} \\[-1ex]
                         s & short (2bytes) & \quad &
                         f & float (4bytes) \\
                 \end{tabular}\\\hspace*{\fill}}{sf}
         \argm{o}{O}{output data format\\
-                        \begin{tabular}{ll} \\[-1zh]
+                        \begin{tabular}{ll} \\[-1ex]
                           0 & SNR and SNRseg\\
                           1 & SNR and SNRseg in detail\\
                           2 & SNR\\

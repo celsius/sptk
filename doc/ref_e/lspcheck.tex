@@ -43,16 +43,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em lspcheck} command checks the stability of LSP coefficients,
-and if the filter is not stable,
-then the order of coefficients order is changed so that
-it becomes a stable filter.
-\par
-The input data is read in float format.
-If the --r option is assigned, then the output data is also
-written in float format.
-If the --r option is not assigned, then the output brings
-the number of the unstable frames in ASCII format.
+{\em lspcheck} tests the stability of the filter 
+corresponding to the line spectral pair (LSP) coefficients 
+from {\em infile} (or standard input), 
+sending the result to standard output.
+
+By default, the output is an ASCII report of the unstable frames.
+However, if the --r option is given, 
+the output is frames of coefficients 
+that have been rearranged so the filter is stable.
 \end{qsection}
 
 \begin{options}
@@ -61,7 +60,7 @@ the number of the unstable frames in ASCII format.
 	\argm{k}{}{input \& output gain}{TRUE}
 	\argm{i}{I}{input format}{0}
 	\argm{o}{O}{output format \\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
 			$0$ & normalized frequency $(0 \ldots \pi)$ \\
 			$1$ & normalized frequency $(0 \ldots 0.5)$ \\
 			$2$ & frequency (kHz) \\

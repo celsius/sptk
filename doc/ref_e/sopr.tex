@@ -45,15 +45,12 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads input data $x$ from the assigned file,
-undertakes assigned scalar operation and
-sends the results to the standard output.
-If {\em infile} is not assigned,
-then data is read from the standard input.
-\par
-Input and output data are in float format.
-\par
-The operations are undertaken with the assigned order.
+{\em sopr} performs a sequence of scalar operations on float data 
+from {\em infile} (or standard input), 
+sending the float output data to standard output.
+
+The sequence of operations is specified by command line options
+and is performed in the given order.
 \end{qsection}
 
 \begin{options}
@@ -61,7 +58,7 @@ The operations are undertaken with the assigned order.
 	\argm{s}{S}{subtraction $y=x-S$}{FALSE}
 	\argm{m}{M}{multiplication $y=x\ast M$}{FALSE}
 	\argm{d}{D}{division $y=x/D$}{FALSE}
-	\desc[1zh]{If the argument of the operation option is
+	\desc[1ex]{If the argument of the operation option is
                 ``{\em dB}'' then the value $20/\log_e10$
                 is assigned.
 		Also similarly, if ``{\em pi}'' is written after
@@ -69,7 +66,7 @@ The operations are undertaken with the assigned order.
                 Actuary expression such as ``{\em ln2}'',
                 ``{\em exp10}'', ``{\em sqrt30}'' can also be
                 used as arguments.}
-	\argm[1zh]{ABS}{}{absolute $y=|x|$}{FALSE}
+	\argm[1ex]{ABS}{}{absolute $y=|x|$}{FALSE}
 	\argm{INV}{}{inverse $y=1/x$}{FALSE}
 	\argm{P}{}{square $y=x^2$}{FALSE}
 	\argm{R}{}{square root $y=\sqrt{x}$}{FALSE}

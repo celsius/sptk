@@ -43,13 +43,11 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- This command plays the input file.
- The output can be sent to the speaker or the headphone.
- If the input file is not assigned, data is read from the standard
- input.
- If the sampling frequency of the audio device is not supported,
- then up sampling to an appropriate sampling frequency is done, and
- the sound is played.
+{\em da} plays a series of input files (or standard input) 
+on a system-dependent audio output device.
+
+If the system does not support the specified sampling frequency, 
+{\em da} upsamples the data to a supported frequency.
 
  This command can be used under
  Linux (i386), FreeBSD (i386 newpcm driver), SunOS 4.1.x, SunOS 5.x (SPARC).

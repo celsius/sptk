@@ -42,22 +42,22 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command undertakes linear prediction analysis.
-A window of length $L$ is passed through the assigned
-data file generating the following sequence.
+{\em lpc} calculates linear prediction coeffiecients (LPC) 
+from $L$-length framed windowed data from {\em infile} (or standard input), 
+sending the result to standard output.
+
+For each $L$-length input vector
 \begin{displaymath}
-  x(0),x(1),\ldots,x(L-1)
+  x(0),x(1),\ldots,x(L-1), 
 \end{displaymath}
-First of all, the autocorrelation function is
-calculated (please refer to ``accor'').
-Afterwards, the linear prediction coefficients
+the autocorrelation function is calculated (see ``accor''),
+then the gain $K$ and the linear prediction coefficients 
+$a(k) (1 \leq k \leq M)$ 
 \begin{displaymath}
   K, a(1), \ldots, a(M)
 \end{displaymath}
-are evaluated from the Levinson-Durbin algorithm,
-and the results is sent to the standard output.
-Also, the gain $K$ is computed.
-\par
+are calculated using the Levinson-Durbin algorithm. 
+
 Input and output data are in float format.
 \end{qsection}
 

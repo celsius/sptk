@@ -44,14 +44,18 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads generalized mel-cepstrum coefficients
+{\em mgc} transforms generalized mel-cepstrum coefficients
 $c_{\alpha_1,\gamma_1}(0),\ldots,c_{\alpha_1,\gamma_1}(M_1)$
-and transforms them into a different sets of generalized me-cepstrum
-coefficients
+from {\em infile} (or standard input) 
+into different sets of generalized mel-cepstrum coefficients
 $c_{\alpha_2,\gamma_2}(0),\ldots,c_{\alpha_2,\gamma_2}(M_2)$
-\par
+sending the result to standard output.
+
+$\alpha$ characterizes the frequency-warping transform,
+while $\gamma$ characterizes the generalized log magnitude transform.
+
 Input and output data are in float format.
-\par
+
 Firstly, a frequency transformation ( $\alpha_1 \rightarrow \alpha_2$ )
 is undertaken in the input generalized mel-cepstrum
 coefficients $c_{\alpha_1,\gamma_1}(m)$,
@@ -71,7 +75,6 @@ and $c_{\alpha_2,\gamma_1}(m)$ is calculated as follows.
 \hspace{-15mm}&& \hspace{80mm} i = -M_1,\ldots,-1,0 
 \end{eqnarray*}
 
-\par
 Then the gain is normalized and $c_{\alpha_2,\gamma_1}'(m)$ 
 is evaluated.
 \begin{eqnarray*}
@@ -83,7 +86,6 @@ is evaluated.
 	  c_{\alpha_2,\gamma_1}^{(0)}(0)\right), \quad m = 1,2,\ldots, M_2 
 \end{eqnarray*}
 
-\par
 Afterwards, $c_{\alpha_2,\gamma_1}'(m)$ is transformed into 
 $c_{\alpha_2,\gamma_2}'(m)$ through a generalized log transformation
 ( $\gamma_1 \rightarrow \gamma_2$ ).?????????????????????????????
@@ -97,7 +99,6 @@ $c_{\alpha_2,\gamma_2}'(m)$ through a generalized log transformation
 	  \quad m = 1, 2, \ldots, M_2 
 \end{eqnarray*}
 
-\par
 Finally, the gain is inverse normalized and $c_{\alpha_2,\gamma_2}(m)$
 is calculated.
 \begin{eqnarray*}

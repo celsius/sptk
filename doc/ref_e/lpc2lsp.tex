@@ -44,16 +44,18 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em lpc2lsp} command reads the linear prediction coefficients
+{\em lpc2lsp} calculates line spectral pair (LSP) coefficients 
+from $M$-order linear prediction (LPC) coefficients 
+from {\em infile} (or standard input),
+sending the result to standard output.
+
+The gain $K$ is included in the LPC input vectors
 \begin{displaymath}
   K, a(1), \ldots, a(M)
 \end{displaymath}
-from the assigned file, calculates LSP coefficients and
-sends the result to the standard output.
-Note that the gain $K$ is included but it is not used
-in the evaluation of the LSP coefficients.
-\par
-The $M$ order polynomial linear prediction equation $A(z)$ is
+but $K$ is not used in the calculation of the LSP coefficients.
+
+The $M$-order polynomial linear prediction equation $A(z)$ is
 \begin{displaymath}
   A_M(z) = 1 + \sum_{m=1}^M a(m) z^{-m}
 \end{displaymath}
@@ -122,13 +124,13 @@ LSP coefficients.
                  2 (frequency [kHz])
                  3 (frequency [Hz])
 	\argm{o}{O}{output format \\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
 			$0$ & normalized frequency $(0 \ldots \pi)$ \\
 			$1$ & normalized frequency $(0 \ldots 0.5)$ \\
 			$2$ & frequency (kHz) \\
 			$3$ & frequency (Hz)  \\
 		\end{tabular}\\\hspace*{\fill}}{0}
-	\desc[0.6zh]{Usually, the options below do not need to be assigned.}
+	\desc[0.6ex]{Usually, the options below do not need to be assigned.}
 	\argm{n}{N}{split number of unit circle}{128}
 	\argm{p}{P}{maximum number of interpolation for $P(z)$}{4}
 	\argm{q}{Q}{maximum number of interpolation for $Q(z)$}{15}

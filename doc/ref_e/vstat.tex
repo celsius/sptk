@@ -42,9 +42,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads an $L$ dimension vector from the assigned file,
-evaluates the mean vector and the covariance matrix
-for every $T$ vectors, and sends the results to the standard output.
+{\em vstat} calculates the mean and covariance of groups of vectors 
+from {\em infile} (or standard input), 
+sending the result to standard output.
+
+For each group of $T$ input vectors of length $L$, 
+{\em vstat} calculates the length $L$ mean vector 
+and the $L\times L$ covariance matrix. 
 That is, if the input data is
 \begin{displaymath}
 \overbrace{
@@ -70,10 +74,9 @@ evaluation of {\boldmath $m$}, {\boldmath $U$} is undertaken by
 	\mbox{\boldmath $x$} \mbox{\boldmath $x$}^T
 	- \mbox{\boldmath $m$} \mbox{\boldmath $m$}^T
 \end{displaymath}
-Also, if the diagonal covariance is wanted(--d option),
-then the values outside of the diagonal are not outputed.
-
-If the input file is omitted, then data is read from the standard input.
+If the --d option is given, 
+the length $L$ diagonal of the covariance matrix is output 
+instead of the entire $L\times L$ matrix.
 
 Input and output data are in float format.
 \end{qsection}
@@ -83,10 +86,10 @@ Input and output data are in float format.
 	\argm{n}{N}{order of vector}{L-1}
 	\argm{t}{T}{number of vector}{N/A}
 	\argm{o}{O}{output format\\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
                         $O=0$ & mean \& covariance\\
                         $O=1$ & mean\\
-                        $O=2$ & covariance\\[1zh]
+                        $O=2$ & covariance\\[1ex]
                 \end{tabular}\\\hspace*{\fill}}{0}
 	\argm{d}{}{diagonal covariance}{FALSE}
 	\argm{r}{}{output correlation instead of covariance}{FALSE}

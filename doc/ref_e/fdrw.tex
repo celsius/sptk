@@ -46,11 +46,10 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command connects through a straight line the input data in float
-format.
-\par
-The output includes a sequence of commands so that it can be plotted
-(FP5301 protocol).
+{\em fdrw} converts float data from {\em infile} (or standard input) 
+to a plot formatted according to the FP5301 protocol, 
+sending the result to standard output.
+Various options let you control the details of the plot layout.
 \end{qsection}
 
 \begin{options}
@@ -74,7 +73,7 @@ The output includes a sequence of commands so that it can be plotted
                     recursively in the $y$ axis. The distance between
                     two graphs in the $y$ axis is given by $Z$.}{0}
 	\argm{b}{}{bar graph mode}{FALSE}
-	\desc[1zh]{The $x$ axis scaling is automatically done so that
+	\desc[1ex]{The $x$ axis scaling is automatically done so that
                 every point in the input file is plotted in equal interval
                 for the assigned width.
                 When {\bf --n} option is omitted and the number of
@@ -105,9 +104,9 @@ The $y$ axis goes from $-60$dB to $40$dB.
 The running spectrum can be draw on the X window environment by:
 \begin{quote}
  \verb!fig -g 0 -w 0.4 << EOF ! \\
- \verb!　　x 0 5 !\\
- \verb!　　xscale 0 1 2 3 4 5 !\\
- \verb!　　xname "FREQUENCY (kHz)"!\\
+ \verb!~~~~x 0 5 !\\
+ \verb!~~~~xscale 0 1 2 3 4 5 !\\
+ \verb!~~~~xname "FREQUENCY (kHz)"!\\
  \verb!EOF!\\
  \verb!spec < data |\ !\\
  \verb!fdrw -w 0.4 -h 0.2 -g 0 -n 129 -y -30 30 -z 3 |\ !\\

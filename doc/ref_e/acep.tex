@@ -45,14 +45,16 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-        This command undertakes the adaptive cepstrum analysis%
-        \cite{ref:acep-IEICE}, \cite{ref:acep-IEEESP},
-        sends the cepstrum coefficients to the standard output,
-        and the prediction error to {\em pefile}, whenever
-        {\em pefile} is included in the command line.
- \par
+	{\em acep} uses adaptive cepstrum analysis%
+	\cite{ref:acep-IEICE}, \cite{ref:acep-IEEESP},
+	to calculate cepstrum coefficients from 
+	unframed float data from standard input,
+	sending the result to standard output.  
+	If {\em pefile} is given,
+	{\em acep} writes the prediction error is written to that file.
+
 	The format for input and output data is float.
- \par
+
 	The algorithm to calculate recursively the
         adaptive cepstrum coefficients is 
  %

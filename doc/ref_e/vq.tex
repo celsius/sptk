@@ -42,21 +42,27 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads data from the assigned file sequence of length $L$
+{\em vq} uses vector quantization to compress vectors 
+from {\em infile} (or standard input)
+according to the codebook {\em cbfile}, 
+sending either codebook indices or quantized vectors to standard output.
+
+For each length $L$ input vector
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-compares each value with every code vector read from
-codebook file {\em cbfile} through the Euclidean distance $d_i$,
+{\em vq} finds the codebook vector $\mbox{\boldmath $c$}_i$ 
+that minimizes the Euclidian distance
 \begin{displaymath}
-d_i = \frac{1}{L}\sum_{m=0}^{L-1} (x(m)-c_i(m))^2
+d_i = \frac{1}{L}\sum_{m=0}^{L-1} (x(m)-c_i(m))^2. 
 \end{displaymath}
-and sends to the output the index which minimizes this distance.
-If -q options is assigned, then the code vector
-$[c_i(0), c_i(1), \cdots, c_i(L-1)]$ is outputed.
-\par
-Input data is in float format and output data is in int format.
-If the -q options is assigned, then output data is in float format.
+
+Input data is in float format.
+If the --q option is given, 
+the output is the code vector $[c_i(0), c_i(1), \cdots, c_i(L-1)]$ 
+in float format.
+If the --q option is not given, 
+the output is codebook index $i$ in int format.
 \end{qsection}
 
 \begin{options}

@@ -43,8 +43,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command calculates the phase of the spectrum of a real sequence read
-from the standard input.
+{\em phase} calculates the phase of the spectrum of a real sequence 
+from {\em infile} (or standard input), 
+sending the result to standard output.
 Assume that the input sequence is
 \begin{displaymath}
   x(0), x(1), \ldots, x(L-1)
@@ -86,11 +87,11 @@ the difference between the numerator and denominator phases}.
 	\argm{p}{pfile}{numerator coefficients file\\
 			The {\em pfile} should follow this structure in
                         float format:\\
-			\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
+			\hspace*{2ex}$K, a(1), \ldots, a(M)$\\[-1ex]}{NULL}
 	\argm{z}{zfile}{denominator coefficients file\\
 			The {\em zfile} should follow this structure in
                         float format:\\
-			\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\
+			\hspace*{2ex}$b(0), b(1), \ldots, b(N)$\\
 			The contents of {\em pfile} and {\em zfile}
                         should be in a similar form to that used in
                         command {\em dfs}.

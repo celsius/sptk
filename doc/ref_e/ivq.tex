@@ -42,14 +42,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em ivq} command reads the codebook indexes $i$ from 
-the assigned {\em infile}, as well as the codebook file {\em cbfile}
-and output the decoded vector
+{\em ivq} decodes vector-quantized data from a sequence of codebook indexes
+from {\em infile} (or standard input), 
+using the codebook {\em cbfile}, 
+sending the result to standard output. 
+The decoded output vector format is
 \begin{displaymath}
-  c_i(0),c_i(1),\ldots,c_i(L-1)
+  c_i(0),c_i(1),\ldots,c_i(L-1). 
 \end{displaymath}
-to the standard output.
-\par
+
 Input data is in int format, and output data is in float format.
 \end{qsection}
 

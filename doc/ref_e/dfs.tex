@@ -45,8 +45,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- This command reads the input data file and passes it through a
-  digital filter in standard form.
+{\em dfs} filters data from {\em infile} (or standard output) 
+with a digital filter in standard form, 
+sending the result to standard output.
   The filter transfer function is
 \begin{displaymath}
   H(z)=K\frac{\displaystyle{\sum_{n=0}^{N}{b(n)z^{-n}}}}{1+\displaystyle{\sum_{m=1}^{M}{a(m)z^{-m}}}}
@@ -62,10 +63,10 @@ The format of input and output data is float.
 		{N/A}
 	\argm{p}{pfile}{denominator coefficients file in float format
                 as follows\\
-		\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
+		\hspace*{2ex}$K, a(1), \ldots, a(M)$\\[-1ex]}{NULL}
 	\argm{z}{zfile}{numerator coefficients file in float format
                 as follows\\
-		\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\[-1zh]}{NULL}
+		\hspace*{2ex}$b(0), b(1), \ldots, b(N)$\\[-1ex]}{NULL}
 	\desc{If {\bf --a}, {\bf --p} options are not assigned,
               the denominator and $K$ are made equal to 1.
               If {\bf --b}, {\bf --z} options are not assigned,

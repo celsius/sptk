@@ -42,8 +42,10 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command compresses or decompresses data into
-$\mu$-law format.
+{\em ulaw} converts data between 8-bit $\mu$-law and 16-bit linear formats.
+The input data is {\rm infile} (or standard input), 
+and the output is sent to standard output.
+
 If the input is $x(n)$, the output is $y(n)$,
 the largest value of input data is $V$, compression coefficients is $U$,
 then the compression is made through the following equation.

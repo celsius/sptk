@@ -43,11 +43,12 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em lspdf} command reads excitation information from
-{\em infile},  passes it through an LSP digital filter
-obtained from the coefficients read from {\em lspfile},
-and sends the results to the standard output.
-\par
+{\em lspdf} derives an LSP digital filter 
+from line spectral pair (LSP) coefficients in {\em lspfile} 
+and uses it to filter an excitation sequence
+from {\em infile} (or standard input) to synthesize speech data, 
+sending the result to standard output.
+
 Input and output are in float format.
 \end{qsection}
 

@@ -43,8 +43,10 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command evaluates the cepstral distance between the coefficients in
- files {\em infile} and {\em cfile}.
+{\em cdist} calculates the cepstral distance 
+between the cepstrum coefficients 
+in {\em infile} (or standard input) and {\em cfile}, 
+sending the result to standard output.
 For example, if the cepstrum coefficients of the {\em infile} at
 frame $t$ are 
 \[c_{1,t}(0),c_{1,t}(1),c_{1,t}(2),\cdots,c_{1,t}(M)\]
@@ -62,10 +64,10 @@ then $T$, then evaluation is undertaken for the smallest number of frames.
 \begin{options}
 	\argm{m}{M}{order of minimum-phase cepstrum}{25}
 	\argm{o}{O}{output format\\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
 		$O=0$ & $  \frac{10}{\ln 10} \sqrt{2d(t)}$ \ \ \ \ [db]\\
 		$O=1$ & $  d(t)$ \\
-		$O=2$ & $  \sqrt{d(t)}$ \\[1zh]
+		$O=2$ & $  \sqrt{d(t)}$ \\[1ex]
 		\end{tabular}\\
 						}{0}
 	\argm{f}{}{output frame by frame}{FALSE}

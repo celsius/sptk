@@ -42,20 +42,23 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command inputs real sequence from the standard input,
-and windows it with the assigned windowing function.
-In other word,
-if the input sequence is
+{\em window} multiplies, 
+on an element-by-element basis, 
+length $L$ input vectors from {\em infile} (or standard input) 
+by a specified windowing function, 
+sending the result to standard output.
+
+For the input data
 \begin{displaymath}
   x(0), x(1), \ldots, x(L_1-1)
 \end{displaymath}
-and the windowing function is given by
+and the windowing function
 \begin{displaymath}
-  w(0), w(1), \ldots, w(L_1-1)
+  w(0), w(1), \ldots, w(L_1-1), 
 \end{displaymath}
-then the output is
+the output is calculated as follows:
 \begin{displaymath}
-  x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1)
+  x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1). 
 \end{displaymath}
 If $L_2$ is greater then $L_1$, then 0s are added to the output as follows.
 \begin{displaymath}
@@ -69,7 +72,7 @@ Input and output data are in float format.
 	\argm{l}{L_1}{frame length of input $(L\leq 2048)$}{256}
 	\argm{L}{L_2}{frame length of output}{$L_1$}
 	\argm{n}{N}{type of normalization\\
-			\begin{tabular}{ll}\\ [-1zh]
+			\begin{tabular}{ll}\\ [-1ex]
 			 0 & no normalization\\
 			 1 & normalization such as
                              $\displaystyle \sum_{n=0}^{L-1} w^2(n) = 1$\\
@@ -77,12 +80,13 @@ Input and output data are in float format.
                              $\displaystyle \sum_{n=0}^{L-1} w(n) = 1$\\
 			 \end{tabular}\\\hspace*{\fill}}{1}
 	\argm{w}{W}{type of window\\
-			\begin{tabular}{ll}\\ [-1zh]
+			\begin{tabular}{ll}\\ [-1ex]
 			 0 & Blackman \\
 			 1 & Hamming \\
 			 2 & Hanning \\
 			 3 & Bartlett \\
-			 4 & rectangular \\
+			 4 & trapezoid \\
+			 5 & rectangular \\
 			\end{tabular}\\\hspace*{\fill}}{0}
 \end{options}
 

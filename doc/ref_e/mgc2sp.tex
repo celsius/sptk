@@ -45,12 +45,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads mel-generalized cepstrum coefficients
-$c_{\alpha, \gamma}(m)$ and evaluated the log magnitude
-spectrum.
-\par
+{\em mgc2sp} calculates the log magnitude spectrum 
+from mel-generalized cepstrum coefficients $c_{\alpha, \gamma}(m)$
+from {\em infile} (or standard input),
+sending the result to standard output.
+
 Input and output data are in float format.
-\par
+
 The mel-generalized cepstrum coefficients $c_{\alpha, \gamma}(m)$
 are transformed into mel-generalized log cepstrum coefficients
 (refer to mgc2mgc)
@@ -102,14 +103,14 @@ K_\alpha,\gamma c_{\alpha,\gamma}'(1),\ldots, \gamma c_{\alpha,\gamma}'(M)
 	\argm{o}{O}{output format \\
                     if the --p option is assigned, scale of output spectrum
                     can be assigned.\\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
 			$O=0$ & $20 \times \log |H(z)|$ \\
 			$O=1$ & $\ln |H(z)|$ \\
-			$O=2$ & $|H(z)|$ \\[1zh]
+			$O=2$ & $|H(z)|$ \\[1ex]
 		\end{tabular} \\
 		    if the --p option is not assigned, unit of output phase
                     can be assigned.\\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
 			$O=0$ & $\arg |H(z)| \div \pi \quad [\pi \; rad.]$ \\
 			$O=1$ & $\arg |H(z)| \quad [rad.]$ \\
 			$O=2$ & $\arg |H(z)| \times180\div\pi\quad[deg.]$ \\

@@ -43,9 +43,10 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The minimum phase impulse response is evaluated from the minimum phase
-cepstrum contained in the input file {\em infile}.
-If the input file name is omitted, the standard input is used.
+{\em c2ir} calcullates the minimum phase impulse response 
+from minimum phase cepstrum coefficients 
+from {\em infile} (or standard input), 
+sending the result to standard output.
 For example, if the input sequence is
 \[c(0),c(1),c(2),\cdots,c(M_1)\]
 then the impulse response is calculated as

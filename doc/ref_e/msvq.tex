@@ -42,10 +42,11 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command undertakes multi-stage vector quantization in
-assigned file. 
-The -s option assigns the number of stage levels.
-\par
+{\em msvq} encodes the data from {\em infile} (or standard input) 
+using multi-stage vector quantization 
+with codebooks specified by multiple --s options,
+sending the result to standard output.
+
 Input data is in float format and output data is in int format.
 \end{qsection}
 
@@ -53,7 +54,7 @@ Input data is in float format and output data is in int format.
 	\argm{l}{L}{length of vector}{26}
         \argm{n}{N}{order of vector}{$L-1$}
 	\argm{s}{S \; cbfile}{codebook\\
-		\begin{tabular}{ll}\\ [-1zh]
+		\begin{tabular}{ll}\\ [-1ex]
 		$S$ & codebook size\\
 		$cbfile$ & codebook file\\
 		\end{tabular}\\\hspace*{\fill}}{N/A N/A}
