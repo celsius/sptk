@@ -1,5 +1,5 @@
 %#!jlatex main.tex
-\documentstyle[fleqn,12pt,epsf,cmndref]{jbook}
+\documentstyle[fleqn,12pt,makeidx,epsf,cmndref]{jbook}
 \pagestyle{myheadings}
 
 \setlength{\textwidth}{6.5in}
@@ -14,6 +14,8 @@
 \renewcommand{\dbltopfraction}{1}
  
 %\input{mathdef}
+
+\makeindex
 
 \begin{document}
 
@@ -177,6 +179,9 @@ Speech Signal Processing Toolkit}
 %END COMMANDS
 
 \include{ref}
+
+\pagestyle{empty}
+\printindex
 
 \end{document}
 

@@ -149,6 +149,8 @@ EPSF = fig/bcp.eps \
 ############################################################
 
 AUX	= $(SRC:.tex=.aux)
+IDX	= $(SRC:.tex=.idx)
+IND	= $(SRC:.tex=.ind)
 
 
 ############################################################
@@ -166,6 +168,7 @@ TARGET	= $(DVI)
 ############################################################
 
 LATEX	= jlatex
+MAKEIDX	= mendex -f
 DVIPS	= dvips -f
 PSPDF	= ps2pdf
 
@@ -177,11 +180,22 @@ TOUCH	= touch
 #### Suffix Rules ##########################################
 ############################################################
 
-.SUFFIXES: .tex .aux .dvi .ps .pdf .bib .bbl
+.SUFFIXES: .tex .aux .idx .ind .dvi .ps .pdf
 
 .tex.aux:
 	$(LATEX) $<
-	-grep 'Label(s) may have changed.' $*.log > /dev/null && $(RM) $*.dvi
+	$(RM) $*.idx $*.dvi
+
+.tex.idx:
+	$(LATEX) $<
+	$(RM) $*.dvi
+
+.idx.ind:
+	mv $*.idx $*.idx.jis
+	nkf -e $*.idx.jis > $*.idx
+	$(MAKEIDX) $<
+	mv $*.ind $*.ind.euc
+	nkf -j $*.ind.euc > $*.ind
 
 .tex.dvi:
 	$(LATEX) $<
@@ -202,7 +216,9 @@ all: $(TARGET)
 
 $(PS): $(DVI) $(EPSF)
 
-$(DVI): $(AUX) $(EPSF)
+$(DVI): $(AUX) $(IND) $(EPSF)
+
+$(IND): $(AUX)
 
 $(AUX): $(INC)
 
@@ -212,9 +228,9 @@ $(AUX): $(INC)
 ############################################################
 
 clean:
-	$(RM) *.dvi *.ps *.pdf *.aux *.toc *.lof *.lot *.log
+	$(RM) *.dvi *.ps *.pdf *.aux *.toc *.lof *.lot *.log *.idx *.ind *.ilg
 	$(RM) *~ \#* $(TARGET)
 
 logclean:
-	$(RM) *.log *.blg
+	$(RM) *.log *.ilg
 
