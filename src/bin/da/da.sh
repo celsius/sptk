@@ -111,7 +111,7 @@ cat2 <<EOF
  da - play 16-bit linear PCM data
 
   usage:
-       daplay [ options ] [ infile1 ] [ infile2 ] ...
+       da [ options ] [ infile1 ] [ infile2 ] ...
 EOF
 
 switch($arch)
