@@ -190,7 +190,7 @@ goto main
 
 usage:
 	echo2 ''
-	echo2 " $cmnd - draw a runnig log spectrum graph"
+	echo2 " $cmnd - draw a running log spectrum graph"
 	echo2 ''
 	echo2 '  usage:'
 	echo2 '       grlogsp.sh [ options ] [ infile ] > stdout'
@@ -223,9 +223,9 @@ endif
 	echo2 '       -e   e         : end frame number             [EOF]'
 	echo2 '       -n   n         : number of frame              [EOF]'
 	echo2 '       -l   l         : frame length                 [256]'
-	echo2 '       -c   "c"       : coment for the graph         [""]'
-	echo2 '       -c2  "c2"      : coment for the graph         [""]'
-	echo2 '       -c3  "c3"      : coment for the graph         [""]'
+	echo2 '       -c   "c"       : comment for the graph        [""]'
+	echo2 '       -c2  "c2"      : comment for the graph        [""]'
+	echo2 '       -c3  "c3"      : comment for the graph        [""]'
 	echo2 '       -h             : print this message'
 	echo2 '       -help          : print help in detail'
 if ( $help ) then
