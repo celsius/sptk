@@ -5,18 +5,20 @@
 *					1986.9	K.Tokuda		*
 *					1995.7	K.Tokuda		*
 *					1996.3  N.Miyazaki		*
-*									*
+*					2000.3  Y.Nankaku		*
+*			                              			*
 *	usage:								*
-*		histogram [ options ] > stdout				*
+*		histogram [ options ] [ infile ] > stdout		*
 *	options:							*
 *		-l l	 : sequence length		[256]		*
 *		-i i	 : infimum			[0]		*
-*		-j j	 : supremum                     [1]		*
-*		-n n	 : step size			[0.1]		*
+*		-j j	 : supremum			[1]		*
+*		-s s	 : step size			[0.1]		*
+*		-n	 : normalization		[off]		*
 *	infile:								*
-*		sample data (double)					*
+*		sample data (float)					*
 *	stdout:								*
-*		histogram (double)					*
+*		histogram (float)					*
 *									*
 ************************************************************************/
 
@@ -24,14 +26,14 @@
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <SPTK.h>
+#include <stdlib.h>
 #include <string.h>
 
 
 /*  Command Name  */
 char	*cmnd;
 
-
-int	usage()
+int	usage(status)
 {
 	fprintf(stderr, "\n");
 	fprintf(stderr, " %s - histogram\n", cmnd);
@@ -42,81 +44,104 @@ int	usage()
 	fprintf(stderr, "       -l l  : frame size         [0]\n");
 	fprintf(stderr, "       -i i  : infimum            [0.0]\n");
 	fprintf(stderr, "       -j j  : supremum           [1.0]\n");
-	fprintf(stderr, "       -n n  : step size          [0.1]\n");
+	fprintf(stderr, "       -s s  : step size          [0.1]\n");
+	fprintf(stderr, "       -n    : normalization      FALSE\n");
 	fprintf(stderr, "       -h    : print this message\n");
 	fprintf(stderr, "  infile:\n");
 	fprintf(stderr, "       data sequence (float)      [stdin]\n");
 	fprintf(stderr, "  stdout:\n");
-	fprintf(stderr, "       histogram (int)\n");
+	fprintf(stderr, "       histogram (float)\n");
 	fprintf(stderr, "  notice:\n");
 	fprintf(stderr, "       if l > 0, calculate histogram frame by frame\n");
 	fprintf(stderr, "\n");
-	exit(1);
+	exit(status);
 }
 
 main(argc, argv)
 	int argc;
 	char *argv[];
 {
-	double	i=0, j=1, n=0.1;
-	int	l=0, k, ii, *h;
-	double	*x, xx;
-	double atof();
-	int atoi();
-	FILE	*fp = stdin;
+  	char	*s, c;
+	double  i=0, j=1, st=0.1;
+	int	l=0, k, ii;
+	int	flg=0, n=0;
+	double  *h;
+	double  *x, xx;
+	FILE *fp = stdin;
+
 	
 	if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	        cmnd = argv[0];
 	else
 	        cmnd++;
-	while (--argc)
-		if (**++argv == '-'){
-			argc--;
-			switch (*(*argv+1)) {
+	while (--argc){
+		if(*(s = *++argv) == '-') {
+			c = *++s;
+			if(c != 'n' && *++s == '\0') {
+				s = *++argv;
+				--argc;
+			}
+			switch (c) {
 			case 'l':
-				l = atoi(*++argv);
+				l = atoi(s);
 				break;
 			case 'i':
-				i = atof(*++argv);
+				i = atof(s);
 				break;
 			case 'j':
-				j = atof(*++argv);
+				j = atof(s);
+				break;
+			case 's':
+				st = atof(s);
 				break;
 			case 'n':
-				n = atof(*++argv);
+				n = 1;
 				break;
 			case 'h':
+				usage(0);
 			default:
-				usage();
+				fprintf(stderr,
+					"%s: unknown option '%c'\n", cmnd, c);
+				usage(1);
+				break;
 			}
-		} else	fp = getfp(*argv, "r");
-
-	k = (int)((j-i)/n + 1.0);
-	h = (int *)dgetmem(k+2);
-
+		} else
+			fp = getfp(*argv, "r");
+	}
+	
+	k = (int)((j - i) / st + 1.0);
+	h = dgetmem(k+2);
 
 	if (l) {
 		x = dgetmem(l);
-		if ( freadf(x, sizeof(*x), l, fp) != l) {
-			fprintf(stderr, "input too short!\n");
-			exit(1);
+		while ( freadf(x, sizeof(*x), l, fp) == l) {
+			flg += histogram(x, l, i, j, st, h);
+		  
+			if (n && l)
+				for(ii = 0; ii <= k; ii++)
+					h[ii] /= (double)l;
+
+			fwritef(h, sizeof(*h), k, stdout);
 		}
-		histogram(x, l, i, j, n, h);
-		fwrite(h, sizeof(*h), k, stdout);
-        } else {
+	}
+	else{
 		fillz(h, sizeof(*h), k+2);
 		while (freadf(&xx, sizeof(xx), 1, fp) == 1){
-			for (ii = 0; ii <= k; ii++)
-				if (xx < i + ii * n){
+			if (xx < i || xx > j) flg = 1;
+			else for (ii = 0; ii <= k; ii++)
+				if (xx < i + (ii + 1) * st){
 					h[ii]++;
 					break;
 				}
-			if (xx >= i + ii * n)
-				h[ii]++;
+			l++;
 		}
-		fwrite(&h[1], sizeof(*h), k, stdout);
-		if (h[0] || h[ii])
-			exit(1);
-	}	
-	exit(0);
+	  
+		if (n && l)
+			for(ii = 0; ii <= k; ii++)
+				h[ii] /= (double)l;
+	  
+		fwritef(h, sizeof(*h), k, stdout);
+	}
+	
+	exit(flg);
 }
