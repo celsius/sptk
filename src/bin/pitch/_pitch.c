@@ -1,22 +1,24 @@
-/****************************************************************
+/**********************************************************************
 
-    $Id: _pitch.c,v 1.1 2000/03/01 13:58:49 yossie Exp $
+    $Id: _pitch.c,v 1.2 2000/04/03 07:14:58 mtamura Exp $
 
     Pitch Extract
 
-   	double pitch(x, m, l, a, thresh, L, H, eps, env);
+   	double pitch(xw, freq, l, a, thresh, L, H, eps, m1, m2, alpha);
 
-	double *x     : windowed data sequence
-	int    m      : order of cepstrum
-	int    l      : frame length
+	double *xw    : windowed data sequence
+	int    freq   : sampling frequency
+	int    l      : frame length (fft size)
 	double a      : pre-emphasis coefficients
 	double thresh : voiced/unvoiced threshold
-	int    L      : minmum for pitch period
-	int    H      : maximum for pitch period
+	int    L      : minmum fundamental frequency to search for
+	int    H      : maximum fundamental frequency to search for
 	double eps    : small value for log
-	int    env    : order for calculate log-spectral envelope
+	int    m1     : order of LPC
+	int    m2     : order of mel cepstrum
+	double alpha  : all-pass constant
 
-******************************************************************/
+************************************************************************/
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -24,38 +26,45 @@
 
 /*  Required Functions  */
 int fftr();
+int lpc();
+void ignorm();
+void mgc2mgc();
 double log();
 
 
-double pitch(xw, m, l, a, thresh, L, H, eps, env)
-double *xw, a, thresh, eps;
-int m, l, L, H, env;
+double pitch(xw, freq, l, a, thresh, L, H, eps, m1, m2, alpha)
+double *xw, a, thresh, eps, alpha;
+int freq, l, L, H, m1, m2;
 {
-    static double *x = NULL,*y,*z;
+    static double *x = NULL,*y,*z, *c;
     double voiced,max,p,log();
-    int i;
+    int i, low, high;
 
     if(x == NULL){
-	x = dgetmem(3*l);
+	x = dgetmem(3*l+m1+1);
 	y = x + l;
 	z = y + l;
+	c = z + l;
     }
 
     movem(xw,x,sizeof(*x),l);
-    fftr(x, y, l);
-    for(i=0; i<l; i++)
-	x[i] = log(x[i]*x[i] + y[i]*y[i] + eps);
 
-    movem(x,z,sizeof(*x),l);		/* voiced/unvoiced detection */
+/* voiced/unvoiced detection */
+    lpc(x, l, c, m1);
+    ignorm(c, c, m1, -1.0);
+    for(i = m1;i >= 1; i--) c[i] /= -1.0;
+    mgc2mgc(c, m1, 0.0, -1.0, z, m2, alpha, 0.0);
+    fillz(z+m2,l-m2,sizeof(double));
     fftr(z,y,l);
-    for(i=0;i<=env;i++)
-	z[i] /= l;
-    fillz(z+env,l-env,sizeof(double));
-    fftr(z,y,l);
+
     voiced = 0.0;
     for(i=4*l/256;i<=17*l/256;i++)
 	voiced += z[i];
     voiced /= 14 * l / 256;
+
+    fftr(x, y, l);
+    for(i=0; i<l; i++)
+	x[i] = log(x[i]*x[i] + y[i]*y[i] + eps);
 
     if(voiced > thresh){
 	y[0] = x[0] - a * x[l-1];		/* pre-emphasis filter */
@@ -69,7 +78,10 @@ int m, l, L, H, env;
 	    x[i] /= l;
 
 	max = 0;
-	for(i=L; i<H; i++)
+	low = freq * 1000 / H;
+	high = freq * 1000 / L;
+
+	for(i=low; i<high; i++)
 	    if(max < x[i]){
 		p = (float)i;
 		max = x[i];
