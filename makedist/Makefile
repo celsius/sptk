@@ -100,6 +100,8 @@ da: makefiles lib include
 	$(CP) $(SOURCEDIR)/src/bin/da/da.c $(TARGETDIR)/src/bin/da/da.c
 	$(CP) $(SOURCEDIR)/src/bin/da/da.h $(TARGETDIR)/src/bin/da/da.h
 
+daplay: da
+
 decimate: makefiles lib include
 	mkdir -p $(TARGETDIR)/src/bin/decimate
 	$(CP) $(SOURCEDIR)/src/bin/decimate/Makefile $(TARGETDIR)/src/bin/decimate/Makefile
