@@ -1,0 +1,37 @@
+\name{train}{パルス列あるいはM系列を発生する}
+
+\begin{synopsis}
+\item[train] [ --l $L$ ] [ --p $P$ ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+長さ $L$，周期 $P$ のパルス列，あるいはM系列を標準出力に出力します．
+出力データは，float 形式です．
+\par
+M系列は $\pm 1$ の値をもちます．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{出力データの長さ．}{256}
+	\argm{p}{P}{パルス列の周期．$P=0$ のときM系列を出力．}{0}
+	\argm{n}{N}{パルス列の正規化． \\パルス列を $x(n)$ としたとき\\
+			\begin{tabular}{ll}\\ [-1zh]
+			 0 & 正規化しない．\\
+			 1 & $\displaystyle \sum_{n=0}^{L-1} x^2(n) = 1$ となるように正規化．\\
+			 2 & $\displaystyle \sum_{n=0}^{L-1} x(n) = 1$となるように正規化．\\
+			 \end{tabular}\\\hspace*{\fill}}{1}
+
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+ディジタルフィルタをM系列で励振した出力のスペクトルを見る:
+\begin{quote}
+\verb!train | dfs -b 1 0.9 | window | spec | fdrw | xgr!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  impulse, sin, step, ramp
+\end{qsection}
+
+

@@ -1,0 +1,46 @@
+\name{gwave}{音声波形のプロット}
+
+\begin{synopsis}
+\item[gwave] [ --s $S$ ] [ --e $E$ ] [ --n $N$ ] [ --i $I$ ] [ --y $ymax$ ]
+	       [ --y2 $ymin$ ] [ --p $P$ ] 
+\item[\ ~~~~~~~~] [ +{\em type} ]  [ {\em infile} ]
+
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em gwave}は、音声波形データを標準入力から読み込んで表示する，
+プロッタのコマンド列を生成します．
+従って，{\em xgr}コマンド等と併用して使います．
+実体はシェルスクリプトで，内部では{\em fig}と{\em fdrw}を用いています．
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{表示開始ポイント}{0}
+	\argm{e}{E}{表示終了ポイント}{EOF}
+	\argm{n}{N}{グラフ1行に表示するデータ数\\
+			指定しない場合は1画面に全てのデータを表示します．}{N/A}
+	\argm{i}{I}{1画面のグラフの行数}{5}
+	\argm{y}{ymax}{ $y$ 軸の最大値．\\
+			指定しない場合は入力データの最大絶対値となります．}{N/A}
+	\argm{y2}{ymin}{ $y$ 軸の最小値．}{-YMAX}
+	\argm{p}{P}{使用するペン番号($1 \sim 10$)．}{1}
+	\argp{t}{入力データの形式．\\ 
+		\begin{tabular}{llcll} \\[-1zh]
+			s & short型 (2bytes) & \quad &
+			i & int型 (4bytes) \\
+			f & float型 (4bytes) & \quad &
+			d & double型 (8bytes) \\
+		\end{tabular}}{f}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の音声波形ファイル {\em data.f} を
+PostScript形式で {\em data.ps} に書き込む．
+\begin{quote}
+ \verb!gwave < data.f | psgr > data.ps!
+ \end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ fig, fdrw, xgr, psgr, glogsp, grlogsp
+\end{qsection}

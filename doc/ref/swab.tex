@@ -1,0 +1,43 @@
+\name{swab}{バイト単位でのスワップ}
+
+\begin{synopsis}
+\item [swab] [ --S $S_1$ ] [ --s $S_2$ ] [ --E $E_1$ ] [ --e $E_2$ ] 
+ 	    [ +$type$ ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em swab}は，リトルインディアン(Intel,DEC等)およびビッグインディアン(Sun,HP等)
+のバイトオーダーを変換(バイトスワップ)し ，標準出力に出力します．
+ファイルが指定されなかった場合，データは標準入力から読み込まれます．
+\par
+{\bf --S, --E}オプション，及び {\bf --s, --e} オプションでスワップする
+データ範囲を指定します．
+\par
+入力データ，及び出力データの形式は，+$type$ で指定されたものとなります．
+\end{qsection}
+
+\begin{options}
+	\argm{S}{S_1}{スワップするデータの開始バイトアドレス．}{0}
+	\argm{s}{S_2}{スワップするデータの開始データ番号．}{0}
+	\argm{E}{E_1}{スワップするデータの終了バイトアドレス．}{EOF}
+	\argm{e}{E_2}{スワップするデータの終了データ番号．}{0}
+	\argp{type}{入出力データの型指定． \\
+		\begin{tabular}{llcll} \\[-1zh]
+			s & short型 (2bytes) & \quad &
+			l & long型 (4bytes) \\
+			f & float型 (4bytes) & \quad &
+			d & double型 (8bytes) \\
+		\end{tabular}\\\hspace*{\fill}}{s}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル {\em data.f} のバイトオーダーを変換してファイル {\em data.swab}
+ に出力する:
+\begin{quote}
+ \verb!swab +f data.f > data.swab!
+\end{quote} 
+\end{qsection}
+
+%\begin{qsection}{SEE ALSO}
+% 
+%\end{qsection}

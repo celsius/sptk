@@ -1,0 +1,57 @@
+\name{root\_pol}{多項式の根を求める}
+
+\begin{synopsis}
+\item [root\_pol] [ --e $E$ ] [ --n $N$ ] [ --i ] [ --j ] [ --r ] [ --s ] 
+		  [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+多項式の根を求めます．指定されたファイルから $n$ 次の多項式
+\begin{displaymath}
+  P(x) = a_0x^n + a_1x^{n-1} + \ldots + a_{n-1}x + a_n
+\end{displaymath}
+の係数
+\begin{displaymath}
+  a_0, a_1, \ldots, a_n
+\end{displaymath}
+を読み込み，解を Durand-Kerner-Aberth法により計算します．
+\par
+結果は，$P(x)$ の根を $z_i$ として複素形式
+\begin{eqnarray*}
+& \mbox{Re}[z_0], & \mbox{Im}[z_0] \nonumber \\
+& \mbox{Re}[z_1], & \mbox{Im}[z_1] \nonumber \\  
+& \vdots &  \\
+& \mbox{Re}[z_{n-1}], & \mbox{Im}[z_{n-1}] \nonumber 
+\end{eqnarray*}
+あるいは，極形式
+\begin{eqnarray*}
+& |z_0|, & \mbox{arg}[z_0] \nonumber \\
+& |z_1|, & \mbox{arg}[z_1] \nonumber \\  
+& \vdots &  \\
+& |z_{n-1}|, & \mbox{arg}[z_{n-1}] \nonumber 
+\end{eqnarray*}
+の形式で標準出力に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{e}{E}{根の許容誤差 $\varepsilon$．}{$10^{-10}$}
+	\argm{n}{N}{根を探索する際の最大反復回数．}{200}
+	\argm{i}{}{$a_0 = 1$ にする．}{FALSE}
+	\argm{j}{}{多項式の次数．}{}
+	\argm{r}{}{出力する根を極形式（絶対値,偏角）にする．}{（実部,虚部）}
+	\argm{s}{}{係数を逆順にする．つまり，根の位置 $z_0$ を $1/z_0^*$ と
+			置き換えることを意味する．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の多項式ファイル {\em data.z} の根を極座標表示で求め，表示する:
+\begin{quote}
+ \verb!root -r < data.z | x2x +a 2!
+\end{quote} 
+\end{qsection}
+
+%\begin{qsection}{SEE ALSO}
+% 
+%\end{qsection}

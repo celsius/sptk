@@ -1,0 +1,38 @@
+#
+# Makefile for commands
+#
+
+TARGET		= libSPTK.a
+CMNDSRCS	= 
+LIBSRCS		= agexp.c cholesky.c fileio.c fillz.c getfp.c \
+		getmem.c gexp.c glog.c ifftr.c  matrix.c movem.c mseq.c \
+		theq.c toeplitz.c
+SRCS		= $(CMNDSRCS) $(LIBSRCS)
+CMNDOBJS	= $(CMNDSRCS:.c=.o)
+OBJS		= $(SRCS:.c=.o)
+
+PREFIX		= /usr/local/SPTK
+LIB		= $(PREFIX)/lib
+
+CC		= gcc
+RM		= rm -rf
+
+INCDIR		= -I../include
+CFLAGS		= -O2 $(INCDIR)
+
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(RM) $@
+	ar rcv $@ $(OBJS)
+	ranlib $@
+
+$(CMNDOBJS):
+	( d=`basename $@ .o | sed 's/_//'` ; \
+	( cd ../bin/$$d ; $(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)" $@ ) ; \
+	ln -s ../bin/$$d/$@ . )
+

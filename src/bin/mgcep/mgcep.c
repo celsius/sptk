@@ -1,0 +1,195 @@
+/************************************************************************
+*									*
+*    Mel-Generalized Cepstral Analysis					*
+*									*
+*					1990.7  K.Tokuda		*
+*					1996.3  K.Koishida		*
+*									*
+*	usage:								*
+*		mgcep [ options ] [ infile ] > stdout			*
+*	options:							*
+*		-a a     :  alapha				[0.35]	*
+*		-g g     :  gamma				[0.0]	*
+*		-m m     :  order of mel-generalized cepstrum	[25]	*
+*		-l l     :  frame length			[256]	*
+*		-o o     :  output format  (see stdout)		[0]	*
+*		(level 2)						*
+*		-i i     :  minimum iteration			[2]	*
+*		-j j     :  maximum iteration			[30]	*
+*		-d d     :  end condition			[0.001]	*
+*		-e e     :  small value added to periodgram 	[0.0]	*
+*	infile:								*
+*		data sequence						*
+*		    , x(0), x(1), ..., x(L-1),				*
+*	stdout:								*
+*	      output format	coefficients				*
+*		    0		, c~(0), c~(1), ..., c~(m)		*
+*		    1		, b(0), b(1), ..., b(m)			*
+*		    2		, K~, c~'(1), ..., c~'(m)		*
+*		    3		, K, b'(1), ..., b'(m)			*
+*		    4		, K~, g*c~'(1), ..., g*c~'(m)		*
+*		    5		, K, g*b'(1), ..., g*b'(m)		*
+*       notice:                                                         *
+*               if g > 1.0, g = -1 / g .                                *
+*	require:							*
+*		mgcep()							*
+*									*
+************************************************************************/
+
+static char *rcs_id = "$Id$";
+
+
+/*  Standard C Libraries  */
+#include <stdio.h>
+#include <string.h>
+#include <SPTK.h>
+
+
+/*  Required Functions  */
+int	mgcep();
+
+
+/*  Default Values  */
+#define	ALPHA		0.35
+#define	GAMMA		0.0
+#define ORDER		25
+#define FLENG           256
+#define OTYPE           0
+#define MINITR          2
+#define MAXITR          30
+#define END             0.001
+#define EPS		0.0
+
+
+/*  Command Name  */
+char	*cmnd;
+
+
+void usage(int status)
+{
+    fprintf(stderr, "\n");
+    fprintf(stderr, " %s - mel-generalized cepstral analysis\n",cmnd);
+    fprintf(stderr, "\n");
+    fprintf(stderr, "  usage:\n");
+    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+    fprintf(stderr, "  options:\n");
+    fprintf(stderr, "       -a a  : alpha                             [%g]\n", ALPHA);
+    fprintf(stderr, "       -g g  : gamma                             [%g]\n", GAMMA);
+    fprintf(stderr, "       -m m  : order of mel-generalized cepstrum [%d]\n", ORDER);
+    fprintf(stderr, "       -l l  : frame length                      [%d]\n", FLENG);
+    fprintf(stderr, "       -o o  : output format                     [%d]\n", OTYPE);
+    fprintf(stderr, "                 0 (c~0...c~m)\n");
+    fprintf(stderr, "                 1 (b0...bm)\n");
+    fprintf(stderr, "                 2 (K~,c~'1...c~'m)\n");
+    fprintf(stderr, "                 3 (K,b'1...b'm)\n");
+    fprintf(stderr, "                 4 (K~,g*c~'1...g*c~'m)\n");
+    fprintf(stderr, "                 5 (K,g*b'1...g*b'm)\n");
+    fprintf(stderr, "     (level 2)\n");
+    fprintf(stderr, "       -i i  : minimum iteration                 [%d]\n", MINITR);
+    fprintf(stderr, "       -j j  : maximum iteration                 [%d]\n", MAXITR);
+    fprintf(stderr, "       -d d  : end condition                     [%g]\n", END);
+    fprintf(stderr, "       -p p  : order of recursions               [l-1]\n");
+    fprintf(stderr, "       -e e  : small value added to periodgram   [%g]\n", EPS);
+    fprintf(stderr, "       -h    : print this message\n");
+    fprintf(stderr, "  infile:\n");
+    fprintf(stderr, "       windowed sequence (float)                 [stdin]\n");
+    fprintf(stderr, "  stdout:\n");
+    fprintf(stderr, "       mel-generalized cepstrum (float)\n");
+    fprintf(stderr, "  notice:\n");
+    fprintf(stderr, "       if g > 1.0, g = -1 / g\n");
+    fprintf(stderr, "\n");
+    exit(status);
+}
+
+
+void main(int argc, char **argv)
+{
+    int	     m = ORDER, flng = FLENG, itr1 = MINITR, itr2 = MAXITR, 
+	     n = -1, flag = 0, otype = OTYPE, i;
+    FILE     *fp = stdin;
+    double   *b, *x, a = ALPHA, g = GAMMA, end = END, e = EPS, atof();    
+    
+    if ((cmnd = strrchr(argv[0], '/')) == NULL)
+	cmnd = argv[0];
+    else
+	cmnd++;
+    while (--argc)
+	if (**++argv == '-') {
+	    switch (*(*argv+1)) {
+	        case 'a':
+		    a = atof(*++argv);
+		    --argc;
+		    break;
+	        case 'g':
+		    g = atof(*++argv);
+		    --argc;
+                    if (g > 1.0) g = -1.0 / g;
+		    break;
+		case 'm':
+		    m = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'l':
+		    flng = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'o':
+		    otype = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'i':
+		    itr1 = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'j':
+		    itr2 = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'p':
+		    n = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'd':
+		    end = atof(*++argv);
+		    --argc;
+		    break;
+		case 'e':
+		    e = atof(*++argv);
+		    --argc;
+		    break;
+		case 'h':
+		    usage(0);
+		default:
+		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+		    usage(1);
+		}
+	}
+	else 
+	    fp = getfp(*argv, "r");
+
+    if(n == -1)
+	n = flng - 1;
+
+    x = dgetmem(flng+m+m+2);
+    b = x + flng;
+    
+    while (freadf(x, sizeof(*x), flng, fp) == flng){
+	flag = mgcep(x, flng, b, m, a, g, n, itr1, itr2, end, e);
+
+	if (otype == 0 || otype == 1 || otype == 2 || otype == 4)
+	    ignorm(b, b, m, g);			/*  K, b'r  -->  br  */
+
+	if (otype == 0 || otype == 2 || otype == 4)
+	    if (a != 0.0) b2mc(b, b, m, a); 	/*  br  --> c~r  */
+
+	if (otype == 2 || otype == 4)
+	    gnorm(b, b, m, g);			/*  c~r  --> K~, c~'r  */
+
+	if (otype == 4 || otype == 5)
+	    for (i = m; i >= 1; i--) b[i] *= g;
+
+	fwritef(b, sizeof(*b), m+1, stdout);
+    }
+    exit(0);
+}
+

@@ -1,0 +1,91 @@
+\name{dmp}{バイナリファイルのダンプ}
+
+\begin{synopsis}
+\item[dmp] [ --n $N$ ] [ --l $L$ ] [ +{\em type} ] [ $\%${\em format} ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em dmp} は，指定されたファイルから読み込まれたデータに番号をふって
+ダンプします．
+ファイルが指定されなかった場合，データは標準入力から読み込まれます．
+\end{qsection}
+
+\begin{options}
+	\argm{n}{N}{データのブロック長．ふられる番号は，$0\sim N$ と
+		      なる．指定しない場合は，$N = \infty$ と等価．}{EOD}
+	\argm{l}{L}{データのブロック長．ふられる番号は，$1\sim L$ と
+		      なる．指定しない場合は，$L = \infty$ と等価．}{EOD}
+	\argp{t}{入力データの形式． \\
+		\begin{tabular}{llcll} \\[-1zh]
+			c & char型 (1byte) & \quad &
+			s & short型 (2bytes) \\
+			i & int型 (4bytes) & \quad &
+			l & long型 (4bytes) \\
+			f & float型 (4bytes) & \quad &
+			d & double型 (8bytes)
+		\end{tabular}\\\hspace*{\fill}}{c}
+        \argh{form}{}{出力のフォーマット指定．\\
+			C言語のprintf関数の引数の形で出力のフォーマットを
+			指定する．入力データの型に合わせる必要がある．}{N/A}
+
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル{\em data.f} にあるデータを
+ダンプする:
+\begin{quote}
+ \verb!dmp +f data.f!
+\end{quote}
+例えば，ファイル{\em data.f} に，
+float 形式の数値データ
+\begin{displaymath}
+  1, 2, 3, 4, 5, 6, 7
+\end{displaymath}
+が入っていた場合，
+\begin{quote}
+  \verb!0       1! \\
+  \verb!1       2! \\
+  \verb!2       3! \\
+  \verb!3       4! \\
+  \verb!4       5! \\
+  \verb!5       6! \\
+  \verb!6       7!
+\end{quote}
+と画面（標準出力）に出力されます．
+\par
+同じデータをブロック長を指定してダンプする:
+\begin{quote}
+ \verb!dmp -n 2 +f data.f!
+\end{quote}
+この場合，
+\begin{quote}
+  \verb!0       1! \\
+  \verb!1       2! \\
+  \verb!2       3! \\
+  \verb!0       4! \\
+  \verb!1       5! \\
+  \verb!2       6! \\
+  \verb!0       7!
+\end{quote}
+と表示されます．
+\par
+ディジタルフィルタのユニットパルス応答を画面にダンプする:
+\begin{quote}
+  \verb!impulse | dfs -a 1 0.9 | dmp!
+\end{quote}
+\par
+printf の\%e フォーマットで，
+正弦波をダンプする:
+\begin{quote}
+  \verb!sin -p 30 | dmp %e!
+\end{quote}
+\par
+小数点以下を3 桁にする:
+\begin{quote}
+  \verb!sin -p 30 | dmp %.3e!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+x2x, fd
+\end{qsection}

@@ -1,0 +1,36 @@
+\name{acorr}{短時間自己相関を求める}
+
+\begin{synopsis}
+ \item[ acorr ] [ --m $M$ ] [ --l $L$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ファイル{\em infile}（省略時は標準入力）から読み込んだ，フレーム毎の $m$ 次の
+自己相関系列を標準出力に書き出します．
+つまり，入力データを
+\[ x(0),x(1),\cdots,x(L-1) \]
+として，
+\[ r(k)=\sum_{m=0}^{L-1-k}x(m)x(m+k),~~~~~~k=0,1,\cdots,M \]
+を計算し，
+\[ r(0),r(1),\cdots,r(M) \]
+を出力します．
+データ形式は入力，出力ともに float 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{出力する自己相関系列の次数．}{25}
+	\argm{l}{L}{入力データのフレーム長．}{256}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式のファイル{\em data.f} をフレーム長256，フレーム周期100の
+フレームに分割し，各フレームにブラックマン窓を掛けたデータの
+10次の自己相関系列をファイル{\em data.acorr}に出力する:
+\begin{center}
+ \verb!frame -l 256 -p 100 < data.f | window | acorr -m 10 > data.acorr!
+\end{center}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ c2acr, levdur
+\end{qsection}

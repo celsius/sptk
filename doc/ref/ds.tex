@@ -1,0 +1,49 @@
+\name{ds}{サンプリングレート変換（ダウンサンプリング）}
+
+\begin{synopsis}
+\item[ds] [ --e $E$ ] [ --s $S$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ダウンサンプリングを行ないます．
+\par
+データ形式は入力，出力ともfloat形式です．
+フィルタ係数は次のものが用いられます．
+
+\begin{tabular}{ll} \\[-1zh]
+	$S=21$ & /usr/local/cmnd/lib/lpfcoef.2to1 \\
+	$S=43$ & /usr/local/cmnd/lib/lpfcoef.4to3 \\
+	$S=52,s=54$ & /usr/local/cmnd/lib/lpfcoef.5to2up \\
+	& /usr/local/cmnd/lib/lpfcoef.5to2dn \\
+\end{tabular}
+
+なお，ファイルタ係数のファイルはASCII形式となっています．
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{変換タイプ． \\
+		\begin{tabular}{ll} \\[-1zh]
+			$S=21$ & 比率 $2 : 1$ でダウンサンプリング \\
+			$S=43$ & 比率 $4 : 3$ でダウンサンプリング \\
+			$S=52$ & 比率 $5 : 2$ でダウンサンプリング \\
+			$S=54$ & 比率 $5 : 4$ でダウンサンプリング
+		\end{tabular}\\\hspace*{\fill}}{21}
+	\argm{e}{E}{フィルタ係数のバイトオーダ． \\
+		\begin{tabular}{ll} \\[-1zh]
+			$E=l$ & リトルエンディアン(Intel,Alphaなど) \\
+			$E=b$ & ビッグエンディアン(SUN,HPなど)
+		\end{tabular}\\\hspace*{\fill}}{b}
+
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の標本化周波数16kHzの音声データ {\em data.16} を標本化周波数8kHzに
+ダウンサンプリングし， {\em data.8} に出力する:
+\begin{quote}
+\verb! ds data.16 > data.8 !
+\end{quote}
+\end{qsection}
+
+%\begin{qsection}{SEE ALSO}
+%
+%\end{qsection}

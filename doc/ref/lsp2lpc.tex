@@ -1,0 +1,39 @@
+\name{lsp2lpc}{LSP から LPC に変換}
+
+\begin{synopsis}
+\item [lsp2lpc] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --i $I$ ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em lsp2lpc}は，lsp 係数を線形予測係数に変換します．
+ ゲイン項を入出力しない場合はゲイン項を1としたLPC係数
+\begin{displaymath}
+	K = 1,a(1),\ldots,a(M)
+ \end{displaymath}
+を出力します．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{LPC の次数．}{25}
+	\argm{s}{S}{サンプリング周波数 (kHz)．}{10}
+	\argm{k}{}{ゲインの入出力}{TRUE}
+	\argm{i}{I}{入力形式． \\
+		\begin{tabular}{ll} \\[-1zh]
+			$0$ & 規格化周波数 $(0 \ldots \pi)$ \\
+			$1$ & 規格化周波数 $(0 \ldots 0.5)$ \\
+			$2$ & 周波数 (kHz) \\
+			$3$ & 周波数 (Hz)  \\
+		\end{tabular}\\\hspace*{\fill}}{0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の10次のlsp係数ファイル{\em data.lsp}から線形予測係数を求め，
+{\em data.lpc} に出力する:
+\begin{quote}
+\verb! lsp2lpc -m 10 < data.lsp > data.lpc!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+lpc, lpc2lsp
+\end{qsection}

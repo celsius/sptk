@@ -1,0 +1,54 @@
+\name{freqt}{周波数変換} 
+
+\begin{synopsis}
+\item [freqt] [ --m $M_1$ ] [ --M $M_2$ ] [ --a $A_1$ ] [ --A $A_2$ ]
+	      [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ファイル中の $M_1$ 次の最小位相数列
+\begin{displaymath}
+c_{\alpha_1}(0), c_{\alpha_1}(1), \ldots, c_{\alpha_1}(M_1)
+\end{displaymath}
+に対して周波数変換
+\[ \alpha = (\alpha_1 - \alpha_2) / (1 - \alpha_1 \alpha_2) \]
+\begin{eqnarray*} 
+\hspace{-15mm}&& c_{\alpha_2}^{(i)}(m) = \left\{ 
+	\begin{array}{ll}
+          c_{\alpha_1}(-i)
+	    +\alpha\,c_{\alpha_2}^{(i-1)}(0), &  m=0 \\
+          (1-\alpha^2)\,c_{\alpha_2}^{(i-1)}(0)
+            +\alpha\,c_{\alpha_2}^{(i-1)}(1), &  m=1 \\
+          c_{\alpha_2}^{(i-1)}(m-1) 
+	    +\alpha\, \left(c_{\alpha_2}^{(i-1)}(m)
+	    -c_{\alpha_2}^{(i)}(m-1)\right), &   m=2,\ldots,M_2
+         \end{array} \right\}, \quad \nonumber \\
+\hspace{-15mm}&& \hspace{80mm} i = -M_1,\ldots,-1,0 
+\end{eqnarray*}
+を行い，$M_2$ 次の周波数変換した数列
+\begin{displaymath}
+c_{\alpha_2}^{(0)}(0), c_{\alpha_2}^{(0)}(1), \ldots, c_{\alpha_2}^{(0)}(M_2)
+\end{displaymath}
+を出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M_1}{入力される最小位相数列の次数．}{25}
+	\argm{M}{M_2}{出力される周波数変換された数列の次数．}{25}
+	\argm{a}{A_1}{入力数列の周波数圧縮パラメータ$\alpha_1$．}{0}
+	\argm{A}{A_2}{出力数列の周波数圧縮パラメータ$\alpha_2$．}{0.35}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の線形予測係数のファイル {\em data.lpc} から
+30次のLPCメルケプストラムを {\em data.lpcmc} に出力する:
+\begin{quote}
+ \verb!lpc2cep < data.lpc | freqt -m 30 > data.lpcmc!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+mgc2mgc
+\end{qsection}

@@ -1,0 +1,138 @@
+\name{mlpg}{分布列から最尤パラメータ列を生成}
+
+\def\bmath#1{\mbox{\boldmath{$#1$}}}
+\def\bc{\bmath{c}}
+\def\bo{\bmath{o}}
+\def\bC{\bmath{C}}
+\def\bO{\bmath{O}}
+\def\bU{\bmath{U}}
+\def\bmu{\bmath{\mu}}
+
+\begin{synopsis}
+	\item [mlpg] [ --m $M$ ] [--d $D$ ] [ --i $I$ ] [ --s $S$ ]
+		\ [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+	{\em mlpg}は，指定されたファイルから(対角共分散)ガウス分布の列，
+	つまり，平均ベクトルと共分散行列の対角成分の列
+ \begin{eqnarray}
+	&& \ldots, \mu_t(0), \ldots, \mu_t(M),
+		\mu^{(1)}_t(0), \ldots, \mu^{(1)}_t(M),
+		\ldots, \mu^{(N)}_t(M),
+		\nonumber\\
+	&& ~~~~~~\sigma^2_t(0), \ldots, \sigma^2_t(M),
+		{\sigma^{(1)}}^2_t(0), \ldots, {\sigma^{(1)}}^2_t(M),
+		\ldots, {\sigma^{(N)}}^2_t(M),
+		\ldots \nonumber
+ \end{eqnarray}
+	を読み込み，
+	与えられた分布列に対して
+	最も尤度の高いパラメータ列を求めて標準出力に出力します．
+
+	データ形式は入力，出力とも float 形式です．
+
+	フレーム $t$ における音声パラメータベクトル $\bo_t$ が，
+	静的特徴ベクトル
+ \begin{displaymath}
+	\bc_t = [c_t(0), c_t(1), \ldots, c_t(M)]'
+ \end{displaymath}
+	とその動的特徴ベクトル
+	\ $\Delta^{(1)}\bc_t, \ldots, \Delta^{(N)}\bc_t$ からなる，
+	つまり
+ \begin{displaymath}
+	\bo_t = [\bc_t', \Delta^{(1)}\bc_t', \ldots, \Delta^{(N)}\bc_t']'
+ \end{displaymath}
+	とします．
+	ここで，
+	動的特徴ベクトル $\Delta^{(n)}\bc_t$ は
+	静的特徴ベクトルと次式で関係づけられています．
+ \begin{displaymath}
+	\Delta^{(n)}\bc_t 
+	= \sum_{\tau=-L^{(n)}}^{L^{(n)}} w^{(n)}(\tau)\bc_{t+\tau}
+ \end{displaymath}
+	この条件の下で，
+	与えられた分布列
+ \begin{displaymath}
+	(\bmu_1, \bU_1), (\bmu_2, \bU_2), \ldots, (\bmu_T, \bU_T)
+ \end{displaymath}
+	ただし
+ \begin{eqnarray}
+	\bmu_t 
+	& = & [\bmu^{\prime(0)}_t, \bmu^{\prime(1)}_t, 
+		\ldots, \bmu^{\prime(N)}_t]'
+		\nonumber\\
+	\bU_t 
+	& = & \mbox{diag}[\bU^{(0)}_t, \bU^{(1)}_t, \ldots, \bU^{(1)}_t]
+		\nonumber
+ \end{eqnarray}
+	に対して最も尤度の高いパラメータ列
+ \begin{displaymath}
+	\bo_1, \bo_2, \ldots, \bo_T
+ \end{displaymath}
+	を求め，
+	得られたパラメータベクトル $\bo_t$ のうちの
+	静的特徴ベクトル $\bc_t$ の列
+ \begin{displaymath}
+	\bc_1, \bc_2, \ldots, \bc_T
+ \end{displaymath}
+	を出力します．
+	ここで，
+	$\bmu^{(0)}, \bU^{(0)}$ は静的特徴ベクトルに対する
+	平均ベクトルと共分散行列，
+	$\bmu^{(n)}, \bU^{(n)}$ は $n$ 次の動的特徴ベクトルに対する
+	平均ベクトルと共分散行列です．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{パラメータの次数．}{25}
+	\argm{d}{D}{デルタパラメータを計算する際の係数のファイル(float 形式)．
+		係数は左右の長さが同じであると仮定しているため，
+		左右の長さが異なる場合は短い方に 0 を加える必要がある．
+		例えば，
+	 \begin{displaymath}
+		w(-1), w(0), w(1), w(2), w(3)
+	 \end{displaymath}
+		という係数を用いる場合は，左側に 0 を加え，
+	 \begin{displaymath}
+		0, 0, w(-1), w(0), w(1), w(2), w(3)
+	 \end{displaymath}
+		とする．\\
+		$D$ が整数の場合は，
+		$n$ 次のデルタパラメータを $n-1$ 次のデルタパラメータから
+		窓幅 $D$ の一次回帰
+	 \begin{displaymath}
+		\Delta^{(n)}\bc_t
+		= \frac{\sum_{\tau=-D}^D \tau\Delta^{(n-1)}\bc_{t+\tau}}
+		{\sum_{\tau=-D}^D \tau^2}
+	 \end{displaymath}
+		により計算する場合の係数を自動的に求める．\\
+		複数のデルタパラメータを用いる場合は繰り返し指定する．}{N/A}
+	\argm{i}{}{$(\bmu, \bU)$ の代わりに
+		\ $(\bmu \bU^{-1},\bU^{-1})$ を入力とする．}{FALSE}
+	\argm{s}{S}{あるフレームのパラメータが影響を及ぼすフレームの範囲．}{30}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+	パラメータの次数が 15，
+	窓幅 1 のデルタ，デルタデルタパラメータを用いる場合に，
+	分布列からパラメータ列を求める．
+ \begin{quote}
+	\verb!mlpg -m 15 -d 1 -d 1 data.pdf > data.par!
+ \end{quote}
+	または，
+ \begin{quote}
+	\verb!echo "-0.5 0 0.5" | x2x +af > delta! \\
+	\verb!echo "0.25 0 -0.5 0 0.25" | x2x +af > accel! \\
+	\verb!mlpg -m 15 -d delta -d accel data.pdf > data.par!
+ \end{quote}
+\end{qsection}
+
+%\begin{qsection}{SEE ALSO}
+%\end{qsection}
+
+\begin{qsection}{REFERENCES}
+	徳田, 益子, 小林, 今井, 
+	``動的特徴を用いた HMM からの音声パラメータ生成アルゴリズム,''
+	日本音響学会誌, vol.53, no.3, pp.192--200, 1997.
+\end{qsection}

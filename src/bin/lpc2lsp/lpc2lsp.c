@@ -1,0 +1,167 @@
+/************************************************************************
+*									*
+*    Transform LPC to LSP					 	*
+*									*
+*					1998.11 K.Koishida		*
+*									*
+*	usage:								*
+*		lpc2lsp [ options ] [ infile ] > stdout			*
+*	options:							*
+*		-m m  :  order of LPC				  [25]	*
+*		-s s  :  sampling frequency (kHz)		  [10]	*
+*		-k    :  output gain		 		[TRUE]	*
+*		-o o  :  output format	(see stdout)		   [0]	*
+*	 	(level 2)						*
+*		-n n  :  split number of unit circle		 [128]	*
+*		-p p  :  maximum number of interpolation           [4]	*
+*		-d d  :  end condition of interpolation		[1e-6]	*
+*	infile:								*
+*		LP coefficients						*
+*		    , K, a(1), ..., a(m),				*
+*	stdout:								*
+*	      output format	LSP					*
+*		    0		normalized frequency (0 ~ pi)		*
+*		    1		normalized frequency (0 ~ 0.5)		*
+*		    2		frequency (kHz)				*
+*		    3		frequency (Hz)				*
+*		LSP							*
+*		    , f(1), ..., f(m),					*
+*	require:							*
+*		lpc2lsp()						*
+*									*
+************************************************************************/
+
+static char *rcs_id = "$Id$";
+
+
+/*  Standard C Libraries  */
+#include <stdio.h>
+#include <string.h>
+#include <SPTK.h>
+
+
+/*  Required Functions  */
+void	lpc2lsp();
+
+
+typedef enum _Boolean {FA, TR} Boolean;
+char *BOOL[] = {"FALSE", "TRUE"};
+
+
+/*  Default Values  */
+#define ORDER		25
+#define SAMPLING	10
+#define OTYPE		0
+#define	SPNUM		128
+#define	MAXITR		4
+#define	END		1e-6
+#define GAIN		TR
+		
+
+/*  Command Name  */
+char	*cmnd;
+
+
+void usage(int status)
+{
+    fprintf(stderr, "\n");
+    fprintf(stderr, " %s - transform LPC to LSP\n",cmnd);
+    fprintf(stderr, "\n");
+    fprintf(stderr, "  usage:\n");
+    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+    fprintf(stderr, "  options:\n");
+    fprintf(stderr, "       -m m  : order of LPC                            [%d]\n", ORDER);
+    fprintf(stderr, "       -s s  : smapling frequency                      [%d]\n", SAMPLING);
+    fprintf(stderr, "       -k    : output gain                             [%s]\n",BOOL[GAIN]);
+    fprintf(stderr, "       -o o  : output format                           [%d]\n", OTYPE);
+    fprintf(stderr, "                 0 (normalized frequency [0...pi])\n");
+    fprintf(stderr, "                 1 (normalized frequency [0...0.5])\n");
+    fprintf(stderr, "                 2 (frequency [kHz])\n");
+    fprintf(stderr, "                 3 (frequency [Hz])\n");
+    fprintf(stderr, "     (level 2)\n");
+    fprintf(stderr, "       -n n  : split number of unit circle             [%d]\n", SPNUM);
+    fprintf(stderr, "       -p p  : maximum number of interpolation         [%d]\n", MAXITR);
+    fprintf(stderr, "       -d d  : end condition of interpolation          [%g]\n", END);
+    fprintf(stderr, "       -h    : print this message\n");
+    fprintf(stderr, "  infile:\n");
+    fprintf(stderr, "       LP coefficients (float)                         [stdin]\n");
+    fprintf(stderr, "  stdout:\n");
+    fprintf(stderr, "       LSP (float)\n");
+    fprintf(stderr, "\n");
+    exit(status);
+}
+
+void main(int argc, char **argv)
+{
+    int		m = ORDER, otype = OTYPE, sampling = SAMPLING, 
+                n = SPNUM, p = MAXITR, i;
+    FILE	*fp = stdin;
+    double	*a, *lsp, end = END, atof();    
+    Boolean	gain = GAIN;
+
+    if ((cmnd = strrchr(argv[0], '/')) == NULL)
+	cmnd = argv[0];
+    else
+	cmnd++;
+    while (--argc)
+	if (**++argv == '-') {
+	    switch (*(*argv+1)) {
+		case 'm':
+		    m = atoi(*++argv);
+		    --argc;
+		    break;
+		case 's':
+		    sampling = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'o':
+		    otype = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'p':
+		    p = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'n':
+		    n = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'd':
+		    end = atof(*++argv);
+		    --argc;
+		    break;
+		case 'k':
+		    gain = 1 - gain;
+		    break;
+		case 'h':
+		    usage(0);
+		default:
+		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+		    usage(1);
+		}
+	}
+	else 
+	    fp = getfp(*argv, "r");
+
+    lsp = dgetmem(m+m+1);
+    a = lsp + m;
+
+    while (freadf(a, sizeof(*a), m+1, fp) == m+1){
+	lpc2lsp(a, lsp, m, n, p, end);
+
+	if (otype == 0)
+	    for(i=0; i<m; i++)
+		lsp[i] *= PI2;
+	else if (otype == 2 || otype == 3)
+	    for(i=0; i<m; i++)
+		lsp[i] *= sampling;
+	
+	if(otype == 3)
+	    for(i=0; i<m; i++)
+		lsp[i] *= 1000;
+	if (gain) fwritef(a,sizeof(*a),1,stdout);
+	fwritef(lsp, sizeof(*lsp), m, stdout);
+    }
+    exit(0);
+}
+

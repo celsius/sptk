@@ -1,0 +1,31 @@
+\name{histogram}{ヒストグラムの計算}
+
+\begin{synopsis}
+\item [histogram] [ --l $L$ ] [ --i $I$ ] [ --j $J$ ] [ --n $N$ ] 
+		  [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+指定されたファイルからヒストグラムを計算し，標準出力に出力します．
+\par
+データ形式は入力はfloat形式，出力は int 形式です．
+グラフを表示する場合は，{\em x2x}でfloat形式に変換してからfdrwに入力して下さい．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{フレームのサイズ．}{0}
+	\argm{i}{I}{ヒストグラムの最小値．}{0.0}
+	\argm{j}{J}{ヒストグラムの最大値．}{1.0}
+	\argm{n}{N}{ヒストグラムのステップサイズ．}{0.1}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の音声波形ファイル {\em data.f} のヒストグラムを表示する:
+\begin{quote}
+ \verb!histogram -i -16000 -j 16000 -n 100 data.f |x2x +if| fdrw | xgr!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ average
+\end{qsection}

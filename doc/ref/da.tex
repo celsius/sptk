@@ -1,0 +1,54 @@
+\name{da}{da 変換}
+\begin{synopsis}
+\item [da] [ --s $S$ ] [ --c $C$ ] [ --g $G$ ] [ --a $A$ ] [ --o $O$ ] 
+	   [ --H $H$ ] [ --v ] [ +$type$ ] 
+\item [\ ~~~] [ {\em infile1} ] [ {\em infile2} ] ...
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em da}は，入力データをスピーカーまたはヘッドフォン
+ から再生します．10kHzおよび12kHzの場合はローパスフィルタ
+ を用いて16kHzにアップサンプリングして再生します．
+ ゲインを$G$とすると入力データを$2^G$倍して出力します．
+ 振幅ゲインはオーディオデバイスのゲインに直接渡します．
+ 
+
+ オプションは環境変数で設定することもできます．
+
+\begin{tabular}{ll}
+DA\_SAMPFREQ & 標本化周波数\\
+DA\_GAIN & ゲイン\\
+DA\_AMPGAIN & 振幅ゲイン\\
+DA\_PORT & 出力ポート指定\\
+DA\_HDRSIZE &ヘッダサイズ\\
+DA\_FLOAT & 入力データ型をfloat型にする\\
+\end{tabular}
+
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{標本化周波数．（8，10，12，16，20，22 kHz）}{10}
+	\argm{c}{C}{ローパスフィルタ係数ファイル名．}{Default}
+	\argm{g}{G}{ゲイン．（.., -2, -1, 0, -1, 2, ..）}{0}
+	\argm{a}{A}{振幅ゲイン．指定しない場合はそれまでの設定が適用されます．}{N/A}
+	\argm{o}{O}{出力ポート指定．（s : スピーカ，h : ヘッドフォン）}{s}
+	\argm{H}{H}{ヘッダサイズ（バイト単位）．}{0}
+	\argm{v}{}{データファイル名を表示．}{FALSE}
+	\argp{type}{入力データ型．（s : short型，f : float型）}{s}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+標本化周波数8kHzの short 型の音声データファイル {\em data.s} をヘッドフォンから
+再生する:
+\begin{quote}
+\verb! da -s 8 -g -1 -o h data.s!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{BUGS}
+SunOS用．
+\end{qsection}
+
+%\begin{qsection}{SEE ALSO}
+%none
+%\end{qsection}

@@ -1,0 +1,194 @@
+\name{amcep}{適応メルケプストラム分析}
+
+\begin{synopsis}
+\item [amcep] [ --m $M$ ] [ --a $A$ ] [ --l $L$ ] [ --t $T$ ] [ --k $K$ ]
+	      [ --p $P$ ] [ --s ] [ --e $E$ ]
+\item [\ ~~~~~~~]  [--P $Pa$ ] [ {\em pefile} ] $<$ {\em infile}
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+適応メルケプストラム分析を行い，
+メルケプストラム係数 $c_{\alpha}(m)$ を標準出力に，予測残差を{\em pefile}
+（省略時は出力しません）に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+適応メルケプストラム分析では,時刻 $n$ から $n+1$ への
+係数 $b(m)$ の更新アルゴリズムは，
+\begin{eqnarray*}
+  \mbox{\boldmath $b$}^{(n+1)} &=& \mbox{\boldmath $b$}^{(n)} 
+     - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \\
+  \hat{\nabla} \varepsilon_0^{(n)} &=& -2 e(n) \mbox{\boldmath $e$}^{(n)}_{\Phi} \hspace{3.5cm} ( \tau = 0 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& -2 (1 - \tau) \sum_{i=-\infty}^{n} \tau^{n-i} e(i) \mbox{\boldmath $e$}^{(i)}_{\Phi} ~~~ ( 0 \le \tau < 1 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& \tau \hat{\nabla} \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e(n) \mbox{\boldmath $e$}^{(n)}_{\Phi} \\
+  \mu^{(n)} &=& \frac{k}{M \varepsilon^{(n)}} \\
+  \varepsilon^{(n)} &=& \lambda \varepsilon^{(n-1)}
+     + (1-\lambda)e^2(n)
+\end{eqnarray*}	
+
+\setcounter{figure}{0}
+\begin{figure}[h]
+\begin{center}
+\setlength{\unitlength}{1.5mm}
+1\begin{picture}(50,24)(-3,-8)
+  \thicklines
+  \put(0,0){\line(0,1){4}}		%right triangle
+  \put(0,0){\line(3,2){3}}
+  \put(0,4){\line(3,-2){3}}
+  \put(2,6){\makebox(0,0){$1-\alpha ^2$}}
+  
+  \put(13.5,7){\line(0,1){4}}  		%left triangle
+  \put(13.5,7){\line(-3,2){3}}
+  \put(13.5,11){\line(-3,-2){3}}
+  \put(12.5,9){\makebox(0,0){\small $\alpha$}}
+
+  \put(31,10){\line(1,0){4}}  		%down triangle
+  \put(31,10){\line(2,-3){2}}
+  \put(35,10){\line(-2,-3){2}}
+  \put(33,9){\makebox(0,0){\small $\alpha$}}
+
+  \put(45,10){\line(1,0){4}}  		%down triangle
+  \put(45,10){\line(2,-3){2}}
+  \put(49,10){\line(-2,-3){2}}
+  \put(47,9){\makebox(0,0){\small $\alpha$}}
+
+  \put(10,0){\framebox(4,4){$z^{-1}$}}
+  \put(24,0){\framebox(4,4){$z^{-1}$}}
+  \put(38,0){\framebox(4,4){$z^{-1}$}}
+  \put(52,0){\framebox(4,4){$z^{-1}$}}
+
+  \put(-3,-2){\makebox(0,0){$e(n)$}}
+  \put(-4,2){\line(1,0){4}}
+  \put(3,2){\vector(1,0){2.5}}
+  \put(6.5,2){\circle{2}}
+  \put(6.5,2){\makebox(0,0){\scriptsize $+$}}
+%  \put(5,0.5){\makebox(0,0){\scriptsize $+$}}
+%  \put(5,3.5){\makebox(0,0){\scriptsize $+$}}
+  \put(7.5,2){\line(1,0){2.5}}
+  \put(14,2){\line(1,0){10}}
+  \put(17.5,2){\line(0,1){7}}
+  \put(17.5,9){\line(-1,0){4}}
+  \put(10.5,9){\line(-1,0){4}}
+  \put(6.5,9){\vector(0,-1){6}}
+
+  \put(17.5,2){\circle*{0.7}}
+  \put(22,2){\circle*{0.7}}
+
+  \put(28,2){\vector(1,0){4}}
+  \put(34,2){\line(1,0){4}}
+  \put(33,2){\circle{2}}
+  \put(33,2){\makebox(0,0){\scriptsize $+$}}
+%  \put(31.5,0.5){\makebox(0,0){\scriptsize $+$}}
+%  \put(31.5,3.5){\makebox(0,0){\scriptsize $+$}}
+  \put(36,2){\circle*{0.7}}
+
+  \put(42,2){\vector(1,0){4}}
+  \put(48,2){\line(1,0){4}}
+  \put(47,2){\circle{2}}
+  \put(47,2){\makebox(0,0){\scriptsize $+$}}
+%  \put(45.5,0.5){\makebox(0,0){\scriptsize $+$}}
+%  \put(45.5,3.5){\makebox(0,0){\scriptsize $+$}}
+  \put(44,2){\circle*{0.7}}
+  \put(50,2){\circle*{0.7}}
+
+  \put(22,2){\line(0,1){2}}
+  \put(22,4){\vector(1,1){10.2}}
+  \put(33,14){\line(0,-1){4}}
+  \put(33,7){\vector(0,-1){4}}
+  \put(44,2){\line(0,1){2}}
+  \put(44,4){\vector(-1,1){10.2}}
+  \put(33,15){\circle{2}}
+  \put(33,15){\makebox(0,0){\scriptsize $+$}}
+  \put(31,15){\makebox(0,0){\scriptsize $-$}}
+%  \put(35,15){\makebox(0,0){\scriptsize $+$}}
+  
+  \put(36,2){\line(0,1){2}}
+  \put(36,4){\vector(1,1){10.2}}
+  \put(47,14){\line(0,-1){4}}
+  \put(47,7){\vector(0,-1){4}}
+  \put(58,2){\line(0,1){2}}
+  \put(58,4){\vector(-1,1){10.2}}
+  \put(47,15){\circle{2}}
+  \put(47,15){\makebox(0,0){\scriptsize $+$}}
+  \put(45,15){\makebox(0,0){\scriptsize $-$}}
+%  \put(49,15){\makebox(0,0){\scriptsize $+$}}
+
+  \put(50,2){\line(0,1){2}}
+  \put(50,4){\vector(1,1){10.2}}
+  \put(56,2){\vector(1,0){4}}
+  \put(58,2){\circle*{0.7}}
+
+  \put(22,2){\vector(0,-1){6}}
+  \put(22,-7){\makebox(0,0){$e_1(n)$}}
+  \put(36,2){\vector(0,-1){6}}
+  \put(36,-7){\makebox(0,0){$e_2(n)$}}
+  \put(50,2){\vector(0,-1){6}}
+  \put(50,-7){\makebox(0,0){$e_3(n)$}}
+\end{picture}
+\caption{フィルタ $\Phi_m(z)$}
+\label{fig:mcep_Phi}
+\end{center}
+\end{figure}
+
+で与えられます．ただし，$\mbox{\boldmath $b$}=[b(1), b(2), \ldots, b(M)]^T$,
+$\mbox{\boldmath $e$}_{\it\Phi}^{(n)}
+=[e_1(n) ,e_2(n), \ldots, e_{M}(n)]^T$ であり，$e_m(n)$ は逆フィルタ出力を
+図\ref{fig:mcep_Phi}に示す ${\it\Phi}_m(z)$ に通した出力です．
+\par
+この係数 $b(m)$ はMLSAフィルタの係数と等価ですから，線形変換により
+メルケプストラム係数 $c_{\alpha}(m)$ を得ることが出来ます
+（コマンド b2mc, mc2b 参照）．
+
+図\ref{fig:mcep_block}に適応メルケプストラム分析系を示します．
+\par
+ここで，$1/D(z)$ は MLSA フィルタにより実現されます．
+
+\begin{figure}[h]
+\begin{center}
+\setlength{\unitlength}{1.0mm}
+\begin{picture}(100,38)(0,0)
+  \thicklines
+  \put(20,10){\framebox(60,16){\small
+	$\displaystyle1/D(z)=\exp \sum_{m=1}^{M}-b(m) \,\Phi_m(z)$}}
+  \put(0,18){\line(1,0){20}}
+  \put(80,18){\vector(1,0){25}}
+  \put(93,18){\circle*{1}}
+  \put(93,18){\line(0,-1){16}}
+  \put(93,2){\line(-1,0){17}}
+  \put(61,-3){\framebox(15,10){\normalsize $\Phi_m(z)$}}
+  \put(61,2){\line(-1,0){19}}
+  \put(42,2){\line(1,2){4}}
+  \put(52,26){\vector(1,2){4}}
+  \put(5,20){\makebox(0,0)[lb]{$x(n)$}}
+  \put(97,20){\makebox(0,0)[lb]{$e(n)$}}
+\end{picture}
+\caption{適応メルケプストラム分析のブロック図}
+\label{fig:mcep_block}
+\end{center}
+\end{figure}
+
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{分析次数．}{25}
+	\argm{a}{A}{周波数圧縮パラメータ $\alpha$．}{0.35}
+	\argm{l}{L}{忘却係数 $\lambda$．}{0.98}
+        \argm{t}{T}{momentum 定数 $\tau$．}{0.9}
+        \argm{k}{K}{ステップサイズ $k$．}{0.1}
+	\argm{p}{P}{メルケプストラム係数の出力周期．}{1}
+	\argm{s}{}{出力周期内で平均化したメルケプストラム係数を出力．}{FALSE}
+	\argm{e}{E}{$\varepsilon^{(n)}$ の最小値．}{0.0}
+	\argm{P}{Pa}{MLSAフィルタのパデ近似次数．\\Pa は4または5を指定できます．}{4}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式のファイル {\em data.f} を次数15次で適応メルケプストラム分析し，
+メルケプストラム係数を100サンプル毎に {\em data.amcep} に出力する:
+\begin{quote}
+ \verb!amcep -m 15 -p 100  < data.f > data.amcep!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+acep, agcep, mc2b, b2mc, mlsadf
+\end{qsection}

@@ -1,0 +1,95 @@
+/************************************************************************
+*									*
+*    Normalize coefficients						*
+*									*
+*					1996.4  K.Koishida		*
+*									*
+*	usage:								*
+*		norm0 [options] [infile] > stdout			*
+*	options:							*
+*		-m m     :  order		 	[25]		*
+*	infile:								*
+*		data sequence						*
+*		    , x(0), x(1), ..., x(m),				*
+*	stdout:								*
+*		normalized data sequence				*
+*		    , 1/x(0), x(1)/x(0), ..., x(m)/x(0) 		*
+*									*
+************************************************************************/
+
+static char *rcs_id = "$Id$";
+
+
+/*  Standard C Libraries  */
+#include <stdio.h>
+#include <string.h>
+#include <SPTK.h>
+
+
+/*  Required Functions  */
+void    norm0();
+
+
+/*  Default Values  */
+#define ORDER 		25
+
+
+/*  Command Name  */
+char	*cmnd;
+
+
+void usage(int status)
+{
+    fprintf(stderr, "\n");
+    fprintf(stderr, " %s - normalize coefficients\n",cmnd);
+    fprintf(stderr, "\n");
+    fprintf(stderr, "  usage:\n");
+    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+    fprintf(stderr, "  options:\n");
+    fprintf(stderr, "       -m m  : order              [%d]\n", ORDER);
+    fprintf(stderr, "       -h    : print this message\n");
+    fprintf(stderr, "  infile:\n");
+    fprintf(stderr, "       coefficients (float)       [stdin]\n");
+    fprintf(stderr, "  stdout:\n");
+    fprintf(stderr, "       normalized coefficients (float)\n");
+    fprintf(stderr, "\n");
+    exit(status);
+}
+
+void main(int argc, char **argv)
+{
+    int		m = ORDER, i;
+    FILE	*fp = stdin;
+    double	*x, k;
+    
+    
+    if ((cmnd = strrchr(argv[0], '/')) == NULL)
+	cmnd = argv[0];
+    else
+	cmnd++;
+    while (--argc)
+	if (**++argv == '-') {
+	    switch (*(*argv+1)) {
+		case 'm':
+		    m = atoi(*++argv);
+		    --argc;
+		    break;
+		case 'h':
+		    usage(0);
+		default:
+		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+		    usage(1);
+		}
+	}
+	else 
+	    fp = getfp(*argv, "r");
+
+    x = dgetmem(m+1);
+    
+    while(freadf(x, sizeof(*x), m+1, fp) == m+1){
+	norm0(x, x, m);
+	fwritef(x, sizeof(*x), m+1, stdout);
+    }
+    exit(0);
+}
+

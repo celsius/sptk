@@ -1,0 +1,103 @@
+\name{x2x}{データ形式の変換}
+
+\begin{synopsis}
+\item[x2x] [ +$type1$ ] [ +$type2$ ] [ $\%format$ ] [ +$a$ A ] [ --r ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em x2x} は，
+標準入力から読み込まれたデータを指定されたデータ形式に変換し，
+標準出力に出力します．
+\par
+入力データの形式は，+$type1$ オプションで，
+出力データの形式は，+$type2$ オプションで，
+指定します．
+\end{qsection}
+
+\begin{options}
+	\argp{type1}{入力データの形式． }{f}
+	\argp{type2}{出力データの形式．\\
+	オプション $type1, type2$ ともに，以下のいずれかで指定します．\\
+                \begin{tabular}{llcll} \\[-1zh]
+                        c & char型 (1byte) & \quad &
+                        C & unsigned char型 (1byte) \\
+                        s & short型 (2bytes) & \quad &
+                        S & unsigned short型 (2bytes) \\
+                        i & int型 (4bytes) & \quad &
+                        I & unsigned int型 (4bytes) \\
+                        l & long型 (4bytes) & \quad &
+                        L & unsigned long型 (4bytes) \\
+                        f & float型 (4bytes) & \quad &
+                        d & double型 (8bytes) \\
+                        a & ascii文字列 \\ [1zh] 
+                \end{tabular} \\
+                データを $t_1$ 型から $t_2$ 型へ型変換して出力する． $t_2$ が
+                省略された場合は $t_2=t_1$ とみなし型変換は行なわない．}{type1}
+	\argp{{\bf a} \qquad A}{カラム数．
+				データを $A$ 個出力する毎に改行する．}{1}
+	\argm{r}{}{浮動小数点データ（float, double, ascii文字型）を
+			整数データ（char, short, int, long型）に変換する際，
+			小数点以下を四捨五入．}{FALSE}
+	\argh{format}{}{$type2$ がasciiである時，C言語のprintf()関数の
+			ような出力フォーマットで出力．
+			}{$\%g$}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+ascii形式でかかれたデータファイル{\em data.asc} を
+float形式のファイル{\em data.f}に変換する:
+\begin{quote}
+  \verb!x2x +af < data.asc > data.f!
+\end{quote}
+\par
+float形式のファイル{\em data.f} にあるデータを
+ascii形式に変換し，画面に出力する:
+\begin{quote}
+  \verb!x2x +fa < data.f!
+\end{quote}
+例えば，ファイル{\em data.f} に，
+float 形式の数値データ
+\begin{displaymath}
+  1, 2, 3, 4, 5, 6, 7
+\end{displaymath}
+が入っていた場合，
+\begin{quote}
+  \verb!1! \\
+  \verb!2! \\
+  \verb!3! \\
+  \verb!4! \\
+  \verb!5! \\
+  \verb!6! \\
+  \verb!7!
+\end{quote}
+と画面（標準出力）に出力されます．
+\par
+同じデータをカラム数を指定して出力する:
+\begin{quote}
+  \verb!x2x +fa 3 < data.f!
+\end{quote}
+この場合，
+\begin{quote}
+  \verb!1       2        3! \\
+  \verb!4       5        6! \\
+  \verb!7!
+\end{quote}
+と表示されます．
+\par
+出力をprintfの\%e フォーマットで行う:
+\begin{quote}
+  \verb!x2x +fa %9.4e < data.f!
+\end{quote}
+この例では，幅11 桁 ，小数点以下4 桁を指定しており，
+\begin{quote}
+  \verb!1.0000e+000! \\
+  \verb!2.0000e+000! \\
+  \mbox{\hspace{2em}}$\vdots$ \\
+  \verb!7.0000e+000!
+\end{quote}
+と表示されます．
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+dmp
+\end{qsection}

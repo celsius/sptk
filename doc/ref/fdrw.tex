@@ -1,0 +1,104 @@
+\name{fdrw}{入力データのグラフを描く}
+
+\begin{synopsis}
+\item[fdrw] [ --F $F$ ] [ --R $R$ ] [ --W $W$ ] [ --H $H$ ] [ --o $xo \; yo$ ] 
+            [ --g $G$ ] [ --m $M$ ]   
+\item[\ ~~~~~] [ --l $L$ ] [ --p $P$ ] [ --n $N$ ] [ --t $T$ ] 
+	       [ --y $ymin \; ymax$ ] [ --z $Z$ ] [ --b ]  
+\item[\ ~~~~~] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+標準入力から読み込まれたfloat 形式データ列を $y$ 座標として直線で結びます．
+$x$ 座標は等間隔になります．
+\par
+出力はプロッタ（グラフテック社 FP5301）のコマンド列です．
+\end{qsection}
+
+\begin{options}
+	\argm{F}{F}{グラフを描く倍率．}{1}
+	\argm{R}{R}{グラフを描く角度．}{0}
+	\argm{W}{W}{グラフの幅($\times 100$mm)．}{1}
+	\argm{H}{H}{グラフの高さ($\times 100$mm)．}{1}
+	\argm{o}{xo \; yo}{グラフを描く位置． 描画域の左下を原点として，
+			   グラフの左下の位置をmm 単位で指定．}{75 25}
+	\argm{g}{G}{グラフの枠の形式($0 \sim 2$)．＜fig参照＞．}{1}
+	\argm{m}{M}{線の種類($1 \sim 5$)．\\
+	\hspace*{2mm}1:~実線~~2:~点線~~3:~一点鎖線~~4:~破線~~5:~長破線}{0}
+	\argm{l}{L}{ $ltype > 1$ の場合の線のピッチを指定．$L$ はmm 単位．}
+		{0}
+	\argm{p}{P}{ペン番号($1 \sim 10$)．}{0}
+%		\footnote{プロッタの場合は実際のペンが，CRT の場合は線の色が，
+%		  レーザビームプリンタの場合は線の太さが変わります．}
+	\argm{n}{N}{1 回に描くデータ数．入力データ数が $N$ より多い場合は，
+		      $N$ データ毎に繰り返し線を描く．}{0}
+	\argm{t}{T}{座標軸を回転． 
+		      $T=-1$では，グラフの左上を原点とし，
+		      下向きに $x$ 軸，左向きに $y$ 軸をとる．
+		      また，$T=1$ では，グラフの右下を原点とし，
+		      左向きに $x$ 軸，上向きに $y$ 軸をとる．}{0}
+	\argm{y}{ymin \; ymax}{ $y$ 軸のスケーリング．}{-1 1}
+	\argm{z}{Z}{ $N$ データ毎に繰り返し線を描く場合，$y$ 座標を $Z$(mm)
+		     ずらしながら描く．}{0}
+	\argm{b}{}{棒グラフ状に描くことを指定．}{FALSE}
+	\desc[1zh]{ $x$ 座標のスケーリングは最初のデータが図の左端，
+		$N$ 番目のデータが右端となります．
+		{\bf --n} オプションを省略して$N$ を与えていない場合，
+		入力データ数が 5000 以下ならば最終データが右端となるように
+		スケーリングされます．
+		5000 を越える場合は $N=5000$ として描きます．}
+	\desc{{\bf --y} オプションを省略した場合，
+		入力データの最小値が $ymin$，最大値が $ymax$ となります．}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+ディジタルフィルタのインパルス応答を
+Xウィンドウ上に描く:
+\begin{quote}
+  \verb!impulse | dfs -a 1 0.8 0.5 | fdrw -h 0.3 | xgr!
+\end{quote}
+グラフの幅は10cm，高さは3cmになります．
+\par
+ディジタルフィルタの対数振幅応答を
+Xウィンドウ上に描く:
+\begin{quote}
+  \verb!impulse | dfs -a 1 0.8 0.5 | spec | fdrw -y -60 40 | xgr!
+\end{quote}
+$y$ 軸は $-60$dB から 40dB となります．
+\par
+連続するフレームのスペクトルを
+Xウィンドウ上に描く:
+\begin{quote}
+ \verb!fig -g 0 -w 0.4 << EOF ! \\
+ \verb!　　x 0 5 !\\
+ \verb!　　xscale 0 1 2 3 4 5 !\\
+ \verb!　　xname "FREQUENCY (kHz)"!\\
+ \verb!EOF!\\
+ \verb!spec < data |\ !\\
+ \verb!fdrw -w 0.4 -h 0.2 -g 0 -n 129 -y -30 30 -z 3 |\ !\\
+ \verb!xgr !
+\end{quote}
+%{\em xgr} のように画面に出力するための
+%コマンドとして以下のものがあります
+%\footnote{MS-DOS では，{\em ngr, fgr} をサポート}．
+%\begin{description}
+% \itemb{fgr}	FMR のMS-DOS
+% \itemb{ngr}	PC-9800 端末 (VT98)，またはMS-DOS
+% \itemb{sgr}	Sun のコンソール(SunView 上)
+% \itemb{tgr}	Tektronix グラフィック端末
+% \itemb{xgr}	Xウィンドウ
+%\end{description}
+画面と同じものをレーザプリンタに出力するコマンドとして{\em psgr}があります．
+%以下のものがあります
+%\footnote{MS-DOS では，{\em lgr} をサポート}．
+%\begin{description}
+% \itemb{lgr}	LASER SHOT
+% \itemb{pgr}	PostScript プリンタ
+%\end{description}
+{\em fdrw}の出力はプロッタ（グラフテック社 FP5301）のコマンド列ですので，
+プロッタに直接出力を送って，図を描かせることもできます．
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ fig, xgr, psgr
+\end{qsection}
