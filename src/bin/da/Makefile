@@ -44,4 +44,5 @@ veryclean: clean
 endif
 all:
 clean:
+	$(RM) $(TARGET) $(OBJS) \#* *~
 
