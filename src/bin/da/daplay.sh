@@ -21,7 +21,7 @@ set freq	= 10
 set ampl	= 50
 set gain	= 0
 set ftype	= s
-set port	= h
+set port	= s
 set headersize  = 0
 set verbosemode	= 0
 
