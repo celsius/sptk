@@ -149,12 +149,12 @@ foreach infile ($argv[${file}-$#argv])
 			breaksw
 		case 10:
 			fileconvert $infile |\
-				srcnv -s 58 -d 5 -u 8 |\
+				us -s 58 -d 5 -u 8 |\
 				da $daops -s 16
 			breaksw
 		case 12:
 			fileconvert $infile |\
-				srcnv -s 34 -d 3 -u 4 |\
+				us -s 34 -d 3 -u 4 |\
 				da $daops -s 16
 			breaksw
 		case 16:
@@ -215,13 +215,14 @@ foreach infile ($argv[${file}-$#argv])
 
 	stdin44:
 	fileconvert $infile |\
-		srcnv -s 23F -u3 -d2 |\
-		srcnv -s 23S -u3 -d2 |\
-		srcnv -s 57 -u7 -d5 |\
-		srcnv -s 57 -u7 -d$osr |\
+		us -s 23F -u3 -d2 |\
+		us -s 23S -u3 -d2 |\
+		us -s 57 -u7 -d5 |\
+		us -s 57 -u7 -d$osr |\
 		da -H $headersize -g $gain -a $ampl +f -s 22
 	if( $file < 0) then
 		exit 0
 	endif
 end
 exit 0
+
