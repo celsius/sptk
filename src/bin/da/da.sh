@@ -106,7 +106,7 @@ exit 0
 
 usage:
 
-cat <<EOF
+echo2 <<EOF
 
  da - play 16-bit linear PCM data
 
@@ -116,7 +116,7 @@ EOF
 
 switch($arch)
 	case sun4*:
-cat <<EOF
+echo2 <<EOF
   options:
        -s s  : sampling frequency ( 8, 10, 11.025, 12, 16, 20, 22,
                                        22.05, 32, 44.1, 48 kHz)   [10]
@@ -138,7 +138,7 @@ EOF
 		exit 1
 
  	case i?86:
-cat <<EOF
+echo2 <<EOF
   options:
        -s s  : sampling frequency ( 8, 10, 11.025, 12, 16, 20,
                                               22.025, 44.1 kHz)  [10]
@@ -174,7 +174,7 @@ foreach infile ( ${file} )
 		break
 	endif
 	if ( $verbosemode ) then
-		echo "${cmnd}: ${infile}"
+		echo2 "${cmnd}: ${infile}"
 	endif
 
 	stdin48:
@@ -188,11 +188,8 @@ foreach infile ( ${file} )
 				us -s 58 -d 5 -u 8 |\
 				dawrite $daoption[*] +f -s 16
 			breaksw
-		case 11.025:
-			fileconvert $infile |\
-				dawrite $daoption[*] +f -s 11.025
-			breaksw
 		case 11:
+		case 11.025:
 			fileconvert $infile |\
 				dawrite $daoption[*] +f -s 11.025
 			breaksw
@@ -210,11 +207,8 @@ foreach infile ( ${file} )
 				ds -s 54 |\
 				dawrite $daoption[*] +f -s 16
 			breaksw
-		case 22.05:
-			fileconvert $infile |\
-				dawrite $daoption[*] +f -s 22.05
-			breaksw
 		case 22:
+		case 22.05:
 			fileconvert $infile |\
 				dawrite $daoption[*] +f -s 22.05
 			breaksw
@@ -223,9 +217,6 @@ foreach infile ( ${file} )
 				dawrite $daoption[*] +f -s 32
 			breaksw
 		case 44:
-			fileconvert $infile |\
-				dawrite $daoption[*] +f -s 44.1
-			breaksw
 		case 44.1:
 			fileconvert $infile |\
 				dawrite $daoption[*] +f -s 44.1
@@ -253,30 +244,20 @@ switch ($freq)
 	case 10:
 		@ osr = 5
 		breaksw
-	case 11:
-		@ osr = -1
-		breaksw
-	case 11.025:
-		@ osr = -1
-		breaksw
 	case 12:
 		@ osr = 6
 		breaksw
-	case 16
+	case 16:
 		@ osr = 8
 		breaksw
 	case 20:
 		@ osr = 10
 		breaksw
+	case 11:
+	case 11.025:
 	case 22:
-		@ osr = -1
-		breaksw
-	case 22.05):
-		@ osr = -1
-		breaksw
+	case 22.05:
 	case 44:
-		@ osr = -1
-		breaksw
 	case 44.1:
 		@ osr = -1
 		breaksw
@@ -297,7 +278,7 @@ foreach infile ($file)
 		break
 	endif
 	if ( $verbosemode ) then
-		echo "${cmnd}: ${infile}"
+		echo2 "${cmnd}: ${infile}"
 	endif
 
 	stdin44:
