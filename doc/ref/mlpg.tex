@@ -9,7 +9,10 @@
 \def\bmu{\bmath{\mu}}
 
 \begin{synopsis}
-	\item [mlpg] [ --m $M$ ] [--d $D$ ] [ --i $I$ ] [ --s $S$ ]
+	\item [mlpg] [ --m $M$ ] [ --l $L$ ]
+		[--d ($fn$ $|$ $d_0$ [$d_1$ $\ldots$]) ]
+		[--r $N_R$ $W_1$ [$W_2$] ]
+		[ --i $I$ ] [ --s $S$ ]
 		\ [ {\em infile} ] 
 \end{synopsis}
 
@@ -53,9 +56,8 @@
  \end{displaymath}
 	この条件の下で，
 	与えられた分布列
- \begin{displaymath}
-	(\bmu_1, \bU_1), (\bmu_2, \bU_2), \ldots, (\bmu_T, \bU_T)
- \end{displaymath}
+	$\left((\bmu_1, \bU_1), (\bmu_2, \bU_2), \ldots, (\bmu_T, \bU_T)
+	\right)$，
 	ただし
  \begin{eqnarray}
 	\bmu_t 
@@ -67,16 +69,12 @@
 		\nonumber
  \end{eqnarray}
 	に対して最も尤度の高いパラメータ列
- \begin{displaymath}
-	\bo_1, \bo_2, \ldots, \bo_T
- \end{displaymath}
-	を求め，
+	\ $(\bo_1, \bo_2, \ldots, \bo_T)$
+	\ を求め，
 	得られたパラメータベクトル $\bo_t$ のうちの
 	静的特徴ベクトル $\bc_t$ の列
- \begin{displaymath}
-	\bc_1, \bc_2, \ldots, \bc_T
- \end{displaymath}
-	を出力します．
+	\ $(\bc_1, \bc_2, \ldots, \bc_T)$
+	\ を出力します．
 	ここで，
 	$\bmu^{(0)}, \bU^{(0)}$ は静的特徴ベクトルに対する
 	平均ベクトルと共分散行列，
@@ -86,7 +84,10 @@
 
 \begin{options}
 	\argm{m}{M}{パラメータの次数．}{25}
-	\argm{d}{D}{デルタパラメータを計算する際の係数のファイル(float 形式)．
+	\argm{l}{L}{パラメータの長さ($M=L-1$)．}{$M+1$}
+	\argm{d}{(fn~|~d_0~[d_1~\ldots])}{$fn$ は
+		デルタパラメータを計算する際の
+		係数のファイル(float 形式)のファイル名．
 		係数は左右の長さが同じであると仮定しているため，
 		左右の長さが異なる場合は短い方に 0 を加える必要がある．
 		例えば，
@@ -97,19 +98,42 @@
 	 \begin{displaymath}
 		0, 0, w(-1), w(0), w(1), w(2), w(3)
 	 \end{displaymath}
-		とする．\\
-		$D$ が整数の場合は，
-		$n$ 次のデルタパラメータを $n-1$ 次のデルタパラメータから
-		窓幅 $D$ の一次回帰
+		とする．
+		ファイル名 $fn$ を指定する代わりに
+		係数(ファイル $fn$ の内容)を
+		直接コマンドラインに書いても良い．
+		複数のデルタパラメータを用いる場合は繰り返し指定する．\\
+		--r オプションとの併用は不可．}{N/A}
+	\argm{r}{N_R~W_1~[W_2]}{
+		デルタパラメータとして $N_R$ 次までの回帰係数を使用する
+		($N_R = 1$ または $2$)．
+		$W_1$，$W_2$ は一次または二次の回帰係数を求める
+		際の(片側の)幅を表す．
+		時刻 $t$ における一次回帰係数 $\Delta\bc_t$ は，
 	 \begin{displaymath}
-		\Delta^{(n)}\bc_t
-		= \frac{\sum_{\tau=-D}^D \tau\Delta^{(n-1)}\bc_{t+\tau}}
-		{\sum_{\tau=-D}^D \tau^2}
+		\Delta\bc_t
+		= \frac{\sum_{\tau=-W_1}^{W_1}\tau \bc_{t+\tau}}%
+			{\sum_{\tau=-W_1}^{W_1}\tau^2}
 	 \end{displaymath}
-		により計算する場合の係数を自動的に求める．\\
-		複数のデルタパラメータを用いる場合は繰り返し指定する．}{N/A}
-	\argm{i}{}{$(\bmu, \bU)$ の代わりに
-		\ $(\bmu \bU^{-1},\bU^{-1})$ を入力とする．}{FALSE}
+		二次回帰係数 $\Delta^2\bc_t$ は，
+		$a_2 = \sum_{\tau=-W_2}^{W_2} \tau^4$，
+		$a_1 = \sum_{\tau=-W_2}^{W_2} \tau^2$，
+		$a_0 = \sum_{\tau=-W_2}^{W_2} 1$ として
+	 \begin{displaymath}
+		\Delta^2\bc_t
+		= \frac{\sum_{\tau=-W_2}^{W_2}
+				(a_0\tau^2 - a_1) \bc_{t+\tau}}
+			{a_2a_0-a_1^2}
+	 \end{displaymath}
+		により計算される．\\
+		--d オプションとの併用は不可．}{N/A}
+	\argm{i}{I}{入力のタイプを指定．\\
+	  \begin{tabular}{l@{\hspace{2\tabcolsep}$($}l@{ }l@{$)$}}
+		$I = 0$ & $\bmu,$         & $\bU$ \\
+		$I = 1$ & $\bmu,$         & $\bU^{-1}$ \\
+		$I = 2$ & $\bmu\bU^{-1},$ & $\bU^{-1}$ \\[1zh]
+	  \end{tabular}
+		}{0}
 	\argm{s}{S}{あるフレームのパラメータが影響を及ぼすフレームの範囲．}{30}
 \end{options}
 
