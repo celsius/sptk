@@ -3,7 +3,7 @@
 #
 
 TARGET		= ds
-SRCS		= $(TARGET).c 
+SRCS		= $(TARGET).c
 OBJS		= $(SRCS:.c=.o)
 COEF		= lpfcoef.2to1 lpfcoef.4to3 lpfcoef.5to2up lpfcoef.5to2dn
 
