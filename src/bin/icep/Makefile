@@ -2,7 +2,7 @@
 # Makefile for commands
 #
 
-TARGET		= icep
+TARGET		= fftcep
 SRCS		= _$(TARGET).c $(TARGET).c
 OBJS		= $(SRCS:.c=.o)
 
