@@ -102,34 +102,23 @@ and $\gamma$(refer to figure \ref{fig:mgcep_overview}).
 	\argm{m}{M}{order of mel-generalized cepstrum}{25}
 	\argm{l}{L}{frame length power of 2}{256}
 	\argm{o}{O}{output data style\\
-                        $O = 0$:
-			\begin{displaymath}
-			  c_{\alpha, \gamma}(0), c_{\alpha, \gamma}(1), 
-			  \ldots, c_{\alpha, \gamma}(M)
-			\end{displaymath}
-			$O = 1$:
-			\begin{displaymath}
-			  b_\gamma(0), b_\gamma(1), \ldots, b_\gamma(M)
-			\end{displaymath}
-			$O = 2$:
-			\begin{displaymath}
-			  K_\alpha, c_{\alpha, \gamma}'(1), 
-			  \ldots, c_{\alpha, \gamma}'(M)
-			\end{displaymath}
-			$O = 3$:
-			\begin{displaymath}
-			  K, b_\gamma'(1), \ldots, b_\gamma'(M)
-			\end{displaymath}
-			$O = 4$:
-			\begin{displaymath}
-			  K_\alpha, \gamma\,c_{\alpha, \gamma}'(1), \ldots,
-			\gamma\,c_{\alpha, \gamma}'(M)
-			\end{displaymath}
-			$O = 5$:
-			\begin{displaymath}
-			  K, \gamma\,b_\gamma'(1), \ldots, 
-			  \gamma\,b_\gamma'(M)
-			\end{displaymath}}{0}
+                        $O = 0$:\\
+			  $c_{\alpha, \gamma}(0), c_{\alpha, \gamma}(1),
+			  \ldots, c_{\alpha, \gamma}(M)$\\
+			$O = 1$:\\
+			  $b_\gamma(0), b_\gamma(1), \ldots, b_\gamma(M)$\\
+			$O = 2$:\\
+			  $K_\alpha, c_{\alpha, \gamma}'(1), 
+			  \ldots, c_{\alpha, \gamma}'(M)$\\
+			$O = 3$:\\
+			  $K, b_\gamma'(1), \ldots, b_\gamma'(M)$\\
+			$O = 4$:\\
+			  $K_\alpha, \gamma\,c_{\alpha, \gamma}'(1), \ldots,
+			\gamma\,c_{\alpha, \gamma}'(M)$\\
+			$O = 5$:\\
+			  $K, \gamma\,b_\gamma'(1), \ldots, 
+			  \gamma\,b_\gamma'(M)$
+			}{0}
 	\desc[1zh]{Usually, the options below do not need to be assigned.}
 	\argm{i}{I}{minimum iteration of Newton-Raphson method}{2}
 	\argm{j}{J}{maximum iteration of Newton-Raphson method}{30}
