@@ -96,6 +96,7 @@ INC  = cmndref.sty \
 	ramp.tex \
 	reverse.tex \
 	rmse.tex \
+	rndpg.tex \
 	root_pol.tex \
 	sin.tex \
 	snr.tex \
