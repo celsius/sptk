@@ -53,8 +53,8 @@ install:
 		sed '/path/s:/usr/local/SPTK/bin:'$(BIN)':' $$i > $(BIN)/$$i ; \
 		chmod 755 $(BIN)/$$i ; \
 		j=`basename $$i .sh` ; \
-		$(RM) $$j ; \
-		ln -s $(BIN)/$$i $(BIN)/$$j ; \
+		$(RM) $(BIN)/$$j ; \
+		( cd $(BIN) ; ln -s $$i $$j ) ; \
 	done
 
 clean:

@@ -78,8 +78,8 @@ install: $(TARGET)
 		sed -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' -e '/libpath/s:/usr/local/SPTK/lib:'$(LIB)':' $$i > $(BIN)/$$i ; \
 		chmod 755 $(BIN)/$$i ; \
 		j=`basename $$i .sh` ; \
-		$(RM) $$j ; \
-		ln -s $(BIN)/$$i $(BIN)/$$j ; \
+		$(RM) $(BIN)/$$j ; \
+		( cd $(BIN) ; ln -s $$i $$j ) ; \
 	done ; \
 	fi
 
