@@ -11,15 +11,15 @@
 *		-a a     :  address				[0]	*
 *		-n n     :  initial value for numbering         [0]	*
 *		-m m     :  modulo for numbering		[EOF]   *
-*		-F F     :  dmp format                          [ASCII]	*
 *		+type    :  data type 				[c]	*
 *				c (char)     s (short)			*
 *				i (int)      l (long)			*
 *				f (float)    d (double)			*
+*		%format  :  print format                        [N/A]	*
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: fd.c,v 1.1 2000/03/01 13:58:33 yossie Exp $";
+static char *rcs_id = "$Id: fd.c,v 1.2 2000/06/17 14:02:34 yossie Exp $";
 
 
 /*  Standard C Libraries  */
@@ -33,6 +33,7 @@ static char *rcs_id = "$Id: fd.c,v 1.1 2000/03/01 13:58:33 yossie Exp $";
 #define START		0
 #define MODULO		0x7fffffff
 #define ENTRY		0
+#define SIZE            128
 
 
 /*  Command Name  */
@@ -55,6 +56,7 @@ void usage(int status)
     fprintf(stderr, "                c (char)      s (short)\n");
     fprintf(stderr, "                i (int)       l (long)\n");
     fprintf(stderr, "                f (float)     d (double)\n");
+    fprintf(stderr, "       %%form : print format(printf style) [N/A]\n");
     fprintf(stderr, "       -h    : print this message\n");
     fprintf(stderr, "  infile:\n");
     fprintf(stderr, "       data sequence                       [stdin]\n");
@@ -67,8 +69,8 @@ void usage(int status)
 
 
 long	start = START, mod = MODULO;
-int	size = sizeof(char), is_int = 0, entry = ENTRY, is_char = 1;
-char	*fmt = NULL, adrsfmt = 'd';
+int	size = sizeof(char), is_int = 0, entry = ENTRY, is_char = 1, ff = 0;
+char	adrsfmt = 'd', format[SIZE], form[SIZE];
 
 
 void main(int argc, char **argv)
@@ -76,7 +78,6 @@ void main(int argc, char **argv)
     FILE 	   *fp = stdin;
     register char  *s, c;
     long	   atol();
-    
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	cmnd = argv[0];
@@ -99,9 +100,6 @@ void main(int argc, char **argv)
 		    break;
 		case 'c':
 		    entry = atoi(s);
-		    break;
-		case 'F':
-		    fmt = ++s;
 		    break;
 		case 'h':
 		    usage(0);
@@ -136,6 +134,10 @@ void main(int argc, char **argv)
 		    usage(1);
 	    }
 	}
+        else if( *s == '%'){
+		strcpy(format,s);
+		ff = 1;
+	}
 	else
 	    fp = getfp(*argv, "r");
 
@@ -147,7 +149,7 @@ void main(int argc, char **argv)
 fdump(fp)
 register FILE *fp;
 {
-    char s[18], format[32];
+    char s[18];
     register long	adrs, i, n;
     union {
 	unsigned char	b;
@@ -157,8 +159,8 @@ register FILE *fp;
 	double	d;
     }u;
 
-    if(fmt)
-	sprintf(format, "%%%s", fmt);
+    if(ff) strcat(format," ");
+    
     if(entry == 0) {
 	if(size == 8)
 	    entry = 2;
@@ -193,13 +195,13 @@ register FILE *fp;
 		    case 4:
 			if(is_int)
 			    printf("%12d", u.l);
-			else if(fmt)
+			else if(ff)
 			    printf(format, u.f);
 			else
 			    printf("%14.6e", u.f);
 			break;
 		    case 8:
-			if(fmt)
+			if(ff)
 			    printf(format, u.d);
 			else
 			    printf("%24.15e", u.d);
