@@ -43,10 +43,14 @@
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の標本化周波数10kHzの音声データファイル {\em data.10} を標本
-化周波数16kHzにアップサンプリングし，{\em data.16} に出力する:
+float 形式の標本化周波数 16kHz の音声データファイル {\em data.16} を標本
+化周波数 44.1kHz にアップサンプリングし，{\em data.44} に出力する:
 \begin{quote}
-\verb! us -s 58 data.10 > data.16!
+\verb!us -s 23F data.16 | us -s 23S | us -s 57 | \! \\
+\verb!us -c /usr/local/SPTK/lib/lpfcoef.5to7 -u 7 -d 8 > data.44! \\[5mm]
+注:~~
+$\displaystyle\frac{44100}{16000} = 
+	\frac{3\times3\times7\times7\times100}{2\times2\times5\times8\times100}$
 \end{quote}
 \end{qsection}
 
