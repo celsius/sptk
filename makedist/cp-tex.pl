@@ -11,7 +11,7 @@ $BASEDIR = "/usr/local/SPTK";
 # Default
 #
 $opt_l = "list.all";
-$opt_f = "$BASEDIR/package/tex-files.extra";
+$opt_f = "$BASEDIR/makedist/tex-files.extra";
 $opt_d = "SPTKref";
 $opt_v = undef;
 $opt_n = undef;
@@ -59,6 +59,7 @@ close(f);
 #
 execute("mkdir -p $opt_d") unless ( -d "$opt_d" );
 execute("cp $BASEDIR/doc/ref/cmndref.sty $opt_d");
+execute("cp $BASEDIR/doc/ref/ref.tex $opt_d");
 
 # modify Makefile and main.tex
 print "$BASEDIR/doc/ref/Makefile -> $opt_d/Makefile\n"
@@ -114,7 +115,6 @@ while ( $x = <FILE> ) {
 close(FILE);
 
 print MAKEOUT " \\\n\tref.tex";
-print MAINOUT "\\include{ref.tex}\n";
 
 if ( $opt_n == undef ) {
 	print MAKEOUT "\nEPSF = ";
