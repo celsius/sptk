@@ -2,7 +2,7 @@
 # Makefile for commands
 #
 
-TARGET		= da
+TARGET		= dawrite
 SRCS		= $(TARGET).c
 OBJS		= $(SRCS:.c=.o)
 
@@ -32,7 +32,7 @@ $(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS) ; \
 	fi
 
-da.o: da.h
+dawrite.o: da.h
 
 install: $(TARGET)
 	if [ x"$(DA_OSTYPE)" != x ] ; then \
