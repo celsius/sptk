@@ -36,6 +36,7 @@ INC  = cmndref.sty \
 	fd.tex \
 	fdrw.tex \
 	fft.tex \
+	fftcep.tex \
 	fft2.tex \
 	fftr.tex \
 	fftr2.tex \
@@ -51,7 +52,6 @@ INC  = cmndref.sty \
 	grpdelay.tex \
 	gwave.tex \
 	histogram.tex \
-	icep.tex \
 	ifft.tex \
 	ifft2.tex \
 	iglsadf.tex \

@@ -26,6 +26,7 @@ extract
 fd
 fdrw
 fft
+fftcep
 fft2
 fftr
 fftr2
@@ -41,7 +42,6 @@ grlogsp
 grpdelay
 gwave
 histogram
-icep
 ifft
 ifft2
 iglsadf

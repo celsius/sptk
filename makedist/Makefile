@@ -164,6 +164,12 @@ fft: makefiles lib include
 	$(CP) $(SOURCEDIR)/src/bin/fft/_fft.c $(TARGETDIR)/src/bin/fft/_fft.c
 	$(CP) $(SOURCEDIR)/src/bin/fft/fft.c $(TARGETDIR)/src/bin/fft/fft.c
 
+fftcep: makefiles lib include fftr
+	mkdir -p $(TARGETDIR)/src/bin/fftcep
+	$(CP) $(SOURCEDIR)/src/bin/fftcep/Makefile $(TARGETDIR)/src/bin/fftgcep/Makefile
+	$(CP) $(SOURCEDIR)/src/bin/fftcep/_fftcep.c $(TARGETDIR)/src/bin/fftcep/_fftcep.c
+	$(CP) $(SOURCEDIR)/src/bin/fftcep/fftcep.c $(TARGETDIR)/src/bin/fftcep/fftcep.c
+
 fft2: makefiles lib include fft
 	mkdir -p $(TARGETDIR)/src/bin/fft2
 	$(CP) $(SOURCEDIR)/src/bin/fft2/Makefile $(TARGETDIR)/src/bin/fft2/Makefile
@@ -242,12 +248,6 @@ histogram: makefiles lib include
 	$(CP) $(SOURCEDIR)/src/bin/histogram/Makefile $(TARGETDIR)/src/bin/histogram/Makefile
 	$(CP) $(SOURCEDIR)/src/bin/histogram/_histogram.c $(TARGETDIR)/src/bin/histogram/_histogram.c
 	$(CP) $(SOURCEDIR)/src/bin/histogram/histogram.c $(TARGETDIR)/src/bin/histogram/histogram.c
-
-icep: makefiles lib include fftr
-	mkdir -p $(TARGETDIR)/src/bin/icep
-	$(CP) $(SOURCEDIR)/src/bin/icep/Makefile $(TARGETDIR)/src/bin/icep/Makefile
-	$(CP) $(SOURCEDIR)/src/bin/icep/_icep.c $(TARGETDIR)/src/bin/icep/_icep.c
-	$(CP) $(SOURCEDIR)/src/bin/icep/icep.c $(TARGETDIR)/src/bin/icep/icep.c
 
 ifft: makefiles lib include fft
 	mkdir -p $(TARGETDIR)/src/bin/ifft
