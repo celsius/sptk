@@ -1,14 +1,18 @@
-\name{lpc2c}{LPCケプストラム}{音声パラメータ変換}
+\name{lpc2c}{transform LPC to cepstrum}{speech parameter transformation}
 
 \begin{synopsis}
  \item[lpc2c] [ --m $M_1$ ] [ --M $M_2$ ] [ {\em infile} ]
 \end{synopsis}
 \begin{qsection}{DESCRIPTION}
-{\em lpc2c} は，指定されたファイルからLPC係数を読み
-込み，LPCケプストラムを出力します．
-つまり，入力数列を
+The {\em lpc2c} command reads LPC coefficients from the assigned
+{\em infile} and output LPC cepstrum coefficients.
+That is, when the input sequence is 
 \[ \sigma, a(1), a(2), \cdots, a(p) \]
-として，
+where
+\[
+H(z)=\frac{\sigma}{A(z)}=\frac{\sigma}{\displaystyle 1+\sum_{k=1}^P a(k) z^{-k}}
+\]
+then the LPC cepstrum coefficients are evaluated as follows.
 \[
 c(n) =\left\{
 \begin{array}{lc}
@@ -18,24 +22,22 @@ c(n) =\left\{
 \end{array}
 \right.
 \]
-但し，
-\[
-H(z)=\frac{\sigma}{A(z)}=\frac{\sigma}{\displaystyle 1+\sum_{k=1}^P a(k) z^{-k}}
-\]
-を計算し，
+And the sequence of cepstrum coefficients
 \[ c(0), c(1), \cdots, c(M) \]
-を出力します．
-データ形式は入出力とも float 形式です．
+is outputed.
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M_1}{LPC の次数．}{25}
-	\argm{M}{M_2}{ケプストラムの次数．}{25}
+	\argm{m}{M_1}{order of LPC}{25}
+	\argm{M}{M_2}{order of cepstrum}{25}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の音声データ {\em data.f} に窓掛けしたデータの10次の
-LPC係数を求め，さらに15次のLPCケプストラムを求め，{\em data.cep} に出力する:
+In the example below, a 10 order LPC analysis is undertaken after
+passing the speech data {\em data.f} in float format through a window,
+15 order LPC cepstrum coefficients are calculated,
+and the result is written in {\em data.cep}.
 \begin{quote}
  \verb!frame < data.f | window | lpc -m 10 |\!\\
  \verb!lpc2c -m 10 -M 15 > data.cep!

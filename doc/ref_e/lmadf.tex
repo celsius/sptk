@@ -1,5 +1,5 @@
-\name[ref:acep-IEEESP,ref:LMA-IECE]{lmadf}{音声合成のためのLMAフィルタ}%
-{音声合成用フィルタ}
+\name[ref:acep-IEEESP,ref:LMA-IECE]{lmadf}%
+{LMA digital filter for speech synthesis}{digital filter}
 
 \begin{synopsis}
 \item [lmadf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --P $Pa$ ] [ --k ] 
@@ -7,38 +7,44 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-指定されたファイルから読み込まれたデータを{\em cfile}のケプストラム係数 
-$c(0),c(1),\ldots,c(M)$ をもつLMAフィルタによりフィルタリングし，標準出力に
-出力します．
+This command reads excitation information from the assigned
+{\em infile} and the cepstrum coefficients $c(0),c(1),\ldots,c(M)$
+that composed LMA filter from {\em cfile}. 
+The excitation is passed through the filter and
+the results is send to the standard output.
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-LMAフィルタは，$M$ 次のケプストラム $c(m)$ で表現された指数形伝達関数
+The LMA filter is an extremely precise approximation of the
+exponential transfer function obtaind from $M$ order cepstrum
+coefficients $c(m)$ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^{M} c(m) z^{-m}
 \end{displaymath}
-を高精度に近似します．
-伝達関数 $H(z)$ からゲイン $K=\exp c(0)$ を除いた伝達関数
+If we remove from the transfer function $H(z)$ the gain
+$K=\exp c(0)$, then we obtain the following transfer function
 \begin{displaymath}
-D(z) = \exp \sum_{m=1}^{M} c(m) z^{-m}
+D(z) = \exp \sum_{m=1}^{M} c(m) z^{-m},
 \end{displaymath}
-は，次式のFIRフィルタ
+which can be realized using the basic FIR filter
 \begin{displaymath}
 F(z) = \sum_{m=1}^{M} c(m) z^{-m}
 \end{displaymath}
-を基礎フィルタとして図\ref{fig:lmadflt_LMA}(a)のように実現することができます．
-ここで，図\ref{fig:lmadflt_LMA}(b)のように基礎フィルタ $F(z)$ を
+as shown in figure \ref{fig:lmadflt_LMA}(a).
+Also, as can be seen from figure \ref{fig:lmadflt_LMA}(b),
+the basic filter $F(z)$ can be decomposed as follows
 \begin{displaymath}
 F(z) = F_1(z) + F_2(z)
 \end{displaymath}
-ただし，
+where 
 \begin{eqnarray*}
 F_1(z) &=& c(1) z^{-1} \\
 F_2(z) &=& \sum_{m=2}^{M} c(m) z^{-m}
 \end{eqnarray*}
-と分割することにより，近似精度を上げています．
-また，図\ref{fig:lmadflt_LMA}(a)の係数 $A_{4,l}$ の値を
-表\ref{tbl:lmadflt_pade}に示します．
+By doing this decomposition, the accuracy of the approximation
+is improved.
+Also, the values of the coefficients $A_{4,l}$ are given
+in table \ref{tbl:lmadflt_pade}
 \par
 \setcounter{figure}{0}
 \begin{figure}[ht]
@@ -128,7 +134,7 @@ F_2(z) &=& \sum_{m=2}^{M} c(m) z^{-m}
 \end{center}
 \caption{\protect\parbox[t]{8cm}{
 	(a)~~$R_L(F(z))\simeq D(z)$~~~$L=4$ \protect\\
-	(b)~~2段縦続接続構成 \protect\\
+	(b)~~2 level cascade realization\protect\\
         \hspace*{5mm} $R_L(F_1(z))\cdot R_L(F_2(z))\simeq D(z)$
 }}
 \label{fig:lmadflt_LMA}
@@ -136,7 +142,7 @@ F_2(z) &=& \sum_{m=2}^{M} c(m) z^{-m}
 
 \setcounter{table}{0}
 \begin{table}
-        \caption{有理近似式の係数 $A_{L,l}$ の値}
+        \caption{The values for the coeffients $A_{L,l}$}
         \label{tbl:lmadflt_coef}
         \setlength{\arrayrulewidth}{0.5pt}
         \renewcommand{\arraystretch}{1.2}
@@ -156,17 +162,20 @@ F_2(z) &=& \sum_{m=2}^{M} c(m) z^{-m}
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{ケプストラムの次数．}{25}
-	\argm{p}{P}{係数の更新周期．}{100}
-	\argm{i}{I}{補間周期．}{1}
-	\argm{P}{Pa}{パデ近似次数．\\Pa は4又は5を指定できます．}{4}
-	\argm{k}{}{ゲインを除いたシステム関数でフィルタリングする}{FALSE}
+	\argm{m}{M}{order of cepstrum}{25}
+	\argm{p}{P}{frame period}{100}
+	\argm{i}{I}{interpolation period}{1}
+	\argm{P}{Pa}{order of pade approximation\\
+                     Pa = 4 or 5 can be used}{4}
+	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のピッチデータ {\em data.pitch} から励振源を作成し，
-ケプストラムファイル {\em data.cep} によりLMAフィルタを駆動し，
-合成音声を {\em data.syn} に出力する:
+In this example, the excitation is generated from
+the pitch data read in float format from {\em data.pitch},
+passed through a LMA filter obtained from cepstrum file
+{\em data.cep}, and the synthesized speech is written to
+{\em data.syn}.
 \begin{quote}
  \verb!excite < data.pitch | lmadf data.cep > data.syn!
 \end{quote} 

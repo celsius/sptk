@@ -1,34 +1,39 @@
-\name{lpc}{線形予測分析}{音声分析}
+\name{lpc}{LPC analysis using Levinson-Durbin method}{signal processing}
 
 \begin{synopsis}
 \item [lpc] [ --l $L$ ] [ --m $M$ ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-線形予測分析を行います．
-指定されたファイルから窓掛けされた長さ $L$ の時系列
+This command undertakes linear prediction analysis.
+A window of length $L$ is passed through the assinged
+data file generating the following sequence.
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-を読み込み，まず自己相関を計算します（acorr参照）．
-次に，レビンソン・ダービンの算法により線形予測係数
+First of all, the autocorrelation function is
+calculated (please refer to ``accor'').
+Afterwards, the linear prediction coefficients
 \begin{displaymath}
   K, a(1), \ldots, a(M)
 \end{displaymath}
-を求め（levdur参照），標準出力に出力します．
-ここで，$K$ はゲインを表しています．
+are evaluated from the Levinson-Durbin algorithm,
+and the results is sent to the standard output.
+Also, the gain $K$ is computed.
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{入力データのフレーム長．}{256}
-	\argm{m}{M}{分析次数．}{25}
+	\argm{l}{L}{frame length}{256}
+	\argm{m}{M}{order of LPC}{25}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f} を分析次数20次で線形予測分析し，
-線形予測係数を {\em data.lpc} に出力する:
+In this example, the 20 order linear prediction analysis is applied
+to input read from {\em data.f} in float format,
+and the linear prediction coefficients are written to
+{\em data.lpc}:
 \begin{quote}
  \verb!frame < data.f | window | lpc -m 20 > data.lpc!
 \end{quote} 

@@ -1,25 +1,32 @@
-\name{levdur}{レビンソン・ダービンの算法}{信号処理}
+\name{levdur}{solve an autocorrelation normal equation
+                    using Levinson-Durbin method}{signal processing}
+
 
 \begin{synopsis}
  \item [levdur] [ --m $M$ ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-自己相関行列から線形方程式を解き，線形予測係数を求めます．
-指定されたファイルから $M$ 次の自己相関数列
+This command evaluates the linear prediction coefficients
+by solving a set of linear equations obtained from
+the autocorrelation matrix.
+From the assinged file, $M$ order autocorrelation matrix
 \begin{displaymath}
   r(0),r(1),\ldots,r(M)
 \end{displaymath}
-を読み込み，レビンソン・ダービンの算法により線形方程式を解きます．
+is read and the linear system is solved by the Levinson-Durbin
+algorithm.
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-線形予測係数は全極型ディジタルフィルタ
+The linear prediction coefficients are the set of coefficients
+$K, a(1), \ldots, a(M)$ of the all-pole digital filter
 \begin{displaymath}
-H(z) = \frac{K}{\displaystyle{1+\sum_{i=1}^{M}a(k)z^{-i}}}
+H(z) = \frac{K}{\displaystyle{1+\sum_{i=1}^{M}a(k)z^{-i}}}.
 \end{displaymath}
-の係数 $K, a(1), \ldots, a(M)$ です。
-線形予測分析の自己相関法では，次の線形方程式
+The linear prediction coefficients are evaluated by solving
+the following set of linear equations, which were obtained
+through the autocorrelation method,
 \begin{displaymath}
 \left( \begin{array}{cccc}
         r(0) & r(1) & \cdots & r(M-1) \\
@@ -40,9 +47,9 @@ H(z) = \frac{K}{\displaystyle{1+\sum_{i=1}^{M}a(k)z^{-i}}}
 	r(M) \\
 	\end{array} \right)
 \end{displaymath}
-を解くことで線形予測係数を求めます．
-この際，係数行列の Toeplitz 性を利用することにより，
-次のようなダービンの再帰法で効率的に計算することができます．
+The Durbin iterative and efficient algorithm is used
+in the following taking advantage of the Toeplitz characteristic
+of the autocorrelation matrix:
 \begin{eqnarray}
 E^{(0)}    &=& r(0) \\
 k(i)       &=& \frac{\displaystyle{-r(i)-\sum_{j=1}^i a^{(i-1)}(j)r(i-j)}}
@@ -52,22 +59,22 @@ a^{(i)}(j) &=&  a^{(i-1)}(j) + k(i) a^{(i-1)}(i-j),
 		~~~~~1\leq j \leq i-1\\
 E^{(i)}    &=& (1-k^2(i)) E^{(i-1)} \label{eqn:lev_dur_E}
 \end{eqnarray}
-ただし，式(\ref{eqn:lev_dur_k})から(\ref{eqn:lev_dur_E})を $i=1,2,\ldots,M$ の
-順に繰り返します．
-また，ゲイン $K$ は
+Also, for $i=1,2,\ldots,M$, equations (\ref{eqn:lev_dur_k}) to
+ (\ref{eqn:lev_dur_E}) are applied recursively,
+and the gain $K$ is calculated as follows.
 \begin{displaymath}
 K = \sqrt{E^{(M)}}
 \end{displaymath}
-で求めます．
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{分析次数．}{25}
+	\argm{m}{M}{order of correlation}{25}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f} を線形予測分析し，線形予測係数を 
-{\em data.lpc} に出力する:
+In this example, input data is read in float format from
+{\em data.f} and linear prediction coefficients are written
+to {\em data.lpc}:
 \begin{quote}
  \verb!frame < data.f | window | acorr -m 25 | levdur > data.lpc!
 \end{quote} 
