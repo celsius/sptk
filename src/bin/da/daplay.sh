@@ -11,20 +11,22 @@
 
 set path        = ( /usr/local/SPTK/bin $path )
 
-set cmnd	= $0
-set file	= -1
+set cmnd	= `basename $0`
+set file	= ""
+set stdinput    = 1
 
 set arch	= `uname -m`
 
 set freq	= 10
 set ampl	= 50
 set gain	= 0
-set ftype	= f
+set ftype	= s
 set port	= h
 set headersize  = 0
 set verbosemode	= 0
 
 set byteswap    = -1
+set daoption    = ""
 
 @ i = 0
 while ($i < $#argv)
@@ -37,18 +39,22 @@ while ($i < $#argv)
 	case -o:
 		@ i++
 		set port = $argv[$i]
+		set daoption = ( $daoption -o $port )
 	   	breaksw
 	case -a:
 		@ i++
 		set ampl = $argv[$i]
+		set daoption = ( $daoption -a $ampl )
 		breaksw
 	case -g:
 		@ i++
 		set gain = $argv[$i]
+		set daoption = ( $daoption -a $gain )
 		breaksw
 	case -H:
 		@ i++
 		set headersize = $argv[$i]
+		set daoption = ( $daoption -H $headersize )
 		breaksw
 	case -v:
 		set verbosemode = 1
@@ -66,11 +72,12 @@ while ($i < $#argv)
 		set exit_status = 0
 		goto usage
 	default
-		set file = $i
-		break
+		set file = ( $file $argv[$i] )
+		set stdinput = -1
+		breaksw
 	endsw
 end
-
+   
 if ( $ftype == "f" ) then
 	if ( $byteswap > 0 ) then
 		alias fileconvert 'swab +f \!^'
@@ -92,47 +99,73 @@ switch ($arch)
     	case i?86:
 		goto cnvt44
 		breaksw
-	default
-		breaksw
-endsw      
+	endsw
 exit 0
 
 
 usage:
+
 cat <<EOF
 
  daplay - play 16-bit linear PCM data
 
   usage:
-       daplay [options ] infile1 infile2 ...
+       daplay [ options ] [ infile1 ] [ infile2 ] ...
+EOF
+
+switch($arch)
+	case sun4*:
+cat <<EOF
   options:
-       -s s  : sampling frequency (8,10,12,16,20 kHz)  [10]
-       -g g  : gain (..,-2,-1,0,1,2,...)               [0]
-       -a a  : amplitude gain (0..100)                 [N/A]
-       -o o  : output port                             [0]
+       -s s  : sampling frequency (8,10,12,16,20,22,32,44,48 kHz) [10]
+       -g g  : gain (..,-2,-1,0,1,2,...)                          [0]
+       -a a  : amplitude gain (0..100)                            [N/A]
+       -o o  : output port                                        [s]
                   s(speaker)   h(headphone)
-       -H H  : header size in byte                     [0]
-       -v    : display filename                        [FALSE]
-       -w    : execute byte swap                       [FALSE]
-       +x    : data format                             [s]
+       -H H  : header size in byte                                [0]
+       -v    : display filename                                   [FALSE]
+       -w    : execute byte swap                                  [FALSE]
+       +x    : data format                                        [s]
                   s(short)   f(float)
        -h    : print this message
   infile:
-       data sequence                                   [stdin]
+       data sequence                                              [stdin]
   notice:
 
 EOF
-exit 1
+		exit 1
+
+ 	case i?86:
+cat <<EOF
+  options:
+       -s s  : sampling frequency (8,10,12,16,20,22,44 kHz)      [10]
+       -g g  : gain (..,-2,-1,0,1,2,...)                         [0]
+       -a a  : amplitude gain (0..100)                           [N/A]
+       -H H  : header size in byte                               [0]
+       -v    : display filename                                  [FALSE]
+       -w    : execute byte swap                                 [FALSE]
+       +x    : data format                                       [s]
+                  s(short)   f(float)
+       -h    : print this message
+  infile:
+       data sequence                                             [stdin]
+  notice:
+
+EOF
+		exit 1
+endsw
+
 endif
 
 
 cnvt48:
-if( $file < 0) then
-	set infile = ""
+
+if ( $stdinput == 1 ) then
+	set infile	= ""
 	goto stdin48
 endif
-set daops	= "-g $gain -a $ampl -o $port +f "
-foreach infile ($argv[${file}-$#argv])
+
+foreach infile ( ${file} )
 	if ( ! -f $infile ) then
 		echo2 "${cmnd}: Can't open file "'"'"$infile"'"'" \!"
 		break
@@ -145,33 +178,49 @@ foreach infile ($argv[${file}-$#argv])
 	switch ($freq)
 		case 8:
 			fileconvert $infile |\
-				da $daops -s 8
+				da $daoption[*] +f -s 8
 			breaksw
 		case 10:
 			fileconvert $infile |\
 				us -s 58 -d 5 -u 8 |\
-				da $daops -s 16
+				da $daoption[*] +f -s 16
 			breaksw
 		case 12:
 			fileconvert $infile |\
 				us -s 34 -d 3 -u 4 |\
-				da $daops -s 16
+				da $daoption[*] +f -s 16
 			breaksw
 		case 16:
-			fileconvert $infile $byteswap|\
-				da $daops -s 16
+			fileconvert $infile |\
+				da $daoption[*] +f -s 16
 			breaksw
 		case 20:
 			fileconvert $infile |\
 				ds -s 54 |\
-				da $daops -s 16
+				da $daoption[*] +f -s 16
+			breaksw
+		case 22:
+			fileconvert $infile |\
+				da $daoption[*] +f -s 22
+			breaksw
+		case 32:
+			fileconvert $infile |\
+				da $daoption[*] +f -s 32
+			breaksw
+		case 44:
+			fileconvert $infile |\
+				da $daoption[*] +f -s 44
+			breaksw
+		case 48:
+			fileconvert $infile |\
+				da $daoption[*] +f -s 48
 			breaksw
 		default
 			goto usage
 	endsw
-	if( $file < 0) then
+	if( $stdinput == 1 ) then
 		exit 0
-	endif
+	endif    	
 end
 exit 0
 
@@ -193,36 +242,47 @@ switch ($freq)
 	case 20:
 		@ osr = 10
 		breaksw
+	case 22:
+		@ osr = -1
+		breaksw
+	case 44:
+		@ osr = -1
+		breaksw
 	default
 		goto usage
 endsw
 
 @ osr *= 2
 
-if( $file < 0) then
+if( $stdinput == 1 ) then
 	set infile = ""
 	goto stdin44
 endif
 
-foreach infile ($argv[${file}-$#argv])
+foreach infile ($file)
 	if ( ! -f $infile ) then
 		echo2 "${cmnd}: Can't open file "'"'"$file"'"'" \!"
 		break
 	endif
 	if ( $verbosemode ) then
-		echo "${cmd}: ${infile}"
+		echo "${cmnd}: ${infile}"
 	endif
 
 	stdin44:
-	fileconvert $infile |\
-		us -s 23F -u3 -d2 |\
-		us -s 23S -u3 -d2 |\
-		us -s 57 -u7 -d5 |\
-		us -s 57 -u7 -d$osr |\
-		da -H $headersize -g $gain -a $ampl +f -s 22
-	if( $file < 0) then
+	if( $osr > 0 ) then
+		fileconvert $infile |\
+			us -s 23F -u3 -d2 |\
+			us -s 23S -u3 -d2 |\
+			us -s 57 -u7 -d5 |\
+			us -s 57 -u7 -d$osr |\
+			da $daoption[*] +f -s 22
+	else
+		fileconvert $infile |\
+			da $daoption[*] +f -s $freq
+	endif	
+	if( $stdinput == 1 ) then
 		exit 0
-	endif
+	endif    	
 end
 exit 0
 
