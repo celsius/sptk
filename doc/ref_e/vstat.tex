@@ -5,9 +5,10 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-指定されたファイルから読み込まれた $L$ 次元ベクトルの平均ベクトルおよび
-共分散行列を $T$ 個毎に求め，標準出力に出力します．
-つまり，入力データ
+This command reads an $L$ dimension vector from the assigned file,
+evaluates the mean vector and the covariance matrix
+for every $T$ vectors, and sends the results to the standard output.
+That is, if the input data is
 \begin{displaymath}
 \overbrace{
   \overbrace{x_1(1),\ldots,x_1(L)}^{L},
@@ -15,7 +16,7 @@
   \overbrace{x_N(1),\ldots,x_N(L)}^{L}
 }^{T \times L},\ldots
 \end{displaymath}
-から，
+then the output will be 
 \begin{displaymath}
   \overbrace{m(1),\ldots,m(L)}^L, 
   \overbrace{
@@ -23,8 +24,7 @@
     \overbrace{U(L1),\ldots,U(LL)}^L
   }^{L\times L}, \ldots
 \end{displaymath}
-が出力されます．
-{\boldmath $m$}，{\boldmath $U$} はそれぞれ，
+evaluation of {\boldmath $m$}，{\boldmath $U$} is undertaken by
 \begin{displaymath}
   \mbox{\boldmath $m$} = \frac{1}{N}\sum_{k=1}^{N} \mbox{\boldmath $x$}
 \end{displaymath}
@@ -33,10 +33,10 @@
 	\mbox{\boldmath $x$} \mbox{\boldmath $x$}^T
 	- \mbox{\boldmath $m$} \mbox{\boldmath $m$}^T
 \end{displaymath}
-で計算されます．
-ただし，対角共分散の場合は非対角成分は出力されません．
+Also, if the diagonal covariance is wanted(--d option),
+then the values outside of the diagonal are not outputed.
 
-ファイルが指定されなかった場合，データは標準入力から読み込まれます．
+If the input file is omitted, then data is read from the standard input.
 
 Input and output data are in float format.
 \end{qsection}
@@ -56,12 +56,14 @@ Input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル{\em data.f}全体の平均および分散を求め，{\em data.stat}に出力する:
+The output file {\em data.stat} contains the mean and covariance matrix
+taken from the whole data in {\em data.f} read in float format.
 \begin{quote}
   \verb!vstat data.f > data.stat!
 \end{quote}
 
-次元15次の係数ベクトルのとなり合う3フレームの平均を求め{\em data.av}に出力する:
+In the example below, the mean of 15 order coefficients vector is taken
+for every group of 3 frames and sent to {\em data.av}:
 \begin{quote}
   \verb!vstat -l 15 -t 3 -o 1 data.f > data.av!
 \end{quote}

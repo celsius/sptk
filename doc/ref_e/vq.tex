@@ -5,19 +5,18 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-指定されたファイルから長さ $L$ の時系列
+This command reads data from the assigned file sequence of length $L$
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-を読み込み，コードブックファイル{\em cbfile}中の各コードベクトルとの
-ユークリッド距離 $d_i$
+compares each value with every code vector read from
+codebook file {\em cbfile} through the Euclidian distance $d_i$,
 \begin{displaymath}
 d_i = \frac{1}{L}\sum_{m=0}^{L-1} (x(m)-c_i(m))^2
 \end{displaymath}
-が最小になるインデックス$i$を出力します．
--q オプションが指定された場合には，
-コードベクトル $[c_i(0), c_i(1), \cdots, c_i(L-1)]$を
-出力します．
+and sends to the output the index which minimizes this distance.
+If -q options is assigned, then the code vector
+$[c_i(0), c_i(1), \cdots, c_i(L-1)]$ is outputed.
 \par
 Input data is in float format and output data is in int format.
 If the -q options is assigned, then output data is in float format.
@@ -30,8 +29,10 @@ If the -q options is assigned, then output data is in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の25次のベクトル列のファイル {\em data.f} に対し，
-コードブック {\em cbfile} でVQ を行い {\em data.vq} に出力する:
+In this example, a sequence of length 25 is read from {\em data.f}
+in float format.
+it is quantized using codebook {\em cbfile},
+and the results are written to {\em data.vq}:
 \begin{quote}
  \verb!vq -q cbfile < data.f > data.vq!
 \end{quote} 

@@ -7,14 +7,17 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- {\em us}は，8，10，12，16kHz から 11.025，22.05，44.1kHz へのアップサンプリ
- ングを行います．入力ファイル，出力ファイルの指定が無い場合は，それぞ
- れ標準入力から読み込み，標準出力へ書き込まれます．
- また，複数のファイルを同時に指定することも可能です．
- この場合，入力ファイル名のサフィックスが変換後の標本化周波数に置き換
- えられ，{\em outdir} 以下に出力されます．
+The command {\em uscd} converts from
+8, 10, 12, 16kHz to 11.025, 22.05, 44.1kHz sampling rate.
+If input and/or output files are not assigned,
+then the standard input and/or output are used, respectively.
+Also, several files can be assigned at same time.
+In this case the output is automatically written in the assigned
+{\em outdir} directory for every input file
+changing the corresponding suffix.
 
- なお，オプションで指定する 11.025，22.05，44.1kHz は，それぞれ 11，22，44 のように省略可能です．
+Also, the assignment the following sampling rates 11.025，22.05，44.1kHz
+can be done by 11, 22, 44, respectively.
 \par
 \end{qsection}
 
@@ -24,8 +27,8 @@
 			S1 & $8|10|12|16$ & sampling rate of input data\\
 			S2 & $11.025|22.05|44.1$ & sampling rate of output data
 		\end{tabular}
- 		where 11.025, 22.05 and 44.1kHz can be abbreviated 11，
-                22 and 44, respectively.}
+                where the assignment the following sampling rates 11.025，
+                22.05，44.1kHz can be done by 11, 22, 44, respectively.}
                 {$10~11.025$}
 	\argp{t}{input data format\\
 		\begin{tabular}{ll} \\[-1zh]
@@ -35,8 +38,9 @@
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-short 形式の標本化周波数 16kHz の音声データファイル {\em data.16} を標本
-化周波数 22.05kHz にアップサンプリングし，{\em data.22} に出力する:
+In the example below, speech data sampled at 16kHz in short format
+is read from {\em data.16}, up sampling to 22.05kHz is undertaken,
+and the results are written to {data.22}:
 \begin{quote}
 \verb!uscd -s 16 22.05 < data.16 > data.22!
 \end{quote}

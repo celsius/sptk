@@ -5,27 +5,25 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-標準入力から入力される
-実数列にオプションで指定された窓をかけます．
-つまり，
-入力数列を
+This command inputs real sequence from the standard input,
+and windows it with the assigned windowing function.
+In other word,
+if the input sequence is
 \begin{displaymath}
   x(0), x(1), \ldots, x(L_1-1)
 \end{displaymath}
-窓を
+and the windowing function is given by
 \begin{displaymath}
   w(0), w(1), \ldots, w(L_1-1)
 \end{displaymath}
-として，
+then the output is
 \begin{displaymath}
   x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1)
 \end{displaymath}
-が出力されます．
-$L_2$が$L_1$より大きい場合は0が付加され，
+If $L_2$ is greater then $L_1$, then 0s are added to the output as follows.
 \begin{displaymath}
   \underbrace{x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1),0,\ldots,0}_{L_2}
 \end{displaymath}
-が出力されます．
 
 Input and output data are in float format.
 \end{qsection}
@@ -52,13 +50,16 @@ Input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-周期20の正弦波に，ブラックマン窓をかけた波形を表示する:
+This example prints in the screen a sin wave function
+with period 20 after windowing it with a Blackman window:
 \begin{quote}
   \verb!sin -p 20 | window | fdrw | xgr !
 \end{quote}
 \par
-パルス列で励振したディジタルフィルタの出力に窓長256点のブラックマン窓をかけ，
-その対数振幅スペクトルを512点のFFTによって計算し表示する:
+This example passes the excitation generated through a train pulse
+by a digital filter, applies to it a Blackman windowing function,
+evaluates the log magnitude spectrum through 512 points FFT,
+and plots the results in the screen:
 \begin{quote}
 \verb!train -p 50 | dfs -a 1 0.9 | window -l 50 -L 512 |\! \\
 \verb!spec -l 512 | fdrw | xgr!

@@ -8,19 +8,23 @@
 \end{synopsis} 
 
 \begin{qsection}{DESCRIPTION}
-標準入力から プロッタコマンド列を読み込み，グラフ出力をX-Window上に表示します．
+This command reads a sequence of plot command from standard input,
+and prints the corresponding graph to the screen in a X-Window
+environment.
 \begin{itemize}
-\item ウィンドウマネージャの機能によりウィンドウサイズは変わりますが，
-  仮想画面上に書かれているグラフ図形の表示はズーミングされません．
-\item ウィンドウサイズが仮想画面よりも小さい場合には，仮想画面を
-スクロールすることができます．（vi風キーバインド）
+\item Even though the window manager has function to
+change the window size, the graph plotted in a virtual screen
+with ``xgr'' dose not allow for zooming.
+\item  In the case window size is smaller then the virtual screen,
+then scroll function can be used in virtual screen(use vi commands).
 \begin{quote}
-		h: 左スクロール\\
-		j: 下スクロール\\
-		k: 上スクロール\\
-		l: 右スクロール
+		h: left scroll\\
+		j: down scroll\\
+		k: up scroll\\
+		l: right scroll
 \end{quote}
-\item 終了は，"q"，"Ctrl-c"，"Ctrl-d" のいずれかを入力して下さい．
+\item To delete the virtual screen, one of the following can be used:
+"q","Ctrl-c","Ctrl-d"
 \end{itemize}
 \end{qsection}
 
@@ -38,25 +42,28 @@
 	\argm{t}{T}{window title}{xgr}
 \end{options}
 \begin{qsection}{EXAMPLE}
-fdrw を用いてファイル {\em data.f} に含まれるデータのグラフを描き，X-window上に出力:
+The following example uses ``fdrw'' to draw a graph based on data read
+from {\em data.f}, and sends the output in a X-Window environment:
 \begin{quote}
  \verb!fdrw < data.f | xgr!
 \end{quote}
 \end{qsection}
 \begin{qsection}{BUGS}
 \begin{itemize}
-\item ディスプレイサーバが，バッキングストア機能を持っていない場合には
-  隠れ面が露出した際に画面の再描画が行なわれません．
+\item If the display server does not contain backing store function,
+then the hidden part of virtual screen is erased.
 
-\item  表示の待ち時間を減らすため，まず生成したウィンドウ上に図形を描き，
-仮想画面にコピーしてイメージを保持して再描画等を行ないますので，
-"-g"オプションでウィンドウサイズを小さくし過ぎた場合や
-描画中にウィンドウに隠れ面ができると表示できない部分が生じます．
-最初からウィンドウサイズを小さくしたい場合には，"-s"オプションを
-併用して描画サイズも小さくしておくことを薦めます．
+\item To lessen the waiting time to display graphs,
+a image of virtual screen is copyed to the memory.
+If the size assigned by the --g option is too small
+or if during the time the graph is being plotted an another window
+is put above the virtual screen, then a part of virtual screen
+will be erased.
+The --s option is suggested whenever the size of
+the virtual screen should be reduced.
 \end{itemize}
+
 \end{qsection}
 \begin{qsection}{SEE ALSO}
 fig, fdrw
 \end{qsection}
-
