@@ -1,7 +1,6 @@
-\name{da}{da 変換}{DA変換}
-
+\name{da}{da 変換}
 \begin{synopsis}
-\item [da] [ --s $S$ ] [ --g $G$ ] [ --a $A$ ] [ --o $O$ ] 
+\item [da] [ --s $S$ ] [ --c $C$ ] [ --g $G$ ] [ --a $A$ ] [ --o $O$ ] 
 	   [ --w ] [ --H $H$ ] [ --v ] [ +$type$ ] 
 \item [\ ~~~] [ {\em infile1} ] [ {\em infile2} ] ...
 \end{synopsis}
@@ -9,7 +8,9 @@
 \begin{qsection}{DESCRIPTION}
  {\em da}は，入力データをスピーカーまたはヘッドフォンから再生します．
  ゲインを$G$とすると入力データを$2^G$倍して出力します．
- 振幅ゲインはオーディオデバイスのゲインを0〜100の間で設定します．
+ 振幅ゲインはオーディオデバイスのゲインを0〜100の間で設定します．サン
+ プリングレート変換の機能は分離され，オーディオデバイスの制御とデータ
+ の書き込みのみを行います．
  
  16bitオーディオデバイスの使用可能なLinux(i386)とSunOS 4.1.x，SunOS
 5.x(SPARC)に対応しています．
@@ -50,6 +51,6 @@ DA\_FLOAT & 入力データ型をfloat型にする\\
 linux版では，出力ポートの指定ができません．
 \end{qsection}
 
-%\begin{qsection}{SEE ALSO}
-%none
-%\end{qsection}
+\begin{qsection}{SEE ALSO}
+daplay, srcnv
+\end{qsection}
