@@ -40,7 +40,7 @@ void	fftcep();
 #define ORDER		25
 #define FLNG		256
 #define MAXITR		0
-#define ACCELATION	0.0
+#define ACCELATION	0
 #define EPS		0.0
 
 
