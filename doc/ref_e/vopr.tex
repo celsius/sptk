@@ -6,27 +6,30 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-入力データに対しベクトル演算を行います．
-つまり，
+This command undertakes vector operations in input files.
+In other words
 \begin{description}
 \itemb{\em file1}
-被演算ベクトルファイル(省略時はstdin)
+first vector file (if it is not assigned then stdin)
 \itemb{\em infile}
-演算ベクトルファイル(省略時はstdin)
+second vector file (if it is not assigned then stdin)
 \end{description}
-として演算ベクトル{\bf a}、被演算ベクトル{\bf b} を読み込み，
-オプションで指定された演算を行い結果を標準出力に出力します．
+the first file gives the operation vectors {\bf a}
+and the second file gives the operation vectors {\bf b}.
+The assigned operation is undertaken and the results
+are sent to the standard output.
 \par
 Input and output data are in float format.
 \par
-指定ファイル数とベクトルの長さの
-組み合わせにより動作が異なります．
+The undertaken action depends on the number of assigned files
+as well as the vector lengths as exemplified in the following.
 \par
-ファイルを2個指定した場合（{\em file1} としてstdin を想定した場合，
-つまり{\bf --i} オプションなしで{\em infile} だけ指定した場合も含みます）には，
-ベクトルの長さの値により次のような動作をします．
+If two files are assigned (when only one file is assigned
+then it is assumes that it corressponds to {\em infile}) then
+depending on the values of vector sizes, the following actions
+are undertaken.
 \begin{description}
-\item{$L=1$ のとき}~\\
+\item{when $L=1$}~\\
 \begin{tabular}{l|c|c|c|c|c} \cline{2-6}
 {\em file1} (stdin)	& {$a_1$} & {$a_2$} & {\dots}
 			& {$a_i$} & {\dots} \\ \cline{2-6}
@@ -38,8 +41,8 @@ Input and output data are in float format.
 			& {$y_i$} & {\dots} \\ \cline{2-6}
 \end{tabular}
 \par
-各ファイルのデータが1 対1 に対応します．
-\item{$L\geq 2$ のとき}~\\
+One data from one file corresponds to one data on the other file.
+\item{when $L\geq 2$}~\\
 \begin{tabular}{l|c|c|c|l} \cline{2-5}
 {\em file1} (stdin)	& {$a_{11}$,\dots,$a_{1L}$}
 			& {$a_{21}$,\dots,$a_{2L}$}
@@ -57,16 +60,19 @@ Input and output data are in float format.
 			& {$y_{41}$,\dots} \\ \cline{2-5}
 \end{tabular}
 \par
-演算ベクトルは{\em infile}から1回だけ読み込まれ，
-繰り返し被演算ベクトルに対して作用します．
+In this case the operation vector is read only once
+{\em infile}, and the operations recursively undertaken
+in vectors from {\em file1}.
 \end{description}
 \par
-ファイルを1 個だけ指定した場合（つまり，ファイル名をひとつだけ記述し，
-{\bf --i} オプションにより{\em infile=file1} と指定した場合，
-またファイルをひとつも記述せず{\em file1=infile=stdin} と指定した場合）には，
-ベクトルの長さによらず次のような動作をします．
+When the information related to {\bf a} and {\bf b} is contained
+in a single file,
+(that is, if only one file is assigned,
+or if no file assignment is made),
+then the --i option should be used
+and the action does not depend on the vector length.
 \begin{description}
-\item{$L\geq 1$ のとき}~\\
+\item{when $L\geq 1$}~\\
 \begin{tabular}{l|c|c|c|c|l} \cline{2-6}
 {\em file} (stdin)	& {$a_{11}$,\dots,$a_{1L}$}
 			& {$b_{11}$,\dots,$b_{1L}$}
@@ -83,8 +89,7 @@ Input and output data are in float format.
 			\cline{2-2} \cline{4-4} \cline{6-6}
 \end{tabular}
 \par
-演算ベクトル，被演算ベクトルとも
-同じファイルから読み込まれます．
+Input vectors are read from a single file.
 \end{description}
 \end{qsection}
 
@@ -98,30 +103,27 @@ Input and output data are in float format.
 	\argm{m}{}{multiplication $y_i=a_i*b_i$}{FALSE}
 	\argm{d}{}{division $y_i=a_i/b_i$}{FALSE}
 	\argm{ATAN2}{}{atan2 $y_i=\atan2(b_i,a_i)$}{FALSE}
-%\itemb{--i}
-%ファイルを1個しか指定しなかった場合，
-%そのファイルが被演算ベクトルであることを示します．
-%デフォルトでは演算ベクトル．
-
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル{\em data.a} とファイル{\em data.b} の和を
-ファイル{\em data.c} に出力する:
+The output file {\em data.c} contains addition of
+vectors in float format read from {\em data.a} and {\em data.b}:
 \begin{quote}
   \verb!vopr -a data.a data.b > data.c !
 \end{quote}
 \par
-ファイル{\em data.w} に入っている適当な窓( 窓長256) を用いて，
-正弦波に窓かけを行う．
+In the following example, a sin wave is passed through
+a window with length 256 and coefficients given from
+{\em data.w}:
 \begin{quote}
   \verb!sin -t 30 -l 1000 | vopr data.w -l 256 -m | fdrw | xgr!
 \end{quote}
-これは，ファイル{\em data.w} にブラックマン窓が入っていたとすれば，
+The above example can be undertaken in similar way
+through the example below if the contents of {\em data.w} corresponds
+to Blackman window:
 \begin{quote}
   \verb!sin -t 30 -l 1000 | window | fdrw | xgr!
 \end{quote}
-に等価です．
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

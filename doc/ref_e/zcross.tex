@@ -5,7 +5,8 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-標準入力から入力される時系列から零交差数を求めます．
+This command reads a sequence from the standard input
+and evaluates the zero crossing rate.
 \par
 Input and output data are in float format.
 \end{qsection}
@@ -17,7 +18,9 @@ Input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float 形式のデータ {\em data.f} の零交差数を求め， {\em data.zc} に出力する:
+Data in float format is read from {\em data.f},
+a zero crossing rate is computed,
+and the results is written to {\em data.zc}:
 \begin{quote}
   \verb!zcross < data.f > data.zc!
 \end{quote}

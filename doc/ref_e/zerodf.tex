@@ -6,17 +6,18 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-指定されたファイルから読み込まれたデータを {\em bfile} の係数，
-$b(0), b(1), \ldots, b(M)$をもつ全零標準形フィルタによりフィルタリングし，
-標準出力に出力します．
+This commands reads data from the assigned {\em infile},
+passes it through a FIR filter in standard form
+built from the coefficients $b(0), b(1), \ldots, b(M)$
+read from {\em bfile},
+and sends the results to the standard output.
 \par
 Input and output data are in float format.
 \par
-全零標準形フィルタの伝達関数 $H(z)$は，
+The transfer function $H(z)$ of a FIR filter in standard form is 
 \begin{displaymath}
 H(z) = \sum_{m=0}^{M} b(m) z^{-m}
 \end{displaymath}
-と表されます．
 \end{qsection}
 
 \begin{options}
@@ -28,9 +29,10 @@ H(z) = \sum_{m=0}^{M} b(m) z^{-m}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のピッチデータ {\em data.pitch} から励振源を作成し，零型フィルタの
-係数ファイル {\em data.b} により全零フィルタを駆動し，合成音声を
- {\em data.syn}に出力する:
+Excitation is generated from pitch information read in float format
+from {\em data.pitch}, passes through a FIR filter with
+coefficients read from {\em data.b},
+and the synthesized speech is written to {\em data.syn}:
 \begin{quote}
   \verb!excite < data.pitch  | zerodf data.b > data.syn!
 \end{quote}

@@ -5,9 +5,10 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-指定されたファイルから読み込まれた $L$ 次元ベクトルの各要素毎に総和をとり，
-標準出力に出力します．
-つまり，入力データ
+This command reads $L$ dimension vectors from the assigned file,
+evaluates their summations for every $N$ vectors and sends the
+results to the standard output.
+That is, if the input data is given by
 \begin{displaymath}
 \overbrace{
   \overbrace{a_1(1),\ldots,a_1(L)}^{L},
@@ -15,17 +16,16 @@
   \overbrace{a_N(1),\ldots,a_N(L)}^{L}
 }^{N \cdot L},\ldots
 \end{displaymath}
-から，
+then the output is 
 \begin{displaymath}
   \overbrace{s(1),\ldots,s(L)}^{L},\ldots
 \end{displaymath}
-が出力され，$s(n)$ は，
+where $s(n)$ is
 \begin{displaymath}
   s(n)=\sum_{k=1}^{N} a_k(n)
 \end{displaymath}
-で計算されます．
 \par
-ファイルが指定されなかった場合，データは標準入力から読み込まれます．
+If the input file is omitted, then data is read from the standard input.
 \par
 Input and output data are in float format.
 \end{qsection}
@@ -36,17 +36,21 @@ Input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル{\em data.f}全体の和を求め{\em data.sum}に出力する:
+The output file {\em data.sum} contains the summation for
+the whole data in file {\em data.f} read in float format:
 \begin{quote}
   \verb!vsum data.f > data.sum!
 \end{quote}
 \par
-次元10次のベクトルのノルムを求め{\em data.n}に出力する:
+In this example, the norm of 10 order vectors are
+evaluated and written to {\em data.n}:
 \begin{quote}
   \verb!sopr data.f -P | vsum -n 10 | sopr -R > data.n!
 \end{quote}
 \par
-次元15次の係数ベクトルのとなり合う3フレームの平均を求め{\em data.av}に出力する:
+In the next example, 15 order coefficents vectors are read
+from {\em data.f}, the average for every 3 frame is evaluated,
+and outputed to {\data.av}:
 \begin{quote}
   \verb!vsum -l 15 -n 3 data.f | sopr -d 3 > data.av!
 \end{quote}

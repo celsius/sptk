@@ -5,19 +5,19 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em x2x} は，
-標準入力から読み込まれたデータを指定されたデータ形式に変換し，
-標準出力に出力します．
+The command {\em x2x} reads data from the standard input,
+converts its data type, and sends the results to the standard
+output.
 \par
-入力データの形式は，+$type1$ オプションで，
-出力データの形式は，+$type2$ オプションで，
-指定します．
+The input data type is assigned through the +$type1$ option,
+and the output data type is assigned through the +$type2$ option.
 \end{qsection}
 
 \begin{options}
 	\argp{type1}{input data type}{f}
 	\argp{type2}{output data type\\
-	オプション $type1, type2$ ともに，以下のいずれかで指定します．\\
+	both options $type1, type2$ can be assigned,
+        one of the options below.\\
                 \begin{tabular}{llcll} \\[-1zh]
                         c & char (1byte) & \quad &
                         C & unsigned char (1byte) \\
@@ -31,8 +31,10 @@
                         d & double (8bytes) \\
                         a & ascii \\ [1zh] 
                 \end{tabular} \\
-                データを $t_1$ 型から $t_2$ 型へ型変換して出力する． $t_2$ が
-                省略された場合は $t_2=t_1$ とみなし型変換は行なわない．}{type1}
+                data type is converted from $t_1(type_1)$ to $t_2(type_2)$.
+                if $t_2$ is not assigned then no operation is
+                undertaken, and the output file is equal to the input
+                file.}{type1}
 	\argp{{\bf a} \qquad A}{column number}{1}
 	\argm{r}{}{specify rounding off when a real number
                  is substituted for a integer}{FALSE}
@@ -41,23 +43,23 @@
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-ascii形式でかかれたデータファイル{\em data.asc} を
-float形式のファイル{\em data.f}に変換する:
+The following example converts data in ascii format
+read from {\em data.asc}, converts to float format,
+and writes the output to {\em data.f}:
 \begin{quote}
   \verb!x2x +af < data.asc > data.f!
 \end{quote}
 \par
-float形式のファイル{\em data.f} にあるデータを
-ascii形式に変換し，画面に出力する:
+This example reads data in float format from {\em data.f}
+converts to ascii format, and sends the output to the screen:
 \begin{quote}
   \verb!x2x +fa < data.f!
 \end{quote}
-例えば，ファイル{\em data.f} に，
-float 形式の数値データ
+For example, if contents of {\em data.f} in float format are
 \begin{displaymath}
   1, 2, 3, 4, 5, 6, 7
 \end{displaymath}
-が入っていた場合，
+then the following output is printed to the screen.
 \begin{quote}
   \verb!1! \\
   \verb!2! \\
@@ -67,32 +69,32 @@ float 形式の数値データ
   \verb!6! \\
   \verb!7!
 \end{quote}
-と画面（標準出力）に出力されます．
 \par
-同じデータをカラム数を指定して出力する:
+If for the same data in the example above
+the number of column is assigned:
+column
 \begin{quote}
   \verb!x2x +fa 3 < data.f!
 \end{quote}
-この場合，
+the output is
 \begin{quote}
   \verb!1       2        3! \\
   \verb!4       5        6! \\
   \verb!7!
 \end{quote}
-と表示されます．
 \par
-出力をprintfの\%e フォーマットで行う:
+The output uses the printf command \%e format:
 \begin{quote}
   \verb!x2x +fa %9.4e < data.f!
 \end{quote}
-この例では，幅11 桁 ，小数点以下4 桁を指定しており，
+In this example the total number of characters for each number
+is 11, and the number of decimal points assigned to 4.
 \begin{quote}
   \verb!1.0000e+000! \\
   \verb!2.0000e+000! \\
   \mbox{\hspace{2em}}$\vdots$ \\
   \verb!7.0000e+000!
 \end{quote}
-と表示されます．
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
