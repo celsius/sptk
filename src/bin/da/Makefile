@@ -34,7 +34,6 @@ da.o: ss10snd.h
 
 install: $(TARGET)
 	$(INSTALL) $(TARGET) $(BIN)
-	cp $(COEF) $(LIB)
 
 clean:
 	$(RM) $(TARGET) $(OBJS) \#* *~
