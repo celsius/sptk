@@ -1,14 +1,16 @@
-\name{ifft}{複素数列の高速逆フーリエ変換}{信号処理}
+\name{ifft}{inverse FFT for complex sequence}{signal processing}
 
 \begin{synopsis}
 \item[ifft] [ --l $L$ ]  [ --\{ R $|$ I \} ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em ifft} は，複素数で与えられるデータ列を{\em infile}から読み込んで
-逆フーリエ変換を行ない，結果を標準出力に出力します．
-入力はfloat 形式で，実部を $L$ 個並べた後に虚部を $L$ 個並べた形に
-なります．
+The {\em ifft} command reads conplex data from input file,
+evaluates its inverse DFT, and sends the results to
+the standard output.
+The input data format is float, and the real part is allocated
+in the first $L$ points and the imaginary part is allocated
+next $L$ points for every block.
 \begin{center}
  \leavevmode
  \epsffile{fig/ifft.eps} 
@@ -16,13 +18,16 @@
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{逆フーリエ変換のサイズ．2のべき乗で指定．}{256}
-	\argm{R}{}{逆変換の結果の実部のみを出力．}{FALSE}
-	\argm{I}{}{逆変換の結果の虚部のみを出力．}{FALSE}
+	\argm{l}{L}{FFT size power of 2}{256}
+	\argm{R}{}{output only real part}{FALSE}
+	\argm{I}{}{output only imaginary part}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f} にあるデータ列（実部256点，虚部256点）の 逆DFT を求め，data.ifftに出力する:
+In this example, the inverse DFT is evaluated from a data file
+{\em data.f} in float format
+(real part: 256 points, imaginary part: 256 points),
+and the output is written to {\em data.ifft}:
 \begin{quote}
   \verb!ifft data.f -l 256 > data.ifft!
 \end{quote}

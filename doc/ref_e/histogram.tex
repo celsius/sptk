@@ -1,4 +1,4 @@
-\name{histogram}{ヒストグラムの計算}{データ処理}
+\name{histogram}{histogram}{evaluation of the data}
 
 \begin{synopsis}
 \item [histogram] [ --l $L$ ] [ --i $I$ ] [ --j $J$ ] [ --s $S$ ] [ --n ] 
@@ -6,29 +6,32 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-指定されたファイルからヒストグラムを計算し，標準出力に出力します．
+This command evaluates the histogram from the assigned file
+and sends the results to the standard output.
 \par
-データ形式は入力，出力とも float 形式です．
-グラフを表示する場合は，fdrwに入力してください．
+Input and output data are in float format.
+If a graph is wanted, please send the output of ``histogram'' to ``fdrw''.
 \par
-範囲外のデータが含まれている場合，ヒストグラムは出力されますが，
-返り値が$0$以外の値となります．
+In case a data value is outside of the assigned interval,
+the histogram will evaluate its output but the return value of
+the command will be different from $0$.
 \end{qsection}
 
 \begin{options}
-        \argm{l}{L}{フレームのサイズ．\\
+        \argm{l}{L}{frame size\\
           \begin{tabular}{ll}\\ [-1zh]
-            $L>0$ & フレームごとにヒストグラムを計算．\\
-            $L=0$ & ファイル全体のヒストグラムを出力．\\
+            $L>0$ & evaluate the histogram for every frame\\
+            $L=0$ & evaluate the histogram for the whole file\\
           \end{tabular}\\\hspace*{\fill}}{0}
-        \argm{i}{I}{ヒストグラムの最小値．}{0.0}
-        \argm{j}{J}{ヒストグラムの最大値．}{1.0}
-        \argm{s}{S}{ヒストグラムのステップサイズ．}{0.1}
-        \argm{n}{}{出力をサンプル数で割る．}{FALSE}
+        \argm{i}{I}{infimum}{0.0}
+        \argm{j}{J}{supremum}{1.0}
+        \argm{s}{S}{step size}{0.1}
+        \argm{n}{}{normalization}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の音声波形ファイル {\em data.f} のヒストグラムを表示する:
+The example below plots the histogram of the speech waveform file
+{\em data.f} in float format.
 \begin{quote}
  \verb!histogram -i -16000 -j 16000 -s 100 data.f | fdrw | xgr!
 \end{quote} 

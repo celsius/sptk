@@ -1,4 +1,4 @@
-\name{grlogsp}{ランニング対数スペクトルのプロット}{グラフ表示}
+\name{grlogsp}{draw a running log spectrum graph}{graph}
 
 \begin{synopsis}
 \item[grlogsp] [ --t ] [ --O $O$ ] [ --x $X$ ] [ --y $ymin$ ] [ --yy $YY$ ]
@@ -9,15 +9,19 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em grlogsp}は、float型のデータを標準入力から読み込んで，そのランニング
-スペクトルをグラフ表示するプロッタのコマンド列を生成します．
-従って，{\em xgr}コマンド等と併用して使います．
-実体はシェルスクリプトで，内部では{\em fig}と{\em fdrw}を用いています．
+The command {\em grlogsp} reads data from the starndard input
+in float format, evaluates its running log spectrum, and
+generates an output file which includes the sequence of commands
+so that it can be plotted(FP5301 protocol).
+This command can be used in connection with commands such as ``xgr''.
+\par
+Actually, it uses {\em fig} and {\em fdrw} commands through a
+shell script.
 \end{qsection}
 
 \begin{options}
-	\argm{t}{}{x軸とy軸を入れ換える}{FALSE}
-	\argm{O}{O}{グラフの開始点．\\
+	\argm{t}{}{transpose x and y axes}{FALSE}
+	\argm{O}{O}{origin of graph\\
 		      \begin{minipage}{4cm}
 		      \begin{tabular}{ccc}
 			1 & ( 25,$YO$) & [mm] \\
@@ -30,46 +34,51 @@
 		      \begin{minipage}{4cm}
 			    \epsffile{fig/grlogsp-on.eps}
 		      \end{minipage}\\\hspace*{\fill}\\
-		    -t オプションが指定されている場合は、
-		    $(YO + 100 , X)$ [mm]の位置にグラフを書きます．}{1}
-	\argm{x}{X}{ $x$ 軸のスケール．\\
+		    $(YO + 100 , X)$ [mm] if -t is specified.}{1}
+	\argm{x}{X}{ $x$ scale\\
 		       \begin{tabular}{cl}
-			1 & 正規化された周波数($0 \sim 0.5$) \\
-			2 & 正規化された周波数($0 \sim \pi$) \\
-			4 & 周波数($0 \sim 4$kHz) \\
-			5 & 周波数($0 \sim 5$kHz) \\
-			8 & 周波数($0 \sim 8$kHz) \\
-			10 & 周波数($0 \sim 10$kHz) \\
+			1 & normalized frequency($0 \sim 0.5$) \\
+			2 & normalized frequency($0 \sim \pi$) \\
+			4 & frequency($0 \sim 4$kHz) \\
+			5 & frequency($0 \sim 5$kHz) \\
+			8 & frequency($0 \sim 8$kHz) \\
+			10 & frequency($0 \sim 10$kHz) \\
 		       \end{tabular}\\\hspace*{\fill}}{1}
-	\argm{y}{ymin}{ $y$ 軸のスケーリングの最小値．}{-100}
-	\argm{yy}{YY}{ $y$ 軸のスケーリング[dB/10mm]の範囲．}{100}
-	\argm{yo}{YO}{ $y$ 軸のオフセット．}{30}
-	\argm{p}{p}{使用するペン番号($1 \sim 10$)．}{2}
-	\argm{ln}{LN}{描画する際の線の種類($0 \sim 5$)．＜fig参照＞．}{1}
-	\argm{s}{S}{入力するデータの何フレーム目からグラフに書くかを指定．}{0}
-	\argm{e}{E}{入力するデータの何フレーム目までグラフに書くかを指定．}{EOF}
-	\argm{n}{N}{ランニングプロットするデータのフレーム数．}{EOF}
-	\argm{l}{L}{フレーム長． 実際には $\frac{L}{2}$ 個のデータを
-		      グラフに書く．}{256}
-	\argm{c, c2, c3}{\mbox{\em comment} 1 \sim 3}{グラフのコメント．}{N/A}
-	\desc[1zh]{通常,以下のオプションの指定の必要はありません．}
-	\argm{W}{W}{グラフの幅($\times 100$mm)．}{0.25}
-	\argm{H}{H}{グラフの高さ($\times 100$mm)．}{1.5}
-	\argm{z}{Z}{ランニングスペクトルを描画する際、各フレームを $y$ 軸方向
-		    にずらす距離(mm)．}{1}
-	\argm{o}{xo \; yo}{グラフの開始点をmm 単位で指定． --o オプションが
-			   指定されると --O オプションは無効．}{95 30}
-	\argm{g}{G}{グラフの枠の形式($0 \sim 2$)．＜fig参照＞．}{2}
-	\argm{cy}{cy}{1番目のコメントの位置．}{-8}
-	\argm{cy2}{cy2}{2番目のコメントの位置．}{-14}
-	\argm{cy3}{cy3}{3番目のコメントの位置．}{-20}
-	\argm{cs}{cs}{コメントのサイズ．}{1}
-	\argm{f}{f}{figコマンド用の追加データファイル．}{NULL}
+	\argm{y}{ymin}{ $y$ minimum}{-100}
+	\argm{yy}{YY}{ $y$ scale [dB/10mm]}{100}
+	\argm{yo}{YO}{ $y$ offset}{30}
+	\argm{p}{p}{type of pen ($1 \sim 10$)}{2}
+	\argm{ln}{LN}{style of line($0 \sim 5$).
+                      please refer to fig command section.}{1}
+	\argm{s}{S}{start frame number}{0}
+	\argm{e}{E}{end frame number}{EOF}
+	\argm{n}{N}{number of frame}{EOF}
+	\argm{l}{L}{frame length.
+                    Actually $\frac{L}{2}$ data are plotted.}{256}
+	\argm{c, c2, c3}{\mbox{\em comment} 1 \sim 3}%
+                        {comment for the graph}{N/A}
+	\desc[1zh]{Usually, the options below do not need to be assigned.}
+	\argm{W}{W}{width of the graph($\times 100$mm)}{0.25}
+	\argm{H}{H}{height of the graph($\times 100$mm)．}{1.5}
+	\argm{z}{Z}{This option is used when data is written
+                    recursively in the $y$ axis. the distance between
+                    two graphs in the $y$ axis are given by $Z$.}{1}
+	\argm{o}{xo \; yo}{origin of the graph.
+                      if -o option exists, -O is not effective.}{95 30}
+	\argm{g}{G}{type of frame of the graph($0 \sim 2$).
+                    please refer to ``fig'' command section.}{2}
+	\argm{cy}{cy}{first comment position}{-8}
+	\argm{cy2}{cy2}{second comment position}{-14}
+	\argm{cy3}{cy3}{third comment position}{-20}
+	\argm{cs}{cs}{font size of the comments}{1}
+	\argm{f}{f}{additional data file for fig}{NULL}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f} のデータの対数振幅スペクトルを求め，
-ランニングプロットしたグラフをPostScript形式でdata.psに書き込む:
+In this example, the magnitude of log spectrum is evaluated from
+data in {\em data.f} file in float format, and the graph
+with the running spectrum is sent in Postscript format to {\em data.ps}
+file:
 \begin{quote}
  \verb!frame < data.f | window |\! \\
  \verb!uels -m 15 | c2sp -m 15 |\! \\

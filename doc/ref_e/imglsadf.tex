@@ -1,5 +1,5 @@
-\name[ref:MGLSA-IECE]{imglsadf}{$B2;@<9g@.$N$?$a$N5U(BMGLSA$B%U%#%k%?(B}
-{$B2;@<9g@.MQ%U%#%k%?(B}
+\name[ref:MGLSA-IECE]{imglsadf}{inverse MGLSA digital filter}
+{digital filter}
 
 \begin{synopsis}
 \item [imglsadf] [ --m $M$ ] [ --a $A$ ] [ --g $G$ ] [ --p $P$ ]
@@ -8,28 +8,34 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em mgcfile}$B$N%a%k0lHL2=%1%W%9%H%i%`78?t(B $c_{\alpha,\gamma}(m)$
-$B$GM?$($i$l$kEAC#4X?t$N5U4X?t$r$b$D(B MGLSA $B%U%#%k%?$K$h$j!$F~NO%G!<%?$r(B
-$B%U%#%k%?%j%s%0$7$FI8=`=PNO$K=PNO$7$^$9!%(B
+This commands reads the mel-generalized cepstrum coefficients
+ $c_{\alpha,\gamma}(m)$, evaluates the inverse filter,
+passes the speech input data file through the calculated
+inverse filter, and sends the results to the starndard output.
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{$B%a%k0lHL2=%1%W%9%H%i%`$N<!?t!%(B}{25}
-	\argm{a}{A}{$B<~GH?t05=L%Q%i%a!<%?(B $\alpha$$B!%(B}{0.35}
-	\argm{g}{G}{$B0lHL2=%1%W%9%H%i%`$N$Y$-%Q%i%a!<%?(B $\gamma$$B!%(B\\
-			 $B$?$@$7!$(B$G>1.0$ $B$N$H$-$O(B $\gamma=-1/G$$B!%(B}{1}
-	\argm{p}{P}{$B78?t$N99?7<~4|!%(B}{100}
-	\argm{i}{I}{$B78?t$NJd4V<~4|!%(B}{1}
-	\argm{t}{}{$BE>CV7?%U%#%k%?!%(B}{FALSE}
-	\argm{k}{}{$B%2%$%s$r=|$$$?%7%9%F%`4X?t$G%U%#%k%?%j%s%0$9$k(B}{FALSE}
+	\argm{m}{M}{order of generalized cepstrum}{25}
+	\argm{a}{A}{$\alpha$}{0.35}
+	\argm{g}{G}{power parameter $\gamma$ of generalized cepstrum\\
+			if $G>1.0$ then $\gamma=-1/G$.}{1}
+	\argm{p}{P}{frame period}{100}
+	\argm{i}{I}{interpolation period}{1}
+	\argm{t}{}{transepose filter}{FALSE}
+	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N2;@<%G!<%?%U%!%$%k(B {\em data.f} $B$r%a%k0lHL2=%1%W%9%H%i%`J,@O(B
-(15$B<!!$(B$\alpha=0.35$$B!$(B$\gamma=-1/2$)
-$B$N7k2L$K4p$E$$$F!$5U%U%#%k%?$r=PNO$7!$(B{\em data.e}$B$r5a$a$k(B:
+In the first line of the example below, 
+speech is read in float format from {\em data.f},
+the mel-generalized cepstrum coefficients $(M=15$B!$(B\alpha=0.35$B!$(B\gamma=-1/2)$
+are evaluated, and written in {\em data.mgc}.
+In the second line,
+speech data and cepstral coefficients are
+inputed to {\em imglsadf} command and the resulting excitation file
+is written to {\em data.e}.
 \begin{quote}
  \verb!frame < data.f | window | \!\\
  \verb!    mgcep -m 15 -a 0.35 -g -0.5 > data.mgc!\\
@@ -39,7 +45,8 @@ float$B7A<0$N2;@<%G!<%?%U%!%$%k(B {\em data.f} $B$r%a%k0lHL2=%1%W%9%H%i%`J,@O
 \end{qsection}
 
 \begin{qsection}{BUGS}
-$n$ $B$r<+A3?t$H$7$F!$(B$\gamma = -1/n$ $B$N>l9g$K$7$+BP1~$7$F$$$J$$!%(B
+Correct response of this command is obtained only when
+$\gamma = -1/n$, with $n$ a natural number.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

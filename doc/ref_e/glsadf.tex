@@ -1,5 +1,5 @@
-\name[ref:GLSA-IEICEtaikai90s]{glsadf}{音声合成のためのGLSAフィルタ}%
-{音声合成用フィルタ}
+\name[ref:GLSA-IEICEtaikai90s]{glsadf}{GLSA digital filter for speech synthesis}%
+{digital filter}
 
 \begin{synopsis}
 \item [glsadf] [ --m $M$ ] [ --g $G$ ] [ --p $P$ ] [ --i $I$ ] [ --n ] [ --k ]
@@ -7,15 +7,14 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-入力データを
-{\em gcfile}の正規化一般化ケプストラム係数
- $K,c_\gamma'(1),\ldots,c_\gamma'(M)$ をもつ
-GLSAフィルタによりフィルタリングし，標準出力に出力します．
+This command outputs speech data synthesized from excitation information
+contained in {\em infile} passed through normalized generalized cepstrum
+coefficients $K,c_\gamma'(1),\ldots,c_\gamma'(M)$ in the file {\em gcfile}.
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-$M$ 次の正規化一般化ケプストラム $c_\gamma'(m)$ による
-合成フィルタの伝達関数 $H(z)$ は
+The transfer function $H(z)$ are synthesis filter based on an $M$ order
+normalized generalized cepstrum coefficients $c_\gamma'(m)$ is 
 \begin{eqnarray*}
 H(z) &=& K \cdot D(z) \\
      &=& \left\{ 
@@ -25,14 +24,14 @@ H(z) &=& K \cdot D(z) \\
 	  K \cdot \exp \sum_{m=1}^{M} c_\gamma'(m) z^{-m}, & \gamma=0
 	\end{array} \right.
 \end{eqnarray*}
-となります．ここでは，べきパラメータが $\gamma=-1/G$
-($G$:自然数)のときのみを考えます．
-この場合，フィルタ $D(z)$ は図\ref{fig:glsadflt_GLSA}のように，
+In this case, we are considering only values for the power parameter
+$\gamma=-1/G$, where $G$ is a natural number.
+The filter $D(z)$ can be realized through a $G$ level cascade as shown
+in figure\ref{fig:glsadflt_GLSA}, where
 \begin{displaymath}
 \frac{1}{C(z)} = \frac{1}
 		{\displaystyle 1+\gamma\sum_{m=1}^{M} c_\gamma'(m) z^{-m}}
 \end{displaymath}
-の $G$ 段縦続構成で実現することができます．
 
 \setcounter{figure}{0}
 \begin{figure}[h]
@@ -53,12 +52,12 @@ H(z) &=& K \cdot D(z) \\
   \put(200,30){\makebox(0,0){・・・}}
   \put(10,40){\makebox(0,0){Input}}
   \put(320,40){\makebox(0,0){Output}}
-  \put(60,65){\makebox(0,0){\bf 1段}}
-  \put(140,65){\makebox(0,0){\bf 2段}}
-  \put(270,65){\makebox(0,0){\bf $G$段}}
+  \put(60,65){\makebox(0,0){\bf level 1}}
+  \put(140,65){\makebox(0,0){\bf level 2}}
+  \put(270,65){\makebox(0,0){\bf level $G$}}
 
 \end{picture}
-\caption{フィルタ $D(z)$ の構成}
+\caption{Structure of filter $D(z)$}
 \label{fig:glsadflt_GLSA}
 \end{center}
 \end{figure}
@@ -66,25 +65,28 @@ H(z) &=& K \cdot D(z) \\
 
 \newpage
 \begin{options}
-	\argm{m}{M}{一般化ケプストラムの次数．}{25}
-	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma=-1/G$．}{1}
-	\argm{p}{P}{フレーム周期．}{100}
-	\argm{i}{I}{補間周期．}{1}
-	\argm{n}{}{入力を規格化されたケプストラムとみなす．}{FALSE}
-	\argm{k}{}{ゲインを除いたシステム関数でフィルタリングする}{FALSE}
+	\argm{m}{M}{order of generalized cepstrum}{25}
+	\argm{g}{G}{power parameter $\gamma=-1/G$ for generalized cepstrum}{1}
+	\argm{p}{P}{frame period}{100}
+	\argm{i}{I}{interpolation period}{1}
+	\argm{n}{}{regard input as normalized generalized cepstrum}{FALSE}
+	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のピッチデータ {\em data.pitch} から励振源を作成し，
-一般化ケプストラムファイル {\em data.gcep} によりGLSAフィルタを駆動し，
-合成音声を {\em data.syn} に出力する:
+In this example, excitation is generated through the pitch data
+in the file {\em data.pitch} in float format, passed through a
+GLSA filter based on generalized cepstrum coefficient file
+{\em data.gcep}, and the synthesized speech is outputed to
+{\em data.syn}:
 \begin{quote}
  \verb!excite < data.pitch | glsadf data.gcep > data.syn!
 \end{quote} 
 \end{qsection}
 
 \begin{qsection}{BUGS}
-$n$ を自然数として，$\gamma = -1/n$ の場合にしか対応していない．
+Correct response of this command is obtained only when
+$\gamma = -1/n$, with $n$ a natural number.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
