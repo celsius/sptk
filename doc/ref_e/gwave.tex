@@ -18,13 +18,6 @@ shell script.
 \end{qsection}
 
 \begin{options}
-       -s  s         : start point                  [0]
-       -e  e         : end point                    [EOF]
-       -n  n         : data number of one screen    [N/A]
-       -i  i         : number of screen             [5]
-       -y  ymax      : maximum amplitude            [N/A]
-       -y2 ymin      : minimum amplitude            [-ymax]
-       -p  p         : pen number                   [1]
 	\argm{s}{S}{start point}{0}
 	\argm{e}{E}{end point}{EOF}
 	\argm{n}{N}{data number of one screen\\
@@ -35,7 +28,7 @@ shell script.
                        if this option is omitted,
                        ymax is maximum value of the input data.}{N/A}
 	\argm{y2}{ymin}{minimum amplitude}{-YMAX}
-	\argm{p}{P}{pen type($1 \sim 10$)бе}{1}
+	\argm{p}{P}{pen type($1 \sim 10$)}{1}
 	\argp{t}{Input data format\\ 
 		\begin{tabular}{llcll} \\[-1zh]
 			s & short (2bytes) & \quad &
