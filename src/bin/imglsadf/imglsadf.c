@@ -123,6 +123,7 @@ void main(int argc, char **argv)
 		    break;
 		case 'k':
 		    ngain = 1 - ngain;
+		    break;
 		case 'h':
 		    usage(0);
 		default:
