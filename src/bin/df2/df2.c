@@ -8,11 +8,11 @@
 *	usage:								*
 *		df2 [ options ] [ infile ] > stdout			*
 *	options:							*
-*		-f f	:  sampling frequency		[10K]		*
+*		-f f	:  sampling frequency		  [10000]	*
 *		-p f b	:  center frequency f(Hz)			*
-*			     and band width b(Hz) of pole		*
+*			     and band width b(Hz) of pole [N/A]		*
 *		-z f b  :  center frequency f(Hz)			*
-*			     and band width b(Hz) of zero		*
+*			     and band width b(Hz) of zero [N/A]		*
 *	note:								*
 *		-p and -z option can be specified repeatedly.		*
 *									*
@@ -51,9 +51,9 @@ int status;
 	fprintf(stderr, "  options:\n");           
 	fprintf(stderr, "       -f f   : sampling frequency(Hz)         [%d]\n",SAMPLEF);
 	fprintf(stderr, "       -p f b : center frequency f(Hz)\n");
-	fprintf(stderr, "                 and band width b(Hz) of pole\n");
+	fprintf(stderr, "                 and band width b(Hz) of pole  [N/A]\n");
 	fprintf(stderr, "       -z f b : center frequency f(Hz)\n");
-	fprintf(stderr, "                 and band width b(Hz) of zero\n");
+	fprintf(stderr, "                 and band width b(Hz) of zero  [N/A]\n");
 	fprintf(stderr, "       -h     : print this message\n");
 	fprintf(stderr, "  infile:\n");
 	fprintf(stderr, "       filter input (float)                    [stdin]\n");

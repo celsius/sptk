@@ -19,6 +19,7 @@
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -62,7 +63,7 @@ main(argc, argv)
 {
 	int	l = -1;
 	char	*s, c;
-	double	*x, *calloc(), *p;
+	double	*x, *p;
 	int	max;
 	FILE 	*fp = stdin;
 

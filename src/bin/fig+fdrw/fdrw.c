@@ -28,6 +28,7 @@
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -223,7 +224,7 @@ FILE	*fp;
 	int		n, n2;
 	double		dx, h;
 	register float	*p;
-	float		*x, *y, *calloc();
+	float		*x, *y;
 
 	if((x = calloc(BUF_LNG * 4, sizeof(*x))) == NULL)
 		return(1);

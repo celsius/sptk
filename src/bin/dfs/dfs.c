@@ -20,7 +20,7 @@
 *		M, N <= 2047						*
 ************************************************************************/
 
-static char *rcs_id = "$Id: dfs.c,v 1.1 2000/03/01 13:58:31 yossie Exp $";
+static char *rcs_id = "$Id: dfs.c,v 1.2 2000/05/19 02:33:00 yossie Exp $";
 
 
 /* Standard C Libraries */
@@ -51,10 +51,10 @@ int status;
 	fprintf(stderr, "  usage:\n");
 	fprintf(stderr, "       %s [ options ] [ infile ] > stdout \n", cmnd);
 	fprintf(stderr, "  options:\n");           
-	fprintf(stderr, "       -a K  a1...aM : denominator coefficients\n");
-	fprintf(stderr, "       -b b0 b1...bN : numerator coefficients\n");
-	fprintf(stderr, "       -p pfile      : denominator coefficients file\n");
-	fprintf(stderr, "       -z zfile      : numerator coefficients file\n");
+	fprintf(stderr, "       -a K  a1...aM : denominator coefficients      [N/A]\n");
+	fprintf(stderr, "       -b b0 b1...bN : numerator coefficients        [N/A]\n");
+	fprintf(stderr, "       -p pfile      : denominator coefficients file [NULL]\n");
+	fprintf(stderr, "       -z zfile      : numerator coefficients file   [NULL]\n");
 	fprintf(stderr, "       -h            : print this message\n");
 	fprintf(stderr, "  infile:\n");
 	fprintf(stderr, "       filter input (float)                          [stdin]\n");	
