@@ -1,23 +1,24 @@
 \name{pitch}{ピッチ抽出}
 
 \begin{synopsis}
-\item[pitch] [ --m $M$ ] [ --l $L$ ] [ --t $T$ ] [ --a $A$ ]
- [ --L $Lo$ ] [ --H $Hi$ ]
-\item[\ ~~~~~] [ --e $E$ ] [ --n $N$] [ {\em infile} ] 
+\item[pitch] [ --s $S$ ] [ --n $N$ ] [ --l $L$ ] [ --a $A_1$ ] [ --t $T$ ]
+ [ --L $Lo$ ] [ --H $Hi$ ] [ --e $E$ ]
+\item[\ ~~~~~] [ --m $M_1$] [ --M $M_2$ ] [ --A $A_2$ ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
 ケプストラム法により抽出したピッチ$p(t)$を標準出力に出力します．
-入力は窓掛けされた長さ $M+1$ の時系列
+入力は窓掛けされた長さ $N+1$ の時系列
 \begin{displaymath}
-  x(0),x(1),\ldots,x(M)
+  x(0),x(1),\ldots,x(N)
 \end{displaymath}
 です．
 \par
 データ形式は入力，出力とも float 形式です．
 \par
-有声音と無声音の識別は，$N$次のケプストラムから求めた
-対数スペクトル包絡$\hat{g}_i(\Omega_k)$の基本周波数帯域部分
+有声音と無声音の識別は，$M_2$次のLPCメルケプストラム(LPC分析次数は$M_1$，
+周波数圧縮パラメータは$\alpha$)
+から求めた対数スペクトル包絡$\hat{g}_i(\Omega_k)$の基本周波数帯域部分
 の平均値を利用します．
 \begin{displaymath}
 v_i = \frac{1}{14 n}\sum_{k = 4 n}^{17 n}\hat{g}_i(\Omega_k),~~~~~ (\Omega_k = \frac{2 \pi k}{L},n = L /256)
@@ -26,26 +27,29 @@ v_i = \frac{1}{14 n}\sum_{k = 4 n}^{17 n}\hat{g}_i(\Omega_k),~~~~~ (\Omega_k = \
 有声音$(v_i > T)$の場合は，
 ケプストラムにプレエンファシスフィルタ
 \begin{displaymath}
-H(z) = 1 - Az^{-1}
+H(z) = 1 - A_1z^{-1}
 \end{displaymath}
-を掛け，$Lo$次から$Hi$次の間のピークを求めます．
+を掛け，周波数$Lo$[Hz]から$Hi$[Hz]の間のピークを求めます．
 無声音$(vi < T)$の場合は$0$を出力します．
 
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{入力の次数．}{399}
+	\argm{s}{S}{サンプリング周波数．}{10}
+	\argm{n}{N}{入力の次数．}{400}
 	\argm{l}{L}{FFTサイズ．}{512}
-	\argm{t}{T}{有声音/無声音の閾値．}{8.2}
-	\argm{a}{A}{プレエンファシスフィルタ係数．}{0.61}
-	\argm{L}{Lo}{ピッチ周期の最小値}{50}
-	\argm{H}{Hi}{ピッチ周期の最大値}{150}
+	\argm{a}{A_1}{プレエンファシスフィルタ係数．}{0.95}
+	\argm{t}{T}{有声音/無声音の閾値．}{6.0}
+	\argm{L}{Lo}{基本周波数の最小値}{60}
+	\argm{H}{Hi}{基本周波数の最大値}{240}
 	\argm{e}{E}{パワースペクトルの対数をとる際に足し込む小さな値．}{0.0}
-	\argm{n}{N}{スペクトル包絡を求めるためのケプストラムの次数}{25}
+	\argm{m}{M_1}{スペクトル包絡を求めるためのLPCの次数}{25}
+	\argm{M}{M_2}{スペクトル包絡を求めるためのLPCメルケプストラムの次数}{25}
+	\argm{A}{A_2}{周波数圧縮パラメータ $\alpha$}{0.35}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float 形式の音声データ {\em data.f} をからピッチを抽出し，{\em data.pitch}
+float 形式の音声データ(サンプリング周波数 10kHz) {\em data.f} をからピッチを抽出し，{\em data.pitch}
  に出力する:
 \begin{quote}
   \verb!frame -l 400 < data.f | window -l 400 | pitch > data.pitch !
@@ -53,5 +57,5 @@ float 形式の音声データ {\em data.f} をからピッチを抽出し，{\em data.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
-  excite
+  excite, lpc, mgc2mgc
 \end{qsection}
