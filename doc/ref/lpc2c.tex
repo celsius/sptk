@@ -1,0 +1,47 @@
+\name{lpc2c}{LPCケプストラム}
+
+\begin{synopsis}
+ \item[lpc2c] [ --m $M_1$ ] [ --M $M_2$ ] [ {\em infile} ]
+\end{synopsis}
+\begin{qsection}{DESCRIPTION}
+{\em lpc2c} は，指定されたファイルからLPC係数を読み
+込み，LPCケプストラムを出力します．
+つまり，入力数列を
+\[ \sigma, a(1), a(2), \cdots, a(p) \]
+として，
+\[
+c(n) =\left\{
+\begin{array}{lc}
+ ln(h),&n=0\\
+\displaystyle -a(n)=-\sum^{n-1}_{k=1}\frac{k}{n}c(k) a(n-k),&1\leq n\leq P\\
+\displaystyle -\sum_{k=n-P}^{n-1}\frac{k}{n}c(k) a(n-k),& n>P
+\end{array}
+\right.
+\]
+但し，
+\[
+H(z)=\frac{\sigma}{A(z)}=\frac{\sigma}{\displaystyle 1+\sum_{k=1}^P a(k) z^{-k}}
+\]
+を計算し，
+\[ c(0), c(1), \cdots, c(M) \]
+を出力します．
+データ形式は入出力とも float 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M_1}{LPC の次数．}{25}
+	\argm{M}{M_2}{ケプストラムの次数．}{25}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の音声データ {\em data.f} に窓掛けしたデータの10次の
+LPC係数を求め，さらに15次のLPCケプストラムを求め，{\em data.cep} に出力する:
+\begin{quote}
+ \verb!frame < data.f | window | lpc -m 10 |\!\\
+ \verb!lpc2c -m 10 -M 15 > data.cep!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+lpc, gc2gc, mgc2mgc, freqt
+\end{qsection}

@@ -1,0 +1,33 @@
+\name{ifft}{複素数系列の逆フーリエ変換}
+
+\begin{synopsis}
+\item[ifft] [ --l $L$ ]  [ --\{ R $|$ I \} ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em ifft} は，複素数で与えられるデータ列を{\em infile}から読み込んで
+逆フーリエ変換を行ない，結果を標準出力に出力します．
+入力はfloat 形式で，実部を $L$ 個並べた後に虚部を $L$ 個並べた形に
+なります．
+\begin{center}
+ \leavevmode
+ \epsffile{fig/ifft.eps} 
+\end{center}
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{逆フーリエ変換のサイズ．2のべき乗で指定．}{256}
+	\argm{R}{}{逆変換の結果の実部のみを出力．}{FALSE}
+	\argm{I}{}{逆変換の結果の虚部のみを出力．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル {\em data.f} にあるデータ列（実部256点，虚部256点）の 逆DFT を求め，data.ifftに出力する:
+\begin{quote}
+  \verb!ifft data.f -l 256 > data.ifft!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ fft, fft2, fftr, fftr2, ifft2
+\end{qsection}

@@ -1,0 +1,397 @@
+\name{fig}{図を作成する}
+\begin{synopsis}
+ \item[fig] [ --F $F$ ] [ --R $R$ ] [ --W $W$ ] [ --H $H$] [ --o $xo$ $yo$ ]
+	    [ --g $G$ ]  [ --p $P$ ] 
+ \item[\ ~~~] [ --s $S$ ] [ --f $file$ ] [ --t ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ファイル {\em infile} (省略時は標準入力)から与えられるコマンドによりグラフを
+描きます．
+UNIX標準コマンドの graph と同様な機能がある他，グラフの座標軸，目盛り，名前を
+入れる機能があります．出力はプロッタのコマンド列です．そのため，X端末に出力
+する場合はコマンド xgr，ポストスクリプトに出力する場合はコマンドpsgrを使用
+して下さい．
+\end{qsection}
+
+\begin{options}
+	\argm{F}{F}{グラフを描く倍率．}{1}
+	\argm{R}{R}{グラフを描く角度．}{0}
+	\argm{W}{W}{グラフの幅($\times 100$mm)．}{1}
+	\argm{H}{H}{グラフの高さ($\times 100$mm)．}{1}
+	\argm{o}{xo \; yo}{グラフを描く位置． 描画域の左下を原点として，
+			   グラフの左下の位置をmm で指定．}{75 20}
+	\argm{g}{G}{グラフの枠の形式($0 \sim 2$)．\\
+			\begin{tabular}{cccc}
+			&\epsfxsize=2cm \epsffile{fig/g0.eps}
+			&\epsfxsize=2cm \epsffile{fig/g1.eps}
+			&\epsfxsize=2cm \epsffile{fig/g2.eps}\\
+			$G$&0&1&2	 
+			\end{tabular}\\\hspace*{\fill}}{2}
+	\argm{p}{P}{ペン番号($1 \sim 10$)．}{1}
+	\argm{s}{S}{文字サイズ($1 \sim 4$)．}{1}
+	\argm{f}{file}{コマンド実行時，最初に読み込むファイル．
+		       ($infile$ より優先)．}{NULL}
+	\argm{t}{}{ $x$ 軸と $y$ 軸を入れ換える．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+{\em data.fig} のグラフをX端末に出力する．
+\vspace{-3mm}
+\begin{quote}
+ \verb!fig data.fig |xgr!
+\end{quote}
+\vspace{-3mm}
+{\em data.fig} のグラフをポストスクリプトにしたデータをghostviewで見る．
+\vspace{-3mm}
+\begin{quote}
+ \verb!fig data.fig | psgr | ghostview -!
+\end{quote}
+\vspace{-3mm}
+\end{qsection}
+
+\vspace{-1cm}
+\begin{qsection}{USAGE}
+　\vspace{-1cm}
+\end{qsection}
+
+\begin{qsection}{\ ~~~コマンド}
+入力データはコマンド行とデータ行にわけることができます．
+コマンド行は，グラフの目盛り，名前，スケーリング等を指定します．
+データ行は($x ~y$)座標ペアを指定します．
+コマンド行によって指定された数値は，次のコマンド行による設定がなされるまで
+有効です．\\
+\end{qsection}
+
+\vspace{-1cm}
+\begin{qsection}{\ ~~~コマンド行}
+\begin{minipage}[t]{5.5cm}
+x [mel $\alpha$]~ $xmin$ ~$ymax$ [$xa$]\\
+y [mel $\alpha$]~ $xmin$ ~$ymax$ [$ya$]\\
+\end{minipage}
+\begin{minipage}[t]{9cm}
+ $x$ 軸， $y$ 軸のスケーリングを設定します．\\
+$xa$，$ya$ は目盛りを打つ軸の位置を指定します．
+省略された場合， $xa = xmin$ ， $ya = ymin$ となります．\\
+mel $\alpha$ ($\alpha$ は数字で， 例えば mel 0.35) を指定すると，
+1次オールパスフィルタの位相特性により周波数変換した目盛りとみなします．
+\end{minipage} \\
+
+\begin{minipage}[t]{5.5cm}
+xscale ~$x_1$ $x_2$ $x_3$ $\cdots$\\
+yscale ~$y_1$ $y_2$ $y_3$ $\cdots$
+\end{minipage}
+\begin{minipage}[t]{9cm}
+$x$ 軸，$y$ 軸をそれぞれ描き，指定された点 $x_1, x_2,$\\$x_3,\cdots$
+および $y_1,y_2,y_3,\cdots$ に目盛り，数値を書きます．
+但し，非数字+数値(例えば '2,*3.14 等)には，次の機能があります．\\
+
+\begin{tabular}{cl}
+s & 半分の高さの目盛りを描きます．\\
+$\backslash$& 数値だけを書きます．\\
+@ & なにも書きません(目盛りの位置のみ指定)．\\
+その他 & 目盛りだけを書きます．
+\end{tabular}\\
+
+''\ ''で囲まれた文字列が出現すると，
+直前の目盛りの位置にその文字列を書きます．
+文字列中の特種文字の取り扱いについては，コマンド行x/yname項を参照して下さい．\\
+(例)\\
+x ~0 ~5\\
+xscale 0~1.0 ~s1.5 ~'2 ~$\backslash$2.5 ~'3.14 ~''$\backslash$pi'' ~@4 ~''x'' ~5\\
+
+\epsfxsize=9cm
+\epsffile{fig/scale.eps}
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+xname ~''$text$''\\
+yname ~''$text$''\\
+\end{minipage}
+\begin{minipage}[t]{9cm}
+$x$ 軸， $y$ 軸に名前(文字列 $text$)を入れます．
+$text$ は必ず''\ ''で囲んで下さい．
+$text$ 中には''$\backslash$''に続く， \TeX の数式環境中の特種文字を使用する
+ことができます．
+また，\TeX と同様にして上つき文字，下つき文字を使用することができます． 
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+ print ~x ~y ~''$text$'' [$th$]\\
+ printc ~x ~y ~''$text$'' [$th$]
+\end{minipage}
+\begin{minipage}[t]{9cm}
+(x ~y) の位置に文字列 $text$ を書きます．
+$th$ は文字列の角度(deg)を指定します．\\  
+文字列を書く位置:\\
+
+\begin{tabular}{cc}
+\epsffile{fig/fig-print1.eps}&  
+\epsffile{fig/fig-print2.eps}\\
+print&printc
+\end{tabular}p
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+title ~x ~y ~''$text$'' [$th$]\\
+titlec ~x ~y ~''$text$'' [$th$]
+\end{minipage}
+\begin{minipage}[t]{9cm}
+print(c) と同じです．但し，(x ~y)は mm 単位で表した絶対座標です．
+原点は左下隅です．
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+csize ~h [w]
+\end{minipage}
+\begin{minipage}[t]{9cm}
+x/yscale，x/yname，print/c，title/c 等で書く文字の高さ h と幅 w をmm単位で
+指定します．
+w を省略した場合 w = h となります．デフォルトは --{\bf s} オプションの値に
+従って，\\
+\begin{tabular}{ccc}
+
+--{\bf s} &w &h  \\ \hline
+1 &2.5 &2.2\\
+2&5&2.6\\
+3&2.5&4.4\\
+4&5&4.4
+\end{tabular}\\
+です．
+
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+ pen ~$penno$
+\end{minipage}
+\begin{minipage}[t]{9cm}
+ 使用するペン $penno$ を選びます．1≦$penno$≦10．付録参照．
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+line ~$ltype$ [$lpt$]
+\end{minipage}
+\begin{minipage}[t]{9cm}
+座標データ間を結ぶ線の種類 $ltype$ とピッチ $lpt$ を指定します．
+0≦$ltype$≦5． $lpt$はmm単位です．\\
+$ltype$=0:線を引かない． 1:実線． 2:点線． 3:1点鎖線． 4:破線． 5:長破線．\\
+付録参照．
+
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+xgrid ~$x_1$ ~$x_2$ ~$\cdots$\\
+ygrid ~$y_1$ ~$y_2$ ~$\cdots$
+\end{minipage}
+\begin{minipage}[t]{9cm}
+$x_1$ $x_2$ $\cdots$， $y_1$ $y_2$ $\cdots$ の位置に，それぞれ縦と横のグリッド
+を引きます．\\
+(例)\\
+\begin{minipage}[t]{4.3cm}
+ \epsfxsize=4cm
+ \epsffile{fig/grid.eps}
+\end{minipage}
+\begin{minipage}[b]{4.5cm}
+\baselineskip 5pt
+x 0 5\\
+y 0 6\\
+xscale 0 1 2 3 4 5\\
+yscale 0 2 4 6
+
+\vspace{3mm}
+xgrid 1 2 3 4\\
+ygrid 2 4
+\vspace*{1cm}
+\end{minipage}
+\end{minipage}\\
+
+
+\begin{minipage}[t]{5.5cm}
+mark ~$label$ [$th$]
+\end{minipage}
+\begin{minipage}[t]{9cm}
+データ行で与えられる座標に文字列 $label$ を書きます．
+$th$ は文字列を書く角度(deg)です．
+$label$ に $\backslash 0$ を指定すると解除します．
+マーク，特殊文字の書き方はデータ行の $label$ 項を参照して下さい．
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+hight ~$h$ [$w$]\\
+italic ~$th$
+\end{minipage}
+\begin{minipage}[t]{9cm}
+データ行で$label$ を指定した場合に書く文字の大きさ $h$(mm)，間隔 $w$(mm)
+とイタリック指定 $th$(deg)をします． 
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+circle ~x ~y ~$r_1$ ~$r_2$ ~$\cdots$\\
+xcircle ~x ~y ~$r_1$ ~$r_2$ ~$\cdots$\\
+ycircle ~x ~y ~$r_1$ ~$r_2$ ~$\cdots$
+
+\end{minipage}
+\begin{minipage}[t]{9cm}
+(x~ y)を中心とし半径が$r_1$ ~$r_2$ ~$\cdots$ の円を描きます．
+但し，$r_x$ の単位はcircleはmm，xcircleはグラフの $x$ スケール，ycircleはグラフ
+の $y$ スケールです．\\
+
+(例)\\
+\begin{minipage}[t]{4.3cm}
+ \epsfxsize=4cm
+ \epsffile{fig/circle.eps}
+\end{minipage}
+\begin{minipage}[b]{4.5cm}
+\baselineskip 5pt
+x 0 5\\
+y 0 20\\
+xscale 0 5\\
+yscale 0 20
+
+\vspace*{3mm}
+xcircle 3 10 1 2\\
+ycircle 1 3 1 2\\
+circle  1.5 15 13\\
+\vspace*{7mm}
+\end{minipage}
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+box ~$x_0$ $y_0$ $x_1$ ~$y_1$ [~$x_2$ $y_2$ $\cdots$ ]\\
+paint ~$type$
+\end{minipage}
+\begin{minipage}[t]{9cm}
+ ($x_0$ $y_0$)，($x_1$ $y_1$)を結ぶ直線を対角線とする長方形を paintで指定
+された $type$で描きます．
+但し，~$x_2$ $y_2$ $\cdots$ が指定された場合， ($x_0$ $y_0$),($x_1$ $y_1$),
+($x_2$ $y_2$),$\cdots$ を結ぶ多角形を描きます(paintは $type$ 1 以外指定しない
+で下さい)．
+paint のデフォルトは1です．\\
+
+(例)\\
+\begin{minipage}[t]{4.3cm}
+ \epsfxsize=4cm
+ \epsffile{fig/box.eps}
+\end{minipage}
+\begin{minipage}[b]{4.5cm}
+\baselineskip 5pt
+x 0 10\\
+y 0 10\\
+xscale 0 10\\
+yscale 0 10
+
+\vspace*{3mm}
+paint 18\\
+box 2.5 0 3.5 6\\
+paint -18 \\
+box 4 0 5 8\\
+paint 1\\
+box  2 2 8 8 8 2 4 7
+\end{minipage}
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+clip ~$x_0$ $y_0$ $x_1$ ~$y_1$ 
+\end{minipage}
+\begin{minipage}[t]{9cm}
+  ($x_0$ $y_0$)，($x_1$ $y_1$)を結ぶ直線を対角線とする長方形の範囲の中だけ
+描きます．
+  ($x_0$ $y_0$)，($x_1$ $y_1$)が省略された時，clipを解除します．\\
+
+(例)\\
+\begin{minipage}[t]{4.3cm}
+ \epsfxsize=4cm
+ \epsffile{fig/clip.eps}
+\end{minipage}
+\begin{minipage}[b]{4.5cm}
+\baselineskip 5pt
+x 0 10\\
+y 0 10\\
+xscale 0 10\\
+yscale 0 10
+
+\vspace*{3mm}
+clip 2 3 9 7\\
+paint 18\\
+box 2.5 0 3.5 6\\
+paint -18 \\
+box 4 0 5 8\\
+paint 1\\
+box  2 2 8 8 8 2 4 7
+\end{minipage}
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+\# any commet
+\end{minipage}
+\begin{minipage}[t]{9cm}
+ コメント行です．動作に影響を及ぼしません．
+\end{minipage}\\
+\end{qsection}
+
+\begin{qsection}{\ ~~~データ行}
+\begin{minipage}[t]{5.5cm}
+ x ~y [$label$~ [$th$]]
+\end{minipage}
+\begin{minipage}[t]{9cm}
+(x ~y)座標は，コマンド行 x, y で指定された数値でスケーリングされます．
+$label$ の位置に文字列を書くと，その文字列が(x ~y)の位置に書かれます．
+$label$ は空白文字を含んではいけません．
+コマンド行 mark で$label$が指定されている場合は，この座標に限り指定の$label$
+に置き換わります．$th$は角度を与えます．\\
+$label$ 文字列に ~$\backslash n$ ~~$0≦n≦15$ を指定すると，対応する番号の
+マークを描きます(マークの種類は付録を参照して下さい)．
+マーク番号に-- (マイナス)を付けると，マークの中心を線で結びます．
+通常は，マークと線が重ならないように描きます．\\
+$n=16(\backslash 16)$ で コマンド行 hight で指定された h を直径とする小円を
+描きます．
+また， $n>32$ で指定コード番号のASCII文字または特殊文字を描きます．
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+ eod\\
+EOD
+\end{minipage}
+\begin{minipage}[t]{9cm}
+ データの区切りです．この前後の座標間には線を引きません．
+\end{minipage}
+\end{qsection}
+\newpage
+\begin{qsection}{付録}
+{\large \hspace{-1.5ex}$\bullet$ mark 又はデータ行で $label$ が指定された場合
+に出力されるマーク:}
+
+\begin{center}
+\leavevmode
+\epsfxsize=12cm
+\epsffile{fig/mark.eps} \\
+\end{center}
+
+
+{\large \hspace{-1.5ex}$\bullet$ pen と line のタイプ:}\\
+\hspace{3mm}[psgrで出力した場合]
+
+\leavevmode
+\epsffile{fig/pen-line.eps} \\
+
+(注)~~ penのタイプは出力するプリンタに依存します．(このページを出力してみて
+下さい)\\
+\newpage
+[xgr で出力した場合]\\
+下表に示す色で表示されます．\\
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+ \hline
+ penタイプ& 1& 2& 3& 4& 5& 6& 7& 8& 9&10  \\ \hline
+ 色& 黒& 青& 赤& 緑& ピンク& オレンジ& エメラルド& 灰 &茶 & 紺 
+ \\ \hline
+\end{tabular}\\
+\end{center}
+
+\vspace{5mm}
+{\large \hspace{-1.5ex}$\bullet$ paintのタイプ:}\\
+\epsffile{fig/paint.eps}\\
+(注)~~~$1 \sim 3$ は枠のみ，$-9 , -19$ は枠無しの白です．
+
+\end{qsection}

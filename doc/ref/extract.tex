@@ -1,0 +1,28 @@
+\name{extract}{インデックスに対応するベクトルの抽出}
+\begin{synopsis}
+\item [extract] [ --l $L$ ] [ --i $I$ ]  {\em indexfile}  [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em extract}は infile をベクトル量子化した結果である indexfile 内で，
+index が I となるベクトルを infile から出力します．
+
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ベクトルの次数．}{10}
+	\argm{i}{I}{コードブックインデックス．}{0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の10次のベクトルのファイル{\em data.v}をベクトル量子化した
+結果である{\em data.idx}中で
+index が 0 となるベクトルを抽出し，{\em data.ex}に出力する:
+\begin{quote}
+\verb!extract -i 0 data.idx data.v > data.ex!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ivq, vq
+\end{qsection}

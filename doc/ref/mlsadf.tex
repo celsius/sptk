@@ -1,0 +1,315 @@
+\name{mlsadf}{音声合成のためのMLSAフィルタ}
+
+\begin{synopsis}
+\item [mlsadf] [ --m $M$ ] [ --a $A$ ] [ --p $P$ ] [ --i $I$ ] [ --b ] 
+               [--P $Pa$ ] [ --k ]
+\item [\ ~~~~~~~] {\em mcfile}  [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+入力データを{\em mcfile}のメルケプストラム
+係数 $c_\alpha(0),c_\alpha(1),\ldots,c_\alpha(M)$ をもつ
+MLSAフィルタによりフィルタリングし，標準出力に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+MLSAフィルタは，$M$ 次のメルケプストラム $c_\alpha(m)$ で表現された
+指数形伝達関数
+\begin{displaymath}
+H(z) = \exp \sum_{m=0}^M c_\alpha(m) \tilde{z}^{-m}
+\end{displaymath}
+ただし、
+\begin{displaymath}
+\tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
+\end{displaymath}
+を高精度に近似します．ここで，伝達関数 $H(z)$ からゲイン $K$ を
+\begin{eqnarray*}
+H(z) &=& \exp \sum_{m=0}^M b(m) {\it\Phi}_m(z) \\
+     &=& K \cdot D(z)
+\end{eqnarray*}
+ただし，
+\begin{displaymath}
+{\it\Phi}_m(z) = \left\{ 
+	\begin{array}{ll}
+	  1, & m=0 \\ \displaystyle
+	  \frac{\displaystyle (1-\alpha^2)z^{-1}}
+	    {\displaystyle 1-\alpha z^{-1}}
+	    \tilde{z}^{-(m-1)},& m\geq 1
+	\end{array} \right.
+\end{displaymath}
+および，
+\begin{eqnarray*}
+K    &=& \exp b(0) \\
+D(z) &=& \exp \sum_{m=1}^M b(m) {\it\Phi}_m(z) 
+\end{eqnarray*}
+のようにくくり出します．また，係数 $b(m)$ は $c_\alpha(m)$ と線形変換の
+関係にあります(mc2b, b2mc参照)．
+\setcounter{figure}{0}
+\begin{figure}[t]
+\begin{center}
+\setlength{\unitlength}{1.5mm}
+\begin{picture}(60,28)(-3,-12)
+  \thicklines
+  \put(0,0){\line(0,1){4}}              %right triangle
+  \put(0,0){\line(3,2){3}}
+  \put(0,4){\line(3,-2){3}}
+  \put(2,6){\makebox(0,0){$1-\alpha ^2$}}
+  
+  \put(13.5,7){\line(0,1){4}}           %left triangle
+  \put(13.5,7){\line(-3,2){3}}
+  \put(13.5,11){\line(-3,-2){3}}
+  \put(12.5,9){\makebox(0,0){\small $\alpha$}}
+
+  \put(31,10){\line(1,0){4}}            %down triangle
+  \put(31,10){\line(2,-3){2}}
+  \put(35,10){\line(-2,-3){2}}
+  \put(33,9){\makebox(0,0){\small $\alpha$}}
+
+  \put(45,10){\line(1,0){4}}            %down triangle
+  \put(45,10){\line(2,-3){2}}
+  \put(49,10){\line(-2,-3){2}}
+  \put(47,9){\makebox(0,0){\small $\alpha$}}
+
+  \put(20,-3){\line(1,0){4}}            %down triangle b(1)
+  \put(20,-3){\line(2,-3){2}}
+  \put(24,-3){\line(-2,-3){2}}
+  \put(20,-5){\makebox(0,0)[r]{$b(1)$}}
+
+  \put(34,-3){\line(1,0){4}}            %down triangle b(2)
+  \put(34,-3){\line(2,-3){2}}
+  \put(38,-3){\line(-2,-3){2}}
+  \put(34,-5){\makebox(0,0)[r]{$b(2)$}}
+
+  \put(48,-3){\line(1,0){4}}            %down triangle b(3)
+  \put(48,-3){\line(2,-3){2}}
+  \put(52,-3){\line(-2,-3){2}}
+  \put(48,-5){\makebox(0,0)[r]{$b(3)$}}
+
+  \put(10,0){\framebox(4,4){$z^{-1}$}}
+  \put(24,0){\framebox(4,4){$z^{-1}$}}
+  \put(38,0){\framebox(4,4){$z^{-1}$}}
+  \put(52,0){\framebox(4,4){$z^{-1}$}}
+
+  \put(-4,-3){\makebox(0,0)[lb]{\small Input}}
+  \put(-4,2){\line(1,0){4}}
+  \put(3,2){\vector(1,0){2.5}}
+  \put(6.5,2){\circle{2}}
+  \put(6.5,2){\makebox(0,0){\scriptsize $+$}}
+%  \put(5,0.5){\makebox(0,0){\scriptsize $+$}}
+%  \put(5,3.5){\makebox(0,0){\scriptsize $+$}}
+  \put(7.5,2){\line(1,0){2.5}}
+  \put(14,2){\line(1,0){10}}
+  \put(17.5,2){\line(0,1){7}}
+  \put(17.5,9){\line(-1,0){4}}
+  \put(10.5,9){\line(-1,0){4}}
+  \put(6.5,9){\vector(0,-1){6}}
+
+  \put(17.5,2){\circle*{0.7}}
+  \put(22,2){\circle*{0.7}}
+
+  \put(28,2){\vector(1,0){4}}
+  \put(34,2){\line(1,0){4}}
+  \put(33,2){\circle{2}}
+  \put(33,2){\makebox(0,0){\scriptsize $+$}}
+%  \put(31.5,0.5){\makebox(0,0){\scriptsize $+$}}
+%  \put(31.5,3.5){\makebox(0,0){\scriptsize $+$}}
+  \put(36,2){\circle*{0.5}}
+
+  \put(42,2){\vector(1,0){4}}
+  \put(48,2){\line(1,0){4}}
+  \put(47,2){\circle{2}}
+  \put(47,2){\makebox(0,0){\scriptsize $+$}}
+%  \put(45.5,0.5){\makebox(0,0){\scriptsize $+$}}
+%  \put(45.5,3.5){\makebox(0,0){\scriptsize $+$}}
+  \put(44,2){\circle*{0.7}}
+  \put(50,2){\circle*{0.7}}
+
+  \put(22,2){\line(0,1){2}}
+  \put(22,4){\vector(1,1){10.2}}
+  \put(33,14){\line(0,-1){4}}
+  \put(33,7){\vector(0,-1){4}}
+  \put(44,2){\line(0,1){2}}
+  \put(44,4){\vector(-1,1){10.2}}
+  \put(33,15){\circle{2}}
+  \put(33,15){\makebox(0,0){\scriptsize $+$}}
+  \put(31,15){\makebox(0,0){\scriptsize $-$}}
+%  \put(35,15){\makebox(0,0){\scriptsize $+$}}
+  
+  \put(36,2){\line(0,1){2}}
+  \put(36,4){\vector(1,1){10.2}}
+  \put(47,14){\line(0,-1){4}}
+  \put(47,7){\vector(0,-1){4}}
+  \put(58,2){\line(0,1){2}}
+  \put(58,4){\vector(-1,1){10.2}}
+  \put(47,15){\circle{2}}
+  \put(47,15){\makebox(0,0){\scriptsize $+$}}
+  \put(45,15){\makebox(0,0){\scriptsize $-$}}
+%  \put(49,15){\makebox(0,0){\scriptsize $+$}}
+  \put(50,2){\line(0,1){2}}
+  \put(50,4){\vector(1,1){10.2}}
+  \put(56,2){\vector(1,0){5}}
+
+  \put(58,2){\circle*{0.7}}
+
+  \put(22,2){\line(0,-1){5}}
+  \put(36,2){\line(0,-1){5}}
+  \put(50,2){\line(0,-1){5}}
+
+  \put(22,-6){\line(0,-1){5}}
+  \put(22,-11){\vector(1,0){13}}
+  \put(36,-6){\vector(0,-1){4}}
+  \put(37,-11){\vector(1,0){12}}
+  \put(36,-11){\circle{2}}
+  \put(36,-11){\makebox(0,0){\scriptsize $+$}}
+  \put(50,-6){\vector(0,-1){4}}
+
+  \put(51,-11){\line(1,0){2.5}}
+  \multiput(54,-11)(1,0){4}{\line(1,0){0.5}}
+  \put(58,-11){\vector(1,0){3}}
+
+  \put(50,-11){\circle{2}}
+  \put(50,-11){\makebox(0,0){\scriptsize $+$}}
+  \put(57,-10){\makebox(0,0)[lb]{\small Output}}
+\end{picture}
+\end{center}
+\begin{center}
+  (a)~~Basic filter $F(z)$
+\end{center}
+
+\setlength{\unitlength}{0.77mm}
+\begin{center}
+\begin{picture}(120,50)(-4,3)
+  \thicklines
+  \multiput(20,30)(20,0){4}{\framebox(14,8){$F(z)$}}
+  \multiput(34,34)(20,0){3}{\line(1,0){6}}
+  \multiput(37,34)(20,0){3}{\circle*{1.4}}
+  \put(94,34){\line(1,0){3}}
+%  \multiput(37,34)(20,0){4}{\line(0,-1){10}}
+%  \multiput(34,24)(20,0){4}{\line(1,0){6}}     %down triangle (old)
+%  \multiput(34,24)(20,0){4}{\line(2,-3){3}}
+%  \multiput(40,24)(20,0){4}{\line(-2,-3){3}}
+  \multiput(37,34)(20,0){4}{\line(0,-1){8}}
+  \multiput(33,26)(20,0){4}{\line(1,0){8}}      %down triangle 
+  \multiput(33,26)(20,0){4}{\line(2,-3){4}}
+  \multiput(41,26)(20,0){4}{\line(-2,-3){4}}
+  \put(10,34){\circle{4}}
+  \put(10,34){\makebox(0,0){\scriptsize $+$}}
+  \put(-6,34){\vector(1,0){14}}
+  \put(-6,36){\makebox(0,0)[lb]{\small Input}}
+  \put(12,34){\line(1,0){8}}
+  \put(16,34){\circle*{1.4}}
+  \put(16,34){\line(0,1){10}}
+  \put(16,44){\vector(1,0){92}}
+  \put(110,44){\circle{4}}
+  \put(110,44){\makebox(0,0){\scriptsize $+$}}
+  \put(112,44){\vector(1,0){14}}
+  \put(112,46){\makebox(0,0)[lb]{\small Output}}
+  \put(25,22){\makebox(0,0)[l]{$A_{4,1}$}}
+  \put(45,22){\makebox(0,0)[l]{$A_{4,2}$}}
+  \put(65,22){\makebox(0,0)[l]{$A_{4,3}$}}
+  \put(85,22){\makebox(0,0)[l]{$A_{4,4}$}}
+
+  \put(8.4,26){\makebox(0,0)[l]{\tiny $-$}}
+  \put(16.4,26){\makebox(0,0)[l]{\tiny $-$}}
+
+  \put(37,20){\line(0,-1){8}}
+  \put(57,20){\line(0,-1){11}}
+  \put(77,20){\line(0,-1){14}}
+  \put(97,20){\line(0,-1){17}}
+
+  \multiput(37,12)(20,-3){4}{\circle*{1.4}}
+  \multiput(4,12)(4,-3){4}{\line(1,0){100}}
+
+  \put(4,26){\line(0,-1){14}}
+  \put(8,26){\line(0,-1){17}}
+  \put(12,26){\line(0,-1){20}}
+  \put(16,26){\line(0,-1){23}}
+
+  \put(4,26){\vector(3,4){4.8}}
+  \put(8,26){\vector(1,4){1.5}}
+  \put(12,26){\vector(-1,4){1.5}}
+  \put(16,26){\vector(-3,4){4.8}}
+
+  \put(104,36){\line(0,-1){24}}
+  \put(108,36){\line(0,-1){27}}
+  \put(112,36){\line(0,-1){30}}
+  \put(116,36){\line(0,-1){33}}
+
+  \put(104,36){\vector(3,4){4.8}}
+  \put(108,36){\vector(1,4){1.5}}
+  \put(112,36){\vector(-1,4){1.5}}
+  \put(116,36){\vector(-3,4){4.8}}
+\end{picture}
+\end{center}
+\begin{center}
+  (b)~~$R_L(F(z))\simeq D(z)$~~~$L=4$
+\end{center}
+\vspace{2mm}
+
+\begin{center}
+\setlength{\unitlength}{0.8mm}
+\begin{picture}(120,20)(-8,0)
+  \thicklines
+  \put(15,0){\framebox(32,16){$R_4(F_1(z))$}}
+  \put(57,0){\framebox(32,16){$R_4(F_2(z))$}}
+  \put(0,8){\vector(1,0){15}}
+  \put(47,8){\vector(1,0){10}}
+  \put(89,8){\vector(1,0){15}}
+  \put(2,10){\makebox(0,0)[lb]{$x(n)$}}
+  \put(93,10){\makebox(0,0)[lb]{$e(n)$}}
+\end{picture}
+\end{center}
+\begin{center}
+  (c)~~\parbox[t]{6cm}{
+        Two-stage cascade structure \\
+        $R_4(F_1(z))\cdot R_4(F_2(z))\simeq D(z)$}
+\end{center}
+\caption{指数形伝達関数 $1/D(z)$ の実現}
+\label{fig:mlsadflt_MLSA}
+\end{figure}
+
+\par
+フィルタ $D(z)$ は次式のIIRフィルタ
+\begin{displaymath}
+F(z) = \sum_{m=1}^M b(m) {\it\Phi}_m(z) \\
+\end{displaymath}
+を基礎フィルタとして(図\ref{fig:mlsadflt_MLSA}(a))，
+図\ref{fig:mlsadflt_MLSA}(b)のように実現することができます．
+ここで，基礎フィルタを図\ref{fig:mlsadflt_MLSA}(c)のように
+\begin{displaymath}
+F(z) = F_1(z) + F_2(z)
+\end{displaymath}
+ただし，
+\begin{eqnarray*}
+F_1(z) &=& b(1) z^{-1} \\
+F_2(z) &=& \sum_{m=2}^M b(m) {\it\Phi}_m(z)
+\end{eqnarray*}
+と分割することにより，近似精度を上げています．
+\par
+また，図\ref{fig:mlsadflt_MLSA}(b)の係数 $A_{4,l}$
+はLMAフィルタと同じ値を用いています(lmadf 参照)．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{メルケプストラムの次数．}{25}
+	\argm{a}{A}{周波数圧縮パラメータ $\alpha$．}{0.35}
+	\argm{p}{P}{係数の更新周期．}{100}
+	\argm{i}{I}{係数の補間周期．}{1}
+	\argm{b}{}{係数ファイルが $b(m)$ (メルケプストラムを線形変換した係数)
+		   であることを指定．}{FALSE}
+	\argm{P}{Pa}{パデ近似次数．\\Pa は4又は5を指定できます．}{4}
+	\argm{k}{}{ゲインを除いたシステム関数でフィルタリングする}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のピッチデータ {\em data.pitch} から励振源を作成し，
+メルケプストラムファイル {\em data.mcep} によりMLSAフィルタを駆動し，
+合成音声を {\em data.syn} に出力する:
+\begin{quote}
+ \verb!excit < data.pitch | mlsadf data.mcep > data.syn!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ mcep, amcep, poledf, zerodf, ltcdf, lmadf, glsadf, mglsadf
+\end{qsection}

@@ -1,0 +1,34 @@
+\name{msvq}{多段ベクトル量子化}
+
+\begin{synopsis}
+\item [msvq] [ --l $L$ ] [ --s $S \;$ {\em cbfile} ] [ --q ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em msvq}は，指定されたファイルに対し，多段ベクトル量子化を行います．
+-sオプションはステージの段数回繰り返して指定します．
+\par
+データ形式は入力は float 形式，出力は int 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ベクトル長．}{10}
+	\argm{s}{S \; cbfile}{コードブックの指定．\\
+		\begin{tabular}{ll}\\ [-1zh]
+		$S$ & コードブックサイズ\\
+		$cbfile$ & コードブックファイル\\
+		\end{tabular}\\\hspace*{\fill}}{N/A N/A}
+	\argm{q}{}{量子化されたコードベクトルを出力．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+コードブックサイズ 256 のコードブック{\em cbfile1}と{\em cbfile2}による
+2 段 VQ で，{\em data.f}を量子化し，{\em data.vq} に出力します:
+\begin{quote}
+\verb! msvq -s 256 cbfile1 -s 256 cbfile2 < data.f > data.vq!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ imsvq, vq, ivq, lbg
+\end{qsection}

@@ -1,0 +1,228 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% QUOTE ENVIRONMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewenvironment{quote}{
+  \begin{list}{}{
+    \setlength{\labelwidth}{4em}
+    \setlength{\leftmargin}{4em}
+    \setlength{\rightmargin}{0em}
+    \setlength{\labelsep}{0em}
+  }
+  \item[]
+}{\end{list}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DESCRIPTION ENVIRONMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewenvironment{description}{
+  \begin{list}{}{
+    \setlength{\labelwidth}{4em}
+    \setlength{\leftmargin}{4em}
+    \setlength{\rightmargin}{0em}
+    \setlength{\labelsep}{0em}
+  }
+}{\end{list}}
+\newcommand{\itemb}[1]{\item[\bf #1 \hfill]}
+
+\newenvironment{qsection}[1]{
+\subsubsection{#1}
+\begin{quote}
+}{\end{quote}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NAME COMMAND
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\name}[2]{
+\renewcommand{\thechapter}{#1}
+\setcounter{equation}{0}
+\addcontentsline{toc}{section}{\protect\makebox[5em][l]{#1} --- 
+\protect\mbox{#2}}
+\markboth
+ {\hspace*{1em}{\rm \uppercase{#1}}\hfill 
+   Speech Signal Processing Toolkit\hfill{\rm \uppercase{#1}}}
+ {{\rm \uppercase{#1}}\hfill 
+   Speech Signal Processing Toolkit\hfill{\rm \uppercase{#1}}\hspace*{1em}}
+\subsubsection{NAME}
+\begin{quote}
+\begin{list}{\thechapter}{
+    \setlength{\itemindent}{-4em}
+    \setlength{\labelwidth}{0em}
+    \setlength{\leftmargin}{4em}
+    \setlength{\rightmargin}{0em}
+    \setlength{\labelsep}{0em}
+}
+\item[#1] ~~--~ #2
+\end{list}
+\end{quote}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SYNOPSIS ENVIRONMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{synopsis}{
+  \subsubsection{SYNOPSIS}
+  \begin{quote}
+  \begin{list}{\thechapter}{
+    \setlength{\itemindent}{-3em}
+    \setlength{\labelwidth}{0em}
+    \setlength{\leftmargin}{4em}
+    \setlength{\rightmargin}{0em}
+    \setlength{\labelsep}{1em}
+  }
+  \bf
+}{\end{list}\end{quote}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OPTIONS ENVIRONMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{@nOpts}
+\newcounter{@i}
+\newdimen\@wA		\newdimen\@wB
+\newdimen\@wC		\newdimen\@wD
+\newdimen\@wAB		\newdimen\@wTotal
+\newbox\@tmpbox
+\newdimen\@tmpdim
+\newenvironment{options}{
+  \@wA=0pt		\@wB=0pt
+  \@wC=0pt		\@wD=0pt
+  \@wAB=0pt
+  \@wTotal=\textwidth
+  \advance\@wTotal by -4em
+  \setcounter{@nOpts}{0}
+  \setcounter{@i}{0}
+  \def\@@opt@none{[]}
+  \subsubsection{OPTIONS}
+  \begin{quote}%
+}{\noindent\@printopts\end{quote}}
+%
+% oputput options
+%
+\def\@printopts{%
+  \@tmpdim=\@wA%
+  \advance\@tmpdim by \@wB%
+  \advance\@tmpdim by 2\tabcolsep%
+  \ifdim\@wAB<\@tmpdim\@wAB=\@tmpdim%
+  \else\ifdim\@wAB=\@tmpdim\else%
+    \advance\@tmpdim by -\@wAB%
+    \advance\@wB by -\@tmpdim%
+  \fi\fi%
+  \@wC=\@wTotal%
+  \advance\@wC by -\@wAB%
+  \advance\@wC by -\@wD%
+  \advance\@wC by -6\tabcolsep%
+  \setcounter{@i}{0}%
+  \loop%
+    \edef\@opt@N{@@opt@N\the@i}%
+    \edef\@opt@A{@@opt@A\the@i}%
+    \edef\@opt@B{@@opt@B\the@i}%
+    \edef\@opt@C{@@opt@C\the@i}%
+    \edef\@opt@D{@@opt@D\the@i}%
+    \edef\@opt@Z{@@opt@Z\the@i}%
+    \edef\@@opt@Z{\@nameuse{\@opt@Z}}%
+    \ifx\@@opt@Z\@@opt@none\else%
+      \@tmpdim=1zh%
+      \advance\@tmpdim by \@nameuse{\@opt@Z}%
+      \expandafter\vbox to \@tmpdim{}%
+    \fi%
+    \ifnum\@nameuse{\@opt@N}=1%
+      \begin{minipage}[t]{\@wTotal}\@nameuse{\@opt@C}\\[-2ex]\hspace*{\fill}\end{minipage}%
+    \else%
+      \ifnum\@nameuse{\@opt@N}=3%
+        \hspace*{\tabcolsep}%
+        \hbox to \@wAB{\@nameuse{\@opt@A}\hfill}%
+      \else%
+        \hspace*{\tabcolsep}%
+        \hbox to \@wA{\@nameuse{\@opt@A}\hfill}%
+        \hspace{2\tabcolsep}%
+        \hbox to \@wB{\@nameuse{\@opt@B}\hfill}%
+      \fi%
+      \hspace{2\tabcolsep}%
+      \begin{minipage}[t]{\@wC}\@nameuse{\@opt@C}\\[-2ex]\hspace*{\fill}\end{minipage}%
+      \hspace{2\tabcolsep}%
+      \hbox to \@wD{\@nameuse{\@opt@D}\hfill}%
+    \fi%
+    \stepcounter{@i}%
+  \ifnum\value{@i}<\value{@nOpts}%
+    \\%
+  \repeat}
+%
+% arguments
+%
+\def\argm{\@ifnextchar[{\@argm}{\@argm[]}}
+\def\@argm[#1]#2#3#4#5{
+  \setbox\@tmpbox=\hbox{\bf$-$#2}
+  \ifdim\@wA<\wd\@tmpbox\@wA=\wd\@tmpbox\fi
+  \setbox\@tmpbox=\hbox{$#3$}
+  \ifdim\@wB<\wd\@tmpbox\@wB=\wd\@tmpbox\fi
+  \setbox\@tmpbox=\hbox{[#5]}
+  \ifdim\@wD<\wd\@tmpbox\@wD=\wd\@tmpbox\fi
+  \edef\@opt@N{@@opt@N\the@nOpts}
+  \edef\@opt@Z{@@opt@Z\the@nOpts}
+  \edef\@opt@A{@@opt@A\the@nOpts}
+  \edef\@opt@B{@@opt@B\the@nOpts}
+  \edef\@opt@C{@@opt@C\the@nOpts}
+  \edef\@opt@D{@@opt@D\the@nOpts}
+  \@namedef{\@opt@N}{4}
+  \def\@@opt@Z{[#1]}
+  \ifx\@@opt@Z\@@opt@none\@namedef{\@opt@Z}{[]}\else\@namedef{\@opt@Z}{#1}\fi
+  \@namedef{\@opt@A}{\bf$-$#2}
+  \@namedef{\@opt@B}{$#3$}
+  \@namedef{\@opt@C}{#4}
+  \def\@@opt@D{[#5]}
+  \ifx\@@opt@D\@@opt@none\else\@namedef{\@opt@D}{[#5]}\fi
+  \stepcounter{@nOpts}}
+%
+\def\argp{\@ifnextchar[{\@argp}{\@argp[]}}
+\def\@argp[#1]#2#3#4{
+  \setbox\@tmpbox=\hbox{$+#2$}
+  \ifdim\@wAB<\wd\@tmpbox\@wAB=\wd\@tmpbox\fi
+  \setbox\@tmpbox=\hbox{[#4]}
+  \ifdim\@wD<\wd\@tmpbox\@wD=\wd\@tmpbox\fi
+  \edef\@opt@N{@@opt@N\the@nOpts}
+  \edef\@opt@A{@@opt@A\the@nOpts}
+  \edef\@opt@C{@@opt@C\the@nOpts}
+  \edef\@opt@D{@@opt@D\the@nOpts}
+  \edef\@opt@Z{@@opt@Z\the@nOpts}
+  \@namedef{\@opt@N}{3}
+  \def\@@opt@Z{[#1]}
+  \ifx\@@opt@Z\@@opt@none\@namedef{\@opt@Z}{[]}\else\@namedef{\@opt@Z}{#1}\fi
+  \@namedef{\@opt@A}{$+#2$}
+  \@namedef{\@opt@C}{#3}
+  \def\@@opt@D{[#4]}
+  \ifx\@@opt@D\@@opt@none\else\@namedef{\@opt@D}{[#4]}\fi
+  \stepcounter{@nOpts}}
+%
+\def\desc{\@ifnextchar[{\@desc}{\@desc[]}}
+\def\@desc[#1]#2{
+  \edef\@opt@N{@@opt@N\the@nOpts}
+  \edef\@opt@C{@@opt@C\the@nOpts}
+  \edef\@opt@Z{@@opt@Z\the@nOpts}
+  \@namedef{\@opt@N}{1}
+  \def\@@opt@Z{[#1]}
+  \ifx\@@opt@Z\@@opt@none\@namedef{\@opt@Z}{[]}\else\@namedef{\@opt@Z}{#1}\fi
+  \@namedef{\@opt@C}{#2}
+  \stepcounter{@nOpts}}
+%
+\def\argh{\@ifnextchar[{\@argh}{\@argh[]}}
+\def\@argh[#1]#2#3#4#5{
+  \setbox\@tmpbox=\hbox{\em\%#2}
+  \ifdim\@wA<\wd\@tmpbox\@wA=\wd\@tmpbox\fi
+  \setbox\@tmpbox=\hbox{$#3$}
+  \ifdim\@wB<\wd\@tmpbox\@wB=\wd\@tmpbox\fi
+  \setbox\@tmpbox=\hbox{[#5]}
+  \ifdim\@wD<\wd\@tmpbox\@wD=\wd\@tmpbox\fi
+  \edef\@opt@N{@@opt@N\the@nOpts}
+  \edef\@opt@Z{@@opt@Z\the@nOpts}
+  \edef\@opt@A{@@opt@A\the@nOpts}
+  \edef\@opt@B{@@opt@B\the@nOpts}
+  \edef\@opt@C{@@opt@C\the@nOpts}
+  \edef\@opt@D{@@opt@D\the@nOpts}
+  \@namedef{\@opt@N}{4}
+  \def\@@opt@Z{[#1]}
+  \ifx\@@opt@Z\@@opt@none\@namedef{\@opt@Z}{[]}\else\@namedef{\@opt@Z}{#1}\fi
+  \@namedef{\@opt@A}{\em\%#2}
+  \@namedef{\@opt@B}{$#3$}
+  \@namedef{\@opt@C}{#4}
+  \def\@@opt@D{[#5]}
+  \ifx\@@opt@D\@@opt@none\else\@namedef{\@opt@D}{[#5]}\fi
+  \stepcounter{@nOpts}}

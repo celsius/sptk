@@ -1,0 +1,76 @@
+\name{bcut}{ファイルの切り出し（ブロックを単位とする範囲指定可能）}
+
+\begin{synopsis}
+\item[bcut] [ --s $S$ ] [ --e $E$ ] [ --l $L$ ] [ --n $N$ ] [ +{\em type} ] 
+	    [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em bcut} は，指定されたファイルから，オプションで指定された部分を
+切り出します．
+ファイルが指定されなかった場合，データは標準入力から読み込まれます．
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{切り出すブロックの開始点．}{0}
+	\argm{e}{E}{切り出すブロックの終了点．}{EOF}
+	\argm{l}{L}{データのブロック長．}{1}
+	\argm{n}{N}{データブロックの次数．ブロック長は次数+1となります．}{0}
+	\argp{t}{入力データの形式．\\ 
+		\begin{tabular}{llcll} \\[-1zh]
+			c & char型 (1byte) & \quad &
+			s & short型 (2bytes) \\
+			i & int型 (4bytes) & \quad &
+			l & long型 (4bytes) \\
+			f & float型 (4bytes) & \quad &
+			d & double型 (8bytes) 
+		\end{tabular}\\\hspace*{\fill}}{f}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式のファイル {\em data.f} の
+3 番目から5 番目までのデータを切り出し，{\em data.cut} に出力する:
+\begin{quote}
+ \verb!bcut -s 3 -e 5 data.f > data.cut!
+\end{quote}
+例えば，ファイル{\em data.f} に，
+float 形式の数値データ
+\begin{displaymath}
+  1, 2, 3, 4, 5, 6, 7
+\end{displaymath}
+が入っていた場合，ファイル{\em data.cut} の中には，
+\begin{displaymath}
+  4, 5, 6
+\end{displaymath}
+が得られます．
+\par
+同じデータをブロック長を指定して切り出す:
+\begin{quote}
+ \verb!bcut -l 2 data.f -s 1 -e 2 > data.cut!
+\end{quote}
+この場合，
+\begin{displaymath}
+  3, 4, 5, 6
+\end{displaymath}
+が切り出されます．
+\par
+ディジタルフィルタをパルス列で励振し，定常状態に達するまでの100 点を切り捨てる:
+\begin{quote}
+  \verb!train -p 10 -l 256 | dfs -a 1 0.8 0.6 | bcut -s 100 > data.cut!
+\end{quote}
+この場合，ファイル{\em data.cut} の大きさは256 点となります．
+\par
+窓長256 点の窓で次々と窓掛けされたデータが
+\begin{quote}
+  \verb!sin -p 30 -l 2000 | window > data.f!
+\end{quote}
+のようにつくられたとき，
+3 番目(先頭を0 番目として) の窓掛けデータだけを取り出す:
+\begin{quote}
+  \verb!bcut -l 256 -s 3 -e 3 < data.f > data.cut!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+bcp,merge,reverse
+\end{qsection}

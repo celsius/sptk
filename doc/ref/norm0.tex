@@ -1,0 +1,36 @@
+\name{norm0}{0次項で正規化、フィルタ係数の正規化}
+
+\begin{synopsis}
+\item[norm0] [ --m $M$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+標準入力から入力されるデータ列
+\begin{displaymath}
+x(0), x(1), \ldots, x(M)
+\end{displaymath}
+を0次の項で正規化
+\begin{displaymath}
+1/x(0), x(1)/x(0), \ldots, x(M)/x(0)
+\end{displaymath}
+を行い，出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{入力データの次数．}{25}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式のファイル {\em data.f} から正規化した15次の自己相関係数を
+求め、 {\em data.nacorr} に出力する:
+\begin{quote}
+  \verb!frame < data.f | window | acorr -m 15 |\ !\\
+  \verb!norm0 -m 15 > data.nacorr!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ linear\_intpl
+\end{qsection}

@@ -1,0 +1,23 @@
+\name{nan}{データのチェック}
+
+\begin{synopsis}
+\item[nan] [ --d ] [ infile ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+
+{\em nan} は，入力データ中の Nan または Infty \& Indefinite Value
+	の存在をチェックし，存在する場合はデータ番号を出力します．
+	-d オプションを指定しない場合は，入力データ型はfloat型です．
+\end{qsection}
+
+\begin{options}
+	\argm{d}{}{入力データをdouble型にする．}{False}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float型のデータ {\em data.f} をチェックする:
+\begin{quote}
+  \verb!nan data.f!
+\end{quote}
+\end{qsection}

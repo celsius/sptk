@@ -1,0 +1,48 @@
+\name{frame}{フレームの切り出し}
+
+\begin{synopsis}
+ \item [frame] [ --l $L$ ] [ --p $P$ ] [ +{\em type} ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em frame}は、指定されたファイルから、
+入力データをフレーム周期 $P$，フレーム長 $L$ で切り出します．
+入力データを$x(0),x(1),\ldots,x(T)$とした時，出力は
+\begin{center}
+\begin{tabular}{ccccccccccc}
+$0$&$,$&$0$&$,$&$\ldots$&$,$&$x(0)$&$,$&$\ldots$&$,$&$x(L/2)$\\
+$x(P-L/2)$&$,$&$x(P-L/2+1)$&$,$&$\ldots$&$,$&$x(P)$&$,$&$\ldots$&$,$&$x(P+L/2)$\\
+$x(2P-L/2)$&$,$&$x(2P-L/2+1)$&$,$&$\ldots$&$,$&$x(2P)$&$,$&$\ldots$&$,$&$x(2P+L/2)$\\
+&&&&&&$\vdots$&&&&
+\end{tabular}
+\end{center}
+となります．
+
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{切り出すフレーム長．}{256}
+	\argm{p}{P}{フレーム周期．}{100}
+	\argp{t}{入出力データの形式．\\ 
+		\begin{tabular}{llcll} \\[-1zh]
+			c & char型 (1byte) & \quad &
+			s & short型 (2bytes) \\
+			i & int型 (4bytes) & \quad &
+			l & long型 (4bytes) \\
+			f & float型 (4bytes) & \quad &
+			d & double型 (8bytes) 
+		\end{tabular}\\\hspace*{\fill}}{f}
+\end{options}
+
+
+\begin{qsection}{EXAMPLE}
+float形式の ファイル {\em data.f} からフレーム周期80で
+データを切りだし，線形予測分析を行い，予測係数を {\em data.lpc} に出力する:
+\begin{quote}
+ \verb!frame -p 80 < data.f | window | lpc > data.lpc!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ bcp, x2x, bcut, window
+\end{qsection}

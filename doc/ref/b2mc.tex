@@ -1,0 +1,40 @@
+\name{b2mc}{MLSAフィルタの係数からメルケプストラム係数を求める}
+
+\begin{synopsis}
+\item [b2mc] [ --m $M$ ] [ --a $A$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+MLSAフィルタの係数 $b(m)$ からをメルケプストラム係数 $c_\alpha(m)$ を求め，
+標準出力に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+係数 $b(m)$ からメルケプストラム係数 $c_\alpha(m)$ への変換式は
+\begin{displaymath}
+c_\alpha(m) = \left\{
+	\begin{array}{ll}
+	  b(M), & m=M \\
+	  b(m) + \alpha b(m+1), & 0 \leq m < M \\
+	\end{array} \right.
+\end{displaymath}
+で与えられます．この変換式は mc2b の逆変換となります．
+
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{MLSAフィルタの係数の次数．}{25}
+	\argm{a}{A}{周波数圧縮パラメータ $\alpha$．}{0.35}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のMLSAフィルタの係数（$M=15, \alpha=0.35$）の
+ファイル {\em data.b} をメルケプストラムに変換し，{\em data.mcep} に出力する:
+\begin{quote}
+ \verb!b2mc -m 15 < data.b > data.mcep!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+b2mc, mcep, mlsadf
+\end{qsection}

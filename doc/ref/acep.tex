@@ -1,0 +1,89 @@
+\name{acep}{適応ケプストラム分析}
+
+\begin{synopsis}
+ \item [acep] [ --m $M$ ] [ --l $L$ ] [ --t $T$ ] [ --k $K$ ]
+	      [ --p $P$ ] [ --s ] [ --e $E$ ] [ --P $Pa$ ]
+\item [\ ~~~~~~~] [ {\em pefile} ] $<$ {\em infile}
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+	適応ケプストラム分析を行い，
+	ケプストラム係数を標準出力に，
+	予測残差を{\em pefile}（省略時は出力しません）に出力します．
+ \par
+	データ形式は入力，出力とも float 形式です．
+ \par
+	適応ケプストラム分析では，
+	時刻 $n$ から $n+1$ への係数更新アルゴリズムは
+ %
+\begin{eqnarray*}
+  \mbox{\boldmath $c$}^{(n+1)} &=& \mbox{\boldmath $c$}^{(n)} 
+     - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \\
+  \hat{\nabla} \varepsilon_{0}^{(n)} &=& -2 e(n) \mbox{\boldmath $e$}^{(n)} \hspace{3.5cm} ( \tau = 0 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& -2 (1 - \tau) \sum_{i=-\infty}^{n} \tau^{n-i} e(i) \mbox{\boldmath $e$}^{(i)} ~~~ ( 0 \le \tau < 1 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& \tau \hat{\nabla} \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e(n) \mbox{\boldmath $e$}^{(n)} \\
+  \mu^{(n)} &=& \frac{k}{M \varepsilon^{(n)}} \\
+  \varepsilon^{(n)} &=& \lambda \varepsilon^{(n-1)}
+     + (1-\lambda)e^2(n)
+\end{eqnarray*}	
+
+	で与えられます．ただし，
+	$\mbox{\boldmath $c$}=[c(1),\ldots,c(M)]^T$,
+	$\mbox{\boldmath $e$}^{(n)}=[e(n-1),\ldots,e(n-M)]^T$ です．
+	また，ゲインを表す $c(0)$ は次式で推定されます．
+%
+ \begin{displaymath}
+	  c(0) = \frac{1}{2} \log \varepsilon^{(n)}
+ \end{displaymath}
+	図\ref{fig:acep_block}に適応ケプストラム分析系を示します．
+\setcounter{figure}{0}
+ \begin{figure}[h]
+	\setlength{\unitlength}{.5mm}
+  \begin{center}
+   \begin{picture}(100,50)(0,0)
+	\put(12,39){LMA filter}
+	\put(-17,30){$x(n)$}
+	\put(100,30){$e(n)$}
+	\thicklines
+	\put(0,25){\line(1,0){20}}
+	\put(20,15){\framebox(55,20){
+%		\( 1/D(z) = \exp \displaystyle\sum_{m=1}^{M} -c(m)\,z^{-m}\)
+		$1/D(z)$}}
+	\put(75,25){\vector(1,0){25}}
+	\put(85,25){\circle*{1.5}}
+	\put(85,25){\line(0,-1){20}}
+	\put(85,5){\line(-1,0){47.5}}
+	\put(37.5,5){\line(1,2){5}}
+	\put(52.5,35){\vector(1,2){5}}
+   \end{picture}
+  \end{center}
+	\caption{適応ケプストラム分析系}
+	\label{fig:acep_block}
+ \end{figure}
+\end{qsection}
+%
+%\newpage
+
+\begin{options}
+	\argm{m}{M}{分析次数．}{25}
+	\argm{l}{L}{忘却係数 $\lambda$．}{0.98}
+	\argm{t}{T}{momentum 定数 $\tau$．}{0.9}
+	\argm{k}{K}{ステップサイズ $k$．}{0.1}
+	\argm{p}{P}{ケプストラム係数の出力周期．}{1}
+	\argm{s}{}{出力周期内で平均化したケプストラム係数を出力．}{FALSE}
+	\argm{e}{E}{$\varepsilon^{(n)}$ の最小値}{0.0}
+	\argm{P}{Pa}{LMA フィルタのパデ近似次数．Pa は4または5を指定できます．}{4}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+	float 形式のファイル {\em data.f} を次数15次で適応ケプストラム分析し，
+	ケプストラム係数は100サンプル毎に {\em data.acep} に，
+	予測残差は {\em data.er} に出力する:
+ \begin{quote}
+	\verb!acep -m 15 -p 100 data.er < data.f > data.acep!
+ \end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+	uels, gcep, mcep, mgcep, amcep, agcep, lmadf
+\end{qsection}

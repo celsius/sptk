@@ -1,0 +1,176 @@
+\name{lmadf}{音声合成のためのLMAフィルタ}
+
+\begin{synopsis}
+\item [lmadf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --P $Pa$ ] [ --k ] 
+      {\em cfile} [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+指定されたファイルから読み込まれたデータを{\em cfile}のケプストラム係数 
+$c(0),c(1),\ldots,c(M)$ をもつLMAフィルタによりフィルタリングし，標準出力に
+出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+LMAフィルタは，$M$ 次のケプストラム $c(m)$ で表現された指数形伝達関数
+\begin{displaymath}
+H(z) = \exp \sum_{m=0}^{M} c(m) z^{-m}
+\end{displaymath}
+を高精度に近似します．
+伝達関数 $H(z)$ からゲイン $K=\exp c(0)$ を除いた伝達関数
+\begin{displaymath}
+D(z) = \exp \sum_{m=1}^{M} c(m) z^{-m}
+\end{displaymath}
+は，次式のFIRフィルタ
+\begin{displaymath}
+F(z) = \sum_{m=1}^{M} c(m) z^{-m}
+\end{displaymath}
+を基礎フィルタとして図\ref{fig:lmadflt_LMA}(a)のように実現することができます．
+ここで，図\ref{fig:lmadflt_LMA}(b)のように基礎フィルタ $F(z)$ を
+\begin{displaymath}
+F(z) = F_1(z) + F_2(z)
+\end{displaymath}
+ただし，
+\begin{eqnarray*}
+F_1(z) &=& c(1) z^{-1} \\
+F_2(z) &=& \sum_{m=2}^{M} c(m) z^{-m}
+\end{eqnarray*}
+と分割することにより，近似精度を上げています．
+また，図\ref{fig:lmadflt_LMA}(a)の係数 $A_{4,l}$ の値を
+表\ref{tbl:lmadflt_pade}に示します．
+\par
+\setcounter{figure}{0}
+\begin{figure}[ht]
+\setlength{\unitlength}{0.9mm}
+\begin{center}
+\begin{picture}(80,47)(20,0)
+  \thicklines
+  \multiput(20,30)(20,0){4}{\framebox(14,8){$F(z)$}}
+  \multiput(34,34)(20,0){3}{\line(1,0){6}}
+  \multiput(37,34)(20,0){3}{\circle*{1.4}}
+  \put(94,34){\line(1,0){3}}
+  \multiput(37,34)(20,0){4}{\line(0,-1){10}}
+  \multiput(34,24)(20,0){4}{\line(1,0){6}}      %down triangle 
+  \multiput(34,24)(20,0){4}{\line(2,-3){3}}
+  \multiput(40,24)(20,0){4}{\line(-2,-3){3}}
+  \put(10,34){\circle{4}}
+  \put(10,34){\makebox(0,0){\scriptsize $+$}}
+  \put(-6,34){\vector(1,0){14}}
+  \put(-6,36){\makebox(0,0)[lb]{\small Input}}
+  \put(12,34){\line(1,0){8}}
+  \put(16,34){\circle*{1.4}}
+  \put(16,34){\line(0,1){10}}
+  \put(16,44){\vector(1,0){92}}
+  \put(110,44){\circle{4}}
+  \put(110,44){\makebox(0,0){\scriptsize $+$}}
+  \put(112,44){\vector(1,0){14}}
+  \put(112,46){\makebox(0,0)[lb]{\small Output}}
+  \put(25,22){\makebox(0,0)[l]{$A_{4,1}$}}
+  \put(45,22){\makebox(0,0)[l]{$A_{4,2}$}}
+  \put(65,22){\makebox(0,0)[l]{$A_{4,3}$}}
+  \put(85,22){\makebox(0,0)[l]{$A_{4,4}$}}
+
+  \put(8.4,26){\makebox(0,0)[l]{\tiny $-$}}
+  \put(16.4,26){\makebox(0,0)[l]{\tiny $-$}}
+
+  \put(37,19.5){\line(0,-1){7.5}}
+  \put(57,19.5){\line(0,-1){10.5}}
+  \put(77,19.5){\line(0,-1){13.5}}
+  \put(97,19.5){\line(0,-1){16.5}}
+
+  \multiput(37,12)(20,-3){4}{\circle*{1.4}}
+  \multiput(4,12)(4,-3){4}{\line(1,0){100}}
+
+  \put(4,26){\line(0,-1){14}}
+  \put(8,26){\line(0,-1){17}}
+  \put(12,26){\line(0,-1){20}}
+  \put(16,26){\line(0,-1){23}}
+
+  \put(4,26){\vector(3,4){4.8}}
+  \put(8,26){\vector(1,4){1.5}}
+  \put(12,26){\vector(-1,4){1.5}}
+  \put(16,26){\vector(-3,4){4.8}}
+
+  \put(104,36){\line(0,-1){24}}
+  \put(108,36){\line(0,-1){27}}
+  \put(112,36){\line(0,-1){30}}
+  \put(116,36){\line(0,-1){33}}
+
+  \put(104,36){\vector(3,4){4.8}}
+  \put(108,36){\vector(1,4){1.5}}
+  \put(112,36){\vector(-1,4){1.5}}
+  \put(116,36){\vector(-3,4){4.8}}
+\end{picture}
+\end{center}
+\begin{center}
+(a)
+\end{center}
+
+\vspace{2mm}
+\setlength{\unitlength}{0.9mm}
+\begin{center}
+\begin{picture}(80,20)(10,0)
+  \thicklines
+  \put(15,0){\framebox(32,16){$R_L(F_1(z))$}}
+  \put(57,0){\framebox(32,16){$R_L(F_2(z))$}}
+  \put(0,8){\vector(1,0){15}}
+  \put(47,8){\vector(1,0){10}}
+  \put(89,8){\vector(1,0){15}}
+  \put(2,10){\makebox(0,0)[lb]{$x(n)$}}
+  \put(93,10){\makebox(0,0)[lb]{$y(n)$}}
+  \put(0,17){\makebox(0,0)[lb]{Input}}
+  \put(91,17){\makebox(0,0)[lb]{Output}}
+\end{picture}
+\end{center}
+\begin{center}
+(b)
+\end{center}
+\caption{\protect\parbox[t]{8cm}{
+	(a)~~$R_L(F(z))\simeq D(z)$~~~$L=4$ \protect\\
+	(b)~~2段縦続接続構成 \protect\\
+        \hspace*{5mm} $R_L(F_1(z))\cdot R_L(F_2(z))\simeq D(z)$
+}}
+\label{fig:lmadflt_LMA}
+\end{figure}
+
+\setcounter{table}{0}
+\begin{table}
+        \caption{有理近似式の係数 $A_{L,l}$ の値}
+        \label{tbl:lmadflt_coef}
+        \setlength{\arrayrulewidth}{0.5pt}
+        \renewcommand{\arraystretch}{1.2}
+        \begin{center}
+        \begin{tabular}{|c|c|c|} \hline
+        $l$     & $A_{4,l}$			& $A_{5,l}$ \\ \hline
+        1       & $4.999273\times 10^{-1}$	& $4.999391\times 10^{-1}$\\
+        2       & $1.067005\times 10^{-1}$      & $1.107098\times 10^{-1}$\\
+        3       & $1.170221\times 10^{-2}$      & $1.369984\times 10^{-2}$\\
+        4       & $5.656279\times 10^{-4}$      & $9.564853\times 10^{-4}$\\
+	5	&				& $3.041721\times 10^{-5}$\\
+      \hline
+        \end{tabular}
+        \end{center}
+\label{tbl:lmadflt_pade}
+\end{table}
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{ケプストラムの次数．}{25}
+	\argm{p}{P}{係数の更新周期．}{100}
+	\argm{i}{I}{補間周期．}{1}
+	\argm{P}{Pa}{パデ近似次数．\\Pa は4又は5を指定できます．}{4}
+	\argm{k}{}{ゲインを除いたシステム関数でフィルタリングする}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のピッチデータ {\em data.pitch} から励振源を作成し，
+ケプストラムファイル {\em data.cep} によりLMAフィルタを駆動し，
+合成音声を {\em data.syn} に出力する:
+\begin{quote}
+ \verb!excite < data.pitch | lmadf data.cep > data.syn!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ icep, uels, acep, poledf, ltcdf, glsadf, mlsadf, mglsadf
+\end{qsection}

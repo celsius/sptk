@@ -1,0 +1,57 @@
+\name{vsum}{ベクトルの総和をとる}
+
+\begin{synopsis}
+\item[vsum] [ --l $L$ ] [ --n $N$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+指定されたファイルから読み込まれた $L$ 次元ベクトルの各要素毎に総和をとり，
+標準出力に出力します．
+つまり，入力データ
+\begin{displaymath}
+\overbrace{
+  \overbrace{a_1(1),\ldots,a_1(L)}^{L},
+  \overbrace{a_2(1),\ldots,a_2(L)}^{L},\ldots,
+  \overbrace{a_N(1),\ldots,a_N(L)}^{L}
+}^{N \cdot L},\ldots
+\end{displaymath}
+から，
+\begin{displaymath}
+  \overbrace{s(1),\ldots,s(L)}^{L},\ldots
+\end{displaymath}
+が出力され，$s(n)$ は，
+\begin{displaymath}
+  s(n)=\sum_{k=1}^{N} a_k(n)
+\end{displaymath}
+で計算されます．
+\par
+ファイルが指定されなかった場合，データは標準入力から読み込まれます．
+\par
+データ形式は入力、出力ともfloat 形式です。
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ベクトルの次元．}{1}
+	\argm{n}{N}{和をとるベクトルの個数．}{EOD}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル{\em data.f}全体の和を求め{\em data.sum}に出力する:
+\begin{quote}
+  \verb!vsum data.f > data.sum!
+\end{quote}
+\par
+次元10次のベクトルのノルムを求め{\em data.n}に出力する:
+\begin{quote}
+  \verb!sopr data.f -P | vsum -n 10 | sopr -R > data.n!
+\end{quote}
+\par
+次元15次の係数ベクトルのとなり合う3フレームの平均を求め{\em data.av}に出力する:
+\begin{quote}
+  \verb!vsum -l 15 -n 3 data.f | sopr -d 3 > data.av!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  sopr
+\end{qsection}

@@ -1,0 +1,75 @@
+\name{bcp}{データブロックの一部または全部のコピー}
+
+\begin{synopsis}
+\item[bcp] [ --l $l$ ]  [ --L $L$ ]  [ --n $n$ ]  [ --N $N$ ]
+           [ --s $s$ ]  [ --S $S$ ]  [ --e $e$ ]  [ --f $f$ ]
+\item[\ ~~~~~~~] [ +{\em type} ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+
+{\em bcp}は，指定されたファイルをオプションで指定された大きさのブロック
+に切り分け，そのブロックの一部または全部を標準出力に出力します．
+\par
+データ型にasciiを指定した場合，入力ファイルの中の文字列をデータの一単位とし，
+出力ブロックを改行で区切ります．
+\par
+ファイルが指定されなかった場合，データは標準入力から読み込まれます．
+\end{qsection}
+
+\begin{center}
+\leavevmode
+\epsffile{fig/bcp.eps}
+\end{center}
+
+\begin{options}
+	\argm{l}{l}{ファイルを切り分けるブロックの大きさ．
+         \\ 一つのブロックにいくつのデータが入っているかで指定．}{256}
+	\argm{L}{L}{出力するブロックの大きさ．}{N/A}
+	\argm{n}{n}{ファイルを切り分けるブロックの次数．
+	 \\ ファイルを切り分けるブロックの大きさは$n+1$となる．}{l-1}
+	\argm{N}{N}{出力するブロックの次数．
+	 \\ 出力するブロックの大きさは$N+1$となる．}{N/A}
+	\argm{s}{s}{切り分けたブロックの中でのコピー開始データ番号．}{0}
+	\argm{S}{S}{出力ブロックの中でのコピー開始データ番号．}{0}
+	\argm{e}{e}{切り分けたブロックの中でのコピー終了データ番号．}{EOF}
+	\argm{f}{f}{出力ブロックのうち，コピーされない部分を$f$で埋める． \\ 
+			入力データがascii型でない場合に有効．}{0}
+	\argp{t}{入力データの形式．\\ 
+		\begin{tabular}{llcll} \\[-1zh]
+			c & char型 (1byte) & \quad &
+			s & short型 (2bytes) \\
+			i & int型 (4bytes) & \quad &
+			l & long型 (4bytes) \\
+			f & float型 (4bytes) & \quad &
+			d & double型 (8bytes) \\
+			a & ascii文字列 \\
+		\end{tabular}}{f}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+ファイル{\em data.f}にはfloat形式で配列 {a(0), a(1), a(2), ... , a(20)}
+のデータが繰り返し書き込まれているとする．\\
+この中から{a(1), a(2), ... , a(10)}をとり出してファイル{\em data.bcp}
+に出力したいならば
+\begin{quote}
+\verb!bcp data.f +f -l 21 -s 1 -e 10 > data.bcp!
+\end{quote}
+
+\par
+また，おなじファイル{\em data.f}に対して
+
+\begin{quote}
+\verb!bcp data.f +f -l 21 -s 3 -e 5 -S 6 -L 10 > data.bcp!
+\end{quote}
+
+とすれば，出力は以下で与えられるブロック
+\begin{quote}
+\verb!0, 0, 0, 0, 0, 0, a(3), a(4), a(5), 0!
+\end{quote}
+の繰り返しになる．
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+bcut, merge, reverse
+\end{qsection}

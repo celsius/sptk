@@ -1,0 +1,46 @@
+\name{ignorm}{一般化ケプストラムのゲインの逆正規化}
+\begin{synopsis}
+\item [ignorm] [ --m $M$ ] [ --g $G$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+正規化された一般化ケプストラム $c_\gamma'(m)$ を正規化されていない
+ものに変換し，標準出力に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+正規化した一般化ケプストラム $c_\gamma'(m)$ から正規化
+されていない一般化ケプストラム$c_\gamma(m)$は
+\begin{displaymath}
+c_\gamma(m) = \Bigl(c_\gamma'(0)\Bigr)^{\gamma} c_\gamma'(m), ~~~m>0
+\end{displaymath}
+で求められます．ただし，ゲイン項 $c_\gamma(0)$ は
+\begin{displaymath}
+c_\gamma(0) = \left\{
+	\begin{array}{ll} \displaystyle
+	  \frac{\Bigl(c_\gamma'(0)\Bigr)^{\gamma} - 1.0}{\gamma},
+		& 0<|\gamma|\leq 1 \\ \displaystyle
+	  \log c_\gamma'(0),  & \gamma=0
+	\end{array} \right.
+\end{displaymath}
+となります．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{一般化ケプストラムの次数．}{25}
+	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma$ ．\\
+			 ただし，$G>1.0$ のときは $\gamma=-1/G$．}{0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の正規化されている一般化ケプストラムファイル 
+{\em data.ngcep} $(M=15, \gamma=-0.5)$ を逆正規化し，
+正規化されていない一般化ケプストラムを data.gcepに出力する:
+\begin{quote}
+ \verb! ignorm -m 15 -g -0.5 < data.ngcep > data.gcep!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ gcep, mgcep, gc2gc, mgc2mgc, freqt
+\end{qsection}

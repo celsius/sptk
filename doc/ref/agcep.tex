@@ -1,0 +1,135 @@
+\name{agcep}{適応一般化ケプストラム分析}
+
+\begin{synopsis}
+\item [agcep] [ --m $M$ ] [ --g $G$ ] [ --l $L$ ] [ --t $T$] [ --k $K$ ]
+	      [ --p $P$ ]
+\item [\ ~~~~~~]  [ --s ] [ --n ] [ --e $E$ ] [ {\em pefile} ] $<$ {\em infile}
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+適応一般化ケプストラム分析を行い，正規化一般化ケプストラム
+係数 $c_\gamma(m)$ を標準出力に，予測残差を{\em pefile}（省略時は出力しません）
+に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+適応一般化ケプストラム分析では，
+時刻 $n$ から $n+1$ への係数更新アルゴリズムは
+
+\begin{eqnarray*}
+  \mbox{\boldmath $c$}_\gamma^{(n+1)} &=& \mbox{\boldmath $c$}_\gamma^{(n)} 
+     - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \\
+  \hat{\nabla} \varepsilon_{0}^{(n)} &=& -2 e_\gamma (n) \mbox{\boldmath $e$}_\gamma^{(n)} \hspace{3.5cm} ( \tau = 0 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& -2 (1 - \tau) \sum_{i=-\infty}^{n} \tau^{n-i} e_\gamma (i) \mbox{\boldmath $e$}_\gamma^{(i)} ~~~ ( 0 \le \tau < 1 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& \tau \hat{\nabla} \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e_\gamma (n) \mbox{\boldmath $e$}_\gamma^{(n)} \\
+  \mu^{(n)} &=& \frac{k}{M \varepsilon^{(n)}} \\
+  \varepsilon^{(n)} &=& \lambda \varepsilon^{(n-1)}
+     + (1-\lambda)e_\gamma^2(n)
+\end{eqnarray*}	
+
+で与えられます．ただし，
+$\mbox{\boldmath$c$}_\gamma = [c_\gamma(1),\ldots,c_\gamma(M)]^T$,
+$\mbox{\boldmath$e$}_\gamma = [e_\gamma(n-1),\ldots,e_\gamma(n-M)]^T$
+です．$e_\gamma(n)$ は，
+\begin{displaymath}
+F(z) = \sum_{m=1}^{M}c_\gamma(m)z^{-m}
+\end{displaymath}
+として，入力 $x(n)$ をフィルタ $(1+\gamma F(z))^{-\frac{1}{\gamma}-1}$ に
+通した出力です．
+\par
+ここで，特に $n$ を自然数として $\gamma = -1/n$ の場合のブロック図を
+図\ref{fig:agcep_block}に示します．
+$n=1$ のときにはLMS linear predictorと等価であり，
+$n \rightarrow \infty$ とした場合には適応ケプストラム分析
+に等価になります．
+
+%\def\topfraction{.8}
+%\def\textfraction{.1}
+%\def\floatpagefraction{.8}
+\setcounter{figure}{0}
+\newpage
+\begin{figure}[t]
+\begin{center}
+\setlength{\unitlength}{0.01200in}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined
+% extract first six characters in \fmtname
+\def\x#1#2#3#4#5#6#7\relax{\def\x{#1#2#3#4#5#6}}%
+\expandafter\x\fmtname xxxxxx\relax \def\y{splain}%
+\ifx\x\y   % LaTeX or SliTeX?
+\gdef\SetFigFont#1#2#3{%
+  \ifnum #1<17\tiny\else \ifnum #1<20\small\else
+  \ifnum #1<24\normalsize\else \ifnum #1<29\large\else
+  \ifnum #1<34\Large\else \ifnum #1<41\LARGE\else
+     \huge\fi\fi\fi\fi\fi\fi
+  \csname #3\endcsname}%
+\else
+\gdef\SetFigFont#1#2#3{\begingroup
+  \count@#1\relax \ifnum 25<\count@\count@25\fi
+  \def\x{\endgroup\@setsize\SetFigFont{#2pt}}%
+  \expandafter\x
+    \csname \romannumeral\the\count@ pt\expandafter\endcsname
+    \csname @\romannumeral\the\count@ pt\endcsname
+  \csname #3\endcsname}%
+\fi
+\fi\endgroup
+\begin{picture}(440,323)(114,420)
+\thinlines
+\put(440,475){\vector( 1, 0){ 60}}
+\put(340,455){\framebox(100,40){}}
+\put(280,475){\line( 1, 0){ 60}}
+\put(390,470){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$\exp F(z)$}}}
+\put(300,485){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$x(n)$}}}
+\put(500,485){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$e(n)=e_\gamma(n)$}}}
+\put(280,600){\line( 1, 0){ 60}}
+\put(340,580){\framebox(100,40){}}
+\put(440,600){\vector( 1, 0){ 60}}
+\put(480,610){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$e(n)$}}}
+\put(280,610){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$x(n)=e_\gamma(n)$}}}
+\put(390,595){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$1-F(z)$}}}
+\put(180,720){\line(-1, 0){ 60}}
+\put(440,720){\vector( 1, 0){ 60}}
+\put(340,700){\framebox(100,40){}}
+\put(280,720){\line( 1, 0){ 60}}
+\put(180,700){\framebox(100,40){}}
+\put(340,420){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}(c) $\gamma=0$}}}
+\put(340,540){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}(b) $\gamma=-1$}}}
+\put(340,660){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}(a) $-1\leq \gamma \leq 0$}}}
+\put(390,715){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$1+\gamma F(z)$}}}
+\put(310,730){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$e_{\gamma}(n)$}}}
+\put(140,730){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$x(n)$}}}
+\put(480,730){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$e(n)$}}}
+\put(230,715){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$(1+\gamma F(z))^{-\frac{1}{\gamma}-1}$}}}
+\end{picture}
+\caption{適応一般化ケプストラム分析系}
+\label{fig:agcep_block}
+\end{center}
+\end{figure}
+
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{分析次数．}{25}
+	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma$． \\
+			 ただし，$G>1.0$ のときは $\gamma=-1/G$．}{1}
+	\argm{l}{L}{忘却係数 $\lambda$．}{0.98}
+	\argm{t}{T}{momentum 定数 $\tau$．}{0.9}
+	\argm{k}{K}{ステップサイズ $k$．}{0.1}
+	\argm{p}{P}{一般化ケプストラム係数の出力周期．}{1}
+	\argm{s}{}{出力周期内で平均化した一般化ケプストラム係数を出力．}{FALSE}
+	\argm{n}{}{規格化した一般化ケプストラム係数を出力．}{FALSE}
+	\argm{e}{E}{$\varepsilon^{(n)}$ の最小値．}{0.0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル {\em data.f} を次数15次で適応一般化ケプストラム分析し，
+一般化ケプストラム係数を {\em data.agcep} に，予測残差は {\em data.er}
+ に出力する:
+\begin{quote}
+ \verb!agcep -m 15 data.er < data.f > data.agcep!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+acep, amcep, glsadf
+\end{qsection}

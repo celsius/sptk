@@ -1,0 +1,59 @@
+\name{ccp}{データの切り出しと変換}
+
+\begin{synopsis}
+\item [ccp] [ --S $S_1$ ] [ --s $S_2$ ] [ --E $E_1$ ] [ --e $E_2$ ] 
+ 	    [ +$t_1 t_2$ ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em ccp}は，指定されたファイルから，オプションで指定された部分を切り出し，
+指定されたデータ形式に変換して,標準出力に出力します．
+ファイルが指定されなかった場合，データは標準入力から読み込まれます．
+\par
+{\bf --S, --E}オプション，及び{\bf --s, --e}オプションでデータの切り出し範囲
+を指定します．
+\par
+入力データ，及び出力データの形式は，+$t_1 t_2$ ({\em iodata\_type})で
+指定します．
+\end{qsection}
+
+\begin{options}
+	\argm{S}{S_1}{切り出すデータの開始バイトアドレス．}{0}
+	\argm{s}{S_2}{切り出すデータの開始データ番号．}{0}
+	\argm{E}{E_1}{切り出すデータの終了バイトアドレス．}{EOF}
+	\argm{e}{E_2}{切り出すデータの終了データ番号．}{0}
+	\argp{t_1 t_2}{入出力データの型指定．$t_1$，$t_2$はそれぞれ入力データ，
+                       出力データのデータ型を表す文字． \\
+		\begin{tabular}{llcll} \\[-1zh]
+			c & char型 (1byte) & \quad &
+			s & short型 (2bytes) \\
+			i & int型 (4bytes) & \quad &
+			l & long型 (4bytes) \\
+			f & float型 (4bytes) & \quad &
+			d & double型 (8bytes) \\
+			a & ascii文字列 \\ [1zh] 
+		\end{tabular} \\
+		データを $t_1$ 型から $t_2$ 型へ型変換して出力する． $t_2$ が
+		省略された場合は $t_2=t_1$ とみなし型変換は行なわない．}
+		{ff}
+	\desc{データアドレス及びデータ番号の指定は，10進数または数字の前に0xを
+	      付けた16進数で指定します． ascii文字列は入力の場合，空白，タブ，
+              改行で区切られた数字の列で，出力の場合は ``\%gY\llap=n'' 変換に
+              よる文字列です．}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+ ファイル {\em data.s} の256バイト目から short 型で入っている整数の
+10〜19番目を float 型に変換して {\em data.f} に出力する:
+\begin{quote}
+ \verb!ccp -S 0x100 -s 10 -e 19 +sf data.s > data.f!
+\end{quote} 
+数字を入力して {\em data.f} に float 形式で出力する:
+\begin{quote}
+ \verb!ccp +af > data!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ bcp, bcut, merge, reverse, x2x
+\end{qsection}

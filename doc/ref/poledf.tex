@@ -1,0 +1,40 @@
+\name{poledf}{音声合成のための全極標準型フィルタ}
+
+\begin{synopsis}
+\item[poledf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --t ] [ --k ]
+              {\em afile} [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+入力データを {\em afile}の線形予測係数 $K,a(1),\ldots,a(M)$ をもつ
+全極標準形フィルタによりフィルタリングし，標準出力に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+全極標準形フィルタの伝達関数 $H(z)$ は，
+\begin{displaymath}
+H(z) = \frac{K}{\displaystyle 1+\sum_{m=1}^M a(m) z^{-m}}
+\end{displaymath}
+です．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{フィルタの次数．}{25}
+	\argm{p}{P}{フレーム長．}{100}
+	\argm{i}{I}{係数の更新周期．}{1}
+	\argm{t}{}{転置型フィルタ．}{FALSE}
+	\argm{k}{}{ゲインを除いたシステム関数でフィルタリングする}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のピッチデータ {\em data.pitch} から励振源を作成し，
+線形予測係数ファイル {\em data.lpc} により標準形合成フィルタを駆動し，
+合成音声を {\em data.syn} に出力する:
+\begin{quote}
+  \verb!excit < data.pitch | poledf data.lpc > data.syn!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  lpc, acorr, ltcdf, lmadf, zerodf
+\end{qsection}

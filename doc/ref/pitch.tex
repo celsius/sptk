@@ -1,0 +1,57 @@
+\name{pitch}{ピッチ抽出}
+
+\begin{synopsis}
+\item[pitch] [ --m $M$ ] [ --l $L$ ] [ --t $T$ ] [ --a $A$ ]
+ [ --L $Lo$ ] [ --H $Hi$ ]
+\item[\ ~~~~~] [ --e $E$ ] [ --n $N$] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ケプストラム法により抽出したピッチ$p(t)$を標準出力に出力します．
+入力は窓掛けされた長さ $M+1$ の時系列
+\begin{displaymath}
+  x(0),x(1),\ldots,x(M)
+\end{displaymath}
+です．
+\par
+データ形式は入力，出力とも float 形式です．
+\par
+有声音と無声音の識別は，$N$次のケプストラムから求めた
+対数スペクトル包絡$\hat{g}_i(\Omega_k)$の基本周波数帯域部分
+の平均値を利用します．
+\begin{displaymath}
+v_i = \frac{1}{14 n}\sum_{k = 4 n}^{17 n}\hat{g}_i(\Omega_k),~~~~~ (\Omega_k = \frac{2 \pi k}{L},n = L /256)
+\end{displaymath}
+
+有声音$(v_i > T)$の場合は，
+ケプストラムにプレエンファシスフィルタ
+\begin{displaymath}
+H(z) = 1 - Az^{-1}
+\end{displaymath}
+を掛け，$Lo$次から$Hi$次の間のピークを求めます．
+無声音$(vi < T)$の場合は$0$を出力します．
+
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{入力の次数．}{399}
+	\argm{l}{L}{FFTサイズ．}{512}
+	\argm{t}{T}{有声音/無声音の閾値．}{8.2}
+	\argm{a}{A}{プレエンファシスフィルタ係数．}{0.61}
+	\argm{L}{Lo}{ピッチ周期の最小値}{50}
+	\argm{H}{Hi}{ピッチ周期の最大値}{150}
+	\argm{e}{E}{パワースペクトルの対数をとる際に足し込む小さな値．}{0.0}
+	\argm{n}{N}{スペクトル包絡を求めるためのケプストラムの次数}{25}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式の音声データ {\em data.f} をからピッチを抽出し，{\em data.pitch}
+ に出力する:
+\begin{quote}
+  \verb!frame -l 400 < data.f | window -l 400 | pitch > data.pitch !
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  excite
+\end{qsection}

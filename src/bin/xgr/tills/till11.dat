@@ -1,0 +1,4 @@
+#define till11_width 4
+#define till11_height 4
+static char till11_bits[] = {
+   0x0b, 0x0e, 0x06, 0x0d};

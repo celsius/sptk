@@ -1,0 +1,165 @@
+%!
+%%BoundingBox: 32 714 109 753
+%%Title: fig_print1
+%%CreationDate: Wed Oct 25 17:27:26 1995
+%%Creator: Tgif-2.16J-p12 by William Chia-Wei Cheng (william@cs.UCLA.edu)
+
+/tgifdict 5 dict def
+tgifdict begin
+
+/tgifellipsedict 6 dict def
+tgifellipsedict /mtrx matrix put
+
+/tgifellipse
+ { tgifellipsedict begin
+      /yrad exch def
+      /xrad exch def
+      /y exch def
+      /x exch def
+      /savematrix mtrx currentmatrix def
+      x y translate
+      xrad yrad scale
+      0 0 1 0 360 arc
+      savematrix setmatrix
+   end
+ } def
+
+/tgifarrowtipdict 8 dict def
+tgifarrowtipdict /mtrx matrix put
+
+/tgifarrowtip
+ { tgifarrowtipdict begin
+      /dy exch def
+      /dx exch def
+      /h exch def
+      /w exch def
+      /y exch def
+      /x exch def
+      /savematrix mtrx currentmatrix def
+      x y translate
+      dy dx atan rotate
+      0 0 moveto
+      w neg h lineto
+      w neg h neg lineto
+      savematrix setmatrix
+   end
+ } def
+
+end
+
+%%PageBoundingBox: 32 714 109 753
+tgifdict begin
+/tgifsavedpage save def
+
+1 setmiterlimit
+1 setlinewidth
+
+0 setgray
+
+72 0 mul 72 11.70 mul translate
+72 128 div 100 mul 100 div dup neg scale
+
+gsave
+
+% POLY/OPEN-SPLINE
+0 setgray
+gsave
+   newpath
+      64 160 moveto
+      64 192 lineto
+      192 192 lineto
+   stroke
+grestore
+
+% POLY/OPEN-SPLINE
+0 setgray
+gsave
+   newpath
+      64 160 moveto
+      192 160 lineto
+   stroke
+grestore
+
+% POLY/OPEN-SPLINE
+0 setgray
+gsave
+   newpath
+      96 160 moveto
+      96 192 lineto
+   stroke
+grestore
+
+% POLY/OPEN-SPLINE
+0 setgray
+gsave
+   newpath
+      128 160 moveto
+      128 192 lineto
+   stroke
+grestore
+
+% POLY/OPEN-SPLINE
+0 setgray
+gsave
+   newpath
+      160 160 moveto
+      160 192 lineto
+   stroke
+grestore
+
+% TEXT
+0 setgray
+/Courier findfont [20 0 0 -20 0 0] makefont setfont
+   gsave
+      72 183 moveto (t) show
+   grestore
+
+% TEXT
+0 setgray
+/Courier findfont [20 0 0 -20 0 0] makefont setfont
+   gsave
+      104 183 moveto (e) show
+   grestore
+
+% TEXT
+0 setgray
+/Courier findfont [20 0 0 -20 0 0] makefont setfont
+   gsave
+      136 183 moveto (x) show
+   grestore
+
+% OVAL
+0 setgray
+newpath 64 192 4 4 tgifellipse fill
+gsave
+   newpath 64 192 4 4 tgifellipse stroke
+grestore
+
+% TEXT
+0 setgray
+/Courier findfont [20 0 0 -20 0 0] makefont setfont
+   gsave
+      76 219 moveto (\(x y\)) show
+   grestore
+
+% POLY/OPEN-SPLINE
+0 setgray
+gsave
+   2 setlinewidth
+   newpath
+      92 204 moveto
+      -4 -20 atan dup cos 10 mul 72 exch sub
+      exch sin 10 mul 200 exch sub lineto
+   stroke
+   1 setlinewidth
+grestore
+gsave
+   newpath
+      72 200 10 4 -20 -4 tgifarrowtip
+   closepath fill
+grestore
+
+grestore
+tgifsavedpage restore
+end
+%MatchingCreationDate: Wed Oct 25 17:27:26 1995

@@ -1,0 +1,36 @@
+\name{ivq}{ベクトル量子化のデコーダ}
+
+\begin{synopsis}
+\item [ivq] [ --l $L$ ] [ --n $N$ ] {\em cbfile}  [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em ivq}は，指定されたファイルからインデックス $i$ を読み込み，
+コードブックファイル{\em cbfile}に従って，
+符号帳ベクトル
+\begin{displaymath}
+  c_i(0),c_i(1),\ldots,c_i(L-1)
+\end{displaymath}
+を出力します．
+\par
+データ形式は入力は int 形式，出力は float 形式です．
+
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ベクトルのサイズ．}{26}
+	\argm{n}{N}{ベクトルの次数．}{25}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+25次のベクトルに対し，コードブック {\em cbfile} で
+VQ を行った結果である {\em data.vq} に対応する符号帳ベクトルを 
+{\em data.ivq} に出力します．
+\begin{quote}
+\verb! ivq cbfile data.vq > data.ivq !
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+vq, imsvq, msvq
+\end{qsection}

@@ -1,0 +1,35 @@
+\name{clip}{データの値の範囲を制限(クリッピング)する}
+
+\begin{synopsis}
+\item[clip] [ --y $y_{min} \; y_{max}$ ] [ --ymin $y_{min}$ ] [ --ymax $y_{max}$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em clip} は，float型で与えられるデータ列を標準入力から読み込み，指定
+されたオプションで指定される最小値から最大値の範囲外の値であれば，最小値
+または最大値に値を制限して標準出力に出力します．
+\end{qsection}
+
+\begin{options}
+	\argm{y}{y_{min} \; y_{max}}{データの値の範囲の最小値と最大値．}
+		{$-1.0 \, 1.0$}
+	\argm{ymin} {y_{min}} {データの値の範囲の最小値．
+				上限は制限しない．}{N/A}
+	\argm{ymax} {y_{max}} {データの値の範囲の最大値．
+				下限は制限しない．}{N/A}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル {\em data.f} には以下のデータが入っているとする．
+\begin{displaymath}
+ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
+\end{displaymath}
+ここで
+\begin{quote}
+ \verb!clip -y 2.5 5.5 < data.f > data.clip!
+\end{quote}
+とするとファイル {\em data.clip} には以下のデータが入る．
+\begin{displaymath}
+ 2.5, 2.5, 3.0, 4.0, 5.0, 5.5
+\end{displaymath}
+\end{qsection}

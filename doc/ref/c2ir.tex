@@ -1,0 +1,41 @@
+\name{c2ir}{ケプストラムからインパルス応答を求める}
+\begin{synopsis}
+ \item[c2ir] [ --l $L$ ] [ --m $M$ ] [ --i ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ファイル{\em infile}（省略時は標準入力）から最小位相ケプストラムを読み込み，
+最小位相インパルス応答を出力します．
+つまり,入力数列を
+\[c(0),c(1),c(2),\cdots,c(M)\]
+として，
+\[ h(n)=\left\{
+\begin{array}{lc}
+ h(0)=\exp(c(0))&\\
+ h(n)=\displaystyle \sum_{k=1}^{M} \frac{k}{n}c(k)h(n-k)& n \geq 1
+\end{array}
+\right. \]
+を計算し，
+\[ h(0),h(1),h(2),\cdots,h(L -1) \]
+を出力します．データ形式は，入出力ともにfloat形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{インパルス応答の持続長．}{256}
+	\argm{m}{M}{ケプストラム係数の次数．}{25}
+	\argm{i}{}{最小位相数列を読み込んでケプストラムを出力．}{FALSE}
+	\desc{ケプストラム次数 $M$ の指定なしで，かつ入力ケプストラムの個数
+              が $L$ より短い場合，実際に読み込んだ次数を $M$ の値とする．}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の30次のケプストラムファイル {\em data.cep} を読み込んで，
+インパルス応答を $n = 0 \sim 99$ の範囲で求め，{\em data.ir}に出力する:
+ \begin{quote}
+  \verb!c2ir -l 100 -m 30 data.cep > data.ir!
+ \end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ c2sp, c2acr
+\end{qsection}

@@ -1,0 +1,138 @@
+       *****************************************************
+             Speech Signal Processing Toolkit  Ver 1.0
+                         July 31, 1998
+       *****************************************************
+
+The Speech Signal Processing Toolkit (SPTK) was developed and has been
+used in the research group of Prof. Satoshi Imai (currently he is with
+Chiba Institute of Technology) and Prof. Takao Kobayashi (currently he
+is with Department of Information Processing, Tokyo Institute of
+Technology) at P&I laboratory, Tokyo Institute of Technology.  This
+time some tools are chosen and arranged for distribution by Associate
+Prof. Keiichi Tokuda (currently he is with Department of Computer
+Science, Nagoya Institute of Technology) as an organizer in
+cooperation with Takashi Masuko (he is a Research Associate at P&I
+laboratory, Tokyo Institute of Technology), Dr.  Kazuhito Koishida
+(currently he is a Research Fellow of JSPS), and some graduate
+students.
+
+The original source codes have been written by many people who took
+part in research of the research group.  The most original source
+codes of this distribution were written by Takao Kobayashi (graph,
+data processing, FFT, etc.), Keiichi Tokuda (speech analysis, speech
+synthesis, etc.), and Kazuhito Koishida (LSP, vector quantization,
+etc.).
+
+This version is accompanied by a Reference Manual (a total of 130
+pages written in Japanese). The User's Manual will be attached to the
+future release.  We are also planing to translate the manuals into
+English.
+
+********************
+    Distribution
+********************
+
+The Speech Signal Processing Toolkit is free provided that it is only
+for academic use and cannot be used commercially.  When you distribute
+the Speech Signal Processing Toolkit, distribute all files including
+this file without any modification.  Modifying the programs is allowed
+for personal use.  There is no warranty for the Speech Signal
+Processing Toolkit.
+
+*******************
+    Environment
+*******************
+
+We expect that all programs can be compiled and can work on most UNIX
+workstations. Although we have confirmed that all programs can be
+compiled in the following environments:
+
+  SunOS, Solaris, HP-UX, Free-BSD, OSF1, Linux
+
+we have not confirmed that all programs can work properly in all these
+environments since we are debugging them mainly on SunOS and HP-UX.
+
+Note that some commands need C-shell (/bin/csh) since they are
+implemented by C-shell scripts.
+
+*******************
+   Installation
+*******************
+
+0) Enter 'src' directory.
+
+1) Read the comments in "Makefile" and make any necessary changes.
+
+2) To build and install all tools, type:
+
+	% make
+	% make install
+
+The X-window library is not required for compilation of all tools
+except a command 'xgr' since only 'xgr' uses the X-window library.
+
+**************
+    Notice
+**************
+
+As the version advances, specifications for the Speech Signal
+Processing Toolkit will be changed without notifications.
+
+The distributed tools are a sub-set of the whole toolkit.  Therefore,
+some commands which appear at EXAMPLE and SEE ALSO in the Reference
+Manual may not be included in this version.
+
+******************
+    Bug Report
+******************
+
+Bug reports, comments, questions for the Speech Signal Processing
+Toolkit are very welcome.  Please send them to
+
+   dsp-cmnd@ip.titech.ac.jp
+
+by email. We will reply to any questions as much as possible but we
+cannot assure that we will reply to all messages.
+
+Please see
+
+   http://kt-lab.ics.nitech.ac.jp/~tokuda/SPTK/
+
+for more information about the Speech Signal Processing Toolkit,
+(e.g., Examples for using Speech Signal Processing Toolkit).
+
+*************
+    Notes
+*************
+
+Generic properties of each command are summarized as follows:
+
+i) Data has float-type format, i.e., single-precision floating point
+format.  This can be changed to double-type format by specifying a
+compile option. It is noted that in the current version the "float"
+specifications in the help messages do not change by the compile
+option.
+
+ii) Data files do not have headers or any structures, i.e., they are
+flat row files.
+
+iii) Basically they manipulate data through standard input and
+standard output.
+
+iv) To display (error) messages they use standard error output rather
+than standard output.
+
+v) They do not request interactive key inputs.
+
+vi) Options are specified on the command line.
+
+***************
+    Credits
+***************
+
+Masatsune Tamura
+Toshihiko Kato
+Gou Hirabayashi
+Naohiro Isshiki
+Noboru Miyazaki
+

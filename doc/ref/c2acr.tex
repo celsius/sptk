@@ -1,0 +1,41 @@
+\name{c2acr}{ケプストラムから自己相関を求める}
+
+\begin{synopsis}
+\item[c2acr] [ --m $M_1$ ] [ --M $M_2$ ] [ --l $L$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+標準入力から入力される $M_1$ 次のケプストラム
+\begin{displaymath}
+c(0), c(1), \ldots, c(M_1)
+\end{displaymath}
+から，$M_2$ 次の自己相関
+\begin{displaymath}
+r(0), r(1), \ldots, r(M_2)
+\end{displaymath}
+を求めます．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+$M_1$ 次のケプストラムをフーリエ変換して，対数スペクトルを求め，
+パワースペクトルを計算します．
+このパワースペクトルを逆フーリエ変換し，自己相関を求めます．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M_1}{ケプストラムの次数．}{25}
+	\argm{M}{M_2}{自己相関の次数．}{25}
+	\argm{l}{L}{FFT 長．}{256}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式の30次のケプストラムファイル {\em data.cep} から
+自己相関を介して15次の線形予測係数を求め，{\em data.lpc} に出力する:
+\begin{quote}
+  \verb!c2acr -m 30 -M 15 < data.cep | lev_dur -n 15 > data.lpc!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  uels, c2sp, c2ir, lpc2c 
+\end{qsection}

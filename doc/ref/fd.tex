@@ -1,0 +1,59 @@
+\name{fd}{バイナリデータのダンプ}
+\begin{synopsis}
+ \item [fd] [ --a $A$ ] [ --n $N$ ] [ --m $M$ ] [ --{\em ent} ] 
+	    [ +{\em type} ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+指定されたファイルの全データを，指定されたフォーマットでダンプします．
+ファイルが指定されなかった場合，データは標準入力から読み込まれます．
+\end{qsection}
+
+\begin{options}
+	\argm{a}{A}{アドレスつきで出力． $A$ は最初のアドレス．}{0}
+	\argm{n}{N}{番号付きで出力． $N$ は最初の番号．}{0}
+	\argm{m}{M}{番号付けを行なう場合に $M$ による modulo をとる．}{EOF}
+	\argm{{\em ent}}{}{{\em ent}は数字で，1行に出力するデータの個数．}{0}
+	\argp{t}{入力データの形式． \\
+		\begin{tabular}{llcll} \\[-1zh]
+			c & char型 (1byte) & \quad &
+			s & short型 (2bytes) \\
+			i & int型 (4bytes) & \quad &
+			l & long型 (4bytes) \\
+			f & float型 (4bytes) & \quad &
+			d & double型 (8bytes) 
+		\end{tabular}\\\hspace*{\fill}}{c}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+short形式のファイル{\em data.s}に入っている整数を1行に10個ずつ表示する:
+\begin{quote}
+ \verb!fd +s -10 data.s!
+\end{quote}
+ 結果\\
+\verb!      2      3      4      4      2     10     34     12     43    122!
+\verb!     22      1     42     12     23     32     12    442     12     12!
+\begin{center}
+ $\vdots$\\
+\end{center}
+float形式のファイル{\em data.f}に入っている整数を1行に1個ずつ番号付きで表示する
+（番号は0から初め4で終る）:
+\begin{quote}
+ \verb!fd +f -1 -n 0 -m 5 data.f!
+\end{quote}
+結果\\
+\verb!      0    1.583467e-43!\\
+\verb!      1    1.401298e-40!\\
+\verb!      2    5.510138e-39!\\
+\verb!      3   -2.302387e-01!\\
+\verb!      4    1.786671e-02!\\
+\verb!      0    2.517172e-02!\\
+\verb!      1   -2.194112e-01!\\
+\verb!      2   -6.433672e-02!\\
+\verb!      3   -2.109757e-01!\\
+\verb!             !$\vdots$
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ dmp
+\end{qsection}

@@ -1,0 +1,24 @@
+\name{echo2}{標準エラーへの出力}
+
+\begin{synopsis}
+\item[echo2] [ --n ] [ argument ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+
+{\em echo2} は，引数を標準エラーに出力します．
+
+\end{qsection}
+
+\begin{options}
+	\argm{n}{}{出力後に改行しません．}{}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+standard errorに改行せずに，''error!''と出力する．
+\begin{quote}
+  \begin{verbatim}
+  echo2 -n "error!"
+  \end{verbatim}
+\end{quote}
+\end{qsection}

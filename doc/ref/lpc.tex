@@ -1,0 +1,40 @@
+\name{lpc}{線形予測分析}
+
+\begin{synopsis}
+\item [lpc] [ --l $L$ ] [ --m $M$ ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+線形予測分析を行います．
+指定されたファイルから窓掛けされた長さ $L$ の時系列
+\begin{displaymath}
+  x(0),x(1),\ldots,x(L-1)
+\end{displaymath}
+を読み込み，まず自己相関を計算します（acorr参照）．
+次に，レビンソン・ダービンの算法により線形予測係数
+\begin{displaymath}
+  K, a(1), \ldots, a(M)
+\end{displaymath}
+を求め（levdur参照），標準出力に出力します．
+ここで，$K$ はゲインを表しています．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{入力データのフレーム長．}{256}
+	\argm{m}{M}{分析次数．}{25}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル {\em data.f} を分析次数20次で線形予測分析し，
+線形予測係数を {\em data.lpc} に出力する:
+\begin{quote}
+ \verb!frame < data.f | window | lpc -m 20 > data.lpc!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ acorr, levdur, lpc2par, par2lpc, lpc2c, lpc2lsp, lsp2lpc, 
+ ltcdf, lspdf
+\end{qsection}

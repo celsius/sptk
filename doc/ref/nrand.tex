@@ -1,0 +1,25 @@
+\name{nrand}{正規雑音を発生する.}
+
+\begin{synopsis}
+\item[nrand] [ --l $L$ ] [ --s $S$ ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em nrand} は，正規雑音を発生し，標準出力に出力します．
+内部ではnrandとsrndを使っています．
+\par
+出力データは，float 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{発生する雑音系列の長さ．\\
+			ただし，$L \le 0$の時は無限に生成します．}{256}
+	\argm{s}{S}{乱数初期化のseed．}{1}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+長さ100の正規雑音系列を発生し {\em data.rnd} に出力する:
+\begin{quote}
+\verb!nrand -l 100 -s 3 > data.rnd!
+\end{quote}
+\end{qsection}

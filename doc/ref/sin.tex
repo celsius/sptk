@@ -1,0 +1,34 @@
+\name{sin}{正弦列を発生する}
+
+\begin{synopsis}
+\item[sin] [ --l $L$ ] [ --p $P$ ] [ --m $M$ ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+周期$P$ で，
+長さ$L$ ，高さ$M$ の離散正弦列
+\begin{displaymath}
+  x(n) = M\,\sin (\frac{2\pi}{P}\,n)
+\end{displaymath}
+を標準出力に出力します．
+\par
+出力データは，float 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{正弦波の長さ．\\
+			ただし，$L \le 0$なら無限に生成します．}{256}
+	\argm{p}{P}{正弦波の周期．}{10.0}
+	\argm{m}{M}{正弦波の振幅．}{1.0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+正弦波にブラックマン窓をかけた波形を画面に表示する:
+\begin{quote}
+\verb!sin -p 12.3 | window | fdrw | xgr!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  impulse, step, train, ramp
+\end{qsection}

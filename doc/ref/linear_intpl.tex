@@ -1,0 +1,54 @@
+\name{linear\_intpl}{データ列の直線補間}
+
+\begin{synopsis}
+\item[linear\_intpl] [ --l $L$ ] [ --m $M$ ] [ --x $x_{min} \; x_{max}$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+標準入力から入力される2次元データ列
+\begin{eqnarray*}
+&& x_0, y_0 \nonumber \\
+&& x_1, y_1 \nonumber \\
+&& \vdots   \\
+&& x_K, y_K \nonumber \\
+\end{eqnarray*}
+に対して，$x$ 軸を $L-1$ 点で等間隔に補間したときの $y$ 軸の値
+\begin{displaymath}
+y_0, y_1, \ldots, y_{L-1}
+\end{displaymath}
+を標準出力に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+このコマンドは，ディジタルフィルタの特性を与えるときなど，
+$x$ 軸が等間隔ではないデータ列に対して補間を行うことができます．
+
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{出力の長さ．}{256}
+	\argm{m}{M}{補間の点数．}{255}
+	\argm{x}{x_{min} \; x_{max}}{入力データのx座標の範囲
+					の最小値と最大値．}{$0.0 \, 0.5$}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル {\em data.f}には以下のデータが入っているとする．
+\begin{eqnarray*}
+&& 0, 2 \nonumber \\
+&& 2, 2 \nonumber \\
+&& 3, 0   \\
+&& 5, 1 \nonumber \\
+\end{eqnarray*}
+ここで
+\begin{quote}
+ \verb!linear_intpl -m 10 -x 0 5 < data.f > data.intpl!
+\end{quote}
+とすると，ファイル {\em data.intpl} には以下のデータが入る．
+\begin{displaymath}
+2, 2, 2, 2, 2, 1, 0, 0.25, 0.5, 0.75, 1
+\end{displaymath}
+\end{qsection}
+
+%\begin{qsection}{SEE ALSO}
+%\end{qsection}

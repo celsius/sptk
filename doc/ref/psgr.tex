@@ -1,0 +1,53 @@
+\name{psgr}{プロッタコマンド列 $\rightarrow$ PostScript}
+
+\begin{synopsis}
+ \item[psgr] [ --t {\em title} ] [ --s $S$ ] [ --c $C$ ] [ --x $X$ ]
+[ --y $Y$ ] [ --p P ] [ --r $R$ ] [ --b ] 
+\item[\ ~~~~~][ --T $T$ ] [ --B $B$ ]
+[ --L $L$ ] [ --R $R$ ] [ --P ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+標準入力からプロッタコマンド列を読み込んで，
+グラフ出力を PostScript (EPSF or PS) コードに変換し標準出力に出力します．
+\end{qsection}
+
+\begin{options}
+	\argm{t}{title}{タイトル．}{NULL}
+	\argm{s}{S}{描画サイズ縮小比率．}{1.0}
+	\argm{c}{C}{コピー部数．}{1}
+	\argm{x}{X}{x 軸のシフト．(mm)}{0}
+	\argm{y}{Y}{y 軸のシフト．(mm)}{0}
+	\argm{p}{P}{紙のサイズ．(Letter, A3, A4, A5, B4, B5)}{A4}
+	\argm{l}{}{ランドスケープ．}{FALSE}
+	\argm{r}{R}{解像度．(dpi)}{600}
+	\argm{b}{}{ボールドフォント．}{FALSE}
+	\argm{T}{T}{上部マージン．(mm)}{0}
+	\argm{B}{B}{下部マージン．(mm)}{0}
+	\argm{L}{L}{左側マージン．(mm)}{0}
+	\argm{R}{R}{右側マージン．(mm)}{0}
+	\argm{P}{}{PostScript code を出力．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+ fig で {\em data.fig} に含まれる図を描き、プリンターに出力する:
+\begin{quote}
+ \verb!fig data.fig | psgr | lpr!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{BUGS}
+\begin{itemize}
+\item Y軸名などの周辺部が欠ける可能性があります
+ユーザー側での対処法として，マージンによる修正を行なって下さい．
+
+\item シュリンクによって描画サイズを変更した場合，\TeX への取り込みの際に
+正しく反映されない場合があるかも知れません．そのような場合には，
+\TeX 側の取り込み時のオプションで処理して下さい．
+
+\end{itemize}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ fig, fdrw, xgr
+\end{qsection}
