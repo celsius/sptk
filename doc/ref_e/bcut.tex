@@ -54,7 +54,7 @@ then, the output file would contain the following data,
 If the stationary part, say from the sample 100,
 of the output of a digital filter excited with
 pulse train is desired, then the following command can be used:
-begin{quote}
+\begin{quote}
   \verb!train -p 10 -l 256 | dfs -a 1 0.8 0.6 | bcut -s 100 > data.cut!
 \end{quote}
 In this case, the file {\em data.cut} will contain 156 points.
