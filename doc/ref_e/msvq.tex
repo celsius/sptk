@@ -5,8 +5,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em msvq}は，指定されたファイルに対し，多段ベクトル量子化を行います．
--sオプションはステージの段数回繰り返して指定します．
+This command undertakes multi-stage vactor quantization in
+assinged file. 
+The -s option assigns the number of stage levels.
 \par
 Input data is in float format and output data is in int format.
 \end{qsection}
@@ -23,8 +24,10 @@ Input data is in float format and output data is in int format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-コードブックサイズ 256 のコードブック{\em cbfile1}と{\em cbfile2}による
-2 段 VQ で，{\em data.f}を量子化し，{\em data.vq} に出力します:
+In the example below, a two level vq is undertaken in input {\em data.f}
+file. the codebook sizes of 
+{\em cbfile1} and {\em cbfile2} are 256 and the output is written
+to {\em data.vq}:
 \begin{quote}
 \verb! msvq -s 256 cbfile1 -s 256 cbfile2 < data.f > data.vq!
 \end{quote} 
