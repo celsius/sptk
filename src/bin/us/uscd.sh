@@ -37,6 +37,8 @@ while($i < $#argv)
         case -s:
                 @ i++
                 set iext = $argv[$i]
+                breaksw
+        case -S:
                 @ i++
                 set oext = $argv[$i]
                 breaksw
@@ -175,9 +177,9 @@ cat2 <<EOF
        $cmnd [ options ] [ infile1 ] [ infile2 ] ... [ outdir ]
 
   options:
-       -s s1 s2 : input/output sampling frequency            [10]
-                     input   8, 10, 12, 16kHz
-                     output  11.025, 22.05, 44.1kHz
+       -s s     : input sampling frequency (8,10,12,16kHz)   [10]
+       -S s     : output sampling frequency 
+                                      (11.025,22.05,44.1kHz) [11.025]
        +x       : data format                                [s]
                      s(short)   f(float)
        -h       : print this message
