@@ -5,7 +5,7 @@
 set CMND	= $0
 set CMND	= $CMND:t
 
-set TODAY	= `date +%y%m%d`
+set TODAY	= `date +%y%m%d%H%M`
 set BASEDIR	= ..
 set MKDISTDIR	= .
 set ARCHIVEDIR	= $MKDISTDIR/release
