@@ -1,4 +1,4 @@
-\name{fftr}{実数列の高速フーリエ変換}{信号処理}
+\name{fftr}{FFT for real sequence}{signal processing}
 
 \begin{synopsis}
  \item[fftr] [ --l $L$ ] [ --m $M$] [ --\{ A $|$ R $|$ I $|$ P \} ] [ --H ]
@@ -6,16 +6,20 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-実数列を{\em infile} から読み込み，FFT アルゴリズムによりDFT を実行します．
-{\em infile} の指定がないときには，標準入力からデータが読み込まれます．
-データ形式は入出力ともfloat 形です．
+This command reads a sequence of real numbers from {\em infile}
+and undertakes its DFT through the FFT algorithm.
+When the input file is not assigned, data is read from the starndard
+input.
+Input and output data are in float format.
 \par
-{\bf --m} オプションで $M$ の指定がなく，かつ入力系列長がFFT サイズより
-短い場合，入力系列に0 を付加してFFT を実行します．
+When the {\bf --m} option is omitted
+and the input data sequence length is less than FFT size,
+then the input file is padded with 0 and the FFT is evaluated
+as examplified below.
 
 \begin{displaymath}
 \begin{array}{lll}
-\mbox{入力系列} & 
+\mbox{Input sequence} & 
 \overbrace{\framebox[4.5cm]{$x_0, x_1, \ldots, x_{M}, 0,
 					\ldots,0$}}^{L}  & \\
 		& \makebox[4.5cm]{0\hfill $L-1$} &
@@ -23,8 +27,8 @@
 \end{displaymath}
 \begin{displaymath}
 \begin{array}{lll}
-\mbox{出力系列} & \overbrace{\framebox[4.5cm]{実　部}}^{L} &
-	   \overbrace{\framebox[4.5cm]{虚　部}}^{L} \\
+\mbox{Output sequence} & \overbrace{\framebox[4.5cm]{real part}}^{L} &
+	   \overbrace{\framebox[4.5cm]{imaginary part}}^{L} \\
 		& \makebox[4.5cm]{0\hfill $L-1$} &
 		\makebox[4.5cm]{0\hfill $L-1$}
 \end{array}
@@ -32,27 +36,23 @@
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{フーリエ変換のサイズ．2のべき乗で指定．}{256}
-	\argm{m}{M}{実系列の次数．}{L-1}
-	\argm{A}{}{振幅スペクトルを出力．}{FALSE}
-	\argm{R}{}{実部のみを出力．}{FALSE}
-	\argm{I}{}{虚部のみを出力．}{FALSE}
-	\argm{P}{}{パワースペクトルを出力．}{FALSE}
-	\argm{H}{}{出力系列を $(L/2+1)$ 個とする．}{FALSE}
-%	 \footnote{実部は偶関数，虚部は奇関数でもあることに注意．}
+	\argm{l}{L}{FFT size power of 2}{256}
+	\argm{m}{M}{order of sequence}{L-1}
+	\argm{A}{}{output magnitude}{FALSE}
+	\argm{R}{}{output real part}{FALSE}
+	\argm{I}{}{output imaginary part}{FALSE}
+	\argm{P}{}{output power spectrum}{FALSE}
+	\argm{H}{}{output half size}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-正弦波にブラックマン窓をかけ，DFT 行った結果の振幅をプロットする:
+In the example below, sine wave is passed through Blackman window,
+its DFT is evaluated and the magnitude is plotted:
 \begin{quote}
   \verb!sin -t 30 | window | fftr -A | fdrw | xgr!
 \end{quote}
 
 \end{qsection}
-
-%\begin{qsection}{BUGS}
-%FFTのサイズは1024以下．
-%\end{qsection}
 
 \begin{qsection}{SEE ALSO}
   fft, spec, phase
