@@ -95,7 +95,7 @@ size_t		abuf_size;
 int	org_vol, org_channels, org_precision, org_freq;
 #endif /* LINUX */
 
-#ifdef SOLARIS
+#if defined(SOLARIS) || defined(SUNOS)
 audio_info_t	org_data;
 #endif /* SOLARIS */
 void		reset_audiodev();
