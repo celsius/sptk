@@ -9,6 +9,7 @@ set SNAPDIR	= $MKDISTDIR/snapshot
 set LIST	= $MKDISTDIR/list.all
 set ARCHIVE	= SPTK-snap-$TODAY
 set DOCUMENT	= SPTK-doc-snap-$TODAY
+set EDOCUMENT	= SPTK-doc_e-snap-$TODAY
 
 if ( ! -d $SNAPDIR ) then
 	rm -rf $SNAPDIR
@@ -17,8 +18,9 @@ endif
 
 if ( -f $ARCHIVE.tar.gz ) mv $ARCHIVE.tar.gz{,.old}
 if ( -f $DOCUMENT.tar.gz ) mv $DOCUMENT.tar.gz{,.old}
+if ( -f $EDOCUMENT.tar.gz ) mv $EDOCUMENT.tar.gz{,.old}
 
-rm -rf $ARCHIVE $DOCUMENT
+rm -rf $ARCHIVE $DOCUMENT $EDOCUMENT
 
 make -f $MKDISTDIR/Makefile SOURCEDIR=$BASEDIR TARGETDIR=$ARCHIVE `cat $LIST` \
   && tar cfz $ARCHIVE.tar.gz $ARCHIVE \
@@ -30,10 +32,15 @@ $MKDISTDIR/cp-tex.pl -v -l $LIST -d $DOCUMENT \
   && rm -rf $DOCUMENT
 if ( -f $DOCUMENT.tar.gz ) mv $DOCUMENT.tar.gz $SNAPDIR
 
+$MKDISTDIR/cp-tex-e.pl -v -l $LIST -d $EDOCUMENT \
+  && tar cfz $EDOCUMENT.tar.gz $EDOCUMENT \
+  && rm -rf $EDOCUMENT
+if ( -f $EDOCUMENT.tar.gz ) mv $EDOCUMENT.tar.gz $SNAPDIR
+
 goto END
 
 CLEAR:
-rm -rf $ARCHIVE $DOCUMENT
+rm -rf $ARCHIVE $DOCUMENT $EDOCUMENT
 
 END:
 
