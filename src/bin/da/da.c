@@ -8,7 +8,8 @@
 *       usage:                                                          *
 *               da [ options ] infile1 infile2 ... > stdout             *
 *       options:                                                        *
-*               -s s  :  sampling frequency (8,10,12,16,20,22 kHz)[10]  *
+*               -s s  :  sampling frequency (8,10,12,16,32,48           *
+*                                            11.025,22.05,44.1kHz)[10]  *
 *               -c c  :  filename of low pass filter coef.   [Default]  *
 *               -g g  :  gain (.., -2, -1, 0, 1, 2, ..)            [0]  *
 *               -a a  :  amplitude gain (0..100)                 [N/A]	*
@@ -102,7 +103,7 @@ char	*argv[];
 	if((s = getenv("DA_FLOAT")) != NULL)
 		data_size = sizeof(float);
 	if((s = getenv("DA_SMPLFREQ")) != NULL)
-		freq = atoi(s);
+		freq = (int)(1000*atof(s));
 	if((s = getenv("DA_GAIN")) != NULL)
 		gain = atoi(s) + INITGAIN;
 	if((s = getenv("DA_AMPGAIN")) != NULL)
@@ -122,7 +123,7 @@ char	*argv[];
 		c = *++s;
 		switch(c) {
 		    case 's':
-			freq = atoi(*++argv);
+			freq = (int)(1000*atof(*++argv));
 			--argc;
 			break;
 	  	    case 'g':
@@ -241,25 +242,34 @@ void sndinit()
 	void	init_audiodev(), change_play_gain(), change_output_port();
 
 	switch(freq) {	
-	case 8:
+	case 8000:
 		dtype =_8000_16BIT_LINEAR;
 		break;
-	case 11:
+	case 11000:
 		dtype =_11025_16BIT_LINEAR;
 		break;
-	case 16:
+	case 11025:
+		dtype =_11025_16BIT_LINEAR;
+		break;
+	case 16000:
 		dtype =_16000_16BIT_LINEAR;
 		break;
-	case 22:
+	case 22000:
 		dtype =_22050_16BIT_LINEAR;
 		break;
-	case 32:
+	case 22050:
+		dtype =_22050_16BIT_LINEAR;
+		break;
+	case 32000:
 		dtype =_32000_16BIT_LINEAR;
 		break;
-	case 44:
+	case 44000:
 		dtype =_44100_16BIT_LINEAR;
 		break;
-	case 48:
+	case 44100:
+		dtype =_44100_16BIT_LINEAR;
+		break;
+	case 48000:
 		dtype =_48000_16BIT_LINEAR;
 		break;
 	default:
