@@ -24,6 +24,9 @@ XLIBS		= -lX11
 # Some systems should replace 'install -cs' with 'cp'.
 #
 CC		= gcc -O2
+# CC		= /usr/bin/cc +e -Aa -O			# for HP-UX 10.20
+# CC		= /usr/bin/cc -arch ev56 -fast -std1	# for Alpha EV56 processors (some 21164 chips)
+# CC		= /usr/bin/cc -arch ev6 -fast -std1	# for Alpha EV6 processors (21264 chips)
 RM		= rm -rf
 INSTALL		= install -cs
 
