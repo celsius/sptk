@@ -26,12 +26,13 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.1 2000/03/01 13:58:50 yossie Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.2 2000/03/27 07:25:59 nankaku Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 
@@ -51,19 +52,19 @@ char	*cmnd;
 void usage(int status)
 {
     fprintf(stderr, "\n");
-    fprintf(stderr, " %s - SNR and SNR_seg\n",cmnd);
+    fprintf(stderr, " %s - SNR and SNR_seg\n", cmnd);
     fprintf(stderr, "\n");
     fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] file1 [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "      -l l  : frame length                         [%d]\n", LENG);
-    fprintf(stderr, "      +ab   : input data type (a: file1, b: file2) [sf]\n",LENG);
+    fprintf(stderr, "      +ab   : input data type (a: file1, b: file2) [sf]\n", LENG);
     fprintf(stderr, "                s (short)  f (float) \n");
     fprintf(stderr, "      -o o  : output type                          [%d]\n", OTYPE);
-    fprintf(stderr, "                0 (SNR and SNRseg)\n");
-    fprintf(stderr, "                1 (SNR and SNRseg in datail)\n");
-    fprintf(stderr, "                2 (SNR)\n");
-    fprintf(stderr, "                3 (SNRseg)\n");
+    fprintf(stderr, "                0 SNR and SNRseg           (ascii)\n");
+    fprintf(stderr, "                1 SNR and SNRseg in datail (ascii)\n");
+    fprintf(stderr, "                2 SNR                      (float)\n");
+    fprintf(stderr, "                3 SNRseg                   (float)\n");
     fprintf(stderr, "      -h    : print this message\n");
     fprintf(stderr, "  infile:\n");
     fprintf(stderr, "      data sequence                                [stdin]\n");
@@ -165,7 +166,6 @@ void main(int argc, char **argv)
 	    pw1snr += x[i] * x[i];
 	    sub = x[i] - y[i];
 	    pw2snr += sub * sub;
-	    
 	}
 
 	count += size;
