@@ -1,0 +1,106 @@
+\name{spec}{対数スペクトルを求める}{信号処理}
+
+\begin{synopsis}
+ \item[spec]   [ --l $L$ ] [ --m $M$ ] [ --n $N$ ] [ --z {\em zfile} ]
+               [ --p {\em pfile} ]
+ \item[\ ~~~~] [ --y $Y$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+標準入力から入力された実数列の対数振幅スペクトルを計算します．
+つまり，
+入力数列を
+\begin{displaymath}
+  x(0), x(1), \ldots, x(L-1)
+\end{displaymath}
+として，
+\begin{eqnarray*}
+  X_k &=& X(e^{j\omega}) \left|
+	\begin{array}{c}
+	\\
+        \omega=\frac{2\pi k}{L}
+	\end{array}
+    \right. \nonumber \\
+          &=& \sum_{m=0}^{L-1}x(m)e^{-j\omega m} \left|
+	\begin{array}{c}
+	\\
+        \omega=\frac{2\pi\, k}{L}
+	\end{array}
+    \right.,~~~~ k=0,1,\ldots,L-1
+\end{eqnarray*}
+をFFT により計算し，{\bf --y} オプションの指定に従って，
+\begin{displaymath}
+  Y_k=20\,\log_{10}\,|X_k|,~~~~ k=0,1,\ldots,L/2
+\end{displaymath}
+などを出力します．
+出力されるデータは，角周波数$0\sim \pi$ に対応します．
+データ形式は入力，出力ともfloat 形式です．
+\par
+{\bf --p, --z} オプションが指定されたときには，
+指定されたファイルを係数としてもつディジタルフィルタの周波数特性を，
+同様に出力します\footnote{
+この際、フィルタのインパルス応答から振幅特性を求めるのではなく，
+分子係数，分母係数から別々に振幅特性を求め，
+その商によって，全体の特性を求めています．}．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{FFT の点数．2 のべき乗数を指定．}{256}
+	\argm{m}{M}{伝達関数の分子多項式の次数．
+			実際に入力されたデータ数が，
+			$M+1$ より少なかった場合には，
+			$M=(\mbox{実際の入力データ数})-1$ となるので，
+			長さ$M+1$ のデータを何組か続けて入力する場合以外は，
+			$M$ の指定は必要ありません．}{L-1}
+	\argm{n}{N}{伝達関数の分母多項式の次数．
+			{\bf --m} オプションと同様，
+			実際に入力されたデータ数が，
+			$N+1$ より少なかった場合には，
+			$N=(\mbox{実際の入力データ数})-1$ となるので，
+			長さ$N+1$ のデータを何組か続けて入力する場合以外は，
+			$N$ の指定は必要ありません．}{L-1}
+	\argm{z}{zfile}{伝達関数の分子多項式の係数が書かれたファイル．
+			ファイルの内容はfloat 形式で次のように与えます．\\
+			\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\[-1zh]}{NULL}
+	\argm{p}{pfile}{伝達関数の分母多項式の係数が書かれたファイル．
+			ファイル内容はfloat 形式で次のように与えます．\\
+			\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
+	\argm{y}{Y}{出力するスペクトルのスケールを指定．\\
+			\begin{tabular}{lll} \\[-1zh]
+			$Y=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\ldots,L/2$\\
+			$Y=1$ & ~~~$\ln |X_k|$ & $k=0,1,\ldots,L/2$\\
+			$Y=2$ & ~~~$|X_k|$ & $k=0,1,\ldots,L/2$\\
+			\end{tabular} \\\hspace*{\fill}}{0}
+	\desc{
+{\em pfile}, {\em zfile} の内容は，{\em dfs} の場合と同じです．\\
+{\bf --p}，{\bf --z} オプションの内，
+{\bf --p} オプションだけが指定された場合，
+分子多項式は1 として扱われ、
+{\bf --z} オプションだけが指定された場合には，
+分母多項式，ゲイン$K$ とも1 として扱われます．
+{\bf --p}，{\bf --z} オプションいずれも省略された場合には，
+データは標準入力から読まれます． }
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+パルス列で励振したディジタルフィルタの出力にブラックマン窓をかけ，
+その対数振幅スペクトルを表示する:
+\begin{quote}
+  \verb!train -t 50 | dfs -a 1 0.9 | window | spec | fdrw | xgr !
+\end{quote}
+\par
+float形式のファイル{\em data.p, data.z} で指定された係数をもつ
+ディジタルフィルタの周波数特性を表示する:
+\begin{quote}
+  \verb!spec -p data.p -z data.z | fdrw | xgr !
+\end{quote}
+{\em data.p}, {\em data.z} の表すフィルタが安定な場合には，
+\begin{quote}
+  \verb!impulse | dfs -p data.p -z data.z | spec | fdrw | xgr !
+\end{quote}
+としてもほぼ同様の結果が得られます．
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  phase, fft, fftr, dfs
+\end{qsection}

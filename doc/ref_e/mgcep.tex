@@ -1,0 +1,166 @@
+\name[ref:mgcep-IEICE,ref:mgcep-ICSLP94]{mgcep}%
+{メル一般化ケプストラム分析}{音声分析}
+
+\begin{synopsis}
+\item[mgcep]   [ --a $A$ ] [ --g $G$ ] [ --m $M$ ] [ --l $L$ ] 
+	       [ --o $O$ ]
+\item[\ ~~~~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --p $P$ ] [ -- e $E$ ] 
+		 [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+メル一般化ケプストラム分析を行います．
+分析結果は，{\bf --o} オプションの指定に従った形式で，
+標準出力に出力します．
+入力は窓掛けされた長さ $L$ の時系列
+\begin{displaymath}
+  x(0),x(1),\ldots,x(L-1)
+\end{displaymath}
+です．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+メル一般化ケプストラム分析では，音声のスペクトルを $M$ 次の
+メル一般化ケプストラム $c_{\alpha, \gamma}(m)$ により
+\begin{eqnarray*}
+H(z) &=& s_\gamma^{-1}\left(
+	\sum_{m=0}^M c_{\alpha, \gamma}(m)z^{-m} \right) \\
+     &=& \left\{ \begin{array}{ll} \displaystyle
+	\left( 1+\gamma\sum_{m=1}^M c_{\alpha, \gamma}(m)\tilde{z}^{-m}
+		\right)^{1/\gamma}, & -1 \leq \gamma < 0 \\
+	\displaystyle \exp \sum_{m=1}^M c_{\alpha, \gamma}(m)\tilde{z}^{-m}, 
+		& \gamma=0
+	\end{array} \right.
+\end{eqnarray*}
+とモデル化し，対数スペクトルの不偏推定法
+における評価関数を適用します．
+ここで， $\tilde{z}^{-1}$ は1次のオールパス関数
+\begin{displaymath}
+\tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
+\end{displaymath}
+であり，その位相特性は標本化周波数10kHzの場合 $\alpha=0.35$ ，
+標本化周波数8kHzの場合 $\alpha=0.31$ と選べば，
+人間の音の高さに対する聴覚特性を表すメル尺度をよく近似します．
+\par
+ここでは，評価関数を最小にするメル一般化ケプストラムを求めるために，
+Newton--Raphson法が用いられています．
+\par
+メル一般化ケプストラム分析は，$\alpha$ 及び $\gamma$ の値により，
+他のいくつかの音声分析法を特別な場合として含みます．
+これらの関係は図 \ref{fig:mgcep_overview} のように表すことができます.
+
+\setcounter{figure}{0}
+\begin{figure}
+\begin{center}
+  \setlength{\unitlength}{1mm}
+  \begin{picture}(140,100)
+    \thicklines
+    \put(70,47.5){\oval(140,95)[b]}
+    \put(45,47.5){\oval(90,95)[tl]}
+    \put(95,47.5){\oval(90,95)[tr]}
+    \put(70,95){\makebox(0,0){$|\alpha|<1,\hspace{1em}-1\leq\gamma\leq 0$}}
+    \put(42.5,47.5){\oval(65,75)[b]}
+    \put(35,47.5){\oval(50,75)[tl]}
+    \put(50,47.5){\oval(50,75)[tr]}
+    \put(42.5,85){\makebox(0,0){$\alpha=0$}}
+    \put(75,55){\oval(110,20)[b]}
+    \put(90,55){\oval(140,20)[tl]}
+    \put(110,55){\oval(40,20)[tr]}
+    \put(100,65){\makebox(0,0){$\gamma=-1$}}
+    \put(75,30){\oval(110,20)[b]}
+    \put(90,30){\oval(140,20)[tl]}
+    \put(110,30){\oval(40,20)[tr]}
+    \put(100,40){\makebox(0,0){$\gamma=0$}}
+    \put(42.5,75){\makebox(0,0){{\gt 一般化ケプストラム分析}}}
+    \put(47.5,55){\makebox(0,0){{\gt 線形予測法}}}
+    \put(47.5,30){\makebox(0,0){
+      \shortstack{{\gt 対数スペクトルの}\\{\gt 不偏推定法}}}}
+    \put(107.5,80){\makebox(0,0){
+	\underline{\gt メル一般化ケプストラム分析}}}
+    \put(102.5,55){\makebox(0,0){{\gt メル線形予測法}}}
+    \put(102.5,30){\makebox(0,0){
+			{\gt メルケプストラム分析}}}
+  \end{picture}
+\caption{メル一般化ケプストラム分析と他手法との関係}
+\label{fig:mgcep_overview}
+\end{center}
+\end{figure}
+\end{qsection}
+
+\newpage
+\begin{options}
+	\argm{a}{A}{周波数圧縮パラメータ $\alpha$ ．}{0.35}
+	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma$．\\
+			 ただし，$G>1.0$ のときは $\gamma=-1/G$．}{0}
+	\argm{m}{M}{分析次数．}{25}
+	\argm{l}{L}{FFT の点数．2 のべき乗数で指定．}{256}
+	\argm{o}{O}{$O = 0$ のとき
+			\begin{displaymath}
+			  c_{\alpha, \gamma}(0), c_{\alpha, \gamma}(1), 
+			  \ldots, c_{\alpha, \gamma}(M)
+			\end{displaymath}
+			$O = 1$ のとき
+			\begin{displaymath}
+			  b_\gamma(0), b_\gamma(1), \ldots, b_\gamma(M)
+			\end{displaymath}
+			$O = 2$ のとき
+			\begin{displaymath}
+			  K_\alpha, c_{\alpha, \gamma}'(1), 
+			  \ldots, c_{\alpha, \gamma}'(M)
+			\end{displaymath}
+			$O = 3$ のとき
+			\begin{displaymath}
+			  K, b_\gamma'(1), \ldots, b_\gamma'(M)
+			\end{displaymath}
+			$O = 4$ のとき
+			\begin{displaymath}
+			  K_\alpha, \gamma\,c_{\alpha, \gamma}'(1), \ldots,
+			\gamma\,c_{\alpha, \gamma}'(M)
+			\end{displaymath}
+			$O = 5$ のとき
+			\begin{displaymath}
+			  K, \gamma\,b_\gamma'(1), \ldots, 
+			  \gamma\,b_\gamma'(M)
+			\end{displaymath}
+			が標準出力に出力されます．}{0}
+	\desc[1zh]{通常，以下のオプションの指定は必要ありません．}
+	\argm{i}{I}{Newton-Raphson法の最小反復回数．}{2}
+	\argm{j}{J}{Newton-Raphson法の最大反復回数．}{30}
+	\argm{d}{D}{Newton-Raphson 法の終了条件．
+			デフォルトは$D=0.001$ で，
+			このとき$\varepsilon^{(i)}$ の繰り返しによる変化率が
+			$0.001$ つまり$0.1\%$ 以内になったとき終了します．
+			}{0.001}
+	\argm{p}{P}{再帰式の打ち切り次数．
+			特に，処理時間を短くしたい場合以外，$P$ の指定は必要ありません．
+			}{$L-1$}
+	\argm{e}{E}{ピリオドグラムに足し込む小さな値}{0}	
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式の音声データ{\em data.f} を$\gamma=0$, $\alpha=0$
+ (つまり対数スペクトルの不偏推定法)で分析し，{\em data.cep} に
+ケプストラム係数を得る:
+\begin{quote}
+  \verb!frame < data.f | window | mgcep > data.cep !
+\end{quote}
+\par
+同様にメルケプストラム係数を{\em data.mcep} に得る:
+\begin{quote}
+ \verb!frame < data.f | window | mgcep -a 0.35 > data.mcep !
+\end{quote}
+\par
+同様に線形予測係数を{\em data.lpc} に得る:
+\begin{quote}
+  \verb!frame < data.f | window | mgcep -g -1 -o 5 > data.lpc !
+\end{quote}
+この際，予測係数は，
+\begin{displaymath}
+  K, a(1), a(2), \ldots, a(M)
+\end{displaymath}
+の形式で得られます．
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ uels, gcep, mcep, freqt, gc2gc, mgc2mgc, gnorm, mglsadf
+\end{qsection}

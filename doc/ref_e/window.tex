@@ -1,0 +1,68 @@
+\name{window}{窓をかける}{信号処理,音声分析合成関連}
+
+\begin{synopsis}
+\item[window] [ --l $L_1$ ] [ --L $L_2$] [ --n $N$ ] [ --w $W$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+標準入力から入力される
+実数列にオプションで指定された窓をかけます．
+つまり，
+入力数列を
+\begin{displaymath}
+  x(0), x(1), \ldots, x(L_1-1)
+\end{displaymath}
+窓を
+\begin{displaymath}
+  w(0), w(1), \ldots, w(L_1-1)
+\end{displaymath}
+として，
+\begin{displaymath}
+  x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1)
+\end{displaymath}
+が出力されます．
+$L_2$が$L_1$より大きい場合は0が付加され，
+\begin{displaymath}
+  \underbrace{x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1),0,\ldots,0}_{L_2}
+\end{displaymath}
+が出力されます．
+
+データ形式は入力，出力ともfloat 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L_1}{窓の長さ． $(L\leq 2048)$}{256}
+	\argm{L}{L_2}{出力の長さ．}{$L_1$}
+	\argm{n}{N}{正規化． \\
+			\begin{tabular}{ll}\\ [-1zh]
+			 0 & 正規化しない．\\
+			 1 & 窓の振幅を $\displaystyle \sum_{n=0}^{L-1} w^2(n) = 1$ となるように正規化．\\
+			 2 & 窓の振幅を $\displaystyle \sum_{n=0}^{L-1} w(n) = 1$となるように正規化．\\
+			 \end{tabular}\\\hspace*{\fill}}{1}
+	\argm{w}{W}{窓の形．\\
+			\begin{tabular}{ll}\\ [-1zh]
+			 0 & blackman \\
+			 1 & hamming \\
+			 2 & hanning \\
+			 3 & bartlett \\
+			 4 & rectangular \\
+			\end{tabular}\\\hspace*{\fill}}{0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+周期20の正弦波に，ブラックマン窓をかけた波形を表示する:
+\begin{quote}
+  \verb!sin -p 20 | window | fdrw | xgr !
+\end{quote}
+\par
+パルス列で励振したディジタルフィルタの出力に窓長256点のブラックマン窓をかけ，
+その対数振幅スペクトルを512点のFFTによって計算し表示する:
+\begin{quote}
+\verb!train -p 50 | dfs -a 1 0.9 | window -l 50 -L 512 |\! \\
+\verb!spec -l 512 | fdrw | xgr!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  fftr, spec
+\end{qsection}

@@ -1,0 +1,72 @@
+\name{lpc2par}{LPCから反射係数を求める}{音声パラメータ変換}
+
+\begin{synopsis}
+\item [lpc2par] [ --m $M$ ] [ --g $G$ ] [ --s ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+線形予測係数から反射係数(PARCOR)を求めます．
+指定されたファイルから $M$ 次の線形予測係数
+\begin{displaymath}
+  K, a(1),\ldots, a(M)
+\end{displaymath}
+を読み込み，反射係数
+\begin{displaymath}
+  K, k(1),\ldots, k(M)
+\end{displaymath}
+を標準出力に出力します．
+また， --s オプションを指定した場合には，安定性の判別を行い，安定の場合には
+0，不安定の場合には1が標準出力に出力されます．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+線形予測係数から反射係数を求める変換は，
+\begin{eqnarray*} 
+k(m) &=& a^{(m)}(m) \\
+a^{(m-1)}(i) &=& \frac{a^{(m)}(i)+a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)},
+~~~~~1 \leq i \leq m-1
+\end{eqnarray*}
+を $m=p, p-1, \ldots, 1$ の順に繰り返します．ここで，初期条件は
+\begin{displaymath}
+a^{(M)}(m) = a(m), ~~~~~1 \leq m \leq M
+\end{displaymath}
+です．
+--gオプションを指定した場合，べきパラメータを$\gamma$とする
+正規化一般化ケプストラムを入力として，反射係数を求めます．
+この場合入力
+\begin{displaymath}
+K,c_\gamma'(1),\ldots,c_\gamma'(M)
+\end{displaymath}
+を読み込み，
+\begin{displaymath}
+a^{(M)}(m) = \gamma c_\gamma'(M), ~~~~~1 \leq m \leq M
+\end{displaymath}
+として，計算します．
+
+また，安定性の判別する際には，反射係数がすべて
+\begin{displaymath}
+-1 < k(m) < 1
+\end{displaymath}
+という条件を満たしているか調べています．
+
+\end{qsection}
+
+\newpage
+\begin{options}
+	\argm{m}{M}{LPCの次数．}{25}
+	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma$．\\
+			 ただし，$G>1.0$ のときは $\gamma=-1/G$．}{1}
+	\argm{s}{}{安定性を判別し，安定ならば0，不安定ならば1を出力．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル {\em data.f} を線形予測分析し，線形予測係数を
+反射係数に変換し，{\em data.rc} に出力する:
+\begin{quote}
+ \verb!frame < data.f | window | lpc | lpc2par > data.rc!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ acorr, levdur, lpc, par2lpc, ltcdf
+\end{qsection}

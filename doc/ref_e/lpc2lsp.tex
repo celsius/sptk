@@ -1,0 +1,100 @@
+\name{lpc2lsp}{LPC から LSP に変換}{音声パラメータ変換}
+
+\begin{synopsis}
+\item [lpc2lsp] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --o $O$ ] [ --n $N$ ]
+		[ --p $P$ ] [ --q $Q$ ] [ --d $D$ ] 
+\item [\ ~~~~~~~~] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em lpc2lsp}は，指定されたファイルから線形予測係数
+\begin{displaymath}
+  K, a(1), \ldots, a(M)
+\end{displaymath}
+を読み込み，LSP 係数を計算し，標準出力に出力します．
+ここで，$K$ はゲインを表していますが，
+得られる LSP 係数の値には影響を及ぼしません．
+\par
+$M$ 次の線形予測多項式 $A(z)$ は
+\begin{displaymath}
+  A_M(z) = 1 + \sum_{m=1}^M a(m) z^{-m}
+\end{displaymath}
+で与えられ，PARCOR 係数を用いた漸化式
+\begin{eqnarray*}
+  A_m(z) &=& A_{m-1}(z) - k(m) B_{m-1}(z) \\
+  B_m(z) &=& z^{-1} (B_{m-1}(z) - k(m) A_{m-1}(z))
+\end{eqnarray*}
+を満足します．但し，初期条件は次の通りです．
+\begin{displaymath}
+  A_0(z) = 1,~~~B_0(z) = z^{-1}
+\end{displaymath}
+いま，$M$ 次の線形予測多項式 $A_M(z)$が与えられたとき，
+$k(M+1)$ を $1$ および $-1$ としたときの $A_{M+1}(z)$ を
+それぞれ $P(z)$ と $Q(z)$ で表すと
+\begin{eqnarray*}
+  P(z) &=& A_M(z) - B_M(z) \\
+  Q(z) &=& A_M(z) + B_M(z)
+\end{eqnarray*}
+となります．ここで，$k(M+1)$ を $\pm 1$ とすることは，
+PARCOR 係数によって定まる擬声道モデルの声門での
+境界条件を完全反射とすることに対応しています．
+また，$A_M(z)$ は $P(z)$ と $Q(z)$ により
+\begin{displaymath}
+  A_M(z) = ( P(z) + Q(z) ) / 2
+\end{displaymath}
+と表されます．$A_M(z)$ をこのように表現したとき，
+$A_M(z)$ が安定，つまり $A_M(z)=0$ のすべての根が
+単位円内に存在するための必要十分条件は次のように与えられます．
+\begin{itemize}
+\item $P(z)=0$ と $Q(z)=0$ の根はすべて単位円上にある．
+\item $P(z)=0$ と $Q(z)=0$ の根は円周上で互いに他を隔離する．
+\end{itemize}
+すなわち，$P(z)=0$ と $Q(z)=0$ の根が上記の性質を
+満たせば，$A_M(z)$ は安定となります．
+\par
+ここで，$M$ を偶数と仮定すると，
+$P(z)$ と $Q(z)$ は次のように因数分解されます．
+\begin{eqnarray*}
+  P(z) &=& ( 1 - z^{-1} ) \prod_{i=2,4,\cdots,M}
+           ( 1 - 2 z^{-1} \cos \omega_i + z^{-2} ) \\
+  Q(z) &=& ( 1 + z^{-1} ) \prod_{i=1,3,\cdots,M-1}
+           ( 1 - 2 z^{-1} \cos \omega_i + z^{-2} )
+\end{eqnarray*}
+ただし，$\omega_i$ は次の関係を満たすように順序付けされています．
+奇数の場合も同様に求めることができます．
+\begin{displaymath}
+  0 < \omega_1 < \omega_2 < \cdots < \omega_{M-1} < \omega_M < \pi
+\end{displaymath}
+この因数分解に現れる $\omega_i$ をLSPと呼びます．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{LPC の次数．}{25}
+	\argm{s}{S}{サンプリング周波数 (kHz)．}{10}
+	\argm{k}{}{ゲインを出力する}{TRUE}
+	\argm{o}{O}{出力形式． \\
+		\begin{tabular}{ll} \\[-1zh]
+			$0$ & 規格化周波数 $(0 \ldots \pi)$ \\
+			$1$ & 規格化周波数 $(0 \ldots 0.5)$ \\
+			$2$ & 周波数 (kHz) \\
+			$3$ & 周波数 (Hz)  \\
+		\end{tabular}\\\hspace*{\fill}}{0}
+	\desc[0.6zh]{通常，以下のオプションの指定は必要ありません．}
+	\argm{n}{N}{unit circle の split 数．}{128}
+	\argm{p}{P}{$P(z)$ の補間の最大数．}{4}
+	\argm{q}{Q}{$Q(z)$ の補間の最大数．}{15}
+	\argm{d}{D}{補間の終了状態．}{1e-06}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の音声ファイル {\em data.f} から10次のLPC係数を求め，さらに
+LSP係数を求め {\em data.lsp}に出力する:
+\begin{quote}
+\verb!frame < data.f | window | lpc -m 10 |\!\\
+\verb!lpc2lsp -m 10 > data.lsp!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+lpc, lsp2lpc, lspdf
+\end{qsection}

@@ -1,0 +1,71 @@
+\name[ref:smcep-IEICE]{smcep}%
+{2次オールパス関数を用いたメルケプストラム分析}{音声分析}
+
+\begin{synopsis}
+\item [smcep] [ --a $A$ ] [ --t $T$ ] [ --m $M$ ] [ --l $L$ ]
+\item [\ ~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --e $E$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+2次オールパス関数を1/2乗したシステム関数 $A(z)$
+\begin{displaymath}
+A(z)=
+\left(
+\frac{z^{-2}-2\alpha \cos \theta z^{-1}+\alpha^2}
+	{1-2\alpha \cos \theta z^{-1}+\alpha^2 z^{-2}}
+\right)^{\frac{1}{2}}
+\tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
+\end{displaymath}
+を用いたメルケプストラム分析を行い，
+メルケプストラム係数 $c(m)$ を標準出力に出力します．
+入力は長さ$L$ の時系列
+\begin{displaymath}
+  x(0),x(1),\ldots,x(L-1)
+\end{displaymath}
+です．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+2次オールパス関数を用いたメルケプストラム分析では，
+音声のスペクトルを $M$ 次の
+メルケプストラム $c(m)$ により以下のようにモデル化します．
+\begin{displaymath}
+H(z) = \exp \sum_{m=0}^{M} c(m)\,B_m(e^{j\omega})
+\end{displaymath}
+ただし，
+\begin{displaymath}
+\mbox{Re}\left[B_m(e^{j\omega})\right]
+	=\left\{A^m(e^{j\omega})+A^m(e^{-j\omega})\right\}/2
+\end{displaymath}
+です．
+\par
+ここでは，評価関数を最小にするメルケプストラムを求めるために，
+Newton--Raphson法が用いられています．
+\end{qsection}
+
+\newpage
+\begin{options}
+	\argm{a}{A}{周波数圧縮パラメータ $\alpha$．}{0.35}
+	\argm{t}{T}{強調する周波数位置 $\theta*\pi$(rad)．}{0}
+	\argm{m}{M}{分析次数．}{25}
+	\argm{l}{L}{フレーム長．}{256}
+	\desc[1zh]{通常，以下のオプションの指定は必要ありません．}
+	\argm{i}{I}{Newton-Raphson 法の最小反復回数．}{2}
+	\argm{j}{J}{Newton-Raphson 法の最大反復回数．}{30}
+	\argm{d}{D}{Newton-Raphson 法の終了条件．\\
+		    $\varepsilon^{(i)}$ の繰り返しによる変化率が
+		    $D$ 以内になったときに終了．}{0.001}
+	\argm{e}{E}{ピリオドグラムに足し込む小さな値．}{0.0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式の音声データ {\em data.f} を分析し，{\em data.mcep} に
+メルケプストラム係数を得る:
+\begin{quote}
+ \verb!frame < data.f | window | smcep > data.mcep !
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ uels, gcep, mcep, mgcep, mlsadf
+\end{qsection}

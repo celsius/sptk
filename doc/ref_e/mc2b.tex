@@ -1,0 +1,42 @@
+\name{mc2b}{メルケプストラム係数からMLSAフィルタの係数を求める}%
+{音声パラメータ変換}
+
+\begin{synopsis}
+ \item [mc2b] [ --a $A$ ] [ --m $M$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+メルケプストラム係数 $c_\alpha(m)$ からMLSAフィルタの係数 $b(m)$ を求め，
+標準出力に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\par
+メルケプストラム係数 $c_\alpha(m)$ から係数 $b(m)$ への変換式は
+\begin{displaymath}
+b(m) = \left\{
+	\begin{array}{ll}
+	  c_\alpha(M), & m=M \\
+	  c_\alpha(m) - \alpha b(m+1), & 0 \leq m < M \\
+	\end{array} \right.
+\end{displaymath}
+で与えられ，この係数 $b(m)$ を直接MLSAフィルタの係数として
+用いることが出来ます．この変換式は b2mc の逆変換となります．
+\end{qsection}
+
+\begin{options}
+	\argm{a}{A}{周波数圧縮パラメータ $\alpha$．}{0.35}
+	\argm{m}{M}{メルケプストラムの次数．}{25}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の音声ファイル {\em data.f} を12次でメルケプストラム分析し，得られた
+メルケプストラムをMLSAフィルタの係数に変換し，係数 $b(m)$ を {\em data.b}
+に出力する:
+\begin{quote}
+ \verb!frame < data.f | window | mcep -m 12 | mc2b -m 12 > data.b!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ mlsadf, mglsadf, b2mc, mcep, mgcep, amcep
+\end{qsection}

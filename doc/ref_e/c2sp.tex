@@ -1,0 +1,43 @@
+\name{c2sp}{ケプストラムからスペクトルを求める}
+{音声パラメータ変換}
+
+\begin{synopsis}
+\item[c2sp] [ --m $M$ ] [ --l $L$ ] [ --p ] [ --o $O$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em c2sp} は，最小位相のケプストラムからスペクトルを求めます．
+データ形式は入力，出力ともにfloat形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{ケプストラムの次数．}{25}
+	\argm{l}{L}{フレーム長．}{256}
+	\argm{p}{}{スペクトルの位相を出力．}{FALSE}
+	\argm{o}{O}{--pオプションが指定されていない場合，出力するスペクトルの
+		    スケールを指定．\\
+		\begin{tabular}{ll} \\[-1zh]
+			$O=0$ & $20 \times \log |H(z)|$ \\
+			$O=1$ & $\ln |H(z)|$ \\
+			$O=2$ & $|H(z)|$ \\[1zh]
+		\end{tabular}\\
+		 --pオプションが指定されている場合，出力する位相の単位を指定．
+		\\
+		\begin{tabular}{ll}\\[-1zh]
+			$O=0$ & $\arg |H(z)| \div \pi \quad [\pi \; rad.]$ \\
+			$O=1$ & $\arg |H(z)| \quad [rad.]$ \\
+			$O=2$ & $\arg |H(z)| \times180\div\pi\quad[deg.]$ \\
+		\end{tabular}\\\hspace*{\fill}}{0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の15次のケプストラムファイル {\em data.cep} からランニングスペクトルを
+求めて画面上に表示する:
+\begin{quote}
+ \verb! c2sp -m 15 data.cep | grlogsp | xgr ! 
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+uels, mgc2sp
+\end{qsection}

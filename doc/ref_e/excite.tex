@@ -1,0 +1,36 @@
+\name{excite}{音声合成のための音源生成}{信号生成,音声分析合成関連}
+
+\begin{synopsis}
+\item [excite] [ --p $P$ ] [ --i $I$ ] [ --n ] [ --s $S$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ピッチ周期ファイルから，有声音に対してはパルス列，
+無声音に対してはM系列またはガウス雑音を生成し，標準出力に出力します．
+\par
+データ形式は入力，出力ともfloat形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{p}{P}{フレーム周期．}{100}
+	\argm{i}{I}{補間周期．}{1}
+	\argm{n}{}{無声音をガウス雑音で励振させる．\\指定しない場合，M系列で励振させます．}{FALSE}
+	\argm{s}{S}{ガウス雑音の場合，ランダムの初期化のseed}{1}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のピッチデータ {\em data.p} から励振源を作成し，あらかじめ線形予測分析
+によって求めておいた線形予測係数 {\em data.lpc} により合成音 {\em data.syn}
+を出力する:
+\begin{quote}
+ \verb!excite < data.p | poledf data.lpc > data.syn!
+\end{quote} 
+無声音をガウス雑音で励振させる場合
+\begin{quote}
+ \verb!excite -n < data.p | poledf data.lpc > data.syn!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ poledf
+\end{qsection}

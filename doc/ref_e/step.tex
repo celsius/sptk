@@ -1,0 +1,30 @@
+\name{step}{ユニットステップ列を発生する}{信号生成}
+
+\begin{synopsis}
+\item[step] [ --l $L$ ] [ --n $N$ ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+長さ$L$ または次数$N$のユニットステップを標準出力に出力します．つまり，
+\begin{displaymath}
+\underbrace{1, 1, 1, \ldots, 1}_{L}
+\end{displaymath}
+\par
+出力データは，float 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ステップ列の長さ． $ L \le 0 $の場合，無限にステップ列を生成．}{256}
+	\argm{n}{N}{ステップ列の次数．}{255}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+標準形のディジタルフィルタにユニットステップ列を加える:
+\begin{quote}
+\verb!step | dfs -a 1 -0.8 | dmp!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  impulse, train, ramp, sin
+\end{qsection}

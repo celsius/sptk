@@ -1,0 +1,39 @@
+\name{ulaw}{$\mu$-law圧縮・展開}{信号処理}
+
+\begin{synopsis}
+\item[ulaw] [ --v $V$ ] [ --u $U$ ] [ --c ] [ --d ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ulawによりデータを圧縮・展開します．
+入力を$x(n)$，出力を$y(n)$とし，入力の最大値を$V$，
+圧縮係数を$U$とすると圧縮は
+\begin{displaymath}
+y(n) = sgn(x(n)) V \frac{\log(1 + U \frac{|x(n)|}{V} )}{\log(1+U)}
+\end{displaymath}
+となり，展開は
+\begin{displaymath}
+y(n) = sgn(x(n)) V \frac{(1+u)^{|x(n)|/V} - 1}{U}
+\end{displaymath}
+となります．
+
+
+\end{qsection}
+
+\begin{options}
+	\argm{v}{V}{入力の最大数．}{32768}
+	\argm{u}{U}{圧縮係数．}{256}
+	\argm{c}{}{圧縮モード．}{TRUE}
+	\argm{d}{}{展開モード．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+16 bitのデータ {\em data.s} を8 bit にulaw圧縮し，{\em data.ulaw}に出力する:
+\begin{quote}
+  \verb!x2x +sf data.s | ulaw | sopr -d 256 | x2x +fc -r > data.ulaw!
+\end{quote}
+\end{qsection}
+
+%\begin{qsection}{SEE ALSO}
+%none
+%\end{qsection}

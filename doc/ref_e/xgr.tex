@@ -1,0 +1,62 @@
+\name{xgr}{プロッタコマンド列をX-Window上に表示}{グラフ表示}
+
+\begin{synopsis}
+ \item[xgr]   [ --s {\em S} ] [ --l ] [ --rv ] [ --m ] [ --bg {\em BG} ]
+              [ --hl {\em HL} ] [ --bd {\em BD} ] 
+ \item[\ ~~~~] [ --ms {\em MS} ] [ --g {\em G} ] [ --d {\em D} ]
+              [ --t {\em T} ] [ {\em infile} ]
+\end{synopsis} 
+
+\begin{qsection}{DESCRIPTION}
+標準入力から プロッタコマンド列を読み込み，グラフ出力をX-Window上に表示します．
+\begin{itemize}
+\item ウィンドウマネージャの機能によりウィンドウサイズは変わりますが，
+  仮想画面上に書かれているグラフ図形の表示はズーミングされません．
+\item ウィンドウサイズが仮想画面よりも小さい場合には，仮想画面を
+スクロールすることができます．（vi風キーバインド）
+\begin{quote}
+		h: 左スクロール\\
+		j: 下スクロール\\
+		k: 上スクロール\\
+		l: 右スクロール
+\end{quote}
+\item 終了は，"q"，"Ctrl-c"，"Ctrl-d" のいずれかを入力して下さい．
+\end{itemize}
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{ウィンドウ縮小比率．}{3.38667}
+	\argm{l}{}{ランドスケープモード．}{FALSE}
+	\argm{rv}{}{リバースモード．}{FALSE}
+	\argm{m}{}{白黒ディスプレイモード．}{FALSE}
+	\argm{bg}{BG}{バックグラウンドカラー．}{white}
+	\argm{hl}{HL}{ハイライトカラー．}{blue}
+	\argm{bd}{BD}{ボーダーカラー．}{blue}
+	\argm{ms}{MS}{マウスカラー．}{red}
+	\argm{g}{G}{ウィンドウのサイズ及び表示位置．}{NULL}
+	\argm{d}{D}{ディスプレイサーバ．}{NULL}
+	\argm{t}{T}{ウィンドウのタイトル．}{xgr}
+\end{options}
+\begin{qsection}{EXAMPLE}
+fdrw を用いてファイル {\em data.f} に含まれるデータのグラフを描き，X-window上に出力:
+\begin{quote}
+ \verb!fdrw < data.f | xgr!
+\end{quote}
+\end{qsection}
+\begin{qsection}{BUGS}
+\begin{itemize}
+\item ディスプレイサーバが，バッキングストア機能を持っていない場合には
+  隠れ面が露出した際に画面の再描画が行なわれません．
+
+\item  表示の待ち時間を減らすため，まず生成したウィンドウ上に図形を描き，
+仮想画面にコピーしてイメージを保持して再描画等を行ないますので，
+"-g"オプションでウィンドウサイズを小さくし過ぎた場合や
+描画中にウィンドウに隠れ面ができると表示できない部分が生じます．
+最初からウィンドウサイズを小さくしたい場合には，"-s"オプションを
+併用して描画サイズも小さくしておくことを薦めます．
+\end{itemize}
+\end{qsection}
+\begin{qsection}{SEE ALSO}
+fig, fdrw
+\end{qsection}
+

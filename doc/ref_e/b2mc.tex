@@ -1,0 +1,46 @@
+\name{b2mc}{Mel-cepstrum coefficients evaluation from MLSA filter coefficients }%
+{speech parameter converter}
+
+\begin{synopsis}
+\item [b2mc] [ --m $M$ ] [ --a $A$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+This command evaluates mel-cepstrum coefficients $c_\alpha(m)$ from
+MLSA filter coefficients $b(m)$, and sends the results to the standard
+output.
+\par
+Input and output data are in float format.
+\par
+The transformation from $b(m)$ coefficient to mel-cepstrum coefficient
+$c_\alpha(m)$ is as follows.
+\begin{displaymath}
+c_\alpha(m) = \left\{
+	\begin{array}{ll}
+	  b(M), & m=M \\
+	  b(m) + \alpha b(m+1), & 0 \leq m < M \\
+	\end{array} \right.
+\end{displaymath}
+This transformation is the inverse transformation which is undertaken
+by command mc2b.
+
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{order of mel cepstrum}{25}
+	\argm{a}{A}{all-pass constant $\alpha$．}{0.35}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+The example below converts coefficients of MLSA filter,
+which are in float format in file {\em data.b},
+($M=15, \alpha=0.35$) into mel-cepstrum coefficients
+in file {\em data.mcep}.
+\begin{quote}
+ \verb!b2mc -m 15 < data.b > data.mcep!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+b2mc, mcep, mlsadf
+\end{qsection}

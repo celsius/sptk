@@ -1,0 +1,59 @@
+\name{merge}{フレームへのデータの挿入}{データ操作}
+
+\begin{synopsis}
+ \item[merge] [ --s $S$ ] [ --l $L_1$ ] [ --n $N_1$ ] [ --L $L_2$ ]
+ [ --N $N_2$ ]
+ \item[\ ~~~]  [ --o ] [ +{\em type} ] {\em file1} [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+標準入力から入力されたデータのフレーム毎に，指定されたファイルのフレームを
+挿入するか，そのフレームで書き換えます．
+
+
+\hspace{1cm}\epsffile{fig/merge.eps}
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{フレームの先頭からの挿入開始点，又は書き換え開始点．}{0}
+	\argm{l}{L_1}{入力データのフレーム長．}{25}
+	\argm{n}{N_1}{入力データの次数．入力データのフレーム長は $N_1+1$ になります.}{$L_1-1$}
+	\argm{L}{L_2}{挿入するデータのフレーム長．}{10}
+	\argm{N}{N_2}{挿入データの次数．挿入データのフレーム長は $N_2+1$ になります.}{$L_2-1$}
+	\argm{o}{}{上書き(書き換え)モード．}{FALSE}
+	\argp{t}{入力データの形式．\\ 
+		\begin{tabular}{llcll} \\[-1zh]
+			c & char型 (1byte) & \quad &
+			s & short型 (2bytes) \\
+			i & int型 (4bytes) & \quad &
+			l & long型 (4bytes) \\
+			f & float型 (4bytes) & \quad &
+			d & double型 (8bytes) \\
+		\end{tabular}\\\hspace*{\fill}}{f}
+\end{options}
+
+
+\begin{qsection}{EXAPMLE}
+short型のファイル {\em data.f1}のフレーム長3の各フレームの3番目から，
+short型のファイル{\em data.f2}の
+データを2個づつ挿入して{\em data.merge}に出力する:
+\begin{quote}
+ \verb!merge -s 2 -l 3 -L 2 +s data.f2 < data.f1 > data.merge!
+\end{quote}
+例えば，ファイル{\em data.f1}に $1,1,1,2,2,2,\cdots$，ファイル{\em data.f2}に
+$2,3,5,6,\cdots$ がそれぞれ入っていた場合，ファイル{\em data.merge}の中には，
+\[ 1,1,2,3,1,~ 2,2,5,6,2,\cdots \] 
+が得られます。\\
+
+long型のファイル {\em data.f1} のフレーム長4の各フレームの2番目からを，
+long型のファイル {\em data.f2} のデータで2個づつ書き換えて
+{\em data.merge} に出力する:
+\begin{quote}
+ \verb!merge -s 2 -l 5 -L 2 +l -o data.f2 < data.f1 > data.merge!
+\end{quote}
+例えば，ファイル{\em data.f1}に $1,1,1,1,2,2,2,2,\cdots$，
+ファイル{\em data.f2}に$3,4,5,6,\cdots$ がそれぞれ入っていた場合，
+ファイル{\em data.merge}の中には
+\[ 1,3,4,1,~ 2,5,6,2,\cdots \]
+が得られます．\\
+\end{qsection}

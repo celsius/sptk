@@ -1,0 +1,42 @@
+\name{lspcheck}{LSP の安定性のチェックと並べ替え}{音声パラメータ変換}
+
+\begin{synopsis}
+\item [lspcheck] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --i $I$ ] [ --o $O$ ]
+		[ --r ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em lspcheck} は，lsp 係数の安定性を調べ，安定でない場合は係数の順序を
+並べ変えて安定係数とします．
+\par
+データ形式は入力は float 形式で，出力は
+rearrange LSPを出力する場合は float 形式，それ以外は，
+安定でないフレーム番号を ASCII 形式で出力します．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{LPC の次数．}{25}
+	\argm{s}{S}{サンプリング周波数 (kHz)．}{10}
+	\argm{k}{}{ゲインの入出力}{TRUE}
+	\argm{i}{I}{入力形式．}{0}
+	\argm{o}{O}{出力形式． \\
+		\begin{tabular}{ll} \\[-1zh]
+			$0$ & 規格化周波数 $(0 \ldots \pi)$ \\
+			$1$ & 規格化周波数 $(0 \ldots 0.5)$ \\
+			$2$ & 周波数 (kHz) \\
+			$3$ & 周波数 (Hz)  \\
+		\end{tabular}\\\hspace*{\fill}}{0}
+	\argm{r}{}{rearrange LSP}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の10次のlsp係数ファイル{\em data.lsp}の安定性を調べ，
+安定でない係数は安定係数として，{\em data.lspr} に出力する:
+\begin{quote}
+\verb!lspcheck -r < data.lsp > data.lspr!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ lpc, lpc2lsp, lsp2lpc
+\end{qsection}

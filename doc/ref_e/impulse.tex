@@ -1,0 +1,34 @@
+\name{impulse}{ユニットパルス列(インパルス列)を発生する}{信号生成}
+
+\begin{synopsis}
+\item[impulse] [ --l $L$ ] [ --n $N$ ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+長さ $L$ のユニットパルス列を標準出力に出力します．つまり，
+\begin{displaymath}
+\underbrace{1, 0, 0, \ldots, 0}_{L}
+\end{displaymath}
+\par
+出力データは，float 形式です．
+--lと--nオプションを同時に指定した場合，後に指定したものに従います．
+
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ユニットパルス列の長さ．\\
+		    $L < 0$ とすると無限長の数列を生成．}{256}
+	\argm{n}{N}{ユニットパルス列の次数．\\
+		    N+1の系列を生成．}{255}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+標準形のディジタルフィルタをユニットパルス列を加え，値を表示する:
+\begin{quote}
+ \verb!impulse | dfs -a 1 0.9 -b 1 2 1 | dmp!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  step, train, ramp, sin, nrand
+\end{qsection}

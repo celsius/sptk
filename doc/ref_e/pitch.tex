@@ -1,0 +1,58 @@
+\name{pitch}{ピッチ抽出}{信号処理,音声分析合成関連}
+
+\begin{synopsis}
+\item[pitch] [ --s $S$ ] [ --l $L$ ] [ --t $T$ ]
+ [ --L $Lo$ ] [ --H $Hi$ ] [ --e $E$ ]
+\item[\ ~~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ケプストラム法により抽出したピッチ $p(t)$ を標準出力に出力します．
+入力は窓掛けされた長さ $L$ の時系列
+\begin{displaymath}
+  x(0),x(1),\ldots,x(L -1)
+\end{displaymath}
+です．
+\par
+データ形式は入力，出力とも float 形式です．
+\par
+有声音と無声音の識別は，不偏推定法により求めた
+$S / 10 \times 25$ 次のケプストラム
+から得られる対数スペクトル包絡 $\hat{g}_i(\Omega_k)$ の基本周波数帯域部分
+の平均値 $v_i$ を利用します．
+
+\begin{displaymath}
+v_i = \frac{1}{14 n}\sum_{k = 4 n}^{17 n}\hat{g}_i(\Omega_k),~~~~~ (\Omega_k = \frac{2 \pi k}{N},n = N /256)
+\end{displaymath}
+
+ここで，FFT サイズ $N$ は $L$ より大きい2のべき乗とします．
+
+有声音 $(v_i > T)$ の場合は，
+FFTケプストラム $c(m)$ を $c(m) \times m$ と変換し、
+周波数 $Lo$ (Hz) から $Hi$ (Hz) の間のピークを求めます．
+無声音 $(vi < T)$ の場合は $0$ を出力します．
+
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{サンプリング周波数 (kHz)．}{10}
+	\argm{l}{L}{入力データのフレーム長．}{400}
+	\argm{t}{T}{有声音/無声音の閾値．}{6.0}
+	\argm{L}{Lo}{基本周波数の最小値 (Hz)．}{60}
+	\argm{H}{Hi}{基本周波数の最大値 (Hz)．}{240}
+	\argm{e}{E}{パワースペクトルの対数をとる際に足し込む小さな値．}{0.0}
+	\argm{i}{I}{不偏推定の最小反復回数．}{2}
+	\argm{j}{J}{不偏推定の最大反復回数．}{30}
+	\argm{d}{D}{不偏推定の終了条件．}{0.1}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float 形式の音声データ(サンプリング周波数 10kHz) {\em data.f} をからピッチを抽出し，{\em data.pitch} に出力する:
+\begin{quote}
+  \verb!frame -l 400 < data.f | window -l 400 | pitch -l 400 > data.pitch !
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  excite
+\end{qsection}

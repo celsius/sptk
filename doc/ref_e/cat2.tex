@@ -1,0 +1,24 @@
+\name{cat2}{ファイルを標準エラー出力へ出力}{その他}
+
+\begin{synopsis}
+\item[cat2] [ --n ] [ file ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+
+{\em cat2} は，引数で指定されたフィアルを標準エラー出力に出力します．ファイルの指定が無い場合，標準入力から読み込まれます．
+
+\end{qsection}
+
+\begin{options}
+	\argm{n}{}{行番号を出力．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+standard errorに，{\it file}を出力する
+\begin{quote}
+  \begin{verbatim}
+  cat2 file
+  \end{verbatim}
+\end{quote}
+\end{qsection}

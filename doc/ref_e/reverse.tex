@@ -1,0 +1,39 @@
+\name{reverse}{データの順番を反対に並び変える}{データ操作}
+
+\begin{synopsis}
+\item[reverse] [ --l $L$ ] [ --n $N$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+
+{\em reverse} は，float型で与えられるデータ列を標準入力から読み込み，オ
+プションで指定されるブロック長に区切ってデータ列を反転させ，標準出力に出
+力します．ブロック長を指定しなかった場合はデフォルトでファイル全体が指定
+されます．ファイル全体のサイズがブロック長で丁度割り切れない場合は余りの
+ブロックは無視され，出力もされません．
+
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ブロック長．}{ファイル全体}
+	\argm{n}{N}{ブロックの次数．}{ファイル全体-1}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル{\em data.in}には以下のデータが入っているとする.
+\begin{displaymath}
+ \underbrace{0.0, ~1.0, ~2.0}, ~
+ \underbrace{3.0, ~4.0, ~5.0}, ~
+ \underbrace{6.0, ~7.0, ~8.0}, ~9.0
+\end{displaymath}
+ここで
+\begin{quote}
+\verb!reverse -l 3 data.in > data.out!
+\end{quote}
+とするとファイル{\em data.out}には以下のデータが入る.
+\begin{displaymath}
+ \underbrace{2.0, ~1.0, ~0.0}, ~
+ \underbrace{5.0, ~4.0, ~3.0}, ~
+ \underbrace{8.0, ~7.0, ~6.0}
+\end{displaymath}
+\end{qsection}

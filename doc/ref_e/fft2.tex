@@ -1,0 +1,61 @@
+\name{fft2}{複素数列の2次元高速フーリエ変換}{信号処理}
+
+\begin{synopsis}
+\item[fft2] [ --l $L$ ] [ --m $M_1 \; M_2$ ] [ --t ] [ --c ] [ --q ] 
+            [ --\{ A $|$ R $|$ I $|$ P \} ]  
+\item[\ ~~~~] [ {\em infile} ]  
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+
+{\em fft2} は，複素数で与えられるデータ列を{\em infile}から読み込んで2次元
+フーリエ変換を行ない，結果を標準出力に出力します．
+入出力のデータフォーマットは以下の通りです．
+\begin{center}
+\leavevmode
+\epsffile{fig/fft2.eps}
+\end{center}
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{フーリエ変換のサイズ． 2 のべき乗で指定．}{64}
+	\argm{m}{M_1 \; M_2}{データの次数を $M_1\times M_2$ で指定．
+			ファイルサイズ $k$ が $64^2\times 2$ よりも小さい場合，
+			$\sqrt{k\div 2}$ が整数ならば $M_1=M_2=\sqrt{k\div 2}$ 
+			とし，整数でない場合は標準エラー出力にエラーメッセージ
+			を出力してから処理を終了．}{$64 , M_1$}
+	\argm{t}{}{FFTの結果をtransposeして出力．
+		\begin{center}
+		\leavevmode
+		\epsffile{fig/fft2-trans.eps}
+		\end{center}~}{FALSE}
+	\argm{c}{}{transposeする際，境界の1データを反対側から持ってきて，
+		   $(L+1)\times (L+1)$個のデータを出力．
+		\begin{center}	
+		\leavevmode
+		\epsffile{fig/fft2-comp.eps}
+		\end{center}~}{FALSE}
+	\argm{q}{}{FFTの結果の最初の1/4のデータのみを出力． 
+		   この際cオプションと同様に境界の補償を行ない，
+		   $(\frac{L}{2}+1)\times(\frac{L}{2}+1)$ 個のデータを出力．
+		\begin{center}
+		\leavevmode
+		\epsffile{fig/fft2-quad.eps}
+		\end{center}~}{FALSE} %\hspace*{\fill}
+	\argm{A}{}{振幅スペクトルを出力．}{FALSE}
+	\argm{R}{}{実部のみを出力．}{FALSE}
+	\argm{I}{}{虚部のみを出力．}{FALSE}
+	\argm{P}{}{パワースペクトルを出力．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル{\em data.f} にある2次元複素数列の DFT の振幅を求め，
+{\em data.dft} に出力する:
+\begin{quote}
+  \verb!fft2 -A data.f > data.dft!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ fft, fftr2, ifft
+\end{qsection}

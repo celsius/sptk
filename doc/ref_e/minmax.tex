@@ -1,0 +1,53 @@
+\name{minmax}{最小値・最大値を求める}{データ処理}
+
+\begin{synopsis}
+ \item [minmax] [ --l $L$ ] [ --n $N$ ] [ --b $B$ ] [ --d ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ファイル{\em infile}（省略時は標準入力）から読み込んだ，フレーム毎の
+最小値と最大値を標準出力に出力します．
+上位 $B$ 個の結果を出力します．
+
+フレームの長さ $L$ が1の時には，ファイル中のデータ全体の最小値と最大値を
+出力します．
+
+データ形式は入力はfloat形式で，
+出力は，データ番号を出力する場合はascii形式，
+値のみを出力する場合はfloat形式となります．
+データ番号を出力する場合は，
+\begin{displaymath}
+value:position_0,position_1,\ldots
+\end{displaymath}
+の形式でn個の最小値，n個の最大値を出力します．
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{ベクトルの長さ．}{1}
+	\argm{n}{N}{ベクトルの次数．ベクトルの長さは $N+1$ になります．}{L-1}
+	\argm{b}{B}{N-Bestの値を出力}{1}
+	\argm{d}{}{最大最小のデータ番号の出力}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル {\em data.f} のデータが
+\[1,1,2,3,4,5,6,7,8,9,9,10\]
+の時，
+\begin{quote}
+ \verb!minmax data.f -l 5 > data.m!
+\end{quote}
+とすると，ファイル{\em data.m}中に，
+\[1,5,6,10\]
+が得られます．また，
+\begin{quote}
+ \verb!minmax -n 2 -d data.f!
+\end{quote}
+とすると，
+\begin{quote}
+ \verb!1:0,1!\\
+ \verb!2:2!\\
+ \verb!10:11!\\
+ \verb!9:9,10!
+\end{quote}
+が出力されます．
+\end{qsection}

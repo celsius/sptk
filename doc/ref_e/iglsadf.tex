@@ -1,0 +1,40 @@
+\name[ref:GLSA-IEICEtaikai90s]{iglsadf}{逆 GLSA ディジタルフィルタ}%
+{音声合成用フィルタ}
+
+\begin{synopsis}
+\item [iglsadf] [ --m $M$ ] [ --g $G$ ] [ --p $P$ ] [ --i $I$ ]
+	  	[ --n ] [ --k ] {\em gcfile}  [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em iglsadf} は，逆 GLSA フィルタです．
+\par
+データ形式は入力，出力とも float 形式です．
+
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{一般化ケプストラムの次数．}{25}
+	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma=-1/G$．}{1}
+	\argm{p}{P}{フレーム周期．}{100}
+	\argm{i}{I}{補間周期．}{1}
+	\argm{n}{}{入力を規格化されたケプストラムとみなす．}{FALSE}
+	\argm{k}{}{ゲインを除いたシステム関数でフィルタリングする}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式の音声ファイル {\em data.f} を一般化ケプストラム分析
+(15次，$\gamma = -1/2$)の結果に基づいて
+逆フィルタ出力し，{\em data.e} を求める:
+\begin{quote}
+ \verb!frame < data.f | window | gcep -m 15 -g 2 > data.gc!\\
+ \verb!iglsadf -m 15 -g 2 data.gc < data.f > data.e!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{BUGS}
+$n$ を自然数として，$\gamma = -1/n$ の場合にしか対応していない．
+\end{qsection}
+\begin{qsection}{SEE ALSO}
+glsadf, gcep
+\end{qsection}

@@ -1,0 +1,41 @@
+\name{zerodf}{音声合成のための全零フィルタ}{音声合成用フィルタ}
+
+\begin{synopsis}
+\item[zerodf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --t ] [ --k ]
+		{\em bfile} [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+指定されたファイルから読み込まれたデータを {\em bfile} の係数，
+$b(0), b(1), \ldots, b(M)$をもつ全零標準形フィルタによりフィルタリングし，
+標準出力に出力します．
+\par
+データ形式は，入力，出力ともfloat 形式です．
+\par
+全零標準形フィルタの伝達関数 $H(z)$は，
+\begin{displaymath}
+H(z) = \sum_{m=0}^{M} b(m) z^{-m}
+\end{displaymath}
+と表されます．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{フィルタの次数．}{25}
+	\argm{p}{P}{フレーム長．}{100}
+	\argm{i}{I}{係数の更新周期．}{1}
+	\argm{t}{}{転置型フィルタ．}{FALSE}
+	\argm{k}{}{ゲインを除いたシステム関数でフィルタリングする}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のピッチデータ {\em data.pitch} から励振源を作成し，零型フィルタの
+係数ファイル {\em data.b} により全零フィルタを駆動し，合成音声を
+ {\em data.syn}に出力する:
+\begin{quote}
+  \verb!excite < data.pitch  | zerodf data.b > data.syn!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+  poledf, lmadf
+\end{qsection}

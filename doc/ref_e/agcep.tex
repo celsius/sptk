@@ -1,0 +1,142 @@
+\name[ref:agcep-IEICEtaikai90s]{agcep}{adaptive generalized cepstral analysis}%
+{音声分析}
+
+\begin{synopsis}
+\item [agcep] [ --m $M$ ] [ --g $G$ ] [ --l $L$ ] [ --t $T$] [ --k $K$ ]
+	      [ --p $P$ ]
+\item [\ ~~~~~~]  [ --s ] [ --n ] [ --e $E$ ] [ {\em pefile} ] $<$ {\em infile}
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+        This command undertakes adaptive generalized cepstrum analysis,
+        sends the cepstrum coefficients $c_\gamma(m)$ to standard output,
+        and the prediction error to {\em pefile}, whenever
+        {\em pefile} is included in the command line.
+ \par
+	The format for input and output data is float.
+ \par
+	The algorithm to calculate recursively the
+        adaptive generalized cepstrum coefficients is 
+ %
+\begin{eqnarray*}
+  \mbox{\boldmath $c$}_\gamma^{(n+1)} &=& \mbox{\boldmath $c$}_\gamma^{(n)} 
+     - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \\
+  \hat{\nabla} \varepsilon_{0}^{(n)} &=& -2 e_\gamma (n) \mbox{\boldmath $e$}_\gamma^{(n)} \hspace{3.5cm} ( \tau = 0 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& -2 (1 - \tau) \sum_{i=-\infty}^{n} \tau^{n-i} e_\gamma (i) \mbox{\boldmath $e$}_\gamma^{(i)} ~~~ ( 0 \le \tau < 1 )\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& \tau \hat{\nabla} \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e_\gamma (n) \mbox{\boldmath $e$}_\gamma^{(n)} \\
+  \mu^{(n)} &=& \frac{k}{M \varepsilon^{(n)}} \\
+  \varepsilon^{(n)} &=& \lambda \varepsilon^{(n-1)}
+     + (1-\lambda)e_\gamma^2(n)
+\end{eqnarray*}	
+
+where
+$\mbox{\boldmath$c$}_\gamma = [c_\gamma(1),\ldots,c_\gamma(M)]^T$,
+$\mbox{\boldmath$e$}_\gamma = [e_\gamma(n-1),\ldots,e_\gamma(n-M)]^T$.
+The signal $e_\gamma(n)$ is obtained passing the input signal
+ $x(n)$ throught the filter $(1+\gamma F(z))^{-\frac{1}{\gamma}-1}$,
+where 
+\begin{displaymath}
+F(z) = \sum_{m=1}^{M}c_\gamma(m)z^{-m}.
+\end{displaymath}
+\par
+In the case $\gamma = -1/n$ , where $n$ is a natural number,
+the adaptive generalized cepstrum analysis system is shown in 
+Figure \ref{fig:agcep_block}.
+In the case $n=1$, the adaptive generalized cepstrum
+analysis is equivalent to the LMS linear predictor.
+In the case $n \rightarrow \infty$,
+the adaptive generalized cepstrum
+analysis is equivalent to the 
+adaptive cepstrum analysis.
+
+%\def\topfraction{.8}
+%\def\textfraction{.1}
+%\def\floatpagefraction{.8}
+\setcounter{figure}{0}
+\newpage
+\begin{figure}[t]
+\begin{center}
+\setlength{\unitlength}{0.01200in}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined
+% extract first six characters in \fmtname
+\def\x#1#2#3#4#5#6#7\relax{\def\x{#1#2#3#4#5#6}}%
+\expandafter\x\fmtname xxxxxx\relax \def\y{splain}%
+\ifx\x\y   % LaTeX or SliTeX?
+\gdef\SetFigFont#1#2#3{%
+  \ifnum #1<17\tiny\else \ifnum #1<20\small\else
+  \ifnum #1<24\normalsize\else \ifnum #1<29\large\else
+  \ifnum #1<34\Large\else \ifnum #1<41\LARGE\else
+     \huge\fi\fi\fi\fi\fi\fi
+  \csname #3\endcsname}%
+\else
+\gdef\SetFigFont#1#2#3{\begingroup
+  \count@#1\relax \ifnum 25<\count@\count@25\fi
+  \def\x{\endgroup\@setsize\SetFigFont{#2pt}}%
+  \expandafter\x
+    \csname \romannumeral\the\count@ pt\expandafter\endcsname
+    \csname @\romannumeral\the\count@ pt\endcsname
+  \csname #3\endcsname}%
+\fi
+\fi\endgroup
+\begin{picture}(440,323)(114,420)
+\thinlines
+\put(440,475){\vector( 1, 0){ 60}}
+\put(340,455){\framebox(100,40){}}
+\put(280,475){\line( 1, 0){ 60}}
+\put(390,470){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$\exp F(z)$}}}
+\put(300,485){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$x(n)$}}}
+\put(500,485){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$e(n)=e_\gamma(n)$}}}
+\put(280,600){\line( 1, 0){ 60}}
+\put(340,580){\framebox(100,40){}}
+\put(440,600){\vector( 1, 0){ 60}}
+\put(480,610){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$e(n)$}}}
+\put(280,610){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$x(n)=e_\gamma(n)$}}}
+\put(390,595){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$1-F(z)$}}}
+\put(180,720){\line(-1, 0){ 60}}
+\put(440,720){\vector( 1, 0){ 60}}
+\put(340,700){\framebox(100,40){}}
+\put(280,720){\line( 1, 0){ 60}}
+\put(180,700){\framebox(100,40){}}
+\put(340,420){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}(c) $\gamma=0$}}}
+\put(340,540){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}(b) $\gamma=-1$}}}
+\put(340,660){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}(a) $-1\leq \gamma \leq 0$}}}
+\put(390,715){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$1+\gamma F(z)$}}}
+\put(310,730){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$e_{\gamma}(n)$}}}
+\put(140,730){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$x(n)$}}}
+\put(480,730){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$e(n)$}}}
+\put(230,715){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$(1+\gamma F(z))^{-\frac{1}{\gamma}-1}$}}}
+\end{picture}
+\caption{Adaptive generalized cepstrum analysis system}
+\label{fig:agcep_block}
+\end{center}
+\end{figure}
+
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{order of generalized cepstrum}{25}
+	\argm{g}{G}{power parameter $\gamma$ of generalized cepstrum, \\
+		 where if $G>1.0$ then $\gamma=-1/G$}{1}
+	\argm{l}{L}{leakage factor $\lambda$}{0.98}
+	\argm{t}{T}{momentum constant $\tau$}{0.9}
+	\argm{k}{K}{step size $k$}{0.1}
+	\argm{p}{P}{output period of generalized cepstrum}{1}
+	\argm{s}{}{output smoothed generalized cepstrum}{FALSE}
+	\argm{n}{}{output normalized generalized cepstrum}{FALSE}
+	\argm{e}{E}{minimum value for $\varepsilon^{(n)}$}{0.0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+	In this example, the speech data is in the file {\em data.f}
+        in float format, and the cepstrum coefficients are written in
+        the file {\em data.agcep},
+        and prediction error can be found in {\em data.er}.
+\begin{quote}
+ \verb!agcep -m 15 data.er < data.f > data.agcep!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+acep, amcep, glsadf
+\end{qsection}

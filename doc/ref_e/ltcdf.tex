@@ -1,0 +1,34 @@
+\name{ltcdf}{音声合成のためのラティスフィルタ}%
+{音声合成用フィルタ}
+
+\begin{synopsis}
+\item [ltcdf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --k ] {\em rcfile} 
+	      [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+入力データを，{\em rcfile}の反射係数 $K, k(1), \ldots, k(M)$ をもつ
+ラティスフィルタによりフィルタリングし，標準出力に出力します．
+\par
+データ形式は入力，出力ともfloat 形式です．
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{反射係数の次数．}{25}
+	\argm{p}{P}{係数の更新周期．}{100}
+	\argm{i}{I}{補間周期．}{1}
+	\argm{k}{}{ゲインを除いたシステム関数でフィルタリングする}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のピッチデータ {\em data.pitch} から励振源を作成し，
+線形予測係数ファイル {\em data.rc} によりラティスフィルタを駆動して，
+合成音声を {\em data.syn} に出力する:
+\begin{quote}
+ \verb!excite < data.pitch | ltcdf data.k > data.syn!
+\end{quote} 
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ lpc, acorr, levdur, lpc2par, par2lpc, poledf, zerodf, lspdf
+\end{qsection}
