@@ -79,13 +79,13 @@ if( $stdinput == 1) then
                         echo2 "${cmnd}: $outfile - File exits."
                         exit 1
                 endif
-                ccp $type |\
+                x2x $type |\
                 us $usops |\
-                ccp +fs > $outfile
+                x2x +fs > $outfile
         else
-                ccp $type |\
+                x2x $type |\
                 us $usops |\
-                ccp +fs
+                x2x +fs
         endif
         exit 0
 endif
@@ -101,13 +101,13 @@ foreach infile ($file)
                         echo2 "${cmnd}: $outfile - File exits."
                         exit 1
                 endif
-                ccp $type $infile |\
+                x2x $type $infile |\
                 us $usops |\
-                ccp +fs > $outfile
+                x2x +fs > $outfile
         else
-                ccp $type $infile |\
+                x2x $type $infile |\
                 us $usops |\
-                ccp +fs
+                x2x +fs
         endif
 end
 exit 0
@@ -135,3 +135,4 @@ cat2 <<EOF
 
 EOF
 exit 1
+

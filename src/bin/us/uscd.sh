@@ -119,19 +119,19 @@ if( $stdinput == 1) then
                         echo2 "${cmnd}: $outfile - File exits."
                         exit 1
                 endif
-                ccp $type |\
+                x2x $type |\
                 us -c ${libpath}/lpfcoef.2to3f -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.2to3s -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d 5 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d $osr |\
-                ccp +fs > $outfile
+                x2x +fs > $outfile
         else
-                ccp $type |\
+                x2x $type |\
                 us -c ${libpath}/lpfcoef.2to3f -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.2to3s -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d 5 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d $osr |\
-                ccp +fs
+                x2x +fs
         endif
         exit 0
 endif
@@ -147,19 +147,19 @@ foreach infile ($file)
                         echo2 "${cmnd}: $outfile - File exits."
                         exit 1
                 endif
-                ccp $type $infile |\
+                x2x $type $infile |\
                 us -c ${libpath}/lpfcoef.2to3f -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.2to3s -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d 5 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d $osr |\
-                ccp +fs > $outfile
+                x2x +fs > $outfile
         else
-                ccp $type $infile |\
+                x2x $type $infile |\
                 us -c ${libpath}/lpfcoef.2to3f -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.2to3s -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d 5 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d $osr |\
-                ccp +fs
+                x2x +fs
         endif
 end
 exit 0
