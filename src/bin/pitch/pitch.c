@@ -10,7 +10,6 @@
 *	options:							*
 *               -s  s     :  sampling frequency			[10]	*
 *		-l  l     :  frame length 			[400]	*
-*		-a  a	  :  pre-emphasis coefficient		[0.95]	*
 *               -t  t     :  voiced/unvoiced threshhold		[6.0]	*
 *		-L  L	  :  minmum fundamental frequency	[60]	*
 *			     to search for (Hz)				*
@@ -32,7 +31,7 @@
 *									*
 *************************************************************************/
 
-static char rcsid[] = "$Id: pitch.c,v 1.6 2000/05/20 05:51:00 mtamura Exp $";
+static char rcsid[] = "$Id: pitch.c,v 1.7 2000/05/20 06:26:23 mtamura Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -49,7 +48,6 @@ double	pitch();
 #define THRESH		6.0
 #define LOW		60
 #define HIGH		240
-#define PRE		0.95
 #define EPS		0.0
 
 /*  Default Values for uels */
@@ -71,7 +69,6 @@ void usage(int status)
     fprintf(stderr, "       -s s  : sampling frequency (kHz)        [%d]\n", FREQ);
     fprintf(stderr, "       -l l  : frame length                    [%d]\n", ILNG);
     fprintf(stderr, "       -t t  : voiced/unvoiced threshold       [%.1f]\n", THRESH);
-    fprintf(stderr, "       -a a  : pre-emphasis coefficient        [%g]\n", PRE);
     fprintf(stderr, "       -L L  : minimum fundamental             [%d]\n", LOW);
     fprintf(stderr, "               frequency to serach for (Hz)\n");
     fprintf(stderr, "       -H H  : maximum fundamental             [%d]\n", HIGH);
@@ -94,7 +91,7 @@ void usage(int status)
 void main(int argc, char **argv)
 {
     int		i, freq = FREQ, n = ILNG, l, L = LOW , H = HIGH, m, itr1 = MINITR, itr2 = MAXITR, low, high;
-    double	*x, eps = EPS, a = PRE, atof(),	p, thresh = THRESH, end = END;
+    double	*x, eps = EPS, atof(), p, thresh = THRESH, end = END;
     FILE	*fp = stdin;
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -110,10 +107,6 @@ void main(int argc, char **argv)
 		    break;
 		case 'l':
 		    n = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'a':
-		    a = atof(*++argv);
 		    --argc;
 		    break;
 		case 't':
@@ -161,8 +154,9 @@ void main(int argc, char **argv)
 
     while (freadf(x, sizeof(*x), n, fp) == n){
 	fillz(x+n,l-n,sizeof(double));
-	p = pitch(x, l, a, thresh, low, high, eps, m, itr1, itr2, end);
+	p = pitch(x, l, thresh, low, high, eps, m, itr1, itr2, end);
 	fwritef(&p, sizeof(p), 1, stdout);
     }
     exit(0);
 }
+
