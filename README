@@ -19,14 +19,14 @@ of JSPS), and some graduate students.
 The original source codes have been written by many people who took
 part in research of the research group.  The most original source
 codes of this distribution were written by Takao Kobayashi (graph,
-data processing, FFT, etc.), Keiichi Tokuda (speech analysis, speech
-synthesis, etc.), and Kazuhito Koishida (LSP, vector quantization,
-etc.).
+data processing, FFT, sampling rate conversion, etc.), Keiichi Tokuda
+(speech analysis, speech synthesis, etc.), and Kazuhito Koishida (LSP,
+vector quantization, etc.).
 
 This version is accompanied by a Reference Manual (a total of 180
-pages written in Japanese). The User's Manual will be attached to the
-future release.  We are also planing to translate the manuals into
-English.
+pages written in Japanese). A User's Manual "Examples for using SPTK"
+is also attached.  We are planing to translate the Reference Manual
+into English.
 
 ********************
     Distribution
