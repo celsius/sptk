@@ -2,8 +2,8 @@
 *                                                                       *
 *    play 16-bit linear PCM data on LINUX and SS10                      *
 *                                                                       *
-*					1997.7  M.Tamura		*
 *                                       1998.1  T.Kobayashi             *
+*					2000.3  M.Tamura                *
 *                                                                       *
 *       usage:                                                          *
 *               da [ options ] infile1 infile2 ... > stdout             *
@@ -22,10 +22,6 @@
 *               data                                           [stdin]  *
 *       notice:                                                         *
 *               number of infile < 128                                  *
-*               Default LPF coefficients filename                       *
-*                               -> /usr/local/cmnd/lib/da_10.fir        *
-*		12kHz LPF coefficients file				*
-*				-> /usr/local/cmnd/lib/da_12.fir	*
 *                                                                       *
 ************************************************************************/
 
@@ -42,32 +38,15 @@ char *BOOL[] = {"FALSE","TRUE"};
 
 
 /* Default Value */
-#define	DECRATE10	5
-#define	DECRATE12	3
-
-#define	INTRATE10	8
-#define	INTRATE12	4
 
 #define	SIZE		256*400
-#define	RBSIZE		512
 #define	MAXFILES	128
 #define	INITGAIN	0
 
 #define OUTPORT		's'
 #define GAIN		(0+INITGAIN)
-#define FREQ		10
 #define HEADERSIZE	0
 #define VERBOSE		FA
-
-#ifndef LIB
-	#define LIB "/usr/local/cmnd/lib"
-#endif
-
-#define COEF10  LIB "/da_10.fir"
-#define COEF12  LIB "/da_12.fir"
-
-#define	mod(x)	((x) & (RBSIZE -1))
-
 
 /* Command Name */
 char *cmnd;
@@ -79,8 +58,7 @@ void usage(int status)
 	fprintf(stderr, "  usage:\n");
 	fprintf(stderr, "       %s [ options ] infile1 infile2 ... > stdout\n", cmnd);
 	fprintf(stderr, "  options:\n");
-	fprintf(stderr, "       -s s  : sampling frequency (8,10,12,16,20,22,32,44,48 kHz) [%d]\n", FREQ);
-	fprintf(stderr, "       -c c  : filename of low pass filter coefficients  [Default]\n");
+	fprintf(stderr, "       -s s  : sampling frequency (%skHz) [%d]\n", AVAILABLE_FREQ, DEFAULT_FREQ);
 	fprintf(stderr, "       -g g  : gain (..,-2,-1,0,1,2,..)                  [%d]\n",GAIN);
 	fprintf(stderr, "       -a a  : amplitude gain (0..100)                   [N/A]\n");
 #ifdef SPARC
@@ -97,19 +75,17 @@ void usage(int status)
 	fprintf(stderr, "       data                                              [stdin]\n");
 	fprintf(stderr, "  notice:\n");
 	fprintf(stderr, "       number of infile < %d\n",MAXFILES);
-	fprintf(stderr, "       Default LPF coefficients File:%s\n",COEF10);
-	fprintf(stderr, "       12kHz LPF coefficients File:%s\n",COEF12);
 	fprintf(stderr, "\n");
 	exit(status);
 }
 
-static char	*coef = NULL, outport = OUTPORT;
+static char	outport = OUTPORT;
 static short	*y = NULL, *xs;
 static int	gain = GAIN, ampgain = -1, is_verbose = VERBOSE;
 static int	hdr_size = HEADERSIZE, data_size = sizeof(short);
-static int	freq = FREQ, intrate = INTRATE10, decrate = DECRATE10;
+static int	freq = DEFAULT_FREQ;
 static int	fleng, indx = 0;
-static float	*x, rb[RBSIZE], h[RBSIZE + 1], fgain = 1;
+static float	*x, fgain = 1;
 int		byteswap = 0;
 size_t		abuf_size;
 
@@ -120,7 +96,7 @@ char	*argv[];
 	FILE	*fp, *fopen();
 	char	*s, *infile[MAXFILES], c, *getenv();
 	int	i, nfiles = 0;
-	void	firinit(), sndinit(), convert(), direct();
+	void	sndinit(), direct();
 	double	atof();
 
 	if((s = getenv("DA_FLOAT")) != NULL)
@@ -145,10 +121,6 @@ char	*argv[];
 	    if(*(s = *++argv) == '-') {
 		c = *++s;
 		switch(c) {
-		    case 'c':
-			coef = *++argv;
-			--argc;
-			break;
 		    case 's':
 			freq = atoi(*++argv);
 			--argc;
@@ -220,8 +192,6 @@ char	*argv[];
 			fgain *= 2;
 		if(gain < 0)
 			fgain = 1 / fgain;
-		if(freq == 10 || freq == 12 || freq == 20)
-			firinit();
 
 	if (nfiles) {
 		for(i = 0; i < nfiles; ++i) {
@@ -231,77 +201,16 @@ char	*argv[];
 				if(is_verbose) {
 					fprintf(stderr, "%s: %s\n", cmnd, infile[i]);
 				}
-				if(freq == 10 || freq == 20)
-					convert(fp);
-				else if(freq == 12) {
-					intrate = INTRATE12;
-					decrate = DECRATE12;
-					convert(fp);
-				}
-				else
-					direct(fp);
+				direct(fp);
 				fclose(fp);
 			}
 		}
 	}
-	else {
-		if(freq == 10 || freq == 20)
-			convert(stdin);
-		else if(freq == 12) {
-			intrate = INTRATE12;
-			decrate = DECRATE12;
-			convert(stdin);
-		}
-		else
-			direct(stdin);
-	}
+	else direct(stdin);
+
 	fclose( adfp);
 	close( ACFD);
 	exit(0);
-}
-
-void convert(fp)
-FILE	*fp;
-{
-	int	i, k, nread, count, nwr, firout();
-	void	sndout();
-
-	if(hdr_size) fseek(fp, (long)hdr_size, 0);
-
-	for(count = 1; nread = fread(x, data_size, SIZE, fp); ) {
-		nwr = 0;
-		if( byteswap == 1) byteswap_vec( x, data_size, nread);
-		for(k = 0; k < nread; ++k) {
-			for(i = 0; i < intrate; ++i) {
-				if(i == 0) {
-					indx = mod(indx - 1);
-					if(data_size == sizeof(float))
-						rb[indx] = x[k];
-					else
-						rb[indx] = *(xs + k);
-				}
-				if(--count == 0) {
-					y[nwr++] = firout(i);
-					count = decrate;
-				}
-			}
-		}
-		sndout(nwr);
-	}
-
-	for(nwr = 0, k = fleng / 2; k--; ) {
-		for(i = 0; i < intrate; ++i) {
-			if(i == 0) {
-				indx = mod(indx - 1);
-				rb[indx] = 0;
-			}
-			if(--count == 0) {
-				y[nwr++] = firout(i);
-				count = decrate;
-			}
-		}
-	}
-	sndout(nwr);
 }
 
 void direct(fp)
@@ -325,49 +234,6 @@ FILE	*fp;
 	}
 }
 
-int firout(os)
-int	os;
-{
-	double	out;
-	int	k, l;
-
-	out = 0;
-	for(k = os, l = indx ; k <= fleng; k += intrate, l = mod(l + 1))
-		out += rb[l] * h[k];
-	if(out < 0)
-		out -= 0.5;
-	else
-		out += 0.5;
-	return((int) out);
-}
-
-void firinit()
-{
-	FILE	*fp, *fopen();
-	int	i;
-
-	if(coef == NULL) {
-		if(freq == 12)
-			coef = COEF12;
-		else
-			coef = COEF10;
-	}
-
-	if((fp = fopen(coef, "r")) == NULL) {
-		fprintf(stderr, "%s: cannot open %s\n", cmnd, coef);
-		exit(1);
-	}
-	fleng = freada(h, RBSIZE + 1, fp);
-	fclose(fp);
-	if(--fleng < 0) {
-		fprintf(stderr, "%s: cannot read filter coefficients\n", cmnd);
-		exit(1);
-	}
-
-	for(i = 0; i <= fleng; ++i)
-		h[i] *= fgain;
-}
-
 
 void sndinit()
 {
@@ -378,13 +244,11 @@ void sndinit()
 	case 8:
 		dtype =_8000_16BIT_LINEAR;
 		break;
-	case 10:
-	case 12:
+	case 11:
+		dtype =_11025_16BIT_LINEAR;
+		break;
 	case 16:
 		dtype =_16000_16BIT_LINEAR;
-		break;
-	case 20:
-		dtype =_32000_16BIT_LINEAR;
 		break;
 	case 22:
 		dtype =_22050_16BIT_LINEAR;
@@ -523,21 +387,4 @@ int blocks;
 	}
 
 	return i;		/* number of blocks */
-}
-
-int freada( p, bl, fp)
-float *p;
-int bl;
-FILE *fp;
-{
-	int c;
-	char buf[256];
-
-	c = 0;
-	while( c < bl ){
-		if( fgets( buf, 256, fp) == NULL) break;
-		p[c] = (float)atof( buf);
-		c+=1;
-	}
-	return c;
 }
