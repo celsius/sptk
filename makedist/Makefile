@@ -94,14 +94,14 @@ clip: makefiles lib include
 	$(CP) $(SOURCEDIR)/src/bin/clip/_clip.c $(TARGETDIR)/src/bin/clip/_clip.c
 	$(CP) $(SOURCEDIR)/src/bin/clip/clip.c $(TARGETDIR)/src/bin/clip/clip.c
 
-da: makefiles lib include
+da: dawrite us
+	$(CP) $(SOURCEDIR)/src/bin/da/da.sh $(TARGETDIR)/src/bin/da/da.sh
+
+dawrite: makefiles lib include
 	mkdir -p $(TARGETDIR)/src/bin/da
 	$(CP) $(SOURCEDIR)/src/bin/da/Makefile $(TARGETDIR)/src/bin/da/Makefile
-	$(CP) $(SOURCEDIR)/src/bin/da/da.c $(TARGETDIR)/src/bin/da/da.c
+	$(CP) $(SOURCEDIR)/src/bin/da/dawrite.c $(TARGETDIR)/src/bin/da/dawrite.c
 	$(CP) $(SOURCEDIR)/src/bin/da/da.h $(TARGETDIR)/src/bin/da/da.h
-
-daplay: echo2 da swab us x2x
-	$(CP) $(SOURCEDIR)/src/bin/da/daplay.sh $(TARGETDIR)/src/bin/da/daplay.sh
 
 decimate: makefiles lib include
 	mkdir -p $(TARGETDIR)/src/bin/decimate
