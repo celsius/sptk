@@ -547,6 +547,7 @@ spec: makefiles lib include fftr
 	$(CP) $(SOURCEDIR)/src/bin/spec/spec.c $(TARGETDIR)/src/bin/spec/spec.c
 
 srcnv: makefiles lib include
+	mkdir -p $(TARGETDIR)/src/bin/srcnv
 	$(CP) $(SOURCEDIR)/src/bin/srcnv/Makefile $(TARGETDIR)/src/bin/srcnv/Makefile
 	$(CP) $(SOURCEDIR)/src/bin/srcnv/srcnv.c $(TARGETDIR)/src/bin/srcnv/srcnv.c
 	$(CP) $(SOURCEDIR)/src/bin/srcnv/lpfcoef.2to3f $(TARGETDIR)/src/bin/srcnv/lpfcoef.2to3f
@@ -587,14 +588,18 @@ us: makefiles lib include
 	mkdir -p $(TARGETDIR)/src/bin/us
 	$(CP) $(SOURCEDIR)/src/bin/us/Makefile $(TARGETDIR)/src/bin/us/Makefile
 	$(CP) $(SOURCEDIR)/src/bin/us/us.c $(TARGETDIR)/src/bin/us/us.c
-	$(CP) $(SOURCEDIR)/src/bin/us/us16.sh $(TARGETDIR)/src/bin/us/us16.sh
-	$(CP) $(SOURCEDIR)/src/bin/us/uscd.sh $(TARGETDIR)/src/bin/us/uscd.sh
 	$(CP) $(SOURCEDIR)/src/bin/us/lpfcoef.2to3f $(TARGETDIR)/src/bin/us/lpfcoef.2to3f
 	$(CP) $(SOURCEDIR)/src/bin/us/lpfcoef.2to3s $(TARGETDIR)/src/bin/us/lpfcoef.2to3s
 	$(CP) $(SOURCEDIR)/src/bin/us/lpfcoef.3to4 $(TARGETDIR)/src/bin/us/lpfcoef.3to4
 	$(CP) $(SOURCEDIR)/src/bin/us/lpfcoef.4to5 $(TARGETDIR)/src/bin/us/lpfcoef.4to5
 	$(CP) $(SOURCEDIR)/src/bin/us/lpfcoef.5to7 $(TARGETDIR)/src/bin/us/lpfcoef.5to7
 	$(CP) $(SOURCEDIR)/src/bin/us/lpfcoef.5to8 $(TARGETDIR)/src/bin/us/lpfcoef.5to8
+
+us16: cat2 echo2 x2x us
+	$(CP) $(SOURCEDIR)/src/bin/us/us16.sh $(TARGETDIR)/src/bin/us/us16.sh
+
+uscd: cat2 echo2 x2x us
+	$(CP) $(SOURCEDIR)/src/bin/us/uscd.sh $(TARGETDIR)/src/bin/us/uscd.sh
 
 vopr: makefiles lib include
 	mkdir -p $(TARGETDIR)/src/bin/vopr
