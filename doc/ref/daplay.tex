@@ -1,0 +1,56 @@
+\name{daplay}{オーディオデータの再生}
+\begin{synopsis}
+\item [daplay] [ --s $S$ ] [ --c $C$ ] [ --g $G$ ] [ --a $A$ ] [ --o $O$ ] 
+	   [ --w ] [ --H $H$ ] [ --v ] [ +$type$ ] 
+\item [\ ~~~] [ {\em infile1} ] [ {\em infile2} ] ...
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em daplay}は，入力データをスピーカーまたはヘッドフォンから再生しま
+ す．実体はシェルスクリプトで，内部でサンプリングレート変換にsrcnvを，オーディ
+ オデバイスの制御にdaを使用します．
+ ゲインを$G$とすると入力データを$2^G$倍して出力します．
+ 振幅ゲインはオーディオデバイスのゲインを0〜100の間で設定します．
+ 
+ 16bitオーディオデバイスの使用可能なLinux(i386)とSunOS 4.1.x，SunOS
+5.x(SPARC)に対応しています．
+
+ オプションは環境変数で設定することもできます．
+
+\begin{tabular}{ll}
+DA\_SAMPFREQ & 標本化周波数\\
+DA\_GAIN & ゲイン\\
+DA\_AMPGAIN & 振幅ゲイン\\
+DA\_PORT & 出力ポート指定\\
+DA\_HDRSIZE &ヘッダサイズ\\
+DA\_FLOAT & 入力データ型をfloat型にする\\
+\end{tabular}
+
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{標本化周波数．（ 8，11, 16，22，32，44，48 kHz）}{16}
+	\argm{g}{G}{ゲイン．（..，-2，-1，0，-1，2，..）}{0}
+	\argm{a}{A}{振幅ゲイン．（0..100）指定しない場合はそれまでの設定が適用されます．}{N/A}
+	\argm{o}{O}{出力ポート指定．（s : スピーカ，h : ヘッドフォン．SPARC版のみ有効）}{s}
+	\argm{w}{}{入力データのバイトスワップを行う}{FALSE}
+	\argm{H}{H}{ヘッダサイズ（バイト単位）．}{0}
+	\argm{v}{}{データファイル名を表示．}{FALSE}
+	\argp{type}{入力データ型．（s : short型，f : float型）}{s}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+標本化周波数8kHzのshort型の音声データファイル {\em data.s} をヘッドフォンから
+再生する:
+\begin{quote}
+\verb! daplay -s 8 -g -1 -o h data.s!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{BUGS}
+linux版では，出力ポートの指定ができません．
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+da, srcnv
+\end{qsection}
