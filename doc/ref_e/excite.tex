@@ -6,7 +6,7 @@
 
 \begin{qsection}{DESCRIPTION}
 This command generates from a pitch period file a pulse train for voiced
-or a gaussian noise sequence for unvoiced signals.
+or a Gaussian noise sequence for unvoiced signals.
 \par
 Input and output data are in float format.
 \end{qsection}
@@ -16,7 +16,7 @@ Input and output data are in float format.
 	\argm{i}{I}{interpolation period}{1}
 	\argm{n}{}{gauss/M-sequence for unvoiced\\
                    default is M-sequence}{FALSE}
-	\argm{s}{S}{seed for nrand for gaussian noise}{1}
+	\argm{s}{S}{seed for nrand for Gaussian noise}{1}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -27,7 +27,7 @@ The speech signal is outputed to the {\em data.syn} file.
 \begin{quote}
  \verb!excite < data.p | poledf data.lpc > data.syn!
 \end{quote} 
-In case we use gaussian noise to generate are an unvoiced sound:
+In case we use Gaussian noise to generate are an unvoiced sound:
 \begin{quote}
  \verb!excite -n < data.p | poledf data.lpc > data.syn!
 \end{quote}
