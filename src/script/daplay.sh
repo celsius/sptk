@@ -149,12 +149,12 @@ foreach infile ($argv[${file}-$#argv])
 			breaksw
 		case 10:
 			fileconvert $infile |\
-				srcnv -c lpfcoef.5to8 -d 5 -u 8 |\
+				srcnv -s 58 -d 5 -u 8 |\
 				da $daops -s 16
 			breaksw
 		case 12:
 			fileconvert $infile |\
-				srcnv -c lpfcoef.3to4 -d 3 -u 4 |\
+				srcnv -s 34 -d 3 -u 4 |\
 				da $daops -s 16
 			breaksw
 		case 16:
@@ -215,10 +215,10 @@ foreach infile ($argv[${file}-$#argv])
 
 	label stdin44:
 	fileconvert $infile |\
-		srcnv -c lpfcoef.2to3f -u3 -d2 |\
-		srcnv -c lpfcoef.2to3s -u3 -d2 |\
-		srcnv -c lpfcoef.5to7 -u7 -d5 |\
-		srcnv -c lpfcoef.5to7 -u7 -d$osr |\
+		srcnv -s 23F -u3 -d2 |\
+		srcnv -s 23S -u3 -d2 |\
+		srcnv -s 57 -u7 -d5 |\
+		srcnv -s 57 -u7 -d$osr |\
 		da -H $headersize -g $gain -a $ampl +f -s 22
 	if( $file < 0)
 		exit 0
