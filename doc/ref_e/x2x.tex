@@ -1,66 +1,63 @@
-\name{x2x}{$B%G!<%?7A<0$NJQ49(B}{$B%G!<%?A`:n(B}
+\name{x2x}{data type transformation}{data}
 
 \begin{synopsis}
 \item[x2x] [ +$type1$ ] [ +$type2$ ] [ $\%format$ ] [ +$a$ A ] [ --r ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em x2x} $B$O!$(B
-$BI8=`F~NO$+$iFI$_9~$^$l$?%G!<%?$r;XDj$5$l$?%G!<%?7A<0$KJQ49$7!$(B
-$BI8=`=PNO$K=PNO$7$^$9!%(B
+{\em x2x} ¤Ï¡¤
+É¸½àÆþÎÏ¤«¤éÆÉ¤ß¹þ¤Þ¤ì¤¿¥Ç¡¼¥¿¤ò»ØÄê¤µ¤ì¤¿¥Ç¡¼¥¿·Á¼°¤ËÊÑ´¹¤·¡¤
+É¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
 \par
-$BF~NO%G!<%?$N7A<0$O!$(B+$type1$ $B%*%W%7%g%s$G!$(B
-$B=PNO%G!<%?$N7A<0$O!$(B+$type2$ $B%*%W%7%g%s$G!$(B
-$B;XDj$7$^$9!%(B
+ÆþÎÏ¥Ç¡¼¥¿¤Î·Á¼°¤Ï¡¤+$type1$ ¥ª¥×¥·¥ç¥ó¤Ç¡¤
+½ÐÎÏ¥Ç¡¼¥¿¤Î·Á¼°¤Ï¡¤+$type2$ ¥ª¥×¥·¥ç¥ó¤Ç¡¤
+»ØÄê¤·¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argp{type1}{$BF~NO%G!<%?$N7A<0!%(B }{f}
-	\argp{type2}{$B=PNO%G!<%?$N7A<0!%(B\\
-	$B%*%W%7%g%s(B $type1, type2$ $B$H$b$K!$0J2<$N$$$:$l$+$G;XDj$7$^$9!%(B\\
+	\argp{type1}{input data type}{f}
+	\argp{type2}{output data type\\
+	¥ª¥×¥·¥ç¥ó $type1, type2$ ¤È¤â¤Ë¡¤°Ê²¼¤Î¤¤¤º¤ì¤«¤Ç»ØÄê¤·¤Þ¤¹¡¥\\
                 \begin{tabular}{llcll} \\[-1zh]
-                        c & char$B7?(B (1byte) & \quad &
-                        C & unsigned char$B7?(B (1byte) \\
-                        s & short$B7?(B (2bytes) & \quad &
-                        S & unsigned short$B7?(B (2bytes) \\
-                        i & int$B7?(B (4bytes) & \quad &
-                        I & unsigned int$B7?(B (4bytes) \\
-                        l & long$B7?(B (4bytes) & \quad &
-                        L & unsigned long$B7?(B (4bytes) \\
-                        f & float$B7?(B (4bytes) & \quad &
-                        d & double$B7?(B (8bytes) \\
-                        a & ascii$BJ8;zNs(B \\ [1zh] 
+                        c & char (1byte) & \quad &
+                        C & unsigned char (1byte) \\
+                        s & short (2bytes) & \quad &
+                        S & unsigned short (2bytes) \\
+                        i & int (4bytes) & \quad &
+                        I & unsigned int (4bytes) \\
+                        l & long (4bytes) & \quad &
+                        L & unsigned long (4bytes) \\
+                        f & float (4bytes) & \quad &
+                        d & double (8bytes) \\
+                        a & ascii \\ [1zh] 
                 \end{tabular} \\
-                $B%G!<%?$r(B $t_1$ $B7?$+$i(B $t_2$ $B7?$X7?JQ49$7$F=PNO$9$k!%(B $t_2$ $B$,(B
-                $B>JN,$5$l$?>l9g$O(B $t_2=t_1$ $B$H$_$J$77?JQ49$O9T$J$o$J$$!%(B}{type1}
-	\argp{{\bf a} \qquad A}{$B%+%i%`?t!%(B
-				$B%G!<%?$r(B $A$ $B8D=PNO$9$kKh$K2~9T$9$k!%(B}{1}
-	\argm{r}{}{$BIbF0>.?tE@%G!<%?!J(Bfloat, double, ascii$BJ8;z7?!K$r(B
-			$B@0?t%G!<%?!J(Bchar, short, int, long$B7?!K$KJQ49$9$k:]!$(B
-			$B>.?tE@0J2<$r;M<N8^F~!%(B}{FALSE}
-	\argh{format}{}{$type2$ $B$,(Bascii$B$G$"$k;~!$(BC$B8@8l$N(Bprintf()$B4X?t$N(B
-			$B$h$&$J=PNO%U%)!<%^%C%H$G=PNO!%(B
-			}{$\%g$}
+                ¥Ç¡¼¥¿¤ò $t_1$ ·¿¤«¤é $t_2$ ·¿¤Ø·¿ÊÑ´¹¤·¤Æ½ÐÎÏ¤¹¤ë¡¥ $t_2$ ¤¬
+                ¾ÊÎ¬¤µ¤ì¤¿¾ì¹ç¤Ï $t_2=t_1$ ¤È¤ß¤Ê¤··¿ÊÑ´¹¤Ï¹Ô¤Ê¤ï¤Ê¤¤¡¥}{type1}
+	\argp{{\bf a} \qquad A}{column number}{1}
+	\argm{r}{}{specify rounding off when a real number
+                 is substituted for a integer}{FALSE}
+	\argh{format}{}{specify output format similar to 'printf()', 
+                        if $type2$ is ascii.}{$\%g$}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-ascii$B7A<0$G$+$+$l$?%G!<%?%U%!%$%k(B{\em data.asc} $B$r(B
-float$B7A<0$N%U%!%$%k(B{\em data.f}$B$KJQ49$9$k(B:
+ascii·Á¼°¤Ç¤«¤«¤ì¤¿¥Ç¡¼¥¿¥Õ¥¡¥¤¥ë{\em data.asc} ¤ò
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë{\em data.f}¤ËÊÑ´¹¤¹¤ë:
 \begin{quote}
   \verb!x2x +af < data.asc > data.f!
 \end{quote}
 \par
-float$B7A<0$N%U%!%$%k(B{\em data.f} $B$K$"$k%G!<%?$r(B
-ascii$B7A<0$KJQ49$7!$2hLL$K=PNO$9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë{\em data.f} ¤Ë¤¢¤ë¥Ç¡¼¥¿¤ò
+ascii·Á¼°¤ËÊÑ´¹¤·¡¤²èÌÌ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!x2x +fa < data.f!
 \end{quote}
-$BNc$($P!$%U%!%$%k(B{\em data.f} $B$K!$(B
-float $B7A<0$N?tCM%G!<%?(B
+Îã¤¨¤Ð¡¤¥Õ¥¡¥¤¥ë{\em data.f} ¤Ë¡¤
+float ·Á¼°¤Î¿ôÃÍ¥Ç¡¼¥¿
 \begin{displaymath}
   1, 2, 3, 4, 5, 6, 7
 \end{displaymath}
-$B$,F~$C$F$$$?>l9g!$(B
+¤¬Æþ¤Ã¤Æ¤¤¤¿¾ì¹ç¡¤
 \begin{quote}
   \verb!1! \\
   \verb!2! \\
@@ -70,32 +67,32 @@ float $B7A<0$N?tCM%G!<%?(B
   \verb!6! \\
   \verb!7!
 \end{quote}
-$B$H2hLL!JI8=`=PNO!K$K=PNO$5$l$^$9!%(B
+¤È²èÌÌ¡ÊÉ¸½à½ÐÎÏ¡Ë¤Ë½ÐÎÏ¤µ¤ì¤Þ¤¹¡¥
 \par
-$BF1$8%G!<%?$r%+%i%`?t$r;XDj$7$F=PNO$9$k(B:
+Æ±¤¸¥Ç¡¼¥¿¤ò¥«¥é¥à¿ô¤ò»ØÄê¤·¤Æ½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!x2x +fa 3 < data.f!
 \end{quote}
-$B$3$N>l9g!$(B
+¤³¤Î¾ì¹ç¡¤
 \begin{quote}
   \verb!1       2        3! \\
   \verb!4       5        6! \\
   \verb!7!
 \end{quote}
-$B$HI=<($5$l$^$9!%(B
+¤ÈÉ½¼¨¤µ¤ì¤Þ¤¹¡¥
 \par
-$B=PNO$r(Bprintf$B$N(B\%e $B%U%)!<%^%C%H$G9T$&(B:
+½ÐÎÏ¤òprintf¤Î\%e ¥Õ¥©¡¼¥Þ¥Ã¥È¤Ç¹Ô¤¦:
 \begin{quote}
   \verb!x2x +fa %9.4e < data.f!
 \end{quote}
-$B$3$NNc$G$O!$I}(B11 $B7e(B $B!$>.?tE@0J2<(B4 $B7e$r;XDj$7$F$*$j!$(B
+¤³¤ÎÎã¤Ç¤Ï¡¤Éý11 ·å ¡¤¾®¿ôÅÀ°Ê²¼4 ·å¤ò»ØÄê¤·¤Æ¤ª¤ê¡¤
 \begin{quote}
   \verb!1.0000e+000! \\
   \verb!2.0000e+000! \\
   \mbox{\hspace{2em}}$\vdots$ \\
   \verb!7.0000e+000!
 \end{quote}
-$B$HI=<($5$l$^$9!%(B
+¤ÈÉ½¼¨¤µ¤ì¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

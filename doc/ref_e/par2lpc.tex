@@ -1,43 +1,43 @@
-\name{par2lpc}{$BH?<M78?t$+$i(BLPC$B$KJQ49(B}{$B2;@<%Q%i%a!<%?JQ49(B}
+\name{par2lpc}{transform PARCOR to LPC}{speech parameter transformation}
 
 \begin{synopsis}
 \item [par2lpc] [ --m $M$ ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BH?<M78?t!J(BPARCOR$B78?t!K$+$i@~7AM=B,78?t$r5a$a$^$9!%(B
-$B;XDj$5$l$?%U%!%$%k$+$i(B $M$ $B<!$NH?<M78?t(B
+È¿¼Í·¸¿ô¡ÊPARCOR·¸¿ô¡Ë¤«¤éÀþ·ÁÍ½Â¬·¸¿ô¤òµá¤á¤Þ¤¹¡¥
+»ØÄê¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤«¤é $M$ ¼¡¤ÎÈ¿¼Í·¸¿ô
 \begin{displaymath}
   K, k(1),\ldots, k(M)
 \end{displaymath}
-$B$rFI$_9~$_!$@~7AM=B,78?t(B
+¤òÆÉ¤ß¹þ¤ß¡¤Àþ·ÁÍ½Â¬·¸¿ô
 \begin{displaymath}
   K, a(1),\ldots, a(M)
 \end{displaymath}
-$B$rI8=`=PNO$K=PNO$7$^$9!%(B
+¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+Input and output data are in float format.
 \par
-$BH?<M78?t$+$i@~7AM=B,78?t$r5a$a$kJQ49$O!$(B
-$B%@!<%S%s$N2rK!$N0lIt$G$"$k<0(B
+È¿¼Í·¸¿ô¤«¤éÀþ·ÁÍ½Â¬·¸¿ô¤òµá¤á¤ëÊÑ´¹¤Ï¡¤
+¥À¡¼¥Ó¥ó¤Î²òË¡¤Î°ìÉô¤Ç¤¢¤ë¼°
 \begin{eqnarray*} 
 a^{(m)}(m) &=& k(m) \\
 a^{(m)}(i) &=& a^{(m-1)}(i) + k(m) a^{(m-1)}(m-i), ~~~~~1\leq i \leq m
 \end{eqnarray*}
-$B$r;H$C$F!$(B $m=1, 2, \ldots, p$$B$N=g$K7+$jJV$7$^$9!%$3$3$G!"=i4|>r7o$O(B
+¤ò»È¤Ã¤Æ¡¤ $m=1, 2, \ldots, p$¤Î½ç¤Ë·«¤êÊÖ¤·¤Þ¤¹¡¥¤³¤³¤Ç¡¢½é´ü¾ò·ï¤Ï
 \begin{displaymath}
 a^{(M)}(m) = a(m), ~~~~~1 \leq m \leq M
 \end{displaymath}
-$B$G$9!%(B
+¤Ç¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{LPC$B$N<!?t!%(B}{25}
+	\argm{m}{M}{order of LPC}{25}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$NH?<M78?t%U%!%$%k(B {\em data.rc} $B$r@~7AM=B,78?t$KJQ49$7!"(B 
-{\em data.lpc} $B$K=PNO$9$k(B:
+float·Á¼°¤ÎÈ¿¼Í·¸¿ô¥Õ¥¡¥¤¥ë {\em data.rc} ¤òÀþ·ÁÍ½Â¬·¸¿ô¤ËÊÑ´¹¤·¡¢ 
+{\em data.lpc} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
  \verb!par2lpc < data.rc > data.lpc!
 \end{quote} 

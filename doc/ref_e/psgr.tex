@@ -1,4 +1,4 @@
-\name{psgr}{$B%W%m%C%?%3%^%s%INs$r(BPostScript$B%3!<%I$KJQ49(B}{$B%0%i%UI=<((B}
+\name{psgr}{XY-plotter simulator for EPSF}{graph}
 
 \begin{synopsis}
  \item[psgr] [ --t {\em title} ] [ --s $S$ ] [ --c $C$ ] [ --x $X$ ]
@@ -8,29 +8,29 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BI8=`F~NO$+$i%W%m%C%?%3%^%s%INs$rFI$_9~$s$G!$(B
-$B%0%i%U=PNO$r(B PostScript (EPSF or PS) $B%3!<%I$KJQ49$7I8=`=PNO$K=PNO$7$^$9!%(B
+É¸½àÆþÎÏ¤«¤é¥×¥í¥Ã¥¿¥³¥Þ¥ó¥ÉÎó¤òÆÉ¤ß¹þ¤ó¤Ç¡¤
+¥°¥é¥Õ½ÐÎÏ¤ò PostScript (EPSF or PS) ¥³¡¼¥É¤ËÊÑ´¹¤·É¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{t}{title}{$B%?%$%H%k!%(B}{NULL}
-	\argm{s}{S}{$BIA2h%5%$%:=L>.HfN(!%(B}{1.0}
-	\argm{c}{C}{$B%3%T!<It?t!%(B}{1}
-	\argm{x}{X}{x $B<4$N%7%U%H!%(B(mm)}{0}
-	\argm{y}{Y}{y $B<4$N%7%U%H!%(B(mm)}{0}
-	\argm{p}{P}{$B;f$N%5%$%:!%(B(Letter, A3, A4, A5, B4, B5)}{A4}
-	\argm{l}{}{$B%i%s%I%9%1!<%W!%(B}{FALSE}
-	\argm{r}{R}{$B2rA|EY!%(B(dpi)}{600}
-	\argm{b}{}{$B%\!<%k%I%U%)%s%H!%(B}{FALSE}
-	\argm{T}{T}{$B>eIt%^!<%8%s!%(B(mm)}{0}
-	\argm{B}{B}{$B2<It%^!<%8%s!%(B(mm)}{0}
-	\argm{L}{L}{$B:8B&%^!<%8%s!%(B(mm)}{0}
-	\argm{R}{R}{$B1&B&%^!<%8%s!%(B(mm)}{0}
-	\argm{P}{}{PostScript code $B$r=PNO!%(B}{FALSE}
+	\argm{t}{title}{title of figure}{NULL}
+	\argm{s}{S}{shrink}{1.0}
+	\argm{c}{C}{number of copy}{1}
+	\argm{x}{X}{x offset(mm)}{0}
+	\argm{y}{Y}{y offset(mm)}{0}
+	\argm{p}{P}{paper(Letter, A3, A4, A5, B4, B5)}{A4}
+	\argm{l}{}{landscape}{FALSE}
+	\argm{r}{R}{resolution(dpi)}{600}
+	\argm{b}{}{bold font mode}{FALSE}
+	\argm{T}{T}{top margin(mm)}{0}
+	\argm{B}{B}{bottom margin(mm)}{0}
+	\argm{L}{L}{left margin(mm)}{0}
+	\argm{R}{R}{right margin(mm)}{0}
+	\argm{P}{}{output PostScript code}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
- fig $B$G(B {\em data.fig} $B$K4^$^$l$k?^$rIA$-!"%W%j%s%?!<$K=PNO$9$k(B:
+ fig ¤Ç {\em data.fig} ¤Ë´Þ¤Þ¤ì¤ë¿Þ¤òÉÁ¤­¡¢¥×¥ê¥ó¥¿¡¼¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
  \verb!fig data.fig | psgr | lpr!
 \end{quote}
@@ -38,12 +38,12 @@
 
 \begin{qsection}{BUGS}
 \begin{itemize}
-\item Y$B<4L>$J$I$N<~JUIt$,7g$1$k2DG=@-$,$"$j$^$9(B
-$B%f!<%6!<B&$G$NBP=hK!$H$7$F!$%^!<%8%s$K$h$k=$@5$r9T$J$C$F2<$5$$!%(B
+\item Y¼´Ì¾¤Ê¤É¤Î¼þÊÕÉô¤¬·ç¤±¤ë²ÄÇ½À­¤¬¤¢¤ê¤Þ¤¹
+¥æ¡¼¥¶¡¼Â¦¤Ç¤ÎÂÐ½èË¡¤È¤·¤Æ¡¤¥Þ¡¼¥¸¥ó¤Ë¤è¤ë½¤Àµ¤ò¹Ô¤Ê¤Ã¤Æ²¼¤µ¤¤¡¥
 
-\item $B%7%e%j%s%/$K$h$C$FIA2h%5%$%:$rJQ99$7$?>l9g!$(B\TeX $B$X$N<h$j9~$_$N:]$K(B
-$B@5$7$/H?1G$5$l$J$$>l9g$,$"$k$+$bCN$l$^$;$s!%$=$N$h$&$J>l9g$K$O!$(B
-\TeX $BB&$N<h$j9~$_;~$N%*%W%7%g%s$G=hM}$7$F2<$5$$!%(B
+\item ¥·¥å¥ê¥ó¥¯¤Ë¤è¤Ã¤ÆÉÁ²è¥µ¥¤¥º¤òÊÑ¹¹¤·¤¿¾ì¹ç¡¤\TeX ¤Ø¤Î¼è¤ê¹þ¤ß¤ÎºÝ¤Ë
+Àµ¤·¤¯È¿±Ç¤µ¤ì¤Ê¤¤¾ì¹ç¤¬¤¢¤ë¤«¤âÃÎ¤ì¤Þ¤»¤ó¡¥¤½¤Î¤è¤¦¤Ê¾ì¹ç¤Ë¤Ï¡¤
+\TeX Â¦¤Î¼è¤ê¹þ¤ß»þ¤Î¥ª¥×¥·¥ç¥ó¤Ç½èÍý¤·¤Æ²¼¤µ¤¤¡¥
 
 \end{itemize}
 \end{qsection}

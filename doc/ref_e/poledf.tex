@@ -1,5 +1,5 @@
-\name{poledf}{$B2;@<9g@.$N$?$a$NA46KI8=`7?%U%#%k%?(B}%
-{$B2;@<9g@.MQ%U%#%k%?(B}
+\name{poledf}{all pole digital filter for speech synthesis}%
+{digital filter}
 
 \begin{synopsis}
 \item[poledf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --t ] [ --k ]
@@ -7,30 +7,30 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BF~NO%G!<%?$r(B {\em afile}$B$N@~7AM=B,78?t(B $K,a(1),\ldots,a(M)$ $B$r$b$D(B
-$BA46KI8=`7A%U%#%k%?$K$h$j%U%#%k%?%j%s%0$7!$I8=`=PNO$K=PNO$7$^$9!%(B
+ÆþÎÏ¥Ç¡¼¥¿¤ò {\em afile}¤ÎÀþ·ÁÍ½Â¬·¸¿ô $K,a(1),\ldots,a(M)$ ¤ò¤â¤Ä
+Á´¶ËÉ¸½à·Á¥Õ¥£¥ë¥¿¤Ë¤è¤ê¥Õ¥£¥ë¥¿¥ê¥ó¥°¤·¡¤É¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+Input and output data are in float format.
 \par
-$BA46KI8=`7A%U%#%k%?$NEAC#4X?t(B $H(z)$ $B$O!$(B
+Á´¶ËÉ¸½à·Á¥Õ¥£¥ë¥¿¤ÎÅÁÃ£´Ø¿ô $H(z)$ ¤Ï¡¤
 \begin{displaymath}
 H(z) = \frac{K}{\displaystyle 1+\sum_{m=1}^M a(m) z^{-m}}
 \end{displaymath}
-$B$G$9!%(B
+¤Ç¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{$B%U%#%k%?$N<!?t!%(B}{25}
-	\argm{p}{P}{$B%U%l!<%`D9!%(B}{100}
-	\argm{i}{I}{$B78?t$N99?7<~4|!%(B}{1}
-	\argm{t}{}{$BE>CV7?%U%#%k%?!%(B}{FALSE}
-	\argm{k}{}{$B%2%$%s$r=|$$$?%7%9%F%`4X?t$G%U%#%k%?%j%s%0$9$k(B}{FALSE}
+	\argm{m}{M}{order of coefficients}{25}
+	\argm{p}{P}{frame period}{100}
+	\argm{i}{I}{interpolation period}{1}
+	\argm{t}{}{transpose filter}{FALSE}
+	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%T%C%A%G!<%?(B {\em data.pitch} $B$+$iNe?68;$r:n@.$7!$(B
-$B@~7AM=B,78?t%U%!%$%k(B {\em data.lpc} $B$K$h$jI8=`7A9g@.%U%#%k%?$r6nF0$7!$(B
-$B9g@.2;@<$r(B {\em data.syn} $B$K=PNO$9$k(B:
+float·Á¼°¤Î¥Ô¥Ã¥Á¥Ç¡¼¥¿ {\em data.pitch} ¤«¤éÎå¿¶¸»¤òºîÀ®¤·¡¤
+Àþ·ÁÍ½Â¬·¸¿ô¥Õ¥¡¥¤¥ë {\em data.lpc} ¤Ë¤è¤êÉ¸½à·Á¹çÀ®¥Õ¥£¥ë¥¿¤ò¶îÆ°¤·¡¤
+¹çÀ®²»À¼¤ò {\em data.syn} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!excite < data.pitch | poledf data.lpc > data.syn!
 \end{quote}

@@ -1,5 +1,5 @@
 \name[ref:MLSA-IECE,ref:amcep-ICASSP92]{mlsadf}%
-{$B2;@<9g@.$N$?$a$N(BMLSA$B%U%#%k%?(B}{$B2;@<9g@.MQ%U%#%k%?(B}
+{MLSA digital filter for speech synthesis}{digital filter}
 
 \begin{synopsis}
 \item [mlsadf] [ --m $M$ ] [ --a $A$ ] [ --p $P$ ] [ --i $I$ ] [ --b ] 
@@ -8,27 +8,27 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BF~NO%G!<%?$r(B{\em mcfile}$B$N%a%k%1%W%9%H%i%`(B
-$B78?t(B $c_\alpha(0),c_\alpha(1),\ldots,c_\alpha(M)$ $B$r$b$D(B
-MLSA$B%U%#%k%?$K$h$j%U%#%k%?%j%s%0$7!$I8=`=PNO$K=PNO$7$^$9!%(B
+ÆþÎÏ¥Ç¡¼¥¿¤ò{\em mcfile}¤Î¥á¥ë¥±¥×¥¹¥È¥é¥à
+·¸¿ô $c_\alpha(0),c_\alpha(1),\ldots,c_\alpha(M)$ ¤ò¤â¤Ä
+MLSA¥Õ¥£¥ë¥¿¤Ë¤è¤ê¥Õ¥£¥ë¥¿¥ê¥ó¥°¤·¡¤É¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+¥Ç¡¼¥¿·Á¼°¤ÏÆþÎÏ¡¤½ÐÎÏ¤È¤âfloat ·Á¼°¤Ç¤¹¡¥
 \par
-MLSA$B%U%#%k%?$O!$(B$M$ $B<!$N%a%k%1%W%9%H%i%`(B $c_\alpha(m)$ $B$GI=8=$5$l$?(B
-$B;X?t7AEAC#4X?t(B
+MLSA¥Õ¥£¥ë¥¿¤Ï¡¤$M$ ¼¡¤Î¥á¥ë¥±¥×¥¹¥È¥é¥à $c_\alpha(m)$ ¤ÇÉ½¸½¤µ¤ì¤¿
+»Ø¿ô·ÁÅÁÃ£´Ø¿ô
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^M c_\alpha(m) \tilde{z}^{-m}
 \end{displaymath}
-$B$?$@$7!"(B
+¤¿¤À¤·¡¢
 \begin{displaymath}
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
 \end{displaymath}
-$B$r9b@:EY$K6a;w$7$^$9!%$3$3$G!$EAC#4X?t(B $H(z)$ $B$+$i%2%$%s(B $K$ $B$r(B
+¤ò¹âÀºÅÙ¤Ë¶á»÷¤·¤Þ¤¹¡¥¤³¤³¤Ç¡¤ÅÁÃ£´Ø¿ô $H(z)$ ¤«¤é¥²¥¤¥ó $K$ ¤ò
 \begin{eqnarray*}
 H(z) &=& \exp \sum_{m=0}^M b(m) {\it\Phi}_m(z) \\
      &=& K \cdot D(z)
 \end{eqnarray*}
-$B$?$@$7!$(B
+¤¿¤À¤·¡¤
 \begin{displaymath}
 {\it\Phi}_m(z) = \left\{ 
 	\begin{array}{ll}
@@ -38,13 +38,13 @@ H(z) &=& \exp \sum_{m=0}^M b(m) {\it\Phi}_m(z) \\
 	    \tilde{z}^{-(m-1)},& m\geq 1
 	\end{array} \right.
 \end{displaymath}
-$B$*$h$S!$(B
+¤ª¤è¤Ó¡¤
 \begin{eqnarray*}
 K    &=& \exp b(0) \\
 D(z) &=& \exp \sum_{m=1}^M b(m) {\it\Phi}_m(z) 
 \end{eqnarray*}
-$B$N$h$&$K$/$/$j=P$7$^$9!%$^$?!$78?t(B $b(m)$ $B$O(B $c_\alpha(m)$ $B$H@~7AJQ49$N(B
-$B4X78$K$"$j$^$9(B(mc2b, b2mc$B;2>H(B)$B!%(B
+¤Î¤è¤¦¤Ë¤¯¤¯¤ê½Ð¤·¤Þ¤¹¡¥¤Þ¤¿¡¤·¸¿ô $b(m)$ ¤Ï $c_\alpha(m)$ ¤ÈÀþ·ÁÊÑ´¹¤Î
+´Ø·¸¤Ë¤¢¤ê¤Þ¤¹(mc2b, b2mc»²¾È)¡¥
 \setcounter{figure}{0}
 \begin{figure}[t]
 \begin{center}
@@ -265,47 +265,49 @@ D(z) &=& \exp \sum_{m=1}^M b(m) {\it\Phi}_m(z)
         Two-stage cascade structure \\
         $R_4(F_1(z))\cdot R_4(F_2(z))\simeq D(z)$}
 \end{center}
-\caption{$B;X?t7AEAC#4X?t(B $1/D(z)$ $B$N<B8=(B}
+\caption{»Ø¿ô·ÁÅÁÃ£´Ø¿ô $1/D(z)$ ¤Î¼Â¸½}
 \label{fig:mlsadflt_MLSA}
 \end{figure}
 
 \par
-$B%U%#%k%?(B $D(z)$ $B$O<!<0$N(BIIR$B%U%#%k%?(B
+¥Õ¥£¥ë¥¿ $D(z)$ ¤Ï¼¡¼°¤ÎIIR¥Õ¥£¥ë¥¿
 \begin{displaymath}
 F(z) = \sum_{m=1}^M b(m) {\it\Phi}_m(z) \\
 \end{displaymath}
-$B$r4pAC%U%#%k%?$H$7$F(B($B?^(B\ref{fig:mlsadflt_MLSA}(a))$B!$(B
-$B?^(B\ref{fig:mlsadflt_MLSA}(b)$B$N$h$&$K<B8=$9$k$3$H$,$G$-$^$9!%(B
-$B$3$3$G!$4pAC%U%#%k%?$r?^(B\ref{fig:mlsadflt_MLSA}(c)$B$N$h$&$K(B
+¤ò´ðÁÃ¥Õ¥£¥ë¥¿¤È¤·¤Æ(¿Þ\ref{fig:mlsadflt_MLSA}(a))¡¤
+¿Þ\ref{fig:mlsadflt_MLSA}(b)¤Î¤è¤¦¤Ë¼Â¸½¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡¥
+¤³¤³¤Ç¡¤´ðÁÃ¥Õ¥£¥ë¥¿¤ò¿Þ\ref{fig:mlsadflt_MLSA}(c)¤Î¤è¤¦¤Ë
 \begin{displaymath}
 F(z) = F_1(z) + F_2(z)
 \end{displaymath}
-$B$?$@$7!$(B
+¤¿¤À¤·¡¤
 \begin{eqnarray*}
 F_1(z) &=& b(1) z^{-1} \\
 F_2(z) &=& \sum_{m=2}^M b(m) {\it\Phi}_m(z)
 \end{eqnarray*}
-$B$HJ,3d$9$k$3$H$K$h$j!$6a;w@:EY$r>e$2$F$$$^$9!%(B
+¤ÈÊ¬³ä¤¹¤ë¤³¤È¤Ë¤è¤ê¡¤¶á»÷ÀºÅÙ¤ò¾å¤²¤Æ¤¤¤Þ¤¹¡¥
 \par
-$B$^$?!$?^(B\ref{fig:mlsadflt_MLSA}(b)$B$N78?t(B $A_{4,l}$
-$B$O(BLMA$B%U%#%k%?$HF1$8CM$rMQ$$$F$$$^$9(B(lmadf $B;2>H(B)$B!%(B
+¤Þ¤¿¡¤¿Þ\ref{fig:mlsadflt_MLSA}(b)¤Î·¸¿ô $A_{4,l}$
+¤ÏLMA¥Õ¥£¥ë¥¿¤ÈÆ±¤¸ÃÍ¤òÍÑ¤¤¤Æ¤¤¤Þ¤¹(lmadf »²¾È)¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{$B%a%k%1%W%9%H%i%`$N<!?t!%(B}{25}
-	\argm{a}{A}{$B<~GH?t05=L%Q%i%a!<%?(B $\alpha$$B!%(B}{0.35}
-	\argm{p}{P}{$B78?t$N99?7<~4|!%(B}{100}
-	\argm{i}{I}{$B78?t$NJd4V<~4|!%(B}{1}
-	\argm{b}{}{$B78?t%U%!%$%k$,(B $b(m)$ ($B%a%k%1%W%9%H%i%`$r@~7AJQ49$7$?78?t(B)
-		   $B$G$"$k$3$H$r;XDj!%(B}{FALSE}
-	\argm{P}{Pa}{$B%Q%G6a;w<!?t!%(B\\Pa $B$O(B4$BKt$O(B5$B$r;XDj$G$-$^$9!%(B}{4}
-	\argm{k}{}{$B%2%$%s$r=|$$$?%7%9%F%`4X?t$G%U%#%k%?%j%s%0$9$k(B}{FALSE}
+	\argm{m}{M}{order of mel-cepstrum}{25}
+	\argm{a}{A}{all-pass constant $\alpha$¡¥}{0.35}
+	\argm{p}{P}{frame period}{100}
+	\argm{i}{I}{interpolation period}{1}
+	\argm{b}{}{output filter coefficient $b(m)$
+                  (coefficients which are linear
+                   transformed from mel-cepstrum)}{FALSE}
+	\argm{P}{Pa}{order of pade approximation\\
+                     Pa can be assigned 4 or 5}{4}
+	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%T%C%A%G!<%?(B {\em data.pitch} $B$+$iNe?68;$r:n@.$7!$(B
-$B%a%k%1%W%9%H%i%`%U%!%$%k(B {\em data.mcep} $B$K$h$j(BMLSA$B%U%#%k%?$r6nF0$7!$(B
-$B9g@.2;@<$r(B {\em data.syn} $B$K=PNO$9$k(B:
+float·Á¼°¤Î¥Ô¥Ã¥Á¥Ç¡¼¥¿ {\em data.pitch} ¤«¤éÎå¿¶¸»¤òºîÀ®¤·¡¤
+¥á¥ë¥±¥×¥¹¥È¥é¥à¥Õ¥¡¥¤¥ë {\em data.mcep} ¤Ë¤è¤êMLSA¥Õ¥£¥ë¥¿¤ò¶îÆ°¤·¡¤
+¹çÀ®²»À¼¤ò {\em data.syn} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
  \verb!excite < data.pitch | mlsadf data.mcep > data.syn!
 \end{quote} 

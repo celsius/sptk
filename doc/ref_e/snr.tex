@@ -1,22 +1,22 @@
-\name{snr}{SNR$B$H%;%0%a%s%?%k(BSNR$B$r5a$a$k(B}{$B%G!<%?=hM}(B}
+\name{snr}{evaluate SNR and segmental SNR}{data}
 
 \begin{synopsis}
 \item [snr] [ --l $L$ ] [ +$t_1 t_2$ ] [ --o $O$ ] {\em file1} [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B;XDj$5$l$?(B2$B$D$N%U%!%$%k$+$i$NF~NO(B
+»ØÄê¤µ¤ì¤¿2¤Ä¤Î¥Õ¥¡¥¤¥ë¤«¤é¤ÎÆþÎÏ
 \begin{displaymath}
   x_1(0),x_1(1),\ldots,x_1(L-1)
 \end{displaymath}
-$B$H(B
+¤È
 \begin{displaymath}
   x_2(0),x_2(1),\ldots,x_2(L-1)
 \end{displaymath}
-$B$+$i(BSNR(Signal Noise Ratio)$B$H(B
-$\mbox{SNR}_{\mbox{seg}}$($B%;%0%a%s%?%k(BSNR)$B$r7W;;$7$^$9!%(B
+¤«¤éSNR(Signal Noise Ratio)¤È
+$\mbox{SNR}_{\mbox{seg}}$(¥»¥°¥á¥ó¥¿¥ëSNR)¤ò·×»»¤·¤Þ¤¹¡¥
 \par
-SNR$B!$(B $\mbox{SNR}_{\mbox{seg}}$$B$O<!<0$G7W;;$9$k$3$H$,$G$-$^$9!%(B
+SNR¡¤ $\mbox{SNR}_{\mbox{seg}}$¤Ï¼¡¼°¤Ç·×»»¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡¥
 \begin{displaymath}
 \mbox{SNR} = 10~\log \frac{\displaystyle\sum_{n} ( x(n) )^{2}}
 {\displaystyle\sum_{n} (e(n))^{2}}~~~\mbox{[dB]}
@@ -25,38 +25,41 @@ SNR$B!$(B $\mbox{SNR}_{\mbox{seg}}$$B$O<!<0$G7W;;$9$k$3$H$,$G$-$^$9!%(B
 \mbox{SNR}_{\mbox{seg}} = \frac{1}{N_{i}} \sum_{i = 1}^{N_{i}}
 \mbox{SNR}_{i} ~~~\mbox{[dB]}
 \end{displaymath}
-$B$?$@$7!$(B
+¤¿¤À¤·¡¤
 \begin{displaymath}
 e(n) = x_1(n) - x_2(n)
 \end{displaymath}
-$B$3$3$G!$(B $N_i$$B$O%U%l!<%`?t$rI=$7$F$$$^$9!%(B
-$B%;%0%a%s%?%k(BSNR$B$O;R2;6h4V$N$h$&$J(B
-$BHf3SE*>.?6I}6h4V$N(BSNR$B$bH?1G$5$l$k$?$a!$(B
-$B<g4QCM$H$NBP1~$,Hf3SE*NI$$$H$$$&FCD'$,$"$j$^$9!%(B
+¤³¤³¤Ç¡¤ $N_i$¤Ï¥Õ¥ì¡¼¥à¿ô¤òÉ½¤·¤Æ¤¤¤Þ¤¹¡¥
+¥»¥°¥á¥ó¥¿¥ëSNR¤Ï»Ò²»¶è´Ö¤Î¤è¤¦¤Ê
+Èæ³ÓÅª¾®¿¶Éý¶è´Ö¤ÎSNR¤âÈ¿±Ç¤µ¤ì¤ë¤¿¤á¡¤
+¼ç´ÑÃÍ¤È¤ÎÂÐ±þ¤¬Èæ³ÓÅªÎÉ¤¤¤È¤¤¤¦ÆÃÄ§¤¬¤¢¤ê¤Þ¤¹¡¥
 \end{qsection}
 
 \newpage
 \begin{options}
-        \argm{l}{L}{$B%;%0%a%s%?%k(BSNR$B$r7W;;$9$k$H$-$N%U%l!<%`D9(B}{256}
-        \argp{t_1 t_2}{$BF~NO%G!<%?$N7A<0!%(B$t_1$$B!$(B$t_2$$B$O$=$l$>$l(B {\em file1}$B!$(B
-                {\em infile} $B$N%G!<%?7?$rI=$9!%(B \\
+        \argm{l}{L}{frame length}{256}
+        \argp{t_1 t_2}{$t_1$ and $t_2$ are represented data formats
+                      of {\em file1} and {\em infile} respectively\\
                 \begin{tabular}{llcll} \\[-1zh]
-                        s & short$B7?(B (2bytes) & \quad &
-                        f & float$B7?(B (4bytes) \\
+                        s & short (2bytes) & \quad &
+                        f & float (4bytes) \\
                 \end{tabular}\\\hspace*{\fill}}{sf}
-        \argm{o}{O}{$B=PNO7A<0!%(B\\
+        \argm{o}{O}{output data format\\
                         \begin{tabular}{ll} \\[-1zh]
                           0 & SNR and SNRseg\\
                           1 & SNR and SNRseg in detail\\
                           2 & SNR\\
                           3 & SNRseg
                         \end{tabular}\\\hspace*{\fill}\\
-        0,1 $B$O(BASCII$B7A<0$G=PNO$7(B 2,3 $B$O(Bfloat$B7?$G=PNO$7$^$9(B}{0}
+                        if 0 or 1 are assigned\\
+                        then output data is written in ascii format.\\
+                        if 2 or 3 are assigned\\
+                        then output data is written in float format}{0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-short$B7A<0$N%U%!%$%k(B {\em data.s} $B$H(B float$B7A<0$N%U%!%$%k(B {\em data.f} $B$N(BSNR$B$H(B
-$B%;%0%a%s%?%k(BSNR$B$r=PNO$9$k(B:
+short·Á¼°¤Î¥Õ¥¡¥¤¥ë {\em data.s} ¤È float·Á¼°¤Î¥Õ¥¡¥¤¥ë {\em data.f} ¤ÎSNR¤È
+¥»¥°¥á¥ó¥¿¥ëSNR¤ò½ÐÎÏ¤¹¤ë:
 \begin{quote}
  \verb!snr +sf data.s data.f!
 \end{quote} 

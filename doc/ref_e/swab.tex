@@ -1,4 +1,4 @@
-\name{swab}{$B%P%$%HC10L$G$N%9%o%C%W(B}{$B%G!<%?A`:n(B}
+\name{swab}{swap bytes}{¥Ç¡¼¥¿Áàºî}
 
 \begin{synopsis}
 \item [swab] [ --S $S_1$ ] [ --s $S_2$ ] [ --E $E_1$ ] [ --e $E_2$ ] 
@@ -6,33 +6,33 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- {\em swab}$B$O!$%j%H%k%(%s%G%#%"%s(B(Intel,DEC$BEy(B)$B$*$h$S%S%C%0%(%s%G%#%"%s(B(Sun,HP$BEy(B)
-$B$N%P%$%H%*!<%@!<$rJQ49(B($B%P%$%H%9%o%C%W(B)$B$7(B $B!$I8=`=PNO$K=PNO$7$^$9!%(B
-$B%U%!%$%k$,;XDj$5$l$J$+$C$?>l9g!$%G!<%?$OI8=`F~NO$+$iFI$_9~$^$l$^$9!%(B
+ {\em swab}¤Ï¡¤¥ê¥È¥ë¥¨¥ó¥Ç¥£¥¢¥ó(Intel,DECÅù)¤ª¤è¤Ó¥Ó¥Ã¥°¥¨¥ó¥Ç¥£¥¢¥ó(Sun,HPÅù)
+¤Î¥Ð¥¤¥È¥ª¡¼¥À¡¼¤òÊÑ´¹(¥Ð¥¤¥È¥¹¥ï¥Ã¥×)¤· ¡¤É¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
+¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Ê¤«¤Ã¤¿¾ì¹ç¡¤¥Ç¡¼¥¿¤ÏÉ¸½àÆþÎÏ¤«¤éÆÉ¤ß¹þ¤Þ¤ì¤Þ¤¹¡¥
 \par
-{\bf --S, --E}$B%*%W%7%g%s!$5Z$S(B {\bf --s, --e} $B%*%W%7%g%s$G%9%o%C%W$9$k(B
-$B%G!<%?HO0O$r;XDj$7$^$9!%(B
+{\bf --S, --E}¥ª¥×¥·¥ç¥ó¡¤µÚ¤Ó {\bf --s, --e} ¥ª¥×¥·¥ç¥ó¤Ç¥¹¥ï¥Ã¥×¤¹¤ë
+¥Ç¡¼¥¿ÈÏ°Ï¤ò»ØÄê¤·¤Þ¤¹¡¥
 \par
-$BF~NO%G!<%?!$5Z$S=PNO%G!<%?$N7A<0$O!$(B+$type$ $B$G;XDj$5$l$?$b$N$H$J$j$^$9!%(B
+ÆþÎÏ¥Ç¡¼¥¿¡¤µÚ¤Ó½ÐÎÏ¥Ç¡¼¥¿¤Î·Á¼°¤Ï¡¤+$type$ ¤Ç»ØÄê¤µ¤ì¤¿¤â¤Î¤È¤Ê¤ê¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{S}{S_1}{$B%9%o%C%W$9$k%G!<%?$N3+;O%P%$%H%"%I%l%9!%(B}{0}
-	\argm{s}{S_2}{$B%9%o%C%W$9$k%G!<%?$N3+;O%G!<%?HV9f!%(B}{0}
-	\argm{E}{E_1}{$B%9%o%C%W$9$k%G!<%?$N=*N;%P%$%H%"%I%l%9!%(B}{EOF}
-	\argm{e}{E_2}{$B%9%o%C%W$9$k%G!<%?$N=*N;%G!<%?HV9f!%(B}{0}
-	\argp{type}{$BF~=PNO%G!<%?$N7?;XDj!%(B \\
+	\argm{S}{S_1}{start address}{0}
+	\argm{s}{S_2}{start offset number}{0}
+	\argm{E}{E_1}{end address}{EOF}
+	\argm{e}{E_2}{end offset number}{0}
+	\argp{type}{Input and output data format\\
 		\begin{tabular}{llcll} \\[-1zh]
-			s & short$B7?(B (2bytes) & \quad &
-			l & long$B7?(B (4bytes) \\
-			f & float$B7?(B (4bytes) & \quad &
-			d & double$B7?(B (8bytes) \\
+			s & short (2bytes) & \quad &
+			l & long (4bytes) \\
+			f & float (4bytes) & \quad &
+			d & double (8bytes) \\
 		\end{tabular}\\\hspace*{\fill}}{s}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%U%!%$%k(B {\em data.f} $B$N%P%$%H%*!<%@!<$rJQ49$7$F%U%!%$%k(B {\em data.swab}
- $B$K=PNO$9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë {\em data.f} ¤Î¥Ð¥¤¥È¥ª¡¼¥À¡¼¤òÊÑ´¹¤·¤Æ¥Õ¥¡¥¤¥ë {\em data.swab}
+ ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
  \verb!swab +f data.f > data.swab!
 \end{quote} 

@@ -1,4 +1,4 @@
-\name{sopr}{スカラ演算を行う}{数値演算}
+\name{sopr}{execute scalar operations}{calculation}
 
 \begin{synopsis}
 \item[sopr]   [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [ --ABS ] [ --INV ]
@@ -12,40 +12,41 @@
 指定された演算の実行結果を標準出力に出力します．
 {\em infile} の指定がないときには，標準入力からデータが読み込まれます．
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
 演算は与えられた順番に実行します．
 \end{qsection}
 
 \begin{options}
-	\argm{a}{A}{加算．$y=x+A$．}{FALSE}
-	\argm{s}{S}{減算．$y=x-S$．}{FALSE}
-	\argm{m}{M}{乗算．$y=x\ast M$．}{FALSE}
-	\argm{d}{D}{除算．$y=x/D$．}{FALSE}
+	\argm{a}{A}{addition $y=x+A$}{FALSE}
+	\argm{s}{S}{subtraction $y=x-S$}{FALSE}
+	\argm{m}{M}{multiplication $y=x\ast M$}{FALSE}
+	\argm{d}{D}{division $y=x/D$}{FALSE}
 	\desc[1zh]{演算オプションの引数として
 		``{\em dB}''を指定すると $20/\log_e10$ の値が設定されます．
 		また，同様に``{\em pi}''を指定すると $\pi$ の値が設定され，
                 ``{\em ln2}''，``{\em exp10}''，``{\em sqrt30}''というよう
                 に，特定の関数の引数に任意の数字を書いても，
                 それを計算して定数とします．}
-	\argm[1zh]{ABS}{}{絶対値．$y=|x|$．}{FALSE}
-	\argm{INV}{}{逆数．$y=1/x$．}{FALSE}
-	\argm{P}{}{二乗．$y=x^2$．}{FALSE}
-	\argm{R}{}{平方根．$y=\sqrt{x}$．}{FALSE}
-	\argm{SQRT}{}{平方根．$y=\sqrt{x}$．}{FALSE}
-	\argm{LN}{}{自然対数．$y=\log{x}$．}{FALSE}
-	\argm{LOG10}{}{常用対数．$y=\log_{10}{x}$．}{FALSE}
-	\argm{EXP}{}{指数．$y=\exp{x}$．}{FALSE}
-	\argm{POW10}{}{10のべき乗．$y=10^x$．}{FALSE}
-	\argm{FIX}{}{小数点以下の切捨て．$(int)x$．}{FALSE}
-	\argm{CLIP}{}{クリッピング．$x \ast u(x)$}{FALSE}
-	\argm{UNIT}{}{ユニットステップ．$u(x)$}{FALSE}
-	\argm{SIN}{}{正弦．$y=\sin(x)$}{FALSE}
-	\argm{COS}{}{余弦．$y=\cos(x)$}{FALSE}
-	\argm{TAN}{}{正接．$y=\tan(x)$}{FALSE}
-	\argm{ATAN}{}{逆正接．$y=\atan(x)$}{FALSE}
-        \argm{r}{\mbox{m}n}{メモリレジスタm$n$からの読み込み$(n=0..9)$}{}
-        \argm{m}{\mbox{m}n}{メモリレジスタm$n$への書き込み$(n=0..9)$}{}
+	\argm[1zh]{ABS}{}{absolute $y=|x|$．}{FALSE}
+	\argm{INV}{}{inverse $y=1/x$．}{FALSE}
+	\argm{P}{}{square $y=x^2$．}{FALSE}
+	\argm{R}{}{square root $y=\sqrt{x}$．}{FALSE}
+	\argm{SQRT}{}{square root $y=\sqrt{x}$．}{FALSE}
+	\argm{LN}{}{logarithm $y=\log{x}$．}{FALSE}
+	\argm{LOG10}{}{logarithm $y=\log_{10}{x}$．}{FALSE}
+	\argm{EXP}{}{exponential $y=\exp{x}$．}{FALSE}
+	\argm{POW10}{}{power of 10 $y=10^x$．}{FALSE}
+	\argm{FIX}{}{round $(int)x$．}{FALSE}
+	\argm{UNIT}{}{unit step $u(x)$}{FALSE}
+	\argm{CLIP}{}{clipping $x \ast u(x)$}{FALSE}
+	\argm{SIN}{}{sin $y=\sin(x)$}{FALSE}
+	\argm{COS}{}{cos $y=\cos(x)$}{FALSE}
+	\argm{TAN}{}{tan $y=\tan(x)$}{FALSE}
+	\argm{ATAN}{}{atan $y=\atan(x)$}{FALSE}
+
+        \argm{r}{\mbox{m}n}{read from memory regisiter m$n$ $(n=0..9)$}{}
+        \argm{m}{\mbox{m}n}{write from memory regisiter m$n$ $(n=0..9)$}{}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

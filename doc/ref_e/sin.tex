@@ -1,29 +1,29 @@
-\name{sin}{$B@589Ns$rH/@8$9$k(B}{$B?.9f@8@.(B}
+\name{sin}{generate sinusoidal sequence}{signal generation}
 
 \begin{synopsis}
 \item[sin] [ --l $L$ ] [ --p $P$ ] [ --m $M$ ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B<~4|(B$P$ $B$G!$(B
-$BD9$5(B$L$ $B!$9b$5(B$M$ $B$NN%;6@589Ns(B
+¼þ´ü$P$ ¤Ç¡¤
+Ä¹¤µ$L$ ¡¤¹â¤µ$M$ ¤ÎÎ¥»¶Àµ¸¹Îó
 \begin{displaymath}
   x(n) = M\,\sin (\frac{2\pi}{P}\,n)
 \end{displaymath}
-$B$rI8=`=PNO$K=PNO$7$^$9!%(B
+¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
 \par
-$B=PNO%G!<%?$O!$(Bfloat $B7A<0$G$9!%(B
+Output data is in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B@589GH$ND9$5!%(B\\
-			$B$?$@$7!$(B$L \le 0$$B$J$iL58B$K@8@.$7$^$9!%(B}{256}
-	\argm{p}{P}{$B@589GH$N<~4|!%(B}{10.0}
-	\argm{m}{M}{$B@589GH$N?6I}!%(B}{1.0}
+	\argm{l}{L}{length\\
+			¤¿¤À¤·¡¤$L \le 0$¤Ê¤éÌµ¸Â¤ËÀ¸À®¤·¤Þ¤¹¡¥}{256}
+	\argm{p}{P}{period}{10.0}
+	\argm{m}{M}{magnitude}{1.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-$B@589GH$K%V%i%C%/%^%sAk$r$+$1$?GH7A$r2hLL$KI=<($9$k(B:
+Àµ¸¹ÇÈ¤Ë¥Ö¥é¥Ã¥¯¥Þ¥óÁë¤ò¤«¤±¤¿ÇÈ·Á¤ò²èÌÌ¤ËÉ½¼¨¤¹¤ë:
 \begin{quote}
 \verb!sin -p 12.3 | window | fdrw | xgr!
 \end{quote}

@@ -1,25 +1,26 @@
-\name{step}{$B%f%K%C%H%9%F%C%WNs$rH/@8$9$k(B}{$B?.9f@8@.(B}
+\name{step}{generate step sequence}{signal generation}
 
 \begin{synopsis}
 \item[step] [ --l $L$ ] [ --n $N$ ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BD9$5(B$L$ $B$^$?$O<!?t(B$N$$B$N%f%K%C%H%9%F%C%W$rI8=`=PNO$K=PNO$7$^$9!%$D$^$j!$(B
+Ä¹¤µ$L$ ¤Þ¤¿¤Ï¼¡¿ô$N$¤Î¥æ¥Ë¥Ã¥È¥¹¥Æ¥Ã¥×¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥¤Ä¤Þ¤ê¡¤
 \begin{displaymath}
 \underbrace{1, 1, 1, \ldots, 1}_{L}
 \end{displaymath}
 \par
-$B=PNO%G!<%?$O!$(Bfloat $B7A<0$G$9!%(B
+Output data is in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%9%F%C%WNs$ND9$5!%(B $ L \le 0 $$B$N>l9g!$L58B$K%9%F%C%WNs$r@8@.!%(B}{256}
-	\argm{n}{N}{$B%9%F%C%WNs$N<!?t!%(B}{255}
+	\argm{l}{L}{length\\
+                    $ L \le 0 $¤Î¾ì¹ç¡¤Ìµ¸Â¤Ë¥¹¥Æ¥Ã¥×Îó¤òÀ¸À®¡¥}{256}
+	\argm{n}{N}{order}{255}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-$BI8=`7A$N%G%#%8%?%k%U%#%k%?$K%f%K%C%H%9%F%C%WNs$r2C$($k(B:
+É¸½à·Á¤Î¥Ç¥£¥¸¥¿¥ë¥Õ¥£¥ë¥¿¤Ë¥æ¥Ë¥Ã¥È¥¹¥Æ¥Ã¥×Îó¤ò²Ã¤¨¤ë:
 \begin{quote}
 \verb!step | dfs -a 1 -0.8 | dmp!
 \end{quote}

@@ -1,22 +1,23 @@
-\name{zcross}{$BNm8r:9?t$r5a$a$k(B}{$B?.9f=hM}(B}
+\name{zcross}{zero cross}{signal processing}
 
 \begin{synopsis}
 \item[zcross] [ --l $L$ ] [ --n ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BI8=`F~NO$+$iF~NO$5$l$k;~7ONs$+$iNm8r:9?t$r5a$a$^$9!%(B
+É¸½àÆşÎÏ¤«¤éÆşÎÏ¤µ¤ì¤ë»ş·ÏÎó¤«¤éÎí¸òº¹¿ô¤òµá¤á¤Ş¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(B float $B7A<0$G$9!%(B
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%U%l!<%`D9!J(B$L \le 0$ $B$N;~$O2?$b=PNO$7$J$$!K!%(B}{256}
-	\argm{n}{}{$BNm8r:9?t$r%U%l!<%`D9$G@55,2=!%(B}{FALSE}
+	\argm{l}{L}{frame length\\
+                    if $L \le 0$ then no data output.}{256}
+	\argm{n}{}{normalized by frame length}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float $B7A<0$N%G!<%?(B {\em data.f} $B$NNm8r:9?t$r5a$a!$(B {\em data.zc} $B$K=PNO$9$k(B:
+float ·Á¼°¤Î¥Ç¡¼¥¿ {\em data.f} ¤ÎÎí¸òº¹¿ô¤òµá¤á¡¤ {\em data.zc} ¤Ë½ĞÎÏ¤¹¤ë:
 \begin{quote}
   \verb!zcross < data.f > data.zc!
 \end{quote}

@@ -1,4 +1,4 @@
-\name{phase}{$B0LAjFC@-$r5a$a$k(B}{$B?.9f=hM}(B}
+\name{phase}{transform real seauence to phase}{signal processing}
 
 \begin{synopsis}
 \item[phase] [ --l $L$ ] [ --p {\em pfile} ] [ --z {\em zfile} ]
@@ -6,13 +6,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BI8=`F~NO$+$iF~NO$5$l$?<B?tNs$N%9%Z%/%H%k$N0LAj$r7W;;$7$^$9!%(B
-$B$D$^$j!$(B
-$BF~NO?tNs$r(B
+É¸½àÆþÎÏ¤«¤éÆþÎÏ¤µ¤ì¤¿¼Â¿ôÎó¤Î¥¹¥Ú¥¯¥È¥ë¤Î°ÌÁê¤ò·×»»¤·¤Þ¤¹¡¥
+¤Ä¤Þ¤ê¡¤
+ÆþÎÏ¿ôÎó¤ò
 \begin{displaymath}
   x(0), x(1), \ldots, x(L-1)
 \end{displaymath}
-$B$H$7$F!$(B
+¤È¤·¤Æ¡¤
 \begin{eqnarray*}
   X_k &=& X(e^{j\omega}) \left|
 	\begin{array}{c}
@@ -27,67 +27,70 @@
 	\end{array}
     \right.,\qquad k=0,1,\ldots,L-1
 \end{eqnarray*}
-$B$r(BFFT $B$K$h$j7W;;$7!$(B
+¤òFFT ¤Ë¤è¤ê·×»»¤·¡¤
 \begin{displaymath}
   Y_k=\arg X_k, \qquad k=0,1,\ldots,L/2
 \end{displaymath}
-$B$r=PNO$7$^$9!%(B
-$B$3$N:]!$0LAj$O%"%s%i%C%W$5$l$^$9!%(B
-$B=PNO$5$l$k%G!<%?$O!$3Q<~GH?t(B$0\sim \pi$ $B$KBP1~$7$^$9!%(B
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+¤ò½ÐÎÏ¤·¤Þ¤¹¡¥
+¤³¤ÎºÝ¡¤°ÌÁê¤Ï¥¢¥ó¥é¥Ã¥×¤µ¤ì¤Þ¤¹¡¥
+½ÐÎÏ¤µ¤ì¤ë¥Ç¡¼¥¿¤Ï¡¤³Ñ¼þÇÈ¿ô$0\sim \pi$ ¤ËÂÐ±þ¤·¤Þ¤¹¡¥
+Input and output data are in float format.
 \par
-{\bf --p, --z} $B%*%W%7%g%s$,;XDj$5$l$?$H$-$K$O!$(B
-$B;XDj$5$l$?%U%!%$%k$r78?t$H$7$F$b$D%G%#%8%?%k%U%#%k%?$N0LAjFC@-$r!$(B
-$BF1MM$K=PNO$7$^$9(B\footnote{
-$B$3$N:]!$%U%#%k%?$N%$%s%Q%k%91~Ez$+$i0LAj$r5a$a$k$N$G$O$J$/!$(B
-$BJ,;R78?t!$J,Jl78?t$+$iJL!9$K0LAj$r7W;;$7!$(B
-$B$=$N:9$K$h$C$FA4BN$N0LAjFC@-$r5a$a$F$$$^$9!%(B}$B!%(B
+{\bf --p, --z} ¥ª¥×¥·¥ç¥ó¤¬»ØÄê¤µ¤ì¤¿¤È¤­¤Ë¤Ï¡¤
+»ØÄê¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤ò·¸¿ô¤È¤·¤Æ¤â¤Ä¥Ç¥£¥¸¥¿¥ë¥Õ¥£¥ë¥¿¤Î°ÌÁêÆÃÀ­¤ò¡¤
+Æ±ÍÍ¤Ë½ÐÎÏ¤·¤Þ¤¹\footnote{
+¤³¤ÎºÝ¡¤¥Õ¥£¥ë¥¿¤Î¥¤¥ó¥Ñ¥ë¥¹±þÅú¤«¤é°ÌÁê¤òµá¤á¤ë¤Î¤Ç¤Ï¤Ê¤¯¡¤
+Ê¬»Ò·¸¿ô¡¤Ê¬Êì·¸¿ô¤«¤éÊÌ¡¹¤Ë°ÌÁê¤ò·×»»¤·¡¤
+¤½¤Îº¹¤Ë¤è¤Ã¤ÆÁ´ÂÎ¤Î°ÌÁêÆÃÀ­¤òµá¤á¤Æ¤¤¤Þ¤¹¡¥}¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{FFT $B$NE@?t!%(B2 $B$N$Y$->h?t$r;XDj!%(B}{256}
-	\argm{p}{pfile}{$BEAC#4X?t$NJ,JlB?9`<0$N78?t$,=q$+$l$?%U%!%$%k!%(B
-			$B%U%!%$%kFbMF$O(Bfloat $B7A<0$G<!$N$h$&$KM?$($^$9!%(B \\
+	\argm{l}{L}{frame length power of 2}{256}
+	\argm{p}{pfile}{numerator cofficients file
+                        ÅÁÃ£´Ø¿ô¤ÎÊ¬ÊìÂ¿¹à¼°¤Î·¸¿ô¤¬½ñ¤«¤ì¤¿¥Õ¥¡¥¤¥ë¡¥
+			¥Õ¥¡¥¤¥ëÆâÍÆ¤Ïfloat ·Á¼°¤Ç¼¡¤Î¤è¤¦¤ËÍ¿¤¨¤Þ¤¹¡¥ \\
 			\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
-	\argm{z}{zfile}{$BEAC#4X?t$NJ,;RB?9`<0$N78?t$,=q$+$l$?%U%!%$%k!%(B
-			$B%U%!%$%k$NFbMF$O(Bfloat $B7A<0$G<!$N$h$&$KM?$($^$9!#(B
+	\argm{z}{zfile}{denominator cofficients file
+                        ÅÁÃ£´Ø¿ô¤ÎÊ¬»ÒÂ¿¹à¼°¤Î·¸¿ô¤¬½ñ¤«¤ì¤¿¥Õ¥¡¥¤¥ë¡¥
+			¥Õ¥¡¥¤¥ë¤ÎÆâÍÆ¤Ïfloat ·Á¼°¤Ç¼¡¤Î¤è¤¦¤ËÍ¿¤¨¤Þ¤¹¡£
 			\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\
-			{\em pfile}, {\em zfile} $B$NFbMF$O!$(B
-			{\em dfs} $B$N>l9g$HF1$8$G$9!%(B
-			{\bf --p}$B!"(B{\bf --z} $B%*%W%7%g%s$NFb!$(B
-			{\bf --p} $B%*%W%7%g%s$@$1$,;XDj$5$l$?>l9g!$(B
-			$BJ,;RB?9`<0$O(B1 $B$H$7$F07$o$l!$(B
-			{\bf --z} $B%*%W%7%g%s$@$1$,;XDj$5$l$?>l9g$K$O!$(B
-			$BJ,JlB?9`<0!$%2%$%s(B$K$ $B$H$b(B1 $B$H$7$F07$o$l$^$9!%(B
-			{\bf --p}$B!$(B{\bf --z} $B%*%W%7%g%s$$$:$l$b(B
-			$B>JN,$5$l$?>l9g$K$O!$(B
-			$B%G!<%?$OI8=`F~NO$+$iFI$^$l$^$9!%(B}{NULL}
-	\argm{m}{M}{$BEAC#4X?t$NJ,;RB?9`<0$N<!?t!%(B
-			$B<B:]$KF~NO$5$l$?%G!<%??t$,!$(B
-			$M+1$ $B$h$j>/$J$+$C$?>l9g$K$O!$(B
-			$M=(\mbox{$B<B:]$NF~NO%G!<%??t(B})-1$ $B$H$J$k$N$G!$(B
-			$BD9$5(B$M+1$ $B$N%G!<%?$r2?AH$+B3$1$FF~NO$9$k>l9g0J30$O!$(B
-			$M$ $B$N;XDj$OI,MW$"$j$^$;$s!%(B}{$L-1$}
-	\argm{n}{N}{$BEAC#4X?t$NJ,JlB?9`<0$N<!?t!%(B
-			{\bf --m} $B%*%W%7%g%s$HF1MM!$(B
-			$B<B:]$KF~NO$5$l$?%G!<%??t$,!$(B
-			$N+1$ $B$h$j>/$J$+$C$?>l9g$K$O!$(B
-			$N=(\mbox{$B<B:]$NF~NO%G!<%??t(B})-1$ $B$H$J$k$N$G!$(B
-			$BD9$5(B$N+1$ $B$N%G!<%?$r2?AH$+B3$1$FF~NO$9$k>l9g0J30$O!$(B
-			$N$ $B$N;XDj$OI,MW$"$j$^$;$s!%(B}{$L-1$}
+			{\em pfile}, {\em zfile} ¤ÎÆâÍÆ¤Ï¡¤
+			{\em dfs} ¤Î¾ì¹ç¤ÈÆ±¤¸¤Ç¤¹¡¥
+			{\bf --p}¡¢{\bf --z} ¥ª¥×¥·¥ç¥ó¤ÎÆâ¡¤
+			{\bf --p} ¥ª¥×¥·¥ç¥ó¤À¤±¤¬»ØÄê¤µ¤ì¤¿¾ì¹ç¡¤
+			Ê¬»ÒÂ¿¹à¼°¤Ï1 ¤È¤·¤Æ°·¤ï¤ì¡¤
+			{\bf --z} ¥ª¥×¥·¥ç¥ó¤À¤±¤¬»ØÄê¤µ¤ì¤¿¾ì¹ç¤Ë¤Ï¡¤
+			Ê¬ÊìÂ¿¹à¼°¡¤¥²¥¤¥ó$K$ ¤È¤â1 ¤È¤·¤Æ°·¤ï¤ì¤Þ¤¹¡¥
+			{\bf --p}¡¤{\bf --z} ¥ª¥×¥·¥ç¥ó¤¤¤º¤ì¤â
+			¾ÊÎ¬¤µ¤ì¤¿¾ì¹ç¤Ë¤Ï¡¤
+			¥Ç¡¼¥¿¤ÏÉ¸½àÆþÎÏ¤«¤éÆÉ¤Þ¤ì¤Þ¤¹¡¥}{NULL}
+	\argm{m}{M}{order of denominator polynomial
+			¼ÂºÝ¤ËÆþÎÏ¤µ¤ì¤¿¥Ç¡¼¥¿¿ô¤¬¡¤
+			$M+1$ ¤è¤ê¾¯¤Ê¤«¤Ã¤¿¾ì¹ç¤Ë¤Ï¡¤
+			$M=(\mbox{¼ÂºÝ¤ÎÆþÎÏ¥Ç¡¼¥¿¿ô})-1$ ¤È¤Ê¤ë¤Î¤Ç¡¤
+			Ä¹¤µ$M+1$ ¤Î¥Ç¡¼¥¿¤ò²¿ÁÈ¤«Â³¤±¤ÆÆþÎÏ¤¹¤ë¾ì¹ç°Ê³°¤Ï¡¤
+			$M$ ¤Î»ØÄê¤ÏÉ¬Í×¤¢¤ê¤Þ¤»¤ó¡¥}{$L-1$}
+	\argm{n}{N}{order of numerator polynomial
+			{\bf --m} ¥ª¥×¥·¥ç¥ó¤ÈÆ±ÍÍ¡¤
+			¼ÂºÝ¤ËÆþÎÏ¤µ¤ì¤¿¥Ç¡¼¥¿¿ô¤¬¡¤
+			$N+1$ ¤è¤ê¾¯¤Ê¤«¤Ã¤¿¾ì¹ç¤Ë¤Ï¡¤
+			$N=(\mbox{¼ÂºÝ¤ÎÆþÎÏ¥Ç¡¼¥¿¿ô})-1$ ¤È¤Ê¤ë¤Î¤Ç¡¤
+			Ä¹¤µ$N+1$ ¤Î¥Ç¡¼¥¿¤ò²¿ÁÈ¤«Â³¤±¤ÆÆþÎÏ¤¹¤ë¾ì¹ç°Ê³°¤Ï¡¤
+			$N$ ¤Î»ØÄê¤ÏÉ¬Í×¤¢¤ê¤Þ¤»¤ó¡¥}{$L-1$}
+	\argm{u}{}{unlapping}{TRUE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%U%!%$%k(B{\em data.p, data.z} $B$G;XDj$5$l$?78?t$r$b$D(B
-$B%G%#%8%?%k%U%#%k%?$N0LAjFC@-$rI=<($9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë{\em data.p, data.z} ¤Ç»ØÄê¤µ¤ì¤¿·¸¿ô¤ò¤â¤Ä
+¥Ç¥£¥¸¥¿¥ë¥Õ¥£¥ë¥¿¤Î°ÌÁêÆÃÀ­¤òÉ½¼¨¤¹¤ë:
 \begin{quote}
   \verb!phase -p data.p -z data.z | fdrw | xgr !
 \end{quote}
-{\em data.p}, {\em data.z} $B$NI=$9%U%#%k%?$,0BDj$J>l9g$K$O!$(B
+{\em data.p}, {\em data.z} ¤ÎÉ½¤¹¥Õ¥£¥ë¥¿¤¬°ÂÄê¤Ê¾ì¹ç¤Ë¤Ï¡¤
 \begin{quote}
   \verb!impulse | dfs -p data.p -z data.z | phase | fdrw | xgr !
 \end{quote}
-$B$H$7$F$b$[$\F1MM$N7k2L$,F@$i$l$^$9!%(B
+¤È¤·¤Æ¤â¤Û¤ÜÆ±ÍÍ¤Î·ë²Ì¤¬ÆÀ¤é¤ì¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
@@ -95,7 +98,7 @@ float$B7A<0$N%U%!%$%k(B{\em data.p, data.z} $B$G;XDj$5$l$?78?t$r$b$D(B
 \end{qsection}
 
 \begin{qsection}{BUGS}
-$B%5%s%W%k4V3V$,AF$$>l9g(B({\bf --l} $B%*%W%7%g%s$N;XDjCM$,>.$5$$(B)$B!$(B
-$B0LAjFC@-$,5^=T$J>l9g(B( $B6K!$NmE@$,(B$z$ $BJ?LL$NC10L1_IU6a$K$"$k>l9g$J$I(B) $B$K$O!$(B
-$B0LAj$N%"%s%i%C%W$,$&$^$/9T$o$l$J$$$3$H$,$"$j$^$9!%(B
+¥µ¥ó¥×¥ë´Ö³Ö¤¬ÁÆ¤¤¾ì¹ç({\bf --l} ¥ª¥×¥·¥ç¥ó¤Î»ØÄêÃÍ¤¬¾®¤µ¤¤)¡¤
+°ÌÁêÆÃÀ­¤¬µÞ½Ô¤Ê¾ì¹ç( ¶Ë¡¤ÎíÅÀ¤¬$z$ Ê¿ÌÌ¤ÎÃ±°Ì±ßÉÕ¶á¤Ë¤¢¤ë¾ì¹ç¤Ê¤É) ¤Ë¤Ï¡¤
+°ÌÁê¤Î¥¢¥ó¥é¥Ã¥×¤¬¤¦¤Þ¤¯¹Ô¤ï¤ì¤Ê¤¤¤³¤È¤¬¤¢¤ê¤Þ¤¹¡¥
 \end{qsection}

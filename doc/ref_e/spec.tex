@@ -1,4 +1,4 @@
-\name{spec}{$BBP?t%9%Z%/%H%k$r5a$a$k(B}{$B?.9f=hM}(B}
+\name{spec}{transform real sequence to spectrum}{signal processing}
 
 \begin{synopsis}
  \item[spec]   [ --l $L$ ] [ --m $M$ ] [ --n $N$ ] [ --z {\em zfile} ]
@@ -7,13 +7,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BI8=`F~NO$+$iF~NO$5$l$?<B?tNs$NBP?t?6I}%9%Z%/%H%k$r7W;;$7$^$9!%(B
-$B$D$^$j!$(B
-$BF~NO?tNs$r(B
+É¸½àÆþÎÏ¤«¤éÆþÎÏ¤µ¤ì¤¿¼Â¿ôÎó¤ÎÂÐ¿ô¿¶Éý¥¹¥Ú¥¯¥È¥ë¤ò·×»»¤·¤Þ¤¹¡¥
+¤Ä¤Þ¤ê¡¤
+ÆþÎÏ¿ôÎó¤ò
 \begin{displaymath}
   x(0), x(1), \ldots, x(L-1)
 \end{displaymath}
-$B$H$7$F!$(B
+¤È¤·¤Æ¡¤
 \begin{eqnarray*}
   X_k &=& X(e^{j\omega}) \left|
 	\begin{array}{c}
@@ -28,77 +28,80 @@
 	\end{array}
     \right.,~~~~ k=0,1,\ldots,L-1
 \end{eqnarray*}
-$B$r(BFFT $B$K$h$j7W;;$7!$(B{\bf --y} $B%*%W%7%g%s$N;XDj$K=>$C$F!$(B
+¤òFFT ¤Ë¤è¤ê·×»»¤·¡¤{\bf --y} ¥ª¥×¥·¥ç¥ó¤Î»ØÄê¤Ë½¾¤Ã¤Æ¡¤
 \begin{displaymath}
   Y_k=20\,\log_{10}\,|X_k|,~~~~ k=0,1,\ldots,L/2
 \end{displaymath}
-$B$J$I$r=PNO$7$^$9!%(B
-$B=PNO$5$l$k%G!<%?$O!$3Q<~GH?t(B$0\sim \pi$ $B$KBP1~$7$^$9!%(B
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+¤Ê¤É¤ò½ÐÎÏ¤·¤Þ¤¹¡¥
+½ÐÎÏ¤µ¤ì¤ë¥Ç¡¼¥¿¤Ï¡¤³Ñ¼þÇÈ¿ô$0\sim \pi$ ¤ËÂÐ±þ¤·¤Þ¤¹¡¥
+Input and output data are in float format.
 \par
-{\bf --p, --z} $B%*%W%7%g%s$,;XDj$5$l$?$H$-$K$O!$(B
-$B;XDj$5$l$?%U%!%$%k$r78?t$H$7$F$b$D%G%#%8%?%k%U%#%k%?$N<~GH?tFC@-$r!$(B
-$BF1MM$K=PNO$7$^$9(B\footnote{
-$B$3$N:]!"%U%#%k%?$N%$%s%Q%k%91~Ez$+$i?6I}FC@-$r5a$a$k$N$G$O$J$/!$(B
-$BJ,;R78?t!$J,Jl78?t$+$iJL!9$K?6I}FC@-$r5a$a!$(B
-$B$=$N>&$K$h$C$F!$A4BN$NFC@-$r5a$a$F$$$^$9!%(B}$B!%(B
+{\bf --p, --z} ¥ª¥×¥·¥ç¥ó¤¬»ØÄê¤µ¤ì¤¿¤È¤­¤Ë¤Ï¡¤
+»ØÄê¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤ò·¸¿ô¤È¤·¤Æ¤â¤Ä¥Ç¥£¥¸¥¿¥ë¥Õ¥£¥ë¥¿¤Î¼þÇÈ¿ôÆÃÀ­¤ò¡¤
+Æ±ÍÍ¤Ë½ÐÎÏ¤·¤Þ¤¹\footnote{
+¤³¤ÎºÝ¡¢¥Õ¥£¥ë¥¿¤Î¥¤¥ó¥Ñ¥ë¥¹±þÅú¤«¤é¿¶ÉýÆÃÀ­¤òµá¤á¤ë¤Î¤Ç¤Ï¤Ê¤¯¡¤
+Ê¬»Ò·¸¿ô¡¤Ê¬Êì·¸¿ô¤«¤éÊÌ¡¹¤Ë¿¶ÉýÆÃÀ­¤òµá¤á¡¤
+¤½¤Î¾¦¤Ë¤è¤Ã¤Æ¡¤Á´ÂÎ¤ÎÆÃÀ­¤òµá¤á¤Æ¤¤¤Þ¤¹¡¥}¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{FFT $B$NE@?t!%(B2 $B$N$Y$->h?t$r;XDj!%(B}{256}
-	\argm{m}{M}{$BEAC#4X?t$NJ,;RB?9`<0$N<!?t!%(B
-			$B<B:]$KF~NO$5$l$?%G!<%??t$,!$(B
-			$M+1$ $B$h$j>/$J$+$C$?>l9g$K$O!$(B
-			$M=(\mbox{$B<B:]$NF~NO%G!<%??t(B})-1$ $B$H$J$k$N$G!$(B
-			$BD9$5(B$M+1$ $B$N%G!<%?$r2?AH$+B3$1$FF~NO$9$k>l9g0J30$O!$(B
-			$M$ $B$N;XDj$OI,MW$"$j$^$;$s!%(B}{L-1}
-	\argm{n}{N}{$BEAC#4X?t$NJ,JlB?9`<0$N<!?t!%(B
-			{\bf --m} $B%*%W%7%g%s$HF1MM!$(B
-			$B<B:]$KF~NO$5$l$?%G!<%??t$,!$(B
-			$N+1$ $B$h$j>/$J$+$C$?>l9g$K$O!$(B
-			$N=(\mbox{$B<B:]$NF~NO%G!<%??t(B})-1$ $B$H$J$k$N$G!$(B
-			$BD9$5(B$N+1$ $B$N%G!<%?$r2?AH$+B3$1$FF~NO$9$k>l9g0J30$O!$(B
-			$N$ $B$N;XDj$OI,MW$"$j$^$;$s!%(B}{L-1}
-	\argm{z}{zfile}{$BEAC#4X?t$NJ,;RB?9`<0$N78?t$,=q$+$l$?%U%!%$%k!%(B
-			$B%U%!%$%k$NFbMF$O(Bfloat $B7A<0$G<!$N$h$&$KM?$($^$9!%(B\\
+	\argm{l}{L}{FFT window length\\
+                    $L$ must be power of 2}{256}
+	\argm{m}{M}{order of MA part\\
+                        ÅÁÃ£´Ø¿ô¤ÎÊ¬»ÒÂ¿¹à¼°¤Î¼¡¿ô¡¥
+			¼ÂºÝ¤ËÆþÎÏ¤µ¤ì¤¿¥Ç¡¼¥¿¿ô¤¬¡¤
+			$M+1$ ¤è¤ê¾¯¤Ê¤«¤Ã¤¿¾ì¹ç¤Ë¤Ï¡¤
+			$M=(\mbox{¼ÂºÝ¤ÎÆþÎÏ¥Ç¡¼¥¿¿ô})-1$ ¤È¤Ê¤ë¤Î¤Ç¡¤
+			Ä¹¤µ$M+1$ ¤Î¥Ç¡¼¥¿¤ò²¿ÁÈ¤«Â³¤±¤ÆÆþÎÏ¤¹¤ë¾ì¹ç°Ê³°¤Ï¡¤
+			$M$ ¤Î»ØÄê¤ÏÉ¬Í×¤¢¤ê¤Þ¤»¤ó¡¥}{L-1}
+	\argm{n}{N}{order of AR part\\
+                        ÅÁÃ£´Ø¿ô¤ÎÊ¬ÊìÂ¿¹à¼°¤Î¼¡¿ô¡¥
+			{\bf --m} ¥ª¥×¥·¥ç¥ó¤ÈÆ±ÍÍ¡¤
+			¼ÂºÝ¤ËÆþÎÏ¤µ¤ì¤¿¥Ç¡¼¥¿¿ô¤¬¡¤
+			$N+1$ ¤è¤ê¾¯¤Ê¤«¤Ã¤¿¾ì¹ç¤Ë¤Ï¡¤
+			$N=(\mbox{¼ÂºÝ¤ÎÆþÎÏ¥Ç¡¼¥¿¿ô})-1$ ¤È¤Ê¤ë¤Î¤Ç¡¤
+			Ä¹¤µ$N+1$ ¤Î¥Ç¡¼¥¿¤ò²¿ÁÈ¤«Â³¤±¤ÆÆþÎÏ¤¹¤ë¾ì¹ç°Ê³°¤Ï¡¤
+			$N$ ¤Î»ØÄê¤ÏÉ¬Í×¤¢¤ê¤Þ¤»¤ó¡¥}{L-1}
+	\argm{z}{zfile}{MA coefficients filename\\
+			¥Õ¥¡¥¤¥ë¤ÎÆâÍÆ¤Ïfloat ·Á¼°¤Ç¼¡¤Î¤è¤¦¤ËÍ¿¤¨¤Þ¤¹¡¥\\
 			\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\[-1zh]}{NULL}
-	\argm{p}{pfile}{$BEAC#4X?t$NJ,JlB?9`<0$N78?t$,=q$+$l$?%U%!%$%k!%(B
-			$B%U%!%$%kFbMF$O(Bfloat $B7A<0$G<!$N$h$&$KM?$($^$9!%(B\\
+	\argm{p}{pfile}{AR coefficients filename\\
+			¥Õ¥¡¥¤¥ëÆâÍÆ¤Ïfloat ·Á¼°¤Ç¼¡¤Î¤è¤¦¤ËÍ¿¤¨¤Þ¤¹¡¥\\
 			\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
-	\argm{y}{Y}{$B=PNO$9$k%9%Z%/%H%k$N%9%1!<%k$r;XDj!%(B\\
+	\argm{y}{Y}{output format\\
 			\begin{tabular}{lll} \\[-1zh]
 			$Y=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\ldots,L/2$\\
 			$Y=1$ & ~~~$\ln |X_k|$ & $k=0,1,\ldots,L/2$\\
 			$Y=2$ & ~~~$|X_k|$ & $k=0,1,\ldots,L/2$\\
 			\end{tabular} \\\hspace*{\fill}}{0}
 	\desc{
-{\em pfile}, {\em zfile} $B$NFbMF$O!$(B{\em dfs} $B$N>l9g$HF1$8$G$9!%(B\\
-{\bf --p}$B!$(B{\bf --z} $B%*%W%7%g%s$NFb!$(B
-{\bf --p} $B%*%W%7%g%s$@$1$,;XDj$5$l$?>l9g!$(B
-$BJ,;RB?9`<0$O(B1 $B$H$7$F07$o$l!"(B
-{\bf --z} $B%*%W%7%g%s$@$1$,;XDj$5$l$?>l9g$K$O!$(B
-$BJ,JlB?9`<0!$%2%$%s(B$K$ $B$H$b(B1 $B$H$7$F07$o$l$^$9!%(B
-{\bf --p}$B!$(B{\bf --z} $B%*%W%7%g%s$$$:$l$b>JN,$5$l$?>l9g$K$O!$(B
-$B%G!<%?$OI8=`F~NO$+$iFI$^$l$^$9!%(B }
+{\em pfile}, {\em zfile} ¤ÎÆâÍÆ¤Ï¡¤{\em dfs} ¤Î¾ì¹ç¤ÈÆ±¤¸¤Ç¤¹¡¥\\
+{\bf --p}¡¤{\bf --z} ¥ª¥×¥·¥ç¥ó¤ÎÆâ¡¤
+{\bf --p} ¥ª¥×¥·¥ç¥ó¤À¤±¤¬»ØÄê¤µ¤ì¤¿¾ì¹ç¡¤
+Ê¬»ÒÂ¿¹à¼°¤Ï1 ¤È¤·¤Æ°·¤ï¤ì¡¢
+{\bf --z} ¥ª¥×¥·¥ç¥ó¤À¤±¤¬»ØÄê¤µ¤ì¤¿¾ì¹ç¤Ë¤Ï¡¤
+Ê¬ÊìÂ¿¹à¼°¡¤¥²¥¤¥ó$K$ ¤È¤â1 ¤È¤·¤Æ°·¤ï¤ì¤Þ¤¹¡¥
+{\bf --p}¡¤{\bf --z} ¥ª¥×¥·¥ç¥ó¤¤¤º¤ì¤â¾ÊÎ¬¤µ¤ì¤¿¾ì¹ç¤Ë¤Ï¡¤
+¥Ç¡¼¥¿¤ÏÉ¸½àÆþÎÏ¤«¤éÆÉ¤Þ¤ì¤Þ¤¹¡¥ }
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-$B%Q%k%9Ns$GNe?6$7$?%G%#%8%?%k%U%#%k%?$N=PNO$K%V%i%C%/%^%sAk$r$+$1!$(B
-$B$=$NBP?t?6I}%9%Z%/%H%k$rI=<($9$k(B:
+¥Ñ¥ë¥¹Îó¤ÇÎå¿¶¤·¤¿¥Ç¥£¥¸¥¿¥ë¥Õ¥£¥ë¥¿¤Î½ÐÎÏ¤Ë¥Ö¥é¥Ã¥¯¥Þ¥óÁë¤ò¤«¤±¡¤
+¤½¤ÎÂÐ¿ô¿¶Éý¥¹¥Ú¥¯¥È¥ë¤òÉ½¼¨¤¹¤ë:
 \begin{quote}
   \verb!train -t 50 | dfs -a 1 0.9 | window | spec | fdrw | xgr !
 \end{quote}
 \par
-float$B7A<0$N%U%!%$%k(B{\em data.p, data.z} $B$G;XDj$5$l$?78?t$r$b$D(B
-$B%G%#%8%?%k%U%#%k%?$N<~GH?tFC@-$rI=<($9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë{\em data.p, data.z} ¤Ç»ØÄê¤µ¤ì¤¿·¸¿ô¤ò¤â¤Ä
+¥Ç¥£¥¸¥¿¥ë¥Õ¥£¥ë¥¿¤Î¼þÇÈ¿ôÆÃÀ­¤òÉ½¼¨¤¹¤ë:
 \begin{quote}
   \verb!spec -p data.p -z data.z | fdrw | xgr !
 \end{quote}
-{\em data.p}, {\em data.z} $B$NI=$9%U%#%k%?$,0BDj$J>l9g$K$O!$(B
+{\em data.p}, {\em data.z} ¤ÎÉ½¤¹¥Õ¥£¥ë¥¿¤¬°ÂÄê¤Ê¾ì¹ç¤Ë¤Ï¡¤
 \begin{quote}
   \verb!impulse | dfs -p data.p -z data.z | spec | fdrw | xgr !
 \end{quote}
-$B$H$7$F$b$[$\F1MM$N7k2L$,F@$i$l$^$9!%(B
+¤È¤·¤Æ¤â¤Û¤ÜÆ±ÍÍ¤Î·ë²Ì¤¬ÆÀ¤é¤ì¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

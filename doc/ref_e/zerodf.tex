@@ -1,4 +1,4 @@
-\name{zerodf}{$B2;@<9g@.$N$?$a$NA4Nm%U%#%k%?(B}{$B2;@<9g@.MQ%U%#%k%?(B}
+\name{zerodf}{all zero digital filter for speech synthesis}{digital filter}
 
 \begin{synopsis}
 \item[zerodf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --t ] [ --k ]
@@ -6,31 +6,31 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B;XDj$5$l$?%U%!%$%k$+$iFI$_9~$^$l$?%G!<%?$r(B {\em bfile} $B$N78?t!$(B
-$b(0), b(1), \ldots, b(M)$$B$r$b$DA4NmI8=`7A%U%#%k%?$K$h$j%U%#%k%?%j%s%0$7!$(B
-$BI8=`=PNO$K=PNO$7$^$9!%(B
+»ØÄê¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ß¹þ¤Þ¤ì¤¿¥Ç¡¼¥¿¤ò {\em bfile} ¤Î·¸¿ô¡¤
+$b(0), b(1), \ldots, b(M)$¤ò¤â¤ÄÁ´ÎíÉ¸½à·Á¥Õ¥£¥ë¥¿¤Ë¤è¤ê¥Õ¥£¥ë¥¿¥ê¥ó¥°¤·¡¤
+É¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$O!$F~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+Input and output data are in float format.
 \par
-$BA4NmI8=`7A%U%#%k%?$NEAC#4X?t(B $H(z)$$B$O!$(B
+Á´ÎíÉ¸½à·Á¥Õ¥£¥ë¥¿¤ÎÅÁÃ£´Ø¿ô $H(z)$¤Ï¡¤
 \begin{displaymath}
 H(z) = \sum_{m=0}^{M} b(m) z^{-m}
 \end{displaymath}
-$B$HI=$5$l$^$9!%(B
+¤ÈÉ½¤µ¤ì¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{$B%U%#%k%?$N<!?t!%(B}{25}
-	\argm{p}{P}{$B%U%l!<%`D9!%(B}{100}
-	\argm{i}{I}{$B78?t$N99?7<~4|!%(B}{1}
-	\argm{t}{}{$BE>CV7?%U%#%k%?!%(B}{FALSE}
-	\argm{k}{}{$B%2%$%s$r=|$$$?%7%9%F%`4X?t$G%U%#%k%?%j%s%0$9$k(B}{FALSE}
+	\argm{m}{M}{order of coefficients}{25}
+	\argm{p}{P}{frame period}{100}
+	\argm{i}{I}{interpolation period}{1}
+	\argm{t}{}{transpose filter}{FALSE}
+	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%T%C%A%G!<%?(B {\em data.pitch} $B$+$iNe?68;$r:n@.$7!$Nm7?%U%#%k%?$N(B
-$B78?t%U%!%$%k(B {\em data.b} $B$K$h$jA4Nm%U%#%k%?$r6nF0$7!$9g@.2;@<$r(B
- {\em data.syn}$B$K=PNO$9$k(B:
+float·Á¼°¤Î¥Ô¥Ã¥Á¥Ç¡¼¥¿ {\em data.pitch} ¤«¤éÎå¿¶¸»¤òºîÀ®¤·¡¤Îí·¿¥Õ¥£¥ë¥¿¤Î
+·¸¿ô¥Õ¥¡¥¤¥ë {\em data.b} ¤Ë¤è¤êÁ´Îí¥Õ¥£¥ë¥¿¤ò¶îÆ°¤·¡¤¹çÀ®²»À¼¤ò
+ {\em data.syn}¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!excite < data.pitch  | zerodf data.b > data.syn!
 \end{quote}

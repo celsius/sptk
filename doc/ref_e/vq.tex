@@ -1,38 +1,37 @@
-\name{vq}{$B%Y%/%H%kNL;R2=(B}{$B%Y%/%H%kNL;R2=(B}
+\name{vq}{vector quantization}{VQ}
 
 \begin{synopsis}
 \item [vq] [ --l $L$ ] [ --n $N$ ] [ --q ] {\em cbfile} [{\em infile}]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B;XDj$5$l$?%U%!%$%k$+$iD9$5(B $L$ $B$N;~7ONs(B
+»ØÄê¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤«¤éÄ¹¤µ $L$ ¤Î»þ·ÏÎó
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-$B$rFI$_9~$_!$%3!<%I%V%C%/%U%!%$%k(B{\em cbfile}$BCf$N3F%3!<%I%Y%/%H%k$H$N(B
-$B%f!<%/%j%C%I5wN%(B $d_i$
+¤òÆÉ¤ß¹þ¤ß¡¤¥³¡¼¥É¥Ö¥Ã¥¯¥Õ¥¡¥¤¥ë{\em cbfile}Ãæ¤Î³Æ¥³¡¼¥É¥Ù¥¯¥È¥ë¤È¤Î
+¥æ¡¼¥¯¥ê¥Ã¥Éµ÷Î¥ $d_i$
 \begin{displaymath}
 d_i = \frac{1}{L}\sum_{m=0}^{L-1} (x(m)-c_i(m))^2
 \end{displaymath}
-$B$,:G>.$K$J$k%$%s%G%C%/%9(B$i$$B$r=PNO$7$^$9!%(B
--q $B%*%W%7%g%s$,;XDj$5$l$?>l9g$K$O!$(B
-$B%3!<%I%Y%/%H%k(B $[c_i(0), c_i(1), \cdots, c_i(L-1)]$$B$r(B
-$B=PNO$7$^$9!%(B
+¤¬ºÇ¾®¤Ë¤Ê¤ë¥¤¥ó¥Ç¥Ã¥¯¥¹$i$¤ò½ÐÎÏ¤·¤Þ¤¹¡¥
+-q ¥ª¥×¥·¥ç¥ó¤¬»ØÄê¤µ¤ì¤¿¾ì¹ç¤Ë¤Ï¡¤
+¥³¡¼¥É¥Ù¥¯¥È¥ë $[c_i(0), c_i(1), \cdots, c_i(L-1)]$¤ò
+½ÐÎÏ¤·¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO$O(B float $B7A<0!$=PNO$O(B int $B7A<0$G$9!%(B
-$B$?$@$7(B, -q $B%*%W%7%g%s$,;XDj$5$l$?>l9g$K$O(B, $B=PNO$O(B float 
-$B7A<0$K$J$j$^$9!%(B
+Input data is in float format and output data is in int format.
+If the -q options is assigned, then output data is in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%Y%/%H%k$N%5%$%:!%(B}{26}
-	\argm{n}{N}{$B%Y%/%H%k$N<!?t!%(B}{25}
-	\argm{q}{}{$BNL;R2=$5$l$?%3!<%I%Y%/%H%k$r=PNO!%(B}{FALSE}
+	\argm{l}{L}{length of vector}{26}
+	\argm{n}{N}{order of vector}{25}
+	\argm{q}{}{output quantized vector}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N(B25$B<!$N%Y%/%H%kNs$N%U%!%$%k(B {\em data.f} $B$KBP$7!$(B
-$B%3!<%I%V%C%/(B {\em cbfile} $B$G(BVQ $B$r9T$$(B {\em data.vq} $B$K=PNO$9$k(B:
+float·Á¼°¤Î25¼¡¤Î¥Ù¥¯¥È¥ëÎó¤Î¥Õ¥¡¥¤¥ë {\em data.f} ¤ËÂÐ¤·¡¤
+¥³¡¼¥É¥Ö¥Ã¥¯ {\em cbfile} ¤ÇVQ ¤ò¹Ô¤¤ {\em data.vq} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
  \verb!vq -q cbfile < data.f > data.vq!
 \end{quote} 

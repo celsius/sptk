@@ -1,30 +1,33 @@
-\name{train}{$B%Q%k%9Ns$"$k$$$O(BM$B7ONs$rH/@8$9$k(B}{$B?.9f@8@.(B}
+\name{train}{generate pulse sequence}{signal generation}
 
 \begin{synopsis}
 \item[train] [ --l $L$ ] [ --p $P$ ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BD9$5(B $L$$B!$<~4|(B $P$ $B$N%Q%k%9Ns!$$"$k$$$O(BM$B7ONs$rI8=`=PNO$K=PNO$7$^$9!%(B
-$B=PNO%G!<%?$O!$(Bfloat $B7A<0$G$9!%(B
+Ä¹¤µ $L$¡¤¼þ´ü $P$ ¤Î¥Ñ¥ë¥¹Îó¡¤¤¢¤ë¤¤¤ÏM·ÏÎó¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
+Output data is in float format.
 \par
-M$B7ONs$O(B $\pm 1$ $B$NCM$r$b$A$^$9!%(B
+M·ÏÎó¤Ï $\pm 1$ ¤ÎÃÍ¤ò¤â¤Á¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B=PNO%G!<%?$ND9$5!%(B}{256}
-	\argm{p}{P}{$B%Q%k%9Ns$N<~4|!%(B$P=0$ $B$N$H$-(BM$B7ONs$r=PNO!%(B}{0}
-	\argm{n}{N}{$B%Q%k%9Ns$N@55,2=!%(B \\$B%Q%k%9Ns$r(B $x(n)$ $B$H$7$?$H$-(B\\
+	\argm{l}{L}{frame length}{256}
+	\argm{p}{P}{frame period\\
+                    if $P=0$ then M sequence is generated.}{0}
+	\argm{n}{N}{type of normalization\\
+                    When $x(n)$ is impulse sequence\\
 			\begin{tabular}{ll}\\ [-1zh]
-			 0 & $B@55,2=$7$J$$!%(B\\
-			 1 & $\displaystyle \sum_{n=0}^{L-1} x^2(n) = 1$ $B$H$J$k$h$&$K@55,2=!%(B\\
-			 2 & $\displaystyle \sum_{n=0}^{L-1} x(n) = 1$$B$H$J$k$h$&$K@55,2=!%(B\\
+			 0 & no-normalization\\
+			 1 & normalization as 
+                             $\displaystyle \sum_{n=0}^{L-1} x^2(n) = 1$\\
+			 2 & normalization  as 
+                             $\displaystyle \sum_{n=0}^{L-1} x(n) = 1$\\
 			 \end{tabular}\\\hspace*{\fill}}{1}
-
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-$B%G%#%8%?%k%U%#%k%?$r(BM$B7ONs$GNe?6$7$?=PNO$N%9%Z%/%H%k$r8+$k(B:
+¥Ç¥£¥¸¥¿¥ë¥Õ¥£¥ë¥¿¤òM·ÏÎó¤ÇÎå¿¶¤·¤¿½ÐÎÏ¤Î¥¹¥Ú¥¯¥È¥ë¤ò¸«¤ë:
 \begin{quote}
 \verb!train | dfs -b 1 0.9 | window | spec | fdrw | xgr!
 \end{quote}

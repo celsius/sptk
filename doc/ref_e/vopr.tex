@@ -1,4 +1,4 @@
-\name{vopr}{$B%Y%/%H%k1i;;$r9T$&(B}{$B?tCM1i;;(B}
+\name{vopr}{excute vector operations}{¿ôÃÍ±é»»}
 
 \begin{synopsis}
 \item[vopr] [ --l $L$ ] [ --n $N$ ] [ --i ] [ --a ] [ --s ] [ --m ] [ --d ] 
@@ -6,27 +6,27 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BF~NO%G!<%?$KBP$7%Y%/%H%k1i;;$r9T$$$^$9!%(B
-$B$D$^$j!$(B
+ÆþÎÏ¥Ç¡¼¥¿¤ËÂÐ¤·¥Ù¥¯¥È¥ë±é»»¤ò¹Ô¤¤¤Þ¤¹¡¥
+¤Ä¤Þ¤ê¡¤
 \begin{description}
 \itemb{\em file1}
-$BHo1i;;%Y%/%H%k%U%!%$%k(B($B>JN,;~$O(Bstdin)
+Èï±é»»¥Ù¥¯¥È¥ë¥Õ¥¡¥¤¥ë(¾ÊÎ¬»þ¤Ïstdin)
 \itemb{\em infile}
-$B1i;;%Y%/%H%k%U%!%$%k(B($B>JN,;~$O(Bstdin)
+±é»»¥Ù¥¯¥È¥ë¥Õ¥¡¥¤¥ë(¾ÊÎ¬»þ¤Ïstdin)
 \end{description}
-$B$H$7$F1i;;%Y%/%H%k(B{\bf a}$B!"Ho1i;;%Y%/%H%k(B{\bf b} $B$rFI$_9~$_!$(B
-$B%*%W%7%g%s$G;XDj$5$l$?1i;;$r9T$$7k2L$rI8=`=PNO$K=PNO$7$^$9!%(B
+¤È¤·¤Æ±é»»¥Ù¥¯¥È¥ë{\bf a}¡¢Èï±é»»¥Ù¥¯¥È¥ë{\bf b} ¤òÆÉ¤ß¹þ¤ß¡¤
+¥ª¥×¥·¥ç¥ó¤Ç»ØÄê¤µ¤ì¤¿±é»»¤ò¹Ô¤¤·ë²Ì¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+Input and output data are in float format.
 \par
-$B;XDj%U%!%$%k?t$H%Y%/%H%k$ND9$5$N(B
-$BAH$_9g$o$;$K$h$jF0:n$,0[$J$j$^$9!%(B
+»ØÄê¥Õ¥¡¥¤¥ë¿ô¤È¥Ù¥¯¥È¥ë¤ÎÄ¹¤µ¤Î
+ÁÈ¤ß¹ç¤ï¤»¤Ë¤è¤êÆ°ºî¤¬°Û¤Ê¤ê¤Þ¤¹¡¥
 \par
-$B%U%!%$%k$r(B2$B8D;XDj$7$?>l9g!J(B{\em file1} $B$H$7$F(Bstdin $B$rA[Dj$7$?>l9g!$(B
-$B$D$^$j(B{\bf --i} $B%*%W%7%g%s$J$7$G(B{\em infile} $B$@$1;XDj$7$?>l9g$b4^$_$^$9!K$K$O!$(B
-$B%Y%/%H%k$ND9$5$NCM$K$h$j<!$N$h$&$JF0:n$r$7$^$9!%(B
+¥Õ¥¡¥¤¥ë¤ò2¸Ä»ØÄê¤·¤¿¾ì¹ç¡Ê{\em file1} ¤È¤·¤Æstdin ¤òÁÛÄê¤·¤¿¾ì¹ç¡¤
+¤Ä¤Þ¤ê{\bf --i} ¥ª¥×¥·¥ç¥ó¤Ê¤·¤Ç{\em infile} ¤À¤±»ØÄê¤·¤¿¾ì¹ç¤â´Þ¤ß¤Þ¤¹¡Ë¤Ë¤Ï¡¤
+¥Ù¥¯¥È¥ë¤ÎÄ¹¤µ¤ÎÃÍ¤Ë¤è¤ê¼¡¤Î¤è¤¦¤ÊÆ°ºî¤ò¤·¤Þ¤¹¡¥
 \begin{description}
-\item{$L=1$ $B$N$H$-(B}~\\
+\item{$L=1$ ¤Î¤È¤­}~\\
 \begin{tabular}{l|c|c|c|c|c} \cline{2-6}
 {\em file1} (stdin)	& {$a_1$} & {$a_2$} & {\dots}
 			& {$a_i$} & {\dots} \\ \cline{2-6}
@@ -38,8 +38,8 @@
 			& {$y_i$} & {\dots} \\ \cline{2-6}
 \end{tabular}
 \par
-$B3F%U%!%$%k$N%G!<%?$,(B1 $BBP(B1 $B$KBP1~$7$^$9!%(B
-\item{$L\geq 2$ $B$N$H$-(B}~\\
+³Æ¥Õ¥¡¥¤¥ë¤Î¥Ç¡¼¥¿¤¬1 ÂÐ1 ¤ËÂÐ±þ¤·¤Þ¤¹¡¥
+\item{$L\geq 2$ ¤Î¤È¤­}~\\
 \begin{tabular}{l|c|c|c|l} \cline{2-5}
 {\em file1} (stdin)	& {$a_{11}$,\dots,$a_{1L}$}
 			& {$a_{21}$,\dots,$a_{2L}$}
@@ -57,16 +57,16 @@
 			& {$y_{41}$,\dots} \\ \cline{2-5}
 \end{tabular}
 \par
-$B1i;;%Y%/%H%k$O(B{\em infile}$B$+$i(B1$B2s$@$1FI$_9~$^$l!$(B
-$B7+$jJV$7Ho1i;;%Y%/%H%k$KBP$7$F:nMQ$7$^$9!%(B
+±é»»¥Ù¥¯¥È¥ë¤Ï{\em infile}¤«¤é1²ó¤À¤±ÆÉ¤ß¹þ¤Þ¤ì¡¤
+·«¤êÊÖ¤·Èï±é»»¥Ù¥¯¥È¥ë¤ËÂÐ¤·¤ÆºîÍÑ¤·¤Þ¤¹¡¥
 \end{description}
 \par
-$B%U%!%$%k$r(B1 $B8D$@$1;XDj$7$?>l9g!J$D$^$j!$%U%!%$%kL>$r$R$H$D$@$15-=R$7!$(B
-{\bf --i} $B%*%W%7%g%s$K$h$j(B{\em infile=file1} $B$H;XDj$7$?>l9g!$(B
-$B$^$?%U%!%$%k$r$R$H$D$b5-=R$;$:(B{\em file1=infile=stdin} $B$H;XDj$7$?>l9g!K$K$O!$(B
-$B%Y%/%H%k$ND9$5$K$h$i$:<!$N$h$&$JF0:n$r$7$^$9!%(B
+¥Õ¥¡¥¤¥ë¤ò1 ¸Ä¤À¤±»ØÄê¤·¤¿¾ì¹ç¡Ê¤Ä¤Þ¤ê¡¤¥Õ¥¡¥¤¥ëÌ¾¤ò¤Ò¤È¤Ä¤À¤±µ­½Ò¤·¡¤
+{\bf --i} ¥ª¥×¥·¥ç¥ó¤Ë¤è¤ê{\em infile=file1} ¤È»ØÄê¤·¤¿¾ì¹ç¡¤
+¤Þ¤¿¥Õ¥¡¥¤¥ë¤ò¤Ò¤È¤Ä¤âµ­½Ò¤»¤º{\em file1=infile=stdin} ¤È»ØÄê¤·¤¿¾ì¹ç¡Ë¤Ë¤Ï¡¤
+¥Ù¥¯¥È¥ë¤ÎÄ¹¤µ¤Ë¤è¤é¤º¼¡¤Î¤è¤¦¤ÊÆ°ºî¤ò¤·¤Þ¤¹¡¥
 \begin{description}
-\item{$L\geq 1$ $B$N$H$-(B}~\\
+\item{$L\geq 1$ ¤Î¤È¤­}~\\
 \begin{tabular}{l|c|c|c|c|l} \cline{2-6}
 {\em file} (stdin)	& {$a_{11}$,\dots,$a_{1L}$}
 			& {$b_{11}$,\dots,$b_{1L}$}
@@ -83,46 +83,45 @@
 			\cline{2-2} \cline{4-4} \cline{6-6}
 \end{tabular}
 \par
-$B1i;;%Y%/%H%k!$Ho1i;;%Y%/%H%k$H$b(B
-$BF1$8%U%!%$%k$+$iFI$_9~$^$l$^$9!%(B
+±é»»¥Ù¥¯¥È¥ë¡¤Èï±é»»¥Ù¥¯¥È¥ë¤È¤â
+Æ±¤¸¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ß¹þ¤Þ¤ì¤Þ¤¹¡¥
 \end{description}
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%Y%/%H%k$ND9$5!%(B}{1}
-	\argm{n}{N}{$B%Y%/%H%k$N<!?t!%(B}{L-1}
-	\argm{i}{}{$B%U%!%$%k$r(B1$B8D$7$+;XDj$7$J$+$C$?>l9g!$$=$N%U%!%$%k$r(B
-			$BHo1i;;%Y%/%H%k$H1i;;%Y%/%H%k$NN>J}$r4^$s$@(B
-			$B%U%!%$%k$H$_$J$9!%(B}{FALSE}
-	\argm{a}{}{$B2C;;!%(B$y_i=a_i+b_i$$B!%(B}{FALSE}
-	\argm{s}{}{$B8:;;!%(B$y_i=a_i-b_i$$B!%(B}{FALSE}
-	\argm{m}{}{$B>h;;!%(B$y_i=a_i*b_i$$B!%(B}{FALSE}
-	\argm{d}{}{$B=|;;!%(B$y_i=a_i/b_i$$B!%(B}{FALSE}
-	\argm{ATAN2}{}{$B5U@5@\!%(B$y_i=\atan2(b_i,a_i)$$B!%(B}{FALSE}
+	\argm{l}{L}{length of vector}{1}
+	\argm{n}{N}{order of vector}{L-1}
+	\argm{i}{}{when only a file is specified, 
+                   the file contains a and b.}{FALSE}
+	\argm{a}{}{addition $y_i=a_i+b_i$}{FALSE}
+	\argm{s}{}{subtraction $y_i=a_i-b_i$}{FALSE}
+	\argm{m}{}{multiplication $y_i=a_i*b_i$}{FALSE}
+	\argm{d}{}{division $y_i=a_i/b_i$}{FALSE}
+	\argm{ATAN2}{}{atan2 $y_i=\atan2(b_i,a_i)$}{FALSE}
 %\itemb{--i}
-%$B%U%!%$%k$r(B1$B8D$7$+;XDj$7$J$+$C$?>l9g!$(B
-%$B$=$N%U%!%$%k$,Ho1i;;%Y%/%H%k$G$"$k$3$H$r<($7$^$9!%(B
-%$B%G%U%)%k%H$G$O1i;;%Y%/%H%k!%(B
+%¥Õ¥¡¥¤¥ë¤ò1¸Ä¤·¤«»ØÄê¤·¤Ê¤«¤Ã¤¿¾ì¹ç¡¤
+%¤½¤Î¥Õ¥¡¥¤¥ë¤¬Èï±é»»¥Ù¥¯¥È¥ë¤Ç¤¢¤ë¤³¤È¤ò¼¨¤·¤Þ¤¹¡¥
+%¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï±é»»¥Ù¥¯¥È¥ë¡¥
 
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%U%!%$%k(B{\em data.a} $B$H%U%!%$%k(B{\em data.b} $B$NOB$r(B
-$B%U%!%$%k(B{\em data.c} $B$K=PNO$9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë{\em data.a} ¤È¥Õ¥¡¥¤¥ë{\em data.b} ¤ÎÏÂ¤ò
+¥Õ¥¡¥¤¥ë{\em data.c} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!vopr -a data.a data.b > data.c !
 \end{quote}
 \par
-$B%U%!%$%k(B{\em data.w} $B$KF~$C$F$$$kE,Ev$JAk(B( $BAkD9(B256) $B$rMQ$$$F!$(B
-$B@589GH$KAk$+$1$r9T$&!%(B
+¥Õ¥¡¥¤¥ë{\em data.w} ¤ËÆþ¤Ã¤Æ¤¤¤ëÅ¬Åö¤ÊÁë( ÁëÄ¹256) ¤òÍÑ¤¤¤Æ¡¤
+Àµ¸¹ÇÈ¤ËÁë¤«¤±¤ò¹Ô¤¦¡¥
 \begin{quote}
   \verb!sin -t 30 -l 1000 | vopr data.w -l 256 -m | fdrw | xgr!
 \end{quote}
-$B$3$l$O!$%U%!%$%k(B{\em data.w} $B$K%V%i%C%/%^%sAk$,F~$C$F$$$?$H$9$l$P!$(B
+¤³¤ì¤Ï¡¤¥Õ¥¡¥¤¥ë{\em data.w} ¤Ë¥Ö¥é¥Ã¥¯¥Þ¥óÁë¤¬Æþ¤Ã¤Æ¤¤¤¿¤È¤¹¤ì¤Ð¡¤
 \begin{quote}
   \verb!sin -t 30 -l 1000 | window | fdrw | xgr!
 \end{quote}
-$B$KEy2A$G$9!%(B
+¤ËÅù²Á¤Ç¤¹¡¥
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

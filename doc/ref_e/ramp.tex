@@ -1,42 +1,42 @@
-\name{ramp}{$B%i%s%WNs$rH/@8$9$k(B}{$B?.9f@8@.(B}
+\name{ramp}{generate ramp sequence}{signal generation}
 
 \begin{synopsis}
 \item[ramp] [ --l $L$ ] [ --n $N$ ] [ --s $S$ ] [ --e $E$ ] [ --t $T$ ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B%i%s%WNs$rI8=`=PNO$K=PNO$7$^$9!%$D$^$j!$(B
+¥é¥ó¥×Îó¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥¤Ä¤Þ¤ê¡¤
 \begin{displaymath}
 \underbrace{S, S+T, S+2T,  \ldots, S+(L-1)T}_{L}
 \end{displaymath}
-$B$r=PNO$7$^$9!%(B
+¤ò½ÐÎÏ¤·¤Þ¤¹¡¥
 \par
-$B=PNO%G!<%?$O!$(Bfloat $B7A<0$G$9!%(B
-$B:G=*CM$r;XDj$7$?>l9g$O!$(B
+Output format is in float format.
+ºÇ½ªÃÍ¤ò»ØÄê¤·¤¿¾ì¹ç¤Ï¡¤
 \begin{displaymath}
 \underbrace{S, S+T, S+2T,  \ldots, E}_{(E-S)/T}
 \end{displaymath}
 \par
-$B$H$J$j$^$9!%(B
--l$B%*%W%7%g%s$H(B-e$B%*%W%7%g%s$H(B-n$B%*%W%7%g%s$r(B2$B$D0J>eF1;~$K;XDj$7$?>l9g$O!$(B
-$B8e$G;XDj$7$?$b$N$K=>$$$^$9!%(B
+¤È¤Ê¤ê¤Þ¤¹¡¥
+-l¥ª¥×¥·¥ç¥ó¤È-e¥ª¥×¥·¥ç¥ó¤È-n¥ª¥×¥·¥ç¥ó¤ò2¤Ä°Ê¾åÆ±»þ¤Ë»ØÄê¤·¤¿¾ì¹ç¤Ï¡¤
+¸å¤Ç»ØÄê¤·¤¿¤â¤Î¤Ë½¾¤¤¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%i%s%WNs$ND9$5!%(B\\
-			$B$?$@$7!$(B$L \le 0$$B$N;~$OL58B$K@8@.$9$k!%(B}{256}
-	\argm{n}{N}{$B%i%s%WNs$N<!?t!%(B}{L-1}
-	\argm{s}{S}{$B=i4|CM!%(B}{0}
-	\argm{e}{E}{$B:G=*CM!%(B}{N/A}
-	\argm{t}{T}{$B%9%F%C%W%5%$%:!%(B}{1}
+	\argm{l}{L}{length of ramp sequence\\
+			¤¿¤À¤·¡¤$L \le 0$¤Î»þ¤ÏÌµ¸Â¤ËÀ¸À®¤¹¤ë¡¥}{256}
+	\argm{n}{N}{order of ramp sequence}{L-1}
+	\argm{s}{S}{start value}{0}
+	\argm{e}{E}{end value}{N/A}
+	\argm{t}{T}{step size}{1}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-$B?tNs(B
+¿ôÎó
 \begin{displaymath}
   y(n)=\exp(-n)
 \end{displaymath}
-$B$r=PNO$9$k(B:
+¤ò½ÐÎÏ¤¹¤ë:
 \begin{quote}
 \verb!ramp | sopr -m -1 -E | dmp!
 \end{quote}
