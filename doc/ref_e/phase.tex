@@ -32,7 +32,7 @@ Then the output is given by
   Y_k=\arg X_k, \qquad k=0,1,\ldots,L/2
 \end{displaymath}
 In this case the phase is written in continuous form.
-The output data angular frequancy varies from $0\sim \pi$.
+The output data angular frequency varies from $0\sim \pi$.
 Input and output data are in float format.
 \par
 If the {\bf --p, --z} options are assigned
@@ -46,11 +46,11 @@ the difference between the numerator and denominator phases}.
 
 \begin{options}
 	\argm{l}{L}{frame length power of 2}{256}
-	\argm{p}{pfile}{numerator cofficients file\\
+	\argm{p}{pfile}{numerator coefficients file\\
 			The {\em pfile} should follow this structure in
                         float format:\\
 			\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
-	\argm{z}{zfile}{denominator cofficients file\\
+	\argm{z}{zfile}{denominator coefficients file\\
 			The {\em zfile} should follow this structure in
                         float format:\\
 			\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\
@@ -59,7 +59,7 @@ the difference between the numerator and denominator phases}.
                         command {\em dfs}.
 			When only the {\bf --p} option is assigned
                         then the denominator is made equal to 1.
-                        Wnen only the {\bf --z} option is assigned
+                        When only the {\bf --z} option is assigned
                         then the numerator and the gain $K$ are made
                         equal to 1.
                         If neither {\bf --p} nor {\bf --z} are
@@ -72,7 +72,7 @@ the difference between the numerator and denominator phases}.
                         size $M+1$, then it is not necessary to assign
                         a value to $M$.}{$L-1$}
 	\argm{n}{N}{order of numerator polynomial\\
-                        Similary to the --m option,
+                        Similarly to the --m option,
 			in the case where the number of input data
                         values is less then $N+1$, then $N$ is made
                         equal to the number of input data values $-1$.

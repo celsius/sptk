@@ -29,7 +29,7 @@ and the output data type is assigned through the +$type2$ option.
                         L & unsigned long (4bytes) \\
                         f & float (4bytes) & \quad &
                         d & double (8bytes) \\
-                        a & ascii \\ [1zh] 
+                        a & ASCII \\ [1zh] 
                 \end{tabular} \\
                 data type is converted from $t_1(type_1)$ to $t_2(type_2)$.
                 if $t_2$ is not assigned then no operation is
@@ -39,11 +39,11 @@ and the output data type is assigned through the +$type2$ option.
 	\argm{r}{}{specify rounding off when a real number
                  is substituted for a integer}{FALSE}
 	\argh{format}{}{specify output format similar to 'printf()', 
-                        if $type2$ is ascii.}{$\%g$}
+                        if $type2$ is ASCII.}{$\%g$}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The following example converts data in ascii format
+The following example converts data in ASCII format
 read from {\em data.asc}, converts to float format,
 and writes the output to {\em data.f}:
 \begin{quote}
@@ -51,7 +51,7 @@ and writes the output to {\em data.f}:
 \end{quote}
 \par
 This example reads data in float format from {\em data.f}
-converts to ascii format, and sends the output to the screen:
+converts to ASCII format, and sends the output to the screen:
 \begin{quote}
   \verb!x2x +fa < data.f!
 \end{quote}

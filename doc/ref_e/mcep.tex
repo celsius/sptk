@@ -26,17 +26,17 @@ H(z) = \exp \sum_{m=0}^M c_{\alpha}(m) \tilde{z}^{-m}
 \end{displaymath}
 For this command ``mcep'', it is applied a cost function
 based on the unbiased estimation log spectrum method.
-The valiable $\tilde{z}^{-1}$ can be expressed as the following
+The variable $\tilde{z}^{-1}$ can be expressed as the following
 first order all-pass function
 \begin{displaymath}
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}.
 \end{displaymath}
-The phase characteristic is given by the valiable $\alpha$.
+The phase characteristic is given by the variable $\alpha$.
 For a sampling rate 10kHz, $\alpha$ is made equal to $0.35$.
-For a smmpling rate 8kHz, $\alpha$ is mde equal to $0.31$.
+For a sampling rate 8kHz, $\alpha$ is made equal to $0.31$.
 By making these choices for $\alpha$,
 the mel-scale becomes the good approximation to human
-sensitivity to the roudness speech sound.
+sensitivity to the loudness speech sound.
 \par
 The Newton-Raphson method is used to minimize the cost function
 when evaluating mel-cepstrum coefficients.
