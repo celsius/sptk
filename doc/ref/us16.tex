@@ -1,0 +1,42 @@
+\name{us16}{サンプリングレート変換（16kHzへのアップサンプリング）}%
+{サンプリングレート変換}
+
+\begin{synopsis}
+\item [us16] [ --s $S$ ] [ +{\em type} ] [ {\em infile} ] [ {\em outfile} ]
+\item [us16] [ --s $S$ ] [ +{\em type} ] {\em infile1} $\cdots$ [ {\em infileN}] {\em outdir} 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em us}は，10，12kHz から 16kHz へのアップサンプリングを行います．入
+ 力ファイル，出力ファイルの指定が無い場合は，それぞれ標準入力から読み
+ 込み，標準出力へ書き込まれます．
+ また，複数のファイルを同時に指定することも可能です．
+ この場合，入力ファイル名のサフィックスが変換後の標本化周波数に置き換
+ えられ，{\em outdir} 以下に出力されます．
+\par
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{入力データの標本化周波数．（10，12 kHz）}{$10$}
+	\argp{t}{入力データの形式．\\
+		\begin{tabular}{ll} \\[-1zh]
+			s & short型 (2bytes) \\
+			f & float型 (4bytes)
+		\end{tabular}\\}{s}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+short 形式の標本化周波数 10kHz の音声データファイル {\em data.10} を標本
+化周波数 16kHz にアップサンプリングし，{\em data.16} に出力する:
+\begin{quote}
+\verb!us16 -s 10 < data.10 > data.16!
+\end{quote}
+\end{qsection}
+
+%\begin{qsection}{BUGS}
+%none
+%\end{qsection}
+
+%\begin{qsection}{SEE ALSO}
+%none
+%\end{qsection}
