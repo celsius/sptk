@@ -10,8 +10,8 @@
 *		-m m              : order of vector                              [25]		*
 *		-l l              : length of vector                             [m-1]		*
 *		-d fn             : filename of delta coefficients               [N/A]		*
-*		-d coef [coef...] : delta coefficients                           [N/A]\n");	*
-*		-r n w1 [w2]      : number and width of regression coefficients  [N/A]\n");	*
+*		-d coef [coef...] : delta coefficients                           [N/A]		*
+*		-r n w1 [w2]      : number and width of regression coefficients  [N/A]		*
 *		-i i              : type of input PDFs                           [0]		*
 *		-s s              : range of influenced frames                   [30]		*
 *		-h                : print this message						*
@@ -358,10 +358,6 @@ void InitPStream(PStream *pst)
 
 	pst->sm.pi	= ddcalloc(pst->range+pst->dw.maxw[WRIGHT]+1, pst->order+1, pst->range, 0);
 	pst->sm.k	= ddcalloc(pst->range+pst->dw.maxw[WRIGHT]+1, pst->order+1, pst->range, 0);
-/*
-	pst->sm.pi	+= pst->range;
-	pst->sm.k	+= pst->range;
-*/
 
 	for (i = 0; i < pst->sm.length; i++)
 		for (m = 0; m < pst->vSize; m++)
@@ -471,7 +467,7 @@ void InitDWin(PStream *pst)
 			s4 += s4;
 			s0 = leng + leng + 1;
 			for (j = -leng; j <= leng; j++)
-				pst->dw.coef[2][j] = (s0*j*j - s2)/(s4*s0 - s2*s2);
+				pst->dw.coef[2][j] = (s0*j*j - s2)/(s4*s0 - s2*s2)/2;
 		}
 	}
 
