@@ -1,23 +1,22 @@
-\name{ulaw}{$\mu$-law compress/uncompress}{signal processing}
+\name{ulaw}{$\mu$-law compress/decompress}{signal processing}
 
 \begin{synopsis}
 \item[ulaw] [ --v $V$ ] [ --u $U$ ] [ --c ] [ --d ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-ulawによりデータを圧縮・展開します．
-入力を$x(n)$，出力を$y(n)$とし，入力の最大値を$V$，
-圧縮係数を$U$とすると圧縮は
+This command compresses or decompresses data into
+$\mu$-law format.
+If the input is $x(n)$, the output is $y(n)$,
+the largest value of input data is $V$, compression coefficients is $U$,
+then the compression is made through the following equation.
 \begin{displaymath}
 y(n) = sgn(x(n)) V \frac{\log(1 + U \frac{|x(n)|}{V} )}{\log(1+U)}
 \end{displaymath}
-となり，展開は
+And decompression is
 \begin{displaymath}
 y(n) = sgn(x(n)) V \frac{(1+u)^{|x(n)|/V} - 1}{U}
 \end{displaymath}
-となります．
-
-
 \end{qsection}
 
 \begin{options}
@@ -28,7 +27,8 @@ y(n) = sgn(x(n)) V \frac{(1+u)^{|x(n)|/V} - 1}{U}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-16 bitのデータ {\em data.s} を8 bit にulaw圧縮し，{\em data.ulaw}に出力する:
+In the following, 16 bit data read from {\em data.s}
+is compressed to 8 bit ulaw format, and written to {\em data.ulaw}
 \begin{quote}
   \verb!x2x +sf data.s | ulaw | sopr -d 256 | x2x +fc -r > data.ulaw!
 \end{quote}
