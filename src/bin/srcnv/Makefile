@@ -21,25 +21,23 @@ CFLAGS		= -O2 $(INCDIR)
 LDFLAGS		= $(LIBDIR)
 LIBS		= -lSPTK -lm
 
+
 .c.o:
 	$(CC) -DLIB=\"$(LIB)\" $(CFLAGS) -c $<
 
 all: $(TARGET)
 
-
 $(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
-
 
 install: $(TARGET)
 	$(INSTALL) $(TARGET) $(BIN)
 	cp $(COEF) $(LIB)
 
-
 clean:
 	$(RM) $(TARGET) $(OBJS) \#* *~
-
 
 veryclean: clean
 	$(RM) $(BIN)/$(TARGET)
 	cd $(LIB) ; $(RM) $(COEF)
+
