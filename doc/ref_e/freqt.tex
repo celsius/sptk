@@ -1,4 +1,5 @@
-\name{freqt}{周波数変換}{信号処理,音声パラメータ変換}
+\name{freqt}{frequency transformation}%
+{signal processing,speech parameter convartion}
 
 \begin{synopsis}
 \item [freqt] [ --m $M_1$ ] [ --M $M_2$ ] [ --a $A_1$ ] [ --A $A_2$ ]
@@ -6,11 +7,12 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-ファイル中の $M_1$ 次の最小位相数列
+This command reads coefficients from a $M_1$ order minimum phase
+sequence
 \begin{displaymath}
 c_{\alpha_1}(0), c_{\alpha_1}(1), \ldots, c_{\alpha_1}(M_1)
 \end{displaymath}
-に対して周波数変換
+and undertakes the following frequency transformation
 \[ \alpha = (\alpha_1 - \alpha_2) / (1 - \alpha_1 \alpha_2) \]
 \begin{eqnarray*} 
 \hspace{-15mm}&& c_{\alpha_2}^{(i)}(m) = \left\{ 
@@ -25,27 +27,28 @@ c_{\alpha_1}(0), c_{\alpha_1}(1), \ldots, c_{\alpha_1}(M_1)
          \end{array} \right\}, \quad \nonumber \\
 \hspace{-15mm}&& \hspace{80mm} i = -M_1,\ldots,-1,0 
 \end{eqnarray*}
-を行い，$M_2$ 次の周波数変換した数列
+The $M_2$ order frequency transformed output sequence is
 \begin{displaymath}
 c_{\alpha_2}^{(0)}(0), c_{\alpha_2}^{(0)}(1), \ldots, c_{\alpha_2}^{(0)}(M_2)
 \end{displaymath}
-を出力します．
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M_1}{入力される最小位相数列の次数．}{25}
-	\argm{M}{M_2}{出力される周波数変換された数列の次数．}{25}
-	\argm{a}{A_1}{入力数列の周波数圧縮パラメータ$\alpha_1$．}{0}
-	\argm{A}{A_2}{出力数列の周波数圧縮パラメータ$\alpha_2$．}{0.35}
+	\argm{m}{M_1}{order of minimum phase sequence}{25}
+	\argm{M}{M_2}{order of warped sequence}{25}
+	\argm{a}{A_1}{all-pass constant of input sequence$\alpha_1$}{0}
+	\argm{A}{A_2}{all-pass constant of output sequence$\alpha_2$}{0.35}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の線形予測係数のファイル {\em data.lpc} から
-30次のLPCメルケプストラムを {\em data.lpcmc} に出力する:
+In the following example, the linear prediction coefficients in
+float format are read from {\em data.lpc} file, 
+transformed in 30 order LPC mel-cepstrum coefficients,
+and written in {\em data.lpcmc} file:
 \begin{quote}
- \verb!lpc2cep < data.lpc | freqt -m 30 > data.lpcmc!
+ \verb!lpc2c < data.lpc | freqt -m 30 > data.lpcmc!
 \end{quote} 
 \end{qsection}
 
