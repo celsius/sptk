@@ -1,4 +1,4 @@
-\name{lpc2lsp}{LPC から LSP に変換}{音声パラメータ変換}
+\name{lpc2lsp}{transform LPC to LSP}{speech parameter transformation}
 
 \begin{synopsis}
 \item [lpc2lsp] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --o $O$ ] [ --n $N$ ]
@@ -7,88 +7,101 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em lpc2lsp}は，指定されたファイルから線形予測係数
+The {\em lpc2lsp} command reads the linear prediction coefficients
 \begin{displaymath}
   K, a(1), \ldots, a(M)
 \end{displaymath}
-を読み込み，LSP 係数を計算し，標準出力に出力します．
-ここで，$K$ はゲインを表していますが，
-得られる LSP 係数の値には影響を及ぼしません．
+from the assinged file, calculates LSP coefficients and
+sends the result to the standard output.
+Note that the gain $K$ is included but it is not used
+in the evaluation of the LSP coefficients.
 \par
-$M$ 次の線形予測多項式 $A(z)$ は
+The $M$ order polynomial linear prediction equation $A(z)$ is
 \begin{displaymath}
   A_M(z) = 1 + \sum_{m=1}^M a(m) z^{-m}
 \end{displaymath}
-で与えられ，PARCOR 係数を用いた漸化式
+The PARCOR coefficients satisfy the following equations.
 \begin{eqnarray*}
   A_m(z) &=& A_{m-1}(z) - k(m) B_{m-1}(z) \\
   B_m(z) &=& z^{-1} (B_{m-1}(z) - k(m) A_{m-1}(z))
 \end{eqnarray*}
-を満足します．但し，初期条件は次の通りです．
+Also, the initial conditions are set as follows,
 \begin{displaymath}
   A_0(z) = 1,~~~B_0(z) = z^{-1}
 \end{displaymath}
-いま，$M$ 次の線形予測多項式 $A_M(z)$が与えられたとき，
-$k(M+1)$ を $1$ および $-1$ としたときの $A_{M+1}(z)$ を
-それぞれ $P(z)$ と $Q(z)$ で表すと
+When we are given the linear prediction polynomial equation
+of $M$ order $A_M(z)$, and when the evaluation of $A_{M+1}(z)$
+is obtaind with the value of $k(M+1)$ equal to $1$ or $-1$, 
+$P(z)$ and $Q(z)$ are defined as follow.
 \begin{eqnarray*}
   P(z) &=& A_M(z) - B_M(z) \\
   Q(z) &=& A_M(z) + B_M(z)
 \end{eqnarray*}
-となります．ここで，$k(M+1)$ を $\pm 1$ とすることは，
-PARCOR 係数によって定まる擬声道モデルの声門での
-境界条件を完全反射とすることに対応しています．
-また，$A_M(z)$ は $P(z)$ と $Q(z)$ により
+Making $k(M+1)$ equal to $\pm 1$ is means that,
+with respect PARCOR coefficients,
+the boundary condition for the glottis of the fixed vocal tract model
+satisfies a perfect reflection characteristic.
+Also, $A_M(z)$ can be expressed as
 \begin{displaymath}
-  A_M(z) = ( P(z) + Q(z) ) / 2
+  A_M(z) = ( P(z) + Q(z) ) / 2.
 \end{displaymath}
-と表されます．$A_M(z)$ をこのように表現したとき，
-$A_M(z)$ が安定，つまり $A_M(z)=0$ のすべての根が
-単位円内に存在するための必要十分条件は次のように与えられます．
+When we express $A_M(z)$ in this way,
+$A_M(z)$ is stable.
+That is for the roots of $A_M(z)=0$ to be all inside
+the unit circle a necessary and sufficient condition is given
+in the following.
 \begin{itemize}
-\item $P(z)=0$ と $Q(z)=0$ の根はすべて単位円上にある．
-\item $P(z)=0$ と $Q(z)=0$ の根は円周上で互いに他を隔離する．
+\item All of the roots of $P(z)=0$ and $Q(z)=0$ are on the unit circle
+      line.
+\item the roots of $P(z)=0$ and $Q(z)=0$ should be above the unit
+      circle line and intercalate.
 \end{itemize}
-すなわち，$P(z)=0$ と $Q(z)=0$ の根が上記の性質を
-満たせば，$A_M(z)$ は安定となります．
+In other words, if  the roots of $P(z)=0$ and $Q(z)=0$ satisfy the
+above condition, then $A_M(z)$ is stable.
 \par
-ここで，$M$ を偶数と仮定すると，
-$P(z)$ と $Q(z)$ は次のように因数分解されます．
+If we assume that $M$ is a even number, then
+$P(z)$ and $Q(z)$ can be factorized as follows.
 \begin{eqnarray*}
   P(z) &=& ( 1 - z^{-1} ) \prod_{i=2,4,\cdots,M}
            ( 1 - 2 z^{-1} \cos \omega_i + z^{-2} ) \\
   Q(z) &=& ( 1 + z^{-1} ) \prod_{i=1,3,\cdots,M-1}
            ( 1 - 2 z^{-1} \cos \omega_i + z^{-2} )
 \end{eqnarray*}
-ただし，$\omega_i$ は次の関係を満たすように順序付けされています．
-奇数の場合も同様に求めることができます．
+Also, the values of $\omega_i$ satisfy the following ordering condition.
 \begin{displaymath}
   0 < \omega_1 < \omega_2 < \cdots < \omega_{M-1} < \omega_M < \pi
 \end{displaymath}
-この因数分解に現れる $\omega_i$ をLSPと呼びます．
+In the case, $M$ is odd number solution can be found in a simular way.
+The coefficients $\omega_i$ obtained through factorization are called
+LSP coefficients.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{LPC の次数．}{25}
-	\argm{s}{S}{サンプリング周波数 (kHz)．}{10}
-	\argm{k}{}{ゲインを出力する}{TRUE}
-	\argm{o}{O}{出力形式． \\
+	\argm{m}{M}{order of LPC}{25}
+	\argm{s}{S}{sampling frequency (kHz)}{10}
+	\argm{k}{}{output gain}{TRUE}
+                 0 (normalized frequency [0...pi])
+                 1 (normalized frequency [0...0.5])
+                 2 (frequency [kHz])
+                 3 (frequency [Hz])
+	\argm{o}{O}{output format \\
 		\begin{tabular}{ll} \\[-1zh]
-			$0$ & 規格化周波数 $(0 \ldots \pi)$ \\
-			$1$ & 規格化周波数 $(0 \ldots 0.5)$ \\
-			$2$ & 周波数 (kHz) \\
-			$3$ & 周波数 (Hz)  \\
+			$0$ & normalized frequency $(0 \ldots \pi)$ \\
+			$1$ & normalized frequency $(0 \ldots 0.5)$ \\
+			$2$ & frequency (kHz) \\
+			$3$ & frequency (Hz)  \\
 		\end{tabular}\\\hspace*{\fill}}{0}
-	\desc[0.6zh]{通常，以下のオプションの指定は必要ありません．}
-	\argm{n}{N}{unit circle の split 数．}{128}
-	\argm{p}{P}{$P(z)$ の補間の最大数．}{4}
-	\argm{q}{Q}{$Q(z)$ の補間の最大数．}{15}
-	\argm{d}{D}{補間の終了状態．}{1e-06}
+	\desc[0.6zh]{Usually, the options below do not need to be assigned.}
+	\argm{n}{N}{split number of unit circle}{128}
+	\argm{p}{P}{maximum number of interpolation for $P(z)$}{4}
+	\argm{q}{Q}{maximum number of interpolation for $Q(z)$}{15}
+	\argm{d}{D}{end condition of interpolation}{1e-06}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の音声ファイル {\em data.f} から10次のLPC係数を求め，さらに
-LSP係数を求め {\em data.lsp}に出力する:
+In the following example, speech data is read in float format from
+{\em data.f}, 10 order LPC coefficients are calculated,
+and the LSP coefficients are evaluated and written to {\em data.lsp}:
 \begin{quote}
 \verb!frame < data.f | window | lpc -m 10 |\!\\
 \verb!lpc2lsp -m 10 > data.lsp!
