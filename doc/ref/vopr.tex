@@ -1,8 +1,8 @@
 \name{vopr}{ベクトル演算を行う}{数値演算}
 
 \begin{synopsis}
-\item[vopr]
-[ --l $L$ ] [ --n $N$ ] [ --i ] [ --a ] [ --s ] [ --m ] [ --d ] [ {\em file1} ] [ {\em infile} ]
+\item[vopr] [ --l $L$ ] [ --n $N$ ] [ --i ] [ --a ] [ --s ] [ --m ] [ --d ] 
+\item[\ ~~~~] [ --ATAN2 ][ {\em file1} ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -98,6 +98,7 @@
 	\argm{s}{}{減算．$y_i=a_i-b_i$．}{FALSE}
 	\argm{m}{}{乗算．$y_i=a_i*b_i$．}{FALSE}
 	\argm{d}{}{除算．$y_i=a_i/b_i$．}{FALSE}
+	\argm{ATAN2}{}{逆正接．$y_i=\atan2(b_i,a_i)$．}{FALSE}
 %\itemb{--i}
 %ファイルを1個しか指定しなかった場合，
 %そのファイルが被演算ベクトルであることを示します．
