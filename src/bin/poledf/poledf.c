@@ -25,7 +25,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: poledf.c,v 1.1 2000/03/01 13:58:35 yossie Exp $";
+static char *rcs_id = "$Id: poledf.c,v 1.2 2001/11/28 10:09:27 masuko Exp $";
 
 
 /*  Standard C Libralies  */
@@ -123,7 +123,11 @@ void main(int argc, char **argv)
 	    fp = getfp(*argv, "r");
 
     if(fpc == NULL){
-	fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
+	fprintf(stderr,"%s : Cannot open coefficients file!\n",cmnd);
+	exit(1);
+    }
+    if (m < 0) {
+	fprintf(stderr, "%s : Order must be equal to or greater than zero\n", cmnd);
 	exit(1);
     }
 	
@@ -144,10 +148,12 @@ void main(int argc, char **argv)
 	    if (freadf(&x, sizeof(x), 1, fp) != 1) exit(0);
 
 	    if (!ngain) x *= c[0];
-	    if (! tp)
-		x = poledf(x, c, m, d);
-	    else
-		x = poledft(x, c, m, d);
+	    if (m > 0) {
+		if (! tp)
+		    x = poledf(x, c, m, d);
+		else
+		    x = poledft(x, c, m, d);
+	    }
 	    
 	    fwritef(&x, sizeof(x), 1, stdout);
 			
