@@ -9,7 +9,7 @@
 \begin{qsection}{DESCRIPTION}
 This command draws a graph using information from the input file
 {\em infile}. 
-If {\em infile} is not assigned, data is read from the starndard input.
+If {\em infile} is not assigned, data is read from the standard input.
 This command is similar to the unix command ``graph'' but includes
 some labeling functions.
 The output file comes with a sequence of commands for direct printing.
@@ -72,18 +72,18 @@ Command values can be overwritten by entering new command values.
 \vspace{-1cm}
 \begin{qsection}{\ ~~~COMMAND LINES}
 \begin{minipage}[t]{5.5cm}
-x [mel $\alpha$]~ $xmin$ ~$ymax$ [$xa$]\\
-y [mel $\alpha$]~ $xmin$ ~$ymax$ [$ya$]\\
+x [mel $\alpha$]~ $xmin$ ~$xmax$ [$xa$]\\
+y [mel $\alpha$]~ $ymin$ ~$ymax$ [$ya$]\\
 \end{minipage}
 \begin{minipage}[t]{9cm}
-Assigns $x$ and $y$ scalings.\\
+Assigns $x$ and $y$ scalings.
 Marks can be assigned in $x$ and $y$ axes through $xa$ and $ya$.
 If no assigned of $xa$ and $ya$ is done,
 then $xa = xmin$ and $ya = ymin$.
 If the optional ``mel $\alpha$'', where $\alpha$ must be
 a number (for example, mel 0.35), is used,
-then labeling is undertaken as frequancy transformation of
-minimum phase first order all-pass filter.
+then labeling is undertaken as a frequency transformation of
+a minimum phase first order all-pass filter.
 \end{minipage} \\
 
 \begin{minipage}[t]{5.5cm}
@@ -91,11 +91,11 @@ xscale ~$x_1$ $x_2$ $x_3$ $\cdots$\\
 yscale ~$y_1$ $y_2$ $y_3$ $\cdots$
 \end{minipage}
 \begin{minipage}[t]{9cm}
-Assigns the points $x_1, x_2,$\\$x_3,\cdots$
+Assigns the points $x_1, x_2,x_3,\cdots$
 and $y_1,y_2,y_3,\cdots$ in $x$ and $y$ axes.
 These points can be assigned with numbers or marks,
 Also, when a mixture of not-a-number $+$ number (for example, '2,*3.14)
-is needed, following function should be used:
+is needed, the following function should be used:
 
 \begin{tabular}{cl}
 s & draws marks with half size.\\
@@ -105,8 +105,8 @@ $\backslash$& only writes number.\\
 none of the above & only marks are written.
 \end{tabular}\\
 
-Whenever character is inside quotes,
-it appear in the position assigned
+Whenever the character is inside quotes,
+it appears in the position assigned
 by the string that precedes it.
 Please refer to the commands ``x/yname'' for information on
 special characters.\\

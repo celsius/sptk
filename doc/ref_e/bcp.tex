@@ -9,20 +9,23 @@
 \begin{qsection}{DESCRIPTION}
 The {\em bcp} command sends to the standard output
 the whole or part of an input file.
-The input file as well as block length are determined by
-the option in command line.
+The input file as well as the block length are determined by
+the option in the command line.
 \par
-In the case the data is in ascii format, the unit is
+In case data is in ascii format, the unit is
 a sequence of letters of the input file.
-The output block is partitioned by carriage return.
+The output block is partitioned by the carriage return.
 \par
-In the case the input file is not assigned,
+In case the input file is not assigned,
 data is read from the standard input.
 \end{qsection}
 
 \begin{center}
 \leavevmode
+\begin{figure}[h]
 \includegraphics{fig/bcp.eps}
+\caption{Example of the bcp command}
+\end{figure}
 \end{center}
 
 \begin{options}
@@ -47,8 +50,8 @@ data is read from the standard input.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The data in the array float format of the input file {\em data.f}
-{a(0), a(1), a(2), ... , a(20)} is recursively written.\\
+Assume that data of the input file {\em data.f}
+{a(0), a(1), a(2), ... , a(20)} is recursively written in float format.\\
 If it is desired to copy the array {a(1), a(2), ... , a(10)}, 
 the following command can be used.
 \begin{quote}

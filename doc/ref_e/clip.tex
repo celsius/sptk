@@ -7,9 +7,9 @@
 \begin{qsection}{DESCRIPTION}
 This command reads the input file {\em infile}
 as well as the minimum and maximum values,
-clips the data, and send it to the standard output.
+clips the data, and sends it to the standard output.
 The input file must be in float format
-and if no input file is specified, the starndard input is used instead.
+and if no input file is specified, the standard input is used instead.
 \end{qsection}
 
 \begin{options}
@@ -25,11 +25,11 @@ with the following values,
 \begin{displaymath}
  1.0, 2.0, 3.0, 4.0, 5.0, 6.0
 \end{displaymath}
-If we type the following command
+If we type the command
 \begin{quote}
  \verb!clip -y 2.5 5.5 < data.f > data.clip!
 \end{quote}
-the output {\em data.clip} will contain these values
+the output {\em data.clip} will contain the values below.
 \begin{displaymath}
  2.5, 2.5, 3.0, 4.0, 5.0, 5.5
 \end{displaymath}

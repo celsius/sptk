@@ -6,7 +6,7 @@
 
 \begin{qsection}{DESCRIPTION}
 This command reads data from an assigned file,
-numerates it and prints on the screen.
+numerates it and prints the numerated data on the screen.
 If the input file is not assigned, then data is read from the stardard
 input.
 \end{qsection}
@@ -28,16 +28,18 @@ input.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-This example read the input file {\em data.f} in float format:
+In this example, data is read from the input file
+{\em data.f} in float format, and the enumerated data is sent
+to the screen:
 \begin{quote}
  \verb!dmp +f data.f!
 \end{quote}
-For example, if the {\em data.f} file has following values
+For example, if the {\em data.f} file has the following values
 in float format
 \begin{displaymath}
   1, 2, 3, 4, 5, 6, 7
 \end{displaymath}
-the following output will be displayed on the screen.
+then the following output will be displayed on the screen:
 \begin{quote}
   \verb!0       1! \\
   \verb!1       2! \\
@@ -52,7 +54,7 @@ In case we want to assign a block length:
 \begin{quote}
  \verb!dmp -n 2 +f data.f!
 \end{quote}
-The output would be
+Then the output would be
 \begin{quote}
   \verb!0       1! \\
   \verb!1       2! \\
@@ -63,7 +65,7 @@ The output would be
   \verb!0       7!
 \end{quote}
 \par
-If we want to print on the screen the unit pulse response of a digital
+If we want to print on the screen the unit impulse response of a digital
 filter:
 \begin{quote}
   \verb!impulse | dfs -a 1 0.9 | dmp!

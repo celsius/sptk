@@ -6,8 +6,8 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command evaluates cepstral distance between the file {\em infile}
-and {\em cfile}.
+This command evaluates the cepstral distance between the coefficients in
+ files {\em infile} and {\em cfile}.
 For example, if the cepstrum coefficients of the {\em infile} at
 frame $t$ are 
 \[c_{1,t}(0),c_{1,t}(1),c_{1,t}(2),\cdots,c_{1,t}(M)\]
@@ -37,7 +37,7 @@ then $T$, then evaluation is undertaken for the smallest number of frames.
 \begin{qsection}{EXAMPLE}
 In the example below, the squared spectral distance of the 15 order
 cepstrum files {\em data1.cep} and {\em data2.cep},
-both in float formats, is evaluated and displayed.
+both in float formats, is evaluated and displayed:
 \begin{quote}
 \verb! cdist -m 15 data1.cep data2.cep | dmp !
 \end{quote}

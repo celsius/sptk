@@ -8,8 +8,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-        This command undertakes adaptive cepstrum analysis,
-        sends the cepstrum coefficients to standard output,
+        This command undertakes the adaptive cepstrum analysis%
+        \cite{ref:acep-IEICE}, \cite{ref:acep-IEEESP},
+        sends the cepstrum coefficients to the standard output,
         and the prediction error to {\em pefile}, whenever
         {\em pefile} is included in the command line.
  \par
@@ -31,7 +32,7 @@
 	where 
 	$\mbox{\boldmath $c$}=[c(1),\ldots,c(M)]^T$,
 	$\mbox{\boldmath $e$}^{(n)}=[e(n-1),\ldots,e(n-M)]^T$.
-	Also, the gain is expressed by $c(0)$ as follows.
+	Also, the gain is expressed by $c(0)$ as follows: 
 %
  \begin{displaymath}
 	  c(0) = \frac{1}{2} \log \varepsilon^{(n)}
@@ -75,14 +76,14 @@
 	\argm{s}{}{output smoothed cepstrum}{FALSE}
 	\argm{e}{E}{minimum value for $\varepsilon^{(n)}$}{0.0}
 	\argm{P}{Pa}{number of coefficients of the LMA filter
-                     using the pade approximation. Pa can be 4 or 5.}{4}
+                     using the pade approximation. $Pa$ can be 4 or 5.}{4}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 	In this example, the speech data is in the file {\em data.f}
         in float format, and the cepstrum coefficients are written in
         the file {\em data.acep} for every block of 100 samples,
-        and prediction error can be found in {\em data.er}.
+        and the prediction error can be found in {\em data.er}.
  \begin{quote}
 	\verb!acep -m 15 -p 100 data.er < data.f > data.acep!
  \end{quote} 

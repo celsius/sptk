@@ -12,8 +12,8 @@ output.
 \par
 Input and output data are in float format.
 \par
-The transformation from $b(m)$ coefficient to mel-cepstrum coefficient
-$c_\alpha(m)$ is as follows.
+The transformation from $b(m)$ coefficients to mel-cepstrum coefficients
+$c_\alpha(m)$ is as follows:
 \begin{displaymath}
 c_\alpha(m) = \left\{
 	\begin{array}{ll}
@@ -22,7 +22,7 @@ c_\alpha(m) = \left\{
 	\end{array} \right.
 \end{displaymath}
 This transformation is the inverse transformation which is undertaken
-by command mc2b.
+by the command mc2b.
 
 \end{qsection}
 
@@ -32,10 +32,10 @@ by command mc2b.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The example below converts coefficients of MLSA filter,
+The example below converts the coefficients of a MLSA filter,
 which are in float format in file {\em data.b},
-($M=15, \alpha=0.35$) into mel-cepstrum coefficients
-in file {\em data.mcep}.
+into mel-cepstrum coefficients
+in file {\em data.mcep} with $M=15$ and $\alpha=0.35$.
 \begin{quote}
  \verb!b2mc -m 15 < data.b > data.mcep!
 \end{quote} 

@@ -10,17 +10,17 @@
 \begin{qsection}{DESCRIPTION}
  This command reads the input data file and passes it through a
   digital filter in standard form.
-  The filter tranfer function is
+  The filter transfer function is
 \begin{displaymath}
   H(z)=K\frac{\displaystyle{\sum_{n=0}^{N}{b(n)z^{-n}}}}{1+\displaystyle{\sum_{m=1}^{M}{a(m)z^{-m}}}}
 \end{displaymath}
 \par
-Input and output data is in float format.
+The format of input and output data is float.
 \end{qsection}
 
 \begin{options}
 	\argm{a}{K \; a(1) \cdots a(M)}{denominator coefficients,
-                       where $K$ is gain of transfer function.}{N/A}
+                       where $K$ is the gain of the transfer function.}{N/A}
 	\argm{b}{b(0) \; b(1) \cdots b(N)}{numerator coefficients}
 		{N/A}
 	\argm{p}{pfile}{denominator coefficients file in float format
@@ -29,14 +29,14 @@ Input and output data is in float format.
 	\argm{z}{zfile}{numerator coefficients file in float format
                 as follows\\
 		\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\[-1zh]}{NULL}
-	\desc{If {\bf --a}$B!$(B{\bf --z} options are not assigned,
-              denominator and $K$ are made equal to 1.
-              If {\bf --b}$B!$(B{\bf --p} options are not assigned,
-              nominator is made equal to 1.}
+	\desc{If {\bf --a}¡¤{\bf --p} options are not assigned,
+              the denominator and $K$ are made equal to 1.
+              If {\bf --b}¡¤{\bf --z} options are not assigned,
+              the numerator is made equal to 1.}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-If we want to see the impulse response of the following transfor
+If we want to see the impulse response of the following transfer
  function
 \begin{displaymath}
   H(z)=\frac{1+2z^{-1}+z^{-2}}{1+0.9z^{-1}}
@@ -46,8 +46,8 @@ the command below can be used
  \verb!impulse | dfs -a 1 0.9 -b 1 2 1 | dmp!
 \end{quote}
 \par
-If we want to see frequency response plot of the digital filter
-whose coefficient are defined in float form by the files
+If we want to see the frequency response plot of the digital filter
+whose coefficients are defined in float form by the files
 {\em data.p, data.z}, then we can use the following:
 \begin{quote}
  \verb!impulse | dfs -p data.p -z data.z | spec | fdrw | xgr!

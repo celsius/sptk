@@ -6,14 +6,14 @@
 
 \begin{qsection}{DESCRIPTION}
  Data is read from the file {\em infile}, the $m$ order autocorrelation
- function sequence is calculated for every frame and sent out to standard
- output. Namely, input data is
+ function sequence is calculated for every frame and sent out
+ to the standard output. Namely, the input data is given by
 \[ x(0),x(1),\cdots,x(L-1), \]
- and evaluating 
+ and the autocorrelation is evaluated as
 \[ r(k)=\sum_{m=0}^{L-1-k}x(m)x(m+k),~~~~~~k=0,1,\cdots,M, \]
- we obtain the autocorrelation function sequence.
+ and the output is the following autocorrelation function sequence,
 \[ r(0),r(1),\cdots,r(M) \]
- input and output data format are float.
+ The format for input and output is float.
 \end{qsection}
 
 \begin{options}
@@ -23,9 +23,9 @@
 
 \begin{qsection}{EXAMPLE}
 In the example below, the input file {\em data.f} is in float format.
-the frame length is 256, the frame period 100, and every frame is
-passed through Blackman window, and autocorrelation function sequence
-is founds in {\em data.acorr}.
+The frame length is 256, the frame period 100, every frame is
+passed through a Blackman window, and the autocorrelation function sequence
+is found in {\em data.acorr}.
 \begin{center}
  \verb!frame -l 256 -p 100 < data.f | window | acorr -m 10 > data.acorr!
 \end{center}

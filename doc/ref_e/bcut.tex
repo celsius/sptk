@@ -7,7 +7,7 @@
 
 \begin{qsection}{DESCRIPTION}
 The {\em bcut} command cuts the assigned part of the input file.
-If the input file is not assigend, data is read from the starndard
+If the input file is not assigned, data is read from the standard
 input.
 \end{qsection}
 
@@ -42,19 +42,19 @@ the output file {\em data.cut} would be
   4, 5, 6.
 \end{displaymath}
 \par
-If block lenght is assigned:
+If the block length is assigned:
 \begin{quote}
  \verb!bcut -l 2 data.f -s 1 -e 2 > data.cut!
 \end{quote}
-then, the output file would contain following data,
+then, the output file would contain the following data,
 \begin{displaymath}
   3, 4, 5, 6
 \end{displaymath}
 \par
 If the stationary part, say from the sample 100,
-of the output of digital filter excited with
-pulse train is desired following command can be used:
-\begin{quote}
+of the output of a digital filter excited with
+pulse train is desired, then the following command can be used:
+begin{quote}
   \verb!train -p 10 -l 256 | dfs -a 1 0.8 0.6 | bcut -s 100 > data.cut!
 \end{quote}
 In this case, the file {\em data.cut} will contain 156 points.

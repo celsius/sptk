@@ -6,7 +6,7 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This {\em c2sp} command evaluates the spectrum from the minimum phase
+This command evaluates the spectrum from the minimum phase
  cepstrum.
  Input and output data are in float format.
 \end{qsection}
@@ -16,14 +16,14 @@ This {\em c2sp} command evaluates the spectrum from the minimum phase
 	\argm{l}{L}{frame length}{256}
 	\argm{p}{}{output phase}{FALSE}
 	\argm{o}{O}{output format\\
-                if ``--p'' option is not assigned then
+                if the ``--p'' option is not assigned then
                 \\
 		\begin{tabular}{ll} \\[-1zh]
 			$O=0$ & $20 \times \log |H(z)|$ \\
 			$O=1$ & $\ln |H(z)|$ \\
 			$O=2$ & $|H(z)|$ \\[1zh]
 		\end{tabular}\\
-		if  ``--p'' option is assigned then
+		if the ``--p'' option is assigned then
 		\\
 		\begin{tabular}{ll}\\[-1zh]
 			$O=0$ & $\arg |H(z)| \div \pi \quad [\pi \; rad.]$ \\
@@ -35,7 +35,7 @@ This {\em c2sp} command evaluates the spectrum from the minimum phase
 \begin{qsection}{EXAMPLE}
 The example below takes the 15 order cepstrum from the file
  {\em data.cep} in float format, evaluates the running spectrum,
- and presents in the screen:
+ and presents it in the screen:
 \begin{quote}
  \verb! c2sp -m 15 data.cep | grlogsp | xgr ! 
 \end{quote}

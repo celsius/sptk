@@ -7,11 +7,11 @@
 
 \begin{qsection}{DESCRIPTION}
 The minimum phase impulse response is evaluated from the minimum phase
-cepstrum contained in the input file {\em infile}(if input file name
-is omitted, the starndard input is used).
+cepstrum contained in the input file {\em infile}.
+If the input file name is omitted, the standard input is used.
 For example, if the input sequence is
 \[c(0),c(1),c(2),\cdots,c(M_1)\]
-then the impulse response is caluclated as
+then the impulse response is calculated as
 \[ h(n)=\left\{
 \begin{array}{lc}
  h(0)=\exp(c(0))&\\
@@ -20,7 +20,7 @@ then the impulse response is caluclated as
 \right. \]
 and the output will contain
 \[ h(0),h(1),h(2),\cdots,h(L -1). \]
-Input and output formats are float.
+The format of input and output format is float.
 \end{qsection}
 
 \begin{options}
@@ -28,10 +28,10 @@ Input and output formats are float.
 	\argm{m}{M_1}{order of cepstrum}{25}
 	\argm{M}{M_2}{length of impulse response}{L-1}
 	\argm{i}{}{input minimum phase sequence}{FALSE}
-	\desc{If the number of cepstrum coefficients $M$ is not
-             assigend and the number of each cepstrum coefficients
-             inputs is less then $L$, then the number of coefficients
-             read is made equal to $M$.}
+	\desc{If the number of cepstrum coefficients $M_1$ is not
+             assigned and the order of the cepstrum analysis
+             is less then $L$, then the number of coefficients
+             read is made equal to $M_1$.}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

@@ -8,14 +8,14 @@
 \begin{qsection}{DESCRIPTION}
 This command reads a sequence of real numbers from {\em infile}
 and undertakes its DFT through the FFT algorithm.
-When the input file is not assigned, data is read from the starndard
+When the input file is not assigned, data is read from the standard
 input.
 Input and output data are in float format.
 \par
 When the {\bf --m} option is omitted
-and the input data sequence length is less than FFT size,
+and the input data sequence length is less than the FFT size,
 then the input file is padded with 0 and the FFT is evaluated
-as examplified below.
+as exemplified below.
 
 \begin{displaymath}
 \begin{array}{lll}
@@ -46,7 +46,7 @@ as examplified below.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the example below, sine wave is passed through Blackman window,
+In the example below, a sine wave is passed through a Blackman window,
 its DFT is evaluated and the magnitude is plotted:
 \begin{quote}
   \verb!sin -t 30 | window | fftr -A | fdrw | xgr!
