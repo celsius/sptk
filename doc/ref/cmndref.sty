@@ -63,6 +63,10 @@
 \@for\category:=#4\do{\index{\cattonum{\category}!#2}}
 \end{quote}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CATEGORIZED INDEX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcounter{numcategory}
 \setcounter{numcategory}{1}
 \def\setcategoryorder#1{
@@ -74,6 +78,10 @@
   \@ifundefined{cat@#1}{zzz@#1}{\@nameuse{cat@#1}@#1}%
 }
 \renewcommand{\indexname}{用途別索引}
+\def\printindex{
+  \addcontentsline{toc}{section}{用途別索引}
+  \@input{\jobname.ind}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CITATION AND REFERENCES
@@ -123,15 +131,11 @@
       \if@tempswa,\penalty\@highpenalty\ #2\fi % and before note.
     }]\spacefactor\@m}
 
-\def\thebibliography#1{
- \renewcommand{\thechapter}{参考文献}
- \addcontentsline{toc}{section}{参考文献}
- \markboth
- {\hspace*{1em}参考文献\hfill 
-   Speech Signal Processing Toolkit\hfill 参考文献}
- {参考文献\hfill 
-   Speech Signal Processing Toolkit\hfill 参考文献\hspace*{1em}}
- \noindent{\LARGE\bf\gt 参考文献}
+\def\thebibliography#1{%
+ \renewcommand{\thechapter}{参考文献}%
+ \addcontentsline{toc}{section}{\vrule width 0pt height 2\baselineskip 参考文献}%
+ \@makeschapterhead{参考文献}%
+ \@mkboth{参考文献}{参考文献}\thispagestyle{jpl@in}
  \list
  {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
  \advance\leftmargin\labelsep
