@@ -26,7 +26,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.1 2000/06/22 01:04:27 sako Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.2 2000/06/30 08:47:17 sako Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -82,13 +82,23 @@ void usage(int status)
 
 static char	outport = OUTPORT;
 static short	*y = NULL, *xs;
-static int	gain = GAIN, ampgain = -1, is_verbose = VERBOSE;
+static int	gain = GAIN, is_verbose = VERBOSE;
 static int	hdr_size = HEADERSIZE, data_size = sizeof(short);
 static int	freq = DEFAULT_FREQ;
 static int	fleng, indx = 0;
 static float	*x, fgain = 1;
+float		ampgain = -1;
 int		byteswap = 0;
 size_t		abuf_size;
+
+#ifdef LINUX
+int	org_vol, org_channels, org_precision, org_freq;
+#endif /* LINUX */
+
+#ifdef SOLARIS
+audio_info_t	org_data;
+#endif /* SOLARIS */
+void		reset_audiodev();
 
 int main(argc,argv)
 int	argc;
@@ -107,7 +117,7 @@ char	*argv[];
 	if((s = getenv("DA_GAIN")) != NULL)
 		gain = atoi(s) + INITGAIN;
 	if((s = getenv("DA_AMPGAIN")) != NULL)
-		ampgain = atoi(s);
+		ampgain = atof(s);
 	if((s = getenv("DA_PORT")) != NULL)
 		outport = *s;
 	if((s = getenv("DA_HDRSIZE")) != NULL)
@@ -131,7 +141,7 @@ char	*argv[];
 			--argc;
 			break;
 		    case 'a':
-			ampgain = atoi(*++argv);
+			ampgain = atof(*++argv);
 			--argc;
 			break;
 	 	    case 'H':
@@ -211,6 +221,8 @@ char	*argv[];
 
 	fclose( adfp);
 	close( ACFD);
+
+	reset_audiodev();
 	exit(0);
 }
 
@@ -231,6 +243,7 @@ FILE	*fp;
 				d = *(xs + k);
 			y[k] = d * fgain;
 		}
+		if( byteswap > 0) byteswap_vec( y, sizeof(short), nread);
 		sndout(nread);
 	}
 }
@@ -239,7 +252,8 @@ FILE	*fp;
 void sndinit()
 {
 	int	port, dtype;
-	void	init_audiodev(), change_play_gain(), change_output_port();
+	void	init_audiodev();
+	void	change_play_gain(), change_output_port();
 
 	switch(freq) {	
 	case 8000:
@@ -278,9 +292,10 @@ void sndinit()
 	}
 	init_audiodev(dtype);
 
-	if(ampgain >= 0)
+	if(ampgain >= 0){
 		if( ampgain > 100) ampgain = 100;
 		change_play_gain(ampgain);
+	}
 #ifdef SPARC
 	if(outport == 's')
 		port = SPEAKER;
@@ -303,14 +318,23 @@ int	dtype;
 #ifdef LINUX
 	int arg;
 
-	adfp = fopen( AUDIO_DEV, "w");
+	if( (adfp = fopen( AUDIO_DEV, "w")) == NULL){
+		fprintf( stderr, "%s: can't open audio device\n", cmnd);
+		exit(1);
+	}
 	ADFD = adfp->_fileno;
 	ACFD = open( MIXER_DEV, O_RDWR, 0);
+
 	ioctl(ADFD, SNDCTL_DSP_GETBLKSIZE, &abuf_size);
+	ioctl(ADFD, SOUND_PCM_READ_BITS, &org_precision);
+	ioctl(ADFD, SOUND_PCM_READ_CHANNELS, &org_channels);
+	ioctl(ADFD, SOUND_PCM_READ_RATE, &org_freq);
+	ioctl(ACFD, SOUND_MIXER_READ_PCM, &org_vol);
+	
 	arg = data_type[dtype].precision;
 	ioctl(ADFD, SOUND_PCM_WRITE_BITS, &arg);
 /*	arg = data_type[dtype].channel; */
-	arg = 1;
+	arg = 0;
 	ioctl(ADFD, SOUND_PCM_WRITE_CHANNELS, &arg);
 	arg = data_type[dtype].sample;
 	ioctl(ADFD, SOUND_PCM_WRITE_RATE, &arg);
@@ -325,6 +349,7 @@ int	dtype;
 
 	AUDIO_INITINFO(&data);
 	ioctl(ACFD, AUDIO_GETINFO, &data);
+	bcopy( &data, &org_data, sizeof( audio_info_t));
 
 	data.play.sample_rate = data_type[dtype].sample;
 	data.play.precision   = data_type[dtype].precision;
@@ -354,12 +379,13 @@ unsigned port;
 }
 
 void change_play_gain(volume)
-unsigned volume;
+float volume;
 {
 	int vol, arg;
 
 #ifdef LINUX
-	vol = (int) (volume * ((float)MAXAMPGAIN) / 100);
+	vol = (int) ((MAXAMPGAIN*volume)/100);
+	
 	arg = vol | (vol << 8 );
 	ioctl( ACFD, MIXER_WRITE(SOUND_MIXER_PCM), &arg);
 #endif /* LINUX */
@@ -367,13 +393,36 @@ unsigned volume;
 #ifdef SPARC
 	audio_info_t	data;
 
-	vol = (int) (volume * ((float)MAXAMPGAIN) / 100);
+	vol = (int) ((MAXAMPGAIN*volume)/100);
 	AUDIO_INITINFO(&data);
 	ioctl(ACFD, AUDIO_GETINFO, &data);
 
 	data.play.gain=vol;
 
 	ioctl(ACFD, AUDIO_SETINFO, &data);
+#endif /* SPARC */
+}
+
+void reset_audiodev()
+{
+
+#ifdef LINUX
+	ACFD = open( MIXER_DEV, O_RDWR, 0);
+	ADFD = open( AUDIO_DEV, O_RDWR, 0);
+
+	ioctl(ADFD, SOUND_PCM_WRITE_BITS, &org_precision);
+	ioctl(ADFD, SOUND_PCM_WRITE_CHANNELS, &org_channels);
+	ioctl(ADFD, SOUND_PCM_WRITE_RATE, &org_freq);
+	ioctl(ACFD, SOUND_MIXER_WRITE_PCM, &org_vol);
+
+	close( ADFD);
+	close( ACFD);
+#endif /* LINUX */
+
+#ifdef SPARC
+	ACFD = open(AUDIO_CTLDEV, O_RDWR, 0);
+	ioctl( ACFD, AUDIO_SETINFO, &org_data);
+	close( ACFD);
 #endif /* SPARC */
 }
 
