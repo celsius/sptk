@@ -201,6 +201,7 @@ TOUCH	= touch
 
 .tex.dvi:
 	$(LATEX) $<
+	$(LATEX) $<
 	$(TOUCH) $@ $*.ind
 
 .dvi.ps:
