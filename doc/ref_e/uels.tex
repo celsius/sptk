@@ -7,25 +7,30 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-対数スペクトルの不偏推定法によって得られた
-ケプストラム係数$c(m)$を標準出力に出力します．
-入力は窓掛けされた長さ$L$ の時系列
+This command uses the unbiased estimation of log spectrum method
+to calculate cepstrum coefficients $c(m)$ and
+sends them to the standard output.
+Assume that the input sequence is a windowed sequence of length $L$
+as follows.
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-です．
 \par
 Input and output data are in float format.
 \par
-従来の対数スペクトルの推定法あるいは平滑化法の
-主な問題点は，対数スペクトルに対する平滑化の意味が
-明確ではないことと推定値のバイアスが十分小さいという
-保証がないことでした．
+Until the proposition of the unbiased estimation of
+log spectrum method, the conventional methods had
+two main problems.
+Firstly the importance of smoothing of the log spectrum
+was not clear.
+Secondly it could not be guaranted that
+the bias of the estimated value would be sufficiently small.
 \par
-対数スペクトルの不偏推定値を得るための計算手順は，
-改良ケプストラム法とほとんど同じですが，
-バイアスが生じないような非線形平滑化を行うようにしている点が
-根本的に異なっています．
+The evaluation procesure to obtain the unbiased estimation
+log spectrum values is similar to other improved methods to
+calculate cepstrum coefficients.
+The main difference is that in UELS method a non-linear smoothing
+is used to guaranty that the estimation will be unbiased.
 \end{qsection}
 
 \begin{options}
@@ -38,11 +43,10 @@ Input and output data are in float format.
 	\argm{e}{E}{small value added to periodgram}{0.0}
 \end{options}
 
-
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f}を
-次数15次で対数スペクトルの不偏推定法で分析し，
-ケプストラムを {\em data.cep} に出力する:
+The example below reads data in float format,
+evaluates 15-order log spectrum through UELS method,
+and sends spectrum coefficients to {\em data.cep}:
 \begin{quote}
  \verb!frame < data.f | window | uels -m 15 > data.cep!
 \end{quote} 
