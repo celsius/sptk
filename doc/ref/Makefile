@@ -167,7 +167,7 @@ TARGET	= $(DVI)
 #### Command Definitions ###################################
 ############################################################
 
-LATEX	= jlatex
+LATEX	= platex209
 MAKEIDX	= mendex -f
 DVIPS	= dvips -f
 PSPDF	= ps2pdf
