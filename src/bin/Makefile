@@ -26,7 +26,7 @@ all:
 
 install:
 	for d in [a-z]* ; do \
-		( cd $$d ; $(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" XLIBS="$(XLIBS)" INSTALL="$(INSTALL)" BIN="$(BIN)" DA_OSTYPE="$(DA_OSTYPE)" install ) ; \
+		( cd $$d ; $(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" XLIBS="$(XLIBS)" INSTALL="$(INSTALL)" BIN="$(BIN)" LIB="$(LIB)" DA_OSTYPE="$(DA_OSTYPE)" install ) ; \
 	done
 
 clean:
