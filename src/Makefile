@@ -14,10 +14,10 @@ INCLUDE		= $(PREFIX)/include
 #
 # Directories which contain libraries and include files of X11.
 #
-XINCDIR		= /usr/local/X11R6.3/include
-XLIBDIR		= /usr/local/X11R6.3/lib
-#XLIBS		= -lX11
-XLIBS		= -lX11 -lsocket
+XINCDIR		= /usr/X11R6/include
+XLIBDIR		= /usr/X11R6/lib
+XLIBS		= -lX11
+#XLIBS		= -lX11 -lsocket
 
 #
 # Compiler and Instllation programs.
@@ -39,7 +39,7 @@ INSTALL		= install -cs
 #    SOLARIS        SunOS5.x(sparc)
 #    LINUX          linux(i386)
 # 
-DA_OSTYPE	= SOLARIS
+DA_OSTYPE	= 
 
 ########################################################################
 
