@@ -23,7 +23,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftcep.c,v 1.2 2000/05/19 04:09:18 mtamura Exp $";
+static char *rcs_id = "$Id: fftcep.c,v 1.1 2000/05/19 04:08:05 mtamura Exp $";
 
 
 /*  Standard C Libraries  */
@@ -40,7 +40,7 @@ void	fftcep();
 #define ORDER		25
 #define FLNG		256
 #define MAXITR		0
-#define ACCELATION	0.0
+#define ACCELATION	0
 #define EPS		0.0
 
 
