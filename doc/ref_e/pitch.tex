@@ -1,4 +1,4 @@
-\name{pitch}{pitch extraction}{信号処理,音声分析合成関連}
+\name{pitch}{pitch extraction}{signal processing,speech analysis and synthesis}
 
 \begin{synopsis}
 \item[pitch] [ --s $S$ ] [ --l $L$ ] [ --t $T$ ]
@@ -21,7 +21,7 @@ the unbiased estimation of log spectrum method is applied
 to evaluate $(S/10 \times 25)$ order cepstrum.
 Then from these coefficients, the magnitude of log spectrum
 $\hat{g}_i(\Omega_k)$ is evaluated.
-Finally the mean value $v_i$ for every band is calculated.%?????????????????
+Finally the mean value $v_i$ for every band is calculated.?????????????????
 \begin{displaymath}
 v_i = \frac{1}{14 n}\sum_{k = 4 n}^{17 n}\hat{g}_i(\Omega_k),~~~~~ (\Omega_k = \frac{2 \pi k}{N},n = N /256)
 \end{displaymath}

@@ -77,9 +77,9 @@
 \def\cattonum#1{%
   \@ifundefined{cat@#1}{zzz@#1}{\@nameuse{cat@#1}@#1}%
 }
-\renewcommand{\indexname}{用途別索引}
+\renewcommand{\indexname}{INDEX of TOPICS}
 \def\printindex{
-  \addcontentsline{toc}{section}{用途別索引}
+  \addcontentsline{toc}{section}{INDEX of TOPICS}
   \@input{\jobname.ind}
 }
 
@@ -131,19 +131,21 @@
       \if@tempswa,\penalty\@highpenalty\ #2\fi % and before note.
     }]\spacefactor\@m}
 
-\def\thebibliography#1{%
- \renewcommand{\thechapter}{参考文献}%
- \addcontentsline{toc}{section}{\vrule width 0pt height 2\baselineskip 参考文献}%
- \@makeschapterhead{参考文献}%
- \@mkboth{参考文献}{参考文献}\thispagestyle{jpl@in}
- \list
- {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
- \advance\leftmargin\labelsep
- \usecounter{enumi}}
- \def\newblock{\hskip .11em plus .33em minus .07em}
- \sloppy\clubpenalty4000\widowpenalty4000
- \sfcode`\.=1000\relax}
-\let\endthebibliography=\endlist
+\renewcommand\bibname{REFERENCES}
+
+% \def\thebibliography#1{%
+%  \renewcommand{\thechapter}{REFERENCES}%
+%  \addcontentsline{toc}{section}{\vrule width 0pt height 2\baselineskip REFERENCES}%
+%  \@makeschapterhead{REFERENCES}%
+%  \@mkboth{REFERENCES}{REFERENCES}\thispagestyle{jpl@in}
+%  \list
+%  {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+%  \advance\leftmargin\labelsep
+%  \usecounter{enumi}}
+%  \def\newblock{\hskip .11em plus .33em minus .07em}
+%  \sloppy\clubpenalty4000\widowpenalty4000
+%  \sfcode`\.=1000\relax}
+%\let\endthebibliography=\endlist
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SYNOPSIS ENVIRONMENT
