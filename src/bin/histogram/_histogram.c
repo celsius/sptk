@@ -1,7 +1,7 @@
 int	histogram(x, size, min, max, step, h)
-double	*x;
-double	min, max, step;
-int	size, *h;
+	 double	*x,*h;
+	 double	min, max, step;
+	 int	size;
 {
 	int	k, ii, flg=0;
 	register int	jj;
@@ -11,11 +11,11 @@ int	size, *h;
 	fillz(h, sizeof(*h), k);
 
 	for (ii=0; ii<size; ii++) {
-		if (x[ii] < min || x[ii] > max) flg =1;
+		if (x[ii] < min || x[ii] > max) flg = 1;
 		else for (jj=0; jj<k; jj++)
 			if (x[ii] < min + (jj+1) * step) {
-				h[jj]++;
-				break;
+			  h[jj]+=1.0;
+			  break;
 			}
 	}
 	return flg;
