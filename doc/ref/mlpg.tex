@@ -123,7 +123,7 @@
 		\Delta^2\bc_t
 		= \frac{\sum_{\tau=-W_2}^{W_2}
 				(a_0\tau^2 - a_1) \bc_{t+\tau}}
-			{a_2a_0-a_1^2}
+			{2(a_2a_0-a_1^2)}
 	 \end{displaymath}
 		により計算される．\\
 		--d オプションとの併用は不可．}{N/A}
@@ -139,15 +139,15 @@
 
 \begin{qsection}{EXAMPLE}
 	パラメータの次数が 15，
-	窓幅 1 のデルタ，デルタデルタパラメータを用いる場合に，
+	窓幅 1 の一次および二次の回帰係数を用いる場合に，
 	分布列からパラメータ列を求める．
  \begin{quote}
-	\verb!mlpg -m 15 -d 1 -d 1 data.pdf > data.par!
+	\verb!mlpg -m 15 -r 2 1 1 data.pdf > data.par!
  \end{quote}
 	または，
  \begin{quote}
 	\verb!echo "-0.5 0 0.5" | x2x +af > delta! \\
-	\verb!echo "0.25 0 -0.5 0 0.25" | x2x +af > accel! \\
+	\verb!echo "0.25 -0.5 0.25" | x2x +af > accel! \\
 	\verb!mlpg -m 15 -d delta -d accel data.pdf > data.par!
  \end{quote}
 \end{qsection}
