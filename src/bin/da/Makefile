@@ -20,35 +20,43 @@ CFLAGS		= -O2 $(INCDIR)
 LDFLAGS		= $(LIBDIR)
 LIBS		= -lSPTK -lm
 
-ifdef DA_OSTYPE
 .c.o:
-	$(CC) -DLIB=\"$(LIB)\" $(CFLAGS) -D$(DA_OSTYPE) -c $<
+	if [ x"$(DA_OSTYPE)" != x ] ; then \
+	$(CC) -DLIB=\"$(LIB)\" $(CFLAGS) -D$(DA_OSTYPE) -c $< ; \
+	fi
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+	if [ x"$(DA_OSTYPE)" != x ] ; then \
+	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS) ; \
+	fi
 
 da.o: da.h
 
 install: $(TARGET)
-	$(INSTALL) $(TARGET) $(BIN)
+	if [ x"$(DA_OSTYPE)" != x ] ; then \
+	$(INSTALL) $(TARGET) $(BIN) ; \
 	for i in *.sh ; do \
 		sed '/path/s:/usr/local/SPTK/bin:'$(BIN)':' $$i > $(BIN)/$$i ; \
 		chmod 755 $(BIN)/$$i ; \
 		j=`basename $$i .sh` ; \
 		$(RM) $$j ; \
 		ln -s $(BIN)/$$i $(BIN)/$$j ; \
-	done
+	done ; \
+	fi
 
 clean:
-	$(RM) $(TARGET) $(OBJS) \#* *~
+	if [ x"$(DA_OSTYPE)" != x ] ; then \
+	$(RM) $(TARGET) $(OBJS) \#* *~ ; \
+	fi
 
 veryclean: clean
-	$(RM) $(BIN)/$(TARGET)
-	cd $(LIB) ; $(RM)
-endif
-all:
-clean:
-	$(RM) $(TARGET) $(OBJS) \#* *~
+	if [ x"$(DA_OSTYPE)" != x ] ; then \
+	$(RM) $(BIN)/$(TARGET) ; \
+	for i in *.sh ; do \
+		j=`basename $$i .sh` ; \
+		$(RM) $(BIN)/$$i $(BIN)/$$j ; \
+	done ; \
+	fi
 
