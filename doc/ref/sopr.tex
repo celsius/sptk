@@ -1,71 +1,89 @@
-\name{sopr}{$B%9%+%i1i;;$r9T$&(B}{$B?tCM1i;;(B}
+\name{sopr}{¥¹¥«¥é±é»»¤ò¹Ô¤¦}{¿ôÃÍ±é»»}
 
 \begin{synopsis}
 \item[sopr]   [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [ --ABS ] [ --INV ]
 \item[\ ~~~~]  [ --P ] [ --R ] [ --SQRT ] [ --LN ] [ --LOG10 ] [ --EXP ] [ --POW10 ] 
 \item[\ ~~~~] [ --FIX ] [ --UNIT ] [ --CLIP ] [ --SIN ] [ --COS ] [ --TAN ] 
-\item[\ ~~~~] [ --ATAN ] [ {\em infile} ]
+\item[\ ~~~~] [ --ATAN ] [ --r m$n$ ] [ --w m$n$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B;XDj$5$l$?%U%!%$%k$+$iF~NO(B$x$ $B$rFI$_9~$_!$(B
-$B;XDj$5$l$?1i;;$N<B9T7k2L$rI8=`=PNO$K=PNO$7$^$9!%(B
-{\em infile} $B$N;XDj$,$J$$$H$-$K$O!$I8=`F~NO$+$i%G!<%?$,FI$_9~$^$l$^$9!%(B
+»ØÄê¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤«¤éÆþÎÏ$x$ ¤òÆÉ¤ß¹þ¤ß¡¤
+»ØÄê¤µ¤ì¤¿±é»»¤Î¼Â¹Ô·ë²Ì¤òÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤·¤Þ¤¹¡¥
+{\em infile} ¤Î»ØÄê¤¬¤Ê¤¤¤È¤­¤Ë¤Ï¡¤É¸½àÆþÎÏ¤«¤é¥Ç¡¼¥¿¤¬ÆÉ¤ß¹þ¤Þ¤ì¤Þ¤¹¡¥
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+¥Ç¡¼¥¿·Á¼°¤ÏÆþÎÏ¡¤½ÐÎÏ¤È¤âfloat ·Á¼°¤Ç¤¹¡¥
 \par
-$B1i;;$OM?$($i$l$?=gHV$K<B9T$7$^$9!%(B
+±é»»¤ÏÍ¿¤¨¤é¤ì¤¿½çÈÖ¤Ë¼Â¹Ô¤·¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{options}
-	\argm{a}{A}{$B2C;;!%(B$y=x+A$$B!%(B}{FALSE}
-	\argm{s}{S}{$B8:;;!%(B$y=x-S$$B!%(B}{FALSE}
-	\argm{m}{M}{$B>h;;!%(B$y=x\ast M$$B!%(B}{FALSE}
-	\argm{d}{D}{$B=|;;!%(B$y=x/D$$B!%(B}{FALSE}
-	\desc[1zh]{$B1i;;%*%W%7%g%s$N0z?t$H$7$F(B
-		``{\em dB}''$B$r;XDj$9$k$H(B $20/\log_e10$ $B$NCM$,@_Dj$5$l$^$9!%(B
-		$B$^$?!$F1MM$K(B``{\em pi}''$B$r;XDj$9$k$H(B $\pi$ $B$NCM$,@_Dj$5$l$^$9!%(B}
-	\argm[1zh]{ABS}{}{$B@dBPCM!%(B$y=|x|$$B!%(B}{FALSE}
-	\argm{INV}{}{$B5U?t!%(B$y=1/x$$B!%(B}{FALSE}
-	\argm{P}{}{$BFs>h!%(B$y=x^2$$B!%(B}{FALSE}
-	\argm{R}{}{$BJ?J}:,!%(B$y=\sqrt{x}$$B!%(B}{FALSE}
-	\argm{SQRT}{}{$BJ?J}:,!%(B$y=\sqrt{x}$$B!%(B}{FALSE}
-	\argm{LN}{}{$B<+A3BP?t!%(B$y=\log{x}$$B!%(B}{FALSE}
-	\argm{LOG10}{}{$B>oMQBP?t!%(B$y=\log_{10}{x}$$B!%(B}{FALSE}
-	\argm{EXP}{}{$B;X?t!%(B$y=\exp{x}$$B!%(B}{FALSE}
-	\argm{POW10}{}{10$B$N$Y$->h!%(B$y=10^x$$B!%(B}{FALSE}
-	\argm{FIX}{}{$B>.?tE@0J2<$N@Z<N$F!%(B$(int)x$$B!%(B}{FALSE}
-	\argm{CLIP}{}{$B%/%j%C%T%s%0!%(B$x \ast u(x)$}{FALSE}
-	\argm{UNIT}{}{$B%f%K%C%H%9%F%C%W!%(B$u(x)$}{FALSE}
-	\argm{SIN}{}{$B@589!%(B$y=\sin(x)$}{FALSE}
-	\argm{COS}{}{$BM>89!%(B$y=\cos(x)$}{FALSE}
-	\argm{TAN}{}{$B@5@\!%(B$y=\tan(x)$}{FALSE}
-	\argm{ATAN}{}{$B5U@5@\!%(B$y=\atan(x)$}{FALSE}
+	\argm{a}{A}{²Ã»»¡¥$y=x+A$¡¥}{FALSE}
+	\argm{s}{S}{¸º»»¡¥$y=x-S$¡¥}{FALSE}
+	\argm{m}{M}{¾è»»¡¥$y=x\ast M$¡¥}{FALSE}
+	\argm{d}{D}{½ü»»¡¥$y=x/D$¡¥}{FALSE}
+	\desc[1zh]{±é»»¥ª¥×¥·¥ç¥ó¤Î°ú¿ô¤È¤·¤Æ
+		``{\em dB}''¤ò»ØÄê¤¹¤ë¤È $20/\log_e10$ ¤ÎÃÍ¤¬ÀßÄê¤µ¤ì¤Þ¤¹¡¥
+		¤Þ¤¿¡¤Æ±ÍÍ¤Ë``{\em pi}''¤ò»ØÄê¤¹¤ë¤È $\pi$ ¤ÎÃÍ¤¬ÀßÄê¤µ¤ì¡¤
+                ``{\em ln2}''¡¤``{\em exp10}''¡¤``{\em sqrt30}''¤È¤¤¤¦¤è¤¦
+                ¤Ë¡¤ÆÃÄê¤Î´Ø¿ô¤Î°ú¿ô¤ËÇ¤°Õ¤Î¿ô»ú¤ò½ñ¤¤¤Æ¤â¡¤
+                ¤½¤ì¤ò·×»»¤·¤ÆÄê¿ô¤È¤·¤Þ¤¹¡¥}
+	\argm[1zh]{ABS}{}{ÀäÂÐÃÍ¡¥$y=|x|$¡¥}{FALSE}
+	\argm{INV}{}{µÕ¿ô¡¥$y=1/x$¡¥}{FALSE}
+	\argm{P}{}{Æó¾è¡¥$y=x^2$¡¥}{FALSE}
+	\argm{R}{}{Ê¿Êýº¬¡¥$y=\sqrt{x}$¡¥}{FALSE}
+	\argm{SQRT}{}{Ê¿Êýº¬¡¥$y=\sqrt{x}$¡¥}{FALSE}
+	\argm{LN}{}{¼«Á³ÂÐ¿ô¡¥$y=\log{x}$¡¥}{FALSE}
+	\argm{LOG10}{}{¾ïÍÑÂÐ¿ô¡¥$y=\log_{10}{x}$¡¥}{FALSE}
+	\argm{EXP}{}{»Ø¿ô¡¥$y=\exp{x}$¡¥}{FALSE}
+	\argm{POW10}{}{10¤Î¤Ù¤­¾è¡¥$y=10^x$¡¥}{FALSE}
+	\argm{FIX}{}{¾®¿ôÅÀ°Ê²¼¤ÎÀÚ¼Î¤Æ¡¥$(int)x$¡¥}{FALSE}
+	\argm{CLIP}{}{¥¯¥ê¥Ã¥Ô¥ó¥°¡¥$x \ast u(x)$}{FALSE}
+	\argm{UNIT}{}{¥æ¥Ë¥Ã¥È¥¹¥Æ¥Ã¥×¡¥$u(x)$}{FALSE}
+	\argm{SIN}{}{Àµ¸¹¡¥$y=\sin(x)$}{FALSE}
+	\argm{COS}{}{Í¾¸¹¡¥$y=\cos(x)$}{FALSE}
+	\argm{TAN}{}{ÀµÀÜ¡¥$y=\tan(x)$}{FALSE}
+	\argm{ATAN}{}{µÕÀµÀÜ¡¥$y=\atan(x)$}{FALSE}
+        \argm{r}{\mbox{m}n}{¥á¥â¥ê¥ì¥¸¥¹¥¿m$n$¤«¤é¤ÎÆÉ¤ß¹þ¤ß$(n=0..9)$}{}
+        \argm{m}{\mbox{m}n}{¥á¥â¥ê¥ì¥¸¥¹¥¿m$n$¤Ø¤Î½ñ¤­¹þ¤ß$(n=0..9)$}{}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-$B%i%s%W4X?t(B($0,1,2,\ldots$) $B$r(B2 $BG\(B($0,2,4,\ldots$) $B$7$F$+$i!$(B
-$1$ $B$rB-$7$F(B($1,3,5,\ldots$) $B=PNO$9$k(B:
+¥é¥ó¥×´Ø¿ô($0,1,2,\ldots$) ¤ò2 ÇÜ($0,2,4,\ldots$) ¤·¤Æ¤«¤é¡¤
+$1$ ¤òÂ­¤·¤Æ($1,3,5,\ldots$) ½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!ramp | sopr -m 2 -a 1 | dmp!
 \end{quote}
 \par
-foat$B7A<0$N%U%!%$%k(B{\em data.f1} $B$N%G!<%?$H(Bfloat$B7A<0$N%U%!%$%k(B{\em data.f2}
-$B$N%G!<%?$NJ?6Q$r%U%!%$%k(B{\em data.avrg} $B$K=PNO$9$k(B:
+foat·Á¼°¤Î¥Õ¥¡¥¤¥ë{\em data.f1} ¤Î¥Ç¡¼¥¿¤Èfloat·Á¼°¤Î¥Õ¥¡¥¤¥ë{\em data.f2}
+¤Î¥Ç¡¼¥¿¤ÎÊ¿¶Ñ¤ò¥Õ¥¡¥¤¥ë{\em data.avrg} ¤Ë½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!vopr -a data.f1 data.f2 | sopr -d 2 > data.avrg!
 \end{quote}
 \par
-float$B7A<0$N%U%!%$%k(B {\em data.f} $B$+$i%G!<%?$rFI$_9~$_!$(B
-dB $BC10L$KJQ49$7$?7k2L$r=PNO$9$k(B:
+float·Á¼°¤Î¥Õ¥¡¥¤¥ë {\em data.f} ¤«¤é¥Ç¡¼¥¿¤òÆÉ¤ß¹þ¤ß¡¤
+dB Ã±°Ì¤ËÊÑ´¹¤·¤¿·ë²Ì¤ò½ÐÎÏ¤¹¤ë:
 \begin{quote}
   \verb!sopr data.f -L -m dB | dmp!
 \end{quote}
-$B$3$NNc$O!$(B
+¤³¤ÎÎã¤Ï¡¤
 \begin{quote}
   \verb!sopr data.f -LOG10 -m 20 | dmp!
 \end{quote}
-$B$H$7$F$b7k2L$OF1$8$G$9!%(B
+¤È¤·¤Æ¤â·ë²Ì¤ÏÆ±¤¸¤Ç¤¹¡¥
+\par
+¥á¥â¥ê¥ì¥¸¥¹¥¿¤ò»È¤¤
+\[
+y = (1 + 3x + 4x^2) / (1 + 2x + 5x^2) 
+\]
+¤ò·×»»¤¹¤ë¡§
+\begin{quote}
+\verb!sopr data.f -w m0 -m 5 -a 2 -m m0 -a 1 -w m1 \!\\
+\verb!       -r m0 -m 4 -a 3 -m m0 -a 1 -d m1 | dmp!
+\end{quote}
+¤³¤³¤Çm0, m1¤Ï¥á¥â¥ê¥ì¥¸¥¹¥¿¤Ç¡¤m0¤«¤ém9¤Þ¤Ç»È¤¨¤Þ¤¹¡¥
+-w¤Ï¥á¥â¥ê¥ì¥¸¥¹¥¿¤Ø¤Î½ñ¤­½Ð¤·¡¤
+-r¤Ï¥á¥â¥ê¥ì¥¸¥¹¥¿¤«¤é¸½ºß¤Î±é»»¥ì¥¸¥¹¥¿¤Ø¤ÎÆÉ¤ß¹þ¤ß¤ò¹Ô¤¤¤Þ¤¹¡¥
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
