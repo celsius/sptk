@@ -1,67 +1,71 @@
-\name{lpc2par}{LPCから反射係数を求める}{音声パラメータ変換}
+\name{lpc2par}{transform LPC to PARCOR}{speech parameter transformation}
 
 \begin{synopsis}
 \item [lpc2par] [ --m $M$ ] [ --g $G$ ] [ --s ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-線形予測係数から反射係数(PARCOR)を求めます．
-指定されたファイルから $M$ 次の線形予測係数
+This command evaluates PARCOR coefficients from LPC coefficients.
+It is reads from the assigned file $M$ order linear prediction
+coefficients,
 \begin{displaymath}
   K, a(1),\ldots, a(M)
 \end{displaymath}
-を読み込み，反射係数
+evaluates the corresponding PARCOR coefficients
 \begin{displaymath}
   K, k(1),\ldots, k(M)
 \end{displaymath}
-を標準出力に出力します．
-また， --s オプションを指定した場合には，安定性の判別を行い，安定の場合には
-0，不安定の場合には1が標準出力に出力されます．
+and sends the results to the standard output.
+If the --s option is assigned, the stability of the filter is analyzed.
+If the filter is stable, then 0 is returned.
+If the filter is not stable, then 1 is returned to the standard output.
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-線形予測係数から反射係数を求める変換は，
+The transformation from LPC coefficients to PARCOR coefficients
+is undertaken as follows.
 \begin{eqnarray*} 
 k(m) &=& a^{(m)}(m) \\
-a^{(m-1)}(i) &=& \frac{a^{(m)}(i)+a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)},
-~~~~~1 \leq i \leq m-1
+a^{(m-1)}(i) &=& \frac{a^{(m)}(i)+a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)},\\
+~~~~~~~~~~~~~~~1 \leq i \leq m-1,~~~~~~~m=p, p-1, \ldots, 1
 \end{eqnarray*}
-を $m=p, p-1, \ldots, 1$ の順に繰り返します．ここで，初期条件は
+The initial condition is
 \begin{displaymath}
-a^{(M)}(m) = a(m), ~~~~~1 \leq m \leq M
+a^{(M)}(m) = a(m), ~~~~~1 \leq m \leq M.
 \end{displaymath}
-です．
---gオプションを指定した場合，べきパラメータを$\gamma$とする
-正規化一般化ケプストラムを入力として，反射係数を求めます．
-この場合入力
+If we use the --g option, then the input contains normalized generalized
+cepstrum coefficients with power parameter $\gamma$
+and the output contains the corresponding PARCOR coefficients.
+In other words, the input is 
 \begin{displaymath}
 K,c_\gamma'(1),\ldots,c_\gamma'(M)
 \end{displaymath}
-を読み込み，
+and the initial condition is
 \begin{displaymath}
-a^{(M)}(m) = \gamma c_\gamma'(M), ~~~~~1 \leq m \leq M
+a^{(M)}(m) = \gamma c_\gamma'(M), ~~~~~1 \leq m \leq M.
 \end{displaymath}
-として，計算します．
 
-また，安定性の判別する際には，反射係数がすべて
+Also with respect to the stability analysis,
+the PARCOR coefficients are checked through the following equation.
 \begin{displaymath}
 -1 < k(m) < 1
 \end{displaymath}
-という条件を満たしているか調べています．
+If this condition satisfy then the filter is stable.
 
 \end{qsection}
 
-\newpage
 \begin{options}
-	\argm{m}{M}{LPCの次数．}{25}
-	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma$．\\
-			 ただし，$G>1.0$ のときは $\gamma=-1/G$．}{1}
-	\argm{s}{}{安定性を判別し，安定ならば0，不安定ならば1を出力．}{FALSE}
+	\argm{m}{M}{order of LPC}{25}
+	\argm{g}{G}{gamma of generalized cepstum\\
+			If $G>1.0$ tnen $\gamma=-1/G$.}{1}
+	\argm{s}{}{check stable or unstable}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f} を線形予測分析し，線形予測係数を
-反射係数に変換し，{\em data.rc} に出力する:
+In the example below, a linear prediction analysis is
+done in the input file {\em data.f} in float format,
+the LPC coefficients are then transformed into PARCOR coefficients,
+and the output is written to {\em data.rc}:
 \begin{quote}
  \verb!frame < data.f | window | lpc | lpc2par > data.rc!
 \end{quote} 

@@ -1,4 +1,4 @@
-\name{lspcheck}{LSP $B$N0BDj@-$N%A%'%C%/$HJB$YBX$((B}{$B2;@<%Q%i%a!<%?JQ49(B}
+\name{lspcheck}{check stability and rearrange LSP}{speech parameter transformation}
 
 \begin{synopsis}
 \item [lspcheck] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --i $I$ ] [ --o $O$ ]
@@ -6,32 +6,39 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- {\em lspcheck} $B$O!$(Blsp $B78?t$N0BDj@-$rD4$Y!$0BDj$G$J$$>l9g$O78?t$N=g=x$r(B
-$BJB$YJQ$($F0BDj78?t$H$7$^$9!%(B
+The {\em lspcheck} command checks the stability of LSP coefficients,
+and if the filter is not stable,
+then the order of coefficients order is changed so that
+it becomes a stable filter.
 \par
-$B%G!<%?7A<0$OF~NO$O(B float $B7A<0$G!$=PNO$O(B
-rearrange LSP$B$r=PNO$9$k>l9g$O(B float $B7A<0!$$=$l0J30$O!$(B
-$B0BDj$G$J$$%U%l!<%`HV9f$r(B ASCII $B7A<0$G=PNO$7$^$9!%(B
+The input data is read in float format.
+If the --r option is assigned, then the output data is also
+written in float format.
+If the --r option is not assigned, then the output brings
+the number of the unstable frames in ascii format.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{LPC $B$N<!?t!%(B}{25}
-	\argm{s}{S}{$B%5%s%W%j%s%0<~GH?t(B (kHz)$B!%(B}{10}
-	\argm{k}{}{$B%2%$%s$NF~=PNO(B}{TRUE}
-	\argm{i}{I}{$BF~NO7A<0!%(B}{0}
-	\argm{o}{O}{$B=PNO7A<0!%(B \\
+	\argm{m}{M}{order of LPC}{25}
+	\argm{s}{S}{sampling frequency(kHz)бе}{10}
+	\argm{k}{}{input & output gain}{TRUE}
+	\argm{i}{I}{input format}{0}
+	\argm{o}{O}{output format \\
 		\begin{tabular}{ll} \\[-1zh]
-			$0$ & $B5,3J2=<~GH?t(B $(0 \ldots \pi)$ \\
-			$1$ & $B5,3J2=<~GH?t(B $(0 \ldots 0.5)$ \\
-			$2$ & $B<~GH?t(B (kHz) \\
-			$3$ & $B<~GH?t(B (Hz)  \\
+			$0$ & normalized frequency $(0 \ldots \pi)$ \\
+			$1$ & normalized frequency $(0 \ldots 0.5)$ \\
+			$2$ & frequency (kHz) \\
+			$3$ & frequency (Hz)  \\
 		\end{tabular}\\\hspace*{\fill}}{0}
 	\argm{r}{}{rearrange LSP}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N(B10$B<!$N(Blsp$B78?t%U%!%$%k(B{\em data.lsp}$B$N0BDj@-$rD4$Y!$(B
-$B0BDj$G$J$$78?t$O0BDj78?t$H$7$F!$(B{\em data.lspr} $B$K=PNO$9$k(B:
+In the following example, 10 order LSP coefficients are
+read from {\em data.lsp} in float format,
+stability is checked, the unstable coefficients are rearranged
+so that they become stable, and the rearranged LSP coefficients
+are written to {\em data.lspr}:
 \begin{quote}
 \verb!lspcheck -r < data.lsp > data.lspr!
 \end{quote}

@@ -1,5 +1,5 @@
-\name{mgc2sp}{メル一般化ケプストラムから対数振幅スペクトルを求める}%
-{音声パラメータ変換}
+\name{mgc2sp}{transform mel-generalized cepstrum to spectrum}%
+{speech parameter transformation}
 
 \begin{synopsis}
 \item[mgc2sp] [ --a $A$ ] [ --g $G$ ] [ --m $M$ ]
@@ -8,16 +8,19 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-入力されたメル一般化ケプストラム $c_{\alpha, \gamma}(m)$ から
-対数振幅スペクトルを求めます．
+This command reads mel-generalized cepstrum coefficients
+$c_{\alpha, \gamma}(m)$ and evaluated the log magnitude
+spectrum.
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \par
-メル一般化ケプストラム $c_{\alpha, \gamma}(m)$ をメル一般化対数変換
-（mgc2mgc 参照）によりケプストラムに変換し，ケプストラムから対数振幅
-スペクトルを求めます（spec 参照）．
+The mel-generalized cepstrum coefficients $c_{\alpha, \gamma}(m)$
+are transformed into mel-generalized log cepstrum coefficients
+(refer to mgc2mgc)
+and then the log magnitude spectrum is calculated(refer to spec).
 
-ゲインで正規化されたものを入力する場合は、入力が
+When the input data is normalized by the gain,
+then it can be represented as follows.
 \begin{eqnarray*}
 \hspace{-15mm}&&K_{\alpha} = 
 	s_{\gamma}^{-1}\left(c_{\alpha,\gamma}^{(0)}(0)\right), 
@@ -26,39 +29,49 @@
           c_{\alpha,\gamma}^{(0)}(m)/\left(1+\gamma\,
 	  c_{\alpha,\gamma}^{(0)}(0)\right), \quad m = 1,2,\ldots, M 
 \end{eqnarray*}
-の形であるとみなします．
 
-また，$\gamma$を掛けた形で入力する場合は，\\
-入力がゲインで正規化されていない場合，
+In case we represent input with $\gamma$,
+if the coefficients $c_{\alpha,\gamma}(m)$ are not normalized, then
+the following representation is assumed
 \begin{displaymath}
 1+\gamma c_{\alpha,\gamma}(0), \gamma c_{\alpha,\gamma}(1), \ldots, \gamma c_{\alpha,\gamma}(M)
 \end{displaymath}
-正規化されている場合，
+if they are normalized, then
+the following representation is assumed
 \begin{displaymath}
 K_\alpha,\gamma c_{\alpha,\gamma}'(1),\ldots, \gamma c_{\alpha,\gamma}'(M)
 \end{displaymath}
-の形であるとみなします．
 
 \end{qsection}
 
 \begin{options}
-	\argm{a}{A}{周波数圧縮パラメータ $\alpha$．}{0}
-	\argm{g}{G}{一般化ケプストラムのべきパラメータ $\gamma$ ．\\
-			 ただし，$G>1.0$ のときは $\gamma = -1/G$．}{0}
-	\argm{m}{M}{入力されるメル一般化ケプストラムの次数．}{25}
-	\argm{n}{}{入力を正規化されたメル一般化ケプストラムとみなす．}{FALSE}
-	\argm{u}{}{入力を$\gamma$を掛けた形とみなす．}{FALSE}
-	\argm{l}{L}{FFT長．}{256}
-	\argm{p}{}{スペクトルの位相を出力．}{FALSE}
-	\argm{o}{O}{--pオプションが指定されていない場合,出力するスペクトルの
-		    スケールを指定． \\
+       -o o  : output format                       [0]
+                 0 (20*log|H(z)|)
+                 1 (ln|H(z)|)
+                 2 (|H(z)|)
+             -p option is specified
+                 0 (arg|H(z)|/pi     [pi rad])
+                 1 (arg|H(z)|        [rad])
+                 2 (arg|H(z)|*180/pi [deg])
+
+	\argm{a}{A}{alpha $\alpha$}{0}
+	\argm{g}{G}{power parameter $\gamma$ of mel-generalized cepstrum\\
+			 if $G>1.0$ then $\gamma = -1/G$.}{0}
+	\argm{m}{M}{order of mel-genralized cepstrum}{25}
+	\argm{n}{}{regard input as normalized cepstrum}{FALSE}
+	\argm{u}{}{regard input as multiplied by $\gamma$}{FALSE}
+	\argm{l}{L}{FFT length}{256}
+	\argm{p}{}{output phase}{FALSE}
+	\argm{o}{O}{output format \\
+                    if the --p option is assigned, scale of output spectrum
+                    can be assinged.\\
 		\begin{tabular}{ll} \\[-1zh]
 			$O=0$ & $20 \times \log |H(z)|$ \\
 			$O=1$ & $\ln |H(z)|$ \\
 			$O=2$ & $|H(z)|$ \\[1zh]
 		\end{tabular} \\
-		 --pオプションが指定されている場合,出力する位相の単位を指定．
-		\\
+		    if the --p option is not assigned, unit of output phase
+                    can be assigned.\\
 		\begin{tabular}{ll} \\[-1zh]
 			$O=0$ & $\arg |H(z)| \div \pi \quad [\pi \; rad.]$ \\
 			$O=1$ & $\arg |H(z)| \quad [rad.]$ \\
@@ -68,10 +81,12 @@ K_\alpha,\gamma c_{\alpha,\gamma}'(1),\ldots, \gamma c_{\alpha,\gamma}'(M)
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のメル一般化ケプストラムファイル {\em data.mgcep} 
-($M=12, \alpha=0.35, \gamma=-0.5$)から対数振幅スペクトルを求め，表示する:
+In the following example, mel-generalized cepstrum coefficients
+in float format are read from {\em data.mgcep}
+($M=12, \alpha=0.35, \gamma=-0.5$)
+and the log magnitude spectrum is evaluated and plotted:
 \begin{quote}
- \verb!mgc2sp -m 12 -a 0.35 -r -0.5 < data.mgcep | glogsp |gr!
+ \verb!mgc2sp -m 12 -a 0.35 -r -0.5 < data.mgcep | glogsp | xgr!
 \end{quote} 
 \end{qsection}
 

@@ -1,17 +1,18 @@
-\name{mc2b}{$B%a%k%1%W%9%H%i%`78?t$+$i(BMLSA$B%U%#%k%?$N78?t$r5a$a$k(B}%
-{$B2;@<%Q%i%a!<%?JQ49(B}
+\name{mc2b}{transform mel-cepstrum to MLSA digital filter coefficients}%
+{speech parameter transformation}
 
 \begin{synopsis}
  \item [mc2b] [ --a $A$ ] [ --m $M$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B%a%k%1%W%9%H%i%`78?t(B $c_\alpha(m)$ $B$+$i(BMLSA$B%U%#%k%?$N78?t(B $b(m)$ $B$r5a$a!$(B
-$BI8=`=PNO$K=PNO$7$^$9!%(B
+This command transforms mel-cepstrum coefficients $c_\alpha(m)$ 
+into MLSA filter coefficients $b(m)$ and sends the results
+to the standard output.
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+Input and output data are in float format.
 \par
-$B%a%k%1%W%9%H%i%`78?t(B $c_\alpha(m)$ $B$+$i78?t(B $b(m)$ $B$X$NJQ49<0$O(B
+The equations are used for this transformation follows.
 \begin{displaymath}
 b(m) = \left\{
 	\begin{array}{ll}
@@ -19,19 +20,23 @@ b(m) = \left\{
 	  c_\alpha(m) - \alpha b(m+1), & 0 \leq m < M \\
 	\end{array} \right.
 \end{displaymath}
-$B$GM?$($i$l!$$3$N78?t(B $b(m)$ $B$rD>@\(BMLSA$B%U%#%k%?$N78?t$H$7$F(B
-$BMQ$$$k$3$H$,=PMh$^$9!%$3$NJQ49<0$O(B b2mc $B$N5UJQ49$H$J$j$^$9!%(B
+These coefficients $b(m)$ can be directry used in the
+imprementation of a MLSA filter.
+This transformation is the inverse transformation undertaken
+by the command ``b2mc''.
 \end{qsection}
 
 \begin{options}
-	\argm{a}{A}{$B<~GH?t05=L%Q%i%a!<%?(B $\alpha$$B!%(B}{0.35}
-	\argm{m}{M}{$B%a%k%1%W%9%H%i%`$N<!?t!%(B}{25}
+	\argm{a}{A}{all-pass constant $\alpha$бе}{0.35}
+	\argm{m}{M}{order of mel-cepstrum}{25}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N2;@<%U%!%$%k(B {\em data.f} $B$r(B12$B<!$G%a%k%1%W%9%H%i%`J,@O$7!$F@$i$l$?(B
-$B%a%k%1%W%9%H%i%`$r(BMLSA$B%U%#%k%?$N78?t$KJQ49$7!$78?t(B $b(m)$ $B$r(B {\em data.b}
-$B$K=PNO$9$k(B:
+Speech data is read in float format from {\em data.f},
+a 12 order mel-cepstrum analysis is undertaken,
+these mel-cepstrum coefficients are transformed into
+MLSA filter coefficients, and these coefficients $b(m)$
+are written to {\em data.b}:
 \begin{quote}
  \verb!frame < data.f | window | mcep -m 12 | mc2b -m 12 > data.b!
 \end{quote} 
