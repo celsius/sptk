@@ -34,7 +34,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifwithcite
 \def\name{\withcitefalse\@ifnextchar[{\withcitetrue\@name}{\@name[nocite]}}
-\def\@name[#1]#2#3{
+\def\@name[#1]#2#3#4{
 \renewcommand{\thechapter}{#2}
 \setcounter{equation}{0}
 \addcontentsline{toc}{section}{\protect\makebox[5em][l]{#2} --- 
@@ -55,6 +55,7 @@
 }
 \item[#2] ~~--~ #3\ifwithcite\cite{#1}\fi
 \end{list}
+\@for\category:=#4\do{\index{\category!#2}}
 \end{quote}
 }
 
