@@ -2,7 +2,7 @@
 *									*
 *    	echo arguments to the standard error				*
 *									*
-*					1997.2  K.Koishida		*
+*					2000.5  T.Yoshimura		*
 *									*
 *	usage:								*
 *		echo2 [ options ] [ argument... ]			*
@@ -11,30 +11,67 @@
 *									*
 ************************************************************************/
 
-/* Standard C Libraries */
+static char *rcs_id = "$Id$";
+
+
+/*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
+#include <SPTK.h>
 
-void main(short argc, char *argv[])
+typedef enum _Boolean {FA, TR} Boolean;
+char *BOOL[] = {"FALSE", "TRUE"};
+
+
+/*  Default Values  */
+#define NEWLINE		TR
+
+
+/*  Command Name  */
+char	*cmnd;
+
+void usage(int status)
 {
-    int  nl = 1;
+    fprintf(stderr, "\n");
+    fprintf(stderr, " %s - echo arguments to the standard error\n",cmnd)
+;
+    fprintf(stderr, "\n");
+    fprintf(stderr, "  usage:\n");
+    fprintf(stderr, "       %s [ options ]\n", cmnd);
+    fprintf(stderr, "  options:\n");
+    fprintf(stderr, "       -n    : no output newline   [%s]\n", BOOL[NEWLINE]);
+    fprintf(stderr, "       -h    : print this message\n");
+    fprintf(stderr, "\n");
+    exit(status);
+}
 
-    if(argc > 1){
-	if (strcmp(argv[1], "-n") == 0){
-	    nl = 0;
-	    argc--;
-	    argv++;
+void main(short argc, char **argv)
+{
+    int  newline = NEWLINE;
+
+    if ((cmnd = strrchr(argv[0], '/')) == NULL)
+	cmnd = argv[0];
+    else
+	cmnd++;
+    while (--argc){
+	if (**++argv == '-') {
+	    switch (*(*argv+1)) {
+		case 'n':
+		    newline = 1 - newline;
+		    break;
+		case 'h':
+		    usage(0);
+		default:
+		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+		    usage(1);
+		}
+	} else {
+	    fputs(*argv, stderr);
+	    if (argc > 1) putc(' ', stderr);
 	}
-	
-	while (--argc){
-	    fputs(*++argv, stderr);
-	    if (argc > 1)
-		putc(' ', stderr);
-	}
-	
-	if (nl)
-	    putc('\n', stderr);
     }
+
+    if (newline) putc('\n', stderr);
     
     exit(0);
 }
