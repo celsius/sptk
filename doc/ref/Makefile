@@ -228,7 +228,7 @@ $(AUX): $(INC)
 ############################################################
 
 clean:
-	$(RM) *.dvi *.ps *.pdf *.aux *.toc *.lof *.lot *.log *.idx *.ind *.ilg
+	$(RM) *.dvi *.ps *.pdf *.aux *.toc *.lof *.lot *.log *.idx* *.ind* *.ilg
 	$(RM) *~ \#* $(TARGET)
 
 logclean:
