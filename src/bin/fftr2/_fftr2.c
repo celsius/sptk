@@ -16,6 +16,7 @@
 ********************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 
@@ -24,7 +25,7 @@ int	fftr2( x, y, n )
 double	x[], y[];
 int	n;
 {
-	double		*calloc(), *xq, *yq;
+	double		*xq, *yq;
 	static double	*xb = NULL, *yb;
 	register double	*xp, *yp;
 	register int	i, j;

@@ -8,10 +8,10 @@
 *	options:							*
 *		-l l	 :  FFT size power of 2		[256]		*
 *		-m m     :  order of sequence		[l-1]		*
-*		-A	 :  amplitude					*
-*		-R	 :  real part					*
-*		-I	 :  imaginary part				*
-*		-P	 :  power					*
+*		-A	 :  amplitude			[FALSE]		*
+*		-R	 :  real part			[FALSE]		*
+*		-I	 :  imaginary part		[FALSE]		*
+*		-P	 :  power			[FALSE]		*
 *	infile:								*
 *		stdin for default					*
 *		input is assumed to be double				*
@@ -49,10 +49,10 @@ int status;
 	fprintf(stderr, "  options:\n");
 	fprintf(stderr, "       -l l  : FFT size  power of 2 [%d]\n", SIZE);
 	fprintf(stderr, "       -m m  : order of sequence    [l-1]\n");
-	fprintf(stderr, "       -A    : amplitude\n");
-	fprintf(stderr, "       -R    : real part\n");
-	fprintf(stderr, "       -I    : imaginary part\n");
-	fprintf(stderr, "       -P    : power\n");
+	fprintf(stderr, "       -A    : amplitude            [FALSE]\n");
+	fprintf(stderr, "       -R    : real part            [FALSE]\n");
+	fprintf(stderr, "       -I    : imaginary part       [FALSE]\n");
+	fprintf(stderr, "       -P    : power                [FALSE]\n");
 	fprintf(stderr, "       -h    : print this message\n");
 	fprintf(stderr, "  infile:\n");
 	fprintf(stderr, "       data sequence (float)        [stdin]\n");

@@ -24,8 +24,9 @@
 
 /*  Standard C Libraries  */
 #include <stdio.h>
-#include <SPTK.h>
+#include <stdlib.h>
 #include <string.h>
+#include <SPTK.h>
 
 
 /*  Required Functions  */
@@ -124,7 +125,7 @@ char	*argv[];
 dft(fp)
 FILE	*fp;
 {
-	double		*x, *y, *calloc();
+	double		*x, *y;
 	register int	size2, nread;
 	
 	size2 = size * size;

@@ -4,7 +4,7 @@
 *					1996.7  K.Koishida		*
 *									*
 *	usage:								*
-*		cdist [ options ] file1 [ infile ] > stdout		*
+*		cdist [ options ] cfile [ infile ] > stdout		*
 *	options:							*
 *		-m m     :  order of minimum-phase cepstrum	[25]	*
 *		-o o     :  output format			[0]	*
@@ -12,7 +12,7 @@
 *				1 (squared error)			*
 *				2 (root squared error)			*
 *		-f       :  frame length	  		[FALSE]	*
-*	file1:								*
+*	cfile:								*
 *	infile:								*
 *		minimum-phase cepstrum					*
 *		    , c(0), c(1), ..., c(m),				*
@@ -57,7 +57,7 @@ void usage(int status)
     fprintf(stderr, " %s - calculation of cepstral distance\n",cmnd);
     fprintf(stderr, "\n");
     fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] file1 [ infile ] > stdout\n", cmnd);
+    fprintf(stderr, "       %s [ options ] cfile [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "      -m m  : order of minimum-phase cepstrum [%d]\n", ORDER);
     fprintf(stderr, "      -o o  : output format                   [%d]\n", OTYPE);
@@ -66,7 +66,7 @@ void usage(int status)
     fprintf(stderr, "                2 (root squared error)\n");
     fprintf(stderr, "      -f    : output frame by frame           [%s]\n", BOOL[FRAME]);
     fprintf(stderr, "      -h    : print this message\n");
-    fprintf(stderr, "  file1:\n");
+    fprintf(stderr, "  cfile:\n");
     fprintf(stderr, "  infile:                                     [stdin]\n");
     fprintf(stderr, "      minimum-phase cepstrum (float)\n");
     fprintf(stderr, "  stdout:\n");
