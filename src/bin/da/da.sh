@@ -10,7 +10,7 @@
 #########################################################################
 
 set path        = ( /usr/local/SPTK/bin $path )
-
+set libpath	= /usr/local/SPTK/lib
 set cmnd	= `basename $0`
 
 set file	= ""
@@ -106,7 +106,7 @@ exit 0
 
 usage:
 
-echo2 <<EOF
+cat2 <<EOF
 
  da - play 16-bit linear PCM data
 
@@ -116,7 +116,7 @@ EOF
 
 switch($arch)
 	case sun4*:
-echo2 <<EOF
+cat2 <<EOF
   options:
        -s s  : sampling frequency ( 8, 10, 11.025, 12, 16, 20, 22,
                                        22.05, 32, 44.1, 48 kHz)   [10]
@@ -138,7 +138,7 @@ EOF
 		exit 1
 
  	case i?86:
-echo2 <<EOF
+cat2 <<EOF
   options:
        -s s  : sampling frequency ( 8, 10, 11.025, 12, 16, 20,
                                               22.025, 44.1 kHz)  [10]
@@ -185,7 +185,7 @@ foreach infile ( ${file} )
 			breaksw
 		case 10:
 			fileconvert $infile |\
-				us -s 58 -d 5 -u 8 |\
+				us -c ${libpath}/lpfcoef.5to8 -d 5 -u 8 |\
 				dawrite $daoption[*] +f -s 16
 			breaksw
 		case 11:
@@ -195,7 +195,7 @@ foreach infile ( ${file} )
 			breaksw
 		case 12:
 			fileconvert $infile |\
-				us -s 34 -d 3 -u 4 |\
+				us -c ${libpath}/lpfcoef.3to4 -d 3 -u 4 |\
 				dawrite $daoption[*] +f -s 16
 			breaksw
 		case 16:
@@ -284,10 +284,10 @@ foreach infile ($file)
 	stdin44:
 	if( $osr > 0 ) then
 		fileconvert $infile |\
-			us -s 23F -u3 -d2 |\
-			us -s 23S -u3 -d2 |\
-			us -s 57 -u7 -d5 |\
-			us -s 57 -u7 -d$osr |\
+			us -c ${libpath}/lpfcoef.2to3f -u3 -d2 |\
+			us -c ${libpath}/lpfcoef.2to3s -u3 -d2 |\
+			us -c ${libpath}/lpfcoef.5to7 -u7 -d5 |\
+			us -c ${libpath}/lpfcoef.5to7 -u7 -d$osr |\
 			dawrite $daoption[*] +f -s 22.05
 	else
 		fileconvert $infile |\
