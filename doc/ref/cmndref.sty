@@ -235,7 +235,7 @@
 %
 \def\argm{\@ifnextchar[{\@argm}{\@argm[]}}
 \def\@argm[#1]#2#3#4#5{
-  \setbox\@tmpbox=\hbox{\bf$-$#2}
+  \setbox\@tmpbox=\hbox{\bf--#2}
   \ifdim\@wA<\wd\@tmpbox\@wA=\wd\@tmpbox\fi
   \setbox\@tmpbox=\hbox{$#3$}
   \ifdim\@wB<\wd\@tmpbox\@wB=\wd\@tmpbox\fi
@@ -250,7 +250,7 @@
   \@namedef{\@opt@N}{4}
   \def\@@opt@Z{[#1]}
   \ifx\@@opt@Z\@@opt@none\@namedef{\@opt@Z}{[]}\else\@namedef{\@opt@Z}{#1}\fi
-  \@namedef{\@opt@A}{\bf$-$#2}
+  \@namedef{\@opt@A}{\bf--#2}
   \@namedef{\@opt@B}{$#3$}
   \@namedef{\@opt@C}{#4}
   \def\@@opt@D{[#5]}
