@@ -21,23 +21,23 @@ XLIBS		= -lX11
 
 all:
 	for d in [a-z]* ; do \
-		( cd $$d ; $(MAKE) CC="$(CC)" LIB="$(LIB)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" XLIBS="$(XLIBS)" ) ; \
+		( cd $$d ; $(MAKE) CC="$(CC)" LIB="$(LIB)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" XLIBS="$(XLIBS)" DA_OSTYPE="$(DA_OSTYPE)") ; \
 	done
 
 install:
 	for d in [a-z]* ; do \
-		( cd $$d ; $(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" XLIBS="$(XLIBS)" INSTALL="$(INSTALL)" BIN="$(BIN)" install ) ; \
+		( cd $$d ; $(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" XLIBS="$(XLIBS)" INSTALL="$(INSTALL)" BIN="$(BIN)" DA_OSTYPE="$(DA_OSTYPE)" install ) ; \
 	done
 
 clean:
 	for d in [a-z]* ; do \
-		( cd $$d ; $(MAKE) RM="$(RM)" clean ) ; \
+		( cd $$d ; $(MAKE) RM="$(RM)" DA_OSTYPE="$(DA_OSTYPE)" clean ) ; \
 	done
 	$(RM) \#* *~
 
 veryclean:
 	for d in [a-z]* ; do \
-		( cd $$d ; $(MAKE) RM="$(RM)" veryclean ) ; \
+		( cd $$d ; $(MAKE) RM="$(RM)" DA_OSTYPE="$(DA_OSTYPE)" veryclean ) ; \
 	done
 	$(RM) \#* *~
 
