@@ -100,7 +100,8 @@ da: makefiles lib include
 	$(CP) $(SOURCEDIR)/src/bin/da/da.c $(TARGETDIR)/src/bin/da/da.c
 	$(CP) $(SOURCEDIR)/src/bin/da/da.h $(TARGETDIR)/src/bin/da/da.h
 
-daplay: da
+daplay: echo2 da swab us x2x
+	$(CP) $(SOURCEDIR)/src/bin/da/daplay.sh $(TARGETDIR)/src/bin/da/daplay.sh
 
 decimate: makefiles lib include
 	mkdir -p $(TARGETDIR)/src/bin/decimate
@@ -577,6 +578,11 @@ ulaw: makefiles lib include
 	$(CP) $(SOURCEDIR)/src/bin/ulaw/_ulaw.c $(TARGETDIR)/src/bin/ulaw/_ulaw.c
 	$(CP) $(SOURCEDIR)/src/bin/ulaw/ulaw.c $(TARGETDIR)/src/bin/ulaw/ulaw.c
 
+us: makefiles lib include
+	mkdir -p $(TARGETDIR)/src/bin/us
+	$(CP) $(SOURCEDIR)/src/bin/us/Makefile $(TARGETDIR)/src/bin/us/Makefile
+	$(CP) $(SOURCEDIR)/src/bin/us/us.c $(TARGETDIR)/src/bin/us/us.c
+
 vopr: makefiles lib include
 	mkdir -p $(TARGETDIR)/src/bin/vopr
 	$(CP) $(SOURCEDIR)/src/bin/vopr/Makefile $(TARGETDIR)/src/bin/vopr/Makefile
@@ -697,9 +703,6 @@ script: makefiles
 
 bell: script echo2
 	$(CP) $(SOURCEDIR)/src/script/bell.sh $(TARGETDIR)/src/script/bell.sh
-
-daplay: script echo2 da srcnv
-	$(CP) $(SOURCEDIR)/src/script/daplay.sh $(TARGETDIR)/src/script/daplay.sh
 
 glogsp: script echo2 fig bcut fdrw
 	$(CP) $(SOURCEDIR)/src/script/glogsp.sh $(TARGETDIR)/src/script/glogsp.sh
