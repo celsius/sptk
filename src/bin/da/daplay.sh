@@ -118,7 +118,8 @@ switch($arch)
 	case sun4*:
 cat <<EOF
   options:
-       -s s  : sampling frequency (8,10,11,12,16,20,22,32,44,48 kHz) [10]
+       -s s  : sampling frequency ( 8, 10, 11.025, 12, 16, 20, 22,
+                                       22.05, 32, 44.1, 48 kHz)   [10]
        -g g  : gain (..,-2,-1,0,1,2,...)                          [0]
        -a a  : amplitude gain (0..100)                            [N/A]
        -o o  : output port                                        [s]
@@ -139,7 +140,8 @@ EOF
  	case i?86:
 cat <<EOF
   options:
-       -s s  : sampling frequency (8,10,11,12,16,20,22,44 kHz)   [10]
+       -s s  : sampling frequency ( 8, 10, 11.025, 12, 16, 20,
+                                              22.025, 44.1 kHz)  [10]
        -g g  : gain (..,-2,-1,0,1,2,...)                         [0]
        -a a  : amplitude gain (0..100)                           [N/A]
        -H H  : header size in byte                               [0]
@@ -186,9 +188,13 @@ foreach infile ( ${file} )
 				us -s 58 -d 5 -u 8 |\
 				da $daoption[*] +f -s 16
 			breaksw
+		case 11.025:
+			fileconvert $infile |\
+				da $daoption[*] +f -s 11.025
+			breaksw
 		case 11:
 			fileconvert $infile |\
-				da $daoption[*] +f -s 11
+				da $daoption[*] +f -s 11.025
 			breaksw
 		case 12:
 			fileconvert $infile |\
@@ -204,9 +210,13 @@ foreach infile ( ${file} )
 				ds -s 54 |\
 				da $daoption[*] +f -s 16
 			breaksw
+		case 22.05:
+			fileconvert $infile |\
+				da $daoption[*] +f -s 22.05
+			breaksw
 		case 22:
 			fileconvert $infile |\
-				da $daoption[*] +f -s 22
+				da $daoption[*] +f -s 22.05
 			breaksw
 		case 32:
 			fileconvert $infile |\
@@ -214,13 +224,18 @@ foreach infile ( ${file} )
 			breaksw
 		case 44:
 			fileconvert $infile |\
-				da $daoption[*] +f -s 44
+				da $daoption[*] +f -s 44.1
+			breaksw
+		case 44.1:
+			fileconvert $infile |\
+				da $daoption[*] +f -s 44.1
 			breaksw
 		case 48:
 			fileconvert $infile |\
 				da $daoption[*] +f -s 48
 			breaksw
 		default
+			echo2 "${cmnd}: unavailable sampling frequency"
 			goto usage
 	endsw
 	if( $stdinput == 1 ) then
@@ -241,6 +256,9 @@ switch ($freq)
 	case 11:
 		@ osr = -1
 		breaksw
+	case 11.025:
+		@ osr = -1
+		breaksw
 	case 12:
 		@ osr = 6
 		breaksw
@@ -253,7 +271,13 @@ switch ($freq)
 	case 22:
 		@ osr = -1
 		breaksw
+	case 22.05):
+		@ osr = -1
+		breaksw
 	case 44:
+		@ osr = -1
+		breaksw
+	case 44.1:
 		@ osr = -1
 		breaksw
 	default
@@ -283,7 +307,7 @@ foreach infile ($file)
 			us -s 23S -u3 -d2 |\
 			us -s 57 -u7 -d5 |\
 			us -s 57 -u7 -d$osr |\
-			da $daoption[*] +f -s 22
+			da $daoption[*] +f -s 22.05
 	else
 		fileconvert $infile |\
 			da $daoption[*] +f -s $freq
