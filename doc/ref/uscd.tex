@@ -1,0 +1,51 @@
+\name{uscd}{サンプリングレート変換（44.1kHz系へのアップサンプリング）}%
+{サンプリングレート変換}
+
+\begin{synopsis}
+\item [uscd] [ --s $S$ $S$] [ +{\em type} ] [ {\em infile} ] [ {\em outfile} ]
+\item [uscd] [ --s $S$ $S$] [ +{\em type} ] {\em infile1} $\cdots$ [ {\em infileN}] {\em outdir} 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em us}は，8，10，12，16kHz から 11.025，22.05，44.1kHz へのアップサンプリ
+ ングを行います．入力ファイル，出力ファイルの指定が無い場合は，それぞ
+ れ標準入力から読み込み，標準出力へ書き込まれます．
+ また，複数のファイルを同時に指定することも可能です．
+ この場合，入力ファイル名のサフィックスが変換後の標本化周波数に置き換
+ えられ，{\em outdir} 以下に出力されます．
+
+ なお，オプションで指定する 11.025，22.05，44.1kHz は，それぞれ 11，22，44 のように省略可能です．
+\par
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S1~S2}{変換タイプ． \\
+		\begin{tabular}{lll} \\[-1zh]
+			S1 & $8|10|12|16$ & 入力データの標本化周波数\\
+			S2 & $11.025|22.05|44.1$ & 出力データの標本化周波数
+		\end{tabular}
+ 		但し，11.025，22.05，44.1kHz は，それぞれ 11，22，44 に省略可能．}
+                {$10~11.025$}
+	\argp{t}{入力データの形式．\\
+		\begin{tabular}{ll} \\[-1zh]
+			s & short型 (2bytes) \\
+			f & float型 (4bytes)
+		\end{tabular}\\}{s}
+ 
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+short 形式の標本化周波数 16kHz の音声データファイル {\em data.16} を標本
+化周波数 22.05kHz にアップサンプリングし，{\em data.22} に出力する:
+\begin{quote}
+\verb!uscd -s 16 22.05 < data.16 > data.22!
+\end{quote}
+\end{qsection}
+
+%\begin{qsection}{BUGS}
+%none
+%\end{qsection}
+
+%\begin{qsection}{SEE ALSO}
+%none
+%\end{qsection}
