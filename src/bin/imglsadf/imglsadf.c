@@ -27,7 +27,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: imglsadf.c,v 1.1 2000/03/01 13:58:37 yossie Exp $";
+static char *rcs_id = "$Id: imglsadf.c,v 1.2 2001/01/15 03:30:34 yossie Exp $";
 
 
 /*  Standard C Libraries  */
@@ -123,6 +123,7 @@ void main(int argc, char **argv)
 		    break;
 		case 'k':
 		    ngain = 1 - ngain;
+		    break;
 		case 'h':
 		    usage(0);
 		default:
