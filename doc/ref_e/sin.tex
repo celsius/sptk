@@ -5,25 +5,27 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-周期$P$ で，
-長さ$L$ ，高さ$M$ の離散正弦列
+This command sends to the standard output
+discrite sin wave sequence of
+period $P$, length $L$ and magnitude $M$:
 \begin{displaymath}
   x(n) = M\,\sin (\frac{2\pi}{P}\,n)
 \end{displaymath}
-を標準出力に出力します．
 \par
 Output data is in float format.
 \end{qsection}
 
 \begin{options}
 	\argm{l}{L}{length\\
-			ただし，$L \le 0$なら無限に生成します．}{256}
+                        In the case $L \le 0$ then sin values will be
+                        generated indefinitely.}{256}
 	\argm{p}{P}{period}{10.0}
 	\argm{m}{M}{magnitude}{1.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-正弦波にブラックマン窓をかけた波形を画面に表示する:
+The following example passes sin wave sequence through
+Blackman window and displays the results in the screen:
 \begin{quote}
 \verb!sin -p 12.3 | window | fdrw | xgr!
 \end{quote}

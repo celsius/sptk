@@ -8,13 +8,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-指定されたファイルから入力$x$ を読み込み，
-指定された演算の実行結果を標準出力に出力します．
-{\em infile} の指定がないときには，標準入力からデータが読み込まれます．
+This command reads input data $x$ from the assigned file,
+undertakes assigned scalar operation and
+sends the results to the standard output.
+If {\em infile} is not assigned,
+then data is read from the standard input.
 \par
 Input and output data are in float format.
 \par
-演算は与えられた順番に実行します．
+The operations are undertaken with the assigned order.
 \end{qsection}
 
 \begin{options}
@@ -22,21 +24,23 @@ Input and output data are in float format.
 	\argm{s}{S}{subtraction $y=x-S$}{FALSE}
 	\argm{m}{M}{multiplication $y=x\ast M$}{FALSE}
 	\argm{d}{D}{division $y=x/D$}{FALSE}
-	\desc[1zh]{演算オプションの引数として
-		``{\em dB}''を指定すると $20/\log_e10$ の値が設定されます．
-		また，同様に``{\em pi}''を指定すると $\pi$ の値が設定され，
-                ``{\em ln2}''，``{\em exp10}''，``{\em sqrt30}''というよう
-                に，特定の関数の引数に任意の数字を書いても，
-                それを計算して定数とします．}
-	\argm[1zh]{ABS}{}{absolute $y=|x|$．}{FALSE}
-	\argm{INV}{}{inverse $y=1/x$．}{FALSE}
-	\argm{P}{}{square $y=x^2$．}{FALSE}
-	\argm{R}{}{square root $y=\sqrt{x}$．}{FALSE}
-	\argm{SQRT}{}{square root $y=\sqrt{x}$．}{FALSE}
-	\argm{LN}{}{logarithm $y=\log{x}$．}{FALSE}
-	\argm{LOG10}{}{logarithm $y=\log_{10}{x}$．}{FALSE}
-	\argm{EXP}{}{exponential $y=\exp{x}$．}{FALSE}
-	\argm{POW10}{}{power of 10 $y=10^x$．}{FALSE}
+	\desc[1zh]{If the argument of the operation option is
+                ``{\em dB}'' then the value $20/\log_e10$
+                is assigned.
+		Also similary, if ``{\em pi}'' is written after
+                the operation option, then its value will be used.
+                Actuary expression such as ``{\em ln2}'',
+                ``{\em exp10}'', ``{\em sqrt30}'' can also be
+                used as arguments.}
+	\argm[1zh]{ABS}{}{absolute $y=|x|$}{FALSE}
+	\argm{INV}{}{inverse $y=1/x$}{FALSE}
+	\argm{P}{}{square $y=x^2$}{FALSE}
+	\argm{R}{}{square root $y=\sqrt{x}$}{FALSE}
+	\argm{SQRT}{}{square root $y=\sqrt{x}$}{FALSE}
+	\argm{LN}{}{logarithm $y=\log{x}$}{FALSE}
+	\argm{LOG10}{}{logarithm $y=\log_{10}{x}$}{FALSE}
+	\argm{EXP}{}{exponential $y=\exp{x}$}{FALSE}
+	\argm{POW10}{}{power of 10 $y=10^x$}{FALSE}
 	\argm{FIX}{}{round $(int)x$．}{FALSE}
 	\argm{UNIT}{}{unit step $u(x)$}{FALSE}
 	\argm{CLIP}{}{clipping $x \ast u(x)$}{FALSE}
@@ -46,45 +50,46 @@ Input and output data are in float format.
 	\argm{ATAN}{}{atan $y=\atan(x)$}{FALSE}
 
         \argm{r}{\mbox{m}n}{read from memory regisiter m$n$ $(n=0..9)$}{}
-        \argm{m}{\mbox{m}n}{write from memory regisiter m$n$ $(n=0..9)$}{}
+        \argm{w}{\mbox{m}n}{write from memory regisiter m$n$ $(n=0..9)$}{}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-ランプ関数($0,1,2,\ldots$) を2 倍($0,2,4,\ldots$) してから，
-$1$ を足して($1,3,5,\ldots$) 出力する:
+In the following example, a ramp function($0,1,2,\ldots$)
+is mutiplied by 2 ($0,2,4,\ldots$)
+and then 1 is added ($1,3,5,\ldots$):
 \begin{quote}
   \verb!ramp | sopr -m 2 -a 1 | dmp!
 \end{quote}
 \par
-foat形式のファイル{\em data.f1} のデータとfloat形式のファイル{\em data.f2}
-のデータの平均をファイル{\em data.avrg} に出力する:
+The output file {\em data.avrg} contains the average taken from
+data in files {\em data.f1} and {\em data.f2} read in float format:
 \begin{quote}
   \verb!vopr -a data.f1 data.f2 | sopr -d 2 > data.avrg!
 \end{quote}
 \par
-float形式のファイル {\em data.f} からデータを読み込み，
-dB 単位に変換した結果を出力する:
+Data is read in float format from {\em data.f},
+and the results in dB is written to the output:
 \begin{quote}
-  \verb!sopr data.f -L -m dB | dmp!
+  \verb!sopr data.f -LN -m dB | dmp!
 \end{quote}
-この例は，
+The following example gives the same results:
 \begin{quote}
   \verb!sopr data.f -LOG10 -m 20 | dmp!
 \end{quote}
-としても結果は同じです．
 \par
-メモリレジスタを使い
+If we want to evaluate the followin equation,
 \[
 y = (1 + 3x + 4x^2) / (1 + 2x + 5x^2) 
 \]
-を計算する：
+then memory registers can be used as follows.
 \begin{quote}
 \verb!sopr data.f -w m0 -m 5 -a 2 -m m0 -a 1 -w m1 \!\\
 \verb!       -r m0 -m 4 -a 3 -m m0 -a 1 -d m1 | dmp!
 \end{quote}
-ここでm0, m1はメモリレジスタで，m0からm9まで使えます．
--wはメモリレジスタへの書き出し，
--rはメモリレジスタから現在の演算レジスタへの読み込みを行います．
+In the example above, m0 and m1 are memory registers.
+Regisers from m0 to m9 can be used.
+The --w option is used to write into memory register,
+while the --r option is used to read from a register.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

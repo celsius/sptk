@@ -1,4 +1,4 @@
-\name{spec}{transform real sequence to spectrum}{signal processing}
+\name{spec}{transform real sequence to log spectrum}{signal processing}
 
 \begin{synopsis}
  \item[spec]   [ --l $L$ ] [ --m $M$ ] [ --n $N$ ] [ --z {\em zfile} ]
@@ -7,13 +7,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-標準入力から入力された実数列の対数振幅スペクトルを計算します．
-つまり，
-入力数列を
+This command reads a real sequence and computes the log spectrum
+manitude.
+If the input sequence is
 \begin{displaymath}
   x(0), x(1), \ldots, x(L-1)
 \end{displaymath}
-として，
+and the FFT algorithm is used to evaluate
 \begin{eqnarray*}
   X_k &=& X(e^{j\omega}) \left|
 	\begin{array}{c}
@@ -28,45 +28,48 @@
 	\end{array}
     \right.,~~~~ k=0,1,\ldots,L-1
 \end{eqnarray*}
-をFFT により計算し，{\bf --y} オプションの指定に従って，
+then if the {\bf --y} option is applied, then
+output is
 \begin{displaymath}
   Y_k=20\,\log_{10}\,|X_k|,~~~~ k=0,1,\ldots,L/2
 \end{displaymath}
-などを出力します．
-出力されるデータは，角周波数$0\sim \pi$ に対応します．
+The output data corresponds to angular frequencies varying from $0\sim \pi$.
 Input and output data are in float format.
 \par
-{\bf --p, --z} オプションが指定されたときには，
-指定されたファイルを係数としてもつディジタルフィルタの周波数特性を，
-同様に出力します\footnote{
-この際、フィルタのインパルス応答から振幅特性を求めるのではなく，
-分子係数，分母係数から別々に振幅特性を求め，
-その商によって，全体の特性を求めています．}．
+If the {\bf --p, --z} options are assigned
+then the phase of the corresponding filter related to
+the assigned coefficients is calculated
+\footnote{
+In this case the phase is not evaluated from the filter
+impulse response, the phase is evaluated from
+the difference between the numerator and denominator phases}.
 \end{qsection}
 
 \begin{options}
 	\argm{l}{L}{FFT window length\\
                     $L$ must be power of 2}{256}
 	\argm{m}{M}{order of MA part\\
-                        伝達関数の分子多項式の次数．
-			実際に入力されたデータ数が，
-			$M+1$ より少なかった場合には，
-			$M=(\mbox{実際の入力データ数})-1$ となるので，
-			長さ$M+1$ のデータを何組か続けて入力する場合以外は，
-			$M$ の指定は必要ありません．}{L-1}
+			In the case where the number of input data
+                        values is less then $M+1$, then $M$ is made
+                        equal to the number of input data values $-1$.
+                        If the input data should not be analyzed in blocks of
+                        size $M+1$, then it is not necessary to assign
+                        a value to $M$.}{$L-1$}
 	\argm{n}{N}{order of AR part\\
-                        伝達関数の分母多項式の次数．
-			{\bf --m} オプションと同様，
-			実際に入力されたデータ数が，
-			$N+1$ より少なかった場合には，
-			$N=(\mbox{実際の入力データ数})-1$ となるので，
-			長さ$N+1$ のデータを何組か続けて入力する場合以外は，
-			$N$ の指定は必要ありません．}{L-1}
+                        Similary to the --m option,
+			in the case where the number of input data
+                        values is less then $N+1$, then $N$ is made
+                        equal to the number of input data values $-1$.
+                        If the input data should not be analyzed in blocks of
+                        size $N+1$, then it is not necessary to assign
+                        a value to $N$.}{$L-1$}
 	\argm{z}{zfile}{MA coefficients filename\\
-			ファイルの内容はfloat 形式で次のように与えます．\\
+			The {\em zfile} should follow this structure in
+                        float format:\\
 			\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\[-1zh]}{NULL}
 	\argm{p}{pfile}{AR coefficients filename\\
-			ファイル内容はfloat 形式で次のように与えます．\\
+			The {\em pfile} should follow this structure in
+                        float format:\\
 			\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
 	\argm{y}{Y}{output format\\
 			\begin{tabular}{lll} \\[-1zh]
@@ -74,34 +77,38 @@ Input and output data are in float format.
 			$Y=1$ & ~~~$\ln |X_k|$ & $k=0,1,\ldots,L/2$\\
 			$Y=2$ & ~~~$|X_k|$ & $k=0,1,\ldots,L/2$\\
 			\end{tabular} \\\hspace*{\fill}}{0}
-	\desc{
-{\em pfile}, {\em zfile} の内容は，{\em dfs} の場合と同じです．\\
-{\bf --p}，{\bf --z} オプションの内，
-{\bf --p} オプションだけが指定された場合，
-分子多項式は1 として扱われ、
-{\bf --z} オプションだけが指定された場合には，
-分母多項式，ゲイン$K$ とも1 として扱われます．
-{\bf --p}，{\bf --z} オプションいずれも省略された場合には，
-データは標準入力から読まれます． }
+	\desc{The contents of {\em pfile} and {\em zfile}
+                        should be in a similar form to that used in
+                        command {\em dfs}.
+			When only the {\bf --p} option is assigned
+                        then the denominator is made equal to 1.
+                        Wnen only the {\bf --z} option is assigned
+                        then the numerator and the gain $K$ are made
+                        equal to 1.
+                        If neither {\bf --p} nor {\bf --z} are
+                        assigned, data is read from the standard input.}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-パルス列で励振したディジタルフィルタの出力にブラックマン窓をかけ，
-その対数振幅スペクトルを表示する:
+In the example below, a pulse train excitation is passed
+through digital filter and Blackman window,
+then the log spectrum magnitude is evaluated and plotted
+on the screen:
 \begin{quote}
   \verb!train -t 50 | dfs -a 1 0.9 | window | spec | fdrw | xgr !
 \end{quote}
 \par
-float形式のファイル{\em data.p, data.z} で指定された係数をもつ
-ディジタルフィルタの周波数特性を表示する:
+This example evaluates the frequency response of
+digital filter with coefficients assigned by {\em data.p, data.z}
+in float format:
 \begin{quote}
   \verb!spec -p data.p -z data.z | fdrw | xgr !
 \end{quote}
-{\em data.p}, {\em data.z} の表すフィルタが安定な場合には，
+A similar results can be obtained with the following command
+when filter is stable:
 \begin{quote}
   \verb!impulse | dfs -p data.p -z data.z | spec | fdrw | xgr !
 \end{quote}
-としてもほぼ同様の結果が得られます．
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

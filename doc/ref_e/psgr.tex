@@ -8,8 +8,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-標準入力からプロッタコマンド列を読み込んで，
-グラフ出力を PostScript (EPSF or PS) コードに変換し標準出力に出力します．
+This command reads a sequance of plotter command
+from the standard input, transforms the graph data into
+Postscript(EPSF or PS), and sends the result to the standard output.
 \end{qsection}
 
 \begin{options}
@@ -30,7 +31,8 @@
 \end{options}
 
 \begin{qsection}{EXAMPLE}
- fig で {\em data.fig} に含まれる図を描き、プリンターに出力する:
+This example sends to a printer a figure file {\em data.fig}
+written through the fig command:
 \begin{quote}
  \verb!fig data.fig | psgr | lpr!
 \end{quote}
@@ -38,13 +40,15 @@
 
 \begin{qsection}{BUGS}
 \begin{itemize}
-\item Y軸名などの周辺部が欠ける可能性があります
-ユーザー側での対処法として，マージンによる修正を行なって下さい．
+\item There is possibility that a part of the Y axies label
+is not properly outputed. In this case the user can 
+change the mergin to solve this problem.
 
-\item シュリンクによって描画サイズを変更した場合，\TeX への取り込みの際に
-正しく反映されない場合があるかも知れません．そのような場合には，
-\TeX 側の取り込み時のオプションで処理して下さい．
-
+\item In the case that the size of the figure is modified,
+and included in a \TeX file, there is possibility that
+it dose not appear correctly.
+To solve this problem, please use \TeX options for including 
+pictures and corresponding sizes.
 \end{itemize}
 \end{qsection}
 

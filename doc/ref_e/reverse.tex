@@ -6,11 +6,15 @@
 
 \begin{qsection}{DESCRIPTION}
 
-{\em reverse} は，float型で与えられるデータ列を標準入力から読み込み，オ
-プションで指定されるブロック長に区切ってデータ列を反転させ，標準出力に出
-力します．ブロック長を指定しなかった場合はデフォルトでファイル全体が指定
-されます．ファイル全体のサイズがブロック長で丁度割り切れない場合は余りの
-ブロックは無視され，出力もされません．
+The reverse command reads data sequence in float format from
+the standard input, cuts it into blocks of size assigned by an option,
+reverses the order inside each block and sends the results
+to the standard output.
+If the block size is not assigned, then the whole file is assigned
+as the default.
+If the whole file can not be devided exactly into blocks of the
+assigned length, then the remainder values are disregarded as
+shown in the example below.
 
 \end{qsection}
 
@@ -20,17 +24,18 @@
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル{\em data.in}には以下のデータが入っているとする.
+Let's assmue that the following data
+is read from {\em data.in} file in float format.
 \begin{displaymath}
  \underbrace{0.0, ~1.0, ~2.0}, ~
  \underbrace{3.0, ~4.0, ~5.0}, ~
  \underbrace{6.0, ~7.0, ~8.0}, ~9.0
 \end{displaymath}
-ここで
+The command
 \begin{quote}
 \verb!reverse -l 3 data.in > data.out!
 \end{quote}
-とするとファイル{\em data.out}には以下のデータが入る.
+will write the output below to {\em data.out}.
 \begin{displaymath}
  \underbrace{2.0, ~1.0, ~0.0}, ~
  \underbrace{5.0, ~4.0, ~3.0}, ~
