@@ -5,13 +5,12 @@ use Getopt::Long;
 $Getopt::Long::ignorecase=undef;
 sub execute;
 
-$BASEDIR = "/usr/local/SPTK";
-
 #
 # Default
 #
+$opt_b = "..";
 $opt_l = "list.all";
-$opt_f = "$BASEDIR/makedist/tex-files.extra";
+$opt_f = "tex-files.extra";
 $opt_d = "SPTKref";
 $opt_v = undef;
 $opt_n = undef;
@@ -20,13 +19,14 @@ $opt_h = undef;
 #
 # Get Options
 #
-GetOptions("l|command-list=s", "f|extra-file-list=s", "d|dir-name=s", "v|verbose", "n", "h");
+GetOptions("b|base-dir=s", "l|command-list=s", "f|extra-file-list=s", "d|target-dir=s", "v|verbose", "n", "h");
 
 if ( $opt_h == 1 ) {
 	print "\n";
 	print "cp-tex.pl [options]\n";
 	print "\n";
 	print "    options:\n";
+	print "        -b s :  base directory\n";
 	print "        -l s :  command list\n";
 	print "        -f s :  extra file list\n";
 	print "        -d s :  target directory name\n";
@@ -36,6 +36,7 @@ if ( $opt_h == 1 ) {
 	print "\n";
 	exit;
 }
+
 
 #
 # Read Database
@@ -58,14 +59,14 @@ close(f);
 # Copy Files
 #
 execute("mkdir -p $opt_d") unless ( -d "$opt_d" );
-execute("cp $BASEDIR/doc/ref/cmndref.sty $opt_d");
-execute("cp $BASEDIR/doc/ref/ref.tex $opt_d");
+execute("cp $opt_b/doc/ref/cmndref.sty $opt_d");
+execute("cp $opt_b/doc/ref/ref.tex $opt_d");
 
 # modify Makefile and main.tex
-print "$BASEDIR/doc/ref/Makefile -> $opt_d/Makefile\n"
+print "$opt_b/doc/ref/Makefile -> $opt_d/Makefile\n"
 	if ( ( $opt_n == 1 ) || ( $opt_v == 1 ) );
 if ( $opt_n == undef ) {
-	open(MAKEIN, "$BASEDIR/doc/ref/Makefile") || die "cannot open $BASEDIR/doc/ref/Makefile";
+	open(MAKEIN, "$opt_b/doc/ref/Makefile") || die "cannot open $opt_b/doc/ref/Makefile";
 	open(MAKEOUT, "> $opt_d/Makefile") || die "cannot open $opt_d/Makefile";
 	while ( <MAKEIN> ) {
 		last if ( /INC/ );
@@ -77,10 +78,10 @@ if ( $opt_n == undef ) {
 	}
 }
 
-print "$BASEDIR/doc/ref/main.tex -> $opt_d/main.tex\n"
+print "$opt_b/doc/ref/main.tex -> $opt_d/main.tex\n"
 	if ( ( $opt_n == 1 ) || ( $opt_v == 1 ) );
 if ( $opt_n == undef ) {
-	open(MAININ, "$BASEDIR/doc/ref/main.tex") || die "cannot open $BASEDIR/doc/ref/main.tex";
+	open(MAININ, "$opt_b/doc/ref/main.tex") || die "cannot open $opt_b/doc/ref/main.tex";
 	open(MAINOUT, "> $opt_d/main.tex") || die "cannot open $opt_d/main.tex";
 	while ( <MAININ> ) {
 		last if ( /BEGIN COMMANDS/ );
@@ -103,13 +104,13 @@ while ( $x = <FILE> ) {
 	print MAINOUT "\\include{$x}\n";
 
 	# standard files
-	execute("cp $BASEDIR/doc/ref/$x.tex $opt_d");
+	execute("cp $opt_b/doc/ref/$x.tex $opt_d");
 
 	# extra files
 	for ( $i = 0 ; $i < @{$hashref->{$x}} ; $i++ ) {
 		execute("mkdir -p $opt_d/fig") unless ( -d "$opt_d/fig" );
-		execute("cp $BASEDIR/$hashref->{$x}[$i] $opt_d/fig")
-			if ( -f "$BASEDIR/$hashref->{$x}[$i]" );
+		execute("cp $opt_b/$hashref->{$x}[$i] $opt_d/fig")
+			if ( -f "$opt_b/$hashref->{$x}[$i]" );
 	}
 }
 close(FILE);
