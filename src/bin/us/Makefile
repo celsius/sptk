@@ -33,6 +33,12 @@ $(TARGET): $(OBJS)
 install: $(TARGET)
 	$(INSTALL) $(TARGET) $(BIN)
 	cp $(COEF) $(LIB)
+	for i in *.sh; do \
+		sed -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' -e '/libpath/s:/usr/local/SPTK/lib:'$(LIB)':' $$i > $(BIN)/$$i; \
+		chmod 755 $(BIN)/$$i; \
+		j=`basename $$i .sh`; \
+		ln -s $(BIN)/$$i $(BIN)/$$j; \
+	done;
 
 clean:
 	$(RM) $(TARGET) $(OBJS) \#* *~
