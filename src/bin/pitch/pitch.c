@@ -44,11 +44,11 @@ double	pitch();
 
 /*  Default Values  */
 #define FREQ            10
-#define ILNG		399
+#define ILNG		400
 #define FLNG		512
 #define THRESH		6.0
 #define LOW		60
-#define HIGH		200
+#define HIGH		240
 #define PRE		0.95
 #define EPS		0.0
 
@@ -79,7 +79,7 @@ void usage(int status)
     fprintf(stderr, "               frequency to serach for\n");
     fprintf(stderr, "       -e e  : small value for calculate       [%g]\n", EPS);
     fprintf(stderr, "               log-spectral envelope\n");
-    fprintf(stderr, "     (level 2 : for mel cepstral analysis)\n");
+    fprintf(stderr, "     (level 2 : for LPC mel cepstral analysis)\n");
     fprintf(stderr, "       -m m  : order of LPC                    [%d]\n", LPC);
     fprintf(stderr, "       -M M  : order of mel cepstrum           [%d]\n", LPC);
     fprintf(stderr, "       -A A  : all-pass constant               [%g]\n", ALPHA);
@@ -160,9 +160,8 @@ void main(int argc, char **argv)
 	    fp = getfp(*argv, "r");
 
     x = dgetmem(l);
-
-    while (freadf(x, sizeof(*x), n+1, fp) == n+1){
-	fillz(x+n+1,l-n-1,sizeof(double));
+    while (freadf(x, sizeof(*x), n, fp) == n){
+	fillz(x+n,l-n,sizeof(double));
 	p = pitch(x, freq, l, a, thresh, L, H, eps, m1, m2, alpha);
 	fwritef(&p, sizeof(p), 1, stdout);
     }
