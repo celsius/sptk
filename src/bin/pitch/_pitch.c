@@ -4,11 +4,10 @@
 
     Pitch Extract
 
-        double pitch(xw, l, a, thresh, low, high, eps, m, itr1, itr2, end)
+        double pitch(xw, l, thresh, low, high, eps, m, itr1, itr2, end)
 
 	double *xw    : windowed data sequence
 	int    l      : frame length (fft size)
-	double a      : pre-emphasis coefficients
 	double thresh : voiced/unvoiced threshold
 	int    low    : minmum points to search for
 	int    high   : maximum points to search for
@@ -30,8 +29,8 @@ int uels();
 double log();
 
 
-double pitch(xw, l, a, thresh, low, high, eps, m, itr1, itr2, end)
-double *xw, a, thresh, eps, end;
+double pitch(xw, l, thresh, low, high, eps, m, itr1, itr2, end)
+double *xw, thresh, eps, end;
 int l, low, high, m, itr1, itr2;
 {
     static double *x = NULL,*y, *c;
@@ -61,15 +60,9 @@ int l, low, high, m, itr1, itr2;
 	x[i] = log(x[i]*x[i] + y[i]*y[i] + eps);
 
     if(voiced > thresh){
-	y[0] = x[0] - a * x[l-1];		/* pre-emphasis filter */
-	for(i=1; i<l; i++){
-	    y[i] = x[i] - a * x[i-1];
-	}
-
-	movem(y,x,sizeof(*x),l);
 	fftr(x, y, l);
 	for(i=0; i<l; i++)
-	    x[i] /= l;
+	    x[i] /= l * i;
 
 	max = 0.0;
 	for(i=low; i<high; i++)
