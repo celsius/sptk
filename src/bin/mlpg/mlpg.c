@@ -2,7 +2,7 @@
 *												*
 *    ML-based Parameter Generation from PDFs	 						*
 *												*
-*					1999.7 T.Masuko						*
+*									2000.4  T.Masuko	*
 *												*
 *	usage:											*
 *		mlpg [ options ] [infile] > stdout						*
@@ -133,8 +133,6 @@ void usage(int status)
     fprintf(stderr, "  note:\n");
     fprintf(stderr, "       1) Option '-d' may be repeated to use multiple delta parameters.\n");
     fprintf(stderr, "       2) Options '-d' and '-r' shuold not be defined simultaneously.\n");
-    fprintf(stderr, "       3) If 'fn' is an integer, delta coefficients are\n");
-    fprintf(stderr, "          calculated based on a regression formula.\n");
     fprintf(stderr, "\n");
     exit(status);
 }
@@ -569,10 +567,11 @@ int str2darray(char *c, double **x)
 
 double *mlpg(PStream *pst)
 {
-	int		calc_pi(PStream *, int d);
-	void		calc_k(PStream *, int d);
-	void		update_P(PStream *, int d);
-	void		update_c(PStream *, int d);
+	int		doupdate(PStream *, int);
+	void		calc_pi(PStream *, int);
+	void		calc_k(PStream *, int);
+	void		update_P(PStream *, int);
+	void		update_c(PStream *, int);
 	int		tcur, tmin, tmax;
 	register int	d, m, u;
 
@@ -598,7 +597,8 @@ double *mlpg(PStream *pst)
 	}
 
 	for (d = 1; d < pst->dw.num; d++) {
-		if ((pst->sm.ivseq[tcur][(pst->order+1)*d] != 0.0) && calc_pi(pst, d)) {
+		if (doupdate(pst, d)) {
+			calc_pi(pst, d);
 			calc_k(pst, d);
 			update_P(pst, d);
 			update_c(pst, d);
@@ -609,20 +609,29 @@ double *mlpg(PStream *pst)
 }
 
 
-int calc_pi(PStream *pst, int d)
+int doupdate(PStream *pst, int d)
 {
-	register int	j, m, u;
+	register int	j;
 
+	if (pst->sm.ivseq[pst->sm.t&pst->sm.mask][(pst->order+1)*d] == 0.0)
+		return(0);
 	for (j = pst->dw.width[d][WLEFT]; j <= pst->dw.width[d][WRIGHT]; j++)
 		if (pst->sm.P[0][(pst->sm.t+j)&pst->sm.mask][0] == INFTY)
 			return(0);
+	return(1);
+}
+
+
+void calc_pi(PStream *pst, int d)
+{
+	register int	j, m, u;
+
 	for (m = 0; m <= pst->order; m++)
 		for (u = -pst->range; u <= pst->dw.maxw[WRIGHT]; u++) {
 			pst->sm.pi[u][m] = 0.0;
 			for (j = pst->dw.width[d][WLEFT]; j <= pst->dw.width[d][WRIGHT]; j++)
 				pst->sm.pi[u][m] += pst->sm.P[u-j][(pst->sm.t+j)&pst->sm.mask][m] * pst->dw.coef[d][j];
 		}
-	return(1);
 }
 
 
