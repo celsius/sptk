@@ -21,9 +21,9 @@ CFLAGS		= -O2 $(INCDIR)
 LDFLAGS		= $(LIBDIR)
 LIBS		= -lSPTK -lm
 
-
+ifdef DA_OSTYPE
 .c.o:
-	$(CC) -DLIB=\"$(LIB)\" $(CFLAGS) -c $<
+	$(CC) -DLIB=\"$(LIB)\" $(CFLAGS) -D$(DA_OSTYPE) -c $<
 
 all: $(TARGET)
 
@@ -42,4 +42,7 @@ clean:
 veryclean: clean
 	$(RM) $(BIN)/$(TARGET)
 	cd $(LIB) ; $(RM) $(COEF)
+endif
+all:
+clean:
 

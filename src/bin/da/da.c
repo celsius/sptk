@@ -1,7 +1,8 @@
 /************************************************************************
 *                                                                       *
-*    play 16-bit linear PCM data on SS10                                *
+*    play 16-bit linear PCM data on LINUX and SS10                      *
 *                                                                       *
+*					1997.7  M.Tamura		*
 *                                       1998.1  T.Kobayashi             *
 *                                                                       *
 *       usage:                                                          *
@@ -10,7 +11,7 @@
 *               -s s  :  sampling frequency (8,10,12,16,20,22 kHz)[10]  *
 *               -c c  :  filename of low pass filter coef.   [Default]  *
 *               -g g  :  gain (.., -2, -1, 0, 1, 2, ..)            [0]  *
-*               -a a  :  amplitude gain                          [N/A]	*
+*               -a a  :  amplitude gain (0..100)                 [N/A]	*
 *               -o o  :  output port                               [s]  *
 *                          s (speaker)    h (headphone)                 *
 *               -H H  :  header size in byte                       [0]  *
@@ -28,12 +29,13 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: da.c,v 1.2 2000/04/10 10:02:40 sako Exp $";
+static char *rcs_id = "$Id: da.c,v 1.3 2000/04/18 13:06:16 sako Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include "ss10snd.h"
+#include "da.h"
 
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE","TRUE"};
@@ -50,11 +52,9 @@ char *BOOL[] = {"FALSE","TRUE"};
 #define	RBSIZE		512
 #define	MAXFILES	128
 #define	INITGAIN	0
-#define	MAXAMPGAIN	255
 
 #define OUTPORT		's'
 #define GAIN		(0+INITGAIN)
-#define AMPGAIN		0
 #define FREQ		10
 #define HEADERSIZE	0
 #define VERBOSE		FA
@@ -75,18 +75,21 @@ char *cmnd;
 void usage(int status)
 {
 	fprintf(stderr, "\n");
-	fprintf(stderr, " %s - play 16-bit linear PCM data on SS10\n\n",cmnd);
+	fprintf(stderr, " %s - play 16-bit linear PCM data\n\n",cmnd);
 	fprintf(stderr, "  usage:\n");
 	fprintf(stderr, "       %s [ options ] infile1 infile2 ... > stdout\n", cmnd);
 	fprintf(stderr, "  options:\n");
 	fprintf(stderr, "       -s s  : sampling frequency (8,10,12,16,20,22,32,44,48 kHz) [%d]\n", FREQ);
 	fprintf(stderr, "       -c c  : filename of low pass filter coefficients  [Default]\n");
 	fprintf(stderr, "       -g g  : gain (..,-2,-1,0,1,2,..)                  [%d]\n",GAIN);
-	fprintf(stderr, "       -a a  : amplitude gain                            [N/A]\n",AMPGAIN);
+	fprintf(stderr, "       -a a  : amplitude gain (0..100)                   [N/A]\n");
+#ifdef SPARC
 	fprintf(stderr, "       -o o  : output port                               [%c]\n",OUTPORT);
 	fprintf(stderr,	"                  s(speaker)    h(headphone)\n");
+#endif /* SPARC */
 	fprintf(stderr, "       -H H  : header size in byte                       [%d]\n",HEADERSIZE);
 	fprintf(stderr, "       -v    : display filename                          [%s]\n",BOOL[VERBOSE]);
+	fprintf(stderr, "       -w    : byteswap                                  [FALSE]\n");
 	fprintf(stderr, "       +x    : data format                               [s]\n");
 	fprintf(stderr, "                  s(short)    f(float)\n");
 	fprintf(stderr, "       -h    : print this message\n");
@@ -102,13 +105,15 @@ void usage(int status)
 
 static char	*coef = NULL, outport = OUTPORT;
 static short	*y = NULL, *xs;
-static int	gain = GAIN, ampgain = AMPGAIN, is_verbose = VERBOSE;
+static int	gain = GAIN, ampgain = -1, is_verbose = VERBOSE;
 static int	hdr_size = HEADERSIZE, data_size = sizeof(short);
 static int	freq = FREQ, intrate = INTRATE10, decrate = DECRATE10;
 static int	fleng, indx = 0;
 static float	*x, rb[RBSIZE], h[RBSIZE + 1], fgain = 1;
+int		byteswap = 0;
+size_t		abuf_size;
 
-void main(argc,argv)
+int main(argc,argv)
 int	argc;
 char	*argv[];
 {
@@ -125,7 +130,7 @@ char	*argv[];
 	if((s = getenv("DA_GAIN")) != NULL)
 		gain = atoi(s) + INITGAIN;
 	if((s = getenv("DA_AMPGAIN")) != NULL)
-		ampgain = atof(s) * MAXAMPGAIN;
+		ampgain = atoi(s);
 	if((s = getenv("DA_PORT")) != NULL)
 		outport = *s;
 	if((s = getenv("DA_HDRSIZE")) != NULL)
@@ -153,7 +158,7 @@ char	*argv[];
 			--argc;
 			break;
 		    case 'a':
-			ampgain = atof(*++argv) * MAXAMPGAIN;
+			ampgain = atoi(*++argv);
 			--argc;
 			break;
 	 	    case 'H':
@@ -162,6 +167,9 @@ char	*argv[];
 			break;
 		    case 'v':
 			is_verbose = 1 - is_verbose;
+			break;
+		    case 'w':
+			byteswap = 1;
 			break;
 		    case 'o':
 			outport = **++argv;
@@ -248,6 +256,7 @@ char	*argv[];
 			direct(stdin);
 	}
 	fclose( adfp);
+	close( ACFD);
 	exit(0);
 }
 
@@ -261,6 +270,7 @@ FILE	*fp;
 
 	for(count = 1; nread = fread(x, data_size, SIZE, fp); ) {
 		nwr = 0;
+		if( byteswap == 1) byteswap_vec( x, data_size, nread);
 		for(k = 0; k < nread; ++k) {
 			for(i = 0; i < intrate; ++i) {
 				if(i == 0) {
@@ -347,7 +357,7 @@ void firinit()
 		fprintf(stderr, "%s: cannot open %s\n", cmnd, coef);
 		exit(1);
 	}
-	fleng = fread(h, sizeof(*h), RBSIZE + 1, fp);
+	fleng = freada(h, RBSIZE + 1, fp);
 	fclose(fp);
 	if(--fleng < 0) {
 		fprintf(stderr, "%s: cannot read filter coefficients\n", cmnd);
@@ -393,45 +403,71 @@ void sndinit()
 		exit(1);
 	}
 	init_audiodev(dtype);
-	
-	if(ampgain)
+
+	if(ampgain >= 0)
+		if( ampgain > 100) ampgain = 100;
 		change_play_gain(ampgain);
+#ifdef SPARC
 	if(outport == 's')
 		port = SPEAKER;
 	else if(outport == 'h')
 		port = HEADPHONE;
 	change_output_port( port | LINE_OUT );
+#endif /* SPARC */
 }
 
 void sndout(leng)
 int	leng;
 {
-	fwrite(y, sizeof(short), leng, adfp);
-	write( adfp->_file, y, 0);
+	fwrite( y, sizeof(short), leng, adfp);
+	write( ADFD, y, 0);
 }
 
 void init_audiodev(dtype)
 int	dtype;
 {
+#ifdef LINUX
+	int arg;
+
+	adfp = fopen( AUDIO_DEV, "w");
+	ADFD = adfp->_fileno;
+	ACFD = open( MIXER_DEV, O_RDWR, 0);
+	ioctl(ADFD, SNDCTL_DSP_GETBLKSIZE, &abuf_size);
+	arg = data_type[dtype].precision;
+	ioctl(ADFD, SOUND_PCM_WRITE_BITS, &arg);
+/*	arg = data_type[dtype].channel; */
+	arg = 1;
+	ioctl(ADFD, SOUND_PCM_WRITE_CHANNELS, &arg);
+	arg = data_type[dtype].sample;
+	ioctl(ADFD, SOUND_PCM_WRITE_RATE, &arg);
+#endif /* LINUX */
+
+#ifdef SPARC
 	audio_info_t	data;
-	
+
 	ACFD = open(AUDIO_CTLDEV, O_RDWR, 0);
-	adfp = fopen(AUDIO_DEV,"w");
+	adfp = fopen(AUDIO_DEV, "w");
 	ADFD = adfp->_file;
-	
+
 	AUDIO_INITINFO(&data);
 	ioctl(ACFD, AUDIO_GETINFO, &data);
-	
+
 	data.play.sample_rate = data_type[dtype].sample;
 	data.play.precision   = data_type[dtype].precision;
 	data.play.encoding    = data_type[dtype].encoding;
 
 	ioctl(ADFD,AUDIO_SETINFO,&data);
+#endif /* SPARC */
 }
 
 void change_output_port(port)
 unsigned port;
 {
+#ifdef LINUX
+	
+#endif /* LINUX */
+
+#ifdef SPARC
 	audio_info_t	data;
 
 	AUDIO_INITINFO(&data);
@@ -440,17 +476,68 @@ unsigned port;
 	data.play.port=port;	
 	
 	ioctl(ACFD, AUDIO_SETINFO, &data);
+#endif /* SPARC */
 }
 
 void change_play_gain(volume)
 unsigned volume;
 {
+	int vol, arg;
+
+#ifdef LINUX
+	vol = (int) (volume * ((float)MAXAMPGAIN) / 100);
+	arg = vol | (vol << 8 );
+	ioctl( ACFD, MIXER_WRITE(SOUND_MIXER_PCM), &arg);
+#endif /* LINUX */
+
+#ifdef SPARC
 	audio_info_t	data;
 
+	vol = (int) (volume * ((float)MAXAMPGAIN) / 100);
 	AUDIO_INITINFO(&data);
 	ioctl(ACFD, AUDIO_GETINFO, &data);
 
-	data.play.gain=volume;	
-	
+	data.play.gain=vol;
+
 	ioctl(ACFD, AUDIO_SETINFO, &data);
+#endif /* SPARC */
+}
+
+int byteswap_vec( vec, size, blocks)
+void *vec;
+int size;
+int blocks;
+{
+	char *q;
+	register char t;
+	int i, j;
+
+	q = (char *)vec;
+	for( i = 0; i < blocks; i++){
+		for( j = 0; j < (size/2); j++){
+			t = *(q+j);
+			*(q+j) = *(q+(size-1-j));
+			*(q+(size-1-j)) = t;
+		}
+		q += size;
+	}
+
+	return i;		/* number of blocks */
+}
+
+int freada( p, bl, fp)
+float *p;
+int bl;
+FILE *fp;
+{
+	int c;
+	char buf[256];
+
+	c = 0;
+	while( c < bl ){
+		if( fgets( buf, 256, fp) == NULL) break;
+		p[c] = (float)atof( buf);
+		c+=1;
+	}
+	return c;
 }
