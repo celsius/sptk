@@ -1,6 +1,6 @@
 /****************************************************************
 
-    $Id: _imsvq.c,v 1.1 2000/03/01 13:58:37 yossie Exp $
+    $Id: _imsvq.c,v 1.1.1.1 2000/03/01 13:58:37 yossie Exp $
 
     Decoder of Multi Stage Vector Quantization
 

@@ -1,6 +1,6 @@
 /****************************************************************
 
-    $Id: _lspcheck.c,v 1.1 2000/03/01 13:58:40 yossie Exp $
+    $Id: _lspcheck.c,v 1.1.1.1 2000/03/01 13:58:40 yossie Exp $
 
     Check order of LSP
 
@@ -34,7 +34,7 @@ int ord;
 
 /****************************************************************
 
-    $Id: _lspcheck.c,v 1.1 2000/03/01 13:58:40 yossie Exp $
+    $Id: _lspcheck.c,v 1.1.1.1 2000/03/01 13:58:40 yossie Exp $
 
     Rearrangement of LSP
 

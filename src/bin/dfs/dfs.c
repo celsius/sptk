@@ -20,7 +20,7 @@
 *		M, N <= 2047						*
 ************************************************************************/
 
-static char *rcs_id = "$Id: dfs.c,v 1.1 2000/03/01 13:58:31 yossie Exp $";
+static char *rcs_id = "$Id: dfs.c,v 1.1.1.1 2000/03/01 13:58:31 yossie Exp $";
 
 
 /* Standard C Libraries */

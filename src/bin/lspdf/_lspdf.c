@@ -1,6 +1,6 @@
 /****************************************************************
 
-    $Id: _lspdf.c,v 1.1 2000/03/01 13:58:41 yossie Exp $
+    $Id: _lspdf.c,v 1.1.1.1 2000/03/01 13:58:41 yossie Exp $
 
     LSP Speech Synthesis Digital Filter
 

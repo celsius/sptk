@@ -1,5 +1,5 @@
 /***************************************************************
-    $Id: agexp.c,v 1.1 2000/03/01 13:58:55 yossie Exp $
+    $Id: agexp.c,v 1.1.1.1 2000/03/01 13:58:55 yossie Exp $
 
     Magnitude Squared Generalized Exponential Function	
 

@@ -17,7 +17,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id="$Id: c2ir.c,v 1.1 2000/03/01 13:58:30 yossie Exp $";
+static char *rcs_id="$Id: c2ir.c,v 1.1.1.1 2000/03/01 13:58:30 yossie Exp $";
 
 
 /* Standard C Libraries */

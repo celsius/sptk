@@ -28,7 +28,7 @@
 *		if L > l, (L-l)-zeros are padded			*
 *									*
 ************************************************************************/
-static char *rcs_id = "$Id: window.c,v 1.1 2000/03/01 13:58:52 yossie Exp $";
+static char *rcs_id = "$Id: window.c,v 1.1.1.1 2000/03/01 13:58:52 yossie Exp $";
 
 
 /*  Standard C Libraries  */

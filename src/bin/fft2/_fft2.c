@@ -1,5 +1,5 @@
 /********************************************************
-$Id: _fft2.c,v 1.1 2000/03/01 13:58:34 yossie Exp $
+$Id: _fft2.c,v 1.1.1.1 2000/03/01 13:58:34 yossie Exp $
 
 *	fft2 : two dimensional fast Fourier transform 	*
 *			for complex sequence		*

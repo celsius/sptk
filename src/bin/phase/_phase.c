@@ -1,5 +1,5 @@
 /*******************************************************************
-  $Id: _phase.c,v 1.1 2000/03/01 13:58:48 yossie Exp $
+  $Id: _phase.c,v 1.1.1.1 2000/03/01 13:58:48 yossie Exp $
 	comupte phase of digital filter or real seaquence
 		phase(p, mp, z, mz, ph, flng)
 

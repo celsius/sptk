@@ -1,6 +1,6 @@
 /****************************************************************
 
-    $Id: _uels.c,v 1.1 2000/03/01 13:58:51 yossie Exp $
+    $Id: _uels.c,v 1.1.1.1 2000/03/01 13:58:51 yossie Exp $
 
     Unbiased Estimation of Log Spectrum
 

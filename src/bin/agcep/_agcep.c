@@ -1,6 +1,6 @@
 /****************************************************************
 
-    $Id: _agcep.c,v 1.1 2000/03/01 13:58:28 yossie Exp $
+    $Id: _agcep.c,v 1.1.1.1 2000/03/01 13:58:28 yossie Exp $
 
     Adaptive Generalized Cepstral Analysis
 

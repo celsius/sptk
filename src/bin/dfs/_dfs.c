@@ -1,5 +1,5 @@
 /************************************************************************
-	$Id: _dfs.c,v 1.1 2000/03/01 13:58:31 yossie Exp $								
+	$Id: _dfs.c,v 1.1.1.1 2000/03/01 13:58:31 yossie Exp $								
 	Standard Form Digital Filter					
 	latice digital filter						
 		double dfs(x, a, m, b, n, buf, bufp)			

@@ -1,5 +1,5 @@
 /***********************************************************
- $Id: _zcross.c,v 1.1 2000/03/01 13:58:55 yossie Exp $
+ $Id: _zcross.c,v 1.1.1.1 2000/03/01 13:58:55 yossie Exp $
 	obtain zero coss
 		zcross(x, fl, n)
 

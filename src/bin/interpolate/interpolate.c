@@ -19,7 +19,7 @@
 *		         s-1           p            p			*
 ************************************************************************/
 
-static char *rcs_id = "$Id: interpolate.c,v 1.1 2000/03/01 13:58:38 yossie Exp $";
+static char *rcs_id = "$Id: interpolate.c,v 1.1.1.1 2000/03/01 13:58:38 yossie Exp $";
 
 
 /*  Standard C Libraries  */

@@ -1,6 +1,6 @@
 /****************************************************************
 
-    $Id: _c2acr.c,v 1.1 2000/03/01 13:58:29 yossie Exp $
+    $Id: _c2acr.c,v 1.1.1.1 2000/03/01 13:58:29 yossie Exp $
 
     Transformation Cepstrum to Autocorrelation
 

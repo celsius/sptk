@@ -1,6 +1,6 @@
 /***************************************************************
 
-    $Id: _freqt.c,v 1.1 2000/03/01 13:58:34 yossie Exp $
+    $Id: _freqt.c,v 1.1.1.1 2000/03/01 13:58:34 yossie Exp $
 
     Frequency Transformation
 

@@ -1,6 +1,6 @@
 /****************************************************************
 
-    $Id: _mgcep.c,v 1.1 2000/03/01 13:58:42 yossie Exp $
+    $Id: _mgcep.c,v 1.1.1.1 2000/03/01 13:58:42 yossie Exp $
 
     Mel-Generalized Cepstral Analysis
 

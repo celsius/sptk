@@ -1,5 +1,5 @@
 /***************************************************************
-    $Id: ifftr.c,v 1.1 2000/03/01 13:58:55 yossie Exp $
+    $Id: ifftr.c,v 1.1.1.1 2000/03/01 13:58:55 yossie Exp $
 
     Inverse Fast Fourier Transform for Real Sequence
 

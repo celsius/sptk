@@ -1,5 +1,5 @@
 /***************************************************************
-    $Id: _average.c,v 1.1 2000/03/01 13:58:29 yossie Exp $
+    $Id: _average.c,v 1.1.1.1 2000/03/01 13:58:29 yossie Exp $
 
     Calculation of Average
 

@@ -1,5 +1,5 @@
 /***************************************************************
-    $Id: _rmse.c,v 1.1 2000/03/01 13:58:50 yossie Exp $
+    $Id: _rmse.c,v 1.1.1.1 2000/03/01 13:58:50 yossie Exp $
 
     Calculation of Root Mean Squared Error
 

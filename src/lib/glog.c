@@ -1,5 +1,5 @@
 /****************************************************************
-    $Id: glog.c,v 1.1 2000/03/01 13:58:55 yossie Exp $
+    $Id: glog.c,v 1.1.1.1 2000/03/01 13:58:55 yossie Exp $
 
     Generalized Logarithmic Function (real argument)
 

@@ -25,7 +25,7 @@
 *									*
 ************************************************************************/
 
-static char rcsid[] = "$Id: pitch.c,v 1.1 2000/03/01 13:58:49 yossie Exp $";
+static char rcsid[] = "$Id: pitch.c,v 1.1.1.1 2000/03/01 13:58:49 yossie Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>

@@ -1,5 +1,5 @@
 /***************************************************************
-    $Id: _gc2gc.c,v 1.1 2000/03/01 13:58:34 yossie Exp $
+    $Id: _gc2gc.c,v 1.1.1.1 2000/03/01 13:58:34 yossie Exp $
 
     Generalized Cepstral Transformation	
 

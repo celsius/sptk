@@ -20,7 +20,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: vopr.c,v 1.1 2000/03/01 13:58:51 yossie Exp $";
+static char *rcs_id = "$Id: vopr.c,v 1.1.1.1 2000/03/01 13:58:51 yossie Exp $";
 
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};

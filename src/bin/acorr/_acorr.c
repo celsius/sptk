@@ -1,5 +1,5 @@
 /***********************************************************
-  $Id: _acorr.c,v 1.1 2000/03/01 13:58:26 yossie Exp $
+  $Id: _acorr.c,v 1.1.1.1 2000/03/01 13:58:26 yossie Exp $
 	obtain autocorrelation sequence
 		acorr(x,l,r,np)
 

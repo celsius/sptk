@@ -27,7 +27,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspcheck.c,v 1.1 2000/03/01 13:58:40 yossie Exp $";
+static char *rcs_id = "$Id: lspcheck.c,v 1.1.1.1 2000/03/01 13:58:40 yossie Exp $";
 
 
 typedef enum _Boolean {FA, TR} Boolean;

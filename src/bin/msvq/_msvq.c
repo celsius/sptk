@@ -1,6 +1,6 @@
 /****************************************************************
 
-    $Id: _msvq.c,v 1.1 2000/03/01 13:58:45 yossie Exp $
+    $Id: _msvq.c,v 1.1.1.1 2000/03/01 13:58:45 yossie Exp $
 
     Multi Stage Vector Quantization
 

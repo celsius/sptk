@@ -1,5 +1,5 @@
 /******************************************************
- $Id: _df2.c,v 1.1 2000/03/01 13:58:31 yossie Exp $
+ $Id: _df2.c,v 1.1.1.1 2000/03/01 13:58:31 yossie Exp $
   2nd order standard form digital filter
 	double df2(x,sf,f0p,wbp,f0z,wbz,fp,fz,buf,bufp)
 
