@@ -179,17 +179,18 @@ TOUCH	= touch
 .SUFFIXES: .tex .aux .dvi .ps .pdf .bib .bbl
 
 .tex.aux:
-	$(LATEX) $(SRC)
+	$(LATEX) $<
+	-grep 'Label(s) may have changed.' $*.log > /dev/null && $(RM) $*.dvi
 
 .tex.dvi:
-	$(LATEX) $(SRC)
-	$(TOUCH) $(DVI)
+	$(LATEX) $<
+	$(TOUCH) $@
 
 .dvi.ps:
-	$(DVIPS) $(DVI) > $(PS)
+	$(DVIPS) $< > $@
 
 .ps.pdf:
-	$(PSPDF) $(PS) $(PDF)
+	$(PSPDF) $< $@
 
 
 ############################################################
