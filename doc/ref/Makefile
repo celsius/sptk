@@ -101,11 +101,13 @@ INC  = cmndref.sty \
 	snr.tex \
 	sopr.tex \
 	spec.tex \
+	srcnv.tex \
 	step.tex \
 	swab.tex \
 	train.tex \
 	uels.tex \
 	ulaw.tex \
+	us.tex \
 	vopr.tex \
 	vq.tex \
 	vstat.tex \
