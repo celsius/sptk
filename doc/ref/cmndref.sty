@@ -32,16 +32,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NAME COMMAND
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\name}[2]{
-\renewcommand{\thechapter}{#1}
+\newif\ifwithcite
+\def\name{\withcitefalse\@ifnextchar[{\withcitetrue\@name}{\@name[nocite]}}
+\def\@name[#1]#2#3{
+\renewcommand{\thechapter}{#2}
 \setcounter{equation}{0}
-\addcontentsline{toc}{section}{\protect\makebox[5em][l]{#1} --- 
-\protect\mbox{#2}}
+\addcontentsline{toc}{section}{\protect\makebox[5em][l]{#2} --- 
+\protect\mbox{#3}}
 \markboth
- {\hspace*{1em}{\rm \uppercase{#1}}\hfill 
-   Speech Signal Processing Toolkit\hfill{\rm \uppercase{#1}}}
- {{\rm \uppercase{#1}}\hfill 
-   Speech Signal Processing Toolkit\hfill{\rm \uppercase{#1}}\hspace*{1em}}
+ {\hspace*{1em}{\rm \uppercase{#2}}\hfill 
+   Speech Signal Processing Toolkit\hfill{\rm \uppercase{#2}}}
+ {{\rm \uppercase{#2}}\hfill 
+   Speech Signal Processing Toolkit\hfill{\rm \uppercase{#2}}\hspace*{1em}}
 \subsubsection{NAME}
 \begin{quote}
 \begin{list}{\thechapter}{
@@ -51,10 +53,77 @@
     \setlength{\rightmargin}{0em}
     \setlength{\labelsep}{0em}
 }
-\item[#1] ~~--~ #2
+\item[#2] ~~--~ #3\ifwithcite\cite{#1}\fi
 \end{list}
 \end{quote}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CITATION AND REFERENCES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% from "citesort.sty", with a little modified
+\newcount\@minsofar
+\newcount\@min
+\newcount\@cite@temp
+\def\@citex[#1]#2{%
+\if@filesw \immediate \write \@auxout {\string \citation {#2}}\fi
+\@tempcntb\m@ne \let\@h@ld\relax \def\@citea{}%
+\@min\m@ne%
+\@cite{%
+  \@for \@citeb:=#2\do {\@ifundefined {b@\@citeb}%
+    {\@h@ld\@citea\@tempcntb\m@ne{\bf ?}%
+    \@warning {Citation `\@citeb ' on page \thepage \space undefined}}%
+{\@minsofar\z@ \@for \@scan@cites:=#2\do {%
+  \@ifundefined{b@\@scan@cites}%
+    {\@cite@temp\m@ne}
+    {\@cite@temp\number\csname b@\@scan@cites \endcsname \relax}%% <
+\ifnum\@cite@temp > \@min% select the next one to list
+    \ifnum\@minsofar = \z@
+      \@minsofar\number\@cite@temp
+      \edef\@scan@copy{\@scan@cites}\else
+    \ifnum\@cite@temp < \@minsofar %% >
+      \@minsofar\number\@cite@temp
+      \edef\@scan@copy{\@scan@cites}\fi\fi\fi}\@tempcnta\@min %% <
+  \ifnum\@minsofar > \z@ % some more
+    \advance\@tempcnta\@ne
+    \@min\@minsofar
+    \ifnum\@tempcnta=\@minsofar %   Number follows previous--hold on to it
+      \ifx\@h@ld\relax
+        \edef \@h@ld{\@citea\csname b@\@scan@copy\endcsname}%
+      \else
+       \edef\@h@ld{\ifmmode{]-[}\else]--[\fi\csname b@\@scan@copy\endcsname}%
+      \fi
+    \else \@h@ld\@citea\csname b@\@scan@copy\endcsname
+          \let\@h@ld\relax
+  \fi % no more
+\fi}%
+\def\@citea{],\penalty\@highpenalty\,[}}\@h@ld}{#1}}
+%% end of citesort.sty
+
+\def\@cite#1#2{\leavevmode\unskip
+  \ifnum\lastpenalty=\z@\penalty\@highpenalty\fi% highpenalty before
+  \,[{\multiply\@highpenalty 3 #1%             % triple-highpenalties within
+      \if@tempswa,\penalty\@highpenalty\ #2\fi % and before note.
+    }]\spacefactor\@m}
+
+\def\thebibliography#1{
+ \renewcommand{\thechapter}{References}
+ \addcontentsline{toc}{section}{References}
+ \markboth
+ {\hspace*{1em}{\rm \uppercase{References}}\hfill 
+   Speech Signal Processing Toolkit\hfill{\rm \uppercase{References}}}
+ {{\rm \uppercase{References}}\hfill 
+   Speech Signal Processing Toolkit\hfill{\rm \uppercase{References}}\hspace*{1em}}
+% \subsubsection{REFERENCES}
+ \noindent{\Large\bf REFERENCES}
+ \list
+ {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+ \advance\leftmargin\labelsep
+ \usecounter{enumi}}
+ \def\newblock{\hskip .11em plus .33em minus .07em}
+ \sloppy\clubpenalty4000\widowpenalty4000
+ \sfcode`\.=1000\relax}
+\let\endthebibliography=\endlist
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SYNOPSIS ENVIRONMENT

@@ -114,7 +114,8 @@ INC  = cmndref.sty \
 	x2x.tex \
 	xgr.tex \
 	zcross.tex \
-	zerodf.tex
+	zerodf.tex \
+	ref.tex
 EPSF = fig/bcp.eps \
 	fig/df2.eps \
 	fig/fft2.eps \
