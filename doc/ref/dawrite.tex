@@ -1,0 +1,59 @@
+\name{dawrite}{オーディオデバイスへの書き出し}{DA変換}
+\begin{synopsis}
+\item [dawrite] [ --s $S$ ] [ --c $C$ ] [ --g $G$ ] [ --a $A$ ] [ --o $O$ ] 
+	   [ --w ] [ --H $H$ ] [ --v ] [ +$type$ ] 
+\item [\ ~~~] [ {\em infile1} ] [ {\em infile2} ] ...
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em dawrite}は，指定されたファイルのデータをスピーカーまたはヘッドフォン
+ から再生します．ファイルが指定されなかった場合，データは標準入力から
+ 読み込まれます．
+ ゲインを$G$とすると入力データを$2^G$倍して出力し，振幅ゲインはオーディ
+ オデバイスのゲインを0〜100の間で設定します．指定できる標本化周波数は，
+ オーディオデバイスドライバの対応している値のみとなります．
+ なお，標本化周波数の指定には11.025，22.05，44.1kHzをそれぞれ11，22，
+ 44に省略することができます．
+
+ 16bitオーディオデバイスの使用可能なLinux(i386)とSunOS 4.1.x，SunOS
+ 5.x(SPARC)に対応しています．
+
+ オプションは環境変数で設定することもできます．
+
+\begin{tabular}{ll}
+DA\_SAMPFREQ & 標本化周波数\\
+DA\_GAIN & ゲイン\\
+DA\_AMPGAIN & 振幅ゲイン\\
+DA\_PORT & 出力ポート指定\\
+DA\_HDRSIZE &ヘッダサイズ\\
+DA\_FLOAT & 入力データ型をfloat型にする\\
+\end{tabular}
+
+\end{qsection}
+
+\begin{options}
+	\argm{s}{S}{標本化周波数．（ 8，11.025，16，22.05，32，44.1，48 kHz，但し，linuxでは44.1kHz系統のみ．また，11.025，22.05，44.1は，それぞれ11，22，44に省略可能）}{16}
+	\argm{g}{G}{ゲイン．（..，-2，-1，0，-1，2，..）}{0}
+	\argm{a}{A}{振幅ゲイン．（0..100）指定しない場合はそれまでの設定が適用されます．}{N/A}
+	\argm{o}{O}{出力ポート指定．（s : スピーカ，h : ヘッドフォン．SPARC版のみ有効）}{s}
+	\argm{w}{}{入力データのバイトスワップを行う}{FALSE}
+	\argm{H}{H}{ヘッダサイズ（バイト単位）．}{0}
+	\argm{v}{}{データファイル名を表示．}{FALSE}
+	\argp{type}{入力データ型．（s : short型，f : float型）}{s}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+標本化周波数8kHzの short 型の音声データファイル {\em data.s} をヘッドフォンから
+再生する:
+\begin{quote}
+\verb! dawrite -s 8 -g -1 -o h data.s!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{BUGS}
+linux版では，出力ポートの指定ができません．
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+da, us
+\end{qsection}
