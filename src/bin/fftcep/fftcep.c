@@ -20,6 +20,9 @@
 *		    , c(0), c(1), ..., c(m),				*
 *	require:							*
 *		fftcep()						*
+*	note:								*
+*		When -j & -k options are specified,			*
+*		improved cepstral analysis is performed.		* 
 *									*
 ************************************************************************/
 
@@ -40,7 +43,7 @@ void	fftcep();
 #define ORDER		25
 #define FLNG		256
 #define MAXITR		0
-#define ACCELATION	0
+#define ACCELATION	0.0
 #define EPS		0.0
 
 
@@ -67,8 +70,8 @@ void usage(int status)
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       cepstrum (float)\n");
     fprintf(stderr, "  note:\n");
-    fprintf(stderr, "       when -j & -k options are specified,\n");
-    fprintf(stderr, "       improved cepstral analysis is performed\n");
+    fprintf(stderr, "       When -j & -k options are specified,\n");
+    fprintf(stderr, "       improved cepstral analysis is performed.\n");
     fprintf(stderr, "\n");
     exit(status);
 }
