@@ -12,6 +12,7 @@
 set path        = ( /usr/local/SPTK/bin $path )
 
 set cmnd	= `basename $0`
+
 set file	= ""
 set stdinput    = 1
 
