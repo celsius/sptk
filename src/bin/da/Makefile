@@ -33,6 +33,13 @@ da.o: da.h
 
 install: $(TARGET)
 	$(INSTALL) $(TARGET) $(BIN)
+	for i in *.sh ; do \
+		sed '/path/s:/usr/local/SPTK/bin:'$(BIN)':' $$i > $(BIN)/$$i ; \
+		chmod 755 $(BIN)/$$i ; \
+		j=`basename $$i .sh` ; \
+		$(RM) $$j ; \
+		ln -s $(BIN)/$$i $(BIN)/$$j ; \
+	done
 
 clean:
 	$(RM) $(TARGET) $(OBJS) \#* *~
