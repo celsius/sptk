@@ -1,37 +1,41 @@
-\name{fd}{¥Ð¥¤¥Ê¥ê¥Ç¡¼¥¿¤Î¥À¥ó¥×}{¥Ç¡¼¥¿Áàºî}
+\name{fd}{$B%P%$%J%j%G!<%?$N%@%s%W(B}{$B%G!<%?A`:n(B}
 
 \begin{synopsis}
  \item [fd] [ --a $A$ ] [ --n $N$ ] [ --m $M$ ] [ --{\em ent} ] 
-	    [ +{\em type} ] [ {\em infile} ]
+	    [ +{\em type} ] [ {\em infile} ][ $\%${\em form} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-»ØÄê¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤ÎÁ´¥Ç¡¼¥¿¤ò¡¤»ØÄê¤µ¤ì¤¿¥Õ¥©¡¼¥Þ¥Ã¥È¤Ç¥À¥ó¥×¤·¤Þ¤¹¡¥
-¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Ê¤«¤Ã¤¿¾ì¹ç¡¤¥Ç¡¼¥¿¤ÏÉ¸½àÆþÎÏ¤«¤éÆÉ¤ß¹þ¤Þ¤ì¤Þ¤¹¡¥
+$B;XDj$5$l$?%U%!%$%k$NA4%G!<%?$r!$;XDj$5$l$?%U%)!<%^%C%H$G%@%s%W$7$^$9!%(B
+$B%U%!%$%k$,;XDj$5$l$J$+$C$?>l9g!$%G!<%?$OI8=`F~NO$+$iFI$_9~$^$l$^$9!%(B
 \end{qsection}
 
 \begin{options}
-	\argm{a}{A}{¥¢¥É¥ì¥¹¤Ä¤­¤Ç½ÐÎÏ¡¥ $A$ ¤ÏºÇ½é¤Î¥¢¥É¥ì¥¹¡¥}{0}
-	\argm{n}{N}{ÈÖ¹æÉÕ¤­¤Ç½ÐÎÏ¡¥ $N$ ¤ÏºÇ½é¤ÎÈÖ¹æ¡¥}{0}
-	\argm{m}{M}{ÈÖ¹æÉÕ¤±¤ò¹Ô¤Ê¤¦¾ì¹ç¤Ë $M$ ¤Ë¤è¤ë modulo ¤ò¤È¤ë¡¥}{EOF}
-	\argm{{\em ent}}{}{{\em ent}¤Ï¿ô»ú¤Ç¡¤1¹Ô¤Ë½ÐÎÏ¤¹¤ë¥Ç¡¼¥¿¤Î¸Ä¿ô¡¥}{0}
-	\argp{t}{ÆþÎÏ¥Ç¡¼¥¿¤Î·Á¼°¡¥ \\
+	\argm{a}{A}{$B%"%I%l%9$D$-$G=PNO!%(B $A$ $B$O:G=i$N%"%I%l%9!%(B}{0}
+	\argm{n}{N}{$BHV9fIU$-$G=PNO!%(B $N$ $B$O:G=i$NHV9f!%(B}{0}
+	\argm{m}{M}{$BHV9fIU$1$r9T$J$&>l9g$K(B $M$ $B$K$h$k(B modulo $B$r$H$k!%(B}{EOF}
+	\argm{{\em ent}}{}{{\em ent}$B$O?t;z$G!$(B1$B9T$K=PNO$9$k%G!<%?$N8D?t!%(B}{0}
+	\argp{t}{$BF~NO%G!<%?$N7A<0!%(B \\
 		\begin{tabular}{llcll} \\[-1zh]
-			c & char·¿ (1byte) & \quad &
-			s & short·¿ (2bytes) \\
-			i & int·¿ (4bytes) & \quad &
-			l & long·¿ (4bytes) \\
-			f & float·¿ (4bytes) & \quad &
-			d & double·¿ (8bytes) 
+			c & char$B7?(B (1byte) & \quad &
+			s & short$B7?(B (2bytes) \\
+			i & int$B7?(B (4bytes) & \quad &
+			l & long$B7?(B (4bytes) \\
+			f & float$B7?(B (4bytes) & \quad &
+			d & double$B7?(B (8bytes) 
 		\end{tabular}\\\hspace*{\fill}}{c}
+        \argh{form}{}{$B=PNO$N%U%)!<%^%C%H;XDj!%(B\\
+			C$B8@8l$N(Bprintf$B4X?t$N0z?t$N7A$G=PNO$N%U%)!<%^%C%H$r(B
+			$B;XDj$9$k!%$?$@$7!$F~NO%G!<%?$N7A<0$,(Bf,d
+                        $B$N;~$N$_M-8z!%(B}{N/A}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
- ²»À¼¥Ç¡¼¥¿ sample.wav ¤ò¥¢¥É¥ì¥¹ÉÕ¤­¤Ç¥À¥ó¥×¤¹¤ë¡¥
+ $B2;@<%G!<%?(B sample.wav $B$r%"%I%l%9IU$-$G%@%s%W$9$k!%(B
 \begin{quote}
  \verb!fd -a 0 sample.wav!
 \end{quote}
- ·ë²Ì\\
+ $B7k2L(B\\
 \verb!000000  52 49 46 46 9a 15 00 00 57 41 56 45 66 6d 74 20 |RIFF....WAVEfmt |!\\
 \verb!000010  10 00 00 00 01 00 01 00 40 1f 00 00 40 1f 00 00 |........@...@...|!\\
 \verb!000020  01 00 08 00 64 61 74 61 76 15 00 00 8a 8a 8f 99 |....datav.......|!
