@@ -99,8 +99,6 @@ da: makefiles lib include
 	$(CP) $(SOURCEDIR)/src/bin/da/Makefile $(TARGETDIR)/src/bin/da/Makefile
 	$(CP) $(SOURCEDIR)/src/bin/da/da.c $(TARGETDIR)/src/bin/da/da.c
 	$(CP) $(SOURCEDIR)/src/bin/da/da.h $(TARGETDIR)/src/bin/da/da.h
-	$(CP) $(SOURCEDIR)/src/bin/da/da_10.fir $(TARGETDIR)/src/bin/da/da_10.fir
-	$(CP) $(SOURCEDIR)/src/bin/da/da_12.fir $(TARGETDIR)/src/bin/da/da_12.fir
 
 decimate: makefiles lib include
 	mkdir -p $(TARGETDIR)/src/bin/decimate
@@ -166,7 +164,7 @@ fft: makefiles lib include
 
 fftcep: makefiles lib include fftr
 	mkdir -p $(TARGETDIR)/src/bin/fftcep
-	$(CP) $(SOURCEDIR)/src/bin/fftcep/Makefile $(TARGETDIR)/src/bin/fftgcep/Makefile
+	$(CP) $(SOURCEDIR)/src/bin/fftcep/Makefile $(TARGETDIR)/src/bin/fftcep/Makefile
 	$(CP) $(SOURCEDIR)/src/bin/fftcep/_fftcep.c $(TARGETDIR)/src/bin/fftcep/_fftcep.c
 	$(CP) $(SOURCEDIR)/src/bin/fftcep/fftcep.c $(TARGETDIR)/src/bin/fftcep/fftcep.c
 
