@@ -1,6 +1,6 @@
        *****************************************************
-             Speech Signal Processing Toolkit  Ver 1.0
-                         July 31, 1998
+             Speech Signal Processing Toolkit  Ver 2.0
+                         June 30, 2000
        *****************************************************
 
 The Speech Signal Processing Toolkit (SPTK) was developed and has been
@@ -11,10 +11,10 @@ Technology) at P&I laboratory, Tokyo Institute of Technology.  This
 time some tools are chosen and arranged for distribution by Associate
 Prof. Keiichi Tokuda (currently he is with Department of Computer
 Science, Nagoya Institute of Technology) as an organizer in
-cooperation with Takashi Masuko (he is a Research Associate at P&I
-laboratory, Tokyo Institute of Technology), Dr.  Kazuhito Koishida
-(currently he is a Research Fellow of JSPS), and some graduate
-students.
+cooperation with Takashi Masuko (currently he is a Research Associate
+at Department of Information Processing, Tokyo Institute of
+Technology), Dr. Kazuhito Koishida (currently he is a Research Fellow
+of JSPS), and some graduate students.
 
 The original source codes have been written by many people who took
 part in research of the research group.  The most original source
@@ -23,7 +23,7 @@ data processing, FFT, etc.), Keiichi Tokuda (speech analysis, speech
 synthesis, etc.), and Kazuhito Koishida (LSP, vector quantization,
 etc.).
 
-This version is accompanied by a Reference Manual (a total of 130
+This version is accompanied by a Reference Manual (a total of 180
 pages written in Japanese). The User's Manual will be attached to the
 future release.  We are also planing to translate the manuals into
 English.
@@ -50,7 +50,7 @@ compiled in the following environments:
   SunOS, Solaris, HP-UX, Free-BSD, OSF1, Linux
 
 we have not confirmed that all programs can work properly in all these
-environments since we are debugging them mainly on SunOS and HP-UX.
+environments.
 
 Note that some commands need C-shell (/bin/csh) since they are
 implemented by C-shell scripts.
@@ -96,7 +96,7 @@ cannot assure that we will reply to all messages.
 
 Please see
 
-   http://kt-lab.ics.nitech.ac.jp/~tokuda/SPTK/
+   http://kt-lab.ics.nitech.ac.jp/~tokuda/SPTK-2.0/
 
 for more information about the Speech Signal Processing Toolkit,
 (e.g., Examples for using Speech Signal Processing Toolkit).
@@ -130,9 +130,17 @@ vi) Options are specified on the command line.
     Credits
 ***************
 
-Masatsune Tamura
+Chiyomi Miyajima        PhD student, Nagoya Institute of Technology
+Masatsune Tamura        PhD student, Tokyo Institute of Technology
+Takayoshi Yoshimura     PhD student, Nagoya Institute of Technology
+Shinji Sako             PhD student, Nagoya Institute of Technology
+Yoshihiko Nankaku       PhD student, Nagoya Institute of Technology
 Toshihiko Kato
 Gou Hirabayashi
-Naohiro Isshiki
+Naohiro Isshiki         Currently, Office Design Dept.351, Canon Inc.
 Noboru Miyazaki
+Toshio Kanno
+Kenji Chiba             Currently, Fuji Xerox Co. Ltd.
+Toshiaki Fukada         Currently, Canon Inc.
 
+and so on
