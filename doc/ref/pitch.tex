@@ -1,7 +1,7 @@
 \name{pitch}{$B%T%C%ACj=P(B}{$B?.9f=hM}(B}
 
 \begin{synopsis}
-\item[pitch] [ --s $S$ ] [ --l $L$ ] [ --a $A$ ] [ --t $T$ ]
+\item[pitch] [ --s $S$ ] [ --l $L$ ] [ --t $T$ ]
  [ --L $Lo$ ] [ --H $Hi$ ] [ --e $E$ ]
 \item[\ ~~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ {\em infile} ] 
 \end{synopsis}
@@ -20,18 +20,16 @@
 $S / 10 \times 25$ $B<!$N%1%W%9%H%i%`(B
 $B$+$iF@$i$l$kBP?t%9%Z%/%H%kJqMm(B $\hat{g}_i(\Omega_k)$ $B$N4pK\<~GH?tBS0hItJ,(B
 $B$NJ?6QCM(B $v_i$ $B$rMxMQ$7$^$9!%(B
-FFT $B%5%$%:(B $N$ $B$O(B $L$ $B$h$jBg$-$$(B2$B$N$Y$->h$H$7$^$9!%(B
 
 \begin{displaymath}
 v_i = \frac{1}{14 n}\sum_{k = 4 n}^{17 n}\hat{g}_i(\Omega_k),~~~~~ (\Omega_k = \frac{2 \pi k}{N},n = N /256)
 \end{displaymath}
 
+$B$3$3$G!$(BFFT $B%5%$%:(B $N$ $B$O(B $L$ $B$h$jBg$-$$(B2$B$N$Y$->h$H$7$^$9!%(B
+
 $BM-@<2;(B $(v_i > T)$ $B$N>l9g$O!$(B
-$B%1%W%9%H%i%`$K%W%l%(%s%U%!%7%9%U%#%k%?(B
-\begin{displaymath}
-H(z) = 1 - Az^{-1}
-\end{displaymath}
-$B$r3]$1!$<~GH?t(B $Lo$ (Hz) $B$+$i(B $Hi$ (Hz) $B$N4V$N%T!<%/$r5a$a$^$9!%(B
+FFT$B%1%W%9%H%i%`(B $c(m)$ $B$r(B $c(m) \times m$ $B$HJQ49$7!"(B
+$B<~GH?t(B $Lo$ (Hz) $B$+$i(B $Hi$ (Hz) $B$N4V$N%T!<%/$r5a$a$^$9!%(B
 $BL5@<2;(B $(vi < T)$ $B$N>l9g$O(B $0$ $B$r=PNO$7$^$9!%(B
 
 \end{qsection}
@@ -39,7 +37,6 @@ H(z) = 1 - Az^{-1}
 \begin{options}
 	\argm{s}{S}{$B%5%s%W%j%s%0<~GH?t(B (kHz)$B!%(B}{10}
 	\argm{l}{L}{$BF~NO%G!<%?$N%U%l!<%`D9!%(B}{400}
-	\argm{a}{A}{$B%W%l%(%s%U%!%7%9%U%#%k%?78?t!%(B}{0.95}
 	\argm{t}{T}{$BM-@<2;(B/$BL5@<2;$NogCM!%(B}{6.0}
 	\argm{L}{Lo}{$B4pK\<~GH?t$N:G>.CM(B (Hz)$B!%(B}{60}
 	\argm{H}{Hi}{$B4pK\<~GH?t$N:GBgCM(B (Hz)$B!%(B}{240}
@@ -57,5 +54,5 @@ float $B7A<0$N2;@<%G!<%?(B($B%5%s%W%j%s%0<~GH?t(B 10kHz) {\em data.f} $B$r$
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
-  excite, lpc, mgc2mgc
+  excite
 \end{qsection}
