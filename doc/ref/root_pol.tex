@@ -1,8 +1,8 @@
 \name{root\_pol}{多項式の根を求める}{信号処理}
 
 \begin{synopsis}
-\item [root\_pol] [ --e $E$ ] [ --n $N$ ] [ --i ] [ --j ] [ --r ] [ --s ] 
-		  [ {\em infile} ] 
+\item [root\_pol] [ --m $M$ ] [ --n $N$ ] [ --e $E$ ] [ --i ]
+ [ --s ] [ --r ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -36,13 +36,13 @@
 \end{qsection}
 
 \begin{options}
-	\argm{e}{E}{根の許容誤差 $\varepsilon$．}{$10^{-10}$}
-	\argm{n}{N}{根を探索する際の最大反復回数．}{200}
+	\argm{m}{M}{多項式の次数．}{32}
+	\argm{n}{N}{根を探索する際の最大反復回数．}{1000}
+	\argm{e}{E}{根の許容誤差 $\varepsilon$．}{$10^{-14}$}
 	\argm{i}{}{$a_0 = 1$ にする．}{FALSE}
-	\argm{j}{}{多項式の次数．}{}
-	\argm{r}{}{出力する根を極形式（絶対値,偏角）にする．}{（実部,虚部）}
 	\argm{s}{}{係数を逆順にする．つまり，根の位置 $z_0$ を $1/z_0^*$ と
 			置き換えることを意味する．}{FALSE}
+	\argm{r}{}{出力する根を極形式（絶対値,偏角）にする．}{（実部,虚部）}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

@@ -1,7 +1,7 @@
 \name{window}{窓をかける}{信号処理,音声分析合成関連}
 
 \begin{synopsis}
-\item[window] [ --l $L$ ] [ --L $Lo$] [ --n $N$ ] [ --w $W$ ] [ {\em infile} ]
+\item[window] [ --l $L_1$ ] [ --L $L_2$] [ --n $N$ ] [ --w $W$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -10,20 +10,20 @@
 つまり，
 入力数列を
 \begin{displaymath}
-  x(0), x(1), \ldots, x(L-1)
+  x(0), x(1), \ldots, x(L_1-1)
 \end{displaymath}
 窓を
 \begin{displaymath}
-  w(0), w(1), \ldots, w(L-1)
+  w(0), w(1), \ldots, w(L_1-1)
 \end{displaymath}
 として，
 \begin{displaymath}
-  x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L-1)\cdot w(L-1)
+  x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1)
 \end{displaymath}
 が出力されます．
-$Lo$が$L$より大きい場合は0が付加され，
+$L_2$が$L_1$より大きい場合は0が付加され，
 \begin{displaymath}
-  \underbrace{x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L-1)\cdot w(L-1),0,\ldots,0}_{Lo}
+  \underbrace{x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1),0,\ldots,0}_{L_2}
 \end{displaymath}
 が出力されます．
 
@@ -31,8 +31,8 @@ $Lo$が$L$より大きい場合は0が付加され，
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{窓の長さ． $(L\leq 2048)$}{256}
-	\argm{L}{Lo}{出力の長さ．}{L}
+	\argm{l}{L_1}{窓の長さ． $(L\leq 2048)$}{256}
+	\argm{L}{L_2}{出力の長さ．}{$L_1$}
 	\argm{n}{N}{正規化． \\
 			\begin{tabular}{ll}\\ [-1zh]
 			 0 & 正規化しない．\\

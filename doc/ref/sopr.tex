@@ -1,11 +1,10 @@
 \name{sopr}{スカラ演算を行う}{数値演算}
 
 \begin{synopsis}
-\item[sopr]   [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] 
-              [ --ABS ] [ --INV ] [ --P ] 
-\item[\ ~~~~] [ --R ] [ --SQRT ] [ --LN ] [ --LOG10 ] [ --EXP ] [ --POW10 ] 
-\item[\ ~~~~] [ --FIX ] [ --CLIP ] [ --SIN ] [ --COS ] [ --UNIT ] 
-[ {\em infile} ]
+\item[sopr]   [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [ --ABS ] [ --INV ]
+\item[\ ~~~~]  [ --P ] [ --R ] [ --SQRT ] [ --LN ] [ --LOG10 ] [ --EXP ] [ --POW10 ] 
+\item[\ ~~~~] [ --FIX ] [ --UNIT ] [ --CLIP ] [ --SIN ] [ --COS ] [ --TAN ] 
+\item[\ ~~~~] [ --ATAN ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -40,6 +39,8 @@
 	\argm{UNIT}{}{ユニットステップ．$u(x)$}{FALSE}
 	\argm{SIN}{}{正弦．$y=\sin(x)$}{FALSE}
 	\argm{COS}{}{余弦．$y=\cos(x)$}{FALSE}
+	\argm{TAN}{}{正接．$y=\tan(x)$}{FALSE}
+	\argm{ATAN}{}{逆正接．$y=\atan(x)$}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
