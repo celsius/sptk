@@ -1,22 +1,22 @@
 /**********************************************************************
 
-    $Id: _pitch.c,v 1.3 2000/04/06 08:57:57 mtamura Exp $
+    $Id: _pitch.c,v 1.4 2000/05/19 07:22:45 mtamura Exp $
 
     Pitch Extract
 
-   	double pitch(xw, freq, l, a, thresh, L, H, eps, m1, m2, alpha);
+        double pitch(xw, l, a, thresh, low, high, eps, m, itr1, itr2, end)
 
 	double *xw    : windowed data sequence
-	int    freq   : sampling frequency
 	int    l      : frame length (fft size)
 	double a      : pre-emphasis coefficients
 	double thresh : voiced/unvoiced threshold
-	int    L      : minmum fundamental frequency to search for
-	int    H      : maximum fundamental frequency to search for
+	int    low    : minmum points to search for
+	int    high   : maximum points to search for
 	double eps    : small value for log
-	int    m1     : order of LPC
-	int    m2     : order of mel cepstrum
-	double alpha  : all-pass constant
+	int    m      : order of cepstrum
+	int    itr1   : minimum number of iteration
+	int    itr2   : maximum number of iteration
+	double end    : end condition
 
 ************************************************************************/
 
@@ -26,40 +26,34 @@
 
 /*  Required Functions  */
 int fftr();
-int lpc();
-void ignorm();
-void mgc2mgc();
+int uels();
 double log();
 
 
-double pitch(xw, freq, l, a, thresh, L, H, eps, m1, m2, alpha)
-double *xw, a, thresh, eps, alpha;
-int freq, l, L, H, m1, m2;
+double pitch(xw, l, a, thresh, low, high, eps, m, itr1, itr2, end)
+double *xw, a, thresh, eps, end;
+int l, low, high, m, itr1, itr2;
 {
-    static double *x = NULL,*y,*z, *c;
+    static double *x = NULL,*y, *c;
     double voiced,max,p,log();
-    int i, low, high;
+    int i;
 
     if(x == NULL){
-	x = dgetmem(3*l+m1+1);
+	x = dgetmem(3*l);
 	y = x + l;
-	z = y + l;
-	c = z + l;
+	c = y + l;
     }
 
     movem(xw,x,sizeof(*x),l);
 
 /* voiced/unvoiced detection */
-    lpc(x, l, c, m1);
-    ignorm(c, c, m1, -1.0);
-    for(i = m1;i >= 1; i--) c[i] /= -1.0;
-    mgc2mgc(c, m1, 0.0, -1.0, z, m2, alpha, 0.0);
-    fillz(z+m2,l-m2,sizeof(double));
-    fftr(z,y,l);
+    uels(x, l, c, m, itr1, itr2, end, eps); 
+    fillz(c+m,l-m,sizeof(double));
+    fftr(c,y,l);
 
     voiced = 0.0;
     for(i=4*l/256;i<=17*l/256;i++)
-	voiced += z[i];
+	voiced += c[i];
     voiced /= 14 * l / 256;
 
     fftr(x, y, l);
@@ -77,10 +71,7 @@ int freq, l, L, H, m1, m2;
 	for(i=0; i<l; i++)
 	    x[i] /= l;
 
-	max = 0;
-	low = freq * 1000 / H;
-	high = freq * 1000 / L;
-
+	max = 0.0;
 	for(i=low; i<high; i++)
 	    if(max < x[i]){
 		p = (float)i;
