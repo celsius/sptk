@@ -1,5 +1,5 @@
 \name[ref:mgcep-IEICE,ref:mgcep-ICSLP94]{mgcep}%
-{$B%a%k0lHL2=%1%W%9%H%i%`J,@O(B}{$B2;@<J,@O(B}
+{mel-generalized cepstral analysis}{speech analysis}
 
 \begin{synopsis}
 \item[mgcep]   [ --a $A$ ] [ --g $G$ ] [ --m $M$ ] [ --l $L$ ] 
@@ -9,19 +9,22 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$B%a%k0lHL2=%1%W%9%H%i%`J,@O$r9T$$$^$9!%(B
-$BJ,@O7k2L$O!$(B{\bf --o} $B%*%W%7%g%s$N;XDj$K=>$C$?7A<0$G!$(B
-$BI8=`=PNO$K=PNO$7$^$9!%(B
-$BF~NO$OAk3]$1$5$l$?D9$5(B $L$ $B$N;~7ONs(B
+
+This command undertakes the mel-generalized cepstrum analysis.
+The resulting analysis is outputed to the standard output
+taking into consideration the option assigned to {\bf --o}.
+When input signal has length $L$,
+then the time sequence is given by
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
 \end{displaymath}
-$B$G$9!%(B
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+Input and output data are in float format.
 \par
-$B%a%k0lHL2=%1%W%9%H%i%`J,@O$G$O!$2;@<$N%9%Z%/%H%k$r(B $M$ $B<!$N(B
-$B%a%k0lHL2=%1%W%9%H%i%`(B $c_{\alpha, \gamma}(m)$ $B$K$h$j(B
+In the mel-generalized cepstrum analysis, the spectrum of the speech signal
+is modeled by $M$ order mel-generalized cepstrum
+coefficients $c_{\alpha, \gamma}(m)$
+as follows.
 \begin{eqnarray*}
 H(z) &=& s_\gamma^{-1}\left(
 	\sum_{m=0}^M c_{\alpha, \gamma}(m)z^{-m} \right) \\
@@ -32,22 +35,26 @@ H(z) &=& s_\gamma^{-1}\left(
 		& \gamma=0
 	\end{array} \right.
 \end{eqnarray*}
-$B$H%b%G%k2=$7!$BP?t%9%Z%/%H%k$NITJP?dDjK!(B
-$B$K$*$1$kI>2A4X?t$rE,MQ$7$^$9!%(B
-$B$3$3$G!$(B $\tilde{z}^{-1}$ $B$O(B1$B<!$N%*!<%k%Q%94X?t(B
+For this command ``mcep'', it is applied a cost function
+based on the unbiased estimation log spectrum method.
+The valiable $\tilde{z}^{-1}$ can be expressed as the following
+first order all-pass function
 \begin{displaymath}
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
 \end{displaymath}
-$B$G$"$j!$$=$N0LAjFC@-$OI8K\2=<~GH?t(B10kHz$B$N>l9g(B $\alpha=0.35$ $B!$(B
-$BI8K\2=<~GH?t(B8kHz$B$N>l9g(B $\alpha=0.31$ $B$HA*$Y$P!$(B
-$B?M4V$N2;$N9b$5$KBP$9$kD03PFC@-$rI=$9%a%k<\EY$r$h$/6a;w$7$^$9!%(B
+The phase characteristic is given by the valiable $\alpha$.
+For a sampling rate 10kHz, $\alpha$ is made equal to $0.35$.
+For a smmpling rate 8kHz, $\alpha$ is mde equal to $0.31$.
+By making these choices for $\alpha$,
+the mel-scale becomes the good approximation to human
+sensitivity to the roudness speech sound.
 \par
-$B$3$3$G$O!$I>2A4X?t$r:G>.$K$9$k%a%k0lHL2=%1%W%9%H%i%`$r5a$a$k$?$a$K!$(B
-Newton--Raphson$BK!$,MQ$$$i$l$F$$$^$9!%(B
+The Newton-Raphson method is used to minimize the cost function
+when evaluating mel-cepstrum coefficients.
 \par
-$B%a%k0lHL2=%1%W%9%H%i%`J,@O$O!$(B$\alpha$ $B5Z$S(B $\gamma$ $B$NCM$K$h$j!$(B
-$BB>$N$$$/$D$+$N2;@<J,@OK!$rFCJL$J>l9g$H$7$F4^$_$^$9!%(B
-$B$3$l$i$N4X78$O?^(B \ref{fig:mgcep_overview} $B$N$h$&$KI=$9$3$H$,$G$-$^$9(B.
+The mel-generalized cepstrum analysis includes several other
+methods to analyze speech, depending on the values of $\alpha$
+and $\gamma$(refer to figure \ref{fig:mgcep_overview}).
 
 \setcounter{figure}{0}
 \begin{figure}
@@ -71,17 +78,17 @@ Newton--Raphson$BK!$,MQ$$$i$l$F$$$^$9!%(B
     \put(90,30){\oval(140,20)[tl]}
     \put(110,30){\oval(40,20)[tr]}
     \put(100,40){\makebox(0,0){$\gamma=0$}}
-    \put(42.5,75){\makebox(0,0){{\gt $B0lHL2=%1%W%9%H%i%`J,@O(B}}}
-    \put(47.5,55){\makebox(0,0){{\gt $B@~7AM=B,K!(B}}}
+    \put(42.5,75){\makebox(0,0){{\gt generalized cepstrum analysis}}}
+    \put(47.5,55){\makebox(0,0){{\gt LPC analysis}}}
     \put(47.5,30){\makebox(0,0){
-      \shortstack{{\gt $BBP?t%9%Z%/%H%k$N(B}\\{\gt $BITJP?dDjK!(B}}}}
+      \shortstack{{\gt unbiased estimation}\\{\gt of log spectrum}}}}
     \put(107.5,80){\makebox(0,0){
-	\underline{\gt $B%a%k0lHL2=%1%W%9%H%i%`J,@O(B}}}
-    \put(102.5,55){\makebox(0,0){{\gt $B%a%k@~7AM=B,K!(B}}}
+	\underline{\gt mel-generalized cepstrum analysis}}}
+    \put(102.5,55){\makebox(0,0){{\gt mel-LPC analysis}}}
     \put(102.5,30){\makebox(0,0){
-			{\gt $B%a%k%1%W%9%H%i%`J,@O(B}}}
+			{\gt mel-cepstrum analysis}}}
   \end{picture}
-\caption{$B%a%k0lHL2=%1%W%9%H%i%`J,@O$HB><jK!$H$N4X78(B}
+\caption{mel-generalized cepstrum analysis and other method relations}
 \label{fig:mgcep_overview}
 \end{center}
 \end{figure}
@@ -89,76 +96,71 @@ Newton--Raphson$BK!$,MQ$$$i$l$F$$$^$9!%(B
 
 \newpage
 \begin{options}
-	\argm{a}{A}{$B<~GH?t05=L%Q%i%a!<%?(B $\alpha$ $B!%(B}{0.35}
-	\argm{g}{G}{$B0lHL2=%1%W%9%H%i%`$N$Y$-%Q%i%a!<%?(B $\gamma$$B!%(B\\
-			 $B$?$@$7!$(B$G>1.0$ $B$N$H$-$O(B $\gamma=-1/G$$B!%(B}{0}
-	\argm{m}{M}{$BJ,@O<!?t!%(B}{25}
-	\argm{l}{L}{FFT $B$NE@?t!%(B2 $B$N$Y$->h?t$G;XDj!%(B}{256}
-	\argm{o}{O}{$O = 0$ $B$N$H$-(B
+	\argm{a}{A}{alpha $\alpha$}{0.35}
+	\argm{g}{G}{power parameter of generalized cepstrum $\gamma$бе\\
+			 if $G>1.0$ then $\gamma=-1/G$.}{0}
+	\argm{m}{M}{order of mel-generalized cepstrum}{25}
+	\argm{l}{L}{frame length power of 2}{256}
+	\argm{o}{O}{output data style\\
+                        $O = 0$:
 			\begin{displaymath}
 			  c_{\alpha, \gamma}(0), c_{\alpha, \gamma}(1), 
 			  \ldots, c_{\alpha, \gamma}(M)
 			\end{displaymath}
-			$O = 1$ $B$N$H$-(B
+			$O = 1$:
 			\begin{displaymath}
 			  b_\gamma(0), b_\gamma(1), \ldots, b_\gamma(M)
 			\end{displaymath}
-			$O = 2$ $B$N$H$-(B
+			$O = 2$:
 			\begin{displaymath}
 			  K_\alpha, c_{\alpha, \gamma}'(1), 
 			  \ldots, c_{\alpha, \gamma}'(M)
 			\end{displaymath}
-			$O = 3$ $B$N$H$-(B
+			$O = 3$:
 			\begin{displaymath}
 			  K, b_\gamma'(1), \ldots, b_\gamma'(M)
 			\end{displaymath}
-			$O = 4$ $B$N$H$-(B
+			$O = 4$:
 			\begin{displaymath}
 			  K_\alpha, \gamma\,c_{\alpha, \gamma}'(1), \ldots,
 			\gamma\,c_{\alpha, \gamma}'(M)
 			\end{displaymath}
-			$O = 5$ $B$N$H$-(B
+			$O = 5$:
 			\begin{displaymath}
 			  K, \gamma\,b_\gamma'(1), \ldots, 
 			  \gamma\,b_\gamma'(M)
-			\end{displaymath}
-			$B$,I8=`=PNO$K=PNO$5$l$^$9!%(B}{0}
-	\desc[1zh]{$BDL>o!$0J2<$N%*%W%7%g%s$N;XDj$OI,MW$"$j$^$;$s!%(B}
-	\argm{i}{I}{Newton-Raphson$BK!$N:G>.H?I|2s?t!%(B}{2}
-	\argm{j}{J}{Newton-Raphson$BK!$N:GBgH?I|2s?t!%(B}{30}
-	\argm{d}{D}{Newton-Raphson $BK!$N=*N;>r7o!%(B
-			$B%G%U%)%k%H$O(B$D=0.001$ $B$G!$(B
-			$B$3$N$H$-(B$\varepsilon^{(i)}$ $B$N7+$jJV$7$K$h$kJQ2=N($,(B
-			$0.001$ $B$D$^$j(B$0.1\%$ $B0JFb$K$J$C$?$H$-=*N;$7$^$9!%(B
-			}{0.001}
-	\argm{p}{P}{$B:F5"<0$NBG$A@Z$j<!?t!%(B
-			$BFC$K!$=hM};~4V$rC;$/$7$?$$>l9g0J30!$(B$P$ $B$N;XDj$OI,MW$"$j$^$;$s!%(B
-			}{$L-1$}
-	\argm{e}{E}{$B%T%j%*%I%0%i%`$KB-$79~$`>.$5$JCM(B}{0}	
+			\end{displaymath}}{0}
+	\desc[1zh]{Usually, the options below do not need to be assigned.}
+	\argm{i}{I}{minimum iteration of Newton-Raphson method}{2}
+	\argm{j}{J}{maximum iteration of Newton-Raphson method}{30}
+	\argm{d}{D}{end condition of Newton-Raphson method}{0.001}
+	\argm{p}{P}{order of recursions}{$L-1$}
+	\argm{e}{E}{small value added to periodgram}{0}	
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float $B7A<0$N2;@<%G!<%?(B{\em data.f} $B$r(B$\gamma=0$, $\alpha=0$
- ($B$D$^$jBP?t%9%Z%/%H%k$NITJP?dDjK!(B)$B$GJ,@O$7!$(B{\em data.cep} $B$K(B
-$B%1%W%9%H%i%`78?t$rF@$k(B:
+In the following speech data in float format is read
+from {\em data.f} and analyzed with $\gamma=0$, $\alpha=0$
+(which corresspond to UELS method for log spectrum estimation)
+and the resulting cepstrum coefficients are written {\em data.cep}:
 \begin{quote}
   \verb!frame < data.f | window | mgcep > data.cep !
 \end{quote}
 \par
-$BF1MM$K%a%k%1%W%9%H%i%`78?t$r(B{\em data.mcep} $B$KF@$k(B:
+In the same way if we want mel-cepstrum coefficients:
 \begin{quote}
  \verb!frame < data.f | window | mgcep -a 0.35 > data.mcep !
 \end{quote}
 \par
-$BF1MM$K@~7AM=B,78?t$r(B{\em data.lpc} $B$KF@$k(B:
+If we want linear prediction coefficients:
 \begin{quote}
   \verb!frame < data.f | window | mgcep -g -1 -o 5 > data.lpc !
 \end{quote}
-$B$3$N:]!$M=B,78?t$O!$(B
+In this case the linear prediction coefficients are written
+in the following representation.
 \begin{displaymath}
   K, a(1), a(2), \ldots, a(M)
 \end{displaymath}
-$B$N7A<0$GF@$i$l$^$9!%(B
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

@@ -1,4 +1,4 @@
-\name{merge}{$B%U%l!<%`$X$N%G!<%?$NA^F~(B}{$B%G!<%?A`:n(B}
+\name{merge}{data merge}{operation}
 
 \begin{synopsis}
  \item[merge] [ --s $S$ ] [ --l $L_1$ ] [ --n $N_1$ ] [ --L $L_2$ ]
@@ -7,53 +7,75 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BI8=`F~NO$+$iF~NO$5$l$?%G!<%?$N%U%l!<%`Kh$K!$;XDj$5$l$?%U%!%$%k$N%U%l!<%`$r(B
-$BA^F~$9$k$+!$$=$N%U%l!<%`$G=q$-49$($^$9!%(B
-
+This command reads data from the standard input {\em infile}
+and from the assigned input {\em file1} for every frame of the
+file {\em infile}, a frame of {\em file1} is inserted or
+overwritten as shown in the figure below.
 
 \hspace{1cm}\epsffile{fig/merge.eps}
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S}{$B%U%l!<%`$N@hF,$+$i$NA^F~3+;OE@!$Kt$O=q$-49$(3+;OE@!%(B}{0}
-	\argm{l}{L_1}{$BF~NO%G!<%?$N%U%l!<%`D9!%(B}{25}
-	\argm{n}{N_1}{$BF~NO%G!<%?$N<!?t!%F~NO%G!<%?$N%U%l!<%`D9$O(B $N_1+1$ $B$K$J$j$^$9(B.}{$L_1-1$}
-	\argm{L}{L_2}{$BA^F~$9$k%G!<%?$N%U%l!<%`D9!%(B}{10}
-	\argm{N}{N_2}{$BA^F~%G!<%?$N<!?t!%A^F~%G!<%?$N%U%l!<%`D9$O(B $N_2+1$ $B$K$J$j$^$9(B.}{$L_2-1$}
-	\argm{o}{}{$B>e=q$-(B($B=q$-49$((B)$B%b!<%I!%(B}{FALSE}
-	\argp{t}{$BF~NO%G!<%?$N7A<0!%(B\\ 
+      -s s  : insert point                [0]
+       -l l  : frame length of input data  [25]
+       -n n  : l - 1                       [24]
+       -L L  : frame length of insert data [10]
+       -N N  : L - 1                       [9]
+       -o    : over write mode             [FALSE]
+       +type : data type                   [f]
+                c (char)      s (short)
+                i (int)       l (long)
+                f (float)     d (double)
+       -h    : print this message
+	\argm{s}{S}{insert point}{0}
+	\argm{l}{L_1}{frame length of input data}{25}
+	\argm{n}{N_1}{order of input data}{$L_1-1$}
+	\argm{L}{L_2}{frame length of insert data}{10}
+	\argm{N}{N_2}{order of insert data}{$L_2-1$}
+	\argm{o}{}{overwrite mode}{FALSE}
+	\argp{t}{input data format\\ 
 		\begin{tabular}{llcll} \\[-1zh]
-			c & char$B7?(B (1byte) & \quad &
-			s & short$B7?(B (2bytes) \\
-			i & int$B7?(B (4bytes) & \quad &
-			l & long$B7?(B (4bytes) \\
-			f & float$B7?(B (4bytes) & \quad &
-			d & double$B7?(B (8bytes) \\
+			c & char (1byte) & \quad &
+			s & short (2bytes) \\
+			i & int (4bytes) & \quad &
+			l & long (4bytes) \\
+			f & float (4bytes) & \quad &
+			d & double (8bytes) \\
 		\end{tabular}\\\hspace*{\fill}}{f}
 \end{options}
 
 
-\begin{qsection}{EXAPMLE}
-short$B7?$N%U%!%$%k(B {\em data.f1}$B$N%U%l!<%`D9(B3$B$N3F%U%l!<%`$N(B3$BHVL\$+$i!$(B
-short$B7?$N%U%!%$%k(B{\em data.f2}$B$N(B
-$B%G!<%?$r(B2$B8D$E$DA^F~$7$F(B{\em data.merge}$B$K=PNO$9$k(B:
+\begin{qsection}{EXAMPLE}
+The following example inserts blocks of 2 samples from {\em data.f2}
+in short format into {\em data.f1}, also in short format,
+the frame length of the file {\em data.f1} is 3, and the blocks
+from {\em data.f2} will be inserted from the 3rd sample of
+every frame.
+The result is {\em data.merge}.
 \begin{quote}
  \verb!merge -s 2 -l 3 -L 2 +s data.f2 < data.f1 > data.merge!
 \end{quote}
-$BNc$($P!$%U%!%$%k(B{\em data.f1}$B$K(B $1,1,1,2,2,2,\cdots$$B!$%U%!%$%k(B{\em data.f2}$B$K(B
-$2,3,5,6,\cdots$ $B$,$=$l$>$lF~$C$F$$$?>l9g!$%U%!%$%k(B{\em data.merge}$B$NCf$K$O!$(B
+For example, if the {\em data.f1} file is 
+\[ 1,1,1,2,2,2,\cdots \]¡¤
+and the {\em data.f2} file is 
+\[ 2,3,5,6,\cdots \]
+then the output {\em data.merge} will be 
 \[ 1,1,2,3,1,~ 2,2,5,6,2,\cdots \] 
-$B$,F@$i$l$^$9!#(B\\
 
-long$B7?$N%U%!%$%k(B {\em data.f1} $B$N%U%l!<%`D9(B4$B$N3F%U%l!<%`$N(B2$BHVL\$+$i$r!$(B
-long$B7?$N%U%!%$%k(B {\em data.f2} $B$N%G!<%?$G(B2$B8D$E$D=q$-49$($F(B
-{\em data.merge} $B$K=PNO$9$k(B:
+The next example overwrites blocks of 2 samples from {\em data.f2}
+in long format into {\em data.f1}, also in long format,
+the frame length of the file {\em data.f1} is 4, and the blocks
+from {\em data.f2} will be inserted from the 2nd sample of
+every frame.
+The result is {\em data.merge}.
 \begin{quote}
- \verb!merge -s 2 -l 5 -L 2 +l -o data.f2 < data.f1 > data.merge!
+ \verb!merge -s 2 -l 4 -L 2 +l -o data.f2 < data.f1 > data.merge!
 \end{quote}
-$BNc$($P!$%U%!%$%k(B{\em data.f1}$B$K(B $1,1,1,1,2,2,2,2,\cdots$$B!$(B
-$B%U%!%$%k(B{\em data.f2}$B$K(B$3,4,5,6,\cdots$ $B$,$=$l$>$lF~$C$F$$$?>l9g!$(B
-$B%U%!%$%k(B{\em data.merge}$B$NCf$K$O(B
-\[ 1,3,4,1,~ 2,5,6,2,\cdots \]
-$B$,F@$i$l$^$9!%(B\\
+For example, if the {\em data.f1} file is 
+\[ 1,1,1,1,2,2,2,2,\cdots \]¡¤
+and the {\em data.f2} file is 
+\[ 3,4,5,6,\cdots \]
+then the output {\em data.merge} will be 
+\[  1,3,4,1,~ 2,5,6,2,\cdots \] 
+
 \end{qsection}
