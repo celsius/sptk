@@ -69,7 +69,7 @@ if ( $opt_n == undef ) {
 	open(MAKEIN, "$opt_b/doc/ref/Makefile") || die "cannot open $opt_b/doc/ref/Makefile";
 	open(MAKEOUT, "> $opt_d/Makefile") || die "cannot open $opt_d/Makefile";
 	while ( <MAKEIN> ) {
-		last if ( /INC/ );
+		last if ( /^INC/ );
 		print MAKEOUT;
 	}
 	print MAKEOUT "INC  = cmndref.sty";
