@@ -90,7 +90,7 @@ X-windowのライブラリを利用しているのは，コマンドxgrのみですので，xgr
 
 また，本ツールキットに関する情報は，
 
-   http://kt-lab.ics.nitech.ac.jp/~tokuda/SPTK-2.0/
+   http://kt-lab.ics.nitech.ac.jp/~tokuda/SPTK/
 
 にて，公開していく予定です．現在，「音声信号処理ツールキットの使用例」
 (Examples of Using Speech Signal Processing Toolkit)を見ることができま
