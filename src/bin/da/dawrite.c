@@ -26,7 +26,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.3 2000/07/17 13:39:34 masuko Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.4 2002/07/10 13:45:11 masuko Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -91,9 +91,9 @@ float		ampgain = -1;
 int		byteswap = 0;
 size_t		abuf_size;
 
-#ifdef LINUX
+#if defined(LINUX) || defined(FreeBSD)
 int	org_vol, org_channels, org_precision, org_freq;
-#endif /* LINUX */
+#endif /* LINUX or FreeBSD */
 
 #if defined(SOLARIS) || defined(SUNOS)
 audio_info_t	org_data;
@@ -315,14 +315,18 @@ int	leng;
 void init_audiodev(dtype)
 int	dtype;
 {
-#ifdef LINUX
+#if defined(LINUX) || defined(FreeBSD)
 	int arg;
 
 	if( (adfp = fopen( AUDIO_DEV, "w")) == NULL){
 		fprintf( stderr, "%s: can't open audio device\n", cmnd);
 		exit(1);
 	}
+#ifdef LINUX
 	ADFD = adfp->_fileno;
+#else /* FreeBSD */
+	ADFD = adfp->_file;
+#endif
 	ACFD = open( MIXER_DEV, O_RDWR, 0);
 
 	ioctl(ADFD, SNDCTL_DSP_GETBLKSIZE, &abuf_size);
@@ -338,7 +342,7 @@ int	dtype;
 	ioctl(ADFD, SOUND_PCM_WRITE_CHANNELS, &arg);
 	arg = data_type[dtype].sample;
 	ioctl(ADFD, SOUND_PCM_WRITE_RATE, &arg);
-#endif /* LINUX */
+#endif /* LINUX || FreeBSD */
 
 #ifdef SPARC
 	audio_info_t	data;
@@ -383,7 +387,7 @@ float volume;
 {
 	int vol, arg;
 
-#ifdef LINUX
+#if defined(LINUX) || defined(FreeBSD)
 	vol = (int) ((MAXAMPGAIN*volume)/100);
 	
 	arg = vol | (vol << 8 );
@@ -406,7 +410,7 @@ float volume;
 void reset_audiodev()
 {
 
-#ifdef LINUX
+#if defined(LINUX) || defined(FreeBSD)
 	ACFD = open( MIXER_DEV, O_RDWR, 0);
 	ADFD = open( AUDIO_DEV, O_RDWR, 0);
 
@@ -417,7 +421,7 @@ void reset_audiodev()
 
 	close( ADFD);
 	close( ACFD);
-#endif /* LINUX */
+#endif /* LINUX or FreeBSD */
 
 #ifdef SPARC
 	ACFD = open(AUDIO_CTLDEV, O_RDWR, 0);
