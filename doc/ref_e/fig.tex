@@ -44,16 +44,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command draws a graph using information from the input file
-{\em infile}. 
-If {\em infile} is not assigned, data is read from the standard input.
-This command is similar to the unix command ``graph'' but includes
-some labeling functions.
-The output file comes with a sequence of commands for direct printing.
-For this reason, in case the output is printed on the screen,
-one should use the ``xgr'' command.
-In case the output is printed in postscript, one should use the
-``psgr'' command.
+{\em fig} draws a graph using information 
+from {\em infile} (or standard input), 
+sending the result in FP5301 plot format to standard output. 
+This command is similar to the Unix command ``graph'' 
+but includes some labeling functions. 
+The output can be printed directly on a printer 
+that supports the FP5301 protocol, 
+displayed on an X11 display with the ``xgr'' command, 
+or converted to PostScript with the ``psgr'' command.
 \end{qsection}
 
 \begin{options}

@@ -44,21 +44,20 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em us16} command converts sampling rate of 10, 12kHz
-into 16kHz.
-If input and/or output files are not assigned,
-then the standard input and/or output are used, respectively.
-Also, several files can be assigned at same time.
-In this case the output is automatically written in the assigned
-{\em outdir} directory for every input file
-changing the corresponding suffix.
-\par
+{\em us16} upsamples data from 10kHz or 12kHz to 16kHz. 
+If {\em infile} and {\em outfile} arguments are not given, 
+standard input and standard output are used. 
+If several input files are given, 
+the last argument is taken to be a directory name 
+and multiple output files are created in that directory, 
+with names similar to the input file names 
+but the suffixes are changed to ``.16''.
 \end{qsection}
 
 \begin{options}
 	\argm{s}{S}{input sampling frequency 10|12kHz}{$10$}
 	\argp{t}{input data format\\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
 			s & short (2bytes) \\
 			f & float (4bytes)
 		\end{tabular}\\}{s}

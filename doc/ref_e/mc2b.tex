@@ -43,12 +43,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command transforms mel-cepstrum coefficients $c_\alpha(m)$ 
-into MLSA filter coefficients $b(m)$ and sends the results
-to the standard output.
-\par
+{\em mc2b} calculates MLSA filter coefficients $b(m)$ 
+from mel-cepstrum coefficients $c_\alpha(m)$ 
+from {\em infile} (or standard input), 
+sending the result to standard output.
+
 Input and output data are in float format.
-\par
+
 The equations are used for this transformation follows.
 \begin{displaymath}
 b(m) = \left\{

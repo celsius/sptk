@@ -44,10 +44,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads data from the standard input {\em infile}
-and from the assigned input {\em file1} for every frame of the
-file {\em infile}, a frame of {\em file1} is inserted or
-overwritten as shown in the figure below.
+{\em merge} merges, on a frame-by-frame basis, data from {\em file1} 
+into the data from {\em infile} (or standard input), 
+sending the result to standard output, as described below.
 
 \hspace{1cm}\includegraphics{fig/merge.eps}
 \end{qsection}
@@ -71,7 +70,7 @@ overwritten as shown in the figure below.
 	\argm{N}{N_2}{order of insert data}{$L_2-1$}
 	\argm{o}{}{overwrite mode}{FALSE}
 	\argp{t}{input data format\\ 
-		\begin{tabular}{llcll} \\[-1zh]
+		\begin{tabular}{llcll} \\[-1ex]
 			c & char (1byte) & \quad &
 			s & short (2bytes) \\
 			i & int (4bytes) & \quad &

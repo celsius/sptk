@@ -44,12 +44,16 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads coefficients from a $M_1$ order minimum phase
-sequence
+{\em freqt} converts an $M_1$-order minimum phase sequence 
+from {\em infile} (or standard input) 
+into a frequency-transformed $M_2$-order sequence,
+sending the result to standard output.
+
+Given the input sequence
 \begin{displaymath}
 c_{\alpha_1}(0), c_{\alpha_1}(1), \ldots, c_{\alpha_1}(M_1)
 \end{displaymath}
-and undertakes the following frequency transformation
+the frequency transform is
 \[ \alpha = (\alpha_1 - \alpha_2) / (1 - \alpha_1 \alpha_2) \]
 \begin{eqnarray*} 
 \hspace{-15mm}&& c_{\alpha_2}^{(i)}(m) = \left\{ 

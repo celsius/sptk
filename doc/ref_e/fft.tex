@@ -43,12 +43,11 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads a sequence of complex numbers from {\em infile}
-and undertakes its DFT through the FFT algorithm.
-When the input file is not assigned, data is read from the standard
-input.
-Input and output data are in float format, and the order of input
- and output data are as follows.
+{\em fft} uses the Fast Fourier Transform (FFT) algorithm 
+to calculate the Discrete Fourier Transform (DFT) 
+of complex-valued input data from {\em infile} (or standard input), 
+sending the result to standard output. 
+The input and output data is in float format, arranged as follows.
 \[
  \begin{array}{lll}
 \mbox{Input sequence} & \overbrace{\framebox[4.5cm]{real part}}^{M+1} &

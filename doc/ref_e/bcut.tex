@@ -43,9 +43,8 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em bcut} command cuts the assigned part of the input file.
-If the input file is not assigned, data is read from the standard
-input.
+{\em bcut} copies a selected portion of {\em infile} (or standard input) 
+to standard output.
 \end{qsection}
 
 \begin{options}
@@ -54,7 +53,7 @@ input.
 	\argm{l}{L}{block length}{1}
 	\argm{n}{N}{block order}{L-1}
 	\argp{t}{input data format\\ 
-		\begin{tabular}{llcll} \\[-1zh]
+		\begin{tabular}{llcll} \\[-1ex]
 			c & char (1byte) & \quad &
 			s & short (2bytes) \\
 			i & int (4bytes) & \quad &

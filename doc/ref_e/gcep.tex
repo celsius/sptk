@@ -45,9 +45,11 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command undertakes the generalized cepstral analysis,
-evaluates normalized coefficient $c_\gamma'(m)$
-and writes the result to the standard output.
+{\em gcep} uses generalized cepstral analysis 
+to calculate normalized cepstrum coefficients $c_\gamma'(m)$ 
+from $L$-length framed windowed input data 
+from {\em infile} (or standard input), 
+sending the result to standard output.
 The windowed input sequence of length $L$ is
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1)
@@ -92,7 +94,7 @@ Newton--Raphson method applied.
 	\argm{g}{G}{$\gamma$. If $G>1.0$ then $\gamma=-1/G$.}{0}
 	\argm{l}{L}{frame length}{256}
 	\argm{n}{}{output normalized cepstrum}{FALSE}
-	\desc[1zh]{Usually, the options below do not need to be assigned.}
+	\desc[1ex]{Usually, the options below do not need to be assigned.}
 	\argm{i}{I}{minimum iteration}{2}
 	\argm{j}{J}{maximum iteration}{30}
 	\argm{d}{D}{Newton-Raphson method end condition.

@@ -44,14 +44,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads excitation information from
-{\em infile} and the linear prediction coefficients
-$K,a(1),\ldots,a(M)$ from {\em afile},
-passes the excitation through the corresponding all pole standard form
-filter and sends the results to the standard output.
-\par
+{\em poledf} derives an all pole standard form digital filter 
+from the linear prediction (LPC) coefficients 
+$K,a(1),\ldots,a(M)$ in {\em afile} 
+and uses it to filter an excitation sequence 
+from {\em infile} (or standard input) to synthesize speech data, 
+sending the result to standard output.
+
 Input and output data are in float format.
-\par
+
 The transfer function $H(z)$ of an all pole standard form
 filter is
 \begin{displaymath}

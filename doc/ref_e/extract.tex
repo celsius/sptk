@@ -43,9 +43,14 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The command {\em extract} reads the file {\em infile}
-and finds the index $I$ of the closest codeword for every 
-input vector.
+{\em extract} extracts selected vectors 
+from {\em infile} (or standard input), 
+sending the result to standard output. 
+{\em indexfile} contains a previously-computed sequence of 
+codebook indices corresponding to the input vectors.  
+Only those input vectors whose codebook index (from {\em indexfile}) 
+matches the index given by the ``--i'' option 
+are sent through to standard output.
 \end{qsection}
 
 \begin{options}

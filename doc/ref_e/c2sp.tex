@@ -43,9 +43,10 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command evaluates the spectrum from the minimum phase
- cepstrum.
- Input and output data are in float format.
+{\em c2sp} calculates the spectrum from the minimum phase cepstrum 
+from {\em infile} (or standard input), 
+sending the result to standard output.
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
@@ -55,14 +56,14 @@ This command evaluates the spectrum from the minimum phase
 	\argm{o}{O}{output format\\
                 if the ``--p'' option is not assigned then
                 \\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
 			$O=0$ & $20 \times \log |H(z)|$ \\
 			$O=1$ & $\ln |H(z)|$ \\
-			$O=2$ & $|H(z)|$ \\[1zh]
+			$O=2$ & $|H(z)|$ \\[1ex]
 		\end{tabular}\\
 		if the ``--p'' option is assigned then
 		\\
-		\begin{tabular}{ll}\\[-1zh]
+		\begin{tabular}{ll}\\[-1ex]
 			$O=0$ & $\arg |H(z)| \div \pi \quad [\pi \; rad.]$ \\
 			$O=1$ & $\arg |H(z)| \quad [rad.]$ \\
 			$O=2$ & $\arg |H(z)| \times180\div\pi\quad[deg.]$ \\

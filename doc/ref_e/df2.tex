@@ -40,11 +40,13 @@
 \begin{synopsis}
  \item[df2] [ --f $f_0$ ] [ --p $f_1 \; b_1$ ] [ --z $f_2 \; b_2$ ] 
 	    [ {\em infile} ]
- \end{synopsis}
+\end{synopsis}
 
- \begin{qsection}{DESCRIPTION}
- This command reads the input data file and passes it through a 2nd
-  order digital filter. The central frequency and frequency band can
+\begin{qsection}{DESCRIPTION}
+{\em df2} filters data from {\em infile} (or standard output) 
+with a 2nd order digital filter, 
+sending the result to standard output.
+The central frequency and frequency band can
   be assigned through the options.
   The filter transfer function is
   \[
@@ -55,7 +57,7 @@
  If this command is used in cascade, an arbitrary filter can be
  designed using the options --p and --z.
  Input and output data are in float format.
- \end{qsection}
+\end{qsection}
 
 \begin{options}
 	\argm{f}{f_0}{sampling frequency $f_0$ [Hz]}{10000}

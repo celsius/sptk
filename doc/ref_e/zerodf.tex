@@ -44,15 +44,15 @@ speech synthesis}
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This commands reads data from the assigned {\em infile},
-passes it through a FIR filter in standard form
-built from the coefficients $b(0), b(1), \ldots, b(M)$
-read from {\em bfile},
-and sends the results to the standard output.
-\par
+{\em zerodf} derives a standard-form FIR (all-zero) digital filter 
+from the coefficients $b(0), b(1), \ldots, b(M)$ in {\em bfile} 
+and uses it to filter an excitation sequence 
+from {\em infile} (or standard input) to synthesize speech data, 
+sending the result to standard output.
+
 Input and output data are in float format.
-\par
-The transfer function $H(z)$ of a FIR filter in standard form is 
+
+The transfer function $H(z)$ of an FIR filter in standard form is
 \begin{displaymath}
 H(z) = \sum_{m=0}^{M} b(m) z^{-m}
 \end{displaymath}

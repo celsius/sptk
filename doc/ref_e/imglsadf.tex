@@ -45,11 +45,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This commands reads the mel-generalized cepstrum coefficients
- $c_{\alpha,\gamma}(m)$, evaluates the inverse filter,
-passes the speech input data file through the calculated
-inverse filter, and sends the results to the standard output.
-\par
+{\em imglsadf} derives an Inverse Mel-Generalized 
+Log Spectral Approximation filter from 
+mel-generalized cepstrum coefficients $c_{\alpha,\gamma}(m)$ in {\em gcfile} 
+and uses it to filter speech data from {\em infile} (or standard input) 
+to generate an excitation sequence,
+sending the result to standard output.
+
 Input and output data are in float format.
 \end{qsection}
 

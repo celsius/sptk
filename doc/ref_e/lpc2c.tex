@@ -41,8 +41,10 @@
  \item[lpc2c] [ --m $M_1$ ] [ --M $M_2$ ] [ {\em infile} ]
 \end{synopsis}
 \begin{qsection}{DESCRIPTION}
-The {\em lpc2c} command reads LPC coefficients from the assigned
-{\em infile} and output LPC cepstrum coefficients.
+{\em lpc2c} calculates LPC cepstrum coefficients 
+from linear prediction (LPC) coefficients 
+from {\em infile} (or standard input), 
+sending the result to standard output.
 That is, when the input sequence is 
 \[ \sigma, a(1), a(2), \cdots, a(p) \]
 where

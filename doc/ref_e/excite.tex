@@ -42,9 +42,14 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command generates from a pitch period file a pulse train for voiced
-or a Gaussian noise sequence for unvoiced signals.
-\par
+{\em excite} generates an excitation sequence 
+from pitch period information from {\em infile} (or standard input), 
+sending the result to standard output. 
+When the pitch period is nonzero (i.e. voiced), 
+the excitation sequence consists of a pulse train at that pitch. 
+When the pitch period is zero (i.e. unvoiced),
+the excitation sequence consists of Gaussian or M-sequence noise.
+
 Input and output data are in float format.
 \end{qsection}
 

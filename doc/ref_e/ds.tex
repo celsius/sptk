@@ -43,12 +43,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command undertakes down sampling.
-\par
+{\em ds} down-samples data from {\em infile} (or standard input), 
+sending the result to standard output.
+
 The format of input and output data is float.
 The following filter coefficients can be used.
 
-\begin{tabular}{ll} \\[-1zh]
+\begin{tabular}{ll} \\[-1ex]
 	$S=21$ & \$SPTK/lib/lpfcoef.2to1 \\
 	$S=43$ & \$SPTK/lib/lpfcoef.4to3 \\
 	$S=52,s=54$ & \$SPTK/lib/lpfcoef.5to2up \\
@@ -61,7 +62,7 @@ Filter coefficients are in ASCII format.
 
 \begin{options}
 	\argm{s}{S}{conversion type\\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
 			$S=21$ & down sampling by $2:1$ \\
 			$S=43$ & down sampling by $4:3$ \\
 			$S=52$ & down sampling by $5:2$ \\

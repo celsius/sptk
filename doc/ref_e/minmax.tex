@@ -42,22 +42,23 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads data from {\em infile}(or the standard input if
-{\em infile is omitted}), and for every frame minimum and maximum
-values are sent to the standard output.
-It can output also the $B$ maximum and/or minimum values.
+{\em minmax} determines the $B$ (default 1) minimum and maximum values, 
+on a frame-by-frame basis, 
+of the data from {\em infile} (or standard input), 
+sending the result to standard output.
 
-If frame length $L$ is equal to 1, then the whole data in file
-is outputed as maximum and minimum.
+If the frame length $L$ is 1, 
+each input number is considered to be both
+the minimum and maximum value for its length-1 frame.
 
-The input data is read in float format,
-and the output data is written in ASCII format
-if the position number is desired or in float format
-if the value is desired.
-When the data position number is desired then
-the output is written following the representation 
-with the $n$ minimum values and
-$n$ maximum values, as follows.
+The input format is float. 
+If the --d option is not given, 
+the output format is float, 
+consisting of the minimum and maximum values.
+If the --d option is give, 
+the output format is ASCII, 
+showing the positions within the frame 
+where the minimum and maximum values occurred, as follows:
 \begin{displaymath}
 value:position_0,position_1,\ldots
 \end{displaymath}

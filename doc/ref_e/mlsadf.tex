@@ -45,14 +45,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads mel-cepstrum coefficients
-$c_\alpha(0),c_\alpha(1),\ldots,c_\alpha(M)$ from {\em mcfile},
-passes the excitation built from {\em infile} through
-the corresponding MLSA filter, and sends the results to the standard
-output.
-\par
+{\em mlsadf} derives a Mel Log Spectral Approximation digital filter 
+from mel-cepstrum coefficients 
+$c_\alpha(0),c_\alpha(1),\ldots,c_\alpha(M)$ in {\em mcfile} 
+and uses it to filter an excitation sequence 
+from {\em infile} (or standard input) to synthesize speech data, 
+sending the result to standard output.
+
 Input and output data are in float format.
-\par
+
 The exponential transfer function $H(z)$ related to the MLSA synthesis filter
 is obtained from the $M$ order mel-cepstrum coefficients
 $c_\alpha(m)$ as follows.

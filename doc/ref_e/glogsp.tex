@@ -44,12 +44,14 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads input data from the standard input in float format,
-and plots its log spectrum.
-This command can be used in connection with commands such as ``xgr''.
-\par
-Actually, it uses {\em fig} and {\em fdrw} commands through a
-shell script.
+{\em glogsp} converts float-format log spectral data 
+from {\em infile} (or standard input)
+to FP5301 plot format, 
+sending the result to standard output. 
+The output can viewed with ``xgr''.
+
+{\em glogsp} is implemented as a shell script 
+that uses the ``fig'' and ``fdrw'' commands.
 \end{qsection}
 
 \begin{options}
@@ -85,7 +87,7 @@ shell script.
 	\argm{s}{S}{start frame number}{0}
 	\argm{l}{L}{frame length}{256}
 	\argm{c}{\rm comment}{comment for the graph}{N/A}
-	\desc[1zh]{Usually, the options below do not need to be assigned.}
+	\desc[1ex]{Usually, the options below do not need to be assigned.}
 	\argm{W}{W}{width of the graph($\time 100$mm)}{0.6}
 	\argm{H}{H}{height of the graph($\time 100$mm)}{0.6}
 	\argm{v}{}{over write mode}{FALSE}

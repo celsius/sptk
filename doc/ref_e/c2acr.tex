@@ -43,19 +43,20 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-If the following $M_1$ cepstrum coefficients
-are read from the standard input
+{\em c2acr} calculates $M_2$-order autocorrelation coefficients 
+from $M_1$-order cepstrum coefficients from {\em infile} (or standard input), 
+writing the result to standard output.
+Give cepstrum coefficients
 \begin{displaymath}
 c(0), c(1), \ldots, c(M_1)
 \end{displaymath}
-then the following $M_2$ autocorrelation coefficients
+the corresponding autocorrelation coefficients are
 \begin{displaymath}
 r(0), r(1), \ldots, r(M_2)
 \end{displaymath}
-are evaluated.
-\par
+
 The format of input and output format is float.
-\par
+
 The power spectrum is calculated from the logarithm spectrum,
 which is obtained from the Fourier transform of the $M_1$
 order cepstrum analysis.

@@ -44,8 +44,16 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads a real sequence and computes the log spectrum
-magnitude.
+{\em spec} computes the log spectrum magnitude of framed windowed input data 
+from {\em infile} (or standard input), 
+sending the result to standard output.
+
+Alternatively, given the poles (--p {\em pfile} option) 
+and zeroes (--z {\em zfile} option) of a digital filter, 
+{\em spec} computes the frequency response of that filter.
+
+The output format is specified by the --y option.
+
 If the input sequence is
 \begin{displaymath}
   x(0), x(1), \ldots, x(L-1)
@@ -103,13 +111,13 @@ the difference between the numerator and denominator phases}.
 	\argm{z}{zfile}{MA coefficients filename\\
 			The {\em zfile} should follow this structure in
                         float format:\\
-			\hspace*{2zw}$b(0), b(1), \ldots, b(N)$\\[-1zh]}{NULL}
+			\hspace*{2ex}$b(0), b(1), \ldots, b(N)$\\[-1ex]}{NULL}
 	\argm{p}{pfile}{AR coefficients filename\\
 			The {\em pfile} should follow this structure in
                         float format:\\
-			\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
+			\hspace*{2ex}$K, a(1), \ldots, a(M)$\\[-1ex]}{NULL}
 	\argm{y}{Y}{output format\\
-			\begin{tabular}{lll} \\[-1zh]
+			\begin{tabular}{lll} \\[-1ex]
 			$Y=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\ldots,L/2$\\
 			$Y=1$ & ~~~$\ln |X_k|$ & $k=0,1,\ldots,L/2$\\
 			$Y=2$ & ~~~$|X_k|$ & $k=0,1,\ldots,L/2$\\

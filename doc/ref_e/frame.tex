@@ -42,8 +42,10 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The frame command reads data from the assigned input file and
-passes it through frame with period $P$ and length $L$.
+{\em frame} converts a sequence of input data 
+from {\em infile} (or standard input) 
+to a series of possibly-overlapping frames with period $P$ and length $L$, 
+sending the result to standard output.
 If the input data is $x(0),x(1),\ldots,x(T)$, then the output data is
 \begin{center}
 \begin{tabular}{ccccccccccc}
@@ -63,7 +65,7 @@ $x(2P-L/2)$&$,$&$x(2P-L/2+1)$&$,$&$\ldots$&$,$&$x(2P)$&$,$&$\ldots$&$,$&$x(2P+L/
                    center point in the first frame we want to make x(0)
                    as the first point of the first frame}{FALSE}
 	\argp{t}{data type\\ 
-		\begin{tabular}{llcll} \\[-1zh]
+		\begin{tabular}{llcll} \\[-1ex]
 			c & char (1byte) & \quad &
 			s & short (2bytes) \\
 			i & int (4bytes) & \quad &

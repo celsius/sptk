@@ -44,17 +44,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em bcp} command sends to the standard output
-the whole or part of an input file.
-The input file as well as the block length are determined by
-the option in the command line.
-\par
-In case data is in ASCII format, the unit is
-a sequence of letters of the input file.
-The output block is partitioned by the carriage return.
-\par
-In case the input file is not assigned,
-data is read from the standard input.
+	{\em bcp} copies data blocks from {\em infile} (or standard input) 
+	to standard output, 
+	reformatting them according to command line options as shown below.
+
+	If the input format is ASCII, 
+	the basic input unit is a sequence of letters
+	and the output block is partitioned with carriage returns.
 \end{qsection}
 
 \begin{center}
@@ -75,7 +71,7 @@ data is read from the standard input.
 	\argm{e}{e}{end number}{EOF}
 	\argm{f}{f}{fill into empty block}{0}
 	\argp{t}{data type\\ 
-		\begin{tabular}{llcll} \\[-1zh]
+		\begin{tabular}{llcll} \\[-1ex]
 			c & char (1byte) & \quad &
 			s & short (2bytes) \\
 			i & int (4bytes) & \quad &

@@ -44,16 +44,18 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command evaluates the linear prediction coefficients
-by solving a set of linear equations obtained from
-the autocorrelation matrix.
-From the assigned file, $M$ order autocorrelation matrix
+{\em levdur} calculates linear prediction coefficents (LPC) 
+from the autocorrelation matrix from {\em infile} (or standard input), 
+sending the result to standard output.
+
+The input is the $M$ order autocorrelation matrix
 \begin{displaymath}
-  r(0),r(1),\ldots,r(M)
+  r(0),r(1),\ldots,r(M).
 \end{displaymath}
-is read and the linear system is solved by the Levinson-Durbin
-algorithm.
-\par
+{\em levdur} uses the Levinson-Durbin algorithm 
+to solve a system of linear equations
+obtained from the autocorrelation matrix.
+
 Input and output data are in float format.
 \par
 The linear prediction coefficients are the set of coefficients

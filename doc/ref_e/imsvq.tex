@@ -42,11 +42,12 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em imsvq} command reads the codebook indexes from {\em infile}
-and sends the resulting multi stage output to the standard output.
-The order of multi stage decoder is equal to the number of --s options
-used.
-\par
+{\em imsvq} decodes multi-stage vector-quantized data 
+from a sequence of codebook indices from {\em infile} (or standard input), 
+using codebooks specified by multiple --s options, 
+sending the result to standard output. 
+The number of decoder stages is equal to the number of --s options.
+
 Input data is in int format, and output data is in float format.
 \end{qsection}
 
@@ -54,7 +55,7 @@ Input data is in int format, and output data is in float format.
 	\argm{l}{L}{length of vector}{26}
 	\argm{n}{N}{order of vector}{L-1}
 	\argm{s}{S \; cbfile}{codebook\\
-		\begin{tabular}{ll}\\[-1zh]
+		\begin{tabular}{ll}\\[-1ex]
 		$S$ & codebook size\\
 		$cbfile$ & codebook file \\
 		\end{tabular}\\\hspace*{\fill}}{N/A N/A}

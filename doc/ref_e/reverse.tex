@@ -42,17 +42,12 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-
-The reverse command reads data sequence in float format from
-the standard input, cuts it into blocks of size assigned by an option,
-reverses the order inside each block and sends the results
-to the standard output.
-If the block size is not assigned, then the whole file is assigned
-as the default.
-If the whole file can not be divided exactly into blocks of the
-assigned length, then the remainder values are disregarded as
-shown in the example below.
-
+{\em reverse} reverses the order of data within $L$-length blocks 
+of input data from {\em infile} (or standard input), 
+sending the result to standard output. 
+The default value for $L$ is the entire file. 
+If $L$ is given but the file length is not a multiple of $L$, 
+leftover values are discarded as shown in the example below.
 \end{qsection}
 
 \begin{options}

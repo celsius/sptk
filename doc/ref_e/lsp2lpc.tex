@@ -42,13 +42,26 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The {\em lsp2lpc} command transforms LSP coefficients into
-LPC coefficients.
-If the gain is not assigned,
-then its value is made equal to 1 as follows
+{\em lsp2lpc} calculates linear prediction (LPC) coefficients 
+from $M$-order line spectral pair (LSP) coefficients 
+from {\em infile} (or standard input),
+sending the result to standard output.
+
+The LSP input input format is
 \begin{displaymath}
-	K = 1,a(1),\ldots,a(M).
- \end{displaymath}
+   [ K ], l(1), . . . , l(M), 
+\end{displaymath}
+and the LPC output format is
+\begin{displaymath}
+   K , a(1), . . . , a(M).
+\end{displaymath}
+
+By default, {\em lsp2lpc} assumes that 
+the LSP input vectors include the gain $K$, 
+and it passes that gain value through to the LPC output vectors.  
+However, if the --k option is present, 
+{\em lsp2lpc} assumes that $K$ is not present in the LSP input vectors, 
+and it sets $K$ to $1.0$ in the LPC output vectors.
 \end{qsection}
 
 \begin{options}
@@ -56,7 +69,7 @@ then its value is made equal to 1 as follows
 	\argm{s}{S}{sampling frequency(kHz)}{10}
 	\argm{k}{}{input \& output gain}{TRUE}
 	\argm{i}{I}{input format\\
-		\begin{tabular}{ll} \\[-1zh]
+		\begin{tabular}{ll} \\[-1ex]
 			$0$ & normalized frequency $(0 \ldots \pi)$ \\
 			$1$ & normalized frequency $(0 \ldots 0.5)$ \\
 			$2$ & frequency (kHz) \\

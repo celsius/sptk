@@ -44,12 +44,16 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command outputs speech data synthesized from excitation information
-contained in {\em infile} passed through normalized generalized cepstrum
-coefficients $K,c_\gamma'(1),\ldots,c_\gamma'(M)$ in the file {\em gcfile}.
-\par
+{\em glsadf} derives a Generalized Log Spectral Approximation digital filter 
+from normalized generalized cepstrum coefficients in {\em gcfile} 
+and uses it to filter an excitation sequence 
+from {\em infile} (or standard input) to synthesize speech data, 
+sending the result to standard output.
+The cepstrum coefficients can be be represented as
+$K,c_\gamma'(1),\ldots,c_\gamma'(M)$. 
+
 Input and output data are in float format.
-\par
+
 The transfer function $H(z)$ are synthesis filter based on an $M$ order
 normalized generalized cepstrum coefficients $c_\gamma'(m)$ is 
 \begin{eqnarray*}

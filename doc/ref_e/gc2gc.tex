@@ -43,13 +43,14 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command transforms a sequence of generalized cepstral coefficients
-with power parameter $\gamma_1$ into generalized cepstral coefficients
-with power parameter $\gamma_2$ through a regressive equation,
-and writes the results to the standard output.
-\par
+{\em gc2gc} uses a regressive equation 
+to transform a sequence of generalized cepstral coeffcients 
+with power parameter $\gamma_1$ from {\em infile} (or standard input)
+into generalized cepstral coefficients with power parameter $\gamma_2$, 
+sending the result to standard output.
+
 Input and output data are in float format.
-\par
+
 The regressive equation for the generalized cepstral coefficients 
 follows.
 \begin{eqnarray*}

@@ -42,8 +42,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command generates a pulse train sequence or a sequence with
-values $\pm 1$.
+{\em train} generates a normalized pulse train sequence 
+or a sequence with values $\pm 1$, 
+sending the result to standard output.
 Output data is in float format.
 \end{qsection}
 
@@ -54,7 +55,7 @@ Output data is in float format.
                     $\pm 1$ is generated.}{0}
 	\argm{n}{N}{type of normalization\\
                     When $x(n)$ is impulse sequence\\
-			\begin{tabular}{ll}\\ [-1zh]
+			\begin{tabular}{ll}\\ [-1ex]
 			 0 & no-normalization\\
 			 1 & normalization as 
                              $\displaystyle \sum_{n=0}^{L-1} x^2(n) = 1$\\

@@ -42,9 +42,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads $L$ dimension vectors from the assigned file,
-evaluates their summations for every $N$ vectors and sends the
-results to the standard output.
+{\em vsum} calculates the vector sum of groups of $N$ input vectors 
+of length $L$ from {\em infile} (or standard input), 
+sending the result to standard output.
 That is, if the input data is given by
 \begin{displaymath}
 \overbrace{
@@ -61,9 +61,7 @@ where $s(n)$ is
 \begin{displaymath}
   s(n)=\sum_{k=1}^{N} a_k(n)
 \end{displaymath}
-\par
-If the input file is omitted, then data is read from the standard input.
-\par
+
 Input and output data are in float format.
 \end{qsection}
 

@@ -44,14 +44,14 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads excitation information from the assigned
-{\em infile} and the cepstrum coefficients $c(0),c(1),\ldots,c(M)$
-that composed LMA filter from {\em cfile}. 
-The excitation is passed through the filter and
-the results is send to the standard output.
-\par
+{\em lmadf} derives a Log Magnitude Approximation filter 
+from cepstrum coefficients $c(0),c(1),\ldots,c(M)$ in {\em cfile} 
+and uses it to filter an excitation sequence 
+from {\em infile} (or standard input) to synthesize speech data, 
+sending the result to standard output.
+
 Input and output data are in float format.
-\par
+
 The LMA filter is an extremely precise approximation of the
 exponential transfer function obtained from $M$ order cepstrum
 coefficients $c(m)$ as follows.

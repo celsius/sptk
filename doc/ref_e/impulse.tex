@@ -42,15 +42,14 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command generates the unit impulse sequence
-of length $L$ and sends the output to the standard output.
-That is, the following output data in float format is outputed
+{\em impulse} generates the unit impulse sequence of length $L$, 
+sending the output to standard output. 
+The output is in float format as follows.
 \begin{displaymath}
 \underbrace{1, 0, 0, \ldots, 0}_{L}
 \end{displaymath}
-\par
-If the options --l and --n are used at the same time,
-the value of the pulse length is taken from the last option.
+
+If both --l and --n options are given, the last one is used.
 \end{qsection}
 
 \begin{options}

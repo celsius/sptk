@@ -42,20 +42,21 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command evaluates linear prediction coefficients
-from PARCOR coefficients.
-It is reads $M$ order PARCOR coefficients
+{\em par2lpc} calculates linear prediction (LPC) coefficients 
+from $M$-order PARCOR coefficients from {\em infile} (or standard input), 
+sending the result to standard output.
+
+The PARCOR input format is
 \begin{displaymath}
-  K, k(1),\ldots, k(M)
+  K, k(1),\ldots, k(M), 
 \end{displaymath}
-evaluates the corresponding linear prediction coefficients
+and the LPC output format is
 \begin{displaymath}
-  K, a(1),\ldots, a(M)
+  K, a(1),\ldots, a(M).
 \end{displaymath}
-and send the results to the standard output.
-\par
+
 Input and output data are in float format.
-\par
+
 The transformation of PARCOR coefficients into 
 linear prediction coefficients is undertaken 
 by a part of Durbin algorithm as follows.

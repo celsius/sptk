@@ -42,17 +42,19 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command evaluates PARCOR coefficients from LPC coefficients.
-It is reads from the assigned file $M$ order linear prediction
-coefficients,
+{\em lpc2par} calculates PARCOR coefficients 
+from $M$-order linear prediction (LPC) coefficients 
+from {\em infile} (or standard input), 
+sending the result to standard output.
+
+The LPC input format is
 \begin{displaymath}
-  K, a(1),\ldots, a(M)
+  K, a(1),\ldots, a(M), 
 \end{displaymath}
-evaluates the corresponding PARCOR coefficients
+and the PARCOR output format is
 \begin{displaymath}
-  K, k(1),\ldots, k(M)
+  K, k(1),\ldots, k(M).
 \end{displaymath}
-and sends the results to the standard output.
 If the --s option is assigned, the stability of the filter is analyzed.
 If the filter is stable, then 0 is returned.
 If the filter is not stable, then 1 is returned to the standard output.

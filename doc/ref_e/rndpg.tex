@@ -54,9 +54,12 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-        The {\em rndpg} command reads the means and diagonal covariances
-        of Gaussian distributions from the assigned file {\em infile}
-        such as
+	{\em rndpg} calculates the randomized parameters 
+	according to a Gaussian distribution which is calculated
+	from the means and diagonal covariances of Gaussian distributions 
+	from {\em infile} (or standard input),
+	sending the result to standard output.
+	The input format is
  \begin{eqnarray}
 	&& \ldots, \mu_t(0), \ldots, \mu_t(M),
 		\mu^{(1)}_t(0), \ldots, \mu^{(1)}_t(M),
@@ -67,9 +70,6 @@
 		\ldots, {\sigma^{(N)}}^2_t(M),
 		\ldots \nonumber
  \end{eqnarray}
-        and evaluates the randomized parameters according to the 
-	Gaussian distributions 
-        sending them to the standard output.
 
 	Input and output data are in float format.
 
@@ -175,7 +175,7 @@
 	  \begin{tabular}{l@{\hspace{2\tabcolsep}$($}l@{ }l@{$)$}}
 		$I = 0$ & $\bmu,$         & $\bU$ \\
 		$I = 1$ & $\bmu,$         & $\bU^{-1}$ \\
-		$I = 2$ & $\bmu\bU^{-1},$ & $\bU^{-1}$ \\[1zh]
+		$I = 2$ & $\bmu\bU^{-1},$ & $\bU^{-1}$ \\[1ex]
 	  \end{tabular}
 		}{0}
 	\argm{s}{S}{range of influenced frames}{30}

@@ -42,12 +42,11 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-The command {\em x2x} reads data from the standard input,
-converts its data type, and sends the results to the standard
-output.
-\par
-The input data type is assigned through the +$type1$ option,
-and the output data type is assigned through the +$type2$ option.
+{\em x2x} converts data from standard input to a different data type,
+sending the result to standard output.
+
+The input and output data type are specified by command line options 
+as described below.
 \end{qsection}
 
 \begin{options}
@@ -55,7 +54,7 @@ and the output data type is assigned through the +$type2$ option.
 	\argp{type2}{output data type\\
 	both options $type1, type2$ can be assigned,
         one of the options below.\\
-                \begin{tabular}{llcll} \\[-1zh]
+                \begin{tabular}{llcll} \\[-1ex]
                         c & char (1byte) & \quad &
                         C & unsigned char (1byte) \\
                         s & short (2bytes) & \quad &
@@ -66,7 +65,7 @@ and the output data type is assigned through the +$type2$ option.
                         L & unsigned long (4bytes) \\
                         f & float (4bytes) & \quad &
                         d & double (8bytes) \\
-                        a & ASCII \\ [1zh] 
+                        a & ASCII \\ [1ex] 
                 \end{tabular} \\
                 data type is converted from $t_1(type_1)$ to $t_2(type_2)$.
                 if $t_2$ is not assigned then no operation is

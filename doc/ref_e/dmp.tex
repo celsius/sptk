@@ -42,17 +42,17 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command reads data from an assigned file,
-numerates it and prints the numerated data on the screen.
-If the input file is not assigned, then data is read from the standard
-input.
+{\em dmp} converts data from {\em infile} (or standard input) 
+to human readable form, 
+one sample per line with line numbers, 
+sending the result to standard output.
 \end{qsection}
 
 \begin{options}
 	\argm{n}{N}{block order (0,...,n)}{EOD}
 	\argm{l}{L}{block length  (1,...,l)}{EOD}
 	\argp{t}{input data format\\
-		\begin{tabular}{llcll} \\[-1zh]
+		\begin{tabular}{llcll} \\[-1ex]
 			c & char (1byte) & \quad &
 			s & short (2bytes) \\
 			i & int (4bytes) & \quad &

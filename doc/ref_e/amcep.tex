@@ -45,14 +45,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-        This command undertakes the adaptive mel-cepstrum analysis,
-        sends the mel-cepstrum coefficients $c_{\alpha}(m)$
-        to the standard output,
-        and the prediction error to {\em pefile}, whenever
-        {\em pefile} is included in the command line.
- \par
+	{\em amcep} uses adaptive mel-cepstrum analysis 
+	to calculate melcepstrum coefficients $c_{\alpha}(m)$ 
+	from unframed float data from standard input, 
+	sending the result to standard output. 
+	If {\em pefile} is given, 
+	{\em amcep} writes the prediction error to that file.
+
 	The format for input and output data is float.
- \par
+
 	The algorithm to calculate recursively the
         adaptive mel-cepstrum coefficients $b(m)$ is 
 \begin{eqnarray*}
