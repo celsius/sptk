@@ -7,7 +7,7 @@
 #define AUDIO_DEV    "/dev/dsp"
 #define MIXER_DEV    "/dev/mixer"
 #define	MAXAMPGAIN	255
-#define AVAILABLE_FREQ "8,11,22,44"
+#define AVAILABLE_FREQ "8,11.025,22.05,44.1"
 #define DEFAULT_FREQ	11
 #endif /* LINUX */
 
@@ -25,7 +25,7 @@
 #define AUDIO_DEV    "/dev/audio"
 #define AUDIO_CTLDEV "/dev/audioctl"
 #define	MAXAMPGAIN	255
-#define AVAILABLE_FREQ "8,11,16,22,32,44,48"
+#define AVAILABLE_FREQ "8,11.025,16,22.05,32,44.1,48"
 #define DEFAULT_FREQ	16
 #endif /* SPARC */
 
