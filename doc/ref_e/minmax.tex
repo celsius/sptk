@@ -1,53 +1,61 @@
-\name{minmax}{最小値・最大値を求める}{データ処理}
+\name{minmax}{find minimum and maximum values}{data}
 
 \begin{synopsis}
  \item [minmax] [ --l $L$ ] [ --n $N$ ] [ --b $B$ ] [ --d ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-ファイル{\em infile}（省略時は標準入力）から読み込んだ，フレーム毎の
-最小値と最大値を標準出力に出力します．
-上位 $B$ 個の結果を出力します．
+This command reads data from {\em infile}(or the standard input if
+{\em infile is omitted}), and for every frame minimum and maximum
+values are sent to the standard output.
+It can output also the $B$ maximum and/or minimum values.
 
-フレームの長さ $L$ が1の時には，ファイル中のデータ全体の最小値と最大値を
-出力します．
+If frame length $L$ is equal to 1, then the whole data in file
+is outputed as maximum and minimum.
 
-データ形式は入力はfloat形式で，
-出力は，データ番号を出力する場合はascii形式，
-値のみを出力する場合はfloat形式となります．
-データ番号を出力する場合は，
+The input data is read in float format,
+and the output data is written in ascii format
+if the position number is desired or in float format
+if the value is desired.
+When the data position number is desired then
+the output is written following the representation 
+with the $n$ minimum values and
+$n$ maximum values, as follows.
 \begin{displaymath}
 value:position_0,position_1,\ldots
 \end{displaymath}
-の形式でn個の最小値，n個の最大値を出力します．
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{ベクトルの長さ．}{1}
-	\argm{n}{N}{ベクトルの次数．ベクトルの長さは $N+1$ になります．}{L-1}
-	\argm{b}{B}{N-Bestの値を出力}{1}
-	\argm{d}{}{最大最小のデータ番号の出力}{FALSE}
+	\argm{l}{L}{length of vector}{1}
+	\argm{n}{N}{order of vector}{L-1}
+	\argm{b}{B}{find n-best values}{1}
+	\argm{d}{}{output data number}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f} のデータが
-\[1,1,2,3,4,5,6,7,8,9,9,10\]
-の時，
+If, for example, the input data in {\em data.f} in float format
+is as follows
+\[1,1,2,3,4,5,6,7,8,9,9,10\],
+then the output of the following command
 \begin{quote}
- \verb!minmax data.f -l 5 > data.m!
+ \verb!minmax data.f -l 6 > data.m!
 \end{quote}
-とすると，ファイル{\em data.m}中に，
+is written to {\em data.m} as follows.
 \[1,5,6,10\]
-が得られます．また，
+Also if the folloing command is applied
 \begin{quote}
  \verb!minmax -n 2 -d data.f!
 \end{quote}
-とすると，
+then the result is 
 \begin{quote}
- \verb!1:0,1!\\
+ \verb!1:0,17!\\
  \verb!2:2!\\
- \verb!10:11!\\
- \verb!9:9,10!
+ \verb!3:0!\\
+ \verb!5:2!\\
+ \verb!6:0!\\
+ \verb!8:2!\\
+ \verb!9:0,1!\\
+ \verb!10:2!
 \end{quote}
-が出力されます．
 \end{qsection}

@@ -1,5 +1,5 @@
 \name[ref:synHMM-ASJ,ref:synHMM-EUROSPEECH95]{mlpg}%
-{$BJ,I[Ns$+$i:GL`%Q%i%a!<%?Ns$r@8@.(B}{$B%Q%i%a!<%?@8@.(B}
+{obtain parameter sequence from PDF sequence}{parameter generation}
 
 \def\bmath#1{\mbox{\boldmath{$#1$}}}
 \def\bc{\bmath{c}}
@@ -17,8 +17,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-	{\em mlpg}$B$O!$;XDj$5$l$?%U%!%$%k$+$i(B($BBP3Q6&J,;6(B)$B%,%&%9J,I[$NNs!$(B
-	$B$D$^$j!$J?6Q%Y%/%H%k$H6&J,;69TNs$NBP3Q@.J,$NNs(B
+        The {\em mlpg} command reads the means and diagonal covariances
+        of Gaussian distributions from the assigned file {\em infile}
+        such as
  \begin{eqnarray}
 	&& \ldots, \mu_t(0), \ldots, \mu_t(M),
 		\mu^{(1)}_t(0), \ldots, \mu^{(1)}_t(M),
@@ -29,36 +30,35 @@
 		\ldots, {\sigma^{(N)}}^2_t(M),
 		\ldots \nonumber
  \end{eqnarray}
-	$B$rFI$_9~$_!$(B
-	$BM?$($i$l$?J,I[Ns$KBP$7$F(B
-	$B:G$bL`EY$N9b$$%Q%i%a!<%?Ns$r5a$a$FI8=`=PNO$K=PNO$7$^$9!%(B
+        and evaluates the maximum likelihood parameters
+        sending them to the standard output.
 
-	$B%G!<%?7A<0$OF~NO!$=PNO$H$b(B float $B7A<0$G$9!%(B
+	Input and output data are in float format.
 
-	$B%U%l!<%`(B $t$ $B$K$*$1$k2;@<%Q%i%a!<%?%Y%/%H%k(B $\bo_t$ $B$,!$(B
-	$B@EE*FCD'%Y%/%H%k(B
+	е╒еьб╝ер $t$ д╦дкд▒ды▓╗└╝е╤ещесб╝е┐е┘епе╚еы $\bo_t$ дмбд
+	└┼┼к╞├─зе┘епе╚еы
  \begin{displaymath}
 	\bc_t = [c_t(0), c_t(1), \ldots, c_t(M)]'
  \end{displaymath}
-	$B$H$=$NF0E*FCD'%Y%/%H%k(B
-	\ $\Delta^{(1)}\bc_t, \ldots, \Delta^{(N)}\bc_t$ $B$+$i$J$k!$(B
-	$B$D$^$j(B
+	д╚д╜д╬╞░┼к╞├─зе┘епе╚еы
+	\ $\Delta^{(1)}\bc_t, \ldots, \Delta^{(N)}\bc_t$ длдщд╩дыбд
+	д─д▐дъ
  \begin{displaymath}
 	\bo_t = [\bc_t', \Delta^{(1)}\bc_t', \ldots, \Delta^{(N)}\bc_t']'
  \end{displaymath}
-	$B$H$7$^$9!%(B
-	$B$3$3$G!$(B
-	$BF0E*FCD'%Y%/%H%k(B $\Delta^{(n)}\bc_t$ $B$O(B
-	$B@EE*FCD'%Y%/%H%k$H<!<0$G4X78$E$1$i$l$F$$$^$9!%(B
+	д╚д╖д▐д╣бе
+	д│д│д╟бд
+	╞░┼к╞├─зе┘епе╚еы $\Delta^{(n)}\bc_t$ д╧
+	└┼┼к╞├─зе┘епе╚еыд╚╝б╝░д╟┤╪╖╕д┼д▒дщдьд╞ддд▐д╣бе
  \begin{displaymath}
 	\Delta^{(n)}\bc_t 
 	= \sum_{\tau=-L^{(n)}}^{L^{(n)}} w^{(n)}(\tau)\bc_{t+\tau}
  \end{displaymath}
-	$B$3$N>r7o$N2<$G!$(B
-	$BM?$($i$l$?J,I[Ns(B
+	д│д╬╛Є╖яд╬▓╝д╟бд
+	═┐дидщдьд┐╩м╔█╬є
 	$\left((\bmu_1, \bU_1), (\bmu_2, \bU_2), \ldots, (\bmu_T, \bU_T)
-	\right)$$B!$(B
-	$B$?$@$7(B
+	\right)$бд
+	д┐д└д╖
  \begin{eqnarray}
 	\bmu_t 
 	& = & [\bmu^{\prime(0)}_t, \bmu^{\prime(1)}_t, 
@@ -68,83 +68,83 @@
 	& = & \mbox{diag}[\bU^{(0)}_t, \bU^{(1)}_t, \ldots, \bU^{(1)}_t]
 		\nonumber
  \end{eqnarray}
-	$B$KBP$7$F:G$bL`EY$N9b$$%Q%i%a!<%?Ns(B
+	д╦┬╨д╖д╞║╟дт╠р┼┘д╬╣тдде╤ещесб╝е┐╬є
 	\ $(\bo_1, \bo_2, \ldots, \bo_T)$
-	\ $B$r5a$a!$(B
-	$BF@$i$l$?%Q%i%a!<%?%Y%/%H%k(B $\bo_t$ $B$N$&$A$N(B
-	$B@EE*FCD'%Y%/%H%k(B $\bc_t$ $B$NNs(B
+	\ дЄ╡сдсбд
+	╞└дщдьд┐е╤ещесб╝е┐е┘епе╚еы $\bo_t$ д╬джд┴д╬
+	└┼┼к╞├─зе┘епе╚еы $\bc_t$ д╬╬є
 	\ $(\bc_1, \bc_2, \ldots, \bc_T)$
-	\ $B$r=PNO$7$^$9!%(B
-	$B$3$3$G!$(B
-	$\bmu^{(0)}, \bU^{(0)}$ $B$O@EE*FCD'%Y%/%H%k$KBP$9$k(B
-	$BJ?6Q%Y%/%H%k$H6&J,;69TNs!$(B
-	$\bmu^{(n)}, \bU^{(n)}$ $B$O(B $n$ $B<!$NF0E*FCD'%Y%/%H%k$KBP$9$k(B
-	$BJ?6Q%Y%/%H%k$H6&J,;69TNs$G$9!%(B
+	\ дЄ╜╨╬╧д╖д▐д╣бе
+	д│д│д╟бд
+	$\bmu^{(0)}, \bU^{(0)}$ д╧└┼┼к╞├─зе┘епе╚еыд╦┬╨д╣ды
+	╩┐╢╤е┘епе╚еыд╚╢ж╩м╗╢╣╘╬єбд
+	$\bmu^{(n)}, \bU^{(n)}$ д╧ $n$ ╝бд╬╞░┼к╞├─зе┘епе╚еыд╦┬╨д╣ды
+	╩┐╢╤е┘епе╚еыд╚╢ж╩м╗╢╣╘╬єд╟д╣бе
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{$B%Q%i%a!<%?$ND9$5!%(B}{26}
-	\argm{m}{M}{$B%Q%i%a!<%?$N<!?t!%%Q%i%a!<%?$ND9$5$O(B$M+1$$B$K$J$j$^$9!%(B}{$L-1$}
-	\argm{d}{(fn~|~d_0~[d_1~\ldots])}{$fn$ $B$O(B
-		$B%G%k%?%Q%i%a!<%?$r7W;;$9$k:]$N(B
-		$B78?t$N%U%!%$%k(B(float $B7A<0(B)$B$N%U%!%$%kL>!%(B
-		$B78?t$O:81&$ND9$5$,F1$8$G$"$k$H2>Dj$7$F$$$k$?$a!$(B
-		$B:81&$ND9$5$,0[$J$k>l9g$OC;$$J}$K(B 0 $B$r2C$($kI,MW$,$"$k!%(B
-		$BNc$($P!$(B
+	\argm{l}{L}{е╤ещесб╝е┐д╬─╣д╡бе}{26}
+	\argm{m}{M}{е╤ещесб╝е┐д╬╝б┐Їбее╤ещесб╝е┐д╬─╣д╡д╧$M+1$д╦д╩дъд▐д╣бе}{$L-1$}
+	\argm{d}{(fn~|~d_0~[d_1~\ldots])}{$fn$ д╧
+		е╟еые┐е╤ещесб╝е┐дЄ╖╫╗╗д╣ды║▌д╬
+		╖╕┐Їд╬е╒ебедеы(float ╖┴╝░)д╬е╒ебедеы╠╛бе
+		╖╕┐Їд╧║╕▒жд╬─╣д╡дм╞▒д╕д╟двдыд╚▓╛─ъд╖д╞дддыд┐дсбд
+		║╕▒жд╬─╣д╡дм░█д╩ды╛ь╣чд╧├╗дд╩¤д╦ 0 дЄ▓├диды╔м═╫дмдвдыбе
+		╬удид╨бд
 	 \begin{displaymath}
 		w(-1), w(0), w(1), w(2), w(3)
 	 \end{displaymath}
-		$B$H$$$&78?t$rMQ$$$k>l9g$O!$:8B&$K(B 0 $B$r2C$(!$(B
+		д╚дддж╖╕┐ЇдЄ═╤ддды╛ь╣чд╧бд║╕┬жд╦ 0 дЄ▓├дибд
 	 \begin{displaymath}
 		0, 0, w(-1), w(0), w(1), w(2), w(3)
 	 \end{displaymath}
-		$B$H$9$k!%(B
-		$B%U%!%$%kL>(B $fn$ $B$r;XDj$9$kBe$o$j$K(B
-		$B78?t(B($B%U%!%$%k(B $fn$ $B$NFbMF(B)$B$r(B
-		$BD>@\%3%^%s%I%i%$%s$K=q$$$F$bNI$$!%(B
-		$BJ#?t$N%G%k%?%Q%i%a!<%?$rMQ$$$k>l9g$O7+$jJV$7;XDj$9$k!%(B\\
-		--r $B%*%W%7%g%s$H$NJ;MQ$OIT2D!%(B}{N/A}
+		д╚д╣дыбе
+		е╒ебедеы╠╛ $fn$ дЄ╗╪─ъд╣ды┬хдядъд╦
+		╖╕┐Ї(е╒ебедеы $fn$ д╬╞т═╞)дЄ
+		─╛└▄е│е▐еєе╔ещедеєд╦╜ёддд╞дт╬╔ддбе
+		╩г┐Їд╬е╟еые┐е╤ещесб╝е┐дЄ═╤ддды╛ь╣чд╧╖лдъ╩╓д╖╗╪─ъд╣дыбе\\
+		--r еке╫е╖ечеєд╚д╬╩╗═╤д╧╔╘▓─бе}{N/A}
 	\argm{r}{N_R~W_1~[W_2]}{
-		$B%G%k%?%Q%i%a!<%?$H$7$F(B $N_R$ $B<!$^$G$N2s5"78?t$r;HMQ$9$k(B
-		($N_R = 1$ $B$^$?$O(B $2$)$B!%(B
-		$W_1$$B!$(B$W_2$ $B$O0l<!$^$?$OFs<!$N2s5"78?t$r5a$a$k(B
-		$B:]$N(B($BJRB&$N(B)$BI}$rI=$9!%(B
-		$B;~9o(B $t$ $B$K$*$1$k0l<!2s5"78?t(B $\Delta\bc_t$ $B$O!$(B
+		е╟еые┐е╤ещесб╝е┐д╚д╖д╞ $N_R$ ╝бд▐д╟д╬▓є╡в╖╕┐ЇдЄ╗╚═╤д╣ды
+		($N_R = 1$ д▐д┐д╧ $2$)бе
+		$W_1$бд$W_2$ д╧░ь╝бд▐д┐д╧╞є╝бд╬▓є╡в╖╕┐ЇдЄ╡сдсды
+		║▌д╬(╩╥┬жд╬)╔¤дЄ╔╜д╣бе
+		╗■╣я $t$ д╦дкд▒ды░ь╝б▓є╡в╖╕┐Ї $\Delta\bc_t$ д╧бд
 	 \begin{displaymath}
 		\Delta\bc_t
 		= \frac{\sum_{\tau=-W_1}^{W_1}\tau \bc_{t+\tau}}%
 			{\sum_{\tau=-W_1}^{W_1}\tau^2}
 	 \end{displaymath}
-		$BFs<!2s5"78?t(B $\Delta^2\bc_t$ $B$O!$(B
-		$a_2 = \sum_{\tau=-W_2}^{W_2} \tau^4$$B!$(B
-		$a_1 = \sum_{\tau=-W_2}^{W_2} \tau^2$$B!$(B
-		$a_0 = \sum_{\tau=-W_2}^{W_2} 1$ $B$H$7$F(B
+		╞є╝б▓є╡в╖╕┐Ї $\Delta^2\bc_t$ д╧бд
+		$a_2 = \sum_{\tau=-W_2}^{W_2} \tau^4$бд
+		$a_1 = \sum_{\tau=-W_2}^{W_2} \tau^2$бд
+		$a_0 = \sum_{\tau=-W_2}^{W_2} 1$ д╚д╖д╞
 	 \begin{displaymath}
 		\Delta^2\bc_t
 		= \frac{\sum_{\tau=-W_2}^{W_2}
 				(a_0\tau^2 - a_1) \bc_{t+\tau}}
 			{2(a_2a_0-a_1^2)}
 	 \end{displaymath}
-		$B$K$h$j7W;;$5$l$k!%(B\\
-		--d $B%*%W%7%g%s$H$NJ;MQ$OIT2D!%(B}{N/A}
-	\argm{i}{I}{$BF~NO$N%?%$%W$r;XDj!%(B\\
+		д╦дшдъ╖╫╗╗д╡дьдыбе\\
+		--d еке╫е╖ечеєд╚д╬╩╗═╤д╧╔╘▓─бе}{N/A}
+	\argm{i}{I}{╞■╬╧д╬е┐еде╫дЄ╗╪─ъбе\\
 	  \begin{tabular}{l@{\hspace{2\tabcolsep}$($}l@{ }l@{$)$}}
 		$I = 0$ & $\bmu,$         & $\bU$ \\
 		$I = 1$ & $\bmu,$         & $\bU^{-1}$ \\
 		$I = 2$ & $\bmu\bU^{-1},$ & $\bU^{-1}$ \\[1zh]
 	  \end{tabular}
 		}{0}
-	\argm{s}{S}{$B$"$k%U%l!<%`$N%Q%i%a!<%?$,1F6A$r5Z$\$9%U%l!<%`$NHO0O!%(B}{30}
+	\argm{s}{S}{двдые╒еьб╝ерд╬е╤ещесб╝е┐дм▒╞╢┴дЄ╡┌д▄д╣е╒еьб╝ерд╬╚╧░╧бе}{30}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-	$B%Q%i%a!<%?$N<!?t$,(B 15$B!$(B
-	$BAkI}(B 1 $B$N0l<!$*$h$SFs<!$N2s5"78?t$rMQ$$$k>l9g$K!$(B
-	$BJ,I[Ns$+$i%Q%i%a!<%?Ns$r5a$a$k!%(B
+	е╤ещесб╝е┐д╬╝б┐Їдм 15бд
+	┴ы╔¤ 1 д╬░ь╝бдкдшд╙╞є╝бд╬▓є╡в╖╕┐ЇдЄ═╤ддды╛ь╣чд╦бд
+	╩м╔█╬єдлдще╤ещесб╝е┐╬єдЄ╡сдсдыбе
  \begin{quote}
 	\verb!mlpg -m 15 -r 2 1 1 data.pdf > data.par!
  \end{quote}
-	$B$^$?$O!$(B
+	д▐д┐д╧бд
  \begin{quote}
 	\verb!echo "-0.5 0 0.5" | x2x +af > delta! \\
 	\verb!echo "0.25 -0.5 0.25" | x2x +af > accel! \\
