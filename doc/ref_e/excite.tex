@@ -1,31 +1,33 @@
-\name{excite}{音声合成のための音源生成}{信号生成,音声分析合成関連}
+\name{excite}{generate excitation}{signal generation, 音声分析合成関連}
 
 \begin{synopsis}
 \item [excite] [ --p $P$ ] [ --i $I$ ] [ --n ] [ --s $S$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-ピッチ周期ファイルから，有声音に対してはパルス列，
-無声音に対してはM系列またはガウス雑音を生成し，標準出力に出力します．
+This command generates from a pitch period file a pulse train for voiced
+or a gaussian noise sequence for unvoiced signals.
 \par
-データ形式は入力，出力ともfloat形式です．
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{p}{P}{フレーム周期．}{100}
-	\argm{i}{I}{補間周期．}{1}
-	\argm{n}{}{無声音をガウス雑音で励振させる．\\指定しない場合，M系列で励振させます．}{FALSE}
-	\argm{s}{S}{ガウス雑音の場合，ランダムの初期化のseed}{1}
+	\argm{p}{P}{frame period}{100}
+	\argm{i}{I}{interpolation period}{1}
+	\argm{n}{}{gauss/M-sequence for unvoiced\\
+                   default is M-sequence}{FALSE}
+	\argm{s}{S}{seed for nrand for gaussian noise}{1}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のピッチデータ {\em data.p} から励振源を作成し，あらかじめ線形予測分析
-によって求めておいた線形予測係数 {\em data.lpc} により合成音 {\em data.syn}
-を出力する:
+In the example below, the excitation is generated from the
+{\em data.p} file and passed through the LPC synthesis filter,
+whose coefficients are in the {\em data.lpc} file.
+The speech signal is outputed to the {\em data.syn} file.
 \begin{quote}
  \verb!excite < data.p | poledf data.lpc > data.syn!
 \end{quote} 
-無声音をガウス雑音で励振させる場合
+In case we use gaussian noise to generate are an unvoiced sound:
 \begin{quote}
  \verb!excite -n < data.p | poledf data.lpc > data.syn!
 \end{quote}

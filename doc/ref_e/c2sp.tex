@@ -1,27 +1,39 @@
-\name{c2sp}{ケプストラムからスペクトルを求める}
-{音声パラメータ変換}
+\name{c2sp}{Evaluation of the spectrum from the cepstrum}
+{speech parameter convertion}
 
 \begin{synopsis}
 \item[c2sp] [ --m $M$ ] [ --l $L$ ] [ --p ] [ --o $O$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em c2sp} は，最小位相のケプストラムからスペクトルを求めます．
-データ形式は入力，出力ともにfloat形式です．
+This {\em c2sp} command evaluates the spectrum from the minimum phase
+ cepstrum.
+ Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{ケプストラムの次数．}{25}
-	\argm{l}{L}{フレーム長．}{256}
-	\argm{p}{}{スペクトルの位相を出力．}{FALSE}
-	\argm{o}{O}{--pオプションが指定されていない場合，出力するスペクトルの
-		    スケールを指定．\\
+       -l l  :          [256]
+       -p    :          [FALSE]
+       -o o  :         [0]
+                0 (20*log|H(z)|)
+                1 (ln|H(z)|)
+                2 (|H(z)|)
+               -p option is specified
+                0 (arg|H(z)|/pi       [pi rad])
+                1 (arg|H(z)|          [rad])
+                2 (arg|H(z)|*180 / pi [deg])
+	\argm{m}{M}{order of cepstrum}{25}
+	\argm{l}{L}{frame length}{256}
+	\argm{p}{}{output phase}{FALSE}
+	\argm{o}{O}{output format\\
+                if ``--p'' option is not assigned then
+                \\
 		\begin{tabular}{ll} \\[-1zh]
 			$O=0$ & $20 \times \log |H(z)|$ \\
 			$O=1$ & $\ln |H(z)|$ \\
 			$O=2$ & $|H(z)|$ \\[1zh]
 		\end{tabular}\\
-		 --pオプションが指定されている場合，出力する位相の単位を指定．
+		if  ``--p'' option is assigned then
 		\\
 		\begin{tabular}{ll}\\[-1zh]
 			$O=0$ & $\arg |H(z)| \div \pi \quad [\pi \; rad.]$ \\
@@ -31,8 +43,9 @@
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の15次のケプストラムファイル {\em data.cep} からランニングスペクトルを
-求めて画面上に表示する:
+The example below takes the 15 order cepstrum from the file
+ {\em data.cep} in float format, evaluates the running spectrum,
+ and presents in the screen:
 \begin{quote}
  \verb! c2sp -m 15 data.cep | grlogsp | xgr ! 
 \end{quote}
