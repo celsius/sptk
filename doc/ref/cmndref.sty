@@ -55,9 +55,20 @@
 }
 \item[#2] ~~--~ #3\ifwithcite\cite{#1}\fi
 \end{list}
-\@for\category:=#4\do{\index{\category!#2}}
+\@for\category:=#4\do{\index{\cattonum{\category}!#2}}
 \end{quote}
 }
+\newcounter{numcategory}
+\setcounter{numcategory}{1}
+\def\setcategoryorder#1{
+  \@for\category:=#1\do{%
+    \expandafter\edef\csname cat@\category\endcsname{\alph{numcategory}}%
+    \addtocounter{numcategory}{1}}
+}
+\def\cattonum#1{%
+  \@ifundefined{cat@#1}{zzz@#1}{\@nameuse{cat@#1}@#1}%
+}
+\renewcommand{\indexname}{用途別索引}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CITATION AND REFERENCES
