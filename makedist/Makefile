@@ -78,6 +78,11 @@ c2sp: makefiles lib include fftr
 	$(CP) $(SOURCEDIR)/src/bin/c2sp/_c2sp.c $(TARGETDIR)/src/bin/c2sp/_c2sp.c
 	$(CP) $(SOURCEDIR)/src/bin/c2sp/c2sp.c $(TARGETDIR)/src/bin/c2sp/c2sp.c
 
+cat2: makefiles lib include
+	mkdir -p $(TARGETDIR)/src/bin/cat2
+	$(CP) $(SOURCEDIR)/src/bin/cat2/Makefile $(TARGETDIR)/src/bin/cat2/Makefile
+	$(CP) $(SOURCEDIR)/src/bin/cat2/cat2.c $(TARGETDIR)/src/bin/cat2/cat2.c
+
 ccp: makefiles lib include
 	mkdir -p $(TARGETDIR)/src/bin/ccp
 	$(CP) $(SOURCEDIR)/src/bin/ccp/Makefile $(TARGETDIR)/src/bin/ccp/Makefile
@@ -582,6 +587,8 @@ us: makefiles lib include
 	mkdir -p $(TARGETDIR)/src/bin/us
 	$(CP) $(SOURCEDIR)/src/bin/us/Makefile $(TARGETDIR)/src/bin/us/Makefile
 	$(CP) $(SOURCEDIR)/src/bin/us/us.c $(TARGETDIR)/src/bin/us/us.c
+	$(CP) $(SOURCEDIR)/src/bin/us/us16.sh $(TARGETDIR)/src/bin/us/us16.sh
+	$(CP) $(SOURCEDIR)/src/bin/us/uscd.sh $(TARGETDIR)/src/bin/us/uscd.sh
 	$(CP) $(SOURCEDIR)/src/bin/us/lpfcoef.2to3f $(TARGETDIR)/src/bin/us/lpfcoef.2to3f
 	$(CP) $(SOURCEDIR)/src/bin/us/lpfcoef.2to3s $(TARGETDIR)/src/bin/us/lpfcoef.2to3s
 	$(CP) $(SOURCEDIR)/src/bin/us/lpfcoef.3to4 $(TARGETDIR)/src/bin/us/lpfcoef.3to4
