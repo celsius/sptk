@@ -1,23 +1,41 @@
+/************************************************************************
 
-#include 	<stdio.h>
-#include 	<SPTK.h>
+    LBG Algorithm for Vector Qauntizer Design
+	
+	void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, delta, end)	
+	
+	double	*x	:   training vector
+	double	l	:   length of vector
+	int	tnum	:   number of training vector
+	double	*icb	:   initial codebook   						
+	int	icbsize	:   initial codebook size
+	double	*cb	:   final codebook
+	int	ecbsize	:   final codebook size     			
+	double	delta	:   splitting factor
+	double	end	:   end condition
+  
+************************************************************************/
 
-#define	MAXVALUE	1e23
-#define abs(x)          ( (x < 0) ? (-(x)) : (x) )
+#include <stdio.h>
+#include <SPTK.h>
+
+#define	MAXVALUE     1e23
+#define abs(x)	     ( (x < 0) ? (-(x)) : (x) )
 
 int vq();
 double edist();
+int nrand();
 
 void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, delta, end)
-double *x, *icb, *cb, delta, end;
-int l, tnum, icbsize, ecbsize;
+    double *x, *icb, *cb, delta, end;
+    int l, tnum, icbsize, ecbsize;
 {
     int		     i, j, k, maxindex;
     static int	     *cntcb, *tindex, size, sizex, sizecb;
     double           d0, d1, dl, err;
     static double    *rnd = NULL, *cb1;
     register double  *p, *q, *r;
-    
+
     if(rnd == NULL){
 	rnd = dgetmem(l);
 	cb1 = dgetmem(ecbsize*l);
@@ -52,10 +70,8 @@ int l, tnum, icbsize, ecbsize;
 	    nrand(rnd, l, i);
 	    for(j=0; j<l; j++){
 		dl = delta * rnd[j];
-		*r = *q - dl;
-		*q = *q + dl;
-		r++;
-		q++;
+		*r = *q - dl; r++;
+		*q = *q + dl; q++;
 	    }
 	}
 	icbsize *= 2;
@@ -71,11 +87,13 @@ int l, tnum, icbsize, ecbsize;
 		q = cb + tindex[i] * l;
 		d1 += edist(p, q, l);
 	    }
+			
 
 	    d1 /= tnum;
 	    err = abs((d0 - d1) / d1);
-	    
+
 	    if(err < end)  break;		/* check distortion */
+
 
 	    d0 = d1;
 	    fillz(cb1, sizeof(*cb), icbsize*l);
@@ -92,6 +110,7 @@ int l, tnum, icbsize, ecbsize;
 		    k = cntcb[i];
 		    maxindex = i;
 		}
+			
 	    
 	    q = cb; r = cb1;
 	    for(i=0; i<icbsize; i++,r+=l,q+=l)

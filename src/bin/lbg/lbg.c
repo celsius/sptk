@@ -13,7 +13,6 @@
 *		-s s  	  :  initial codebook size   	[1]		*
 *		-e e  	  :  final codebook size     	[256]		*
 *		-f f  	  :  initial codebook filename 	[NULL]		*
-*		-v	  :  verbose mode 		[FALSE]		*
 *		(level 2)						*
 *		-d d	  :  end condition		[0.0001]	*
 *		-r r	  :  splitting factor		[0.0001]	*
@@ -33,11 +32,11 @@
 *		codebook size (s and e) must be power of 2		*
 *		-t option can be omitted, when input from redirect	*
 *	require:							*
-*		vq(), edist(), vaverage()				*
+*		lbg(), vq()						*
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: lbg.c,v 1.1 2000/03/01 13:58:38 yossie Exp $";
+static char *rcs_id = "$Id: lbg.c,v 1.2 2000/06/14 04:29:38 nankaku Exp $";
 
 
 /*  Standard C Libraries  */
@@ -46,34 +45,23 @@ static char *rcs_id = "$Id: lbg.c,v 1.1 2000/03/01 13:58:38 yossie Exp $";
 #include <stdlib.h>
 #include <string.h>
 
-
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
-
-
 /*  Required Functions  */
-int	vq();
-void	vaverage();
-double  edist();
-int	nrand();
-
+void lbg();
+int vq();
 
 /*  Default Values  */
 #define LENG		26
 #define TNUMBER		-1
 #define	ICBSIZE		1
 #define	ECBSIZE		256
-#define	VERBOSE		FA
 #define	DELTA		0.0001
 #define	END		0.0001
 
 #define	MAXVALUE	1e23
-#define abs(x)          ( (x < 0) ? (-(x)) : (x) )
-
+#define abs(x)		( (x < 0) ? (-(x)) : (x) )
 
 /*  Command Name  */
 char	*cmnd;
-
 
 void usage(int status)
 {
@@ -89,7 +77,6 @@ void usage(int status)
     fprintf(stderr, "       -s s  : initial codebook size     [%d]\n", ICBSIZE);
     fprintf(stderr, "       -e e  : final codebook size       [%d]\n", ECBSIZE);
     fprintf(stderr, "       -f f  : initial codebook filename [NULL]\n");
-    fprintf(stderr, "       -v    : verbose mode              [%s]\n", BOOL[VERBOSE]);
     fprintf(stderr, "       -h    : print this message\n");
     fprintf(stderr, "     (level 2)\n");
     fprintf(stderr, "       -d d  : end condition             [%g]\n", END);
@@ -110,14 +97,11 @@ void usage(int status)
 
 void main(int argc, char **argv)
 {
-    int		     l = LENG, icbsize = ICBSIZE, ecbsize = ECBSIZE, 
-		     tnum = TNUMBER, ispipe, xsize, csize, maxindex, i, j, k,
-		     *cntcb, *tindex;
-    Boolean	     verbose = VERBOSE;
+    int l = LENG, icbsize = ICBSIZE, ecbsize = ECBSIZE, 
+	tnum = TNUMBER, ispipe, xsize, csize, i, j, *tindex;
     FILE	     *fp = stdin, *fpi = NULL, *fpcb = NULL, *fpv;
-    double	     delta = DELTA, minerr = END, 
-		     *x, *cb, *cb1, *rnd, d0, d1, dl, err, atof();
-    register double  *p, *q, *r;
+    double	     delta = DELTA, minerr = END, *x, *cb, *icb, atof();
+    register double  *p;
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	cmnd = argv[0];
@@ -126,58 +110,51 @@ void main(int argc, char **argv)
     while (--argc)
 	if (**++argv == '-'){
 	    switch (*(*argv+1)) {
-		case 'l':
-		    l = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'n':
-		    l = atoi(*++argv)+1;
-		    --argc;
-		    break;
-		case 't':
-		    tnum = atoi(*++argv);
-		    --argc;
-		    break;
-		case 's':
-		    icbsize = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'e':
-		    ecbsize = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'd':
-		    minerr = atof(*++argv);
-		    --argc;
-		    break;
-		case 'r':
-		    delta = atof(*++argv);
-		    --argc;
-		    break;
-		case 'f':
-		    fpcb = getfp(*++argv, "r");
-		    --argc;
-		    break;
-		case 'v':
-		    verbose = 1 - verbose;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
+	    case 'l':
+		l = atoi(*++argv);
+		--argc;
+		break;
+	    case 'n':
+		l = atoi(*++argv)+1;
+		--argc;
+		break;
+	    case 't':
+		tnum = atoi(*++argv);
+		--argc;
+		break;
+	    case 's':
+		icbsize = atoi(*++argv);
+		--argc;
+		break;
+	    case 'e':
+		ecbsize = atoi(*++argv);
+		--argc;
+		break;
+	    case 'd':
+		minerr = atof(*++argv);
+		--argc;
+		break;
+	    case 'r':
+		delta = atof(*++argv);
+		--argc;
+		break;
+	    case 'f':
+		fpcb = getfp(*++argv, "r");
+		--argc;
+		break;
+	    case 'h':
+		usage(0);
+	    default:
+		fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+		usage(1);
+	    }
 	}
-	else 
+	else
 	    fpi = getfp(*argv, "w");
 
     if(tnum == -1){
 	ispipe = fseek(fp,0L,2);
-#ifdef DOUBLE
-	tnum = ftell(fp)/l/sizeof(double);
-#else
 	tnum = ftell(fp)/l/sizeof(float);
-#endif
 	rewind(fp);
 	if(ispipe == -1){
 	    fprintf(stderr,"%s: -t option must be specified, when input via pipe!\n",cmnd);
@@ -188,101 +165,42 @@ void main(int argc, char **argv)
     xsize = tnum * l;
     csize = ecbsize * l;
     
-    x = dgetmem(xsize+csize+csize+l);
-    cb = x + xsize;
-    cb1 = cb + csize;
-    rnd = cb1 + csize;
-    
-    cntcb = (int *)dgetmem(ecbsize+tnum);
-    tindex = cntcb + ecbsize;
-    
+    x = dgetmem(xsize);
+    cb = dgetmem(csize);
+	    
     if(freadf(x, sizeof(*x), xsize, fp) != xsize){
 	fprintf(stderr,"%s : Size error of training data !\n",cmnd);
 	exit(1);
     }
 
-    if(icbsize == 1)
-	vaverage(x, l, tnum, cb);
-    else if(freadf(cb, sizeof(*cb), icbsize*l, fpcb) != icbsize*l){
-	fprintf(stderr,"%s : Size error of initial codebook !\n",cmnd);
-	exit(1);
+    if(icbsize == 1){
+	icb=dgetmem(l);
+	fillz(icb, sizeof(*icb), l);
+	for(i=0,p=x; i<tnum; i++)
+	    for(j=0; j<l; j++)
+		icb[j] += *p++;
+
+	for(j=0; j<l; j++)
+	    icb[j] /= (double) tnum;
+    }else{
+	icb=dgetmem(icbsize*l);
+	if(freadf(icb, sizeof(*icb), icbsize*l, fpcb) != icbsize*l){
+	    fprintf(stderr,"%s : Size error of initial codebook !\n",cmnd);
+	    exit(1);
+	}
     }
     
-
-    if(verbose)
-	fpv = getfp("verbose.lbg", "w");
-    
-    for( ; icbsize*2 <= ecbsize; ){
-	q = cb; r = cb + icbsize*l; 		/* splitting */
-	for(i=0; i<icbsize; i++){
-	    nrand(rnd, l, i);
-	    for(j=0; j<l; j++){
-		dl = delta * rnd[j];
-		*r = *q - dl;
-		*q = *q + dl;
-		r++;
-		q++;
-	    }
-	}
-	icbsize *= 2;
+    lbg(x, l, tnum, icb, icbsize, cb, ecbsize, delta, minerr);
 	
-	d0 = MAXVALUE;
-	for( ;; ){
-	    fillz(cntcb, sizeof(*cntcb), icbsize);
-	    d1 = 0.0; p = x;
-	    for(i=0; i<tnum; i++,p+=l){		/* clustering */
-		tindex[i] = vq(p, cb, l, icbsize);
-		cntcb[tindex[i]]++;
-
-		q = cb + tindex[i] * l;
-		d1 += edist(p, q, l);
-	    }
-
-	    d1 /= tnum;
-	    err = abs((d0 - d1) / d1);
-	    
-	    if(verbose)
-		fprintf(fpv,"size=%d error=%f d0=%f d1=%f\n",icbsize,err,d0,d1);
-	    
-	    if(err < minerr)  break;		/* check distortion */
-
-	    d0 = d1;
-	    fillz(cb1, sizeof(*cb), icbsize*l);
-	    
-	    p = x;				/* get new centroid */
-	    for(i=0; i<tnum; i++){
-		q = cb1 + tindex[i] * l;
-		for(j=0; j<l; j++) *q++ += *p++;
-	    }
-	    
-	    k = maxindex = 0;
-	    for(i=0; i<icbsize; i++){
-		if(cntcb[i] > k){
-		    k = cntcb[i];
-		    maxindex = i;
-		}
-	        if(verbose)
-		    fprintf(fpv,"index=%3d  number=%7d\n",i,cntcb[i]);
-	    }
-	
-	    
-	    q = cb; r = cb1;
-	    for(i=0; i<icbsize; i++,r+=l,q+=l)
-		if(cntcb[i] > 0)
-		    for(j=0; j<l; j++)
-			q[j] = r[j] / (double) cntcb[i];
-		else{
-		    nrand(rnd, l, i);
-		    p = cb + maxindex * l;
-		    for(j=0; j<l; j++)
-			q[j] = p[j] + delta * rnd[j];
-		}
-	}
-	if(icbsize == ecbsize) break;
-    }
-
     fwritef(cb, sizeof(*cb), csize, stdout);
-    if(fpi != NULL)
+	
+    if(fpi != NULL){
+	tindex = (int *)dgetmem(tnum);
+	for(i=0,p=x; i<tnum; i++,p+=l)
+	    tindex[i] = vq(p, cb, l, ecbsize);
+			
 	fwrite(tindex, sizeof(*tindex), tnum, fpi);
+    }
+
     exit(0);
 }

@@ -2,7 +2,7 @@
 
 \begin{synopsis}
 \item [lbg] [ --l $L$ ] [ --n $N$ ] [ --t $T$ ] [ --s $S$ ] [ --e $E$ ]
-        [ --f $F$ ] [ --v ] [ --d $D$ ] [ --r $R$ ] 
+        [ --f $F$ ] [ --d $D$ ] [ --r $R$ ] 
 \item [\ ~~~~] [ {\em indexfile} ] $<$ {\em infile}
 \end{synopsis}
 
@@ -68,17 +68,16 @@ $\mbox{\boldmath C}_1 = \{ \mbox{\boldmath c}_1(0) \},S = 1$とします．
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{ベクトルのサイズ．}{26}
-	\argm{n}{N}{ベクトルの次数．ベクトルのサイズはN+1になります．}{L-1}
-	\argm{t}{T}{トレーニングベクトル数．
-		     \\入力がパイプでない場合は省略できます．}{N/A}
-	\argm{s}{S}{初期コードブックサイズ．}{1}
-	\argm{e}{E}{最終コードブックサイズ．2のべき乗で指定．}{256}
-	\argm{f}{F}{初期コードブックファイルネーム．}{NULL}
-	\argm{v}{}{verbose モード．verbose.log に計算経過を出力する．}{FALSE}
-	\desc[1zh]{通常，以下のオプションの指定は必要ありません．}
-	\argm{d}{D}{終了条件．}{0.0001}
-	\argm{r}{R}{splitting factor}{0.0001}
+        \argm{l}{L}{ベクトルのサイズ．}{26}
+        \argm{n}{N}{ベクトルの次数．ベクトルのサイズはN+1になります．}{L-1}
+        \argm{t}{T}{トレーニングベクトル数．
+                     \\入力がパイプでない場合は省略できます．}{N/A}
+        \argm{s}{S}{初期コードブックサイズ．}{1}
+        \argm{e}{E}{最終コードブックサイズ．2のべき乗で指定．}{256}
+        \argm{f}{F}{初期コードブックファイルネーム．}{NULL}
+        \desc[1zh]{通常，以下のオプションの指定は必要ありません．}
+        \argm{d}{D}{終了条件．}{0.0001}
+        \argm{r}{R}{splitting factor}{0.0001}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
