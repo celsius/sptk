@@ -85,7 +85,11 @@ char	*argv[];
 	FILE	*fp, *fopen();
 	char	*s, *infile = NULL, c;
 	int	def_d_rate, def_u_rate;
-	cmnd = argv[0];
+
+	if ((cmnd = strrchr(argv[0], '/')) == NULL)
+		cmnd = argv[0];
+	else
+		cmnd++;
 
 	while(--argc) {
 		if(*(s = *++argv) == '-') {
