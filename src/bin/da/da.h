@@ -7,6 +7,8 @@
 #define AUDIO_DEV    "/dev/dsp"
 #define MIXER_DEV    "/dev/mixer"
 #define	MAXAMPGAIN	255
+#define AVAILABLE_FREQ "8,11,22,44"
+#define DEFAULT_FREQ	11
 #endif /* LINUX */
 
 #ifdef SUNOS
@@ -23,6 +25,8 @@
 #define AUDIO_DEV    "/dev/audio"
 #define AUDIO_CTLDEV "/dev/audioctl"
 #define	MAXAMPGAIN	255
+#define AVAILABLE_FREQ "8,11,16,22,32,44,48"
+#define DEFAULT_FREQ	16
 #endif /* SPARC */
 
 #define U_LAW 1
