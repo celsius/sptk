@@ -213,7 +213,7 @@ foreach infile ($argv[${file}-$#argv])
 		echo "${cmd}: ${infile}"
 	endif
 
-	label stdin44:
+	stdin44:
 	fileconvert $infile |\
 		srcnv -s 23F -u3 -d2 |\
 		srcnv -s 23S -u3 -d2 |\
