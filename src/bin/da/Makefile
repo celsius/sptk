@@ -5,7 +5,6 @@
 TARGET		= da
 SRCS		= $(TARGET).c
 OBJS		= $(SRCS:.c=.o)
-COEF		= da_10.fir da_12.fir
 
 PREFIX		= /usr/local/SPTK
 BIN		= $(PREFIX)/bin
@@ -30,7 +29,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
-da.o: ss10snd.h
+da.o: da.h
 
 install: $(TARGET)
 	$(INSTALL) $(TARGET) $(BIN)
@@ -40,7 +39,7 @@ clean:
 
 veryclean: clean
 	$(RM) $(BIN)/$(TARGET)
-	cd $(LIB) ; $(RM) $(COEF)
+	cd $(LIB) ; $(RM)
 endif
 all:
 clean:
