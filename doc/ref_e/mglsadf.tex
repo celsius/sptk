@@ -1,5 +1,5 @@
-\name[ref:MGLSA-IECE]{mglsadf}{$B2;@<9g@.$N$?$a$N(BMGLSA$B%U%#%k%?(B}%
-{$B2;@<9g@.MQ%U%#%k%?(B}
+\name[ref:MGLSA-IECE]{mglsadf}{MGLSA digital filter for speech synthesis}%
+{digital filter}
 
 \begin{synopsis}
 \item [mglsadf] [ --m $M$ ] [ --a $A$ ] [ --g $G$ ] [ --p $P$ ]
@@ -8,14 +8,17 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-$BF~NO%G!<%?$r(B{\em mgcfile}$B$N(B
-$B%a%k0lHL2=%1%W%9%H%i%`78?t(B $c_{\alpha, \gamma}(m)$ $B$r$b$D(B
-MGLSA$B%U%#%k%?$K$h$j%U%#%k%?%j%s%0$7!$I8=`=PNO$K=PNO$7$^$9!%(B
+This command read mel-generalized cepstrum coefficients
+$c_{\alpha, \gamma}(m)$ from {\em mgcfile},
+passes the excitation built from {\em infile} through
+the corrsponding MGLSA filter, and sends the results to the standard
+output.
 \par
-$B%G!<%?7A<0$OF~NO!$=PNO$H$b(Bfloat $B7A<0$G$9!%(B
+Input and output data are in float format.
 \par
-$M$ $B<!$N%a%k0lHL2=%1%W%9%H%i%`(B $c_{\alpha, \gamma}(m)$ $B$K$h$k(B
-$B9g@.%U%#%k%?$NEAC#4X?t(B $H(z)$ $B$O(B
+The transfer function $H(z)$ related to the synthesis filter
+is obtained from the $M$ order mel-generalized cepstrum coefficients
+$c_{\alpha, \gamma}(m)$ as follows.
 \begin{eqnarray*}
 H(z) &=& s_\gamma^{-1} \left( 
 	   \sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m} \right) \\
@@ -26,17 +29,17 @@ H(z) &=& s_\gamma^{-1} \left(
 	    \exp \sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m}, & \gamma=0
 	  \end{array} \right.
 \end{eqnarray*}
-$B$?$@$7!$(B
+where
 \begin{displaymath}
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
 \end{displaymath}
-$B$H$J$j$^$9!%$3$3$G!$(B$H(z)$ $B$+$i%2%$%s(B $K$ $B$r$/$/$j=P$9$3$H$K$h$j(B
+The transfer function $H(z)$ can be rewritten as
 \begin{eqnarray*}
 H(z) &=& s_\gamma^{-1} \left( \sum_{m=0}^M b_\gamma'(m) 
 		{\it\Phi}_m(z) \right)\\
      &=& K \cdot D(z) 
 \end{eqnarray*}
-$B$?$@$7!$(B
+where
 \begin{displaymath}
 {\it\Phi}_m(z) = \left\{ 
 	\begin{array}{ll}
@@ -46,23 +49,26 @@ H(z) &=& s_\gamma^{-1} \left( \sum_{m=0}^M b_\gamma'(m)
 	    \tilde{z}^{-(m-1)},& m\geq 1
 	\end{array} \right.
 \end{displaymath}
-$B$*$h$S!$(B
+and
 \begin{eqnarray*}
 K    &=& s_\gamma^{-1}(b_\gamma(0)) \\
 D(z) &=& s_\gamma^{-1} \left( \sum_{m=1}^M b_\gamma(m) {\it\Phi}_m(z) \right)
 \end{eqnarray*}
-$B$HJQ7A$7$^$9!%(B
-$B$^$?!$78?t(B $b'_\gamma(m)$ $B$O(B $c_{\alpha, \gamma}(m)$ $B$r@55,2=$7(B(gnorm $B;2>H(B)$B!$(B
-$B$5$i$K@~7AJQ49$r$9$k$3$H$K$h$jF@$k$3$H$,$G$-$^$9(B(mc2b, b2mc$B;2>H(B)$B!%(B
-$B$3$3$G$O!$$Y$-%Q%i%a!<%?$,(B $\gamma=-1/G$
-($G$:$B<+A3?t(B)$B$N$H$-$N$_$r9M$($^$9!%(B
-$B$3$N>l9g!$%U%#%k%?(B $D(z)$ $B$O?^(B\ref{fig:mglsadflt_MGLSA}(b)$B$N$h$&$K!$(B
-$B?^(B\ref{fig:mglsadflt_MGLSA}(a)$B$K<($9%U%#%k%?(B
+Also, the coefficients $b'_\gamma(m)$ are obtained from
+the coefficients $c_{\alpha, \gamma}(m)$ by normalizing
+(refer to ``gnorm''), and applying linear transformation
+(refer to ``mc2b'' and ``b2mc'').
+Here we are considering only cases where power parameter
+is $\gamma=-1/G$ ($G$:natural number).
+In this case the filter $D(z)$ is realized as shown in figure 
+\ref{fig:mglsadflt_MGLSA}(b),
+where each filter of the $G$ level cascaded filter is realized as shown in
+figure \ref{fig:mglsadflt_MGLSA}(a), 
+and can be expressed as
 \begin{eqnarray*}
 \frac{1}{B(\tilde{z})} = \frac{1}{\displaystyle 1+\gamma 
 	\sum_{m=1}^M b_\gamma'(m) {\it\Phi}_m(z)}
 \end{eqnarray*}
-$B$N(B $G$ $BCJ=DB39=@.$G<B8=$9$k$3$H$,$G$-$^$9!%(B
 \setcounter{figure}{0}
 \begin{figure}[t]
 \begin{center}
@@ -212,7 +218,7 @@ D(z) &=& s_\gamma^{-1} \left( \sum_{m=1}^M b_\gamma(m) {\it\Phi}_m(z) \right)
 \end{picture}
 \end{center}
 \begin{center}
-(a)~~$B%U%#%k%?(B $1/B(z)$ $B$N9=@.(B
+(a)~~Structure of filter $1/B(z)$
 \end{center}
 
 \vspace{5mm}
@@ -232,7 +238,7 @@ D(z) &=& s_\gamma^{-1} \left( \sum_{m=1}^M b_\gamma(m) {\it\Phi}_m(z) \right)
 \put(220,30){\line(1,0){20}}
 \put(290,30){\vector(1,0){30}}
 
-\put(200,30){\makebox(0,0){$B!&!&!&(B}}
+\put(200,30){\makebox(0,0){¡¦¡¦¡¦}}
 \put(10,40){\makebox(0,0){Input}}
 \put(320,40){\makebox(0,0){Output}}
 \put(60,65){\makebox(0,0){\bf 1st stage}}
@@ -241,35 +247,39 @@ D(z) &=& s_\gamma^{-1} \left( \sum_{m=1}^M b_\gamma(m) {\it\Phi}_m(z) \right)
 \end{picture}
 \end{center}
 \begin{center}
-(b)~~$1/B(z)$ $B$N(B $G$ $BCJ=DB3@\B39=@.(B
+(b)~~$G$ level cascaded filter $1/B(z)$  
 \end{center}
 \label{fig:mglsadflt_MGLSA}
-\caption{$B9g@.%U%#%k%?(B $D(z)$}
+\caption{Realization synthesys filter $D(z)$}
 \end{figure}
 \end{qsection}
 
 \newpage
 \begin{options}
-	\argm{m}{M}{$B%a%k0lHL2=%1%W%9%H%i%`$N<!?t!%(B}{25}
-	\argm{a}{A}{$B<~GH?t05=L%Q%i%a!<%?(B $\alpha$$B!%(B}{0.35}
-	\argm{g}{G}{$B0lHL2=%1%W%9%H%i%`$N$Y$-%Q%i%a!<%?(B $\gamma=-1/G$$B!%(B}{1}
-	\argm{p}{P}{$B78?t$N99?7<~4|!%(B}{100}
-	\argm{i}{I}{$B78?t$NJd4V<~4|!%(B}{1}
-	\argm{t}{}{$BE>CV7?%U%#%k%?!%(B}{FALSE}
-	\argm{k}{}{$B%2%$%s$r=|$$$?%7%9%F%`4X?t$G%U%#%k%?%j%s%0$9$k(B}{FALSE}
+	\argm{m}{M}{order of mel-generalized cepstrum}{25}
+	\argm{a}{A}{alpha}{0.35}
+	\argm{g}{G}{power parameter $\gamma=-1/G$ of generalized cepstrum }{1}
+	\argm{p}{P}{frame period}{100}
+	\argm{i}{I}{interpolation period}{1}
+	\argm{t}{}{transpose filter}{FALSE}
+	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float$B7A<0$N%T%C%A%G!<%?(B {\em data.pitch} $B$+$iNe?68;$r:n@.$7!$(B
-$B%a%k0lHL2=%1%W%9%H%i%`%U%!%$%k(B {\em data.mgcep} $B$K$h$j(BMGLSA$B%U%#%k%?$r6nF0$7!$(B
-$B9g@.2;@<$r(B {\em data.syn} $B$K=PNO$9$k(B:
+In the following example,
+the excitation is constructed from pitch data
+read in float format from {\em data.pitch},
+passed through a MGLSA filter 
+built from the mel-generalized cepstrum in
+{\em data.mgcep},
+and the synthesized speech is written to {\em data.syn}:
 \begin{quote}
  \verb!excite < data.pitch | mglsadf data.mgcep > data.syn!
 \end{quote} 
 \end{qsection}
 
 \begin{qsection}{BUGS}
-$n$ $B$r<+A3?t$H$7$F!$(B$\gamma = -1/n$ $B$N>l9g$K$7$+BP1~$7$F$$$J$$!%(B
+It only works when $n$ is a natural number for $\gamma = -1/n$.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
