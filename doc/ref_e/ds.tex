@@ -1,40 +1,40 @@
-\name{ds}{サンプリングレート変換（ダウンサンプリング）}%
-{サンプリングレート変換}
+\name{ds}{Sampling rate conversion (down sampling)}%
+{sampling rate conversion}
 
 \begin{synopsis}
 \item[ds] [ --s $S$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-ダウンサンプリングを行ないます．
+This command undertakes down sampling.
 \par
-データ形式は入力，出力ともfloat形式です．
-フィルタ係数は次のものが用いられます．
-
+Input and output data is in float format.
+The following filter coefficient can be used.
 \begin{tabular}{ll} \\[-1zh]
 	$S=21$ & \$SPTK/lib/lpfcoef.2to1 \\
 	$S=43$ & \$SPTK/lib/lpfcoef.4to3 \\
 	$S=52,s=54$ & \$SPTK/lib/lpfcoef.5to2up \\
 	& \$SPTK/lib/lpfcoef.5to2dn \\
-        &(\$SPTKはインストールしたディレクトリ)
+        &(\$SPTK is the directory where toolkit was installed.)
 \end{tabular}
 
-なお，ファイルタ係数のファイルはASCII形式となっています．
+Filter coefficients are in ascii formats.
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S}{変換タイプ． \\
+	\argm{s}{S}{conversion type\\
 		\begin{tabular}{ll} \\[-1zh]
-			$S=21$ & 比率 $2 : 1$ でダウンサンプリング \\
-			$S=43$ & 比率 $4 : 3$ でダウンサンプリング \\
-			$S=52$ & 比率 $5 : 2$ でダウンサンプリング \\
-			$S=54$ & 比率 $5 : 4$ でダウンサンプリング
+			$S=21$ & down sampling by $2:1$ \\
+			$S=43$ & down sampling by $4:3$ \\
+			$S=52$ & down sampling by $5:2$ \\
+			$S=54$ & down sampling by $5:4$
 		\end{tabular}\\\hspace*{\fill}}{21}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の標本化周波数16kHzの音声データ {\em data.16} を標本化周波数8kHzに
-ダウンサンプリングし， {\em data.8} に出力する:
+In this example, the speech data in the input file {\em data.16},
+which was sampled at 16kHz in float format, is converted to
+sampling rate of 8kHz:
 \begin{quote}
 \verb! ds data.16 > data.8 !
 \end{quote}

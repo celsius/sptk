@@ -1,46 +1,45 @@
-\name{delay}{遅延}{信号処理}
+\name{delay}{delay sequence}{signal processing}
 
 \begin{synopsis}
 \item [delay] [ --s $S$ ] [ --f ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- {\em delay} は，入力された信号を遅延させます．つまり，
+ This command delaies the signal in the input file.
+ For example, if we want to delay the following data
 \[ x(0), x(1), \ldots , x(T) \]
-を，
-\[ \underbrace{0, \ldots , 0}_{S}, x(0), x(1), \ldots , x(T) \]
-とします．
--f オプションを指定すると，
+as
+\[ \underbrace{0, \ldots , 0}_{S}, x(0), x(1), \ldots , x(T) \].
+we only need to set the ``-f'' option to $S$
 \[ \underbrace{0, \ldots , 0}_{S}, x(0), x(1), \ldots , x(T-S) \]
-となります．
 \par
-データ形式は入力，出力ともにfloat形式です．
-
+Input and output data is in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S}{開始サンプル．}{0}
-	\argm{f}{}{入力ファイルのサイズを保つ．}{False}
+	\argm{s}{S}{start sample}{0}
+	\argm{f}{}{keep file length}{False}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-
-float形式のファイル {\em data.f} には以下のデータが入っているとする．
+If we have the following data in the input {\em data.f} file
 \begin{displaymath}
  1.0, 2.0, 3.0, 4.0, 5.0, 6.0
 \end{displaymath}
-ここで
+and we use the command below
 \begin{quote}
  \verb!delay -s 3 < data.f > data.delay!
 \end{quote}
-とするとファイル {\em data.delay} には以下のデータが入る．
+then the output file {\em data.delay} is 
 \begin{displaymath}
  0.0, 0.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
 \end{displaymath}
+As another example, if we want to keep the same size of the input file,
+we can use the following command,
 \begin{quote}
 \verb!delay -s 3 -f < data.f > data.delay!
 \end{quote}
-とするとファイル {\em data.delay} には以下のデータが入る．
+and the output {\em data.delay} is
 \begin{displaymath}
  0.0, 0.0, 0.0, 1.0, 2.0, 3.0
 \end{displaymath}

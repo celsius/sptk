@@ -1,4 +1,4 @@
-\name{echo2}{標準エラーへの出力}{その他}
+\name{echo2}{output of the starndard error}{etc}
 
 \begin{synopsis}
 \item[echo2] [ --n ] [ argument ]
@@ -6,16 +6,17 @@
 
 \begin{qsection}{DESCRIPTION}
 
-{\em echo2} は，引数を標準エラーに出力します．
+The command {\em echo2} outputs its arguments to the standard error
+output.
 
 \end{qsection}
 
 \begin{options}
-	\argm{n}{}{出力後に改行しません．}{}
+	\argm{n}{}{no output newline}{}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-standard errorに改行せずに，''error!''と出力する．
+This example prints ''error!'' in the standard error output:
 \begin{quote}
   \begin{verbatim}
   echo2 -n "error!"

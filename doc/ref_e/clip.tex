@@ -1,34 +1,35 @@
-\name{clip}{データの値の範囲を制限(クリッピング)する}{データ処理}
+\name{clip}{data clipping}{data processing}
 
 \begin{synopsis}
 \item[clip] [ --y $y_{min} \; y_{max}$ ] [ --ymin $y_{min}$ ] [ --ymax $y_{max}$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em clip} は，float型で与えられるデータ列を標準入力から読み込み，指定
-されたオプションで指定される最小値から最大値の範囲外の値であれば，最小値
-または最大値に値を制限して標準出力に出力します．
+This command reads the input file {\em infile}
+as well as the minimum and maximum values,
+clips the data, and send it to the standard output.
+The input file must be in float format
+and if no input file is specified, the starndard input is used instead.
 \end{qsection}
 
 \begin{options}
-	\argm{y}{y_{min} \; y_{max}}{データの値の範囲の最小値と最大値．}
+	\argm{y}{y_{min} \; y_{max}}{lower bound & upper bound}
 		{$-1.0 \, 1.0$}
-	\argm{ymin} {y_{min}} {データの値の範囲の最小値．
-				上限は制限しない．}{N/A}
-	\argm{ymax} {y_{max}} {データの値の範囲の最大値．
-				下限は制限しない．}{N/A}
+	\argm{ymin} {y_{min}} {lower bound (ymax = inf)}{N/A}
+	\argm{ymax} {y_{max}} {upper bound (ymin = -inf)}{N/A}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f} には以下のデータが入っているとする．
+Suppose that the data of the file {\em data.f} is in float format
+with the following values,
 \begin{displaymath}
  1.0, 2.0, 3.0, 4.0, 5.0, 6.0
 \end{displaymath}
-ここで
+If we type the following command
 \begin{quote}
  \verb!clip -y 2.5 5.5 < data.f > data.clip!
 \end{quote}
-とするとファイル {\em data.clip} には以下のデータが入る．
+the output {\em data.clip} will contain these values
 \begin{displaymath}
  2.5, 2.5, 3.0, 4.0, 5.0, 5.5
 \end{displaymath}

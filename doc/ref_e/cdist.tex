@@ -1,4 +1,4 @@
-\name{cdist}{ケプストラム距離の計算}{データ処理}
+\name{cdist}{Evaluation of cepstral distance}{data processing}
 
 \begin{synopsis}
 \item [cdist] [ --m $M$ ] [ --o $O$ ] [ --f ] {\em cfile}
@@ -6,40 +6,38 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-ファイル {\em infile}（省略時は標準入力）とファイル {\em cfile}との
-ケプストラム距離を計算します．
-{\em infile}のフレーム$t$のケプストラムを
+This command evaluates cepstral distance between the file {\em infile}
+and {\em cfile}.
+For example, if the cepstrum coefficients of the {\em infile} at
+frame $t$ are 
 \[c_{1,t}(0),c_{1,t}(1),c_{1,t}(2),\cdots,c_{1,t}(M)\]
-{\em cfile}のフレーム$t$のケプストラムを
+and the cepstrum coefficients of the {\em cfile} at frame $t$ are
 \[c_{2,t}(0),c_{2,t}(1),c_{2,t}(2),\cdots,c_{2,t}(M)\]
-とした時，フレームごとの自乗ケプストラム距離は
+then the squared cepstrum distance for every frame is
 \[d(t)=\sum_{k=1}^{M} (c_{1,t}(k)-c_{2,t}(k))^2\]
-となり，ファイル全体のケプストラム距離は
+and the total cepstral distance between both files is
 \[d=\frac{1}{T} \sum_{t=0}^{T} d(t)\]
-となります．
 
-但し、$T$ は {\em infile}，{\em cfile} のうち少ない方のフレーム数
-となります．
-
-
+If the number of frames in {\em infile} or {\em cfile} is less
+then $T$, then evaluation is undertaken for the smallest number of frames.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{最小位相ケプストラムの次数．}{25}
-	\argm{o}{O}{ケプストラム距離のフォーマット．\\
+	\argm{m}{M}{order of minimum-phase cepstrum}{25}
+	\argm{o}{O}{output format\\
 		\begin{tabular}{ll} \\[-1zh]
 		$O=0$ & $  \frac{10}{\ln 10} \sqrt{2d(t)}$ \ \ \ \ [db]\\
 		$O=1$ & $  d(t)$ \\
 		$O=2$ & $  \sqrt{d(t)}$ \\[1zh]
 		\end{tabular}\\
 						}{0}
-	
-	\argm{f}{}{フレームごとのケプストラム距離を出力}{FALSE}
+	\argm{f}{}{output frame by frame}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float 形式の15次のケプストラムファイル {\em data1.cep}，{\em data2.cep}
-との自乗ケプストラム距離を求め，表示します．
+In the example below, the squared spectral distance of the 15 order
+cepstrum files {\em data1.cep} and {\em data2.cep},
+both in float formats, is evaluated and displayed.
 \begin{quote}
 \verb! cdist -m 15 data1.cep data2.cep | dmp !
 \end{quote}

@@ -1,47 +1,43 @@
-\name{dmp}{バイナリファイルのダンプ}{データ操作}
+\name{dmp}{binary file dump}{data oparation}
 
 \begin{synopsis}
 \item[dmp] [ --n $N$ ] [ --l $L$ ] [ +{\em type} ] [ $\%${\em form} ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em dmp} は，指定されたファイルから読み込まれたデータに番号をふって
-ダンプします．
-ファイルが指定されなかった場合，データは標準入力から読み込まれます．
+This command reads data from an assigned file,
+numerates it and prints on the screen.
+If the input file is not assigned, then data is read from the stardard
+input.
 \end{qsection}
 
 \begin{options}
-	\argm{n}{N}{データのブロック長．ふられる番号は，$0\sim N$ と
-		      なる．指定しない場合は，$N = \infty$ と等価．}{EOD}
-	\argm{l}{L}{データのブロック長．ふられる番号は，$1\sim L$ と
-		      なる．指定しない場合は，$L = \infty$ と等価．}{EOD}
-	\argp{t}{入力データの形式． \\
+	\argm{n}{N}{block order (0,...,n)}{EOD}
+	\argm{l}{L}{block length  (1,...,l)}{EOD}
+	\argp{t}{input data format\\
 		\begin{tabular}{llcll} \\[-1zh]
-			c & char型 (1byte) & \quad &
-			s & short型 (2bytes) \\
-			i & int型 (4bytes) & \quad &
-			l & long型 (4bytes) \\
-			f & float型 (4bytes) & \quad &
-			d & double型 (8bytes)
+			c & char (1byte) & \quad &
+			s & short (2bytes) \\
+			i & int (4bytes) & \quad &
+			l & long (4bytes) \\
+			f & float (4bytes) & \quad &
+			d & double (8bytes)
 		\end{tabular}\\\hspace*{\fill}}{f}
-        \argh{form}{}{出力のフォーマット指定．\\
-			C言語のprintf関数の引数の形で出力のフォーマットを
-			指定する．入力データの型に合わせる必要がある．}{N/A}
+        \argh{form}{}{print format(printf style)}{N/A}
 
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル{\em data.f} にあるデータを
-ダンプする:
+This example read the input file {\em data.f} in float format:
 \begin{quote}
  \verb!dmp +f data.f!
 \end{quote}
-例えば，ファイル{\em data.f} に，
-float 形式の数値データ
+For example, if the {\em data.f} file has following values
+in float format
 \begin{displaymath}
   1, 2, 3, 4, 5, 6, 7
 \end{displaymath}
-が入っていた場合，
+the following output will be displayed on the screen.
 \begin{quote}
   \verb!0       1! \\
   \verb!1       2! \\
@@ -51,13 +47,12 @@ float 形式の数値データ
   \verb!5       6! \\
   \verb!6       7!
 \end{quote}
-と画面（標準出力）に出力されます．
 \par
-同じデータをブロック長を指定してダンプする:
+In case we want to assign a block length:
 \begin{quote}
  \verb!dmp -n 2 +f data.f!
 \end{quote}
-この場合，
+The output would be
 \begin{quote}
   \verb!0       1! \\
   \verb!1       2! \\
@@ -67,20 +62,20 @@ float 形式の数値データ
   \verb!2       6! \\
   \verb!0       7!
 \end{quote}
-と表示されます．
 \par
-ディジタルフィルタのユニットパルス応答を画面にダンプする:
+If we want to print on the screen the unit pulse response of a digital
+filter:
 \begin{quote}
   \verb!impulse | dfs -a 1 0.9 | dmp!
 \end{quote}
 \par
-printf の\%e フォーマットで，
-正弦波をダンプする:
+If we want to print a sine wave then we can use the \%e option of
+{\em printf} as follows:
 \begin{quote}
   \verb!sin -p 30 | dmp %e!
 \end{quote}
 \par
-小数点以下を3 桁にする:
+If we want to represent the sine wave with three decimal points:
 \begin{quote}
   \verb!sin -p 30 | dmp %.3e!
 \end{quote}
