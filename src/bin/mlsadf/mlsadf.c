@@ -30,7 +30,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: mlsadf.c,v 1.1 2000/03/01 13:58:28 yossie Exp $";
+static char *rcs_id = "$Id: mlsadf.c,v 1.2 2001/01/15 13:27:16 yossie Exp $";
 
 
 /*  Standard C Libraries  */
@@ -55,6 +55,7 @@ double	mlsadf(), exp();
 #define	BFLAG		FA
 #define	PADEORDER	4
 #define NGAIN		FA
+#define INVERSE		FA
 
 
 /*  Command Name  */
@@ -76,6 +77,7 @@ void usage(int status)
     fprintf(stderr, "       -b    : output filter coefficient b  [%s]\n", BOOL[BFLAG]);
     fprintf(stderr, "       -P P  : order of pade approximation  [%d]\n", PADEORDER);
     fprintf(stderr, "       -k    : filtering without gain       [%s]\n", BOOL[NGAIN]);
+    fprintf(stderr, "       -v    : inverse filter               [%s]\n", BOOL[INVERSE]);
     fprintf(stderr, "       -h    : print this message\n");
     fprintf(stderr, "  infile:\n");
     fprintf(stderr, "       filter input (float)                 [stdin]\n");
@@ -95,7 +97,7 @@ void main(int argc, char **argv)
 		fprd = FPERIOD, iprd = IPERIOD, i, j;
     FILE	*fp = stdin, *fpc = NULL;
     double	*c, *inc, *cc, *d, x, a = ALPHA, atof();
-    Boolean	bflag = BFLAG, ngain = NGAIN;
+    Boolean	bflag = BFLAG, ngain = NGAIN, inverse = INVERSE;
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	cmnd = argv[0];
@@ -123,6 +125,9 @@ void main(int argc, char **argv)
 		case 'P':
 		    pd = atoi(*++argv);
 		    --argc;
+		    break;
+		case 'v':
+		    inverse = 1 - inverse;
 		    break;
 		case 'b':
 		    bflag = 1 - bflag;
@@ -160,11 +165,19 @@ void main(int argc, char **argv)
     if(freadf(c, sizeof(*c), m+1, fpc) != m+1) exit(1);
     if(! bflag)
 	mc2b(c, c, m, a);
+    if(inverse){
+	c[0] = 0;
+	for(i=1; i<=m; i++) c[i] *= -1;
+    }
 	
     for(;;){
 	if(freadf(cc, sizeof(*cc), m+1, fpc) != m+1) exit(0);
 	if(! bflag)
 	    mc2b(cc, cc, m, a);
+        if(inverse){
+	    cc[0] = 0;
+	    for(i=1; i<=m; i++) cc[i] *= -1;
+        }
 	    
 	for(i=0; i<=m; i++)
 	    inc[i] = (cc[i] - c[i])* (double) iprd / (double) fprd;
