@@ -1,5 +1,4 @@
-%#!jlatex main.tex
-%\documentstyle[fleqn,12pt,makeidx,epsf,cmndref]{jbook}
+%#!platex main.tex
 \documentclass[12pt]{jbook}
 \usepackage{cmndref}
 \usepackage{epsf}
@@ -18,25 +17,43 @@
 \renewcommand{\textfraction}{0}
 \renewcommand{\dbltopfraction}{1}
  
-%\input{mathdef}
-
 \makeindex
+
+\setcategoryorder{%
+	データ操作,%
+	数値演算,%
+	データ処理,%
+	サンプリングレート変換,%
+	DA変換,%
+	グラフ表示,%
+	信号生成,%
+	ディジタルフィルタ,%
+	信号処理,%
+	音声分析合成関連,%
+	音声分析,%
+	音声パラメータ変換,%
+	音声合成用フィルタ,%
+	ベクトル量子化,%
+	パラメータ生成,%
+	その他%
+}
 
 \begin{document}
 
-\title{
-「音声信号処理ツールキット」 \\
-{\gt リファレンスマニュアル} \\[3mm]
-\rm
-REFERENCE MANUAL for \\
-\sl
-Speech Signal Processing Toolkit}
-\author{Ver. 2.0 \\[10mm]}
-\date{\rm June 1, 2000}
-
-\maketitle
-
 \begin{titlepage}
+\vspace*{\fill}
+ \begin{center}
+	\LARGE
+	「音声信号処理ツールキット」 \\
+	{\gt リファレンスマニュアル} \\[5mm]
+	{\rm REFERENCE MANUAL for} \\
+	{\sl Speech Signal Processing Toolkit} Ver. 2.0 \\[10mm]
+	{\rm June 1, 2000}
+ \end{center}
+\vspace*{\fill}
+\vspace*{\fill}
+\newpage
+\thispagestyle{empty}
 \vspace*{\fill}
 \noindent
 本ツールキットに関する情報は，
@@ -55,19 +72,13 @@ Speech Signal Processing Toolkit}
 ことを御了承下さい．
 \end{titlepage}
 
-\newpage
-%\begin{titlepage}
-%~
-%\end{titlepage}
+\cleardoublepage
 
 \pagenumbering{roman}
 \tableofcontents
-%\vspace{18mm}
 
-%バグレポート，御意見，御提案などは {\tt dsp-cmnd@ip.titech.ac.jp} まで
-%お願い致します．
-\newpage
-~\newpage
+\cleardoublepage
+
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
@@ -186,7 +197,7 @@ Speech Signal Processing Toolkit}
 
 \include{ref}
 
-\pagestyle{empty}
+\pagestyle{headings}
 \printindex
 
 \end{document}
