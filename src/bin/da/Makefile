@@ -38,7 +38,7 @@ install: $(TARGET)
 	if [ x"$(DA_OSTYPE)" != x ] ; then \
 	$(INSTALL) $(TARGET) $(BIN) ; \
 	for i in *.sh ; do \
-		sed '/path/s:/usr/local/SPTK/bin:'$(BIN)':' $$i > $(BIN)/$$i ; \
+		sed -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' -e '/libpath/s:/usr/local/SPTK/lib:'$(LIB)':' $$i > $(BIN)/$$i ; \
 		chmod 755 $(BIN)/$$i ; \
 		j=`basename $$i .sh` ; \
 		$(RM) $$j ; \
