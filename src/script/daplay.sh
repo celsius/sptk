@@ -220,7 +220,7 @@ foreach infile ($argv[${file}-$#argv])
 		srcnv -s 57 -u7 -d5 |\
 		srcnv -s 57 -u7 -d$osr |\
 		da -H $headersize -g $gain -a $ampl +f -s 22
-	if( $file < 0)
+	if( $file < 0) then
 		exit 0
 	endif
 end
