@@ -1,5 +1,5 @@
 /************************************************************************
-
+ 
     LBG Algorithm for Vector Qauntizer Design
 	
 	void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, delta, end)	
@@ -15,6 +15,8 @@
 	double	end	:   end condition
   
 ************************************************************************/
+
+static char *rcs_id = "$Id$";
 
 #include <stdio.h>
 #include <SPTK.h>
