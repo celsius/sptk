@@ -75,7 +75,7 @@ install: $(TARGET)
 		chmod 755 $(BIN)/$$i; \
 		j=`basename $$i .sh`; \
 		$(RM) $(BIN)/$$j ; \
-		( cd $(BIN) ; ln -s $$i $$j ) ; \
+		ln -s $$i $(BIN)/$$j ; \
 	done;
 
 clean:
