@@ -79,8 +79,7 @@
 \def\@name[#1]#2#3#4{
 \renewcommand{\thechapter}{#2}
 \setcounter{equation}{0}
-\addcontentsline{toc}{section}{\protect\makebox[5em][l]{#2} --- 
-\protect\mbox{#3}}
+\addcontentsline{toc}{section}{\protect\texorpdfstring{\protect\makebox[5em][l]{#2} --- \protect\mbox{#3}}{#2 ― #3}}
 \markboth
  {\hspace*{1em}{\rm \uppercase{#2}}\hfill 
    Speech Signal Processing Toolkit\hfill{\rm \uppercase{#2}}}
@@ -170,7 +169,7 @@
 
 \def\thebibliography#1{%
  \renewcommand{\thechapter}{参考文献}%
- \addcontentsline{toc}{section}{\vrule width 0pt height 2\baselineskip 参考文献}%
+ \addcontentsline{toc}{section}{\protect\texorpdfstring{\protect\vrule width 0 pt height 2\protect\baselineskip}{}参考文献}%
  \@makeschapterhead{参考文献}%
  \@mkboth{参考文献}{参考文献}\thispagestyle{jpl@in}
  \list
