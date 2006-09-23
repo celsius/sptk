@@ -211,6 +211,7 @@ LATEX	= platex
 MAKEIDX	= mendex -f
 DVIPS	= dvips -f
 PSPDF	= ps2pdf
+DVIPDF  = dvipdfmx
 
 RM	= rm -rf
 TOUCH	= touch
@@ -248,6 +249,8 @@ TOUCH	= touch
 .ps.pdf:
 	$(PSPDF) $< $@
 
+.dvi.pdf:
+	$(DVIPDF) -o $@ $<
 
 ############################################################
 #### Make Target File ######################################
@@ -263,13 +266,14 @@ $(IND): $(AUX)
 
 $(AUX): $(INC)
 
+$(PDF): $(DVI) $(EPSF)
 
 ############################################################
 #### Directory Cleaning ####################################
 ############################################################
 
 clean:
-	$(RM) *.dvi *.ps *.pdf *.aux *.toc *.lof *.lot *.log *.idx* *.ind* *.ilg
+	$(RM) *.dvi *.ps *.pdf *.aux *.toc *.lof *.lot *.log *.idx* *.ind* *.ilg *.out
 	$(RM) *~ \#* $(TARGET)
 
 logclean:

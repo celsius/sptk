@@ -79,8 +79,7 @@
 \def\@name[#1]#2#3#4{
 \renewcommand{\thechapter}{#2}
 \setcounter{equation}{0}
-\addcontentsline{toc}{section}{\protect\makebox[5em][l]{#2} --- 
-\protect\mbox{#3}}
+\addcontentsline{toc}{section}{\protect\texorpdfstring{\protect\makebox[5em][l]{#2} --- \protect\mbox{#3}}{#2 --- #3}}
 \markboth
  {\hspace*{1em}{\rm \uppercase{#2}}\hfill 
    Speech Signal Processing Toolkit\hfill{\rm \uppercase{#2}}}
@@ -248,7 +247,7 @@
     \edef\@opt@Z{@@opt@Z\the@i}%
     \edef\@@opt@Z{\@nameuse{\@opt@Z}}%
     \ifx\@@opt@Z\@@opt@none\else%
-      \@tmpdim=1zh%
+      \@tmpdim=1em%
       \advance\@tmpdim by \@nameuse{\@opt@Z}%
       \expandafter\vbox to \@tmpdim{}%
     \fi%

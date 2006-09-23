@@ -40,7 +40,19 @@
 \usepackage{epsf}
 \usepackage{fleqn}
 \usepackage{makeidx}
+\usepackage{natbib}
 \usepackage{cmndref}
+
+\usepackage[dvips,
+	a4paper,
+	dvipdfm,
+	bookmarkstype=toc,
+	bookmarks=true,
+	bookmarksnumbered=true,
+	pdfauthor={SPTK working group},
+        pdftitle={SPTK-3.0 Reference Manual}]
+	{hyperref}
+\AtBeginDvi{\special{pdf:tounicode EUC-UCS2}}
 
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{9in}
