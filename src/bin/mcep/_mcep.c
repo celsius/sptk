@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.2 2002/12/25 05:31:27 sako Exp $
+    $Id: _mcep.c,v 1.3 2006/10/06 12:16:38 mr_alex Exp $
 
     Mel-Cepstral Analysis
 
@@ -105,7 +105,7 @@ int flng, itr1, itr2, m;
     fftr(x, y, flng);
     for(i=0; i<flng; i++){
 	x[i] = x[i]*x[i] + y[i]*y[i];
-	c[i] = log(x[i]+e);
+	c[i] = log(x[i]+=e);
     }
 	
     /*  1, (-a), (-a)^2, ..., (-a)^M  */
