@@ -105,7 +105,7 @@ int flng, itr1, itr2, m;
     fftr(x, y, flng);
     for(i=0; i<flng; i++){
 	x[i] = x[i]*x[i] + y[i]*y[i];
-	c[i] = log(x[i]+e);
+	c[i] = log(x[i]+=e);
     }
 	
     /*  1, (-a), (-a)^2, ..., (-a)^M  */
