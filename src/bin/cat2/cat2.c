@@ -50,7 +50,7 @@
 *									*
 ************************************************************************/
 
-/*  Standard C Libraries  */
+/*  Standard C Libraries **/
 #include <stdio.h>
 #include <string.h>
 
