@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _acep.c,v 1.2 2002/12/25 05:28:19 sako Exp $
+    $Id: _acep.c,v 1.3 2006/10/14 05:09:16 mr_alex Exp $
 
     Adaptive Cepstral Analysis
 
@@ -62,9 +62,7 @@
 
 #define PADEORD 	4
 
-double acep(x, c, m, lambda, step, tau, pd, eps)
-double x, *c, lambda, step, eps;
-int m, pd;
+double acep(double x, double *c, int m, double lambda, double step, double tau, int pd, double eps)
 {
     register int   i;
     static double  *cc = NULL, *e, *ep, *d, gg = 1.0;
