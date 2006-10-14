@@ -59,7 +59,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: delay.c,v 1.2 2002/12/25 05:29:06 sako Exp $";
+static char *rcs_id = "$Id: delay.c,v 1.3 2006/10/14 06:07:45 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -101,7 +101,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		start = START, leng = 16384, i;
     FILE	*fp = stdin;
@@ -110,29 +110,33 @@ void main(int argc, char **argv)
     
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
+      cmnd = argv[0];
     else
-	cmnd++;
+      cmnd++;
     while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 's':
-		    start = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'f':
-		    keep = 1 - keep;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
+      if (**++argv == '-') {
+	switch (*(*argv+1)) {
+	case 's':
+	  start = atoi(*++argv);
+	  if(start > leng){
+	    fprintf(stderr, "option s should be %d or less!\n",leng);
+	    exit(0);
+	  }
+	  --argc;
+	  break;
+	case 'f':
+	  keep = 1 - keep;
+	  break;
+	case 'h':
+	  usage(0);
+	default:
+	  fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+	  usage(1);
 	}
-	else 
-	    fp = getfp(*argv, "r");
-
+      }			
+      else 
+	fp = getfp(*argv, "r");
+    
     x = dgetmem(leng);
     while ((i = freadf(x+start, sizeof(*x), leng-start, fp)) == leng-start){
 	fwritef(x, sizeof(*x), leng-start, stdout);
