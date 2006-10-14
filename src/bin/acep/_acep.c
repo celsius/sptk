@@ -62,9 +62,7 @@
 
 #define PADEORD 	4
 
-double acep(x, c, m, lambda, step, tau, pd, eps)
-double x, *c, lambda, step, eps;
-int m, pd;
+double acep(double x, double *c, int m, double lambda, double step, double tau, int pd, double eps)
 {
     register int   i;
     static double  *cc = NULL, *e, *ep, *d, gg = 1.0;
