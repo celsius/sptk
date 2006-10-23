@@ -56,7 +56,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: dmp.c,v 1.2 2002/12/25 05:29:15 sako Exp $";
+static char *rcs_id = "$Id: dmp.c,v 1.3 2006/10/23 00:30:33 s_sako Exp $";
 
 
 /*  Standard C Libraries  */
@@ -111,6 +111,7 @@ void main(int argc, char **argv)
 		      float  f;
 		      double d;
 		      char   c;
+		      long   l;
 		     } x;
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -231,6 +232,15 @@ void main(int argc, char **argv)
 			strcat(form,"\n");
 		}
 		printf(form, i+lflag, x.c);
+		break;
+	    case 'l':
+		strcpy(form,"%d\t%d\n");
+		if(ff){
+			strcpy(form,"%d\t");
+			strcat(form,format);
+			strcat(form,"\n");
+		}
+		printf(form, i+lflag, x.l);
 		break;
 	    }
 	if (eflag)
