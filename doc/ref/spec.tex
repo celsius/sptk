@@ -40,7 +40,7 @@
 \begin{synopsis}
  \item[spec]   [ --l $L$ ] [ --m $M$ ] [ --n $N$ ] [ --z {\em zfile} ]
                [ --p {\em pfile} ]
- \item[\ ~~~~] [ --y $Y$ ] [ {\em infile} ]
+ \item[\ ~~~~] [ --o $O$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -65,7 +65,7 @@
 	\end{array}
     \right.,~~~~ k=0,1,\ldots,L-1
 \end{eqnarray*}
-をFFT により計算し，{\bf --y} オプションの指定に従って，
+をFFT により計算し，{\bf --o} オプションの指定に従って，
 \begin{displaymath}
   Y_k=20\,\log_{10}\,|X_k|,~~~~ k=0,1,\ldots,L/2
 \end{displaymath}
@@ -102,11 +102,11 @@
 	\argm{p}{pfile}{伝達関数の分母多項式の係数が書かれたファイル．
 			ファイル内容はfloat 形式で次のように与えます．\\
 			\hspace*{2zw}$K, a(1), \ldots, a(M)$\\[-1zh]}{NULL}
-	\argm{y}{Y}{出力するスペクトルのスケールを指定．\\
+	\argm{o}{O}{出力するスペクトルのスケールを指定．\\
 			\begin{tabular}{lll} \\[-1zh]
-			$Y=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\ldots,L/2$\\
-			$Y=1$ & ~~~$\ln |X_k|$ & $k=0,1,\ldots,L/2$\\
-			$Y=2$ & ~~~$|X_k|$ & $k=0,1,\ldots,L/2$\\
+			$O=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\ldots,L/2$\\
+			$O=1$ & ~~~$\ln |X_k|$ & $k=0,1,\ldots,L/2$\\
+			$O=2$ & ~~~$|X_k|$ & $k=0,1,\ldots,L/2$\\
 			\end{tabular} \\\hspace*{\fill}}{0}
 	\desc{
 {\em pfile}, {\em zfile} の内容は，{\em dfs} の場合と同じです．\\
