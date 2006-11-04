@@ -127,7 +127,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		i, freq = FREQ, n = ILNG, l, L = LOW , H = HIGH, m, itr1 = MINITR, itr2 = MAXITR, low, high;
     double	*x, eps = EPS, atof(), p, thresh = THRESH, end = END;
@@ -185,7 +185,7 @@ void main(int argc, char **argv)
 
     low = freq * 1000 / H;
     high = freq * 1000 / L;
-    m = freq / 10 * 25;
+    m = (freq * 25)/10;
     l = 1;
     while (l < n)l+=l;
 
