@@ -115,7 +115,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, l = FLNG, itr = MAXITR, i;
     double	ac = ACCELATION, eps = EPS, *x, *y, *c, log(), atof();
@@ -142,6 +142,10 @@ void main(int argc, char **argv)
 		    break;
 		case 'k':
 		    ac = atof(*++argv);
+		    --argc;
+		    break;
+		case 'e':
+		    eps = atof(*++argv);
 		    --argc;
 		    break;
 		case 'h':
