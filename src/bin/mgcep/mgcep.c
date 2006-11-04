@@ -75,7 +75,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.2 2002/12/25 05:31:40 sako Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.3 2006/11/04 05:15:07 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -135,13 +135,13 @@ void usage(int status)
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       mel-generalized cepstrum (float)\n");
     fprintf(stderr, "  notice:\n");
-    fprintf(stderr, "       if g > 1.0, g = -1 / g\n");
+    fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
     fprintf(stderr, "\n");
     exit(status);
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int	     m = ORDER, flng = FLENG, itr1 = MINITR, itr2 = MAXITR, 
 	     n = -1, flag = 0, otype = OTYPE, i;
@@ -162,7 +162,7 @@ void main(int argc, char **argv)
 	        case 'g':
 		    g = atof(*++argv);
 		    --argc;
-                    if (g > 1.0) g = -1.0 / g;
+                    if (g >= 1.0) g = -1.0 / g;
 		    break;
 		case 'm':
 		    m = atoi(*++argv);
