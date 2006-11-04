@@ -40,7 +40,7 @@
 \begin{synopsis}
  \item[spec]   [ --l $L$ ] [ --m $M$ ] [ --n $N$ ] [ --z {\em zfile} ]
                [ --p {\em pfile} ]
- \item[\ ~~~~] [ --y $Y$ ] [ {\em infile} ]
+ \item[\ ~~~~] [ --o $O$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -116,11 +116,11 @@ the difference between the numerator and denominator phases}.
 			The {\em pfile} should follow this structure in
                         float format:\\
 			\hspace*{2ex}$K, a(1), \ldots, a(M)$\\[-1ex]}{NULL}
-	\argm{y}{Y}{output format\\
+	\argm{o}{O}{output format\\
 			\begin{tabular}{lll} \\[-1ex]
-			$Y=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\ldots,L/2$\\
-			$Y=1$ & ~~~$\ln |X_k|$ & $k=0,1,\ldots,L/2$\\
-			$Y=2$ & ~~~$|X_k|$ & $k=0,1,\ldots,L/2$\\
+			$O=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\ldots,L/2$\\
+			$O=1$ & ~~~$\ln |X_k|$ & $k=0,1,\ldots,L/2$\\
+			$O=2$ & ~~~$|X_k|$ & $k=0,1,\ldots,L/2$\\
 			\end{tabular} \\\hspace*{\fill}}{0}
 	\desc{The contents of {\em pfile} and {\em zfile}
                         should be in a similar form to that used in
