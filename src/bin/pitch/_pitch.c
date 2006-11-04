@@ -39,7 +39,7 @@
 
 /**********************************************************************
 
-    $Id: _pitch.c,v 1.6 2002/12/25 05:32:12 sako Exp $
+    $Id: _pitch.c,v 1.7 2006/11/04 05:27:02 mr_alex Exp $
 
     Pitch Extract
 
@@ -68,9 +68,7 @@ int uels();
 double log();
 
 
-double pitch(xw, l, thresh, low, high, eps, m, itr1, itr2, end)
-double *xw, thresh, eps, end;
-int l, low, high, m, itr1, itr2;
+double pitch(double *xw, int l, double thresh, int low, int high, double eps, int m, int itr1, int itr2, double end)
 {
     static double *x = NULL,*y, *c;
     double voiced,max,p,log();
@@ -100,9 +98,10 @@ int l, low, high, m, itr1, itr2;
 
     if(voiced > thresh){
 	fftr(x, y, l);
-	for(i=0; i<l; i++)
-	    x[i] /= l * i;
-
+	for(i=0; i<l; i++){
+	    x[i] /= l;	
+	    x[i] *= i;
+	}
 	max = 0.0;
 	for(i=low; i<high; i++)
 	    if(max < x[i]){
