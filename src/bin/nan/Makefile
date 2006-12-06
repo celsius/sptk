@@ -39,7 +39,7 @@
 # Makefile for commands
 #
 
-TARGET		= nan
+TARGET		= nan2
 SRCS		= $(TARGET).c
 OBJS		= $(SRCS:.c=.o)
 
