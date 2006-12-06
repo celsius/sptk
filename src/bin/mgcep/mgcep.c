@@ -69,13 +69,13 @@
 *		    4		, K~, g*c~'(1), ..., g*c~'(m)		*
 *		    5		, K, g*b'(1), ..., g*b'(m)		*
 *       notice:                                                         *
-*               if g > 1.0, g = -1 / g .                                *
+*               if g >= 1.0, g = -1 / g .                                *
 *	require:							*
 *		mgcep()							*
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.3 2006/11/04 05:15:07 mr_alex Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.4 2006/12/06 08:42:26 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
