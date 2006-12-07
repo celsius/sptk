@@ -44,7 +44,7 @@
 *					1997.7	G.Hirabayashi		*
 *									*
 *	usage:								*
-*		nan [ options ] [ infile ] > stdout			*
+*		nan2 [ options ] [ infile ] > stdout			*
 *	options:							*
 *		-d       :  input is assumed to be double       [FALSE]	*
 *	infile:								*
@@ -52,13 +52,15 @@
 *		input is assumed to be float				*
 *									*
 ************************************************************************/
-static char *rcs_id = "$Id: nan.c,v 1.2 2002/12/25 05:31:15 sako Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.3 2006/12/07 04:01:24 mr_alex Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
 #include <SPTK.h>
 #include <string.h>
 
+/*  Required Functions  */
+void nan_tmp(FILE *fp, int dflag);
 
 /* Defualt Values */
 #define DFLAG			0
@@ -93,9 +95,7 @@ int status;
 	exit(status);
 }
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp;
 	char	*s, *infile = NULL, c;
@@ -129,13 +129,11 @@ char	*argv[];
 	if(infile)	fp = getfp(infile, "r");
 	else		fp = stdin;
 
-	nan(fp, dflag);
+	nan_tmp(fp, dflag);
 	exit(0);
 }
 
-nan(fp, dflag)
-    FILE	*fp;
-    int		dflag;
+void nan_tmp(FILE *fp, int dflag)
 {
 	long	*upper, *lower, count = 0;
 	double	xd;
