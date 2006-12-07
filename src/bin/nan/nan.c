@@ -44,7 +44,7 @@
 *					1997.7	G.Hirabayashi		*
 *									*
 *	usage:								*
-*		nan2 [ options ] [ infile ] > stdout			*
+*		nan [ options ] [ infile ] > stdout			*
 *	options:							*
 *		-d       :  input is assumed to be double       [FALSE]	*
 *	infile:								*
@@ -52,7 +52,7 @@
 *		input is assumed to be float				*
 *									*
 ************************************************************************/
-static char *rcs_id = "$Id: nan.c,v 1.3 2006/12/07 04:01:24 mr_alex Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.4 2006/12/07 08:29:14 mr_alex Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
