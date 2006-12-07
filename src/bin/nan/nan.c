@@ -44,7 +44,7 @@
 *					1997.7	G.Hirabayashi		*
 *									*
 *	usage:								*
-*		nan2 [ options ] [ infile ] > stdout			*
+*		nan [ options ] [ infile ] > stdout			*
 *	options:							*
 *		-d       :  input is assumed to be double       [FALSE]	*
 *	infile:								*
