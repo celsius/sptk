@@ -59,10 +59,22 @@
 
 #include "plot.h"
 
+/*  Required Functions  */
+void plots(int mode);
+void plote();
+float _plnorm(float x);
+float _cordx(float x);
+float _cordy(float y);
+void plot(float x,float y, register int z);
+int plotr(int ip, float x, float y);
+int plota(int ip, float x, float y);
+void mode(int ltype, float lscale);
+void _chlnmod(int lmode);
+void origin(float x, float y);
+	
 struct co_ord _org = { 0.0, 0.0 };
 
-plots(mode)
-int	mode;
+void plots(int mode)
 {
 	if((mode & 0x80) == 0) {
 		asciimode();		/* ASCII mode */
@@ -74,33 +86,28 @@ int	mode;
 	_org.xo = _org.yo = 0;
 }
 
-plote()
+void plote()
 {
 }
 
-_plnorm(x)
-float	x;
+float _plnorm(float x)
 {
 	return(10.0 * x + 0.5);
 }
 
-_cordx(x)
-float	x;
+float _cordx(float x)
 {
 	return(_plnorm(x + _org.xo));
 }
 
-_cordy(y)
-float	y;
+float _cordy(float y)
 {
 	return(_plnorm(y + _org.yo));
 }
 
 static short		_ltype = 0, _lscale = 10;
 
-plot(x, y, z)
-float	x, y;
-register int	z;
+void plot(float x,float y, register int z)
 {
 	register int	ip;
 
@@ -120,9 +127,7 @@ register int	z;
 	}
 }
 
-plotr(ip, x, y)
-float	x, y;
-int	ip;
+int plotr(int ip, float x, float y)
 {
 	if(ip == 1)
 		rmove(_plnorm(x), _plnorm(y));
@@ -138,9 +143,7 @@ int	ip;
 	return(0);
 }
 
-plota(ip, x, y)
-float	x, y;
-int	ip;
+int plota(int ip, float x, float y)
 {
 	if(ip == 1)
 		move(_cordx(x), _cordy(y));
@@ -156,16 +159,13 @@ int	ip;
 	return(0);
 }
 
-mode(ltype, lscale)
-int	ltype;
-float	lscale; 
+void mode(int ltype, float lscale)
 {
 	_ltype  = ltype;
 	_lscale = _plnorm(lscale);
 }
 
-_chlnmod(lmode)
-int	lmode;
+void _chlnmod(int lmode)
 {
 	if(lmode) {
 		line_type(_ltype);
@@ -175,8 +175,7 @@ int	lmode;
 		line_type(0);
 }
 
-origin(x, y)
-float x, y;
+void origin(float x, float y)
 {
 	_org.xo = x;
 	_org.yo = y;

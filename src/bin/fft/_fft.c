@@ -60,9 +60,7 @@
 
 double	*_sintbl = 0;
 int 	maxfftsize = 0;
-int fft(x, y, m)
-double	*x, *y;
-int	m;
+int fft(double *x, double *y, int m)
 {
 	register int	j, lmx, li;
 	register double	*xp, *yp;
@@ -163,8 +161,7 @@ int	m;
 	return(0);
 }
 
-int checkm(m)
-int	m;
+int checkm(int m)
 {
 	register int	k;
 

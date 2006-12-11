@@ -64,6 +64,7 @@
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
 
@@ -72,8 +73,7 @@ typedef enum { plus, minus, multiply, divide } opt;
 typedef struct { double re, im;} complex;
 
 
-complex *cplx_getmem(leng)
-    int leng;
+complex *cplx_getmem(int leng)
 {
     int i;
     complex *p = NULL;
@@ -88,9 +88,7 @@ complex *cplx_getmem(leng)
     return p;
 }
 
-double rad_root(x, i)
-     double x;
-     int i;
+double rad_root(double x,int i)
 {
     if(x == 0.0)
         return -1.0;
@@ -98,9 +96,7 @@ double rad_root(x, i)
         return exp(log(x)/i);
 }
 
-complex c_math(c1, op, c2)
-     complex c1, c2;
-     opt op;
+complex c_math(complex c1,opt op,complex c2)
 {
     double p;
     complex t;
@@ -131,21 +127,17 @@ complex c_math(c1, op, c2)
     return t;
 }
 
-double c_mag(x)
-     complex x;
+double c_mag(complex x)
 {
     return sqrt(x.re*x.re + x.im*x.im);
 }
 
-double c_arg(x)
-     complex x;
+double c_arg(complex x)
 {
     return atan2(x.im, x.re);
 }
 
-void out(x, odr, form)
-     complex *x;
-     int odr, form;
+void out(complex *x, int odr,int form)
 {
     int 	i, k;
     double	mag, arg, *a;
@@ -185,10 +177,7 @@ void out(x, odr, form)
     fwritef(a, sizeof(*a), odr*2, stdout);
 }
 
-void root_pol(a, odr, x, a_zero, eps, itrat)
-     double	*a, eps;
-     int	odr, a_zero, itrat;
-     complex	*x;
+void root_pol(double *a, int odr,complex *x,int a_zero,double eps,int itrat)
 {
     int 	i, j, k, l;
     double	th, th1, th2, cm, cmax;

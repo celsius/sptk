@@ -54,9 +54,7 @@
 
 *****************************************************************/
 
-double	zerodf(x, b, m, d)
-double	x, *b, *d;
-int	m;
+double	zerodf(double x, double *b, int m, double *d)
 {
     register int  i;
     double 	  out;
@@ -73,9 +71,7 @@ int	m;
     return(out);
 }
 
-double	zerodft(x, b, m, d)
-double	x, *b, *d;
-int	m;
+double	zerodft(double x, double *b, int m, double *d)
 {
     register int        i;
     double              out;
@@ -90,9 +86,7 @@ int	m;
     return(out);
 }
 
-double	zerodf1(x, b, m, d)
-double	x, *b, *d;
-int	m;
+double	zerodf1(double x, double *b, int m, double *d)
 {
     register int  i;
     double 	  out;
@@ -108,9 +102,7 @@ int	m;
     return(out);
 }
 
-double	zerodf1t(x, b, m, d)
-double	x, *b, *d;
-int	m;
+double	zerodf1t(double x, double *b, int m, double *d)
 {
     register int        i;
     double              out;

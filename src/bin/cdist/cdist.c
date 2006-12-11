@@ -114,7 +114,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, num = 0, otype = OTYPE, i;
     FILE	*fp = stdin, *fp1 = NULL;

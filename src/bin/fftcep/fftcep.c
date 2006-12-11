@@ -73,11 +73,6 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-
-/*  Required Functions  */
-void	fftcep();
-
-
 /*  Default Values  */
 #define ORDER		25
 #define FLNG		256

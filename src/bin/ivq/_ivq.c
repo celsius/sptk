@@ -52,9 +52,7 @@
 
 *****************************************************************/
 
-void ivq(index, cb, l, x)
-int index, l;
-double *cb, *x;
+void ivq(int index, double *cb, int l, double *x)
 {
     movem((cb+index*l), x, sizeof(*cb), l);
 }

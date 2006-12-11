@@ -82,12 +82,6 @@ static char *rcs_id = "$Id$";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-
-/*  Required Functions  */
-void	msvq();
-void	imsvq();
-
-
 /*  Default Values  */
 #define LENG		26
 #define	QFLAG		FA
@@ -125,7 +119,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, *cbsize, *index,
 		stage = 0, ss = 0, num, i, j;

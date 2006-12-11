@@ -77,7 +77,6 @@ static char *rcs_id = "$Id$";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-
 /*  Default Values  */
 #define ROUND		FA
 #define COL		1
@@ -122,7 +121,7 @@ void usage(int status)
 
 double r = 0.0;
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     char        c1, c2, *form = FORM_FLOAT;
     double      x;
@@ -336,9 +335,7 @@ void main(int argc, char **argv)
     
 }
 
-void x2x(x1, x2, c1, c2)
-char *x1, *x2;
-char c1, c2;
+void x2x(char *x1,char *x2,char c1,char c2)
 {
     double x;
 

@@ -75,11 +75,6 @@ static char *rcs_id = "$Id$";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-
-/*  Required Functions  */
-double	zerodf(), zerodft();
-
-
 /*  Default Values  */
 #define ORDER		25
 #define	FPERIOD		100
@@ -115,7 +110,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, fprd = FPERIOD, iprd = IPERIOD,
                 i, j;

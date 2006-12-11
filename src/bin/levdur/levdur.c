@@ -68,11 +68,6 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-
-/*  Required Functions  */
-int	levdur();
-
-
 /*  Default Values  */
 #define ORDER		25
 
@@ -101,7 +96,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, flag;
     FILE	*fp = stdin;

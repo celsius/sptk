@@ -74,11 +74,6 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 
-
-/*  Required Functions  */
-void	imsvq();
-
-
 /*  Default Values  */
 #define LENG		26
 
@@ -114,7 +109,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, *cbsize, *index,
 		stage = 0, ss = 0, num, i, j;

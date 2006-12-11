@@ -68,10 +68,6 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-/*  Required Functions  */
-double	average();
-
-
 /*  Default Values  */
 #define LENG		0
 
@@ -101,8 +97,7 @@ void usage(int status)
     exit(status);
 }
 
-
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, num = 0;
     FILE	*fp = stdin;

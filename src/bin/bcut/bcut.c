@@ -114,8 +114,7 @@ void usage(int status)
     exit(status);
 }
 
-
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		   size = sizeof(float), n = LENG;
     long 	   start = START, end = END, ptr, atol();

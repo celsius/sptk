@@ -117,7 +117,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		  l = LENG, fprd = FPERIOD, size = sizeof(float), ns, i;
     FILE	  *fp = stdin;

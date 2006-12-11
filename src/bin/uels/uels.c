@@ -73,11 +73,6 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-
-/*  Required Functions  */
-int	uels();
-
-
 /*  Default Values  */
 #define ORDER		25
 #define FLENG           256
@@ -115,7 +110,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int	     m = ORDER, flng = FLENG, itr1 = MINITR, itr2 = MAXITR, flag = 0;
     FILE     *fp = stdin;

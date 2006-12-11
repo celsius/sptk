@@ -99,7 +99,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, ii, end;
     FILE	*fp = stdin;

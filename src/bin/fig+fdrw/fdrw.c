@@ -74,6 +74,8 @@
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
+/*  Required Functions  */
+int draw(FILE *fp);
 
 /*  Default Values  */
 #define BAR		FA
@@ -143,9 +145,7 @@ int	lmod[] = { 0, 2, 6, 3, 4};
 float	lpit[] = { 10, 1.6, 10, 3, 5};
 
 
-main(argc, argv)
-int	argc;
-char	*argv[];
+int main(int argc, char *argv[])
 {
 	FILE *fp = stdin;
 	register char	*s;
@@ -255,8 +255,7 @@ char	*argv[];
 	exit(0);
 }
 
-draw(fp)
-FILE	*fp;
+int draw(FILE *fp)
 {
 	register int	k, nitems;
 	char		buf[64];

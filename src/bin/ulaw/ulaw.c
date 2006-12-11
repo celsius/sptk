@@ -74,11 +74,6 @@ static char *rcs_id = "$Id$";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-
-/*  Required Functions  */
-double	ulaw_c(), ulaw_d();
-
-
 /*  Default Values  */
 #define MAXVALUE	32768.0
 #define MU		256.0
@@ -111,7 +106,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     double	x, y, max = MAXVALUE, mu = MU, atof();
     Boolean	decoder = DECODER;

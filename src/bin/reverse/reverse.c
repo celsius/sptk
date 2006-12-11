@@ -96,9 +96,7 @@ void usage()
 	exit(1);
 }
 
-main(argc, argv)
-	int	argc;
-	char	*argv[];
+int main(int argc,char *argv[])
 {
 	int	l = -1;
 	char	*s, c;

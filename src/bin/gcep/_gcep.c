@@ -60,12 +60,11 @@
 
 *****************************************************************/
 
-#include	<stdio.h>
-#include	<SPTK.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <SPTK.h>
 
-int gcep(xw, flng, gc, m, g, itr1, itr2, d, e)
-double *xw, *gc, d, g, e;
-int flng, itr1, itr2, m;
+int gcep(double *xw, int flng, double *gc, int m, double g, int itr1, int itr2, double d, double e)
 {
     int		  i, j, flag = 0;
     double	  t, s, dd, fabs(), exp(), log(), sqrt(), agexp();

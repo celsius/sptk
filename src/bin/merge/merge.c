@@ -116,7 +116,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     FILE 	*fp2 = NULL, *fp1 = stdin;
     int 	size = sizeof(float), start = START, 

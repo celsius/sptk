@@ -96,7 +96,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		period = PERIOD, start = START, i;
     FILE	*fp = stdin;

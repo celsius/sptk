@@ -136,7 +136,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m1 = ORDER1, m2 = ORDER2, i;
     double	a1 = ALPHA1, a2 = ALPHA2, g1 = GAMMA1, g2 = GAMMA2, 

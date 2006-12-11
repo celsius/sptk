@@ -76,12 +76,6 @@ static char *rcs_id = "$Id$";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-
-/*  Required Functions  */
-int	vq();
-void	ivq();
-
-
 /*  Default Values  */
 #define LENG		26
 #define	CBSIZE		256
@@ -115,7 +109,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, cbsize = CBSIZE, index;
     Boolean	qflag = QFLAG;

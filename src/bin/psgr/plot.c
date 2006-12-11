@@ -94,11 +94,31 @@ static int	xb[BUFSIZE], yb[BUFSIZE];
 static int	sp = 1;
 static int	ch = 30, cw = 30, th = 0, rotate = 0, mfg = 0;
 static int	init_str_flag = 0;	/*  Initial string segment
-						flag for text rotation.	*/
+					   flag for text rotation.	*/
+/*  Required Functions  */
+void plot( FILE *fp );
+void _move(int x, int y );
+void _line(FILE *fp );
+int _getcord(FILE *fp, int *buf );
+void _send(int *buf );
+void _flush();
+void polylines(int *x,int *y,int n );
+void polyg( FILE *fp,int type );
+void intstyle(int type );
+void hatching(FILE *fp,int type );
+void rectangle(int x0,int y0,int x1,int y1,int frame,int fill );
+void get_str(FILE *fp );
+void text(char *s,int n,int fn );
+void line_type(int type );
+void newpen(int width );
+void mark(int no );
+void rect(int x,int y,int w,int h,int fill );
+void tangle(int size,int fill );
+void arc(int x,int y,int r,int ang1,int ang2,int fill );
+void symbol(char *code,int size,int xoffset,int yoffset );
+void clip(int x0,int y0,int x1,int y1 );
 
-
-plot( fp )
-	FILE	*fp;
+void plot( FILE *fp )
 {
 	register int	c;
 	int		n, xmin, xmax, ymin, ymax;
@@ -140,15 +160,13 @@ plot( fp )
 	}
 }
 
-_move( x, y )
-	int	x, y;
+void _move(int x, int y )
 {
 	xb[0] = norm(x);
 	yb[0] = norm(y);
 }
 
-_line( fp )
-	FILE	*fp;
+void _line(FILE *fp )
 {
 	while (_getcord(fp, &pb))
 		_send(&pb);
@@ -156,9 +174,7 @@ _line( fp )
 	_flush();
 }
 
-_getcord( fp, buf )
-	FILE	*fp;
-	int	*buf;
+int _getcord(FILE *fp, int *buf )
 {
 	register int	c;
 
@@ -173,8 +189,7 @@ _getcord( fp, buf )
 		return(0);
 }
 
-_send( buf )
-	int	*buf;
+void _send(int *buf )
 {
 	if ( sp == BUFSIZE )
 		_flush();
@@ -182,7 +197,7 @@ _send( buf )
 	yb[sp++] = norm(*buf);
 }
 
-_flush()
+void _flush()
 {
 	if ( sp > 1 )  {
 		polylines(xb, yb, sp--);
@@ -192,8 +207,7 @@ _flush()
 	}
 }
 
-polylines( x, y, n )
-	int	*x, *y, n;
+void polylines(int *x,int *y,int n )
 {
 	moveto(*x++, *y++);
 	while ( --n > 0 )
@@ -202,9 +216,7 @@ polylines( x, y, n )
 	printf("ST\n");
 }
 
-polyg( fp, type )
-	FILE	*fp;
-	int	type;
+void polyg( FILE *fp,int type )
 {
 	register int	n;
 	int		d, angle;
@@ -220,8 +232,7 @@ polyg( fp, type )
 	polylines(xb+1, yb+1, n);
 }
 
-intstyle( type )
-	int	type;
+void intstyle(int type )
 {
 	int	is_frame = 1, style = 2;
 
@@ -238,9 +249,7 @@ intstyle( type )
 	}
 }
 
-hatching( fp, type )
-	FILE	*fp;
-	int	type;
+void hatching(FILE *fp,int type )
 {
 	register int	n;
 	int		style, frame;
@@ -273,9 +282,7 @@ hatching( fp, type )
 		rectangle(xb[1], yb[1], xb[2], yb[3], frame, type);
 }
 
-rectangle( x0, y0, x1, y1, frame, fill )
-	int	x0, y0, x1, y1;
-	int	frame, fill;
+void rectangle(int x0,int y0,int x1,int y1,int frame,int fill )
 {
 	static char	gray[16][8] = {
 				"0",	"0.875",
@@ -364,8 +371,7 @@ hatching( fp, type )
 }
 */
 
-get_str( fp )
-	FILE	*fp;
+void get_str(FILE *fp )
 {		    
 	int		c;	/*  charactor code  */
 	int		i;	/*  outputs strings length  */
@@ -421,9 +427,7 @@ get_str( fp )
 		text(s, i, 0);
 }
 
-text( s, n, fn )
-	char	*s;
-	int	n, fn;
+void text(char *s,int n,int fn )
 {
 	int		fn_w, fn_h;
 	static int	cfn=-1, ccw=-1, cch=-1;
@@ -471,8 +475,7 @@ text( s, n, fn )
 	}
 }
 
-line_type( type )
-	int	type;
+void line_type(int type )
 {
 	if ( type < 0 || type > 8 )
 		type = 0;
@@ -480,8 +483,7 @@ line_type( type )
 	printf("%s setdash\n", lmode[type]);
 }
 
-newpen( width )
-	int	width;
+void newpen(int width )
 {
 	if ( width < 0 || width > 10 )
 		width = 1;
@@ -489,8 +491,7 @@ newpen( width )
 	printf("%4.2f SL\n", lwidth[width]);
 }
 
-mark( no )
-	int	no;
+void mark(int no )
 {
 	int	size, dsize, qsize, hsize;
 
@@ -521,8 +522,7 @@ mark( no )
 	}
 }
 
-rect( x, y, w, h, fill )
-	int	x, y, w, h, fill;
+void rect(int x,int y,int w,int h,int fill )
 {
 	if ( ! fill )
 		printf("%d %d %d %d RS\n", x, y, w, h);
@@ -530,8 +530,7 @@ rect( x, y, w, h, fill )
 		printf("%d %d %d %d RF\n", x, y, w, h);
 }
 
-tangle( size, fill )
-	int	size, fill;
+void tangle(int size,int fill )
 {
 	int	bsize;
 
@@ -545,8 +544,7 @@ tangle( size, fill )
 	printf("ST\n");
 }
 
-arc( x, y, r, ang1, ang2, fill )
-	int	x, y, r, ang1, ang2;
+void arc(int x,int y,int r,int ang1,int ang2,int fill )
 {
 	printf("newpath\n");
  	printf("%d %d %d %d %d arc\n", x, y, r, ang1, ang2);
@@ -556,9 +554,7 @@ arc( x, y, r, ang1, ang2, fill )
 	printf("ST\n");
 }
 
-symbol( code, size, xoffset, yoffset )
-	char	*code;
-	int	size, xoffset, yoffset;
+void symbol(char *code,int size,int xoffset,int yoffset )
 {
 	static char	prev[16];
 
@@ -571,8 +567,7 @@ symbol( code, size, xoffset, yoffset )
 }
 
 
-clip( x0, y0, x1, y1 )
-	int	x0, y0, x1, y1;
+void clip(int x0,int y0,int x1,int y1 )
 {
 	if ( clip_mode )  {
 		clip_off();

@@ -56,12 +56,10 @@
 
 *****************************************************************/
 
-double mglsadf(x, b, m, a, n, d)
-double x, *b, a, *d;
-int m, n;
+double mglsadf(double x, double *b, int m, double a, int n, double *d)
 {
     int     i;
-    double  mglsadff();
+    double  mglsadff(double x, double *b, int m, double a, double *d);
     
     for(i=0; i<n; i++)
 	x = mglsadff(x, b, m, a, &d[i*(m+1)]);
@@ -69,9 +67,7 @@ int m, n;
     return(x);
 }
 
-double mglsadff(x, b, m, a, d)
-double	x, *b, a, *d;
-int	m;
+double mglsadff(double x, double *b, int m, double a, double *d)
 {
     register int	i;
     double		y, aa;
@@ -92,12 +88,10 @@ int	m;
     return (x);
 }
 
-double mglsadf1(x, b, m, a, n, d)
-double x, *b, a, *d;
-int m, n;
+double mglsadf1(double x, double *b, int m, double a, int n, double *d)
 {
     int     i;
-    double  g, mglsadff1();
+    double  g, mglsadff1(double x, double *b, int m, double a, double g, double *d);
 
     g = -1.0 / (double)n;
     
@@ -107,9 +101,7 @@ int m, n;
     return(x);
 }
 
-double mglsadff1(x, b, m, a, g, d)
-double	x, *b, a, g, *d;
-int	m;
+double mglsadff1(double x, double *b, int m, double a, double g, double *d)
 {
     register int	i;
     double		y, aa;
@@ -130,12 +122,10 @@ int	m;
     return (x);
 }
 
-double mglsadft(x, b, m, a, n, d)
-double x, *b, a, *d;
-int m, n;
+double mglsadft(double x, double *b, int m, double a, int n, double *d)
 {
     int     i;
-    double  mglsadfft();
+    double  mglsadfft(double x, double *b, int m, double a, double *d);
     
     for(i=0; i<n; i++)
 	x = mglsadfft(x, b, m, a, &d[i*(m+1)]);
@@ -143,9 +133,7 @@ int m, n;
     return(x);
 }
 
-double mglsadfft(x, b, m, a, d)
-double	x, *b, a, *d;
-int	m;
+double mglsadfft(double x, double *b, int m, double a, double *d)
 {
     register int	i;
     
@@ -161,12 +149,10 @@ int	m;
     return (x);
 }
 
-double mglsadf1t(x, b, m, a, n, d)
-double x, *b, a, *d;
-int m, n;
+double mglsadf1t(double x, double *b, int m, double a, int n, double *d)
 {
     int     i;
-    double  g, mglsadff1t();
+    double  g, mglsadff1t(double x, double *b, int m, double a, double g, double *d);
 
     g = -1.0 / (double)n;
     
@@ -176,9 +162,7 @@ int m, n;
     return(x);
 }
 
-double mglsadff1t(x, b, m, a, g, d)
-double	x, *b, a, g, *d;
-int	m;
+double mglsadff1t(double x, double *b, int m, double a, double g, double *d)
 {
     register int	i;
     double		y, aa;

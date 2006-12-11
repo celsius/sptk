@@ -78,11 +78,6 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-
-/*  Required Functions  */
-void	lpc2lsp();
-
-
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
@@ -130,7 +125,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, otype = OTYPE, sampling = SAMPLING, 
                 n = SPNUM, p = MAXITR, i;

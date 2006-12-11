@@ -90,7 +90,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, i;
     double	x = 1.0, y = 0.0;

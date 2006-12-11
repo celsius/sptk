@@ -56,9 +56,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void freqt(c1, m1, c2, m2, a)
-double *c1, *c2, a;
-int m1, m2;
+void freqt(double *c1, int m1, double *c2, int m2, double a)
 {
     register int 	i, j;
     double		b;

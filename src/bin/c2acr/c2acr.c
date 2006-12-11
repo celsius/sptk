@@ -69,11 +69,6 @@ static char *rcs_id = "$Id:";
 #include <string.h>
 #include <SPTK.h>
 
-
-/*  Required Functions  */
-void	c2acr();
-
-
 /*  Default Values  */
 #define ORDERC		25
 #define ORDERR		25
@@ -105,7 +100,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDERC, n = ORDERR, l = FLENG;
     FILE	*fp = stdin;

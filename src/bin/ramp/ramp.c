@@ -110,7 +110,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, i;
     double	start = START, step = STEP, end = START, x, atof();

@@ -95,9 +95,7 @@ void usage()
 	exit(1);
 }
 
-main(argc, argv)
-	int	argc;
-	char	*argv[];
+int main(int argc, char *argv[])
 {
         FILE    *fp = stdin;
 	int	size;

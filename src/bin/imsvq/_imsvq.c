@@ -57,9 +57,7 @@
 #include	<stdio.h>
 #include	<SPTK.h>
 
-void imsvq(index, cb, l, cbsize, stage, x)
-double *cb, *x;
-int *index, *cbsize, l, stage;
+void imsvq(int *index, double *cb, int l, int *cbsize, int stage, double *x)
 {
     register int   i, j;
     double	   *p;

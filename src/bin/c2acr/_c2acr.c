@@ -56,9 +56,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void c2acr(c, m1, r, m2, flng)
-double *c, *r;
-int m1, m2, flng;
+void c2acr(double *c, int m1, double *r, int m2, int flng)
 {
     register int  i;
     double	  exp();

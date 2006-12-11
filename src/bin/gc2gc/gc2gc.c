@@ -80,11 +80,6 @@ static char *rcs_id = "$Id$";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-
-/*  Required Functions  */
-void	gc2gc(), gnorm(), ignorm();
-
-
 /*  Default Values  */
 #define ORDER1		25
 #define ORDER2		25
@@ -128,7 +123,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m1 = ORDER1, m2 = ORDER2, i;
     double	*gc1, *gc2, g1 = GAMMA1, g2 = GAMMA2, atof();

@@ -83,11 +83,6 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-
-/*  Required Functions  */
-int	mgcep();
-
-
 /*  Default Values  */
 #define	ALPHA		0.35
 #define	GAMMA		0.0

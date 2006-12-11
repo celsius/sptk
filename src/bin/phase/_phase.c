@@ -56,9 +56,7 @@
 #include <math.h>
 #include <SPTK.h>
 	
-void phase(p, mp, z, mz, ph, flng, unlap)
-double 	*p,*z,*ph;
-int 	mp, mz, flng, unlap;
+void phase(double *p, int mp, double *z, int mz, double *ph, int flng, int unlap)
 {
 	static double	*x;
 	static int fsize = 0;

@@ -69,6 +69,13 @@ static char *rcs_id = "$Id$";
 #include <ctype.h>
 #include <SPTK.h>
 
+/*  Required Functions  */
+long xscanf(char *s);
+void copy(FILE *fp, char *type, int isize, int osize);
+int getstr(FILE *fp, register char *s);
+int ffseek(FILE *fp, long off);
+void conv(double *in, double *out, char *type);
+int size(int c);
 
 /*  Default Values  */
 #define START		0
@@ -113,7 +120,7 @@ void usage(int status)
 static long	start = START, _end = END, sno = SNO, eno = ENO;
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     char        type[2], *s, c;
     double      x;
@@ -245,8 +252,7 @@ void main(int argc, char **argv)
     exit(0);
 }
 
-long	xscanf(s)
-char	*s;
+long xscanf(char *s)
 {
     long	i;
 
@@ -258,10 +264,7 @@ char	*s;
     return(i);
 }
 
-copy(fp, type, isize, osize)
-FILE	*fp;
-char	*type;
-int	isize, osize;
+void copy(FILE *fp, char *type, int isize, int osize)
 {
     register long	adrs, n;
     double	ib[1], ob[1], atof();
@@ -303,9 +306,7 @@ int	isize, osize;
     }
 }
 
-getstr(fp, s)
-FILE	*fp;
-register char	*s;
+int getstr(FILE *fp, register char *s)
 {
     register int	c, i;
 
@@ -323,9 +324,7 @@ register char	*s;
     return(++i);
 }
 
-ffseek(fp, off)
-FILE	*fp;
-long	off;
+int ffseek(FILE *fp, long off)
 {
     register int	n;
 
@@ -339,9 +338,7 @@ long	off;
     return(0);
 }
 
-conv(in, out, type)
-double	*in, *out;
-char	*type;
+void conv(double *in, double *out, char *type)
 {
     double	d;
 
@@ -396,8 +393,7 @@ char	*type;
     }
 }
 
-size(c)
-int	c;
+int size(int c)
 {
     int	nbytes;
 

@@ -51,9 +51,7 @@
 
 ****************************************************************/
 
-void par2lpc(k, a, m)
-double *k, *a;
-int  m;
+void par2lpc(double *k, double *a, int m)
 {
     int 	i, n, flg = 0;
 

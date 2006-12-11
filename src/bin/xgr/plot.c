@@ -77,7 +77,7 @@ static int		line_width = 1;
 static int		line_style = LineSolid;
 static XRectangle	rect;
 
-static line(),dplot(),reset_fill(),fillbox(),fillpoly(),text();
+static line(),dplot(),fillbox(),reset_fill(),fillpoly(),text();
 
 static char	*symbol_upper = "ABGDEZHQIKLMNXOPRSTUFCYW";
 static char	*symbol_lower = "abgdezhqiklmnxoprstufcyw";
@@ -85,8 +85,7 @@ static char	*symbol_lower = "abgdezhqiklmnxoprstufcyw";
 #define		SPACE	32
 
 
-static short normy( y )
-	int	y;
+static short normy(int y )
 {
 	if (!landscape)
 		return ((short)((YLENG-(y))/shrink+0.5));
@@ -105,8 +104,7 @@ static _flush()
 	}
 }
 
-static _send( buf )
-	int	*buf;
+static _send(int *buf )
 {
 	if (sp == SIZE)
 		_flush();
@@ -115,8 +113,7 @@ static _send( buf )
 	points[sp++].y = normy(*buf);
 }
 
-static _getcord( buf )
-	int	*buf;
+static _getcord(int *buf )
 {
 	register int	c;
 
@@ -140,25 +137,19 @@ static _line()
 }
 
 
-static _move( x, y )
-	int	x, y;
+static _move(int x,int y )
 {
 	points[0].x = normx(x);
 	points[0].y = normy(y);
 }
 
 
-static line( points, n )
-	XPoint	*points;
-	int	n;
+static line(XPoint *points,int n )
 {
 	XDrawLines(display, main_window, gc, points, n, CoordModeOrigin);
 }
 
-static polyline( points, frame, fill, n )
-	XPoint	*points;
-	int	frame, fill;
-	int	n;
+static polyline(XPoint *points,int frame,int fill,int n )
 {
 	if ( fill != -1 && (fill%=10) != 9 )  {
 		fillpoly(points, fill+6, n+1);
@@ -168,8 +159,7 @@ static polyline( points, frame, fill, n )
 		line(points, n+1);
 }
 
-static polyg( type )
-	int	type;
+static polyg(int type )
 {
         register int    n;
 	int		x, y, w, h;
@@ -183,9 +173,7 @@ static polyg( type )
 #define	LEVEL	256
 #define	POINTS	1024
 
-static dplot( density, x, y, w, h )
-	int	density;
-	short	x, y, w, h;
+static dplot(int density,short x,short y,short w,short h )
 {
 	register int	n, k, l;
 	int		n_max, n_plot, flg[POINTS];
@@ -212,8 +200,7 @@ static dplot( density, x, y, w, h )
 	XDrawPoints(display, main_window, gc, pos, n_plot, CoordModeOrigin);
 }
 
-static hatching( type )
-	int	type;
+static hatching(int type )
 {
 	register int	n;
 	int		style, frame;
@@ -248,15 +235,12 @@ static reset_fill()
 	fillbox(15, 0, 0, 0, 0);
 }
 
-static box( x, y, w, h )
-	short	x, y, w, h;
+static box(short x,short y,short w,short h )
 {
 	XDrawRectangle(display, main_window, gc, x, y, w, h);
 }
 
-static fillbox( type, x, y, w, h )
-	int	type;
-	short	x, y, w, h;
+static fillbox(int type,short x,short y,short w,short h )
 {
 	Pixmap	till_pmap;
 
@@ -271,9 +255,7 @@ static fillbox( type, x, y, w, h )
 	XFreePixmap(display, till_pmap);
 }
 
-static fillpoly( points, type, n )
-	XPoint	*points;
-	int	type, n;
+static fillpoly(XPoint *points,int type,int n )
 {
 	Pixmap	till_pmap;
 
@@ -333,9 +315,7 @@ static get_str()
 		text(s, i, FSymbol);
 }
 
-static text( s, n, fn )
-	char	*s;
-	int	n, fn;
+static text(char *s,int n,int fn )
 {
 	register int	cx, cy;
 	static int	flg=0, cfn=-1, ccw=-1, cch=-1;
@@ -377,8 +357,7 @@ static text( s, n, fn )
 	}
 }
 
-static newpen( w )
-	int	w;
+static newpen(int w )
 {
 	if (w < 0 || w > 10)
 		w = 1;
@@ -392,8 +371,7 @@ static newpen( w )
 		XSetForeground(display, gc, get_color_pix(c_name[w]));
 }
 
-static line_type( w )
-	int	w;
+static line_type(int w )
 {
 	int	dash_offset = 0;
 
@@ -412,8 +390,7 @@ static line_type( w )
 	}
 }
 
-static clip( xmin, ymin, xmax, ymax )
-	int	xmin, ymin, xmax, ymax;
+static clip(int xmin,int ymin,int xmax,int ymax )
 {
 	rect.x = xmin;
 	rect.y = ymin;
@@ -423,8 +400,7 @@ static clip( xmin, ymin, xmax, ymax )
 	XSetClipRectangles(display, gc, 0, 0, &rect, 1, Unsorted);
 }
 
-static mark( w )
-	int	w;
+static mark(int w )
 {
 	Pixmap	mark_pmap;
 
@@ -441,8 +417,7 @@ static mark( w )
 	XFreePixmap(display, mark_pmap);
 }
 
-static circle( x0, y0, r1, r2, arg1, arg2 )
-	int	x0, y0, r1, r2, arg1, arg2;
+static circle(int x0,int y0,int r1,int r2,int arg1,int arg2 )
 {
 	int		x, y;
 	unsigned int	width, height;

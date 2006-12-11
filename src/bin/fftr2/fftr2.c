@@ -69,8 +69,7 @@
 
 
 /*  Required Functions  */
-int fftr2();
-
+int trans(double *p);
 
 /*  Command Name  */
 static char	*cmnd;
@@ -104,9 +103,7 @@ int usage()
     exit(1);
 }
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp;
 	char	*s, *infile = NULL, c;
@@ -254,9 +251,7 @@ char	*argv[];
 	exit(0);
 }
 
-
-trans(p)
-double	*p;
+int trans(double *p)
 {
 	int	k, sizeh, nout;
 	register double	*q;

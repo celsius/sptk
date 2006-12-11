@@ -70,11 +70,6 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-
-/*  Required Functions  */
-void	freqt();
-
-
 /*  Default Values  */
 #define ORDERC1		25
 #define ORDERC2		25
@@ -107,7 +102,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m1 = ORDERC1, m2 = ORDERC2;
     FILE	*fp = stdin;

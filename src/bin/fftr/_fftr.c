@@ -55,9 +55,7 @@
 
 extern double	*_sintbl;
 extern int	maxfftsize;
-int fftr(x, y, m)
-double	*x, *y;
-int	m;
+int fftr(double *x, double *y, int m)
 {
 	register int	i, j ,k;
 	register double	*xp, *yp, *xq;

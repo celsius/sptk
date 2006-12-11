@@ -67,11 +67,6 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 
-
-/*  Required Functions  */
-void	ivq();
-
-
 /*  Default Values  */
 #define LENG		26
 #define	CBSIZE		256
@@ -103,7 +98,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, cbsize = CBSIZE, index;
     FILE	*fp = stdin, *fpcb = NULL;

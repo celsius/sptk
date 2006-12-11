@@ -50,9 +50,7 @@
 
 ***************************************************************/
 
-void norm0(x, y, m)
-double *x, *y;
-int m;
+void norm0(double *x, double *y, int m)
 {
     y[0] = 1 / x[0];
     for(; m>=1; m--)

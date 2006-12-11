@@ -79,6 +79,13 @@ static char *rcs_id = "$Id$";
 #include <ctype.h>
 #include <SPTK.h>
 
+
+/*  Required Functions  */
+void bcp(FILE *fp);
+void acopy(FILE *fp);
+int getstr(FILE *fp, register char *s);
+void filln(char *ptr, int size, int nitem);	
+
 /*  Default Values  */
 #define START		0
 #define END		-1
@@ -137,7 +144,7 @@ union typex{
     double d;
 }fillx;
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     FILE 	   *fp = stdin;
     register char  *s, c;
@@ -243,8 +250,7 @@ void main(int argc, char **argv)
     exit(0);
 }
 
-bcp(fp)
-FILE	*fp;
+void bcp(FILE *fp)
 {
     char	*buf, *lz, *fz;
     int	ibytes, obytes, offset, nlz, nfz;
@@ -304,8 +310,7 @@ FILE	*fp;
     }
 }
 
-acopy(fp)
-FILE	*fp;
+void acopy(FILE *fp)
 {
     char	s[512];
     register int	n, dn;
@@ -331,9 +336,7 @@ FILE	*fp;
     }
 }
 
-getstr(fp, s)
-FILE	*fp;
-register char	*s;
+int getstr(FILE *fp, register char *s)
 {
     register int	c;
     
@@ -348,9 +351,7 @@ register char	*s;
     return(1);
 }
 
-filln(ptr, size, nitem)
-char *ptr;
-int size, nitem;
+void filln(char *ptr, int size, int nitem)
 {
     register long n;
     register int i;

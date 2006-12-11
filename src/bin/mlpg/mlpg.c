@@ -76,6 +76,7 @@ static char *rcs_id = "$Id$";
 #include <SPTK.h>
 
 
+
 /* default values */
 #define		ORDER		25
 #define		ITYPE		0
@@ -143,6 +144,20 @@ typedef struct _PStream {
 	SMatrix		sm;
 } PStream;
 
+/*  Required Functions  */
+int isfloat(char *c);
+void InitPStream(PStream *pst);
+void InitDWin(PStream *pst);
+double *dcalloc(int x, int xoff);
+double **ddcalloc(int x, int y, int xoff, int yoff);
+double ***dddcalloc(int x, int y, int z, int xoff, int yoff, int zoff);
+int str2darray(char *c, double **x);
+double *mlpg(PStream *pst);
+int doupdate(PStream *pst, int d);
+void calc_pi(PStream *pst, int d);
+void calc_k(PStream *pst, int d);
+void update_P(PStream *pst, int d);
+void update_c(PStream *pst, int d);
 
 
 void usage(int status)

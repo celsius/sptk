@@ -84,10 +84,6 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 
-/*  Required Functions  */
-void lbg();
-int vq();
-
 /*  Default Values  */
 #define LENG		26
 #define TNUMBER		-1
@@ -134,7 +130,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int l = LENG, icbsize = ICBSIZE, ecbsize = ECBSIZE, 
 	tnum = TNUMBER, ispipe, xsize, csize, i, j, *tindex;

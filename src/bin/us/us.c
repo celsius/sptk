@@ -61,6 +61,13 @@
 #include <stdlib.h>
 #include <strings.h>
 
+/*  Required Functions  */
+void srcnv(FILE *fp);
+void firin(double in);
+double firout(int os);
+void firinit();
+int freada(float *p,int bl,FILE *fp);
+
 /* Default Value */
 #define	RBSIZE		512
 #define	DSIZE		512
@@ -117,9 +124,7 @@ void usage(int status)
 
 static int	start = -1, u_rate=0, d_rate=0;
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp, *fopen();
 	char	*s, *infile = NULL, c;
@@ -221,8 +226,7 @@ char	*argv[];
 	return(0);
 }
 
-srcnv(fp)
-FILE	*fp;
+void srcnv(FILE *fp)
 {
 	int	is_cont, i, k, nread, count, nwr, delay;
 	float	x[SIZE], y[DSIZE];
@@ -270,15 +274,13 @@ FILE	*fp;
 static float	rb[RBSIZE], hdn[RBSIZE + 1];
 static int	flengdn = -1, indx = 0;
 
-void firin(in)
-double	in;
+void firin(double in)
 {
 	indx = mod(indx - 1);
 	rb[indx] = in;
 }
 
-double firout(os)
-int	os;
+double firout(int os)
 {
 	double	out;
 	int	k, l;
@@ -309,10 +311,7 @@ void firinit()
 	}
 }
 
-int freada( p, bl, fp)
-float *p;
-int bl;
-FILE *fp;
+int freada(float *p,int bl,FILE *fp)
 {
 	int c;
 	char buf[LINEBUFSIZE];

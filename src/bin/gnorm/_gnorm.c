@@ -51,11 +51,9 @@
 
 ************************************************************************/
 
-void gnorm(c1, c2, m, g)
-double	*c1, *c2, g;
-int	m;
+void gnorm(double *c1, double *c2, int m, double g)
 {
-    double	k, pow(), exp();
+    double	k, pow(double, double), exp(double);
     
     if (g != 0.0) {
 	k = 1.0 + g * c1[0];

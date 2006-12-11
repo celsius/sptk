@@ -83,7 +83,7 @@ char *BOOL[] = {"FALSE", "TRUE"};
 
 
 /*  Required Functions  */
-double	mlsadf(), exp();
+double exp();
 
 
 /*  Default Values  */
@@ -130,7 +130,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, pd = PADEORDER, 
 		fprd = FPERIOD, iprd = IPERIOD, i, j;

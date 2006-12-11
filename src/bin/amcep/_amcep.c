@@ -63,9 +63,7 @@
 #include <SPTK.h>
 
 
-double amcep(x, b, m, a, lambda, step, tau, pd, eps)
-double x, *b, a, lambda, step, tau, eps;
-int m, pd;
+double amcep(double x, double *b, int m, double a, double lambda, double step, double tau, int pd, double eps)
 {
     register int   i;
     static double  *bb = NULL, *d, *ep, *e, xx, gg = 1.0;
@@ -110,9 +108,7 @@ int m, pd;
     return(x);
 }
 
-phidf(x, m, a, d)
-double x, a, *d;
-int m;
+void phidf(double x, int m, double a, double *d)
 {
     register int   i;
 

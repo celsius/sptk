@@ -52,10 +52,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void grpdelay(x,gd,size,is_arma)
-double	*x, *gd;
-int	size, is_arma;
-
+void grpdelay(double *x,double *gd,int size,int is_arma)
 {
 	static double *y;
 	static int    fsize;

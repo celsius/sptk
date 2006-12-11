@@ -80,7 +80,7 @@ char *BOOL[] = {"FALSE", "TRUE"};
 
 
 /*  Required Functions  */
-double	lmadf(), exp();
+double	exp();
 
 
 /*  Default Values  */
@@ -122,7 +122,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, fprd = FPERIOD, iprd = IPERIOD, i, j, pd = PADEORD;
     FILE	*fp = stdin, *fpc = NULL;

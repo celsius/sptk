@@ -55,11 +55,9 @@
 *****************************************************************/
 #include <stdio.h>
 
-double	lspdf_even(x, f, m, d)
-double	x, *f, *d;
-int	m;
+double	lspdf_even(double x, double *f, int m, double *d)
 {
-    double  	  *d1, *d2, *lsp, x1, x2, cos();
+    double  	  *d1, *d2, *lsp, x1, x2, cos(double);
     register int  i;
 
     d1 = d + 1;
@@ -89,13 +87,11 @@ int	m;
     return(x);
 }
 
-double	lspdf_odd(x, f, m, d)
-double	x, *f, *d;
-int	m;
+double	lspdf_odd(double x, double *f, int m, double *d)
 {
     register int  i;
     int           mh1, mh2;
-    double  	  *d1, *d2, *lsp, x1, x2, cos();
+    double  	  *d1, *d2, *lsp, x1, x2, cos(double);
 
     mh1 = (m+1) / 2;
     mh2 = (m-1) / 2;

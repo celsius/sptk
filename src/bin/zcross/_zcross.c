@@ -50,8 +50,7 @@
 ***********************************************************/
 #include<math.h>
 
-double sgn(x)
-double x;
+double sgn(double x)
 {
 	if (x >=0)
 		return(0.5);
@@ -60,10 +59,7 @@ double x;
 
 }
 
-double zcross(x, fl, n)
-double	*x;
-int	fl;
-int	n;
+double zcross(double *x, int fl, int n)
 {
 	int	i;
 	double	z = 0;

@@ -49,9 +49,7 @@
 
 ************************************************************************/
 
-void reverse(x, l)
-double* x;
-int l;
+void reverse(double *x, int l)
 {
 	int i;
 	double d;

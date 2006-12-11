@@ -63,8 +63,6 @@
 #include <SPTK.h>
 
 /*  Required Functions  */
-int fftr();
-int uels();
 double log();
 
 

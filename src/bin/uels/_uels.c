@@ -62,14 +62,10 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void lplp();
-
-int uels(xw, flng, c, m, itr1, itr2, dd, e)
-double *xw, *c, dd, e;
-int flng, m, itr1, itr2;
+int uels(double *xw, int flng, double *c, int m, int itr1, int itr2, double dd, double e)
 {
     int 	  i, j, flag = 0;
-    double        fabs(), log(), exp(), k;
+    double        fabs(double), log(double), exp(double), k;
     static double *x = NULL, *r, *cr, *y, *a;
     static int    size_x, size_a;
     
@@ -95,7 +91,7 @@ int flng, m, itr1, itr2;
     
     fftr(x, y, flng);				/*  x+jy : X(w)  */
     for (i=0; i<flng; i++)			/*  x : log|X(w)|^2  */
-        x[i] = cr[i] = log(x[i] * x[i] + y[i] * y[i] + e);
+	    x[i] = cr[i] = log(x[i] * x[i] + y[i] * y[i] += e);
     ifftr(cr, y, flng);				/*  cr : c(m)  */
     /*  initial value  */
     k = exp(cr[0]);
@@ -132,9 +128,7 @@ int flng, m, itr1, itr2;
 }
 
 /* Fast Algorithm for Linear Prediction with Linear Phase */
-void lplp(r, c, m)
-double *r, *c;
-int m;
+void lplp(double *r, double *c, int m)
 {
     int           k, n;
     double        pn, alpha, beta, gamma,

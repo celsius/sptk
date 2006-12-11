@@ -84,7 +84,6 @@ char *BOOL[] = {"FALSE", "TRUE"};
 
 
 /*  Required Functions  */
-void	c2sp();
 double  exp(), log();
 
 
@@ -128,7 +127,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int     leng = LENG, m = ORDER, start = 0, end = 0, otype = OTYPE,
     	    i, no;

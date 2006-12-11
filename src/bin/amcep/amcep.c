@@ -86,7 +86,7 @@ char *BOOL[] = {"FALSE", "TRUE"};
 
 
 /*  Required Functions  */
-double	mlsadf(), log();
+double log();
 
 
 /*  Default Values  */
@@ -137,7 +137,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int	     m = ORDER, period = PERIOD, pd = PADEORDER, i, j;
     FILE     *fp = stdin, *fpe = NULL;

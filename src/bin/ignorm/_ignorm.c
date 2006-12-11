@@ -51,11 +51,9 @@
 
 ************************************************************************/
 
-void ignorm(c1, c2, m, g)
-double	*c1, *c2, g;
-int	m;
+void ignorm(double *c1, double *c2, int m, double g)
 {
-    double	k, log(), pow();
+    double	k, log(double), pow(double, double);
 	
     if (g != 0.0) {
 	k = pow(c1[0], g);

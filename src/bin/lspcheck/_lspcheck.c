@@ -53,9 +53,7 @@
 
 *****************************************************************/
 
-int lspcheck(lsp, ord)
-double *lsp;
-int ord;
+int lspcheck(double *lsp, int ord)
 {
     register int	i;
     
@@ -84,9 +82,7 @@ int ord;
 
 *****************************************************************/
 
-void lsparrange(lsp, ord)
-double *lsp;
-int ord;
+void lsparrange(double *lsp, int ord)
 {
     register int	i, flag;
     double 		tmp;

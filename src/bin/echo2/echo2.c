@@ -84,7 +84,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(short argc, char **argv)
+int main(short argc, char **argv)
 {
     int  newline = NEWLINE;
 

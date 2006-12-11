@@ -56,15 +56,7 @@
 
 #define	RAND_MAX	32767
 
-double	rnd();
-unsigned long	srnd();
-double	nrandom();
-int	nrand();
-
-
-int nrand(p, leng, seed)
-double	*p;
-int leng, seed;
+int nrand(double *p, int leng, int seed)
 {
     int i;
     unsigned long next;
@@ -77,8 +69,7 @@ int leng, seed;
 	return(0);
 }
 
-double nrandom(next)
-unsigned long *next;
+double nrandom(unsigned long *next)
 {
 	static int	sw = 0;
 	static double	r1, r2, s;
@@ -99,8 +90,7 @@ unsigned long *next;
 	}
 }
 
-double rnd(next)
-unsigned long *next;
+double rnd(unsigned long *next)
 {
 	double	r;
 
@@ -110,8 +100,7 @@ unsigned long *next;
 	return ( r / RAND_MAX ); 
 }
 
-unsigned long srnd( seed )
-	unsigned	seed;
+unsigned long srnd( unsigned seed )
 {
 	return(seed);
 }

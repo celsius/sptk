@@ -56,12 +56,10 @@
 
 *****************************************************************/
 
-double imglsadf(x, b, m, a, n, d)
-double x, *b, a, *d;
-int m, n;
+double imglsadf(double x, double *b, int m, double a, int n, double *d)
 {
     int     i;
-    double  imglsadff();
+    double  imglsadff(double x, double *b, int m, double a, double *d);
     
     for(i=0; i<n; i++)
 	x = imglsadff(x, b, m, a, &d[i*(m+1)]);
@@ -69,9 +67,7 @@ int m, n;
     return(x);
 }
 
-double imglsadff(x, b, m, a, d)
-double	x, *b, a, *d;
-int	m;
+double imglsadff(double x, double *b, int m, double a, double *d)
 {
     register int	i;
     double		y, aa;
@@ -92,12 +88,10 @@ int	m;
     return (y);
 }
 
-double imglsadf1(x, b, m, a, n, d)
-double x, *b, a, *d;
-int m, n;
+double imglsadf1(double x, double *b, int m, double a, int n, double *d)
 {
     int     i;
-    double  g, imglsadff1();
+    double  g, imglsadff1(double x, double *b, int m, double a, double g, double *d);
 
     g = -1.0 / (double)n;
     
@@ -107,9 +101,7 @@ int m, n;
     return(x);
 }
 
-double imglsadff1(x, b, m, a, g, d)
-double	x, *b, a, g, *d;
-int	m;
+double imglsadff1(double x, double *b, int m, double a, double g, double *d)
 {
     register int	i;
     double		y, aa;
@@ -130,12 +122,10 @@ int	m;
     return (y);
 }
 
-double imglsadft(x, b, m, a, n, d)
-double x, *b, a, *d;
-int m, n;
+double imglsadft(double x, double *b, int m, double a, int n, double *d)
 {
     int     i;
-    double  imglsadfft();
+    double  imglsadfft(double x, double *b, int m, double a, double *d);
     
     for(i=0; i<n; i++)
 	x = imglsadfft(x, b, m, a, &d[i*(m+1)]);
@@ -143,9 +133,7 @@ int m, n;
     return(x);
 }
 
-double imglsadfft(x, b, m, a, d)
-double	x, *b, a, *d;
-int	m;
+double imglsadfft(double x, double *b, int m, double a, double *d)
 {
     register int	i;
     double		y;
@@ -162,12 +150,10 @@ int	m;
     return (y);
 }
 
-double imglsadf1t(x, b, m, a, n, d)
-double x, *b, a, *d;
-int m, n;
+double imglsadf1t(double x, double *b, int m, double a, int n, double *d)
 {
     int     i;
-    double  g, imglsadff1t();
+    double  g, imglsadff1t(double x, double *b, int m, double a, double g, double *d);
 
     g = -1.0 / (double)n;
     
@@ -177,9 +163,7 @@ int m, n;
     return(x);
 }
 
-double imglsadff1t(x, b, m, a, g, d)
-double	x, *b, a, g, *d;
-int	m;
+double imglsadff1t(double x, double *b, int m, double a, double g, double *d)
 {
     register int	i;
     double		y;

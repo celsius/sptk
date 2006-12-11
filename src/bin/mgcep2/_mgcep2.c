@@ -60,6 +60,7 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 #define min(x,y) (x < y ? x : y)
@@ -68,17 +69,7 @@
 double exp(), pow(), log(), log10(), sqrt(), fabs();
 double calckg();
 
-int cholesky();
-int toeplitz();
-void gnorm();
-void ignorm();
-void gc2gc();
-void gc2c();
-void c2gc();
-
-int mgcep2(xw, flng, c, order, alpha, minitr, maxitr, thr)
-double *xw, *c, alpha, thr;
-int flng, order, minitr, maxitr;
+int mgcep2(double *xw, int flng, double *c, int order, double alpha, int minitr, int maxitr, double thr)
 {
     register int     i, j, k; 
     register double  *pt1, *pt2, *pt3, *pt4, *pt5, *pt6;
@@ -277,18 +268,14 @@ int flng, order, minitr, maxitr;
     else     return(-1);
 }
 
-void c2gc(c, gc, order, gamma)
-double *c, *gc, gamma;
-int order;
+void c2gc(double *c, double *gc, int order, double gamma)
 {
     *gc++ = 1.0 + gamma * *c++;
     for(; order>0; order--)
         *gc++ = gamma * *c++;
 }
 
-void gc2c(gc, c, order, gamma)
-double *gc, *c, gamma;
-int order;
+void gc2c(double *gc, double *c, int order, double gamma)
 {
     double       g1;
 
@@ -299,9 +286,7 @@ int order;
         *c++ = g1 * *gc++;
 }
 
-double calckg(c, aa, order, gamma)
-double *c, *aa, gamma;
-int order;
+double calckg(double *c, double *aa, int order, double gamma)
 {
     double        ac;
 

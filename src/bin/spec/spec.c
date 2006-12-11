@@ -121,7 +121,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int     leng = LENG, otype = OTYPE, orderma = ORDERMA, 
     	    orderar = ORDERAR, no, i;

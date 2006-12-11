@@ -77,10 +77,6 @@ static char rcsid[] = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-
-/*  Required Functions  */
-double	pitch();
-
 /*  Default Values  */
 #define FREQ            10
 #define ILNG		400

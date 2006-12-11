@@ -59,9 +59,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-int lpc(x, flng, a, m)
-double *x, *a;
-int flng, m;
+int lpc(double *x, int flng, double *a, int m)
 {
     int		  flag;
     static double *r = NULL;

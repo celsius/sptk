@@ -57,9 +57,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-int lpc2par(a, k, m)
-double *a, *k;
-int  m;
+int lpc2par(double *a, double *k, int m)
 {
     int 	  i, n, flg = 0;
     double  	  s;

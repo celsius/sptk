@@ -122,7 +122,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, sampling = SAMPLING, itype = ITYPE, 
 		otype = OTYPE, i, num;

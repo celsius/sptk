@@ -67,9 +67,7 @@ int vq();
 double edist();
 int nrand();
 
-void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, delta, end)
-    double *x, *icb, *cb, delta, end;
-    int l, tnum, icbsize, ecbsize;
+void lbg(double *x, int l, int tnum, double *icb, int icbsize, double *cb, int ecbsize, double delta, double end)
 {
     int		     i, j, k, maxindex;
     static int	     *cntcb, *tindex, size, sizex, sizecb;

@@ -100,7 +100,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, index = INDEX, size = SIZE, i;
     FILE	*fp = stdin, *fpi = NULL;

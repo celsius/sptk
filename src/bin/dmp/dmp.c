@@ -99,7 +99,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int 	   n = -1, size = sizeof(float), i = 0, eflag = 0, lflag = 0;
     FILE 	   *fp = stdin;

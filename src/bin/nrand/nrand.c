@@ -66,12 +66,6 @@
 /*  Default Values  */
 #define	RAND_MAX	32767
 
-
-double	rnd();
-unsigned long	srnd();
-double	nrandom();
-int	nrand();
-
 #define LENG	256
 #define SEED	1
 
@@ -100,9 +94,7 @@ void usage()
 }
 
 
-main( argc, argv )
-	int 	argc;
-	char	*argv[];
+int main(int argc,char *argv[])
 {
 	char	*str, flg;
 	int	leng = LENG, seed = SEED,  i;

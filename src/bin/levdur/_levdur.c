@@ -60,9 +60,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-int levdur(r, a, m, eps)
-double *r, *a, eps;
-int m;
+int levdur(double *r, double *a, int m, double eps)
 {
     int 		l, k, flag=0;
     double 		rmd, mue, sqrt();

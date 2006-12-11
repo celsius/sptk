@@ -52,12 +52,10 @@
 
 ***************************************************************/
 
-double rmse(x, y, n)
-double *x, *y;
-int n;
+double rmse(double *x, double *y, int n)
 {
     register int  i;
-    double	  sub, sum, sqrt();
+    double	  sub, sum, sqrt(double);
 
     sum = 0.0;
     for(i=0; i<n; i++) {

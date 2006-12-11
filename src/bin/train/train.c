@@ -100,7 +100,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, period = PERIOD, i, normal = NORMAL;
     double	zero, pulse, sqrt();

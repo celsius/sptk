@@ -88,9 +88,7 @@ void usage(int status)
 }
 
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
     FILE	*fp = stdin;
     double      *x, *s;

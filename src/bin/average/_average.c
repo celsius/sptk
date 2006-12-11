@@ -51,9 +51,7 @@
 
 ***************************************************************/
 
-double average(x, n)
-double *x;
-int n;
+double average(double *x, int n)
 {
     register int  i;
     double	  sum = 0.0;
@@ -63,9 +61,7 @@ int n;
     return(sum / n);
 }
 
-void vaverage(x, l, num, ave)
-double *x, *ave;
-int l, num;
+void vaverage(double *x, int l, int num, double *ave)
 {
     register int    i, j;
     

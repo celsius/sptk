@@ -54,9 +54,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void lsp2lpc(lsp, a, m)
-double *lsp, *a;
-int m;
+void lsp2lpc(double *lsp,double *a, int m)
 {
     int		  i, k, mh1, mh2, flag_odd;
     double	  xx, xf, xff, cos();

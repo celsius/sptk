@@ -51,9 +51,7 @@
 
 ***************************************************************/
 
-void b2mc(b, mc, m, a)
-double *b, *mc, a;
-int m;
+void b2mc(double *b, double *mc, int m, double a)
 {
     double d, o;
     

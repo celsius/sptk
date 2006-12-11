@@ -69,8 +69,7 @@ static char *rcs_id = "$Id:";
 
 
 /* Required Function */
-int 	fftr();
-
+int dft(FILE *fp,int size,int nd,int out,int nout);	
 
 /* Default Values */
 #define	SIZE	256
@@ -105,9 +104,7 @@ int status;
 	exit(status);
 }
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp;
 	char	*s, *infile = NULL, c;
@@ -174,9 +171,7 @@ char	*argv[];
 	exit(0);
 }
 
-dft(fp,size,nd,out,nout)
-FILE	*fp;
-int	size,nd,out,nout;
+int dft(FILE *fp,int size,int nd,int out,int nout)
 {
 	double	*x, *y;
 	register int	k;

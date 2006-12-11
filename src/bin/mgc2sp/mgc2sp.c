@@ -89,7 +89,6 @@ char *BOOL[] = {"FALSE", "TRUE"};
 
 
 /*  Required Functions  */
-void	mgc2sp();
 double  exp(), log();
 
 
@@ -142,7 +141,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, l = LENG, otype = OTYPE, no, i;
     double	alpha = ALPHA, gamma = GAMMA, *c, *x, *y, logk, atof();

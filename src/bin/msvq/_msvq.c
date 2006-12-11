@@ -57,9 +57,7 @@
 #include	<stdio.h>
 #include	<SPTK.h>
 
-void msvq(x, cb, l, cbsize, stage, index)
-double *x, *cb;
-int *cbsize, l, stage, *index;
+void msvq(double *x, double *cb, int l, int *cbsize, int stage, int *index)
 {
     int  	  i, j, vq();
     double 	  *p, min = 1e23, dist;

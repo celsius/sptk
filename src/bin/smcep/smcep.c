@@ -73,11 +73,6 @@
 #include <SPTK.h>
 #include <math.h>
 
-
-/*  Required Functions  */
-int	smcep();
-
-
 /*  Default Values  */
 #define	ALPHA		0.35
 #define	THETA		0.00

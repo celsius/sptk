@@ -87,6 +87,8 @@ static char *rcs_id = "$Id$";
 #include <ctype.h>
 #include <SPTK.h>
 
+/*  Required Functions  */
+int sopr(FILE *fp);
 
 /*  Command Name  */
 char	*cmnd;
@@ -149,9 +151,7 @@ int	nopr = 0;
 
 static double	mem[MEMSIZE];
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
     FILE	*fp;
     char	*s, c;
@@ -241,8 +241,7 @@ char	*argv[];
     exit(0);
 }
 
-sopr(fp)
-FILE	*fp;
+int sopr(FILE *fp)
 {
     double	  x, y;
     register int  k, i;

@@ -67,11 +67,6 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-
-/*  Required Functions  */
-int	lpc();
-
-
 /*  Default Values  */
 #define ORDER		25
 #define FLNG		256
@@ -100,7 +95,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)	
 {
     int		m = ORDER, l = FLNG, flag;
     FILE	*fp = stdin;

@@ -54,9 +54,7 @@
 
 *****************************************************************/
 
-double	poledf(x, a, m, d)
-double	x, *a, *d;
-int	m;
+double	poledf(double x, double *a, int m, double *d)
 {
     for(m--; m>0; m--){
 	x -= a[m+1] * d[m];
@@ -68,9 +66,7 @@ int	m;
     return(x);
 }
 
-double poledft(x, a, m, d)
-double x, *a, *d;
-int    m;
+double poledft(double x, double *a, int m, double *d)
 {
     register int  i;
     

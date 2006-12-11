@@ -84,7 +84,7 @@ char *BOOL[] = {"FALSE", "TRUE"};
 
 
 /*  Required Functions  */
-double	iglsadf1(), sqrt();
+double sqrt();
 
 
 /*  Default Values  */
@@ -132,7 +132,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int	     m = ORDER, period = PERIOD, stage = STAGE, i, j;
     FILE     *fp = stdin, *fpe = NULL;

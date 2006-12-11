@@ -104,9 +104,7 @@ int	status;
 	exit(status);
 }
 
-main(argc, argv)
-int	argc;
-char	**argv;
+int main(int argc, char **argv)
 {
     double	g = GAMMA, *c, atof();
     int		m = ORDER;

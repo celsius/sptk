@@ -74,11 +74,6 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-
-/*  Required Functions  */
-void	lsp2lpc();
-
-
 /*  Default Values  */
 #define ORDER		25
 #define ITYPE		0
@@ -116,7 +111,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, sampling = SAMPLING, itype = ITYPE, i, gain = GAIN;
     FILE	*fp = stdin;

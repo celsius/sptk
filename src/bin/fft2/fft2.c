@@ -69,15 +69,12 @@
 #include <SPTK.h>
 #include <string.h>
 
-
 /*  Required Functions  */
-int fft2();
-
+void trans();
 
 static char	*cmnd;
 int	size = 64, outopt = 0, n1 = 0, n2 = 0, out = ' ';
-
-
+	
 int usage()
 {
 	fprintf(stderr, "\n");
@@ -105,9 +102,7 @@ int usage()
 }
 
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp;
 	char	*s, *infile = NULL, c;
@@ -201,13 +196,13 @@ char	*argv[];
 				if(freadf(xp, sizeof(*x), n1, fp) != n1)
 					return(-1);
 				if(n1 < size)
-					fillz(xp + n1, size - n1);
+					fillz(xp + n1,sizeof(*x), size - n1);
 			}
 			for(yp = y, k = n2; --k >= 0; yp += size) {
 				if(freadf(yp, sizeof(*y), n1, fp) != n1)
 					return(-1);
 				if(n1 < size)
-					fillz(yp + n1, size - n1);
+					fillz(yp + n1,sizeof(*x), size - n1);
 			}
 		} else {
 			if((k = freadf(x, sizeof(*x), 2 * size2, fp)) == 0)
@@ -218,18 +213,18 @@ char	*argv[];
 				return(-1);
 			}
 			if(n1 < size) {
-				fillz(yp = y + size * n1, size * (size - n1));
+				fillz(yp = y + size * n1, sizeof(*x),size * (size - n1));
 				yp -= (size - n1);
 				xp = x + k;
 				for(k = n1; --k >= 0; yp -= (size - n1)) {
-					fillz(yp, size - n1);
+					fillz(yp, sizeof(*x),size - n1);
 					for(i = n1; --i >= 0; )
 						*--yp = *--xp;
 				}
-				fillz(yp = x + size * n1, size * (size - n1));
+				fillz(yp = x + size * n1, sizeof(*x), size * (size - n1));
 				yp -= (size - n1);
 				for(k = n1; --k >= 0; yp -= (size - n1)) {
-					fillz(yp, size - n1);
+					fillz(yp, sizeof(*x),size - n1);
 					for(i = n1; --i >= 0; )
 						*--yp = *--xp;
 				}
@@ -262,8 +257,8 @@ char	*argv[];
 	exit(0);
 }
 
-trans(p, size)
-double	*p;
+void trans(p, size)
+double *p;	
 {
 	int	k, sizeh, nout;
 	register double	*q;

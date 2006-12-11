@@ -54,9 +54,7 @@
 #include <stdlib.h>
 #include <SPTK.h>
 
-int	ifft2( x, y, n )
-double	x[], y[];
-int	n;
+int	ifft2(double x[], double y[], int n )
 {
 	double		*xq, *yq;
 	static double	*xb = NULL, *yb;

@@ -59,9 +59,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void mgc2mgc(c1, m1, a1, g1, c2, m2, a2, g2)
-double *c1, *c2, a1, a2, g1, g2;
-int m1, m2;
+void mgc2mgc(double *c1, int m1, double a1, double g1, double *c2, int m2, double a2, double g2)
 {
     int           sub;
     double 	  a;

@@ -69,7 +69,7 @@ static char *rcs_id = "$Id$";
 
 
 /*  Required Functions  */
-double	rmse(), sqrt();
+double sqrt();
 
 
 /*  Default Values  */
@@ -102,7 +102,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, num = 0;
     FILE	*fp = stdin, *fp1 = NULL;

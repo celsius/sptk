@@ -37,10 +37,7 @@
  ----------------------------------------------------------------
 */
 
-int	histogram(x, size, min, max, step, h)
-	 double	*x,*h;
-	 double	min, max, step;
-	 int	size;
+int	histogram(double *x, int size, double min, double max, double step, double *h)
 {
 	int	k, ii, flg=0;
 	register int	jj;

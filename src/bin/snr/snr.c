@@ -115,7 +115,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, num = 0, f1w = 1, f2w = 0, otype = OTYPE, 
                 count, countold, countseg, xn, yn, size, i;

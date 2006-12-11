@@ -51,9 +51,7 @@
 
 ***************************************************************/
 
-void mc2b(mc, b, m, a)
-double *mc, *b, a;
-int m;
+void mc2b(double *mc, double *b, int m, double a)
 {
     b[m] = mc[m];
     

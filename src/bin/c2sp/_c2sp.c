@@ -55,9 +55,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void c2sp(c, m, x, y, l)
-double	*c, *x, *y;
-int	m, l;
+void c2sp(double *c, int m, double *x, double *y, int l)
 {
     int            m1;
 

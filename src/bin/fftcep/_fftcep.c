@@ -57,9 +57,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void fftcep(sp, flng, c, m, itr, ac)
-double *sp, *c, ac;
-int flng, m, itr;
+void fftcep(double *sp, int flng, double *c, int m, int itr, double ac)
 {
     double  	   temp;
     static double  *x = NULL, *y;

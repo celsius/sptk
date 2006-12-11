@@ -55,9 +55,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void gc2gc(c1, m1, g1, c2, m2, g2)
-double 	*c1, *c2, g1, g2;
-int 	m1, m2;
+void gc2gc(double *c1, int m1, double g1, double *c2, int m2, double g2)
 {
     int 	  i, min, k, mk;
     double 	  ss1, ss2, cc;

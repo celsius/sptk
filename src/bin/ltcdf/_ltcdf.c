@@ -54,9 +54,7 @@
 
 *****************************************************************/
 
-double ltcdf(x, k, m, d)
-double x, *k, *d;
-int m;
+double ltcdf(double x, double *k, int m, double *d)
 {
     x -= k[m] * d[m-1];
     for (m--; m>=1; m--){

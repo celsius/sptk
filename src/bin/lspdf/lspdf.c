@@ -75,12 +75,6 @@ static char *rcs_id = "$Id$";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-
-/*  Required Functions  */
-double	lspdf_even();
-double	lspdf_odd();
-
-
 /*  Default Values  */
 #define ORDER		25
 #define	FPERIOD		100
@@ -117,7 +111,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, fprd = FPERIOD, iprd = IPERIOD, tp = TRANSPOSE, 
                 i, j, flag_odd;

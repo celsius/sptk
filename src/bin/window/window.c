@@ -81,10 +81,6 @@ static char *rcs_id = "$Id$";
 #define	WINTYPE		BLACKMAN
 #define	NORMFLG		1
 
-/*  Required Function */
-double	window();
-
-
 /*  Command Name  */
 char*	cmnd;
 
@@ -119,9 +115,7 @@ int usage()
 }
 
 
-main(argc, argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp = stdin;
 	char	*s, c;

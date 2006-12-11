@@ -64,9 +64,6 @@ static char *rcs_id = "$Id$";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-/* Required Functions */
-double	zcross();
-
 /* Default Values */
 #define FLENG	256
 #define NORM	FA
@@ -94,9 +91,7 @@ int status;
 	exit(status);
 }
 	
-main(argc, argv)
-int	argc;
-char	**argv;
+int main(int argc,char **argv)
 {
 
   	FILE	*fp = stdin;

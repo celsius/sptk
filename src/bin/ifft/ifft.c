@@ -61,8 +61,7 @@
 #include <string.h>
 
 /*  Required Functions  */
-int ifft(double*, double*, int);
-
+int dft(FILE *fp);
 
 static int	size = 256, out = ' ';
 
@@ -91,9 +90,7 @@ int usage()
 	exit(1);
 }
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp, *fopen();
 	char	*s, *infile = NULL, c;
@@ -139,8 +136,7 @@ char	*argv[];
 	exit(0);
 }
 
-dft(fp)
-FILE	*fp;
+int dft(FILE *fp)
 {
 	double		*x, *y;
 	register int	size2;

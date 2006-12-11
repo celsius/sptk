@@ -58,14 +58,7 @@
 #include <stdio.h>
 
 
-double dfs(x, a, m, b, n, buf, bufp)
-	double x;
-	double a[];
-	double b[];
-	int m;
-	int n;
-	double buf[];
-	int *bufp;
+double dfs(double x, double *a, int m, double *b, int n, double *buf, int *bufp)
 {
 	double y = 0.0;
 	int i, p;

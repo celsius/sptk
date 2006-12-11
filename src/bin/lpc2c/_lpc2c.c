@@ -52,12 +52,10 @@
 
 ****************************************************************/
 
-void lpc2c(a, m1, c, m2)
-double *a, *c;
-int m1, m2;
+void lpc2c(double *a, int m1, double *c, int m2)
 {
     register int 	i, k, upl;
-    double	 	log(), exp(), d;
+    double	 	log(double), exp(double), d;
 
     c[0] = log(a[0]);
     c[1] = - a[1];

@@ -64,12 +64,6 @@ static char *rcs_id="$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-
-/* Required Functions */
-void c2ir();
-void ic2ir();
-
-
 /* Default Values */
 #define LENG	256
 #define ORDER	25
@@ -102,9 +96,7 @@ int status;
 }
 
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp;
 	double	*buf, *x;

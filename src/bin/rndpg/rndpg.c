@@ -80,7 +80,6 @@ static char *rcs_id = "$Id$";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-
 /* default values */
 #define		ORDER		25
 #define		ITYPE		0
@@ -156,7 +155,21 @@ typedef struct _PStream {
 	SMatrix		sm;
 } PStream;
 
-
+/*  Required Functions  */
+int isfloat(char *c);
+void InitPStream(PStream *pst);
+void InitDWin(PStream *pst);
+double *dcalloc(int x, int xoff);
+double **ddcalloc(int x, int y, int xoff, int yoff);
+double ***dddcalloc(int x, int y, int z, int xoff, int yoff, int zoff);
+int str2darray(char *c, double **x);
+double *rndpg(PStream *pst);
+int doupdate(PStream *pst, int d);
+void calc_w(PStream *pst, int d);
+void calc_alpha(PStream *pst, int d);
+void calc_k(PStream *pst, int d);
+void update_c(PStream *pst, int d);
+void update_Q(PStream *pst, int d);
 double bmrnd(void);
 
 
@@ -193,7 +206,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	char		*s;
 	FILE		*pdffp = stdin, *parfp = stdout;
