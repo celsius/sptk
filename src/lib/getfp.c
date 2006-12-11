@@ -49,10 +49,10 @@
 
 ***************************************************************/
 
-#include	<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-FILE *getfp(name, opt)
-char *name, *opt;
+FILE *getfp(char *name, char *opt)
 {
     FILE	*fp;
 

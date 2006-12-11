@@ -49,10 +49,9 @@
 
 *****************************************************************/
 
-double gexp(r, x)
-double r, x;
+double gexp(double r, double x)
 {
-    double exp(), pow();
+    double exp(double), pow(double, double);
 
     if (r == 0.0)
 	return(exp(x));

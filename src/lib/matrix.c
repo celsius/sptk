@@ -63,15 +63,14 @@
 
 			Naohiro Isshiki Feb.1996
 *******************************************************************/
-#include<stdio.h>
-#include<SPTK.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <SPTK.h>
 
 static double	*tmp;
 static int	tmpsize = 0;
 
-void mm(x,xx,xy,y,yx,yy,a)
-double   x[],y[],a[];
-int     xx,xy,yx,yy;
+void mm(double x[],int xx,int xy,double y[],int yx,int yy,double a[])
 {	
         register int i,j,k;
 	register double *wx,*wy;
@@ -106,9 +105,7 @@ int     xx,xy,yx,yy;
 
 }
 
-void multim(x,xx,xy,y,yx,yy,a)
-double   x[],y[],a[];
-int     xx,xy,yx,yy;
+void multim(double x[],int xx,int xy,double y[],int yx,int yy,double a[])
 {
         register int i;
 
@@ -135,9 +132,7 @@ int     xx,xy,yx,yy;
 
 }
 
-void am(x,y,xx,yy,a)
-double   x[],y[],a[];
-int      xx,yy;
+void am(double x[],double y[], int xx, int yy,double a[])
 {
 	register int i,j,k;
 
@@ -147,9 +142,7 @@ int      xx,yy;
 			a[j+i*xx] = x[j+i*xx] + y[j+i*xx];
 }
 
-void addm(x,y,xx,yy,a)
-double   x[],y[],a[];
-int      xx,yy;
+void addm(double x[],double y[],int xx,int yy,double a[])
 {
         register int i;
 	

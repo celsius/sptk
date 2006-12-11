@@ -50,9 +50,7 @@
 
 ***************************************************************/
 
-int ifftr(x, y, l)
-double *x, *y;
-int l;
+int ifftr(double *x, double *y, int l)
 {
     register int i;
     register double *xp, *yp;

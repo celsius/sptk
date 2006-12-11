@@ -50,9 +50,7 @@
 
 *********************************************************/
 
-void fillz(ptr, size, nitem)
-char *ptr;
-int size, nitem;
+void fillz(char *ptr, int size, int nitem)
 {
     register long n;
     

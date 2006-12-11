@@ -55,7 +55,7 @@
 #define	B31_	0x7fffffff
 #define	Z	0x00000000
 
-int mseq()
+int mseq(void)
 {
     static int    x = 0x55555555;
     register int  x0, x28;

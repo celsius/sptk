@@ -58,7 +58,8 @@
 
 **********************************************************************/
 
-#include	<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifdef	DOUBLE
 #define	real	double
@@ -67,63 +68,55 @@
 #endif
 
 
-short *sgetmem(leng)
-int leng;
+short *sgetmem(int leng)
 {
-    char *getmem();
+    char *getmem(int leng, unsigned int size);
 
     return ( (short *)getmem(leng, sizeof(short)) );
 }
 
 
-long *lgetmem(leng)
-int leng;
+long *lgetmem(int leng)
 {
-    char *getmem();
+    char *getmem(int leng, unsigned int size);
 
     return ( (long *)getmem(leng, sizeof(long)) );
 }
 
 
-double *dgetmem(leng)
-int leng;
+double *dgetmem(int leng)
 {
-    char *getmem();
+    char *getmem(int leng, unsigned int size);
 
     return ( (double *)getmem(leng, sizeof(double)) );
 }
 
 
-float *fgetmem(leng)
-int leng;
+float *fgetmem(int leng)
 {
-    char *getmem();
+    char *getmem(int leng, unsigned int size);
 
     return ( (float *)getmem(leng, sizeof(float)) );
 }
 
 
-real *rgetmem(leng)
-int leng;
+real *rgetmem(int leng)
 {
-    char *getmem();
+    char *getmem(int leng, unsigned int size);
 
     return ( (real *)getmem(leng, sizeof(real)) );
 }
 
 
-float **ffgetmem(leng)
-int leng;
+float **ffgetmem(int leng)
 {
-    char *getmem();
+    char *getmem(int leng, unsigned int size);
 
     return ( (float **)getmem(leng, sizeof(float *)) );
 }
 
 
-char *getmem(leng, size)
-int	 leng;
-unsigned size;
+char *getmem(int leng, unsigned size)
 {
     char *p = NULL;
 

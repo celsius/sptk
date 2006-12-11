@@ -52,11 +52,7 @@ static	int	items;
 
 #ifndef DOUBLE
 
-int	fwritef(ptr, size, nitems, fp)
-double	*ptr;
-unsigned int	size;
-int	nitems;
-FILE	*fp;
+int	fwritef(double *ptr, unsigned int size, int nitems, FILE *fp)
 {
 	int	i;
 	if (items < nitems) {
@@ -70,11 +66,7 @@ FILE	*fp;
 	return fwrite(f, sizeof(float), nitems, fp);
 }
 
-int	freadf(ptr, size, nitems, fp)
-double	*ptr;
-int	size;
-int	nitems;
-FILE	*fp;
+int	freadf(double *ptr, int size, int nitems, FILE *fp)
 {
 	int	i, n;
 	if (items < nitems) {

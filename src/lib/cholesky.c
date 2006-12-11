@@ -59,9 +59,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-int cholesky(c, a, b, n, eps)
-double	*c, *b, *a, eps;
-int	n;
+int cholesky(double *c, double *a, double *b, int n, double eps)
 {
     register int	i, j, k;
     static double	*d = NULL, *y, *v, *vp;

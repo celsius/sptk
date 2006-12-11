@@ -51,9 +51,7 @@
 
 *********************************************************/
 
-void movem(a, b, size, nitem)
-register char *a, *b;
-int size, nitem;
+void movem(register char *a, register char *b, int size, int nitem)
 {
     register long i;
 

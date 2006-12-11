@@ -58,9 +58,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-int toeplitz(t, a, b, n, eps)
-double *t, *a, *b, eps;
-int n;
+int toeplitz(double *t, double *a, double *b, int n, double eps)
 {
     register int 	l, k;
     static double 	*c = NULL, *cc;

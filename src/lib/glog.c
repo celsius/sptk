@@ -49,10 +49,9 @@
 
 *****************************************************************/
 
-double glog(r, x)
-double r, x;
+double glog(double r, double x)
 {
-    double log(), pow();
+    double log(double), pow(double, double);
 
     if (r == 0.0)
 	return(log(x));

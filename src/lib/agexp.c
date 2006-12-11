@@ -52,10 +52,9 @@
 
 #include <stdio.h>
 
-double agexp(r, x, y)
-double r, x, y;
+double agexp(double r, double x, double y)
 {
-    double exp(), pow(), w;
+    double exp(double), pow(double, double), w;
 
     if (r == 0.0)
 	return(exp(2 * x));
