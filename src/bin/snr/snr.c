@@ -65,7 +65,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.3 2002/12/25 05:32:44 sako Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.4 2006/12/11 07:16:42 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -115,7 +115,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, num = 0, f1w = 1, f2w = 0, otype = OTYPE, 
                 count, countold, countseg, xn, yn, size, i;

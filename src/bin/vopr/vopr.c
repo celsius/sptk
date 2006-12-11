@@ -59,7 +59,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: vopr.c,v 1.2 2002/12/25 05:33:08 sako Exp $";
+static char *rcs_id = "$Id: vopr.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $";
 
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
@@ -71,6 +71,8 @@ char *BOOL[] = {"FALSE", "TRUE"};
 #include <ctype.h>
 #include <SPTK.h>
 
+/*  Required Functions  */
+int vopr(FILE *fp1,FILE *fp2);
 
 /*  Default Values  */
 #define LENG		1
@@ -116,7 +118,7 @@ double  atan2();
 int 	 opr = ' ', leng = LENG;
 Boolean  inv = INV;
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int	     nfiles = 0;
     FILE     *fp1, *fp2;
@@ -180,8 +182,7 @@ void main(int argc, char **argv)
     exit(0);
 }
 
-vopr(fp1, fp2)
-FILE	*fp1, *fp2;
+int vopr(FILE *fp1,FILE *fp2)
 {
     double        *a, *b;
     register int  k;

@@ -65,18 +65,13 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftcep.c,v 1.5 2006/11/04 05:34:07 mr_alex Exp $";
+static char *rcs_id = "$Id: fftcep.c,v 1.6 2006/12/11 07:16:36 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
 #include <SPTK.h>
-
-
-/*  Required Functions  */
-void	fftcep();
-
 
 /*  Default Values  */
 #define ORDER		25

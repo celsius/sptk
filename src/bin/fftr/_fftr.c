@@ -38,7 +38,7 @@
 */
 
 /********************************************************
- $Id: _fftr.c,v 1.2 2002/12/25 05:29:35 sako Exp $							
+ $Id: _fftr.c,v 1.3 2006/12/11 07:16:36 mr_alex Exp $							
  NAME:							
 	fftr - Fast Fourier Transform for Double sequence	   
  SYNOPSIS:                                             
@@ -55,9 +55,7 @@
 
 extern double	*_sintbl;
 extern int	maxfftsize;
-int fftr(x, y, m)
-double	*x, *y;
-int	m;
+int fftr(double *x, double *y, int m)
 {
 	register int	i, j ,k;
 	register double	*xp, *yp, *xq;

@@ -59,7 +59,7 @@
 *		M, N <= 2047						*
 ************************************************************************/
 
-static char *rcs_id = "$Id: dfs.c,v 1.3 2002/12/25 05:29:13 sako Exp $";
+static char *rcs_id = "$Id: dfs.c,v 1.4 2006/12/11 07:16:35 mr_alex Exp $";
 
 
 /* Standard C Libraries */
@@ -67,11 +67,6 @@ static char *rcs_id = "$Id: dfs.c,v 1.3 2002/12/25 05:29:13 sako Exp $";
 #include <ctype.h>
 #include <SPTK.h>
 #include <string.h>
-
-
-/* Required Function */
-double dfs();
-
 
 /* Default Values */
 #define SIZE 2048
@@ -105,9 +100,7 @@ int status;
 	exit(status);
 }
 
-main(argc, argv)
-	int	argc;
-	char	*argv[];
+int main(int argc, char *argv[])
 {
 	int i;
 	static double a[SIZE], b[SIZE];

@@ -67,7 +67,7 @@
 *		if L > l, (L-l)-zeros are padded			*
 *									*
 ************************************************************************/
-static char *rcs_id = "$Id: window.c,v 1.2 2002/12/25 05:33:18 sako Exp $";
+static char *rcs_id = "$Id: window.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -80,10 +80,6 @@ static char *rcs_id = "$Id: window.c,v 1.2 2002/12/25 05:33:18 sako Exp $";
 #define	FLENG		256
 #define	WINTYPE		BLACKMAN
 #define	NORMFLG		1
-
-/*  Required Function */
-double	window();
-
 
 /*  Command Name  */
 char*	cmnd;
@@ -119,9 +115,7 @@ int usage()
 }
 
 
-main(argc, argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp = stdin;
 	char	*s, c;

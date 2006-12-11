@@ -62,29 +62,43 @@
 
 #include "plot.h"
 
+/*  Required Functions  */
+void rotate(float th);
+void factor(float fx, float fy);
+int offset(float x, float y);
+void bound(float xl, float yl, float xh, float yh);
+void rstbnd();
+int hatch(int ip, register float *ax, register float *ay, int n, float d, float t);
+int pen(int pen);
+int font(int n);
+int speed(int isp, int ip);
+int mark(int mrk, float ax[], float ay[], int n, float f, int m);
+int symbol(float x, float y, char *text, float h, float s, float th);
+int number(float x, float y, float fval, float h, float s, float th, int m, int n);
+int italic(float th);
+int line(int ip, register float *ax, register float *ay, int n);
+int circle(float x, float y, float rs, float re, float ths, float the);
+int pntstyl(int ip);	
+	
 extern struct co_ord	_org;
 
-rotate(th)
-float	th;
+void rotate(float th)
 {
 	_rotate(_plnorm(_org.xo), _plnorm(_org.yo), _plnorm(th));
 }
 
-factor(fx, fy)
-float	fx, fy;
+void factor(float fx, float fy)
 {
 	_factor((int)(fx * SCALE + 0.5), (int)(fy * SCALE + 0.5), SCALE);
 }
 
-offset(x, y)
-float	x, y;
+int offset(float x, float y)
 {
 	_offset(_plnorm(x), _plnorm(y));
 	return(0);
 }
 
-bound(xl, yl, xh, yh)
-float	xl, yl, xh, yh;
+void bound(float xl, float yl, float xh, float yh)
 {
 	short	buf[7];
 
@@ -92,16 +106,13 @@ float	xl, yl, xh, yh;
 	wup_left(_cordx(xh), _cordy(yh));
 }
 
-rstbnd()
+void rstbnd()
 {
 	wlo_right(0, 0);
 	wup_left(4000, 2850);
 }
 
-hatch(ip, ax, ay, n, d, t)
-int	ip, n;
-float	d, t;
-register float	*ax, *ay;
+int hatch(int ip, register float *ax, register float *ay, int n, float d, float t)
 {
 	if(n < 3)
 		return(1);
@@ -115,8 +126,7 @@ register float	*ax, *ay;
 	return(0);
 }
 
-pen(pen)
-int	pen;
+int pen(int pen)
 {
 	if(pen < 1 || pen > 10)
 		return(1);
@@ -124,8 +134,7 @@ int	pen;
 	return(0);
 }
 
-font(n)
-int	n;
+int font(int n)
 {
 	if(n < 0 || n > 19)
 		return(1);
@@ -133,8 +142,7 @@ int	n;
 	return(0);
 }
 
-speed(isp, ip)
-int	isp, ip;
+int speed(int isp, int ip)
 {
 	if(isp < 0 || isp > 10 || ip < 0 || ip > 10)
 		return(1);
@@ -145,10 +153,7 @@ int	isp, ip;
 	return(0);
 }
 
-mark(mrk, ax, ay, n, f, m)
-int	mrk, n, m;
-float	ax[], ay[];
-float	f;
+int mark(int mrk, float ax[], float ay[], int n, float f, int m)
 {
 	register int	i;
 
@@ -166,9 +171,7 @@ float	f;
 	return(0);
 }
 
-symbol(x, y, text, h, s, th)
-float	x, y, h, s, th;
-char	*text;
+int symbol(float x, float y, char *text, float h, float s, float th)
 {
 	plot(x, y, 3);
 	ascale(_plnorm(h));
@@ -178,9 +181,7 @@ char	*text;
 	return(0);
 }
 
-number(x, y, fval, h, s, th, m, n)
-float	x, y, h, s, fval, th;
-int	m, n;
+int number(float x, float y, float fval, float h, float s, float th, int m, int n)
 {
 	char	buf[32], format[8];
 
@@ -199,8 +200,7 @@ int	m, n;
 	return(symbol(x, y, buf, h, s, th));
 }
 
-italic(th)
-float	th;
+int italic(float th)
 {
 	int	theta;
 
@@ -210,9 +210,7 @@ float	th;
 	return(0);
 }
 
-line(ip, ax, ay, n)
-int	ip, n;
-register float	*ax, *ay;
+int line(int ip, register float *ax, register float *ay, int n)
 {
 	struct {
 		short	x;
@@ -254,8 +252,7 @@ register float	*ax, *ay;
 	return(0);
 }
 
-circle(x, y, rs, re, ths, the)
-float	x, y, rs, re, ths, the;
+int circle(float x, float y, float rs, float re, float ths, float the)
 {
 	int	r1, r2;
 
@@ -267,8 +264,7 @@ float	x, y, rs, re, ths, the;
 	return(0);
 }
 
-pntstyl(ip)
-int	ip;
+int pntstyl(int ip)
 {
 	ip += 20;
 	aspace(ip);	/* valid for only LBP */

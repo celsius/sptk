@@ -60,18 +60,13 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: levdur.c,v 1.2 2002/12/25 05:30:49 sako Exp $";
+static char *rcs_id = "$Id: levdur.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
 #include <SPTK.h>
-
-
-/*  Required Functions  */
-int	levdur();
-
 
 /*  Default Values  */
 #define ORDER		25
@@ -101,7 +96,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, flag;
     FILE	*fp = stdin;

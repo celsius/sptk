@@ -142,9 +142,7 @@ int	paper_num = PAPERNUM,
 	resolution = RESOLUTION, font_no = FONTNO,
 	psmode = PSMODE, landscape = LANDSCAPE, clip_mode = CLIPMODE; 
 
-main( argc, argv )
-	int	argc;
-	char	*argv[];
+int main(int argc,char *argv[] )
 {
 	char	*str, flg, c;
 	FILE	*fp = NULL;

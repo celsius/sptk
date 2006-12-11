@@ -61,7 +61,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: ramp.c,v 1.2 2002/12/25 05:32:26 sako Exp $";
+static char *rcs_id = "$Id: ramp.c,v 1.3 2006/12/11 07:16:41 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -110,7 +110,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, i;
     double	start = START, step = STEP, end = START, x, atof();

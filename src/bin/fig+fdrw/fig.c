@@ -125,9 +125,7 @@ float	xl = XL, yl = YL, x0 = 0, y0 = 0;
 float	mh = 2, mw = 2, h = CH_NRML, w = CW_NRML;
 float	xclip0 = 0, yclip0 = 0, xclip1 = 0, yclip1 = 0;
 
-main(argc, argv)
-int	argc;
-char	*argv[];
+int main(int argc, char *argv[])
 {
 	FILE	*fp;
 	char	*infile[16], *file = NULL;

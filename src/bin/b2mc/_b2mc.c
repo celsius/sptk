@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: _b2mc.c,v 1.2 2002/12/25 05:28:35 sako Exp $
+    $Id: _b2mc.c,v 1.3 2006/12/11 07:16:34 mr_alex Exp $
 
     Transform MLSA Digital Filter Coefficients to Mel Cepstrum 
 
@@ -51,9 +51,7 @@
 
 ***************************************************************/
 
-void b2mc(b, mc, m, a)
-double *b, *mc, a;
-int m;
+void b2mc(double *b, double *mc, int m, double a)
 {
     double d, o;
     

@@ -39,7 +39,7 @@
 
 /***************************************************************
 
-    $Id: _lpc2par.c,v 1.2 2002/12/25 05:31:05 sako Exp $
+    $Id: _lpc2par.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $
 
     Transformation LPC to PARCOR 
 
@@ -57,9 +57,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-int lpc2par(a, k, m)
-double *a, *k;
-int  m;
+int lpc2par(double *a, double *k, int m)
 {
     int 	  i, n, flg = 0;
     double  	  s;

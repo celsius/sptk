@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _poledf.c,v 1.2 2002/12/25 05:32:15 sako Exp $
+    $Id: _poledf.c,v 1.3 2006/12/11 07:16:41 mr_alex Exp $
 
     All Pole Digital Filter
 
@@ -54,9 +54,7 @@
 
 *****************************************************************/
 
-double	poledf(x, a, m, d)
-double	x, *a, *d;
-int	m;
+double	poledf(double x, double *a, int m, double *d)
 {
     for(m--; m>0; m--){
 	x -= a[m+1] * d[m];
@@ -68,9 +66,7 @@ int	m;
     return(x);
 }
 
-double poledft(x, a, m, d)
-double x, *a, *d;
-int    m;
+double poledft(double x, double *a, int m, double *d)
 {
     register int  i;
     

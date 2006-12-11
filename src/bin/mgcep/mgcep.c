@@ -75,18 +75,13 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.4 2006/12/06 08:42:26 mr_alex Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.5 2006/12/11 07:16:40 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
 #include <SPTK.h>
-
-
-/*  Required Functions  */
-int	mgcep();
-
 
 /*  Default Values  */
 #define	ALPHA		0.35

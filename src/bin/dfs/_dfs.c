@@ -38,7 +38,7 @@
 */
 
 /************************************************************************
-	$Id: _dfs.c,v 1.2 2002/12/25 05:29:11 sako Exp $								
+	$Id: _dfs.c,v 1.3 2006/12/11 07:16:35 mr_alex Exp $								
 	Standard Form Digital Filter					
 	latice digital filter						
 		double dfs(x, a, m, b, n, buf, bufp)			
@@ -58,14 +58,7 @@
 #include <stdio.h>
 
 
-double dfs(x, a, m, b, n, buf, bufp)
-	double x;
-	double a[];
-	double b[];
-	int m;
-	int n;
-	double buf[];
-	int *bufp;
+double dfs(double x, double *a, int m, double *b, int n, double *buf, int *bufp)
 {
 	double y = 0.0;
 	int i, p;

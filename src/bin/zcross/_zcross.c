@@ -38,7 +38,7 @@
 */
 
 /***********************************************************
- $Id: _zcross.c,v 1.2 2002/12/25 05:34:26 sako Exp $
+ $Id: _zcross.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $
 	obtain zero coss
 		zcross(x, fl, n)
 
@@ -50,8 +50,7 @@
 ***********************************************************/
 #include<math.h>
 
-double sgn(x)
-double x;
+double sgn(double x)
 {
 	if (x >=0)
 		return(0.5);
@@ -60,10 +59,7 @@ double x;
 
 }
 
-double zcross(x, fl, n)
-double	*x;
-int	fl;
-int	n;
+double zcross(double *x, int fl, int n)
 {
 	int	i;
 	double	z = 0;

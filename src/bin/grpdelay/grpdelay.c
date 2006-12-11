@@ -56,7 +56,7 @@
 *	Note that double precision FFT is used.				*
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.2 2002/12/25 05:30:13 sako Exp $";
+static char *rcs_id = "$Id: grpdelay.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -99,9 +99,7 @@ int status;
 }
 
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp;
 	char	*s, *infile = NULL,c;

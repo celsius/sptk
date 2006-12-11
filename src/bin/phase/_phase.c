@@ -38,7 +38,7 @@
 */
 
 /*******************************************************************
-  $Id: _phase.c,v 1.2 2002/12/25 05:32:08 sako Exp $
+  $Id: _phase.c,v 1.3 2006/12/11 07:16:41 mr_alex Exp $
 	comupte phase of digital filter or real seaquence
 		phase(p, mp, z, mz, ph, flng)
 
@@ -56,9 +56,7 @@
 #include <math.h>
 #include <SPTK.h>
 	
-void phase(p, mp, z, mz, ph, flng, unlap)
-double 	*p,*z,*ph;
-int 	mp, mz, flng, unlap;
+void phase(double *p, int mp, double *z, int mz, double *ph, int flng, int unlap)
 {
 	static double	*x;
 	static int fsize = 0;

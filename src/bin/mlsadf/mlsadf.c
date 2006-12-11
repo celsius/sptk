@@ -69,7 +69,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: mlsadf.c,v 1.3 2002/12/25 05:31:54 sako Exp $";
+static char *rcs_id = "$Id: mlsadf.c,v 1.4 2006/12/11 07:16:40 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -83,7 +83,7 @@ char *BOOL[] = {"FALSE", "TRUE"};
 
 
 /*  Required Functions  */
-double	mlsadf(), exp();
+double exp();
 
 
 /*  Default Values  */
@@ -130,7 +130,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, pd = PADEORDER, 
 		fprd = FPERIOD, iprd = IPERIOD, i, j;

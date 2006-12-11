@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _ltcdf.c,v 1.2 2002/12/25 05:31:20 sako Exp $
+    $Id: _ltcdf.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $
 
     All-Pole Lattice Digital Filter
 
@@ -54,9 +54,7 @@
 
 *****************************************************************/
 
-double ltcdf(x, k, m, d)
-double x, *k, *d;
-int m;
+double ltcdf(double x, double *k, int m, double *d)
 {
     x -= k[m] * d[m-1];
     for (m--; m>=1; m--){

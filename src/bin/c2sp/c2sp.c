@@ -70,7 +70,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: c2sp.c,v 1.2 2002/12/25 05:28:49 sako Exp $";
+static char *rcs_id = "$Id: c2sp.c,v 1.3 2006/12/11 07:16:35 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -84,7 +84,6 @@ char *BOOL[] = {"FALSE", "TRUE"};
 
 
 /*  Required Functions  */
-void	c2sp();
 double  exp(), log();
 
 
@@ -128,7 +127,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int     leng = LENG, m = ORDER, start = 0, end = 0, otype = OTYPE,
     	    i, no;

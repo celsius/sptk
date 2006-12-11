@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: _average.c,v 1.2 2002/12/25 05:28:32 sako Exp $
+    $Id: _average.c,v 1.3 2006/12/11 07:16:34 mr_alex Exp $
 
     Calculation of Average
 
@@ -51,9 +51,7 @@
 
 ***************************************************************/
 
-double average(x, n)
-double *x;
-int n;
+double average(double *x, int n)
 {
     register int  i;
     double	  sum = 0.0;
@@ -63,9 +61,7 @@ int n;
     return(sum / n);
 }
 
-void vaverage(x, l, num, ave)
-double *x, *ave;
-int l, num;
+void vaverage(double *x, int l, int num, double *ave)
 {
     register int    i, j;
     

@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _iglsadf.c,v 1.2 2002/12/25 05:30:25 sako Exp $
+    $Id: _iglsadf.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $
 
     Inverse GLSA Digital Filter
 
@@ -55,9 +55,7 @@
 
 *****************************************************************/
 
-double iglsadf(x, c, m, n, d)
-double x, *c, *d;
-int m, n;
+double iglsadf(double x, double *c, int m, int n, double *d)
 {
     int  	i;
     double      zerodf1();
@@ -68,12 +66,10 @@ int m, n;
     return(x);
 }
 
-double iglsadf1(x, c, m, n, d)
-double x, *c, *d;
-int m, n;
+double iglsadf1(double x, double *c, int m, int n, double *d)
 {
     int  	i;
-    double      gamma, gzerodf();
+    double      gamma, gzerodf(double x, double *c, int m, double g, double *d);
 
     gamma = -1 / (double)n;
     
@@ -83,9 +79,7 @@ int m, n;
     return(x);
 }
 
-double gzerodf(x, c, m, g, d)
-double x, *c, *d, g;
-int m;
+double gzerodf(double x, double *c, int m, double g, double *d)
 {
     double   y = 0.0;
     

@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _msvq.c,v 1.2 2002/12/25 05:31:55 sako Exp $
+    $Id: _msvq.c,v 1.3 2006/12/11 07:16:40 mr_alex Exp $
 
     Multi Stage Vector Quantization
 
@@ -57,9 +57,7 @@
 #include	<stdio.h>
 #include	<SPTK.h>
 
-void msvq(x, cb, l, cbsize, stage, index)
-double *x, *cb;
-int *cbsize, l, stage, *index;
+void msvq(double *x, double *cb, int l, int *cbsize, int stage, int *index)
 {
     int  	  i, j, vq();
     double 	  *p, min = 1e23, dist;

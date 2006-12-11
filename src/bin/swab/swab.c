@@ -66,6 +66,10 @@
 #include <string.h>
 #include <SPTK.h>
 
+/*  Required Functions  */
+int conv(FILE *fp,int iosize);
+int ffseek(FILE *fp,long off);
+
 
 /*  Command Name  */
 char    *cmnd;
@@ -105,9 +109,7 @@ void usage(int status)
 
 static long	start = START, _end = END, sno = SNO, eno = ENO;
 
-main(argc, argv)
-int argc;
-char *argv[];
+int main(int argc,char *argv[])
 {
     FILE	*fp = stdin;
     char	*s;
@@ -173,9 +175,7 @@ char *argv[];
     exit(0);
 }
 
-conv(fp, iosize)
-FILE	*fp;
-int	iosize;
+int conv(FILE *fp,int iosize)
 {
 	long	adrs, n;
 	int	i;
@@ -194,9 +194,7 @@ int	iosize;
 	}
 }
 
-ffseek(fp, off)
-FILE	*fp;
-long	off;
+int ffseek(FILE *fp,long off)
 {
 	register int	n;
 

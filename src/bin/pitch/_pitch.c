@@ -39,7 +39,7 @@
 
 /**********************************************************************
 
-    $Id: _pitch.c,v 1.7 2006/11/04 05:27:02 mr_alex Exp $
+    $Id: _pitch.c,v 1.8 2006/12/11 07:16:41 mr_alex Exp $
 
     Pitch Extract
 
@@ -63,8 +63,6 @@
 #include <SPTK.h>
 
 /*  Required Functions  */
-int fftr();
-int uels();
 double log();
 
 

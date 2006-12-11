@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _glsadf.c,v 1.2 2002/12/25 05:30:06 sako Exp $
+    $Id: _glsadf.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $
 
     GLSA Digital Filter
 
@@ -55,9 +55,7 @@
 
 *****************************************************************/
 
-double glsadf(x, c, m, n, d)
-double x, *c, *d;
-int m, n;
+double glsadf(double x, double *c, int m, int n, double *d)
 {
     int  	i;
     double      poledf();
@@ -68,12 +66,10 @@ int m, n;
     return(x);
 }
 
-double glsadf1(x, c, m, n, d)
-double x, *c, *d;
-int m, n;
+double glsadf1(double x, double *c, int m, int n, double *d)
 {
     int  	i;
-    double      gamma, gpoledf();
+    double      gamma, gpoledf(double x, double *c, int m, double g, double *d);
 
     gamma = -1 / (double)n;
     
@@ -83,9 +79,7 @@ int m, n;
     return(x);
 }
 
-double gpoledf(x, c, m, g, d)
-double x, *c, *d, g;
-int m;
+double gpoledf(double x, double *c, int m, double g, double *d)
 {
     double   y = 0.0;
     

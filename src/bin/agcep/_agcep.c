@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _agcep.c,v 1.2 2002/12/25 05:28:25 sako Exp $
+    $Id: _agcep.c,v 1.3 2006/12/11 07:16:34 mr_alex Exp $
 
     Adaptive Generalized Cepstral Analysis
 
@@ -61,9 +61,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-double agcep(x, c, m, stage, lambda, step, tau, eps)
-double x, *c, lambda, step, tau, eps;
-int m, stage;
+double agcep(double x, double *c, int m, int stage, double lambda, double step, double tau, double eps)
 {
     register int   i;
     static double  *eg = NULL, *ep, *d, gg = 1.0, ee = 1.0, tx;

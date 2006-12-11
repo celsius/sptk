@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _lpc2c.c,v 1.2 2002/12/25 05:30:59 sako Exp $
+    $Id: _lpc2c.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $
 
     Transformation LPC to Cepstrum 
 
@@ -52,12 +52,10 @@
 
 ****************************************************************/
 
-void lpc2c(a, m1, c, m2)
-double *a, *c;
-int m1, m2;
+void lpc2c(double *a, int m1, double *c, int m2)
 {
     register int 	i, k, upl;
-    double	 	log(), exp(), d;
+    double	 	log(double), exp(double), d;
 
     c[0] = log(a[0]);
     c[1] = - a[1];

@@ -38,7 +38,7 @@
 */
 
 /********************************************************
-$Id: _fft2.c,v 1.2 2002/12/25 05:29:28 sako Exp $
+$Id: _fft2.c,v 1.3 2006/12/11 07:16:36 mr_alex Exp $
 
 *	fft2 : two dimensional fast Fourier transform 	*
 *			for complex sequence		*
@@ -59,9 +59,7 @@ $Id: _fft2.c,v 1.2 2002/12/25 05:29:28 sako Exp $
 #include <math.h>
 #include <SPTK.h>
 
-int	fft2( x, y, n )
-double	x[], y[];
-int	n;
+int fft2(double x[], double y[], int n )
 {
 	double		*xq, *yq;
 	static double	*xb = NULL, *yb;

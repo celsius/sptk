@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mlsadf.c,v 1.2 2002/12/25 05:31:52 sako Exp $
+    $Id: _mlsadf.c,v 1.3 2006/12/11 07:16:40 mr_alex Exp $
 
     MLSA Digital Filter
 
@@ -67,11 +67,9 @@ static double pade[] = {1.0,
 
 double *ppade;
 
-double mlsadf(x, b, m, a, pd, d)
-double x, *b, *d, a;
-int m, pd;
+double mlsadf(double x, double *b, int m, double a, int pd, double *d)
 {
-    double mlsadf1(), mlsadf2();
+    double mlsadf1(double x, double *b, int m, double a, int pd, double *d), mlsadf2(double x, double *b, int m, double a, int pd, double *d);
 
     ppade = &pade[pd*(pd+1) / 2];
     
@@ -81,9 +79,7 @@ int m, pd;
     return(x);
 }
 
-double mlsadf1(x, b, m, a, pd, d)
-double x, *b, *d, a;
-int m, pd;
+double mlsadf1(double x, double *b, int m, double a, int pd, double *d)
 {
     double	 v, out = 0.0, *pt, aa;
     register int i;
@@ -106,11 +102,9 @@ int m, pd;
     return(out);
 }
 
-double mlsadf2(x, b, m, a, pd, d)
-double x, *b, *d, a;
-int m, pd;
+double mlsadf2(double x, double *b, int m, double a, int pd, double *d)
 {
-    double	 v, out = 0.0, *pt, aa, mlsafir();
+    double	 v, out = 0.0, *pt, aa, mlsafir(double x, double *b, int m, double a, double *d);
     register int i;
     
     aa = 1 - a*a;
@@ -130,9 +124,7 @@ int m, pd;
     return(out);
 }
 
-double mlsafir(x, b, m, a, d)
-double x, *b, *d, a;
-int m;
+double mlsafir(double x, double *b, int m, double a, double *d)
 {
     double	 y = 0.0, aa;
     register int i;

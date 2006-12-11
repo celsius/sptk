@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _lmadf.c,v 1.2 2002/12/25 05:30:52 sako Exp $
+    $Id: _lmadf.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $
 
     LMA Digital Filter
 
@@ -68,9 +68,7 @@ static double pade[] = {1.0,
 
 double *ppade;
 
-double lmadf(x, c, m, pd, d)
-double x, *c, *d;
-int m, pd;
+double lmadf(double x, double *c, int m, int pd, double *d)
 {
     double lmadf1();
 
@@ -96,9 +94,7 @@ int m, pd;
 
 *****************************************************************/
 
-double lmadf1(x, c, m, d, m1, m2, pd)
-double x, *c, *d;
-int m, m1, m2, pd;
+double lmadf1(double x, double *c, int m, double *d, int m1, int m2, int pd)
 {
     double 	y, lmafir(), t, *pt;
     int 	i;
@@ -130,9 +126,7 @@ int m, m1, m2, pd;
 
 *****************************************************************/
 
-double lmafir(x, c, m, d, m1, m2)
-double x, *c, *d;
-int m, m1, m2;
+double lmafir(double x, double *c, int m, double *d, int m1, int m2)
 {
     int i;
 

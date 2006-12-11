@@ -39,11 +39,11 @@
 # Makefile for Imai Kobayashi Lab. command
 #
 
-PREFIX		= /usr/local/SPTK
+PREFIX		= /home/alex/osigoto/Sourceforge/SPTK
 BIN		= $(PREFIX)/bin
 LIB		= $(PREFIX)/lib
 
-CC		= gcc
+CC		= gcc -ansi
 RM		= rm -rf
 INSTALL		= install -cs
 

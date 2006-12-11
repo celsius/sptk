@@ -72,12 +72,6 @@
 
 typedef struct { double re,im;} complex;
 
-
-/* Required Functions */
-void root_pol(),out();
-complex *cplx_getmem();
-
-
 /* Default Values */
 #define ORDER   32
 #define ITER    1000
@@ -112,9 +106,7 @@ int usage()
 }
 
 
-main(argc,argv)
-     int  argc;
-     char  *argv[];
+int main(int argc,char *argv[])
 {
     char                *s;
     int                 c, k, odr = ORDER, itrat = ITER, form = 0, a_zero = 0;

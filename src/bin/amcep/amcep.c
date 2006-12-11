@@ -72,7 +72,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: amcep.c,v 1.2 2002/12/25 05:28:30 sako Exp $";
+static char *rcs_id = "$Id: amcep.c,v 1.3 2006/12/11 07:16:34 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -86,7 +86,7 @@ char *BOOL[] = {"FALSE", "TRUE"};
 
 
 /*  Required Functions  */
-double	mlsadf(), log();
+double log();
 
 
 /*  Default Values  */
@@ -137,7 +137,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int	     m = ORDER, period = PERIOD, pd = PADEORDER, i, j;
     FILE     *fp = stdin, *fpe = NULL;

@@ -66,7 +66,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspcheck.c,v 1.2 2002/12/25 05:31:13 sako Exp $";
+static char *rcs_id = "$Id: lspcheck.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $";
 
 
 typedef enum _Boolean {FA, TR} Boolean;
@@ -122,7 +122,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, sampling = SAMPLING, itype = ITYPE, 
 		otype = OTYPE, i, num;

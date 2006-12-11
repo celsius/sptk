@@ -52,9 +52,7 @@
 *						*
 ************************************************/
 
-void clip(x, l, min, max, y)
-double	*x, *y, min, max;
-int	l;
+void clip(double *x, int l, double min, double max, double *y)
 {
 	register int	i;
 	for (i=0; i<l; i++)

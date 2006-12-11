@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: _mc2b.c,v 1.2 2002/12/25 05:31:24 sako Exp $
+    $Id: _mc2b.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $
 
     Transform Mel Cepstrum to MLSA Digital Filter Coefficients
 
@@ -51,9 +51,7 @@
 
 ***************************************************************/
 
-void mc2b(mc, b, m, a)
-double *mc, *b, a;
-int m;
+void mc2b(double *mc, double *b, int m, double a)
 {
     b[m] = mc[m];
     

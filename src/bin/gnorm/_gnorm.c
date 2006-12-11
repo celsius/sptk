@@ -38,7 +38,7 @@
 */
 
 /************************************************************************
-  $Id: _gnorm.c,v 1.2 2002/12/25 05:30:09 sako Exp $
+  $Id: _gnorm.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $
 
     Gain Normalization
 	
@@ -51,11 +51,9 @@
 
 ************************************************************************/
 
-void gnorm(c1, c2, m, g)
-double	*c1, *c2, g;
-int	m;
+void gnorm(double *c1, double *c2, int m, double g)
 {
-    double	k, pow(), exp();
+    double	k, pow(double, double), exp(double);
     
     if (g != 0.0) {
 	k = 1.0 + g * c1[0];

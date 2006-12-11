@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _c2acr.c,v 1.2 2002/12/25 05:28:41 sako Exp $
+    $Id: _c2acr.c,v 1.3 2006/12/11 07:16:34 mr_alex Exp $
 
     Transformation Cepstrum to Autocorrelation
 
@@ -56,9 +56,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void c2acr(c, m1, r, m2, flng)
-double *c, *r;
-int m1, m2, flng;
+void c2acr(double *c, int m1, double *r, int m2, int flng)
 {
     register int  i;
     double	  exp();

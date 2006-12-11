@@ -56,18 +56,13 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: norm0.c,v 1.2 2002/12/25 05:32:00 sako Exp $";
+static char *rcs_id = "$Id: norm0.c,v 1.3 2006/12/11 07:16:40 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
 #include <SPTK.h>
-
-
-/*  Required Functions  */
-void    norm0();
-
 
 /*  Default Values  */
 #define ORDER 		25
@@ -95,7 +90,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, i;
     FILE	*fp = stdin;

@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _ivq.c,v 1.2 2002/12/25 05:30:41 sako Exp $
+    $Id: _ivq.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $
 
     Decoder of Vector Quantization
 
@@ -52,9 +52,7 @@
 
 *****************************************************************/
 
-void ivq(index, cb, l, x)
-int index, l;
-double *cb, *x;
+void ivq(int index, double *cb, int l, double *x)
 {
     movem((cb+index*l), x, sizeof(*cb), l);
 }

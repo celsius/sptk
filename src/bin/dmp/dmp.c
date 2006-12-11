@@ -56,7 +56,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: dmp.c,v 1.3 2006/10/23 00:30:33 s_sako Exp $";
+static char *rcs_id = "$Id: dmp.c,v 1.4 2006/12/11 07:16:35 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -99,7 +99,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int 	   n = -1, size = sizeof(float), i = 0, eflag = 0, lflag = 0;
     FILE 	   *fp = stdin;

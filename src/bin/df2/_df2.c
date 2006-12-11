@@ -38,7 +38,7 @@
 */
 
 /******************************************************
- $Id: _df2.c,v 1.2 2002/12/25 05:29:08 sako Exp $
+ $Id: _df2.c,v 1.3 2006/12/11 07:16:35 mr_alex Exp $
   2nd order standard form digital filter
 	double df2(x,sf,f0p,wbp,f0z,wbz,fp,fz,buf,bufp)
 
@@ -59,13 +59,7 @@
 *******************************************************/	 
 #include<math.h>
 
-double df2(x,sf,f0p,wbp,f0z,wbz,fp,fz,buf,bufp)
-double 	x,sf,f0p,wbp,f0z,wbz;
-int	fp,fz;
-double	buf[];
-int	*bufp;
-
-
+double df2(double x, double sf, double f0p, double wbp, double f0z, double wbz, int fp, int fz, double *buf, int *bufp)
 {
 	double a[3], b[3];
 	double p, e;

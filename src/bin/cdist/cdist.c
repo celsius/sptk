@@ -60,7 +60,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: cdist.c,v 1.3 2002/12/25 05:28:54 sako Exp $";
+static char *rcs_id = "$Id: cdist.c,v 1.4 2006/12/11 07:16:35 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -114,7 +114,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, num = 0, otype = OTYPE, i;
     FILE	*fp = stdin, *fp1 = NULL;

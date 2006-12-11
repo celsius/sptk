@@ -69,7 +69,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: gcep.c,v 1.2 2002/12/25 05:30:04 sako Exp $";
+static char *rcs_id = "$Id: gcep.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -80,11 +80,6 @@ static char *rcs_id = "$Id: gcep.c,v 1.2 2002/12/25 05:30:04 sako Exp $";
 
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
-
-
-/*  Required Functions  */
-int	gcep();
-
 
 /*  Default Values  */
 #define ORDER		25
@@ -129,7 +124,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, flng = FLENG, itr1 = MINITR, 
 		itr2 = MAXITR, norm = NORM, flag = 0;

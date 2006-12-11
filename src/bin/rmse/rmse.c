@@ -59,7 +59,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: rmse.c,v 1.2 2002/12/25 05:32:33 sako Exp $";
+static char *rcs_id = "$Id: rmse.c,v 1.3 2006/12/11 07:16:41 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -69,7 +69,7 @@ static char *rcs_id = "$Id: rmse.c,v 1.2 2002/12/25 05:32:33 sako Exp $";
 
 
 /*  Required Functions  */
-double	rmse(), sqrt();
+double sqrt();
 
 
 /*  Default Values  */
@@ -102,7 +102,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, num = 0;
     FILE	*fp = stdin, *fp1 = NULL;

@@ -38,7 +38,7 @@
 */
 
 /****************************************************************
-$Id: _window.c,v 1.2 2002/12/25 05:33:17 sako Exp $
+$Id: _window.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $
 
 			Window function
 			---------------
@@ -60,8 +60,9 @@ $Id: _window.c,v 1.2 2002/12/25 05:33:17 sako Exp $
 
     set windowed value to "*x" and return "normalizing gain".
 *****************************************************************/
-#include	<stdio.h>
-#include	<SPTK.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <SPTK.h>
 
 #define	M_2PI   (2 * 3.14159265358979323846) 
 
@@ -77,10 +78,7 @@ double*	trapezoid();
 double*	rectangular();
 
 
-double window( type, x, size, nflg )
-	Window	type;
-	double	*x;
-	int	size, nflg;
+double window(Window type,double *x,int size,int nflg )
 {
 	register int	i;
 	static double	g;
@@ -147,9 +145,7 @@ double window( type, x, size, nflg )
 	int	leng;	window length
 ************************************************/
 
-double  *blackman(w, leng)
-	double	*w;
-	int	leng;
+double  *blackman(double *w, int leng)
 {
 	register int	i;
 	double		arg, x;
@@ -172,9 +168,7 @@ double  *blackman(w, leng)
 	int	leng;	window length
 ************************************************/
 
-double  *hamming(w, leng)
-	double	*w;
-	int	leng;
+double  *hamming(double *w,int leng)
 {
 	register int	i;
 	double		arg;
@@ -196,9 +190,7 @@ double  *hamming(w, leng)
 	int	leng;	window length
 ************************************************/
 
-double  *hanning(w, leng)
-	double	*w;
-	int	leng;
+double  *hanning(double *w,int leng)
 {
 	register int	i;
 	double		arg;
@@ -221,9 +213,7 @@ double  *hanning(w, leng)
 	int	leng;	window length
 ************************************************/
 
-double  *bartlett(w, leng)
-	double	*w;
-	int	leng;
+double  *bartlett(double *w,int leng)
 {
 	register int	k, m;
 	register double	*p, slope;
@@ -248,9 +238,7 @@ double  *bartlett(w, leng)
 	int	leng;	window length
 ************************************************/
 
-double  *trapezoid(w, leng)
-	double	*w;
-	int	leng;
+double  *trapezoid(double *w,int leng)
 {
 	register int	k, m1, m2;
 	register double	*p, slope;
@@ -278,9 +266,7 @@ double  *trapezoid(w, leng)
 	int	leng;	window length
 ************************************************/
 
-double  *rectangular(w, leng)
-	double	*w;
-	int	leng;
+double  *rectangular(double *w,int leng)
 {
 	register int	k;
 	register double	*p;

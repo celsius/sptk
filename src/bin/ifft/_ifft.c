@@ -49,9 +49,7 @@
 ************************************************/
 
 
-ifft(x, y, m)
-register double	*x, *y;
-int		m;
+int ifft(register double *x, register double *y, int m)
 {
 	register int	i;
 

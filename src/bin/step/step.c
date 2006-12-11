@@ -57,7 +57,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: step.c,v 1.2 2002/12/25 05:32:51 sako Exp $";
+static char *rcs_id = "$Id: step.c,v 1.3 2006/12/11 07:16:42 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -94,7 +94,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, i;
     double	x = 1.0;

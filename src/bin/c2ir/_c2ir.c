@@ -38,7 +38,7 @@
 */
 
 /******************************************************************
- $Id: _c2ir.c,v 1.2 2002/12/25 05:28:45 sako Exp $
+ $Id: _c2ir.c,v 1.3 2006/12/11 07:16:34 mr_alex Exp $
 
 	cepstrum to impulse response
 		c2ir(c,nc,h,leng)
@@ -59,12 +59,10 @@
 			Naohiro Isshiki,	Dec.1995
 ********************************************************************/
 
-void c2ir(c,nc,h,leng)
-double 	*c,*h;
-int 	leng,nc;
+void c2ir(double *c, int nc, double *h, int leng)
 {
 	register int	n, k, nr, upl;
-	double	d, exp(), log();
+	double	d, exp(double), log(double);
 
 	h[0] = exp(c[0]);
 	for(n = 1; n < leng; ++n) {
@@ -76,12 +74,10 @@ int 	leng,nc;
 	}
 }
 
-void ic2ir(h,leng,c,nc)
-double 	*h,*c;
-int 	leng,nc;
+void ic2ir(double *h, int leng, double *c, int nc)
 {
 	register int	n, k, nr, upl;
-	double	d, exp(), log();
+	double	d, exp(double), log(double);
 
 	c[0] = log(h[0]);
 	for(n = 1; n < nc; ++n) {

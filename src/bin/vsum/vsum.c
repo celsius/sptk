@@ -51,7 +51,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: vsum.c,v 1.2 2002/12/25 05:33:15 sako Exp $";
+static char *rcs_id = "$Id: vsum.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -88,9 +88,7 @@ void usage(int status)
 }
 
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
     FILE	*fp = stdin;
     double      *x, *s;

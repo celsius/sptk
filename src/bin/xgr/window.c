@@ -78,8 +78,7 @@ extern char	*geometry;
 extern char	*dpy;
 extern char	*cmnd, *windowtitle;
 
-open_display( display_name )
-	char	*display_name;
+open_display(char *display_name )
 {
 	if ((display = XOpenDisplay(display_name)) == NULL)  {
 		fprintf(stderr, "%s: Can't open display '%s'\n",
@@ -88,9 +87,7 @@ open_display( display_name )
 	}
 }
 
-init_window( argc, argv )
-	int	argc;
-	char	*argv[];
+init_window(int argc,char *argv[])
 {
 	unsigned long	get_color_pix();
 
@@ -359,8 +356,7 @@ realize()
 	realize_part(origin_x, origin_y, xsh.width, xsh.height, 0, 0);
 }
 
-realize_part( src_x, src_y, width, height, dest_x, dest_y )
-	int	src_x, src_y, width, height, dest_x, dest_y;
+realize_part(int src_x,int src_y,int width,int height,int dest_x,int dest_y )
 {
 	XDefineCursor(display, main_window, watch_cur);
 	XCopyArea(display, pixmap, main_window, gc,
@@ -388,8 +384,7 @@ get_window_size()
 	window_h = wa.height;
 }
 
-unsigned long	get_color_pix( color_name )
-	char	*color_name;
+unsigned long	get_color_pix(char *color_name )
 {
 	Colormap        cmap;
 	XColor          color, exact;

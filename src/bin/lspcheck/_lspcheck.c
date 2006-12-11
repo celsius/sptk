@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _lspcheck.c,v 1.2 2002/12/25 05:31:12 sako Exp $
+    $Id: _lspcheck.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $
 
     Check order of LSP
 
@@ -53,9 +53,7 @@
 
 *****************************************************************/
 
-int lspcheck(lsp, ord)
-double *lsp;
-int ord;
+int lspcheck(double *lsp, int ord)
 {
     register int	i;
     
@@ -73,7 +71,7 @@ int ord;
 
 /****************************************************************
 
-    $Id: _lspcheck.c,v 1.2 2002/12/25 05:31:12 sako Exp $
+    $Id: _lspcheck.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $
 
     Rearrangement of LSP
 
@@ -84,9 +82,7 @@ int ord;
 
 *****************************************************************/
 
-void lsparrange(lsp, ord)
-double *lsp;
-int ord;
+void lsparrange(double *lsp, int ord)
 {
     register int	i, flag;
     double 		tmp;

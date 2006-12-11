@@ -69,7 +69,9 @@
 
 
 /*  Required Functions  */
-int ifft2(double*, double*, int);
+int dft(FILE *fp);
+void trans(double *p);
+	
 
 static int	size = 64, outopt = 0, out = ' ', is_fftr = 0;
 
@@ -103,9 +105,7 @@ int usage()
 }
 
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp, *fopen();
 	char	*s, *infile = NULL, c;
@@ -161,8 +161,7 @@ char	*argv[];
 	exit(0);
 }
 
-dft(fp)
-FILE	*fp;
+int dft(FILE *fp)
 {
 	double		*x, *y;
 	register int	size2, nread;
@@ -177,7 +176,7 @@ FILE	*fp;
 		if(freadf(x, sizeof(*x), nread, fp) != nread)
 			break;
 		if(is_fftr)
-			fillz(y, size2 * (sizeof(double) / sizeof(long)));
+			fillz(y,sizeof(*y), size2 * (sizeof(double) / sizeof(long)));
 
 		ifft2(x, y, size);
 
@@ -199,8 +198,7 @@ FILE	*fp;
 	return(0);
 }
 
-trans(p)
-double	*p;
+void trans(double *p)
 {
 	int	k, sizeh, nout;
 	register double	*q;

@@ -64,7 +64,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: imsvq.c,v 1.2 2002/12/25 05:30:38 sako Exp $";
+static char *rcs_id = "$Id: imsvq.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -73,11 +73,6 @@ static char *rcs_id = "$Id: imsvq.c,v 1.2 2002/12/25 05:30:38 sako Exp $";
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-
-
-/*  Required Functions  */
-void	imsvq();
-
 
 /*  Default Values  */
 #define LENG		26
@@ -114,7 +109,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, *cbsize, *index,
 		stage = 0, ss = 0, num, i, j;

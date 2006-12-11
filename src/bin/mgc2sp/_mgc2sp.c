@@ -39,7 +39,7 @@
 
 /***********************************************************************
 
-    $Id: _mgc2sp.c,v 1.2 2002/12/25 05:31:36 sako Exp $
+    $Id: _mgc2sp.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $
 
     Transformation mel-generalized cepstrum to log spectrum
 
@@ -58,9 +58,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void mgc2sp(mgc, m, a, g, x, y, flng)
-double *mgc, *x, *y, a, g;
-int m, flng;
+void mgc2sp(double *mgc, int m, double a, double g, double *x, double *y, int flng)
 {
     static double *c = NULL;
     static int  size;

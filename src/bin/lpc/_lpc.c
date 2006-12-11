@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _lpc.c,v 1.2 2002/12/25 05:30:56 sako Exp $
+    $Id: _lpc.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $
 
     LPC Analysis Using Levinson-Durbin method
 
@@ -59,9 +59,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-int lpc(x, flng, a, m)
-double *x, *a;
-int flng, m;
+int lpc(double *x, int flng, double *a, int m)
 {
     int		  flag;
     static double *r = NULL;

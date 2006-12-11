@@ -74,6 +74,13 @@
 #include <stdlib.h>
 #include <SPTK.h>
 
+/*  Required Functions  */
+void decimate(FILE *fp);
+void firin(double in);
+void firin0();
+double firout(int os);
+void firinit();
+int freada( double *p, int bl, FILE *fp);
 
 /* Default Values */
 #define DECRATE5	5
@@ -133,9 +140,7 @@ void usage(int status)
 }
     
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp = stdin;
 
@@ -189,8 +194,7 @@ char	*argv[];
 	exit(0);
 }
 
-decimate(fp)
-FILE	*fp;
+void decimate(FILE *fp)
 {
 	int	is_cont, i, k, nread, count, nwr, delay;
 	double	x[SIZE], y[SIZE], firout();
@@ -247,8 +251,7 @@ FILE	*fp;
 static double	rb[RBSIZE], rb2[RBSIZE], hdn[RBSIZE + 1], hup[RBSIZE + 1];
 static int	flengdn = -1, flengup = -1, indx = 0, indx2 = 0;
 
-void firin(in)
-double	in;
+void firin(double in)
 {
 	double	out;
 	int	k,l;
@@ -289,8 +292,7 @@ void firin0()
 	rb[indx] = out;
 }
 
-double firout(os)
-int	os;
+double firout(int os)
 {
 	double	out;
 	int	k, l;

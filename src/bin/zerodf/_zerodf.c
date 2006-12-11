@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _zerodf.c,v 1.2 2002/12/25 05:34:29 sako Exp $
+    $Id: _zerodf.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $
 
     All Zero Digital Filter
 
@@ -54,9 +54,7 @@
 
 *****************************************************************/
 
-double	zerodf(x, b, m, d)
-double	x, *b, *d;
-int	m;
+double	zerodf(double x, double *b, int m, double *d)
 {
     register int  i;
     double 	  out;
@@ -73,9 +71,7 @@ int	m;
     return(out);
 }
 
-double	zerodft(x, b, m, d)
-double	x, *b, *d;
-int	m;
+double	zerodft(double x, double *b, int m, double *d)
 {
     register int        i;
     double              out;
@@ -90,9 +86,7 @@ int	m;
     return(out);
 }
 
-double	zerodf1(x, b, m, d)
-double	x, *b, *d;
-int	m;
+double	zerodf1(double x, double *b, int m, double *d)
 {
     register int  i;
     double 	  out;
@@ -108,9 +102,7 @@ int	m;
     return(out);
 }
 
-double	zerodf1t(x, b, m, d)
-double	x, *b, *d;
-int	m;
+double	zerodf1t(double x, double *b, int m, double *d)
 {
     register int        i;
     double              out;

@@ -43,6 +43,19 @@
 
 #include "fig.h"
 
+/*  Required Functions  */
+char    *gettxt(register char *s);
+char    *script(register char *s, register int i);
+char    *getarg(register char *s, register char *arg);
+char    *gettyp(register char *s, register char *t);
+char    *getname(register char *s, register char *t);
+int greek(char *p);
+float   sleng(char *p, float h, float w);
+void _symbol(float x, float y, char *p, float h, float w, float t);
+float   ysadj();
+float   rx(float x, float y, float t);
+float   ry(float x, float y, float t);
+float   argapf(float x, float a);
 #define GRKSIZE	62
 static char	*grk[]={"Alpha", "Beta", "Gamma", "Delta",
 			"Epsilon", "Zeta", "Eta", "Theta",
@@ -61,8 +74,7 @@ static char	*grk[]={"Alpha", "Beta", "Gamma", "Delta",
 static unsigned char	sub[SBUFLNG];
 static int	nsub;
 
-char	*gettxt(s)
-register char	*s;
+char	*gettxt(register char *s)
 {
 	register char	*p;
 	int	i, c;
@@ -136,9 +148,7 @@ register char	*s;
 	return(p);
 }
 
-char	*script(s, i)
-register char	*s;
-register int	i;
+char	*script(register char *s, register int i)
 {
 	int	c;
 
@@ -169,8 +179,7 @@ register int	i;
 	return(s);
 }
 
-char	*getarg(s, arg)
-register char	*s, *arg;
+char	*getarg(register char *s, register char *arg)
 {
 	if(s == NULL)
 		return(s);
@@ -191,8 +200,7 @@ register char	*s, *arg;
 	return(s);
 }
 
-char	*gettyp(s, t)
-register char	*s, *t;
+char	*gettyp(register char *s, register char *t)
 {
 	char	*p;
 
@@ -205,8 +213,7 @@ register char	*s, *t;
 	}
 }
 
-char	*getname(s, t)
-register char	*s, *t;
+char	*getname(register char *s, register char *t)
 {
 	if((s = getarg(s, t)) == NULL)
 		*t = '\0';
@@ -220,8 +227,7 @@ register char	*s, *t;
 	return(t);
 }
 
-greek(p)
-char	*p;
+int greek(char *p)
 {
 	register int	n;
 
@@ -231,16 +237,12 @@ char	*p;
 	return(-1);
 }
 
-float	sleng(p, h, w)
-char	*p;
-float	h, w;
+float	sleng(char *p, float h, float w)
 {
 	return((strlen(p) - 1) * w + LADJ * w);
 }
 
-_symbol(x, y, p, h, w, t)
-float	x, y, h, w, t;
-char	*p;
+void _symbol(float x, float y, char *p, float h, float w, float t)
 {
 	register int	i;
 	float	dx, dy, rx(), ry();
@@ -266,15 +268,13 @@ float	ysadj()
 	return(0);
 }
 
-float	rx(x, y, t)
-float	x, y, t;
+float	rx(float x, float y, float t)
 {
 	t *= (3.141592653589793 / 180);
 	return(x * cos(t) - y * sin(t));
 }
 
-float	ry(x, y, t)
-float	x, y, t;
+float	ry(float x, float y, float t)
 {
 	t *= (3.141592653589793 / 180);
 	return(x * sin(t) + y * cos(t));
@@ -283,8 +283,7 @@ float	x, y, t;
 #define	PI	3.141592653589793
 #include <math.h>
 
-float	argapf(x, a)
-float	x, a;
+float	argapf(float x, float a)
 {
 	float	omg;
 

@@ -62,14 +62,14 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 #include <math.h>
 
+#define M_PI    3.1415926535897932384626433832795
 #define M_2PI   6.2831853071795864769252867665590
 
-int smcep(xw, flng, mc, m, fftsz, a, t, itr1, itr2, dd, e)
-double *xw, *mc, dd, a, t, e;
-int flng, itr1, itr2, m;
+int smcep(double *xw, int flng,double *mc, int m, int fftsz, double a, double t, int itr1,int itr2,double dd,double e)
 {
     register int   i, j;
     int		   flag = 0, f2, m2;
@@ -187,9 +187,7 @@ int flng, itr1, itr2, m;
 
 ***************************************************************/
 
-void frqt_a(al, m, fftsz, a, t)
-double *al,  a, t;
-int m, fftsz;
+void frqt_a(double *al,int m,int fftsz,double a,double t)
 {
     register int 	i, j;
     double		w, b, *ww, *f, 
@@ -280,9 +278,7 @@ int m, fftsz;
 
 ***************************************************************/
 
-void freqt2(c1, m1, c2, m2, fftsz, a, t)
-double *c1, *c2, a, t;
-int m1, m2, fftsz;
+void freqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 {
     register int 	i, j;
     double		w, b, *ww, *dw, *f,
@@ -393,9 +389,7 @@ int m1, m2, fftsz;
 
 ***************************************************************/
 
-void ifreqt2(c1, m1, c2, m2, fftsz, a, t)
-double *c1, *c2, a, t;
-int m1, m2, fftsz;
+void ifreqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 {
     register int 	i, j;
     double		w, b, *ww, *f,
@@ -521,9 +515,7 @@ int m1, m2, fftsz;
 
 ***************************************************************/
 
-void frqtr2(c1, m1, c2, m2, fftsz, a, t)
-double *c1, *c2, a, t;
-int m1, m2, fftsz;
+void frqtr2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 {
     register int 	i, j;
     double		w, b, *ww, *f, *tc2,
@@ -619,8 +611,7 @@ int m1, m2, fftsz;
   
 ***************************************************************/
 
-double warp(w, a, t)
-double w, a, t;
+double warp(double w,double a,double t)
 {
     double              ww, x, y;
 
@@ -635,8 +626,7 @@ double w, a, t;
 
 /*============================================================*/
 
-double derivw(w, a, t)
-double w, a, t;
+double derivw(double w,double  a,double t)
 {
     double dw, x, y, a2, aa;
  

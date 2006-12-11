@@ -54,15 +54,18 @@
 
 #define	plot_min(x, min, pmin)	((x<min) ? ((x>=pmin)?(x):(pmin)) : (min))
 #define	plot_max(x, max, pmax)	((x>max) ? ((x<=pmax)?(x):(pmax)) : (max))
-
+								     
+void epsf_setup(FILE *fp, float shrink, int xoffset, int yoffset, struct bbmargin bbm, int ncopy );
+void epsf_init(int *xmin, int *ymin, int *xmax, int *ymax, int ncopy );
+void epsf_scale(float shrink,int xoffset,int yoffset );
+void epsf_end();
+void bbox(FILE *fp, int *xmin, int *ymin, int *xmax, int *ymax, float shrink, int xoffset, int yoffset, struct bbmargin bbm );
+int getd( FILE *fp, int *x, int *y );
+int getstrlength(FILE *fp );
+	
 float		loffset;
 
-epsf_setup( fp, shrink, xoffset, yoffset, bbm, ncopy )
-	FILE		*fp;
-	float		shrink;
-	int		xoffset, yoffset;
-	struct bbmargin	bbm;
-	int		ncopy;
+void epsf_setup(FILE *fp, float shrink, int xoffset, int yoffset, struct bbmargin bbm, int ncopy )
 {
 	int	xmin, ymin, xmax, ymax;
 
@@ -73,9 +76,7 @@ epsf_setup( fp, shrink, xoffset, yoffset, bbm, ncopy )
 	epsf_scale(shrink, xoffset, yoffset);
 }	
 
-epsf_init( xmin, ymin, xmax, ymax, ncopy )
-	int	*xmin, *ymin, *xmax, *ymax;
-	int	ncopy;
+void epsf_init(int *xmin, int *ymin, int *xmax, int *ymax, int ncopy )
 {
 	char	*user_name;
 	char	*creation_date[32];
@@ -123,9 +124,7 @@ epsf_init( xmin, ymin, xmax, ymax, ncopy )
 		printf("%%%%Page: 1\n");
 }
 
-epsf_scale( shrink, xoffset, yoffset )
-	float	shrink;
-	int	xoffset, yoffset;
+void epsf_scale(float shrink,int xoffset,int yoffset )
 {
 	float	unit_length;
 
@@ -147,7 +146,7 @@ epsf_scale( shrink, xoffset, yoffset )
 	}		
 }
 
-epsf_end()
+void epsf_end()
 {
 	if ( clip_mode )
 		printf("GR\n");
@@ -158,12 +157,7 @@ epsf_end()
 	printf("%%%%EOF\n");
 }
 
-bbox( fp, xmin, ymin, xmax, ymax, shrink, xoffset, yoffset, bbm )
-	FILE		*fp;
-	int		*xmin, *ymin, *xmax, *ymax;
-	float		shrink;
-	int		xoffset, yoffset;
-	struct bbmargin	bbm;
+void bbox(FILE *fp, int *xmin, int *ymin, int *xmax, int *ymax, float shrink, int xoffset, int yoffset, struct bbmargin bbm )
 {
 	register char	c;
 	int		n, x, y;
@@ -266,9 +260,7 @@ bbox( fp, xmin, ymin, xmax, ymax, shrink, xoffset, yoffset, bbm )
 	rewind(fp);
 }
 
-getd( fp, x, y )
-	FILE	*fp;
-	int	*x, *y;
+int getd( FILE *fp, int *x, int *y )
 {
 	static int	c;
 
@@ -284,8 +276,7 @@ getd( fp, x, y )
 		return(0);
 }
 
-getstrlength( fp )
-	FILE	*fp;
+int getstrlength(FILE *fp )
 {
 	register int	n;
 	int		c;

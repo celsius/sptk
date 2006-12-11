@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: _c2sp.c,v 1.2 2002/12/25 05:28:48 sako Exp $
+    $Id: _c2sp.c,v 1.3 2006/12/11 07:16:35 mr_alex Exp $
 
     Transform cepstrum to spectrum
 
@@ -55,9 +55,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void c2sp(c, m, x, y, l)
-double	*c, *x, *y;
-int	m, l;
+void c2sp(double *c, int m, double *x, double *y, int l)
 {
     int            m1;
 

@@ -66,18 +66,13 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: mcep.c,v 1.2 2002/12/25 05:31:29 sako Exp $";
+static char *rcs_id = "$Id: mcep.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
 #include <SPTK.h>
-
-
-/*  Required Functions  */
-int	mcep();
-
 
 /*  Default Values  */
 #define	ALPHA		0.35
@@ -120,7 +115,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int	     m = ORDER, flng = FLENG, itr1 = MINITR, itr2 = MAXITR, flag = 0;
     FILE     *fp = stdin;

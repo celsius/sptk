@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-  $Id: _grpdelay.c,v 1.2 2002/12/25 05:30:12 sako Exp $
+  $Id: _grpdelay.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $
 	group delay of digital filter
 		grpdelay(x, gd, size, is_alma);
 
@@ -52,10 +52,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void grpdelay(x,gd,size,is_arma)
-double	*x, *gd;
-int	size, is_arma;
-
+void grpdelay(double *x,double *gd,int size,int is_arma)
 {
 	static double *y;
 	static int    fsize;

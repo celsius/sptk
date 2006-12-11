@@ -70,16 +70,12 @@
 *									*
 *************************************************************************/
 
-static char rcsid[] = "$Id: pitch.c,v 1.9 2006/11/04 05:27:41 mr_alex Exp $";
+static char rcsid[] = "$Id: pitch.c,v 1.10 2006/12/11 07:16:41 mr_alex Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
 #include <SPTK.h>
-
-
-/*  Required Functions  */
-double	pitch();
 
 /*  Default Values  */
 #define FREQ            10

@@ -73,7 +73,9 @@
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-
+/*  Required Functions  */
+int minmax(FILE *fp,int dim,int nbest,Boolean outnum);
+	
 /* Defualt Values */
 #define DIM	1
 #define NBEST	1
@@ -110,9 +112,7 @@ int status;
 	exit(status);
 }
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp;
 	char	*s, *infile = NULL, c;
@@ -164,19 +164,16 @@ char	*argv[];
 	exit(0);
 }
 
-minmax(fp,dim,nbest, outnum)
-FILE	*fp;
-int	dim,nbest;
-Boolean outnum;
+int minmax(FILE *fp,int dim,int nbest,Boolean outnum)
 {
 	double	*s;
 	register int	k, n, i, j;
 	int **minpos,**maxpos,*nmaxpos,*nminpos,*tmp, t = 0;
 	double	*min,*max;
 
-	min = dgetmem(nbest,sizeof(double));
-	max = dgetmem(nbest,sizeof(double));
-	s = dgetmem(dim, sizeof(double));
+	min = dgetmem(nbest);
+	max = dgetmem(nbest);
+	s = dgetmem(dim);
 	minpos = (int **)calloc(sizeof(*minpos),nbest);
 	maxpos = (int **)calloc(sizeof(*maxpos),nbest);
 	nminpos = ( int *)calloc(sizeof(*nminpos),nbest);

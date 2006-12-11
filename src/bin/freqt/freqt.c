@@ -62,18 +62,13 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: freqt.c,v 1.2 2002/12/25 05:29:58 sako Exp $";
+static char *rcs_id = "$Id: freqt.c,v 1.3 2006/12/11 07:16:36 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
 #include <SPTK.h>
-
-
-/*  Required Functions  */
-void	freqt();
-
 
 /*  Default Values  */
 #define ORDERC1		25
@@ -107,7 +102,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m1 = ORDERC1, m2 = ORDERC2;
     FILE	*fp = stdin;

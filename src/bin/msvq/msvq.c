@@ -68,7 +68,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: msvq.c,v 1.2 2002/12/25 05:31:57 sako Exp $";
+static char *rcs_id = "$Id: msvq.c,v 1.3 2006/12/11 07:16:40 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -81,12 +81,6 @@ static char *rcs_id = "$Id: msvq.c,v 1.2 2002/12/25 05:31:57 sako Exp $";
 
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
-
-
-/*  Required Functions  */
-void	msvq();
-void	imsvq();
-
 
 /*  Default Values  */
 #define LENG		26
@@ -125,7 +119,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, *cbsize, *index,
 		stage = 0, ss = 0, num, i, j;

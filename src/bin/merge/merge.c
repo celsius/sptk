@@ -63,7 +63,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: merge.c,v 1.2 2002/12/25 05:31:31 sako Exp $";
+static char *rcs_id = "$Id: merge.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -116,7 +116,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     FILE 	*fp2 = NULL, *fp1 = stdin;
     int 	size = sizeof(float), start = START, 

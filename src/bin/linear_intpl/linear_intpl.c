@@ -60,7 +60,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: linear_intpl.c,v 1.2 2002/12/25 05:30:51 sako Exp $";
+static char *rcs_id = "$Id: linear_intpl.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -99,7 +99,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		l = LENG, ii, end;
     FILE	*fp = stdin;

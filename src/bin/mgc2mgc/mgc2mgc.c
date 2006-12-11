@@ -72,7 +72,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgc2mgc.c,v 1.2 2002/12/25 05:31:34 sako Exp $";
+static char *rcs_id = "$Id: mgc2mgc.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -136,7 +136,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m1 = ORDER1, m2 = ORDER2, i;
     double	a1 = ALPHA1, a2 = ALPHA2, g1 = GAMMA1, g2 = GAMMA2, 

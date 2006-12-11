@@ -51,7 +51,7 @@ RM		= rm -rf
 INSTALL		= install -cs
 
 INCDIR		= -I../../include
-LIBDIR		= -L../../lib
+LIBDIR		= -L/usr/local/SPTK-3.0/lib
 CFLAGS		= -O2 $(INCDIR)
 LDFLAGS		= $(LIBDIR)
 LIBS		= -lSPTK -lm

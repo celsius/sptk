@@ -60,9 +60,7 @@
 
 
 
-int	fftr2( x, y, n )
-double	x[], y[];
-int	n;
+int	fftr2(double x[], double y[], int n )
 {
 	double		*xq, *yq;
 	static double	*xb = NULL, *yb;

@@ -96,9 +96,7 @@ int	usage(status)
 	exit(status);
 }
 
-main(argc, argv)
-	int argc;
-	char *argv[];
+int main(int argc, char *argv[])
 {
   	char	*s, c;
 	double  i=0, j=1, st=0.1;

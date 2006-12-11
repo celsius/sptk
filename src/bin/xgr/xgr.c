@@ -128,9 +128,7 @@ char	*fore_color = FORECOLOR, *back_color = BACKCOLOR,
 	*mous_color = MOUSCOLOR;
 char	*geometry = GEOMETRY, *dpy = DISPLAY, *windowtitle;
 
-main(argc, argv)
-	int	argc;
-	char	*argv[];
+int main(int argc,char *argv[])
 {
 	char	c;
 	double	atof();

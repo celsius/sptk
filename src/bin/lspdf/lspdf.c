@@ -64,7 +64,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspdf.c,v 1.2 2002/12/25 05:31:18 sako Exp $";
+static char *rcs_id = "$Id: lspdf.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $";
 
 
 /*  Standard C Libralies  */
@@ -74,12 +74,6 @@ static char *rcs_id = "$Id: lspdf.c,v 1.2 2002/12/25 05:31:18 sako Exp $";
 
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
-
-
-/*  Required Functions  */
-double	lspdf_even();
-double	lspdf_odd();
-
 
 /*  Default Values  */
 #define ORDER		25
@@ -117,7 +111,7 @@ void usage(int status)
 }
 
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m = ORDER, fprd = FPERIOD, iprd = IPERIOD, tp = TRANSPOSE, 
                 i, j, flag_odd;

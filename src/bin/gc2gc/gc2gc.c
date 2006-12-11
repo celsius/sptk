@@ -69,7 +69,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: gc2gc.c,v 1.2 2002/12/25 05:30:01 sako Exp $";
+static char *rcs_id = "$Id: gc2gc.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -79,11 +79,6 @@ static char *rcs_id = "$Id: gc2gc.c,v 1.2 2002/12/25 05:30:01 sako Exp $";
 
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
-
-
-/*  Required Functions  */
-void	gc2gc(), gnorm(), ignorm();
-
 
 /*  Default Values  */
 #define ORDER1		25
@@ -128,7 +123,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int		m1 = ORDER1, m2 = ORDER2, i;
     double	*gc1, *gc2, g1 = GAMMA1, g2 = GAMMA2, atof();

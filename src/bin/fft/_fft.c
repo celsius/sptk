@@ -38,7 +38,7 @@
 */
 
 /********************************************************
-   $Id: _fft.c,v 1.2 2002/12/25 05:29:25 sako Exp $					
+   $Id: _fft.c,v 1.3 2006/12/11 07:16:36 mr_alex Exp $					
 	NAME:					
 		fft - fast fourier transform    
 	SYNOPSIS:					
@@ -60,9 +60,7 @@
 
 double	*_sintbl = 0;
 int 	maxfftsize = 0;
-int fft(x, y, m)
-double	*x, *y;
-int	m;
+int fft(double *x, double *y, int m)
 {
 	register int	j, lmx, li;
 	register double	*xp, *yp;
@@ -163,8 +161,7 @@ int	m;
 	return(0);
 }
 
-int checkm(m)
-int	m;
+int checkm(int m)
 {
 	register int	k;
 

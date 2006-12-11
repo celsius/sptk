@@ -65,7 +65,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.5 2002/12/25 05:29:03 sako Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.6 2006/12/11 07:16:35 mr_alex Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -76,6 +76,15 @@ static char *rcs_id = "$Id: dawrite.c,v 1.5 2002/12/25 05:29:03 sako Exp $";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE","TRUE"};
 
+/*  Required Functions  */
+void direct(FILE *fp);
+void sndinit();
+void sndout(int leng);
+void init_audiodev(int dtype);
+void change_output_port(unsigned port);
+void change_play_gain(float volume);
+void reset_audiodev();
+int byteswap_vec(void *vec, int size, int blocks);
 
 /* Default Value */
 
@@ -139,9 +148,7 @@ audio_info_t	org_data;
 #endif /* SOLARIS */
 void		reset_audiodev();
 
-int main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp, *fopen();
 	char	*s, *infile[MAXFILES], c, *getenv();
@@ -265,8 +272,7 @@ char	*argv[];
 	exit(0);
 }
 
-void direct(fp)
-FILE	*fp;
+void direct(FILE *fp)
 {
 	int	k, nread;
 	double	d;
@@ -344,15 +350,13 @@ void sndinit()
 #endif /* SPARC */
 }
 
-void sndout(leng)
-int	leng;
+void sndout(int leng)
 {
 	fwrite( y, sizeof(short), leng, adfp);
 	write( ADFD, y, 0);
 }
 
-void init_audiodev(dtype)
-int	dtype;
+void init_audiodev(int dtype)
 {
 #if defined(LINUX) || defined(FreeBSD)
 	int arg;
@@ -402,8 +406,7 @@ int	dtype;
 #endif /* SPARC */
 }
 
-void change_output_port(port)
-unsigned port;
+void change_output_port(unsigned port)
 {
 #ifdef LINUX
 	
@@ -421,8 +424,7 @@ unsigned port;
 #endif /* SPARC */
 }
 
-void change_play_gain(volume)
-float volume;
+void change_play_gain(float volume)
 {
 	int vol, arg;
 
@@ -469,10 +471,7 @@ void reset_audiodev()
 #endif /* SPARC */
 }
 
-int byteswap_vec( vec, size, blocks)
-void *vec;
-int size;
-int blocks;
+int byteswap_vec(void *vec, int size, int blocks)
 {
 	char *q;
 	register char t;

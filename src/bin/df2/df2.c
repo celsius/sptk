@@ -65,11 +65,6 @@ static char *rcs_id = "$Id";
 #include	<SPTK.h>
 #include	<string.h>
 
-
-/* Required Function */
-double 	df2();
-
-
 /* Default Values */
 #define	SAMPLEF 	10000
 #define SIZE		2048
@@ -105,11 +100,7 @@ int status;
 	exit(status);
 }
 
-main(argc, argv)
-
-int	argc;
-char	*argv[];
-
+int main(int argc, char *argv[])
 {
         FILE    *fpp = stdin;
 	int 	bufp[SIZE], fp = 0, fz = 0,i,n,fp1,fz1;

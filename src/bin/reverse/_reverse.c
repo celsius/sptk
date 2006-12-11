@@ -39,7 +39,7 @@
 
 /************************************************************************
 
-  $Id: _reverse.c,v 1.2 2002/12/25 05:32:28 sako Exp $
+  $Id: _reverse.c,v 1.3 2006/12/11 07:16:41 mr_alex Exp $
 
   Reverse the order of data in sequence
       reverse(real* p, int l)
@@ -49,9 +49,7 @@
 
 ************************************************************************/
 
-void reverse(x, l)
-double* x;
-int l;
+void reverse(double *x, int l)
 {
 	int i;
 	double d;

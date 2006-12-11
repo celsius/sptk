@@ -55,7 +55,7 @@
   
 ************************************************************************/
 
-static char *rcs_id = "$Id: _lbg.c,v 1.4 2002/12/25 05:30:44 sako Exp $";
+static char *rcs_id = "$Id: _lbg.c,v 1.5 2006/12/11 07:16:38 mr_alex Exp $";
 
 #include <stdio.h>
 #include <SPTK.h>
@@ -67,9 +67,7 @@ int vq();
 double edist();
 int nrand();
 
-void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, delta, end)
-    double *x, *icb, *cb, delta, end;
-    int l, tnum, icbsize, ecbsize;
+void lbg(double *x, int l, int tnum, double *icb, int icbsize, double *cb, int ecbsize, double delta, double end)
 {
     int		     i, j, k, maxindex;
     static int	     *cntcb, *tindex, size, sizex, sizecb;

@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.3 2006/10/06 12:16:38 mr_alex Exp $
+    $Id: _mcep.c,v 1.4 2006/12/11 07:16:39 mr_alex Exp $
 
     Mel-Cepstral Analysis
 
@@ -61,11 +61,10 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
-int mcep(xw, flng, mc, m, a, itr1, itr2, dd, e)
-double *xw, *mc, dd, a, e;
-int flng, itr1, itr2, m;
+int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, double dd, double e)
 {
     register int   i, j;
     int		   flag = 0, f2, m2;
@@ -121,7 +120,7 @@ int flng, itr1, itr2, m;
     freqt(c, f2, mc, m, a);			/*  mc : mel cep.  */
     s = c[0];
 
-    /*  Newton Raphson method  */
+/*  Newton Raphson method  */
     for (j=1; j<=itr2; j++){
 	fillz(c, sizeof(*c), flng);
 	freqt(mc, m, c, f2, -a);		/*  mc : mel cep.  */
@@ -174,9 +173,7 @@ int flng, itr1, itr2, m;
 
 ***************************************************************/
 
-void frqtr(c1, m1, c2, m2, a)
-double *c1, *c2, a;
-int m1, m2;
+void frqtr(double *c1, int m1, double *c2, int m2, double a)
 {
     register int 	i, j;
     static double	*d = NULL, *g;

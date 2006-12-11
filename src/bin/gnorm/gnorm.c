@@ -60,7 +60,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: gnorm.c,v 1.2 2002/12/25 05:30:10 sako Exp $";
+static char *rcs_id = "$Id: gnorm.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -104,9 +104,7 @@ int	status;
 	exit(status);
 }
 
-main(argc, argv)
-int	argc;
-char	**argv;
+int main(int argc, char **argv)
 {
     double	g = GAMMA, *c, atof();
     int		m = ORDER;

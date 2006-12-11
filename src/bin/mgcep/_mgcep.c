@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mgcep.c,v 1.2 2002/12/25 05:31:39 sako Exp $
+    $Id: _mgcep.c,v 1.3 2006/12/11 07:16:40 mr_alex Exp $
 
     Mel-Generalized Cepstral Analysis
 
@@ -63,14 +63,13 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 double exp(), pow(), sqrt(), fabs();
 double gain();
 
-int mgcep(xw, flng, b, m, a, g, n, itr1, itr2, dd, e)
-double *xw, *b, a, g, dd, e;
-int flng, itr1, itr2, m, n;
+int mgcep(double *xw, int flng, double *b, int m, double a, double g, int n, int itr1, int itr2, double dd, double e)
 {
     int    	  i, j, flag = 0;
     static double *x = NULL, *y, *d;
@@ -143,9 +142,7 @@ int flng, itr1, itr2, m, n;
     else     return(-1);
 }
 
-double newton(x, flng, c, m, a, g, n, j)
-double *x, *c, a, g;
-int flng, m, n, j;
+double newton(double *x, int flng, double *c, int m, double a, double g, int n, int j)
 {
     int		 i, m2;
     double 	 t, s, tr, ti, trr, tii, log();
@@ -251,9 +248,7 @@ int flng, m, n, j;
 }
 
 /*  gain(epsilon) calculation  */
-double gain(er, c, m, g)
-double *er, *c, g;
-int m;
+double gain(double *er, double *c, int m, double g)
 {
     register int i;
     double t;
@@ -267,9 +262,7 @@ int m;
 }
 
 /*  b'(m) to c(m)  */
-b2c(b, m1, c, m2, a)
-double *b, *c, a;
-int m1, m2;
+void b2c(double *b, int m1, double *c, int m2, double a)
 {
     register int        i, j;
     static double       *d = NULL, *g;
@@ -306,9 +299,7 @@ int m1, m2;
 }
 
 /*  recursion for p(m)  */
-ptrans(p, m, a)
-double *p, a;
-register int m;
+void ptrans(double *p, register int m, double a)
 {
     double d, o;
 
@@ -322,9 +313,7 @@ register int m;
 }
 
 /*  recursion for q(m)  */
-qtrans(q, m, a)
-double *q, a;
-register int m;
+void qtrans(double *q, register int m, double a)
 {
     register int i;
     double d, o;

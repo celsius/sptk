@@ -70,11 +70,6 @@ static char *rcs_id = "$Id:";
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
-
-/* Required Functions */
-void phase();
-
-
 /* Default Values */
 #define	FLMLNG	256
 #define UNLAP	TR
@@ -107,9 +102,7 @@ int status;
 	exit(status);
 }
 
-main(argc, argv)
-	int argc;
-	char *argv[];
+int main(int argc, char *argv[])
 {
 
 	int flng = FLMLNG, m = -1, n = -1;

@@ -50,7 +50,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: echo2.c,v 1.3 2002/12/25 05:29:18 sako Exp $";
+static char *rcs_id = "$Id: echo2.c,v 1.4 2006/12/11 07:16:35 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -84,7 +84,7 @@ void usage(int status)
     exit(status);
 }
 
-void main(short argc, char **argv)
+int main(short argc, char **argv)
 {
     int  newline = NEWLINE;
 

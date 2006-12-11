@@ -57,7 +57,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: fft.c,v 1.3 2002/12/25 05:29:26 sako Exp $";
+static char *rcs_id = "$Id: fft.c,v 1.4 2006/12/11 07:16:36 mr_alex Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -66,8 +66,7 @@ static char *rcs_id = "$Id: fft.c,v 1.3 2002/12/25 05:29:26 sako Exp $";
 
 
 /* Required Function */
-int 	fft();
-
+int dft(FILE *fp,int size,int nd,int out);
 
 /* Default Values */
 #define SIZE 	256
@@ -102,9 +101,7 @@ int status;
 }
 
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc,char *argv[])
 {
 	FILE	*fp;
 	char	*s, *infile = NULL, c;
@@ -166,9 +163,7 @@ char	*argv[];
 	exit(0);
 }
 
-dft(fp,size,nd,out)
-FILE	*fp;
-int size,nd,out;
+int dft(FILE *fp,int size,int nd,int out)
 {
 	double	*x, *y;
 	register int	k ,size2;
