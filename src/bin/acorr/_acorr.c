@@ -50,9 +50,7 @@
 			Naohiro Isshiki,	Dec.1995
 ***********************************************************/
 
-void acorr(x,l,r,np)
-double 	*x,*r;
-int	l,np;
+void acorr(double *x, int l, double *r, int np)
 {
 	double	d;
 	register int	k, i;

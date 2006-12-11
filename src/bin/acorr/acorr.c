@@ -59,13 +59,9 @@ static char *rcs_id = "$Id$";
 
 /* Standard C Libraries */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
-
-
-/* Required Functions */
-void	acorr();
-
 
 /* Default Values */
 #define LENG	256
@@ -76,8 +72,7 @@ void	acorr();
 char	*cmnd;
 
 
-void usage(status)
-int status;
+void usage(int status)
 {
 	fprintf(stderr, "\n");
 	fprintf(stderr, " %s - obtain autocorrelation sequence\n", cmnd);
@@ -98,9 +93,7 @@ int status;
 
 
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc, char **argv)
 {
   	FILE	*fp = stdin;
 	char	*s, *infile = NULL, c;
