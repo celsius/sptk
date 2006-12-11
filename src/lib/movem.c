@@ -38,7 +38,7 @@
 */
 
 /********************************************************
-    $Id: movem.c,v 1.2 2002/12/25 05:34:49 sako Exp $
+    $Id: movem.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
 
     Data Transfer Function
 
@@ -51,9 +51,7 @@
 
 *********************************************************/
 
-void movem(a, b, size, nitem)
-register char *a, *b;
-int size, nitem;
+void movem(register char *a, register char *b, int size, int nitem)
 {
     register long i;
 

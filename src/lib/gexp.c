@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: gexp.c,v 1.2 2002/12/25 05:34:43 sako Exp $
+    $Id: gexp.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
 
     Generalized Exponential Function (real argument)
 
@@ -49,10 +49,9 @@
 
 *****************************************************************/
 
-double gexp(r, x)
-double r, x;
+double gexp(double r, double x)
 {
-    double exp(), pow();
+    double exp(double), pow(double, double);
 
     if (r == 0.0)
 	return(exp(x));

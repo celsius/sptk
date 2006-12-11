@@ -41,10 +41,10 @@
 
 TARGET		= libSPTK.a
 
-PREFIX		= /usr/local/SPTK
+PREFIX		= /home/alex/osigoto/Sourceforge/SPTK/src/lib
 LIB		= $(PREFIX)/lib
 
-CC		= gcc
+CC		= gcc -ansi
 RM		= rm -rf
 
 INCDIR		= -I../include

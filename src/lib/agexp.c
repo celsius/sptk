@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: agexp.c,v 1.2 2002/12/25 05:34:32 sako Exp $
+    $Id: agexp.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
 
     Magnitude Squared Generalized Exponential Function	
 
@@ -52,10 +52,9 @@
 
 #include <stdio.h>
 
-double agexp(r, x, y)
-double r, x, y;
+double agexp(double r, double x, double y)
 {
-    double exp(), pow(), w;
+    double exp(double), pow(double, double), w;
 
     if (r == 0.0)
 	return(exp(2 * x));

@@ -38,7 +38,7 @@
 */
 
 /****************************************************************
-    $Id: toeplitz.c,v 1.2 2002/12/25 05:34:54 sako Exp $
+    $Id: toeplitz.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
 
     Solve a Synmetric Toeplitz Set of Linear Equations	
 
@@ -58,9 +58,7 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-int toeplitz(t, a, b, n, eps)
-double *t, *a, *b, eps;
-int n;
+int toeplitz(double *t, double *a, double *b, int n, double eps)
 {
     register int 	l, k;
     static double 	*c = NULL, *cc;

@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: getfp.c,v 1.2 2002/12/25 05:34:40 sako Exp $
+    $Id: getfp.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
 
     File Open Function
 
@@ -49,10 +49,10 @@
 
 ***************************************************************/
 
-#include	<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-FILE *getfp(name, opt)
-char *name, *opt;
+FILE *getfp(char *name, char *opt)
 {
     FILE	*fp;
 

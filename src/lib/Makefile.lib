@@ -14,7 +14,7 @@ OBJS		= $(SRCS:.c=.o)
 PREFIX		= /usr/local/SPTK
 LIB		= $(PREFIX)/lib
 
-CC		= gcc
+CC		= icc
 RM		= rm -rf
 
 INCDIR		= -I../include

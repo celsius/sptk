@@ -38,7 +38,7 @@
 */
 
 /********************************************************
-    $Id: fillz.c,v 1.2 2002/12/25 05:34:37 sako Exp $
+    $Id: fillz.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
 
     Fill Data with Zero
 
@@ -50,9 +50,7 @@
 
 *********************************************************/
 
-void fillz(ptr, size, nitem)
-char *ptr;
-int size, nitem;
+void fillz(char *ptr, int size, int nitem)
 {
     register long n;
     

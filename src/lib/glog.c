@@ -38,7 +38,7 @@
 */
 
 /****************************************************************
-    $Id: glog.c,v 1.2 2002/12/25 05:34:45 sako Exp $
+    $Id: glog.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
 
     Generalized Logarithmic Function (real argument)
 
@@ -49,10 +49,9 @@
 
 *****************************************************************/
 
-double glog(r, x)
-double r, x;
+double glog(double r, double x)
 {
-    double log(), pow();
+    double log(double), pow(double, double);
 
     if (r == 0.0)
 	return(log(x));

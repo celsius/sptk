@@ -38,7 +38,7 @@
 */
 
 /****************************************************************
-    $Id: mseq.c,v 1.2 2002/12/25 05:34:51 sako Exp $
+    $Id: mseq.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
 
     M-Sequence Generator 
                using X**31 + X**28 + 1
@@ -55,7 +55,7 @@
 #define	B31_	0x7fffffff
 #define	Z	0x00000000
 
-int mseq()
+int mseq(void)
 {
     static int    x = 0x55555555;
     register int  x0, x28;

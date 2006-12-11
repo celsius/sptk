@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: ifftr.c,v 1.2 2002/12/25 05:34:46 sako Exp $
+    $Id: ifftr.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
 
     Inverse Fast Fourier Transform for Real Sequence
 
@@ -50,9 +50,7 @@
 
 ***************************************************************/
 
-int ifftr(x, y, l)
-double *x, *y;
-int l;
+int ifftr(double *x, double *y, int l)
 {
     register int i;
     register double *xp, *yp;
