@@ -54,18 +54,14 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: acorr.c,v 1.2 2002/12/25 05:28:24 sako Exp $";
+static char *rcs_id = "$Id: acorr.c,v 1.3 2006/12/11 07:06:02 mr_alex Exp $";
 
 
 /* Standard C Libraries */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
-
-
-/* Required Functions */
-void	acorr();
-
 
 /* Default Values */
 #define LENG	256
@@ -76,8 +72,7 @@ void	acorr();
 char	*cmnd;
 
 
-void usage(status)
-int status;
+void usage(int status)
 {
 	fprintf(stderr, "\n");
 	fprintf(stderr, " %s - obtain autocorrelation sequence\n", cmnd);
@@ -98,9 +93,7 @@ int status;
 
 
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc, char **argv)
 {
   	FILE	*fp = stdin;
 	char	*s, *infile = NULL, c;

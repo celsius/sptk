@@ -38,7 +38,7 @@
 */
 
 /***********************************************************
-  $Id: _acorr.c,v 1.2 2002/12/25 05:28:22 sako Exp $
+  $Id: _acorr.c,v 1.3 2006/12/11 07:05:15 mr_alex Exp $
 	obtain autocorrelation sequence
 		acorr(x,l,r,np)
 
@@ -50,9 +50,7 @@
 			Naohiro Isshiki,	Dec.1995
 ***********************************************************/
 
-void acorr(x,l,r,np)
-double 	*x,*r;
-int	l,np;
+void acorr(double *x, int l, double *r, int np)
 {
 	double	d;
 	register int	k, i;
