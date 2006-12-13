@@ -90,8 +90,10 @@ int uels(double *xw, int flng, double *c, int m, int itr1, int itr2, double dd, 
     movem(xw, x, sizeof(*xw), flng);
     
     fftr(x, y, flng);				/*  x+jy : X(w)  */
-    for (i=0; i<flng; i++)			/*  x : log|X(w)|^2  */
-	    x[i] = cr[i] = log(x[i] * x[i] + y[i] * y[i] += e);
+    for (i=0; i<flng; i++){			/*  x : log|X(w)|^2  */
+	    x[i] = x[i]*x[i] + y[i]*y[i];
+	    x[i] = cr[i] = log(x[i] += e);
+    }
     ifftr(cr, y, flng);				/*  cr : c(m)  */
     /*  initial value  */
     k = exp(cr[0]);
