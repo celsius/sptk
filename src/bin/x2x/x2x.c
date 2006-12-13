@@ -64,7 +64,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.4 2006/12/11 07:16:43 mr_alex Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.5 2006/12/13 07:32:12 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -373,23 +373,41 @@ void x2x(char *x1,char *x2,char c1,char c2)
     }
 
     switch (c2){
-	case 's' :
-	    *(short *)x2 = x + r;
+        case 's' :
+	    if(x > 0)
+	      *(short *)x2 = x + r;
+	    else
+	      *(short *)x2 = x - r;
 	    break;
 	case 'i' :
-	    *(int *)x2 = x + r;
-	    break;
+	    if(x > 0)
+	      *(int *)x2 = x + r;
+	    else
+	      *(int *)x2 = x - r;
+            break;
 	case 'l' :
-	    *(long *)x2 = x + r;
+	    if(x > 0)
+	      *(long *)x2 = x + r;
+	    else
+	      *(long *)x2 = x - r;
 	    break;
 	case 'S' :
-	    *(unsigned short *)x2 = x + r;
+	    if(x > 0)
+	      *(unsigned short *)x2 = x + r;
+	    else
+	      *(unsigned short *)x2 = x - r;
 	    break;
 	case 'I' :
-	    *(unsigned int *)x2 = x + r;
+	    if(x > 0)
+	      *(unsigned int *)x2 = x + r;
+	    else
+	      *(unsigned int *)x2 = x - r;
 	    break;
 	case 'L' :
-	    *(unsigned long *)x2 = x + r;
+	    if(x > 0)
+	      *(unsigned long *)x2 = x + r;
+	    else
+	      *(unsigned long *)x2 = x - r;
 	    break;
 	case 'f' :
 	    *(float *)x2 = x;
@@ -398,10 +416,16 @@ void x2x(char *x1,char *x2,char c1,char c2)
 	    *(double *)x2 = x;
 	    break;
 	case 'c' :
-	    *(char *)x2 = x + r;
+	    if(x > 0)
+	      *(char *)x2 = x + r;
+	    else
+	      *(char *)x2 = x - r;
 	    break;
 	case 'C' :
-	    *(unsigned char *)x2 = x + r;
+	    if(x > 0)
+	      *(unsigned char *)x2 = x + r;
+	    else
+	      *(unsigned char *)x2 = x - r;
 	    break;
     }
 }
