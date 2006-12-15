@@ -67,6 +67,7 @@
 
 /* Standard C Libraries */
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 #include <string.h>
 
@@ -206,10 +207,10 @@ int minmax(FILE *fp,int dim,int nbest,Boolean outnum)
 			for(i=0;i<nbest;i++){
 				if(s[0] == min[i]){
 					tmp = (int *)calloc(sizeof(*tmp),nminpos[i]);
-					movem(minpos[i],tmp,sizeof(*tmp),nminpos[i]);
+					movem((double *)minpos[i],(double *)tmp,sizeof(*tmp),nminpos[i]);
 					free(minpos[i]);
 					minpos[i]=(int *)calloc(sizeof(**minpos),++nminpos[i]);
-					movem(tmp,minpos[i],sizeof(**minpos),nminpos[i]-1);
+					movem((double *)tmp,(double *)minpos[i],sizeof(**minpos),nminpos[i]-1);
 					minpos[i][nminpos[i]-1] = t;	
 					free(tmp);
 					break;
@@ -231,10 +232,10 @@ int minmax(FILE *fp,int dim,int nbest,Boolean outnum)
 			for(i=0;i<nbest;i++){
 				if(s[0] == max[i]){
 					tmp = (int *)calloc(sizeof(*tmp),nmaxpos[i]);
-					movem(maxpos[i],tmp,sizeof(*tmp),nmaxpos[i]);
+					movem((double *)maxpos[i],(double *)tmp,sizeof(*tmp),nmaxpos[i]);
 					free(maxpos[i]);
 					maxpos[i]=(int *)calloc(sizeof(**maxpos),++nmaxpos[i]);
-					movem(tmp,maxpos[i],sizeof(**maxpos),nmaxpos[i]-1);
+					movem((double *)tmp,(double *)maxpos[i],sizeof(**maxpos),nmaxpos[i]-1);
 					maxpos[i][nmaxpos[i]-1]=t;	
 					free(tmp);
 					break;
@@ -258,10 +259,10 @@ int minmax(FILE *fp,int dim,int nbest,Boolean outnum)
 			for(i=0;i<nbest;i++){
 				if(s[k] == min[i]){
 					tmp = (int *)calloc(sizeof(*tmp),nminpos[i]);
-					movem(minpos[i],tmp,sizeof(*tmp),nminpos[i]);
+					movem((double *)minpos[i],(double *)tmp,sizeof(*tmp),nminpos[i]);
 					free(minpos[i]);
 					minpos[i]=(int *)calloc(sizeof(**minpos),++nminpos[i]);
-					movem(tmp,minpos[i],sizeof(**minpos),nminpos[i]-1);
+					movem((double *)tmp,(double *)minpos[i],sizeof(**minpos),nminpos[i]-1);
 					minpos[i][nminpos[i]-1]=k;	
 					free(tmp);
 					break;
@@ -283,10 +284,10 @@ int minmax(FILE *fp,int dim,int nbest,Boolean outnum)
 			for(i=0;i<nbest;i++){
 				if(s[k] == max[i]){
 					tmp = (int *)calloc(sizeof(*tmp),nmaxpos[i]);
-					movem(maxpos[i],tmp,sizeof(*tmp),nmaxpos[i]);
+					movem((double *)maxpos[i],(double *)tmp,sizeof(*tmp),nmaxpos[i]);
 					free(maxpos[i]);
 					maxpos[i]=(int *)calloc(sizeof(**maxpos),++nmaxpos[i]);
-					movem(tmp,maxpos[i],sizeof(**maxpos),nmaxpos[i]-1);
+					movem((double *)tmp,(double *)maxpos[i],sizeof(**maxpos),nmaxpos[i]-1);
 					maxpos[i][nmaxpos[i]-1]=k;	
 					free(tmp);
 					break;

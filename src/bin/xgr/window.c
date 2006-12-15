@@ -44,6 +44,7 @@
 #include	<X11/Xutil.h>
 #include	<X11/cursorfont.h>
 #include	<stdio.h>
+#include	<stdlib.h>
 #include	"gcdata.h"
 #include	"xgr.h"
 
@@ -78,7 +79,7 @@ extern char	*geometry;
 extern char	*dpy;
 extern char	*cmnd, *windowtitle;
 
-open_display(char *display_name )
+void open_display(char *display_name )
 {
 	if ((display = XOpenDisplay(display_name)) == NULL)  {
 		fprintf(stderr, "%s: Can't open display '%s'\n",
@@ -87,7 +88,7 @@ open_display(char *display_name )
 	}
 }
 
-init_window(int argc,char *argv[])
+void init_window(int argc,char *argv[])
 {
 	unsigned long	get_color_pix();
 
@@ -207,7 +208,7 @@ init_window(int argc,char *argv[])
 	XSetFont(display, gc, font);
 }
 
-init_pixmap()
+void init_pixmap()
 {
 	if (!landscape)  {
 		pixmap_w = XLENG / shrink;
@@ -227,7 +228,7 @@ init_pixmap()
 	XSetBackground(display, pixmapGC, backpix);
 }
 	
-close_window()
+void close_window()
 {
 	XFreeCursor(display, watch_cur);
 	XFreeGC(display, gc);
@@ -238,11 +239,10 @@ close_window()
 /**/	XCloseDisplay(display);		/* this function case an error !! */
 }
 
-main_loop()
+void main_loop()
 {
 	char	key;
 	int	paper_w, paper_h;
-	float	shr_w, shr_h;
 	long	diff;
 
 	if (!landscape)  {
@@ -351,12 +351,12 @@ main_loop()
 	}
 }
 
-realize()
+void realize()
 {
 	realize_part(origin_x, origin_y, xsh.width, xsh.height, 0, 0);
 }
 
-realize_part(int src_x,int src_y,int width,int height,int dest_x,int dest_y )
+void realize_part(int src_x,int src_y,int width,int height,int dest_x,int dest_y )
 {
 	XDefineCursor(display, main_window, watch_cur);
 	XCopyArea(display, pixmap, main_window, gc,
@@ -364,18 +364,18 @@ realize_part(int src_x,int src_y,int width,int height,int dest_x,int dest_y )
 	XUndefineCursor(display, main_window);
 }
 
-set_all()
+void set_all()
 {
 	XCopyArea(display, main_window, pixmap, pixmapGC,
 		  0, 0, xsh.width, xsh.height, 0, 0);
 }	
 	
-beep()
+void beep()
 {
 	XBell(display, 100);
 }
 
-get_window_size()
+void get_window_size()
 {
 	XGetWindowAttributes(display, main_window, &wa);
 	window_x = wa.x;

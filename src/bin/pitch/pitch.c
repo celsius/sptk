@@ -70,10 +70,11 @@
 *									*
 *************************************************************************/
 
-static char rcsid[] = "$Id: pitch.c,v 1.10 2006/12/11 07:16:41 mr_alex Exp $";
+static char rcsid[] = "$Id: pitch.c,v 1.11 2006/12/15 11:06:53 mr_alex Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -125,7 +126,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-    int		i, freq = FREQ, n = ILNG, l, L = LOW , H = HIGH, m, itr1 = MINITR, itr2 = MAXITR, low, high;
+    int		freq = FREQ, n = ILNG, l, L = LOW , H = HIGH, m, itr1 = MINITR, itr2 = MAXITR, low, high;
     double	*x, eps = EPS, atof(), p, thresh = THRESH, end = END;
     FILE	*fp = stdin;
     

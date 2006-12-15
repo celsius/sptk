@@ -68,11 +68,12 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: spec.c,v 1.3 2006/12/11 07:16:42 mr_alex Exp $";
+static char *rcs_id = "$Id: spec.c,v 1.4 2006/12/15 11:06:55 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -98,7 +99,7 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - transform real sequence to spectrum\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -l l  : frame length                      [%d]\n", LENG);

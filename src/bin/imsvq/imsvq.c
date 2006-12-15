@@ -64,7 +64,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: imsvq.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $";
+static char *rcs_id = "$Id: imsvq.c,v 1.4 2006/12/15 11:06:44 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -112,7 +112,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
     int		l = LENG, *cbsize, *index,
-		stage = 0, ss = 0, num, i, j;
+		stage = 0, ss = 0, num, i;
     FILE	*fp = stdin, *fpcb;
     double	*x, *cb = NULL, *p;
     char	**cbfile;

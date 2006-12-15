@@ -40,8 +40,10 @@
 /****************************************************************
 * NAME :	fig0 - subroutines for fig			*
 ****************************************************************/
-
+#include <string.h>
+#include <stdlib.h>
 #include "fig.h"
+#include "plot.h"
 
 #define	xt(x)	((is_xlog < 0) ? log10(x) : (x))
 #define	yt(y)	((is_ylog < 0) ? log10(y) : (y))
@@ -63,8 +65,7 @@ static float	xfct = 1, yfct = 1;
 static char	label[BUFLNG / 2] = "";
 static float	xbuf[BUFLNG], ybuf[BUFLNG];
 
-graph(fp)
-FILE	*fp;
+void graph(FILE *fp)
 {
 	static char	buf[BUFLNG], arg[BUFLNG / 2], xtype[16], ytype[16];
 	static float	xa, ya, xap, yap, xmin, xmax, ymin, ymax;
@@ -182,7 +183,7 @@ FILE	*fp;
 			}
 		}
 		else if(strcmp(arg + 1, "grid") == 0) {
-			draw(xbuf, ybuf, n);
+			draw_fig0(xbuf, ybuf, n);
 			if(!is_t && *arg == 'x' || is_t && *arg == 'y') {
 				ybuf[0] = 0;
 				ybuf[1] = yl;
@@ -192,7 +193,7 @@ FILE	*fp;
 						x = log10(x);
 					xbuf[0] = xbuf[1]
 						= (x - xmin) * xfct;
-					draw(xbuf, ybuf, 2);
+					draw_fig0(xbuf, ybuf, 2);
 				}
 			} else {
 				xbuf[0] = 0;
@@ -203,7 +204,7 @@ FILE	*fp;
 						y = log10(y);
 					ybuf[0] = ybuf[1]
 						= (y - ymin) * yfct;
-					draw(xbuf, ybuf, 2);
+					draw_fig0(xbuf, ybuf, 2);
 				}
 			}
 			n = 0;
@@ -263,7 +264,7 @@ FILE	*fp;
 			_symbol(x, y, s, h, w, th);
 		}
 		else if(strcmp(arg, "eod") == 0 || strcmp(arg, "EOD") == 0) {
-			draw(xbuf, ybuf, n);
+			draw_fig0(xbuf, ybuf, n);
 			n = 0;
 		}
 		else if(strcmp(arg, "pen") == 0) {
@@ -301,7 +302,7 @@ FILE	*fp;
 			sscanf(s, "%d %f %f", &ptyp, &dhat, &that);
 		}
 		else if(strcmp(arg, "clip") == 0) {
-			draw(xbuf, ybuf, n);
+			draw_fig0(xbuf, ybuf, n);
 			for(n = 0; (s = getarg(s, arg)) != NULL; ++n) {
 				x = xt(atof(arg));
 				if((s = getarg(s, arg)) == NULL)
@@ -323,7 +324,7 @@ FILE	*fp;
 			n = 0;
 		}
 		else if(strcmp(arg, "box") == 0) {
-			draw(xbuf, ybuf, n);
+			draw_fig0(xbuf, ybuf, n);
 			for(n = 0; (s = getarg(s, arg)) != NULL; ++n) {
 				x = xt(atof(arg));
 				if((s = getarg(s, arg)) == NULL)
@@ -383,7 +384,7 @@ FILE	*fp;
 					    xbuf[1] -= MADJ * mh * cos(dt);
 					    ybuf[1] -= MADJ * mh * sin(dt);
 					}
-					draw(xbuf, ybuf, 2);
+					draw_fig0(xbuf, ybuf, 2);
 					xbuf[0] = x;
 					ybuf[0] = y;
 					n = 0;
@@ -394,12 +395,10 @@ FILE	*fp;
 				n = flush(xbuf, ybuf, n);
 		}
 	}
-	draw(xbuf, ybuf, n);
+	draw_fig0(xbuf, ybuf, n);
 }
 
-draw(x, y, n)
-float	x[], y[];
-int	n;
+void draw_fig0(float x[],float y[],int n)
 {
 	if(n && ltype >= 0) {
 		bound(xclip0, yclip0, xclip1, yclip1);
@@ -408,12 +407,10 @@ int	n;
 	}
 }
 
-flush(x, y, n)
-float	x[], y[];
-int	n;
+int flush(float x[],float y[],int n)
 {
 	if(n > 1) {
-		draw(x, y, n);
+		draw_fig0(x, y, n);
 		x[0] = x[n - 1];
 		y[0] = y[n - 1];
 		return(1);
@@ -422,17 +419,14 @@ int	n;
 		return(n);
 }
 
-polyg(x, y, n)
-float	x[], y[];
-int	n;
+void polyg(float x[],float y[],int n)
 {
 		bound(xclip0, yclip0, xclip1, yclip1);
 		hatch(ptyp, x, y, n, dhat, that);
 		rstbnd();
 }
 
-is_in(x, y)
-float	x, y;
+int is_in(float x,float y)
 {
 	if(x >= 0 && x <= xl && y >= 0 && y <= yl)
 		return(1);
@@ -440,8 +434,7 @@ float	x, y;
 		return(0);
 }
 
-swap(x, y)
-float	*x, *y;
+void swap(float *x,float *y)
 {
 	float	t;
 

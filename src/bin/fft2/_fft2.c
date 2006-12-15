@@ -38,7 +38,7 @@
 */
 
 /********************************************************
-$Id: _fft2.c,v 1.3 2006/12/11 07:16:36 mr_alex Exp $
+$Id: _fft2.c,v 1.4 2006/12/15 11:06:38 mr_alex Exp $
 
 *	fft2 : two dimensional fast Fourier transform 	*
 *			for complex sequence		*
@@ -56,6 +56,7 @@ $Id: _fft2.c,v 1.3 2006/12/11 07:16:36 mr_alex Exp $
 *	T. Kobayashi	May, 1989.			*
 ********************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
 

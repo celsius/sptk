@@ -39,7 +39,7 @@
 
 /****************************************************************
  
-    $Id: _lpc2lsp.c,v 1.2 2002/12/25 05:31:02 sako Exp $
+    $Id: _lpc2lsp.c,v 1.3 2006/12/15 11:06:45 mr_alex Exp $
  
     Transformation LPC to LSP
  
@@ -59,11 +59,12 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 int lpc2lsp(double *lpc, double *lsp, int order, int numsp, int maxitr, double eps)
 {
-    register int    i, j;
+    register int    i;
     register double *p1, *p2;
     int             mh1, mh2, mh, mm, itr, flag_odd;
     double          delta, x0, x1, g0, g1, x, y;

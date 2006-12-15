@@ -58,11 +58,12 @@
 *		         s-1           p            p			*
 ************************************************************************/
 
-static char *rcs_id = "$Id: interpolate.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $";
+static char *rcs_id = "$Id: interpolate.c,v 1.4 2006/12/15 11:06:44 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -98,7 +99,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-    int		period = PERIOD, start = START, i;
+    int		period = PERIOD, start = START;
     FILE	*fp = stdin;
     double	*x;
     

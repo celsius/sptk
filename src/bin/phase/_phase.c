@@ -38,7 +38,7 @@
 */
 
 /*******************************************************************
-  $Id: _phase.c,v 1.3 2006/12/11 07:16:41 mr_alex Exp $
+  $Id: _phase.c,v 1.4 2006/12/15 11:06:53 mr_alex Exp $
 	comupte phase of digital filter or real seaquence
 		phase(p, mp, z, mz, ph, flng)
 
@@ -53,6 +53,7 @@
 			Naohiro Isshiki 	Feb.1995
 ********************************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
 	

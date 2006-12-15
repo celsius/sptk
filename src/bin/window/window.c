@@ -67,11 +67,12 @@
 *		if L > l, (L-l)-zeros are padded			*
 *									*
 ************************************************************************/
-static char *rcs_id = "$Id: window.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $";
+static char *rcs_id = "$Id: window.c,v 1.4 2006/12/15 11:06:58 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -121,7 +122,7 @@ int main(int argc,char *argv[])
 	char	*s, c;
 	int	fleng = FLENG, outl = -1, normflg = NORMFLG;
 	Window	wintype = WINTYPE;
-	double  *x, *zero;
+	double  *x;
 
         if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	    cmnd = argv[0];

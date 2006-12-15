@@ -46,7 +46,7 @@ OBJS		= $(SRCS:.c=.o)
 PREFIX		= /usr/local/SPTK
 BIN		= $(PREFIX)/bin
 
-CC		= gcc
+CC		= gcc -ansi -Wall
 RM		= rm -rf
 INSTALL		= install -cs
 

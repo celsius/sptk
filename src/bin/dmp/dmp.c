@@ -56,11 +56,12 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: dmp.c,v 1.4 2006/12/11 07:16:35 mr_alex Exp $";
+static char *rcs_id = "$Id: dmp.c,v 1.5 2006/12/15 11:06:34 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <SPTK.h>
@@ -79,7 +80,7 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - binary file dump\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -n n  : block order   (0,...,n)      [EOD]\n");

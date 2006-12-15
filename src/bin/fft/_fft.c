@@ -38,7 +38,7 @@
 */
 
 /********************************************************
-   $Id: _fft.c,v 1.3 2006/12/11 07:16:36 mr_alex Exp $					
+   $Id: _fft.c,v 1.4 2006/12/15 11:06:37 mr_alex Exp $					
 	NAME:					
 		fft - fast fourier transform    
 	SYNOPSIS:					
@@ -54,6 +54,7 @@
 ********************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
 

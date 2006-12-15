@@ -64,6 +64,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <SPTK.h>
+#include <stdlib.h>
+#include "plot.h"
 
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
@@ -95,7 +97,7 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - plot a graph\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -F F     : factor                 [%g]\n",FCT);

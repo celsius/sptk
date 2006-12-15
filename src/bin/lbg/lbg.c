@@ -75,7 +75,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: lbg.c,v 1.4 2006/12/11 07:16:38 mr_alex Exp $";
+static char *rcs_id = "$Id: lbg.c,v 1.5 2006/12/15 11:06:44 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -134,7 +134,7 @@ int main(int argc, char **argv)
 {
     int l = LENG, icbsize = ICBSIZE, ecbsize = ECBSIZE, 
 	tnum = TNUMBER, ispipe, xsize, csize, i, j, *tindex;
-    FILE	     *fp = stdin, *fpi = NULL, *fpcb = NULL, *fpv;
+    FILE	     *fp = stdin, *fpi = NULL, *fpcb = NULL;
     double	     delta = DELTA, minerr = END, *x, *cb, *icb, atof();
     register double  *p;
     

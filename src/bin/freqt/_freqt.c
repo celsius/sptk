@@ -39,7 +39,7 @@
 
 /***************************************************************
 
-    $Id: _freqt.c,v 1.3 2006/12/11 07:16:36 mr_alex Exp $
+    $Id: _freqt.c,v 1.4 2006/12/15 11:06:40 mr_alex Exp $
 
     Frequency Transformation
 
@@ -54,6 +54,7 @@
 ***************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void freqt(double *c1, int m1, double *c2, int m2, double a)

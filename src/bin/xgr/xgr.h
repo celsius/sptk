@@ -64,3 +64,35 @@
 #define YLENG	2870	/*  A4 Height [x0.1 mm](2850,max=2970)  */
 #define XLENG_LAND	2870
 #define YLENG_LAND	1995
+
+void open_display(char *display_name );
+void init_window(int argc,char *argv[]);
+void init_pixmap();
+void close_window();
+void main_loop();
+void realize();
+void realize_part(int src_x,int src_y,int width,int height,int dest_x,int dest_y );
+void set_all();
+void beep();
+void get_window_size();
+unsigned long	get_color_pix(char *color_name );
+static short normy(int y );
+static void _flush();
+static void _send(int *buf );
+static int _getcord(int *buf );
+static void _line();
+static void _move(int x,int y );
+static int polyg(int type );
+static void dplot(int density,short x,short y,short w,short h );
+static void hatching(int type );
+static void reset_fill();
+static void box(short x,short y,short w,short h );
+static void fillbox(int type,short x,short y,short w,short h );
+static void get_str();
+static int text(char *s,int n,int fn );
+static void newpen(int w );
+static int line_type(int w );
+static void clip(int xmin,int ymin,int xmax,int ymax );
+static void mark(int w );
+static void circle(int x0,int y0,int r1,int r2,int arg1,int arg2 );
+void plot();

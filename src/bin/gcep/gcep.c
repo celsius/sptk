@@ -69,11 +69,12 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: gcep.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $";
+static char *rcs_id = "$Id: gcep.c,v 1.4 2006/12/15 11:06:41 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -105,7 +106,7 @@ void usage(int status)
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -m m  : order of generalized cepstrum    [%d]\n", ORDER);
-    fprintf(stderr, "       -g g  : gamma                            [%d]\n", GAMMA);
+    fprintf(stderr, "       -g g  : gamma                            [%g]\n", GAMMA);
     fprintf(stderr, "       -l l  : frame length                     [%d]\n", FLENG);
     fprintf(stderr, "       -n    : output normalized cepstrum       [%s]\n", BOOL[NORM]);
     fprintf(stderr, "     (level2)\n");

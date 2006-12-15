@@ -38,7 +38,7 @@
 */
 
 /******************************************************************
- $Id: _c2ir.c,v 1.3 2006/12/11 07:16:34 mr_alex Exp $
+ $Id: _c2ir.c,v 1.4 2006/12/15 11:06:31 mr_alex Exp $
 
 	cepstrum to impulse response
 		c2ir(c,nc,h,leng)
@@ -58,10 +58,11 @@
 
 			Naohiro Isshiki,	Dec.1995
 ********************************************************************/
+#include <stdlib.h>
 
 void c2ir(double *c, int nc, double *h, int leng)
 {
-	register int	n, k, nr, upl;
+	register int	n, k, upl;
 	double	d, exp(double), log(double);
 
 	h[0] = exp(c[0]);
@@ -76,7 +77,7 @@ void c2ir(double *c, int nc, double *h, int leng)
 
 void ic2ir(double *h, int leng, double *c, int nc)
 {
-	register int	n, k, nr, upl;
+	register int	n, k, upl;
 	double	d, exp(double), log(double);
 
 	c[0] = log(h[0]);

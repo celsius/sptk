@@ -64,6 +64,7 @@
 
 /*  Standard C Libraries */
 #include	<stdio.h>
+#include	<stdlib.h>
 #include	"xgr.h"
 
 typedef enum _Boolean {FA, TR} Boolean;
@@ -94,7 +95,7 @@ char *BOOL[] = {"FALSE", "TRUE"};
 /* Command Name */
 char	*cmnd;
 
-usage(status)
+void usage(int status)
 {
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - XY-plotter simulator for X-window system\n\n",cmnd);
@@ -141,7 +142,7 @@ int main(int argc,char *argv[])
 		if ((strcmp(*++argv, "-s") == 0) && argc > 1)  {
 			shrink = atof(*++argv);
 			if (shrink <= 0)
-				usage();
+				usage(0);
 			argc--;
 		}
 		else if (strcmp(*argv, "-landscape") == 0 || 

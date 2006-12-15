@@ -56,10 +56,11 @@
 *	Note that double precision FFT is used.				*
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $";
+static char *rcs_id = "$Id: grpdelay.c,v 1.4 2006/12/15 11:06:42 mr_alex Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 #include <string.h>
 

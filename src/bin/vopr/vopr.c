@@ -59,7 +59,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: vopr.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $";
+static char *rcs_id = "$Id: vopr.c,v 1.4 2006/12/15 11:06:57 mr_alex Exp $";
 
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
@@ -68,6 +68,7 @@ char *BOOL[] = {"FALSE", "TRUE"};
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <SPTK.h>
 
@@ -88,11 +89,11 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - excute vector operations\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ file1 ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -l l   : length of vector                [%d]\n",LENG);
-    fprintf(stderr, "       -n n   : order of vector                 [l-1]\n",LENG);
+    fprintf(stderr, "       -n n   : order of vector                 [l-1]\n");
     fprintf(stderr, "       -i     : specified file contains a and b [%s]\n",BOOL[INV]);
     fprintf(stderr, "       -a     : addition       (a + b)\n");
     fprintf(stderr, "       -s     : subtraction    (a - b)\n");

@@ -59,19 +59,6 @@
 
 #include "plot.h"
 
-/*  Required Functions  */
-void plots(int mode);
-void plote();
-float _plnorm(float x);
-float _cordx(float x);
-float _cordy(float y);
-void plot(float x,float y, register int z);
-int plotr(int ip, float x, float y);
-int plota(int ip, float x, float y);
-void mode(int ltype, float lscale);
-void _chlnmod(int lmode);
-void origin(float x, float y);
-	
 struct co_ord _org = { 0.0, 0.0 };
 
 void plots(int mode)
@@ -90,24 +77,24 @@ void plote()
 {
 }
 
-float _plnorm(float x)
+int _plnorm(float x)
 {
-	return(10.0 * x + 0.5);
+	return((int)(10.0 * x + 0.5));
 }
 
-float _cordx(float x)
+int _cordx(float x)
 {
 	return(_plnorm(x + _org.xo));
 }
 
-float _cordy(float y)
+int _cordy(float y)
 {
 	return(_plnorm(y + _org.yo));
 }
 
 static short		_ltype = 0, _lscale = 10;
 
-void plot(float x,float y, register int z)
+void plot(float x,float y, int z)
 {
 	register int	ip;
 

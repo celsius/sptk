@@ -50,11 +50,12 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: echo2.c,v 1.4 2006/12/11 07:16:35 mr_alex Exp $";
+static char *rcs_id = "$Id: echo2.c,v 1.5 2006/12/15 11:06:34 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -84,7 +85,7 @@ void usage(int status)
     exit(status);
 }
 
-int main(short argc, char **argv)
+int main(int argc, char **argv)
 {
     int  newline = NEWLINE;
 

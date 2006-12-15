@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _acep.c,v 1.3 2006/10/14 05:09:16 mr_alex Exp $
+    $Id: _acep.c,v 1.4 2006/12/15 11:06:28 mr_alex Exp $
 
     Adaptive Cepstral Analysis
 
@@ -58,6 +58,7 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 #define PADEORD 	4

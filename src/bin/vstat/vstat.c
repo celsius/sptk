@@ -74,11 +74,12 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: vstat.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $";
+static char *rcs_id = "$Id: vstat.c,v 1.4 2006/12/15 11:06:57 mr_alex Exp $";
 
 /*  Standard C Libralies  */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <SPTK.h>
 
@@ -102,7 +103,7 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - vector statistics calculation\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -l l   : length of vector                    [%d]\n", LENG);
@@ -249,11 +250,14 @@ int main(int argc,char *argv[])
 	    }
 	    if (outmean)
 	        fwritef(mean, sizeof(*mean), leng, stdout);
-	    if (outcov)
-		if (!diagc)
+	    if (outcov){
+		if (!diagc){
 		    fwritef(cov[0], sizeof(*cov[0]), leng*leng, stdout);
-		else
+		}		
+		else{
 		    fwritef(var, sizeof(*var), leng, stdout);
+		}
+	    }
 	}
     }
     exit(0);

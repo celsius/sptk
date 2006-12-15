@@ -48,6 +48,7 @@
 *	int	m;	size of FFT		*
 ************************************************/
 
+#include <SPTK.h>
 
 int ifft(register double *x, register double *y, int m)
 {

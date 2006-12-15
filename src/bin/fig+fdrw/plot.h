@@ -107,6 +107,55 @@ struct co_ord {
 #define sign(x)		(x & 0xffff8000)
 
 double	sin(), cos(), tan();
+int abs();
+void sleep();
 #define	DEG_RAD		(3.141592653589793 / 180.0)
 
 #define SCALE	4096
+
+/*  Required Functions  */
+void rotate(float th);
+void factor(float fx, float fy);
+int offset(float x, float y);
+void bound(double xl, double yl, double xh, double yh);
+void rstbnd();
+int hatch(int ip, register float *ax, register float *ay, int n, float d, float t);
+int pen(int pen);
+int font(int n);
+int speed(int isp, int ip);
+/*int mark(int mrk, float ax[], float ay[], int n, float f, int m);*/
+int symbol(float x, float y, char *text, float h, float s, float th);
+int number(float x, float y, float fval, float h, float s, float th, int m, int n);
+int italic(float th);
+int line(int ip, register float *ax, register float *ay, int n);
+int circle(float x, float y, float rs, float re, float ths, float the);
+int pntstyl(int ip);	
+void plots(int mode);
+void plote();
+int _plnorm(float x);
+int _cordx(float x);
+int _cordy(float y);
+void plot(float x,float y, register int z);
+int plotr(int ip, float x, float y);
+int plota(int ip, float x, float y);
+void mode(int ltype, float lscale);
+void _chlnmod(int lmode);
+void origin(float x, float y);
+void graph(FILE *fp);
+void draw_fig0(float x[],float y[],int n);
+int flush(float x[],float y[],int n);
+void polyg(float x[],float y[],int n);
+int is_in(float x,float y);
+void swap(float *x,float *y);
+char    *gettxt(register char *s);
+char    *script(register char *s, register int i);
+char    *getarg(register char *s, register char *arg);
+char    *gettyp(register char *s, register char *t);
+char    *getname(register char *s, register char *t);
+int greek(char *p);
+float   sleng(char *p, float h, float w);
+void _symbol(float x, float y, char *p, float h, float w, float t);
+float   ysadj();
+float   rx(float x, float y, float t);
+float   ry(float x, float y, float t);
+float   argapf(float x, float a);

@@ -62,7 +62,9 @@
 static char *rcs_id = "$Id:";
 
 /* Standard C Libraries */
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 #include <string.h>
 
@@ -110,7 +112,7 @@ int main(int argc, char *argv[])
 	double *p, *z, *ph;
 	char *file_z = "", *file_p = "";
 	FILE *fp_z, *fp_p;
-	int  no, i;
+	int  no;
 
         if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	    cmnd = argv[0];

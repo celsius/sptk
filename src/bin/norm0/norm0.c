@@ -56,11 +56,12 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: norm0.c,v 1.3 2006/12/11 07:16:40 mr_alex Exp $";
+static char *rcs_id = "$Id: norm0.c,v 1.4 2006/12/15 11:06:52 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -92,9 +93,9 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-    int		m = ORDER, i;
+    int		m = ORDER;
     FILE	*fp = stdin;
-    double	*x, k;
+    double	*x;
     
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)

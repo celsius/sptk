@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _lsp2lpc.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $
+    $Id: _lsp2lpc.c,v 1.4 2006/12/15 11:06:46 mr_alex Exp $
 
     Transformation LSP to LPC
 
@@ -52,6 +52,7 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void lsp2lpc(double *lsp,double *a, int m)

@@ -61,6 +61,7 @@ static char *rcs_id = "$Id";
 
 /* Standard C Libraries */
 #include	<stdio.h>
+#include	<stdlib.h>
 #include	<math.h>
 #include	<SPTK.h>
 #include	<string.h>

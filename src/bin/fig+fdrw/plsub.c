@@ -62,24 +62,6 @@
 
 #include "plot.h"
 
-/*  Required Functions  */
-void rotate(float th);
-void factor(float fx, float fy);
-int offset(float x, float y);
-void bound(float xl, float yl, float xh, float yh);
-void rstbnd();
-int hatch(int ip, register float *ax, register float *ay, int n, float d, float t);
-int pen(int pen);
-int font(int n);
-int speed(int isp, int ip);
-int mark(int mrk, float ax[], float ay[], int n, float f, int m);
-int symbol(float x, float y, char *text, float h, float s, float th);
-int number(float x, float y, float fval, float h, float s, float th, int m, int n);
-int italic(float th);
-int line(int ip, register float *ax, register float *ay, int n);
-int circle(float x, float y, float rs, float re, float ths, float the);
-int pntstyl(int ip);	
-	
 extern struct co_ord	_org;
 
 void rotate(float th)
@@ -98,10 +80,8 @@ int offset(float x, float y)
 	return(0);
 }
 
-void bound(float xl, float yl, float xh, float yh)
-{
-	short	buf[7];
-
+void bound(double xl, double yl, double xh, double yh)
+{	
 	wlo_right(_cordx(xl), _cordy(yl));
 	wup_left(_cordx(xh), _cordy(yh));
 }

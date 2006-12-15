@@ -64,12 +64,13 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.5 2006/12/13 07:32:12 mr_alex Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.6 2006/12/15 11:06:58 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <SPTK.h>
 
@@ -93,7 +94,7 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - data type transformation\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       +type1  : input data type                             [f]\n");

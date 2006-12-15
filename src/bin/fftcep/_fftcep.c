@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _fftcep.c,v 1.3 2006/12/11 07:16:36 mr_alex Exp $
+    $Id: _fftcep.c,v 1.4 2006/12/15 11:06:38 mr_alex Exp $
 
     FFT Cepstral Analysis
 
@@ -55,6 +55,7 @@
 ******************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void fftcep(double *sp, int flng, double *c, int m, int itr, double ac)

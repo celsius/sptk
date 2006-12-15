@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _amcep.c,v 1.3 2006/12/11 07:16:34 mr_alex Exp $
+    $Id: _amcep.c,v 1.4 2006/12/15 11:06:29 mr_alex Exp $
 
     Adaptive Mel Cepstral Analysis
 
@@ -60,6 +60,7 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 
@@ -68,7 +69,7 @@ double amcep(double x, double *b, int m, double a, double lambda, double step, d
     register int   i;
     static double  *bb = NULL, *d, *ep, *e, xx, gg = 1.0;
     static int     size;
-    double 	   tt, mu, tx, mlsadf(), log();
+    double 	   mu, tx, mlsadf(), log();
     
     if(bb == NULL){
 	bb = dgetmem(3*(m+1)+3*(pd+1)+pd*(m+2));

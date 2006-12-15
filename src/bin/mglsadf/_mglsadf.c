@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mglsadf.c,v 1.3 2006/12/11 07:16:40 mr_alex Exp $
+    $Id: _mglsadf.c,v 1.4 2006/12/15 11:06:48 mr_alex Exp $
 
     MGLSA Digital Filter
 
@@ -165,7 +165,6 @@ double mglsadf1t(double x, double *b, int m, double a, int n, double *d)
 double mglsadff1t(double x, double *b, int m, double a, double g, double *d)
 {
     register int	i;
-    double		y, aa;
 
     x -= d[0] * (1.0 - a * a) * g;
     

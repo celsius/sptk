@@ -36,6 +36,7 @@
   PERFORMANCE OF THIS SOFTWARE.
  ----------------------------------------------------------------
 */
+#include <stdio.h>
 
 struct bbmargin  {		/*  Bounding Box Margin  */
 	int	top;
@@ -79,3 +80,33 @@ extern int	psmode;
 extern int	landscape;
 extern int	font_no;
 extern int	clip_mode;
+
+void epsf_setup(FILE *fp, float shrink, int xoffset, int yoffset, struct bbmargin bbm, int ncopy );
+void epsf_init(int *xmin, int *ymin, int *xmax, int *ymax, int ncopy );
+void epsf_scale(float shrink,int xoffset,int yoffset );
+void epsf_end();
+void bbox(FILE *fp, int *xmin, int *ymin, int *xmax, int *ymax, float shrink, int xoffset, int yoffset, struct bbmargin bbm );
+int getd( FILE *fp, int *x, int *y );
+int getstrlength(FILE *fp );
+void dict();
+void plot( FILE *fp );
+void _move(int x, int y );
+void _line(FILE *fp );
+int _getcord(FILE *fp, int *buf );
+void _send(int *buf );
+void _flush();
+void polylines(int *x,int *y,int n );
+void polyg( FILE *fp,int type );
+void intstyle(int type );
+void hatching(FILE *fp,int type );
+void rectangle(int x0,int y0,int x1,int y1,int frame,int fill );
+void get_str(FILE *fp );
+void text(char *s,int n,int fn );
+void line_type(int type );
+void newpen(int width );
+void mark(int no );
+void rect(int x,int y,int w,int h,int fill );
+void tangle(int size,int fill );
+void arc(int x,int y,int r,int ang1,int ang2,int fill );
+void symbol(char *code,int size,int xoffset,int yoffset );
+void clip(int x0,int y0,int x1,int y1 );

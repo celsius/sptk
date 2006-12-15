@@ -60,11 +60,12 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: average.c,v 1.3 2006/12/11 07:16:34 mr_alex Exp $";
+static char *rcs_id = "$Id: average.c,v 1.4 2006/12/15 11:06:30 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -85,7 +86,7 @@ void usage(int status)
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -l l  : frame length       [%d]\n", LENG);
-    fprintf(stderr, "       -n n  : order of sequence  [l-1]\n", LENG);
+    fprintf(stderr, "       -n n  : order of sequence  [l-1]\n");
     fprintf(stderr, "       -h    : print this message\n");
     fprintf(stderr, "  infile:\n");
     fprintf(stderr, "       data sequence (float)      [stdin]\n");

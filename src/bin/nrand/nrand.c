@@ -58,14 +58,13 @@
 
 /*  Standard C Libraries  */
 #include	<stdio.h>
+#include 	<stdlib.h>
 #include	<math.h>
 #include	<string.h>
 #include	<SPTK.h>
 
 
 /*  Default Values  */
-#define	RAND_MAX	32767
-
 #define LENG	256
 #define SEED	1
 

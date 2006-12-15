@@ -60,11 +60,12 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: ccp.c,v 1.3 2006/12/11 07:16:35 mr_alex Exp $";
+static char *rcs_id = "$Id: ccp.c,v 1.4 2006/12/15 11:06:32 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <SPTK.h>
@@ -93,7 +94,7 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - file copy\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -S S   : start address       [%d]\n",START);
@@ -123,8 +124,7 @@ static long	start = START, _end = END, sno = SNO, eno = ENO;
 int main(int argc, char **argv)
 {
     char        type[2], *s, c;
-    double      x;
-    int         size1 = 0, size2 = 0, i, col = 1;
+    int         size1 = 0, size2 = 0, col = 1;
     long        xscanf();
     FILE	*fp = stdin;
     

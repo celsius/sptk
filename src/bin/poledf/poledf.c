@@ -64,11 +64,12 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: poledf.c,v 1.4 2006/12/11 07:16:41 mr_alex Exp $";
+static char *rcs_id = "$Id: poledf.c,v 1.5 2006/12/15 11:06:53 mr_alex Exp $";
 
 
 /*  Standard C Libralies  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 

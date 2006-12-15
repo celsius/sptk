@@ -38,7 +38,7 @@
 */
 
 /********************************************************
- $Id: _fftr.c,v 1.3 2006/12/11 07:16:36 mr_alex Exp $							
+ $Id: _fftr.c,v 1.4 2006/12/15 11:06:38 mr_alex Exp $							
  NAME:							
 	fftr - Fast Fourier Transform for Double sequence	   
  SYNOPSIS:                                             
@@ -50,6 +50,7 @@
 		Naohiro Isshiki 	Dec.1995	modified
 ********************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
 
@@ -57,7 +58,7 @@ extern double	*_sintbl;
 extern int	maxfftsize;
 int fftr(double *x, double *y, int m)
 {
-	register int	i, j ,k;
+	register int	i, j;
 	register double	*xp, *yp, *xq;
 	double		*yq;
 	int		mv2, n, tblsize;

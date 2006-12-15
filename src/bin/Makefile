@@ -43,7 +43,7 @@ PREFIX		= /home/alex/osigoto/Sourceforge/SPTK
 BIN		= $(PREFIX)/bin
 LIB		= $(PREFIX)/lib
 
-CC		= gcc -ansi
+CC		= gcc -ansi -Wall
 RM		= rm -rf
 INSTALL		= install -cs
 

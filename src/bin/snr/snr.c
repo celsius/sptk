@@ -65,7 +65,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.4 2006/12/11 07:16:42 mr_alex Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.5 2006/12/15 11:06:55 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -97,7 +97,7 @@ void usage(int status)
     fprintf(stderr, "       %s [ options ] file1 [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "      -l l  : frame length                         [%d]\n", LENG);
-    fprintf(stderr, "      +ab   : input data type (a: file1, b: file2) [sf]\n", LENG);
+    fprintf(stderr, "      +ab   : input data type (a: file1, b: file2) [sf]\n");
     fprintf(stderr, "                s (short)  f (float) \n");
     fprintf(stderr, "      -o o  : output type                          [%d]\n", OTYPE);
     fprintf(stderr, "                0 SNR and SNRseg           (ascii)\n");
@@ -117,7 +117,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-    int		l = LENG, num = 0, f1w = 1, f2w = 0, otype = OTYPE, 
+    int		l = LENG, f1w = 1, f2w = 0, otype = OTYPE, 
                 count, countold, countseg, xn, yn, size, i;
     FILE	*fp2 = stdin, *fp1 = NULL;
     double	*x, *y, snr, snrseg, pw1, pw2, pw1snr, pw2snr, sub;

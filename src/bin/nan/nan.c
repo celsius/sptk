@@ -52,10 +52,11 @@
 *		input is assumed to be float				*
 *									*
 ************************************************************************/
-static char *rcs_id = "$Id: nan.c,v 1.4 2006/12/07 08:29:14 mr_alex Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.5 2006/12/15 11:06:52 mr_alex Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 #include <string.h>
 
@@ -143,7 +144,7 @@ void nan_tmp(FILE *fp, int dflag)
 	{
 	    while(fread(&xd, sizeof(xd), 1, fp))
 	    {
-		upper = (long*)&xd;
+		upper = (long *)&xd;
 		lower = upper + 1;
 
 		if(!((*upper & D_MASKEXP) ^ D_MASKEXP))

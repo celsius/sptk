@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _ivq.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $
+    $Id: _ivq.c,v 1.4 2006/12/15 11:06:44 mr_alex Exp $
 
     Decoder of Vector Quantization
 
@@ -51,6 +51,7 @@
 	double *x     : decoded vector
 
 *****************************************************************/
+#include <SPTK.h>
 
 void ivq(int index, double *cb, int l, double *x)
 {

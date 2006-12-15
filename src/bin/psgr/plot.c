@@ -41,6 +41,7 @@
 *	Interpret X-Y Plotter Commands			*
 ********************************************************/
 #include <stdio.h>
+#include <string.h>
 #include "psgr.h"
 
 #define	BUFSIZE		2048
@@ -252,8 +253,8 @@ void intstyle(int type )
 void hatching(FILE *fp,int type )
 {
 	register int	n;
-	int		style, frame;
-	int		x, y, d, angle;
+	int		frame;
+	int		d, angle;
 
 	fscanf(fp, "%d %d", &d, &angle);
 

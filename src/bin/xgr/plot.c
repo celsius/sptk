@@ -42,6 +42,7 @@
 ****************************************************************/
 #include	<X11/Xlib.h>
 #include	<stdio.h>
+#include	<stdlib.h>
 #include	<limits.h>
 #include	"xgr.h"
 #include	"gcdata.h"
@@ -77,13 +78,14 @@ static int		line_width = 1;
 static int		line_style = LineSolid;
 static XRectangle	rect;
 
-static line(),dplot(),fillbox(),reset_fill(),fillpoly(),text();
 
 static char	*symbol_upper = "ABGDEZHQIKLMNXOPRSTUFCYW";
 static char	*symbol_lower = "abgdezhqiklmnxoprstufcyw";
 #define		INFTY	165
 #define		SPACE	32
 
+static void line(XPoint *points,int n );
+static void fillpoly(XPoint *points,int type,int n );
 
 static short normy(int y )
 {
@@ -93,7 +95,7 @@ static short normy(int y )
 		return ((short)((XLENG-(y))/shrink+0.5));
 }
 
-static _flush()
+static void _flush()
 {
 	if (sp > 1)  {
 /*		polylines(sp);
@@ -104,7 +106,7 @@ static _flush()
 	}
 }
 
-static _send(int *buf )
+static void _send(int *buf )
 {
 	if (sp == SIZE)
 		_flush();
@@ -113,7 +115,7 @@ static _send(int *buf )
 	points[sp++].y = normy(*buf);
 }
 
-static _getcord(int *buf )
+static int _getcord(int *buf )
 {
 	register int	c;
 
@@ -128,7 +130,7 @@ static _getcord(int *buf )
 		return(0);
 }
 
-static _line()
+static void _line()
 {
 	while (_getcord(&pb))
 		_send(&pb);
@@ -137,19 +139,19 @@ static _line()
 }
 
 
-static _move(int x,int y )
+static void _move(int x,int y )
 {
 	points[0].x = normx(x);
 	points[0].y = normy(y);
 }
 
 
-static line(XPoint *points,int n )
+static void line(XPoint *points,int n )
 {
 	XDrawLines(display, main_window, gc, points, n, CoordModeOrigin);
 }
 
-static polyline(XPoint *points,int frame,int fill,int n )
+static void polyline(XPoint *points,int frame,int fill,int n )
 {
 	if ( fill != -1 && (fill%=10) != 9 )  {
 		fillpoly(points, fill+6, n+1);
@@ -159,9 +161,8 @@ static polyline(XPoint *points,int frame,int fill,int n )
 		line(points, n+1);
 }
 
-static polyg(int type )
+static int polyg(int type )
 {
-        register int    n;
 	int		x, y, w, h;
 
 	scanf("%d %d %d %d", &x, &y, &w, &h);
@@ -173,9 +174,9 @@ static polyg(int type )
 #define	LEVEL	256
 #define	POINTS	1024
 
-static dplot(int density,short x,short y,short w,short h )
+static void dplot(int density,short x,short y,short w,short h )
 {
-	register int	n, k, l;
+	register int	n;
 	int		n_max, n_plot, flg[POINTS];
 	int		p;
 	XPoint		pos[POINTS];
@@ -200,11 +201,11 @@ static dplot(int density,short x,short y,short w,short h )
 	XDrawPoints(display, main_window, gc, pos, n_plot, CoordModeOrigin);
 }
 
-static hatching(int type )
+static void hatching(int type )
 {
 	register int	n;
-	int		style, frame;
-	int		x, y, d, angle;
+	int		frame;
+	int		d, angle;
 
 	scanf("%d %d", &d, &angle);
 
@@ -230,17 +231,17 @@ static hatching(int type )
 	polyline(points, frame, type, n);
 }
 
-static reset_fill()
+static void reset_fill()
 {
 	fillbox(15, 0, 0, 0, 0);
 }
 
-static box(short x,short y,short w,short h )
+static void box(short x,short y,short w,short h )
 {
 	XDrawRectangle(display, main_window, gc, x, y, w, h);
 }
 
-static fillbox(int type,short x,short y,short w,short h )
+static void fillbox(int type,short x,short y,short w,short h )
 {
 	Pixmap	till_pmap;
 
@@ -255,7 +256,7 @@ static fillbox(int type,short x,short y,short w,short h )
 	XFreePixmap(display, till_pmap);
 }
 
-static fillpoly(XPoint *points,int type,int n )
+static void fillpoly(XPoint *points,int type,int n )
 {
 	Pixmap	till_pmap;
 
@@ -270,7 +271,7 @@ static fillpoly(XPoint *points,int type,int n )
 	XFreePixmap(display, till_pmap);
 }
 
-static get_str()
+static void get_str()
 {		    
 	int	c, i, j, k, sfg=0;
 	char	s[512];
@@ -315,13 +316,13 @@ static get_str()
 		text(s, i, FSymbol);
 }
 
-static text(char *s,int n,int fn )
+static int text(char *s,int n,int fn )
 {
 	register int	cx, cy;
 	static int	flg=0, cfn=-1, ccw=-1, cch=-1;
 	float		xadj, yadj;
 
-	if (n <= 0)	return;
+	if (n <= 0)	return(0);
 
 	if (fn != cfn)   {
 		ccw = cw;	cch = ch;
@@ -357,7 +358,7 @@ static text(char *s,int n,int fn )
 	}
 }
 
-static newpen(int w )
+static void newpen(int w )
 {
 	if (w < 0 || w > 10)
 		w = 1;
@@ -371,7 +372,7 @@ static newpen(int w )
 		XSetForeground(display, gc, get_color_pix(c_name[w]));
 }
 
-static line_type(int w )
+static int line_type(int w )
 {
 	int	dash_offset = 0;
 
@@ -380,7 +381,7 @@ static line_type(int w )
 	else if (w > 0 && w < 12)
 		line_style = LineOnOffDash;
 	else
-		return;
+		return(0);
 
 	XSetLineAttributes(display, gc,
 			   line_width, line_style, CapButt, JoinMiter);
@@ -390,7 +391,7 @@ static line_type(int w )
 	}
 }
 
-static clip(int xmin,int ymin,int xmax,int ymax )
+static void clip(int xmin,int ymin,int xmax,int ymax )
 {
 	rect.x = xmin;
 	rect.y = ymin;
@@ -400,7 +401,7 @@ static clip(int xmin,int ymin,int xmax,int ymax )
 	XSetClipRectangles(display, gc, 0, 0, &rect, 1, Unsorted);
 }
 
-static mark(int w )
+static void mark(int w )
 {
 	Pixmap	mark_pmap;
 
@@ -417,7 +418,7 @@ static mark(int w )
 	XFreePixmap(display, mark_pmap);
 }
 
-static circle(int x0,int y0,int r1,int r2,int arg1,int arg2 )
+static void circle(int x0,int y0,int r1,int r2,int arg1,int arg2 )
 {
 	int		x, y;
 	unsigned int	width, height;
@@ -436,10 +437,10 @@ static circle(int x0,int y0,int r1,int r2,int arg1,int arg2 )
 		 width, height, arg1*64, arg2*64);
 }
 
-plot()
+void plot()
 {
 	register int	c;
-	int		w, h, n, xmin, ymin, xmax, ymax;
+	int		w, n, xmin, ymin, xmax, ymax;
 	int		x0, y0, r1, r2, arg1, arg2;
 	short		normy();
 

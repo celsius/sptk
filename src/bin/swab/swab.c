@@ -63,6 +63,7 @@
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -87,7 +88,7 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - Swap Bytes\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -S S   : start address       [%d]\n",START);
@@ -182,7 +183,7 @@ int conv(FILE *fp,int iosize)
 	char	ibuf[8], obuf[8];
 
 	if(ffseek(fp, adrs = start + iosize * sno))
-			return;
+			return(0);
 
 	for(n = sno; adrs <= _end && n <= eno; adrs += iosize, ++n) {
 		fread(ibuf, iosize, 1, fp);

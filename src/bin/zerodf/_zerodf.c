@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _zerodf.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $
+    $Id: _zerodf.c,v 1.4 2006/12/15 11:06:59 mr_alex Exp $
 
     All Zero Digital Filter
 
@@ -53,10 +53,10 @@
 	return value : filtered data
 
 *****************************************************************/
+#include <stdlib.h>
 
 double	zerodf(double x, double *b, int m, double *d)
 {
-    register int  i;
     double 	  out;
 
     out = b[0]*x;
@@ -88,7 +88,6 @@ double	zerodft(double x, double *b, int m, double *d)
 
 double	zerodf1(double x, double *b, int m, double *d)
 {
-    register int  i;
     double 	  out;
 
     out = x;

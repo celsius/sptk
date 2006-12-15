@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _imsvq.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $
+    $Id: _imsvq.c,v 1.4 2006/12/15 11:06:44 mr_alex Exp $
 
     Decoder of Multi Stage Vector Quantization
 
@@ -55,12 +55,12 @@
 *****************************************************************/
 
 #include	<stdio.h>
+#include	<stdlib.h>
 #include	<SPTK.h>
 
 void imsvq(int *index, double *cb, int l, int *cbsize, int stage, double *x)
 {
     register int   i, j;
-    double	   *p;
     static double  *xx = NULL;
     static int     size;
     

@@ -39,7 +39,7 @@
 
 /***********************************************************************
 
-    $Id: _mgc2mgc.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $
+    $Id: _mgc2mgc.c,v 1.4 2006/12/15 11:06:47 mr_alex Exp $
 
     Frequency and Generalized Cepstral Transformation
 
@@ -57,11 +57,11 @@
 ***********************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void mgc2mgc(double *c1, int m1, double a1, double g1, double *c2, int m2, double a2, double g2)
 {
-    int           sub;
     double 	  a;
     static double *ca = NULL;
     static int    size_a;
