@@ -72,6 +72,7 @@ static char *rcs_id = "$Id$";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -121,7 +122,7 @@ int main(int argc,char *argv[])
 	char	*s, c;
 	int	fleng = FLENG, outl = -1, normflg = NORMFLG;
 	Window	wintype = WINTYPE;
-	double  *x, *zero;
+	double  *x;
 
         if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	    cmnd = argv[0];

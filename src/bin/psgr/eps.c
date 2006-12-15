@@ -41,6 +41,7 @@
 *	Setup Commands for EPSF				*
 ********************************************************/
 #include	<stdio.h>
+#include        <stdlib.h>
 #include	<time.h>
 #include	<ctype.h>
 #include	"psgr.h"
@@ -55,14 +56,7 @@
 #define	plot_min(x, min, pmin)	((x<min) ? ((x>=pmin)?(x):(pmin)) : (min))
 #define	plot_max(x, max, pmax)	((x>max) ? ((x<=pmax)?(x):(pmax)) : (max))
 								     
-void epsf_setup(FILE *fp, float shrink, int xoffset, int yoffset, struct bbmargin bbm, int ncopy );
-void epsf_init(int *xmin, int *ymin, int *xmax, int *ymax, int ncopy );
-void epsf_scale(float shrink,int xoffset,int yoffset );
-void epsf_end();
-void bbox(FILE *fp, int *xmin, int *ymin, int *xmax, int *ymax, float shrink, int xoffset, int yoffset, struct bbmargin bbm );
-int getd( FILE *fp, int *x, int *y );
-int getstrlength(FILE *fp );
-	
+
 float		loffset;
 
 void epsf_setup(FILE *fp, float shrink, int xoffset, int yoffset, struct bbmargin bbm, int ncopy )
@@ -161,7 +155,6 @@ void bbox(FILE *fp, int *xmin, int *ymin, int *xmax, int *ymax, float shrink, in
 {
 	register char	c;
 	int		n, x, y;
-	int		c_height = CHAR_HEIGHT;
 	int		plot_xmin, plot_ymin, plot_xmax, plot_ymax;
 	double		unit_length;
 	int		rotate = 0;

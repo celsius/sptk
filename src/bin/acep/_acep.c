@@ -58,6 +58,7 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 #define PADEORD 	4

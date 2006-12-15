@@ -71,6 +71,7 @@ static char *rcs_id = "$Id$";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -93,7 +94,7 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - mel cepstral analysis\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -a a  : all-pass constant               [%g]\n", ALPHA);

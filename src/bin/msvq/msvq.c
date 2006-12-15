@@ -122,7 +122,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
     int		l = LENG, *cbsize, *index,
-		stage = 0, ss = 0, num, i, j;
+		stage = 0, ss = 0, num, i;
     char	**cbfile;
     FILE	*fp = stdin, *fpcb;
     double	*cb = NULL, *x, *qx, *p;

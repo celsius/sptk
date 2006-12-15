@@ -63,6 +63,7 @@
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 #include <math.h>
 #include <string.h>
@@ -214,11 +215,11 @@ int main(int argc,char *argv[])
 				return(-1);
 			}
 			if(n1 < size) {
-				fillz(yp = x + size * n1, size * (size - n1));
+				fillz(yp = x + size * n1,sizeof(*yp), size * (size - n1));
 				yp -= (size - n1);
 				xp = x + k;
 				for(k = n1; --k >= 0; yp -= (size - n1)) {
-					fillz(yp, size - n1);
+					fillz(yp,sizeof(*yp), size - n1);
 					for(i = n1; --i >= 0; )
 						*--yp = *--xp;
 				}

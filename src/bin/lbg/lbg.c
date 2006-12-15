@@ -134,7 +134,7 @@ int main(int argc, char **argv)
 {
     int l = LENG, icbsize = ICBSIZE, ecbsize = ECBSIZE, 
 	tnum = TNUMBER, ispipe, xsize, csize, i, j, *tindex;
-    FILE	     *fp = stdin, *fpi = NULL, *fpcb = NULL, *fpv;
+    FILE	     *fp = stdin, *fpi = NULL, *fpcb = NULL;
     double	     delta = DELTA, minerr = END, *x, *cb, *icb, atof();
     register double  *p;
     

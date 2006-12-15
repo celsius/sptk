@@ -58,6 +58,7 @@
 ******************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 int levdur(double *r, double *a, int m, double eps)

@@ -194,7 +194,6 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-	char		*s;
 	FILE		*pdffp = stdin, *parfp = stdout;
 	int		nframe, delay;
 	char		*coef;

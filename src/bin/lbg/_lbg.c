@@ -58,6 +58,7 @@
 static char *rcs_id = "$Id$";
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 #define	MAXVALUE     1e23
@@ -117,7 +118,7 @@ void lbg(double *x, int l, int tnum, double *icb, int icbsize, double *cb, int e
 	
 	d0 = MAXVALUE;
 	for( ;; ){
-	    fillz(cntcb, sizeof(*cntcb), icbsize);
+	    fillz((double *)cntcb, sizeof(*cntcb), icbsize);
 	    d1 = 0.0; p = x;
 	    for(i=0; i<tnum; i++,p+=l){
 		tindex[i] = vq(p, cb, l, icbsize);

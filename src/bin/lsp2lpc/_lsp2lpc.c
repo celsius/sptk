@@ -52,6 +52,7 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void lsp2lpc(double *lsp,double *a, int m)

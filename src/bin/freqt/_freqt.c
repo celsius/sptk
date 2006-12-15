@@ -54,6 +54,7 @@
 ***************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void freqt(double *c1, int m1, double *c2, int m2, double a)

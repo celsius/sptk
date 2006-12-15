@@ -63,6 +63,7 @@ static char *rcs_id = "$Id$";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <SPTK.h>
@@ -86,7 +87,7 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - file dump\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -a a  : address                     [%d]\n",START);
@@ -234,7 +235,7 @@ void fdump(register FILE *fp)
 			break;
 		    case 4:
 			if(is_int)
-			    printf("%12d", u.l);
+			    printf("%ld", u.l);
 			else if(ff)
 			    printf(format, u.f);
 			else

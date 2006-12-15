@@ -66,6 +66,7 @@ static char *rcs_id = "$Id$";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -87,7 +88,6 @@ double	nrandom();
 #define	FPERIOD		100
 #define	IPERIOD		1
 #define SEED		1
-#define	RAND_MAX	32767
 #define GAUSS		FA
 
 

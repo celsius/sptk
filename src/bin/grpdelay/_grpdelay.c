@@ -50,6 +50,7 @@
 		Naohiro Isshiki		Feb. 1996
 ****************************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void grpdelay(double *x,double *gd,int size,int is_arma)

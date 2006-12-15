@@ -55,6 +55,7 @@
 ******************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void fftcep(double *sp, int flng, double *c, int m, int itr, double ac)

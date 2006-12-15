@@ -41,21 +41,12 @@
 * NAME :	fig1 - subroutines for fig			*
 ****************************************************************/
 
+#include <string.h>
 #include "fig.h"
+#include "plot.h"
 
 /*  Required Functions  */
-char    *gettxt(register char *s);
-char    *script(register char *s, register int i);
-char    *getarg(register char *s, register char *arg);
-char    *gettyp(register char *s, register char *t);
-char    *getname(register char *s, register char *t);
-int greek(char *p);
-float   sleng(char *p, float h, float w);
-void _symbol(float x, float y, char *p, float h, float w, float t);
-float   ysadj();
-float   rx(float x, float y, float t);
-float   ry(float x, float y, float t);
-float   argapf(float x, float a);
+
 #define GRKSIZE	62
 static char	*grk[]={"Alpha", "Beta", "Gamma", "Delta",
 			"Epsilon", "Zeta", "Eta", "Theta",
@@ -245,7 +236,7 @@ float	sleng(char *p, float h, float w)
 void _symbol(float x, float y, char *p, float h, float w, float t)
 {
 	register int	i;
-	float	dx, dy, rx(), ry();
+	float	dx, dy;
 
 	symbol(x, y, p, h, w, t);
 	for(i = 0; sub[i]; i += 4) {

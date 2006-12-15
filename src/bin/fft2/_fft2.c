@@ -56,6 +56,7 @@ $Id$
 *	T. Kobayashi	May, 1989.			*
 ********************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
 

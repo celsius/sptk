@@ -50,6 +50,7 @@
 		Naohiro Isshiki 	Dec.1995	modified
 ********************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
 
@@ -57,7 +58,7 @@ extern double	*_sintbl;
 extern int	maxfftsize;
 int fftr(double *x, double *y, int m)
 {
-	register int	i, j ,k;
+	register int	i, j;
 	register double	*xp, *yp, *xq;
 	double		*yq;
 	int		mv2, n, tblsize;

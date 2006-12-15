@@ -65,6 +65,7 @@ static char *rcs_id = "$Id$";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -89,7 +90,7 @@ void usage(int status)
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -l l         : output length               [%d]\n", LENG+1);
     fprintf(stderr, "       -m m         : number of interpolation     [%d]\n", LENG);
-    fprintf(stderr, "       -x xmin xmax : minimum of x & maximum of x [%d %d]\n",MIN,MAX);
+    fprintf(stderr, "       -x xmin xmax : minimum of x & maximum of x [%g %g]\n",MIN,MAX);
     fprintf(stderr, "       -h           : print this message\n");
     fprintf(stderr, "  infile:\n");
     fprintf(stderr, "       data sequence (float)                      [stdin]\n");

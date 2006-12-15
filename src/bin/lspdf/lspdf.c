@@ -69,6 +69,7 @@ static char *rcs_id = "$Id$";
 
 /*  Standard C Libralies  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -113,7 +114,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-    int		m = ORDER, fprd = FPERIOD, iprd = IPERIOD, tp = TRANSPOSE, 
+    int		m = ORDER, fprd = FPERIOD, iprd = IPERIOD, 
                 i, j, flag_odd;
     FILE	*fp = stdin, *fpc = NULL;
     double	*c, *inc, *cc, *d, x;

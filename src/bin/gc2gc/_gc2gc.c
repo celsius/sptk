@@ -53,6 +53,7 @@
 
 *****************************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void gc2gc(double *c1, int m1, double g1, double *c2, int m2, double g2)

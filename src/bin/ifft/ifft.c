@@ -56,6 +56,7 @@
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
 #include <string.h>
@@ -140,7 +141,6 @@ int dft(FILE *fp)
 {
 	double		*x, *y;
 	register int	size2;
-	static int	size_f;
 
 	x = dgetmem(size2 = size + size);
 

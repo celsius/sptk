@@ -56,6 +56,7 @@ static char *rcs_id = "$Id$";
 
 /* Standard C Libraries */
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 #include <string.h>
 
@@ -143,7 +144,7 @@ void nan_tmp(FILE *fp, int dflag)
 	{
 	    while(fread(&xd, sizeof(xd), 1, fp))
 	    {
-		upper = (long*)&xd;
+		upper = (long *)&xd;
 		lower = upper + 1;
 
 		if(!((*upper & D_MASKEXP) ^ D_MASKEXP))

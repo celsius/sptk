@@ -60,7 +60,9 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
+
 
 int uels(double *xw, int flng, double *c, int m, int itr1, int itr2, double dd, double e)
 {

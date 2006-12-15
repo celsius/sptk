@@ -51,6 +51,7 @@
 
 /*  Standard C Libraries  */
 #include	<stdio.h>
+#include 	<stdlib.h>
 #include	"psgr.h"
 
 
@@ -103,7 +104,7 @@ char	*orientations[] = {	/*  Orientation  */
 #define	SCALE	10
 
 
-usage(status)
+void usage(int status)
 {
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - XY-plotter simulator for EPSF\n\n",progname);

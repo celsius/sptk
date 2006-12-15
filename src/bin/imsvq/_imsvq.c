@@ -55,12 +55,12 @@
 *****************************************************************/
 
 #include	<stdio.h>
+#include	<stdlib.h>
 #include	<SPTK.h>
 
 void imsvq(int *index, double *cb, int l, int *cbsize, int stage, double *x)
 {
     register int   i, j;
-    double	   *p;
     static double  *xx = NULL;
     static int     size;
     

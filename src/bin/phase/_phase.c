@@ -53,6 +53,7 @@
 			Naohiro Isshiki 	Feb.1995
 ********************************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
 	

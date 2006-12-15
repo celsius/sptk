@@ -53,10 +53,10 @@
 	return value : filtered data
 
 *****************************************************************/
+#include <stdlib.h>
 
 double	zerodf(double x, double *b, int m, double *d)
 {
-    register int  i;
     double 	  out;
 
     out = b[0]*x;
@@ -88,7 +88,6 @@ double	zerodft(double x, double *b, int m, double *d)
 
 double	zerodf1(double x, double *b, int m, double *d)
 {
-    register int  i;
     double 	  out;
 
     out = x;

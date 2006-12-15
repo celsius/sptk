@@ -50,10 +50,11 @@
 	int     m    : order of LPC
 
 ****************************************************************/
+#include <SPTK.h>
 
 void par2lpc(double *k, double *a, int m)
 {
-    int 	i, n, flg = 0;
+    int 	i, n;
 
     a[0] = k[0];
     for (n=1; n<=m; n++){

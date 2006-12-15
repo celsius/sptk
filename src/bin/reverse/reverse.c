@@ -100,7 +100,7 @@ int main(int argc,char *argv[])
 {
 	int	l = -1;
 	char	*s, c;
-	double	*x, *p;
+	double	*x;
 	int	max;
 	FILE 	*fp = stdin;
 

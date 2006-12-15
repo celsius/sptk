@@ -36,8 +36,9 @@
   PERFORMANCE OF THIS SOFTWARE.
  ----------------------------------------------------------------
 */
+#include <stdio.h>
 
-dict()
+void dict()
 {
 	puts("/BD{bind def}bind def");
 	puts("/MT{moveto}BD");

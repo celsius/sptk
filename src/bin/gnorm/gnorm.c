@@ -65,6 +65,7 @@ static char *rcs_id = "$Id$";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -82,8 +83,7 @@ void gnorm();
 char	*cmnd;
 
 
-usage(status)
-int	status;
+void usage(int status)
 {
 	fprintf(stderr, "\n");
 	fprintf(stderr, " %s - gain normalization\n", cmnd);

@@ -165,7 +165,6 @@ double mglsadf1t(double x, double *b, int m, double a, int n, double *d)
 double mglsadff1t(double x, double *b, int m, double a, double g, double *d)
 {
     register int	i;
-    double		y, aa;
 
     x -= d[0] * (1.0 - a * a) * g;
     

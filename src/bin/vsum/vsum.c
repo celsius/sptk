@@ -56,6 +56,7 @@ static char *rcs_id = "$Id$";
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <SPTK.h>
 
@@ -73,7 +74,7 @@ void usage(int status)
     fprintf(stderr, "\n");
     fprintf(stderr, " %s - summation of vector\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -l l   : order of vector    [%d]\n",LENG);

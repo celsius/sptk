@@ -74,6 +74,7 @@ static char rcsid[] = "$Id$";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
 
@@ -125,7 +126,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-    int		i, freq = FREQ, n = ILNG, l, L = LOW , H = HIGH, m, itr1 = MINITR, itr2 = MAXITR, low, high;
+    int		freq = FREQ, n = ILNG, l, L = LOW , H = HIGH, m, itr1 = MINITR, itr2 = MAXITR, low, high;
     double	*x, eps = EPS, atof(), p, thresh = THRESH, end = END;
     FILE	*fp = stdin;
     

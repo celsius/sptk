@@ -57,11 +57,11 @@
 ***********************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void mgc2mgc(double *c1, int m1, double a1, double g1, double *c2, int m2, double a2, double g2)
 {
-    int           sub;
     double 	  a;
     static double *ca = NULL;
     static int    size_a;

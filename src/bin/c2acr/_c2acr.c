@@ -54,6 +54,7 @@
 ****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void c2acr(double *c, int m1, double *r, int m2, int flng)

@@ -55,12 +55,13 @@
 *****************************************************************/
 
 #include	<stdio.h>
+#include	<stdlib.h>
 #include	<SPTK.h>
 
 void msvq(double *x, double *cb, int l, int *cbsize, int stage, int *index)
 {
     int  	  i, j, vq();
-    double 	  *p, min = 1e23, dist;
+    double 	  *p;
     static double *xx = NULL;
     static int    size;
     

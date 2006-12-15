@@ -57,6 +57,7 @@
 ******************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 int lpc(double *x, int flng, double *a, int m)

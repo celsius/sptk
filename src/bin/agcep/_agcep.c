@@ -59,6 +59,7 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 double agcep(double x, double *c, int m, int stage, double lambda, double step, double tau, double eps)

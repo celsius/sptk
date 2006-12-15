@@ -70,17 +70,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
+#include "plot.h"
 
 typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Required Functions  */
-int draw(FILE *fp);
+int drw(FILE *fp);
 
 /*  Default Values  */
 #define BAR		FA
 #define FCT		1.0
-#define TH		0
+#define TH		0.0
 #define XO		20.0
 #define YO		25.0
 #define GTYPE		1
@@ -106,9 +107,9 @@ char	*cmnd;
 void usage(int status)
 {
     fprintf(stderr, "\n");
-    fprintf(stderr, " %s - draw a graph\n",cmnd);
+    fprintf(stderr, " %s - drw a graph\n",cmnd);
     fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n", cmnd);
+    fprintf(stderr, "  usage:\n");
     fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -F F     : factor                 [%g]\n",FCT);
@@ -243,7 +244,7 @@ int main(int argc, char *argv[])
 	}
 	pen(penno);
 	while(!feof(fp)) {
-		draw(fp);
+		drw(fp);
 		if(dz) {
 			if(ctype)
 				plot(-ctype * dz, 0.0, -3);
@@ -255,7 +256,7 @@ int main(int argc, char *argv[])
 	exit(0);
 }
 
-int draw(FILE *fp)
+int drw(FILE *fp)
 {
 	register int	k, nitems;
 	char		buf[64];
@@ -364,4 +365,5 @@ int draw(FILE *fp)
 		}
 	}
 	rstbnd();
+	return(0);
 }

@@ -56,6 +56,7 @@
 ***********************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <SPTK.h>
 
 void mgc2sp(double *mgc, int m, double a, double g, double *x, double *y, int flng)
