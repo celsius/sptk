@@ -110,8 +110,11 @@ void usage(int status)
     fprintf(stderr, "  note:\n");
     fprintf(stderr, "       When both -l and -n are specified,\n");
     fprintf(stderr, "       latter argument is adopted.\n");
+#ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
+    fprintf(stderr, "\n");
     exit(status);
 }
 

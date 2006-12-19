@@ -96,6 +96,10 @@ void usage(int status)
     fprintf(stderr, "       extracted vector (float)\n");
     fprintf(stderr, "  ifile:\n");
     fprintf(stderr, "       indexfile (int)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

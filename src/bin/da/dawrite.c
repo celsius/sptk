@@ -124,6 +124,10 @@ void usage(int status)
 	fprintf(stderr, "       data                                              [stdin]\n");
 	fprintf(stderr, "  notice:\n");
 	fprintf(stderr, "       number of infile < %d\n",MAXFILES);
+#ifdef SPTK_VERSION
+	fprintf(stderr, "\n");
+	fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
 	fprintf(stderr, "\n");
 	exit(status);
 }

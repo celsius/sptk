@@ -187,6 +187,10 @@ void usage(int status)
     fprintf(stderr, "  note:\n");
     fprintf(stderr, "       1) Option '-d' may be repeated to use multiple delta parameters.\n");
     fprintf(stderr, "       2) Options '-d' and '-r' shuold not be defined simultaneously.\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

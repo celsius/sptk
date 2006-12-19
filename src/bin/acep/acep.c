@@ -129,6 +129,10 @@ void usage(int status)
     fprintf(stderr, "       prediction error (float)\n");
     fprintf(stderr, "  note:\n");
     fprintf(stderr, "       P = 4 or 5\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");    
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif	    
     fprintf(stderr, "\n");
     exit(status);
 }

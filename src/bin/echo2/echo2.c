@@ -81,6 +81,10 @@ void usage(int status)
     fprintf(stderr, "  options:\n");
     fprintf(stderr, "       -n    : no output newline   [%s]\n", BOOL[NEWLINE]);
     fprintf(stderr, "       -h    : print this message\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

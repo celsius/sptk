@@ -135,6 +135,10 @@ void usage(int status)
     fprintf(stderr, "        5:2 -> %s\n", COEF5DN);
     fprintf(stderr, "        5:4 -> %s\n", COEF5UP);
     fprintf(stderr, "        5:4 -> %s\n", COEF5DN);
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

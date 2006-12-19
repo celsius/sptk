@@ -92,13 +92,17 @@ void usage(int status)
     fprintf(stderr, "       windowed sequence (float)  [stdin]\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       LP coefficients (float)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }
 
 int main(int argc, char **argv)	
 {
-    int		m = ORDER, l = FLNG, flag;
+    int		m = ORDER, l = FLNG, flag, check = 0;
     FILE	*fp = stdin;
     double	*x, *a;
     
@@ -132,8 +136,15 @@ int main(int argc, char **argv)
 
     while (freadf(x, sizeof(*x), l, fp) == l){
 	flag = lpc(x, l, a, m);
+	if(flag < check)
+		check = flag;
 	fwritef(a, sizeof(*a), m+1, stdout);
     }
+    if(check == -1)	
+    	fprintf(stderr, "abnormally completed\n");
+    else if(check == -2)
+	fprintf(stderr, "unstable LPC\n");    
+
     exit(0);
 }
 

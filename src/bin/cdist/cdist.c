@@ -111,6 +111,10 @@ void usage(int status)
     fprintf(stderr, "      minimum-phase cepstrum (float)\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "      cepstral distance (float)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

@@ -116,6 +116,10 @@ void usage(int status)
     fprintf(stderr, "       -h     : print this message \n");
     fprintf(stderr, "  infile:\n");
     fprintf(stderr, "       plotter commands                 [stdin]\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

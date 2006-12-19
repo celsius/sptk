@@ -127,6 +127,10 @@ void usage(int status)
     fprintf(stderr, "       mel-cepstrum (float)\n");
     fprintf(stderr, "  notice:\n");
     fprintf(stderr, "       P = 4 or 5 \n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

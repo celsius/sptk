@@ -112,8 +112,11 @@ void usage(int status)
     fprintf(stderr, "       data sequence                       [stdin]\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       merged data sequence\n");
+#ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
+    fprintf(stderr, "\n");
     exit(status);
 }
 

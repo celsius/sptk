@@ -138,6 +138,10 @@ void usage(int status)
     fprintf(stderr, "       spectrum (float)\n");
     fprintf(stderr, "  notice:\n");
     fprintf(stderr, "       if g > 1.0, g = -1 / g .\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

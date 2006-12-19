@@ -97,6 +97,10 @@ int status;
 	fprintf(stderr, "       data sequence (float)        [stdin]\n");
 	fprintf(stderr, "  stdout:\n");
 	fprintf(stderr, "       FFT seqeunce (float)\n");
+#ifdef SPTK_VERSION
+	fprintf(stderr, "\n");
+	fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
 	fprintf(stderr, "\n");
 	exit(status);
 }

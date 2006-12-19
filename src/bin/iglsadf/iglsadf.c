@@ -113,6 +113,10 @@ void usage(int status)
     fprintf(stderr, "       filter output (float)\n");
     fprintf(stderr, "  gcfile:\n");
     fprintf(stderr, "       generalized cepstrum (float)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

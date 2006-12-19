@@ -87,6 +87,10 @@ void usage(int status)
     fprintf(stderr, "       impulse sequence (float)\n");
     fprintf(stderr, "  notice:\n");
     fprintf(stderr, "       if l < 0, generate infinite sequence\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

@@ -123,6 +123,10 @@ void usage(int status)
     fprintf(stderr, "  note:\n");
     fprintf(stderr, "       if '-d' is specified, off-diagonal elements are suppressed.\n");
     fprintf(stderr, "       '-d' and '-r' are exclusive ('-r' has priority over '-d').\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

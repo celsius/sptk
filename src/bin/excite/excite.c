@@ -113,6 +113,10 @@ void usage(int status)
     fprintf(stderr, "       pitch period (float)         [stdin]\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       excitation (float)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }
