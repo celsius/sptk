@@ -70,7 +70,7 @@
 *									*
 *************************************************************************/
 
-static char rcsid[] = "$Id: pitch.c,v 1.11 2006/12/15 11:06:53 mr_alex Exp $";
+static char rcsid[] = "$Id: pitch.c,v 1.12 2006/12/19 13:04:35 mr_alex Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -120,6 +120,10 @@ void usage(int status)
     fprintf(stderr, "       windowed sequence (float)             [stdin]\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       pitch (float)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

@@ -46,8 +46,8 @@ OBJS		= $(SRCS:.c=.o)
 PREFIX		= /usr/local/SPTK
 BIN		= $(PREFIX)/bin
 
-CC		= gcc
-RM		= rm -rf
+CC		= gcc -ansi -Wall -DSPTK_VERSION=3.1
+RM		= rm -rf 
 INSTALL		= install -cs
 
 INCDIR		= -I../../include
@@ -55,7 +55,6 @@ LIBDIR		= -L../../lib
 CFLAGS		= -O2 $(INCDIR)
 LDFLAGS		= $(LIBDIR)
 LIBS		= -lSPTK -lm
-
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<

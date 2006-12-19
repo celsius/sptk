@@ -61,7 +61,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: ramp.c,v 1.4 2006/12/15 11:06:54 mr_alex Exp $";
+static char *rcs_id = "$Id: ramp.c,v 1.5 2006/12/19 13:04:35 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -106,6 +106,10 @@ void usage(int status)
     fprintf(stderr, "       if l < 0, generate infinite sequence\n");
     fprintf(stderr, "       When -l and -n and -e are specified 2 or more,\n");
     fprintf(stderr, "       latter argument is adopted.\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

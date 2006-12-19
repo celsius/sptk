@@ -67,7 +67,7 @@
 *		if L > l, (L-l)-zeros are padded			*
 *									*
 ************************************************************************/
-static char *rcs_id = "$Id: window.c,v 1.4 2006/12/15 11:06:58 mr_alex Exp $";
+static char *rcs_id = "$Id: window.c,v 1.5 2006/12/19 13:04:42 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -111,6 +111,10 @@ int usage()
 	fprintf(stderr, "       data sequence (float)          [stdin]\n"); 
 	fprintf(stderr, "  stdout:\n"); 
 	fprintf(stderr, "       windowed data sequence (float)\n"); 
+#ifdef SPTK_VERSION
+	fprintf(stderr, "\n");
+        fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
 	fprintf(stderr, "\n");
 	exit(1);
 }

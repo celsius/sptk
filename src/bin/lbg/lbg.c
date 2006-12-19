@@ -75,7 +75,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: lbg.c,v 1.5 2006/12/15 11:06:44 mr_alex Exp $";
+static char *rcs_id = "$Id: lbg.c,v 1.6 2006/12/19 13:04:20 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -125,6 +125,10 @@ void usage(int status)
     fprintf(stderr, "  notice:\n");
     fprintf(stderr, "       codebook size (s and e) must be power of 2\n");
     fprintf(stderr, "       -t option can be omitted, when input from redirect\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

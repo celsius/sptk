@@ -63,7 +63,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2par.c,v 1.4 2006/12/15 11:06:46 mr_alex Exp $";
+static char *rcs_id = "$Id: lpc2par.c,v 1.5 2006/12/19 13:04:23 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -106,6 +106,10 @@ void usage(int status)
     fprintf(stderr, "       0 <stable>, -1 <unstable> (int) if -s option is specified\n");
     fprintf(stderr, "  notice:\n");
     fprintf(stderr, "       if g > 1.0, g = -1 / g\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

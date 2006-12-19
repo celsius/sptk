@@ -65,7 +65,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.5 2006/12/15 11:06:55 mr_alex Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.6 2006/12/19 13:04:37 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -111,6 +111,10 @@ void usage(int status)
     fprintf(stderr, "      data sequence\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "      SNR, SNRseg\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

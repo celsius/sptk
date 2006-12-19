@@ -64,7 +64,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.6 2006/12/15 11:06:58 mr_alex Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.7 2006/12/19 13:04:43 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -115,8 +115,11 @@ void usage(int status)
     fprintf(stderr, "       data sequence                                    [stdin]\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       transformed data sequence\n");
+#ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
+    fprintf(stderr, "\n");
     exit(status);
 }
 

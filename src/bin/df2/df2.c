@@ -96,8 +96,11 @@ int status;
 	fprintf(stderr, "       filter output (float)\n");
 	fprintf(stderr, "  note:\n");
 	fprintf(stderr, "       -p and -z option can be specified repeatedly.\n");
+#ifdef SPTK_VERSION
 	fprintf(stderr, "\n");
-
+	fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
+	fprintf(stderr, "\n");
 	exit(status);
 }
 

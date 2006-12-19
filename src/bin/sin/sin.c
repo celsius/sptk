@@ -58,7 +58,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: sin.c,v 1.4 2006/12/15 11:06:55 mr_alex Exp $";
+static char *rcs_id = "$Id: sin.c,v 1.5 2006/12/19 13:04:37 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -94,6 +94,10 @@ void usage(int status)
     fprintf(stderr, "       sinusoidal sequence (float)\n");
     fprintf(stderr, "  notice:\n");
     fprintf(stderr, "       if l < 0, generate infinite sequence\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

@@ -64,7 +64,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: zerodf.c,v 1.4 2006/12/15 11:06:59 mr_alex Exp $";
+static char *rcs_id = "$Id: zerodf.c,v 1.5 2006/12/19 13:04:44 mr_alex Exp $";
 
 
 /*  Standard C Libralies  */
@@ -107,6 +107,10 @@ void usage(int status)
     fprintf(stderr, "       filter output (float)\n");
     fprintf(stderr, "  bfile:\n");
     fprintf(stderr, "       MA coefficients (float)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

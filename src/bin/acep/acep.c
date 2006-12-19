@@ -71,7 +71,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: acep.c,v 1.3 2006/12/11 06:50:38 mr_alex Exp $";
+static char *rcs_id = "$Id: acep.c,v 1.4 2006/12/19 13:02:38 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -129,6 +129,10 @@ void usage(int status)
     fprintf(stderr, "       prediction error (float)\n");
     fprintf(stderr, "  note:\n");
     fprintf(stderr, "       P = 4 or 5\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");    
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif	    
     fprintf(stderr, "\n");
     exit(status);
 }

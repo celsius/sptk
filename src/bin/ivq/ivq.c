@@ -58,7 +58,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: ivq.c,v 1.3 2006/12/11 07:16:38 mr_alex Exp $";
+static char *rcs_id = "$Id: ivq.c,v 1.4 2006/12/19 13:04:17 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -93,6 +93,10 @@ void usage(int status)
     fprintf(stderr, "       quantized vector (float)\n");
     fprintf(stderr, "  cbfile:\n");
     fprintf(stderr, "       codebook (float)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

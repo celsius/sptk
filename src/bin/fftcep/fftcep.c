@@ -65,7 +65,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftcep.c,v 1.7 2006/12/15 11:06:38 mr_alex Exp $";
+static char *rcs_id = "$Id: fftcep.c,v 1.8 2006/12/19 13:04:06 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -107,6 +107,10 @@ void usage(int status)
     fprintf(stderr, "  note:\n");
     fprintf(stderr, "       When -j & -k options are specified,\n");
     fprintf(stderr, "       improved cepstral analysis is performed.\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

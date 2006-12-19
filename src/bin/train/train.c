@@ -59,7 +59,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: train.c,v 1.4 2006/12/15 11:06:56 mr_alex Exp $";
+static char *rcs_id = "$Id: train.c,v 1.5 2006/12/19 13:04:39 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -96,6 +96,10 @@ void usage(int status)
     fprintf(stderr, "       -h    : print this message\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       pulse sequence (float)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

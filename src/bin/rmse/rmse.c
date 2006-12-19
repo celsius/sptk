@@ -59,7 +59,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: rmse.c,v 1.4 2006/12/15 11:06:54 mr_alex Exp $";
+static char *rcs_id = "$Id: rmse.c,v 1.5 2006/12/19 13:04:36 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -99,6 +99,10 @@ void usage(int status)
     fprintf(stderr, "      root mean squared error (float)\n");
     fprintf(stderr, "  notice:\n");
     fprintf(stderr, "      if l > 0, calculate rmse frame by frame\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

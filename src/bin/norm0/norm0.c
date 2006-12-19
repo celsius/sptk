@@ -56,7 +56,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: norm0.c,v 1.4 2006/12/15 11:06:52 mr_alex Exp $";
+static char *rcs_id = "$Id: norm0.c,v 1.5 2006/12/19 13:04:32 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -87,6 +87,10 @@ void usage(int status)
     fprintf(stderr, "       coefficients (float)       [stdin]\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       normalized coefficients (float)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

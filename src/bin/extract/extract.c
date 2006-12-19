@@ -59,7 +59,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: extract.c,v 1.4 2006/12/15 11:06:35 mr_alex Exp $";
+static char *rcs_id = "$Id: extract.c,v 1.5 2006/12/19 13:02:47 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -96,6 +96,10 @@ void usage(int status)
     fprintf(stderr, "       extracted vector (float)\n");
     fprintf(stderr, "  ifile:\n");
     fprintf(stderr, "       indexfile (int)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }

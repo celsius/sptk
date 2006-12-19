@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.4 2006/12/11 07:16:39 mr_alex Exp $
+    $Id: _mcep.c,v 1.5 2006/12/19 13:04:26 mr_alex Exp $
 
     Mel-Cepstral Analysis
 
@@ -103,8 +103,12 @@ int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, 
     /*  power spectrum  */
     fftr(x, y, flng);
     for(i=0; i<flng; i++){
-	x[i] = x[i]*x[i] + y[i]*y[i];
-	c[i] = log(x[i]+=e);
+	x[i] = x[i]*x[i] + y[i]*y[i] + e;
+	if(x[i] <= 0){
+	   fprintf(stderr,"mcep : The log periodogram has the value of '0' consider to use '-e' option !\n");
+	   exit(0);
+	}
+	c[i] = log(x[i]);
     }
 	
     /*  1, (-a), (-a)^2, ..., (-a)^M  */

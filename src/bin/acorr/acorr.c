@@ -54,7 +54,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: acorr.c,v 1.3 2006/12/11 07:06:02 mr_alex Exp $";
+static char *rcs_id = "$Id: acorr.c,v 1.4 2006/12/19 13:02:38 mr_alex Exp $";
 
 
 /* Standard C Libraries */
@@ -87,6 +87,10 @@ void usage(int status)
 	fprintf(stderr, "       data sequence (float)      [stdin]\n");
 	fprintf(stderr, "  stdout:\n");
 	fprintf(stderr, "       autocorrelation sequence (float)\n");
+#ifdef SPTK_VERSION
+	fprintf(stderr, "\n");
+	fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif		
 	fprintf(stderr, "\n");
 	exit(status);
 }

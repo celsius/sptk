@@ -101,6 +101,10 @@ int usage()
     fprintf(stderr, "       coefficients of polynomial (float) [stdin]\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       root of polynomial (float)\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(1);
 }

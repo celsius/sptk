@@ -65,7 +65,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.6 2006/12/11 07:16:35 mr_alex Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.7 2006/12/19 13:02:43 mr_alex Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -124,6 +124,10 @@ void usage(int status)
 	fprintf(stderr, "       data                                              [stdin]\n");
 	fprintf(stderr, "  notice:\n");
 	fprintf(stderr, "       number of infile < %d\n",MAXFILES);
+#ifdef SPTK_VERSION
+	fprintf(stderr, "\n");
+	fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
 	fprintf(stderr, "\n");
 	exit(status);
 }

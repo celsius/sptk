@@ -67,7 +67,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: lmadf.c,v 1.4 2006/12/15 11:06:45 mr_alex Exp $";
+static char *rcs_id = "$Id: lmadf.c,v 1.5 2006/12/19 13:04:22 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -118,6 +118,10 @@ void usage(int status)
     fprintf(stderr, "       cepstrum (float)\n");
     fprintf(stderr, "  note:\n");
     fprintf(stderr, "       P = 4 or 5\n");
+#ifdef SPTK_VERSION
+    fprintf(stderr, "\n");
+    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+#endif
     fprintf(stderr, "\n");
     exit(status);
 }
