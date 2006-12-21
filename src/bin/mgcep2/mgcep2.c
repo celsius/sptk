@@ -126,7 +126,7 @@ void usage(int status)
     fprintf(stderr, "       mel-generalized cepstrum (float)\n");
 #ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
     fprintf(stderr, "\n");
     exit(status);
@@ -202,6 +202,10 @@ int main(int argc, char **argv)
 
 	fwritef(c, sizeof(*c), m+1, stdout);
     }
+    if(flag == 0)
+	    fprintf(stderr, "completed by end condition\n");
+    else if(flag == -1)
+	    fprintf(stderr, "completed by maximum iteration\n");	
     exit(0);
 }
 

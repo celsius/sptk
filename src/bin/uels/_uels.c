@@ -94,6 +94,10 @@ int uels(double *xw, int flng, double *c, int m, int itr1, int itr2, double dd, 
     fftr(x, y, flng);				/*  x+jy : X(w)  */
     for (i=0; i<flng; i++){			/*  x : log|X(w)|^2  */
 	    x[i] = x[i]*x[i] + y[i]*y[i] + e;
+	    if(x[i] <= 0){
+		    fprintf(stderr,"uels : The log periodogram has the value of '0' consider to use '-e' option !\n");
+		    exit(0);
+	    }	    
 	    x[i] = cr[i] = log(x[i]);
     }
     ifftr(cr, y, flng);				/*  cr : c(m)  */

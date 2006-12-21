@@ -134,7 +134,7 @@ void usage(int status)
     fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
 #ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
     fprintf(stderr, "\n");
     exit(status);
@@ -229,6 +229,10 @@ int main(int argc, char **argv)
 
 	fwritef(b, sizeof(*b), m+1, stdout);
     }
+    if(flag == 0)
+	fprintf(stderr,"completed by end condition");
+    else if (flag == -1)
+	fprintf(stderr,"completed by maximum iteration");
     exit(0);
 }
 

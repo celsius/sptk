@@ -242,8 +242,8 @@ double newton(double *x, int flng, double *c, int m, double a, double g, int n, 
 
     /*  c[0] : gain, t : epsilon  */
     if (g == -1.0) 
-	c[0] = sqrt(t = gain(rr, c, m, g));
-    
+	c[0] = sqrt(t = gain(rr, c, m, g));    
+	
     return(log(t));
 }
 

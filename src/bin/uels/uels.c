@@ -82,10 +82,8 @@ static char *rcs_id = "$Id$";
 #define END		0.001
 #define EPS		0.0
 
-
 /*  Command Name  */
 char	*cmnd;
-
 
 void usage(int status)
 {
@@ -109,7 +107,7 @@ void usage(int status)
     fprintf(stderr, "       cepstrum (float)\n");
 #ifdef SPTK_VERSION
     fprintf(stderr, "\n");    
-    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+    fprintf(stderr, " SPTK: version %s", SPTK_VERSION);
 #endif
     fprintf(stderr, "\n");
     exit(status);
@@ -120,7 +118,7 @@ int main(int argc, char **argv)
     int	     m = ORDER, flng = FLENG, itr1 = MINITR, itr2 = MAXITR, flag = 0;
     FILE     *fp = stdin;
     double   *c, *x, end = END, e = EPS, atof();    
-
+    
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	cmnd = argv[0];
     else
@@ -169,6 +167,10 @@ int main(int argc, char **argv)
 	flag = uels(x, flng, c, m, itr1, itr2, end, e);
 	fwritef(c, sizeof(*c), m+1, stdout);
     }
+    if(flag == 0)
+	    fprintf(stderr, "completed by end condition\n");
+    else if(flag == -1)
+	    fprintf(stderr, "completed by maximum iteration\n");	
     exit(0);
 }
 

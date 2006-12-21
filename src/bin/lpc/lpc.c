@@ -94,7 +94,7 @@ void usage(int status)
     fprintf(stderr, "       LP coefficients (float)\n");
 #ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
     fprintf(stderr, "\n");
     exit(status);
@@ -136,15 +136,15 @@ int main(int argc, char **argv)
 
     while (freadf(x, sizeof(*x), l, fp) == l){
 	flag = lpc(x, l, a, m);
-	if(flag < check)
-		check = flag;
 	fwritef(a, sizeof(*a), m+1, stdout);
     }
-    if(check == -1)	
+    
+    if(check == 0)
+	fprintf(stderr, "normally completed\n");		     
+    else if(check == -1)	
     	fprintf(stderr, "abnormally completed\n");
     else if(check == -2)
 	fprintf(stderr, "unstable LPC\n");    
-
     exit(0);
 }
 

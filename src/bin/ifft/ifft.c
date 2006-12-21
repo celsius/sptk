@@ -89,7 +89,7 @@ int usage()
 	fprintf(stderr, "       IFFT sequence (float)\n");
 #ifdef SPTK_VERSION
 	fprintf(stderr, "\n");
-	fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+	fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
 	fprintf(stderr, "\n");
 	exit(1);
@@ -105,6 +105,7 @@ int main(int argc,char *argv[])
 	else
 	        cmnd++;
 	while (--argc){
+		
 		if(*(s = *++argv) == '-') {
 			c = *++s;
 			if( c == 'l' && *++s == '\0' ) {

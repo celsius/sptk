@@ -94,7 +94,7 @@ int status;
 	fprintf(stderr, "       result messages\n");
 #ifdef SPTK_VERSION
 	fprintf(stderr, "\n");
-	fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+	fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
 	fprintf(stderr, "\n");
 	exit(status);
