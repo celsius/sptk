@@ -64,7 +64,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: vq.c,v 1.4 2006/12/19 13:04:41 mr_alex Exp $";
+static char *rcs_id = "$Id: vq.c,v 1.5 2006/12/21 07:23:21 mr_alex Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -107,7 +107,7 @@ void usage(int status)
     fprintf(stderr, "       codebook (float)\n");
 #ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
     fprintf(stderr, "\n");
     exit(status);

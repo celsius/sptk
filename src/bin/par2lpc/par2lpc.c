@@ -58,7 +58,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: par2lpc.c,v 1.5 2006/12/19 13:04:34 mr_alex Exp $";
+static char *rcs_id = "$Id: par2lpc.c,v 1.6 2006/12/21 07:23:19 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -91,7 +91,7 @@ void usage(int status)
     fprintf(stderr, "       LP coefficients (float)\n");
 #ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
     fprintf(stderr, "\n");
     exit(status);

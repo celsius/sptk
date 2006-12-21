@@ -65,7 +65,7 @@
 *												*
 ************************************************************************************************/
 
-static char *rcs_id = "$Id: rndpg.c,v 1.4 2006/12/19 13:04:36 mr_alex Exp $";
+static char *rcs_id = "$Id: rndpg.c,v 1.5 2006/12/21 07:23:20 mr_alex Exp $";
 
 
 /* Standard C Libraries */
@@ -203,7 +203,7 @@ void usage(int status)
     fprintf(stderr, "       2) Options '-d' and '-r' shuold not be defined simultaneously.\n");
 #ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
     fprintf(stderr, "\n");
     exit(status);

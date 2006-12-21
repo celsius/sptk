@@ -45,8 +45,9 @@ OBJS		= $(SRCS:.c=.o)
 
 PREFIX		= /usr/local/SPTK
 BIN		= $(PREFIX)/bin
+VERSION         = 3.1
 
-CC		= gcc -ansi -Wall -DSPTK_VERSION=3.1
+CC		= gcc -ansi -Wall -DSPTK_VERSION=\"$(VERSION)\"
 RM		= rm -rf 
 INSTALL		= install -cs
 

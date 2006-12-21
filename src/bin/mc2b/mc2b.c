@@ -96,7 +96,7 @@ void usage(int status)
     fprintf(stderr, "       MLSA filter coefficients (float)\n");
 #ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
     fprintf(stderr, "\n");
     exit(status);

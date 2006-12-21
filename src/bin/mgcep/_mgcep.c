@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mgcep.c,v 1.3 2006/12/11 07:16:40 mr_alex Exp $
+    $Id: _mgcep.c,v 1.4 2006/12/21 07:23:18 mr_alex Exp $
 
     Mel-Generalized Cepstral Analysis
 
@@ -242,8 +242,8 @@ double newton(double *x, int flng, double *c, int m, double a, double g, int n, 
 
     /*  c[0] : gain, t : epsilon  */
     if (g == -1.0) 
-	c[0] = sqrt(t = gain(rr, c, m, g));
-    
+	c[0] = sqrt(t = gain(rr, c, m, g));    
+	
     return(log(t));
 }
 

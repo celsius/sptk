@@ -66,7 +66,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: mcep.c,v 1.5 2006/12/19 13:04:26 mr_alex Exp $";
+static char *rcs_id = "$Id: mcep.c,v 1.6 2006/12/21 07:23:18 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -112,7 +112,7 @@ void usage(int status)
     fprintf(stderr, "       mel-cepstrum (float)\n");
 #ifdef SPTK_VERSION
     fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version%.1f",SPTK_VERSION);
+    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
     fprintf(stderr, "\n");
     exit(status);
@@ -177,6 +177,10 @@ int main(int argc, char **argv)
 	flag = mcep(x, flng, mc, m, a, itr1, itr2, end, e);
 	fwritef(mc, sizeof(*mc), m+1, stdout);
     }
+    if(flag == 0)
+    	fprintf(stderr, "completed by end condition\n");
+    else if(flag == -1)
+	fprintf(stderr, "completed by maximum iteration\n");			
     exit(0);
 }
 
