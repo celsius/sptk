@@ -56,7 +56,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: dmp.c,v 1.7 2006/12/21 07:23:14 mr_alex Exp $";
+static char *rcs_id = "$Id: dmp.c,v 1.8 2007/01/13 06:13:35 s_sako Exp $";
 
 
 /*  Standard C Libraries  */
@@ -95,7 +95,7 @@ void usage(int status)
     fprintf(stderr, "       data sequence                        [stdin]\n");
     fprintf(stderr, "  stdout:\n");
     fprintf(stderr, "       dumped sequence\n");
-#ifdef SPTK_VERSION<F12>
+#ifdef SPTK_VERSION
     fprintf(stderr, "\n");
     fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif
