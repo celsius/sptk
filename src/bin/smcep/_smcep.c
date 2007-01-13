@@ -66,7 +66,9 @@
 #include <math.h>
 #include <SPTK.h>
 
+#ifndef M_PI
 #define M_PI    3.1415926535897932384626433832795
+#endif
 #define M_2PI   6.2831853071795864769252867665590
 
 int smcep(double *xw, int flng,double *mc, int m, int fftsz, double a, double t, int itr1,int itr2,double dd,double e)
