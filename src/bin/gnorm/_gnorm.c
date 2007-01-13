@@ -50,6 +50,7 @@
 	double	  g :  gamma
 
 ************************************************************************/
+#include <stdio.h>
 #include <SPTK.h>
 
 void gnorm(double *c1, double *c2, int m, double g)

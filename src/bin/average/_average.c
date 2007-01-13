@@ -50,6 +50,7 @@
 	return value :  average of data
 
 ***************************************************************/
+#include <stdio.h>
 #include <SPTK.h>
 
 double average(double *x, int n)

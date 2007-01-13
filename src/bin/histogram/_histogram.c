@@ -37,6 +37,7 @@
  ----------------------------------------------------------------
 */
 
+#include <stdio.h>
 #include <SPTK.h>
 
 int	histogram(double *x, int size, double min, double max, double step, double *h)

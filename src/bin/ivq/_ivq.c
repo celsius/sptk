@@ -51,6 +51,7 @@
 	double *x     : decoded vector
 
 *****************************************************************/
+#include <stdio.h>
 #include <SPTK.h>
 
 void ivq(int index, double *cb, int l, double *x)
