@@ -63,6 +63,7 @@
 #include <stdlib.h>
 #include <SPTK.h>
 
+void lplp(double *r, double *c, int m);
 
 int uels(double *xw, int flng, double *c, int m, int itr1, int itr2, double dd, double e)
 {

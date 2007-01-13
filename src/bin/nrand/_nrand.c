@@ -56,6 +56,10 @@
 
 #define	RAND_MAX	32767
 
+double nrandom(unsigned long *next);
+double rnd(unsigned long *next);
+unsigned long srnd( unsigned seed);
+
 int nrand(double *p, int leng, int seed)
 {
     int i;

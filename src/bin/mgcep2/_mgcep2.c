@@ -61,13 +61,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
 #define min(x,y) (x < y ? x : y)
 #define abs(x)   (x < 0 ? -x : x)
 
-double exp(), pow(), log(), log10(), sqrt(), fabs();
-double calckg();
+void c2gc(double *c, double *gc, int order, double gamma);
+void gc2c(double *gc, double *c, int order, double gamma);
+double calckg(double *c, double *aa, int order, double gamma);
 
 int mgcep2(double *xw, int flng, double *c, int order, double alpha, int minitr, int maxitr, double thr)
 {

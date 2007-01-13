@@ -63,6 +63,7 @@
 #include <stdlib.h>
 #include <SPTK.h>
 
+void phidf(double x, int m, double a, double *d);
 
 double amcep(double x, double *b, int m, double a, double lambda, double step, double tau, int pd, double eps)
 {
