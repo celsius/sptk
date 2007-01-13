@@ -62,6 +62,11 @@ struct page_media  {
 
 #define	norm(x)		(int)(x)
 
+typedef struct cord  {
+	int	x;
+	int	y;
+} Cord;
+
 extern char	*filename;
 extern char	*title;
 extern char	*progname;
@@ -92,8 +97,8 @@ void dict();
 void plot( FILE *fp );
 void _move(int x, int y );
 void _line(FILE *fp );
-int _getcord(FILE *fp, int *buf );
-void _send(int *buf );
+int _getcord(FILE *fp, Cord *buf);
+void _send(Cord *buf);
 void _flush();
 void polylines(int *x,int *y,int n );
 void polyg( FILE *fp,int type );

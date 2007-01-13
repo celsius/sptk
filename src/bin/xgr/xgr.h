@@ -65,6 +65,11 @@
 #define XLENG_LAND	2870
 #define YLENG_LAND	1995
 
+typedef struct cord  {
+	int	x;
+	int	y;
+} Cord;
+
 void open_display(char *display_name );
 void init_window(int argc,char *argv[]);
 void init_pixmap();
@@ -78,8 +83,8 @@ void get_window_size();
 unsigned long	get_color_pix(char *color_name );
 static short normy(int y );
 static void _flush();
-static void _send(int *buf );
-static int _getcord(int *buf );
+static void _send(Cord *buf);
+static int _getcord(Cord *buf);
 static void _line();
 static void _move(int x,int y );
 static int polyg(int type );

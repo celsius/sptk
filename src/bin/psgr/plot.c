@@ -86,10 +86,7 @@ static char	*symbol_lw = "abgdezhqiklmnxoprstufcyw";
 static char     *font[] = { "FnS", "FnC", "FnCO", "FnCB", "FnCBO" };
 static float	fnmag[] = {  1.375,  1.50,   1.50,   1.50,   1.50  };
 
-static struct	cord  {
-	int	x;
-	int	y;
-}  pb;
+Cord pb;
 
 static int	xb[BUFSIZE], yb[BUFSIZE];
 static int	sp = 1;
@@ -100,8 +97,8 @@ static int	init_str_flag = 0;	/*  Initial string segment
 void plot( FILE *fp );
 void _move(int x, int y );
 void _line(FILE *fp );
-int _getcord(FILE *fp, int *buf );
-void _send(int *buf );
+int _getcord(FILE *fp, struct cord *buf );
+void _send(struct cord *buf);
 void _flush();
 void polylines(int *x,int *y,int n );
 void polyg( FILE *fp,int type );
@@ -175,7 +172,7 @@ void _line(FILE *fp )
 	_flush();
 }
 
-int _getcord(FILE *fp, int *buf )
+int _getcord(FILE *fp, struct cord *buf )
 {
 	register int	c;
 
@@ -183,19 +180,19 @@ int _getcord(FILE *fp, int *buf )
 		;
 	if ( c )  {
 		ungetc(c, fp);
-		fscanf(fp, "%d %d", buf, buf+1);
+		fscanf(fp, "%d %d", &(buf->x), &(buf->y));
 		return(1);
 	}
 	else
 		return(0);
 }
 
-void _send(int *buf )
+void _send(struct cord *buf)
 {
 	if ( sp == BUFSIZE )
 		_flush();
-	xb[sp]   = norm(*buf++);
-	yb[sp++] = norm(*buf);
+	xb[sp]   = norm(buf->x);
+	yb[sp++] = norm(buf->y);
 }
 
 void _flush()
