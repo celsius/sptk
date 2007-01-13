@@ -72,6 +72,10 @@
 
 typedef struct { double re,im;} complex;
 
+complex *cplx_getmem(int leng);
+void root_pol(double *a, int odr,complex *x,int a_zero,double eps,int itrat);
+void out(complex *x, int odr,int form);
+
 /* Default Values */
 #define ORDER   32
 #define ITER    1000
