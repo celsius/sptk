@@ -39,7 +39,7 @@
 
 /***************************************************************
 
-    $Id: _par2lpc.c,v 1.4 2006/12/15 11:06:52 mr_alex Exp $
+    $Id: _par2lpc.c,v 1.5 2007/01/13 05:47:22 s_sako Exp $
 
     Transformation PARCOR to LPC
 
@@ -50,6 +50,7 @@
 	int     m    : order of LPC
 
 ****************************************************************/
+#include <stdio.h>
 #include <SPTK.h>
 
 void par2lpc(double *k, double *a, int m)

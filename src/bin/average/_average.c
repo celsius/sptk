@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: _average.c,v 1.4 2006/12/15 11:06:29 mr_alex Exp $
+    $Id: _average.c,v 1.5 2007/01/13 05:47:21 s_sako Exp $
 
     Calculation of Average
 
@@ -50,6 +50,7 @@
 	return value :  average of data
 
 ***************************************************************/
+#include <stdio.h>
 #include <SPTK.h>
 
 double average(double *x, int n)

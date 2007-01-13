@@ -38,7 +38,7 @@
 */
 
 /************************************************************************
-  $Id: _gnorm.c,v 1.4 2006/12/15 11:06:42 mr_alex Exp $
+  $Id: _gnorm.c,v 1.5 2007/01/13 05:47:21 s_sako Exp $
 
     Gain Normalization
 	
@@ -50,6 +50,7 @@
 	double	  g :  gamma
 
 ************************************************************************/
+#include <stdio.h>
 #include <SPTK.h>
 
 void gnorm(double *c1, double *c2, int m, double g)
