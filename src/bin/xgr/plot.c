@@ -55,10 +55,7 @@
 */
 #define direction(x)	{}
 
-static struct	cord  {
-	int	x;
-	int	y;
-}  pb;
+Cord pb;
 
 static int	sp = 1;
 static int	cw = FCW, ch = FCH, th = 0;
@@ -106,16 +103,16 @@ static void _flush()
 	}
 }
 
-static void _send(int *buf )
+static void _send(Cord *buf )
 {
 	if (sp == SIZE)
 		_flush();
 
-	points[sp  ].x = normx(*buf++);
-	points[sp++].y = normy(*buf);
+	points[sp  ].x = normx(buf->x);
+	points[sp++].y = normy(buf->y);
 }
 
-static int _getcord(int *buf )
+static int _getcord(Cord *buf )
 {
 	register int	c;
 
@@ -123,7 +120,7 @@ static int _getcord(int *buf )
 		;
 	if (c)  {
 		ungetc(c, stdin);
-		scanf("%d %d", buf, buf+1);
+		scanf("%d %d", &(buf->x), &(buf->y));
 		return(1);
 	}
 	else
