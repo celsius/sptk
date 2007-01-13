@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mgcep.c,v 1.4 2006/12/21 07:23:18 mr_alex Exp $
+    $Id: _mgcep.c,v 1.5 2007/01/13 06:06:36 s_sako Exp $
 
     Mel-Generalized Cepstral Analysis
 
@@ -64,10 +64,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
 #include <SPTK.h>
 
-double exp(), pow(), sqrt(), fabs();
-double gain();
+double gain(double *er, double *c, int m, double g);
+void b2c(double *b, int m1, double *c, int m2, double a);
+void ptrans(double *p, register int m, double a);
+void qtrans(double *q, register int m, double a);
 
 int mgcep(double *xw, int flng, double *b, int m, double a, double g, int n, int itr1, int itr2, double dd, double e)
 {

@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _amcep.c,v 1.4 2006/12/15 11:06:29 mr_alex Exp $
+    $Id: _amcep.c,v 1.5 2007/01/13 06:06:36 s_sako Exp $
 
     Adaptive Mel Cepstral Analysis
 
@@ -63,6 +63,7 @@
 #include <stdlib.h>
 #include <SPTK.h>
 
+void phidf(double x, int m, double a, double *d);
 
 double amcep(double x, double *b, int m, double a, double lambda, double step, double tau, int pd, double eps)
 {

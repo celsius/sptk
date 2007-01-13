@@ -38,7 +38,7 @@
 */
 
 /****************************************************************
-  $Id: _nrand.c,v 1.3 2006/12/11 07:16:40 mr_alex Exp $
+  $Id: _nrand.c,v 1.4 2007/01/13 06:06:36 s_sako Exp $
 
     Generate Normal Distributed Random Value
         nrand(p, leng, seed)
@@ -55,6 +55,10 @@
 
 
 #define	RAND_MAX	32767
+
+double nrandom(unsigned long *next);
+double rnd(unsigned long *next);
+unsigned long srnd( unsigned seed);
 
 int nrand(double *p, int leng, int seed)
 {

@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _uels.c,v 1.7 2006/12/21 07:23:21 mr_alex Exp $
+    $Id: _uels.c,v 1.8 2007/01/13 06:06:36 s_sako Exp $
 
     Unbiased Estimation of Log Spectrum
 
@@ -63,6 +63,7 @@
 #include <stdlib.h>
 #include <SPTK.h>
 
+void lplp(double *r, double *c, int m);
 
 int uels(double *xw, int flng, double *c, int m, int itr1, int itr2, double dd, double e)
 {
