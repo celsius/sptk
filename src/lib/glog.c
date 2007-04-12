@@ -38,9 +38,9 @@
 */
 
 /****************************************************************
-    $Id: glog.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
+    $Id: glog.c,v 1.4 2007/04/12 08:59:39 kyo_n Exp $
 
-    Generalized Logarithmic Function (real argument)
+     Generalized Logarithmic Function (real argument)
 
 	double glog(r, x)
 
