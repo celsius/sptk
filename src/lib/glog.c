@@ -40,7 +40,7 @@
 /****************************************************************
     $Id$
 
-    Generalized Logarithmic Function (real argument)
+     Generalized Logarithmic Function (real argument)
 
 	double glog(r, x)
 
