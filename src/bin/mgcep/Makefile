@@ -39,22 +39,22 @@
 # Makefile for commands
 #
 
-TARGET		= mgcep
-SRCS		= _$(TARGET).c $(TARGET).c
-OBJS		= $(SRCS:.c=.o)
+TARGET = mgcep
+SRCS = _$(TARGET).c $(TARGET).c
+OBJS = $(SRCS:.c=.o)
 
-PREFIX		= /usr/local/SPTK
-BIN		= $(PREFIX)/bin
+PREFIX = /usr/local/SPTK
+BIN = $(PREFIX)/bin
 
-CC		= gcc
-RM		= rm -rf
-INSTALL		= install -cs
+CC	= gcc
+RM	= rm -rf
+INSTALL = install -cs
 
-INCDIR		= -I../../include
-LIBDIR		= -L../../lib
-CFLAGS		= -O2 $(INCDIR)
-LDFLAGS		= $(LIBDIR)
-LIBS		= -lSPTK -lm
+INCDIR = -I../../include
+LIBDIR = -L../../lib
+CFLAGS = -O2 $(INCDIR)
+LDFLAGS = $(LIBDIR)
+LIBS = -lSPTK -lm
 
 
 .c.o:
