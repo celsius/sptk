@@ -116,7 +116,7 @@ float **ffgetmem(int leng)
 }
 
 
-char *getmem(int leng, unsigned size)
+char *getmem(int leng, unsigned int size)
 {
     char *p = NULL;
 
