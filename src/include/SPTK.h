@@ -68,7 +68,7 @@ float *fgetmem(int);
 float **ffgetmem(int);
 /*real   *rgetmem();*/
 double *dgetmem(int);
-char *getmem(int);
+char *getmem(int, unsigned int);
 
 FILE *getfp(char *, char *);
 
