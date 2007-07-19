@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+   Speech Signal Processing Toolkit (SPTK): version 3.0
+          SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+         Department of Computer Science
+         Nagoya Institute of Technology
+            and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+         Tokyo Institute of Technology
+            Copyright (c) 1984-2000
+         All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,47 +38,47 @@
 */
 
 /***********************************************************
-	Speech Signal Processing Toolkit
-		SPTK.h
+   Speech Signal Processing Toolkit
+   SPTK.h
 ***********************************************************/
 
 #ifndef PI
-#define	PI	3.14159265358979323846
-#define PI2	6.28318530717958647692
+#define PI 3.14159265358979323846
+#define PI2 6.28318530717958647692
 #endif
 
 /* #ifndef ABS(x) */
-#define ABS(x)	(x < 0. ? -x : x)
+#define ABS(x) (x < 0. ? -x : x)
 /* #endif */
 
 typedef enum _Window {
-	BLACKMAN,
-	HAMMING,
-	HANNING,
-	BARTLETT,
-	TRAPEZOID,
-	RECTANGULAR
+   BLACKMAN,
+   HAMMING,
+   HANNING,
+   BARTLETT,
+   TRAPEZOID,
+   RECTANGULAR
 } Window;
 
-void	fillz();
-void	movem()	;
-short	*sgetmem();
-long	*lgetmem();
-float	*fgetmem();
-float	**ffgetmem();
-/*real	*rgetmem();*/
-double	*dgetmem();
-char	*getmem();
+void fillz(char *, int, int);
+void movem(char *, char *, int, int);
+short *sgetmem(int);
+long *lgetmem(int);
+float *fgetmem(int);
+float **ffgetmem(int);
+/*real   *rgetmem();*/
+double *dgetmem(int);
+char *getmem(int);
 
-FILE	*getfp();
+FILE *getfp(char *, char *);
 
 #ifdef DOUBLE
-#define	fwritef	fwrite
-#define	freadf	fread
-#else	/* DOUBLE */
-int	fwritef();
-int	freadf();
-#endif	/* DOUBLE */
+#define fwritef fwrite
+#define freadf  fread
+#else /* DOUBLE */
+int fwritef();
+int freadf();
+#endif /* DOUBLE */
 
-int	theq();
+int theq(double *, double *, double *, double *, int, double);
 
