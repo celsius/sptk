@@ -37,35 +37,32 @@
 
 ########################################################################
 #
-# Makefile for Speech Signal Processing Commands
+# Makefile for Speech Signal Processing Toolkit
 #
 ########################################################################
 #
 # Location to install programs, libraries, and include files.
 #
-PREFIX		= /usr/local/SPTK
-BIN		= $(PREFIX)/bin
-LIB		= $(PREFIX)/lib
-INCLUDE		= $(PREFIX)/include
+PREFIX = /usr/local/SPTK
+BIN = $(PREFIX)/bin
+LIB = $(PREFIX)/lib
+INCLUDE = $(PREFIX)/include
 
 #
 # Directories which contain libraries and include files of X11.
 #
-XINCDIR		= /usr/X11R6/include
-XLIBDIR		= /usr/X11R6/lib
-XLIBS		= -lX11
-#XLIBS		= -lX11 -lsocket
+XINCDIR = /usr/X11R6/include
+XLIBDIR = /usr/X11R6/lib
+XLIBS	= -lX11
+#XLIBS = -lX11 -lsocket
 
 #
 # Compiler and Instllation programs.
 # Some systems should replace 'install -cs' with 'cp'.
 #
-CC		= gcc -O2
-# CC		= /usr/bin/cc +e -Aa -O			# for HP-UX 10.20
-# CC		= /usr/bin/cc -arch ev56 -fast -std1	# for Alpha EV56 processors (some 21164 chips)
-# CC		= /usr/bin/cc -arch ev6 -fast -std1	# for Alpha EV6 processors (21264 chips)
-RM		= rm -rf
-INSTALL		= install -cs
+CC	= gcc
+RM	= rm -rf
+INSTALL = install -cs
 
 #
 # Uncomment if you want to deal with data in double
@@ -81,17 +78,17 @@ INSTALL		= install -cs
 #    LINUX          linux(i386)
 #    FreeBSD        FreeBSD(i386 newpcm driver)
 # 
-DA_OSTYPE	= 
+DA_OSTYPE = 
 
 ########################################################################
 
-SUBDIR		= lib include bin script
+SUBDIR = lib include bin script
 
-INCDIR		= -I../include -I../../include -I$(XINCDIR)
-LIBDIR		= -L../../lib -L$(XLIBDIR)
-CFLAGS		= $(INCDIR) $(DOUBLE)
-LDFLAGS		= $(LIBDIR)
-LIBS		= -lSPTK -lm
+INCDIR = -I../include -I../../include -I$(XINCDIR)
+LIBDIR = -L../../lib -L$(XLIBDIR)
+CFLAGS = -O2 -ansi -Wall -DSPTK_VERSION=\"3.1\" $(INCDIR) $(DOUBLE)
+LDFLAGS = $(LIBDIR)
+LIBS = -lSPTK -lm
 
 
 all:
@@ -117,9 +114,6 @@ clean:
 	$(RM) \#* *~
 
 veryclean: clean
-#	for d in $(SUBDIR) ; do \
-#		( cd $$d ; $(MAKE) RM="$(RM)" DA_OSTYPE="$(DA_OSTYPE)" veryclean ) ; \
-#	done
 	for d in $(BIN) $(LIB) $(INCLUDE) ; do \
 		if [ ! -d $$d ]; then \
 			rm -rf $$d ; \

@@ -1,14 +1,14 @@
 # ----------------------------------------------------------------
 #       Speech Signal Processing Toolkit (SPTK): version 3.0
-# 		       SPTK Working Group
+#              SPTK Working Group
 # 
-# 		 Department of Computer Science
-# 		 Nagoya Institute of Technology
-# 			      and
+#        Department of Computer Science
+#        Nagoya Institute of Technology
+#                and
 #   Interdisciplinary Graduate School of Science and Engineering
-# 		 Tokyo Institute of Technology
-# 		    Copyright (c) 1984-2000
-# 		      All Rights Reserved.
+#        Tokyo Institute of Technology
+#           Copyright (c) 1984-2000
+#             All Rights Reserved.
 # 
 # Permission is hereby granted, free of charge, to use and
 # distribute this software and its documentation without
@@ -36,27 +36,27 @@
 # ----------------------------------------------------------------
 
 #
-# Makefile for commands
+# Makefile for command srcnv
 #
 
-TARGET		= srcnv
-SRCS		= $(TARGET).c
-OBJS		= $(SRCS:.c=.o)
-COEF		= lpfcoef.2to3f lpfcoef.2to3s lpfcoef.3to4 lpfcoef.4to5 lpfcoef.5to7 lpfcoef.5to8
+TARGET = srcnv
+SRCS = $(TARGET).c
+OBJS = $(SRCS:.c=.o)
+COEF = lpfcoef.2to3f lpfcoef.2to3s lpfcoef.3to4 lpfcoef.4to5 lpfcoef.5to7 lpfcoef.5to8
 
-PREFIX		= /usr/local/SPTK
-BIN		= $(PREFIX)/bin
-LIB		= $(PREFIX)/lib
+PREFIX = /usr/local/SPTK
+BIN = $(PREFIX)/bin
+LIB = $(PREFIX)/lib
 
-CC		= gcc
-RM		= rm -rf
-INSTALL		= install -cs
+CC = gcc
+RM = rm -rf
+INSTALL = install -cs
 
-INCDIR		= -I../../include
-LIBDIR		= -L../../lib
-CFLAGS		= -O2 $(INCDIR)
-LDFLAGS		= $(LIBDIR)
-LIBS		= -lSPTK -lm
+INCDIR = -I../../include
+LIBDIR = -L../../lib
+CFLAGS = -O2 -ansi -Wall -DSPTK_VERSION=\"3.1\" $(INCDIR)
+LDFLAGS = $(LIBDIR)
+LIBS = -lSPTK -lm
 
 
 .c.o:
@@ -77,4 +77,3 @@ clean:
 veryclean: clean
 	$(RM) $(BIN)/$(TARGET)
 	cd $(LIB) ; $(RM) $(COEF)
-
