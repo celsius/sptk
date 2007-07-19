@@ -1,14 +1,14 @@
 # ----------------------------------------------------------------
 #       Speech Signal Processing Toolkit (SPTK): version 3.0
-# 		       SPTK Working Group
+#              SPTK Working Group
 # 
-# 		 Department of Computer Science
-# 		 Nagoya Institute of Technology
-# 			      and
+#        Department of Computer Science
+#        Nagoya Institute of Technology
+#                and
 #   Interdisciplinary Graduate School of Science and Engineering
-# 		 Tokyo Institute of Technology
-# 		    Copyright (c) 1984-2000
-# 		      All Rights Reserved.
+#        Tokyo Institute of Technology
+#           Copyright (c) 1984-2000
+#             All Rights Reserved.
 # 
 # Permission is hereby granted, free of charge, to use and
 # distribute this software and its documentation without
@@ -36,25 +36,25 @@
 # ----------------------------------------------------------------
 
 #
-# Makefile for commands
+# Makefile for command psgr
 #
 
-TARGET		= psgr
-SRCS		= $(TARGET).c plot.c eps.c dict.c
-OBJS		= $(SRCS:.c=.o)
+TARGET = psgr
+SRCS = $(TARGET).c plot.c eps.c dict.c
+OBJS = $(SRCS:.c=.o)
 
-PREFIX		= /usr/local/SPTK
-BIN		= $(PREFIX)/bin
+PREFIX = /usr/local/SPTK
+BIN = $(PREFIX)/bin
 
-CC		= gcc -ansi -Wall
-RM		= rm -rf
-INSTALL		= install -cs
+CC = gcc -ansi -Wall
+RM = rm -rf
+INSTALL = install -cs
 
-INCDIR		= -I../../include
-LIBDIR		= -L../../lib
-CFLAGS		= -O2 $(INCDIR)
-LDFLAGS		= $(LIBDIR)
-LIBS		= -lSPTK -lX11 -lm
+INCDIR = -I../../include
+LIBDIR = -L../../lib
+CFLAGS = -O2 -ansi -Wall -DSPTK_VERSION=\"3.1\" $(INCDIR)
+LDFLAGS = $(LIBDIR)
+LIBS = -lSPTK -lX11 -lm
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<
@@ -76,4 +76,3 @@ clean:
 
 veryclean: clean
 	$(RM) $(BIN)/$(TARGET)
-

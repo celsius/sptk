@@ -36,11 +36,11 @@
 # ----------------------------------------------------------------
 
 #
-# Makefile for Imai Kobayashi Lab. command
+# Makefile for SPTK script files
 #
 
-PREFIX	= /usr/local/SPTK
-BIN	= $(PREFIX)/bin
+PREFIX = /usr/local/SPTK
+BIN = $(PREFIX)/bin
 
 RM	= rm -rf
 
@@ -65,4 +65,3 @@ veryclean: clean
 		j=`basename $$i .sh` ; \
 		$(RM) $(BIN)/$$i $(BIN)/$$j ; \
 	done
-

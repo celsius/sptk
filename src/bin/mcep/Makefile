@@ -52,7 +52,7 @@ INSTALL = install -cs
 
 INCDIR = -I../../include
 LIBDIR = -L../../lib
-CFLAGS = -O2 $(INCDIR)
+CFLAGS = -O2 -ansi -Wall -DSPTK_VERSION=\"3.1\" $(INCDIR)
 LDFLAGS = $(LIBDIR)
 LIBS = -lSPTK -lm
 
@@ -61,8 +61,7 @@ LIBS = -lSPTK -lm
 	$(CC) $(CFLAGS) -c $<
 
 all: $(TARGET)
-
-$(TARGET): $(OBJS)
+	$(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
 install: $(TARGET)
@@ -73,4 +72,3 @@ clean:
 
 veryclean: clean
 	$(RM) $(BIN)/$(TARGET)
-

@@ -1,14 +1,14 @@
 # ----------------------------------------------------------------
 #       Speech Signal Processing Toolkit (SPTK): version 3.0
-# 		       SPTK Working Group
+#              SPTK Working Group
 # 
-# 		 Department of Computer Science
-# 		 Nagoya Institute of Technology
-# 			      and
+#        Department of Computer Science
+#        Nagoya Institute of Technology
+#                and
 #   Interdisciplinary Graduate School of Science and Engineering
-# 		 Tokyo Institute of Technology
-# 		    Copyright (c) 1984-2000
-# 		      All Rights Reserved.
+#        Tokyo Institute of Technology
+#           Copyright (c) 1984-2000
+#             All Rights Reserved.
 # 
 # Permission is hereby granted, free of charge, to use and
 # distribute this software and its documentation without
@@ -36,15 +36,15 @@
 # ----------------------------------------------------------------
 
 #
-# Makefile for Imai Kobayashi Lab. command
+# Makefile for SPTK include file
 #
 
-TARGET	= SPTK.h
+TARGET = SPTK.h
 
-PREFIX	= /usr/local/SPTK
-INCLUDE	= $(PREFIX)/include
+PREFIX = /usr/local/SPTK
+INCLUDE = $(PREFIX)/include
 
-RM	= rm -rf
+RM = rm -rf
 
 
 all:
@@ -57,4 +57,3 @@ clean:
 
 veryclean: clean
 	$(RM) $(INCLUDE)/$(TARGET)
-

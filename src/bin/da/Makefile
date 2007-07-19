@@ -39,23 +39,23 @@
 # Makefile for commands
 #
 
-TARGET		= dawrite
-SRCS		= $(TARGET).c
-OBJS		= $(SRCS:.c=.o)
+TARGET = dawrite
+SRCS = $(TARGET).c
+OBJS = $(SRCS:.c=.o)
 
-PREFIX		= /usr/local/SPTK
-BIN		= $(PREFIX)/bin
-LIB		= $(PREFIX)/lib
+PREFIX = /usr/local/SPTK
+BIN = $(PREFIX)/bin
+LIB = $(PREFIX)/lib
 
-CC		= gcc
-RM		= rm -rf
-INSTALL		= install -cs
+CC	= gcc
+RM	= rm -rf
+INSTALL = install -cs
 
-INCDIR		= -I../../include
-LIBDIR		= -L../../lib
-CFLAGS		= -O2 $(INCDIR)
-LDFLAGS		= $(LIBDIR)
-LIBS		= -lSPTK -lm
+INCDIR = -I../../include
+LIBDIR = -L../../lib
+CFLAGS = -O2 -ansi -Wall -DSPTK_VERSION=\"3.1\" $(INCDIR)
+LDFLAGS = $(LIBDIR)
+LIBS = -lSPTK -lm
 
 .c.o:
 	if [ x"$(DA_OSTYPE)" != x ] ; then \
