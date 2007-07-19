@@ -38,7 +38,7 @@
 */
 
 /********************************************************************
-    $Id: getmem.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
+    $Id: getmem.c,v 1.4 2007/07/19 09:57:31 heigazen Exp $
 
     Memory Allocation Fanctions
 
@@ -116,7 +116,7 @@ float **ffgetmem(int leng)
 }
 
 
-char *getmem(int leng, unsigned size)
+char *getmem(int leng, unsigned int size)
 {
     char *p = NULL;
 
