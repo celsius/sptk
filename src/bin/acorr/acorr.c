@@ -135,11 +135,12 @@ int main (int argc, char **argv)
    }
    if (infile)
       fp = getfp(infile,"r");
-      x = dgetmem(l + np + 1);
-      r = x + l;
-      while (freadf(x, sizeof(*x), l, fp)==l) {
-         acorr(x,l,r,np);
-         fwritef(r, sizeof(*r), np + 1, stdout);
+  
+   x = dgetmem(l + np + 1);
+   r = x + l;
+   while (freadf(x, sizeof(*x), l, fp)==l) {
+      acorr(x,l,r,np);
+      fwritef(r, sizeof(*r), np + 1, stdout);
    }
    exit(0);	
 }
