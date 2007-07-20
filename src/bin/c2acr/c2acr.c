@@ -81,7 +81,7 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - transform cepstrum to autocorrelation\n",cmnd);
@@ -107,7 +107,7 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
    int m=ORDERC, n=ORDERR, l=FLENG;
    FILE *fp = stdin;
@@ -149,6 +149,5 @@ int main (int argc, char **argv)
       c2acr(c, m, r, n, l);
       fwritef(r, sizeof(*r), n+1, stdout);
    }
-   
    exit(0);
 }
