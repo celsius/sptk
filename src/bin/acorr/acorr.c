@@ -40,8 +40,6 @@
 /************************************************************************
 *                                                                       *
 *    Obtain Autocorrelation Sequence                                    *
-*					1988.7  T.Kobayashi             *
-*                                       1995.12 I.Naohiro   modified    *
 *                                                                       *
 *       usage:                                                          *
 *               acorr [ options ] [ infile ] > stdout                   *
@@ -51,10 +49,10 @@
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be real                             *
-*									*
+*									                                             *
 ************************************************************************/
 
-static char *rcs_id = "$Id: acorr.c,v 1.7 2007/07/20 07:39:14 heigazen Exp $";
+static char *rcs_id = "$Id: acorr.c,v 1.8 2007/07/20 07:58:54 heigazen Exp $";
 
 
 /* Standard C Libraries */
