@@ -38,26 +38,28 @@
 */
 
 /***********************************************************
-  $Id: _acorr.c,v 1.3 2006/12/11 07:05:15 mr_alex Exp $
-	obtain autocorrelation sequence
-		acorr(x,l,r,np)
 
-		double	*x 	: input sequence
-		int	l	: flame length
-		double	*r	: autocorrelation sequence
-		int 	np	: order of sequence
+    $Id: _acorr.c,v 1.4 2007/07/20 07:38:22 heigazen Exp $
 
-			Naohiro Isshiki,	Dec.1995
+    obtain autocorrelation sequence
+    
+    void acorr(x,l,r,np)
+
+    double *x : input sequence
+    int     l : flame length
+    double *r : autocorrelation sequence
+    int    np : order of sequence
+
 ***********************************************************/
 
-void acorr(double *x, int l, double *r, int np)
+void acorr (double *x, int l, double *r, const int np)
 {
-	double	d;
-	register int	k, i;
+   double d;
+   int k, i;
 
-	for(k = 0; k <= np; ++k) {
-		for(d = i = 0; i < l - k; ++i)
-			d += x[i] * x[i + k];
-		r[k] = d;
-	}
+   for (k=0; k<=np; k++) {
+      for (d=i=0; i<l-k; i++)
+         d += x[i]*x[i+k];
+      r[k] = d;
+   }
 }

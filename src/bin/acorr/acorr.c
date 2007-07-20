@@ -54,7 +54,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: acorr.c,v 1.6 2007/07/20 07:38:22 heigazen Exp $";
+static char *rcs_id = "$Id: acorr.c,v 1.7 2007/07/20 07:39:14 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -135,11 +135,12 @@ int main (int argc, char **argv)
    }
    if (infile)
       fp = getfp(infile,"r");
-      x = dgetmem(l + np + 1);
-      r = x + l;
-      while (freadf(x, sizeof(*x), l, fp)==l) {
-         acorr(x,l,r,np);
-         fwritef(r, sizeof(*r), np + 1, stdout);
+  
+   x = dgetmem(l + np + 1);
+   r = x + l;
+   while (freadf(x, sizeof(*x), l, fp)==l) {
+      acorr(x,l,r,np);
+      fwritef(r, sizeof(*r), np + 1, stdout);
    }
    exit(0);	
 }
