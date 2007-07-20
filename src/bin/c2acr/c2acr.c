@@ -70,82 +70,84 @@ static char *rcs_id = "$Id:";
 #include <string.h>
 #include <SPTK.h>
 
+
 /*  Default Values  */
-#define ORDERC		25
-#define ORDERR		25
-#define	FLENG		256
+#define ORDERC 25
+#define ORDERR 25
+#define	FLENG 256
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
 void usage(int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - transform cepstrum to autocorrelation\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -m m  : order of cepstrum        [%d]\n", ORDERC);
-    fprintf(stderr, "       -M M  : order of autocorrelation [%d]\n", ORDERR);
-    fprintf(stderr, "       -l l  : FFT length               [%d]\n", FLENG);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       cepstrum (float)                 [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       autocorrelation (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - transform cepstrum to autocorrelation\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of cepstrum        [%d]\n", ORDERC);
+   fprintf(stderr, "       -M M  : order of autocorrelation [%d]\n", ORDERR);
+   fprintf(stderr, "       -l l  : FFT length               [%d]\n", FLENG);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       cepstrum (float)                 [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       autocorrelation (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, "  %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
 int main(int argc, char **argv)
 {
-    int		m = ORDERC, n = ORDERR, l = FLENG;
-    FILE	*fp = stdin;
-    double	*c, *r;
+   int m=ORDERC, n=ORDERR, l=FLENG;
+   FILE *fp = stdin;
+   double *c, *r;
     
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'M':
-		    n = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'l':
-		    l = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 'M':
+            n = atoi(*++argv);
+            --argc;
+            break;
+         case 'l':
+            l = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else 
+         fp = getfp(*argv, "r");
 
-    c = dgetmem(m+n+2);
-    r = c + m + 1;
+   c = dgetmem(m+n+2);
+   r = c + m + 1;
 
-    while (freadf(c, sizeof(*c), m+1, fp) == m+1){
-	c2acr(c, m, r, n, l);
-	fwritef(r, sizeof(*r), n+1, stdout);
-    }
-    exit(0);
+   while (freadf(c, sizeof(*c), m+1, fp)==m+1) {
+      c2acr(c, m, r, n, l);
+      fwritef(r, sizeof(*r), n+1, stdout);
+   }
+   exit(0);
 }
