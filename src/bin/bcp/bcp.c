@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+Speech Signal Processing Toolkit (SPTK): version 3.0
+SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+Department of Computer Science
+Nagoya Institute of Technology
+and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+Tokyo Institute of Technology
+Copyright (c) 1984-2000
+All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -70,7 +70,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: bcp.c,v 1.6 2006/12/21 07:23:13 mr_alex Exp $";
+static char *rcs_id = "$Id: bcp.c,v 1.7 2007/07/20 08:32:12 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -81,290 +81,295 @@ static char *rcs_id = "$Id: bcp.c,v 1.6 2006/12/21 07:23:13 mr_alex Exp $";
 #include <SPTK.h>
 
 
-/*  Required Functions  */
-void bcp(FILE *fp);
-void acopy(FILE *fp);
-int getstr(FILE *fp, register char *s);
-void filln(char *ptr, int size, int nitem);	
-
 /*  Default Values  */
-#define START		0
-#define END		-1
-#define DSTART		0
-#define ITEM		512
-#define DITEM		0
-#define FILL		0.0
+#define START 0
+#define END -1
+#define DSTART 0
+#define ITEM 512
+#define DITEM 0
+#define FILL 0.0
+
 
 /*  Command Name  */
 char	*cmnd;
 
-void usage(int status)
+
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - block copy\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -l l  : number of items contained 1 block      [%d]\n",ITEM);
-    fprintf(stderr, "       -L L  : number of destination block size       [N/A]\n");
-    fprintf(stderr, "       -n n  : order of items contained 1 block       [l-1]\n");
-    fprintf(stderr, "       -N N  : order of destination block size        [N/A]\n");
-    fprintf(stderr, "       -s s  : start number                           [%d]\n",START);
-    fprintf(stderr, "       -S S  : start number in destination block      [%d]\n",DSTART);
-    fprintf(stderr, "       -e e  : end number                             [EOF]\n");
-    fprintf(stderr, "       -f f  : fill into empty block                  [%g]\n",FILL);
-    fprintf(stderr, "       +type : data type                              [f]\n");
-    fprintf(stderr, "                c (char)      s (short)\n");
-    fprintf(stderr, "                i (int)       l (long)\n");
-    fprintf(stderr, "                f (float)     d (double)\n");
-    fprintf(stderr, "                a (ascii)\n");
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       data sequence                                  [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       copied data sequence\n");
-    fprintf(stderr, "  note:\n");
-    fprintf(stderr, "       When both (-L and -N) or (-l and -n) are specified,\n");
-    fprintf(stderr, "       latter argument is adopted.\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - block copy\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : number of items contained 1 block      [%d]\n",ITEM);
+   fprintf(stderr, "       -L L  : number of destination block size       [N/A]\n");
+   fprintf(stderr, "       -n n  : order of items contained 1 block       [l-1]\n");
+   fprintf(stderr, "       -N N  : order of destination block size        [N/A]\n");
+   fprintf(stderr, "       -s s  : start number                           [%d]\n",START);
+   fprintf(stderr, "       -S S  : start number in destination block      [%d]\n",DSTART);
+   fprintf(stderr, "       -e e  : end number                             [EOF]\n");
+   fprintf(stderr, "       -f f  : fill into empty block                  [%g]\n",FILL);
+   fprintf(stderr, "       +type : data type                              [f]\n");
+   fprintf(stderr, "                c (char)      s (short)\n");
+   fprintf(stderr, "                i (int)       l (long)\n");
+   fprintf(stderr, "                f (float)     d (double)\n");
+   fprintf(stderr, "                a (ascii)\n");
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence                                  [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       copied data sequence\n");
+   fprintf(stderr, "  note:\n");
+   fprintf(stderr, "       When both (-L and -N) or (-l and -n) are specified,\n");
+   fprintf(stderr, "       latter argument is adopted.\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, "  %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int	sno = START, eno = END, dsno = DSTART,
-        size = sizeof(float), nitems = ITEM, dnitems = DITEM;
-double	fl=FILL;
+int sno=START, eno=END, dsno=DSTART, size=sizeof(float), nitems=ITEM, dnitems=DITEM;
+double fl=FILL;
 char type='f';
+
 union typex{
-    char c;
-    short s;
-    long l;
-    int i;
-    float f;
-    double d;
-}fillx;
+   char c;
+   short s;
+   long l;
+   int i;
+   float f;
+   double d;
+} fillx;
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    FILE 	   *fp = stdin;
-    register char  *s, c;
-    double atof();
+   FILE *fp=stdin;
+   char *s, c;
+   
+   void bcp (FILE *fp);
     
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if(*(s = *++argv) == '-') {
-	    c = *++s;
-	    switch(c) {
-	        case 'n':
-		    nitems = atoi(*++argv)+1;
-		    --argc;
-		    break;
-		case 'N':
-		    dnitems = atoi(*++argv)+1;
-		    --argc;
-		    break;
-	        case 'b':
-		    nitems = atoi(*++argv);
-		    --argc;
-		    break;
-	        case 'l':
-		    nitems = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'B':
-		    dnitems = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'L':
-		    dnitems = atoi(*++argv);
-		    --argc;
-		    break;
-		case 's':
-		    sno = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'S':
-		    dsno = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'e':
-		    eno = atoi(*++argv) + 1;
-		    --argc;
-		    break;
-		case 'f':
-		    fl = atof(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else if (*s == '+') {
-	    type = *++s;
-	    switch(type) {
-		case 'a':
-		    size = 0;
-		    break;
-		case 'c':
-		    size = sizeof(char);
-		    break;
-		case 's':
-		    size = sizeof(short);
-		    break;
-		case 'l':
-		    size = sizeof(long);
-		    break;
-		case 'i':
-		    size = sizeof(int);
-		    break;
-		case 'f':
-		    size = sizeof(float);
-		    break;
-		case 'd':
-		    size = sizeof(double);
-		    break;
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-	    }
-	}
-	else
-	    fp = getfp(*argv, "r");
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (*(s = *++argv)=='-') {
+         c = *++s;
+         switch(c) {
+         case 'n':
+            nitems = atoi(*++argv)+1;
+            --argc;
+            break;
+         case 'N':
+            dnitems = atoi(*++argv)+1;
+            --argc;
+            break;
+         case 'b':
+            nitems = atoi(*++argv);
+            --argc;
+            break;
+         case 'l':
+            nitems = atoi(*++argv);
+            --argc;
+            break;
+         case 'B':
+            dnitems = atoi(*++argv);
+            --argc;
+            break;
+         case 'L':
+            dnitems = atoi(*++argv);
+            --argc;
+            break;
+         case 's':
+            sno = atoi(*++argv);
+            --argc;
+            break;
+         case 'S':
+            dsno = atoi(*++argv);
+            --argc;
+            break;
+         case 'e':
+            eno = atoi(*++argv) + 1;
+            --argc;
+            break;
+         case 'f':
+            fl = atof(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else if (*s=='+') {
+         type = *++s;
+   
+         switch (type) {
+         case 'a':
+            size = 0;
+            break;
+         case 'c':
+            size = sizeof(char);
+            break;
+         case 's':
+            size = sizeof(short);
+         break;
+         case 'l':
+            size = sizeof(long);
+            break;
+         case 'i':
+            size = sizeof(int);
+            break;
+         case 'f':
+            size = sizeof(float);
+            break;
+         case 'd':
+            size = sizeof(double);
+            break;
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
 
-    if(eno < 0)
-	eno = nitems;
-    if(sno < 0 || sno >= nitems || sno > eno || eno > nitems || dsno < 0)
-	exit(1);
+   if (eno<0)
+      eno = nitems;
+   if (sno<0 || sno>=nitems || sno>eno || eno>nitems || dsno<0)
+      exit(1);
 
-    if(dnitems == 0)
-	dnitems = eno - sno + dsno;
+   if (dnitems==0)
+      dnitems = eno - sno + dsno;
 
-    bcp(fp);
+   bcp(fp);
     
-    exit(0);
+   exit(0);
 }
 
-void bcp(FILE *fp)
+void bcp (FILE *fp)
 {
-    char	*buf, *lz, *fz;
-    int	ibytes, obytes, offset, nlz, nfz;
-    switch (type) {
-	case 'c':
-	    fillx.c = (char)fl;
-	    break;
-	case 's':
-	    fillx.s = (short)fl;
-	    break;
-	case 'l':
-	    fillx.l = (long)fl;
-	    break;
-	case 'i':
-	    fillx.i = (int)fl;
-	    break;
-	case 'f':
-	    fillx.f = (float)fl;
-	    break;
-	case 'd':
-	    fillx.d = (double)fl;
-	    break;
-	case 'a':
-	    break;
-    }
+   char *buf, *lz=NULL, *fz=NULL;
+   int ibytes, obytes, offset, nlz, nfz;
+   void acopy (FILE *fp);
+   void filln (char *ptr, int size, int nitem);
+
+   switch (type) {
+   case 'c':
+      fillx.c = (char)fl;
+      break;
+   case 's':
+      fillx.s = (short)fl;
+      break;
+   case 'l':
+      fillx.l = (long)fl;
+      break;
+   case 'i':
+      fillx.i = (int)fl;
+      break;
+   case 'f':
+      fillx.f = (float)fl;
+      break;
+   case 'd':
+      fillx.d = (double)fl;
+      break;
+   case 'a':
+      break;
+   }
     
-    if(size == 0) {
-	acopy(fp);
-	return;
-    }
+   if (size==0) {
+      acopy(fp);
+      return;
+   }
 
-    ibytes = size * nitems;
-    offset = size * sno;
-    obytes = size * (eno - sno);
-    nlz    = size * dsno;
-    nfz    = ((nfz = size * dnitems - nlz - obytes) < 0) ? 0 : nfz;
-    if((buf = (char *)dgetmem(ibytes + nlz + nfz)) == NULL)
-	return;
+   ibytes = size * nitems;
+   offset = size * sno;
+   obytes = size * (eno - sno);
+   nlz    = size * dsno;
+   nfz    = ((nfz = size * dnitems - nlz - obytes) < 0) ? 0 : nfz;
+   
+   if ((buf = (char *)dgetmem(ibytes + nlz + nfz))==NULL)
+      return;
 
-    if(nlz) {
-	lz = buf + ibytes;
-	filln(lz, size, nlz);
-    }
+   if (nlz) {
+      lz = buf + ibytes;
+      filln(lz, size, nlz);
+   }
 
-    if(nfz) {
-	fz = buf + ibytes + nlz;
-	filln(fz, size, nfz);
-    }
+   if (nfz) {
+      fz = buf + ibytes + nlz;
+      filln(fz, size, nfz);
+   }
 
-    while(fread(buf, sizeof(*buf), ibytes, fp) == ibytes) {
-	if(nlz)
-	    fwrite(lz, sizeof(*lz), nlz, stdout);
-	fwrite(buf + offset, sizeof(*buf), obytes, stdout);
-	
-	if(nfz)
-	    fwrite(fz, sizeof(*fz), nfz, stdout);
-    }
+   while (fread(buf, sizeof(*buf), ibytes, fp)==ibytes) {
+      if (nlz)
+      fwrite(lz, sizeof(*lz), nlz, stdout);
+      fwrite(buf + offset, sizeof(*buf), obytes, stdout);
+
+      if (nfz)
+         fwrite(fz, sizeof(*fz), nfz, stdout);
+   }
 }
 
-void acopy(FILE *fp)
+void acopy (FILE *fp)
 {
-    char	s[512];
-    register int	n, dn;
+   char s[512];
+   int n, dn;
+   int getstr (FILE *fp, char *s);
 
-    for(dn = 0; !feof(fp); ) {
-	for(n = 0; n < sno; ++n)
-	    if(getstr(fp, s) == 0) break;
-	
-	for( ; n < eno; ++n) {
-	    if(getstr(fp, s) == 0)
-		break;
-	    if(dn++)
-		putchar(' ');
-	    printf("%s", s);
-	    if(dn == dnitems) {
-		putchar('\n');
-		dn = 0;
-	    }
-	}
-	for( ; n < nitems; ++n)
-	    if(getstr(fp, s) == 0)
-		break;
-    }
+   for (dn=0; !feof(fp); ) {
+      for (n=0; n<sno; n++)
+         if (getstr(fp, s)==0) break;
+
+      for ( ; n<eno; n++) {
+         if (getstr(fp, s)==0)
+            break;
+         if (dn++)
+            putchar(' ');
+         printf("%s", s);
+         if (dn==dnitems) {
+            putchar('\n');
+            dn = 0;
+         }
+      }
+      for( ; n<nitems; n++)
+         if (getstr(fp, s)==0)
+            break;
+   }
 }
 
-int getstr(FILE *fp, register char *s)
+int getstr (FILE *fp, char *s)
 {
-    register int	c;
+   int c;
     
-    while((c = getc(fp)) == ' ' || c == '\t' || c == '\n' || c == ',');
+   while ((c=getc(fp))==' ' || c=='t' || c=='\n' || c==',');
     
-    if(c == EOF)
-	return(0);
-    for(*s++ = c; (c = getc(fp)) != EOF && c != ' ' && c != '\t' && c != '\n' && c != ','; )
-	*s++ = c;
+   if (c == EOF)
+      return(0);
+      
+   for (*s++=c; (c=getc(fp))!=EOF && c!=' ' && c!='\t' && c!='\n' && c!=','; )
+      *s++ = c;
     
-    *s = '\0';
-    return(1);
+   *s = '\0';
+   return(1);
 }
 
-void filln(char *ptr, int size, int nitem)
+void filln (char *ptr, int size, int nitem)
 {
-    register int i;
-    char *c;
+   int i;
+   char *c;
     
-    nitem=nitem/size;
-    while(nitem--){
-        c = &fillx.c;
-	for(i=1;i<=size;i++){
-	    *ptr++ = *c++;
-        }
-    }
+   nitem=nitem/size;
+   while (nitem--) {
+      c = &fillx.c;
+      for (i=1; i<=size; i++) {
+         *ptr++ = *c++;
+      }
+   }
 }
