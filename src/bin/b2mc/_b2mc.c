@@ -42,23 +42,23 @@
 
     Transform MLSA Digital Filter Coefficients to Mel Cepstrum 
 
-	void	b2mc(b, mc, m, a)
+    void b2mc(b, mc, m, a)
 
-	double	*b  : MLSA digital filter coefficients
-	double	*mc : mel cepstral coefficients
-	int	m   : order of mel cepstrum
-	double	a   : all-pass constant
+    double *b  : MLSA digital filter coefficients
+    double *mc : mel cepstral coefficients
+    int    m   : order of mel cepstrum
+    double a   : all-pass constant
 
 ***************************************************************/
 
-void b2mc(double *b, double *mc, int m, double a)
+void b2mc (double *b, double *mc, int m, const double a)
 {
-    double d, o;
+   double d, o;
     
-    d = mc[m] = b[m];
-    for(m--; m>=0; m--){
-	o = b[m] + a * d;
-	d = b[m];
-	mc[m] = o;
-    }
+   d = mc[m] = b[m];
+   for (m--; m>=0; m--) {
+      o = b[m] + a * d;
+      d = b[m];
+      mc[m] = o;
+   }
 }
