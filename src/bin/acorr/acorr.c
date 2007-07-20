@@ -72,76 +72,74 @@ static char *rcs_id = "$Id$";
 char	*cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-	fprintf(stderr, "\n");
-	fprintf(stderr, " %s - obtain autocorrelation sequence\n", cmnd);
-	fprintf(stderr, "\n");
-	fprintf(stderr, "  usage:\n");
-	fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-	fprintf(stderr, "  options:\n");
-	fprintf(stderr, "       -m m  : order of sequence  [%d]\n", ORDER);
-	fprintf(stderr, "       -l l  : frame length       [%d]\n", LENG);
-	fprintf(stderr, "       -h    : print this message\n");
-	fprintf(stderr, "  infile:\n");
-	fprintf(stderr, "       data sequence (float)      [stdin]\n");
-	fprintf(stderr, "  stdout:\n");
-	fprintf(stderr, "       autocorrelation sequence (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - obtain autocorrelation sequence\n", cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of sequence  [%d]\n", ORDER);
+   fprintf(stderr, "       -l l  : frame length       [%d]\n", LENG);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (float)      [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       autocorrelation sequence (float)\n");
 #ifdef SPTK_VERSION
-	fprintf(stderr, "\n");
-	fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
 #endif		
-	fprintf(stderr, "\n");
-	exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-  	FILE	*fp = stdin;
-	char	*s, *infile = NULL, c;
-	double	*x, *r;
-	int	l = LENG, np = ORDER;
+   FILE *fp=stdin;
+   char *s, *infile=NULL, c;
+   double *x, *r;
+   int l=LENG, np=ORDER;
 
-	if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	    cmnd = argv[0];
-        else
-	    cmnd++;
-	while (--argc) {
-		if(*(s = *++argv) == '-') {
-			c = *++s;
-			if(*++s == '\0') {
-				s = *++argv;
-				--argc;
-			}
-			switch(c) {
-			case 'm':
-				np = atoi(s);
-				break;
-			case 'l':
-				l = atoi(s);
-				break;
-			case 'h':
-				usage(0);
-			default:
-				fprintf(stderr,
-					"%s: unknown option '%c'\n", cmnd, c);
-					usage(1);
-				break;
-			}
-		}
-		else
-			infile = s;
-	}
-	if(infile)
-		fp = getfp(infile,"r");
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
 
-	x = dgetmem(l + np + 1);
-	r = x + l;
-	while(freadf(x, sizeof(*x), l, fp) == l) {
-		acorr(x,l,r,np);
-		fwritef(r, sizeof(*r), np + 1, stdout);
-	}
-	exit(0);	
+   while (--argc) {
+      if (*(s = *++argv)=='-') {
+         c = *++s;
+         if (*++s == '\0') {
+            s = *++argv;
+            --argc;
+         }
+         switch(c) {
+         case 'm':
+            np = atoi(s);
+            break;
+         case 'l':
+            l = atoi(s);
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr,"%s: unknown option '%c'\n", cmnd, c);
+            usage(1);
+         break;
+         }
+      }
+      else
+         infile = s;
+   }
+   if (infile)
+      fp = getfp(infile,"r");
+      x = dgetmem(l + np + 1);
+      r = x + l;
+      while (freadf(x, sizeof(*x), l, fp)==l) {
+         acorr(x,l,r,np);
+         fwritef(r, sizeof(*r), np + 1, stdout);
+   }
+   exit(0);	
 }
