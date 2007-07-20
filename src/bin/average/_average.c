@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+Speech Signal Processing Toolkit (SPTK): version 3.0
+SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+Department of Computer Science
+Nagoya Institute of Technology
+and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+Tokyo Institute of Technology
+Copyright (c) 1984-2000
+All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,41 +38,41 @@
 */
 
 /***************************************************************
-    $Id: _average.c,v 1.5 2007/01/13 05:47:21 s_sako Exp $
+    $Id: _average.c,v 1.6 2007/07/20 08:06:26 heigazen Exp $
 
     Calculation of Average
 
-	double	average(x, n)
+    double average(x, n)
 
-	double	*x  : data sequence
-	int	n   : data length
+    double *x  : data sequence
+    int    n   : data length
 
-	return value :  average of data
+    return value :  average of data
 
 ***************************************************************/
+
 #include <stdio.h>
 #include <SPTK.h>
 
-double average(double *x, int n)
+double average (double *x, const int n)
 {
-    register int  i;
-    double	  sum = 0.0;
+   int  i;
+   double	  sum = 0.0;
 
-    for(i=0; i<n; i++) sum += x[i];
+   for (i=0; i<n; i++) sum += x[i];
 
-    return(sum / n);
+   return(sum / n);
 }
 
-void vaverage(double *x, int l, int num, double *ave)
+void vaverage (double *x, const int l, const int num, double *ave)
 {
-    register int    i, j;
+   int i, j;
     
-    fillz(ave, sizeof(*ave), l);
-    for(i=0; i<num; i++)
-	for(j=0; j<l; j++)
-	    ave[j] += *x++;
+   fillz(ave, sizeof(*ave), l);
+   for (i=0; i<num; i++)
+      for (j=0; j<l; j++)
+         ave[j] += *x++;
 
-    for(j=0; j<l; j++)
-	ave[j] /= (double) num;
+   for (j=0; j<l; j++)
+      ave[j] /= (double) num;
 }
-
