@@ -56,7 +56,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id="$Id: c2ir.c,v 1.6 2006/12/21 07:23:13 mr_alex Exp $";
+static char *rcs_id="$Id: c2ir.c,v 1.7 2007/07/20 09:02:58 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -65,106 +65,109 @@ static char *rcs_id="$Id: c2ir.c,v 1.6 2006/12/21 07:23:13 mr_alex Exp $";
 #include <string.h>
 #include <SPTK.h>
 
+
 /* Default Values */
-#define LENG	256
-#define ORDER	25
+#define LENG 256
+#define ORDER 25
 
 
 /* Command Name */
 char *cmnd;
 
 
-void usage(status)
-int status;
+void usage (int status)
 {
-	fprintf(stderr, "\n");
-	fprintf(stderr, " %s - cepstrum to minimum phase impulse response\n", cmnd);
-	fprintf(stderr, "\n");
-	fprintf(stderr, "  usage:\n");
-	fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-	fprintf(stderr, "  options:\n");
-	fprintf(stderr, "       -m m  : order of cepstrum            [%d]\n", ORDER);
-	fprintf(stderr, "       -M M  : order of impulse response    [%d]\n", LENG-1);
-	fprintf(stderr, "       -L L  : length of impulse response   [%d]\n", LENG);
-	fprintf(stderr, "       -i    : input minimum phase sequence \n");
-	fprintf(stderr, "       -h    : print this message\n\n");
-	fprintf(stderr, "  infile:\n");
-	fprintf(stderr, "       cepstrum (float)                     [stdin]\n");
-	fprintf(stderr, "  stdout:\n");
-	fprintf(stderr, "       impulse response (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - cepstrum to minimum phase impulse response\n", cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of cepstrum            [%d]\n", ORDER);
+   fprintf(stderr, "       -M M  : order of impulse response    [%d]\n", LENG-1);
+   fprintf(stderr, "       -L L  : length of impulse response   [%d]\n", LENG);
+   fprintf(stderr, "       -i    : input minimum phase sequence \n");
+   fprintf(stderr, "       -h    : print this message\n\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       cepstrum (float)                     [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       impulse response (float)\n");
 #ifdef SPTK_VERSION
-	fprintf(stderr, "\n");
-	fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, "  %s", rcs_id);
 #endif
-	fprintf(stderr, "\n");
-	exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main(int argc,char *argv[])
+int main (int argc,char *argv[])
 {
-	FILE	*fp;
-	double	*buf, *x;
-	char	*s, *infile = NULL, c;
-	int	nr;
- 	int	leng = LENG, nc = ORDER+1, is_i = 0;
-	
-        if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	    cmnd = argv[0];
-        else
-	    cmnd++;
-	while(--argc) {
-		if(*(s = *++argv) == '-') {
-			c = *++s;
-			if(c != 'i' && *++s == '\0') {
-				s = *++argv;
-				--argc;
-			}
-			switch(c) {
-			case 'i':
-				is_i = 1;
-				break;
-			case 'm':
-				nc = atoi(s) + 1;
-				break;
-			case 'M':
-				leng = atoi(s) + 1;
-				break;
-			case 'L':
-				leng = atoi(s);
-				break;
-			case 'h':
-				usage(0);				
-			default:
-				fprintf(stderr,
-					"%s: unknown option '%c'\n", cmnd, c);
-				usage(1);
-			}
-		}
-		else
-			infile = s;
-	}
-	if(infile) {
-		fp = getfp(infile,"r");
-	}
-	else
-		fp=stdin;
+   FILE *fp;
+   double *buf, *x;
+   char *s, *infile=NULL, c;
+   int nr;
+ 	int leng=LENG, nc=ORDER+1, is_i=0;
 
-	nr = leng + nc;
-	buf = dgetmem(nr);
-	nr = (is_i) ? leng : nc;
-	
-	while(freadf(buf,sizeof(*buf),nr,fp) == nr){
-		if(!is_i){
-			x = buf + nc;
-			c2ir(buf,nc,x,leng);
-			fwritef(x, sizeof(*x), leng, stdout);
-		}else{
-			x = buf + leng;
-			ic2ir(buf,leng,x,nc);
-			fwritef(x, sizeof(*x), nc, stdout);
-		}
-	}
-	exit(0);
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   
+   while (--argc) {
+      if (*(s = *++argv)=='-') {
+         c = *++s;
+         if (c!='i' && *++s=='\0') {
+            s = *++argv;
+            --argc;
+         }
+         switch (c) {
+         case 'i':
+            is_i = 1;
+            break;
+         case 'm':
+            nc = atoi(s) + 1;
+            break;
+         case 'M':
+            leng = atoi(s) + 1;
+            break;
+         case 'L':
+            leng = atoi(s);
+            break;
+         case 'h':
+            usage(0);				
+         default:
+            fprintf(stderr, "%s: unknown option '%c'\n", cmnd, c);
+            usage(1);
+         }
+      }
+      else
+         infile = s;
+   }
+   
+   if (infile) {
+      fp = getfp(infile,"r");
+   }
+   else
+      fp=stdin;
+
+   nr = leng + nc;
+   buf = dgetmem(nr);
+   nr = (is_i) ? leng : nc;
+
+   while (freadf(buf,sizeof(*buf),nr,fp)==nr) {
+      if (!is_i) {
+         x = buf + nc;
+         c2ir(buf,nc,x,leng);
+         fwritef(x, sizeof(*x), leng, stdout);
+      } 
+      else {
+         x = buf + leng;
+         ic2ir(buf,leng,x,nc);
+         fwritef(x, sizeof(*x), nc, stdout);
+      }
+   }
+   
+   exit(0);
 }
-  

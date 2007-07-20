@@ -38,7 +38,7 @@
 */
 
 /******************************************************************
- $Id: _c2ir.c,v 1.4 2006/12/15 11:06:31 mr_alex Exp $
+ $Id: _c2ir.c,v 1.5 2007/07/20 09:02:59 heigazen Exp $
 
 	cepstrum to impulse response
 		c2ir(c,nc,h,leng)
@@ -58,35 +58,37 @@
 
 			Naohiro Isshiki,	Dec.1995
 ********************************************************************/
+
 #include <stdlib.h>
+#include <math.h>
 
-void c2ir(double *c, int nc, double *h, int leng)
+void c2ir (double *c, const int nc, double *h, const int leng)
 {
-	register int	n, k, upl;
-	double	d, exp(double), log(double);
+   int n, k, upl;
+   double d;
 
-	h[0] = exp(c[0]);
-	for(n = 1; n < leng; ++n) {
-		d = 0;
-		upl = (n >= nc) ? nc - 1 : n;
-		for(k = 1; k <= upl; ++k)
-			d += k * c[k] * h[n - k];
-		h[n] = d / n;
-	}
+   h[0] = exp(c[0]);
+   for (n=1; n<leng; n++) {
+      d = 0;
+      upl = (n>=nc) ? nc - 1 : n;
+      for (k=1; k<=upl; k++)
+         d += k * c[k] * h[n - k];
+      h[n] = d / n;
+   }
 }
 
-void ic2ir(double *h, int leng, double *c, int nc)
+void ic2ir (double *h, const int leng, double *c, const int nc)
 {
-	register int	n, k, upl;
-	double	d, exp(double), log(double);
+   int n, k, upl;
+   double d;
 
-	c[0] = log(h[0]);
-	for(n = 1; n < nc; ++n) {
-		d = (n >= leng) ? 0 : n * h[n];
-		upl = (n > leng) ? n - leng + 1 : 1;
-		for(k = upl; k < n; ++k)
-			d -= k * c[k] * h[n - k];
-		c[n] = d / (n * h[0]);
-	}
+   c[0] = log(h[0]);
+   for(n=1; n<nc; n++) {
+      d = (n>=leng) ? 0 : n*h[n];
+      upl = (n>leng) ? n-leng+1 : 1;
+      for (k=upl; k<n; k++)
+         d -= k*c[k] * h[n-k];
+      c[n] = d / (n * h[0]);
+   }
 }
  
