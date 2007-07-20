@@ -1,0 +1,62 @@
+#
+# Makefile for library
+#
+
+TARGET = libSPTK.a
+CMNDSRCS	= 
+LIBSRCS = agexp.c cholesky.c fileio.c fillz.c getfp.c \
+          getmem.c gexp.c glog.c ifftr.c  matrix.c movem.c mseq.c \
+          theq.c toeplitz.c
+SRCS		= $(CMNDSRCS) $(LIBSRCS)
+CMNDOBJS	= $(CMNDSRCS:.c=.o)
+OBJS		= $(SRCS:.c=.o)
+
+
+SHELL = /bin/sh
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+
+PREFIX = $(prefix)
+LIB = $(libdir)
+INCDIR = -I@top_srcdir@/include
+
+CC = @CC@
+CFLAGS = -DSPTK_VERSION=\"@PACKAGE_VERSION@\" $(INCDIR) @CFLAGS@ @DDOUBLE@
+LDFLAGS = $(LIBDIR) @LDFLAGS@
+LIBS = -lSPTK @LIBS@
+INSTALL = @INSTALL@
+RM = rm -rf
+RANLIB = @RANLIB@
+AR     = @AR@
+
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(RM) $@
+	$(AR) rcv $@ $(OBJS)
+	$(RANLIB) $@
+
+$(CMNDOBJS):
+	( d=`basename $@ .o | sed 's/_//'` ; \
+	( cd ../bin/$$d ; $(MAKE) $@ ) ; \
+	ln -s ../bin/$$d/$@ . )
+
