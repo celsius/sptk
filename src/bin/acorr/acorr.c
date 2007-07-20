@@ -40,8 +40,6 @@
 /************************************************************************
 *                                                                       *
 *    Obtain Autocorrelation Sequence                                    *
-*					1988.7  T.Kobayashi             *
-*                                       1995.12 I.Naohiro   modified    *
 *                                                                       *
 *       usage:                                                          *
 *               acorr [ options ] [ infile ] > stdout                   *
@@ -51,7 +49,7 @@
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be real                             *
-*									*
+*									                                             *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
