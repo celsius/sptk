@@ -39,73 +39,73 @@
 
 /****************************************************************
 
-    $Id: _acep.c,v 1.4 2006/12/15 11:06:28 mr_alex Exp $
+    $Id: _acep.c,v 1.5 2007/07/20 07:01:24 heigazen Exp $
 
     Adaptive Cepstral Analysis
 
-	double acep(x, c, m, lambda, step, pd);
+    double acep(x, c, m, lambda, step, pd);
 
-	double   x      : input sequence
-	double   *c     : cepstrum
-	int      m      : order of cepstrum
-	double   lambda : leakage factor
-	double   step   : step size
-	int	 pd	: order of pade approximation
-	double   eps	: minimum value for epsilon
+    double      x : input sequence
+    double     *c : cepstrum
+    int         m : order of cepstrum
+    double lambda : leakage factor
+    double   step : step size
+    int        pd : order of pade approximation
+    double    eps : minimum value for epsilon
 
-	return value  : prediction error
+    return value  : prediction error
 
 *****************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
-#define PADEORD 	4
-
-double acep(double x, double *c, int m, double lambda, double step, double tau, int pd, double eps)
+double acep (double x, double *c, const int m, const double lambda, const double step, const double tau, const int pd, const double eps)
 {
-    register int   i;
-    static double  *cc = NULL, *e, *ep, *d, gg = 1.0;
-    static int     size;
-    double 	   mu, tx, lmadf(), log();
+   int i;
+   static double *cc=NULL, *e, *ep, *d, gg=1.0;
+   static int size;
+   double mu, tx;
     
-    if(cc == NULL){
-	cc = dgetmem(m+m+m+3+(m+1)*PADEORD*2);
-	e  = cc + m + 1;
-	ep = e + m + 1;
-	d  = ep + m + 1;
-	size = m;
-    }
-    if(m > size){
-	free(cc);
-	cc = dgetmem(m+m+m+3+(m+1)*PADEORD*2);
-	e  = cc + m + 1;
-	ep = e + m + 1;
-	d  = ep + m + 1;
-	size = m;
-    }
+   if (cc==NULL) {
+      cc = dgetmem(m+m+m+3+(m+1)*pd*2);
+      e  = cc + m + 1;
+      ep = e + m + 1;
+      d  = ep + m + 1;
+      size = m;
+   }
+   
+   if (m>size) {
+      free(cc);
+      cc = dgetmem(m+m+m+3+(m+1)*pd*2);
+      e  = cc + m + 1;
+      ep = e + m + 1;
+      d  = ep + m + 1;
+      size = m;
+   }
 
-    for(i=1; i<=m; i++)
-	cc[i] = -c[i];
+   for (i=1; i<=m; i++)
+      cc[i] = -c[i];
     
-    x = lmadf(x, cc, m, pd, d);
+   x = lmadf(x, cc, m, pd, d);
 
-    for(i=m; i>=1; i--)
-	e[i] = e[i-1];
-    e[0] = x;
+   for (i=m; i>=1; i--)
+	  e[i] = e[i-1];
+   e[0] = x;
     
-    gg = gg * lambda + (1.0 - lambda) * e[0] * e[0];
-    c[0] = 0.5 * log(gg);
+   gg = gg * lambda + (1.0 - lambda) * e[0] * e[0];
+   c[0] = 0.5 * log(gg);
     
-    gg = ( gg < eps )? eps : gg;
-    mu = step / (double) m / gg;
-    tx = 2 * (1.0 - tau) * x;
+   gg = ( gg < eps )? eps : gg;
+   mu = step / (double) m / gg;
+   tx = 2 * (1.0 - tau) * x;
     
-    for(i=1; i<=m; i++){
-	ep[i] = tau * ep[i] - tx * e[i];
-	c[i] -= mu * ep[i];
-    }
+   for (i=1; i<=m; i++) {
+      ep[i] = tau * ep[i] - tx * e[i];
+      c[i] -= mu * ep[i];
+   }
     
-    return(x);
+   return(x);
 }
