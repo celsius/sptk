@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: _c2sp.c,v 1.3 2006/12/11 07:16:35 mr_alex Exp $
+    $Id: _c2sp.c,v 1.4 2007/07/20 09:10:29 heigazen Exp $
 
     Transform cepstrum to spectrum
 
@@ -55,15 +55,15 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-void c2sp(double *c, int m, double *x, double *y, int l)
+void c2sp (double *c, const int m, double *x, double *y, const int l)
 {
-    int            m1;
+   int m1;
 
-    m1 = m + 1;
+   m1 = m + 1;
     
-    movem(c, x, sizeof(*c), m1);
-    fillz(x+m1, sizeof(*x), l-m1);
+   movem(c, x, sizeof(*c), m1);
+   fillz(x+m1, sizeof(*x), l-m1);
 
-    fftr(x, y, l);
+   fftr(x, y, l);
 }
-	
+
