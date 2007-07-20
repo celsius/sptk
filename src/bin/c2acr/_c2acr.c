@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+Speech Signal Processing Toolkit (SPTK): version 3.0
+SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+Department of Computer Science
+Nagoya Institute of Technology
+and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+Tokyo Institute of Technology
+Copyright (c) 1984-2000
+All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -39,53 +39,53 @@
 
 /****************************************************************
 
-    $Id: _c2acr.c,v 1.4 2006/12/15 11:06:31 mr_alex Exp $
+    $Id: _c2acr.c,v 1.5 2007/07/20 08:51:05 heigazen Exp $
 
     Transformation Cepstrum to Autocorrelation
 
-	void 	c2acr(c, m1, r, m2, flng)
+    void c2acr(c, m1, r, m2, flng)
 
-	double    *c : cepstral coefficients
-	int   	  m1 : order of cepstrum
-	double    *r : autocorrelation coefficients
-	int   	  m2 : order of autocorrelation
-	int     flng : FFT length
+    double *c   : cepstral coefficients
+    int    m1   : order of cepstrum
+    double *r   : autocorrelation coefficients
+    int    m2   : order of autocorrelation
+    int    flng : FFT length
 
 ****************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
-void c2acr(double *c, int m1, double *r, int m2, int flng)
+void c2acr(double *c, const int m1, double *r, const int m2, const int flng)
 {
-    register int  i;
-    double	  exp();
-    static double *x = NULL, *y;
-    static int    size;
+   int i;
+   static double *x=NULL, *y;
+   static int size;
     
-    if(x == NULL){
-	x = dgetmem(flng+flng);
-	y = x + flng;
-	size = flng;
-    }
-    if(flng > size){
-	free(x);
-	x = dgetmem(flng+flng);
-	y = x + flng;
-	size = flng;
-    }
+   if (x==NULL) {
+      x = dgetmem(flng+flng);
+      y = x + flng;
+      size = flng;
+   }
+   if (flng > size) {
+      free(x);
+      x = dgetmem(flng+flng);
+      y = x + flng;
+      size = flng;
+   }
 
-    movem(c, x, sizeof(*c), m1+1);
-    fillz(&x[m1+1], sizeof(*x), flng-m1-1);
+   movem(c, x, sizeof(*c), m1+1);
+   fillz(&x[m1+1], sizeof(*x), flng-m1-1);
 
-    fftr(x, y, flng);
+   fftr(x, y, flng);
 
-    for(i=0; i<flng; i++)
-	x[i] = exp(2.0 * x[i]);
+   for (i=0; i<flng; i++)
+      x[i] = exp(2.0 * x[i]);
     
-    fftr(x, y, flng);
+   fftr(x, y, flng);
 
-    for(i=0; i<=m2; i++) 
-	r[i] = x[i] / flng;
+   for (i=0; i<=m2; i++) 
+      r[i] = x[i] / flng;
 }
