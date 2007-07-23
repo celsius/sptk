@@ -58,7 +58,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: fd.c,v 1.7 2006/12/21 07:23:15 mr_alex Exp $";
+static char *rcs_id = "$Id: fd.c,v 1.8 2007/07/23 02:33:21 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -69,7 +69,7 @@ static char *rcs_id = "$Id: fd.c,v 1.7 2006/12/21 07:23:15 mr_alex Exp $";
 #include <SPTK.h>
 
 /*  Required Functions  */
-void fdump(register FILE *fp);
+void fdump(FILE *fp);
 
 /*  Default Values  */
 #define START		0
@@ -121,7 +121,7 @@ char	adrsfmt = 'd', format[SIZE], form[SIZE];
 int main(int argc, char **argv)
 {
     FILE 	   *fp = stdin;
-    register char  *s, c;
+    char  *s, c;
     long	   atol();
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -191,10 +191,10 @@ int main(int argc, char **argv)
     exit(0);
 }
 
-void fdump(register FILE *fp)
+void fdump(FILE *fp)
 {
     char s[18];
-    register long	adrs, i, n;
+    long	adrs, i, n;
     union {
 	unsigned char	b;
 	short	w;
