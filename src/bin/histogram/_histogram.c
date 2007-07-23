@@ -43,7 +43,7 @@
 int	histogram(double *x, int size, double min, double max, double step, double *h)
 {
 	int	k, ii, flg=0;
-	register int	jj;
+	int	jj;
 
 	k = (int)((max - min) / step + 1.0);
 

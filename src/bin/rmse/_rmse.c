@@ -54,7 +54,7 @@
 
 double rmse(double *x, double *y, int n)
 {
-    register int  i;
+    int  i;
     double	  sub, sum, sqrt(double);
 
     sum = 0.0;

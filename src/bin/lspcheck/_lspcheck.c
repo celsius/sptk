@@ -55,7 +55,7 @@
 
 int lspcheck(double *lsp, int ord)
 {
-    register int	i;
+    int	i;
     
     if(lsp[0] <=0.0 || lsp[0] >= 0.5) 
 	return(-1);
@@ -84,7 +84,7 @@ int lspcheck(double *lsp, int ord)
 
 void lsparrange(double *lsp, int ord)
 {
-    register int	i, flag;
+    int	i, flag;
     double 		tmp;
     
     /* check out of range */

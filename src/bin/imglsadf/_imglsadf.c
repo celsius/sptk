@@ -69,7 +69,7 @@ double imglsadf(double x, double *b, int m, double a, int n, double *d)
 
 double imglsadff(double x, double *b, int m, double a, double *d)
 {
-    register int	i;
+    int	i;
     double		y, aa;
 
     aa = 1 - a * a;
@@ -103,7 +103,7 @@ double imglsadf1(double x, double *b, int m, double a, int n, double *d)
 
 double imglsadff1(double x, double *b, int m, double a, double g, double *d)
 {
-    register int	i;
+    int	i;
     double		y, aa;
 
     aa = 1 - a * a;
@@ -135,7 +135,7 @@ double imglsadft(double x, double *b, int m, double a, int n, double *d)
 
 double imglsadfft(double x, double *b, int m, double a, double *d)
 {
-    register int	i;
+    int	i;
     double		y;
 
     y = x + (1.0 - a * a) * d[0];
@@ -165,7 +165,7 @@ double imglsadf1t(double x, double *b, int m, double a, int n, double *d)
 
 double imglsadff1t(double x, double *b, int m, double a, double g, double *d)
 {
-    register int	i;
+    int	i;
     double		y;
 
     y = x + g * (1.0 - a * a) * d[0];

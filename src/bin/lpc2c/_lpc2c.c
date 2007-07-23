@@ -54,7 +54,7 @@
 
 void lpc2c(double *a, int m1, double *c, int m2)
 {
-    register int 	i, k, upl;
+    int 	i, k, upl;
     double	 	log(double), exp(double), d;
 
     c[0] = log(a[0]);

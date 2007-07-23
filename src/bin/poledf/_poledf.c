@@ -68,7 +68,7 @@ double	poledf(double x, double *a, int m, double *d)
 
 double poledft(double x, double *a, int m, double *d)
 {
-    register int  i;
+    int  i;
     
     x -= d[0];
     for(i=1; i<m; i++)

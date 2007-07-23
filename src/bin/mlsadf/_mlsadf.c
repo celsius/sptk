@@ -82,7 +82,7 @@ double mlsadf(double x, double *b, int m, double a, int pd, double *d)
 double mlsadf1(double x, double *b, int m, double a, int pd, double *d)
 {
     double	 v, out = 0.0, *pt, aa;
-    register int i;
+    int i;
 	
     aa = 1 - a*a;
     pt = &d[pd+1];
@@ -105,7 +105,7 @@ double mlsadf1(double x, double *b, int m, double a, int pd, double *d)
 double mlsadf2(double x, double *b, int m, double a, int pd, double *d)
 {
     double	 v, out = 0.0, *pt, aa, mlsafir(double x, double *b, int m, double a, double *d);
-    register int i;
+    int i;
     
     aa = 1 - a*a;
     pt = &d[pd * (m+2)];
@@ -127,7 +127,7 @@ double mlsadf2(double x, double *b, int m, double a, int pd, double *d)
 double mlsafir(double x, double *b, int m, double a, double *d)
 {
     double	 y = 0.0, aa;
-    register int i;
+    int i;
 	
     aa = 1 - a*a;
 
