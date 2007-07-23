@@ -65,7 +65,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.8 2006/12/21 07:23:14 mr_alex Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.9 2007/07/23 02:34:04 mr_alex Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -478,7 +478,7 @@ void reset_audiodev()
 int byteswap_vec(void *vec, int size, int blocks)
 {
 	char *q;
-	register char t;
+	char t;
 	int i, j;
 
 	q = (char *)vec;

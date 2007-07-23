@@ -60,7 +60,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: ccp.c,v 1.6 2006/12/21 07:23:13 mr_alex Exp $";
+static char *rcs_id = "$Id: ccp.c,v 1.7 2007/07/23 02:35:18 mr_alex Exp $";
 
 
 /*  Standard C Libraries  */
@@ -73,7 +73,7 @@ static char *rcs_id = "$Id: ccp.c,v 1.6 2006/12/21 07:23:13 mr_alex Exp $";
 /*  Required Functions  */
 long xscanf(char *s);
 void copy(FILE *fp, char *type, int isize, int osize);
-int getstr(FILE *fp, register char *s);
+int getstr(FILE *fp, char *s);
 int ffseek(FILE *fp, long off);
 void conv(double *in, double *out, char *type);
 int size(int c);
@@ -269,7 +269,7 @@ long xscanf(char *s)
 
 void copy(FILE *fp, char *type, int isize, int osize)
 {
-    register long	adrs, n;
+    long	adrs, n;
     double	ib[1], ob[1], atof();
     char	s[256];
 
@@ -309,9 +309,9 @@ void copy(FILE *fp, char *type, int isize, int osize)
     }
 }
 
-int getstr(FILE *fp, register char *s)
+int getstr(FILE *fp, char *s)
 {
-    register int	c, i;
+    int	c, i;
 
     for(i = 0; (c = getc(fp)) == ' ' ||
 	c == '\t' || c == '\n' || c == '\r'; ++i)
@@ -329,7 +329,7 @@ int getstr(FILE *fp, register char *s)
 
 int ffseek(FILE *fp, long off)
 {
-    register int	n;
+    int	n;
 
     if(fp != stdin)
 	fseek(fp, off, 0);
