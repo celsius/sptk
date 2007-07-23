@@ -73,7 +73,7 @@
 
 int smcep(double *xw, int flng,double *mc, int m, int fftsz, double a, double t, int itr1,int itr2,double dd,double e)
 {
-    register int   i, j;
+    int   i, j;
     int		   flag = 0, f2, m2;
     double	   u, s, fabs(), exp(), log();
     static double  *x = NULL, *y, *c, *d, *al, *b;
@@ -191,7 +191,7 @@ int smcep(double *xw, int flng,double *mc, int m, int fftsz, double a, double t,
 
 void frqt_a(double *al,int m,int fftsz,double a,double t)
 {
-    register int 	i, j;
+    int 	i, j;
     double		w, b, *ww, *f, 
                         *re, *im, *pf, *pl, *next, warp();
     int                 size_l, size_f, fftsz2;
@@ -282,7 +282,7 @@ void frqt_a(double *al,int m,int fftsz,double a,double t)
 
 void freqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 {
-    register int 	i, j;
+    int 	i, j;
     double		w, b, *ww, *dw, *f,
                         *re, *im, *pf, *pg, *next, warp(), derivw();
     int                 size_g, size_f, fftsz2, fftszh;
@@ -393,7 +393,7 @@ void freqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 
 void ifreqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 {
-    register int 	i, j;
+    int 	i, j;
     double		w, b, *ww, *f,
                         *re, *im, *pl, *pr, *plnxt, *prnxt,
                         *pf, *ph, *next, warp(), derivw();
@@ -519,7 +519,7 @@ void ifreqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 
 void frqtr2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 {
-    register int 	i, j;
+    int 	i, j;
     double		w, b, *ww, *f, *tc2,
                         *re, *im, *pf, *pk, *next, warp();
     int                 size_k, size_f, fftsz2;
