@@ -478,7 +478,7 @@ void reset_audiodev()
 int byteswap_vec(void *vec, int size, int blocks)
 {
 	char *q;
-	register char t;
+	char t;
 	int i, j;
 
 	q = (char *)vec;
