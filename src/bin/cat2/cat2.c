@@ -50,76 +50,83 @@
 *									*
 ************************************************************************/
 
+static char *rcs_id = "$Id: cat2.c,v 1.8 2007/07/23 04:12:30 heigazen Exp $";
+
+
 /*  Standard C Libraries **/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - concatenate and display files to the standard error\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile1 ] [ infile2 ] ...\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -n    : output with line number    [FALSE]\n");
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       data sequence                      [stdin]\n");
-    fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - concatenate and display files to the standard error\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile1 ] [ infile2 ] ...\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -n    : output with line number    [FALSE]\n");
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence                      [stdin]\n");
+   fprintf(stderr, "  notice:\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
-#endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
+   #endif
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int  linenum = 0;
-    int  stdinmode = 0;
-    char buf[512];
-    FILE *fp;
+   int linenum=0;
+   int stdinmode=0;
+   char buf[512];
+   FILE *fp;
 
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc){
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'n':
-		    linenum = 1;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	} else {
-		stdinmode = -1;
-		if( (fp = fopen( *argv, "r")) == NULL){
-			fprintf(stderr, "%s: cannot open %s\n", cmnd, *argv);
-			exit(1);
-		}
-		while( fgets( buf, 512, fp) != 0){
-			if( linenum > 0) fprintf( stderr, "%6d  ", linenum++);
-			fputs( buf, stderr);
-		}
-	}
-    }
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   
+   while (--argc) {
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'n':
+            linenum = 1;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else {
+         stdinmode = -1;
+         if ( (fp = fopen( *argv, "r"))==NULL) {
+            fprintf(stderr, "%s: cannot open %s\n", cmnd, *argv);
+            exit(1);
+         }
+         while(fgets(buf, 512, fp)!=0) {
+            if (linenum>0) fprintf(stderr, "%6d  ", linenum++);
+            fputs(buf, stderr);
+         }
+      }
+   }
 
-    if( stdinmode == 0 ){
-	    while( fgets( buf, 512, stdin) != 0){
-		    if( linenum > 0) fprintf( stderr, "%6d  ", linenum++);
-	    fputs( buf, stderr);
-	    }
-    }
-    exit(0);
+   if (stdinmode==0) {
+      while (fgets( buf, 512, stdin)!=0) {
+         if (linenum>0) fprintf( stderr, "%6d  ", linenum++);
+         fputs(buf, stderr);
+      }
+   }
+   
+   return 0;
 }
