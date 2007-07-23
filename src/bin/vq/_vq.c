@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _vq.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $
+    $Id: _vq.c,v 1.4 2007/07/23 02:09:22 mr_alex Exp $
 
     Vector Quantization
 
@@ -72,7 +72,7 @@ int vq(double *x, double *cb, int l, int cbsize)
 
 double edist(double *x, double *y, int m)
 {
-    register int  i;
+    int  i;
     double	  sub, dist = 0.0;
     
     for(i=0; i<m; i++){
