@@ -72,7 +72,7 @@ int vq(double *x, double *cb, int l, int cbsize)
 
 double edist(double *x, double *y, int m)
 {
-    register int  i;
+    int  i;
     double	  sub, dist = 0.0;
     
     for(i=0; i<m; i++){
