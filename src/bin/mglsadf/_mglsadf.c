@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mglsadf.c,v 1.4 2006/12/15 11:06:48 mr_alex Exp $
+    $Id: _mglsadf.c,v 1.5 2007/07/23 02:24:04 mr_alex Exp $
 
     MGLSA Digital Filter
 
@@ -69,7 +69,7 @@ double mglsadf(double x, double *b, int m, double a, int n, double *d)
 
 double mglsadff(double x, double *b, int m, double a, double *d)
 {
-    register int	i;
+    int	i;
     double		y, aa;
 
     aa = 1 - a * a;
@@ -103,7 +103,7 @@ double mglsadf1(double x, double *b, int m, double a, int n, double *d)
 
 double mglsadff1(double x, double *b, int m, double a, double g, double *d)
 {
-    register int	i;
+    int	i;
     double		y, aa;
 
     aa = 1 - a * a;
@@ -135,7 +135,7 @@ double mglsadft(double x, double *b, int m, double a, int n, double *d)
 
 double mglsadfft(double x, double *b, int m, double a, double *d)
 {
-    register int	i;
+    int	i;
     
     x -= d[0] * (1.0 - a * a);
     
@@ -164,7 +164,7 @@ double mglsadf1t(double x, double *b, int m, double a, int n, double *d)
 
 double mglsadff1t(double x, double *b, int m, double a, double g, double *d)
 {
-    register int	i;
+    int	i;
 
     x -= d[0] * (1.0 - a * a) * g;
     

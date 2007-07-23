@@ -54,7 +54,7 @@
 
 void clip(double *x, int l, double min, double max, double *y)
 {
-	register int	i;
+	int	i;
 	for (i=0; i<l; i++)
 		y[i] = (x[i] < min)?min:(x[i] > max)?max:x[i];
 }

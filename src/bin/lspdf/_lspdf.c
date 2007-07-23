@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _lspdf.c,v 1.3 2006/12/11 07:16:39 mr_alex Exp $
+    $Id: _lspdf.c,v 1.4 2007/07/23 02:26:26 mr_alex Exp $
 
     LSP Speech Synthesis Digital Filter
 
@@ -58,7 +58,7 @@
 double	lspdf_even(double x, double *f, int m, double *d)
 {
     double  	  *d1, *d2, *lsp, x1, x2, cos(double);
-    register int  i;
+    int  i;
 
     d1 = d + 1;
     d2 = d1 + m;
@@ -89,7 +89,7 @@ double	lspdf_even(double x, double *f, int m, double *d)
 
 double	lspdf_odd(double x, double *f, int m, double *d)
 {
-    register int  i;
+    int  i;
     int           mh1, mh2;
     double  	  *d1, *d2, *lsp, x1, x2, cos(double);
 

@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: _rmse.c,v 1.3 2006/12/11 07:16:41 mr_alex Exp $
+    $Id: _rmse.c,v 1.4 2007/07/23 02:20:38 mr_alex Exp $
 
     Calculation of Root Mean Squared Error
 
@@ -54,7 +54,7 @@
 
 double rmse(double *x, double *y, int n)
 {
-    register int  i;
+    int  i;
     double	  sub, sum, sqrt(double);
 
     sum = 0.0;

@@ -51,9 +51,9 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-int ifft(register double *x, register double *y, int m)
+int ifft(double *x, double *y, int m)
 {
-	register int	i;
+	int	i;
 
 	if(fft(y, x, m) == -1)
 		return(-1);
