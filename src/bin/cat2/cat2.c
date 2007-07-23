@@ -78,7 +78,7 @@ void usage (int status)
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
-   #endif
+#endif
    fprintf(stderr, "\n");
    exit(status);
 }
