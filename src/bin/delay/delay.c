@@ -58,7 +58,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: delay.c,v 1.8 2006/12/21 07:23:14 mr_alex Exp $";
+static char *rcs_id = "$Id: delay.c,v 1.9 2007/07/23 07:44:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -68,88 +68,85 @@ static char *rcs_id = "$Id: delay.c,v 1.8 2006/12/21 07:23:14 mr_alex Exp $";
 #include <SPTK.h>
 
 
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
-
-
 /*  Default Values  */
-#define START		0
-#define KEEP		FA
+#define START 0
+#define KEEP FA
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - delay sequence\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -s s  : start sample      [%d]\n", START);
-    fprintf(stderr, "       -f    : keep file length  [%s]\n", BOOL[KEEP]);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       data sequence (float)     [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       delayed data sequence (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - delay sequence\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -s s  : start sample      [%d]\n", START);
+   fprintf(stderr, "       -f    : keep file length  [%s]\n", BOOL[KEEP]);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (float)     [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       delayed data sequence (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		start = START, leng = 16384, i;
-    FILE	*fp = stdin;
-    double	*x;
-    Boolean	keep = KEEP;
-    
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 's':
-		    start = atoi(*++argv);
-		    if(start < leng){
-		      fprintf(stderr, "%s : option s should be %d or less!\n", cmnd, leng);
-		      exit(0);
-		    }
-		    --argc;
-		    break;
-		case 'f':
-		    keep = 1 - keep;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   int  start=START, leng=16384, i;
+   FILE *fp=stdin;
+   double *x;
+   Boolean keep=KEEP;
+   
+   
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 's':
+            start = atoi(*++argv);
+            if (start<leng) {
+               fprintf(stderr, "%s : option s should be %d or less!\n", cmnd, leng);
+               exit(0);
+            }
+            --argc;
+            break;
+         case 'f':
+            keep = 1 - keep;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else 
+         fp = getfp(*argv, "r");
 
-    x = dgetmem(leng);
-    while ((i = freadf(x+start, sizeof(*x), leng-start, fp)) == leng-start){
-	fwritef(x, sizeof(*x), leng-start, stdout);
-	movem(x+leng-start,x,sizeof(*x),start);
-    }
+   x = dgetmem(leng);
+   while ((i = freadf(x+start, sizeof(*x), leng-start, fp))==leng-start) {
+      fwritef(x, sizeof(*x), leng-start, stdout);
+      movem(x+leng-start,x,sizeof(*x),start);
+   }
     
-    if (keep) fwritef(x,sizeof(*x),i,stdout);
-    else fwritef(x, sizeof(*x), i+start, stdout);
+   if (keep) fwritef(x,sizeof(*x),i,stdout);
+   else fwritef(x, sizeof(*x), i+start, stdout);
 
-    exit(0);
+   return 0;
 }
 
