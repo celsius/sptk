@@ -67,83 +67,84 @@ static char *rcs_id = "$Id$";
 #include <SPTK.h>
 
 /*  Default Values  */
-#define PERIOD		10
-#define START		0
+#define PERIOD 10
+#define START 0
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - decimation \n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -p p  : decimation period [%d]\n", PERIOD);
-    fprintf(stderr, "       -s s  : start sample      [%d]\n", START);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       data sequence (float)     [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       decimated data sequence (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - decimation \n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -p p  : decimation period [%d]\n", PERIOD);
+   fprintf(stderr, "       -s s  : start sample      [%d]\n", START);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (float)     [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       decimated data sequence (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		period = PERIOD, start = START, i;
-    FILE	*fp = stdin;
-    double	x;
+   int period=PERIOD, start=START, i;
+   FILE *fp=stdin;
+   double x;
     
     
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'p':
-		    period = atoi(*++argv);
-		    --argc;
-		    break;
-		case 's':
-		    start = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'p':
+            period = atoi(*++argv);
+            --argc;
+            break;
+         case 's':
+            start = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else 
+         fp = getfp(*argv, "r");
 
-    for(i=0; i<start; i++)
-	if(freadf(&x, sizeof(x), 1, fp) != 1) exit(1);
+   for (i=0; i<start; i++)
+      if (freadf(&x, sizeof(x), 1, fp)!=1) exit(1);
 
-    i = period;
-    while(freadf(&x, sizeof(x), 1, fp) == 1){
-	if(i == period)
-	    fwritef(&x, sizeof(x), 1, stdout);
+   i = period;
+   while (freadf(&x, sizeof(x), 1, fp)==1) {
+      if (i == period)
+         fwritef(&x, sizeof(x), 1, stdout);
 
-	i--;
-	if (i == 0)
-	    i = period;
-    }
+      i--;
+      if (i==0)
+         i = period;
+   }
 
-    exit(0);
+   return 0;
 }
 
