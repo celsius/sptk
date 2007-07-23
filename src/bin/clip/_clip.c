@@ -38,6 +38,9 @@
 */
 
 /************************************************
+* 
+*     $Id: _clip.c,v 1.5 2007/07/23 04:30:27 heigazen Exp $
+* 
 *	Data clipping				*
 *		1996.3.14			*
 *						*
@@ -52,9 +55,10 @@
 *						*
 ************************************************/
 
-void clip(double *x, int l, double min, double max, double *y)
+void clip (double *x, const int l, const double min, const double max, double *y)
 {
-	int	i;
-	for (i=0; i<l; i++)
-		y[i] = (x[i] < min)?min:(x[i] > max)?max:x[i];
+   int i;
+ 
+   for (i=0; i<l; i++)
+      y[i] = (x[i]<min) ? min : ((x[i]>max) ? max : x[i]);
 }
