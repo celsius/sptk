@@ -59,63 +59,61 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <SPTK.h>
 
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
-
 
 /*  Default Values  */
-#define NEWLINE		TR
+#define NEWLINE TR
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - echo arguments to the standard error\n",cmnd)
-;
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ]\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -n    : no output newline   [%s]\n", BOOL[NEWLINE]);
-    fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - echo arguments to the standard error\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ]\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -n    : no output newline   [%s]\n", BOOL[NEWLINE]);
+   fprintf(stderr, "       -h    : print this message\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int  newline = NEWLINE;
+   int newline=NEWLINE;
 
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc){
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'n':
-		    newline = 1 - newline;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	} else {
-	    fputs(*argv, stderr);
-	    if (argc > 1) putc(' ', stderr);
-	}
-    }
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc) {
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'n':
+            newline = 1 - newline;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      } 
+      else {
+         fputs(*argv, stderr);
+         if (argc>1) putc(' ', stderr);
+      }
+   }
 
-    if (newline) putc('\n', stderr);
+   if (newline) putc('\n', stderr);
     
-    exit(0);
+   return 0;
 }
