@@ -72,103 +72,108 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
+
 /*  Default Values  */
-#define ORDER		25
-#define FLNG		256
-#define MAXITR		0
-#define ACCELATION	0.0
-#define EPS		0.0
+#define ORDER 25
+#define FLNG 256
+#define MAXITR 0
+#define ACCELATION 0.0
+#define EPS 0.0
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
 void usage(int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - FFT cepstral analysis\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -m m  : order of cepstrum   [%d]\n", ORDER);
-    fprintf(stderr, "       -l l  : frame length        [%d]\n", FLNG);
-    fprintf(stderr, "       -j j  : number of iteration [%d]\n", MAXITR);
-    fprintf(stderr, "       -k k  : accelation factor   [%g]\n", ACCELATION);
-    fprintf(stderr, "       -e e  : epsilon             [%g]\n", EPS);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       windowed sequence (float)   [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       cepstrum (float)\n");
-    fprintf(stderr, "  note:\n");
-    fprintf(stderr, "       When -j & -k options are specified,\n");
-    fprintf(stderr, "       improved cepstral analysis is performed.\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - FFT cepstral analysis\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of cepstrum   [%d]\n", ORDER);
+   fprintf(stderr, "       -l l  : frame length        [%d]\n", FLNG);
+   fprintf(stderr, "       -j j  : number of iteration [%d]\n", MAXITR);
+   fprintf(stderr, "       -k k  : accelation factor   [%g]\n", ACCELATION);
+   fprintf(stderr, "       -e e  : epsilon             [%g]\n", EPS);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       windowed sequence (float)   [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       cepstrum (float)\n");
+   fprintf(stderr, "  note:\n");
+   fprintf(stderr, "       When -j & -k options are specified,\n");
+   fprintf(stderr, "       improved cepstral analysis is performed.\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 int main(int argc, char **argv)
 {
-    int		m = ORDER, l = FLNG, itr = MAXITR, i;
-    double	ac = ACCELATION, eps = EPS, *x, *y, *c, log(), atof();
-    FILE	*fp = stdin;
+   int  m=ORDER, l=FLNG, itr=MAXITR, i;
+   double ac=ACCELATION, eps=EPS, *x, *y, *c;
+   FILE *fp=stdin;
     
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'l':
-		    l = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'j':
-		    itr = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'k':
-		    ac = atof(*++argv);
-		    --argc;
-		    break;
-		case 'e':
-		    eps = atof(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 'l':
+            l = atoi(*++argv);
+            --argc;
+            break;
+         case 'j':
+            itr = atoi(*++argv);
+            --argc;
+            break;
+         case 'k':
+            ac = atof(*++argv);
+            --argc;
+            break;
+         case 'e':
+            eps = atof(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else 
+         fp = getfp(*argv, "r");
+ 
+   x = dgetmem(l+l+m+1);
+   y = x + l; c = y + l;
+   
+   while (freadf(x, sizeof(*x), l, fp)==1) {
+      fftr(x, y, l);
+   
+      for (i=0; i<l; i++)
+         x[i] = log(x[i]*x[i] + y[i]*y[i] + eps);
 
-    x = dgetmem(l+l+m+1);
-    y = x + l; c = y + l;
-    
-    while (freadf(x, sizeof(*x), l, fp) == l){
-	fftr(x, y, l);
-	for(i=0; i<l; i++)
-	    x[i] = log(x[i]*x[i] + y[i]*y[i] + eps);
-
-	fftcep(x, l, c, m, itr, ac);
-	
-	fwritef(c, sizeof(*c), m+1, stdout);
-    }
-    exit(0);
+      fftcep(x, l, c, m, itr, ac);
+ 
+      fwritef(c, sizeof(*c), m+1, stdout);
+   }
+   
+   return 0;
 }
