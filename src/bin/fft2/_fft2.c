@@ -38,7 +38,7 @@
 */
 
 /********************************************************
-$Id: _fft2.c,v 1.4 2006/12/15 11:06:38 mr_alex Exp $
+$Id: _fft2.c,v 1.5 2007/07/24 05:31:32 heigazen Exp $
 
 *	fft2 : two dimensional fast Fourier transform 	*
 *			for complex sequence		*
@@ -55,54 +55,55 @@ $Id: _fft2.c,v 1.4 2006/12/15 11:06:38 mr_alex Exp $
 *							*
 *	T. Kobayashi	May, 1989.			*
 ********************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
 
-int fft2(double x[], double y[], int n )
+int fft2 (double x[], double y[], const int n)
 {
-	double		*xq, *yq;
-	static double	*xb = NULL, *yb;
-	register double	*xp, *yp;
-	register int	i, j;
-	static int size_f;
+   double *xq, *yq;
+   static double *xb=NULL, *yb;
+   double *xp, *yp;
+   int i, j;
+   static int size_f;
+   
+   if (xb==NULL) {
+      size_f = 2 * n;
+      xb = dgetmem(size_f);
+      yb = xb + n;
+   }
+   if (2*n>size_f) {
+      free(xb);
+      size_f = 2 * n;
+      xb = dgetmem(size_f);
+      yb = xb + n;
+   }
+ 
+   for (i=0; i<n; i++) {
+      xp = xb; xq = x + i;
+      yp = yb; yq = y + i;
+      for (j=n; --j>=0; xq+=n, yq+=n) {
+         *xp++ = *xq;
+         *yp++ = *yq;
+      }
+  
+      if (fft(xb,yb,n)<0)
+         return(-1);
 
-	if(xb == NULL) {
-		size_f = 2 * n;
-		xb = dgetmem(size_f);
-		yb = xb + n;
-	}
-	if (2*n > size_f) {
-		free(xb);
-		size_f = 2 * n;
-		xb = dgetmem(size_f);
-		yb = xb + n;
-	}
-	
-	for(i = 0; i < n; ++i) {
-		xp = xb;	xq = x + i;
-		yp = yb;	yq = y + i;
-		for(j = n; --j >= 0; xq += n, yq += n) {
-			*xp++ = *xq;
-			*yp++ = *yq;
-		}
-		
-		if( fft( xb, yb, n ) < 0 )
-			return( -1 );
+      xp = xb; xq = x + i;
+      yp = yb; yq = y + i;
+      for (j=n; --j>=0; xq+=n,yq+=n) {
+         *xq = *xp++;
+         *yq = *yp++;
+      }
+   }
 
-		xp = xb;	xq = x + i;
-		yp = yb;	yq = y + i;
-		for(j = n; --j >= 0; xq += n, yq += n) {
-			*xq = *xp++;
-			*yq = *yp++;
-		}
-	}
+   for (i=n,xp=x,yp=y; --i>=0; xp+=n,yp+=n) {
+      if (fft(xp, yp, n)<0)
+         return( -1 );
+   }
 
-	for(i = n, xp = x, yp = y ; --i >= 0; xp += n, yp += n) {
-		if( fft( xp, yp, n ) < 0 )
-			return( -1 );
-	}
-
-	return( 0 );
+   return 0;
 }
