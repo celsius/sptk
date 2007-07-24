@@ -38,7 +38,7 @@
 */
 
 /************************************************************************
-	$Id: _dfs.c,v 1.3 2006/12/11 07:16:35 mr_alex Exp $								
+	$Id: _dfs.c,v 1.4 2007/07/24 02:15:27 heigazen Exp $								
 	Standard Form Digital Filter					
 	latice digital filter						
 		double dfs(x, a, m, b, n, buf, bufp)			
@@ -55,36 +55,35 @@
 		1987.11  K.Tokuda					
 		1995.12  N.Isshiki					
 ************************************************************************/
+
 #include <stdio.h>
 
-
-double dfs(double x, double *a, int m, double *b, int n, double *buf, int *bufp)
+double dfs (double x, double *a, int m, double *b, int n, double *buf, int *bufp)
 {
-	double y = 0.0;
-	int i, p;
-	int max;
+   double y=0.0;
+   int i, p;
+   int max;
 
-	n++;
-	m++;
+   n++;
+   m++;
 
-	(m < n)? (max = n) : (max = m);
+   (m<n) ? (max=n) : (max=m);
 
-	x = x * a[0];
-	for (i = 1; i < m; i++){
-		if ((p = *bufp + i) >= max)
-			p -= max;
-		x -= buf[p] * a[i];
-	}
-	buf[*bufp] = x;
-	for (i = 0; i < n; i++){
-		if ((p = *bufp + i) >= max)
-			p -= max;
-		y += buf[p] * b[i];
-	}
+   x = x*a[0];
+   for (i=1; i<m; i++) {
+      if ((p=*bufp+i)>=max)
+         p -= max;
+      x -= buf[p] * a[i];
+   }
+   buf[*bufp] = x;
+   for (i=0; i<n; i++) {
+      if ((p=*bufp+i)>=max)
+         p -= max;
+      y += buf[p] * b[i];
+   }
 
-	if (--*bufp < 0)
-		*bufp += max;
+   if (--*bufp<0)
+      *bufp += max;
 
-	return(y);
-
+   return(y);
 }
