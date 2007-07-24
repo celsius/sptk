@@ -80,145 +80,144 @@ static char *rcs_id = "$Id$";
 #include <SPTK.h>
 
 
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
-
-
 /*  Default Values  */
-#define LENG 		256
-#define	FPERIOD		100
-#define NOCTR		FA
+#define LENG 256
+#define FPERIOD 100
+#define NOCTR FA
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - extract frame from data sequence\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -l l  : frame length          [%d]\n", LENG);
-    fprintf(stderr, "       -p p  : frame period          [%d]\n", FPERIOD);
-    fprintf(stderr, "       -n    : no center start point [%s]\n", BOOL[NOCTR]);
-    fprintf(stderr, "       +type : data type             [f]\n");
-    fprintf(stderr, "                c (char)      s (short)\n");
-    fprintf(stderr, "                i (int)       l (long)\n");
-    fprintf(stderr, "                f (float)     d (double)\n");
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       data sequence              [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       extracted data sequence\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - extract frame from data sequence\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : frame length          [%d]\n", LENG);
+   fprintf(stderr, "       -p p  : frame period          [%d]\n", FPERIOD);
+   fprintf(stderr, "       -n    : no center start point [%s]\n", BOOL[NOCTR]);
+   fprintf(stderr, "       +type : data type             [f]\n");
+   fprintf(stderr, "                c (char)      s (short)\n");
+   fprintf(stderr, "                i (int)       l (long)\n");
+   fprintf(stderr, "                f (float)     d (double)\n");
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence              [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       extracted data sequence\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		  l = LENG, fprd = FPERIOD, size = sizeof(float), ns, i;
-    FILE	  *fp = stdin;
-    Boolean	  noctr = NOCTR;
-    char	  *x, *xx, *p1, *p2, *p;
-    register char *s, c;
+   int l=LENG, fprd=FPERIOD, size=sizeof(float), ns, i;
+   FILE *fp=stdin;
+   Boolean noctr = NOCTR;
+   char *x, *xx, *p1, *p2, *p;
+   char *s, c;
     
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (*(s = *++argv) == '-') {
-	    c = *++s;
-	    switch (c) {
-		case 'l':
-		    l = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'p':
-		    fprd = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'n':
-		    noctr = 1 - noctr;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else if (*s == '+'){
-	    c = *++s;
-	    switch(c) {
-		case 'c':
-		    size = sizeof(char);
-		    break;
-		case 's':
-		    size = sizeof(short);
-		    break;
-		case 'l':
-		    size = sizeof(long);
-		    break;
-		case 'i':
-		    size = sizeof(int);
-		    break;
-		case 'f':
-		    size = sizeof(float);
-		    break;
-		case 'd':
-		    size = sizeof(double);
-		    break;
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else
-	    fp = getfp(*argv, "r");
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (*(s=*++argv)=='-') {
+         c = *++s;
+         switch (c) {
+         case 'l':
+            l = atoi(*++argv);
+            --argc;
+            break;
+         case 'p':
+            fprd = atoi(*++argv);
+            --argc;
+            break;
+         case 'n':
+            noctr = 1 - noctr;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else if (*s=='+') {
+         c = *++s;
+         switch (c) {
+         case 'c':
+            size = sizeof(char);
+            break;
+         case 's':
+            size = sizeof(short);
+            break;
+         case 'l':
+            size = sizeof(long);
+            break;
+         case 'i':
+            size = sizeof(int);
+            break;
+         case 'f':
+            size = sizeof(float);
+            break;
+         case 'd':
+            size = sizeof(double);
+            break;
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
 
-    x = (char *)dgetmem(size*l);
+   x = (char *)dgetmem(size*l);
 
-    if(!noctr){
-    i = (int)((l + 1) / 2);
-    if(fread(&x[(int)(l/2)*size], size, i, fp) != i) 
-	exit(0);
-    } else {
-	if(fread(x, size, l, fp) != l)
-	    exit(0);
-    }
+   if (!noctr) {
+      i = (int)((l + 1) / 2);
+      if (fread(&x[(int)(l/2)*size], size, i, fp)!=i) 
+         return 0;
+   }
+   else {
+      if (fread(x, size, l, fp)!=l)
+      return 0;
+   }
 
-    fwrite(x, size, l, stdout);
+   fwrite(x, size, l, stdout);
 
-    if((ns = (l-fprd)) > 0){
-	p = &x[fprd * size];
-	for(;;){
-	    p1 = x;  p2 = p;
-	    i = ns * size;
-	    while (i--) *p1++ = *p2++;
-	    
-	    if(fread(p1, size, fprd, fp) != fprd) break;
-	    fwrite(x, size, l, stdout);
-	}
-    }
-    else{
-	i = -ns;
-	xx = (char *)dgetmem(i*size);
-	for(;;){
-	    if(fread(xx, size, i, fp) != i) break;
+   if ((ns = (l-fprd))>0) {
+      p = &x[fprd * size];
+      for (;;) {
+         p1 = x;  p2 = p;
+         i = ns * size;
+         while (i--) *p1++ = *p2++;
+   
+         if (fread(p1, size, fprd, fp)!=fprd) break;
+            fwrite(x, size, l, stdout);
+      }
+   }
+   else {
+      i = -ns;
+      xx = (char *)dgetmem(i*size);
+      for (;;) {
+         if (fread(xx, size, i, fp)!=i) break;
 
-	    if(fread(x, size, l, fp) != l) break;
-	    fwrite(x, size, l, stdout);
-	}
-    }
-    exit(0);
+         if (fread(x, size, l, fp) != l) break;
+         fwrite(x, size, l, stdout);
+      }
+   }
+   
+   return 0;
 }
 
