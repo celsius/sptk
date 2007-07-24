@@ -70,85 +70,84 @@ static char *rcs_id = "$Id$";
 
 
 /*  Default Values  */
-#define LENG		10
-#define INDEX		0
-#define SIZE		256
+#define LENG 10
+#define INDEX 0
+#define SIZE 256
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - extract vector \n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] ifile [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -l l  : order of vector    [%d]\n", LENG);
-    fprintf(stderr, "       -i i  : codebook index     [%d]\n", INDEX);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       data sequence (float)      [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       extracted vector (float)\n");
-    fprintf(stderr, "  ifile:\n");
-    fprintf(stderr, "       indexfile (int)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - extract vector \n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] ifile [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : order of vector    [%d]\n", LENG);
+   fprintf(stderr, "       -i i  : codebook index     [%d]\n", INDEX);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (float)      [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       extracted vector (float)\n");
+   fprintf(stderr, "  ifile:\n");
+   fprintf(stderr, "       indexfile (int)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		l = LENG, index = INDEX, size = SIZE, i;
-    FILE	*fp = stdin, *fpi = NULL;
-    double	*x;
+   int l=LENG, index=INDEX, size=SIZE, i;
+   FILE *fp=stdin, *fpi=NULL;
+   double *x;
     
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'l':
-		    l = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'i':
-		    index = atoi(*++argv);
-		    --argc;
-		    break;
-		case 's':
-		    size = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-        else if (fpi == NULL)
-            fpi = getfp(*argv, "r");
-        else
-            fp = getfp(*argv, "r");
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'l':
+            l = atoi(*++argv);
+            --argc;
+            break;
+         case 'i':
+            index = atoi(*++argv);
+            --argc;
+            break;
+         case 's':
+            size = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else if (fpi == NULL)
+         fpi = getfp(*argv, "r");
+      else
+         fp = getfp(*argv, "r");
 
-    x = dgetmem(l);
+   x = dgetmem(l);
 
-    while (freadf(x, sizeof(*x), l, fp) == l &&
-	   fread(&i, sizeof(i), 1, fpi)== 1 )
-	if (i == index)
-	    fwritef(x, sizeof(*x), l, stdout);
+   while (freadf(x, sizeof(*x), l, fp)==l && fread(&i, sizeof(i), 1, fpi)==1)
+      if (i==index)
+         fwritef(x, sizeof(*x), l, stdout);
 
-    exit(0);
+   return 0;
 }
-
