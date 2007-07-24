@@ -62,7 +62,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: freqt.c,v 1.6 2006/12/21 07:23:16 mr_alex Exp $";
+static char *rcs_id = "$Id: freqt.c,v 1.7 2007/07/24 10:15:47 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -72,88 +72,91 @@ static char *rcs_id = "$Id: freqt.c,v 1.6 2006/12/21 07:23:16 mr_alex Exp $";
 #include <SPTK.h>
 
 /*  Default Values  */
-#define ORDERC1		25
-#define ORDERC2		25
-#define	ALPHA1		0.0
-#define	ALPHA2		0.35
+#define ORDERC1 25
+#define ORDERC2 25
+#define ALPHA1 0.0
+#define ALPHA2 0.35
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - frequency transformation\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -m m  : order of minimum phase sequence      [%d]\n", ORDERC1);
-    fprintf(stderr, "       -M M  : order of warped sequence             [%d]\n", ORDERC2);
-    fprintf(stderr, "       -a a  : all-pass constant of input sequence  [%g]\n", ALPHA1);
-    fprintf(stderr, "       -A A  : all-pass constant of output sequence [%g]\n", ALPHA2);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       minimum phase sequence (float)               [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       warped sequence (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - frequency transformation\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of minimum phase sequence      [%d]\n", ORDERC1);
+   fprintf(stderr, "       -M M  : order of warped sequence             [%d]\n", ORDERC2);
+   fprintf(stderr, "       -a a  : all-pass constant of input sequence  [%g]\n", ALPHA1);
+   fprintf(stderr, "       -A A  : all-pass constant of output sequence [%g]\n", ALPHA2);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       minimum phase sequence (float)               [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       warped sequence (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
-#endif	    
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
+#endif   
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		m1 = ORDERC1, m2 = ORDERC2;
-    FILE	*fp = stdin;
-    double	*c1, *c2, a1 = ALPHA1, a2 = ALPHA2, a, atof();
+   int m1=ORDERC1, m2=ORDERC2;
+   FILE *fp=stdin;
+   double *c1, *c2, a1=ALPHA1, a2=ALPHA2, a;
     
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'm':
-		    m1 = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'M':
-		    m2 = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'a':
-		    a1 = atof(*++argv);
-		    --argc;
-		    break;
-		case 'A':
-		    a2 = atof(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'm':
+            m1 = atoi(*++argv);
+            --argc;
+            break;
+         case 'M':
+            m2 = atoi(*++argv);
+            --argc;
+            break;
+         case 'a':
+            a1 = atof(*++argv);
+            --argc;
+            break;
+         case 'A':
+            a2 = atof(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else 
+         fp = getfp(*argv, "r");
 
-    c1 = dgetmem(m1+m2+2);
-    c2 = c1 + m1 + 1;
+   c1 = dgetmem(m1+m2+2);
+   c2 = c1 + m1 + 1;
 
-    a = (a2 - a1) / (1 - a1*a2);
+   a = (a2 - a1) / (1 - a1*a2);
 
-    while (freadf(c1, sizeof(*c1), m1+1, fp) == m1+1){
-	freqt(c1, m1, c2, m2, a);
-	fwritef(c2, sizeof(*c2), m2+1, stdout);
-    }
-    exit(0);
+   while (freadf(c1, sizeof(*c1), m1+1, fp)==m1+1) {
+      freqt(c1, m1, c2, m2, a);
+      fwritef(c2, sizeof(*c2), m2+1, stdout);
+   }
+   
+   return 0;
 }

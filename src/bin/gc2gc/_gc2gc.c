@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: _gc2gc.c,v 1.4 2006/12/15 11:06:40 mr_alex Exp $
+    $Id: _gc2gc.c,v 1.5 2007/07/24 10:15:47 heigazen Exp $
 
     Generalized Cepstral Transformation	
 
@@ -52,43 +52,44 @@
 	double	g2	: gamma of gc2
 
 *****************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <SPTK.h>
 
-void gc2gc(double *c1, int m1, double g1, double *c2, int m2, double g2)
+void gc2gc (double *c1, const int m1, const double g1, double *c2, const int m2, const double g2)
 {
-    int 	  i, min, k, mk;
-    double 	  ss1, ss2, cc;
-    static double *ca = NULL;
-    static int    size;
+   int i, min, k, mk;
+   double ss1, ss2, cc;
+   static double *ca=NULL;
+   static int size;
 
-    if(ca == NULL){
-        ca = dgetmem(m1+1);
-	size = m1;
-    }
-    if(m1 > size){
-        free(ca);
-        ca = dgetmem(m1+1);
-	size = m1;
-    }
+   if (ca==NULL) {
+      ca = dgetmem(m1+1);
+      size = m1;
+   }
+   if (m1>size) {
+      free(ca);
+      ca = dgetmem(m1+1);
+      size = m1;
+   }
 
-    movem(c1, ca, sizeof(*c1), m1+1);
+   movem(c1, ca, sizeof(*c1), m1+1);
 
-    c2[0] = ca[0];
-    for (i = 1; i <= m2; i++){
-	ss1 = ss2 = 0.0;
-	min = m1 < i ? m1 : i - 1;
-	for (k = 1; k <= min; k++){
-	    mk = i - k;
-	    cc = ca[k] * c2[mk];
-	    ss2 += k * cc;
-	    ss1 += mk * cc;
-	}
+   c2[0] = ca[0];
+   for (i=1; i<=m2; i++) {
+      ss1 = ss2 = 0.0;
+      min = (m1<i) ? m1 : i-1;
+      for (k=1; k<=min; k++) {
+         mk = i - k;
+         cc = ca[k] * c2[mk];
+         ss2 += k * cc;
+         ss1 += mk * cc;
+      }
 
-	if (i <= m1)
-	    c2[i] = ca[i] + (g2*ss2 - g1*ss1)/i;
-	else
-	    c2[i] = (g2*ss2 - g1*ss1)/i;
-    }
+      if (i<=m1)
+         c2[i] = ca[i] + (g2*ss2 - g1*ss1)/i;
+      else
+         c2[i] = (g2*ss2 - g1*ss1)/i;
+   }
 }
