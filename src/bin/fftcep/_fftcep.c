@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _fftcep.c,v 1.4 2006/12/15 11:06:38 mr_alex Exp $
+    $Id: _fftcep.c,v 1.5 2007/07/24 05:39:47 heigazen Exp $
 
     FFT Cepstral Analysis
 
@@ -58,54 +58,53 @@
 #include <stdlib.h>
 #include <SPTK.h>
 
-void fftcep(double *sp, int flng, double *c, int m, int itr, double ac)
+void fftcep (double *sp, const int flng, double *c, const int m, int itr, double ac)
 {
-    double  	   temp;
-    static double  *x = NULL, *y;
-    register int   k, size;
+   double temp;
+   static double *x=NULL, *y;
+   int k, size=flng;
 
-    if(x == NULL){
-	x = dgetmem(flng+flng);
-	y = x + flng;
-	size = flng;
-    }
-    if(flng > size){
-	free(x);
-	x = dgetmem(flng+flng);
-	y = x + flng;
-	size = flng;
-    }
+   if (x==NULL) {
+      x = dgetmem(flng+flng);
+      y = x + flng;
+   }
+   if (flng>size) {
+      free(x);
+      x = dgetmem(flng+flng);
+      y = x + flng;
+      size = flng;
+   }
 
-    movem(sp, x, sizeof(*sp), flng);
+   movem(sp, x, sizeof(*sp), flng);
     
-    fftr(x, y, flng);
-    for(k=0; k<flng; k++) x[k] /= flng;
-    for(k=0; k<=m; k++){
-	c[k] = x[k];
-	x[k] = 0;
-    }
+   fftr(x, y, flng);
+   for (k=0; k<flng; k++) x[k] /= flng;
+   for (k=0; k<=m; k++) {
+      c[k] = x[k];
+      x[k] = 0;
+   }
 
-    ac += 1.0;
-    while(--itr > 0){
-	for(k=1; k<=m; k++)  
-	    x[flng-k] = x[k];
+   ac += 1.0;
+   while (--itr>0) {
+      for (k=1; k<=m; k++)  
+         x[flng-k] = x[k];
 
-	fftr(x, y, flng);
+      fftr(x, y, flng);
 
-	for(k=0; k<flng; k++)
-	    if(x[k] < 0.) x[k] = 0.;
-	    else	  x[k] /= flng;
+      for (k=0; k<flng; k++)
+         if (x[k]<0.0) x[k] = 0.0;
+         else x[k] /= flng;
 
-	fftr(x, y, flng);
+      fftr(x, y, flng);
 
-	for(k=0; k<=m; k++){
-	    temp = x[k] * ac;
-	    c[k] += temp;
-	    x[k] -= temp;
-	}
-    }
-    c[0] *= 0.5;
+      for (k=0; k<=m; k++) {
+         temp = x[k] * ac;
+         c[k] += temp;
+         x[k] -= temp;
+      }
+   }
+   c[0] *= 0.5;
 
-    if(m == flng/2)
-	c[m] *= 0.5;
+   if (m==flng/2)
+      c[m] *= 0.5;
 }
