@@ -38,7 +38,7 @@
 */
 
 /******************************************************
- $Id: _df2.c,v 1.3 2006/12/11 07:16:35 mr_alex Exp $
+ $Id: _df2.c,v 1.4 2007/07/24 02:06:16 heigazen Exp $
   2nd order standard form digital filter
 	double df2(x,sf,f0p,wbp,f0z,wbz,fp,fz,buf,bufp)
 
@@ -57,37 +57,40 @@
 
 		Dec.1995 Naohiro Isshiki
 *******************************************************/	 
+
 #include<math.h>
 
-double df2(double x, double sf, double f0p, double wbp, double f0z, double wbz, int fp, int fz, double *buf, int *bufp)
+double df2 (const double x, const double sf, const double f0p, const double wbp, const double f0z, const double wbz, 
+            const int fp, const int fz, double *buf, int *bufp)
 {
-	double a[3], b[3];
-	double p, e;
-	double dfs();
-	
-	p = 4 * atan(1.0) / sf;
-	e = exp(-p * wbz);
+   double a[3], b[3];
+   double p, e;
+ 
+   p = 4 * atan(1.0) / sf;
+   e = exp(-p * wbz);
 
-	a[0] = 1.0;
-	if(fz){
-		a[1] = -2 * e * cos(2 * p * f0z);
-		a[2] = e * e;
-	}else{
-		a[1] = 0;
-		a[2] = 0;
-	}
-		
-	e = exp(-p * wbp);
-	b[0] = 1.0;
-	if(fp){
-		b[1] = -2 * e * cos(2 * p * f0p);
-		b[2] = e * e;
-	} else {
-		b[1] = 0;
-		b[2] = 0;
-	}
-	return(dfs(x,b,2,a,2,buf,bufp));
-	
+   a[0] = 1.0;
+   if (fz) {
+      a[1] = -2 * e * cos(2 * p * f0z);
+      a[2] = e * e;
+   }
+   else {
+      a[1] = 0;
+      a[2] = 0;
+   }
+  
+   e = exp(-p * wbp);
+   b[0] = 1.0;
+   if (fp) {
+      b[1] = -2 * e * cos(2 * p * f0p);
+      b[2] = e * e;
+   } 
+   else {
+      b[1] = 0;
+      b[2] = 0;
+   }
+ 
+   return(dfs(x,b,2,a,2,buf,bufp));
 }
 
 
