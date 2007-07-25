@@ -38,7 +38,7 @@
 */
 
 /************************************************************************
-*									*
+*	$Id$ *
 *    Inverse FFT for Complex Sequence					*
 *									*
 *	usage:								*
@@ -54,6 +54,9 @@
 *									*
 ************************************************************************/
 
+static char *rcs_id = "$Id$";
+
+
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -61,106 +64,107 @@
 #include <SPTK.h>
 #include <string.h>
 
-/*  Required Functions  */
-int dft(FILE *fp);
-
-static int	size = 256, out = ' ';
+static int size=256, out=' ';
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-int usage()
+int usage (void)
 {
-	fprintf(stderr, "\n");
-	fprintf(stderr, " %s - inverse FFT for complex sequence\n", cmnd);
-	fprintf(stderr, "\n");
-	fprintf(stderr, "  usage:\n");
-	fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-	fprintf(stderr, "  options:\n");
-	fprintf(stderr, "       -l l  : FFT size power of 2 [256]\n");
-	fprintf(stderr, "       -R    : real part\n");
-	fprintf(stderr, "       -I    : imaginary part\n");
-	fprintf(stderr, "       -h    : print this message\n");
-	fprintf(stderr, "  infile:\n");
-	fprintf(stderr, "       data sequence (float)       [stdin]\n");
-	fprintf(stderr, "  stdout:\n");
-	fprintf(stderr, "       IFFT sequence (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - inverse FFT for complex sequence\n", cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : FFT size power of 2 [256]\n");
+   fprintf(stderr, "       -R    : real part\n");
+   fprintf(stderr, "       -I    : imaginary part\n");
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (float)       [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       IFFT sequence (float)\n");
 #ifdef SPTK_VERSION
-	fprintf(stderr, "\n");
-	fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-	fprintf(stderr, "\n");
-	exit(1);
+   fprintf(stderr, "\n");
+   exit(1);
 }
 
-int main(int argc,char *argv[])
+int main (int argc,char *argv[])
 {
-	FILE	*fp, *fopen();
-	char	*s, *infile = NULL, c;
-	
-	if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	        cmnd = argv[0];
-	else
-	        cmnd++;
-	while (--argc){
-		
-		if(*(s = *++argv) == '-') {
-			c = *++s;
-			if( c == 'l' && *++s == '\0' ) {
-				s = *++argv;
-				--argc;
-			}
-			switch(c) {
-			case 'l':
-				size = atoi(s);
-				break;
-			case 'i':
-			case 'r':
-				c -= ('a' - 'A');
-			case 'I':
-			case 'R':
-				out = c;
-				break;
-			case 'h':
-			default:
-				usage();
-			}
-		}
-		else
-			infile = s;
-	}
+   FILE *fp;
+   char *s, *infile=NULL, c;
+   int dft(FILE *fp);
+ 
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+      
+   while (--argc) {
+      if (*(s = *++argv)=='-') {
+         c = *++s;
+         if ((c=='l') && (*++s=='\0')) {
+            s = *++argv;
+            --argc;
+         }
+         switch (c) {
+         case 'l':
+            size = atoi(s);
+            break;
+         case 'i':
+         case 'r':
+            c -= ('a' - 'A');
+         case 'I':
+         case 'R':
+            out = c;
+            break;
+         case 'h':
+         default:
+            usage();
+         }
+      }
+      else
+         infile = s;
+   }
 
-	if(infile) {
-		fp = getfp(infile, "r");
-		dft(fp);
-		fclose(fp);
-	}
-	else
-		dft(stdin);
-	exit(0);
+   if (infile) {
+      fp = getfp(infile, "r");
+      dft(fp);
+      fclose(fp);
+   }
+   else
+      dft(stdin);
+   
+   return 0;
 }
 
-int dft(FILE *fp)
+int dft (FILE *fp)
 {
-	double		*x, *y;
-	register int	size2;
+   double *x, *y;
+   int size2;
 
-	x = dgetmem(size2 = size + size);
+   x = dgetmem(size2=size+size);
 
-	y = x + size;
+   y = x + size;
 
-	while(!feof(fp)) {
-		if( freadf(x, sizeof(*x), size2, fp) != size2 )
-				break;
-			
-		ifft(x, y, size);
+   while (!feof(fp)) {
+      if (freadf(x, sizeof(*x), size2, fp)!=size2)
+         break;
+   
+      ifft(x, y, size);
 
-		if(out != 'I')
-			fwritef(x, sizeof(*x), size, stdout);
-		if(out != 'R')
-			fwritef(y, sizeof(*y), size, stdout);
-	}
-	return(0);
+      if (out!='I')
+         fwritef(x, sizeof(*x), size, stdout);
+      if (out!='R')
+         fwritef(y, sizeof(*y), size, stdout);
+   }
+   
+   return(0);
 }

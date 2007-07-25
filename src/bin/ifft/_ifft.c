@@ -51,17 +51,17 @@
 #include <stdio.h>
 #include <SPTK.h>
 
-int ifft(double *x, double *y, int m)
+int ifft (double *x, double *y, const int m)
 {
-	int	i;
+   int i;
 
-	if(fft(y, x, m) == -1)
-		return(-1);
+   if (fft(y, x, m)==-1)
+      return(-1);
 
-	for(i = m; --i >= 0; ++x, ++y) {
-		*x /= m; 
-		*y /= m;
-	}
+   for (i=m; --i>=0; ++x, ++y) {
+      *x /= m; 
+      *y /= m;
+   }
 
-	return(0);
+   return(0);
 }
