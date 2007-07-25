@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _glsadf.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $
+    $Id: _glsadf.c,v 1.4 2007/07/25 04:56:56 heigazen Exp $
 
     GLSA Digital Filter
 
@@ -55,42 +55,44 @@
 
 *****************************************************************/
 
-double glsadf(double x, double *c, int m, int n, double *d)
-{
-    int  	i;
-    double      poledf();
-    
-    for(i=0; i<n; i++)
-	x = poledf(x, c, m, &d[m*i]);
+#include <stdio.h>
+#include <SPTK.h>
 
-    return(x);
+double glsadf (double x, double *c, const int m, const int n, double *d)
+{
+   int i;
+        
+   for (i=0; i<n; i++)
+      x = poledf(x, c, m, &d[m*i]);
+
+   return(x);
 }
 
-double glsadf1(double x, double *c, int m, int n, double *d)
+double glsadf1 (double x, double *c, const int m, const int n, double *d)
 {
-    int  	i;
-    double      gamma, gpoledf(double x, double *c, int m, double g, double *d);
+   int i;
+   double gamma;
 
-    gamma = -1 / (double)n;
+   gamma = -1 / (double)n;
     
-    for(i=0; i<n; i++)
-	x = gpoledf(x, c, m, gamma, &d[m*i]);
+   for (i=0; i<n; i++)
+      x = gpoledf(x, c, m, gamma, &d[m*i]);
     
-    return(x);
+   return(x);
 }
 
-double gpoledf(double x, double *c, int m, double g, double *d)
+double gpoledf (double x, double *c, int m, const double g, double *d)
 {
-    double   y = 0.0;
+   double y=0.0;
     
-    for(m--; m>0; m--){
-	y -= c[m+1] * d[m];
-	d[m] = d[m-1];
-    }
-    y -= c[1] * d[0];
-    y *= g;
-    d[0] = (x += y);
+   for (m--; m>0; m--) {
+      y -= c[m+1] * d[m];
+      d[m] = d[m-1];
+   }
+   y -= c[1] * d[0];
+   y *= g;
+   d[0] = (x += y);
     
-    return(x);
+   return(x);
 }
 

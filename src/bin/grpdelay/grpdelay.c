@@ -56,7 +56,7 @@
 *	Note that double precision FFT is used.				*
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.6 2006/12/21 07:23:16 mr_alex Exp $";
+static char *rcs_id = "$Id: grpdelay.c,v 1.7 2007/07/25 04:56:56 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -65,105 +65,104 @@ static char *rcs_id = "$Id: grpdelay.c,v 1.6 2006/12/21 07:23:16 mr_alex Exp $";
 #include <string.h>
 
 
-/* Required Functions */
-void	grpdelay();
-
-
 /*Default Values */
-#define	SIZE	256
-#define	AMRA	0
+#define SIZE 256
+#define AMRA 0
 
 
 /* Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(status)
-int status;
+void usage (int status)
 {
-	fprintf(stderr, "\n");
-	fprintf(stderr, " %s - group delay of digital filter\n", cmnd);
-	fprintf(stderr, "\n");
-	fprintf(stderr, "  usage:\n");
-	fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-	fprintf(stderr, "  options:\n");
-	fprintf(stderr, "       -l l  : FFT size power of 2 [%d]\n", SIZE);
-	fprintf(stderr, "       -m m  : order of filter     [l-1]\n");
-	fprintf(stderr, "       -a    : ARMA filter\n");
-	fprintf(stderr, "       -h    : print this message\n");
-	fprintf(stderr, "  infile:\n");
-	fprintf(stderr, "       data sequence (float)       [stdin]\n");
-	fprintf(stderr, "  stdout:\n");
-	fprintf(stderr, "       group delay (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - group delay of digital filter\n", cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : FFT size power of 2 [%d]\n", SIZE);
+   fprintf(stderr, "       -m m  : order of filter     [l-1]\n");
+   fprintf(stderr, "       -a    : ARMA filter\n");
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (float)       [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       group delay (float)\n");
 #ifdef SPTK_VERSION
-	fprintf(stderr, "\n");
-	fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-	fprintf(stderr, "\n");
-	exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main(int argc,char *argv[])
+int main (int argc,char *argv[])
 {
-	FILE	*fp;
-	char	*s, *infile = NULL,c;
-	int	size = SIZE, nd = -1, is_arma = AMRA;
-	double	*x,*d;	
+   FILE *fp;
+   char *s, *infile=NULL,c;
+   int size=SIZE, nd=-1, is_arma=AMRA;
+   double *x,*d;   
 
-	if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	        cmnd = argv[0];
-	else
-	        cmnd++;
-	while (--argc){
-		if(*(s = *++argv) == '-') {
-			c = *++s;
-			if(c != 'a' && *++s == '\0') {
-				s = *++argv;
-				--argc;
-			}
-			switch(c) {
-			case 'm':
-				nd = atoi(s) + 1;
-				break;
-			case 'l':
-				size = atoi(s);
-				break;
-			case 'a':
-				is_arma = 1;
-				break;
-			case 'h':
-				usage(0);
-			default:
-				fprintf(stderr,
-					"%s: unknown option '%c'\n", cmnd, c);
-				break;
-			}
-		}
-		else
-			infile = s;
-	}
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+      
+   while (--argc) {
+      if (*(s = *++argv)=='-') {
+         c = *++s;
+         if ((c!='a') && (*++s=='\0')) {
+            s = *++argv;
+            --argc;
+         }
+         switch (c) {
+         case 'm':
+            nd = atoi(s) + 1;
+            break;
+         case 'l':
+            size = atoi(s);
+            break;
+         case 'a':
+            is_arma = 1;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr,
+               "%s: unknown option '%c'\n", cmnd, c);
+            break;
+         }
+      }
+      else
+         infile = s;
+   }
 
-	if(nd == -1) nd = size;
-	if(nd > size) {
-		fprintf(stderr, "%s: order of sequence > FFT size\n", cmnd);
-		exit(1);
-	}
-	if(infile) {
-		fp = getfp(infile, "r");
-	}
-	else
-		fp = stdin;
+   if (nd==-1) nd = size;
+   if (nd>size) {
+      fprintf(stderr, "%s: order of sequence > FFT size\n", cmnd);
+      exit(1);
+   }
+   
+   if (infile) {
+      fp = getfp(infile, "r");
+   }
+   else
+      fp = stdin;
 
-	x =dgetmem(2 * size);
-	d = x + size;
-	while(!feof(fp)) {
-		fillz(x, size, sizeof(*x));
-		if(freadf(x, sizeof(*x), nd, fp) != nd)
-			break;
-		grpdelay(x,d,size,is_arma);
-		fwritef(d, sizeof(*x), size/2 + 1, stdout);
-	}
-	exit(0);
+   x =dgetmem(2 * size);
+   d = x + size;
+   while (!feof(fp)) {
+      fillz(x, size, sizeof(*x));
+      if (freadf(x, sizeof(*x), nd, fp)!=nd)
+         break;
+      grpdelay(x,d,size,is_arma);
+      fwritef(d, sizeof(*x), size/2 + 1, stdout);
+   }
+   
+   return 0;
 }
 

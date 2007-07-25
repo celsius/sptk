@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-  $Id: _grpdelay.c,v 1.4 2006/12/15 11:06:42 mr_alex Exp $
+  $Id: _grpdelay.c,v 1.5 2007/07/25 04:56:56 heigazen Exp $
 	group delay of digital filter
 		grpdelay(x, gd, size, is_alma);
 
@@ -49,40 +49,42 @@
 
 		Naohiro Isshiki		Feb. 1996
 ****************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <SPTK.h>
 
-void grpdelay(double *x,double *gd,int size,int is_arma)
+void grpdelay (double *x, double *gd, const int size, const int is_arma)
 {
-	static double *y;
-	static int    fsize;
-	
-	double	*u, *v;
-	register int	k, size_2;
+   static double *y;
+   static int fsize;
+   
+   double *u, *v;
+   int k, size_2;
+   
+   if (fsize<size) {
+      if (y!=NULL)
+         free(y);
+      fsize = size;
+      y = dgetmem(3*size);
+   }
+   movem(x,gd,sizeof(*x),size);
+   u = y + size;
+   v = u + size;
 
-	if ( fsize < size ){
-		if ( y != NULL )
-			free(y);
-		fsize = size;
-		y = dgetmem(3*size);
-	}
-	movem(x,gd,sizeof(*x),size);
-	u = y + size;
-	v = u + size;
+   size_2 = size / 2;
 
-	size_2 = size / 2;
-
-	if(is_arma)
-		gd[0] = 1;
-	for(k = 0; k < size; ++k)
-		u[k] = gd[k] * k;
-	fftr(gd, y, size);
-	fftr(u, v, size);
-	for(k = 0; k <= size_2; ++k) {
-		gd[k] = (gd[k] * u[k] + y[k] * v[k]) /
-			(gd[k] * gd[k] + y[k] * y[k]);
-		if(is_arma)
-			gd[k] *= -1;
-	}
+   if(is_arma)
+      gd[0] = 1;
+   for (k=0; k<size; ++k)
+      u[k] = gd[k] * k;
+   
+   fftr(gd, y, size);
+   fftr(u, v, size);
+   
+   for (k=0; k<=size_2; k++) {
+      gd[k] = (gd[k]*u[k]+y[k]*v[k]) / (gd[k]*gd[k]+y[k]*y[k]);
+      if (is_arma)
+         gd[k] *= -1;
+   }
 }
