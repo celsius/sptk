@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _lpc.c,v 1.4 2006/12/15 11:06:45 mr_alex Exp $
+    $Id: _lpc.c,v 1.5 2007/08/01 07:36:07 heigazen Exp $
 
     LPC Analysis Using Levinson-Durbin method
 
@@ -60,24 +60,24 @@
 #include <stdlib.h>
 #include <SPTK.h>
 
-int lpc(double *x, int flng, double *a, int m)
+int lpc (double *x, const int flng, double *a, const int m)
 {
-    int		  flag;
-    static double *r = NULL;
-    static int	  size;
+   int flag;
+   static double *r=NULL;
+   static int size;
+        
+   if (r==NULL) {
+      r = dgetmem(m+1);
+      size = m;
+   }
+   if (m>size) {
+      free(r);
+      r = dgetmem(m+1);
+      size = m;
+   }
     
-    if(r == NULL){
-	r = dgetmem(m+1);
-	size = m;
-    }
-    if(m > size){
-	free(r);
-	r = dgetmem(m+1);
-	size = m;
-    }
-    
-    acorr(x, flng, r, m);
-    flag = levdur(r, a, m, -1);
+   acorr(x, flng, r, m);
+   flag = levdur(r, a, m, -1);
 
-    return(flag);
+   return(flag);
 }

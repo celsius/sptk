@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _iglsadf.c,v 1.3 2006/12/11 07:16:37 mr_alex Exp $
+    $Id: _iglsadf.c,v 1.4 2007/08/01 07:36:07 heigazen Exp $
 
     Inverse GLSA Digital Filter
 
@@ -55,43 +55,42 @@
 
 *****************************************************************/
 
-double iglsadf(double x, double *c, int m, int n, double *d)
+double iglsadf (double x, double *c, const int m, const int n, double *d)
 {
-    int  	i;
-    double      zerodf1();
-    
-    for(i=0; i<n; i++)
-	x = zerodf1(x, c, m, &d[m*i]);
+   int i;
+        
+   for (i=0; i<n; i++)
+      x = zerodf1(x, c, m, &d[m*i]);
 
-    return(x);
+   return(x);
 }
 
-double iglsadf1(double x, double *c, int m, int n, double *d)
+double iglsadf1 (double x, double *c, const int m, const int n, double *d)
 {
-    int  	i;
-    double      gamma, gzerodf(double x, double *c, int m, double g, double *d);
+   int i;
+   double gamma;
+   double gzerodf (double x, double *c, const int m, const double g, double *d);
 
-    gamma = -1 / (double)n;
+   gamma = -1/(double)n;
     
-    for(i=0; i<n; i++)
-	x = gzerodf(x, c, m, gamma, &d[m*i]);
+   for (i=0; i<n; i++)
+      x = gzerodf(x, c, m, gamma, &d[m*i]);
     
-    return(x);
+   return(x);
 }
 
-double gzerodf(double x, double *c, int m, double g, double *d)
+double gzerodf (double x, double *c, int m, const double g, double *d)
 {
-    double   y = 0.0;
+   double   y = 0.0;
     
-    for(m--; m>0; m--){
-	y += c[m+1] * d[m];
-	d[m] = d[m-1];
-    }
-    y += c[1] * d[0];
-    d[0] = x;
+   for (m--; m>0; m--) {
+      y += c[m+1] * d[m];
+      d[m] = d[m-1];
+   }
+   y += c[1] * d[0];
+   d[0] = x;
 
-    x += y * g;
+   x += y * g;
 
-    return(x);
+   return(x);
 }
-
