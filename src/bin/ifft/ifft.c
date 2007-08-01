@@ -38,7 +38,6 @@
 */
 
 /************************************************************************
-*	$Id: ifft.c,v 1.7 2007/07/25 05:35:05 heigazen Exp $ *
 *    Inverse FFT for Complex Sequence					*
 *									*
 *	usage:								*
@@ -54,7 +53,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft.c,v 1.7 2007/07/25 05:35:05 heigazen Exp $";
+static char *rcs_id = "$Id: ifft.c,v 1.8 2007/08/01 07:36:37 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -38,6 +38,7 @@
 */
 
 /************************************************
+*  $Id: _ifft.c,v 1.8 2007/08/01 07:36:38 heigazen Exp $ *
 * NAME:						*
 *	ifft - Inverse Fast Fourier Transform	*   
 * SYNOPSIS:					*
