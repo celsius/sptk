@@ -69,89 +69,83 @@ static char *rcs_id = "$Id$";
 #include <SPTK.h>
 
 /*  Default Values  */
-#define ORDER		25
-#define FLNG		256
+#define ORDER 25
+#define FLNG 256
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - LPC analysis using Levinson-Durbin method\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -l l  : frame length       [%d]\n", FLNG);
-    fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDER);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       windowed sequence (float)  [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       LP coefficients (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - LPC analysis using Levinson-Durbin method\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : frame length       [%d]\n", FLNG);
+   fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDER);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       windowed sequence (float)  [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       LP coefficients (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)	
+int main (int argc, char **argv)   
 {
-    int		m = ORDER, l = FLNG, flag, check = 0;
-    FILE	*fp = stdin;
-    double	*x, *a;
+   int m=ORDER, l=FLNG, flag, check=0;
+   FILE *fp=stdin;
+   double *x, *a;
     
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'l':
-		    l = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 'l':
+            l = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else 
+         fp = getfp(*argv, "r");
 
-    x = dgetmem(l+m+1);
-    a = x + l;
+   x = dgetmem(l+m+1);
+   a = x + l;
 
-    while (freadf(x, sizeof(*x), l, fp) == l){
-	flag = lpc(x, l, a, m);
-	fwritef(a, sizeof(*a), m+1, stdout);
-    }
+   while (freadf(x, sizeof(*x), l, fp)==l) {
+      flag = lpc(x, l, a, m);
+      fwritef(a, sizeof(*a), m+1, stdout);
+   }
     
-    if(check == 0)
-	fprintf(stderr, "normally completed\n");		     
-    else if(check == -1)	
-    	fprintf(stderr, "abnormally completed\n");
-    else if(check == -2)
-	fprintf(stderr, "unstable LPC\n");    
-    exit(0);
+   if (check==0)
+      fprintf(stderr, "normally completed\n");      
+   else if (check==-1)   
+      fprintf(stderr, "abnormally completed\n");
+   else if (check==-2)
+      fprintf(stderr, "unstable LPC\n");    
+   
+   return(0);
 }
-
-
-
-
-
-
-
-
