@@ -38,7 +38,7 @@
 */
 
 /************************************************************************
-  $Id: _ignorm.c,v 1.5 2007/01/13 05:47:21 s_sako Exp $
+  $Id: _ignorm.c,v 1.6 2007/08/02 08:05:05 heigazen Exp $
 
     Inverse Gain Normalization
 	
@@ -50,21 +50,26 @@
 	double	  g :  gamma
 
 ************************************************************************/
+
+
 #include <stdio.h>
+#include <math.h>
 #include <SPTK.h>
 
-void ignorm(double *c1, double *c2, int m, double g)
+void ignorm (double *c1, double *c2, int m, const double g)
 {
-    double	k, log(double), pow(double, double);
-	
-    if (g != 0.0) {
-	k = pow(c1[0], g);
-	for ( ; m >= 1; m--)
-	    c2[m] = k * c1[m];
-	c2[0] = (k - 1.0) / g;
-    }
-    else{
-	movem(&c1[1], &c2[1], sizeof(*c1), m);
-	c2[0] = log(c1[0]);
-    }
+   double k;
+   
+   k = pow(c1[0], g);
+   if (g!=0.0) {
+      for ( ; m>=1; m--)
+         c2[m] = k*c1[m];
+      c2[0] = (k-1.0)/g;
+   }
+   else {
+      movem(&c1[1], &c2[1], sizeof(*c1), m);
+      c2[0] = log(c1[0]);
+   }
+   
+   return;
 }
