@@ -38,23 +38,25 @@
 */
 
 /********************************************************
-    $Id: fillz.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
+    $Id: fillz.c,v 1.4 2007/08/02 08:35:10 heigazen Exp $
 
     Fill Data with Zero
 
-	fillz(ptr, size, nitem)
+    fillz(ptr, size, nitem)
 
-	xxxx	*ptr  : intput data
-	int	size  : size of data type
-	int	nitem : data length
+    xxxx *ptr : intput data
+    int size  : size of data type
+    int nitem : data length
 
 *********************************************************/
 
-void fillz(char *ptr, int size, int nitem)
+void fillz (void *ptr, const int size, const int nitem)
 {
-    register long n;
+   long n;
+   char *p = ptr;
     
-    n = size * nitem;
-    while(n--)
-	*ptr++ = '\0';
+   n = size * nitem;
+   while(n--)
+      *p++ = '\0';
 }
+

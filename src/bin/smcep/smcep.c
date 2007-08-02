@@ -74,6 +74,7 @@
 #include <SPTK.h>
 #include <math.h>
 
+
 /*  Default Values  */
 #define	ALPHA		0.35
 #define	THETA		0.00

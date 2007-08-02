@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.6 2007/07/18 18:24:31 heigazen Exp $
+    $Id: _mcep.c,v 1.7 2007/08/02 08:35:21 heigazen Exp $
 
     Mel-Cepstral Analysis
 
@@ -62,6 +62,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
 int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, double dd, double e)
@@ -71,7 +72,6 @@ int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, 
    double t, s;
    static double *x=NULL, *y, *c, *d, *al, *b;
    static int size_x, size_d;
-   void frqtr(double *, int, double *, int, double);
   
    if (x==NULL) {
       x = dgetmem(3*flng);

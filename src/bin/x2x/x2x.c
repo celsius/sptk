@@ -64,7 +64,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.8 2006/12/21 07:23:22 mr_alex Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.9 2007/08/02 08:35:18 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -127,12 +127,11 @@ double r = 0.0;
 
 int main(int argc, char **argv)
 {
-    char        c1, c2, *form = FORM_FLOAT;
-    double      x;
-    int         size1 = 0, size2 = 0, i = 1, col = COL, atoi();
-    FILE	*fp = stdin;
-    Boolean     round = ROUND;
-    void        x2x();
+   char c1, c2, *form=FORM_FLOAT;
+   double x;
+   int size1=0, size2=0, i=1, col=COL;
+   FILE	*fp=stdin;
+   Boolean round=ROUND;
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	cmnd = argv[0];
@@ -339,7 +338,7 @@ int main(int argc, char **argv)
     
 }
 
-void x2x(char *x1,char *x2,char c1,char c2)
+void x2x(void *x1,void *x2,char c1,char c2)
 {
     double x;
 

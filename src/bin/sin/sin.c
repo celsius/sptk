@@ -58,13 +58,14 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: sin.c,v 1.6 2006/12/21 07:23:20 mr_alex Exp $";
+static char *rcs_id = "$Id: sin.c,v 1.7 2007/08/02 08:35:19 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
 
@@ -106,7 +107,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
     int		l = LENG, i;
-    double	mag = MAGNITUDE, period = PERIOD, x, sin(), atof();
+    double	x, mag=MAGNITUDE, period=PERIOD;
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	cmnd = argv[0];

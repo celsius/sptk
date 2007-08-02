@@ -42,6 +42,7 @@
 ****************************************************************/
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 #include "fig.h"
 #include "plot.h"
 
@@ -50,11 +51,9 @@
 #define abs(x)	(((x) < 0) ? -(x) : (x))
 #define nz(mx, mn)	((mx > mn) ? mx : mn)
 
-float	argapf(), sleng(), ysadj(), rx(), ry();
-char	*gettxt(), *getarg(), *gettyp(), *getname();
 
 extern int	ltype, type, is_t;
-extern float	xo, yo, xl, yl, x0, y0, mh, mw, h, w;
+extern float	xo, yo, xl, yl, x00, y00, mh, mw, h, w;
 extern float	xclip0, yclip0, xclip1, yclip1;
 
 static int	lmod[] = { 0, 2, 6, 3, 4}, ptyp = 1;
@@ -76,12 +75,11 @@ void graph(FILE *fp)
 	int		is_grid, old_lbl = 0;
 	char		xory;
 
-	for(n = 0; s = fgets(buf, BUFLNG, fp); ) {
+	for(n=0; (s=fgets(buf, BUFLNG, fp)); ) {
 		s = getarg(s, arg);
 		if(s == NULL || *arg == '#')
 			;				/* comment line */
-		else if(!is_t && strcmp(arg, "x") == 0
-			|| is_t && strcmp(arg, "y") == 0) {
+		else if ( (!is_t && strcmp(arg, "x") == 0) || (is_t && strcmp(arg, "y") == 0) ) {
 			s = gettyp(s, xtype);
 			if(sscanf(s, "%f %f %f", &xmin, &xmax, &xa) != 3)
 				xa = xmin;
@@ -93,10 +91,9 @@ void graph(FILE *fp)
 			}
 			xfct = xl / (xmax - xmin); 
 			xap  = (xa - xmin) * xfct;
-			x0   = - xmin * xfct;
+			x00  = - xmin * xfct;
 		}
-		else if(!is_t && strcmp(arg, "y") == 0
-			|| is_t && strcmp(arg, "x") == 0) {
+		else if ( (!is_t && strcmp(arg, "y") == 0) || (is_t && strcmp(arg, "x") == 0) ) {
 			s = gettyp(s, ytype);
 			if(sscanf(s, "%f %f %f", &ymin, &ymax, &ya) != 3)
 				ya = ymin;
@@ -108,12 +105,11 @@ void graph(FILE *fp)
 			}
 			yfct = yl ? yl / (ymax - ymin) : 0;
 			yap  = (ya - ymin) * yfct;
-			y0   = - ymin * yfct;
+			y00  = - ymin * yfct;
 		}
-		else if(!is_t && strncmp(arg, "xscale", 6) == 0
-			|| is_t && strncmp(arg, "yscale", 6) == 0) {
+		else if ( (!is_t && strncmp(arg, "xscale", 6) == 0) || (is_t && strncmp(arg, "yscale", 6) == 0) ) {
 			is_grid = *(arg + 6);
-			if(type < 0 || ya != ymin && ya != ymax) {
+			if(type < 0 || (ya != ymin && ya != ymax)) {
 				plot(0.0, yap, 3);
 				plot(xl,  yap, 2);
 			}
@@ -145,10 +141,9 @@ void graph(FILE *fp)
 						ys - ysadj(), p, h, w, 0.0);
 			}
 		}
-		else if(!is_t && strncmp(arg, "yscale", 6) == 0
-			|| is_t && strncmp(arg, "xscale", 6) == 0) {
+		else if ( (!is_t && strncmp(arg, "yscale", 6) == 0) || (is_t && strncmp(arg, "xscale", 6) == 0) ) {
 			is_grid = *(arg + 6);
-			if(type < 0 || xa != xmin && xa != xmax) {
+			if(type < 0 || (xa != xmin && xa != xmax)) {
 				plot(xap, 0.0, 3);
 				plot(xap, yl,  2);
 			}
@@ -184,7 +179,7 @@ void graph(FILE *fp)
 		}
 		else if(strcmp(arg + 1, "grid") == 0) {
 			draw_fig0(xbuf, ybuf, n);
-			if(!is_t && *arg == 'x' || is_t && *arg == 'y') {
+			if( (!is_t && (*arg == 'x')) || (is_t && (*arg == 'y')) ) {
 				ybuf[0] = 0;
 				ybuf[1] = yl;
 				while((s = getarg(s, arg)) != NULL) {
@@ -214,10 +209,10 @@ void graph(FILE *fp)
 			s = getarg(s, arg);	x = xt(atof(arg));
 			s = getarg(s, arg);	y = yt(atof(arg));
 			swap(&x, &y);
-			x = xfct * x + x0;
-			y = yfct * y + y0;
-			while((s = getarg(s, arg)) != NULL) {
-				if(!is_t && xory == 'x' || is_t && xory == 'y')
+			x = xfct * x + x00;
+			y = yfct * y + y00;
+			while((s = getarg(s, arg)) != NULL) { 
+				if ( (!is_t && xory == 'x') || (is_t && xory == 'y') )
 					rad = xt(atof(arg)) * xfct;
 				else
 					rad = yt(atof(arg)) * yfct;
@@ -229,8 +224,8 @@ void graph(FILE *fp)
 			s = getarg(s, arg);	x = xt(atof(arg));
 			s = getarg(s, arg);	y = yt(atof(arg));
 			swap(&x, &y);
-			x = xfct * x + x0;
-			y = yfct * y + y0;
+			x = xfct * x + x00;
+			y = yfct * y + y00;
 			while((s = getarg(s, arg)) != NULL) {
 				rad = atof(arg);
 				pntstyl(ptyp);
@@ -239,7 +234,7 @@ void graph(FILE *fp)
 		}
 		else if(strcmp(arg + 1, "name") == 0) {
 			s = getname(s, p = arg + 1);
-			if(!is_t && *arg == 'x' || is_t && *arg == 'y')
+			if ( (!is_t && *arg == 'x') || (is_t && *arg == 'y') )
 				_symbol((xl - sleng(s, h, w)) / 2,
 					(*p) ? - atof(p) - h : ys - h - NSCALE,
 						s, h, w, 0.0);
@@ -252,8 +247,8 @@ void graph(FILE *fp)
 			sscanf(s, "%f %f", &x, &y);
 			swap(&x, &y);
 			if(*arg == 'p') {
-				x = xfct * xt(x) + x0;
-				y = yfct * yt(y) + y0;
+				x = xfct * xt(x) + x00;
+				y = yfct * yt(y) + y00;
 			}
 			s = gettxt(s);
 			th = getarg(s + strlen(s) + 1, arg) ? atof(arg) : 0;
@@ -309,8 +304,8 @@ void graph(FILE *fp)
 					break;
 				y = yt(atof(arg));
 				swap(&x, &y);
-				xbuf[n] = xfct * x + x0;
-				ybuf[n] = yfct * y + y0;
+				xbuf[n] = xfct * x + x00;
+				ybuf[n] = yfct * y + y00;
 			}
 			if(n == 0) {
 				xclip0 = yclip0 = 0;
@@ -331,8 +326,8 @@ void graph(FILE *fp)
 					break;
 				y = yt(atof(arg));
 				swap(&x, &y);
-				xbuf[n] = xfct * x + x0;
-				ybuf[n] = yfct * y + y0;
+				xbuf[n] = xfct * x + x00;
+				ybuf[n] = yfct * y + y00;
 			}
 			if(n == 2) {
 				xbuf[2] = xbuf[1];
@@ -349,16 +344,15 @@ void graph(FILE *fp)
 			s = getarg(s, arg);
 			y = yt(atof(arg));
 			swap(&x, &y);
-			xbuf[n] = x = xfct * x + x0;
-			ybuf[n] = y = yfct * y + y0;
-			if(is_in(x, y) && ((s = getarg(s, arg))
+			xbuf[n] = x = xfct * x + x00;
+			ybuf[n] = y = yfct * y + y00;
+			if(is_in(x, y) && ((s = getarg(s, arg)) 
 					|| *label || old_lbl > 0 )) {
 				c = 0;
 				if(s || *label) {
 					if(s == NULL)
 						s = getarg(label, arg);
-					if(*arg == '\\' &&
-						(abs(c = atoi(arg + 1))) < 16)
+					if(*arg == '\\' && (abs(c = atoi(arg + 1))) < 16)
 						mark(abs(c),&x,&y,1,mh);
 					else if(abs(c) == 16) {
 						pntstyl(ptyp);

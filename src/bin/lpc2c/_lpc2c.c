@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _lpc2c.c,v 1.4 2007/07/23 02:28:03 mr_alex Exp $
+    $Id: _lpc2c.c,v 1.5 2007/08/02 08:35:11 heigazen Exp $
 
     Transformation LPC to Cepstrum 
 
@@ -52,10 +52,12 @@
 
 ****************************************************************/
 
+#include <math.h>
+
 void lpc2c(double *a, int m1, double *c, int m2)
 {
     int 	i, k, upl;
-    double	 	log(double), exp(double), d;
+    double d;
 
     c[0] = log(a[0]);
     c[1] = - a[1];

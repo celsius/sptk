@@ -59,18 +59,15 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: rmse.c,v 1.6 2006/12/21 07:23:20 mr_alex Exp $";
+static char *rcs_id = "$Id: rmse.c,v 1.7 2007/08/02 08:35:25 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
-
-
-/*  Required Functions  */
-double sqrt();
 
 
 /*  Default Values  */

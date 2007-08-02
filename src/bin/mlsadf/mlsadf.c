@@ -69,22 +69,15 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: mlsadf.c,v 1.7 2006/12/21 07:23:19 mr_alex Exp $";
+static char *rcs_id = "$Id: mlsadf.c,v 1.8 2007/08/02 08:35:17 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
-
-
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
-
-
-/*  Required Functions  */
-double exp();
 
 
 /*  Default Values  */

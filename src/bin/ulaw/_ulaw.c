@@ -38,7 +38,7 @@
 */
 
 /************************************************************************
-  $Id: _ulaw.c,v 1.3 2006/12/11 07:16:42 mr_alex Exp $
+  $Id: _ulaw.c,v 1.4 2007/08/02 08:35:23 heigazen Exp $
 
     u-law coder
 	
@@ -62,12 +62,14 @@
 
 ************************************************************************/
 
+#include <math.h>
+
 #define	abs(x)	((x>=0) ? (x) : (-(x)))
 #define	sign(x)	((x>=0) ? 1 : (-1))
 
 double ulaw_c(double x, double max, double mu)
 {
-    double	y, log(double);
+    double	y;
     
     y = sign(x) * max * log(1 + mu*abs(x)/max) / log(1 + mu);
     return(y);

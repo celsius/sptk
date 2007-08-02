@@ -38,91 +38,91 @@
 */
 
 /********************************************************************
-    $Id: getmem.c,v 1.4 2007/07/19 09:57:31 heigazen Exp $
+    $Id: getmem.c,v 1.5 2007/08/02 08:35:09 heigazen Exp $
 
     Memory Allocation Fanctions
 
-	short	*sgetmem(leng)
-	long	*lgetmem(leng)
-	double	*dgetmem(leng)
-	float	*fgetmem(leng)
-	real	*rgetmem(leng)
-	float	**fgetmem(leng)
+    short  *sgetmem(leng)
+    long   *lgetmem(leng)
+    double *dgetmem(leng)
+    float  *fgetmem(leng)
+    real   *rgetmem(leng)
+    float  **fgetmem(leng)
 
-	int leng : data length
+    int leng : data length
 
-	char	*getmem(leng, type)
+    char *getmem(leng, type)
 
-	int     leng : data length
-	unsignd type : size of data type
+    int leng : data length
+    unsignd type : size of data type
 
 **********************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef	DOUBLE
-#define	real	double
+#ifdef DOUBLE
+#define	real double
 #else
-#define	real	float
+#define	real float
 #endif
 
-
-short *sgetmem(int leng)
+short *sgetmem (const int leng)
 {
-    char *getmem(int leng, unsigned int size);
+   char *getmem(int leng, unsigned int size);
 
-    return ( (short *)getmem(leng, sizeof(short)) );
+   return ( (short *)getmem(leng, sizeof(short)) );
 }
 
 
-long *lgetmem(int leng)
+long *lgetmem (const int leng)
 {
-    char *getmem(int leng, unsigned int size);
+   char *getmem(int leng, unsigned int size);
 
-    return ( (long *)getmem(leng, sizeof(long)) );
+   return ( (long *)getmem(leng, sizeof(long)) );
 }
 
 
-double *dgetmem(int leng)
+double *dgetmem (const int leng)
 {
-    char *getmem(int leng, unsigned int size);
+   char *getmem(int leng, unsigned int size);
 
-    return ( (double *)getmem(leng, sizeof(double)) );
+   return ( (double *)getmem(leng, sizeof(double)) );
 }
 
 
-float *fgetmem(int leng)
+float *fgetmem (const int leng)
 {
-    char *getmem(int leng, unsigned int size);
+   char *getmem(int leng, unsigned int size);
 
-    return ( (float *)getmem(leng, sizeof(float)) );
+   return ( (float *)getmem(leng, sizeof(float)) );
 }
 
 
-real *rgetmem(int leng)
+real *rgetmem (const int leng)
 {
-    char *getmem(int leng, unsigned int size);
+   char *getmem(int leng, unsigned int size);
 
-    return ( (real *)getmem(leng, sizeof(real)) );
+   return ( (real *)getmem(leng, sizeof(real)) );
 }
 
 
-float **ffgetmem(int leng)
+float **ffgetmem (const int leng)
 {
-    char *getmem(int leng, unsigned int size);
+   char *getmem(int leng, unsigned int size);
 
-    return ( (float **)getmem(leng, sizeof(float *)) );
+   return ( (float **)getmem(leng, sizeof(float *)) );
 }
 
 
-char *getmem(int leng, unsigned int size)
+char *getmem (const int leng, const unsigned int size)
 {
-    char *p = NULL;
+   char *p = NULL;
 
-    if ((p = (char *)calloc(leng, size)) == NULL){
-	fprintf(stderr, "Memory allocation error !\n");
-	exit(3);
-    }
-    return (p);
+   if ((p = (char *)calloc(leng, size)) == NULL){
+      fprintf(stderr, "Memory allocation error !\n");
+      exit(3);
+   }
+   return (p);
 }
+

@@ -38,26 +38,29 @@
 */
 
 /***************************************************************
-    $Id: gexp.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
+    $Id: gexp.c,v 1.4 2007/08/02 08:35:09 heigazen Exp $
 
     Generalized Exponential Function (real argument)
 
-	double gexp(r, x)
+    double gexp(r, x)
 
-	double	r : gamma
-	double  x : argument
+    double r : gamma
+    double x : argument
 
 *****************************************************************/
 
-double gexp(double r, double x)
-{
-    double exp(double), pow(double, double);
+#include <math.h>
 
-    if (r == 0.0)
-	return(exp(x));
-    else
-	if (r < 0.)
-	    return(pow(1/(1 + r*x), -1/r));
-	else
-	    return(pow(1 + r*x, 1/r));
+double gexp (const double r, const double x)
+{
+   if (r == 0.0) {
+      return( exp(x) );
+   }
+   else {
+      if (r < 0.0)
+         return( pow(1/(1+r*x), -1/r) );
+      else
+         return( pow(1+r*x, 1/r) );
+   }
 }
+

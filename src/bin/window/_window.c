@@ -38,7 +38,7 @@
 */
 
 /****************************************************************
-$Id: _window.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $
+$Id: _window.c,v 1.4 2007/08/02 08:35:22 heigazen Exp $
 
 			Window function
 			---------------
@@ -62,20 +62,10 @@ $Id: _window.c,v 1.3 2006/12/11 07:16:43 mr_alex Exp $
 *****************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
 #define	M_2PI   (2 * 3.14159265358979323846) 
-
-double	cos();
-double	sqrt();
-double	*dgetmem();
-
-double*	blackman();
-double*	hamming();
-double*	hanning();
-double*	bartlett();
-double*	trapezoid();
-double*	rectangular();
 
 
 double window(Window type,double *x,int size,int nflg )

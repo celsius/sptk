@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _lsp2lpc.c,v 1.4 2006/12/15 11:06:46 mr_alex Exp $
+    $Id: _lsp2lpc.c,v 1.5 2007/08/02 08:35:17 heigazen Exp $
 
     Transformation LSP to LPC
 
@@ -53,12 +53,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
 void lsp2lpc(double *lsp,double *a, int m)
 {
     int		  i, k, mh1, mh2, flag_odd;
-    double	  xx, xf, xff, cos();
+    double	  xx, xf, xff;
     static double *f = NULL, *p, *q, *a0, *a1, *a2, *b0, *b1, *b2;
     static int	  size;
 

@@ -74,13 +74,14 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: vstat.c,v 1.6 2006/12/21 07:23:21 mr_alex Exp $";
+static char *rcs_id = "$Id: vstat.c,v 1.7 2007/08/02 08:35:12 heigazen Exp $";
 
 /*  Standard C Libralies  */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <math.h>
 #include <SPTK.h>
 
 typedef enum _Boolean {FA, TR} Boolean;

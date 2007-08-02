@@ -42,6 +42,7 @@
 ****************************************************************/
 
 #include <string.h>
+#include <math.h>
 #include "fig.h"
 #include "plot.h"
 
@@ -67,7 +68,7 @@ static int	nsub;
 
 char	*gettxt(register char *s)
 {
-	register char	*p;
+	char	*p;
 	int	i, c;
 	char	*script();
 

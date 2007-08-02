@@ -38,28 +38,31 @@
 */
 
 /********************************************************
-    $Id: movem.c,v 1.3 2006/12/11 06:59:51 mr_alex Exp $
+    $Id: movem.c,v 1.4 2007/08/02 08:35:09 heigazen Exp $
 
     Data Transfer Function
 
-	movem(a, b, size, nitem)
+    movem(a, b, size, nitem)
 
-	xxxx	*a    : intput data
-	xxxx	*b    : output data
-	int	size  : size of data type
-	int	nitem : data length
+    void   *a : intput data
+    void   *b : output data
+    int  size : size of data type
+    int nitem : data length
 
 *********************************************************/
 
-void movem(register char *a, register char *b, int size, int nitem)
+void movem (void *a, void *b, const int size, const int nitem)
 {
-    register long i;
+   long i;
+   char *c = a;
+   char *d = b;
 
-    i = size * nitem;
-    if (a > b)
-	while (i--) *b++ = *a++;
-    else{
-	a += i; b += i;
-	while (i--) *--b = *--a;
-    }
+   i = size * nitem;
+   if (c > d)
+      while (i--) *d++ = *c++;
+   else {
+      c+=i;  d+=i;
+      while (i--) *--d = *--c;
+   }
 }
+

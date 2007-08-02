@@ -78,7 +78,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.7 2006/12/21 07:23:20 mr_alex Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.8 2007/08/02 08:35:30 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -86,10 +86,9 @@ static char *rcs_id = "$Id: sopr.c,v 1.7 2006/12/21 07:23:20 mr_alex Exp $";
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 #include <SPTK.h>
 
-/*  Required Functions  */
-int sopr(FILE *fp);
 
 /*  Command Name  */
 char	*cmnd;
@@ -144,8 +143,6 @@ void usage(int status)
     exit(status);
 }
 
-
-double	log(), log10(), exp(), sqrt(), pow(), sin(), cos(), tan(), atan();
 
 struct operation {
 	char	op[4];

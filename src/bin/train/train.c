@@ -59,13 +59,14 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: train.c,v 1.6 2006/12/21 07:23:21 mr_alex Exp $";
+static char *rcs_id = "$Id: train.c,v 1.7 2007/08/02 08:35:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
 
@@ -108,7 +109,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
     int		l = LENG, period = PERIOD, i, normal = NORMAL;
-    double	zero, pulse, sqrt();
+    double	zero, pulse;
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	cmnd = argv[0];

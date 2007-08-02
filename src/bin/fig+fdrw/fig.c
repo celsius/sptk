@@ -67,8 +67,6 @@
 #include <stdlib.h>
 #include "plot.h"
 
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Default Values  */
 #define	LENG	100
@@ -126,7 +124,7 @@ void usage(int status)
 double	atof();
 int	ltype = 0, penno = PENNO, type = TYPE, is_t = IS_T;
 float	xo = XO, yo = YO;
-float	xl = XL, yl = YL, x0 = 0, y0 = 0;
+float	xl = XL, yl = YL, x00 = 0, y00 = 0;
 float	mh = 2, mw = 2, h = CH_NRML, w = CW_NRML;
 float	xclip0 = 0, yclip0 = 0, xclip1 = 0, yclip1 = 0;
 
