@@ -62,12 +62,14 @@
 
 ************************************************************************/
 
+#include <math.h>
+
 #define	abs(x)	((x>=0) ? (x) : (-(x)))
 #define	sign(x)	((x>=0) ? 1 : (-1))
 
 double ulaw_c(double x, double max, double mu)
 {
-    double	y, log(double);
+    double	y;
     
     y = sign(x) * max * log(1 + mu*abs(x)/max) / log(1 + mu);
     return(y);

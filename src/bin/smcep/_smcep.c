@@ -66,20 +66,14 @@
 #include <math.h>
 #include <SPTK.h>
 
-#ifndef M_PI
-#define M_PI    3.1415926535897932384626433832795
-#endif
-#define M_2PI   6.2831853071795864769252867665590
-
 int smcep(double *xw, int flng,double *mc, int m, int fftsz, double a, double t, int itr1,int itr2,double dd,double e)
 {
     int   i, j;
     int		   flag = 0, f2, m2;
-    double	   u, s, fabs(), exp(), log();
+    double	   u, s;
     static double  *x = NULL, *y, *c, *d, *al, *b;
     static int     size_x, size_d;
-    void	   frqt_a(), freqt2(), ifreqt2(), frqtr2();
-  
+      
     if(x == NULL){
 	x = dgetmem(3*flng);
 	y = x + flng; c = y + flng;
@@ -193,7 +187,7 @@ void frqt_a(double *al,int m,int fftsz,double a,double t)
 {
     int 	i, j;
     double		w, b, *ww, *f, 
-                        *re, *im, *pf, *pl, *next, warp();
+                        *re, *im, *pf, *pl, *next;
     int                 size_l, size_f, fftsz2;
     static double	*l = NULL;
     static int		size1, flag_l = 1;
@@ -284,7 +278,7 @@ void freqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 {
     int 	i, j;
     double		w, b, *ww, *dw, *f,
-                        *re, *im, *pf, *pg, *next, warp(), derivw();
+                        *re, *im, *pf, *pg, *next;
     int                 size_g, size_f, fftsz2, fftszh;
     static double	*g = NULL;
     static int		size2, flag_g = 1;
@@ -396,7 +390,7 @@ void ifreqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
     int 	i, j;
     double		w, b, *ww, *f,
                         *re, *im, *pl, *pr, *plnxt, *prnxt,
-                        *pf, *ph, *next, warp(), derivw();
+                        *pf, *ph, *next;
     int                 size_h, size_f, fftsz2, m12, m11;
     static double	*h = NULL;
     static int		size3, flag_h = 1;
@@ -521,7 +515,7 @@ void frqtr2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 {
     int 	i, j;
     double		w, b, *ww, *f, *tc2,
-                        *re, *im, *pf, *pk, *next, warp();
+                        *re, *im, *pf, *pk, *next;
     int                 size_k, size_f, fftsz2;
     static double	*k = NULL;
     static int		size4, flag_k = 1;

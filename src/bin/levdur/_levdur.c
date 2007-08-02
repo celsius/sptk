@@ -59,12 +59,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
 int levdur(double *r, double *a, int m, double eps)
 {
     int 		l, k, flag=0;
-    double 		rmd, mue, sqrt();
+    double 		rmd, mue;
     static double 	*c = NULL;
     static int		size;
 

@@ -42,23 +42,25 @@
 
     File Open Function
 
-	FILE	*getfp(name, opt)
+    FILE *getfp(name, opt)
 
-	char	name : file name
-	char	opt  : file open mode
+    char name : file name
+    char opt  : file open mode
 
 ***************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
 
-FILE *getfp(char *name, char *opt)
+FILE *getfp (char *name, char *opt)
 {
-    FILE	*fp;
+   FILE *fp;
 
-    if ((fp = fopen(name, opt)) == NULL){
-	fprintf(stderr, "Can't open '%s'!\n", name);
-	exit(2);
-    }
-    return (fp);
+   if ((fp = fopen(name, opt)) == NULL){
+      fprintf(stderr, "Can't open '%s'!\n", name);
+      exit(2);
+   }
+
+   return(fp);
 }
+

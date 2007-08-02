@@ -81,6 +81,7 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <math.h>
 #include <SPTK.h>
 
 typedef enum _Boolean {FA, TR} Boolean;

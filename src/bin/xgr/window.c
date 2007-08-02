@@ -45,6 +45,7 @@
 #include	<X11/cursorfont.h>
 #include	<stdio.h>
 #include	<stdlib.h>
+#include	<string.h>
 #include	"gcdata.h"
 #include	"xgr.h"
 

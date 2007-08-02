@@ -60,7 +60,7 @@
 
 void imsvq(int *index, double *cb, int l, int *cbsize, int stage, double *x)
 {
-    register int   i, j;
+    int   i, j;
     static double  *xx = NULL;
     static int     size;
     

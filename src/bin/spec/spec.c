@@ -75,11 +75,8 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
-
-
-/*  Required Functions  */
-double  log(), log10(), sqrt();
 
 
 /*  Default Values  */
@@ -131,7 +128,7 @@ int main(int argc, char **argv)
     	    orderar = ORDERAR, no, i;
     char    *filema = "", *filear = "";
     FILE    *fp = stdin, *fpma = NULL, *fpar = NULL;
-    double  eps = EPS, k, *x, *y, *mag, atof();
+    double  eps = EPS, k, *x, *y, *mag;
 
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	cmnd = argv[0];

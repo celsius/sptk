@@ -42,25 +42,31 @@
 
     Inverse Fast Fourier Transform for Real Sequence
 
-	int	ifftr(x, y, l)
+    int ifftr(x, y, l)
 
-	double	*x  : real part of data
-	double	*y  : working area
-	int	l   : number of data(radix 2)
+    double *x : real part of data
+    double *y : working area
+    int     l : number of data(radix 2)
 
 ***************************************************************/
 
-int ifftr(double *x, double *y, int l)
+#include <stdio.h>
+#include <SPTK.h>
+
+int ifftr(double *x, double *y, const int l)
 {
-    register int i;
-    register double *xp, *yp;
+   int i;
+   double *xp, *yp;
 
-    fftr(x, y, l);
+   fftr(x, y, l);
 
-    xp = x; yp = y; 
-    i = l;
-    while (i--){
-	*xp++ /= l;
-	*yp++ /= -l;
-    }
+   xp = x; yp = y; 
+   i = l;
+   while (i--) {
+      *xp++ /= l;
+      *yp++ /= -l;
+   }
+
+   return 0;
 }
+

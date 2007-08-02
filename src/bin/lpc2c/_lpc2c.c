@@ -52,10 +52,12 @@
 
 ****************************************************************/
 
+#include <math.h>
+
 void lpc2c(double *a, int m1, double *c, int m2)
 {
     int 	i, k, upl;
-    double	 	log(double), exp(double), d;
+    double d;
 
     c[0] = log(a[0]);
     c[1] = - a[1];

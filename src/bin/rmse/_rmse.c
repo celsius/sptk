@@ -52,10 +52,12 @@
 
 ***************************************************************/
 
+#include <math.h>
+
 double rmse(double *x, double *y, int n)
 {
     int  i;
-    double	  sub, sum, sqrt(double);
+    double	  sub, sum;
 
     sum = 0.0;
     for(i=0; i<n; i++) {

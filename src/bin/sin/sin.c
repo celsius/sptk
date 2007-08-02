@@ -65,6 +65,7 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
 
@@ -106,7 +107,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
     int		l = LENG, i;
-    double	mag = MAGNITUDE, period = PERIOD, x, sin(), atof();
+    double	x, mag=MAGNITUDE, period=PERIOD;
     
     if ((cmnd = strrchr(argv[0], '/')) == NULL)
 	cmnd = argv[0];

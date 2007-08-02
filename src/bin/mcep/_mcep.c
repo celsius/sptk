@@ -62,6 +62,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
 int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, double dd, double e)
@@ -71,7 +72,6 @@ int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, 
    double t, s;
    static double *x=NULL, *y, *c, *d, *al, *b;
    static int size_x, size_d;
-   void frqtr(double *, int, double *, int, double);
   
    if (x==NULL) {
       x = dgetmem(3*flng);

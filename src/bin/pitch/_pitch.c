@@ -60,16 +60,13 @@
 
 /*  Standard C Libraries  */
 #include <stdio.h>
+#include <math.h>
 #include <SPTK.h>
-
-/*  Required Functions  */
-double log();
-
 
 double pitch(double *xw, int l, double thresh, int low, int high, double eps, int m, int itr1, int itr2, double end)
 {
     static double *x = NULL,*y, *c;
-    double voiced,max,p,log();
+    double voiced,max,p;
     int i;
 
     if(x == NULL){

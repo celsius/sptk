@@ -38,6 +38,8 @@
 */
 
 /***********************************************************
+   $Id$ 
+   
    Speech Signal Processing Toolkit
    SPTK.h
 ***********************************************************/
@@ -131,4 +133,17 @@ void gnorm (double *c1, double *c2, int m, const double g);
 void grpdelay (double *x, double *gd, const int size, const int is_arma);
 int histogram (double *x, const int size, const double min, const double max, const double step, double *h);
 int ifft (double *x, double *y, const int m);
-
+int ifft2 (double x[], double y[], const int n);
+double iglsadf (double x, double *c, const int m, const int n, double *d);
+double iglsadf1 (double x, double *c, const int m, const int n, double *d);
+double gzerodf (double x, double *c, int m, const double g, double *d);
+void ignorm (double *c1, double *c2, int m, const double g);
+double imglsadf (double x, double *b, const int m, const double a, const int n, double *d);
+double imglsadff (double x, double *b, const int m, const double a, double *d);
+double imglsadf1 (double x, double *b, const int m, const double a, const int n, double *d);
+double imglsadff1 (double x, double *b, const int m, const double a, const double g, double *d);
+double imglsadft (double x, double *b, const int m, const double a, const int n, double *d);
+double imglsadfft (double x, double *b, const int m, const double a, double *d);
+double imglsadf1t (double x, double *b, const int m, const double a, const int n, double *d);
+double imglsadff1t (double x, double *b, const int m, const double a, const double g, double *d);
+int lpc (double *x, const int flng, double *a, const int m);

@@ -53,12 +53,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
 void lsp2lpc(double *lsp,double *a, int m)
 {
     int		  i, k, mh1, mh2, flag_odd;
-    double	  xx, xf, xff, cos();
+    double	  xx, xf, xff;
     static double *f = NULL, *p, *q, *a0, *a1, *a2, *b0, *b1, *b2;
     static int	  size;
 

@@ -40,24 +40,27 @@
 /****************************************************************
     $Id$
 
-     Generalized Logarithmic Function (real argument)
+    Generalized Logarithmic Function (real argument)
 
-	double glog(r, x)
+    double glog(r, x)
 
-	double r : gamma
-	double x : argument
+    double r : gamma
+    double x : argument
 
 *****************************************************************/
 
-double glog(double r, double x)
-{
-    double log(double), pow(double, double);
+#include <math.h>
 
-    if (r == 0.0)
-	return(log(x));
-    else
-	if (r < 0.)
-	    return((pow(1 / x, -r) - 1.0) / r);
-	else
-	    return((pow(x, r) - 1.0) / r);
+double glog (const double r, const double x)
+{
+   if (r == 0.0) {
+      return( log(x) );
+   }
+   else {
+      if (r < 0.0)
+         return( (pow(1/x,-r)-1.0)/r );
+      else
+         return( (pow(x,r)-1.0)/r );
+   }
 }
+

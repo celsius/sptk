@@ -62,20 +62,10 @@ $Id$
 *****************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
 #define	M_2PI   (2 * 3.14159265358979323846) 
-
-double	cos();
-double	sqrt();
-double	*dgetmem();
-
-double*	blackman();
-double*	hamming();
-double*	hanning();
-double*	bartlett();
-double*	trapezoid();
-double*	rectangular();
 
 
 double window(Window type,double *x,int size,int nflg )

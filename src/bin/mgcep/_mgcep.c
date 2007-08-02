@@ -65,20 +65,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 #include <SPTK.h>
-
-double gain(double *er, double *c, int m, double g);
-void b2c(double *b, int m1, double *c, int m2, double a);
-void ptrans(double *p, register int m, double a);
-void qtrans(double *q, register int m, double a);
 
 int mgcep(double *xw, int flng, double *b, int m, double a, double g, int n, int itr1, int itr2, double dd, double e)
 {
    int i, j, flag = 0;
    static double *x = NULL, *y, *d;
    static int size_x, size_c;
-   double ep, epo, newton();
+   double ep, epo;
    
    if (x == NULL) {
       x = dgetmem(flng+flng);
@@ -149,7 +143,7 @@ int mgcep(double *xw, int flng, double *b, int m, double a, double g, int n, int
 double newton(double *x, int flng, double *c, int m, double a, double g, int n, int j)
 {
    int i, m2;
-   double t, s, tr, ti, trr, tii, log();
+   double t, s, tr, ti, trr, tii;
    static double  *cr = NULL, *ci, *pr, *qr, *qi, *rr, *ri, *b;
    static int   size_cr, size_b;
    

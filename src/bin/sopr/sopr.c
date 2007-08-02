@@ -86,10 +86,9 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 #include <SPTK.h>
 
-/*  Required Functions  */
-int sopr(FILE *fp);
 
 /*  Command Name  */
 char	*cmnd;
@@ -144,8 +143,6 @@ void usage(int status)
     exit(status);
 }
 
-
-double	log(), log10(), exp(), sqrt(), pow(), sin(), cos(), tan(), atan();
 
 struct operation {
 	char	op[4];

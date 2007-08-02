@@ -72,9 +72,6 @@
 #include <SPTK.h>
 #include "plot.h"
 
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
-
 /*  Required Functions  */
 int drw(FILE *fp);
 

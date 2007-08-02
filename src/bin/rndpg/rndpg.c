@@ -74,11 +74,9 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 #include <SPTK.h>
 
-
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
 
 /* default values */
 #define		ORDER		25
@@ -802,7 +800,6 @@ void update_Q(PStream *pst, int d)
 {
 	int	u, m, n, j;
 	double	x;
-	double	sqrt(double);
 
 	for (m = 0, n = (pst->order+1)*d; m <= pst->order; m++, n++) {
 		x = sqrt(pst->sm.alpha[m]);
@@ -825,7 +822,6 @@ double bmrnd(void)
 {
 	static int	sw = 0;
 	static double	t, u;
-	double		sqrt(double), log(double), cos(double), sin(double);
 
 	if(sw == 0){
 		sw = 1; 

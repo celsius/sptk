@@ -60,6 +60,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SPTK.h>
 
 int lpc2lsp(double *lpc, double *lsp, int order, int numsp, int maxitr, double eps)
@@ -68,7 +69,7 @@ int lpc2lsp(double *lpc, double *lsp, int order, int numsp, int maxitr, double e
     register double *p1, *p2;
     int             mh1, mh2, mh, mm, itr, flag_odd;
     double          delta, x0, x1, g0, g1, x, y;
-    double          acos(), fabs(), chebpoly();
+    double          chebpoly(double, double *, int);
     static double   *c1 = NULL, *c2;
     static int      size_order;
 
