@@ -56,127 +56,128 @@
 
 *****************************************************************/
 
-double imglsadf(double x, double *b, int m, double a, int n, double *d)
+#include <stdio.h>
+#include <SPTK.h>
+
+double imglsadf (double x, double *b, const int m, const double a, const int n, double *d)
 {
-    int     i;
-    double  imglsadff(double x, double *b, int m, double a, double *d);
+   int i;
     
-    for(i=0; i<n; i++)
-	x = imglsadff(x, b, m, a, &d[i*(m+1)]);
+   for (i=0; i<n; i++)
+      x = imglsadff(x, b, m, a, &d[i*(m+1)]);
     
     return(x);
 }
 
-double imglsadff(double x, double *b, int m, double a, double *d)
+double imglsadff (double x, double *b, const int m, const double a, double *d)
 {
-    int	i;
-    double		y, aa;
+   int i;
+   double y, aa;
 
-    aa = 1 - a * a;
+   aa = 1 - a * a;
 
-    y = d[0] * b[1];
-    for(i=1; i<m; i++){
-	d[i] += a * (d[i+1] - d[i-1]);
-	y += d[i] * b[i+1];
-    }
-    y += x;
+   y = d[0] * b[1];
+   for (i=1; i<m; i++) {
+      d[i] += a * (d[i+1] - d[i-1]);
+      y += d[i] * b[i+1];
+   }
+   y += x;
     
-    for(i=m; i>0; i--)
-	d[i] = d[i-1];
-    d[0] = a * d[0] + aa * x;
+   for (i=m; i>0; i--)
+      d[i] = d[i-1];
+   d[0] = a * d[0] + aa * x;
 
-    return (y);
+   return(y);
 }
 
-double imglsadf1(double x, double *b, int m, double a, int n, double *d)
+double imglsadf1 (double x, double *b, const int m, const double a, const int n, double *d)
 {
-    int     i;
-    double  g, imglsadff1(double x, double *b, int m, double a, double g, double *d);
-
-    g = -1.0 / (double)n;
+   int i;
+   double g;
     
-    for(i=0; i<n; i++)
-	x = imglsadff1(x, b, m, a, g, &d[i*(m+1)]);
+   g = -1.0 / (double)n;
     
-    return(x);
+   for (i=0; i<n; i++)
+      x = imglsadff1(x, b, m, a, g, &d[i*(m+1)]);
+    
+   return(x);
 }
 
-double imglsadff1(double x, double *b, int m, double a, double g, double *d)
+double imglsadff1 (double x, double *b, const int m, const double a, const double g, double *d)
 {
-    int	i;
-    double		y, aa;
+   int i;
+   double y, aa;
 
-    aa = 1 - a * a;
+   aa = 1-a*a;
 
-    y = d[0] * b[1];
-    for(i=1; i<m; i++){
-	d[i] += a * (d[i+1] - d[i-1]);
-	y += d[i] * b[i+1];
-    }
-    y = g * y + x;
+   y = d[0] * b[1];
+   for (i=1; i<m; i++){
+      d[i] += a * (d[i+1] - d[i-1]);
+      y += d[i] * b[i+1];
+   }
+   y = g * y + x;
     
-    for(i=m; i>0; i--)
-	d[i] = d[i-1];
-    d[0] = a * d[0] + aa * x;
+   for (i=m; i>0; i--)
+      d[i] = d[i-1];
+   d[0] = a * d[0] + aa * x;
 
-    return (y);
+   return (y);
 }
 
-double imglsadft(double x, double *b, int m, double a, int n, double *d)
+double imglsadft (double x, double *b, const int m, const double a, const int n, double *d)
 {
-    int     i;
-    double  imglsadfft(double x, double *b, int m, double a, double *d);
+   int i;
     
-    for(i=0; i<n; i++)
-	x = imglsadfft(x, b, m, a, &d[i*(m+1)]);
+   for (i=0; i<n; i++)
+      x = imglsadfft(x, b, m, a, &d[i*(m+1)]);
     
-    return(x);
+   return(x);
 }
 
-double imglsadfft(double x, double *b, int m, double a, double *d)
+double imglsadfft (double x, double *b, const int m, const double a, double *d)
 {
-    int	i;
-    double		y;
+   int i;
+   double y;
 
-    y = x + (1.0 - a * a) * d[0];
+   y = x + (1.0 - a * a) * d[0];
     
-    d[m] = b[m] * x + a * d[m-1];
-    for(i=m-1; i>=1; i--)
-	d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
+   d[m] = b[m] * x + a * d[m-1];
+   for (i=m-1; i>=1; i--)
+      d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
     
-    for(i=0; i<m; i++)
-	d[i] = d[i+1];
+   for(i=0; i<m; i++)
+      d[i] = d[i+1];
 
-    return (y);
+   return (y);
 }
 
-double imglsadf1t(double x, double *b, int m, double a, int n, double *d)
+double imglsadf1t (double x, double *b, const int m, const double a, const int n, double *d)
 {
-    int     i;
-    double  g, imglsadff1t(double x, double *b, int m, double a, double g, double *d);
+   int i;
+   double g;
 
-    g = -1.0 / (double)n;
+   g = -1.0 / (double)n;
     
-    for(i=0; i<n; i++)
-	x = imglsadff1t(x, b, m, a, g, &d[i*(m+1)]);
+   for (i=0; i<n; i++)
+      x = imglsadff1t(x, b, m, a, g, &d[i*(m+1)]);
     
-    return(x);
+   return(x);
 }
 
-double imglsadff1t(double x, double *b, int m, double a, double g, double *d)
+double imglsadff1t (double x, double *b, const int m, const double a, const double g, double *d)
 {
-    int	i;
-    double		y;
+   int i;
+   double y;
 
-    y = x + g * (1.0 - a * a) * d[0];
+   y = x + g * (1.0 - a * a) * d[0];
     
-    d[m] = b[m] * x + a * d[m-1];
-    for(i=m-1; i>=1; i--)
-	d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
+   d[m] = b[m] * x + a * d[m-1];
+   for (i=m-1; i>=1; i--)
+      d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
     
-    for(i=0; i<m; i++)
-	d[i] = d[i+1];
+   for (i=0; i<m; i++)
+      d[i] = d[i+1];
 
-    return (y);
+   return (y);
 }
 

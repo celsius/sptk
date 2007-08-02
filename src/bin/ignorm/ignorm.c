@@ -70,84 +70,81 @@ static char *rcs_id = "$Id$";
 #include <SPTK.h>
 
 
-/*  Required Functions  */
-void ignorm();
-
-
 /*  Default Values  */
-#define	GAMMA		0.0
-#define ORDER		25
+#define GAMMA 0.0
+#define ORDER 25
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-	fprintf(stderr, "\n");
-	fprintf(stderr, " %s - inverse gain normalization\n", cmnd);
-	fprintf(stderr, "\n");
-	fprintf(stderr, "  usage:\n");
-	fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-	fprintf(stderr, "  options:\n");
-	fprintf(stderr, "       -m m  : order of generalized cepstrum   [%d]\n", ORDER);
-	fprintf(stderr, "       -g g  : gamma                           [%g]\n", GAMMA);
-	fprintf(stderr, "       -h    : print this message\n");
-	fprintf(stderr, "  infile:\n");
-	fprintf(stderr, "       normalized generalized cepstrum (float) [stdin]\n");
-	fprintf(stderr, "  stdout:\n");
-	fprintf(stderr, "       generalized cepstrum (float)\n");
-	fprintf(stderr, "  notice:\n");
-	fprintf(stderr, "       if g > 1.0, g = -1 / g \n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - inverse gain normalization\n", cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of generalized cepstrum   [%d]\n", ORDER);
+   fprintf(stderr, "       -g g  : gamma                           [%g]\n", GAMMA);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       normalized generalized cepstrum (float) [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       generalized cepstrum (float)\n");
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "       if g > 1.0, g = -1 / g \n");
 #ifdef SPTK_VERSION
-	fprintf(stderr, "\n");
-	fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-	fprintf(stderr, "\n");
-	exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    double	g = GAMMA, *c, atof();
-    int		m = ORDER;
-    FILE	*fp = stdin;
+   double g=GAMMA, *c;
+   int m=ORDER;
+   FILE *fp=stdin;
     
 
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
     
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-	        case 'g':
-		    g = atof(*++argv);
-		    --argc;
-		    if (g > 1.0) g = -1.0 / g;
-		    break;
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   while (--argc)
+      if (**++argv == '-') {
+         switch (*(*argv+1)) {
+         case 'g':
+            g = atof(*++argv);
+            --argc;
+            if (g!=0.0 && g>1.0) g = -1.0/g;
+            break;
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else 
+         fp = getfp(*argv, "r");
     
-    c = dgetmem(m+1);
+   c = dgetmem(m+1);
     
-    while (freadf(c, sizeof(*c), m+1, fp) == m+1) {
-	ignorm(c, c, m, g);
-	fwritef(c, sizeof(*c), m+1, stdout);
-    }
-    exit(0);
+   while (freadf(c, sizeof(*c), m+1, fp) == m+1) {
+      ignorm(c, c, m, g);
+      fwritef(c, sizeof(*c), m+1, stdout);
+   }
+   
+   return(0);
 }
-
