@@ -82,6 +82,9 @@ while($i < $#argv)
         case -h:
                 goto usage
                 breaksw
+	case --h:
+	        goto usage
+		breaksw	
         default
                 if( -d $argv[$i]) then
                         set destdir = $argv[$i]
@@ -103,54 +106,42 @@ goto cnvt
 
 cnvt:
 
-switch ($iext)
-        case 8:
+if(`echo "$iext == 8" | bc -l`) then
                 @ osr = 4
-                breaksw
-        case 10:
+else if(`echo "$iext == 10" | bc -l`) then
                 @ osr = 5
-                breaksw
-        case 12:
+else if(`echo "$iext == 12" | bc -l`) then
                 @ osr = 6
-                breaksw
-        case 16
+else if(`echo "$iext == 16" | bc -l`) then
                 @ osr = 8
-                breaksw
-        default
+else
                 goto usage
-endsw
+endif
 
-switch ($oext)
-        case 44:
-                breaksw
-        case 44.1:
+if(`echo "$oext == 44" | bc -l`) then   
+else if(`echo "$oext == 44.1" | bc -l`) then
 #               set oext = 44
-                breaksw
-        case 22:
+else if(`echo "$oext == 22" | bc -l`) then
                 @ osr *= 2
-                breaksw
-        case 22.05:
+else if(`echo "$oext == 22.05" | bc -l`) then
 #               set oext = 22
                 @ osr *= 2
-                breaksw
-        case 11:
-                if ($iext == 10 || $iext == 8) then
+else if(`echo "$oext == 11" | bc -l`) then
+                if (`echo "$iext == 10 || $iext == 8" | bc -l`) then
                         @ osr *= 4
                 else
                         goto usage
                 endif
-                breaksw
-        case 11.025:
+else if(`echo "$oext == 11.025" | bc -l`) then
 #               set oext = 11
-                if ($iext == 10 || $iext == 8) then
+                if (`echo "$iext == 10 || $iext == 8" | bc -l`) then
                         @ osr *= 4
                 else
                         goto usage
                 endif
-                breaksw
-        default:
+else 
                 goto usage
-endsw
+endif
 
 if( $stdinput == 1) then
         if ($?outfile) then
