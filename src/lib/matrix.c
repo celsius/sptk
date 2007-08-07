@@ -38,6 +38,9 @@
 */
 
 /*****************************************************************
+
+    $Id$
+
     compute matrix functions
 
     multiple matrix
@@ -71,7 +74,7 @@
 static double *tmp;
 static int tmpsize = 0;
 
-void mm (double x[], const int xx, const int xy, double y[], const int yx, const int yy, double a[])
+static void mm (double x[], const int xx, const int xy, double y[], const int yx, const int yy, double a[])
 {	
    int i,j,k;
    double *wx,*wy;
@@ -102,6 +105,8 @@ void mm (double x[], const int xx, const int xy, double y[], const int yx, const
       }
       wx += xx;
    }
+
+   return;
 }
 
 void multim (double x[], const int xx, const int xy, double y[], const int yx, const int yy, double a[])
@@ -109,10 +114,10 @@ void multim (double x[], const int xx, const int xy, double y[], const int yx, c
    int i;
 
    if (x==a) {
-      if (((xy>yy) ? xy : yy)*yx > tmpsize) {
+      if (((xy>yy) ? xy : yy)*yx>tmpsize) {
          if (tmp != NULL)
             free(tmp);
-         tmpsize = (xy > yy ? xy : yy) * yx;
+         tmpsize = ((xy>yy) ? xy : yy)*yx;
          tmp = (double *)getmem(tmpsize, sizeof(*tmp));
       }
       mm(x,xx,xy,y,yx,yy,tmp);
@@ -126,9 +131,11 @@ void multim (double x[], const int xx, const int xy, double y[], const int yx, c
    else {
       mm(x,xx,xy,y,yx,yy,a);
    }
+
+   return;
 }
 
-void am (double x[], double y[], const int xx, const int yy, double a[])
+static void am (double x[], double y[], const int xx, const int yy, double a[])
 {
    int i,j;
 
@@ -141,9 +148,9 @@ void addm (double x[], double y[], const int xx, const int yy, double a[])
 {
    int i;
 
-   if (x == a) {
-      if (xx*yy > tmpsize) { 
-         if (tmp != NULL)
+   if (x==a) {
+      if (xx*yy>tmpsize) { 
+         if (tmp!=NULL)
             free(tmp);
          tmpsize = xx * yy;
          tmp = (double *)getmem(tmpsize, sizeof(*tmp));
@@ -155,5 +162,6 @@ void addm (double x[], double y[], const int xx, const int yy, double a[])
    else {
       am(x,y,xx,yy,a);
    }
-}
 
+   return;
+}
