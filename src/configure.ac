@@ -89,7 +89,6 @@ AC_CONFIG_FILES([Makefile
                  bin/c2ir/Makefile
                  bin/c2sp/Makefile
                  bin/cat2/Makefile
-                 bin/ccp/Makefile
                  bin/cdist/Makefile
                  bin/clip/Makefile
                  bin/da/Makefile
@@ -144,7 +143,6 @@ AC_CONFIG_FILES([Makefile
                  bin/mgc2mgc/Makefile
                  bin/mgc2sp/Makefile
                  bin/mgcep/Makefile
-                 bin/mgcep2/Makefile
                  bin/mglsadf/Makefile
                  bin/minmax/Makefile
                  bin/mlpg/Makefile
@@ -161,14 +159,12 @@ AC_CONFIG_FILES([Makefile
                  bin/ramp/Makefile
                  bin/reverse/Makefile
                  bin/rmse/Makefile
-                 bin/rndpg/Makefile
                  bin/root_pol/Makefile
                  bin/sin/Makefile
                  bin/smcep/Makefile
                  bin/snr/Makefile
                  bin/sopr/Makefile
                  bin/spec/Makefile
-                 bin/srcnv/Makefile
                  bin/step/Makefile
                  bin/swab/Makefile
                  bin/train/Makefile
