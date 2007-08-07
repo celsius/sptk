@@ -38,7 +38,7 @@
 */
 
 /********************************************************
-$Id: _fft2.c,v 1.5 2007/07/24 05:31:32 heigazen Exp $
+$Id: _fft2.c,v 1.6 2007/08/07 04:16:57 heigazen Exp $
 
 *	fft2 : two dimensional fast Fourier transform 	*
 *			for complex sequence		*
@@ -102,7 +102,7 @@ int fft2 (double x[], double y[], const int n)
 
    for (i=n,xp=x,yp=y; --i>=0; xp+=n,yp+=n) {
       if (fft(xp, yp, n)<0)
-         return( -1 );
+         return(-1);
    }
 
    return 0;
