@@ -39,6 +39,8 @@
 
 #########################################################################
 #									#
+#   $Id: grlogsp.sh,v 1.4 2007/08/07 06:09:54 heigazen Exp $            #
+#                                                                       #
 #   Draw a Running Log Spectrum Graph					#
 #									#
 #						1988.5  K.Tokuda	#
