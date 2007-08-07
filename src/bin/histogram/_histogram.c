@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-  $Id: _histogram.c,v 1.8 2007/07/25 05:35:05 heigazen Exp $
+  $Id: _histogram.c,v 1.9 2007/08/07 04:53:42 heigazen Exp $
    histogram
       histogram(x, size, min, max, step, h);
       Naohiro Isshiki      Feb. 1996
@@ -70,5 +70,6 @@ int histogram (double *x, const int size, const double min, const double max, co
       }
    }
    
- return flg;
+   return(flg);
 }
+
