@@ -123,27 +123,27 @@ void usage (int status)
    exit(status);
 }
 
-int ltype = 0, penno = PENNO, type = TYPE, is_t = IS_T;
-float xo = XO, yo = YO;
-float xl = XL, yl = YL, x00 = 0, y00 = 0;
-float mh = 2, mw = 2, h = CH_NRML, w = CW_NRML;
-float xclip0 = 0, yclip0 = 0, xclip1 = 0, yclip1 = 0;
+int ltype=0, penno=PENNO, type=TYPE, is_t=IS_T;
+float xo=XO, yo=YO;
+float xl=XL, yl=YL, x00=0, y00=0;
+float mh=2, mw=2, h=CH_NRML, w=CW_NRML;
+float xclip0=0, yclip0=0, xclip1=0, yclip1=0;
 
 int main (int argc, char *argv[])
 {
    FILE *fp;
-   char *infile[16], *file = NULL;
+   char *infile[16], *file=NULL;
    char *s;
-   float th = TH, fct = FCT;
-   int c, n, nfiles, fntsize = FNTSIZE;
+   float th=TH, fct=FCT;
+   int c, n, nfiles, fntsize=FNTSIZE;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
-   for (nfiles = 0; --argc;) {
-      if (*(s = *++argv)=='-') {
+   for (nfiles=0; --argc;) {
+      if (*(s=*++argv)=='-') {
          c = *++s;
          if (*++s=='\0' && c != 't') {
             s = *++argv;
