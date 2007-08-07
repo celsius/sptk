@@ -76,6 +76,7 @@ static char *rcs_id = "$Id$";
 #define FRAME FA
 #define OTYPE 0
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
@@ -103,7 +104,7 @@ void usage (int status)
    fprintf(stderr, "      cepstral distance (float)\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
