@@ -38,7 +38,7 @@
 */
 
 /********************************************************
-*  $Id: _ifft2.c,v 1.5 2007/08/01 07:36:07 heigazen Exp $ *
+*  $Id: _ifft2.c,v 1.6 2007/08/07 04:54:59 heigazen Exp $ *
 *	ifft2 : two dimensional inverse fast Fourier	*
 *			transform			*
 *							*
@@ -85,7 +85,7 @@ int ifft2 (double x[], double y[], const int n)
       }
       
       if (ifft( xb, yb, n)<0)
-         return( -1 );
+         return(-1);
 
       xp = xb;   xq = x + i;
       yp = yb;   yq = y + i;
@@ -101,5 +101,6 @@ int ifft2 (double x[], double y[], const int n)
          return(-1);
    }
 
-   return( 0 );
+   return(0);
 }
+
