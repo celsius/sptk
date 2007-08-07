@@ -59,7 +59,7 @@ All Rights Reserved.
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: b2mc.c,v 1.7 2007/07/20 08:14:20 heigazen Exp $";
+static char *rcs_id = "$Id: b2mc.c,v 1.8 2007/08/07 04:06:21 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -95,8 +95,8 @@ void usage (int status)
    fprintf(stderr, "       mel-cepstrum (float)\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
-   fprintf(stderr, "  CVS: %s", rcs_id);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
