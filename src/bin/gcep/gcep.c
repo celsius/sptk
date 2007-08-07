@@ -69,7 +69,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: gcep.c,v 1.7 2007/07/25 04:56:56 heigazen Exp $";
+static char *rcs_id = "$Id: gcep.c,v 1.8 2007/08/07 04:43:04 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -89,6 +89,7 @@ static char *rcs_id = "$Id: gcep.c,v 1.7 2007/07/25 04:56:56 heigazen Exp $";
 #define END 0.001
 #define EPS 0.0
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;

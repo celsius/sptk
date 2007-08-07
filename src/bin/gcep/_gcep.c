@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _gcep.c,v 1.4 2007/07/25 04:56:56 heigazen Exp $
+    $Id: _gcep.c,v 1.5 2007/08/07 04:43:04 heigazen Exp $
 
     Generalized Cepstral Analysis
 
@@ -160,3 +160,4 @@ int gcep (double *xw, const int flng, double *gc, const int m, const double g, c
    if (flag) return(0);
    else return(-1);
 }
+

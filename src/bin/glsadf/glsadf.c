@@ -66,7 +66,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: glsadf.c,v 1.7 2007/07/25 04:56:56 heigazen Exp $";
+static char *rcs_id = "$Id: glsadf.c,v 1.8 2007/08/07 04:43:41 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -84,6 +84,7 @@ static char *rcs_id = "$Id: glsadf.c,v 1.7 2007/07/25 04:56:56 heigazen Exp $";
 #define NORM FA
 #define NGAIN FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
