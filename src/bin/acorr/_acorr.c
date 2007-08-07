@@ -39,7 +39,7 @@
 
 /***********************************************************
 
-    $Id: _acorr.c,v 1.4 2007/07/20 07:38:22 heigazen Exp $
+    $Id: _acorr.c,v 1.5 2007/08/07 04:01:13 heigazen Exp $
 
     obtain autocorrelation sequence
     
@@ -52,6 +52,9 @@
 
 ***********************************************************/
 
+#include <stdio.h>
+#include <SPTK.h>
+
 void acorr (double *x, int l, double *r, const int np)
 {
    double d;
@@ -62,4 +65,6 @@ void acorr (double *x, int l, double *r, const int np)
          d += x[i]*x[i+k];
       r[k] = d;
    }
+
+   return;
 }

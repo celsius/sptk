@@ -52,7 +52,7 @@
 *									                                             *
 ************************************************************************/
 
-static char *rcs_id = "$Id: acorr.c,v 1.8 2007/07/20 07:58:54 heigazen Exp $";
+static char *rcs_id = "$Id: acorr.c,v 1.9 2007/08/07 04:01:13 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -87,7 +87,8 @@ void usage (int status)
    fprintf(stderr, "       autocorrelation sequence (float)\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif		
    fprintf(stderr, "\n");
    exit(status);
