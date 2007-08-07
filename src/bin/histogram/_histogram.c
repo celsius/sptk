@@ -70,5 +70,6 @@ int histogram (double *x, const int size, const double min, const double max, co
       }
    }
    
- return flg;
+   return(flg);
 }
+
