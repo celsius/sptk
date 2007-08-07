@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -43,16 +43,16 @@
 
     LPC Analysis Using Levinson-Durbin method
 
-   	int	lpc(x, flng, a, m);
+    int lpc(x, flng, a, m);
 
-	double  *x   : input sequence
-	int    	flng : flame length
-	double  *a   : LP coefficients
-	int    	m    : order of LPC
+ double  *x   : input sequence
+ int     flng : flame length
+ double  *a   : LP coefficients
+ int     m    : order of LPC
 
-	return value : 	0  -> normally completed
-			-1 -> abnormally completed
-			-2 -> unstable LPC
+ return value :  0  -> normally completed
+   -1 -> abnormally completed
+   -2 -> unstable LPC
 
 ******************************************************************/
 
@@ -65,7 +65,7 @@ int lpc (double *x, const int flng, double *a, const int m)
    int flag;
    static double *r=NULL;
    static int size;
-        
+
    if (r==NULL) {
       r = dgetmem(m+1);
       size = m;
@@ -75,9 +75,10 @@ int lpc (double *x, const int flng, double *a, const int m)
       r = dgetmem(m+1);
       size = m;
    }
-    
+
    acorr(x, flng, r, m);
    flag = levdur(r, a, m, -1);
 
    return(flag);
 }
+

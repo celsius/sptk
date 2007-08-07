@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -45,16 +45,16 @@
 
         double pitch(xw, l, thresh, low, high, eps, m, itr1, itr2, end)
 
-	double *xw    : windowed data sequence
-	int    l      : frame length (fft size)
-	double thresh : voiced/unvoiced threshold
-	int    low    : minmum points to search for
-	int    high   : maximum points to search for
-	double eps    : small value for log
-	int    m      : order of cepstrum
-	int    itr1   : minimum number of iteration
-	int    itr2   : maximum number of iteration
-	double end    : end condition
+ double *xw    : windowed data sequence
+ int    l      : frame length (fft size)
+ double thresh : voiced/unvoiced threshold
+ int    low    : minmum points to search for
+ int    high   : maximum points to search for
+ double eps    : small value for log
+ int    m      : order of cepstrum
+ int    itr1   : minimum number of iteration
+ int    itr2   : maximum number of iteration
+ double end    : end condition
 
 ************************************************************************/
 
@@ -63,47 +63,51 @@
 #include <math.h>
 #include <SPTK.h>
 
-double pitch(double *xw, int l, double thresh, int low, int high, double eps, int m, int itr1, int itr2, double end)
+double pitch (double *xw, const int l, const double thresh, const int low, const int high, 
+              const double eps, const int m, const int itr1, const int itr2, const double end)
 {
-    static double *x = NULL,*y, *c;
-    double voiced,max,p;
-    int i;
+   static double *x=NULL,*y, *c;
+   double voiced,max,p=0.0;
+   int i;
 
-    if(x == NULL){
-	x = dgetmem(3*l);
-	y = x + l;
-	c = y + l;
-    }
+   if (x==NULL) {
+      x = dgetmem(3*l);
+      y = x + l;
+      c = y + l;
+   }
 
-    movem(xw,x,sizeof(*x),l);
+   movem(xw,x,sizeof(*x),l);
 
-/* voiced/unvoiced detection */
-    uels(x, l, c, m, itr1, itr2, end, eps); 
-    fillz(c+m,l-m,sizeof(double));
-    fftr(c,y,l);
+   /* voiced/unvoiced detection */
+   uels(x, l, c, m, itr1, itr2, end, eps);
+   fillz(c+m,l-m,sizeof(double));
+   fftr(c,y,l);
 
-    voiced = 0.0;
-    for(i=4*l/256;i<=17*l/256;i++)
-	voiced += c[i];
-    voiced /= 14 * l / 256;
+   voiced = 0.0;
+   for (i=4*l/256;i<=17*l/256;i++)
+      voiced += c[i];
+   voiced /= 14 * l / 256;
 
-    fftr(x, y, l);
-    for(i=0; i<l; i++)
-	x[i] = log(x[i]*x[i] + y[i]*y[i] + eps);
+   fftr(x, y, l);
+   for (i=0; i<l; i++)
+      x[i] = log(x[i]*x[i] + y[i]*y[i] + eps);
 
-    if(voiced > thresh){
-	fftr(x, y, l);
-	for(i=0; i<l; i++){
-	    x[i] /= l;	
-	    x[i] *= i;
-	}
-	max = 0.0;
-	for(i=low; i<high; i++)
-	    if(max < x[i]){
-		p = (float)i;
-		max = x[i];
-	    }
-    } else 
-	p = 0.0;
-    return(p);
+   if (voiced>thresh) {
+      fftr(x, y, l);
+      for (i=0; i<l; i++) {
+         x[i] /= l;
+         x[i] *= i;
+      }
+      max = 0.0;
+      for (i=low; i<high; i++)
+         if (max<x[i]) {
+            p = (float)i;
+            max = x[i];
+         }
+   }
+   else
+      p = 0.0;
+      
+   return(p);
 }
+

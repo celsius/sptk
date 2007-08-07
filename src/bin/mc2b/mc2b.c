@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*									*
-*    Transform Mel Cepstrum to MLSA Digital Filter Coefficients		*
-*									*
-*					1995.12  K.Koishida		*
-*									*
-*	usage:								*
-*		mc2b [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-a alpha :  all-pass constant		[0.35]		*
-*		-m m     :  order of mel cepstrum	[25]		*
-*	infile:								*
-*		mel cepstral coefficients				*
-*		    , c~(0), c~(1), ..., c~(M),				*
-*	stdout:								*
-*		MLSA filter coefficients				*
-*		    , b(0), b(1), ..., b(M),				*
-*	require:							*
-*		mc2b()							*
-*									*
+*         *
+*    Transform Mel Cepstrum to MLSA Digital Filter Coefficients  *
+*         *
+*     1995.12  K.Koishida  *
+*         *
+* usage:        *
+*  mc2b [ options ] [ infile ]>stdout   *
+* options:       *
+*  -a alpha :  all-pass constant  [0.35]  *
+*  -m m     :  order of mel cepstrum [25]  *
+* infile:        *
+*  mel cepstral coefficients    *
+*      , c~(0), c~(1), ..., c~(M),    *
+* stdout:        *
+*  MLSA filter coefficients    *
+*      , b(0), b(1), ..., b(M),    *
+* require:       *
+*  mc2b()       *
+*         *
 ************************************************************************/
 
 static char *rcs_id = "$Id:";
@@ -70,77 +70,79 @@ static char *rcs_id = "$Id:";
 
 
 /*  Default Values  */
-#define	ALPHA		0.35
-#define ORDER		25
+#define ALPHA 0.35
+#define ORDER 25
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - transform mel cepstrum \n",cmnd);
-    fprintf(stderr, "          to MLSA digital filter coefficients\n");
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -a a  : all-pass constant     [%g]\n", ALPHA);
-    fprintf(stderr, "       -m m  : order of mel-cepstrum [%d]\n", ORDER);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       mel-cepstrum (float)          [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       MLSA filter coefficients (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - transform mel cepstrum \n",cmnd);
+   fprintf(stderr, "          to MLSA digital filter coefficients\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -a a  : all-pass constant     [%g]\n", ALPHA);
+   fprintf(stderr, "       -m m  : order of mel-cepstrum [%d]\n", ORDER);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       mel-cepstrum (float)          [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       MLSA filter coefficients (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		m = ORDER, m1;
-    FILE	*fp = stdin;
-    double	a = ALPHA, *x, atof();
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-	        case 'a':
-		    a = atof(*++argv);
-		    --argc;
-		    break;
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   int m=ORDER, m1;
+   FILE *fp=stdin;
+   double a=ALPHA, *x;
 
-    m1 = m + 1;
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'a':
+            a = atof(*++argv);
+            --argc;
+            break;
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
 
-    x = dgetmem(m1);
+   m1 = m + 1;
 
-    while (freadf(x, sizeof(*x), m1, fp) == m1){
-	mc2b(x, x, m, a);
-	fwritef(x, sizeof(*x), m1, stdout);
-    }
-    exit(0);
+   x = dgetmem(m1);
+
+   while (freadf(x, sizeof(*x), m1, fp)==m1) {
+      mc2b(x, x, m, a);
+      fwritef(x, sizeof(*x), m1, stdout);
+   }
+   
+   return(0);
 }
 

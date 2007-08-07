@@ -45,7 +45,7 @@
 *               1996.1  K.Koishida                                      *
 *                                                                       *
 *   usage:                                                              *
-*      mcep [ options ] [infile] > stdout                               *
+*      mcep [ options ] [infile]>stdout                               *
 *   options:                                                            *
 *      -a alpha :  all-pass constant               [0.35]               *
 *      -m m     :  order of mel cepstrum           [25]                 *
@@ -89,13 +89,13 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - mel cepstral analysis\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : all-pass constant               [%g]\n", ALPHA);
    fprintf(stderr, "       -m m  : order of mel cepstrum           [%d]\n", ORDER);
@@ -112,25 +112,26 @@ void usage(int status)
    fprintf(stderr, "       mel-cepstrum (float)\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
    int m=ORDER, flng=FLENG, itr1=MINITR, itr2=MAXITR, flag=0;
-   FILE *fp = stdin;
-   double *mc, *x, a=ALPHA, end=END, e=EPS;    
+   FILE *fp=stdin;
+   double *mc, *x, a=ALPHA, end=END, e=EPS;
 
-   if ((cmnd = strrchr(argv[0], '/')) == NULL)
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv == '-') {
+      if (**++argv=='-') {
          switch (*(*argv+1)) {
          case 'a':
             a = atof(*++argv);
@@ -161,26 +162,27 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'h':
-            usage(0);
+            usage (0);
          default:
             fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-            usage(1);
+            usage (1);
          }
       }
-      else 
+      else
          fp = getfp(*argv, "r");
 
    x = dgetmem(flng+m+1);
    mc = x + flng;
-   
+
    while (freadf(x, sizeof(*x), flng, fp)==flng) {
       flag = mcep(x, flng, mc, m, a, itr1, itr2, end, e);
       fwritef(mc, sizeof(*mc), m+1, stdout);
    }
-   if(flag==0)
+   if (flag==0)
       fprintf(stderr, "completed by end condition\n");
-   else if(flag==-1)
-      fprintf(stderr, "completed by maximum iteration\n");         
-   exit(0);
+   else if (flag==-1)
+      fprintf(stderr, "completed by maximum iteration\n");
+   
+   return(0);
 }
 

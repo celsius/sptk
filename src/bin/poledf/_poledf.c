@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -43,38 +43,38 @@
 
     All Pole Digital Filter
 
-	double	poledf(x, a, m, d)
+ double poledf(x, a, m, d)
 
-	double	x   : input
-	double	*a  : AR coefficients
-	int	m   : order of coefficients
-	double  *d  : delay
+ double x   : input
+ double *a  : AR coefficients
+ int m   : order of coefficients
+ double  *d  : delay
 
-	return value : filtered data
+ return value : filtered data
 
 *****************************************************************/
 
-double	poledf(double x, double *a, int m, double *d)
+double poledf (double x, double *a, int m, double *d)
 {
-    for(m--; m>0; m--){
-	x -= a[m+1] * d[m];
-	d[m] = d[m-1];
-    }
-    x -= a[1] * d[0];
-    d[0] = x;
-    
-    return(x);
+   for (m--; m>0; m--) {
+      x -= a[m+1] * d[m];
+      d[m] = d[m-1];
+   }
+   x -= a[1] * d[0];
+   d[0] = x;
+
+   return(x);
 }
 
-double poledft(double x, double *a, int m, double *d)
+double poledft (double x, double *a, int m, double *d)
 {
-    int  i;
-    
-    x -= d[0];
-    for(i=1; i<m; i++)
-	d[i-1] = d[i] + a[i] * x;
-    d[m-1] = a[m] * x;    
+   int i;
 
-    return(x);
+   x -= d[0];
+   for (i=1; i<m; i++)
+      d[i-1] = d[i] + a[i] * x;
+   d[m-1] = a[m] * x;
+
+   return(x);
 }
 

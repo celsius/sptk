@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-*									*
-*    Generate Ramp Sequence						*
-*									*
-*					1996.4  K.Koishida		*
-*									*
-*	usage:								*
-*		ramp [options] > stdout					*
-*	options:							*
-*		-l l     :  length		 	[256]		*
-*		-n n	 :  order			[l-1]		*
-*		-s s     :  start value		 	[0.0]		*
-*		-e e     :  end  value		 	[N/A]		*
-*		-t t     :  step size		 	[1.0]		*
-*	stdout:								*
-*		ramp sequence						*
-*		    , s, s+t, s+2t, ..., s+(l-1)t			*
-*	notice:								*
-*		If l < 0, generate infinite sequence			*
-*		When both -e and -l and -n are specified 2 or more,	*
-*			latter argument is adopted.			*
-*									*
+*         *
+*    Generate Ramp Sequence      *
+*         *
+*     1996.4  K.Koishida  *
+*         *
+* usage:        *
+*  ramp [options]>stdout     *
+* options:       *
+*  -l l     :  length    [256]  *
+*  -n n  :  order   [l-1]  *
+*  -s s     :  start value    [0.0]  *
+*  -e e     :  end  value    [N/A]  *
+*  -t t     :  step size    [1.0]  *
+* stdout:        *
+*  ramp sequence      *
+*      , s, s+t, s+2t, ..., s+(l-1)t   *
+* notice:        *
+*  If l<0, generate infinite sequence   *
+*  When both -e and -l and -n are specified 2 or more, *
+*   latter argument is adopted.   *
+*         *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -71,105 +71,102 @@ static char *rcs_id = "$Id$";
 #include <SPTK.h>
 
 
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
-
-
 /*  Default Values  */
-#define LENG 		256
-#define START 		0.0
-#define STEP		1.0
-#define EFLAG		FA
+#define LENG  256
+#define START  0.0
+#define STEP  1.0
+#define EFLAG FA
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - generate ramp sequence\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -l l  : length                [%d]\n", LENG);
-    fprintf(stderr, "       -n n  : order                 [l-1]\n");
-    fprintf(stderr, "       -s s  : start value           [%g]\n", START);
-    fprintf(stderr, "       -e e  : end value             [N/A]\n");
-    fprintf(stderr, "       -t t  : step size             [%g]\n", STEP);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       ramp sequence (float)\n");
-    fprintf(stderr, "  notice:\n");
-    fprintf(stderr, "       if l < 0, generate infinite sequence\n");
-    fprintf(stderr, "       When -l and -n and -e are specified 2 or more,\n");
-    fprintf(stderr, "       latter argument is adopted.\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - generate ramp sequence\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : length                [%d]\n", LENG);
+   fprintf(stderr, "       -n n  : order                 [l-1]\n");
+   fprintf(stderr, "       -s s  : start value           [%g]\n", START);
+   fprintf(stderr, "       -e e  : end value             [N/A]\n");
+   fprintf(stderr, "       -t t  : step size             [%g]\n", STEP);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       ramp sequence (float)\n");
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "       if l<0, generate infinite sequence\n");
+   fprintf(stderr, "       When -l and -n and -e are specified 2 or more,\n");
+   fprintf(stderr, "       latter argument is adopted.\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		l = LENG, i;
-    double	start = START, step = STEP, end = START, x, atof();
-    Boolean	eflag = EFLAG;
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'l':
-		    l = atoi(*++argv);
-		    --argc;
-		    eflag = FA;
-		    break;
-		case 'n':
-		    l = atoi(*++argv)+1;
-		    --argc;
-		    eflag = FA;
-		    break;
-		case 's':
-		    start = atof(*++argv);
-		    --argc;
-		    break;
-		case 'e':
-		    end = atoi(*++argv);
-		    --argc;
-		    eflag = TR;
-		    break;
-		case 't':
-		    step = atof(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
+   int l=LENG, i;
+   double start=START, step=STEP, end=START, x;
+   Boolean eflag=EFLAG;
 
-    x = start;
-    if(eflag)
-	l = (end - start) / step + 1;
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'l':
+            l = atoi(*++argv);
+            --argc;
+            eflag = FA;
+            break;
+         case 'n':
+            l = atoi(*++argv)+1;
+            --argc;
+            eflag = FA;
+            break;
+         case 's':
+            start = atof(*++argv);
+            --argc;
+            break;
+         case 'e':
+            end = atoi(*++argv);
+            --argc;
+            eflag = TR;
+            break;
+         case 't':
+            step = atof(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
 
-    for(i=0;; i++){
-	fwritef(&x, sizeof(x), 1, stdout);
-	x += step;
+   x = start;
+   if (eflag)
+      l = (end - start) / step + 1;
 
-	if(i == l-1) break;
-    }
+   for (i=0;; i++) {
+      fwritef(&x, sizeof(x), 1, stdout);
+      x += step;
 
-    exit(0);
+      if (i==l-1) break;
+   }
+
+   return(0);
 }
 

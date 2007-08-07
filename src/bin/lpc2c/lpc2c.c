@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,26 +38,26 @@
 */
 
 /************************************************************************
-*									*
-*    Transform LPC to Cepstrum						*
-*									*
-*					1988.7  T.Kobayashi		*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		lpc2c [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of LPC		[25]		*
-*		-M M     :  order of cepstrum		[25]		*
-*	infile:								*
-*		LP Coefficeints						*
-*		    , K, a(1), ..., a(M),				*
-*	stdout:								*
-*		cepstral coefficients					*
-*		    , c(0), c(1), ..., c(N),				*
-*	require:							*
-*		lpc2c()							*
-*									*
+*         *
+*    Transform LPC to Cepstrum      *
+*         *
+*     1988.7  T.Kobayashi  *
+*     1996.1  K.Koishida  *
+*         *
+* usage:        *
+*  lpc2c [ options ] [ infile ]>stdout   *
+* options:       *
+*  -m m     :  order of LPC  [25]  *
+*  -M M     :  order of cepstrum  [25]  *
+* infile:        *
+*  LP Coefficeints      *
+*      , K, a(1), ..., a(M),    *
+* stdout:        *
+*  cepstral coefficients     *
+*      , c(0), c(1), ..., c(N),    *
+* require:       *
+*  lpc2c()       *
+*         *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -70,75 +70,76 @@ static char *rcs_id = "$Id$";
 #include <SPTK.h>
 
 /*  Default Values  */
-#define ORDERC		25
-#define ORDERA		25
+#define ORDERC  25
+#define ORDERA  25
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - transform LPC to cepstrum\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDERA);
-    fprintf(stderr, "       -M M  : order of cepstrum  [%d]\n", ORDERC);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       LP coefficiets (float)     [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       cepstrum (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - transform LPC to cepstrum\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDERA);
+   fprintf(stderr, "       -M M  : order of cepstrum  [%d]\n", ORDERC);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       LP coefficiets (float)     [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       cepstrum (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		m = ORDERA, n = ORDERC;
-    FILE	*fp = stdin;
-    double	*c, *a;
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'M':
-		    n = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   int  m = ORDERA, n = ORDERC;
+   FILE *fp = stdin;
+   double *c, *a;
 
-    a = dgetmem(m+n+2);
-    c = a + m + 1;
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 'M':
+            n = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
 
-    while (freadf(a, sizeof(*a), m+1, fp) == m+1){
-	lpc2c(a, m, c, n);
-	fwritef(c, sizeof(*c), n+1, stdout);
-    }
-    exit(0);
+   a = dgetmem(m+n+2);
+   c = a + m + 1;
+
+   while (freadf(a, sizeof(*a), m+1, fp)==m+1) {
+      lpc2c(a, m, c, n);
+      fwritef(c, sizeof(*c), n+1, stdout);
+   }
+   exit(0);
 }
 

@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -43,26 +43,26 @@
 
     All-Pole Lattice Digital Filter
 
-	double	ltcdf(x, k, m, d)
+ double ltcdf(x, k, m, d)
 
-	double	x   : input
-	double	*k  : reflection coefficients
-	int	m   : order of coefficients
-	double  *d  : delay
+ double x   : input
+ double *k  : reflection coefficients
+ int m   : order of coefficients
+ double  *d  : delay
 
-	return value : filtered data
+ return value : filtered data
 
 *****************************************************************/
 
-double ltcdf(double x, double *k, int m, double *d)
+double ltcdf (double x, double *k, int m, double *d)
 {
-    x -= k[m] * d[m-1];
-    for (m--; m>=1; m--){
-	x -= k[m] * d[m-1];
-	d[m] = d[m-1] + k[m] * x;
-    }
-    d[0] = x;
+   x -= k[m] * d[m-1];
+   for (m--; m>=1; m--) {
+      x -= k[m] * d[m-1];
+      d[m] = d[m-1] + k[m] * x;
+   }
+   d[0] = x;
 
-    return(x);
+   return(x);
 }
 

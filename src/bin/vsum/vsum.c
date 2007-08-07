@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,20 +38,21 @@
 */
 
 /************************************************************************
-*									*
-*    Summation of Vectors						*
-*									*
-*					1988.7  T.Kobayashi		*
-*					1996.5  K.Koishida		*
-*	usage:								*
-*		vsum [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-l l     :  order of vector			[1]	*
-*		-n n     :  number of vector			[all]	*
-*									*
+*         *
+*    Summation of Vectors      *
+*         *
+*     1988.7  T.Kobayashi  *
+*     1996.5  K.Koishida  *
+* usage:        *
+*  vsum [ options ] [ infile ]>stdout   *
+* options:       *
+*  -l l     :  order of vector   [1] *
+*  -n n     :  number of vector   [all] *
+*         *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
+
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -62,84 +63,84 @@ static char *rcs_id = "$Id$";
 
 
 /*  Default Values  */
-#define LENG		1
+#define LENG  1
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - summation of vector\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -l l   : order of vector    [%d]\n",LENG);
-    fprintf(stderr, "       -n n   : number of vector   [EOD]\n");
-    fprintf(stderr, "       -h     : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       vectors (float)             [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       summation of vector (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - summation of vector\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l   : order of vector    [%d]\n",LENG);
+   fprintf(stderr, "       -n n   : number of vector   [EOD]\n");
+   fprintf(stderr, "       -h     : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       vectors (float)             [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       summation of vector (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-
-int main(int argc,char *argv[])
+int main (int argc,char *argv[])
 {
-    FILE	*fp = stdin;
-    double      *x, *s;
-    int	        leng = LENG, nv = -1, k, lp;
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'l':
-		    leng = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'n':
-		    nv = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   FILE *fp=stdin;
+   double *x, *s;
+   int leng=LENG, nv=-1, k, lp;
 
-    s = dgetmem(leng + leng);
-    x = s + leng;
-	
-    while(! feof(fp)){
-	for(k=0; k<leng; ++k)
-	    s[k] = 0.0;
-	for(lp=nv; lp; ) {
-	    if(freadf(x, sizeof(*x), leng, fp) != leng)
-		break;
-	    for(k=0; k<leng; ++k)
-		s[k] += x[k];
-	    if(nv != -1)
-		--lp;
-	}
-	if(lp == 0 || nv == -1)
-	    fwritef(s, sizeof(*s), leng, stdout);
-    }
-    exit(0);
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'l':
+            leng = atoi(*++argv);
+            --argc;
+            break;
+         case 'n':
+            nv = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
+
+   s = dgetmem(leng + leng);
+   x = s + leng;
+
+   while (! feof(fp)) {
+      for (k=0; k<leng; ++k)
+         s[k] = 0.0;
+      for (lp=nv; lp; ) {
+         if (freadf(x, sizeof(*x), leng, fp)!=leng)
+            break;
+         for (k=0; k<leng; ++k)
+            s[k] += x[k];
+         if (nv!=-1)
+            --lp;
+      }
+      if (lp==0 || nv==-1)
+         fwritef(s, sizeof(*s), leng, stdout);
+   }
+   return(0);
 }

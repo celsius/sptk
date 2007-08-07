@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,34 +38,37 @@
 */
 
 /************************************************************************
-*									*
+*         *
 *    Mel Cepstral Analysis (2nd all-pass filter)                        *
-*									*
-*					1998.1  C.Miyajima		*
-*									*
-*	usage:								*
-*		smcep [ options ] [infile] > stdout			*
-*	options:							*
-*		-a alpha :  all-pass constant		     [0.35]	*
-*		-t theta :  emphasized frequency (theta * pi)[0.00]	*
-*		-m m     :  order of mel cepstrum	     [25]	*
-*		-l l     :  frame length		     [256]	*
-*		-L L     :  ifft size for making matrices    [1024]	*
-*		(level 2)						*
-*		-i i     :  minimum iteration		     [2]	*
-*		-j j     :  maximum iteration		     [30]	*
-*		-d d     :  end condition		     [0.001]	*
-*		-e e     :  initial value for log-periodgram [0.0]	*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ..., x(L-1),				*
-*	stdout:								*
-*		mel cepstrum						*
-*		    , c~(0), c~(1), ..., c~(M),				*
-*	require:							*
-*		smcep()							*
-*									*
+*         *
+*     1998.1  C.Miyajima  *
+*         *
+* usage:        *
+*  smcep [ options ] [infile]>stdout   *
+* options:       *
+*  -a alpha :  all-pass constant       [0.35] *
+*  -t theta :  emphasized frequency (theta * pi)[0.00] *
+*  -m m     :  order of mel cepstrum      [25] *
+*  -l l     :  frame length       [256] *
+*  -L L     :  ifft size for making matrices    [1024] *
+*  (level 2)      *
+*  -i i     :  minimum iteration       [2] *
+*  -j j     :  maximum iteration       [30] *
+*  -d d     :  end condition       [0.001] *
+*  -e e     :  initial value for log-periodgram [0.0] *
+* infile:        *
+*  data sequence      *
+*      , x(0), x(1), ..., x(L-1),    *
+* stdout:        *
+*  mel cepstrum      *
+*      , c~(0), c~(1), ..., c~(M),    *
+* require:       *
+*  smcep()       *
+*         *
 ************************************************************************/
+
+static char *rcs_id = "$Id$";
+
 
 /*  Standard C Libralies  */
 #include <stdio.h>
@@ -76,126 +79,127 @@
 
 
 /*  Default Values  */
-#define	ALPHA		0.35
-#define	THETA		0.00
-#define ORDER		25
-#define FLENG           256
-#define FFTSZ           256 * 4
-#define MINITR          2
-#define MAXITR          30
-#define END             0.001
-#define EPS             0.0
+#define ALPHA  0.35
+#define THETA  0.00
+#define ORDER  25
+#define FLENG  256
+#define FFTSZ  256 * 4
+#define MINITR 2
+#define MAXITR 30
+#define END    0.001
+#define EPS    0.0
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - mel cepstral analysis\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -a a  : all-pass constant                [%g]\n", ALPHA);
-    fprintf(stderr, "       -t t  : emphasized frequency  t*pi(rad)  [%g]\n", THETA);
-    fprintf(stderr, "       -m m  : order of mel cepstrum            [%d]\n", ORDER);
-    fprintf(stderr, "       -l l  : frame length                     [%d]\n", FLENG);
-    fprintf(stderr, "       -L L  : ifft size for making matrices    [%d]\n", FFTSZ);    
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "     (level 2)\n");
-    fprintf(stderr, "       -i i  : minimum iteration                [%d]\n", MINITR);
-    fprintf(stderr, "       -j j  : maximum iteration                [%d]\n", MAXITR);
-    fprintf(stderr, "       -d d  : end condition                    [%g]\n", END);
-    fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n",EPS);
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       windowed sequences (float)    [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       mel-cepstrum (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - mel cepstral analysis\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -a a  : all-pass constant                [%g]\n", ALPHA);
+   fprintf(stderr, "       -t t  : emphasized frequency  t*pi(rad)  [%g]\n", THETA);
+   fprintf(stderr, "       -m m  : order of mel cepstrum            [%d]\n", ORDER);
+   fprintf(stderr, "       -l l  : frame length                     [%d]\n", FLENG);
+   fprintf(stderr, "       -L L  : ifft size for making matrices    [%d]\n", FFTSZ);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "     (level 2)\n");
+   fprintf(stderr, "       -i i  : minimum iteration                [%d]\n", MINITR);
+   fprintf(stderr, "       -j j  : maximum iteration                [%d]\n", MAXITR);
+   fprintf(stderr, "       -d d  : end condition                    [%g]\n", END);
+   fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n",EPS);
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       windowed sequences (float)    [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       mel-cepstrum (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int  main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int	     m = ORDER, flng = FLENG, fftsz = FFTSZ,
-             itr1 = MINITR, itr2 = MAXITR, flag = 0;
-    FILE     *fp = stdin;
-    double   *mc, *x, a = ALPHA, t = THETA, end = END, e = EPS, atof();    
+   int m=ORDER, flng=FLENG, fftsz=FFTSZ, itr1=MINITR, itr2=MAXITR, flag=0;
+   FILE *fp=stdin;
+   double *mc, *x, a=ALPHA, t=THETA, end=END, e=EPS;
 
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-	        case 'a':
-		    a = atof(*++argv);
-		    --argc;
-		    break;
-                case 't':
-		    t = atof(*++argv);
-		    --argc;
-		    break;
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'l':
-		    flng = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'L':
-		    fftsz = atoi(*++argv);
-		    --argc;
-		    break;                    
-		case 'i':
-		    itr1 = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'j':
-		    itr2 = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'd':
-		    end = atof(*++argv);
-		    --argc;
-		    break;
-		case 'e':
-		    e = atof(*++argv);
-		    --argc;
-		    break;
-                case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'a':
+            a = atof(*++argv);
+            --argc;
+            break;
+         case 't':
+            t = atof(*++argv);
+            --argc;
+            break;
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 'l':
+            flng = atoi(*++argv);
+            --argc;
+            break;
+         case 'L':
+            fftsz = atoi(*++argv);
+            --argc;
+            break;
+         case 'i':
+            itr1 = atoi(*++argv);
+            --argc;
+            break;
+         case 'j':
+            itr2 = atoi(*++argv);
+            --argc;
+            break;
+         case 'd':
+            end = atof(*++argv);
+            --argc;
+            break;
+         case 'e':
+            e = atof(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
 
-    t *= M_PI;
-    
-    x = dgetmem(flng+m+1);
-    mc = x + flng;
-    
-    while (freadf(x, sizeof(*x), flng, fp) == flng){
-	flag = smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, e);
-	fwritef(mc, sizeof(*mc), m+1, stdout);
-    }
-    if(flag == 0)
-	    fprintf(stderr, "completed by end condition\n");
-    else if(flag == -1)
-	    fprintf(stderr, "completed by maximum iteration\n");	
-    return(0);
+   t *= M_PI;
+
+   x = dgetmem(flng+m+1);
+   mc = x + flng;
+
+   while (freadf(x, sizeof(*x), flng, fp)==flng) {
+      flag = smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, e);
+      fwritef(mc, sizeof(*mc), m+1, stdout);
+   }
+   if (flag==0)
+      fprintf(stderr, "completed by end condition\n");
+   else if (flag==-1)
+      fprintf(stderr, "completed by maximum iteration\n");
+      
+   return(0);
 }
 

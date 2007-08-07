@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -42,17 +42,22 @@
 
     Normalize coefficients
 
-	void	norm0(x, y, m)
+ void norm0(x, y, m)
 
-	double	*x  : input coefficients
-	double	*y  : normalized coefficients
-	int	m   : order of coefficients
+ double *x  : input coefficients
+ double *y  : normalized coefficients
+ int m   : order of coefficients
 
 ***************************************************************/
 
-void norm0(double *x, double *y, int m)
+#include <stdio.h>
+#include <SPTK.h>
+
+void norm0 (double *x, double *y, int m)
 {
-    y[0] = 1 / x[0];
-    for(; m>=1; m--)
-	y[m] = x[m] * y[0];
+   y[0] = 1 / x[0];
+   for (; m>=1; m--)
+      y[m] = x[m] * y[0];
+      
+   return;
 }

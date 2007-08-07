@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -42,19 +42,25 @@
 
     Transform Mel Cepstrum to MLSA Digital Filter Coefficients
 
-	void	mc2b(mc, b, m, a)
+ void mc2b(mc, b, m, a)
 
-	double	*mc : mel cepstral coefficients
-	double	*b  : MLSA digital filter coefficients
-	int	m   : order of mel cepstrum
-	double	a   : all-pass constant
+ double *mc : mel cepstral coefficients
+ double *b  : MLSA digital filter coefficients
+ int m   : order of mel cepstrum
+ double a   : all-pass constant
 
 ***************************************************************/
 
-void mc2b(double *mc, double *b, int m, double a)
+#include <stdio.h>
+#include <SPTK.h>
+
+void mc2b (double *mc, double *b, int m, const double a)
 {
-    b[m] = mc[m];
-    
-    for(m--; m>=0; m--)
-	b[m] = mc[m] - a * b[m+1];
+   b[m] = mc[m];
+
+   for (m--; m>=0; m--)
+      b[m] = mc[m] - a * b[m+1];
+
+   return;
 }
+

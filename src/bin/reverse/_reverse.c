@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -44,18 +44,26 @@
   Reverse the order of data in sequence
       reverse(real* p, int l)
 
-          double* p	: data seqence (Overwrite)
-          int   l	: length of sequence
+          double* p : data seqence (Overwrite)
+          int   l : length of sequence
 
 ************************************************************************/
 
-void reverse(double *x, int l)
+#include <stdio.h>
+#include <SPTK.h>
+
+void reverse (double *x, const int l)
 {
-	int i;
-	double d;
-	i=0;
-	while (i < l-i-1) {
-		d = x[i]; x[i]=x[l-i-1]; x[l-i-1]=d;
-		i++;
-	}
+   int i=0;
+   double d;
+   
+   while (i<l-i-1) {
+      d = x[i];
+      x[i]=x[l-i-1];
+      x[l-i-1]=d;
+      i++;
+   }
+   
+   return;
 }
+

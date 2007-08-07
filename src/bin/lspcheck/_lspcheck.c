@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -43,30 +43,31 @@
 
     Check order of LSP
 
-	int lspcheck(lsp, ord)
+ int lspcheck(lsp, ord)
 
-	double   	*lsp : LSP
-	int    	ord  : order of LSP
+ double    *lsp : LSP
+ int     ord  : order of LSP
 
-	return value : 0 -> normal
-		       -1-> ill condition
+ return value : 0 -> normal
+         -1-> ill condition
 
 *****************************************************************/
 
-int lspcheck(double *lsp, int ord)
+int lspcheck (double *lsp, const int ord)
 {
-    int	i;
-    
-    if(lsp[0] <=0.0 || lsp[0] >= 0.5) 
-	return(-1);
+   int i;
 
-    for(i=1; i<ord; i++){
-	if(lsp[i] <= lsp[i-1]) 
-	    return(-1);
-	if(lsp[i] <= 0.0 || lsp[i] >= 0.5)
-	    return(-1);
-    }
-    return(0);
+   if ((lsp[0]<=0.0) || (lsp[0]>=0.5))
+      return(-1);
+
+   for (i=1; i<ord; i++) {
+      if (lsp[i]<=lsp[i-1])
+         return(-1);
+      if ((lsp[i]<=0.0) || (lsp[i]>=0.5))
+         return(-1);
+   }
+   
+   return(0);
 }
 
 /****************************************************************
@@ -75,38 +76,40 @@ int lspcheck(double *lsp, int ord)
 
     Rearrangement of LSP
 
-	void lsparng(lsp, ord)
+ void lsparng(lsp, ord)
 
-	double   	*lsp : LSP
-	int    	ord  : order of LSP
+ double    *lsp : LSP
+ int     ord  : order of LSP
 
 *****************************************************************/
 
-void lsparrange(double *lsp, int ord)
+void lsparrange (double *lsp, const int ord)
 {
-    int	i, flag;
-    double 		tmp;
-    
-    /* check out of range */
-    for(i=0; i<ord; i++){
-	if(lsp[i] < 0.0) 
-	    lsp[i] = -lsp[i];
-	if(lsp[i] > 0.5) 
-	    lsp[i] = 1.0 - lsp[i];
-    }
-    
-    /* check unmonotonic */
-    for(;;){
-	flag = 0;
-	for(i=1; i<ord; i++)
-	    if(lsp[i] < lsp[i-1]){
-		tmp = lsp[i];
-		lsp[i] = lsp[i-1];
-		lsp[i-1] = tmp;
-		flag = 1;
-	    }
+   int i, flag;
+   double tmp;
 
-	if(! flag) break;
-    }
+   /* check out of range */
+   for (i=0; i<ord; i++) {
+      if (lsp[i]<0.0)
+         lsp[i] = -lsp[i];
+      if (lsp[i]>0.5)
+         lsp[i] = 1.0 - lsp[i];
+   }
+
+   /* check unmonotonic */
+   for (;;) {
+      flag = 0;
+      for (i=1; i<ord; i++)
+         if (lsp[i]<lsp[i-1]) {
+            tmp = lsp[i];
+            lsp[i] = lsp[i-1];
+            lsp[i-1] = tmp;
+            flag = 1;
+         }
+
+      if (!flag) break;
+   }
+   
+   return;
 }
 

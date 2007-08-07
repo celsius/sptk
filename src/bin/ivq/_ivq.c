@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -43,19 +43,22 @@
 
     Decoder of Vector Quantization
 
-	void ivq(index, cb, l, x)
+ void ivq(index, cb, l, x)
 
-	int    index  : index of codebook
-	double *cb    : codebook vector
-	int    l      : vector order
-	double *x     : decoded vector
+ int    index  : index of codebook
+ double *cb    : codebook vector
+ int    l      : vector order
+ double *x     : decoded vector
 
 *****************************************************************/
+
 #include <stdio.h>
 #include <SPTK.h>
 
-void ivq(int index, double *cb, int l, double *x)
+void ivq (const int index, double *cb, const int l, double *x)
 {
-    movem((cb+index*l), x, sizeof(*cb), l);
+   movem((cb+index*l), x, sizeof(*cb), l);
+
+   return;
 }
 

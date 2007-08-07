@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -43,42 +43,46 @@
 
     Vector Quantization
 
-	int vq(x, cb, l, cbsize)
+ int vq(x, cb, l, cbsize)
 
-	double  *x     : input vector
-	double  *cb    : codebook vector
-	int     l      : vector order
-	int     cbsize : size of codebook
+ double  *x     : input vector
+ double  *cb    : codebook vector
+ int     l      : vector order
+ int     cbsize : size of codebook
 
-	return value   : codebook index
+ return value   : codebook index
 
 *****************************************************************/
 
-int vq(double *x, double *cb, int l, int cbsize)
+#include <stdio.h>
+#include <SPTK.h>
+
+int vq (double *x, double *cb, const int l, const int cbsize)
 {
-    int           i, index;
-    double	  min = 1e23, dist, edist(double *x, double *y, int m);
-    
-    for(i=0; i<cbsize; i++){
-	dist = edist(x, cb, l);
-	if(dist < min){
-	    index = i;
-	    min = dist;
-	}
-	cb += l;
-    }
-    return(index);
+   int i, index=0;
+   double min=1e23, dist;
+
+   for (i=0; i<cbsize; i++) {
+      dist = edist(x, cb, l);
+      if (dist<min) {
+         index = i;
+         min = dist;
+      }
+      cb += l;
+   }
+   return(index);
 }
 
-double edist(double *x, double *y, int m)
+double edist (double *x, double *y, const int m)
 {
-    int  i;
-    double	  sub, dist = 0.0;
-    
-    for(i=0; i<m; i++){
-	sub = x[i] - y[i];
-	dist += sub * sub;
-    }
-    return(dist / (double)m);
+   int i;
+   double sub, dist=0.0;
+
+   for (i=0; i<m; i++) {
+      sub = x[i] - y[i];
+      dist += sub * sub;
+   }
+   
+   return(dist / (double)m);
 }
 

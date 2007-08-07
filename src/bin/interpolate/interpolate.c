@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,24 +38,24 @@
 */
 
 /************************************************************************
-*									*
-*    Interpolation							*
-*									*
-*					1996.4  K.Koishida		*
-*									*
-*	usage:								*
-*		interpolate [ options ] [ infile ] > stdout		*
-*	options:							*
-*		-p p     :  interpolation period	[10]		*
-*		-s s     :  start sample		[0]		*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ...					*
-*	stdout:								*
-*		decimated data						*
-*		    , 0, ..., 0, x(0), 0, ..., x(1), 0, ...,		*
-*		      ---------	 ------------- -------------		*
-*		         s-1           p            p			*
+*         *
+*    Interpolation       *
+*         *
+*     1996.4  K.Koishida  *
+*         *
+* usage:        *
+*  interpolate [ options ] [ infile ]>stdout  *
+* options:       *
+*  -p p     :  interpolation period [10]  *
+*  -s s     :  start sample  [0]  *
+* infile:        *
+*  data sequence      *
+*      , x(0), x(1), ...     *
+* stdout:        *
+*  decimated data      *
+*      , 0, ..., 0, x(0), 0, ..., x(1), 0, ...,  *
+*        ---------  ------------- -------------  *
+*           s-1           p            p   *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -69,77 +69,78 @@ static char *rcs_id = "$Id$";
 
 
 /*  Default Values  */
-#define PERIOD		10
-#define START		0
+#define PERIOD 10
+#define START 0
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - interpolation \n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -p p  : interpolation period [%d]\n", PERIOD);
-    fprintf(stderr, "       -s s  : start sample         [%d]\n", START);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       data sequence (float)        [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       interpolated data sequence (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - interpolation \n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -p p  : interpolation period [%d]\n", PERIOD);
+   fprintf(stderr, "       -s s  : start sample         [%d]\n", START);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (float)        [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       interpolated data sequence (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		period = PERIOD, start = START;
-    FILE	*fp = stdin;
-    double	*x;
-    
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'p':
-		    period = atoi(*++argv);
-		    --argc;
-		    break;
-		case 's':
-		    start = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   int  period=PERIOD, start=START;
+   FILE *fp=stdin;
+   double *x;
 
-    x = dgetmem(period);
-    
-    fwritef(x, sizeof(*x), start, stdout);
 
-    while(freadf(x, sizeof(*x), 1, fp) == 1)
-	fwritef(x, sizeof(*x), period, stdout);
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'p':
+            period = atoi(*++argv);
+            --argc;
+            break;
+         case 's':
+            start = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage(1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
 
-    exit(0);
+   x = dgetmem(period);
+
+   fwritef(x, sizeof(*x), start, stdout);
+
+   while (freadf(x, sizeof(*x), 1, fp)==1)
+      fwritef(x, sizeof(*x), period, stdout);
+
+   return(0);
 }
 

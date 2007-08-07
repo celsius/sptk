@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -42,28 +42,31 @@
 
     Calculation of Root Mean Squared Error
 
-	double	rmse(x, y, n)
+ double rmse(x, y, n)
 
-	double	*x  : data sequence
-	double	*y  : data sequence
-	int	n   : data length
+ double *x  : data sequence
+ double *y  : data sequence
+ int n   : data length
 
-	return value :  RMSE of data
+ return value :  RMSE of data
 
 ***************************************************************/
 
+#include <stdio.h>
 #include <math.h>
+#include <SPTK.h>
 
-double rmse(double *x, double *y, int n)
+double rmse (double *x, double *y, const int n)
 {
-    int  i;
-    double	  sub, sum;
+   int i;
+   double sub, sum;
 
-    sum = 0.0;
-    for(i=0; i<n; i++) {
-	sub = x[i] - y[i];
-	sum += sub * sub;
-    }
+   sum = 0.0;
+   for (i=0; i<n; i++) {
+      sub = x[i] - y[i];
+      sum += sub * sub;
+   }
 
-    return( sqrt(sum / n) );
+   return(sqrt(sum/n));
 }
+

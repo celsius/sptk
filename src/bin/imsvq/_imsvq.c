@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -43,45 +43,48 @@
 
     Decoder of Multi Stage Vector Quantization
 
-	imsvq(index, cb, l, cbsize, stage, x)
+ imsvq(index, cb, l, cbsize, stage, x)
 
-	int    *index  : index of codebook
-	real   *cb     : codebook vector
-	int    l       : order of vector
-	int    *cbsize : size of codebook
-	int    stage   : number of stage
-	real   *x      : decoded vector
+ int    *index  : index of codebook
+ real   *cb     : codebook vector
+ int    l       : order of vector
+ int    *cbsize : size of codebook
+ int    stage   : number of stage
+ real   *x      : decoded vector
 
 *****************************************************************/
 
-#include	<stdio.h>
-#include	<stdlib.h>
-#include	<SPTK.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <SPTK.h>
 
-void imsvq(int *index, double *cb, int l, int *cbsize, int stage, double *x)
+void imsvq (int *index, double *cb, const int l, int *cbsize, const int stage, double *x)
 {
-    int   i, j;
-    static double  *xx = NULL;
-    static int     size;
-    
-    if(xx == NULL){
-	xx = dgetmem(l);
-	size = l;
-    }
-    if(size > l){
-	free(xx);
-	xx = dgetmem(l);
-	size = l;
-    }
+   int   i, j;
+   static double *xx=NULL;
+   static int size;
 
-    fillz(x, sizeof(*x), l);
+   if (xx==NULL) {
+      xx = dgetmem(l);
+      size = l;
+   }
+   if (size>l) {
+      free(xx);
+      xx = dgetmem(l);
+      size = l;
+   }
 
-    for(i=0; i<stage; i++){
-	ivq(index[i], cb, l, xx);
+   fillz(x, sizeof(*x), l);
 
-	for(j=0; j<l; j++)
-	    x[j] += xx[j];
+   for (i=0; i<stage; i++) {
+      ivq(index[i], cb, l, xx);
 
-	cb += cbsize[i] * l;
-    }
+      for (j=0; j<l; j++)
+         x[j] += xx[j];
+
+      cb += cbsize[i] * l;
+   }
+
+   return;
 }
+
