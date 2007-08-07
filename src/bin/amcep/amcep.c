@@ -92,6 +92,7 @@ static char *rcs_id = "$Id$";
 #define EPS 0.0
 #define PADEORDER 4
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char*cmnd;
@@ -125,7 +126,8 @@ void usage (int status)
    fprintf(stderr, "       P = 4 or 5\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);

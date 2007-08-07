@@ -119,4 +119,7 @@ void phidf (const double x, const int m, double a, double *d)
 
    for (i=m; i>=1; i--) 
       d[i] = d[i-1];
+
+   return;
 }
+
