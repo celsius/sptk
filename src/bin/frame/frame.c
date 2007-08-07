@@ -85,6 +85,7 @@ static char *rcs_id = "$Id$";
 #define FPERIOD 100
 #define NOCTR FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
