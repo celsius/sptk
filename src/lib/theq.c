@@ -39,7 +39,7 @@
 
 /******************************************************************
 
-    $Id: theq.c,v 1.4 2007/08/02 08:35:10 heigazen Exp $
+    $Id: theq.c,v 1.5 2007/08/07 06:08:06 heigazen Exp $
 
     Subroutine for Solving a Toeplitz plus Hankel
     Coefficient Matrix System of Equations  ( T + H ) a = b
@@ -63,6 +63,195 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+static void mv_mul (double *t, double *x, double *y)
+{
+   t[0] = x[0] * y[0] + x[1] * y[1];
+   t[1] = x[2] * y[0] + x[3] * y[1];
+
+   return;
+}
+
+static void mm_mul (double *t, double *x, double *y)
+{
+   t[0] = x[0] * y[0] + x[1] * y[2];
+   t[1] = x[0] * y[1] + x[1] * y[3];
+   t[2] = x[2] * y[0] + x[3] * y[2];
+   t[3] = x[2] * y[1] + x[3] * y[3];
+
+   return;
+}
+
+static int inverse (double *x, double *y, const double eps)
+{
+   double det;
+
+   det = y[0] * y[3] - y[1] * y[2];
+
+   if (fabs(det) < eps) return(-1);
+
+   x[0] = y[3] / det;
+   x[1] = -y[1] / det;
+   x[2] = -y[2] / det;
+   x[3] = y[0]  / det;
+
+   return(0);
+}
+
+static void crstrns (double *x, double *y)
+{
+   x[0] = y[3];
+   x[1] = y[2];
+   x[2] = y[1];
+   x[3] = y[0];
+
+   return;
+}
+
+static double **mtrx2 (const int a, const int b)
+{
+   int i;
+   double **x;
+
+   if (! (x = (double**)calloc((unsigned)a, sizeof(*x)))) {
+      fprintf(stderr, "mtrx2() in theq() : memory allocation error !\n");
+      exit(3);
+   }
+   for (i=0; i<a; i++)
+      if (! (x[i] = (double*)calloc((unsigned)b, sizeof(**x)))) {
+         fprintf(stderr, "mtrx2() in theq() : memory allocation error !\n");
+          exit(3);
+      }
+
+   return(x);
+}
+
+static int cal_p0 (double **p, double **r, double *b, const int n, const double eps)
+{
+   double t[4], s[2];
+
+   if (inverse(t,r[0],eps)==-1) return(-1);
+   s[0] = b[0];
+   s[1] = b[n-1];
+   mv_mul(p[0], t, s);
+
+   return(0);
+}
+
+static void cal_ex (double *ex, double **r, double **x, const int i)
+{
+   int j;
+   double t[4], s[4];
+
+   s[0] = s[1] = s[2] = s[3] = 0.;
+
+   for (j=0; j<i; j++) {
+      mm_mul(t, r[i-j], x[j]);
+      s[0] += t[0]; s[1] += t[1];
+      s[2] += t[2]; s[3] += t[3];
+   }
+
+   ex[0] = s[0]; ex[1] = s[1];
+   ex[2] = s[2]; ex[3] = s[3];
+
+   return;
+}
+
+void cal_ep (double *ep, double **r, double **p, int i)
+{
+   int j;
+   double t[2], s[2];
+
+   s[0] = s[1] = 0.;
+
+   for (j=0; j<i; j++) {
+      mv_mul(t, r[i-j], p[j]);
+      s[0] += t[0]; s[1] += t[1];
+   }
+   ep[0] = s[0]; ep[1] = s[1];
+
+   return;
+}
+
+int cal_bx (double *bx, double *vx, double *ex, const double eps)
+{
+   double t[4], s[4];
+
+   crstrns(t, vx);
+   if(inverse(s, t, eps)==-1) return(-1);
+   mm_mul(bx, s, ex);
+
+   return(0);
+}
+
+static void cal_x (double **x, double **xx, double *bx, const int i)
+{
+   int j;
+   double t[4], s[4];
+
+   for (j=1; j<i; j++) {
+      crstrns(t, xx[i-j]);
+      mm_mul(s, t, bx);
+      x[j][0] -= s[0]; x[j][1] -= s[1];
+      x[j][2] -= s[2]; x[j][3] -= s[3];
+   }
+
+   for (j=1; j<i; j++) {
+      xx[j][0] = x[j][0]; xx[j][1] = x[j][1];
+      xx[j][2] = x[j][2]; xx[j][3] = x[j][3];
+   }
+
+   x[i][0] = xx[i][0] = -bx[0];
+   x[i][1] = xx[i][1] = -bx[1];
+   x[i][2] = xx[i][2] = -bx[2];
+   x[i][3] = xx[i][3] = -bx[3];
+
+   return;
+}
+
+static void cal_vx (double *vx, double *ex, double *bx)
+{
+   double t[4], s[4];
+
+   crstrns(t, ex);
+   mm_mul(s, t, bx);
+   vx[0] -= s[0]; vx[1] -= s[1];
+   vx[2] -= s[2]; vx[3] -= s[3];
+
+   return;
+}
+
+static int cal_g (double *g, double *vx, double *b, double *ep, int i, int n, const double eps)
+{
+   double t[2], s[4], u[4];
+
+   t[0] = b[i] - ep[0];
+   t[1] = b[n-1-i] - ep[1];
+   crstrns(s, vx);
+
+   if (inverse(u, s, eps)==-1) return(-1);
+   mv_mul(g, u, t);
+
+   return(0);
+}
+
+static void cal_p (double **p, double **x, double *g, const int i)
+{
+   double t[4], s[2];
+   int j;
+
+   for (j=0; j<i; j++) {
+      crstrns(t, x[i-j]);
+      mv_mul(s, t, g);
+      p[j][0] += s[0];
+      p[j][1] += s[1];
+   }
+
+   p[i][0] = g[0];
+   p[i][1] = g[1];
+
+   return;
+}
 
 int theq (double *t, double *h, double *a, double *b, const int n, double eps)
 {
@@ -103,7 +292,7 @@ int theq (double *t, double *h, double *a, double *b, const int n, double eps)
       size = n;
    }
 	
-   if(eps < 0.0) eps = 1.0e-6;
+   if(eps<0.0) eps = 1.0e-6;
 
    /* make r */
    for (i=0; i<n; i++) {
@@ -125,10 +314,10 @@ int theq (double *t, double *h, double *a, double *b, const int n, double eps)
    for (i=1; i<n; i++) {
       cal_ex(ex, r, x, i);
       cal_ep(ep, r, p, i);
-      if (cal_bx(bx, vx, ex, eps) == -1) return(-1);
+      if (cal_bx(bx, vx, ex, eps)==-1) return(-1);
       cal_x (x, xx, bx, i);
       cal_vx(vx, ex, bx);
-      if (cal_g(g, vx, b, ep, i, n, eps) == -1) return(-1) ;
+      if (cal_g(g, vx, b, ep, i, n, eps)==-1) return(-1) ;
       cal_p(p, x, g, i);
    }
     
@@ -136,186 +325,5 @@ int theq (double *t, double *h, double *a, double *b, const int n, double eps)
    for (i=0; i<n; i++) a[i] = p[i][0];
     
    return(0);
-}
-
-void mm_mul (double *t, double *x, double *y)
-{
-   t[0] = x[0] * y[0] + x[1] * y[2];
-   t[1] = x[0] * y[1] + x[1] * y[3];
-   t[2] = x[2] * y[0] + x[3] * y[2];
-   t[3] = x[2] * y[1] + x[3] * y[3];
-}
-
-int cal_p0 (double **p, double **r, double *b, const int n, const double eps)
-{
-   double t[4], s[2];
-   void mv_mul(double *t, double *x, double *y);
-   int inverse(double *x, double *y, const double eps);
-
-   if (inverse(t,r[0],eps)==-1) return(-1);
-   s[0] = b[0];
-   s[1] = b[n-1];
-   mv_mul(p[0], t, s);
-
-   return(0);
-}
-
-void cal_ex (double *ex, double **r, double **x, const int i)
-{
-   int j;
-   double t[4], s[4];
-   void	mm_mul(double *t, double *x, double *y);
-
-   s[0] = s[1] = s[2] = s[3] = 0.;
-
-   for (j=0; j<i; j++) {
-      mm_mul(t, r[i-j], x[j]);
-      s[0] += t[0]; s[1] += t[1];
-      s[2] += t[2]; s[3] += t[3];
-   }
-
-   ex[0] = s[0]; ex[1] = s[1];
-   ex[2] = s[2]; ex[3] = s[3];
-}
-
-void cal_ep (double *ep, double **r, double **p, int i)
-{
-   int j;
-   double t[2], s[2];
-   void mv_mul(double *t, double *x, double *y);
-
-   s[0] = s[1] = 0.;
-    
-   for (j=0; j<i; j++) {
-      mv_mul(t, r[i-j], p[j]);
-      s[0] += t[0]; s[1] += t[1];
-   }
-   ep[0] = s[0]; ep[1] = s[1];
-}
-
-int cal_bx (double *bx, double *vx, double *ex, const double eps)
-{
-   double t[4], s[4];
-   void crstrns(double *x, double *y), mm_mul(double *t, double *x, double *y);
-   int inverse(double *x, double *y, const double eps);
-
-   crstrns(t, vx);
-   if(inverse(s, t, eps)==-1) return(-1);
-   mm_mul(bx, s, ex);
-   return(0);
-}
-
-void cal_x (double **x, double **xx, double *bx, const int i)
-{
-   int j;
-   double t[4], s[4];
-   void mm_mul(double *t, double *x, double *y), crstrns(double *x, double *y);
-
-   for (j=1; j<i; j++) {
-      crstrns(t, xx[i-j]);
-      mm_mul(s, t, bx);
-      x[j][0] -= s[0]; x[j][1] -= s[1];
-      x[j][2] -= s[2]; x[j][3] -= s[3];
-   }
-
-   for (j=1; j<i; j++) {
-      xx[j][0] = x[j][0]; xx[j][1] = x[j][1];
-      xx[j][2] = x[j][2]; xx[j][3] = x[j][3];
-   }
-    
-   x[i][0] = xx[i][0] = -bx[0];
-   x[i][1] = xx[i][1] = -bx[1];
-   x[i][2] = xx[i][2] = -bx[2];
-   x[i][3] = xx[i][3] = -bx[3];
-}
-
-void cal_vx (double *vx, double *ex, double *bx)
-{
-   double t[4], s[4];
-   void crstrns(double *x, double *y), mm_mul(double *t, double *x, double *y);
-
-   crstrns(t, ex);
-   mm_mul(s, t, bx);
-   vx[0] -= s[0]; vx[1] -= s[1];
-   vx[2] -= s[2]; vx[3] -= s[3];
-}
-
-int cal_g (double *g, double *vx, double *b, double *ep, int i, int n, const double eps)
-{
-   double t[2], s[4], u[4];
-   void	crstrns(double *x, double *y), mv_mul(double *t, double *x, double *y);
-   int inverse(double *x, double *y, double eps);
-
-   t[0] = b[i] - ep[0];
-   t[1] = b[n-1-i] - ep[1];
-   crstrns(s, vx);
-    
-   if (inverse(u, s, eps)==-1) return(-1);
-   mv_mul(g, u, t);
-   return(0);
-}
-
-void cal_p (double **p, double **x, double *g, const int i)
-{
-   double t[4], s[2];
-   int j;
-   void mv_mul(double *t, double *x, double *y), crstrns(double *x, double *y);
-
-   for (j=0; j<i; j++) {
-      crstrns(t, x[i-j]);
-      mv_mul(s, t, g);
-      p[j][0] += s[0];
-      p[j][1] += s[1];
-   }
-    
-   p[i][0] = g[0];
-   p[i][1] = g[1];
-}
-
-int inverse (double *x, double *y, const double eps)
-{
-   double det;
-
-   det = y[0] * y[3] - y[1] * y[2];
-
-   if (fabs(det) < eps) return(-1);
-    
-   x[0] = y[3] / det;
-   x[1] = -y[1] / det;
-   x[2] = -y[2] / det;
-   x[3] = y[0]  / det;
-   return(0);
-}
-
-void crstrns (double *x, double *y)
-{
-   x[0] = y[3];
-   x[1] = y[2];
-   x[2] = y[1];
-   x[3] = y[0];
-}
-
-void mv_mul (double *t, double *x, double *y)
-{
-   t[0] = x[0] * y[0] + x[1] * y[1];
-   t[1] = x[2] * y[0] + x[3] * y[1];
-}
-
-double **mtrx2 (const int a, const int b)
-{
-   int i;
-   double **x;
-
-   if (! (x = (double**)calloc((unsigned)a, sizeof(*x)))) {
-      fprintf(stderr, "mtrx2() in theq() : memory allocation error !\n");
-      exit(3);
-   }
-   for (i=0; i<a; i++)
-      if (! (x[i] = (double*)calloc((unsigned)b, sizeof(**x)))) {
-         fprintf(stderr, "mtrx2() in theq() : memory allocation error !\n");
-          exit(3);
-      }
-
-   return(x);
 }
 
