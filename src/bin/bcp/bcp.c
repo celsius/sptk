@@ -70,7 +70,7 @@ All Rights Reserved.
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: bcp.c,v 1.7 2007/07/20 08:32:12 heigazen Exp $";
+static char *rcs_id = "$Id: bcp.c,v 1.8 2007/08/07 04:06:45 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -125,8 +125,8 @@ void usage (int status)
    fprintf(stderr, "       latter argument is adopted.\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
-   fprintf(stderr, "  %s", rcs_id);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);

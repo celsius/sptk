@@ -56,7 +56,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id="$Id: c2ir.c,v 1.7 2007/07/20 09:02:58 heigazen Exp $";
+static char *rcs_id="$Id: c2ir.c,v 1.8 2007/08/07 04:08:38 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -94,8 +94,8 @@ void usage (int status)
    fprintf(stderr, "       impulse response (float)\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
-   fprintf(stderr, "  %s", rcs_id);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);

@@ -38,7 +38,7 @@
 */
 
 /******************************************************************
- $Id: _c2ir.c,v 1.5 2007/07/20 09:02:59 heigazen Exp $
+ $Id: _c2ir.c,v 1.6 2007/08/07 04:08:38 heigazen Exp $
 
 	cepstrum to impulse response
 		c2ir(c,nc,h,leng)
@@ -75,6 +75,8 @@ void c2ir (double *c, const int nc, double *h, const int leng)
          d += k * c[k] * h[n - k];
       h[n] = d / n;
    }
+
+   return;
 }
 
 void ic2ir (double *h, const int leng, double *c, const int nc)
@@ -90,5 +92,7 @@ void ic2ir (double *h, const int leng, double *c, const int nc)
          d -= k*c[k] * h[n-k];
       c[n] = d / (n * h[0]);
    }
+
+   return;
 }
  
