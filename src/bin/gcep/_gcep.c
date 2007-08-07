@@ -160,3 +160,4 @@ int gcep (double *xw, const int flng, double *gc, const int m, const double g, c
    if (flag) return(0);
    else return(-1);
 }
+
