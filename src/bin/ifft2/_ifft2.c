@@ -85,7 +85,7 @@ int ifft2 (double x[], double y[], const int n)
       }
       
       if (ifft( xb, yb, n)<0)
-         return( -1 );
+         return(-1);
 
       xp = xb;   xq = x + i;
       yp = yb;   yq = y + i;
@@ -101,5 +101,6 @@ int ifft2 (double x[], double y[], const int n)
          return(-1);
    }
 
-   return( 0 );
+   return(0);
 }
+
