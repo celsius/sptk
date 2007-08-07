@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-    $Id: _gc2gc.c,v 1.5 2007/07/24 10:15:47 heigazen Exp $
+    $Id: _gc2gc.c,v 1.6 2007/08/07 04:21:13 heigazen Exp $
 
     Generalized Cepstral Transformation	
 
@@ -92,4 +92,7 @@ void gc2gc (double *c1, const int m1, const double g1, double *c2, const int m2,
       else
          c2[i] = (g2*ss2 - g1*ss1)/i;
    }
+
+   return;
 }
+

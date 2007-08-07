@@ -69,7 +69,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: gc2gc.c,v 1.7 2007/07/24 10:15:47 heigazen Exp $";
+static char *rcs_id = "$Id: gc2gc.c,v 1.8 2007/08/07 04:21:13 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -89,6 +89,7 @@ static char *rcs_id = "$Id: gc2gc.c,v 1.7 2007/07/24 10:15:47 heigazen Exp $";
 #define MULGFLG1 FA
 #define MULGFLG2 FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
