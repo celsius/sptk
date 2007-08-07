@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _iglsadf.c,v 1.4 2007/08/01 07:36:07 heigazen Exp $
+    $Id: _iglsadf.c,v 1.5 2007/08/07 04:55:52 heigazen Exp $
 
     Inverse GLSA Digital Filter
 
@@ -55,6 +55,9 @@
 
 *****************************************************************/
 
+#include <stdio.h>
+#include <SPTK.h>
+
 double iglsadf (double x, double *c, const int m, const int n, double *d)
 {
    int i;
@@ -69,7 +72,6 @@ double iglsadf1 (double x, double *c, const int m, const int n, double *d)
 {
    int i;
    double gamma;
-   double gzerodf (double x, double *c, const int m, const double g, double *d);
 
    gamma = -1/(double)n;
     
@@ -94,3 +96,4 @@ double gzerodf (double x, double *c, int m, const double g, double *d)
 
    return(x);
 }
+
