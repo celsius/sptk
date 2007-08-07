@@ -75,6 +75,8 @@ void c2ir (double *c, const int nc, double *h, const int leng)
          d += k * c[k] * h[n - k];
       h[n] = d / n;
    }
+
+   return;
 }
 
 void ic2ir (double *h, const int leng, double *c, const int nc)
@@ -90,5 +92,7 @@ void ic2ir (double *h, const int leng, double *c, const int nc)
          d -= k*c[k] * h[n-k];
       c[n] = d / (n * h[0]);
    }
+
+   return;
 }
  
