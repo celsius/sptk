@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _amcep.c,v 1.6 2007/07/20 07:58:28 heigazen Exp $
+    $Id: _amcep.c,v 1.7 2007/08/07 04:04:53 heigazen Exp $
 
     Adaptive Mel Cepstral Analysis
 
@@ -119,4 +119,7 @@ void phidf (const double x, const int m, double a, double *d)
 
    for (i=m; i>=1; i--) 
       d[i] = d[i-1];
+
+   return;
 }
+
