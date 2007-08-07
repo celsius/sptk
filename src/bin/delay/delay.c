@@ -58,7 +58,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: delay.c,v 1.9 2007/07/23 07:44:36 heigazen Exp $";
+static char *rcs_id = "$Id: delay.c,v 1.10 2007/08/07 04:13:35 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -72,6 +72,7 @@ static char *rcs_id = "$Id: delay.c,v 1.9 2007/07/23 07:44:36 heigazen Exp $";
 #define START 0
 #define KEEP FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;

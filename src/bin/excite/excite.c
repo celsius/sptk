@@ -61,7 +61,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: excite.c,v 1.7 2007/07/24 04:30:54 heigazen Exp $";
+static char *rcs_id = "$Id: excite.c,v 1.8 2007/08/07 04:14:59 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -78,6 +78,7 @@ static char *rcs_id = "$Id: excite.c,v 1.7 2007/07/24 04:30:54 heigazen Exp $";
 #define SEED 1
 #define GAUSS FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;

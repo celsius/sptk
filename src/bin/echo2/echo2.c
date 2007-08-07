@@ -50,7 +50,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: echo2.c,v 1.8 2007/07/24 03:03:38 heigazen Exp $";
+static char *rcs_id = "$Id: echo2.c,v 1.9 2007/08/07 04:14:40 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -63,6 +63,7 @@ static char *rcs_id = "$Id: echo2.c,v 1.8 2007/07/24 03:03:38 heigazen Exp $";
 /*  Default Values  */
 #define NEWLINE TR
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
