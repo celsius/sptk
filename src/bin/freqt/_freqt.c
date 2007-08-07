@@ -90,4 +90,7 @@ void freqt (double *c1, const int m1, double *c2, const int m2, const double a)
    }
     
    movem(g, c2, sizeof(*g), m2+1);
+
+   return;
 }
+
