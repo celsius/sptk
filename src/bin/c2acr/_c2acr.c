@@ -88,4 +88,7 @@ void c2acr(double *c, const int m1, double *r, const int m2, const int flng)
 
    for (i=0; i<=m2; i++) 
       r[i] = x[i] / flng;
+
+   return;
 }
+

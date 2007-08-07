@@ -81,7 +81,7 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - transform cepstrum to autocorrelation\n",cmnd);
@@ -99,15 +99,15 @@ void usage(int status)
    fprintf(stderr, "       autocorrelation (float)\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
-   fprintf(stderr, "  %s", rcs_id);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
    int m=ORDERC, n=ORDERR, l=FLENG;
    FILE *fp = stdin;
@@ -149,5 +149,6 @@ int main(int argc, char **argv)
       c2acr(c, m, r, n, l);
       fwritef(r, sizeof(*r), n+1, stdout);
    }
+   
    exit(0);
 }
