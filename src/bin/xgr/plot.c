@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,444 +38,500 @@
 */
 
 /****************************************************************
-*	Interpret X-Y Ploter Commands				*
+* $Id: plot.c,v 1.8 2007/08/07 05:57:06 heigazen Exp $          *
+* Interpret X-Y Ploter Commands    *
 ****************************************************************/
-#include	<X11/Xlib.h>
-#include	<stdio.h>
-#include	<string.h>
-#include	<stdlib.h>
-#include	<limits.h>
-#include	"xgr.h"
-#include	"gcdata.h"
 
-#define abs(x)		((x) >= 0 ? (x) : (-x))
-#define	norm(x)		((short)((x)/shrink+0.5))
-#define	normx(x)	((short)((x)/shrink+0.5))
+#include <X11/Xlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <math.h>
+#include "xgr.h"
+#include "gcdata.h"
+
+
+#define abs(x)  ((x) >= 0 ? (x) : (-x))
+#define norm(x)  ((short)((x)/shrink+0.5))
+#define normx(x) ((short)((x)/shrink+0.5))
 /*
-#define	normy(y)	((short)((YLENG-(y))/shrink+0.5))
+#define normy(y) ((short)((YLENG-(y))/shrink+0.5))
 */
-#define direction(x)	{}
+#define direction(x) {}
 
 Cord pb;
 
-static int	sp = 1;
-static int	cw = FCW, ch = FCH, th = 0;
+static int sp = 1;
+static int cw = FCW, ch = FCH, th = 0;
 
-extern Display		*display;
-extern Window		main_window;
-extern int		screen;
-extern GC		gc;
-extern unsigned long	forepix, backpix;
-extern float		shrink;
-extern int		landscape;
-extern int		c_flg, m_flg;
-extern int		fno;
+extern Display  *display;
+extern Window  main_window;
+extern int  screen;
+extern GC  gc;
+extern unsigned long forepix, backpix;
+extern float  shrink;
+extern int  landscape;
+extern int  c_flg, m_flg;
+extern int  fno;
 
-static XPoint		points[SIZE];
-static int		line_width = 1;
-static int		line_style = LineSolid;
-static XRectangle	rect;
+static XPoint  points[SIZE];
+static int  line_width = 1;
+static int  line_style = LineSolid;
+static XRectangle rect;
 
 
-static char	*symbol_upper = "ABGDEZHQIKLMNXOPRSTUFCYW";
-static char	*symbol_lower = "abgdezhqiklmnxoprstufcyw";
-#define		INFTY	165
-#define		SPACE	32
+static char *symbol_upper = "ABGDEZHQIKLMNXOPRSTUFCYW";
+static char *symbol_lower = "abgdezhqiklmnxoprstufcyw";
+#define  INFTY 165
+#define  SPACE 32
 
 static void line(XPoint *points,int n );
 static void fillpoly(XPoint *points,int type,int n );
+static void reset_fill (void);
+static void dplot (int density, short x, short y, short w, short h);
+static void fillbox (int type, short x, short y, short w, short h);
+static int text (char *s, int n, int fn);
 
-static short normy(int y )
+
+static short normy (int y)
 {
-	if (!landscape)
-		return ((short)((YLENG-(y))/shrink+0.5));
-	else
-		return ((short)((XLENG-(y))/shrink+0.5));
+   if (!landscape)
+      return ((short)((YLENG-(y))/shrink+0.5));
+   else
+      return ((short)((XLENG-(y))/shrink+0.5));
 }
 
-static void _flush()
+static void _flush (void)
 {
-	if (sp > 1)  {
-/*		polylines(sp);
-*/		line(points, sp);
-		points[0].x = points[sp-1].x;
-		points[0].y = points[sp-1].y;
-		sp = 1;
-	}
+   if (sp>1)  {
+      /*  polylines(sp);
+      */
+      line(points, sp);
+      points[0].x = points[sp-1].x;
+      points[0].y = points[sp-1].y;
+      sp = 1;
+   }
 }
 
-static void _send(Cord *buf )
+static void _send (Cord *buf)
 {
-	if (sp == SIZE)
-		_flush();
+   if (sp==SIZE)
+      _flush();
 
-	points[sp  ].x = normx(buf->x);
-	points[sp++].y = normy(buf->y);
+   points[sp  ].x = normx(buf->x);
+   points[sp++].y = normy(buf->y);
 }
 
-static int _getcord(Cord *buf )
+static int _getcord (Cord *buf)
 {
-	register int	c;
+   int c;
 
-	while ((c = getchar()) == '\n' || c == ' ')
-		;
-	if (c)  {
-		ungetc(c, stdin);
-		scanf("%d %d", &(buf->x), &(buf->y));
-		return(1);
-	}
-	else
-		return(0);
+   while ((c = getchar())=='\n' || c==' ')
+      ;
+   if (c)  {
+      ungetc(c, stdin);
+      scanf("%d %d", &(buf->x), &(buf->y));
+      return(1);
+   }
+   else
+      return(0);
 }
 
-static void _line()
+static void _line (void)
 {
-	while (_getcord(&pb))
-		_send(&pb);
+   while (_getcord(&pb))
+      _send(&pb);
 
-	_flush();
-}
-
-
-static void _move(int x,int y )
-{
-	points[0].x = normx(x);
-	points[0].y = normy(y);
+   _flush();
 }
 
 
-static void line(XPoint *points,int n )
+static void _move (int x, int y)
 {
-	XDrawLines(display, main_window, gc, points, n, CoordModeOrigin);
+   points[0].x = normx(x);
+   points[0].y = normy(y);
 }
 
-static void polyline(XPoint *points,int frame,int fill,int n )
+
+static void line (XPoint *points, int n)
 {
-	if ( fill != -1 && (fill%=10) != 9 )  {
-		fillpoly(points, fill+6, n+1);
-		reset_fill();
-	}
-	if (frame)
-		line(points, n+1);
+   XDrawLines(display, main_window, gc, points, n, CoordModeOrigin);
 }
 
-static int polyg(int type )
-{
-	int		x, y, w, h;
-
-	scanf("%d %d %d %d", &x, &y, &w, &h);
-	dplot(type, normx(x), normy(y+h), norm(w), norm(h));
-
-	return(0);
+static void polyline (XPoint *points, int frame, int fill, int n )
+{  
+   if ( fill!=-1 && (fill%=10)!=9 )  {
+      fillpoly(points, fill+6, n+1);
+      reset_fill();
+   }
+   if (frame)
+      line(points, n+1);
 }
 
-#define	LEVEL	256
-#define	POINTS	1024
-
-static void dplot(int density,short x,short y,short w,short h )
+static int polyg (int type)
 {
-	register int	n;
-	int		n_max, n_plot, flg[POINTS];
-	int		p;
-	XPoint		pos[POINTS];
+   int  x, y, w, h;
 
-	n_max = ++w * ++h;
-	n_plot = (density * n_max) / LEVEL;
+   scanf("%d %d %d %d", &x, &y, &w, &h);
+   dplot(type, normx(x), normy(y+h), norm(w), norm(h));
+
+   return(0);
+}
+
+#define LEVEL 256
+#define POINTS 1024
+
+static void dplot (int density, short x, short y, short w, short h)
+{
+   int n;
+   int  n_max, n_plot, flg[POINTS];
+   int  p;
+   XPoint  pos[POINTS];
+
+   n_max = ++w * ++h;
+   n_plot = (density * n_max) / LEVEL;
 
 #if BSD
-	bzero((char *)flg, sizeof(*flg)*POINTS);
+   bzero((char *)flg, sizeof(*flg)*POINTS);
 #else
-	memset(flg, 0, sizeof(*flg)*POINTS);
+   memset(flg, 0, sizeof(*flg)*POINTS);
 #endif
 
-	for (n=0; n<n_plot; n++)  {
-		p = (int)(n_max * (double)rand() / (double)INT_MAX);
-		if (flg[p] == 0)  {
-			flg[p] = 1;
-			pos[n].x = x + (short)p % w;
-			pos[n].y = y - (short)p / w;
-		}
-	}
-	XDrawPoints(display, main_window, gc, pos, n_plot, CoordModeOrigin);
+   for (n=0; n<n_plot; n++)  {
+      p = (int)(n_max * (double)rand() / (double)INT_MAX);
+      if (flg[p]==0)  {
+         flg[p] = 1;
+         pos[n].x = x + (short)p % w;
+         pos[n].y = y - (short)p / w;
+      }
+   }
+   XDrawPoints(display, main_window, gc, pos, n_plot, CoordModeOrigin);
 }
 
 static void hatching(int type )
 {
-	register int	n;
-	int		frame;
-	int		d, angle;
+   int n;
+   int  frame;
+   int  d, angle;
 
-	scanf("%d %d", &d, &angle);
+   scanf("%d %d", &d, &angle);
 
-	for (n=0; _getcord(&pb); n++)  {
-		points[n].x = normx(pb.x);
-		points[n].y = normy(pb.y);
-	}
-	points[n].x = points[0].x;
-	points[n].y = points[0].y;
+   for (n=0; _getcord(&pb); n++)  {
+      points[n].x = normx(pb.x);
+      points[n].y = normy(pb.y);
+   }
+   points[n].x = points[0].x;
+   points[n].y = points[0].y;
 
-	switch ( type-=20 )  {
-	    case 1:	frame = 1;	type = -1;	break;
-	    case 2:	frame = 0;	type = -1;	break;
-	    case 3:	frame = 1;	type = -1;	break;
-	    default:	if (type < 0)  {
-				frame = 0;
-				type = -type;
-			}
-			else
-				frame = 1;
-							break;
-	}
-	polyline(points, frame, type, n);
+   switch ( type-=20 )  {
+   case 1:
+      frame = 1;
+      type = -1;
+      break;
+   case 2:
+      frame = 0;
+      type = -1;
+      break;
+   case 3:
+      frame = 1;
+      type = -1;
+      break;
+   default:
+      if (type<0)  {
+         frame = 0;
+         type = -type;
+      }
+      else
+         frame = 1;
+      break;
+   }
+   polyline(points, frame, type, n);
 }
 
-static void reset_fill()
+static void reset_fill (void)
 {
-	fillbox(15, 0, 0, 0, 0);
+   fillbox(15, 0, 0, 0, 0);
 }
 
-static void box(short x,short y,short w,short h )
+static void box (short x, short y, short w, short h)
 {
-	XDrawRectangle(display, main_window, gc, x, y, w, h);
+   XDrawRectangle(display, main_window, gc, x, y, w, h);
 }
 
-static void fillbox(int type,short x,short y,short w,short h )
+static void fillbox (int type, short x, short y, short w, short h)
 {
-	Pixmap	till_pmap;
+   Pixmap till_pmap;
 
-	till_pmap = XCreatePixmapFromBitmapData(display, main_window,
-			till_bits[type], till_width, till_height,
-			forepix, backpix, DefaultDepth(display, 0));
+   till_pmap = XCreatePixmapFromBitmapData(display, main_window,
+                                           till_bits[type], till_width, till_height,
+                                           forepix, backpix, DefaultDepth(display, 0));
 
-	XSetTile(display, gc, till_pmap);
-	XSetFillStyle(display, gc, FillTiled);
-	XFillRectangle(display, main_window, gc, x, y, w, h);
+   XSetTile(display, gc, till_pmap);
+   XSetFillStyle(display, gc, FillTiled);
+   XFillRectangle(display, main_window, gc, x, y, w, h);
 
-	XFreePixmap(display, till_pmap);
+   XFreePixmap(display, till_pmap);
 }
 
 static void fillpoly(XPoint *points,int type,int n )
 {
-	Pixmap	till_pmap;
+   Pixmap till_pmap;
 
-	till_pmap = XCreatePixmapFromBitmapData(display, main_window,
-			till_bits[type], till_width, till_height,
-			forepix, backpix, DefaultDepth(display, 0));
+   till_pmap = XCreatePixmapFromBitmapData(display, main_window,
+                                           till_bits[type], till_width, till_height,
+                                           forepix, backpix, DefaultDepth(display, 0));
 
-	XSetTile(display, gc, till_pmap);
-	XSetFillStyle(display, gc, FillTiled);
-	XFillPolygon(display, main_window, gc, points, n, Convex, CoordModeOrigin);
+   XSetTile(display, gc, till_pmap);
+   XSetFillStyle(display, gc, FillTiled);
+   XFillPolygon(display, main_window, gc, points, n, Convex, CoordModeOrigin);
 
-	XFreePixmap(display, till_pmap);
+   XFreePixmap(display, till_pmap);
 }
 
-static void get_str()
-{		    
-	int	c, i, j, k, sfg=0;
-	char	s[512];
-	float	adj = 0.29;
-
-	for (i=j=k=0; c=getchar(); i++, j++)  {
-		if ((c &= 0xff) <= 192)  {	/*  not Symbol	  */
-			if (sfg)  {		/*  flush buffer  */
-				s[i] = '\0';
-				points[0].x += (int)(cw * k * adj);
-				text(s, i, FSymbol);
-				k = j;
-				i = j = 0;
-				sfg = 0;
-			}
-			s[i] = c;
-		}
-		else  {				/*  Symbol        */
-			if (!sfg)  {		/*  flush buffer  */
-				s[i] = '\0';
-				points[0].x += (int)(cw * k * adj);
-				text(s, i, fno);
-				k = j;
-				i = j = 0;
-				sfg = 1;
-			}
-			if (c <= 216)
-				sprintf(s+i,"%c", symbol_upper[c-193]);
-			else if (c >= 225 && c <= 248)
-				sprintf(s+i,"%c", symbol_lower[c-225]);
-			else if (c == 254)
-				sprintf(s+i,"%c", INFTY);
-			else
-				sprintf(s+i,"%c", SPACE);
-		}
-	}
-	s[i] = '\0';
-	points[0].x += (int)(cw * k * adj);
-	if (! sfg)
-		text(s, i, fno);
-	else
-		text(s, i, FSymbol);
-}
-
-static int text(char *s,int n,int fn )
+static void get_str (void)
 {
-	register int	cx, cy;
-	static int	flg=0, cfn=-1, ccw=-1, cch=-1;
-	float		xadj, yadj;
+   int c, i, j, k, sfg=0;
+   char s[512];
+   float adj = 0.29;
 
-	if (n <= 0)	return(0);
+   for (i=j=k=0; (c=getchar()); i++, j++)  {
+      if ((c &= 0xff) <= 192)  { /*  not Symbol   */
+         if (sfg)  {  /*  flush buffer  */
+            s[i] = '\0';
+            points[0].x += (int)(cw * k * adj);
+            text(s, i, FSymbol);
+            k = j;
+            i = j = 0;
+            sfg = 0;
+         }
+         s[i] = c;
+      }
+      else  {    /*  Symbol        */
+         if (!sfg)  {  /*  flush buffer  */
+            s[i] = '\0';
+            points[0].x += (int)(cw * k * adj);
+            text(s, i, fno);
+            k = j;
+            i = j = 0;
+            sfg = 1;
+         }
+         if (c <= 216)
+            sprintf(s+i,"%c", symbol_upper[c-193]);
+         else if (c >= 225 && c <= 248)
+            sprintf(s+i,"%c", symbol_lower[c-225]);
+         else if (c==254)
+            sprintf(s+i,"%c", INFTY);
+         else
+            sprintf(s+i,"%c", SPACE);
+      }
+   }
+   s[i] = '\0';
+   points[0].x += (int)(cw * k * adj);
+   if (! sfg)
+      text(s, i, fno);
+   else
+      text(s, i, FSymbol);
+}
 
-	if (fn != cfn)   {
-		ccw = cw;	cch = ch;
-		if (ch == LFCH)
-			cfn = fn + 1;
-		else
-			cfn = fn;
-		flg = 1;
-	}
-	if (flg || cw != ccw || ch != cch)  {
-		if (cw < ccw || ch < cch)
-			cfn = fn - 1;
-		else if (cw > ccw || ch > cch)
-			cfn = fn + 1;
+static int text (char *s, int n, int fn)
+{
+   int cx, cy;
+   static int flg=0, cfn=-1, ccw=-1, cch=-1;
+   float  xadj, yadj;
 
-		XSetFont(display, gc, XLoadFont(display, f_name[cfn]));
-		ccw = cw;	cch = ch;
-		flg = 0;
-	}
+   if (n <= 0) return(0);
 
-	if (th == 0)
-		XDrawString(display, main_window, gc, 
-			    points[0].x, points[0].y, s, n);
-	else  {
-		xadj = ccw / shrink;
-		yadj = (cch > FCH ? 0.75 : 1.25) * cch / shrink;
-		while (n)  {
-			cx = points[0].x - xadj;
-			cy = points[0].y - yadj * --n;
-			XDrawString(display, main_window, gc, cx, cy, s, 1);
-			*s++;
-		}
-	}
+   if (fn!=cfn)   {
+      ccw = cw;
+      cch = ch;
+      if (ch==LFCH)
+         cfn = fn + 1;
+      else
+         cfn = fn;
+      flg = 1;
+   }
+   if (flg || cw!=ccw || ch!=cch)  {
+      if (cw<ccw || ch<cch)
+         cfn = fn - 1;
+      else if (cw>ccw || ch>cch)
+         cfn = fn + 1;
+
+      XSetFont(display, gc, XLoadFont(display, f_name[cfn]));
+      ccw = cw;
+      cch = ch;
+      flg = 0;
+   }
+
+   if (th==0)
+      XDrawString(display, main_window, gc,
+                  points[0].x, points[0].y, s, n);
+   else  {
+      xadj = ccw / shrink;
+      yadj = (cch>FCH ? 0.75 : 1.25) * cch / shrink;
+      while (n)  {
+         cx = points[0].x - xadj;
+         cy = points[0].y - yadj * --n;
+         XDrawString(display, main_window, gc, cx, cy, s, 1);
+         *s++;
+      }
+   }
+   
+   return 0;
 }
 
 static void newpen(int w )
 {
-	if (w < 0 || w > 10)
-		w = 1;
+   if (w<0 || w>10)
+      w = 1;
 
-	if (!c_flg || m_flg)  {
-		line_width = l_width[w];
-		XSetLineAttributes(display, gc,
-				   line_width, line_style, CapButt, JoinMiter);
-	}
-	else
-		XSetForeground(display, gc, get_color_pix(c_name[w]));
+   if (!c_flg || m_flg)  {
+      line_width = l_width[w];
+      XSetLineAttributes(display, gc,
+                         line_width, line_style, CapButt, JoinMiter);
+   }
+   else
+      XSetForeground(display, gc, get_color_pix(c_name[w]));
 }
 
-static int line_type(int w )
+static int line_type (int w)
 {
-	int	dash_offset = 0;
+   int dash_offset = 0;
 
-	if (w == 0)
-		line_style = LineSolid;
-	else if (w > 0 && w < 12)
-		line_style = LineOnOffDash;
-	else
-		return(0);
+   if (w==0)
+      line_style = LineSolid;
+   else if (w>0 && w<12)
+      line_style = LineOnOffDash;
+   else
+      return(0);
 
-	XSetLineAttributes(display, gc,
-			   line_width, line_style, CapButt, JoinMiter);
-	if (w > 0)  {
-		XSetDashes(display, gc, dash_offset,
-			   l_style[w].list, l_style[w].no);
-	}
+   XSetLineAttributes(display, gc,
+                      line_width, line_style, CapButt, JoinMiter);
+   if (w>0)  {
+      XSetDashes(display, gc, dash_offset,
+                 l_style[w].list, l_style[w].no);
+   }
+   
+   return(0);
 }
 
 static void clip(int xmin,int ymin,int xmax,int ymax )
 {
-	rect.x = xmin;
-	rect.y = ymin;
-	rect.width = xmax - xmin;
-	rect.height = ymax - ymin;
+   rect.x = xmin;
+   rect.y = ymin;
+   rect.width = xmax - xmin;
+   rect.height = ymax - ymin;
 
-	XSetClipRectangles(display, gc, 0, 0, &rect, 1, Unsorted);
+   XSetClipRectangles(display, gc, 0, 0, &rect, 1, Unsorted);
 }
 
 static void mark(int w )
 {
-	Pixmap	mark_pmap;
+   Pixmap mark_pmap;
 
-	mark_pmap = XCreatePixmapFromBitmapData(display, main_window,
-			mark_bits[w], mark_width, mark_height,
-			forepix, backpix,
-			DefaultDepth(display, 0));
+   mark_pmap = XCreatePixmapFromBitmapData(display, main_window,
+                                           mark_bits[w], mark_width, mark_height,
+                                           forepix, backpix,
+                                           DefaultDepth(display, 0));
 
-	XCopyArea(display, mark_pmap, main_window, gc,
-		  0, 0, mark_width, mark_height,
-		  points[0].x - mark_width/2,
-		  points[0].y - mark_height/2);
+   XCopyArea(display, mark_pmap, main_window, gc,
+             0, 0, mark_width, mark_height,
+             points[0].x - mark_width/2,
+             points[0].y - mark_height/2);
 
-	XFreePixmap(display, mark_pmap);
+   XFreePixmap(display, mark_pmap);
 }
 
 static void circle(int x0,int y0,int r1,int r2,int arg1,int arg2 )
 {
-	int		x, y;
-	unsigned int	width, height;
-	double		cos(), sin();
+   int  x, y;
+   unsigned int width, height;
+   
+   arg1 /= 10;
+   arg2 /= 10;
+   width  = normx(abs(r1 * cos((double)arg1)));
+   height = normx(abs(r2 * sin((double)arg2)));
+   x = normx(x0) - width;
+   y = normy(y0) - height;
+   width  *= 2;
+   height *= 2;
 
-	arg1 /= 10;
-	arg2 /= 10;
-	width  = normx(abs(r1 * cos((double)arg1)));
-	height = normx(abs(r2 * sin((double)arg2)));
-	x = normx(x0) - width;
-	y = normy(y0) - height;
-	width  *= 2;
-	height *= 2;
-
-	XDrawArc(display, main_window, gc, x, y,
-		 width, height, arg1*64, arg2*64);
+   XDrawArc(display, main_window, gc, x, y,
+            width, height, arg1*64, arg2*64);
 }
 
-void plot()
+void plot (void)
 {
-	register int	c;
-	int		w, n, xmin, ymin, xmax, ymax;
-	int		x0, y0, r1, r2, arg1, arg2;
-	short		normy();
+   int c;
+   int  w, n, xmin, ymin, xmax, ymax;
+   int  x0, y0, r1, r2, arg1, arg2;
 
-	while ((c = getchar()) != EOF)  {
-		switch (c)  {
-		    case 'M':	scanf("%d %d", &pb.x, &pb.y);
-				_move(pb.x, pb.y);			break;
-		    case 'D':	_line();				break;
-		    case '%':	scanf("%d", &n);
-				hatching(n);				break;
-/*				polyg(n);				break;
-*/		    case 'P':	get_str();				break;
-		    case 'S':	scanf("%d", &ch);			break;
-		    case 'Q':	scanf("%d", &cw);			break;
-		    case 'R':	scanf("%d", &th);
-				th = (th == 0) ? 0 : 1;			break;
-		    case 'L':	scanf("%d", &w);	line_type(w);	break;
-		    case 'W':	scanf("%d %d %d %d %d %d",
-				      &x0, &y0, &r1, &r2, &arg1, &arg2);
-				circle(x0, y0, r1, r2, arg1, arg2);	break;
-		    case 'N':	scanf("%d", &w);	mark(w);	break;
-		    case 'J':	scanf("%d", &w);	newpen(w);	break;
-		    case '\\':	scanf("%d %d", &xmin, &ymin);		break;
-		    case 'Z':	scanf("%d %d", &xmax, &ymax);
-				if (!landscape)  {
-					if (xmax > XLENG)	xmax = XLENG;
-					if (ymax > YLENG)	ymax = YLENG;
-				}
-				else  {
-					if (xmax > YLENG)	xmax = YLENG;
-					if (ymax > XLENG)	ymax = XLENG;
-				}
-				clip(normx(xmin), normy(ymax),
-				     normx(xmax), normy(ymin));		break;
-		    case ';':
-		    case ':':						break;
-		    default:						break;
-		}
-	}
+   while ((c = getchar())!=EOF)  {
+      switch (c)  {
+      case 'M':
+         scanf("%d %d", &pb.x, &pb.y);
+         _move(pb.x, pb.y);
+         break;
+      case 'D':
+         _line();
+         break;
+      case '%':
+         scanf("%d", &n);
+         hatching(n);
+         break;
+         /*    polyg(n);    break;
+         */
+      case 'P':
+         get_str();
+         break;
+      case 'S':
+         scanf("%d", &ch);
+         break;
+      case 'Q':
+         scanf("%d", &cw);
+         break;
+      case 'R':
+         scanf("%d", &th);
+         th = (th==0) ? 0 : 1;
+         break;
+      case 'L':
+         scanf("%d", &w);
+         line_type(w);
+         break;
+      case 'W':
+         scanf("%d %d %d %d %d %d",
+               &x0, &y0, &r1, &r2, &arg1, &arg2);
+         circle(x0, y0, r1, r2, arg1, arg2);
+         break;
+      case 'N':
+         scanf("%d", &w);
+         mark(w);
+         break;
+      case 'J':
+         scanf("%d", &w);
+         newpen(w);
+         break;
+      case '\\':
+         scanf("%d %d", &xmin, &ymin);
+         break;
+      case 'Z':
+         scanf("%d %d", &xmax, &ymax);
+         if (!landscape)  {
+            if (xmax>XLENG) xmax = XLENG;
+            if (ymax>YLENG) ymax = YLENG;
+         }
+         else  {
+            if (xmax>YLENG) xmax = YLENG;
+            if (ymax>XLENG) ymax = XLENG;
+         }
+         clip(normx(xmin), normy(ymax),
+              normx(xmax), normy(ymin));
+         break;
+      case ';':
+      case ':':
+         break;
+      default:
+         break;
+      }
+   }
 }
