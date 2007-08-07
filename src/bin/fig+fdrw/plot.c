@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -39,132 +39,137 @@
 
 
 /****************************************************************
-*	XY-Plotter Library 	 				*
-*								*
-*	Calling sequence :					*
-*		plopen(mode);					*
-*		_plsend(buf, nbytes);				*
-*		_plnorm(x);					*
-*		plots(mode);					*
-*		plote();					*
-*		plot(x, y, z);					*
-*		plotr(ip, x, y);				*
-*		plota(ip, x, y);				*
-*		origin(x, y);					*
-*		mode(ltype, lscale);				*
-*		chlnmod(_lnmode);				*
-*								*
-*	Copyright 1985 by T. Kobayashi				*
+* XY-Plotter Library       *
+*        *
+* Calling sequence :     *
+*  plopen(mode);     *
+*  _plsend(buf, nbytes);    *
+*  _plnorm(x);     *
+*  plots(mode);     *
+*  plote();     *
+*  plot(x, y, z);     *
+*  plotr(ip, x, y);    *
+*  plota(ip, x, y);    *
+*  origin(x, y);     *
+*  mode(ltype, lscale);    *
+*  chlnmod(_lnmode);    *
+*        *
+* Copyright 1985 by T. Kobayashi    *
 ****************************************************************/
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <unistd.h>
 #include "plot.h"
 
 struct co_ord _org = { 0.0, 0.0 };
 
-void plots(int mode)
+void plots (int mode)
 {
-	if((mode & 0x80) == 0) {
-		asciimode();		/* ASCII mode */
-		ifclear();		/* Interface CLEAR */
-		sleep(1);		/* delay */
-		home();			/* HOME */
-	}
-	term(TRM);
-	_org.xo = _org.yo = 0;
+   if ((mode & 0x80)==0) {
+      asciimode();  /* ASCII mode */
+      ifclear();  /* Interface CLEAR */
+      sleep(1);  /* delay */
+      home();   /* HOME */
+   }
+   term(TRM);
+   _org.xo = _org.yo = 0;
 }
 
-void plote()
+void plote (void)
 {
+   return;
 }
 
-int _plnorm(float x)
+int _plnorm (float x)
 {
-	return((int)(10.0 * x + 0.5));
+   return((int)(10.0 * x + 0.5));
 }
 
-int _cordx(float x)
+int _cordx (float x)
 {
-	return(_plnorm(x + _org.xo));
+   return(_plnorm(x + _org.xo));
 }
 
-int _cordy(float y)
+int _cordy (float y)
 {
-	return(_plnorm(y + _org.yo));
+   return(_plnorm(y + _org.yo));
 }
 
-static short		_ltype = 0, _lscale = 10;
+static short _ltype=0, _lscale=10;
 
-void plot(float x,float y, int z)
+void plot (float x, float y, int z)
 {
-	register int	ip;
+   int ip;
 
-	if(abs(z) == 2)
-		ip = 0;
-	else if(abs(z) == 3)
-		ip = 1;
-	else {
-		if(z == 999)
-			plote();
-		return;
-	}
-	plota(ip, x, y);
-	if(z < 0) {
-		_org.xo += x;
-		_org.yo += y;
-	}
+   if (abs(z)==2)
+      ip = 0;
+   else if (abs(z)==3)
+      ip = 1;
+   else {
+      if (z==999)
+         plote();
+      return;
+   }
+   plota(ip, x, y);
+   if (z<0) {
+      _org.xo += x;
+      _org.yo += y;
+   }
 }
 
-int plotr(int ip, float x, float y)
+int plotr (int ip, float x, float y)
 {
-	if(ip == 1)
-		rmove(_plnorm(x), _plnorm(y));
-	else if(ip == 0 || ip == 2) {
-		if(ip == 2)
-			_chlnmod(1);
-		rdraw(_plnorm(x), _plnorm(y));
-		if(ip == 2)
-			_chlnmod(0);
-	}
-	else
-		return(1);
-	return(0);
+   if (ip==1)
+      rmove(_plnorm(x), _plnorm(y));
+   else if (ip==0 || ip==2) {
+      if (ip==2)
+         _chlnmod(1);
+      rdraw(_plnorm(x), _plnorm(y));
+      if (ip==2)
+         _chlnmod(0);
+   }
+   else
+      return(1);
+   return(0);
 }
 
-int plota(int ip, float x, float y)
+int plota (int ip, float x, float y)
 {
-	if(ip == 1)
-		move(_cordx(x), _cordy(y));
-	else if(ip == 0 || ip == 2) {
-		if(ip == 2)
-			_chlnmod(1);
-		draw(_cordx(x), _cordy(y));
-		if(ip == 2)
-			_chlnmod(0);
-	}
-	else
-		return(1);
-	return(0);
+   if (ip==1)
+      move(_cordx(x), _cordy(y));
+   else if (ip==0 || ip==2) {
+      if (ip==2)
+         _chlnmod(1);
+      draw(_cordx(x), _cordy(y));
+      if (ip==2)
+         _chlnmod(0);
+   }
+   else
+      return(1);
+   return(0);
 }
 
-void mode(int ltype, float lscale)
+void mode (int ltype, float lscale)
 {
-	_ltype  = ltype;
-	_lscale = _plnorm(lscale);
+   _ltype  = ltype;
+   _lscale = _plnorm(lscale);
 }
 
-void _chlnmod(int lmode)
+void _chlnmod (int lmode)
 {
-	if(lmode) {
-		line_type(_ltype);
-		line_scale(_lscale);
-	}
-	else
-		line_type(0);
+   if (lmode) {
+      line_type(_ltype);
+      line_scale(_lscale);
+   }
+   else
+      line_type(0);
 }
 
-void origin(float x, float y)
+void origin (float x, float y)
 {
-	_org.xo = x;
-	_org.yo = y;
-	plot(0., 0., 3);
+   _org.xo = x;
+   _org.yo = y;
+   plot(0., 0., 3);
 }
