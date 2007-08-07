@@ -51,6 +51,9 @@
 
 ***************************************************************/
 
+#include <stdio.h>
+#include <SPTK.h>
+
 void b2mc (double *b, double *mc, int m, const double a)
 {
    double d, o;
@@ -61,4 +64,7 @@ void b2mc (double *b, double *mc, int m, const double a)
       d = b[m];
       mc[m] = o;
    }
+
+   return;
 }
+
