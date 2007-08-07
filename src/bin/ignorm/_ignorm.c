@@ -51,7 +51,6 @@
 
 ************************************************************************/
 
-
 #include <stdio.h>
 #include <math.h>
 #include <SPTK.h>
@@ -73,3 +72,4 @@ void ignorm (double *c1, double *c2, int m, const double g)
    
    return;
 }
+
