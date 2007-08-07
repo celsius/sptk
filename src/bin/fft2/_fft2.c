@@ -102,7 +102,7 @@ int fft2 (double x[], double y[], const int n)
 
    for (i=n,xp=x,yp=y; --i>=0; xp+=n,yp+=n) {
       if (fft(xp, yp, n)<0)
-         return( -1 );
+         return(-1);
    }
 
    return 0;
