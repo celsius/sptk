@@ -38,7 +38,7 @@
 */
 
 /********************************************************
- $Id: _fftr.c,v 1.5 2007/07/24 06:13:13 heigazen Exp $							
+ $Id: _fftr.c,v 1.6 2007/08/07 04:18:04 heigazen Exp $							
  NAME:							
 	fftr - Fast Fourier Transform for Double sequence	   
  SYNOPSIS:                                             
@@ -133,3 +133,4 @@ int fftr (double *x, double *y, const int m)
    
    return(0);
 }
+
