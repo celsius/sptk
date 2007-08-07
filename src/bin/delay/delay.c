@@ -72,6 +72,7 @@ static char *rcs_id = "$Id$";
 #define START 0
 #define KEEP FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;

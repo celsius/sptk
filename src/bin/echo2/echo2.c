@@ -63,6 +63,7 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define NEWLINE TR
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;

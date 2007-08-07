@@ -78,6 +78,7 @@ static char *rcs_id = "$Id$";
 #define SEED 1
 #define GAUSS FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
