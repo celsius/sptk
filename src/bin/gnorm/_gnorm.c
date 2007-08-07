@@ -38,7 +38,7 @@
 */
 
 /************************************************************************
-  $Id: _gnorm.c,v 1.6 2007/07/25 04:56:56 heigazen Exp $
+  $Id: _gnorm.c,v 1.7 2007/08/07 04:44:39 heigazen Exp $
 
     Gain Normalization
 	
@@ -69,4 +69,7 @@ void gnorm (double *c1, double *c2, int m, const double g)
       movem(&c1[1], &c2[1], sizeof(*c1), m);
       c2[0] = exp(c1[0]);
    }
+
+   return;
 }
+
