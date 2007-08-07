@@ -220,6 +220,8 @@ double rmse (double *x, double *y, const int n);
 void output_root_pol (complex *x, int odr, int form);
 complex *cplx_getmem (const int leng);
 void root_pol (double *a, const int odr, complex *x, const int a_zero, const double eps, const int itrat);
+int sp2mgc (double *xw, const int flng, double *b, const int m, const double a, const double g, const int n, 
+            const int itr1, const int itr2, const double dd, const double e, const int itype);
 int smcep (double *xw, const int flng, double *mc, const int m, const int fftsz, const double a,
            const double t, const int itr1, const int itr2, const double dd, const double e);
 void frqt_a (double *al, const int m, const int fftsz, const double a, const double t);
