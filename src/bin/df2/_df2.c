@@ -38,7 +38,7 @@
 */
 
 /******************************************************
- $Id: _df2.c,v 1.4 2007/07/24 02:06:16 heigazen Exp $
+ $Id: _df2.c,v 1.5 2007/08/07 04:13:54 heigazen Exp $
   2nd order standard form digital filter
 	double df2(x,sf,f0p,wbp,f0z,wbz,fp,fz,buf,bufp)
 
@@ -58,7 +58,9 @@
 		Dec.1995 Naohiro Isshiki
 *******************************************************/	 
 
-#include<math.h>
+#include <stdio.h>
+#include <math.h>
+#include <SPTK.h>
 
 double df2 (const double x, const double sf, const double f0p, const double wbp, const double f0z, const double wbz, 
             const int fp, const int fz, double *buf, int *bufp)

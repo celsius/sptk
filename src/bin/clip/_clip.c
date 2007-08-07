@@ -39,7 +39,7 @@
 
 /************************************************
 * 
-*     $Id: _clip.c,v 1.5 2007/07/23 04:30:27 heigazen Exp $
+*     $Id: _clip.c,v 1.6 2007/08/07 04:11:56 heigazen Exp $
 * 
 *	Data clipping				*
 *		1996.3.14			*
@@ -55,6 +55,9 @@
 *						*
 ************************************************/
 
+#include <stdio.h>
+#include <SPTK.h>
+
 void clip (double *x, const int l, const double min, const double max, double *y)
 {
    int i;
@@ -62,3 +65,4 @@ void clip (double *x, const int l, const double min, const double max, double *y
    for (i=0; i<l; i++)
       y[i] = (x[i]<min) ? min : ((x[i]>max) ? max : x[i]);
 }
+
