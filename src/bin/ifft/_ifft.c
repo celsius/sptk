@@ -38,7 +38,7 @@
 */
 
 /************************************************
-*  $Id: _ifft.c,v 1.8 2007/08/01 07:36:38 heigazen Exp $ *
+*  $Id: _ifft.c,v 1.9 2007/08/07 04:54:14 heigazen Exp $ *
 * NAME:						*
 *	ifft - Inverse Fast Fourier Transform	*   
 * SYNOPSIS:					*
@@ -66,3 +66,4 @@ int ifft (double *x, double *y, const int m)
 
    return(0);
 }
+
