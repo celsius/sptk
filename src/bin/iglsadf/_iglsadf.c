@@ -55,6 +55,9 @@
 
 *****************************************************************/
 
+#include <stdio.h>
+#include <SPTK.h>
+
 double iglsadf (double x, double *c, const int m, const int n, double *d)
 {
    int i;
@@ -69,7 +72,6 @@ double iglsadf1 (double x, double *c, const int m, const int n, double *d)
 {
    int i;
    double gamma;
-   double gzerodf (double x, double *c, const int m, const double g, double *d);
 
    gamma = -1/(double)n;
     
@@ -94,3 +96,4 @@ double gzerodf (double x, double *c, int m, const double g, double *d)
 
    return(x);
 }
+
