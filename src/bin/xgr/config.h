@@ -38,6 +38,7 @@
 */
 
 /*
+ * $Id$
  *	Configuration.
  */
 
