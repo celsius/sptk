@@ -89,6 +89,7 @@ static char *rcs_id = "$Id$";
 #define MULGFLG1 FA
 #define MULGFLG2 FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;

@@ -92,4 +92,7 @@ void gc2gc (double *c1, const int m1, const double g1, double *c2, const int m2,
       else
          c2[i] = (g2*ss2 - g1*ss1)/i;
    }
+
+   return;
 }
+
