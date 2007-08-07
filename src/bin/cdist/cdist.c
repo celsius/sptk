@@ -60,7 +60,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: cdist.c,v 1.8 2007/07/23 04:18:53 heigazen Exp $";
+static char *rcs_id = "$Id: cdist.c,v 1.9 2007/08/07 04:11:16 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -76,6 +76,7 @@ static char *rcs_id = "$Id: cdist.c,v 1.8 2007/07/23 04:18:53 heigazen Exp $";
 #define FRAME FA
 #define OTYPE 0
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
@@ -103,7 +104,7 @@ void usage (int status)
    fprintf(stderr, "      cepstral distance (float)\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
