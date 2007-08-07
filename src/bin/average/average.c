@@ -60,7 +60,7 @@ All Rights Reserved.
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: average.c,v 1.7 2007/07/20 08:06:26 heigazen Exp $";
+static char *rcs_id = "$Id: average.c,v 1.8 2007/08/07 04:05:39 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -97,7 +97,7 @@ void usage(int status)
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
-   fprintf(stderr, "  CVS: %s", rcs_id);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
