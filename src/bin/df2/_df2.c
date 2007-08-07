@@ -58,7 +58,9 @@
 		Dec.1995 Naohiro Isshiki
 *******************************************************/	 
 
-#include<math.h>
+#include <stdio.h>
+#include <math.h>
+#include <SPTK.h>
 
 double df2 (const double x, const double sf, const double f0p, const double wbp, const double f0z, const double wbz, 
             const int fp, const int fz, double *buf, int *bufp)

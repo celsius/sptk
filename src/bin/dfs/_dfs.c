@@ -57,6 +57,7 @@
 ************************************************************************/
 
 #include <stdio.h>
+#include <SPTK.h>
 
 double dfs (double x, double *a, int m, double *b, int n, double *buf, int *bufp)
 {
@@ -87,3 +88,4 @@ double dfs (double x, double *a, int m, double *b, int n, double *buf, int *bufp
 
    return(y);
 }
+

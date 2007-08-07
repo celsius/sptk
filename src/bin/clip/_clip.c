@@ -55,6 +55,9 @@
 *						*
 ************************************************/
 
+#include <stdio.h>
+#include <SPTK.h>
+
 void clip (double *x, const int l, const double min, const double max, double *y)
 {
    int i;
@@ -62,3 +65,4 @@ void clip (double *x, const int l, const double min, const double max, double *y
    for (i=0; i<l; i++)
       y[i] = (x[i]<min) ? min : ((x[i]>max) ? max : x[i]);
 }
+
