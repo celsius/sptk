@@ -65,7 +65,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.10 2007/07/23 05:15:51 heigazen Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.11 2007/08/07 04:13:07 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -76,19 +76,24 @@ static char *rcs_id = "$Id: dawrite.c,v 1.10 2007/07/23 05:15:51 heigazen Exp $"
 #include "da.h"
 
 
-/* Default Value */
+typedef enum _Boolean {FA, TR} Boolean;
+char *BOOL[] = {"FALSE", "TRUE"};
 
-#define SIZE 256*400
+
+/* Default Value */
+#define SIZE     256*400
 #define MAXFILES 128
 #define INITGAIN 0
 
-#define OUTPORT 's'
-#define GAIN (0+INITGAIN)
-#define HEADERSIZE 0
-#define VERBOSE FA
+#define OUTPORT     's'
+#define GAIN        (0+INITGAIN)
+#define HEADERSIZE  0
+#define VERBOSE     FA
+
 
 /* Command Name */
 char *cmnd;
+
 
 void usage(int status)
 {

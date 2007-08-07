@@ -37,10 +37,11 @@
  ----------------------------------------------------------------
 */
 
+/* $Id: da.h,v 1.8 2007/08/07 04:13:07 heigazen Exp $ */
+
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
-#include <SPTK.h>
 
 #if defined(LINUX) || defined(FreeBSD)
 #include <sys/soundcard.h>
@@ -93,8 +94,7 @@ static MENU data_type [] = {
    { 9, 32000,  16, LINEAR},
    {10, 37800,  16, LINEAR},
    {11, 44100,  16, LINEAR},
-   {12, 48000,  16, LINEAR},
-   NULL,
+   {12, 48000,  16, LINEAR}
 };
 
 #define _8000_8BIT_ULAW     1
