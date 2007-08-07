@@ -85,6 +85,7 @@ static char *rcs_id = "$Id$";
 #define TRANSPOSE FA
 #define NGAIN FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
