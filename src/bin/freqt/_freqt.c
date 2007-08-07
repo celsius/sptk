@@ -39,7 +39,7 @@
 
 /***************************************************************
 
-    $Id: _freqt.c,v 1.5 2007/07/24 10:15:47 heigazen Exp $
+    $Id: _freqt.c,v 1.6 2007/08/07 04:20:26 heigazen Exp $
 
     Frequency Transformation
 
@@ -90,4 +90,7 @@ void freqt (double *c1, const int m1, double *c2, const int m2, const double a)
    }
     
    movem(g, c2, sizeof(*g), m2+1);
+
+   return;
 }
+
