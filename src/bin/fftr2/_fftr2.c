@@ -38,7 +38,7 @@
 */
 
 /********************************************************
-* $Id: _fftr2.c,v 1.5 2007/07/24 06:13:12 heigazen Exp $ *
+* $Id: _fftr2.c,v 1.6 2007/08/07 04:19:03 heigazen Exp $ *
 *	fftr2 : two dimensional fast Fourier transform 	*
 *			for real sequence		*
 *							*
@@ -98,8 +98,9 @@ int fftr2 (double x[], double y[], const int n)
 
    for (i=n,xp=x,yp=y; --i>=0; xp+=n,yp+=n) {
       if (fft(xp,yp,n)<0)
-         return( -1 );
+         return(-1);
    }
 
-   return 0;
+   return(0);
 }
+
