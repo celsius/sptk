@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,29 +38,29 @@
 */
 
 /************************************************************************
-*									*
-*    Linear Interpolation						*
-*									*
-*					1987.1  K.Tokuda		*
-*					1996.4  K.Koishida		*
-*									*
-*	usage:								*
-*		linear-intpl [ options ] [ infile ] > stdout		*
-*	options:							*
-*		-l l         : output length               [256]	*
-*		-m m         : number of interpolation     [255]	*
-*		-x xmin xmax : minimum of x & maximum of x [0.0 0.5]	*
-*	infile:								*
-*		data sequence						*
-*		    , x0, y0, x1, y1..., xK, yK				*
-*			(x0 = xmin, xk = xmax)				*
-*	stdout:								*
-*		interpolated data					*
-*		    , y0, ..., yn					*
-*									*
+*         *
+*    Linear Interpolation      *
+*         *
+*     1987.1  K.Tokuda  *
+*     1996.4  K.Koishida  *
+*         *
+* usage:        *
+*  linear-intpl [ options ] [ infile ]>stdout  *
+* options:       *
+*  -l l         : output length               [256] *
+*  -m m         : number of interpolation     [255] *
+*  -x xmin xmax : minimum of x & maximum of x [0.0 0.5] *
+* infile:        *
+*  data sequence      *
+*      , x0, y0, x1, y1..., xK, yK    *
+*   (x0 = xmin, xk = xmax)    *
+* stdout:        *
+*  interpolated data     *
+*      , y0, ..., yn     *
+*         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: linear_intpl.c,v 1.6 2006/12/21 07:23:17 mr_alex Exp $";
+static char *rcs_id = "$Id: linear_intpl.c,v 1.7 2007/08/07 05:01:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -71,106 +71,109 @@ static char *rcs_id = "$Id: linear_intpl.c,v 1.6 2006/12/21 07:23:17 mr_alex Exp
 
 
 /*  Default Values  */
-#define LENG		255
-#define MIN		0.0
-#define MAX		0.5
+#define LENG 255
+#define MIN 0.0
+#define MAX 0.5
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - linear interpolation\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -l l         : output length               [%d]\n", LENG+1);
-    fprintf(stderr, "       -m m         : number of interpolation     [%d]\n", LENG);
-    fprintf(stderr, "       -x xmin xmax : minimum of x & maximum of x [%g %g]\n",MIN,MAX);
-    fprintf(stderr, "       -h           : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       data sequence (float)                      [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       interpolated data sequence (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - linear interpolation\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l         : output length               [%d]\n", LENG+1);
+   fprintf(stderr, "       -m m         : number of interpolation     [%d]\n", LENG);
+   fprintf(stderr, "       -x xmin xmax : minimum of x & maximum of x [%g %g]\n",MIN,MAX);
+   fprintf(stderr, "       -h           : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (float)                      [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       interpolated data sequence (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		l = LENG, ii, end;
-    FILE	*fp = stdin;
-    double	i = MIN, j = MAX, x1, y1, x2, y2, y, x, t, atof();
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'l':
-		    l = atoi(*++argv)-1;
-		    --argc;
-		    break;
-		case 'm':
-		    l = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'x':
-		    i = atoi(*++argv);
-		    --argc;
-		    j = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'i':
-		    i = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'j':
-		    j = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   int  l=LENG, ii, end;
+   FILE *fp=stdin;
+   double i=MIN, j=MAX, x1, y1, x2, y2, y, x, t;
 
-    t = (j - i) / (double) l;
-    
-    for(;;){
-	if(freadf(&x2, sizeof(x2), 1, fp) != 1) break;
-	if(freadf(&y2, sizeof(y2), 1, fp) != 1) break;
-    
-	fwritef(&y2, sizeof(y2), 1, stdout);
-	
-	for(end=0,ii=1; end==0; ){
-	    x1 = x2;  y1 = y2;
-	    if(freadf(&x2, sizeof(x2), 1, fp) != 1) break;
-	    if(freadf(&y2, sizeof(y2), 1, fp) != 1) break;
-	    
-	    if(x2 == j) end = 1;
-	    for(;; ii++){
-		x = i + t * ii;
-		if(x > x2) break;
-		y = ((y1 - y2) * x + x1 * y2 - x2 * y1) / (x1 - x2);
-		fwritef(&y, sizeof(y), 1, stdout);
-	    }
-	}
-    }
-    exit(0);
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'l':
+            l = atoi(*++argv)-1;
+            --argc;
+            break;
+         case 'm':
+            l = atoi(*++argv);
+            --argc;
+            break;
+         case 'x':
+            i = atoi(*++argv);
+            --argc;
+            j = atoi(*++argv);
+            --argc;
+            break;
+         case 'i':
+            i = atoi(*++argv);
+            --argc;
+            break;
+         case 'j':
+            j = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
+
+   t = (j - i) / (double) l;
+
+   for (;;) {
+      if (freadf(&x2, sizeof(x2), 1, fp)!=1) break;
+      if (freadf(&y2, sizeof(y2), 1, fp)!=1) break;
+
+      fwritef(&y2, sizeof(y2), 1, stdout);
+
+      for (end=0,ii=1; end==0; ) {
+         x1 = x2;
+         y1 = y2;
+         if (freadf(&x2, sizeof(x2), 1, fp)!=1) break;
+         if (freadf(&y2, sizeof(y2), 1, fp)!=1) break;
+
+         if (x2==j) end = 1;
+         for (;; ii++) {
+            x = i + t * ii;
+            if (x>x2) break;
+            y = ((y1 - y2) * x + x1 * y2 - x2 * y1) / (x1 - x2);
+            fwritef(&y, sizeof(y), 1, stdout);
+         }
+      }
+   }
+   
+   return(0);
 }
 

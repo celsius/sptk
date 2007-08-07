@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,7 +38,7 @@
 */
 
 /****************************************************************
-  $Id: _nrand.c,v 1.4 2007/01/13 06:06:36 s_sako Exp $
+  $Id: _nrand.c,v 1.5 2007/08/07 05:01:37 heigazen Exp $
 
     Generate Normal Distributed Random Value
         nrand(p, leng, seed)
@@ -49,62 +49,59 @@
 
 ****************************************************************/
 
-#include	<stdio.h>
-#include	<math.h>
-#include	<SPTK.h>
+#include <stdio.h>
+#include <math.h>
+#include <SPTK.h>
 
+#define RAND_MAX 32767
 
-#define	RAND_MAX	32767
-
-double nrandom(unsigned long *next);
-double rnd(unsigned long *next);
-unsigned long srnd( unsigned seed);
-
-int nrand(double *p, int leng, int seed)
+int nrand (double *p, const int leng, const int seed)
 {
-    int i;
-    unsigned long next;
+   int i;
+   unsigned long next;
 
-	if (seed != 1)
-		next = srnd((unsigned)seed);
-	for (i=0;i<leng;i++)
-		p[i] = (double)nrandom(&next);
+   if (seed!=1)
+      next = srnd((unsigned int)seed);
+   for (i=0; i<leng; i++)
+      p[i] = (double)nrandom(&next);
 
-	return(0);
+   return(0);
 }
 
-double nrandom(unsigned long *next)
+double nrandom (unsigned long *next)
 {
-	static int	sw = 0;
-	static double	r1, r2, s;
+   static int sw=0;
+   static double r1, r2, s;
 
-	if (sw == 0)  {
-		sw = 1;
-		do  {
-			r1 = 2 * rnd(next) - 1;
-			r2 = 2 * rnd(next) - 1;
-			s = r1 * r1 + r2 * r2;
-		}  while (s > 1 || s == 0);
-		s = sqrt(-2 * log(s) / s);
-		return ( r1 * s );
-	}
-	else  {
-		sw = 0;
-		return ( r2 * s );
-	}
+   if (sw==0)  {
+      sw = 1;
+      do  {
+         r1 = 2 * rnd(next) - 1;
+         r2 = 2 * rnd(next) - 1;
+         s = r1 * r1 + r2 * r2;
+      }
+      while (s>1 || s==0);
+      s = sqrt(-2 * log(s) / s);
+      return (r1*s);
+   }
+   else  {
+      sw = 0;
+      return(r2*s);
+   }
 }
 
-double rnd(unsigned long *next)
+double rnd (unsigned long *next)
 {
-	double	r;
+   double r;
 
-	*next = *next * 1103515245L + 12345;
-	r = (*next / 65536L) % 32768L;
+   *next = *next * 1103515245L + 12345;
+   r = (*next / 65536L) % 32768L;
 
-	return ( r / RAND_MAX ); 
+   return(r/RAND_MAX);
 }
 
-unsigned long srnd( unsigned seed )
+unsigned long srnd (const unsigned int seed)
 {
-	return(seed);
+   return(seed);
 }
+

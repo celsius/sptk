@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,48 +38,50 @@
 */
 
 /************************************************************************
-  $Id: _ulaw.c,v 1.4 2007/08/02 08:35:23 heigazen Exp $
+  $Id: _ulaw.c,v 1.5 2007/08/07 05:05:40 heigazen Exp $
 
     u-law coder
-	
-	double ulaw_c(x, max, mu)
 
-	double	  x :  data
-	double	max :  max value
-	double	 mu :  compression ratio
+ double ulaw_c(x, max, mu)
 
-	return value	: compressed data
+ double   x :  data
+ double max :  max value
+ double  mu :  compression ratio
+
+ return value : compressed data
 
     u-law decoder
-	
-	double ulaw_d(x, max, mu)
 
-	double	  x :  compressed data
-	double	max :  max value
-	double	 mu :  compression ratio
+ double ulaw_d(x, max, mu)
 
-	return value	: uncompressed data
+ double   x :  compressed data
+ double max :  max value
+ double  mu :  compression ratio
+
+ return value : uncompressed data
 
 ************************************************************************/
 
+#include <stdio.h>
 #include <math.h>
+#include <SPTK.h>
 
-#define	abs(x)	((x>=0) ? (x) : (-(x)))
-#define	sign(x)	((x>=0) ? 1 : (-1))
+#define abs(x) ((x>=0) ? (x) : (-(x)))
+#define sign(x) ((x>=0) ? 1 : (-1))
 
-double ulaw_c(double x, double max, double mu)
+double ulaw_c (const double x, const double max, const double mu)
 {
-    double	y;
-    
-    y = sign(x) * max * log(1 + mu*abs(x)/max) / log(1 + mu);
-    return(y);
+   double y;
+
+   y = sign(x) * max * log(1 + mu*abs(x)/max) / log(1 + mu);
+   return(y);
 }
 
-double ulaw_d(double x, double max, double mu)
+double ulaw_d (const double x, const double max, const double mu)
 {
-    double	y, pow(double, double);
-    
-    y = sign(x) * max * (pow(1+mu, abs(x)/max) -1) / mu;
-    return(y);
+   double y;
+
+   y = sign(x) * max * (pow(1+mu, abs(x)/max) -1) / mu;
+   return(y);
 }
 

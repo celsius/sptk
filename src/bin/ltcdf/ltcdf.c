@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,33 +38,33 @@
 */
 
 /************************************************************************
-*									*
-*    All-Pole Lattice Digital Filter for Speech Synthesis		*
-*									*
-*					1987.9  K.Tokuda		*
-*					1996.3  K.Koishida		*
-*									*
-*	usage:								*
-*		ltcdf [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of coefficients	[25]		*
-*		-p p     :  frame period		[100]		*
-*		-i i     :  interpolation period	[1]		*
-*		-k	 :  filtering without gain	[FALSE]		*
-*	infile:								*
-*		coefficients						*
-*		    , K, k(1), ..., k(m),				*
-*		excitation sequence					*
-*		    , x(0), x(1), ..., 					*
-*	stdout:								*
-*		filtered sequence					*
-*		    , y(0), y(1), ...,					*
-*	require:							*
-*		ltcdf()							*
-*									*
+*         *
+*    All-Pole Lattice Digital Filter for Speech Synthesis  *
+*         *
+*     1987.9  K.Tokuda  *
+*     1996.3  K.Koishida  *
+*         *
+* usage:        *
+*  ltcdf [ options ] [ infile ]>stdout   *
+* options:       *
+*  -m m     :  order of coefficients [25]  *
+*  -p p     :  frame period  [100]  *
+*  -i i     :  interpolation period [1]  *
+*  -k  :  filtering without gain [FALSE]  *
+* infile:        *
+*  coefficients      *
+*      , K, k(1), ..., k(m),    *
+*  excitation sequence     *
+*      , x(0), x(1), ...,      *
+* stdout:        *
+*  filtered sequence     *
+*      , y(0), y(1), ...,     *
+* require:       *
+*  ltcdf()       *
+*         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ltcdf.c,v 1.6 2006/12/21 07:23:18 mr_alex Exp $";
+static char *rcs_id = "$Id: ltcdf.c,v 1.7 2007/08/07 05:01:37 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -73,121 +73,122 @@ static char *rcs_id = "$Id: ltcdf.c,v 1.6 2006/12/21 07:23:18 mr_alex Exp $";
 #include <string.h>
 #include <SPTK.h>
 
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Default Values  */
-#define ORDER		25
-#define	FPERIOD		100
-#define	IPERIOD		1
-#define NGAIN		FA
+#define ORDER 25
+#define FPERIOD 100
+#define IPERIOD 1
+#define NGAIN FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
-void usage(int status)
+
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - all-pole lattice digital filter for speech synthesis\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] kfile [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -m m  : order of coefficients  [%d]\n", ORDER);
-    fprintf(stderr, "       -p p  : frame period           [%d]\n", FPERIOD);
-    fprintf(stderr, "       -i i  : interpolation period   [%d]\n", IPERIOD);
-    fprintf(stderr, "       -k    : filtering without gain [%s]\n", BOOL[NGAIN]);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       filter input (float)           [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       filter output (float)\n");
-    fprintf(stderr, "  kfile:\n");
-    fprintf(stderr, "       PARCOR (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - all-pole lattice digital filter for speech synthesis\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] kfile [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of coefficients  [%d]\n", ORDER);
+   fprintf(stderr, "       -p p  : frame period           [%d]\n", FPERIOD);
+   fprintf(stderr, "       -i i  : interpolation period   [%d]\n", IPERIOD);
+   fprintf(stderr, "       -k    : filtering without gain [%s]\n", BOOL[NGAIN]);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       filter input (float)           [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       filter output (float)\n");
+   fprintf(stderr, "  kfile:\n");
+   fprintf(stderr, "       PARCOR (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		m = ORDER, fprd = FPERIOD, iprd = IPERIOD, 
-                i, j;
-    FILE	*fp = stdin, *fpc = NULL;
-    double	*c, *inc, *cc, *d, x;
-    Boolean	ngain = NGAIN;
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'p':
-		    fprd = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'i':
-		    iprd = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'k':
-		    ngain = 1 - ngain;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else if (fpc == NULL)
-	    fpc = getfp(*argv, "r");
-	else
-	    fp = getfp(*argv, "r");
+   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, i, j;
+   FILE *fp=stdin, *fpc=NULL;
+   double *c, *inc, *cc, *d, x;
+   Boolean ngain=NGAIN;
 
-    if(fpc == NULL){
-	fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
-	exit(1);
-    }
-	
-    c = dgetmem(m+m+m+3+m);
-    cc  = c  + m + 1;
-    inc = cc + m + 1;
-    d   = inc+ m + 1;
-    
-    if(freadf(c, sizeof(*c), m+1, fpc) != m+1) exit(1);
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 'p':
+            fprd = atoi(*++argv);
+            --argc;
+            break;
+         case 'i':
+            iprd = atoi(*++argv);
+            --argc;
+            break;
+         case 'k':
+            ngain = 1 - ngain;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
+      else if (fpc==NULL)
+         fpc = getfp(*argv, "r");
+      else
+         fp = getfp(*argv, "r");
 
-    for(;;){
-	if(freadf(cc, sizeof(*cc), m+1, fpc) != m+1) exit(0);
-	
-	for(i=0; i<=m; i++)
-	    inc[i] = (cc[i] - c[i])*iprd / fprd;
+   if (fpc==NULL) {
+      fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
+      exit(1);
+   }
 
-	for(j=fprd, i=(iprd+1)/2; j--;){
-	    if (freadf(&x, sizeof(x), 1, fp) != 1) exit(0);
+   c = dgetmem(m+m+m+3+m);
+   cc  = c  + m + 1;
+   inc = cc + m + 1;
+   d   = inc+ m + 1;
 
-	    if (!ngain) x *= c[0];
-	    x = ltcdf(x, c, m, d);
-	    
-	    fwritef(&x, sizeof(x), 1, stdout);
-			
-	    if (!--i){
-		for (i=0; i<=m; i++) c[i] += inc[i];
-		i = iprd;
-	    }
-	}
-	movem(cc, c, sizeof(*cc), m+1);
-    }
-    exit(0);
+   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) exit(1);
+
+   for (;;) {
+      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) exit(0);
+
+      for (i=0; i<=m; i++)
+         inc[i] = (cc[i] - c[i])*iprd / fprd;
+
+      for (j=fprd, i=(iprd+1)/2; j--;) {
+         if (freadf(&x, sizeof(x), 1, fp)!=1) exit(0);
+
+         if (!ngain) x *= c[0];
+         x = ltcdf(x, c, m, d);
+
+         fwritef(&x, sizeof(x), 1, stdout);
+
+         if (!--i) {
+            for (i=0; i<=m; i++) c[i] += inc[i];
+            i = iprd;
+         }
+      }
+      movem(cc, c, sizeof(*cc), m+1);
+   }
+   
+   return(0);
 }
 

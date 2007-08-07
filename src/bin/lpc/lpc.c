@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,28 +38,28 @@
 */
 
 /************************************************************************
-*									*
-*    LPC Analysis Using Levinson-Durbin	Method				*
-*									*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		lpc [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-l l     :  frame length		[256]		*
-*		-m m     :  order of LPC		[25]		*
-*	infile:								*
-*		data sequence 						*
-*		    , x(0), x(1), ..., x(l-1),				*
-*	stdout:								*
-*		LP Coefficeints						*
-*		    , K, a(1), ..., a(m),				*
-*	require:							*
-*		lpc()							*
-*									*
+*         *
+*    LPC Analysis Using Levinson-Durbin Method    *
+*         *
+*     1996.1  K.Koishida  *
+*         *
+* usage:        *
+*  lpc [ options ] [ infile ]>stdout   *
+* options:       *
+*  -l l     :  frame length  [256]  *
+*  -m m     :  order of LPC  [25]  *
+* infile:        *
+*  data sequence       *
+*      , x(0), x(1), ..., x(l-1),    *
+* stdout:        *
+*  LP Coefficeints      *
+*      , K, a(1), ..., a(m),    *
+* require:       *
+*  lpc()       *
+*         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc.c,v 1.7 2007/08/01 07:36:07 heigazen Exp $";
+static char *rcs_id = "$Id: lpc.c,v 1.8 2007/08/07 05:01:38 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -67,6 +67,7 @@ static char *rcs_id = "$Id: lpc.c,v 1.7 2007/08/01 07:36:07 heigazen Exp $";
 #include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
+
 
 /*  Default Values  */
 #define ORDER 25
@@ -83,7 +84,7 @@ void usage (int status)
    fprintf(stderr, " %s - LPC analysis using Levinson-Durbin method\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : frame length       [%d]\n", FLNG);
    fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDER);
@@ -101,12 +102,12 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc, char **argv)   
+int main (int argc, char **argv)
 {
    int m=ORDER, l=FLNG, flag, check=0;
    FILE *fp=stdin;
    double *x, *a;
-    
+
    if ((cmnd = strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
    else
@@ -123,13 +124,13 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'h':
-            usage(0);
+            usage (0);
          default:
             fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-            usage(1);
+            usage (1);
          }
       }
-      else 
+      else
          fp = getfp(*argv, "r");
 
    x = dgetmem(l+m+1);
@@ -139,13 +140,13 @@ int main (int argc, char **argv)
       flag = lpc(x, l, a, m);
       fwritef(a, sizeof(*a), m+1, stdout);
    }
-    
+
    if (check==0)
-      fprintf(stderr, "normally completed\n");      
-   else if (check==-1)   
+      fprintf(stderr, "normally completed\n");
+   else if (check==-1)
       fprintf(stderr, "abnormally completed\n");
    else if (check==-2)
-      fprintf(stderr, "unstable LPC\n");    
-   
+      fprintf(stderr, "unstable LPC\n");
+
    return(0);
 }

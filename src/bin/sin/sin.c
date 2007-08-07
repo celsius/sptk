@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-*									*
-*    Generate Sinusoidal Sequence					*
-*									*
-*					1989.7  K.Tokuda		*
-*					1996.4  K.Koishida		*
-*									*
-*	usage:								*
-*		sin [options] > stdout					*
-*	options:							*
-*		-l l     :  length		 	[256]		*
-*		-p p     :  period		 	[10.0]		*
-*		-m m     :  magnitude		 	[1.0]		*
-*	stdout:								*
-*		sinusoidal sequence					*
-*		    , sin(2pi*0/p), sin(2pi*1/p), ..., sin(2pi*(l-1)/p	*
-*	notice:								*
-*		if l < 0, generate infinite sequence			*
-*									*
+*         *
+*    Generate Sinusoidal Sequence     *
+*         *
+*     1989.7  K.Tokuda  *
+*     1996.4  K.Koishida  *
+*         *
+* usage:        *
+*  sin [options]>stdout     *
+* options:       *
+*  -l l     :  length    [256]  *
+*  -p p     :  period    [10.0]  *
+*  -m m     :  magnitude    [1.0]  *
+* stdout:        *
+*  sinusoidal sequence     *
+*      , sin(2pi*0/p), sin(2pi*1/p), ..., sin(2pi*(l-1)/p *
+* notice:        *
+*  if l<0, generate infinite sequence   *
+*         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sin.c,v 1.7 2007/08/02 08:35:19 heigazen Exp $";
+static char *rcs_id = "$Id: sin.c,v 1.8 2007/08/07 05:05:40 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -70,79 +70,80 @@ static char *rcs_id = "$Id: sin.c,v 1.7 2007/08/02 08:35:19 heigazen Exp $";
 
 
 /*  Default Values  */
-#define LENG 		256
-#define PERIOD 		10.0
-#define MAGNITUDE	1.0
+#define LENG      256
+#define PERIOD    10.0
+#define MAGNITUDE 1.0
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - generate sinusoidal sequence\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -l l  : length             [%d]\n", LENG);
-    fprintf(stderr, "       -p p  : period             [%g]\n", PERIOD);
-    fprintf(stderr, "       -m m  : magnitude          [%g]\n", MAGNITUDE);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       sinusoidal sequence (float)\n");
-    fprintf(stderr, "  notice:\n");
-    fprintf(stderr, "       if l < 0, generate infinite sequence\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - generate sinusoidal sequence\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : length             [%d]\n", LENG);
+   fprintf(stderr, "       -p p  : period             [%g]\n", PERIOD);
+   fprintf(stderr, "       -m m  : magnitude          [%g]\n", MAGNITUDE);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       sinusoidal sequence (float)\n");
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "       if l<0, generate infinite sequence\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		l = LENG, i;
-    double	x, mag=MAGNITUDE, period=PERIOD;
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'l':
-		    l = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'p':
-		    period = atof(*++argv);
-		    --argc;
-		    break;
-		case 'm':
-		    mag = atof(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
+   int l=LENG, i;
+   double x, mag=MAGNITUDE, period=PERIOD;
 
-    for(i=0;; i++){
-	x = mag * sin(PI2 * (double) i / period);
-	fwritef(&x, sizeof(x), 1, stdout);
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'l':
+            l = atoi(*++argv);
+            --argc;
+            break;
+         case 'p':
+            period = atof(*++argv);
+            --argc;
+            break;
+         case 'm':
+            mag = atof(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
 
-	if(i == l-1) break;
-    }
+   for (i=0;; i++) {
+      x = mag * sin(PI2 * (double) i / period);
+      fwritef(&x, sizeof(x), 1, stdout);
 
-    exit(0);
+      if (i==l-1) break;
+   }
+
+   return(0);
 }
 

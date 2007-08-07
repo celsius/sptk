@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,35 +38,35 @@
 */
 
 /************************************************************************
-*									*
-*    Transform LSP to LPC					 	*
-*									*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		lsp2lpc [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of LPC		[25]		*
-*		-s s     :  sampling frequency (kHz)	[10]		*
-*		-k       :  input & output gain		[TRUE]		*
-*		-i i     :  input format (see infile)	[0]		*
-*	infile:								*
-*	      input format	LSP					*
-*		    0		normalized frequency (0 ~ pi)		*
-*		    1		normalized frequency (0 ~ 0.5)		*
-*		    2		frequency (kHz)				*
-*		    3		frequency (Hz)				*
-*		LSP							*
-*		    , f(1), ..., f(m),					*
-*	stdout:								*
-*		LPC							*
-*		    , K(=1), a(1), ..., a(M),				*
-*	require:							*
-*		lsp2lpc()						*
-*									*
+*         *
+*    Transform LSP to LPC       *
+*         *
+*     1996.1  K.Koishida  *
+*         *
+* usage:        *
+*  lsp2lpc [ options ] [ infile ]>stdout   *
+* options:       *
+*  -m m     :  order of LPC  [25]  *
+*  -s s     :  sampling frequency (kHz) [10]  *
+*  -k       :  input & output gain  [TRUE]  *
+*  -i i     :  input format (see infile) [0]  *
+* infile:        *
+*       input format LSP     *
+*      0  normalized frequency (0 ~ pi)  *
+*      1  normalized frequency (0 ~ 0.5)  *
+*      2  frequency (kHz)    *
+*      3  frequency (Hz)    *
+*  LSP       *
+*      , f(1), ..., f(m),     *
+* stdout:        *
+*  LPC       *
+*      , K(=1), a(1), ..., a(M),    *
+* require:       *
+*  lsp2lpc()      *
+*         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lsp2lpc.c,v 1.6 2006/12/21 07:23:17 mr_alex Exp $";
+static char *rcs_id = "$Id: lsp2lpc.c,v 1.7 2007/08/07 05:01:37 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -75,104 +75,107 @@ static char *rcs_id = "$Id: lsp2lpc.c,v 1.6 2006/12/21 07:23:17 mr_alex Exp $";
 #include <string.h>
 #include <SPTK.h>
 
+
 /*  Default Values  */
-#define ORDER		25
-#define ITYPE		0
-#define SAMPLING	10
-#define GAIN		1
+#define ORDER  25
+#define ITYPE  0
+#define SAMPLING 10
+#define GAIN  1
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - transform LSP to LPC\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -m m  : order of LPC        [%d]\n", ORDER);
-    fprintf(stderr, "       -s s  : sampling frequency  [%d]\n", SAMPLING);
-    fprintf(stderr, "       -k    : input & output gain [TRUE]\n");
-    fprintf(stderr, "       -i i  : input format        [%d]\n", ITYPE);
-    fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
-    fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
-    fprintf(stderr, "                 2 (frequency (kHz))\n");
-    fprintf(stderr, "                 3 (frequency (Hz))\n");
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       LSP (float)                [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       LP coefficients (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - transform LSP to LPC\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of LPC        [%d]\n", ORDER);
+   fprintf(stderr, "       -s s  : sampling frequency  [%d]\n", SAMPLING);
+   fprintf(stderr, "       -k    : input & output gain [TRUE]\n");
+   fprintf(stderr, "       -i i  : input format        [%d]\n", ITYPE);
+   fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
+   fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
+   fprintf(stderr, "                 2 (frequency (kHz))\n");
+   fprintf(stderr, "                 3 (frequency (Hz))\n");
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       LSP (float)                [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       LP coefficients (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		m = ORDER, sampling = SAMPLING, itype = ITYPE, i, gain = GAIN;
-    FILE	*fp = stdin;
-    double	*a, *lsp;
+   int m=ORDER, sampling=SAMPLING, itype=ITYPE, i, gain=GAIN;
+   FILE *fp=stdin;
+   double *a, *lsp;
 
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 's':
-		    sampling = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'k':
-		    gain = 0;
-		    break;
-		case 'i':
-		    itype = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 's':
+            sampling = atoi(*++argv);
+            --argc;
+            break;
+         case 'k':
+            gain = 0;
+            break;
+         case 'i':
+            itype = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
 
-    lsp = dgetmem(m+m+1+gain);
-    a = lsp + m + gain;
+   lsp = dgetmem(m+m+1+gain);
+   a = lsp + m + gain;
 
-    while (freadf(lsp, sizeof(*lsp), m+gain, fp) == m+gain){
-	if(itype == 0)
-	    for(i=gain; i<m+gain; i++)
-		lsp[i] /= PI2;
-	else if (itype == 2 || itype ==3)
-	    for(i=gain; i<m+gain; i++)
-		lsp[i] /= sampling;
-	
-	if(itype == 3)
-	    for(i=gain; i<m+gain; i++)
-		lsp[i] /= 1000;
-	    
-	lsp2lpc(lsp+gain, a, m);
-	if(gain)fwritef(lsp, sizeof(*lsp), 1, stdout);
-	fwritef(a+gain, sizeof(*a), m+1-gain, stdout);
-    }
-    exit(0);
+   while (freadf(lsp, sizeof(*lsp), m+gain, fp)==m+gain) {
+      if (itype==0)
+         for (i=gain; i<m+gain; i++)
+            lsp[i] /= PI2;
+      else if (itype==2 || itype ==3)
+         for (i=gain; i<m+gain; i++)
+            lsp[i] /= sampling;
+
+      if (itype==3)
+         for (i=gain; i<m+gain; i++)
+            lsp[i] /= 1000;
+
+      lsp2lpc(lsp+gain, a, m);
+      if (gain)fwritef(lsp, sizeof(*lsp), 1, stdout);
+      fwritef(a+gain, sizeof(*a), m+1-gain, stdout);
+   }
+   
+   return(0);
 }
 

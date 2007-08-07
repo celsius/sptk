@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -39,79 +39,83 @@
 
 /****************************************************************
 
-    $Id: _zerodf.c,v 1.4 2006/12/15 11:06:59 mr_alex Exp $
+    $Id: _zerodf.c,v 1.5 2007/08/07 05:04:04 heigazen Exp $
 
     All Zero Digital Filter
 
-	double	zerodf(x, b, m, d)
+ double zerodf(x, b, m, d)
 
-	double	x   : input
-	double	*b  : MA coefficients
-	int	m   : order of coefficients
-	double  *d  : delay
+ double x   : input
+ double *b  : MA coefficients
+ int m   : order of coefficients
+ double  *d  : delay
 
-	return value : filtered data
+ return value : filtered data
 
 *****************************************************************/
+
+#include <stdio.h>
 #include <stdlib.h>
+#include <SPTK.h>
 
-double	zerodf(double x, double *b, int m, double *d)
+double zerodf (double x, double *b, int m, double *d)
 {
-    double 	  out;
+   double out;
 
-    out = b[0]*x;
+   out = b[0]*x;
 
-    for(m--; m>0; m--){
-	out += b[m+1] * d[m];
-	d[m] = d[m-1];
-    }
-    out += b[1] * d[0];
-    d[0] = x;
-    
-    return(out);
+   for (m--; m>0; m--) {
+      out += b[m+1] * d[m];
+      d[m] = d[m-1];
+   }
+   out += b[1] * d[0];
+   d[0] = x;
+
+   return(out);
 }
 
-double	zerodft(double x, double *b, int m, double *d)
+double zerodft (double x, double *b, const int m, double *d)
 {
-    register int        i;
-    double              out;
+   int i;
+   double out;
 
-    out = b[0]*x + d[0];
+   out = b[0]*x + d[0];
 
-    for(i=1; i<m; i++)
-	d[i-1] = b[i] * x + d[i];
+   for (i=1; i<m; i++)
+      d[i-1] = b[i] * x + d[i];
 
-    d[m-1] = b[m] * x;
-    
-    return(out);
+   d[m-1] = b[m] * x;
+
+   return(out);
 }
 
-double	zerodf1(double x, double *b, int m, double *d)
+double zerodf1 (double x, double *b, int m, double *d)
 {
-    double 	  out;
+   double out;
 
-    out = x;
-    for(m--; m>0; m--){
-	out += b[m+1] * d[m];
-	d[m] = d[m-1];
-    }
-    out += b[1] * d[0];
-    d[0] = x;
-    
-    return(out);
+   out = x;
+   for (m--; m>0; m--) {
+      out += b[m+1] * d[m];
+      d[m] = d[m-1];
+   }
+   out += b[1] * d[0];
+   d[0] = x;
+
+   return(out);
 }
 
-double	zerodf1t(double x, double *b, int m, double *d)
+double zerodf1t (double x, double *b, const int m, double *d)
 {
-    register int        i;
-    double              out;
+   int i;
+   double out;
 
-    out = x + d[0];
+   out = x + d[0];
 
-    for(i=1; i<m; i++)
-	d[i-1] = b[i] * x + d[i];
+   for (i=1; i<m; i++)
+      d[i-1] = b[i] * x + d[i];
 
-    d[m-1] = b[m] * x;
-    
-    return(out);
+   d[m-1] = b[m] * x;
+
+   return(out);
 }
+

@@ -43,9 +43,9 @@
 *                                                                       *
 *               1990.7  K.Tokuda                                        *
 *               1996.3  K.Koishida                                      *
-*                                                                       * 
+*                                                                       *
 *   usage:                                                              *
-*      mgcep [ options ] [ infile ] > stdout                            *
+*      mgcep [ options ] [ infile ]>stdout                            *
 *   options:                                                            *
 *      -a a     :  alapha            [0.35]                             *
 *      -g g     :  gamma            [0.0]                               *
@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.9 2007/07/18 18:00:17 heigazen Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.10 2007/08/07 05:01:35 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -83,6 +83,7 @@ static char *rcs_id = "$Id: mgcep.c,v 1.9 2007/07/18 18:00:17 heigazen Exp $";
 #include <stdlib.h>
 #include <string.h>
 #include <SPTK.h>
+
 
 /*  Default Values  */
 #define ALPHA  0.35
@@ -100,13 +101,13 @@ static char *rcs_id = "$Id: mgcep.c,v 1.9 2007/07/18 18:00:17 heigazen Exp $";
 char *cmnd;
 
 
-void usage(const int status)
+void usage (const int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - mel-generalized cepstral analysis\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : alpha                             [%g]\n", ALPHA);
    fprintf(stderr, "       -g g  : gamma                             [%g]\n", GAMMA);
@@ -134,25 +135,26 @@ void usage(const int status)
    fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
    int m=ORDER, flng=FLENG, itr1=MINITR, itr2=MAXITR, n=-1, flag=0, otype=OTYPE, i;
    FILE *fp=stdin;
-   double *b, *x, a=ALPHA, g=GAMMA, end=END, e=EPS, atof();    
-    
-   if ((cmnd = strrchr(argv[0], '/')) == NULL)
+   double *b, *x, a=ALPHA, g=GAMMA, end=END, e=EPS, atof();
+
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv == '-') {
+      if (**++argv=='-') {
          switch (*(*argv+1)) {
          case 'a':
             a = atof(*++argv);
@@ -196,29 +198,29 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'h':
-            usage(0);
+            usage (0);
          default:
             fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-            usage(1);
+            usage (1);
          }
       }
-      else 
+      else
          fp = getfp(*argv, "r");
 
-   if(n==-1)
+   if (n==-1)
       n = flng-1;
 
    x = dgetmem(flng+m+m+2);
    b = x+flng;
-    
-   while (freadf(x, sizeof(*x), flng, fp) == flng) {
+
+   while (freadf(x, sizeof(*x), flng, fp)==flng) {
       flag = mgcep(x, flng, b, m, a, g, n, itr1, itr2, end, e);
 
       if (otype==0 || otype==1 || otype==2 || otype==4)
          ignorm(b, b, m, g);  /* K, b'r --> br  */
 
       if (otype==0 || otype==2 || otype==4)
-         if (a != 0.0) b2mc(b, b, m, a);  /* br --> c~r */
+         if (a!=0.0) b2mc(b, b, m, a);  /* br --> c~r */
 
       if (otype==2 || otype==4)
          gnorm(b, b, m, g);  /* c~r --> K~, c~'r */
@@ -228,10 +230,10 @@ int main(int argc, char **argv)
 
       fwritef(b, sizeof(*b), m+1, stdout);
    }
-   if(flag==0)
+   if (flag==0)
       fprintf(stderr,"completed by end condition");
    else if (flag==-1)
       fprintf(stderr,"completed by maximum iteration");
-      
+
    return 0;
 }

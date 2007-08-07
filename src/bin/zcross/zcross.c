@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,22 +38,22 @@
 */
 
 /************************************************************************
-*									*
-*    Obtain Zero Cross							*
-*									*
-*					1996.3	N.Isshiki		*
-*									*
-*	usage:								*
-*		zcross [ options ] [ infile ] >stdout			*
-*	options:							*
-*		-l l	 :  frame length		[256]		*
-*		-n	 :  normalized by frame langth			*
-*	infile:								*
-*		stdin for default					*
-*		input is assumed to be real				*
+*         *
+*    Obtain Zero Cross       *
+*         *
+*     1996.3 N.Isshiki  *
+*         *
+* usage:        *
+*  zcross [ options ] [ infile ] >stdout   *
+* options:       *
+*  -l l  :  frame length  [256]  *
+*  -n  :  normalized by frame langth   *
+* infile:        *
+*  stdin for default     *
+*  input is assumed to be real    *
 ************************************************************************/
 
-static char *rcs_id = "$Id: zcross.c,v 1.6 2006/12/21 07:23:22 mr_alex Exp $";
+static char *rcs_id = "$Id: zcross.c,v 1.7 2007/08/07 05:04:04 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -62,88 +62,87 @@ static char *rcs_id = "$Id: zcross.c,v 1.6 2006/12/21 07:23:22 mr_alex Exp $";
 #include <SPTK.h>
 #include <string.h>
 
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
 
 /* Default Values */
-#define FLENG	256
-#define NORM	FA
+#define FLENG 256
+#define NORM FA
 
 /* Command Name  */
-char	*cmnd;
+char *cmnd;
 
-void usage(status)
+void usage (status)
 int status;
 {
-	fprintf(stderr, "\n");
-	fprintf(stderr, " %s - zero cross\n", cmnd);
-	fprintf(stderr, "\n");
-	fprintf(stderr, "  usage:\n");
-	fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-	fprintf(stderr, "  options:\n");
-	fprintf(stderr, "       -l l  : frame length               [%d]\n",FLENG);
-	fprintf(stderr, "       -n    : normarized by frame length\n");
-	fprintf(stderr, "       -h    : print this message\n");
-	fprintf(stderr, "  infile:\n");
-	fprintf(stderr, "       data sequence (float)              [stdin]\n");
-	fprintf(stderr, "  stdout:\n");
-	fprintf(stderr, "       zero cross rate (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - zero cross\n", cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : frame length               [%d]\n",FLENG);
+   fprintf(stderr, "       -n    : normarized by frame length\n");
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (float)              [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       zero cross rate (float)\n");
 #ifdef SPTK_VERSION
-	fprintf(stderr, "\n");
-	fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-	fprintf(stderr, "\n");
-	exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
-	
-int main(int argc,char **argv)
+
+int main (int argc,char **argv)
 {
 
-  	FILE	*fp = stdin;
-	char	*s, *infile = NULL, c;
-	double	*x;
-	int	flng = FLENG;
-	double	z;
-	Boolean norm = NORM;
+   FILE *fp = stdin;
+   char *s, *infile = NULL, c;
+   double *x;
+   int flng = FLENG;
+   double z;
+   Boolean norm = NORM;
 
-        if ((cmnd = strrchr(argv[0], '/')) == NULL)
-		cmnd = argv[0];
-        else
-		cmnd++;
-	
-	while(--argc) {
-		if(*(s = *++argv) == '-') {
-			c = *++s;
-			if(c != 'n' && *++s == '\0') {
-				s = *++argv;
-				--argc;
-			}
-			switch(c) {
-			case 'l':
-				flng = atoi(s);
-				break;
-			case 'n':
-				norm = 1 - norm;
-				break;
-			case 'h':
-				usage(0);
-			default:
-				fprintf(stderr,
-					"%s: unknown option '%c'\n", cmnd, c);
-					usage(1);
-				break;
-			}
-		}
-		else
-			infile = s;
-	}
-	if(infile)
-		fp = getfp(infile,"r");
-	
-	x = dgetmem(flng);
-	while(freadf(x, sizeof(*x), flng, fp) == flng){
-		z = zcross(x, flng, norm);
-		fwritef(&z, sizeof(z), 1, stdout);
-	}
-	exit(0);
+   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+
+   while (--argc) {
+      if (*(s = *++argv)=='-') {
+         c = *++s;
+         if (c!='n' && *++s=='\0') {
+            s = *++argv;
+            --argc;
+         }
+         switch (c) {
+         case 'l':
+            flng = atoi(s);
+            break;
+         case 'n':
+            norm = 1 - norm;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr,
+                    "%s: unknown option '%c'\n", cmnd, c);
+            usage (1);
+            break;
+         }
+      }
+      else
+         infile = s;
+   }
+   if (infile)
+      fp = getfp(infile,"r");
+
+   x = dgetmem(flng);
+   while (freadf(x, sizeof(*x), flng, fp)==flng) {
+      z = zcross(x, flng, norm);
+      fwritef(&z, sizeof(z), 1, stdout);
+   }
+   exit(0);
 }

@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,37 +38,40 @@
 */
 
 /***********************************************************
- $Id: _zcross.c,v 1.4 2006/12/15 11:06:58 mr_alex Exp $
-	obtain zero coss
-		zcross(x, fl, n)
+ $Id: _zcross.c,v 1.5 2007/08/07 05:04:04 heigazen Exp $
+ obtain zero coss
+  zcross(x, fl, n)
 
-		double 	*x	: input sequence
-		int	fl 	: frame length
-		double	n	: flag of normalize
+  double  *x : input sequence
+  int fl  : frame length
+  double n : flag of normalize
 
-		Naohiro Isshiki, 	March 1996	
+  Naohiro Isshiki,  March 1996
 ***********************************************************/
-#include<stdio.h>
-#include<stdlib.h>
-#include<math.h>
 
-double sgn(double x)
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <SPTK.h>
+
+static double sgn (const double x)
 {
-	if (x >=0)
-		return(0.5);
-	else 
-		return(-0.5);
-
+   if (x>=0)
+      return(0.5);
+   else
+      return(-0.5);
 }
 
-double zcross(double *x, int fl, int n)
+double zcross (double *x, const int fl, const int n)
 {
-	int	i;
-	double	z = 0;
+   int i;
+   double z=0;
 
-	for (i = 0; i < fl; i++) 
-		z += abs(sgn(x[i+1]) - sgn(x[i]));		
-	if (n)
-		z /= fl;
-	return(z);
+   for (i=0; i<fl; i++)
+      z += abs(sgn(x[i+1]) - sgn(x[i]));
+   if (n)
+      z /= fl;
+      
+   return(z);
 }
+

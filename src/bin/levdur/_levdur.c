@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -39,21 +39,21 @@
 
 /****************************************************************
 
-    $Id: _levdur.c,v 1.5 2007/08/02 08:35:21 heigazen Exp $
+    $Id: _levdur.c,v 1.6 2007/08/07 05:01:38 heigazen Exp $
 
     Solve an Autocorrelation Normal Equation
-			Using Levinson-Durbin Method
+   Using Levinson-Durbin Method
 
-   	int levdur(r, a, m, eps);
+    int levdur(r, a, m, eps);
 
-	double  *r : autocorrelation sequence
-	double  *a : LP coefficients
-	int     m  : order of LPC
-	double eps : singular check (eps(if -1., 1.0e-6 is assumed))
+ double  *r : autocorrelation sequence
+ double  *a : LP coefficients
+ int     m  : order of LPC
+ double eps : singular check (eps(if -1., 1.0e-6 is assumed))
 
-	return value : 	0  -> normally completed
-			-1 -> abnormally completed
-			-2 -> unstable LPC
+ return value :  0  -> normally completed
+   -1 -> abnormally completed
+   -2 -> unstable LPC
 
 ******************************************************************/
 
@@ -62,45 +62,47 @@
 #include <math.h>
 #include <SPTK.h>
 
-int levdur(double *r, double *a, int m, double eps)
+int levdur (double *r, double *a, const int m, double eps)
 {
-    int 		l, k, flag=0;
-    double 		rmd, mue;
-    static double 	*c = NULL;
-    static int		size;
+   int l, k, flag=0;
+   double rmd, mue;
+   static double *c=NULL;
+   static int size;
 
-    if(c == NULL){
-	c = dgetmem(m+1);
-	size = m;
-    }
+   if (c==NULL) {
+      c = dgetmem(m+1);
+      size = m;
+   }
 
-    if(m > size){
-	free(c); 
-	c = dgetmem(m+1);
-	size = m;
-    }
-    
-    if (eps < 0.0) eps = 1.0e-6;
+   if (m>size) {
+      free(c);
+      c = dgetmem(m+1);
+      size = m;
+   }
 
-    rmd = r[0];
-    a[0] = 0.0;
+   if (eps<0.0) eps = 1.0e-6;
 
-    for (l = 1; l <= m; l++){
-	mue = -r[l];
-	for (k = 1; k < l; k++)
-	    mue -= c[k] * r[l - k];
-	mue = mue / rmd;
+   rmd = r[0];
+   a[0] = 0.0;
 
-	for (k = 1; k < l; k++)
-	    a[k] = c[k] + mue * c[l - k];
-	a[l] = mue;
+   for (l=1; l<=m; l++) {
+      mue = -r[l];
+      for (k=1; k<l; k++)
+         mue -= c[k] * r[l - k];
+      mue = mue / rmd;
 
-	rmd = (1.0 - mue * mue) * rmd;
-	if (((rmd < 0.0) ? -rmd : rmd) <= eps) return(-1);
-	if (((mue < 0.0) ? -mue : mue) >= 1.0) flag = -2;
+      for (k=1; k<l; k++)
+         a[k] = c[k] + mue * c[l - k];
+      a[l] = mue;
 
-	for (k = 0; k <= l; k++) c[k] = a[k];
-    }
-    a[0] = sqrt(rmd);
-    return(flag);
+      rmd = (1.0 - mue * mue) * rmd;
+      if (((rmd<0.0) ? -rmd : rmd) <= eps) return(-1);
+      if (((mue<0.0) ? -mue : mue) >= 1.0) flag = -2;
+
+      for (k=0; k<=l; k++) c[k] = a[k];
+   }
+   a[0] = sqrt(rmd);
+   
+   return(flag);
 }
+

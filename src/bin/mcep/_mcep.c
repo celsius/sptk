@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.7 2007/08/02 08:35:21 heigazen Exp $
+    $Id: _mcep.c,v 1.8 2007/08/07 05:01:39 heigazen Exp $
 
     Mel-Cepstral Analysis
 
@@ -65,33 +65,37 @@
 #include <math.h>
 #include <SPTK.h>
 
-int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, double dd, double e)
+int mcep (double *xw, const int flng, double *mc, const int m, const double a, const int itr1, const int itr2, const double dd, const double e)
 {
    int i, j;
    int flag=0, f2, m2;
    double t, s;
    static double *x=NULL, *y, *c, *d, *al, *b;
    static int size_x, size_d;
-  
+
    if (x==NULL) {
       x = dgetmem(3*flng);
-      y = x + flng; c = y + flng;
+      y = x + flng;
+      c = y + flng;
       size_x = flng;
-   
+
       d = dgetmem(3*m+3);
-      al = d  + (m+1); b  = al + (m+1);
+      al = d  + (m+1);
+      b  = al + (m+1);
       size_d = m;
    }
-   if (flng > size_x) {
+   if (flng>size_x) {
       free(x);
       x = dgetmem(3*flng);
-      y = x + flng; c = y + flng;
+      y = x + flng;
+      c = y + flng;
       size_x = flng;
    }
-   if (m > size_d) {
+   if (m>size_d) {
       free(d);
       d = dgetmem(3*m+3);
-      al = d  + (m+1); b  = al + (m+1);
+      al = d  + (m+1);
+      b  = al + (m+1);
       size_d = m;
    }
 
@@ -110,7 +114,7 @@ int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, 
       }
       c[i] = log(x[i]);
    }
-   
+
    /*  1, (-a), (-a)^2, ..., (-a)^M  */
    al[0] = 1.0;
    for (i=1; i<=m; i++)
@@ -118,7 +122,7 @@ int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, 
 
    /*  initial value of cepstrum  */
    ifftr(c, y, flng);            /*  c : IFFT[x]  */
-   
+
    c[0] /= 2.0;
    c[flng/2] /= 2.0;
    freqt(c, f2, mc, m, a);         /*  mc : mel cep.  */
@@ -135,14 +139,14 @@ int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, 
       frqtr(c, f2, c, m2, a);         /*  c : r(k)  */
 
       t = c[0];
-      if (j >= itr1) {
-         if (fabs((t - s)/t) < dd) {
+      if (j>=itr1) {
+         if (fabs((t - s)/t)<dd) {
             flag = 1;
             break;
          }
          s = t;
       }
-   
+
       for (i=0; i<=m; i++)
          b[i] = c[i] - al[i];
       for (i=0; i<=m2; i++)  y[i] = c[i];
@@ -159,7 +163,7 @@ int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, 
    }
 
    if (flag) return(0);
-   else     return(-1);
+   else return(-1);
 
 }
 
@@ -177,12 +181,12 @@ int mcep(double *xw, int flng, double *mc, int m, double a, int itr1, int itr2, 
 
 ***************************************************************/
 
-void frqtr (double *c1, int m1, double *c2, int m2, double a)
+void frqtr (double *c1, int m1, double *c2, int m2, const double a)
 {
    int i, j;
    static double *d=NULL, *g;
    static int size;
-   
+
    if (d==NULL) {
       size = m2;
       d = dgetmem(size+size+2);
@@ -208,4 +212,7 @@ void frqtr (double *c1, int m1, double *c2, int m2, double a)
    }
 
    movem(g, c2, sizeof(*g), m2+1);
+   
+   return;
 }
+

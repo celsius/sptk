@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -39,36 +39,40 @@
 
 /****************************************************************
 
-    $Id: _lpc2c.c,v 1.5 2007/08/02 08:35:11 heigazen Exp $
+    $Id: _lpc2c.c,v 1.6 2007/08/07 05:01:36 heigazen Exp $
 
-    Transformation LPC to Cepstrum 
+    Transformation LPC to Cepstrum
 
-	void 	lpc2c(a, m1, c, m2)
+ void  lpc2c(a, m1, c, m2)
 
-	double  *a : LP coefficients
-	int   	m1 : order of LPC
-	double  *c : cepstral coefficients
-	int   	m2 : order of cepstrum
+ double  *a : LP coefficients
+ int    m1 : order of LPC
+ double  *c : cepstral coefficients
+ int    m2 : order of cepstrum
 
 ****************************************************************/
 
+#include <stdio.h>
 #include <math.h>
+#include <SPTK.h>
 
-void lpc2c(double *a, int m1, double *c, int m2)
+void lpc2c (double *a, int m1, double *c, const int m2)
 {
-    int 	i, k, upl;
-    double d;
+   int i, k, upl;
+   double d;
 
-    c[0] = log(a[0]);
-    c[1] = - a[1];
-    for(k = 2; k <= m2; ++k){
-	upl = (k > m2) ? m2+1 : k;
-	
-	for(d=0.0, i=(k>m1) ? k-m1 : 1; i<upl; i++)
-	    d += i * c[i] * a[k-i];
-	c[k] = -d / k;
-	
-	if(k <= m1) c[k] -= a[k];
-    }
+   c[0] = log(a[0]);
+   c[1] = - a[1];
+   for (k=2; k<=m2; ++k) {
+      upl = (k>m2) ? m2+1 : k;
+
+      for (d=0.0, i=(k>m1) ? k-m1 : 1; i<upl; i++)
+         d += i * c[i] * a[k-i];
+      c[k] = -d / k;
+
+      if (k<=m1) c[k] -= a[k];
+   }
+   
+   return;
 }
 

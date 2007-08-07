@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -39,52 +39,52 @@
 
 /****************************************************************
 
-    $Id: _msvq.c,v 1.4 2006/12/15 11:06:52 mr_alex Exp $
+    $Id: _msvq.c,v 1.5 2007/08/07 05:01:37 heigazen Exp $
 
     Multi Stage Vector Quantization
 
-	void msvq(x, cb, l, cbsize, stage, index)
+ void msvq(x, cb, l, cbsize, stage, index)
 
-	double *x      : input vector
-	double *cb     : codebook vector
-	int    l       : order of vector
-	int    *cbsize : size of codebook
-	int    stage   : number of stage
-	int    *index  : index of codebook
+ double *x      : input vector
+ double *cb     : codebook vector
+ int    l       : order of vector
+ int    *cbsize : size of codebook
+ int    stage   : number of stage
+ int    *index  : index of codebook
 
 *****************************************************************/
 
-#include	<stdio.h>
-#include	<stdlib.h>
-#include	<SPTK.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <SPTK.h>
 
-void msvq(double *x, double *cb, int l, int *cbsize, int stage, int *index)
+void msvq (double *x, double *cb, const int l, int *cbsize, const int stage, int *index)
 {
-    int  	  i, j, vq();
-    double 	  *p;
-    static double *xx = NULL;
-    static int    size;
-    
-    if(xx == NULL){
-	xx = dgetmem(l);
-	size = l;
-    }
-    if(size > l){
-	free(xx);
-	xx = dgetmem(l);
-	size = l;
-    }
+   int i, j;
+   double *p;
+   static double *xx=NULL;
+   static int size;
 
+   if (xx==NULL) {
+      xx = dgetmem(l);
+      size = l;
+   }
+   if (size>l) {
+      free(xx);
+      xx = dgetmem(l);
+      size = l;
+   }
 
-    movem(x, xx, sizeof(*x), l);
+   movem(x, xx, sizeof(*x), l);
 
-    for(i=0; i<stage; i++){
-	index[i] = vq(xx, cb, l, cbsize[i]);
-	
-	p = cb + index[i] * l;
-	for(j=0; j<l; j++) 
-	    xx[j] -= p[j];
+   for (i=0; i<stage; i++) {
+      index[i] = vq(xx, cb, l, cbsize[i]);
 
-	cb += cbsize[i] * l;
-    }
+      p = cb + index[i] * l;
+      for (j=0; j<l; j++)
+         xx[j] -= p[j];
+
+      cb += cbsize[i] * l;
+   }
 }
+

@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-*									*
-*    Transform PARCOR to LPC						*
-*									*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		par2lpc [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of LPC		[25]		*
-*	infile:								*
-*		PARCOR							*
-*		    , K, k(1), ..., k(m),				*
-*	stdout:								*
-*		LP Coefficeints						*
-*		    , K, a(1), ..., a(m),				*
-*	require:							*
-*		par2lpc()						*
-*									*
+*         *
+*    Transform PARCOR to LPC      *
+*         *
+*     1996.1  K.Koishida  *
+*         *
+* usage:        *
+*  par2lpc [ options ] [ infile ]>stdout   *
+* options:       *
+*  -m m     :  order of LPC  [25]  *
+* infile:        *
+*  PARCOR       *
+*      , K, k(1), ..., k(m),    *
+* stdout:        *
+*  LP Coefficeints      *
+*      , K, a(1), ..., a(m),    *
+* require:       *
+*  par2lpc()      *
+*         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: par2lpc.c,v 1.6 2006/12/21 07:23:19 mr_alex Exp $";
+static char *rcs_id = "$Id: par2lpc.c,v 1.7 2007/08/07 05:01:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -68,69 +68,71 @@ static char *rcs_id = "$Id: par2lpc.c,v 1.6 2006/12/21 07:23:19 mr_alex Exp $";
 #include <SPTK.h>
 
 /*  Default Values  */
-#define ORDER		25
+#define ORDER  25
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - transform PARCOR to LPC\n",cmnd);
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDER);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       PARCOR (float)             [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       LP coefficients (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - transform PARCOR to LPC\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDER);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       PARCOR (float)             [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       LP coefficients (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		m = ORDER;
-    FILE	*fp = stdin;
-    double	*k, *a;
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   int m=ORDER;
+   FILE *fp=stdin;
+   double *k, *a;
 
-    a = dgetmem(m+m+2);
-    k = a + m + 1;
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
 
-    while (freadf(k, sizeof(*k), m+1, fp) == m+1){
-	par2lpc(k, a, m);
-	fwritef(a, sizeof(*a), m+1, stdout);
-    }
-    exit(0);
+   a = dgetmem(m+m+2);
+   k = a + m + 1;
+
+   while (freadf(k, sizeof(*k), m+1, fp)==m+1) {
+      par2lpc(k, a, m);
+      fwritef(a, sizeof(*a), m+1, stdout);
+   }
+   
+   return 0;
 }
 

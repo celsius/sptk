@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -39,20 +39,20 @@
 
 /***********************************************************************
 
-    $Id: _mgc2mgc.c,v 1.4 2006/12/15 11:06:47 mr_alex Exp $
+    $Id: _mgc2mgc.c,v 1.5 2007/08/07 05:01:37 heigazen Exp $
 
     Frequency and Generalized Cepstral Transformation
 
-	void mgc2mgc(c1, m1, a1, g1, c2, m2, a2, g2)
+ void mgc2mgc(c1, m1, a1, g1, c2, m2, a2, g2)
 
-	double	*c1   : minimum phase sequence (input)
-	int	m1    : order of c1
-	double	a1    : alpha of c1
-	double	g1    : gamma of c1
-	double	*c2   : transformed sequence (output)
-	int	m2    : order of c2
-	double	a2    : alpha of c2
-	double	g2    : gamma of c2
+ double *c1   : minimum phase sequence (input)
+ int m1    : order of c1
+ double a1    : alpha of c1
+ double g1    : gamma of c1
+ double *c2   : transformed sequence (output)
+ int m2    : order of c2
+ double a2    : alpha of c2
+ double g2    : gamma of c2
 
 ***********************************************************************/
 
@@ -60,35 +60,37 @@
 #include <stdlib.h>
 #include <SPTK.h>
 
-void mgc2mgc(double *c1, int m1, double a1, double g1, double *c2, int m2, double a2, double g2)
+void mgc2mgc (double *c1, const int m1, const double a1, const double g1, double *c2, const int m2, const double a2, const double g2)
 {
-    double 	  a;
-    static double *ca = NULL;
-    static int    size_a;
+   double a;
+   static double *ca=NULL;
+   static int size_a;
 
-    if(ca == NULL){
-	ca = dgetmem(m1+1);
-	size_a = m1;
-    }
-    if(m1 > size_a){
-	free(ca);
-	ca = dgetmem(m1+1);
-	size_a = m1;
-    }
+   if (ca==NULL) {
+      ca = dgetmem(m1+1);
+      size_a = m1;
+   }
+   if (m1>size_a) {
+      free(ca);
+      ca = dgetmem(m1+1);
+      size_a = m1;
+   }
 
-    a = (a2 - a1) / (1 - a1*a2);
+   a = (a2 - a1) / (1 - a1*a2);
 
-    if(a == 0){
-	movem(c1, ca, sizeof(*c1), m1+1);
-	gnorm(ca, ca, m1, g1);
-	gc2gc(ca, m1, g1, c2, m2, g2);
-	ignorm(c2, c2, m2, g2);
-    }
-    else{
-	freqt(c1, m1, c2, m2, a);
-	gnorm(c2, c2, m2, g1);
-	gc2gc(c2, m2, g1, c2, m2, g2);
-	ignorm(c2, c2, m2, g2);
-    }
+   if (a==0) {
+      movem(c1, ca, sizeof(*c1), m1+1);
+      gnorm(ca, ca, m1, g1);
+      gc2gc(ca, m1, g1, c2, m2, g2);
+      ignorm(c2, c2, m2, g2);
+   }
+   else {
+      freqt(c1, m1, c2, m2, a);
+      gnorm(c2, c2, m2, g1);
+      gc2gc(c2, m2, g1, c2, m2, g2);
+      ignorm(c2, c2, m2, g2);
+   }
+   
+   return;
 }
 

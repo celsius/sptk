@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,29 +38,29 @@
 */
 
 /************************************************************************
-*									*
-*    Solve an Autocorrelation Normal Equation				*
-*			Using Levinson-Durbin Method			*
-*									*
-*					1987.9  K.Tokuda		*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		levdur [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of correlation	[25]		*
-*	infile:								*
-*		autocorrelation						*
-*		    , r(0), r(1), ..., r(m),				*
-*	stdout:								*
-*		LP Coefficeints						*
-*		    , K, a(1), ..., a(m),				*
-*	require:							*
-*		levdur()						*
-*									*
+*         *
+*    Solve an Autocorrelation Normal Equation    *
+*   Using Levinson-Durbin Method   *
+*         *
+*     1987.9  K.Tokuda  *
+*     1996.1  K.Koishida  *
+*         *
+* usage:        *
+*  levdur [ options ] [ infile ]>stdout   *
+* options:       *
+*  -m m     :  order of correlation [25]  *
+* infile:        *
+*  autocorrelation      *
+*      , r(0), r(1), ..., r(m),    *
+* stdout:        *
+*  LP Coefficeints      *
+*      , K, a(1), ..., a(m),    *
+* require:       *
+*  levdur()      *
+*         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: levdur.c,v 1.6 2006/12/21 07:23:17 mr_alex Exp $";
+static char *rcs_id = "$Id: levdur.c,v 1.7 2007/08/07 05:01:38 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -69,72 +69,75 @@ static char *rcs_id = "$Id: levdur.c,v 1.6 2006/12/21 07:23:17 mr_alex Exp $";
 #include <string.h>
 #include <SPTK.h>
 
+
 /*  Default Values  */
-#define ORDER		25
+#define ORDER  25
 
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
-void usage(int status)
+void usage (int status)
 {
-    fprintf(stderr, "\n");
-    fprintf(stderr, " %s - solve an autocorrelation normal equation\n",cmnd);
-    fprintf(stderr, "                    using Levinson-Durbin method\n");
-    fprintf(stderr, "\n");
-    fprintf(stderr, "  usage:\n");
-    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-    fprintf(stderr, "  options:\n");
-    fprintf(stderr, "       -m m  : order of correlation [%d]\n", ORDER);
-    fprintf(stderr, "       -h    : print this message\n");
-    fprintf(stderr, "  infile:\n");
-    fprintf(stderr, "       autocorrelation (float)      [stdin]\n");
-    fprintf(stderr, "  stdout:\n");
-    fprintf(stderr, "       LP coefficients (float)\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - solve an autocorrelation normal equation\n",cmnd);
+   fprintf(stderr, "                    using Levinson-Durbin method\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of correlation [%d]\n", ORDER);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       autocorrelation (float)      [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       LP coefficients (float)\n");
 #ifdef SPTK_VERSION
-    fprintf(stderr, "\n");
-    fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-    fprintf(stderr, "\n");
-    exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-    int		m = ORDER, flag;
-    FILE	*fp = stdin;
-    double	*r, *a;
-    
-    if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	cmnd = argv[0];
-    else
-	cmnd++;
-    while (--argc)
-	if (**++argv == '-') {
-	    switch (*(*argv+1)) {
-		case 'm':
-		    m = atoi(*++argv);
-		    --argc;
-		    break;
-		case 'h':
-		    usage(0);
-		default:
-		    fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
-		    usage(1);
-		}
-	}
-	else 
-	    fp = getfp(*argv, "r");
+   int  m=ORDER, flag;
+   FILE *fp=stdin;
+   double *r, *a;
 
-    a = dgetmem(m+m+2);
-    r = a + m + 1;
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv=='-') {
+         switch (*(*argv+1)) {
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 'h':
+            usage (0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            usage (1);
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
 
-    while (freadf(r, sizeof(*r), m+1, fp) == m+1){
-	flag = levdur(r, a, m, -1.0);
-	fwritef(a, sizeof(*a), m+1, stdout);
-    }
-    exit(0);
+   a = dgetmem(m+m+2);
+   r = a + m + 1;
+
+   while (freadf(r, sizeof(*r), m+1, fp)==m+1) {
+      flag = levdur(r, a, m, -1.0);
+      fwritef(a, sizeof(*a), m+1, stdout);
+   }
+   
+   return(0);
 }
 

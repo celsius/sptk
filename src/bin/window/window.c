@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,36 +38,37 @@
 */
 
 /************************************************************************
-*									*
-*    Data Windowing							*
-*									*
-*					1996.1	N.Miyazaki		*
-*					1998.11	T.Masuko		*
-*									*
-*	usage:								*
-*		window [ infile ] [ options ] > outfile			*
-*	options:							*
-*		-l l	 :  input frame length		[256]		*
-*		-L L	 :  output frame length		[l]		*
-*		-n n	 :  type of normalization	[1]		*
-*			n=0: none					*
-*			n=1: normalize by power				*
-*			n=2: normalize by magnitude			*
-*		-w w	 :  type of window				*
-*			w=0: blackman    window				*
-*			w=1: hamming     window				*
-*			w=2: hanning     window				*
-*			w=3: bartlett    window				*
-*			w=4: trapezoid   window				*
-*			w=5: rectangular window				*
-*	infile:								*
-*		stdin for default					*
-*		input is assumed to be double				*
-*	notice:								*
-*		if L > l, (L-l)-zeros are padded			*
-*									*
+*         *
+*    Data Windowing       *
+*         *
+*     1996.1 N.Miyazaki  *
+*     1998.11 T.Masuko  *
+*         *
+* usage:        *
+*  window [ infile ] [ options ]>outfile   *
+* options:       *
+*  -l l  :  input frame length  [256]  *
+*  -L L  :  output frame length  [l]  *
+*  -n n  :  type of normalization [1]  *
+*   n=0: none     *
+*   n=1: normalize by power    *
+*   n=2: normalize by magnitude   *
+*  -w w  :  type of window    *
+*   w=0: blackman    window    *
+*   w=1: hamming     window    *
+*   w=2: hanning     window    *
+*   w=3: bartlett    window    *
+*   w=4: trapezoid   window    *
+*   w=5: rectangular window    *
+* infile:        *
+*  stdin for default     *
+*  input is assumed to be double    *
+* notice:        *
+*  if L>l, (L-l)-zeros are padded   *
+*         *
 ************************************************************************/
-static char *rcs_id = "$Id: window.c,v 1.6 2006/12/21 07:23:21 mr_alex Exp $";
+
+static char *rcs_id = "$Id: window.c,v 1.7 2007/08/07 05:04:38 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -78,100 +79,103 @@ static char *rcs_id = "$Id: window.c,v 1.6 2006/12/21 07:23:21 mr_alex Exp $";
 
 
 /*  Default Values */
-#define	FLENG		256
-#define	WINTYPE		BLACKMAN
-#define	NORMFLG		1
+#define FLENG  256
+#define WINTYPE  BLACKMAN
+#define NORMFLG  1
+
 
 /*  Command Name  */
-char*	cmnd;
+char* cmnd;
 
-int usage()
+
+int usage (void)
 {
-	fprintf(stderr, "\n");
-	fprintf(stderr, " %s - data windowing\n", cmnd);
-	fprintf(stderr, "\n");
-	fprintf(stderr, "  usage:\n"); 
-	fprintf(stderr, "       %s [ options ] [ infile ] > outfile\n", cmnd); 
-	fprintf(stderr, "  options:\n"); 
-	fprintf(stderr, "       -l l  : frame length of input  [%d]\n", FLENG);
-	fprintf(stderr, "       -L L  : frame length of output [l]\n");
-	fprintf(stderr, "       -n n  : type of normalization  [%d]\n", NORMFLG);
-	fprintf(stderr, "                 0 none\n");
-	fprintf(stderr, "                 1 normalize by power\n");
-	fprintf(stderr, "                 2 normalize by magnitude\n");
-	fprintf(stderr, "       -w w  : type of window         [%d]\n", WINTYPE);
-	fprintf(stderr, "                 0 (blackman)\n");
-	fprintf(stderr, "                 1 (hamming)\n");
-	fprintf(stderr, "                 2 (hanning)\n");
-	fprintf(stderr, "                 3 (bartlett)\n");
-	fprintf(stderr, "                 4 (trapezoid)\n");
-	fprintf(stderr, "                 5 (rectangular)\n");
-	fprintf(stderr, "       -h    : print this message\n");
-	fprintf(stderr, "  infile:\n"); 
-	fprintf(stderr, "       data sequence (float)          [stdin]\n"); 
-	fprintf(stderr, "  stdout:\n"); 
-	fprintf(stderr, "       windowed data sequence (float)\n"); 
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - data windowing\n", cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ]>outfile\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : frame length of input  [%d]\n", FLENG);
+   fprintf(stderr, "       -L L  : frame length of output [l]\n");
+   fprintf(stderr, "       -n n  : type of normalization  [%d]\n", NORMFLG);
+   fprintf(stderr, "                 0 none\n");
+   fprintf(stderr, "                 1 normalize by power\n");
+   fprintf(stderr, "                 2 normalize by magnitude\n");
+   fprintf(stderr, "       -w w  : type of window         [%d]\n", WINTYPE);
+   fprintf(stderr, "                 0 (blackman)\n");
+   fprintf(stderr, "                 1 (hamming)\n");
+   fprintf(stderr, "                 2 (hanning)\n");
+   fprintf(stderr, "                 3 (bartlett)\n");
+   fprintf(stderr, "                 4 (trapezoid)\n");
+   fprintf(stderr, "                 5 (rectangular)\n");
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (float)          [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       windowed data sequence (float)\n");
 #ifdef SPTK_VERSION
-	fprintf(stderr, "\n");
-        fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-	fprintf(stderr, "\n");
-	exit(1);
+   fprintf(stderr, "\n");
+   exit(1);
 }
 
 
-int main(int argc,char *argv[])
+int main (int argc,char *argv[])
 {
-	FILE	*fp = stdin;
-	char	*s, c;
-	int	fleng = FLENG, outl = -1, normflg = NORMFLG;
-	Window	wintype = WINTYPE;
-	double  *x;
+   FILE *fp=stdin;
+   char *s, c;
+   int fleng=FLENG, outl=-1, normflg=NORMFLG;
+   Window wintype=WINTYPE;
+   double  *x;
 
-        if ((cmnd = strrchr(argv[0], '/')) == NULL)
-	    cmnd = argv[0];
-        else
-	    cmnd++;
+   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
 
-	while (--argc){
-		if(*(s = *++argv) == '-') {
-			c = *++s;
-			if(*++s == '\0' && (c == 'n' || c == 'l' || c == 'w' || c == 'L')) {
-				s = *++argv;
-				--argc;
-			}
-			switch(c) {
-			case 'w':
-				wintype = atoi(s);
-				break;
-			case 'l':
-				fleng = atoi(s);
-				break;
-			case 'L':
-				outl = atoi(s);
-				break;
-			case 'n':
-				normflg = atoi(s);
-				break;
-			case 'h':
-			default:
-				usage();
-			}
-		}
-		else
-			 fp = getfp(*argv, "r");
-	}
+   while (--argc) {
+      if (*(s=*++argv)=='-') {
+         c = *++s;
+         if (*++s=='\0' && (c=='n' || c=='l' || c=='w' || c=='L')) {
+            s = *++argv;
+            --argc;
+         }
+         switch (c) {
+         case 'w':
+            wintype = atoi(s);
+            break;
+         case 'l':
+            fleng = atoi(s);
+            break;
+         case 'L':
+            outl = atoi(s);
+            break;
+         case 'n':
+            normflg = atoi(s);
+            break;
+         case 'h':
+         default:
+            usage ();
+         }
+      }
+      else
+         fp = getfp(*argv, "r");
+   }
 
-	if (outl < 0)
-	    outl = fleng;
+   if (outl<0)
+      outl = fleng;
 
-	x = dgetmem(fleng > outl ? fleng : outl);
+   x = dgetmem(fleng>outl ? fleng : outl);
 
-	while(freadf(x, sizeof(*x), fleng, fp) == fleng) {
-	    window(wintype, x, fleng, normflg);
-	    fwritef(x, sizeof(*x), outl, stdout);
-	}
+   while (freadf(x, sizeof(*x), fleng, fp)==fleng) {
+      window(wintype, x, fleng, normflg);
+      fwritef(x, sizeof(*x), outl, stdout);
+   }
 
-	exit(0);
+   return(0);
 }
 

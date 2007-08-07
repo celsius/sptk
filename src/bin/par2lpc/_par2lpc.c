@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -39,30 +39,33 @@
 
 /***************************************************************
 
-    $Id: _par2lpc.c,v 1.5 2007/01/13 05:47:22 s_sako Exp $
+    $Id: _par2lpc.c,v 1.6 2007/08/07 05:01:36 heigazen Exp $
 
     Transformation PARCOR to LPC
 
-	void par2lpc(k, a, m)
+ void par2lpc(k, a, m)
 
-	double  *k   : PARCOR coefficients
-	double  *a   : LP coefficients	
-	int     m    : order of LPC
+ double  *k   : PARCOR coefficients
+ double  *a   : LP coefficients
+ int     m    : order of LPC
 
 ****************************************************************/
+
 #include <stdio.h>
 #include <SPTK.h>
 
-void par2lpc(double *k, double *a, int m)
+void par2lpc (double *k, double *a, const int m)
 {
-    int 	i, n;
+   int i, n;
 
-    a[0] = k[0];
-    for (n=1; n<=m; n++){
-	for (i=1; i<n; i++)
-	    a[i] = k[i] + k[n] * k[n-i];
-	movem(&a[1], &k[1], sizeof(*a), n-1);
-    }
-    a[m] = k[m];
+   a[0] = k[0];
+   for (n=1; n<=m; n++) {
+      for (i=1; i<n; i++)
+         a[i] = k[i] + k[n] * k[n-i];
+      movem(&a[1], &k[1], sizeof(*a), n-1);
+   }
+   a[m] = k[m];
+   
+   return;
 }
 
