@@ -38,7 +38,7 @@
 */
 
 /***************************************************************
-  $Id: _grpdelay.c,v 1.5 2007/07/25 04:56:56 heigazen Exp $
+  $Id: _grpdelay.c,v 1.6 2007/08/07 04:45:12 heigazen Exp $
 	group delay of digital filter
 		grpdelay(x, gd, size, is_alma);
 
@@ -87,4 +87,7 @@ void grpdelay (double *x, double *gd, const int size, const int is_arma)
       if (is_arma)
          gd[k] *= -1;
    }
+
+   return;
 }
+
