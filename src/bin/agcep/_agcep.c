@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _agcep.c,v 1.5 2007/07/20 07:40:35 heigazen Exp $
+    $Id: _agcep.c,v 1.6 2007/08/07 04:03:55 heigazen Exp $
 
     Adaptive Generalized Cepstral Analysis
 
@@ -106,3 +106,4 @@ double agcep (double x, double *c, const int m, const int stage, const double la
 
    return(x);
 }
+

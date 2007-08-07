@@ -70,7 +70,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: agcep.c,v 1.7 2007/07/20 07:40:35 heigazen Exp $";
+static char *rcs_id = "$Id: agcep.c,v 1.8 2007/08/07 04:03:55 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -92,6 +92,7 @@ static char *rcs_id = "$Id: agcep.c,v 1.7 2007/07/20 07:40:35 heigazen Exp $";
 #define TAU 0.9
 #define EPS 0.0
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
@@ -123,7 +124,8 @@ void usage (int status)
    fprintf(stderr, "       prediction error (float)\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
