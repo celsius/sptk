@@ -39,7 +39,7 @@ All Rights Reserved.
 
 /****************************************************************
 
-    $Id: _c2acr.c,v 1.5 2007/07/20 08:51:05 heigazen Exp $
+    $Id: _c2acr.c,v 1.6 2007/08/07 04:08:08 heigazen Exp $
 
     Transformation Cepstrum to Autocorrelation
 
@@ -88,4 +88,7 @@ void c2acr(double *c, const int m1, double *r, const int m2, const int flng)
 
    for (i=0; i<=m2; i++) 
       r[i] = x[i] / flng;
+
+   return;
 }
+
