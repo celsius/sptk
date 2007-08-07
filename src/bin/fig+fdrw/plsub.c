@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,215 +38,218 @@
 */
 
 /****************************************************************
-*	XY PLOTTER library					*
-*								*
-*	Calling sequence :					*
-*		factor(fx, fy);					*
-*		rotate(th);					*
-*		offset(x, y);					*
-*		bound(xl, yl, xh, yh);				*
-*		hatch(ip, x, y, n, d, t);			*
-*		pen(ip);					*
-*		speed(isp);					*
-*		mark(mrk, ax, ay, n, f[, m]);			*
-*		symbol(x, y, text, h, s, th)			*
-*		number(x, y, fval, h, s, th, m, n);		*
-*		italic(th)					*
-*		font(n)						*
-*		line(ip, x, y, n);				*
-*		circle(x, y, rs, re, ths, the)			*
-*		rcircle(rs, re, ths, the);			*
-*								*
-*	Copyright 1985 by T. Kobayashi				*
+* XY PLOTTER library     *
+*        *
+* Calling sequence :     *
+*  factor(fx, fy);     *
+*  rotate(th);     *
+*  offset(x, y);     *
+*  bound(xl, yl, xh, yh);    *
+*  hatch(ip, x, y, n, d, t);   *
+*  pen(ip);     *
+*  speed(isp);     *
+*  mark(mrk, ax, ay, n, f[, m]);   *
+*  symbol(x, y, text, h, s, th)   *
+*  number(x, y, fval, h, s, th, m, n);  *
+*  italic(th)     *
+*  font(n)      *
+*  line(ip, x, y, n);    *
+*  circle(x, y, rs, re, ths, the)   *
+*  rcircle(rs, re, ths, the);   *
+*        *
+* Copyright 1985 by T. Kobayashi    *
 ****************************************************************/
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 #include "plot.h"
 
-extern struct co_ord	_org;
+extern struct co_ord _org;
 
-void rotate(float th)
+void rotate (float th)
 {
-	_rotate(_plnorm(_org.xo), _plnorm(_org.yo), _plnorm(th));
+   _rotate(_plnorm(_org.xo), _plnorm(_org.yo), _plnorm(th));
 }
 
-void factor(float fx, float fy)
+void factor (float fx, float fy)
 {
-	_factor((int)(fx * SCALE + 0.5), (int)(fy * SCALE + 0.5), SCALE);
+   _factor((int)(fx * SCALE + 0.5), (int)(fy * SCALE + 0.5), SCALE);
 }
 
-int offset(float x, float y)
+int offset (float x, float y)
 {
-	_offset(_plnorm(x), _plnorm(y));
-	return(0);
+   _offset(_plnorm(x), _plnorm(y));
+   return(0);
 }
 
-void bound(double xl, double yl, double xh, double yh)
-{	
-	wlo_right(_cordx(xl), _cordy(yl));
-	wup_left(_cordx(xh), _cordy(yh));
+void bound (double xl, double yl, double xh, double yh)
+{
+   wlo_right(_cordx(xl), _cordy(yl));
+   wup_left(_cordx(xh), _cordy(yh));
 }
 
-void rstbnd()
+void rstbnd (void)
 {
-	wlo_right(0, 0);
-	wup_left(4000, 2850);
+   wlo_right(0, 0);
+   wup_left(4000, 2850);
 }
 
-int hatch(int ip, register float *ax, register float *ay, int n, float d, float t)
+int hatch (int ip, float *ax, float *ay, int n, float d, float t)
 {
-	if(n < 3)
-		return(1);
+   if (n<3)
+      return(1);
 
-	ip += 20;
-	_hatch(ip, _plnorm(d), _plnorm(t));
+   ip += 20;
+   _hatch(ip, _plnorm(d), _plnorm(t));
 
-	while(--n >= 0)
-		sndcord(_cordx(*ax++), _cordy(*ay++));
-	terminate();
-	return(0);
+   while (--n >= 0)
+      sndcord(_cordx(*ax++), _cordy(*ay++));
+   terminate();
+   return(0);
 }
 
-int pen(int pen)
+int pen (int pen)
 {
-	if(pen < 1 || pen > 10)
-		return(1);
-	newpen(pen);
-	return(0);
+   if (pen<1 || pen>10)
+      return(1);
+   newpen(pen);
+   return(0);
 }
 
-int font(int n)
+int font (int n)
 {
-	if(n < 0 || n > 19)
-		return(1);
-	_font(n);
-	return(0);
+   if (n<0 || n>19)
+      return(1);
+   _font(n);
+   return(0);
 }
 
-int speed(int isp, int ip)
+int speed (int isp, int ip)
 {
-	if(isp < 0 || isp > 10 || ip < 0 || ip > 10)
-		return(1);
-	if(ip)
-		_speed_all(isp);
-	else
-		_speed(isp, ip);
-	return(0);
+   if (isp<0 || isp>10 || ip<0 || ip>10)
+      return(1);
+   if (ip)
+      _speed_all(isp);
+   else
+      _speed(isp, ip);
+   return(0);
 }
 
-int mark(int mrk, float ax[], float ay[], int n, float f, int m)
+int mark (int mrk, float ax[], float ay[], int n, float f, int m)
 {
-	register int	i;
+   int i;
 
-	if(mrk < 0 || mrk > 15)
-		return(1);
-	m = (n < 0) ? m : 1;
-	if((n = abs(n)) < 1 || m < 0)
-		return(1);
-	ascale(_plnorm(f * 1.75));
-	arotate(0);
-	for(i = 0; i < n; i += m) {
-		plot(ax[i], ay[i], 3);
-		_mark(mrk);
-	}
-	return(0);
+   if (mrk<0 || mrk>15)
+      return(1);
+   m = (n<0) ? m : 1;
+   if ((n=abs(n))<1 || m<0)
+      return(1);
+   ascale(_plnorm(f*1.75));
+   arotate(0);
+   for (i=0; i<n; i+=m) {
+      plot(ax[i], ay[i], 3);
+      _mark(mrk);
+   }
+   return(0);
 }
 
-int symbol(float x, float y, char *text, float h, float s, float th)
+int symbol (float x, float y, char *text, float h, float s, float th)
 {
-	plot(x, y, 3);
-	ascale(_plnorm(h));
-	aspace(_plnorm(s));
-	arotate(_plnorm(th));
-	print(text);
-	return(0);
+   plot(x, y, 3);
+   ascale(_plnorm(h));
+   aspace(_plnorm(s));
+   arotate(_plnorm(th));
+   print(text);
+   return(0);
 }
 
-int number(float x, float y, float fval, float h, float s, float th, int m, int n)
+int number (float x, float y, float fval, float h, float s, float th, int m, int n)
 {
-	char	buf[32], format[8];
+   char buf[32], format[8];
 
-	if(abs(m) > 10)
-		return(1);
-	if(n <= 0) {
-		while(++n < 0)
-			fval /= 10.0;
-		sprintf(format, "%%%dd%s", m, (n) ? ".\r" : "\r");
-		sprintf(buf, format, (long)fval);
-	}
-	else {
-		sprintf(format, "%%%d.%df\r", m, n);
-		sprintf(buf, format, fval);
-	}
-	return(symbol(x, y, buf, h, s, th));
+   if (abs(m)>10)
+      return(1);
+   if (n <= 0) {
+      while (++n<0)
+         fval /= 10.0;
+      sprintf(format, "%%%dd%s", m, (n) ? ".\r" : "\r");
+      sprintf(buf, format, (long)fval);
+   }
+   else {
+      sprintf(format, "%%%d.%df\r", m, n);
+      sprintf(buf, format, fval);
+   }
+   return(symbol(x, y, buf, h, s, th));
 }
 
-int italic(float th)
+int italic (float th)
 {
-	int	theta;
+   int theta;
 
-	if((theta = 256 * tan(th * DEG_RAD)) > 4000)
-		return(1);
-	aitalic(theta);
-	return(0);
+   if ((theta=256 * tan(th * DEG_RAD))>4000)
+      return(1);
+   aitalic(theta);
+   return(0);
 }
 
-int line(int ip, register float *ax, register float *ay, int n)
+int line (int ip, float *ax, float *ay, int n)
 {
-	struct {
-		short	x;
-		short	y;
-	} b, o, pb;
-	register int	dx, dy;
+   struct {
+      short x;
+      short y;
+   } b, o, pb;
+   int dx, dy;
 
-	if(n < 2)
-		return(1);
-	if(ip)
-		_chlnmod(1);
-	plot(*ax++, *ay++, 3);
-	o.x = dx = _cordx(*ax++);
-	o.y = dy = _cordy(*ay++);
-	pb = o;
-	_draw();
+   if (n<2)
+      return(1);
+   if (ip)
+      _chlnmod(1);
+   plot(*ax++, *ay++, 3);
+   o.x = dx = _cordx(*ax++);
+   o.y = dy = _cordy(*ay++);
+   pb = o;
+   _draw();
 
-	while(--n > 1) {
-		dx = (b.x = _cordx(*ax++)) - pb.x;
-		dy = (b.y = _cordy(*ay++)) - pb.y;
-		if(dx || dy) {
-			if(dx == 0 && o.x == 0 && sign(dy) == sign(o.y))
-				pb.y = b.y;
-			else if(dy == 0 && o.y == 0 && sign(dx) == sign(o.x))
-				pb.x = b.x;
-			else {
-				sndcord(pb.x, pb.y);
-				pb.x = b.x;
-				pb.y = b.y;
-			}
-			o.x = dx;
-			o.y = dy;
-		}
-	}
-	sndcord(pb.x, pb.y);
-	terminate();
-	if(ip)
-		_chlnmod(0);
-	return(0);
+   while (--n>1) {
+      dx = (b.x = _cordx(*ax++)) - pb.x;
+      dy = (b.y = _cordy(*ay++)) - pb.y;
+      if (dx || dy) {
+         if (dx==0 && o.x==0 && sign(dy)==sign(o.y))
+            pb.y = b.y;
+         else if (dy==0 && o.y==0 && sign(dx)==sign(o.x))
+            pb.x = b.x;
+         else {
+            sndcord(pb.x, pb.y);
+            pb.x = b.x;
+            pb.y = b.y;
+         }
+         o.x = dx;
+         o.y = dy;
+      }
+   }
+   sndcord(pb.x, pb.y);
+   terminate();
+   if (ip)
+      _chlnmod(0);
+   return(0);
 }
 
-int circle(float x, float y, float rs, float re, float ths, float the)
+int circle (float x, float y, float rs, float re, float ths, float the)
 {
-	int	r1, r2;
+   int r1, r2;
 
-	r1 = _plnorm(rs);
-	r2 = _plnorm(re);
-	if(r1 == 0 && r2 == 0)
-		return(1);
-	_circle(_cordx(x), _cordy(y), r1, r2, _plnorm(ths), _plnorm(the));
-	return(0);
+   r1 = _plnorm(rs);
+   r2 = _plnorm(re);
+   if (r1==0 && r2==0)
+      return(1);
+   _circle(_cordx(x), _cordy(y), r1, r2, _plnorm(ths), _plnorm(the));
+   return(0);
 }
 
-int pntstyl(int ip)
+int pntstyl (int ip)
 {
-	ip += 20;
-	aspace(ip);	/* valid for only LBP */
-	return(0);
+   ip += 20;
+   aspace(ip); /* valid for only LBP */
+   return(0);
 }
