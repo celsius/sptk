@@ -39,6 +39,8 @@
 
 #########################################################################
 #                                                                       #
+#   $Id: us16.sh,v 1.4 2007/08/07 06:00:33 heigazen Exp $                #
+#                                                                       #
 #       Sampling rate conversion from 10|12kHz to 16kHz                 #
 #                                                                       #
 #                                           1998    T.Kobayashi         #

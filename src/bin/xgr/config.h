@@ -38,6 +38,7 @@
 */
 
 /*
+ * $Id: config.h,v 1.3 2007/08/07 05:55:51 heigazen Exp $
  *	Configuration.
  */
 

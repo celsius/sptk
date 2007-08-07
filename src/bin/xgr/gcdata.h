@@ -38,6 +38,7 @@
 */
 
 /*
+ * $Id: gcdata.h,v 1.3 2007/08/07 05:55:51 heigazen Exp $
  *	Hedder for setup plotting parts
  */
 
