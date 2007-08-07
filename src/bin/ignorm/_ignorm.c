@@ -38,7 +38,7 @@
 */
 
 /************************************************************************
-  $Id: _ignorm.c,v 1.6 2007/08/02 08:05:05 heigazen Exp $
+  $Id: _ignorm.c,v 1.7 2007/08/07 04:56:24 heigazen Exp $
 
     Inverse Gain Normalization
 	
@@ -50,7 +50,6 @@
 	double	  g :  gamma
 
 ************************************************************************/
-
 
 #include <stdio.h>
 #include <math.h>
@@ -73,3 +72,4 @@ void ignorm (double *c1, double *c2, int m, const double g)
    
    return;
 }
+
