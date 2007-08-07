@@ -87,4 +87,7 @@ void grpdelay (double *x, double *gd, const int size, const int is_arma)
       if (is_arma)
          gd[k] *= -1;
    }
+
+   return;
 }
+
