@@ -70,7 +70,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: frame.c,v 1.7 2007/07/24 10:15:47 heigazen Exp $";
+static char *rcs_id = "$Id: frame.c,v 1.8 2007/08/07 04:19:45 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -85,6 +85,7 @@ static char *rcs_id = "$Id: frame.c,v 1.7 2007/07/24 10:15:47 heigazen Exp $";
 #define FPERIOD 100
 #define NOCTR FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
