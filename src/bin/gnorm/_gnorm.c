@@ -69,4 +69,7 @@ void gnorm (double *c1, double *c2, int m, const double g)
       movem(&c1[1], &c2[1], sizeof(*c1), m);
       c2[0] = exp(c1[0]);
    }
+
+   return;
 }
+
