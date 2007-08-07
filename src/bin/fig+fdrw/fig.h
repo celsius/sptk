@@ -1,15 +1,15 @@
 /*
   ----------------------------------------------------------------
-	Speech Signal Processing Toolkit (SPTK): version 3.0
-			 SPTK Working Group
+ Speech Signal Processing Toolkit (SPTK): version 3.0
+    SPTK Working Group
 
-		   Department of Computer Science
-		   Nagoya Institute of Technology
-				and
+     Department of Computer Science
+     Nagoya Institute of Technology
+    and
     Interdisciplinary Graduate School of Science and Engineering
-		   Tokyo Institute of Technology
-		      Copyright (c) 1984-2000
-			All Rights Reserved.
+     Tokyo Institute of Technology
+        Copyright (c) 1984-2000
+   All Rights Reserved.
 
   Permission is hereby granted, free of charge, to use and
   distribute this software and its documentation without
@@ -38,21 +38,20 @@
 */
 
 /********************************************************
-* NAME :	fig.h - Header for fig			*
+* $Id$   *
+* NAME : fig.h - Header for fig   *
 ********************************************************/
 
 #include <stdio.h>
 #include <ctype.h>
 
-#define	BUFLNG	512
-#define	SBUFLNG	81
-#define	LSCALE	1.5
-#define	MSCALE	1.5
-#define	NSCALE	3
-#define	MADJ	1.0
-#define	LADJ	0.8
-#define	SSIZE	0.6
+#define BUFLNG 512
+#define SBUFLNG 81
+#define LSCALE 1.5
+#define MSCALE 1.5
+#define NSCALE 3
+#define MADJ 1.0
+#define LADJ 0.8
+#define SSIZE 0.6
 
-#define	is_number(c)	(isdigit(c) || c == '-')
-
-double	atof(), atan2(), sin(), cos(), log10();
+#define is_number(c) (isdigit(c) || c=='-')
