@@ -52,6 +52,9 @@
 
 ***********************************************************/
 
+#include <stdio.h>
+#include <SPTK.h>
+
 void acorr (double *x, int l, double *r, const int np)
 {
    double d;
@@ -62,4 +65,6 @@ void acorr (double *x, int l, double *r, const int np)
          d += x[i]*x[i+k];
       r[k] = d;
    }
+
+   return;
 }

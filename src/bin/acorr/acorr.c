@@ -87,7 +87,8 @@ void usage (int status)
    fprintf(stderr, "       autocorrelation sequence (float)\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif		
    fprintf(stderr, "\n");
    exit(status);
