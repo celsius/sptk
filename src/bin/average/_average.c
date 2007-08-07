@@ -56,12 +56,12 @@ All Rights Reserved.
 
 double average (double *x, const int n)
 {
-   int  i;
-   double	  sum = 0.0;
+   int i;
+   double sum=0.0;
 
    for (i=0; i<n; i++) sum += x[i];
 
-   return(sum / n);
+   return(sum/n);
 }
 
 void vaverage (double *x, const int l, const int num, double *ave)
@@ -75,4 +75,7 @@ void vaverage (double *x, const int l, const int num, double *ave)
 
    for (j=0; j<l; j++)
       ave[j] /= (double) num;
+
+   return;
 }
+
