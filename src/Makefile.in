@@ -36,21 +36,21 @@
 # ----------------------------------------------------------------
 
 SHELL = /bin/sh
-srcdir = .
-top_srcdir = .
-prefix = /home/zen/temp/SPTK
-exec_prefix = ${prefix}
-bindir = ${exec_prefix}/bin
-sbindir = ${exec_prefix}/sbin
-libexecdir = ${exec_prefix}/libexec
-datadir = ${prefix}/share
-sysconfdir = ${prefix}/etc
-sharedstatedir = ${prefix}/com
-localstatedir = ${prefix}/var
-libdir = ${exec_prefix}/lib
-infodir = ${prefix}/info
-mandir = ${prefix}/man
-includedir = ${prefix}/include
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
 oldincludedir = /usr/include
 
 PREFIX = $(prefix)
@@ -61,19 +61,19 @@ INCLUDE = $(includedir)
 #
 # Directories which contain libraries and include files of X11.
 #
-XINCDIR = /usr/X11R6/include
-XLIBDIR = /usr/X11R6/lib64
+XINCDIR = @x_includes@
+XLIBDIR = @x_libraries@
 XLIBS = -lX11
 
 
 #
 # Compiler and Instllation programs.
 #
-CC = gcc4
-CFLAGS = -O2 -Wall -ansi -DSPTK_VERSION=\"3.1\" 
-LDFLAGS = 
-LIBS = -lm 
-INSTALL = /usr/bin/install -c
+CC = @CC@
+CFLAGS = @CFLAGS@ -DSPTK_VERSION=\"@PACKAGE_VERSION@\" @DDOUBLE@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+INSTALL = @INSTALL@
 RM = rm -rf
 
 
@@ -86,7 +86,7 @@ RM = rm -rf
 #    LINUX          linux(i386)
 #    FreeBSD        FreeBSD(i386 newpcm driver)
 #
-DA_OSTYPE = LINUX
+DA_OSTYPE = @DA_OSTYPE@
 
 
 SUBDIR = lib include bin script
