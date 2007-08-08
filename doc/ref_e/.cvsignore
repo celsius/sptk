@@ -1,0 +1,12 @@
+*.aux
+main.toc
+main.ind.euc
+main.dvi
+main.idx.jis
+main.idx
+main.out
+main.ilg
+main.pdf
+main.ind
+config.status
+autom4te.cache

@@ -138,6 +138,7 @@ INC  = cmndref.sty \
 	sin.tex \
 	snr.tex \
 	sopr.tex \
+	sp2mgc.tex \
 	spec.tex \
 	srcnv.tex \
 	step.tex \
@@ -200,18 +201,18 @@ IND	= $(SRC:.tex=.ind)
 DVI	= $(SRC:.tex=.dvi)
 PS	= $(SRC:.tex=.ps)
 PDF	= $(SRC:.tex=.pdf)
-TARGET	= $(DVI)
+TARGET	= $(PDF)
 
 
 ############################################################
 #### Command Definitions ###################################
 ############################################################
 
-LATEX	= platex
-MAKEIDX	= mendex -f
-DVIPS	= dvips -f
-PSPDF	= ps2pdf
-DVIPDF  = dvipdfmx
+LATEX	= @PLATEX@
+MAKEIDX	= @MAKEINDEX@ -f
+DVIPS	= @DVIPS@ -f
+PSPDF	= @PS2PDF@
+DVIPDF  = @DVIPDF@
 
 RM	= rm -rf
 TOUCH	= touch
@@ -277,4 +278,8 @@ clean:
 
 logclean:
 	$(RM) *.log *.ilg
+
+distclean: clean 
+	$(RM) Makefile config.log config.status
+
 
