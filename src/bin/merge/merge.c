@@ -63,7 +63,7 @@
 *         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: merge.c,v 1.7 2007/08/07 05:01:37 heigazen Exp $";
+static char *rcs_id = "$Id: merge.c,v 1.8 2007/08/09 07:00:35 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -197,21 +197,21 @@ int main (int argc, char **argv)
 
    y = (char *)dgetmem(leng2 * size);
 
-   for (;;) {
+   for (; ;) {
       for (j=start,i=leng1; j-- && i--;) {
          if (fread(&x, size, 1, fp1)!=1)
-            exit(1);
+            break;
          fwrite(&x, size, 1, stdout);
       }
       for (j=leng2; j--;)
          if (write) {
             if (fread(&x, size, 1, fp1)!=1)
-               exit(1);
+               break;
             i--;
          }
       if (fread(y, size, leng2, fp2)!=leng2)
-         if (! flag)
-            exit(1);
+         if (!flag)
+            break;
 
       fwrite(y, size, leng2, stdout);
       flag = 0;
@@ -222,5 +222,8 @@ int main (int argc, char **argv)
       }
    }
    
-   return(0);
+   if (feof(fp1) && feof(fp2))
+      return(0);
+   else
+      return(1);
 }
