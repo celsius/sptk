@@ -77,6 +77,7 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
 
@@ -202,13 +203,9 @@ int main (int argc, char **argv)
             lsp[i] *= 1000;
             
       if (gain) {
-         if (loggain) {
+         if (loggain)
             *a = log(*a); 
-            fwritef(a,sizeof(*a),1,stdout);
-         }
-         else {
-            fwritef(a,sizeof(*a),1,stdout);
-         }
+         fwritef(a,sizeof(*a),1,stdout);
       }
       fwritef(lsp, sizeof(*lsp), m, stdout);
    }
