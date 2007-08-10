@@ -70,7 +70,7 @@
 *         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2lsp.c,v 1.7 2007/08/07 05:01:36 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2lsp.c,v 1.8 2007/08/10 12:17:49 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -81,13 +81,14 @@ static char *rcs_id = "$Id: lpc2lsp.c,v 1.7 2007/08/07 05:01:36 heigazen Exp $";
 
 
 /*  Default Values  */
-#define ORDER 25
+#define ORDER    25
 #define SAMPLING 10
-#define OTYPE 0
-#define SPNUM 128
-#define MAXITR 4
-#define END 1e-6
-#define GAIN TR
+#define OTYPE    0
+#define SPNUM    128
+#define MAXITR   4
+#define END      1e-6
+#define GAIN     TR
+#define LOGGAIN  FALSE
 
 char *BOOL[] = {"FALSE", "TRUE"};
 
@@ -105,7 +106,8 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of LPC                            [%d]\n", ORDER);
    fprintf(stderr, "       -s s  : smapling frequency                      [%d]\n", SAMPLING);
-   fprintf(stderr, "       -k    : output gain                             [%s]\n",BOOL[GAIN]);
+   fprintf(stderr, "       -k    : output gain                             [%s]\n", BOOL[GAIN]);
+   fprintf(stderr, "       -l    : output log gain rather than linear gain [%s]\n", BOOL[GAIN]);
    fprintf(stderr, "       -o o  : output format                           [%d]\n", OTYPE);
    fprintf(stderr, "                 0 (normalized frequency [0...pi])\n");
    fprintf(stderr, "                 1 (normalized frequency [0...0.5])\n");
@@ -134,7 +136,7 @@ int main (int argc, char **argv)
    int m=ORDER, otype=OTYPE, sampling=SAMPLING, n=SPNUM, p=MAXITR, i;
    FILE *fp=stdin;
    double *a, *lsp, end=END;
-   Boolean gain=GAIN;
+   Boolean gain=GAIN, loggain=LOGGAIN;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -170,6 +172,9 @@ int main (int argc, char **argv)
          case 'k':
             gain = 1 - gain;
             break;
+         case 'l':
+            loggain = 1 - loggain;
+            break;
          case 'h':
             usage (0);
          default:
@@ -192,11 +197,19 @@ int main (int argc, char **argv)
       else if (otype==2 || otype==3)
          for (i=0; i<m; i++)
             lsp[i] *= sampling;
-
       if (otype==3)
          for (i=0; i<m; i++)
             lsp[i] *= 1000;
-      if (gain) fwritef(a,sizeof(*a),1,stdout);
+            
+      if (gain) {
+         if (loggain) {
+            *a = log(*a); 
+            fwritef(a,sizeof(*a),1,stdout);
+         }
+         else {
+            fwritef(a,sizeof(*a),1,stdout);
+         }
+      }
       fwritef(lsp, sizeof(*lsp), m, stdout);
    }
    
