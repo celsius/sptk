@@ -73,15 +73,18 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
 
 /*  Default Values  */
-#define ORDER  25
-#define ITYPE  0
+#define ORDER    25
+#define ITYPE    0
 #define SAMPLING 10
-#define GAIN  1
+#define GAIN     1
+#define LOGGAIN  FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
@@ -98,6 +101,7 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of LPC        [%d]\n", ORDER);
    fprintf(stderr, "       -s s  : sampling frequency  [%d]\n", SAMPLING);
    fprintf(stderr, "       -k    : input & output gain [TRUE]\n");
+   fprintf(stderr, "       -l    : input log gain      [%s]\n", BOOL[LOGGAIN]);
    fprintf(stderr, "       -i i  : input format        [%d]\n", ITYPE);
    fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
    fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
@@ -123,6 +127,7 @@ int main (int argc, char **argv)
    int m=ORDER, sampling=SAMPLING, itype=ITYPE, i, gain=GAIN;
    FILE *fp=stdin;
    double *a, *lsp;
+   Boolean loggain=LOGGAIN;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -172,7 +177,12 @@ int main (int argc, char **argv)
             lsp[i] /= 1000;
 
       lsp2lpc(lsp+gain, a, m);
-      if (gain)fwritef(lsp, sizeof(*lsp), 1, stdout);
+
+      if (gain) {
+         if (loggain)
+            *lsp = exp(*lsp);
+         fwritef(lsp, sizeof(*lsp), 1, stdout);
+      }
       fwritef(a+gain, sizeof(*a), m+1-gain, stdout);
    }
    
