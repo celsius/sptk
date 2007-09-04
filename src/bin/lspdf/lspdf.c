@@ -75,11 +75,12 @@ static char *rcs_id = "$Id$";
 
 
 /*  Default Values  */
-#define ORDER  25
-#define FPERIOD  100
-#define IPERIOD  1
+#define ORDER     25
+#define FPERIOD   100
+#define IPERIOD   1
 #define TRANSPOSE FA
-#define NGAIN  FA
+#define NGAIN     FA
+#define LOGGAIN   FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
 
@@ -94,11 +95,11 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] lspfile [ infile ]>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of coefficients  [%d]\n", ORDER);
-   fprintf(stderr, "       -p p  : frame period           [%d]\n", FPERIOD);
-   fprintf(stderr, "       -i i  : interpolation period   [%d]\n", IPERIOD);
-   /*    fprintf(stderr, "       -t    : transpose filter      [%s]\n", BOOL[TRANSPOSE]);*/
-   fprintf(stderr, "       -k    : filtering without gain [%s]\n", BOOL[NGAIN]);
+   fprintf(stderr, "       -m m  : order of coefficients         [%d]\n", ORDER);
+   fprintf(stderr, "       -p p  : frame period                  [%d]\n", FPERIOD);
+   fprintf(stderr, "       -i i  : interpolation period          [%d]\n", IPERIOD);
+   fprintf(stderr, "       -k    : filtering without gain        [%s]\n", BOOL[NGAIN]);
+   fprintf(stderr, "       -l    : regard input gain as log gain [%s]\n", BOOL[LOGGAIN]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       filter input (float)           [stdin]\n");
@@ -118,11 +119,10 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int  m = ORDER, fprd = FPERIOD, iprd = IPERIOD,
-                                          i, j, flag_odd;
-   FILE *fp = stdin, *fpc = NULL;
+   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, i, j, flag_odd;
+   FILE *fp=stdin, *fpc=NULL;
    double *c, *inc, *cc, *d, x;
-   Boolean ngain = NGAIN;
+   Boolean ngain=NGAIN, loggain=LOGGAIN;
 
    if ((cmnd = strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -149,6 +149,8 @@ int main (int argc, char **argv)
          case 'k':
             ngain = 1 - ngain;
             break;
+         case 'l':
+            loggain = 1 - loggain;
          case 'h':
             usage (0);
          default:
@@ -167,7 +169,7 @@ int main (int argc, char **argv)
    }
 
    if (m % 2==0) flag_odd = 0;
-   else           flag_odd = 1;
+   else          flag_odd = 1;
 
    c = dgetmem(5*m+4);
    cc  = c  + m + 1;
@@ -185,7 +187,11 @@ int main (int argc, char **argv)
       for (j=fprd, i=(iprd+1)/2; j--;) {
          if (freadf(&x, sizeof(x), 1, fp)!=1) exit(0);
 
-         if (!ngain) x *= c[0];
+         if (!ngain) {
+            if (loggain)
+               c[0] = exp(c[0]);
+            x *= c[0];
+         }
 
          if (flag_odd)
             x = lspdf_odd(x, c, m, d);

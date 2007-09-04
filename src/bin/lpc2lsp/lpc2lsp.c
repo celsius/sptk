@@ -89,7 +89,7 @@ static char *rcs_id = "$Id$";
 #define MAXITR   4
 #define END      1e-6
 #define GAIN     TR
-#define LOGGAIN  FALSE
+#define LOGGAIN  FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
 
