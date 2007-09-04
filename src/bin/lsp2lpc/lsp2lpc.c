@@ -66,7 +66,7 @@
 *         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lsp2lpc.c,v 1.8 2007/08/10 14:19:00 heigazen Exp $";
+static char *rcs_id = "$Id: lsp2lpc.c,v 1.9 2007/09/04 13:39:07 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -98,18 +98,18 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of LPC        [%d]\n", ORDER);
-   fprintf(stderr, "       -s s  : sampling frequency  [%d]\n", SAMPLING);
-   fprintf(stderr, "       -k    : input & output gain [TRUE]\n");
-   fprintf(stderr, "       -l    : input log gain      [%s]\n", BOOL[LOGGAIN]);
-   fprintf(stderr, "       -i i  : input format        [%d]\n", ITYPE);
+   fprintf(stderr, "       -m m  : order of LPC                                   [%d]\n", ORDER);
+   fprintf(stderr, "       -s s  : sampling frequency                             [%d]\n", SAMPLING);
+   fprintf(stderr, "       -k    : input & output gain                            [TRUE]\n");
+   fprintf(stderr, "       -l    : regard input as log gain and output linear one [%s]\n", BOOL[LOGGAIN]);
+   fprintf(stderr, "       -i i  : input format                                   [%d]\n", ITYPE);
    fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
    fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
    fprintf(stderr, "                 2 (frequency (kHz))\n");
    fprintf(stderr, "                 3 (frequency (Hz))\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       LSP (float)                [stdin]\n");
+   fprintf(stderr, "       LSP (float)                                            [stdin]\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       LP coefficients (float)\n");
 #ifdef SPTK_VERSION

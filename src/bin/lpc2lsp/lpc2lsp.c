@@ -70,7 +70,7 @@
 *         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2lsp.c,v 1.9 2007/08/10 14:17:26 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2lsp.c,v 1.10 2007/09/04 13:39:08 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -89,7 +89,7 @@ static char *rcs_id = "$Id: lpc2lsp.c,v 1.9 2007/08/10 14:17:26 heigazen Exp $";
 #define MAXITR   4
 #define END      1e-6
 #define GAIN     TR
-#define LOGGAIN  FALSE
+#define LOGGAIN  FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
 
