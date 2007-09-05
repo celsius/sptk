@@ -98,11 +98,11 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of LPC                                   [%d]\n", ORDER);
-   fprintf(stderr, "       -s s  : sampling frequency                             [%d]\n", SAMPLING);
-   fprintf(stderr, "       -k    : input & output gain                            [TRUE]\n");
-   fprintf(stderr, "       -l    : regard input as log gain and output linear one [%s]\n", BOOL[LOGGAIN]);
-   fprintf(stderr, "       -i i  : input format                                   [%d]\n", ITYPE);
+   fprintf(stderr, "       -m m  : order of LPC                                    [%d]\n", ORDER);
+   fprintf(stderr, "       -s s  : sampling frequency                              [%d]\n", SAMPLING);
+   fprintf(stderr, "       -k    : input & output gain                             [TRUE]\n");
+   fprintf(stderr, "       -l    : regard input as log gain and output linear gain [%s]\n", BOOL[LOGGAIN]);
+   fprintf(stderr, "       -i i  : input format                                    [%d]\n", ITYPE);
    fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
    fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
    fprintf(stderr, "                 2 (frequency (kHz))\n");
@@ -146,6 +146,9 @@ int main (int argc, char **argv)
             break;
          case 'k':
             gain = 0;
+            break;
+         case 'l':
+            loggain = TR;
             break;
          case 'i':
             itype = atoi(*++argv);
