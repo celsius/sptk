@@ -46,23 +46,25 @@ from linear prediction (LPC) coefficients
 from {\em infile} (or standard input), 
 sending the result to standard output.
 That is, when the input sequence is 
-\[ \sigma, a(1), a(2), \cdots, a(p) \]
+\begin{displaymath} 
+   \sigma, a(1), a(2), \dots, a(p) 
+\end{displaymath}
 where
-\[
-H(z)=\frac{\sigma}{A(z)}=\frac{\sigma}{\displaystyle 1+\sum_{k=1}^P a(k) z^{-k}}
-\]
+\begin{displaymath}
+   H(z)=\frac{\sigma}{A(z)}=\frac{\sigma}{\displaystyle 1+\sum_{k=1}^P a(k) z^{-k}}
+\end{displaymath}
 then the LPC cepstrum coefficients are evaluated as follows.
-\[
-c(n) =\left\{
-\begin{array}{lc}
- ln(h),&n=0\\
-\displaystyle -a(n)=-\sum^{n-1}_{k=1}\frac{k}{n}c(k) a(n-k),&1\leq n\leq P\\
-\displaystyle -\sum_{k=n-P}^{n-1}\frac{k}{n}c(k) a(n-k),& n>P
-\end{array}
-\right.
-\]
+\begin{displaymath}
+   c(n) = \begin{cases}
+ \;\; \ln(h),&n=0\\
+ \;\; \displaystyle -a(n)=-\sum^{n-1}_{k=1}\frac{k}{n}c(k) a(n-k),&1\leq n\leq P\\ 
+ \;\; \displaystyle -\sum_{k=n-P}^{n-1}\frac{k}{n}c(k) a(n-k),& n>P
+\end{cases}
+\end{displaymath}
 And the sequence of cepstrum coefficients
-\[ c(0), c(1), \cdots, c(M) \]
+\begin{displaymath}
+   c(0), c(1), \dots, c(M)
+\end{displaymath}
 is outputed.
 Input and output data are in float format.
 \end{qsection}

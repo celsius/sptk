@@ -48,26 +48,26 @@ from {\em infile} (or standard input),
 sending the result to standard output.
 Assume that the input sequence is
 \begin{displaymath}
-  x(0), x(1), \ldots, x(L-1)
+  x(0), x(1), \dots, x(L-1)
 \end{displaymath}
 and the FFT is
-\begin{eqnarray*}
-  X_k &=& X(e^{j\omega}) \left|
+\begin{align}
+  X_k &= X(e^{j\omega}) \left|
 	\begin{array}{c}
 	\\
         \omega=\frac{2\pi k}{L}
 	\end{array}
-    \right. \nonumber \\
-         &=& \sum_{m=0}^{L-1}x(m)e^{-j\omega m} \left|
+    \right. \notag \\
+         &= \sum_{m=0}^{L-1}x(m)e^{-j\omega m} \left|
 	\begin{array}{c}
 	\\
         \omega=\frac{2\pi\, k}{L}
 	\end{array}
-    \right.,\qquad k=0,1,\ldots,L-1
-\end{eqnarray*}
+    \right.,\qquad k=0,1,\dots,L-1 \notag
+\end{align}
 Then the output is given by
 \begin{displaymath}
-  Y_k=\arg X_k, \qquad k=0,1,\ldots,L/2
+  Y_k=\arg X_k, \qquad k=0,1,\dots,L/2
 \end{displaymath}
 In this case the phase is written in continuous form.
 The output data angular frequency varies from $0\sim \pi$.
@@ -87,11 +87,11 @@ the difference between the numerator and denominator phases}.
 	\argm{p}{pfile}{numerator coefficients file\\
 			The {\em pfile} should follow this structure in
                         float format:\\
-			\hspace*{2ex}$K, a(1), \ldots, a(M)$\\[-1ex]}{NULL}
+			\hspace*{2ex}$K, a(1), \dots, a(M)$\\[-1ex]}{NULL}
 	\argm{z}{zfile}{denominator coefficients file\\
 			The {\em zfile} should follow this structure in
                         float format:\\
-			\hspace*{2ex}$b(0), b(1), \ldots, b(N)$\\
+			\hspace*{2ex}$b(0), b(1), \dots, b(N)$\\
 			The contents of {\em pfile} and {\em zfile}
                         should be in a similar form to that used in
                         command {\em dfs}.

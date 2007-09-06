@@ -52,7 +52,7 @@ from {\em infile} (or standard input),
 sending the result to standard output.
 The windowed input sequence of length $L$ is
 \begin{displaymath}
-  x(0),x(1),\ldots,x(L-1)
+  x(0),x(1),\dots,x(L-1)
 \end{displaymath}
 \par
 Input and output data are in float format.
@@ -62,18 +62,18 @@ the speech spectrum is estimated by the $M$ order generalized
 cepstrum $c_\gamma(m)$ or by normalized generalized cepstrum 
 $c_\gamma'(m)$ using the log spectrum through the unbiased estimation
 method.
-\begin{eqnarray*}
-H(z) &=& s_\gamma^{-1}\left(
-	\sum_{m=0}^{M} c_\gamma(m)z^{-m} \right) \\
-     &=& K \cdot s_\gamma^{-1}\left(
-	\sum_{m=1}^{M} c_\gamma'(m)z^{-m} \right) \\
-     &=& \left\{ \begin{array}{ll} \displaystyle
+\begin{align}
+H(z) &= s_\gamma^{-1}\left(
+	\sum_{m=0}^{M} c_\gamma(m)z^{-m} \right) \notag \\
+     &= K \cdot s_\gamma^{-1}\left(
+	\sum_{m=1}^{M} c_\gamma'(m)z^{-m} \right) \notag \\
+     &= \begin{cases} \;\; \displaystyle
 	K\cdot \left( 1+\gamma\sum_{m=1}^{M} c_\gamma'(m)z^{-m}
 		\right)^{1/\gamma}, & -1 \leq \gamma < 0 \\
-	\displaystyle K\cdot \exp \sum_{m=1}^{M} c_\gamma'(m)z^{-m}, 
+	\;\;\displaystyle K\cdot \exp \sum_{m=1}^{M} c_\gamma'(m)z^{-m}, 
 		& \gamma=0
-	\end{array} \right.
-\end{eqnarray*}
+	\end{cases}\notag
+\end{align}
 To find the minimum value of cost function,
 if $\gamma=-1$ then the linear prediction method is used,
 while if $\gamma$ is different from $-1$, then
@@ -81,15 +81,6 @@ Newton--Raphson method applied.
 \end{qsection}
 
 \begin{options}
-       -m m  :     [25]
-       -g g  : gamma                            [0]
-       -l l  :                      [256]
-       -n    :        [FALSE]
-     (level2)
-       -i i  :                 [2]
-       -j j  :                 [30]
-       -d d  :                     [0.001]
-       -e e  : small value added to periodgram  [0]
 	\argm{m}{M}{order of generalized cepstrum}{25}
 	\argm{g}{G}{$\gamma$. If $G>1.0$ then $\gamma=-1/G$.}{0}
 	\argm{l}{L}{frame length}{256}

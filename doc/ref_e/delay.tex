@@ -46,11 +46,17 @@
 by inserting a specified number of zero samples at the beginning, 
 sending the result to standard output.
  For example, if we want to delay the following data
-\[ x(0), x(1), \ldots , x(T) \]
+\begin{displaymath}
+   x(0), x(1), \ldots , x(T)
+\end{displaymath}
 as
-\[ \underbrace{0, \ldots , 0}_{S}, x(0), x(1), \ldots , x(T). \]
-we only need to set the ``--s'' option to $S$
-\[ \underbrace{0, \ldots , 0}_{S}, x(0), x(1), \ldots , x(T-S) \]
+\begin{displaymath}
+   \underbrace{0, \dots , 0}_{S}, x(0), x(1), \dots , x(T).
+\end{displaymath}
+We only need to set the ``--s'' option to $S$
+\begin{displaymath}
+   \underbrace{0, \dots , 0}_{S}, x(0), x(1), \dots , x(T-S).
+\end{displaymath}
 \par
 The format of input and output is float.
 \end{qsection}

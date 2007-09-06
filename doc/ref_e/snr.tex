@@ -43,22 +43,22 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em srn} calculates the SNR (Signal to Noise Ratio) 
-and the $\mbox{SNR}_{\mbox{seg}}$ (segmental SNR) 
+and the $\mathrm{SNR}_{\mathrm{seg}}$ (segmental SNR) 
 between corresponding $L$-length frames
 of {\em file1} and {\em infile} (or standard input), 
 sending the result to standard output.
 The input format is specified by the + option.
 The output format is specified by the --o option.
 
-The SNR and $\mbox{SNR}_{\mbox{seg}}$ can be calculated
+The SNR and $\mathrm{SNR}_{\mathrm{seg}}$ can be calculated
 through the following equation.
 \begin{displaymath}
-\mbox{SNR} = 10~\log \frac{\displaystyle\sum_{n} ( x(n) )^{2}}
-{\displaystyle\sum_{n} (e(n))^{2}}~~~\mbox{[dB]}
+\mathrm{SNR} = 10~\log \frac{\displaystyle\sum_{n} ( x(n) )^{2}}
+{\displaystyle\sum_{n} (e(n))^{2}}~~~\mathrm{[dB]}
 \end{displaymath}
 \begin{displaymath}
-\mbox{SNR}_{\mbox{seg}} = \frac{1}{N_{i}} \sum_{i = 1}^{N_{i}}
-\mbox{SNR}_{i} ~~~\mbox{[dB]}
+\mathrm{SNR}_{\mathrm{seg}} = \frac{1}{N_{i}} \sum_{i = 1}^{N_{i}}
+\mathrm{SNR}_{i} \quad \mathrm{[dB]}
 \end{displaymath}
 where
 \begin{displaymath}

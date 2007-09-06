@@ -58,20 +58,24 @@
 	The algorithm to calculate recursively the
         adaptive generalized cepstrum coefficients is 
  %
-\begin{eqnarray*}
-  \mbox{\boldmath $c$}_\gamma^{(n+1)} &=& \mbox{\boldmath $c$}_\gamma^{(n)} 
-     - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \\
-  \hat{\nabla} \varepsilon_{0}^{(n)} &=& -2 e_\gamma (n) \mbox{\boldmath $e$}_\gamma^{(n)} \hspace{3.5cm} ( \tau = 0 )\\
-  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& -2 (1 - \tau) \sum_{i=-\infty}^{n} \tau^{n-i} e_\gamma (i) \mbox{\boldmath $e$}_\gamma^{(i)} ~~~ ( 0 \le \tau < 1 )\\
-  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& \tau \hat{\nabla} \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e_\gamma (n) \mbox{\boldmath $e$}_\gamma^{(n)} \\
-  \mu^{(n)} &=& \frac{k}{M \varepsilon^{(n)}} \\
-  \varepsilon^{(n)} &=& \lambda \varepsilon^{(n-1)}
-     + (1-\lambda)e_\gamma^2(n)
-\end{eqnarray*}	
+\begin{align}
+  \bc_\gamma^{(n+1)} &= \bc_\gamma^{(n)} 
+     - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \notag \\
+  \hat{\nabla} \varepsilon_{0}^{(n)} &= -2 e_\gamma (n) \be_\gamma^{(n)}
+  \qquad ( \tau = 0 ) \notag \\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &= -2 (1 - \tau) \sum_{i=-\infty}^{n}
+  \tau^{n-i} e_\gamma (i) \be_\gamma^{(i)} \qquad ( 0 \le \tau < 1 ) \notag \\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &= \tau \hat{\nabla}  
+  \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e_\gamma (n) \be_\gamma^{(n)}
+  \notag \\
+  \mu^{(n)} &= \frac{k}{M \varepsilon^{(n)}} \notag \\
+  \varepsilon^{(n)} &= \lambda \varepsilon^{(n-1)}
+     + (1-\lambda)e_\gamma^2(n) \notag
+\end{align}	
 
 where
-$\mbox{\boldmath$c$}_\gamma = [c_\gamma(1),\ldots,c_\gamma(M)]^T$,
-$\mbox{\boldmath$e$}_\gamma = [e_\gamma(n-1),\ldots,e_\gamma(n-M)]^T$.
+$\bc_\gamma = [c_\gamma(1),\ldots,c_\gamma(M)]'$,
+$\be_\gamma = [e_\gamma(n-1),\ldots,e_\gamma(n-M)]'$.
 The signal $e_\gamma(n)$ is obtained passing the input signal
  $x(n)$ through the filter $(1+\gamma F(z))^{-\frac{1}{\gamma}-1}$,
 where 

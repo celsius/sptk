@@ -48,16 +48,20 @@ from minimum phase cepstrum coefficients
 from {\em infile} (or standard input), 
 sending the result to standard output.
 For example, if the input sequence is
-\[c(0),c(1),c(2),\cdots,c(M_1)\]
+\begin{displaymath}
+   c(0),c(1),c(2),\dots,c(M_1)
+\end{displaymath}
 then the impulse response is calculated as
-\[ h(n)=\left\{
-\begin{array}{lc}
- h(0)=\exp(c(0))&\\
- h(n)=\displaystyle \sum_{k=1}^{M_1} \frac{k}{n}c(k)h(n-k)& n \geq 1
-\end{array}
-\right. \]
+\begin{displaymath}
+ h(n)= \begin{cases}
+ \;\; h(0)=\exp(c(0)) & \\
+ \;\; h(n)=\displaystyle \sum_{k=1}^{M_1} \frac{k}{n} c(k)h(n-k) & n \geq 1
+ \end{cases}
+\end{displaymath}
 and the output will contain
-\[ h(0),h(1),h(2),\cdots,h(L -1). \]
+\begin{displaymath}
+   h(0),h(1),h(2),\dots,h(L -1)
+\end{displaymath}
 The format of input and output format is float.
 \end{qsection}
 

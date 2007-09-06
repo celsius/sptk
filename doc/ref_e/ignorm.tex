@@ -52,16 +52,15 @@ To convert normalized generalized cepstrum coefficients
 $c_\gamma'(m)$ into not-normalized generalized cepstrum coefficients
 $c_\gamma(m)$, the following equation can be used.
 \begin{displaymath}
-c_\gamma(m) = \Bigl(c_\gamma'(0)\Bigr)^{\gamma} c_\gamma'(m), ~~~m>0
+c_\gamma(m) = \left( c_\gamma'(0) \right)^{\gamma} c_\gamma'(m), \qquad m>0
 \end{displaymath}
 Also, the gain $K = c_\gamma(0)$ is
 \begin{displaymath}
-c_\gamma(0) = \left\{
-	\begin{array}{ll} \displaystyle
+c_\gamma(0) = \begin{cases} \;\; \displaystyle
 	  \frac{\Bigl(c_\gamma'(0)\Bigr)^{\gamma} - 1.0}{\gamma},
-		& 0<|\gamma|\leq 1 \\ \displaystyle
+		& 0<|\gamma|\leq 1 \\ \;\; \displaystyle
 	  \log c_\gamma'(0),  & \gamma=0
-	\end{array} \right.
+	\end{cases}
 \end{displaymath}
 \end{qsection}
 

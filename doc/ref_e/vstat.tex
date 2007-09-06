@@ -52,27 +52,27 @@ and the $L\times L$ covariance matrix.
 That is, if the input data is
 \begin{displaymath}
 \overbrace{
-  \overbrace{x_1(1),\ldots,x_1(L)}^{L},
-  \overbrace{x_2(1),\ldots,x_2(L)}^{L},\ldots,
-  \overbrace{x_N(1),\ldots,x_N(L)}^{L}
-}^{T \times L},\ldots
+  \overbrace{x_1(1),\dots,x_1(L)}^{L},
+  \overbrace{x_2(1),\dots,x_2(L)}^{L},\dots,
+  \overbrace{x_N(1),\dots,x_N(L)}^{L}
+}^{T \times L},\dots
 \end{displaymath}
 then the output will be 
 \begin{displaymath}
-  \overbrace{m(1),\ldots,m(L)}^L, 
+  \overbrace{\mu(1),\dots,\mu(L)}^L, 
   \overbrace{
-    \overbrace{U(11),\ldots,U(1L)}^L, \ldots
-    \overbrace{U(L1),\ldots,U(LL)}^L
-  }^{L\times L}, \ldots
+    \overbrace{\sigma(11),\dots,\sigma(1L)}^L, \dots
+    \overbrace{\sigma(L1),\dots,\sigma(LL)}^L
+  }^{L\times L}, \dots
 \end{displaymath}
-evaluation of {\boldmath $m$}, {\boldmath $U$} is undertaken by
+evaluation of $\bmu$, $\bSigma$ is undertaken by
 \begin{displaymath}
-  \mbox{\boldmath $m$} = \frac{1}{N}\sum_{k=1}^{N} \mbox{\boldmath $x$}
+  \bmu = \frac{1}{N}\sum_{k=1}^{N} \bx
 \end{displaymath}
 \begin{displaymath}
-  \mbox{\boldmath $U$} = \frac{1}{N}\sum_{k=1}^{N}
-	\mbox{\boldmath $x$} \mbox{\boldmath $x$}^T
-	- \mbox{\boldmath $m$} \mbox{\boldmath $m$}^T
+  \bSigma = \frac{1}{N}\sum_{k=1}^{N}
+	\bx \bx'
+	- \bmu \bmu'
 \end{displaymath}
 If the --d option is given, 
 the length $L$ diagonal of the covariance matrix is output 

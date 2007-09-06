@@ -48,16 +48,16 @@ sending the results to standard output.
 
 From given two files, $L$-length time series 
 \begin{displaymath}
-  \underbrace{x_1(0),x_1(1),\ldots,x_1(L-1)},\underbrace{x_2(0),x_2(1),\ldots}
+  \underbrace{x_1(0),x_1(1),\dots,x_1(L-1)},\underbrace{x_2(0),x_2(1),\dots}
 \end{displaymath}
 and
 \begin{displaymath}
-  \underbrace{y_1(0),y_1(1),\ldots,y_1(L-1)},\underbrace{y_2(0),y_2(1),\ldots}
+  \underbrace{y_1(0),y_1(1),\dots,y_1(L-1)},\underbrace{y_2(0),y_2(1),\dots}
 \end{displaymath}
 are read,
 and then RMSE of these two series are calculated and output
 \begin{displaymath}
-\mbox{RMSE}_j = \sqrt{\sum_{m=0}^{L-1} (x_j(m)-y_j(m))^2/L}
+\mathrm{RMSE}_j = \sqrt{\sum_{m=0}^{L-1} (x_j(m)-y_j(m))^2/L}
 \end{displaymath}
 
 Input and output data are in float format.

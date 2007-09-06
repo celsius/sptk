@@ -59,39 +59,29 @@ and then the log magnitude spectrum is calculated(refer to spec).
 
 When the input data is normalized by the gain,
 then it can be represented as follows.
-\begin{eqnarray*}
-\hspace{-15mm}&&K_{\alpha} = 
-	s_{\gamma}^{-1}\left(c_{\alpha,\gamma}^{(0)}(0)\right), 
-	  \qquad\qquad \\ 
-\hspace{-15mm}&&c_{\alpha,\gamma}'(m) =
+\begin{align}
+K_{\alpha} &= 
+	s_{\gamma}^{-1}\left(c_{\alpha,\gamma}^{(0)}(0)\right), \notag \\
+c_{\alpha,\gamma}'(m) &=
           c_{\alpha,\gamma}^{(0)}(m)/\left(1+\gamma\,
-	  c_{\alpha,\gamma}^{(0)}(0)\right), \quad m = 1,2,\ldots, M 
-\end{eqnarray*}
+	  c_{\alpha,\gamma}^{(0)}(0)\right), \qquad m = 1,2,\dots, M \notag
+\end{align}
 
 In case we represent input with $\gamma$,
 if the coefficients $c_{\alpha,\gamma}(m)$ are not normalized, then
 the following representation is assumed
 \begin{displaymath}
-1+\gamma c_{\alpha,\gamma}(0), \gamma c_{\alpha,\gamma}(1), \ldots, \gamma c_{\alpha,\gamma}(M)
+1+\gamma c_{\alpha,\gamma}(0), \gamma c_{\alpha,\gamma}(1), \dots, \gamma c_{\alpha,\gamma}(M)
 \end{displaymath}
 if they are normalized, then
 the following representation is assumed
 \begin{displaymath}
-K_\alpha,\gamma c_{\alpha,\gamma}'(1),\ldots, \gamma c_{\alpha,\gamma}'(M)
+K_\alpha,\gamma c_{\alpha,\gamma}'(1),\dots, \gamma c_{\alpha,\gamma}'(M)
 \end{displaymath}
 
 \end{qsection}
 
 \begin{options}
-       -o o  : output format                       [0]
-                 0 (20*log|H(z)|)
-                 1 (ln|H(z)|)
-                 2 (|H(z)|)
-             -p option is specified
-                 0 (arg|H(z)|/pi     [pi rad])
-                 1 (arg|H(z)|        [rad])
-                 2 (arg|H(z)|*180/pi [deg])
-
 	\argm{a}{A}{alpha $\alpha$}{0}
 	\argm{g}{G}{power parameter $\gamma$ of mel-generalized cepstrum\\
 			 if $G>1.0$ then $\gamma = -1/G$.}{0}

@@ -56,16 +56,15 @@
 
 	The algorithm to calculate recursively the
         adaptive mel-cepstrum coefficients $b(m)$ is 
-\begin{eqnarray*}
-  \mbox{\boldmath $b$}^{(n+1)} &=& \mbox{\boldmath $b$}^{(n)} 
-     - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \\
-  \hat{\nabla} \varepsilon_0^{(n)} &=& -2 e(n) \mbox{\boldmath $e$}^{(n)}_{\Phi} \hspace{3.5cm} ( \tau = 0 )\\
-  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& -2 (1 - \tau) \sum_{i=-\infty}^{n} \tau^{n-i} e(i) \mbox{\boldmath $e$}^{(i)}_{\Phi} ~~~ ( 0 \le \tau < 1 )\\
-  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& \tau \hat{\nabla} \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e(n) \mbox{\boldmath $e$}^{(n)}_{\Phi} \\
-  \mu^{(n)} &=& \frac{k}{M \varepsilon^{(n)}} \\
-  \varepsilon^{(n)} &=& \lambda \varepsilon^{(n-1)}
-     + (1-\lambda)e^2(n)
-\end{eqnarray*}	
+\begin{align}
+  \bc^{(n+1)} &= \bb^{(n)} - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \notag \\
+  \hat{\nabla} \varepsilon_0^{(n)} &= -2 e(n) \be^{(n)}_{\Phi} \qquad ( \tau = 0 )\notag\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &= -2 (1 - \tau) \sum_{i=-\infty}^{n} \tau^{n-i} e(i) \be^{(i)}_{\Phi} \qquad ( 0 \le \tau < 1 )\notag\\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &= \tau \hat{\nabla} \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e(n) \be^{(n)}_{\Phi} \notag\\
+  \mu^{(n)} &= \frac{k}{M \varepsilon^{(n)}} \notag\\
+  \varepsilon^{(n)} &= \lambda \varepsilon^{(n-1)}
+     + (1-\lambda)e^2(n) \notag
+\end{align}	
 
 \setcounter{figure}{0}
 \begin{figure}[h]
@@ -171,9 +170,8 @@
 \end{center}
 \end{figure}
 where
-$\mbox{\boldmath $b$}=[b(1), b(2), \ldots, b(M)]^T$,
-$\mbox{\boldmath $e$}_{\it\Phi}^{(n)}
-=[e_1(n) ,e_2(n), \ldots, e_{M}(n)]^T$,
+$\bb=[b(1), b(2), \ldots, b(M)]'$,
+$\be_{\it\Phi}^{(n)} =[e_1(n) ,e_2(n), \ldots, e_{M}(n)]^T$,
  $e_m(n)$ is the output of the inverse filter,
 which is obtained as shown
 in Figure \ref{fig:mcep_Phi}, passing $e(n)$ through the filter

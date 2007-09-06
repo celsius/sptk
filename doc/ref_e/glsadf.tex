@@ -50,21 +50,20 @@ and uses it to filter an excitation sequence
 from {\em infile} (or standard input) to synthesize speech data, 
 sending the result to standard output.
 The cepstrum coefficients can be be represented as
-$K,c_\gamma'(1),\ldots,c_\gamma'(M)$. 
+$K,c_\gamma'(1),\dots,c_\gamma'(M)$. 
 
 Input and output data are in float format.
 
 The transfer function $H(z)$ are synthesis filter based on an $M$ order
 normalized generalized cepstrum coefficients $c_\gamma'(m)$ is 
-\begin{eqnarray*}
-H(z) &=& K \cdot D(z) \\
-     &=& \left\{ 
-	\begin{array}{ll} \displaystyle
+\begin{align}
+H(z) &= K \cdot D(z) \notag \\
+     &= \begin{cases} \;\;\displaystyle
           K \cdot \left( 1+\gamma\sum_{m=1}^{M} c_\gamma'(m) z^{-m}
-		\right)^{1/\gamma}, & 0<\gamma\leq -1 \\ \displaystyle
-	  K \cdot \exp \sum_{m=1}^{M} c_\gamma'(m) z^{-m}, & \gamma=0
-	\end{array} \right.
-\end{eqnarray*}
+		\right)^{1/\gamma}, & 0<\gamma\leq -1 \\ 
+		\;\;\displaystyle K \cdot \exp \sum_{m=1}^{M} c_\gamma'(m) z^{-m}, & \gamma=0
+	\end{cases}\notag
+\end{align}
 In this case, we are considering only values for the power parameter
 $\gamma=-1/G$, where $G$ is a natural number.
 The filter $D(z)$ can be realized through a $G$ level cascade as shown

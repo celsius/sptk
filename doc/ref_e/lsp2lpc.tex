@@ -49,11 +49,11 @@ sending the result to standard output.
 
 The LSP input input format is
 \begin{displaymath}
-   [ K ], l(1), . . . , l(M), 
+   [ K ], l(1), \dots , l(M), 
 \end{displaymath}
 and the LPC output format is
 \begin{displaymath}
-   K , a(1), . . . , a(M).
+   K , a(1), \dots , a(M).
 \end{displaymath}
 
 By default, {\em lsp2lpc} assumes that 
@@ -71,8 +71,8 @@ and it sets $K$ to $1.0$ in the LPC output vectors.
 	\argm{l}{}{regard input as log gain and output linear gain}{FALSE}
 	\argm{i}{I}{input format\\
 		\begin{tabular}{ll} \\[-1ex]
-			$0$ & normalized frequency $(0 \ldots \pi)$ \\
-			$1$ & normalized frequency $(0 \ldots 0.5)$ \\
+			$0$ & normalized frequency $(0 \dots \pi)$ \\
+			$1$ & normalized frequency $(0 \dots 0.5)$ \\
 			$2$ & frequency (kHz) \\
 			$3$ & frequency (Hz)  \\
 		\end{tabular}\\\hspace*{\fill}}{0}

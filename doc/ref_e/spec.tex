@@ -56,27 +56,27 @@ The output format is specified by the --y option.
 
 If the input sequence is
 \begin{displaymath}
-  x(0), x(1), \ldots, x(L-1)
+  x(0), x(1), \dots, x(L-1)
 \end{displaymath}
 and the FFT algorithm is used to evaluate
-\begin{eqnarray*}
-  X_k &=& X(e^{j\omega}) \left|
+\begin{align}
+  X_k &= X(e^{j\omega}) \left|
 	\begin{array}{c}
 	\\
         \omega=\frac{2\pi k}{L}
 	\end{array}
-    \right. \nonumber \\
-          &=& \sum_{m=0}^{L-1}x(m)e^{-j\omega m} \left|
+    \right. \notag \\
+          &= \sum_{m=0}^{L-1}x(m)e^{-j\omega m} \left|
 	\begin{array}{c}
 	\\
         \omega=\frac{2\pi\, k}{L}
 	\end{array}
-    \right.,~~~~ k=0,1,\ldots,L-1
-\end{eqnarray*}
+    \right., \qquad k=0,1,\dots,L-1 \notag
+\end{align}
 then if the {\bf --y} option is applied, then
 output is
 \begin{displaymath}
-  Y_k=20\,\log_{10}\,|X_k|,~~~~ k=0,1,\ldots,L/2
+  Y_k=20\,\log_{10}\,|X_k|,\qquad k=0,1,\dots,L/2
 \end{displaymath}
 The output data corresponds to angular frequencies varying from $0\sim \pi$.
 Input and output data are in float format.
@@ -111,16 +111,16 @@ the difference between the numerator and denominator phases}.
 	\argm{z}{zfile}{MA coefficients filename\\
 			The {\em zfile} should follow this structure in
                         float format:\\
-			\hspace*{2ex}$b(0), b(1), \ldots, b(N)$\\[-1ex]}{NULL}
+			\hspace*{2ex}$b(0), b(1), \dots, b(N)$\\[-1ex]}{NULL}
 	\argm{p}{pfile}{AR coefficients filename\\
 			The {\em pfile} should follow this structure in
                         float format:\\
-			\hspace*{2ex}$K, a(1), \ldots, a(M)$\\[-1ex]}{NULL}
+			\hspace*{2ex}$K, a(1), \dots, a(M)$\\[-1ex]}{NULL}
 	\argm{o}{O}{output format\\
 			\begin{tabular}{lll} \\[-1ex]
-			$O=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\ldots,L/2$\\
-			$O=1$ & ~~~$\ln |X_k|$ & $k=0,1,\ldots,L/2$\\
-			$O=2$ & ~~~$|X_k|$ & $k=0,1,\ldots,L/2$\\
+			$O=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\dots,L/2$\\
+			$O=1$ & ~~~$\ln |X_k|$ & $k=0,1,\dots,L/2$\\
+			$O=2$ & ~~~$|X_k|$ & $k=0,1,\dots,L/2$\\
 			\end{tabular} \\\hspace*{\fill}}{0}
 	\desc{The contents of {\em pfile} and {\em zfile}
                         should be in a similar form to that used in

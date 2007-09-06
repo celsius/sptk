@@ -49,14 +49,14 @@ from $L$-length framed windowed input data
 from {\em infile} (or standard input), 
 sending the result to standard output. 
 The analysis uses a second-order all-pass function raised to the 1/2 power: 
-\begin{displaymath}
-A(z)=
+\begin{align}
+A(z) &=
 \left(
 \frac{z^{-2}-2\alpha \cos \theta z^{-1}+\alpha^2}
 	{1-2\alpha \cos \theta z^{-1}+\alpha^2 z^{-2}}
-\right)^{\frac{1}{2}}, 
-\tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}. 
-\end{displaymath}
+\right)^{\frac{1}{2}}, \notag \\
+\tilde{z}^{-1} &= \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}. \notag
+\end{align}
 
 Input and output data are in float format.
 
@@ -69,7 +69,7 @@ H(z) = \exp \sum_{m=0}^{M} c(m)\,B_m(e^{j\omega})
 \end{displaymath}
 where
 \begin{displaymath}
-\mbox{Re}\left[B_m(e^{j\omega})\right]
+\mathrm{Re}\left[B_m(e^{j\omega})\right]
 	=\left\{A^m(e^{j\omega})+A^m(e^{-j\omega})\right\}/2
 \end{displaymath}
 \par The Newton--Raphson method is applied to calculate

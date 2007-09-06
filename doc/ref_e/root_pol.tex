@@ -49,30 +49,34 @@ sending the result to standard output.
 
 For given input file, read coefficients
 \begin{displaymath}
-  a_0, a_1, \ldots, a_n
+  a_0, a_1, \dots, a_n
 \end{displaymath}
 of an $n$-th order polynomial equation
 \begin{displaymath}
-  P(x) = a_0x^n + a_1x^{n-1} + \ldots + a_{n-1}x + a_n
+  P(x) = a_0x^n + a_1x^{n-1} + \dots + a_{n-1}x + a_n
 \end{displaymath}
 calculate root values by Durand-Kerner-Aberth method.
 \par
 If roots of $P(x)$ are $z_i$, 
 the result is sent to standard output 
 in complex form as
-\begin{eqnarray*}
-& \mbox{Re}[z_0], & \mbox{Im}[z_0] \nonumber \\
-& \mbox{Re}[z_1], & \mbox{Im}[z_1] \nonumber \\
-& \vdots &  \\
-& \mbox{Re}[z_{n-1}], & \mbox{Im}[z_{n-1}] \nonumber
-\end{eqnarray*}
+\begin{displaymath}
+   \begin{matrix}
+   \mathrm{Re}[z_0], & \mathrm{Im}[z_0] \\
+   \mathrm{Re}[z_1], & \mathrm{Im}[z_1] \\
+   \vdots            &                  \\
+   \mathrm{Re}[z_{n-1}], & \mathrm{Im}[z_{n-1}] \\
+   \end{matrix}
+\end{displaymath}
 or polar form as
-\begin{eqnarray*}
-& |z_0|, & \mbox{arg}[z_0] \nonumber \\
-& |z_1|, & \mbox{arg}[z_1] \nonumber \\
-& \vdots &  \\
-& |z_{n-1}|, & \mbox{arg}[z_{n-1}] \nonumber
-\end{eqnarray*}
+\begin{displaymath}
+   \begin{matrix}
+   |z_0|, & \arg[z_0] \\
+   |z_1|, & \arg[z_1] \\
+   \vdots &           \\
+   |z_{n-1}|, & \arg[z_{n-1}] \\
+   \end{matrix}
+\end{displaymath}
 \par
 Both input and output data are in float format.
 \end{qsection}
