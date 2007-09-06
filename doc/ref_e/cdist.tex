@@ -49,13 +49,21 @@ in {\em infile} (or standard input) and {\em cfile},
 sending the result to standard output.
 For example, if the cepstrum coefficients of the {\em infile} at
 frame $t$ are 
-\[c_{1,t}(0),c_{1,t}(1),c_{1,t}(2),\cdots,c_{1,t}(M)\]
+\begin{displaymath}
+   c_{1,t}(0), c_{1,t}(1), c_{1,t}(2), \dots, c_{1,t}(M)
+\end{displaymath}
 and the cepstrum coefficients of the {\em cfile} at frame $t$ are
-\[c_{2,t}(0),c_{2,t}(1),c_{2,t}(2),\cdots,c_{2,t}(M)\]
+\begin{displaymath}
+   c_{2,t}(0), c_{2,t}(1), c_{2,t}(2), \dots, c_{2,t}(M)
+\end{displaymath}
 then the squared cepstrum distance for every frame is
-\[d(t)=\sum_{k=1}^{M} (c_{1,t}(k)-c_{2,t}(k))^2\]
+\begin{displaymath}
+   d(t)=\sum_{k=1}^{M} (c_{1,t}(k)-c_{2,t}(k))^2
+\end{displaymath}
 and the total cepstral distance between both files is
-\[d=\frac{1}{T} \sum_{t=0}^{T} d(t)\]
+\begin{displaymath}
+   d=\frac{1}{T} \sum_{t=0}^{T} d(t)
+\end{displaymath}
 
 If the number of frames in {\em infile} or {\em cfile} is less
 then $T$, then evaluation is undertaken for the smallest number of frames.

@@ -49,11 +49,11 @@ sending the result to standard output.
 The central frequency and frequency band can
   be assigned through the options.
   The filter transfer function is
-  \[
+  \begin{displaymath}
    H(z)=\frac{1-2\exp(-\pi b_2/f_0)\cos(2\pi f_2/f_0)z^{-1} +
 	\exp(-2\pi b_2/f_0)z^{-2}}
    {1-2\exp(-\pi b_1/f_0)\cos(2\pi f_1/f_0)z^{-1}+\exp(-2\pi b_1/f_0)z^{-2}}
-  \]
+  \end{displaymath}
  If this command is used in cascade, an arbitrary filter can be
  designed using the options --p and --z.
  Input and output data are in float format.

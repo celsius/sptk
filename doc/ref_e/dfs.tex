@@ -38,8 +38,8 @@
 \name{dfs}{digital filter in standard form}{digital filter}
 
 \begin{synopsis}
-\item[dfs] [ --a $K$ $a(1)$ $\cdots$ $a(M)$ ] 
-	   [ --b $b(0)$ $b(1)$ $\cdots$ $b(N)$ ] 
+\item[dfs] [ --a $K$ $a(1)$ $\dots$ $a(M)$ ] 
+	   [ --b $b(0)$ $b(1)$ $\dots$ $b(N)$ ] 
 	   [ --p {\em pfile} ] [ --z {\em zfile} ]
 \item[\ ~~~] [ {\em infile} ]
 \end{synopsis}
@@ -50,16 +50,18 @@ with a digital filter in standard form,
 sending the result to standard output.
   The filter transfer function is
 \begin{displaymath}
-  H(z)=K\frac{\displaystyle{\sum_{n=0}^{N}{b(n)z^{-n}}}}{1+\displaystyle{\sum_{m=1}^{M}{a(m)z^{-m}}}}
+  H(z) 
+  = 
+  K\frac{\displaystyle{\sum_{n=0}^{N}{b(n)z^{-n}}}}{1+\displaystyle{\sum_{m=1}^{M}{a(m)z^{-m}}}}
 \end{displaymath}
 \par
 The format of input and output data is float.
 \end{qsection}
 
 \begin{options}
-	\argm{a}{K \; a(1) \cdots a(M)}{denominator coefficients,
+	\argm{a}{K \; a(1) \dots a(M)}{denominator coefficients,
                        where $K$ is the gain of the transfer function.}{N/A}
-	\argm{b}{b(0) \; b(1) \cdots b(N)}{numerator coefficients}
+	\argm{b}{b(0) \; b(1) \dots b(N)}{numerator coefficients}
 		{N/A}
 	\argm{p}{pfile}{denominator coefficients file in float format
                 as follows\\

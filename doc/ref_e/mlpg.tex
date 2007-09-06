@@ -38,17 +38,9 @@
 \name[ref:synHMM-ASJ,ref:synHMM-EUROSPEECH95]{mlpg}%
 {obtain parameter sequence from PDF sequence}{parameter generation}
 
-\def\bmath#1{\mbox{\boldmath{$#1$}}}
-\def\bc{\bmath{c}}
-\def\bo{\bmath{o}}
-\def\bC{\bmath{C}}
-\def\bO{\bmath{O}}
-\def\bU{\bmath{U}}
-\def\bmu{\bmath{\mu}}
-
 \begin{synopsis}
 	\item [mlpg] [ --l $L$ ] [ --m $M$ ] 
-		[--d ($fn$ $|$ $d_0$ [$d_1$ $\ldots$]) ]
+		[--d ($fn$ $|$ $d_0$ [$d_1$ $\dots$]) ]
 		[--r $N_R$ $W_1$ [$W_2$] ]
 	\item [\ ~~~~] [ --i $I$ ] [ --s $S$ ] [ {\em infile} ] 
 \end{synopsis}
@@ -59,16 +51,16 @@
 	from {\em infile} (or standard input),
 	sending the result to standard output.
 	The input format is
- \begin{eqnarray}
-	&& \ldots, \mu_t(0), \ldots, \mu_t(M),
-		\mu^{(1)}_t(0), \ldots, \mu^{(1)}_t(M),
-		\ldots, \mu^{(N)}_t(M),
-		\nonumber\\
-	&& ~~~~~~\sigma^2_t(0), \ldots, \sigma^2_t(M),
-		{\sigma^{(1)}}^2_t(0), \ldots, {\sigma^{(1)}}^2_t(M),
-		\ldots, {\sigma^{(N)}}^2_t(M),
-		\ldots. \nonumber
- \end{eqnarray}
+ \begin{align}
+	& \dots, \mu_t(0), \dots, \mu_t(M),
+		\mu^{(1)}_t(0), \dots, \mu^{(1)}_t(M),
+		\dots, \mu^{(N)}_t(M),
+		\notag\\
+	& \qquad \sigma^2_t(0), \dots, \sigma^2_t(M),
+		{\sigma^{(1)}}^2_t(0), \dots, {\sigma^{(1)}}^2_t(M),
+		\dots, {\sigma^{(N)}}^2_t(M),
+		\dots \notag
+ \end{align}
 
 	Input and output data are in float format.
 
@@ -76,13 +68,13 @@
         every frame $t$ is composed of the static feature
         vector $\bc_t$, where 
  \begin{displaymath}
-	\bc_t = [c_t(0), c_t(1), \ldots, c_t(M)]'
+	\bc_t = [c_t(0), c_t(1), \dots, c_t(M)]'
  \end{displaymath}
 	and the dynamic feature vector 
-	\ $\Delta^{(1)}\bc_t, \ldots, \Delta^{(N)}\bc_t$,
+	\ $\Delta^{(1)}\bc_t, \dots, \Delta^{(N)}\bc_t$,
 	that is,
  \begin{displaymath}
-	\bo_t = [\bc_t', \Delta^{(1)}\bc_t', \ldots, \Delta^{(N)}\bc_t']'.
+	\bo_t = [\bc_t', \Delta^{(1)}\bc_t', \dots, \Delta^{(N)}\bc_t']'.
  \end{displaymath}
         The dynamic feature vector $\Delta^{(n)}\bc_t$ is
         obtained from the static feature vector as follows.
@@ -94,34 +86,37 @@
         example, when we evaluate $\Delta^2$ parameter, n=2.
         The mlpg command reads probability density functions
 	sequence
-	$\left((\bmu_1, \bU_1), (\bmu_2, \bU_2), \ldots, (\bmu_T, \bU_T)
-	\right)$, where
- \begin{eqnarray}
+\begin{displaymath}
+	\left((\bmu_1, \bSigma_1), (\bmu_2, \bSigma_2), \dots, (\bmu_T, \bSigma_T)
+	\right),
+\end{displaymath}
+where
+ \begin{align}
 	\bmu_t 
-	& = & [\bmu^{\prime(0)}_t, \bmu^{\prime(1)}_t, 
-		\ldots, \bmu^{\prime(N)}_t]'
-		\nonumber\\
-	\bU_t 
-	& = & \mbox{diag}[\bU^{(0)}_t, \bU^{(1)}_t, \ldots, \bU^{(1)}_t]
-		\nonumber
- \end{eqnarray}
+	& =  \left[\bmu^{\prime(0)}_t, \bmu^{\prime(1)}_t, 
+		\dots, \bmu^{\prime(N)}_t\right]'
+		\notag \\
+	\bSigma_t 
+	& = \diag \left[ \bSigma^{(0)}_t, \bSigma^{(1)}_t, \dots, \bSigma^{(1)}_t \right]
+		\notag
+ \end{align}
 	and evaluates the maximum likelihood parameter sequence
-	\ $(\bo_1, \bo_2, \ldots, \bo_T)$,
+	\ $(\bo_1, \bo_2, \dots, \bo_T)$,
 	\ and sends the static feature vector sequence $\bc_t$,
         that is
-	\ $(\bc_1, \bc_2, \ldots, \bc_T)$,
+	\ $(\bc_1, \bc_2, \dots, \bc_T)$,
 	to the output.
 	In the example above,
-	$\bmu^{(0)}, \bU^{(0)}$ represent the static feature vector
+	$\bmu^{(0)}, \bSigma^{(0)}$ represent the static feature vector
         mean and covariance matrix, respectively,
-        and $\bmu^{(n)}, \bU^{(n)}$ represent the $n$ order dynamic
+        and $\bmu^{(n)}, \bSigma^{(n)}$ represent the $n$ order dynamic
         feature vector mean and covariance matrix, respectively.
 \end{qsection}
 
 \begin{options}
 	\argm{l}{L}{order of vector }{26}
 	\argm{m}{M}{length of vector}{$L-1$}
-	\argm{d}{(fn~|~d_0~[d_1~\ldots])}{$fn$ is 
+	\argm{d}{(fn~|~d_0~[d_1~\dots])}{$fn$ is 
                 the file name of the parameters $w^{(n)}(\tau)$
                	used when evaluating the dynamic feature vector.
                 It is assume that the number of coefficients
@@ -171,11 +166,13 @@
 	 \end{displaymath}
 		this option can not be used with the --d option.}{N/A}
 	\argm{i}{I}{type of input PDFs\\
-	  \begin{tabular}{l@{\hspace{2\tabcolsep}$($}l@{ }l@{$)$}}
-		$I = 0$ & $\bmu,$         & $\bU$ \\
-		$I = 1$ & $\bmu,$         & $\bU^{-1}$ \\
-		$I = 2$ & $\bmu\bU^{-1},$ & $\bU^{-1}$ \\[1ex]
-	  \end{tabular}
+	 \begin{displaymath}
+             \begin{matrix}
+             I = 0 & \bmu,        & \bSigma \\
+             I = 1 & \bmu,        & \bSigma^{-1} \\
+             I = 2 & \bmu\bSigma^{-1}, & \bSigma^{-1} \\
+             \end{matrix}
+     \end{displaymath}
 		}{0}
 	\argm{s}{S}{range of influenced frames}{30}
 \end{options}

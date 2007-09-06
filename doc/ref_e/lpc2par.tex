@@ -49,11 +49,11 @@ sending the result to standard output.
 
 The LPC input format is
 \begin{displaymath}
-  K, a(1),\ldots, a(M), 
+  K, a(1),\dots, a(M), 
 \end{displaymath}
 and the PARCOR output format is
 \begin{displaymath}
-  K, k(1),\ldots, k(M).
+  K, k(1),\dots, k(M).
 \end{displaymath}
 If the --s option is assigned, the stability of the filter is analyzed.
 If the filter is stable, then 0 is returned.
@@ -63,25 +63,25 @@ Input and output data are in float format.
 \par
 The transformation from LPC coefficients to PARCOR coefficients
 is undertaken as follows.
-\begin{eqnarray*} 
-k(m) &=& a^{(m)}(m) \\
-a^{(m-1)}(i) &=& \frac{a^{(m)}(i)+a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)},
-\end{eqnarray*}
-where $1 \leq i \leq m-1$, $m=p, p-1, \ldots, 1$.
+\begin{align} 
+k(m) &= a^{(m)}(m) \notag \\
+a^{(m-1)}(i) =& \frac{a^{(m)}(i)+a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)}, \notag
+\end{align}
+where $1 \leq i \leq m-1$, $m=p, p-1, \dots, 1$.
 The initial condition is
 \begin{displaymath}
-a^{(M)}(m) = a(m), ~~~~~1 \leq m \leq M.
+a^{(M)}(m) = a(m), \qquad 1 \leq m \leq M.
 \end{displaymath}
 If we use the --g option, then the input contains normalized generalized
 cepstrum coefficients with power parameter $\gamma$
 and the output contains the corresponding PARCOR coefficients.
 In other words, the input is 
 \begin{displaymath}
-K,c_\gamma'(1),\ldots,c_\gamma'(M)
+K,c_\gamma'(1),\dots,c_\gamma'(M)
 \end{displaymath}
 and the initial condition is
 \begin{displaymath}
-a^{(M)}(m) = \gamma c_\gamma'(M), ~~~~~1 \leq m \leq M.
+a^{(M)}(m) = \gamma c_\gamma'(M), \qquad 1 \leq m \leq M.
 \end{displaymath}
 
 Also with respect to the stability analysis,

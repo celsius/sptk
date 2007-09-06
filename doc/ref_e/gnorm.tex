@@ -51,16 +51,15 @@ Input and output data are in float format.
 The normalized generalized cepstrum coefficients $c_\gamma'(m)$
 can be written as
 \begin{displaymath}
-c_\gamma'(m) = \frac{c_\gamma(m)}{1+\gamma c_\gamma(0)}, ~~~m>0
+c_\gamma'(m) = \frac{c_\gamma(m)}{1+\gamma c_\gamma(0)}, \qquad m>0
 \end{displaymath}
 Also, the gain $K = c_\gamma'(0)$ is
 \begin{displaymath}
-K = \left\{
-	\begin{array}{ll} \displaystyle
+K = \begin{cases} \;\;\displaystyle
 	  \left(\frac{1}{1+\gamma c_\gamma(0)}\right)^{1/\gamma},
-		& 0<|\gamma|\leq 1 \\ \displaystyle
+		& 0<|\gamma|\leq 1 \\ \;\;\displaystyle
 	  \exp c_\gamma(0),  & \gamma=0
-	\end{array} \right.
+	\end{cases}
 \end{displaymath}
 \end{qsection}
 

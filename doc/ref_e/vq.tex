@@ -49,9 +49,9 @@ sending either codebook indices or quantized vectors to standard output.
 
 For each length $L$ input vector
 \begin{displaymath}
-  x(0),x(1),\ldots,x(L-1)
+  x(0),x(1),\dots,x(L-1)
 \end{displaymath}
-{\em vq} finds the codebook vector $\mbox{\boldmath $c$}_i$ 
+{\em vq} finds the codebook vector $\bc_i$ 
 that minimizes the Euclidian distance
 \begin{displaymath}
 d_i = \frac{1}{L}\sum_{m=0}^{L-1} (x(m)-c_i(m))^2. 

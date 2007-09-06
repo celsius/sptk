@@ -51,26 +51,28 @@ sending the result to standard output.
 
 Given the input sequence
 \begin{displaymath}
-c_{\alpha_1}(0), c_{\alpha_1}(1), \ldots, c_{\alpha_1}(M_1)
+c_{\alpha_1}(0), c_{\alpha_1}(1), \dots, c_{\alpha_1}(M_1)
 \end{displaymath}
 the frequency transform is
-\[ \alpha = (\alpha_1 - \alpha_2) / (1 - \alpha_1 \alpha_2) \]
-\begin{eqnarray*} 
-\hspace{-15mm}&& c_{\alpha_2}^{(i)}(m) = \left\{ 
-	\begin{array}{ll}
-          c_{\alpha_1}(-i)
-	    +\alpha\,c_{\alpha_2}^{(i-1)}(0), &  m=0 \\
-          (1-\alpha^2)\,c_{\alpha_2}^{(i-1)}(0)
-            +\alpha\,c_{\alpha_2}^{(i-1)}(1), &  m=1 \\
-          c_{\alpha_2}^{(i-1)}(m-1) 
+\begin{displaymath}
+   \alpha = (\alpha_1 - \alpha_2) / (1 - \alpha_1 \alpha_2)
+\end{displaymath}
+\begin{align} 
+c_{\alpha_2}^{(i)}(m) &=  
+	\begin{cases}
+          \;\; c_{\alpha_1}(-i)
+	    +\alpha\,c_{\alpha_2}^{(i-1)}(0) &  m=0 \\
+          \;\; (1-\alpha^2)\,c_{\alpha_2}^{(i-1)}(0)
+            +\alpha\,c_{\alpha_2}^{(i-1)}(1) &  m=1 \\
+          \;\; c_{\alpha_2}^{(i-1)}(m-1) 
 	    +\alpha\, \left(c_{\alpha_2}^{(i-1)}(m)
-	    -c_{\alpha_2}^{(i)}(m-1)\right), &   m=2,\ldots,M_2
-         \end{array} \right\}, \quad \nonumber \\
-\hspace{-15mm}&& \hspace{80mm} i = -M_1,\ldots,-1,0 
-\end{eqnarray*}
+	    -c_{\alpha_2}^{(i)}(m-1)\right) &   m=2,\dots,M_2
+         \end{cases} \notag \\
+& \qquad\qquad\qquad\qquad\qquad\qquad i = -M_1,\dots,-1,0 
+\end{align}
 The $M_2$ order frequency transformed output sequence is
 \begin{displaymath}
-c_{\alpha_2}^{(0)}(0), c_{\alpha_2}^{(0)}(1), \ldots, c_{\alpha_2}^{(0)}(M_2)
+c_{\alpha_2}^{(0)}(0), c_{\alpha_2}^{(0)}(1), \dots, c_{\alpha_2}^{(0)}(M_2)
 \end{displaymath}
 \par
 Input and output data are in float format.

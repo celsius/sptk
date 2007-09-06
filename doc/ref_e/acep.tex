@@ -58,19 +58,20 @@
 	The algorithm to calculate recursively the
         adaptive cepstrum coefficients is 
  %
-\begin{eqnarray*}
-  \mbox{\boldmath $c$}^{(n+1)} &=& \mbox{\boldmath $c$}^{(n)} 
-     - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \\
-  \hat{\nabla} \varepsilon_{0}^{(n)} &=& -2 e(n) \mbox{\boldmath $e$}^{(n)} \hspace{3.5cm} ( \tau = 0 )\\
-  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& -2 (1 - \tau) \sum_{i=-\infty}^{n} \tau^{n-i} e(i) \mbox{\boldmath $e$}^{(i)} ~~~ ( 0 \le \tau < 1 )\\
-  \hat{\nabla} \varepsilon_{\tau}^{(n)} &=& \tau \hat{\nabla} \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e(n) \mbox{\boldmath $e$}^{(n)} \\
-  \mu^{(n)} &=& \frac{k}{M \varepsilon^{(n)}} \\
-  \varepsilon^{(n)} &=& \lambda \varepsilon^{(n-1)}
-     + (1-\lambda)e^2(n)
-\end{eqnarray*}	
+\begin{align}
+  \bc^{(n+1)} &= \bc^{(n)} - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \notag \\
+  \hat{\nabla} \varepsilon_{0}^{(n)} &= -2 e(n) \be^{(n)} \qquad ( \tau = 0 ) \notag \\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &= -2 (1 - \tau) \sum_{i=-\infty}^{n}
+  \tau^{n-i} e(i) \be^{(i)} \qquad ( 0 \le \tau < 1 ) \notag \\
+  \hat{\nabla} \varepsilon_{\tau}^{(n)} &= \tau \hat{\nabla}
+  \varepsilon_{\tau}^{(n-1)} - 2 (1 - \tau) e(n) \be^{(n)} \notag \\
+  \mu^{(n)} &= \frac{k}{M \varepsilon^{(n)}} \notag \\
+  \varepsilon^{(n)} &= \lambda \varepsilon^{(n-1)}
+     + (1-\lambda)e^2(n) \notag
+\end{align}	
 	where 
-	$\mbox{\boldmath $c$}=[c(1),\ldots,c(M)]^T$,
-	$\mbox{\boldmath $e$}^{(n)}=[e(n-1),\ldots,e(n-M)]^T$.
+	$\bc=[c(1),\ldots,c(M)]'$,
+	$\be^{(n)}=[e(n-1),\ldots,e(n-M)]'$.
 	Also, the gain is expressed by $c(0)$ as follows: 
 %
  \begin{displaymath}

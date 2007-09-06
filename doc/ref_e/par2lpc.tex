@@ -48,11 +48,11 @@ sending the result to standard output.
 
 The PARCOR input format is
 \begin{displaymath}
-  K, k(1),\ldots, k(M), 
+  K, k(1),\dots, k(M), 
 \end{displaymath}
 and the LPC output format is
 \begin{displaymath}
-  K, a(1),\ldots, a(M).
+  K, a(1),\dots, a(M).
 \end{displaymath}
 
 Input and output data are in float format.
@@ -60,14 +60,14 @@ Input and output data are in float format.
 The transformation of PARCOR coefficients into 
 linear prediction coefficients is undertaken 
 by a part of Durbin algorithm as follows.
-\begin{eqnarray*} 
-a^{(m)}(m) &=& k(m) \\
-a^{(m)}(i) &=& a^{(m-1)}(i) + k(m) a^{(m-1)}(m-i), ~~~~~1\leq i \leq m
-\end{eqnarray*}
-where  $m=1, 2, \ldots, p$.
+\begin{align} 
+a^{(m)}(m) &= k(m) \notag \\
+a^{(m)}(i) &= a^{(m-1)}(i) + k(m) a^{(m-1)}(m-i), ~~~~~1\leq i \leq m \notag
+\end{align}
+where  $m=1, 2, \dots, p$.
 The initial condition is 
 \begin{displaymath}
-a^{(M)}(m) = a(m), ~~~~~1 \leq m \leq M.
+a^{(M)}(m) = a(m), \qquad 1 \leq m \leq M.
 \end{displaymath}
 \end{qsection}
 

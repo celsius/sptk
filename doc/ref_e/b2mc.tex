@@ -52,11 +52,10 @@ Input and output data are in float format.
 The transformation from $b(m)$ coefficients to mel-cepstrum coefficients
 $c_\alpha(m)$ is as follows:
 \begin{displaymath}
-c_\alpha(m) = \left\{
-	\begin{array}{ll}
-	  b(M), & m=M \\
-	  b(m) + \alpha b(m+1), & 0 \leq m < M \\
-	\end{array} \right.
+c_\alpha(m) = \begin{cases}
+	  \;\; b(M) & m=M \\
+	  \;\; b(m) + \alpha b(m+1) & 0 \leq m < M \\
+	\end{cases}
 \end{displaymath}
 This transformation is the inverse transformation which is undertaken
 by the command mc2b.

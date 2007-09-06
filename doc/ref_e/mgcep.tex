@@ -57,7 +57,7 @@ controlled by the --o option.
 When input signal has length $L$,
 then the time sequence is given by
 \begin{displaymath}
-  x(0),x(1),\ldots,x(L-1)
+  x(0),x(1),\dots,x(L-1)
 \end{displaymath}
 
 Input and output data are in float format.
@@ -66,17 +66,17 @@ In the mel-generalized cepstrum analysis, the spectrum of the speech signal
 is modeled by $M$ order mel-generalized cepstrum
 coefficients $c_{\alpha, \gamma}(m)$
 as follows.
-\begin{eqnarray*}
-H(z) &=& s_\gamma^{-1}\left(
-	\sum_{m=0}^M c_{\alpha, \gamma}(m)z^{-m} \right) \\
-     &=& \left\{ \begin{array}{ll} \displaystyle
+\begin{align}
+H(z) &= s_\gamma^{-1}\left(
+	\sum_{m=0}^M c_{\alpha, \gamma}(m)z^{-m} \right) \notag \\
+     &= \begin{cases} \;\; \displaystyle
 	\left( 1+\gamma\sum_{m=1}^M c_{\alpha, \gamma}(m)\tilde{z}^{-m}
 		\right)^{1/\gamma}, & -1 \leq \gamma < 0 \\
-	\displaystyle \exp \sum_{m=1}^M c_{\alpha, \gamma}(m)\tilde{z}^{-m}, 
+	\;\; \displaystyle \exp \sum_{m=1}^M c_{\alpha, \gamma}(m)\tilde{z}^{-m}, 
 		& \gamma=0
-	\end{array} \right.
-\end{eqnarray*}
-For this command ``mcep'', it is applied a cost function
+	\end{cases} \notag
+\end{align}
+For this command ``mgcep'', it is applied a cost function
 based on the unbiased estimation log spectrum method.
 The variable $\tilde{z}^{-1}$ can be expressed as the following
 first order all-pass function
@@ -95,7 +95,7 @@ when evaluating mel-cepstrum coefficients.
 
 The mel-generalized cepstrum analysis includes several other
 methods to analyze speech, depending on the values of $\alpha$
-and $\gamma$(refer to figure \ref{fig:mgcep_overview}).
+and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
 
 \setcounter{figure}{0}
 \begin{figure}
@@ -144,19 +144,19 @@ and $\gamma$(refer to figure \ref{fig:mgcep_overview}).
 	\argm{o}{O}{output data style\\
                         $O = 0$:\\
 			  $c_{\alpha, \gamma}(0), c_{\alpha, \gamma}(1),
-			  \ldots, c_{\alpha, \gamma}(M)$\\
+			  \dots, c_{\alpha, \gamma}(M)$\\
 			$O = 1$:\\
-			  $b_\gamma(0), b_\gamma(1), \ldots, b_\gamma(M)$\\
+			  $b_\gamma(0), b_\gamma(1), \dots, b_\gamma(M)$\\
 			$O = 2$:\\
 			  $K_\alpha, c_{\alpha, \gamma}'(1), 
-			  \ldots, c_{\alpha, \gamma}'(M)$\\
+			  \dots, c_{\alpha, \gamma}'(M)$\\
 			$O = 3$:\\
-			  $K, b_\gamma'(1), \ldots, b_\gamma'(M)$\\
+			  $K, b_\gamma'(1), \dots, b_\gamma'(M)$\\
 			$O = 4$:\\
-			  $K_\alpha, \gamma\,c_{\alpha, \gamma}'(1), \ldots,
+			  $K_\alpha, \gamma\,c_{\alpha, \gamma}'(1), \dots,
 			\gamma\,c_{\alpha, \gamma}'(M)$\\
 			$O = 5$:\\
-			  $K, \gamma\,b_\gamma'(1), \ldots, 
+			  $K, \gamma\,b_\gamma'(1), \dots, 
 			  \gamma\,b_\gamma'(M)$
 			}{0}
 	\desc[1ex]{Usually, the options below do not need to be assigned.}
@@ -188,7 +188,7 @@ If we want linear prediction coefficients:
 In this case the linear prediction coefficients are written
 in the following representation.
 \begin{displaymath}
-  K, a(1), a(2), \ldots, a(M)
+  K, a(1), a(2), \dots, a(M)
 \end{displaymath}
 \end{qsection}
 

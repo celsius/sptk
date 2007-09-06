@@ -67,25 +67,24 @@ where
 The highly accurate approximation method of the above transfer function
 is explained in the follow.
 Firstly, the transfer function $H(z)$ is rewritten as 
-\begin{eqnarray*}
-H(z) &=& \exp \sum_{m=0}^M b(m) {\it\Phi}_m(z) \\
-     &=& K \cdot D(z)
-\end{eqnarray*}
+\begin{align}
+H(z) &= \exp \sum_{m=0}^M b(m) {\it\Phi}_m(z) \notag \\
+     &= K \cdot D(z)\notag
+\end{align}
 where,
 \begin{displaymath}
-{\it\Phi}_m(z) = \left\{ 
-	\begin{array}{ll}
-	  1, & m=0 \\ \displaystyle
+{\it\Phi}_m(z) = \begin{cases}
+	  \;\;1, & m=0 \\ \;\;\displaystyle
 	  \frac{\displaystyle (1-\alpha^2)z^{-1}}
 	    {\displaystyle 1-\alpha z^{-1}}
 	    \tilde{z}^{-(m-1)},& m\geq 1
-	\end{array} \right.
+	\end{cases}
 \end{displaymath}
 and
-\begin{eqnarray*}
-K    &=& \exp b(0) \\
-D(z) &=& \exp \sum_{m=1}^M b(m) {\it\Phi}_m(z) 
-\end{eqnarray*}
+\begin{align}
+K    &= \exp b(0) \notag \\
+D(z) &= \exp \sum_{m=1}^M b(m) {\it\Phi}_m(z)  \notag
+\end{align}
 Also, the coefficients $b(m)$ can be obtained
 through a linear transformation of $c_\alpha(m)$
 (refer to mc2b, b2mc).
@@ -328,10 +327,10 @@ we can decompose the basic filter as shown in figure
 F(z) = F_1(z) + F_2(z)
 \end{displaymath}
 where
-\begin{eqnarray*}
-F_1(z) &=& b(1) z^{-1} \\
-F_2(z) &=& \sum_{m=2}^M b(m) {\it\Phi}_m(z)
-\end{eqnarray*}
+\begin{align}
+F_1(z) &= b(1) z^{-1} \notag \\
+F_2(z) &= \sum_{m=2}^M b(m) {\it\Phi}_m(z) \notag
+\end{align}
 \par
 Also, the coefficients $A_{4,l}$ in figure \ref{fig:mlsadflt_MLSA}(b)
 have same value as the LMA filter (refer to lmadf).

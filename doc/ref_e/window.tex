@@ -50,19 +50,19 @@ sending the result to standard output.
 
 For the input data
 \begin{displaymath}
-  x(0), x(1), \ldots, x(L_1-1)
+  x(0), x(1), \dots, x(L_1-1)
 \end{displaymath}
 and the windowing function
 \begin{displaymath}
-  w(0), w(1), \ldots, w(L_1-1), 
+  w(0), w(1), \dots, w(L_1-1), 
 \end{displaymath}
 the output is calculated as follows:
 \begin{displaymath}
-  x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1). 
+  x(0)\cdot w(0),\,x(1)\cdot w(1),\,\dots,\,x(L_1-1)\cdot w(L_1-1). 
 \end{displaymath}
 If $L_2$ is greater then $L_1$, then 0s are added to the output as follows.
 \begin{displaymath}
-  \underbrace{x(0)\cdot w(0),\,x(1)\cdot w(1),\,\ldots,\,x(L_1-1)\cdot w(L_1-1),0,\ldots,0}_{L_2}
+  \underbrace{x(0)\cdot w(0),\,x(1)\cdot w(1),\,\dots,\,x(L_1-1)\cdot w(L_1-1),0,\dots,0}_{L_2}
 \end{displaymath}
 
 Input and output data are in float format.

@@ -57,41 +57,39 @@ Input and output data are in float format.
 The transfer function $H(z)$ related to the synthesis filter
 is obtained from the $M$ order mel-generalized cepstrum coefficients
 $c_{\alpha, \gamma}(m)$ as follows.
-\begin{eqnarray*}
-H(z) &=& s_\gamma^{-1} \left( 
+\begin{align}
+H(z) &= s_\gamma^{-1} \left( 
 	   \sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m} \right) \\
-     &=& \left\{ 
-	   \begin{array}{ll} \displaystyle
+     &= \begin{cases} \;\;\displaystyle
               \left( 1+\gamma\sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m}
-		\right)^{1/\gamma}, & 0<\gamma\leq -1 \\ \displaystyle
+		\right)^{1/\gamma}, & 0<\gamma\leq -1 \\ \;\;\displaystyle
 	    \exp \sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m}, & \gamma=0
-	  \end{array} \right.
-\end{eqnarray*}
+	  \end{cases} \notag
+\end{align}
 where
 \begin{displaymath}
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
 \end{displaymath}
 The transfer function $H(z)$ can be rewritten as
-\begin{eqnarray*}
-H(z) &=& s_\gamma^{-1} \left( \sum_{m=0}^M b_\gamma'(m) 
-		{\it\Phi}_m(z) \right)\\
-     &=& K \cdot D(z) 
-\end{eqnarray*}
+\begin{align}
+H(z) &= s_\gamma^{-1} \left( \sum_{m=0}^M b_\gamma'(m) 
+		{\it\Phi}_m(z) \right) \notag \\
+     &= K \cdot D(z) 
+\end{align}
 where
 \begin{displaymath}
-{\it\Phi}_m(z) = \left\{ 
-	\begin{array}{ll}
-	  1, & m=0 \\ \displaystyle
+{\it\Phi}_m(z) = \begin{cases}
+	  \;\;1, & m=0 \\ \;\;\displaystyle
 	  \frac{\displaystyle (1-\alpha^2)z^{-1}}
 	    {\displaystyle 1-\alpha z^{-1}}
 	    \tilde{z}^{-(m-1)},& m\geq 1
-	\end{array} \right.
+	\end{cases}
 \end{displaymath}
 and
-\begin{eqnarray*}
-K    &=& s_\gamma^{-1}(b_\gamma(0)) \\
-D(z) &=& s_\gamma^{-1} \left( \sum_{m=1}^M b_\gamma(m) {\it\Phi}_m(z) \right)
-\end{eqnarray*}
+\begin{align}
+K    &= s_\gamma^{-1}(b_\gamma(0)) \notag \\
+D(z) &= s_\gamma^{-1} \left( \sum_{m=1}^M b_\gamma(m) {\it\Phi}_m(z) \right) \notag 
+\end{align}
 Also, the coefficients $b'_\gamma(m)$ are obtained from
 the coefficients $c_{\alpha, \gamma}(m)$ by normalizing
 (refer to ``gnorm''), and applying linear transformation
@@ -103,10 +101,10 @@ In this case the filter $D(z)$ is realized as shown in figure
 where each filter of the $G$ level cascaded filter is realized as shown in
 figure \ref{fig:mglsadflt_MGLSA}(a), 
 and can be expressed as
-\begin{eqnarray*}
+\begin{displaymath}
 \frac{1}{B(\tilde{z})} = \frac{1}{\displaystyle 1+\gamma 
 	\sum_{m=1}^M b_\gamma'(m) {\it\Phi}_m(z)}
-\end{eqnarray*}
+\end{displaymath}
 \setcounter{figure}{0}
 \begin{figure}[t]
 \begin{center}
@@ -276,7 +274,7 @@ and can be expressed as
 \put(220,30){\line(1,0){20}}
 \put(290,30){\vector(1,0){30}}
 
-\put(200,30){\makebox(0,0){$\cdots$}}
+\put(200,30){\makebox(0,0){$\dots$}}
 \put(10,40){\makebox(0,0){Input}}
 \put(320,40){\makebox(0,0){Output}}
 \put(60,65){\makebox(0,0){\bf 1st stage}}
