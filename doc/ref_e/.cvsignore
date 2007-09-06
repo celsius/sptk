@@ -11,3 +11,6 @@ main.ind
 config.status
 autom4te.cache
 .project
+*.pbm
+tmp
+.texlipse
