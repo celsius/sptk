@@ -41,22 +41,22 @@
 \usepackage{fleqn}
 \usepackage{makeidx}
 \usepackage{natbib}
-\usepackage{cmndref} 
-\usepackage{times}
-\usepackage{amsmath}
-\usepackage{txfonts}
-
+\usepackage{cmndref}
 \usepackage[dvips,
         dvipdfm,
         bookmarks=true,
         bookmarkstype=toc,
-        debug=true,
+		debug=true,
         pdfauthor={SPTK working group},
         pdftitle={SPTK-3.1 Reference Manual}]
         {hyperref}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{txfonts}
+\usepackage{bm} 
 
 \setlength{\textwidth}{6.5in}
-\setlength{\textheight}{9in}
+\setlength{\textheight}{9in} 
 \setlength{\oddsidemargin}{0mm}
 \setlength{\evensidemargin}{-8mm}
 \setlength{\topmargin}{0in}
@@ -89,7 +89,9 @@
 
 \begin{document}
 
-\begin{titlepage}
+\input{bmdefines}
+
+\begin{titlepage} 
 \vspace*{\fill}
  \begin{center}
 	\LARGE
@@ -174,6 +176,7 @@ We will try to answer every question, but we cannot guarantee it.
 \include{cdist}
 \include{clip}
 \include{da}
+\include{dawrite}
 \include{decimate}
 \include{delay}
 \include{df2}
@@ -186,8 +189,8 @@ We will try to answer every question, but we cannot guarantee it.
 \include{fd}
 \include{fdrw}
 \include{fft}
-\include{fftcep}
 \include{fft2}
+\include{fftcep}
 \include{fftr}
 \include{fftr2} 
 \include{fig}
@@ -253,7 +256,7 @@ We will try to answer every question, but we cannot guarantee it.
 \include{sp2mgc}
 \include{spec}
 \include{step}
-\include{swab}
+\include{swab} 
 \include{train}
 \include{uels}
 \include{ulaw}
