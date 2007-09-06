@@ -35,34 +35,39 @@
 % PERFORMANCE OF THIS SOFTWARE.
 % ----------------------------------------------------------------
 %
-\name{interpolate}{データ列の補間}{信号処理}
+\name{interpolate}{interpolation of data sequence}{signal processing}
 
 \begin{synopsis}
 \item[interpolate] [ --p $P$ ] [ --s $S$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-標準入力から入力される時系列
+{\em interpolate} supplements a sequence of input data
+from {\em infile} (or standard input)
+by 0 with interval $P$ and start number $S$,
+sending the result to standard output.
+
+If the input data is
 \begin{displaymath}
-x(0), x(1), x(2), \ldots, 
+ x(0), x(1), x(2), \ldots,
 \end{displaymath}
-から周期 $P$ で
+then the output data is
 \begin{displaymath}
-\underbrace{0, 0, \ldots, 0}_{S-1},\underbrace{x(0), 0, 0, \ldots, 0}_{P},\underbrace{x(1), 0, 0, \ldots, 0}_{P},x(2), \ldots, 
+\underbrace{0, 0, \ldots, 0}_{S-1},\underbrace{x(0), 0, 0, \ldots, 0}_{P},\underbrace{x(1), 0, 0, \ldots, 0}_{P},x(2), \ldots,
 \end{displaymath}
-のように0を補間します．
 \par
-データ形式は入力，出力ともfloat 形式です．
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{p}{P}{補間周期．}{10}
-	\argm{s}{S}{開始サンプル．}{0}
+        \argm{p}{P}{interpolation period}{10}
+        \argm{s}{S}{start number}{0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のデータ {\em data.f} を周期2で decimation し，さらに0を周期2で
-interpolation して {\em data.di} に出力する:
+This example decimates input data from {\em data.f} file with interval 2,
+interpolates 0 with interval 2, and then outputs it to {\em
+data.di} file:
 \begin{quote}
   \verb!decimate -p 2  < data.f | interpolate -p 2 > data.di!
 \end{quote}
