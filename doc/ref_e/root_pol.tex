@@ -35,58 +35,63 @@
 % PERFORMANCE OF THIS SOFTWARE.
 % ----------------------------------------------------------------
 %
-\name{root\_pol}{多項式の根を求める}{信号処理}
+\name{root\_pol}{calculate roots of a polynomial equation}{signal processing}
 
 \begin{synopsis}
 \item [root\_pol] [ --m $M$ ] [ --n $N$ ] [ --e $E$ ] [ --i ]
- [ --s ] [ --r ] [ {\em infile} ] 
+ [ --s ] [ --r ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-多項式の根を求めます．指定されたファイルから $n$ 次の多項式
-\begin{displaymath}
-  P(x) = a_0x^n + a_1x^{n-1} + \ldots + a_{n-1}x + a_n
-\end{displaymath}
-の係数
+{\em levdur} finds root values of a polynomial equation
+from {\em infile} (or standard input), 
+sending the result to standard output.
+
+For given input file, read coefficients
 \begin{displaymath}
   a_0, a_1, \ldots, a_n
 \end{displaymath}
-を読み込み，解を Durand-Kerner-Aberth法により計算します．
+of an $n$-th order polynomial equation
+\begin{displaymath}
+  P(x) = a_0x^n + a_1x^{n-1} + \ldots + a_{n-1}x + a_n
+\end{displaymath}
+calculate root values by Durand-Kerner-Aberth method.
 \par
-結果は，$P(x)$ の根を $z_i$ として複素形式
+If roots of $P(x)$ are $z_i$, 
+the result is sent to standard output 
+in complex form as
 \begin{eqnarray*}
 & \mbox{Re}[z_0], & \mbox{Im}[z_0] \nonumber \\
-& \mbox{Re}[z_1], & \mbox{Im}[z_1] \nonumber \\  
+& \mbox{Re}[z_1], & \mbox{Im}[z_1] \nonumber \\
 & \vdots &  \\
-& \mbox{Re}[z_{n-1}], & \mbox{Im}[z_{n-1}] \nonumber 
+& \mbox{Re}[z_{n-1}], & \mbox{Im}[z_{n-1}] \nonumber
 \end{eqnarray*}
-あるいは，極形式
+or polar form as
 \begin{eqnarray*}
 & |z_0|, & \mbox{arg}[z_0] \nonumber \\
-& |z_1|, & \mbox{arg}[z_1] \nonumber \\  
+& |z_1|, & \mbox{arg}[z_1] \nonumber \\
 & \vdots &  \\
-& |z_{n-1}|, & \mbox{arg}[z_{n-1}] \nonumber 
+& |z_{n-1}|, & \mbox{arg}[z_{n-1}] \nonumber
 \end{eqnarray*}
-の形式で標準出力に出力します．
 \par
-データ形式は入力，出力ともfloat 形式です．
+Both input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{多項式の次数．}{32}
-	\argm{n}{N}{根を探索する際の最大反復回数．}{1000}
-	\argm{e}{E}{根の許容誤差 $\varepsilon$．}{$10^{-14}$}
-	\argm{i}{}{$a_0 = 1$ にする．}{FALSE}
-	\argm{s}{}{係数を逆順にする．つまり，根の位置 $z_0$ を $1/z_0^*$ と
-			置き換えることを意味する．}{FALSE}
-	\argm{r}{}{出力する根を極形式（絶対値,偏角）にする．}{（実部,虚部）}
+        \argm{m}{M}{order of polynomial equation}{32}
+        \argm{n}{N}{maximum iteration to search roots}{1000}
+        \argm{e}{E}{error margin for roots $\varepsilon$}{$10^{-14}$}
+        \argm{i}{}{set $a_0 = 1$}{FALSE}
+        \argm{s}{}{reverse order of coefficients}{FALSE}
+        \argm{r}{}{output results in polar form}{complex form}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式の多項式ファイル {\em data.z} の根を極座標表示で求め，表示する:
+This example calculates roots of a polynomial equation from file {\em data.z}
+and output its results in polar form:
 \begin{quote}
  \verb!root -r < data.z | x2x +a 2!
-\end{quote} 
+\end{quote}
 \end{qsection}
 
 %\begin{qsection}{SEE ALSO}
