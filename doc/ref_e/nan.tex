@@ -35,7 +35,7 @@
 % PERFORMANCE OF THIS SOFTWARE.
 % ----------------------------------------------------------------
 %
-\name{nan}{データのチェック}{データ処理}
+\name{nan}{data check}{data processing}
 
 \begin{synopsis}
 \item[nan] [ --d ] [ infile ]
@@ -43,18 +43,21 @@
 
 \begin{qsection}{DESCRIPTION}
 
-{\em nan} は，入力データ中の Nan または Infty \& Indefinite Value
-	の存在をチェックし，存在する場合はデータ番号を出力します．
-	-d オプションを指定しない場合は，入力データ型はfloat型です．
+{\em nan} checks whether input data contains NaN, Infty, or Indefinite Value, 
+showing the positions where these values occurred. 
+If the --d option is not give, 
+the input format is float. 
+
 \end{qsection}
 
 \begin{options}
-	\argm{d}{}{入力データをdouble型にする．}{False}
+        \argm{d}{}{regard input data as double}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float型のデータ {\em data.f} をチェックする:
+This example reads input data {\em data.f} in float format and checks it:
 \begin{quote}
   \verb!nan data.f!
 \end{quote}
 \end{qsection}
+

@@ -35,39 +35,45 @@
 % PERFORMANCE OF THIS SOFTWARE.
 % ----------------------------------------------------------------
 %
-\name{rmse}{RMSEを計算する}{データ処理}
+\name{rmse}{calculate RMSE}{data processing}
 
 \begin{synopsis}
-\item [rmse] [ --l $L$ ] {\em file1} [ {\em infile} ] 
+\item [rmse] [ --l $L$ ] {\em file1} [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-指定されたファイルから長さ $L$ の2つの時系列
+{\em rmse} calculates RMSE (Root Mean Square Error) of input data sequences 
+from {\em infile} (or standard input) and {\em file1}, 
+sending the results to standard output.
+
+From given two files, $L$-length time series 
 \begin{displaymath}
   \underbrace{x_1(0),x_1(1),\ldots,x_1(L-1)},\underbrace{x_2(0),x_2(1),\ldots}
 \end{displaymath}
-と
+and
 \begin{displaymath}
   \underbrace{y_1(0),y_1(1),\ldots,y_1(L-1)},\underbrace{y_2(0),y_2(1),\ldots}
 \end{displaymath}
-を読み込み，その RMSE (Root Mean Square Error)
+are read,
+and then RMSE of these two series are calculated and output
 \begin{displaymath}
 \mbox{RMSE}_j = \sqrt{\sum_{m=0}^{L-1} (x_j(m)-y_j(m))^2/L}
 \end{displaymath}
-を出力します．データ形式は入力，出力ともfloat 形式です．
+
+Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{RMSEをとるデータ長．\\
-			$L=0$なら，ファイル全体のRMSEを出力．}{0}
+        \argm{l}{L}{data length to calculate RMSE.\\
+                    If $L=0$, RMSE of whole input data is output.}{0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f1} と {\em data.f2} のRMSEを計算し、
-その最大値と最小値を出力する:
+This example calculates the RMSE of input data files {\em data.f1} and {\em
+data.f2}, and output its maximum and minimum values:
 \begin{quote}
  \verb!rmse -l 26 data.f1 data.f2 | minmax | dmp !
-\end{quote} 
+\end{quote}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
