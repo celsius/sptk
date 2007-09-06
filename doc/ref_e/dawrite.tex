@@ -35,60 +35,64 @@
 % PERFORMANCE OF THIS SOFTWARE.
 % ----------------------------------------------------------------
 %
-\name{dawrite}{オーディオデバイスへの書き出し}{DA変換}
+\name{dawrite}{output waveform to audio device}{DA transformation}
 \begin{synopsis}
-\item [dawrite] [ --s $S$ ] [ --c $C$ ] [ --g $G$ ] [ --a $A$ ] [ --o $O$ ] 
-	   [ --w ] [ --H $H$ ] [ --v ] [ +$type$ ] 
+\item [dawrite] [ --s $S$ ] [ --c $C$ ] [ --g $G$ ] [ --a $A$ ] [ --o $O$ ]
+           [ --w ] [ --H $H$ ] [ --v ] [ +$type$ ]
 \item [\ ~~~] [ {\em infile1} ] [ {\em infile2} ] ...
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- {\em dawrite}は，指定されたファイルのデータをスピーカーまたはヘッドフォン
- から再生します．ファイルが指定されなかった場合，データは標準入力から
- 読み込まれます．
- ゲインを$G$とすると入力データを$2^G$倍して出力し，振幅ゲインはオーディ
- オデバイスのゲインを0〜100の間で設定します．指定できる標本化周波数は，
- オーディオデバイスドライバの対応している値のみとなります．
- なお，標本化周波数の指定には11.025，22.05，44.1kHzをそれぞれ11，22，
- 44に省略することができます．
+{\em dawrite} plays a series of input files (or standard input) 
+on a system-dependent audio output device.
 
- 16bitオーディオデバイスの使用可能なLinux(i386)とFreeBSD(i386 newpcm driver)，
- SunOS 4.1.x，SunOS 5.x(SPARC)に対応しています．
-
- オプションは環境変数で設定することもできます．
+If $G$ is gain, this program multiplies input data by $2^G$
+and outputs it.
+Amplitude gain can be set within 0--100.
+You can set sampling frequency to those suported in your audio device.
+The sampling frequencies, 11.025, 22.05, and 44.1kHz can be abbreviated to 
+11, 22, and 44, respectively.
+If the system does not support the specified sampling frequency, 
+{\em da} upsamples the data to a supported frequency.
+This command can be used under
+Linux (i386), FreeBSD (i386 newpcm driver), SunOS 4.1.x, SunOS 5.x (SPARC).
+ 
+It is possible to change environment setting through following options
 
 \begin{tabular}{ll}
-DA\_SAMPFREQ & 標本化周波数\\
-DA\_GAIN & ゲイン\\
-DA\_AMPGAIN & 振幅ゲイン\\
-DA\_PORT & 出力ポート指定\\
-DA\_HDRSIZE &ヘッダサイズ\\
-DA\_FLOAT & 入力データ型をfloat型にする\\
+DA\_SAMPFREQ & sampling frequency\\
+DA\_GAIN & gain\\
+DA\_AMPGAIN & amplitude gain\\
+DA\_PORT & output port\\
+DA\_HDRSIZE & header size\\
+DA\_FLOAT & set the input data to float\\
 \end{tabular}
 
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S}{標本化周波数．（ 8，11.025，16，22.05，32，44.1，48 kHz，但し，linuxでは44.1kHz系統のみ．また，11.025，22.05，44.1は，それぞれ11，22，44に省略可能）}{16}
-	\argm{g}{G}{ゲイン．（..，-2，-1，0，-1，2，..）}{0}
-	\argm{a}{A}{振幅ゲイン．（0..100）指定しない場合はそれまでの設定が適用されます．}{N/A}
-	\argm{o}{O}{出力ポート指定．（s : スピーカ，h : ヘッドフォン．SPARC版のみ有効）}{s}
-	\argm{w}{}{入力データのバイトスワップを行う}{FALSE}
-	\argm{H}{H}{ヘッダサイズ（バイト単位）．}{0}
-	\argm{v}{}{データファイル名を表示．}{FALSE}
-	\argp{type}{入力データ型．（s : short型，f : float型）}{s}
+	\argm{s}{S}{sampling frequency, it can be used the following
+ sampling frequencies 8,10,11.025,12,16,22.05,32,44.1,48(kHz).}{16}
+	\argm{g}{G}{gain}{0}
+	\argm{a}{A}{amplitude gain(0..100)}{N/A}
+	\argm{o}{O}{output port(s : speaker, h : headphone)}{s}
+	\argm{w}{}{execute byte swap}{FALSE}
+	\argm{H}{H}{header size in byte}{0}
+	\argm{v}{}{display filename}{FALSE}
+	\argp{type}{data format(s : short, f : float)}{s}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-標本化周波数8kHzの short 型の音声データファイル {\em data.s} をヘッドフォンから
-再生する:
+In the following example, the speech data file {\em data.s}
+is played on the headphone.
+The sampling frequency is 8 kHz, and data is in short format.
 \begin{quote}
-\verb! dawrite -s 8 -g -1 -o h data.s!
+\verb! dawrite -s 8 -o h data.s!
 \end{quote}
 \end{qsection}
 
 \begin{qsection}{BUGS}
-linux版では，出力ポートの指定ができません．
+In the Linux operating system, the output port can not be assigned.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
