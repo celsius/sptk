@@ -35,7 +35,7 @@
 % PERFORMANCE OF THIS SOFTWARE.
 % ----------------------------------------------------------------
 %
-\name{ifft2}{複素数列の2次元高速逆フーリエ変換}{信号処理}
+\name{ifft2}{2-dimensional inverse FFT for complex sequence}{signal processing}
 
 \begin{synopsis}
 \item[ifft2] [ --l $L$ ] [ +r ] [ --t ] [ --c ] [ --q ] 
@@ -43,10 +43,10 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em ifft2} は，複素数系列で与えられるデータ列を{\em infile}から読み込んで
-2次元逆フーリエ変換を行ない，結果を標準出力に出力します．  
-{\em infile}が指定されない時は標準入力から読み込みます．
-データのフォーマットは以下の通りです．
+{\em ifft} calculates the 2-dimensional Inverse Discrete Fourier Transform
+(IDFT) of complex-valued data from {\em infile} (or standard input), 
+sending the results to standard output.
+The input and output data is in float format, arranged as follows.
 \begin{center}
 \leavevmode
 \includegraphics{fig/ifft2.eps}
@@ -54,23 +54,19 @@
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{フーリエ変換のサイズ．2のべき乗で指定．}{64}
-	\argp{{\bf r}}{入力を実数型とする．}{FALSE}
-	\argm{t}{}{逆FFTの結果をtransposeして出力．＜fft2 参照＞．}{FALSE}
-	\argm{c}{}{transposeする際，境界の1データを反対側から持ってきて，
-		   $(L+1)\times (L+1)$ 個のデータを出力．＜fft2 参照＞．}
-		  {FALSE}
-	\argm{q}{}{逆FFTの結果の最初の1/4のデータのみを出力．この際 cオプション
-		   と同様に，境界の補償を行ない，
-		   $(\frac{L}{2}+1)\times (\frac{L}{2}+1)$ 個のデータを
-		   出力．＜fft2 参照＞．}{FALSE}
-	\argm{R}{}{実部のみを出力．}{FALSE}
-	\argm{I}{}{虚部のみを出力．}{FALSE}
+	\argm{l}{L}{FFT size power of 2}{256}
+	\argp{{\bf r}}{regard input as real values rather than complex values}{FALSE}
+	\argm{t}{}{Output results in transposed form (see also fft2).}{FALSE}
+	\argm{c}{}{When results are transposed, 1 boundary data is copied from the
+	opposite side, and then output $(L+1)\times (L+1)$ data (see also fft2).}{FALSE}
+	\argm{R}{}{output only real part}{FALSE}
+	\argm{I}{}{output only imaginary part}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル {\em data.f} にある2次元複素数列の 逆DFT を求め，
-{\em data.ifft2} に出力する:
+This example reads a sequence of 2-dimensional complex numbers in float format
+from {\em data.f} file, evaluates its 2-dimensional IDFT and outputs it to {\em
+data.dft} file:
 \begin{quote}
   \verb!ifft2 -A < data.f > data.ifft2!
 \end{quote}

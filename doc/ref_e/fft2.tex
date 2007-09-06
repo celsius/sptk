@@ -35,7 +35,7 @@
 % PERFORMANCE OF THIS SOFTWARE.
 % ----------------------------------------------------------------
 %
-\name{fft2}{複素数列の2次元高速フーリエ変換}{信号処理}
+\name{fft2}{2-dimensional FFT for complex sequence}{signal processing}
 
 \begin{synopsis}
 \item[fft2] [ --l $L$ ] [ --m $M_1 \; M_2$ ] [ --t ] [ --c ] [ --q ] 
@@ -44,10 +44,11 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-
-{\em fft2} は，複素数で与えられるデータ列を{\em infile}から読み込んで2次元
-フーリエ変換を行ない，結果を標準出力に出力します．
-入出力のデータフォーマットは以下の通りです．
+{\em fft2} uses the 2-dimensional Fast Fourier Transform (FFT) algorithm 
+to calculate the 2-dimensional Discrete Fourier Transform (DFT) 
+of complex-valued input data from {\em infile} (or standard input), 
+sending the result to standard output. 
+The input and output data is in float format, arranged as follows.
 \begin{center}
 \leavevmode
 \includegraphics{fig/fft2.eps}
@@ -55,39 +56,45 @@
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{フーリエ変換のサイズ． 2 のべき乗で指定．}{64}
-	\argm{m}{M_1 \; M_2}{データの次数を $M_1\times M_2$ で指定．
-			ファイルサイズ $k$ が $64^2\times 2$ よりも小さい場合，
-			$\sqrt{k\div 2}$ が整数ならば $M_1=M_2=\sqrt{k\div 2}$ 
-			とし，整数でない場合は標準エラー出力にエラーメッセージ
-			を出力してから処理を終了．}{$64 , M_1$}
-	\argm{t}{}{FFTの結果をtransposeして出力．
+	\argm{l}{L}{FFT size  power of 2}{256}
+	\argm{m}{M}{order of sequence}{L-1}
+\end{options}
+
+\begin{options}
+	\argm{l}{L}{FFT size  power of 2}{64}
+	\argm{m}{M_1 \; M_2}{order of sequence ($M_1\times M_2$).
+			If file size $k$ is smaller than $64^2\times 2$
+			and $\sqrt{k\div 2}$ is integer value, $M_1=M_2=\sqrt{k\div 2}$. 
+			Otherwise output error message to standard error output 
+			and then terminate.}{$64 , M_1$}
+	\argm{t}{}{Output results in transposed form.
 		\begin{center}
 		\leavevmode
 		\includegraphics{fig/fft2-trans.eps}
 		\end{center}~}{FALSE}
-	\argm{c}{}{transposeする際，境界の1データを反対側から持ってきて，
-		   $(L+1)\times (L+1)$個のデータを出力．
+	\argm{c}{}{When results are transposed, 1 boundary data is copied from the
+	opposite side, and then output $(L+1)\times (L+1)$ data.
 		\begin{center}	
 		\leavevmode
 		\includegraphics{fig/fft2-comp.eps}
 		\end{center}~}{FALSE}
-	\argm{q}{}{FFTの結果の最初の1/4のデータのみを出力． 
-		   この際cオプションと同様に境界の補償を行ない，
-		   $(\frac{L}{2}+1)\times(\frac{L}{2}+1)$ 個のデータを出力．
+	\argm{q}{}{Output first $1/4$ data of FFT results only.
+		   As in the above c option, boundary data is compensated and 
+		   $(\frac{L}{2}+1)\times(\frac{L}{2}+1)$ data are output.
 		\begin{center}
 		\leavevmode
 		\includegraphics{fig/fft2-quad.eps}
 		\end{center}~}{FALSE} %\hspace*{\fill}
-	\argm{A}{}{振幅スペクトルを出力．}{FALSE}
-	\argm{R}{}{実部のみを出力．}{FALSE}
-	\argm{I}{}{虚部のみを出力．}{FALSE}
-	\argm{P}{}{パワースペクトルを出力．}{FALSE}
+	\argm{A}{}{amplitude}{FALSE}
+	\argm{R}{}{real part}{FALSE}
+	\argm{I}{}{imaginary part}{FALSE}
+	\argm{P}{}{output power spectrum}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-float形式のファイル{\em data.f} にある2次元複素数列の DFT の振幅を求め，
-{\em data.dft} に出力する:
+This example reads a sequence of 2-dimensional complex numbers in float format
+from {\em data.f} file, evaluates its 2-dimensional DFT and outputs it to {\em
+data.dft} file:
 \begin{quote}
   \verb!fft2 -A data.f > data.dft!
 \end{quote}
