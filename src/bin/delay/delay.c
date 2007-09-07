@@ -58,7 +58,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: delay.c,v 1.10 2007/08/07 04:13:35 heigazen Exp $";
+static char *rcs_id = "$Id: delay.c,v 1.11 2007/09/07 17:18:20 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -120,10 +120,6 @@ int main (int argc, char **argv)
          switch (*(*argv+1)) {
          case 's':
             start = atoi(*++argv);
-            if (start<leng) {
-               fprintf(stderr, "%s : option s should be %d or less!\n", cmnd, leng);
-               exit(0);
-            }
             --argc;
             break;
          case 'f':
@@ -139,6 +135,11 @@ int main (int argc, char **argv)
       else 
          fp = getfp(*argv, "r");
 
+   if (start>leng) {
+      fprintf(stderr, "%s : Start point %d should be %d or less!\n", cmnd, start, leng);
+      exit(1);
+   }
+            
    x = dgetmem(leng);
    while ((i = freadf(x+start, sizeof(*x), leng-start, fp))==leng-start) {
       fwritef(x, sizeof(*x), leng-start, stdout);
@@ -148,6 +149,6 @@ int main (int argc, char **argv)
    if (keep) fwritef(x,sizeof(*x),i,stdout);
    else fwritef(x, sizeof(*x), i+start, stdout);
 
-   return 0;
+   return(0);
 }
 
