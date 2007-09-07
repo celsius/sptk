@@ -69,7 +69,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: gcep.c,v 1.9 2007/09/07 17:27:19 heigazen Exp $";
+static char *rcs_id = "$Id: gcep.c,v 1.10 2007/09/07 18:19:45 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -193,10 +193,6 @@ int main(int argc, char **argv)
          ignorm(gc, gc, m, g);
       fwritef(gc, sizeof(*gc), m+1, stdout);
    }
-   if (flag==0)
-      fprintf(stderr, "completed by end condition\n");
-   else if (flag==-1)
-      fprintf(stderr, "completed by maximum iteration\n");   
-   
+    
    return 0;
 }
