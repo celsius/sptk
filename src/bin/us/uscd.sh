@@ -87,9 +87,6 @@ while($i < $#argv)
         case -h:
                 goto usage
                 breaksw
-	case --h:
-	        goto usage
-		breaksw	
         default
                 if( -d $argv[$i]) then
                         set destdir = $argv[$i]
