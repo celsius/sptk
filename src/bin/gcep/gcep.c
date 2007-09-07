@@ -63,13 +63,13 @@
 *		generalized cepstral coefficeints			*
 *		    , c(0), c(1), ..., c(M),				*
 *       notice:                                                         *
-*               if g > 1.0, g = -1 / g .                                *
+*               if g >= 1.0, g = -1 / g .                                *
 *	require:							*
 *		gcep()							*
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: gcep.c,v 1.8 2007/08/07 04:43:04 heigazen Exp $";
+static char *rcs_id = "$Id: gcep.c,v 1.9 2007/09/07 17:27:19 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -118,7 +118,7 @@ void usage (int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       generalized cepstrum (float)\n");
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g > 1.0, g = -1 / g\n");
+   fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
@@ -153,7 +153,7 @@ int main(int argc, char **argv)
          case 'g':
             g = atof(*++argv);
             --argc;
-            if (g>1.0) g = -1.0 / g;
+            if (g>=1.0) g = -1.0 / g;
             break;
          case 'n':
             norm = 1 - norm;

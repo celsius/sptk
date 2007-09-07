@@ -77,7 +77,7 @@
 *         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sp2mgc.c,v 1.1 2007/08/07 07:17:20 heigazen Exp $";
+static char *rcs_id = "$Id: sp2mgc.c,v 1.2 2007/09/07 17:27:19 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -140,7 +140,7 @@ void usage (int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       mel-generalized cepstrum (float)\n");
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g>1.0, g = -1 / g\n");
+   fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
@@ -171,7 +171,7 @@ int main (int argc, char **argv)
          case 'g':
             g = atof(*++argv);
             --argc;
-            if (g>1.0) g = -1.0 / g;
+            if (g>=1.0) g = -1.0 / g;
             break;
          case 'm':
             m = atoi(*++argv);
