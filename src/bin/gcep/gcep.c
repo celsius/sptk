@@ -193,10 +193,6 @@ int main(int argc, char **argv)
          ignorm(gc, gc, m, g);
       fwritef(gc, sizeof(*gc), m+1, stdout);
    }
-   if (flag==0)
-      fprintf(stderr, "completed by end condition\n");
-   else if (flag==-1)
-      fprintf(stderr, "completed by maximum iteration\n");   
-   
+    
    return 0;
 }

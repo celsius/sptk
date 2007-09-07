@@ -178,10 +178,6 @@ int main (int argc, char **argv)
       flag = mcep(x, flng, mc, m, a, itr1, itr2, end, e);
       fwritef(mc, sizeof(*mc), m+1, stdout);
    }
-   if (flag==0)
-      fprintf(stderr, "completed by end condition\n");
-   else if (flag==-1)
-      fprintf(stderr, "completed by maximum iteration\n");
    
    return(0);
 }

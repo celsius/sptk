@@ -230,10 +230,6 @@ int main (int argc, char **argv)
 
       fwritef(b, sizeof(*b), m+1, stdout);
    }
-   if (flag==0)
-      fprintf(stderr,"completed by end condition");
-   else if (flag==-1)
-      fprintf(stderr,"completed by maximum iteration");
-
+ 
    return 0;
 }
