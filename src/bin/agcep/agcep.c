@@ -192,6 +192,11 @@ int main (int argc, char **argv)
    else
       fpe = getfp(*argv, "w");
 
+   if (stage==0) {
+      fprintf(stderr, "%s : gamma should not equal to 0!\n", cmnd);
+      usage(1);
+   }
+         
    c  = dgetmem(5*(m+1)+m*stage);
    cc = c  + m + 1;
    eg = cc + m + 1;

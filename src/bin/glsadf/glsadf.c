@@ -175,6 +175,10 @@ int main (int argc, char **argv)
       exit(1);
    }
 
+   if (stage==0) {
+      fprintf(stderr, "%s : gamma should not equal to 0!\n", cmnd);
+      usage(1);
+   }
    gamma = -1 / (double)stage;
     
    c = dgetmem(m+m+m+3+m*stage);

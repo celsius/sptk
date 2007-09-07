@@ -205,12 +205,22 @@ int main (int argc, char **argv)
    while (freadf(c, sizeof(*c), m+1, fp)==m+1) {
       if (norm)
          ignorm(c, c, m, gamma);
-      else if (mulg)
+      else if (mulg) {
+         if (gamma==0) {
+            fprintf(stderr, "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n", cmnd);
+            usage(1);
+         }
          c[0] = (c[0] - 1.0) / gamma;
+      }
 
-      if (mulg)
+      if (mulg) {
+         if (gamma==0) {
+            fprintf(stderr, "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n", cmnd);
+            usage(1);
+         }
          for (i=m;i>0;i--)
             c[i] /= gamma;
+      }
 
       mgc2sp(c, m, alpha, gamma, x, y, l);
 
