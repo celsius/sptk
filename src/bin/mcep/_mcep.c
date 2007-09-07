@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.8 2007/08/07 05:01:39 heigazen Exp $
+    $Id: _mcep.c,v 1.9 2007/09/07 17:36:52 heigazen Exp $
 
     Mel-Cepstral Analysis
 
@@ -109,8 +109,8 @@ int mcep (double *xw, const int flng, double *mc, const int m, const double a, c
    for (i=0; i<flng; i++) {
       x[i] = x[i]*x[i] + y[i]*y[i] + e;
       if (x[i] <= 0) {
-         fprintf(stderr,"mcep : The log periodogram has the value of '0' consider to use '-e' option !\n");
-         exit(0);
+         fprintf(stderr, "mcep : The log periodogram has '0', please use '-e' option !\n");
+         exit(1);
       }
       c[i] = log(x[i]);
    }

@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _uels.c,v 1.10 2007/08/07 05:05:39 heigazen Exp $
+    $Id: _uels.c,v 1.11 2007/09/07 17:36:52 heigazen Exp $
 
     Unbiased Estimation of Log Spectrum
 
@@ -100,8 +100,8 @@ int uels (double *xw, const int flng, double *c, const int m, const int itr1, co
    for (i=0; i<flng; i++) {  /*  x : log|X(w)|^2  */
       x[i] = x[i]*x[i] + y[i]*y[i] + e;
       if (x[i] <= 0) {
-         fprintf(stderr,"uels : The log periodogram has the value of '0' consider to use '-e' option !\n");
-         exit(0);
+         fprintf(stderr, "uels : The log periodogram has '0', please use '-e' option!\n");
+         exit(1);
       }
       x[i] = cr[i] = log(x[i]);
    }
