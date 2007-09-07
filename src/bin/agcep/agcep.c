@@ -70,7 +70,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: agcep.c,v 1.9 2007/09/07 05:50:32 heigazen Exp $";
+static char *rcs_id = "$Id: agcep.c,v 1.10 2007/09/07 06:25:51 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -116,17 +116,26 @@ void usage (int status)
    fprintf(stderr, "       -n    : output normalized generalized cepstrum [%s]\n", BOOL[NORM]);
    fprintf(stderr, "       -e e  : minimum value for epsilon              [%g]\n", EPS);
    fprintf(stderr, "       -h    : print this message\n");
+#ifdef DOUBLE
+   fprintf(stderr, "  stdin:\n");
+   fprintf(stderr, "       data sequence (double)\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       generalized cepstrum (double)\n");
+   fprintf(stderr, "  pefile:\n");
+   fprintf(stderr, "       prediction error (double)\n");
+#else
    fprintf(stderr, "  stdin:\n");
    fprintf(stderr, "       data sequence (float)\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       generalized cepstrum (float)\n");
    fprintf(stderr, "  pefile:\n");
    fprintf(stderr, "       prediction error (float)\n");
+#endif /* DOUBLE */
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
-#endif
+#endif /* SPTK_VERSION */
    fprintf(stderr, "\n");
    exit(status);
 }

@@ -52,7 +52,7 @@
 *									                                             *
 ************************************************************************/
 
-static char *rcs_id = "$Id: acorr.c,v 1.9 2007/08/07 04:01:13 heigazen Exp $";
+static char *rcs_id = "$Id: acorr.c,v 1.10 2007/09/07 06:25:51 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -81,10 +81,17 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of sequence  [%d]\n", ORDER);
    fprintf(stderr, "       -l l  : frame length       [%d]\n", LENG);
    fprintf(stderr, "       -h    : print this message\n");
+#ifdef DOUBLE
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data sequence (double)     [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       autocorrelation sequence (double)\n");
+#else
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (float)      [stdin]\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       autocorrelation sequence (float)\n");
+#endif /* DOUBLE */
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

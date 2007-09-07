@@ -71,7 +71,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: acep.c,v 1.7 2007/08/07 03:50:14 heigazen Exp $";
+static char *rcs_id = "$Id: acep.c,v 1.8 2007/09/07 06:25:51 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -115,12 +115,21 @@ void usage (const int status)
    fprintf(stderr, "       -e e  : minimum value for epsilon   [%g]\n", EPS);
    fprintf(stderr, "       -P P  : order of pade approximation [%d]\n", PADEORD);
    fprintf(stderr, "       -h    : print this message\n");
+#ifdef DOUBLE
    fprintf(stderr, "  stdin:\n");
-   fprintf(stderr, "       data sequence (float)\n");
+   fprintf(stderr, "       data sequence (double)\n", );
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       cepstrum (double)\n");
+   fprintf(stderr, "  pefile:\n");
+   fprintf(stderr, "       prediction error (double)\n");
+#else
+   fprintf(stderr, "  stdin:\n");
+   fprintf(stderr, "       data sequence (float)\n", );
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       cepstrum (float)\n");
    fprintf(stderr, "  pefile:\n");
-   fprintf(stderr, "       prediction error (float)\n");
+   fprintf(stderr, "       prediction error (fat)\n");
+#endif /* DOUBLE */
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       P = 4 or 5\n");
 #ifdef SPTK_VERSION
