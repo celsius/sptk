@@ -39,7 +39,7 @@
 
 #########################################################################
 #                                                                       #
-#   $Id: uscd.sh,v 1.6 2007/08/07 06:00:33 heigazen Exp $               #
+#   $Id: uscd.sh,v 1.7 2007/09/07 06:13:37 heigazen Exp $               #
 #                                                                       #
 #       Sampling rate conversion from 8|10|12|16kHz to                  #
 #                                                 11.025|22.05|44.1kHz  #
@@ -54,7 +54,8 @@ set libpath     = /usr/local/SPTK/lib
 
 set cmnd        = `basename $0`
 
-set type        = +sf
+set itype       = +ff
+set otype       = +ff
 set iext        = 10
 set oext        = 11.025
 set stdinput    = 1
@@ -68,10 +69,12 @@ while($i < $#argv)
         @ i++
         switch($argv[$i])
         case +f:
-                set type = ''
+                set itype = '+ff'
+                set otype = '+ff'
                 breaksw
         case +s:
-                set type = '+sf'
+                set itype = '+sf'
+                set otype = '+fs'
                 breaksw
         case -s:
                 @ i++
@@ -151,19 +154,19 @@ if( $stdinput == 1) then
                         echo2 "${cmnd}: $outfile - File exits."
                         exit 1
                 endif
-                x2x $type |\
+                x2x $itype |\
                 us -c ${libpath}/lpfcoef.2to3f -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.2to3s -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d 5 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d $osr |\
-                x2x +fs > $outfile
+                x2x $otype > $outfile
         else
-                x2x $type |\
+                x2x $itype |\
                 us -c ${libpath}/lpfcoef.2to3f -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.2to3s -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d 5 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d $osr |\
-                x2x +fs
+                x2x $otype
         endif
         exit 0
 endif
@@ -179,19 +182,19 @@ foreach infile ($file)
                         echo2 "${cmnd}: $outfile - File exits."
                         exit 1
                 endif
-                x2x $type $infile |\
+                x2x $itype $infile |\
                 us -c ${libpath}/lpfcoef.2to3f -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.2to3s -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d 5 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d $osr |\
-                x2x +fs > $outfile
+                x2x $otype > $outfile
         else
-                x2x $type $infile |\
+                x2x $itype $infile |\
                 us -c ${libpath}/lpfcoef.2to3f -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.2to3s -u 3 -d 2 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d 5 |\
                 us -c ${libpath}/lpfcoef.5to7 -u 7 -d $osr |\
-                x2x +fs
+                x2x $otype
         endif
 end
 exit 0
@@ -210,7 +213,7 @@ cat2 <<EOF
        -s s     : input sampling frequency (8,10,12,16kHz)   [10]
        -S s     : output sampling frequency 
                                       (11.025,22.05,44.1kHz) [11.025]
-       +x       : data format                                [s]
+       +x       : input/output data format                   [f]
                      s(short)   f(float)
        -h       : print this message
   infile:
