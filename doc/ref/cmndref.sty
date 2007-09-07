@@ -116,6 +116,7 @@
 }
 \renewcommand{\indexname}{用途別索引}
 \def\printindex{
+  \phantomsection
   \addcontentsline{toc}{section}{用途別索引}
   \@input{\jobname.ind}
 }
@@ -170,6 +171,7 @@
 
 \def\thebibliography#1{%
  \renewcommand{\thechapter}{参考文献}%
+ \phantomsection
  \addcontentsline{toc}{section}{\protect\texorpdfstring{\protect\vrule width 0 pt height 2\protect\baselineskip}{}参考文献}%
  \@makeschapterhead{参考文献}%
  \@mkboth{参考文献}{参考文献}\thispagestyle{jpl@in}
