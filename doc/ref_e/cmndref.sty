@@ -116,6 +116,7 @@
 }
 \renewcommand{\indexname}{INDEX of TOPICS}
 \def\printindex{
+  \phantomsection
   \addcontentsline{toc}{section}{INDEX of TOPICS}
   \@input{\jobname.ind}
 }
@@ -168,21 +169,22 @@
       \if@tempswa,\penalty\@highpenalty\ #2\fi % and before note.
     }]\spacefactor\@m}
 
-\renewcommand\bibname{REFERENCES}
+%\renewcommand\bibname{REFERENCES}
 
-% \def\thebibliography#1{%
-%  \renewcommand{\thechapter}{REFERENCES}%
-%  \addcontentsline{toc}{section}{\vrule width 0pt height 2\baselineskip REFERENCES}%
-%  \@makeschapterhead{REFERENCES}%
-%  \@mkboth{REFERENCES}{REFERENCES}\thispagestyle{jpl@in}
-%  \list
-%  {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
-%  \advance\leftmargin\labelsep
-%  \usecounter{enumi}}
-%  \def\newblock{\hskip .11em plus .33em minus .07em}
-%  \sloppy\clubpenalty4000\widowpenalty4000
-%  \sfcode`\.=1000\relax}
-%\let\endthebibliography=\endlist
+\def\thebibliography#1{%
+ \renewcommand{\thechapter}{REFERENCES}%
+ \phantomsection
+ \addcontentsline{toc}{section}{\protect\texorpdfstring{\protect\vrule width 0pt height 2\baselineskip REFERENCES}{}REFERENCES}%
+ \@makeschapterhead{REFERENCES}%
+ \@mkboth{REFERENCES}{REFERENCES}\thispagestyle{plain}
+ \list
+ {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+ \advance\leftmargin\labelsep
+ \usecounter{enumi}}
+ \def\newblock{\hskip .11em plus .33em minus .07em}
+ \sloppy\clubpenalty4000\widowpenalty4000
+ \sfcode`\.=1000\relax}
+\let\endthebibliography=\endlist
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SYNOPSIS ENVIRONMENT
