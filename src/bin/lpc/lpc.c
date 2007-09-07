@@ -59,7 +59,7 @@
 *         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc.c,v 1.8 2007/08/07 05:01:38 heigazen Exp $";
+static char *rcs_id = "$Id: lpc.c,v 1.9 2007/09/07 18:13:53 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -104,7 +104,7 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int m=ORDER, l=FLNG, flag, check=0;
+   int m=ORDER, l=FLNG, flag;
    FILE *fp=stdin;
    double *x, *a;
 
@@ -138,15 +138,20 @@ int main (int argc, char **argv)
 
    while (freadf(x, sizeof(*x), l, fp)==l) {
       flag = lpc(x, l, a, m);
+      switch(flag) {
+      case -1:
+         fprintf(stderr, "%s : The coefficient matrix of the normal equation is singular!\n", cmnd);
+         exit(1);
+         break;
+      case -2:
+         fprintf(stderr, "%s : Extracted LPC coefficients become unstable!\n", cmnd);
+         break;
+      case 0:
+      default:
+      }
+      
       fwritef(a, sizeof(*a), m+1, stdout);
    }
-
-   if (check==0)
-      fprintf(stderr, "normally completed\n");
-   else if (check==-1)
-      fprintf(stderr, "abnormally completed\n");
-   else if (check==-2)
-      fprintf(stderr, "unstable LPC\n");
 
    return(0);
 }
