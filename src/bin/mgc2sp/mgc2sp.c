@@ -75,7 +75,7 @@
 *         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgc2sp.c,v 1.8 2007/08/07 05:01:37 heigazen Exp $";
+static char *rcs_id = "$Id: mgc2sp.c,v 1.9 2007/09/07 05:50:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -205,12 +205,22 @@ int main (int argc, char **argv)
    while (freadf(c, sizeof(*c), m+1, fp)==m+1) {
       if (norm)
          ignorm(c, c, m, gamma);
-      else if (mulg)
+      else if (mulg) {
+         if (gamma==0) {
+            fprintf(stderr, "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n", cmnd);
+            usage(1);
+         }
          c[0] = (c[0] - 1.0) / gamma;
+      }
 
-      if (mulg)
+      if (mulg) {
+         if (gamma==0) {
+            fprintf(stderr, "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n", cmnd);
+            usage(1);
+         }
          for (i=m;i>0;i--)
             c[i] /= gamma;
+      }
 
       mgc2sp(c, m, alpha, gamma, x, y, l);
 

@@ -70,7 +70,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: agcep.c,v 1.8 2007/08/07 04:03:55 heigazen Exp $";
+static char *rcs_id = "$Id: agcep.c,v 1.9 2007/09/07 05:50:32 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -192,6 +192,11 @@ int main (int argc, char **argv)
    else
       fpe = getfp(*argv, "w");
 
+   if (stage==0) {
+      fprintf(stderr, "%s : gamma should not equal to 0!\n", cmnd);
+      usage(1);
+   }
+         
    c  = dgetmem(5*(m+1)+m*stage);
    cc = c  + m + 1;
    eg = cc + m + 1;

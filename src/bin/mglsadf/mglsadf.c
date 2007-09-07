@@ -66,7 +66,7 @@
 *         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mglsadf.c,v 1.7 2007/08/07 05:01:38 heigazen Exp $";
+static char *rcs_id = "$Id: mglsadf.c,v 1.8 2007/09/07 05:50:32 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -180,6 +180,10 @@ int main (int argc, char **argv)
       exit(1);
    }
 
+   if (stage==0) {
+      fprintf(stderr, "%s : gamma should not equal to 0!\n", cmnd);
+      usage(1);
+   }
    gamma = -1 / (double)stage;
 
    c = dgetmem(m+m+m+3+(m+1)*stage);

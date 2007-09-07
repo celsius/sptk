@@ -66,7 +66,7 @@
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: iglsadf.c,v 1.7 2007/08/07 04:55:52 heigazen Exp $";
+static char *rcs_id = "$Id: iglsadf.c,v 1.8 2007/09/07 05:50:32 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -173,7 +173,11 @@ int main (int argc, char **argv)
       fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
       return(1);
    }
-
+   
+   if (stage==0) {
+      fprintf(stderr, "%s : gamma should not equal to 0!\n", cmnd);
+      usage(1);
+   }
    gamma = -1 / (double)stage;
       
    c = dgetmem(m+m+m+3+m*stage);
