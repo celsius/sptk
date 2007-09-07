@@ -39,7 +39,7 @@
 
 #########################################################################
 #                                                                       #
-#   $Id: uscd.sh,v 1.7 2007/09/07 06:13:37 heigazen Exp $               #
+#   $Id: uscd.sh,v 1.8 2007/09/07 06:32:33 heigazen Exp $               #
 #                                                                       #
 #       Sampling rate conversion from 8|10|12|16kHz to                  #
 #                                                 11.025|22.05|44.1kHz  #
@@ -87,9 +87,6 @@ while($i < $#argv)
         case -h:
                 goto usage
                 breaksw
-	case --h:
-	        goto usage
-		breaksw	
         default
                 if( -d $argv[$i]) then
                         set destdir = $argv[$i]
