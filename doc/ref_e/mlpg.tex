@@ -69,13 +69,13 @@
         every frame $t$ is composed of the static feature
         vector $\bc_t$, where 
  \begin{displaymath}
-	\bc_t = [c_t(0), c_t(1), \dots, c_t(M)]'
+	\bc_t = [c_t(0), c_t(1), \dots, c_t(M)]^\top
  \end{displaymath}
 	and the dynamic feature vector 
 	\ $\Delta^{(1)}\bc_t, \dots, \Delta^{(N)}\bc_t$,
 	that is,
  \begin{displaymath}
-	\bo_t = [\bc_t', \Delta^{(1)}\bc_t', \dots, \Delta^{(N)}\bc_t']'.
+	\bo_t = [\bc_t', \Delta^{(1)}\bc_t', \dots, \Delta^{(N)}\bc_t']^\top.
  \end{displaymath}
         The dynamic feature vector $\Delta^{(n)}\bc_t$ is
         obtained from the static feature vector as follows.
@@ -95,7 +95,7 @@ where
  \begin{align}
 	\bmu_t 
 	& =  \left[\bmu^{\prime(0)}_t, \bmu^{\prime(1)}_t, 
-		\dots, \bmu^{\prime(N)}_t\right]'
+		\dots, \bmu^{\prime(N)}_t\right]^\top
 		\notag \\
 	\bSigma_t 
 	& = \diag \left[ \bSigma^{(0)}_t, \bSigma^{(1)}_t, \dots, \bSigma^{(1)}_t \right]
