@@ -48,7 +48,7 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em mgcep} uses mel-generalized cepstral analysis 
-to calculate mel-generalized cepstrum coefficients 
+to calculate mel-generalized cepstral coefficients 
 from $L$-length framed windowed input data 
 from {\em infile} (or standard input), 
 sending the result to standard output. 
@@ -63,7 +63,7 @@ then the time sequence is given by
 
 Input and output data are in float format.
 
-In the mel-generalized cepstrum analysis, the spectrum of the speech signal
+In the mel-generalized cepstral analysis, the spectrum of the speech signal
 is modeled by $M$ order mel-generalized cepstrum
 coefficients $c_{\alpha, \gamma}(m)$
 as follows.
@@ -92,9 +92,9 @@ the mel-scale becomes the good approximation to human
 sensitivity to the loudness speech sound.
 
 The Newton-Raphson method is used to minimize the cost function
-when evaluating mel-cepstrum coefficients.
+when evaluating mel-cepstral coefficients.
 
-The mel-generalized cepstrum analysis includes several other
+The mel-generalized cepstral analysis includes several other
 methods to analyze speech, depending on the values of $\alpha$
 and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
 
@@ -120,16 +120,16 @@ and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
     \put(90,30){\oval(140,20)[tl]}
     \put(110,30){\oval(40,20)[tr]}
     \put(100,40){\makebox(0,0){$\gamma=0$}}
-    \put(42.5,75){\makebox(0,0){generalized cepstrum analysis}}
+    \put(42.5,75){\makebox(0,0){generalized cepstral analysis}}
     \put(47.5,55){\makebox(0,0){LPC analysis}}
     \put(47.5,30){\makebox(0,0){
       \shortstack{unbiased estimation\\of log spectrum}}}
     \put(107.5,80){\makebox(0,0){
-	\underline{mel-generalized cepstrum analysis}}}
+	\underline{mel-generalized cepstral analysis}}}
     \put(102.5,55){\makebox(0,0){mel-LPC analysis}}
-    \put(102.5,30){\makebox(0,0){mel-cepstrum analysis}}
+    \put(102.5,30){\makebox(0,0){mel-cepstral analysis}}
   \end{picture}
-\caption{mel-generalized cepstrum analysis and other method relations}
+\caption{mel-generalized cepstral analysis and other method relations}
 \label{fig:mgcep_overview}
 \end{center}
 \end{figure}
@@ -172,12 +172,12 @@ and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
 In the following speech data in float format is read
 from {\em data.f} and analyzed with $\gamma=0$, $\alpha=0$
 (which correspond to UELS method for log spectrum estimation)
-and the resulting cepstrum coefficients are written {\em data.cep}:
+and the resulting cepstral coefficients are written {\em data.cep}:
 \begin{quote}
   \verb!frame < data.f | window | mgcep > data.cep !
 \end{quote}
 
-In the same way if we want mel-cepstrum coefficients:
+In the same way if we want mel-cepstral coefficients:
 \begin{quote}
  \verb!frame < data.f | window | mgcep -a 0.35 > data.mcep !
 \end{quote}

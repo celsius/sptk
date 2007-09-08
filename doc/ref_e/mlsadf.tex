@@ -47,7 +47,7 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em mlsadf} derives a Mel Log Spectral Approximation digital filter 
-from mel-cepstrum coefficients 
+from mel-cepstral coefficients 
 $c_\alpha(0),c_\alpha(1),\ldots,c_\alpha(M)$ in {\em mcfile} 
 and uses it to filter an excitation sequence 
 from {\em infile} (or standard input) to synthesize speech data, 
@@ -56,7 +56,7 @@ sending the result to standard output.
 Input and output data are in float format.
 
 The exponential transfer function $H(z)$ related to the MLSA synthesis filter
-is obtained from the $M$ order mel-cepstrum coefficients
+is obtained from the $M$ order mel-cepstral coefficients
 $c_\alpha(m)$ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^M c_\alpha(m) \tilde{z}^{-m}
