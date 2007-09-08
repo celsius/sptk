@@ -35,6 +35,7 @@
 % PERFORMANCE OF THIS SOFTWARE.
 % ----------------------------------------------------------------
 %
+\hypertarget{lmadf}{}
 \name[ref:acep-IEEESP,ref:LMA-IECE]{lmadf}%
 {LMA digital filter for speech synthesis}{filters for speech synthesis}
 
@@ -202,7 +203,7 @@ in table \ref{tbl:lmadflt_pade}
 	\argm{m}{M}{order of cepstrum}{25}
 	\argm{p}{P}{frame period}{100}
 	\argm{i}{I}{interpolation period}{1}
-	\argm{P}{Pa}{order of pade approximation\\
+	\argm{P}{Pa}{order of the Pad\'e approximation\\
                      Pa = 4 or 5 can be used}{4}
 	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
@@ -219,5 +220,12 @@ passed through a LMA filter obtained from cepstrum file
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
- icep, uels, acep, poledf, ltcdf, glsadf, mlsadf, mglsadf
+\hyperlink{icep}{icep},
+\hyperlink{uels}{uels},
+\hyperlink{acep}{acep},
+\hyperlink{poledf}{poledf},
+\hyperlink{ltcdf}{ltcdf},
+\hyperlink{glsadf}{glsadf},
+\hyperlink{mlsadf}{mlsadf},
+\hyperlink{mglsadf}{mglsadf}
 \end{qsection}

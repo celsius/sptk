@@ -35,6 +35,7 @@
 % PERFORMANCE OF THIS SOFTWARE.
 % ----------------------------------------------------------------
 %
+\hypertarget{agcep}{}
 \name[ref:agcep-IEICEtaikai90s]{agcep}{adaptive generalized cepstral analysis}%
 {speech analysis}
 
@@ -45,9 +46,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-	{\em agcep} uses adaptive generalized cepstrum analysis
+	{\em agcep} uses adaptive generalized cepstral analysis
 	\cite{ref:agcep-IEICEtaikai90s}
-	to calculate cepstrum coefficients $c_\gamma(m)$ 
+	to calculate cepstral coefficients $c_\gamma(m)$ 
 	from unframed float data from standard input,
 	sending the result to standard output. 
 	If {\em pefile} is given, 
@@ -56,7 +57,7 @@
 	The format for input and output data is float.
 
 	The algorithm to calculate recursively the
-        adaptive generalized cepstrum coefficients is 
+        adaptive generalized cepstral coefficients is 
  %
 \begin{align}
   \bc_\gamma^{(n+1)} &= \bc_\gamma^{(n)} 
@@ -84,14 +85,14 @@ F(z) = \sum_{m=1}^{M}c_\gamma(m)z^{-m}.
 \end{displaymath}
 \par
 In the case $\gamma = -1/n$ , where $n$ is a natural number,
-the adaptive generalized cepstrum analysis system is shown in 
+the adaptive generalized cepstral analysis system is shown in 
 Figure \ref{fig:agcep_block}.
-In the case $n=1$, the adaptive generalized cepstrum
+In the case $n=1$, the adaptive generalized cepstral
 analysis is equivalent to the LMS linear predictor.
 In the case $n \rightarrow \infty$,
-the adaptive generalized cepstrum
+the adaptive generalized cepstral
 analysis is equivalent to the 
-adaptive cepstrum analysis.
+adaptive cepstral analysis.
 
 %\def\topfraction{.8}
 %\def\textfraction{.1}
@@ -151,7 +152,7 @@ adaptive cepstrum analysis.
 \put(480,730){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$e(n)$}}}
 \put(230,715){\makebox(0,0)[b]{\smash{\SetFigFont{12}{14.4}{rm}$(1+\gamma F(z))^{-\frac{1}{\gamma}-1}$}}}
 \end{picture}
-\caption{Adaptive generalized cepstrum analysis system}
+\caption{Adaptive generalized cepstral analysis system}
 \label{fig:agcep_block}
 \end{center}
 \end{figure}
@@ -173,7 +174,7 @@ adaptive cepstrum analysis.
 
 \begin{qsection}{EXAMPLE}
 	In this example, the speech data is in the file {\em data.f}
-        in float format, the cepstrum coefficients are written to
+        in float format, the cepstral coefficients are written to
         the file {\em data.agcep},
         and the prediction error can be found in {\em data.er}.
 \begin{quote}
@@ -182,5 +183,7 @@ adaptive cepstrum analysis.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
-acep, amcep, glsadf
+\hyperlink{acep}{acep},
+\hyperlink{amcep}{amcep},
+\hyperlink{glsadf}{glsadf}
 \end{qsection}
