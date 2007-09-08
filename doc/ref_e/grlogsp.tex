@@ -75,19 +75,18 @@ that uses the ``fig'' and ``fdrw'' commands.
 		    $(YO + 100 , X)$ [mm] if -t is specified.}{1}
 	\argm{x}{X}{ $x$ scale\\
 		       \begin{tabular}{cl}
-			1 & normalized frequency($0 \sim 0.5$) \\
-			2 & normalized frequency($0 \sim \pi$) \\
-			4 & frequency($0 \sim 4$kHz) \\
-			5 & frequency($0 \sim 5$kHz) \\
-			8 & frequency($0 \sim 8$kHz) \\
-			10 & frequency($0 \sim 10$kHz) \\
+			1 & normalized frequency ($0 \sim 0.5$) \\
+			2 & normalized frequency ($0 \sim \pi$) \\
+			4 & frequency ($0 \sim 4$kHz) \\
+			5 & frequency ($0 \sim 5$kHz) \\
+			8 & frequency ($0 \sim 8$kHz) \\
+			10 & frequency ($0 \sim 10$kHz) \\
 		       \end{tabular}\\\hspace*{\fill}}{1}
 	\argm{y}{ymin}{ $y$ minimum}{-100}
 	\argm{yy}{YY}{ $y$ scale [dB/10mm]}{100}
 	\argm{yo}{YO}{ $y$ offset}{30}
 	\argm{p}{p}{type of pen ($1 \sim 10$)}{2}
-	\argm{ln}{LN}{style of line($0 \sim 5$).
-                      please refer to fig command section.}{1}
+	\argm{ln}{LN}{style of line ($0 \sim 5$) (see also \hyperlink{fig}{fig})}{1}
 	\argm{s}{S}{start frame number}{0}
 	\argm{e}{E}{end frame number}{EOF}
 	\argm{n}{N}{number of frame}{EOF}
@@ -96,15 +95,14 @@ that uses the ``fig'' and ``fdrw'' commands.
 	\argm{c, c2, c3}{\mbox{\em comment} 1 \sim 3}%
                         {comment for the graph}{N/A}
 	\desc[1ex]{Usually, the options below do not need to be assigned.}
-	\argm{W}{W}{width of the graph($\times 100$mm)}{0.25}
-	\argm{H}{H}{height of the graph($\times 100$mm)}{1.5}
+	\argm{W}{W}{width of the graph ($\times 100$mm)}{0.25}
+	\argm{H}{H}{height of the graph ($\times 100$mm)}{1.5}
 	\argm{z}{Z}{This option is used when data is written
                     recursively in the $y$ axis. the distance between
                     two graphs in the $y$ axis are given by $Z$.}{1}
 	\argm{o}{xo \; yo}{origin of the graph.
                       if -o option exists, -O is not effective.}{95 30}
-	\argm{g}{G}{type of frame of the graph($0 \sim 2$).
-                    please refer to ``fig'' command section.}{2}
+	\argm{g}{G}{type of frame of the graph ($0 \sim 2$) (see also \hyperlink{fig}{fig})}{2}
 	\argm{cy}{cy}{first comment position}{-8}
 	\argm{cy2}{cy2}{second comment position}{-14}
 	\argm{cy3}{cy3}{third comment position}{-20}

@@ -59,18 +59,18 @@ or converted to PostScript with the ``psgr'' command.
 \begin{options}
         \argm{F}{F}{factor}{1}
         \argm{R}{R}{rotation angle}{0}
-        \argm{W}{W}{width of figure($\times 100$mm)}{1}
-        \argm{H}{H}{height of figure($\times 100$mm)}{1}
+        \argm{W}{W}{width of figure ($\times 100$mm)}{1}
+        \argm{H}{H}{height of figure ($\times 100$mm)}{1}
         \argm{o}{xo \; yo}{origin in mm}{20 20}
-        \argm{g}{G}{draw grid($0 \sim 2$)\\
+        \argm{g}{G}{draw grid ($0 \sim 2$)\\
                         \begin{tabular}{cccc}
                         &\includegraphics[width=2cm]{fig/g0.eps}
                         &\includegraphics[width=2cm]{fig/g1.eps}
                         &\includegraphics[width=2cm]{fig/g2.eps}\\
                         $G$&0&1&2        
                         \end{tabular}\\\hspace*{\fill}}{2}
-        \argm{p}{P}{pen number($1 \sim 10$)}{1}
-        \argm{s}{S}{font size($1 \sim 4$)}{1}
+        \argm{p}{P}{pen number ($1 \sim 10$)}{1}
+        \argm{s}{S}{font size ($1 \sim 4$)}{1}
         \argm{f}{file}{The file assigned after this option is read
                        before {\em infile}, that is, this option gives
                        preference.}{NULL}
@@ -145,7 +145,7 @@ none of the above & only marks are written.
 Whenever the character is inside quotes,
 it appears in the position assigned
 by the string that precedes it.
-Please refer to the commands ``x/yname'' for information on
+Please refer to the commands \hyperlink{xyname}{x/yname} for information on
 special characters.\\
 (Example)\\
 x ~0 ~5\\
@@ -154,6 +154,7 @@ xscale 0~1.0 ~s1.5 ~'2 ~$\backslash$2.5 ~'3.14 ~''$\backslash$pi'' ~@4 ~''x'' ~5
 \includegraphics[width=9cm]{fig/scale.eps}
 \end{minipage}\\
 
+\hypertarget{xyname}{}
 \begin{minipage}[t]{5.5cm}
 xname ~''$text$''\\
 yname ~''$text$''\\
