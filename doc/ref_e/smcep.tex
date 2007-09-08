@@ -37,7 +37,7 @@
 %
 \hypertarget{smcep}{}
 \name[ref:smcep-IEICE]{smcep}%
-{2nd order mel-cepstrum analysis}{speech analysis}
+{2nd order mel-cepstral analysis}{speech analysis}
 
 \begin{synopsis}
 \item [smcep] [ --a $A$ ] [ --t $T$ ] [ --m $M$ ] [ --l $L$ ]
@@ -45,7 +45,7 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em smcep} calculates the mel-cepstrum coefficients 
+{\em smcep} calculates the mel-cepstral coefficients 
 from $L$-length framed windowed input data 
 from {\em infile} (or standard input), 
 sending the result to standard output. 
@@ -61,9 +61,9 @@ A(z) &=
 
 Input and output data are in float format.
 
-In the mel-cepstrum analysis using
+In the mel-cepstral analysis using
 a 2nd-order all pass function,
-the speech spectrum is modeled as  $m$ order cepstrum
+the speech spectrum is modeled as  $m$ order cepstral
 coefficients $c(m)$ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^{M} c(m)\,B_m(e^{j\omega})
@@ -74,7 +74,7 @@ where
 	=\left\{A^m(e^{j\omega})+A^m(e^{-j\omega})\right\}/2
 \end{displaymath}
 \par The Newton--Raphson method is applied to calculate
-the mel-cepstrum coefficients through the minimization
+the mel-cepstral coefficients through the minimization
 of the cost function.
 \end{qsection}
 
@@ -94,7 +94,7 @@ of the cost function.
 
 \begin{qsection}{EXAMPLE}
 In the example below, speech data is read in float format
-from {\em data.f}, analyzed, and resulting mel-cepstrum
+from {\em data.f}, analyzed, and resulting mel-cepstral
 coefficients are written to {\em data.mcep}:
 \begin{quote}
  \verb!frame < data.f | window | smcep > data.mcep !

@@ -44,13 +44,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em b2mc} calculates mel-cepstrum coefficients $c_\alpha(m)$ 
+{\em b2mc} calculates mel-cepstral coefficients $c_\alpha(m)$ 
 from MLSA filter coefficients $b(m)$ from {\em infile} (or standard input), 
 sending the result to standard output.
 
 Input and output data are in float format.
 
-The transformation from $b(m)$ coefficients to mel-cepstrum coefficients
+The transformation from $b(m)$ coefficients to mel-cepstral coefficients
 $c_\alpha(m)$ is as follows:
 \begin{displaymath}
 c_\alpha(m) = \begin{cases}
@@ -71,7 +71,7 @@ by the command mc2b.
 \begin{qsection}{EXAMPLE}
 The example below converts the coefficients of a MLSA filter,
 which are in float format in file {\em data.b},
-into mel-cepstrum coefficients
+into mel-cepstral coefficients
 in file {\em data.mcep} with $M=15$ and $\alpha=0.35$.
 \begin{quote}
  \verb!b2mc -m 15 < data.b > data.mcep!

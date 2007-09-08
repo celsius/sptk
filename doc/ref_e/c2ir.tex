@@ -45,7 +45,7 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em c2ir} calcullates the minimum phase impulse response 
-from minimum phase cepstrum coefficients 
+from minimum phase cepstral coefficients 
 from {\em infile} (or standard input), 
 sending the result to standard output.
 For example, if the input sequence is
@@ -71,8 +71,8 @@ The format of input and output format is float.
 	\argm{m}{M_1}{order of cepstrum}{25}
 	\argm{M}{M_2}{length of impulse response}{L-1}
 	\argm{i}{}{input minimum phase sequence}{FALSE}
-	\desc{If the number of cepstrum coefficients $M_1$ is not
-             assigned and the order of the cepstrum analysis
+	\desc{If the number of cepstral coefficients $M_1$ is not
+             assigned and the order of the cepstral analysis
              is less then $L$, then the number of coefficients
              read is made equal to $M_1$.}
 \end{options}

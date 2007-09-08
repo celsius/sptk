@@ -42,7 +42,7 @@
  \item[lpc2c] [ --m $M_1$ ] [ --M $M_2$ ] [ {\em infile} ]
 \end{synopsis}
 \begin{qsection}{DESCRIPTION}
-{\em lpc2c} calculates LPC cepstrum coefficients 
+{\em lpc2c} calculates LPC cepstral coefficients 
 from linear prediction (LPC) coefficients 
 from {\em infile} (or standard input), 
 sending the result to standard output.
@@ -54,7 +54,7 @@ where
 \begin{displaymath}
    H(z)=\frac{\sigma}{A(z)}=\frac{\sigma}{\displaystyle 1+\sum_{k=1}^P a(k) z^{-k}}
 \end{displaymath}
-then the LPC cepstrum coefficients are evaluated as follows.
+then the LPC cepstral coefficients are evaluated as follows.
 \begin{displaymath}
    c(n) = \begin{cases}
  \;\; \ln(h),&n=0\\
@@ -62,7 +62,7 @@ then the LPC cepstrum coefficients are evaluated as follows.
  \;\; \displaystyle -\sum_{k=n-P}^{n-1}\frac{k}{n}c(k) a(n-k),& n>P
 \end{cases}
 \end{displaymath}
-And the sequence of cepstrum coefficients
+And the sequence of cepstral coefficients
 \begin{displaymath}
    c(0), c(1), \dots, c(M)
 \end{displaymath}
@@ -78,7 +78,7 @@ Input and output data are in float format.
 \begin{qsection}{EXAMPLE}
 In the example below, a 10 order LPC analysis is undertaken after
 passing the speech data {\em data.f} in float format through a window,
-15 order LPC cepstrum coefficients are calculated,
+15 order LPC cepstral coefficients are calculated,
 and the result is written in {\em data.cep}.
 \begin{quote}
  \verb!frame < data.f | window | lpc -m 10 |\!\\

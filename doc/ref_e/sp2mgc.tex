@@ -48,7 +48,7 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em sp2mgc} uses mel-generalized cepstral analysis 
-to calculate mel-generalized cepstrum coefficients 
+to calculate mel-generalized cepstral coefficients 
 from $L$-length periodgram input data 
 from {\em infile} (or standard input), 
 sending the result to standard output. 
@@ -92,7 +92,7 @@ controlled by the --i and --o options, respectively.
 In the following speech data in float format is read
 from {\em data.f}, and analyzed with $\gamma=0$, $\alpha=0$
 (which correspond to UELS method for log spectrum estimation)
-and the resulting cepstrum coefficients are written {\em data.cep}:
+and the resulting cepstral coefficients are written {\em data.cep}:
 \begin{quote}
   \verb!frame < data.f | window | fftr -A -H | sp2mgc -i 2 > data.cep !
 \end{quote}

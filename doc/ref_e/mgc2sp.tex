@@ -47,14 +47,14 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em mgc2sp} calculates the log magnitude spectrum 
-from mel-generalized cepstrum coefficients $c_{\alpha, \gamma}(m)$
+from mel-generalized cepstral coefficients $c_{\alpha, \gamma}(m)$
 from {\em infile} (or standard input),
 sending the result to standard output.
 
 Input and output data are in float format.
 
-The mel-generalized cepstrum coefficients $c_{\alpha, \gamma}(m)$
-are transformed into mel-generalized log cepstrum coefficients
+The mel-generalized cepstral coefficients $c_{\alpha, \gamma}(m)$
+are transformed into mel-generalized log cepstral coefficients
 (refer to mgc2mgc)
 and then the log magnitude spectrum is calculated(refer to spec).
 
@@ -110,7 +110,7 @@ K_\alpha,\gamma c_{\alpha,\gamma}'(1),\dots, \gamma c_{\alpha,\gamma}'(M)
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the following example, mel-generalized cepstrum coefficients
+In the following example, mel-generalized cepstral coefficients
 in float format are read from {\em data.mgcep}
 ($M=12, \alpha=0.35, \gamma=-0.5$)
 and the log magnitude spectrum is evaluated and plotted:

@@ -46,17 +46,17 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em glsadf} derives a Generalized Log Spectral Approximation digital filter 
-from normalized generalized cepstrum coefficients in {\em gcfile} 
+from normalized generalized cepstral coefficients in {\em gcfile} 
 and uses it to filter an excitation sequence 
 from {\em infile} (or standard input) to synthesize speech data, 
 sending the result to standard output.
-The cepstrum coefficients can be be represented as
+The cepstral coefficients can be be represented as
 $K,c_\gamma'(1),\dots,c_\gamma'(M)$. 
 
 Input and output data are in float format.
 
 The transfer function $H(z)$ are synthesis filter based on an $M$ order
-normalized generalized cepstrum coefficients $c_\gamma'(m)$ is 
+normalized generalized cepstral coefficients $c_\gamma'(m)$ is 
 \begin{align}
 H(z) &= K \cdot D(z) \notag \\
      &= \begin{cases} \;\;\displaystyle
@@ -117,7 +117,7 @@ in figure\ref{fig:glsadflt_GLSA}, where
 \begin{qsection}{EXAMPLE}
 In this example, excitation is generated through the pitch data
 in the file {\em data.pitch} in float format, passed through a
-GLSA filter based on generalized cepstrum coefficient file
+GLSA filter based on generalized cepstral coefficient file
 {\em data.gcep}, and the synthesized speech is outputed to
 {\em data.syn}:
 \begin{quote}

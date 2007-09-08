@@ -42,15 +42,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em ignorm} un-normalizes normalized generalized cepstrum coefficients
+{\em ignorm} un-normalizes normalized generalized cepstral coefficients
 $c_\gamma(m)$ from {\em infile} (or standard input), 
-sending the un-normalized generalized cepstrum coefficients 
+sending the un-normalized generalized cepstral coefficients 
 to standard output.
 
 Input and output data are in float format.
 
-To convert normalized generalized cepstrum coefficients
-$c_\gamma'(m)$ into not-normalized generalized cepstrum coefficients
+To convert normalized generalized cepstral coefficients
+$c_\gamma'(m)$ into not-normalized generalized cepstral coefficients
 $c_\gamma(m)$, the following equation can be used.
 \begin{displaymath}
 c_\gamma(m) = \left( c_\gamma'(0) \right)^{\gamma} c_\gamma'(m), \qquad m>0
@@ -73,9 +73,9 @@ c_\gamma(0) = \begin{cases} \;\; \displaystyle
 
 \begin{qsection}{EXAMPLE}
 In this example below,
-normalized generalized cepstrum coefficients in
+normalized generalized cepstral coefficients in
 float format are read from {\em data.ngcep}$(M=15, \gamma=-0.5)$,
-and the not-normalized generalized cepstrum coefficients
+and the not-normalized generalized cepstral coefficients
 are outputed to {\em data.gcep}.
 \begin{quote}
  \verb! ignorm -m 15 -g -0.5 < data.ngcep > data.gcep!

@@ -47,7 +47,7 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em mglsadf} derives a Mel-Generalized Log Spectral Approximation 
-digital filter from mel-generalized cepstrum coefficients 
+digital filter from mel-generalized cepstral coefficients 
 $c_{\alpha, \gamma}(m)$ in {\em mgcfile} 
 and uses it to filter an excitation sequence 
 from {\em infile} (or standard input) to synthesize speech data, 
@@ -56,7 +56,7 @@ sending the result to standard output.
 Input and output data are in float format.
 
 The transfer function $H(z)$ related to the synthesis filter
-is obtained from the $M$ order mel-generalized cepstrum coefficients
+is obtained from the $M$ order mel-generalized cepstral coefficients
 $c_{\alpha, \gamma}(m)$ as follows.
 \begin{align}
 H(z) &= s_\gamma^{-1} \left( 

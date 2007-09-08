@@ -43,13 +43,13 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em gnorm} normalizes generalized cepstrum coefficients $c_\gamma(m)$ 
+{\em gnorm} normalizes generalized cepstral coefficients $c_\gamma(m)$ 
 from {\em infile} (or standard input), 
-sending the normalized generalized cepstrum coefficients to standard output.
+sending the normalized generalized cepstral coefficients to standard output.
 
 Input and output data are in float format.
 
-The normalized generalized cepstrum coefficients $c_\gamma'(m)$
+The normalized generalized cepstral coefficients $c_\gamma'(m)$
 can be written as
 \begin{displaymath}
 c_\gamma'(m) = \frac{c_\gamma(m)}{1+\gamma c_\gamma(0)}, \qquad m>0
@@ -71,7 +71,7 @@ K = \begin{cases} \;\;\displaystyle
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In this example, generalized cepstrum coefficients in float format
+In this example, generalized cepstral coefficients in float format
 are read from file {\em data.gcep} )$(M=15, \gamma=-0.5)$,
 normalized and outputed to {\em data.ngcep}:
 \begin{quote}

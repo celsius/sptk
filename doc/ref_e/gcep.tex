@@ -47,7 +47,7 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em gcep} uses generalized cepstral analysis 
-to calculate normalized cepstrum coefficients $c_\gamma'(m)$ 
+to calculate normalized cepstral coefficients $c_\gamma'(m)$ 
 from $L$-length framed windowed input data 
 from {\em infile} (or standard input), 
 sending the result to standard output.
@@ -99,7 +99,7 @@ Newton--Raphson method applied.
 
 \begin{qsection}{EXAMPLE}
 The following example read speech data in float format from {\em data.f}
-file, undertakes the 15 order generalized cepstrum analysis,
+file, undertakes the 15 order generalized cepstral analysis,
 and writes the results in {\em data.gcep}:
 \begin{quote}
  \verb!frame < data.f | window | gcep -m 15 > data.gcep!
