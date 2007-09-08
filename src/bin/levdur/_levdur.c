@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _levdur.c,v 1.6 2007/08/07 05:01:38 heigazen Exp $
+    $Id: _levdur.c,v 1.7 2007/09/08 05:49:27 heigazen Exp $
 
     Solve an Autocorrelation Normal Equation
    Using Levinson-Durbin Method
@@ -81,8 +81,7 @@ int levdur (double *r, double *a, const int m, double eps)
    }
 
    if (eps<0.0) eps = 1.0e-6;
-
-   rmd = r[0];
+   if ((rmd=r[0]) <= eps) return(-1);   
    a[0] = 0.0;
 
    for (l=1; l<=m; l++) {
