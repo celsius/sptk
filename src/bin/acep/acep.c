@@ -118,7 +118,7 @@ void usage (const int status)
    fprintf(stderr, "       -p p  : output period of cepstrum   [%d]\n", PERIOD);
    fprintf(stderr, "       -s    : output smoothed cepstrum    [%s]\n", BOOL[AVEFLAG]);
    fprintf(stderr, "       -e e  : minimum value for epsilon   [%g]\n", EPS);
-   fprintf(stderr, "       -P P  : order of pade approximation [%d]\n", PADEORD);
+   fprintf(stderr, "       -P P  : order of Pade approximation [%d]\n", PADEORD);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdin:\n");
    fprintf(stderr, "       data sequence (%s)\n", FORMAT);
@@ -197,7 +197,7 @@ int main (int argc, char **argv)
          fpe = getfp(*argv, "w");
 
    if ((pd < 4)||(pd > 5)) {
-      fprintf(stderr,"%s : Order of pade approximation is 4 or 5!\n",cmnd);
+      fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
       return(1);
    }
 

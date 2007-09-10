@@ -49,7 +49,7 @@
         double *c    : MLSA filter coefficients
         int    m     : order of cepstrum
         double a     : all-pass constant
-        int    pd    : order of pade approximation
+        int    pd    : order of Pade approximation
         double *d    : delay
 
         return value : filtered data

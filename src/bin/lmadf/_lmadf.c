@@ -48,7 +48,7 @@
         double    x     : input
         double    *c    : cepstrum
         int       m     : order of cepstrum
-        int       pd    : order of pade approximation
+        int       pd    : order of Pade approximation
         double    *d    : delay
 
         return    value : filtered data
@@ -112,7 +112,7 @@ double lmadf (double x, double *c, const int m, const int pd, double *d)
     double *d : delay
     int    m1 : start order
     int    m2 : end order
-    int    pd : order of pade approximation
+    int    pd : order of Pade approximation
 
 *****************************************************************/
 

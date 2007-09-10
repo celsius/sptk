@@ -50,7 +50,7 @@
     int         m : order of cepstrum
     double lambda : leakage factor
     double   step : step size
-    int        pd : order of pade approximation
+    int        pd : order of Pade approximation
     double    eps : minimum value for epsilon
 
     return value  : prediction error
