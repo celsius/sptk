@@ -60,7 +60,7 @@ All Rights Reserved.
 *									*
 ************************************************************************/
 
-static char *rcs_id = "$Id: average.c,v 1.9 2007/09/07 06:25:51 heigazen Exp $";
+static char *rcs_id = "$Id: average.c,v 1.10 2007/09/10 02:48:32 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -72,6 +72,11 @@ static char *rcs_id = "$Id: average.c,v 1.9 2007/09/07 06:25:51 heigazen Exp $";
 /*  Default Values  */
 #define LENG 0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -88,17 +93,10 @@ void usage(int status)
    fprintf(stderr, "       -l l  : frame length       [%d]\n", LENG);
    fprintf(stderr, "       -n n  : order of sequence  [l-1]\n");
    fprintf(stderr, "       -h    : print this message\n");
-#ifdef DOUBLE
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (double)     [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       average (double)\n");
-#else
-   fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)      [stdin]\n");
-   fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       average (float)\n");
-#endif /* DOUBLE */
+   fprintf(stderr, "       average (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if l > 0, calculate average frame by frame\n");
 #ifdef SPTK_VERSION
