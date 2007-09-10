@@ -63,13 +63,13 @@
 *               filtered sequence                                       *
 *                   , y(0), y(1), ...,                                  *
 *        note:                                                          *
-*               ig g==0, LMA filter is used, P should be 4 or 5         *
+*               if g==0, LMA filter is used, P should be 4 or 5         *
 *        require:                                                       *
 *               glsadf(), lmadf()                                       *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: glsadf.c,v 1.12 2007/09/10 22:41:29 heigazen Exp $";
+static char *rcs_id = "$Id: glsadf.c,v 1.13 2007/09/10 22:42:43 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
