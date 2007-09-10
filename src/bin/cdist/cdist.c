@@ -77,6 +77,11 @@ static char *rcs_id = "$Id$";
 #define OTYPE 0
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -99,9 +104,9 @@ void usage (int status)
    fprintf(stderr, "      -h    : print this message\n");
    fprintf(stderr, "  cfile:\n");
    fprintf(stderr, "  infile:                                     [stdin]\n");
-   fprintf(stderr, "      minimum-phase cepstrum (float)\n");
+   fprintf(stderr, "      minimum-phase cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "      cepstral distance (float)\n");
+   fprintf(stderr, "      cepstral distance (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

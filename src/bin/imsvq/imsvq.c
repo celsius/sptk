@@ -78,6 +78,11 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define LENG  26
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -100,9 +105,9 @@ void usage (int status)
    fprintf(stderr, "  stdin:\n");
    fprintf(stderr, "         index (int)\n");
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "         quantized vectors (float)\n");
+   fprintf(stderr, "         quantized vectors (%s)\n", FORMAT);
    fprintf(stderr, "  codebook file:\n");
-   fprintf(stderr, "         codebook (float)\n");
+   fprintf(stderr, "         codebook (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "         -s option are specified number of stages\n");
 #ifdef SPTK_VERSION

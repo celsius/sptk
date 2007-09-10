@@ -77,6 +77,11 @@ static char *rcs_id = "$Id$";
 #define STEP  1.0
 #define EFLAG FA
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -97,7 +102,7 @@ void usage (int status)
    fprintf(stderr, "       -t t  : step size             [%g]\n", STEP);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       ramp sequence (float)\n");
+   fprintf(stderr, "       ramp sequence (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if l<0, generate infinite sequence\n");
    fprintf(stderr, "       When -l and -n and -e are specified 2 or more,\n");

@@ -97,6 +97,11 @@ char *cmnd;
 /* Default Value  */
 #define MEMSIZE  10
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 void usage (int status)
 {
@@ -132,9 +137,9 @@ void usage (int status)
    fprintf(stderr, "\n");
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)        [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)        [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       data sequence after operations (float)\n");
+   fprintf(stderr, "       data sequence after operations (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

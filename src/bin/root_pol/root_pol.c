@@ -79,6 +79,11 @@ static char *rcs_id = "$Id$";
 #define ITER  1000
 #define EPS   1.0e-14
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;
@@ -100,9 +105,9 @@ int usage (void)
    fprintf(stderr, "       -r  : (magnitude, arg) output      [(Real,Imag)]\n");
    fprintf(stderr, "       -h  : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       coefficients of polynomial (float) [stdin]\n");
+   fprintf(stderr, "       coefficients of polynomial (%s) [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       root of polynomial (float)\n");
+   fprintf(stderr, "       root of polynomial (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

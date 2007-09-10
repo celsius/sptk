@@ -78,6 +78,11 @@ static char *rcs_id = "$Id$";
 #define GAUSS FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -98,9 +103,9 @@ void usage (int status)
    fprintf(stderr, "       -s s  : seed for nrand                [%d]\n",SEED);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       pitch period (float)         [stdin]\n");
+   fprintf(stderr, "       pitch period (%s)         [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       excitation (float)\n");
+   fprintf(stderr, "       excitation (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);

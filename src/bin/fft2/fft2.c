@@ -72,6 +72,11 @@ static char *rcs_id = "$Id$";
 #include <math.h>
 #include <SPTK.h>
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 static char *cmnd;
 int size=64, outopt=0, n1=0, n2=0, out=' ';
@@ -95,9 +100,9 @@ int usage (void)
    fprintf(stderr, "       -P       : power\n");
    fprintf(stderr, "       -h       : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)            [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)            [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       2D FFT sequence (float)\n");
+   fprintf(stderr, "       2D FFT sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);

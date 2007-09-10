@@ -73,6 +73,11 @@ static char *rcs_id = "$Id$";
 #define ORDERC  25
 #define ORDERA  25
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -90,9 +95,9 @@ void usage (int status)
    fprintf(stderr, "       -M M  : order of cepstrum  [%d]\n", ORDERC);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       LP coefficiets (float)     [stdin]\n");
+   fprintf(stderr, "       LP coefficiets (%s)     [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       cepstrum (float)\n");
+   fprintf(stderr, "       cepstrum (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

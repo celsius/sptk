@@ -70,6 +70,11 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define LENG 256
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -87,7 +92,7 @@ void usage (int status)
    fprintf(stderr, "       -n n  : order              [%d]\n", LENG-1);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       step sequence (float)\n");
+   fprintf(stderr, "       step sequence (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if l<0, generate infinite sequence\n");
 #ifdef SPTK_VERSION

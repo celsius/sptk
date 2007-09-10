@@ -67,6 +67,12 @@ static char *rcs_id = "$Id$";
 #define FLENG 256
 #define NORM FA
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
+
 /* Command Name  */
 char *cmnd;
 
@@ -83,9 +89,9 @@ int status;
    fprintf(stderr, "       -n    : normarized by frame length\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)              [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)              [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       zero cross rate (float)\n");
+   fprintf(stderr, "       zero cross rate (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

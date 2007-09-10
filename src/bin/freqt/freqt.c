@@ -77,6 +77,11 @@ static char *rcs_id = "$Id$";
 #define ALPHA1 0.0
 #define ALPHA2 0.35
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -96,9 +101,9 @@ void usage (int status)
    fprintf(stderr, "       -A A  : all-pass constant of output sequence [%g]\n", ALPHA2);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       minimum phase sequence (float)               [stdin]\n");
+   fprintf(stderr, "       minimum phase sequence (%s)               [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       warped sequence (float)\n");
+   fprintf(stderr, "       warped sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);

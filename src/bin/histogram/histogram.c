@@ -69,6 +69,11 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -88,9 +93,9 @@ int usage (int status)
    fprintf(stderr, "       -n    : normalization      FALSE\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)      [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       histogram (float)\n");
+   fprintf(stderr, "       histogram (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if l > 0, calculate histogram frame by frame\n");
 #ifdef SPTK_VERSION

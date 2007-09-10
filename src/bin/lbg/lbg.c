@@ -95,8 +95,13 @@ static char *rcs_id = "$Id$";
 
 #define MAXVALUE 1e23
 #define abs(x)  ( (x<0) ? (-(x)) : (x) )
-
-
+				    
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
+				    
 /*  Command Name  */
 char *cmnd;
 
@@ -120,9 +125,9 @@ void usage (int status)
    fprintf(stderr, "       -d d  : end condition             [%g]\n", END);
    fprintf(stderr, "       -r r  : splitting factor          [%g]\n", DELTA);
    fprintf(stderr, "  stdin:\n");
-   fprintf(stderr, "       data sequence (float)\n");
+   fprintf(stderr, "       data sequence (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       codebook (float)\n");
+   fprintf(stderr, "       codebook (%s)\n", FORMAT);
    fprintf(stderr, "  ifile:\n");
    fprintf(stderr, "       index (int)\n");
    fprintf(stderr, "  notice:\n");

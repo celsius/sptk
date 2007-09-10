@@ -67,7 +67,11 @@ static char *rcs_id = "$Id$";
 
 /*  Default Values  */
 #define ORDER   25
-
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -84,9 +88,9 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order              [%d]\n", ORDER);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       coefficients (float)       [stdin]\n");
+   fprintf(stderr, "       coefficients (%s)       [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       normalized coefficients (float)\n");
+   fprintf(stderr, "       normalized coefficients (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

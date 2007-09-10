@@ -72,6 +72,11 @@ static char *rcs_id = "$Id$";
 #define PERIOD 10
 #define START 0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -89,9 +94,9 @@ void usage (int status)
    fprintf(stderr, "       -s s  : start sample         [%d]\n", START);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)        [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)        [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       interpolated data sequence (float)\n");
+   fprintf(stderr, "       interpolated data sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

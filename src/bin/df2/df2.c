@@ -70,6 +70,11 @@ static char *rcs_id = "$Id$";
 #define SAMPLEF 10000
 #define SIZE 2048
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;
@@ -90,9 +95,9 @@ void usage (int status)
    fprintf(stderr, "                 and band width b(Hz) of zero  [N/A]\n");
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       filter input (float)                    [stdin]\n");
+   fprintf(stderr, "       filter input (%s)                    [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       filter output (float)\n");
+   fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       -p and -z option can be specified repeatedly.\n");
 #ifdef SPTK_VERSION

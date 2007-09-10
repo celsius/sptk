@@ -97,6 +97,11 @@ static char *rcs_id = "$Id$";
 #define MULG  FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -127,9 +132,9 @@ void usage (int status)
    fprintf(stderr, "                 2 (arg|H(z)|*180/pi [deg])\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       mel-generalized cepstrum (float)            [stdin]\n");
+   fprintf(stderr, "       mel-generalized cepstrum (%s)            [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       spectrum (float)\n");
+   fprintf(stderr, "       spectrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if g>1.0, g = -1 / g .\n");
 #ifdef SPTK_VERSION

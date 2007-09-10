@@ -84,6 +84,11 @@ static char *rcs_id = "$Id$";
 #define QFLAG FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -105,12 +110,12 @@ void usage (int status)
    fprintf(stderr, "       -q     : output quantized vector [%s]\n",BOOL[QFLAG]);
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  stdin:\n");
-   fprintf(stderr, "       vectors (float)\n");
+   fprintf(stderr, "       vectors (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       index (int) or\n");
-   fprintf(stderr, "       quantized vectors (float) if -q option is specified\n");
+   fprintf(stderr, "       quantized vectors (%s) if -q option is specified\n", FORMAT);
    fprintf(stderr, "  cbfile:\n");
-   fprintf(stderr, "       codebook (float)\n");
+   fprintf(stderr, "       codebook (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       -s option are specified number of stages\n");
 #ifdef SPTK_VERSION

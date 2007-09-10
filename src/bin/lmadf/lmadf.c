@@ -86,6 +86,11 @@ static char *rcs_id = "$Id$";
 #define NGAIN FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -106,11 +111,11 @@ void usage (int status)
    fprintf(stderr, "       -k    : filtering without gain      [%s]\n", BOOL[NGAIN]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       filter input (float)                [stdin]\n");
+   fprintf(stderr, "       filter input (%s)                [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       filter output (float)\n");
+   fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  cfile:\n");
-   fprintf(stderr, "       cepstrum (float)\n");
+   fprintf(stderr, "       cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       P = 4 or 5\n");
 #ifdef SPTK_VERSION

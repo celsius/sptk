@@ -73,6 +73,11 @@ static char *rcs_id = "$Id:";
 #define ALPHA 0.35
 #define ORDER 25
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -91,9 +96,9 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of mel-cepstrum [%d]\n", ORDER);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       mel-cepstrum (float)          [stdin]\n");
+   fprintf(stderr, "       mel-cepstrum (%s)          [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       MLSA filter coefficients (float)\n");
+   fprintf(stderr, "       MLSA filter coefficients (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

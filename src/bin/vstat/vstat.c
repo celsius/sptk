@@ -95,6 +95,11 @@ static char *rcs_id = "$Id$";
 #define CORR    FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -119,9 +124,9 @@ void usage (int status)
    fprintf(stderr, "       -r     : output correlation instead of cov.  [%s]\n", BOOL[CORR]);
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       vectors (float)                [stdin]\n");
+   fprintf(stderr, "       vectors (%s)                [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       mean(s) and covariance(s) of input vectors (float)\n");
+   fprintf(stderr, "       mean(s) and covariance(s) of input vectors (%s)\n", FORMAT);
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       if '-d' is specified, off-diagonal elements are suppressed.\n");
    fprintf(stderr, "       '-d' and '-r' are exclusive ('-r' has priority over '-d').\n");

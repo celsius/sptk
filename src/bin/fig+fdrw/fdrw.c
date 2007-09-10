@@ -99,6 +99,11 @@ int drw(FILE *fp);
 #define SC  1.5
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -129,7 +134,7 @@ void usage (int status)
    fprintf(stderr, "       -b       : bar graph mode         [%s]\n",BOOL[BAR]);
    fprintf(stderr, "       -h       : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)\n");
+   fprintf(stderr, "       data sequence (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       plotter command\n");
 #ifdef SPTK_VERSION
@@ -141,13 +146,13 @@ void usage (int status)
 }
 
 double fct = FCT, th = TH, lpt = LPT, dz = DZ,
-                                 scale = 0, xo = XO, yo = YO, xl = XSIZE, yl = YSIZE,
-                                                                   ymin = YMIN , ymax = YMAX;
-long nsmpls = NSMPLS;
-int is_hold = BAR, is_y = 0;
-int ltype = LTYPE, gtype = GTYPE, penno = PENNO, joinno = JOINNO, ctype = CTYPE;
-int lmod[] = { 0, 2, 6, 3, 4};
-float lpit[] = { 10, 1.6, 10, 3, 5};
+       scale = 0, xo = XO, yo = YO, xl = XSIZE, yl = YSIZE,
+       ymin = YMIN , ymax = YMAX;
+long   nsmpls = NSMPLS;
+int    is_hold = BAR, is_y = 0;
+int    ltype = LTYPE, gtype = GTYPE, penno = PENNO, joinno = JOINNO, ctype = CTYPE;
+int    lmod[] = { 0, 2, 6, 3, 4};
+float  lpit[] = { 10, 1.6, 10, 3, 5};
 
 
 int main (int argc, char *argv[])
@@ -263,7 +268,7 @@ int main (int argc, char *argv[])
       }
    }
    plote();
-   exit(0);
+   return(0);
 }
 
 int drw(FILE *fp)

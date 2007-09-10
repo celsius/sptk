@@ -70,6 +70,11 @@ static char *rcs_id="$Id$";
 #define LENG 256
 #define ORDER 25
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;
@@ -89,9 +94,9 @@ void usage (int status)
    fprintf(stderr, "       -i    : input minimum phase sequence \n");
    fprintf(stderr, "       -h    : print this message\n\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       cepstrum (float)                     [stdin]\n");
+   fprintf(stderr, "       cepstrum (%s)                     [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       impulse response (float)\n");
+   fprintf(stderr, "       impulse response (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

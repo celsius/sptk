@@ -84,6 +84,11 @@ static char *rcs_id = "$Id$";
 #define END 0.001
 #define EPS 0.0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -107,9 +112,9 @@ void usage (int status)
    fprintf(stderr, "       -d d  : end condition                   [%g]\n", END);
    fprintf(stderr, "       -e e  : small value added to periodgram [%g]\n",EPS);
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       windowed sequences (float)              [stdin]\n");
+   fprintf(stderr, "       windowed sequences (%s)              [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       mel-cepstrum (float)\n");
+   fprintf(stderr, "       mel-cepstrum (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

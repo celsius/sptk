@@ -70,6 +70,11 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define ORDER  25
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -86,9 +91,9 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDER);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       PARCOR (float)             [stdin]\n");
+   fprintf(stderr, "       PARCOR (%s)             [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       LP coefficients (float)\n");
+   fprintf(stderr, "       LP coefficients (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

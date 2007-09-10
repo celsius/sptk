@@ -71,6 +71,11 @@ static char *rcs_id = "$Id$";
 #define LENG 256
 #define SEED 1
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -88,7 +93,7 @@ void usage (void)
    fprintf(stderr, "       -s s  : seed for nrand     [%d]\n",SEED);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       random values (float)\n");
+   fprintf(stderr, "       random values (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if l<0, generate infinite sequence\n");
 #ifdef SPTK_VERSION
