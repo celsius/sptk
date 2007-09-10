@@ -112,6 +112,7 @@ void rectangle(int x0,int y0,int x1,int y1,int frame,int fill);
 void get_str(FILE *fp);
 void text(char *s,int n,int fn);
 void line_type(int type);
+void join_type(int type);
 void newpen(int width);
 void mark(int no);
 void rect(int x,int y,int w,int h,int fill);
@@ -161,6 +162,10 @@ void plot (FILE *fp)
       case 'L':
          fscanf(fp, "%d", &n);
          line_type(n);
+         break;
+      case 'K':
+         fscanf(fp, "%d", &n);
+         join_type(n);
          break;
       case 'W':
          fscanf(fp, "%d %d %d %d %d %d",
@@ -543,6 +548,14 @@ void line_type (int type)
       type = 0;
 
    printf("%s setdash\n", lmode[type]);
+}
+
+void join_type (int type)
+{
+   if (type<0 || type>2)
+      type = 0;
+
+   printf("%d setlinejoin\n", type);
 }
 
 void newpen (int width)

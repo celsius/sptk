@@ -38,26 +38,27 @@
 */
 
 /************************************************************************
-*         *
-*    Plot a Graph       *
-*         *
-*     1990.9  T.Kobayashi  *
-*     1996.5  K.Koishida  *
-*         *
-* usage:        *
-*  fig [options] [infile]>stdout    *
-* options:       *
-*  -F F     :  factor    [1] *
-*  -R R     :  rotation angle                      [0] *
-*  -W W     :  width of figure                     [1] *
-*  -H H     :  height of figure                    [1] *
-*  -o xo yo :  origin in mm                        [20 20] *
-*  -g g     :  draw grid                           [1] *
-*  -p p     :  pen number                          [1] *
-*  -s s     :  font size                           [0] *
-*  -f f     :  first opened file   [NULL]  *
-*  -t       :  transpose x and y axes              [FALSE] *
-*         *
+*                                                                       *
+*    Plot a Graph                                                       *
+*                                                                       *
+*                                            1990.9  T.Kobayashi        *
+*                                            1996.5  K.Koishida         *
+*                                                                       *
+*       usage:                                                          *
+*          fig [options] [infile] > stdout                              *
+*       options:                                                        *
+*          -F F     :  factor                      [1]                  *
+*          -R R     :  rotation angle              [0]                  *
+*          -W W     :  width of figure             [1]                  *
+*          -H H     :  height of figure            [1]                  *
+*          -o xo yo :  origin in mm                [20 20]              *
+*          -g g     :  draw grid                   [1]                  *
+*          -p p     :  pen number                  [1]                  *
+*          -j j     :  join number                 [0]                  *
+*          -s s     :  font size                   [0]                  *
+*          -f f     :  first opened file           [NULL]               *
+*          -t       :  transpose x and y axes      [FALSE]              *
+*                                                                       *
 ************************************************************************/
 
 /*  Standard C Libraries  */
@@ -84,6 +85,7 @@
 #define XO  20.0
 #define YO  20.0
 #define PENNO  1
+#define JOINNO 0
 #define XL  LENG
 #define YL  LENG
 
@@ -98,7 +100,7 @@ void usage (int status)
    fprintf(stderr, " %s - plot a graph\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -F F     : factor                 [%g]\n",FCT);
    fprintf(stderr, "       -R R     : rotation angle         [%g]\n",TH);
@@ -107,6 +109,7 @@ void usage (int status)
    fprintf(stderr, "       -o xo yo : origin in mm           [%g %g]\n",XO,YO);
    fprintf(stderr, "       -g g     : draw grid              [%d]\n",TYPE);
    fprintf(stderr, "       -p p     : pen number             [%d]\n",PENNO);
+   fprintf(stderr, "       -j j     : join number            [%d]\n",JOINNO);
    fprintf(stderr, "       -s s     : font size              [%d]\n",FNTSIZE+1);
    fprintf(stderr, "       -f f     : first opened file      [NULL]\n");
    fprintf(stderr, "       -t       : transpose x and y axes [%s]\n",BOOL[IS_T]);
@@ -123,7 +126,7 @@ void usage (int status)
    exit(status);
 }
 
-int ltype=0, penno=PENNO, type=TYPE, is_t=IS_T;
+int ltype=0, penno=PENNO, joinno=JOINNO, type=TYPE, is_t=IS_T;
 float xo=XO, yo=YO;
 float xl=XL, yl=YL, x00=0, y00=0;
 float mh=2, mw=2, h=CH_NRML, w=CW_NRML;
@@ -176,6 +179,9 @@ int main (int argc, char *argv[])
          case 'p':
             penno = atoi(s);
             break;
+         case 'j':
+            joinno = atoi(s);
+            break;
          case 'W':
             xl = atof(s) * LENG;
             break;
@@ -208,6 +214,7 @@ int main (int argc, char *argv[])
    plot(xo, yo, -3);
    rotate(th);
    pen(1);
+   join(0);
    italic(0.0);
    mode(0, 10);
    xl *= fct;
@@ -223,6 +230,7 @@ int main (int argc, char *argv[])
       plot(0.0, 0.0, 2);
    }
    pen(penno);
+   join(joinno);
 
    if (file) {
       if ((fp=fopen(file, "r")))

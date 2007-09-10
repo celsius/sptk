@@ -117,6 +117,14 @@ int pen (int pen)
    return(0);
 }
 
+int join (int join)
+{
+   if (join<0 || join>2)
+      return(1);
+   join_type(join);
+   return(0);
+}
+
 int font (int n)
 {
    if (n<0 || n>19)

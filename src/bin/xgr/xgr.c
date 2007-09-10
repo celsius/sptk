@@ -38,28 +38,28 @@
 */
 
 /****************************************************************
-*        *
-*    XY-Plotter simulator for X Window System   *
-*        *
-*    1992.03 T. KANNO  *
-*        *
-* usage:       *
-*  xgr [ options ] [ infile ]   *
-* options:      *
-*  -s  s  : window reduction   *
-*  -l     : landscape mode    *
-*  -rv    : reverse mode    *
-*  -m     : monochrome display mode  *
-*  -bg bg : background color   *
-*  -hl hl : highlight color   *
-*  -bd bd : border color    *
-*  -ms ms : mouse color    *
-*  -g  g  : window geometry   *
-*  -d  d  : display server    *
-*  -t  t  : window title    *
-* infile:       *
-*  plotter commands    *
-*        *
+*                                                               *
+*    XY-Plotter simulator for X Window System                   *
+*                                                               *
+*    1992.03 T. KANNO                                           *
+*                                                               *
+*       usage:                                                  *
+*               xgr [ options ] [ infile ]                      *
+*       options:                                                *
+*               -s  s  : window reduction                       *
+*               -l     : landscape mode                         *
+*               -rv    : reverse mode                           *
+*               -m     : monochrome display mode                *
+*               -bg bg : background color                       *
+*               -hl hl : highlight color                        *
+*               -bd bd : border color                           *
+*               -ms ms : mouse color                            *
+*               -g  g  : window geometry                        *
+*               -d  d  : display server                         *
+*               -t  t  : window title                           *
+*       infile:                                                 *
+*               plotter commands                                *
+*                                                               *
 ****************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -103,7 +103,7 @@ void usage (int status)
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - XY-plotter simulator for X-window system\n\n",cmnd);
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -s  s  : shrink                  [%g]\n",DEFAULT_SHRINK);
    fprintf(stderr, "       -l     : landscape               [%s]\n",BOOL[LANDSCAPE]);

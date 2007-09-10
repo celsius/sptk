@@ -38,53 +38,53 @@
 */
 #include <stdio.h>
 
-struct bbmargin  {		/*  Bounding Box Margin  */
-	int	top;
-	int	bottom;
-	int	left;
-	int	right;
+struct bbmargin  {      /*  Bounding Box Margin  */
+       int      top;
+       int      bottom;
+       int      left;
+       int      right;
 } bbm;
 
 struct page_media  {
-	char	*size;
-	int	width;
-	int	height;
+       char    *size;
+       int      width;
+       int      height;
 };
 
-#define	PU_PT		(72.0/254.0)
-#define	SHIFT		15
-#define	LAND_OFFSET	254
-#define	SCALE		10
+#define   PU_PT      (72.0/254.0)
+#define   SHIFT      15
+#define   LAND_OFFSET   254
+#define   SCALE      10
 
-#define	MIN_OFFSET	12
-#define	MAX_OFFSET	17
-#define	CHAR_HEIGHT	10
+#define   MIN_OFFSET   12
+#define   MAX_OFFSET   17
+#define   CHAR_HEIGHT   10
 
-#define	norm(x)		(int)(x)
+#define   norm(x)      (int)(x)
 
 typedef struct cord  {
-	int	x;
-	int	y;
+       int   x;
+       int   y;
 } Cord;
 
-extern char	*filename;
-extern char	*title;
-extern char	*progname;
+extern char   *filename;
+extern char   *title;
+extern char   *progname;
 
-extern struct page_media	paper[];
-extern char	*orientations[];
+extern struct  page_media   paper[];
+extern char   *orientations[];
 
-extern char	*media;
-extern int	xleng;
-extern int	yleng;
-extern int	resolution;
-extern int	paper_num;
-extern char	*orientation;
+extern char   *media;
+extern int     xleng;
+extern int     yleng;
+extern int     resolution;
+extern int     paper_num;
+extern char   *orientation;
 
-extern int	psmode;
-extern int	landscape;
-extern int	font_no;
-extern int	clip_mode;
+extern int     psmode;
+extern int     landscape;
+extern int     font_no;
+extern int     clip_mode;
 
 void epsf_setup(FILE *fp, float shrink, int xoffset, int yoffset, struct bbmargin bbm, int ncopy );
 void epsf_init(int *xmin, int *ymin, int *xmax, int *ymax, int ncopy );
@@ -108,6 +108,7 @@ void rectangle(int x0,int y0,int x1,int y1,int frame,int fill );
 void get_str(FILE *fp );
 void text(char *s,int n,int fn );
 void line_type(int type );
+void join_type(int type );
 void newpen(int width );
 void mark(int no );
 void rect(int x,int y,int w,int h,int fill );
