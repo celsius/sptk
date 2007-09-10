@@ -38,7 +38,7 @@
 */
 
 /****************************************************************
-* $Id: plot.c,v 1.8 2007/08/07 05:57:06 heigazen Exp $          *
+* $Id: plot.c,v 1.9 2007/09/10 14:21:01 heigazen Exp $          *
 * Interpret X-Y Ploter Commands    *
 ****************************************************************/
 
@@ -78,6 +78,7 @@ extern int  fno;
 static XPoint  points[SIZE];
 static int  line_width = 1;
 static int  line_style = LineSolid;
+static int  join_style = JoinMiter;
 static XRectangle rect;
 
 
@@ -388,10 +389,20 @@ static void newpen(int w )
    if (!c_flg || m_flg)  {
       line_width = l_width[w];
       XSetLineAttributes(display, gc,
-                         line_width, line_style, CapButt, JoinMiter);
+                         line_width, line_style, CapButt, join_style);
    }
    else
       XSetForeground(display, gc, get_color_pix(c_name[w]));
+}
+
+static void join_type (int w)
+{
+   switch(w) {
+   case  0: join_style = JoinMiter; break;
+   case  1: join_style = JoinRound; break;
+   case  2: join_style = JoinBevel; break;
+   default: join_style = JoinMiter;
+   }
 }
 
 static int line_type (int w)
@@ -406,7 +417,7 @@ static int line_type (int w)
       return(0);
 
    XSetLineAttributes(display, gc,
-                      line_width, line_style, CapButt, JoinMiter);
+                      line_width, line_style, CapButt, join_style);
    if (w>0)  {
       XSetDashes(display, gc, dash_offset,
                  l_style[w].list, l_style[w].no);
@@ -497,6 +508,10 @@ void plot (void)
       case 'L':
          scanf("%d", &w);
          line_type(w);
+         break;
+      case 'K':
+         scanf("%d", &w);
+         join_type(w);
          break;
       case 'W':
          scanf("%d %d %d %d %d %d",

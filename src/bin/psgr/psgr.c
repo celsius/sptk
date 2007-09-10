@@ -38,17 +38,17 @@
 */
 
 /********************************************************
-*       *
-*   psgr:  xy-plotter simulator for EPSF  *
-*       *
-* Ver. 0.95  '92.3 T.Kanno  *
-* Ver. 0.96  '92.8   *
-* Ver. 0.97  '92.10   *
-* Ver. 0.98  '93.2   *
-* Ver. 0.99  '93.8   *
+*                                                       *
+*   psgr:  xy-plotter simulator for EPSF                *
+*                                                       *
+*      Ver. 0.95  '92.3 T.Kanno                         *
+*      Ver. 0.96  '92.8                                 *
+*      Ver. 0.97  '92.10                                *
+*      Ver. 0.98  '93.2                                 *
+*      Ver. 0.99  '93.8                                 *
 ********************************************************/
 
-static char *rcs_id = "$Id: psgr.c,v 1.7 2007/08/07 05:54:36 heigazen Exp $";
+static char *rcs_id = "$Id: psgr.c,v 1.8 2007/09/10 14:21:01 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -108,7 +108,7 @@ void usage (int status)
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - XY-plotter simulator for EPSF\n\n",progname);
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", progname);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", progname);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -t t  : title of figure      [NULL]\n");
    fprintf(stderr, "       -s s  : shrink               [%g]\n",SHRINK);
@@ -161,7 +161,7 @@ int main (int argc,char *argv[] )
       if (*(str=*++argv)=='-')  {
          flg = *++str;
          if ((flg!='P' && flg!='l' && flg!='b')
-               && *++str=='\0')  {
+              && *++str=='\0')  {
             str = *++argv;
             argc--;
          }
@@ -243,7 +243,7 @@ int main (int argc,char *argv[] )
       if ((fp = fopen(filename, "r"))==NULL)  {
          fprintf(stderr, "%s: Can't open file '%s'!\n",
                  progname, filename);
-         exit(2);
+         return(2);
       }
    }
    else  {

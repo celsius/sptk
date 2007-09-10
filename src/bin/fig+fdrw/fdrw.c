@@ -38,30 +38,31 @@
 */
 
 /************************************************************************
-*         *
-*    Draw a Graph       *
-*         *
-*     1991.1  T.Kobayshi  *
-*     1996.5  K.Koishida  *
-*         *
-* usage:        *
-*  fdrw [options] [infile]>stdout   *
-* options:       *
-*  -F F     :  factor    [1] *
-*  -R R     :  rotation angle                      [0] *
-*  -o xo yo :  origin in mm                        [20 20] *
-*  -W W     :  width of figure                     [1] *
-*  -H H     :  height of figure                    [1] *
-*  -g g     :  draw grid                           [1] *
-*  -m m     :  line type                           [0] *
-*  -l l     :  line pitch                          [0] *
-*  -p p     :  pen number                          [1] *
-*  -n n     :  number of samples                   [0] *
-*  -t t     :  coordinate type                     [0] *
-*  -y y1 y2 :  scaling factor (y1=min, y2=max)     [-1 1] *
-*  -z z     :  offset for duplication              [0] *
-*  -b       :  bar graph mode   [FALSE] *
-*         *
+*                                                                       *
+*    Draw a Graph                                                       *
+*                                                                       *
+*                                             1991.1  T.Kobayshi        *  
+*                                             1996.5  K.Koishida        *
+*                                                                       *
+*       usage:                                                          *
+*          fdrw [options] [infile] > stdout                             *
+*       options:                                                        *
+*          -F F     :  factor    [1]                                    *  
+*          -R R     :  rotation angle                      [0]          *
+*          -o xo yo :  origin in mm                        [20 20]      *
+*          -W W     :  width of figure                     [1]          *
+*          -H H     :  height of figure                    [1]          *
+*          -g g     :  draw grid                           [1]          *
+*          -m m     :  line type                           [0]          *
+*          -l l     :  line pitch                          [0]          *
+*          -p p     :  pen number                          [1]          *
+*          -j j     :  join number                         [1]          *
+*          -n n     :  number of samples                   [0]          *
+*          -t t     :  coordinate type                     [0]          *
+*          -y y1 y2 :  scaling factor (y1=min, y2=max)     [-1 1]       *
+*          -z z     :  offset for duplication              [0]          *
+*          -b       :  bar graph mode   [FALSE]                         *
+*                                                                       *
 ************************************************************************/
 
 
@@ -85,6 +86,7 @@ int drw(FILE *fp);
 #define LTYPE  0
 #define LPT  0.0
 #define PENNO  1
+#define JOINNO 1
 #define NSMPLS  0
 #define DZ  0.0
 #define XSIZE  100.0
@@ -108,7 +110,7 @@ void usage (int status)
    fprintf(stderr, " %s - drw a graph\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -F F     : factor                 [%g]\n",FCT);
    fprintf(stderr, "       -R R     : rotation angle         [%g]\n",TH);
@@ -119,6 +121,7 @@ void usage (int status)
    fprintf(stderr, "       -m m     : line type              [%d]\n",LTYPE);
    fprintf(stderr, "       -l l     : line pitch             [%g]\n",LPT);
    fprintf(stderr, "       -p p     : pen number             [%d]\n",PENNO);
+   fprintf(stderr, "       -j j     : join number            [%d]\n",JOINNO);
    fprintf(stderr, "       -n n     : number of sample       [%d]\n",NSMPLS);
    fprintf(stderr, "       -t t     : coordinate type        [%d]\n",CTYPE);
    fprintf(stderr, "       -y y1 y2 : scaling factor         [%g %g]\n",YMIN,YMAX);
@@ -142,7 +145,7 @@ double fct = FCT, th = TH, lpt = LPT, dz = DZ,
                                                                    ymin = YMIN , ymax = YMAX;
 long nsmpls = NSMPLS;
 int is_hold = BAR, is_y = 0;
-int ltype = LTYPE, gtype = GTYPE, penno = PENNO, ctype = CTYPE;
+int ltype = LTYPE, gtype = GTYPE, penno = PENNO, joinno = JOINNO, ctype = CTYPE;
 int lmod[] = { 0, 2, 6, 3, 4};
 float lpit[] = { 10, 1.6, 10, 3, 5};
 
@@ -192,6 +195,9 @@ int main (int argc, char *argv[])
          case 'p':
             penno = atoi(s);
             break;
+         case 'j':
+            joinno = atoi(s);
+            break;
          case 'n':
             nsmpls = atoi(s);
             break;
@@ -228,6 +234,7 @@ int main (int argc, char *argv[])
    plot(xo, yo, -3);
    rotate(th);
    pen(1);
+   join(0);
    xl *= fct;
    yl *= fct;
    if (gtype) {
@@ -245,6 +252,7 @@ int main (int argc, char *argv[])
       }
    }
    pen(penno);
+   join(joinno);
    while (!feof(fp)) {
       drw(fp);
       if (dz) {

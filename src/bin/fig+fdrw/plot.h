@@ -38,12 +38,12 @@
 */
 
 /****************************************************************
-* $Id: plot.h,v 1.4 2007/08/07 05:42:01 heigazen Exp $          *  
-* HEADER for XY-PLOTTER library    *
-*        *
-* Following commands are valid for the xy plotter FP5301 *
-*        *
-*      Oct. 1, 1985 *
+* $Id: plot.h,v 1.5 2007/09/10 14:21:01 heigazen Exp $          *  
+* HEADER for XY-PLOTTER library                                 *
+*                                                               *
+*    Following commands are valid for the xy plotter FP5301     *
+*                                                               *
+*                                               Oct. 1, 1985    *
 ****************************************************************/
 
 #include <stdio.h>
@@ -73,6 +73,7 @@
 #define home();  putchar('H')   /* home */
 #define aitalic(p) printf("I%d\n", p)  /* alpha italic */
 #define newpen(p) printf("J%d\n", p)  /* new pen */
+#define join_type(p) printf("K%d\n", p)  /* join type */
 #define KANA 0x804b   /* kana   */
 #define line_type(p) printf("L%d\n", p)  /* line type */
 #define move(x, y) printf("M%d %d\n", x, y) /* move */

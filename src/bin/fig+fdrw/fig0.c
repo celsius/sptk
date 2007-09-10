@@ -273,6 +273,10 @@ void graph(FILE *fp)
          n = flush(xbuf, ybuf, n);
          pen(atoi(s));
       }
+      else if (strcmp(arg, "join")==0) {
+         n = flush(xbuf, ybuf, n);
+         join(atoi(s));
+      }
       else if (strcmp(arg, "csize")==0) {
          if (sscanf(s, "%f %f", &h, &w) != 2)
             w = h;
