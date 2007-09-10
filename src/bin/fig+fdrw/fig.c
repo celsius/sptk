@@ -246,5 +246,5 @@ int main (int argc, char *argv[])
          }
    }
    plote();
-   exit(0);
+   return(0);
 }
