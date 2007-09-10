@@ -218,7 +218,16 @@ The default values for the option --{\bf s} follows:
 \begin{minipage}[t]{9cm}
 This command chooses the variable $penno$.
 $1 \leq  penno \leq 10$
-Please refer to appendix.
+Please refer to \hyperlink{pen-color}{appendix}.
+\end{minipage}\\
+
+\begin{minipage}[t]{5.5cm}
+ join ~$joinno$
+\end{minipage}
+\begin{minipage}[t]{9cm}
+This command chooses the variable $joinno$.
+$0 \leq joinno \leq 2$
+Please refer to the \hyperlink{join-type}{appendix}.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
@@ -229,7 +238,7 @@ This command assigns the type $ltype$ of the line which will connect
 data as well as the $lpt$ pace. $lpt$ is on mm unit.
 When $ltype$=0: no line is used to connect coordinate points.
 1:~solid~~2:~dotted~~3:~dot and dash~~4:~broken~~5:~dash
-Please refer to the appendix.\\
+Please refer to the \hyperlink{pen-line}{appendix}.\\
         
 \end{minipage}\\
 
@@ -402,7 +411,7 @@ When $label$ is assigned in mark command,
 $label$ replacement will take place only for this coordinate.
 The option $th$ assigns the angle.\\
 If $\backslash n$, where $0 \leq n \leq 15$, is assigned to $label$,
-the corresponding mark is draw (refer to the appendix for the types of
+the corresponding mark is draw (refer to the \hyperlink{lmark}{appendix} for the types of
 marks).
 When a minus sign is written before mark number,
 then the connecting line between marks passes through the center of
@@ -426,6 +435,7 @@ Coordinates before and after the eod sign are not connected.
 \end{qsection}
 \newpage
 \begin{qsection}{APPENDIX}
+\hypertarget{lmark}{}
 {\large \hspace{-1.5ex}$\bullet$
 The following type of marks can be defined through $label$:}
 
@@ -434,7 +444,7 @@ The following type of marks can be defined through $label$:}
 \includegraphics[width=12cm]{fig/mark.eps} \\
 \end{center}
 
-
+\hypertarget{pen-line}{}
 {\large \hspace{-1.5ex}$\bullet$
 The following types of pen and line can be defined:}\\
 \hspace{3mm}[When output is obtained through the command ``psgr'']
@@ -443,9 +453,10 @@ The following types of pen and line can be defined:}\\
 \includegraphics{fig/pen-line.eps} \\
 
 (Attention)~~ The types of output generate through the pen command
-depends on the printer(Please try printing this page).
+depends on the printer (Please try printing this page).
 \newpage
 [When output is obtained through the command ``xgr'']\\
+\hypertarget{pen-color}{}
 The following colors can be used.\\
 
 \begin{center}
@@ -456,6 +467,12 @@ The following colors can be used.\\
  dark blue \\ \hline
 \end{tabular}\\
 \end{center}
+
+\vspace{5mm}
+\hypertarget{join-type}{}
+{\large \hspace{-1.5ex}$\bullet$ 
+The following types of joins can be defined:}\\
+\includegraphics[width=9cm]{fig/join-type.eps}\\
 
 \vspace{5mm}
 {\large \hspace{-1.5ex}$\bullet$ paint type:}\\
