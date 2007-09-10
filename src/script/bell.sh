@@ -38,16 +38,16 @@
 
 
 #########################################################################
-#									#
-#   $Id: bell.sh,v 1.3 2007/08/07 06:09:54 heigazen Exp $               #
 #                                                                       #
-#   Bell								#
-#									#
-#						1996.6  K.Koishida	#
-#									#
+#   Bell                                                                #
+#                                                                       #
+#                                               1996.6  K.Koishida      #
+#                                                                       #
 #########################################################################
 
-set path	= ( /usr/local/SPTK/bin $path )
+set path	   = ( /usr/local/SPTK/bin $path )
+set sptkver = 'SPTK_VERSION'
+set cvsid   = '$Id: bell.sh,v 1.4 2007/09/10 17:10:43 heigazen Exp $'
 
 set cmnd	= $0
 set cmnd	= $cmnd:t
@@ -79,7 +79,8 @@ usage:
 	echo2 '       -h  : print this message'
 	echo2 '  notice:'
 	echo2 '       num : number of bell      [1]'
-	echo2 ''
+	echo2 "  SPTK: version $sptkver"
+	echo2 "  CVS Info: $cvsid"
 exit $exit_status
 
 main:

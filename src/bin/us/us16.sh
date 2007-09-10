@@ -39,8 +39,6 @@
 
 #########################################################################
 #                                                                       #
-#   $Id: us16.sh,v 1.5 2007/09/10 12:49:21 heigazen Exp $               #
-#                                                                       #
 #       Sampling rate conversion from 10|12kHz to 16kHz                 #
 #                                                                       #
 #                                           1998    T.Kobayashi         #
@@ -50,6 +48,8 @@
 
 set path        = ( /usr/local/SPTK/bin $path )
 set libpath     = /usr/local/SPTK/lib
+set sptkver     = 'SPTK_VERSION'
+set cvsid       = '$Id: us16.sh,v 1.6 2007/09/10 17:10:43 heigazen Exp $'
 
 set cmnd        = `basename $0`
 
@@ -172,6 +172,9 @@ cat2 <<EOF
        data sequence                                         [stdout]
   notice:
 
+  SPTK: version $sptkver
+  CVS Info: $cvsid
+  
 EOF
 exit 1
 

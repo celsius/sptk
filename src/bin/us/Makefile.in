@@ -90,7 +90,9 @@ install: $(TARGET)
 	$(INSTALL) -m 755 $(TARGET) $(BIN)
 	cp $(COEF) $(LIB)
 	- for i in *.sh; do \
-		sed -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' -e '/libpath/s:/usr/local/SPTK/lib:'$(LIB)':' $$i > $(BIN)/$$i; \
+		sed -e 's:SPTK_VERSION:@PACKAGE_VERSION@:g' \
+			 -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' \
+			 -e '/libpath/s:/usr/local/SPTK/lib:'$(LIB)':' $$i > $(BIN)/$$i; \
 		chmod 755 $(BIN)/$$i; \
 		j=`basename $$i .sh`; \
 		$(RM) $(BIN)/$$j ; \

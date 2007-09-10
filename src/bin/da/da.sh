@@ -39,10 +39,7 @@
 
 #########################################################################
 #                                                                       #
-#   $Id: da.sh,v 1.6 2007/08/07 04:13:07 heigazen Exp $                 #
-#                                                                       #
 #   play 16-bit linear PCM                                              #
-#                                                                       #
 #                                                                       #
 #                                               2000.4  S.Sako          #
 #                                                                       #
@@ -51,6 +48,8 @@
 set path        = ( /usr/local/SPTK/bin $path )
 set libpath	= /usr/local/SPTK/lib
 set cmnd	= `basename $0`
+set sptkver = 'SPTK_VERSION'
+set cvsid = '$Id: da.sh,v 1.7 2007/09/10 17:10:43 heigazen Exp $'
 
 set file	= ""
 set stdinput    = 1
@@ -173,6 +172,9 @@ cat2 <<EOF
        data sequence                                              [stdin]
   notice:
 
+  SPTK: version $sptkver
+  CVS Info: $cvsid
+  
 EOF
 		exit 1
 
@@ -193,6 +195,32 @@ cat2 <<EOF
        data sequence                                             [stdin]
   notice:
 
+  SPTK: version $sptkver
+  CVS Info: $cvsid
+  
+EOF
+		exit 1
+
+ 	case x86_64:
+cat2 <<EOF
+  options:
+       -s s  : sampling frequency ( 8, 10, 11.025, 12, 16, 20,
+                                              22.025, 44.1 kHz)  [10]
+       -g g  : gain (..,-2,-1,0,1,2,...)                         [0]
+       -a a  : amplitude gain (0..100)                           [N/A]
+       -H H  : header size in byte                               [0]
+       -v    : display filename                                  [FALSE]
+       -w    : execute byte swap                                 [FALSE]
+       +x    : data format                                       [s]
+                  s(short)   f(float)
+       -h    : print this message
+  infile:
+       data sequence                                             [stdin]
+  notice:
+
+  SPTK: version $sptkver
+  CVS Info: $cvsid
+  
 EOF
 		exit 1
 endsw

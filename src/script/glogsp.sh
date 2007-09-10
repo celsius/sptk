@@ -38,17 +38,17 @@
 
 
 #########################################################################
-#									#
-#   $Id: glogsp.sh,v 1.3 2007/08/07 06:09:54 heigazen Exp $             #
 #                                                                       #
-#   Draw a Log Spectrum Graph						#
-#									#
-#						1988.5  K.Tokuda	#
-#						1996.6  K.Koishida	#
-#									#
+#   Draw a Log Spectrum Graph                                           #
+#                                                                       #
+#                                               1988.5  K.Tokuda        #
+#                                               1996.6  K.Koishida      #
+#                                                                       #
 #########################################################################
 
-set path	= ( /usr/local/SPTK/bin $path )
+set path	   = ( /usr/local/SPTK/bin $path )
+set sptkver = 'SPTK_VERSION'
+set cvsid   = '$Id: glogsp.sh,v 1.4 2007/09/10 17:10:43 heigazen Exp $'
 
 set cmnd	= $0
 set cmnd	= $cmnd:t
@@ -225,6 +225,8 @@ endif
 	echo2 '       log spectrum (float)                         [stdin]'
 	echo2 '  stdout:'
 	echo2 '       XY-plotter command'
+	echo2 "  SPTK: version $sptkver"
+	echo2 "  CVS Info: $cvsid"
 	echo2 ''
 exit $exit_status
 
