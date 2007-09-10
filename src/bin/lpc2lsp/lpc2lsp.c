@@ -38,36 +38,36 @@
 */
 
 /************************************************************************
-*         *
-*    Transform LPC to LSP       *
-*         *
-*     1998.11 K.Koishida  *
-*         *
-* usage:        *
-*  lpc2lsp [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m  :  order of LPC      [25] *
-*  -s s  :  sampling frequency (kHz)    [10] *
-*  -k    :  output gain     [TRUE] *
-*  -o o  :  output format (see stdout)     [0] *
-*   (level 2)      *
-*  -n n  :  split number of unit circle   [128] *
-*  -p p  :  maximum number of interpolation           [4] *
-*  -d d  :  end condition of interpolation  [1e-6] *
-* infile:        *
-*  LP coefficients      *
-*      , K, a(1), ..., a(m),    *
-* stdout:        *
-*       output format LSP     *
-*      0  normalized frequency (0 ~ pi)  *
-*      1  normalized frequency (0 ~ 0.5)  *
-*      2  frequency (kHz)    *
-*      3  frequency (Hz)    *
-*  LSP       *
-*      , f(1), ..., f(m),     *
-* require:       *
-*  lpc2lsp()      *
-*         *
+*                                                                       *
+*    Transform LPC to LSP                                               *
+*                                                                       *
+*                                        1998.11 K.Koishida             *
+*                                                                       *
+*       usage:                                                          *
+*               lpc2lsp [ options ] [ infile ] > stdout                 *
+*       options:                                                        *
+*               -m m  :  order of LPC                     [25]          *
+*               -s s  :  sampling frequency (kHz)         [10]          *
+*               -k    :  output gain                      [TRUE]        *
+*               -o o  :  output format (see stdout)       [0]           *
+*               (level 2)                                               *
+*               -n n  :  split number of unit circle      [128]         *
+*               -p p  :  maximum number of interpolation  [4]           *
+*               -d d  :  end condition of interpolation   [1e-6]        *
+*      infile:                                                          *
+*               LP coefficients                                         *
+*                       , K, a(1), ..., a(m),                           *
+*      stdout:                                                          *
+*               output format LSP                                       *
+*                       0  normalized frequency (0 ~ pi)                *
+*                       1  normalized frequency (0 ~ 0.5)               *
+*                       2  frequency (kHz)                              *
+*                       3  frequency (Hz)                               *
+*               LSP                                                     *
+*                       , f(1), ..., f(m),                              *
+*      require:                                                         *
+*              lpc2lsp()                                                *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -103,7 +103,7 @@ void usage (int status)
    fprintf(stderr, " %s - transform LPC to LSP\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of LPC                            [%d]\n", ORDER);
    fprintf(stderr, "       -s s  : sampling frequency                      [%d]\n", SAMPLING);

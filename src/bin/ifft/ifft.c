@@ -38,19 +38,19 @@
 */
 
 /************************************************************************
-*    Inverse FFT for Complex Sequence					*
-*									*
-*	usage:								*
-*		ifft [ infile ] [ options ] > stdout			*
-*									*
-*	options:							*
-*		-l l	 :  FFT size power of 2		[256]		*
-*		-R	 :  real part					*
-*		-I	 :  imaginary part				*
-*	infile:								*
-*		stdin for default					*
-*		input is assumed to be real				*
-*									*
+*    Inverse FFT for Complex Sequence                                   *
+*                                                                       *
+*       usage:                                                          *
+*               ifft [ infile ] [ options ] > stdout                    *
+*                                                                       *
+*       options:                                                        *
+*               -l l    :  FFT size power of 2      [256]               *
+*               -R      :   real part                                   *
+*               -I      :  imaginary part                               *
+*       infile:                                                         *
+*               stdin for default                                       *
+*               input is assumed to be real                             *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

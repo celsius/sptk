@@ -38,31 +38,31 @@ All Rights Reserved.
 */
 
 /************************************************************************
-*									*
-*    Binary File Cut							*
-*									*
-*					1990.3  K.Tokuda		*
-*					1996.5  K.Koishida		*
-*									*
-*	usage:								*
-*		bcut [options] [infile] > stdout			*
-*	options:							*
-*		-s s     :  start number                        [0]	*
-*		-e e     :  end number                          [EOF]	*
-*		-l l     :  block length                        [1]	*
-*		-n n     :  block order                         [l-1]	*
-*		+type    :  data type 				[c]	*
-*				c (char)     s (short)			*
-*				i (int)      l (long)			*
-*				f (float)    d (double)			*
-*	infile:								*
-*		data sequence					[stdin] *
-*	stdout:								*
-*		cut data sequence					*
-*	note:								*
-*		When both -L and -n are specified,			*
-*		latter argument is adopted.				*
-*									*
+*                                                                       *
+*    Binary File Cut                                                    *
+*                                                                       *
+*               1990.3  K.Tokuda                                        *
+*               1996.5  K.Koishida                                      *
+*                                                                       *
+*       usage:                                                          *
+*               bcut [options] [infile] > stdout                        *
+*       options:                                                        *
+*               -s s     :  start number                        [0]     *
+*               -e e     :  end number                          [EOF]   *
+*               -l l     :  block length                        [1]     *
+*               -n n     :  block order                         [l-1]   *
+*               +type    :  data type                           [c]     *
+*                               c (char)     s (short)                  *
+*                               i (int)      l (long)                   *
+*                               f (float)    d (double)                 *
+*       infile:                                                         *
+*               data sequence                                   [stdin] *
+*       stdout:                                                         *
+*               cut data sequence                                       *
+*       note:                                                           *
+*               When both -L and -n are specified,                      *
+*               latter argument is adopted.                             *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -189,7 +189,7 @@ int main (int argc, char **argv)
       
    ptr = start * n;
    while(ptr--)
-      if (fread(&x, size, 1, fp) != 1) exit(0);
+      if (fread(&x, size, 1, fp) != 1) return(0);
     
    ptr = (end - start + 1) * n;
    while (end==-1 || ptr--) {
@@ -198,5 +198,5 @@ int main (int argc, char **argv)
       fwrite(&x, size, 1, stdout);
    }
 
-   exit(0);
+   return(0);
 }

@@ -43,20 +43,35 @@
 
     GLSA Digital Filter
 
-	double	glsadf(x, c, m, n, d)
+        double   glsadf(x, c, m, n, d)
 
-	double	x   : input
-	double	*c  : filter coefficients (K, g*c'(1), ..., g*c'(m))
-	int	m   : order of cepstrum
-	int     n   : -1/gamma
-	double  *d  : delay
+        double   x   : input
+        double   *c  : filter coefficients (K, g*c'(1), ..., g*c'(m))
+        int      m   : order of cepstrum
+        int      n   : -1/gamma
+        double   *d  : delay
 
-	return value : filtered data
+        return value : filtered data
 
 *****************************************************************/
 
 #include <stdio.h>
 #include <SPTK.h>
+
+static double gpoledf (double x, double *c, int m, const double g, double *d)
+{
+   double y=0.0;
+
+   for (m--; m>0; m--) {
+      y -= c[m+1] * d[m];
+      d[m] = d[m-1];
+   }
+   y -= c[1] * d[0];
+   y *= g;
+   d[0] = (x += y);
+
+   return(x);
+}
 
 double glsadf (double x, double *c, const int m, const int n, double *d)
 {
@@ -80,19 +95,3 @@ double glsadf1 (double x, double *c, const int m, const int n, double *d)
     
    return(x);
 }
-
-double gpoledf (double x, double *c, int m, const double g, double *d)
-{
-   double y=0.0;
-    
-   for (m--; m>0; m--) {
-      y -= c[m+1] * d[m];
-      d[m] = d[m-1];
-   }
-   y -= c[1] * d[0];
-   y *= g;
-   d[0] = (x += y);
-    
-   return(x);
-}
-

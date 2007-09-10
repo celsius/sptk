@@ -43,16 +43,16 @@
 
     LPC Analysis Using Levinson-Durbin method
 
-    int lpc(x, flng, a, m);
+       int lpc(x, flng, a, m);
 
- double  *x   : input sequence
- int     flng : flame length
- double  *a   : LP coefficients
- int     m    : order of LPC
+       double  *x   : input sequence
+       int     flng : flame length
+       double  *a   : LP coefficients
+       int     m    : order of LPC
 
- return value :  0  -> normally completed
-   -1 -> abnormally completed
-   -2 -> unstable LPC
+       return value :  0  -> normally completed
+                       -1 -> abnormally completed
+                       -2 -> unstable LPC
 
 ******************************************************************/
 

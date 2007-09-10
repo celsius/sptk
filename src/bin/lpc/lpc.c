@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*         *
-*    LPC Analysis Using Levinson-Durbin Method    *
-*         *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  lpc [ options ] [ infile ]>stdout   *
-* options:       *
-*  -l l     :  frame length  [256]  *
-*  -m m     :  order of LPC  [25]  *
-* infile:        *
-*  data sequence       *
-*      , x(0), x(1), ..., x(l-1),    *
-* stdout:        *
-*  LP Coefficeints      *
-*      , K, a(1), ..., a(m),    *
-* require:       *
-*  lpc()       *
-*         *
+*                                                                       *
+*    LPC Analysis Using Levinson-Durbin Method                          *
+*                                                                       *
+*                                    1996.1  K.Koishida                 *
+*                                                                       *
+*       usage:                                                          *
+*               lpc [ options ] [ infile ] > stdout                     *
+*       options:                                                        *
+*               -l l     :  frame length                [256]           *
+*               -m m     :  order of LPC                [25]            *
+*       infile:                                                         *
+*               data sequence                                           *
+*                       , x(0), x(1), ..., x(l-1),                      *
+*       stdout:                                                         *
+*               LP Coefficeints                                         *
+*                       , K, a(1), ..., a(m),                           *
+*       require:                                                        *
+*               lpc()                                                   *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -84,7 +84,7 @@ void usage (int status)
    fprintf(stderr, " %s - LPC analysis using Levinson-Durbin method\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : frame length       [%d]\n", FLNG);
    fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDER);

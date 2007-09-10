@@ -43,14 +43,14 @@
 
     Transformation LPC to PARCOR
 
- int lpc2par(a, k, m)
+        int lpc2par(a, k, m)
 
- double  *a : LP coefficients
- double  *k : PARCOR coefficients
- int      m : order of LPC
+        double  *a : LP coefficients
+        double  *k : PARCOR coefficients
+        int      m : order of LPC
 
- return value :  0  -> normally completed
-   -1 -> abnormally completed
+        return value :  0  -> normally completed
+                        -1 -> abnormally completed
 
 ****************************************************************/
 

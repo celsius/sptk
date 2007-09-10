@@ -38,25 +38,25 @@ All Rights Reserved.
 */
 
 /************************************************************************
-*									*
-*    Transform MLSA Digital Filter Coefficients to Mel Cepstrum 	*
-*									*
-*					1995.12  K.Koishida		*
-*									*
-*	usage:								*
-*		b2mc [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m  :  order of mel cepstrum	[25]			*
-*		-a a  :  all-pass constant	[0.35]			*
-*	infile:								*
-*		MLSA filter coefficients				*
-*		    , b(0), b(1), ..., b(M),				*
-*	stdout:								*
-*		mel cepstral coefficients				*
-*		    , c~(0), c~(1), ..., c~(M),				*
-*	require:							*
-*		b2mc()							*
-*									*
+*                                                                       *
+*    Transform MLSA Digital Filter Coefficients to Mel Cepstrum         *
+*                                                                       *
+*                                        1995.12  K.Koishida            *
+*                                                                       *
+*        usage:                                                         *
+*                b2mc [ options ] [ infile ] > stdout                   *
+*        options:                                                       *
+*                -m m  :  order of mel cepstrum   [25]                  *
+*                -a a  :  all-pass constant       [0.35]                *
+*        infile:                                                        *
+*                MLSA filter coefficients                               *
+*                , b(0), b(1), ..., b(M),                               *
+*        stdout:                                                        *
+*                mel cepstral coefficients                              *
+*                , c~(0), c~(1), ..., c~(M),                            *
+*        require:                                                       *
+*                b2mc()                                                 *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -142,5 +142,5 @@ int main (int argc, char **argv)
       b2mc(x, x, m, a);
       fwritef(x, sizeof(*x), m1, stdout);
    }
-   exit(0);
+   return(0);
 }

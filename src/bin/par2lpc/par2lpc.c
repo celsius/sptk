@@ -38,24 +38,24 @@
 */
 
 /************************************************************************
-*         *
-*    Transform PARCOR to LPC      *
-*         *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  par2lpc [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of LPC  [25]  *
-* infile:        *
-*  PARCOR       *
-*      , K, k(1), ..., k(m),    *
-* stdout:        *
-*  LP Coefficeints      *
-*      , K, a(1), ..., a(m),    *
-* require:       *
-*  par2lpc()      *
-*         *
+*                                                                       *
+*    Transform PARCOR to LPC                                            *
+*                                                                       *
+*                                        1996.1  K.Koishida             *  
+*                                                                       *
+*       usage:                                                          *
+*               par2lpc [ options ] [ infile ] > stdout                 *
+*       options:                                                        *
+*               -m m     :  order of LPC  [25]                          *
+*       infile:                                                         *
+*               PARCOR                                                  *
+*                      , K, k(1), ..., k(m),                            *
+*       stdout:                                                         *
+*               LP Coefficeints                                         *
+*                      , K, a(1), ..., a(m),                            *
+*       require:                                                        *
+*               par2lpc()                                               *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -81,7 +81,7 @@ void usage (int status)
    fprintf(stderr, " %s - transform PARCOR to LPC\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDER);
    fprintf(stderr, "       -h    : print this message\n");

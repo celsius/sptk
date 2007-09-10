@@ -43,11 +43,11 @@
 
     Transformation LSP to LPC
 
- void lsp2lpc(lsp, a, m)
+        void lsp2lpc(lsp, a, m)
 
- double  *lsp : LSP
- double  *a   : LPC
- int     m    : order of LPC
+        double  *lsp : LSP
+        double  *a   : LPC
+        int      m   : order of LPC
 
 *****************************************************************/
 

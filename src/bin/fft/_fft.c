@@ -38,19 +38,19 @@
 */
 
 /********************************************************
-   $Id$					
-	NAME:					
-		fft - fast fourier transform    
-	SYNOPSIS:					
-		int	fft(x, y, m);			
-							
-		double	x[];	real part		
-		double	y[];	imaginary part		
-		int	m;	data size		
-	
-		return : success = 0
-			 fault	 = -1
-	Naohiro Isshiki 	Dec.1995    modified	
+   $Id$               
+       NAME:               
+                fft - fast fourier transform    
+       SYNOPSIS:               
+                int   fft(x, y, m);         
+                     
+                double   x[];   real part      
+                double   y[];   imaginary part      
+                int      m;     data size      
+   
+                return : success = 0
+                         fault   = -1
+       Naohiro Isshiki          Dec.1995    modified   
 ********************************************************/
 
 #include <stdio.h>
@@ -61,6 +61,19 @@
 
 double *_sintbl=0;
 int maxfftsize=0;
+
+static int checkm (const int m)
+{
+   int k;
+
+   for (k=4; k<=m; k<<=1) {
+      if (k==m)
+         return(0);
+   }
+   fprintf(stderr, "fft : m must be a integer of power of 2\n");
+
+   return(-1);
+}
 
 int fft (double *x, double *y, const int m)
 {
@@ -164,17 +177,4 @@ int fft (double *x, double *y, const int m)
    }
  
    return(0);
-}
-
-int checkm (const int m)
-{
-   int k;
-
-   for (k=4; k<=m; k<<=1) {
-      if (k==m)
-         return(0);
-   }
-   fprintf(stderr, "fft : m must be a integer of power of 2\n");
- 
-   return(-1);
 }

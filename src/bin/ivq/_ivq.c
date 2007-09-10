@@ -43,12 +43,12 @@
 
     Decoder of Vector Quantization
 
- void ivq(index, cb, l, x)
+        void ivq(index, cb, l, x)
 
- int    index  : index of codebook
- double *cb    : codebook vector
- int    l      : vector order
- double *x     : decoded vector
+        int    index  : index of codebook
+        double *cb    : codebook vector
+        int    l      : vector order
+        double *x     : decoded vector
 
 *****************************************************************/
 

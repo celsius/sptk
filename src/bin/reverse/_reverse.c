@@ -44,8 +44,8 @@
   Reverse the order of data in sequence
       reverse(real* p, int l)
 
-          double* p : data seqence (Overwrite)
-          int   l : length of sequence
+      double* p : data seqence (Overwrite)
+      int   l : length of sequence
 
 ************************************************************************/
 

@@ -43,14 +43,14 @@
 
     Decoder of Multi Stage Vector Quantization
 
- imsvq(index, cb, l, cbsize, stage, x)
+        imsvq(index, cb, l, cbsize, stage, x)
 
- int    *index  : index of codebook
- real   *cb     : codebook vector
- int    l       : order of vector
- int    *cbsize : size of codebook
- int    stage   : number of stage
- real   *x      : decoded vector
+        int    *index  : index of codebook
+        real   *cb     : codebook vector
+        int    l       : order of vector
+        int    *cbsize : size of codebook
+        int    stage   : number of stage
+        real   *x      : decoded vector
 
 *****************************************************************/
 

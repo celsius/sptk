@@ -37,23 +37,23 @@
  ----------------------------------------------------------------
 */
 
-/************************************************
-* 
-*     $Id$
-* 
-*	Data clipping				*
-*		1996.3.14			*
-*						*
-*	synopsis:				*
-*		clip(x, l, min, max, y)		*
-*						*
-*		double *x : input sequence	*
-*		int     l : sequence length	*
-*		double min: lower bound		*
-*		double max: upper bound		*
-*		double *y : output area		*
-*						*
-************************************************/
+/***************************************************************
+*                                                              * 
+*     $Id$    *
+*                                                              *
+*       Data clipping                                          *        
+*               1996.3.14                                      *
+*                                                              *
+*       synopsis:                                              * 
+*               clip(x, l, min, max, y)                        *
+*                                                              *
+*              double *x  : input sequence                     *
+*              int    l   : sequence length                    *
+*              double min : lower bound                        *
+*              double max : upper bound                        *
+*              double *y  : output area                        *
+*                                                              *
+***************************************************************/
 
 #include <stdio.h>
 #include <SPTK.h>

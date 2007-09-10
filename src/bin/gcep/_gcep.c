@@ -43,20 +43,20 @@
 
     Generalized Cepstral Analysis
 
-	int gcep(xw, flng, gc, m, g, itr1, itr2, d, e);
+        int gcep(xw, flng, gc, m, g, itr1, itr2, d, e);
 
-	double  *xw  : input sequence
-	int    	flng : frame length
-	double  *gc  : generalized cepstrum
-	int    	m    : order of generalized cepstrum
-	double 	g    : gamma
-	int    	itr1 : minimum number of iteration
-	int    	itr2 : maximum number of iteration
-	double 	d    : end condition
-	double 	e    : initial value for log-periodgram
+        double    *xw  : input sequence
+        int       flng : frame length
+        double    *gc  : generalized cepstrum
+        int       m    : order of generalized cepstrum
+        double    g    : gamma
+        int       itr1 : minimum number of iteration
+        int       itr2 : maximum number of iteration
+        double    d    : end condition
+        double    e    : initial value for log-periodgram
 
-	return value : 	0 -> completed by end condition
-			-1-> completed by maximum iteration
+        return value :    0 -> completed by end condition
+                          -1-> completed by maximum iteration
 
 *****************************************************************/
 

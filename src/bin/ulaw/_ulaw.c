@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-  $Id$
+    $Id$
 
     u-law coder
 
- double ulaw_c(x, max, mu)
+        double ulaw_c(x, max, mu)
 
- double   x :  data
- double max :  max value
- double  mu :  compression ratio
+        double   x     :  data
+        double   max   :  max value
+        double   mu    :  compression ratio
 
- return value : compressed data
+        return   value :  compressed data
 
     u-law decoder
 
- double ulaw_d(x, max, mu)
+        double ulaw_d(x, max, mu)
 
- double   x :  compressed data
- double max :  max value
- double  mu :  compression ratio
+        double   x     :  compressed data
+        double   max   :  max value
+        double   mu    :  compression ratio
 
- return value : uncompressed data
+        return   value :  uncompressed data
 
 ************************************************************************/
 

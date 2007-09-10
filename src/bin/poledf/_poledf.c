@@ -43,14 +43,14 @@
 
     All Pole Digital Filter
 
- double poledf(x, a, m, d)
+        double poledf(x, a, m, d)
 
- double x   : input
- double *a  : AR coefficients
- int m   : order of coefficients
- double  *d  : delay
+        double   x    : input
+        double  *a    : AR coefficients
+        int      m    : order of coefficients
+        double  *d    : delay
 
- return value : filtered data
+        return  value : filtered data
 
 *****************************************************************/
 

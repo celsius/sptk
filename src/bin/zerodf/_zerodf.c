@@ -43,14 +43,14 @@
 
     All Zero Digital Filter
 
- double zerodf(x, b, m, d)
+       double zerodf(x, b, m, d)
 
- double x   : input
- double *b  : MA coefficients
- int m   : order of coefficients
- double  *d  : delay
+       double   x     : input 
+       double  *b     : MA coefficients 
+       int      m     : order of coefficients
+       double  *d     : delay
 
- return value : filtered data
+       return   value : filtered data
 
 *****************************************************************/
 

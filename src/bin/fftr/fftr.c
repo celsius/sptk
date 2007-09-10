@@ -38,26 +38,26 @@
 */
 
 /************************************************************************
-*									*
-*    FFT for Real Sequence						*
-*									*
-*					1987	T.Kobayashi		*
-*					1995.12 N.Isshiki   modified	*
-*									*
-*	usage:								*
-*		fftr [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-l l	 :  FFT size power of 2		[256]		*
-*		-m m	 :  order of sequence           [l-1]		*
-*		-A	 :  amplitude					*
-*		-R	 :  real part					*
-*		-I	 :  imaginary part				*
-*		-H	 :  output half size				*
-*		-P	 :  power					*
-*	infile:								*
-*		stdin for default					*
-*		input is assumed to be float				*
-*									*
+*                                                                       *
+*    FFT for Real Sequence                                              *
+*                                                                       *
+*                                       1987    T.Kobayashi             *
+*                                       1995.12 N.Isshiki   modified    *
+*                                                                       *
+*       usage:                                                          *
+*               fftr [ options ] [ infile ] > stdout                    *
+*       options:                                                        *
+*               -l l     :  FFT size power of 2         [256]           *
+*               -m m     :  order of sequence           [l-1]           *
+*               -A       :  amplitude                                   *
+*               -R       :  real part                                   *
+*               -I       :  imaginary part                              *
+*               -H       :  output half size                            *
+*               -P       :  power                                       *
+*       infile:                                                         *
+*               stdin for default                                       *
+*               input is assumed to be float                            *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -162,7 +162,7 @@ int main (int argc,char *argv[])
    if (nd==-1) nd = size;
    if (nd>size) {
       fprintf(stderr, "%s: oder of sequence > FFT size\n", cmnd);
-      exit(1);
+      return(1);
    }
    
    nout = (nout) ? size / 2 + 1 : size;

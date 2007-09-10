@@ -40,13 +40,13 @@
 /***********************************************************
  $Id$
  obtain zero coss
-  zcross(x, fl, n)
+    zcross(x, fl, n)
 
-  double  *x : input sequence
-  int fl  : frame length
-  double n : flag of normalize
+    double  *x : input sequence
+    int     fl : frame length
+    double  n  : flag of normalize
 
-  Naohiro Isshiki,  March 1996
+                            Naohiro Isshiki,  March 1996
 ***********************************************************/
 
 #include <stdio.h>

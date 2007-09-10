@@ -38,26 +38,26 @@
 */
 
 /************************************************************************
-*         *
-*    Solve an Autocorrelation Normal Equation    *
-*   Using Levinson-Durbin Method   *
-*         *
-*     1987.9  K.Tokuda  *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  levdur [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of correlation [25]  *
-* infile:        *
-*  autocorrelation      *
-*      , r(0), r(1), ..., r(m),    *
-* stdout:        *
-*  LP Coefficeints      *
-*      , K, a(1), ..., a(m),    *
-* require:       *
-*  levdur()      *
-*         *
+*                                                                       *
+*    Solve an Autocorrelation Normal Equation                           *
+*    Using Levinson-Durbin Method                                       *
+*                                                                       *
+*                                       1987.9  K.Tokuda                *
+*                                       1996.1  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               levdur [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*               -m m  :  order of correlation [25]                      *
+*       infile:                                                         *
+*               autocorrelation                                         *
+*                        , r(0), r(1), ..., r(m),                       *
+*       stdout:                                                         *
+*               LP Coefficeints                                         *
+*                        , K, a(1), ..., a(m),                          *
+*       require:                                                        *
+*               levdur()                                                *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-*         *
-*    Generate Ramp Sequence      *
-*         *
-*     1996.4  K.Koishida  *
-*         *
-* usage:        *
-*  ramp [options]>stdout     *
-* options:       *
-*  -l l     :  length    [256]  *
-*  -n n  :  order   [l-1]  *
-*  -s s     :  start value    [0.0]  *
-*  -e e     :  end  value    [N/A]  *
-*  -t t     :  step size    [1.0]  *
-* stdout:        *
-*  ramp sequence      *
-*      , s, s+t, s+2t, ..., s+(l-1)t   *
-* notice:        *
-*  If l<0, generate infinite sequence   *
-*  When both -e and -l and -n are specified 2 or more, *
-*   latter argument is adopted.   *
-*         *
+*                                                                       *
+*    Generate Ramp Sequence                                             *
+*                                                                       *
+*                                          1996.4  K.Koishida           *
+*                                                                       * 
+*       usage:                                                          *
+*               ramp [options] > stdout                                 *
+*       options:                                                        *
+*               -l l     :  length         [256]                        *
+*               -n n  :  order             [l-1]                        *
+*               -s s     :  start value    [0.0]                        *
+*               -e e     :  end  value     [N/A]                        *
+*               -t t     :  step size      [1.0]                        *
+*       stdout:                                                         *
+*               ramp sequence                                           *
+*                       , s, s+t, s+2t, ..., s+(l-1)t                   *
+*       notice:                                                         *
+*               If l<0, generate infinite sequence                      *
+*               When both -e and -l and -n are specified 2 or more,     *
+*               latter argument is adopted.                             *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -88,7 +88,7 @@ void usage (int status)
    fprintf(stderr, " %s - generate ramp sequence\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length                [%d]\n", LENG);
    fprintf(stderr, "       -n n  : order                 [l-1]\n");

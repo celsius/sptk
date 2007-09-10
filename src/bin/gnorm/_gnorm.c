@@ -41,13 +41,13 @@
   $Id$
 
     Gain Normalization
-	
-	void gnorm(c1, c2, m, g)
+   
+      void gnorm(c1, c2, m, g)
 
-	double	*c1 :  generalized cepstral coefficients
-	double	*c2 :  normalized generalized cepstral coefficients
-	int	  m :  order of coefficients
-	double	  g :  gamma
+      double   *c1 :  generalized cepstral coefficients
+      double   *c2 :  normalized generalized cepstral coefficients
+      int      m   :  order of coefficients
+      double   g   :  gamma
 
 ************************************************************************/
 

@@ -44,12 +44,12 @@
 *                                       1998.3  T.Kobayashi             *
 *                                                                       *
 *       usage:                                                          *
-*               srcnv [ options ] infile >stdout                      *
+*               srcnv [ options ] infile >stdout                        *
 *       options:                                                        *
-*               -s s  :  conversion type                          [58]  *
-*               -c c  :  filename of low pass filter coef.   [Default]  *
-*               -u u  :  upsampling ratio                          [1]  *
-*               -d d  :  downsampling ratio                        [1] *
+*               -s s  :  conversion type                       [58]     *
+*               -c c  :  filename of low pass filter coef.     [Default]*
+*               -u u  :  upsampling ratio                      [1]      *
+*               -d d  :  downsampling ratio                    [1]      *
 *       infile:                                                         *
 *               data sequence (float)                          [stdin]  *
 *       notice:                                                         *
@@ -103,7 +103,7 @@ void usage (int status)
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - sampling rate convert\n\n",cmnd);
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] infile1>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] infile1 > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -s s  : conversion type                           [%s]\n",STYPE);
    fprintf(stderr, "                23F up sampling by 2:3\n");
@@ -222,12 +222,12 @@ int main (int argc,char *argv[])
 
    if (coef==NULL) {
       fprintf(stderr, "%s: LPF-coef file not specified\n", cmnd);
-      exit(1);
+      return(1);
    }
    if (infile) {
       if ((fp=fopen(infile, "r"))==NULL) {
          fprintf(stderr, "%s: cannot open %s\n", cmnd, infile);
-         exit(1);
+         return(1);
       }
    }
    else {

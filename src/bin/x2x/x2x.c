@@ -38,30 +38,30 @@
 */
 
 /************************************************************************
-*         *
-*    Data Type Transformation      *
-*         *
-*     1985.12 K.Tokuda  *
-*     1996.5  K.Koishida  *
-*         *
-* usage:        *
-*  x2x [options] [infile]>stdout    *
-* options:       *
-*  -r       :  specify rounding off when a real number  *
-*       is substituted for a integer [FALSE] *
-*  +type1   :  input data type    [f] *
-*  +type2   :  output data type    [type1] *
-*    c (char)           s (short)  *
-*    i (int)            l (long)  *
-*    f (float)          d (double)  *
-*    a (ascii)    *
-*    C (unsigned char)  S (unsigned short)   *
-*    I (unsigned int)   L (unsigned long) *
-*  +a a     :  column number    [1] *
-*  %format  :  specify output format similar to  [FALSE] *
-*                           "printf()" of C function,    *
-*                           if type2 is ascii formant.   *
-*         *
+*                                                                       *
+*    Data Type Transformation                                           *
+*                                                                       *
+*                                 1985.12 K.Tokuda                      *
+*                                 1996.5  K.Koishida                    *
+*                                                                       *
+*       usage:                                                          *
+*               x2x [options] [infile] > stdout                         *
+*       options:                                                        *
+*               -r       :  specify rounding off when a real number     *
+*                           is substituted for a integer      [FALSE]   *
+*               +type1   :  input data type                   [f]       *
+*               +type2   :  output data type                  [type1]   *
+*                              c (char)           s (short)             *
+*                              i (int)            l (long)              *
+*                              f (float)          d (double)            *
+*                              a (ascii)                                *
+*                              C (unsigned char)  S (unsigned short)    *
+*                              I (unsigned int)   L (unsigned long)     *
+*               +a a     :  column number                     [1]       *
+*               %format  :  specify output format similar to  [FALSE]   *
+*                           "printf()" of C function,                   *
+*                           if type2 is ascii formant.                  *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -93,7 +93,7 @@ void usage (int status)
    fprintf(stderr, " %s - data type transformation\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       +type1  : input data type                             [f]\n");
    fprintf(stderr, "       +type2  : output data type                            [type1]\n");

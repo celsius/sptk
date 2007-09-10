@@ -41,32 +41,32 @@ All Rights Reserved.
 *                                                                       *
 *    Adaptive Mel Cepstral Analysis                                     *
 *                                                                       *
-*    usage:*
-*amcep [ options ] [ pefile ] < stdin > stdout*
-*options:*
-*-m m     :  order of mel cepstrum[25]*
-*-a a     :  alpha[0.35]*
-*-l l     :  leakage factor[0.98]*
-*-k k     :  step size[0.1]*
-*-t t     :  momentum constant[0.9]*
-*-p p     :  output period of mel cepstrum[1]*
-*-e e     :  minimum value for epsilon[FALSE]*
-*-s       :  smoothed (average) mel cepstrum[FALSE]*
-*-P P     :  order of pade approximation[4]*
-*infile:*
-*data sequence*
-*, x(0), x(1), ...*
-*stdout:*
-*mel cepstrum*
-*, c~(0), c~(1), ..., c~(M),*
-*output:*
-*prediction error (if pefile is specified)*
-*, e(0), e(1), ...*
-*note:*
-*P = 4 or 5*
-*require:*
-*mlsadf()*
-**
+*       usage:                                                          *
+*               amcep [ options ] [ pefile ] < stdin > stdout           * 
+*       options:                                                        *
+*               -m m     :  order of mel cepstrum[25]                   *
+*               -a a     :  alpha[0.35]                                 *
+*               -l l     :  leakage factor[0.98]                        * 
+*               -k k     :  step size[0.1]                              *
+*               -t t     :  momentum constant[0.9]                      *
+*               -p p     :  output period of mel cepstrum[1]            *
+*               -e e     :  minimum value for epsilon[FALSE]            *
+*               -s       :  smoothed (average) mel cepstrum[FALSE]      *
+*               -P P     :  order of pade approximation[4]              *
+*       infile:                                                         *
+*               data sequence                                           *
+*                   , x(0), x(1), ...                                   *
+*       stdout:                                                         *
+*               mel cepstrum                                            *
+*                   , c~(0), c~(1), ..., c~(M),                         *
+*       output:                                                         *
+*               prediction error (if pefile is specified)               *
+*                   , e(0), e(1), ...                                   *
+*       note:                                                           *
+*               P = 4 or 5                                              *
+*       require:                                                        *  
+*               mlsadf()                                                *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -202,7 +202,7 @@ int main (int argc, char **argv)
 
    if ((pd<4) || (pd>5)) {
       fprintf(stderr,"%s : Order of pade approximation is 4 or 5!\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    mc = dgetmem(6*(m+1)+3*(pd+1)+pd*(m+2));
@@ -261,6 +261,6 @@ int main (int argc, char **argv)
             fwritef(mc, sizeof(*mc), m+1, stdout);
       }
    }
-   exit(0);
+   return(0);
 }
 

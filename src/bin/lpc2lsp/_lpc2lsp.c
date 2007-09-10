@@ -52,9 +52,9 @@
         int    maxitr : maximum number of interpolation
         double eps    : end condition for interpolation
 
- return value
-            0  : completed normally
-     -1 : completed irregularly
+        return value
+                   0  : completed normally
+                   -1 : completed irregularly
 
 *****************************************************************/
 
@@ -62,6 +62,22 @@
 #include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
+
+static double chebpoly (const double x, double *c, const int mh)
+{
+   int i;
+   double b[3];
+
+   b[1] = b[2] = 0.0;
+   for (i=mh; i>0; i--) {
+      b[0] = 2.0 * x * b[1] - b[2] + c[i];
+      b[2] = b[1];
+      b[1] = b[0];
+   }
+   b[0] = x * b[1] - b[2] + c[0];
+
+   return(b[0]);
+}
 
 int lpc2lsp (double *lpc, double *lsp, const int order, const int numsp, const int maxitr, const double eps)
 {
@@ -169,19 +185,4 @@ int lpc2lsp (double *lpc, double *lsp, const int order, const int numsp, const i
    return(-1);
 }
 
-double chebpoly (const double x, double *c, const int mh)
-{
-   int i;
-   double b[3];
-
-   b[1] = b[2] = 0.0;
-   for (i=mh; i>0; i--) {
-      b[0] = 2.0 * x * b[1] - b[2] + c[i];
-      b[2] = b[1];
-      b[1] = b[0];
-   }
-   b[0] = x * b[1] - b[2] + c[0];
-
-   return(b[0]);
-}
 

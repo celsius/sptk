@@ -55,6 +55,17 @@
 
 #define RAND_MAX 32767
 
+
+static double rnd (unsigned long *next)
+{
+   double r;
+
+   *next = *next * 1103515245L + 12345;
+   r = (*next / 65536L) % 32768L;
+
+   return(r/RAND_MAX);
+}
+
 int nrand (double *p, const int leng, const int seed)
 {
    int i;
@@ -88,16 +99,6 @@ double nrandom (unsigned long *next)
       sw = 0;
       return(r2*s);
    }
-}
-
-double rnd (unsigned long *next)
-{
-   double r;
-
-   *next = *next * 1103515245L + 12345;
-   r = (*next / 65536L) % 32768L;
-
-   return(r/RAND_MAX);
 }
 
 unsigned long srnd (const unsigned int seed)

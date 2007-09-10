@@ -38,23 +38,23 @@
 */
 
 /************************************************************************
-*									*
-*    2nd Order Standard Form Digital Filter				*
-*									*
-*					1985.8  K.Tokuda		*
-*					1995.12 N.Isshiki modified	*
-*									*
-*	usage:								*
-*		df2 [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-f f	:  sampling frequency		  [10000]	*
-*		-p f b	:  center frequency f(Hz)			*
-*			     and band width b(Hz) of pole [N/A]		*
-*		-z f b  :  center frequency f(Hz)			*
-*			     and band width b(Hz) of zero [N/A]		*
-*	note:								*
-*		-p and -z option can be specified repeatedly.		*
-*									*
+*                                                                       *
+*    2nd Order Standard Form Digital Filter                             *
+*                                                                       *
+*                                       1985.8  K.Tokuda                *
+*                                       1995.12 N.Isshiki modified      *
+*                                                                       *
+*       usage:                                                          *
+*               df2 [ options ] [ infile ] > stdout                     *
+*       options:                                                        *
+*               -f f     :  sampling frequency            [10000]       *
+*               -p f b   :  center frequency f(Hz)                      *
+*                            and band width b(Hz) of pole [N/A]         *
+*               -z f b   :  center frequency f(Hz)                      *
+*                            and band width b(Hz) of zero [N/A]         *
+*       note:                                                           *
+*               -p and -z option can be specified repeatedly.           *
+*                                                                       *
 ************************************************************************/ 
 
 static char *rcs_id = "$Id$";

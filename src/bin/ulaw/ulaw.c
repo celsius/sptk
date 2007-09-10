@@ -38,28 +38,28 @@
 */
 
 /************************************************************************
-*         *
-*    u-law PCM        *
-*         *
-*     1991.3  T.Kanno   *
-*     1996.11 K.Koishida  *
-*         *
-* usage:        *
-*  u-law [ options ] [ infile ]>stdout   *
-* options:       *
-*  -v v     :  maximum of input    [32768] *
-*  -u u     :  compression ratio    [256]  *
-*  -c       :  coder mode     [TRUE]    *
-*  -d       :  decoder mode    [FALSE]    *
-* infile:        *
-*  input sequence      *
-*      , x(0), x(1), ...,      *
-* stdout:        *
-*  compressed sequence     *
-*      , x'(0), x'(1), ...,    *
-* require:       *
-*  ulaw_e(), ulaw_d()     *
-*         *
+*                                                                       *
+*    u-law PCM                                                          *
+*                                                                       *
+*                                      1991.3  T.Kanno                  *
+*                                      1996.11 K.Koishida               *
+*                                                                       *
+*       usage:                                                          *
+*               u-law [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -v v     :  maximum of input     [32768]                *
+*               -u u     :  compression ratio    [256]                  *
+*               -c       :  coder mode           [TRUE]                 *
+*               -d       :  decoder mode         [FALSE]                *
+*       infile:                                                         *
+*               input sequence                                          *
+*                       , x(0), x(1), ...,                              *
+*       stdout:                                                         *
+*               compressed sequence                                     *
+*                       , x'(0), x'(1), ...,                            *
+*       require:                                                        *
+*               ulaw_e(), ulaw_d()                                      *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -91,7 +91,7 @@ void usage (int status)
    fprintf(stderr, " %s - u-law PCM\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -v v  : maximum of input    [%g]\n", MAXVALUE);
    fprintf(stderr, "       -u u  : compression ratio   [%g]\n", MU);
@@ -159,5 +159,5 @@ int main (int argc, char **argv)
          fwritef(&y, sizeof(y), 1, stdout);
       }
 
-   exit(0);
+   return(0);
 }

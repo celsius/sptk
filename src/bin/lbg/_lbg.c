@@ -43,17 +43,17 @@
 
     LBG Algorithm for Vector Qauntizer Design
 
- void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, delta, end)
+       void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, delta, end)
 
- double *x :   training vector
- double l :   length of vector
- int tnum :   number of training vector
- double *icb :   initial codebook
- int icbsize :   initial codebook size
- double *cb :   final codebook
- int ecbsize :   final codebook size
- double delta :   splitting factor
- double end :   end condition
+       double *x      :   training vector
+       double l       :   length of vector
+       int    tnum    :   number of training vector
+       double *icb    :   initial codebook
+       int    icbsize :   initial codebook size
+       double *cb     :   final codebook
+       int    ecbsize :   final codebook size
+       double delta   :   splitting factor
+       double end     :   end condition
 
 ************************************************************************/
 

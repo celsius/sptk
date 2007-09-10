@@ -38,30 +38,30 @@
 */
 
 /************************************************************************
-*         *
-*    All Zero Digital Filter for Speech Synthesis   *
-*         *
-*     1996.3  K.Koishida  *
-*         *
-* usage:        *
-*  zerodf [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of coefficients [25]  *
-*  -p p     :  frame period  [100]  *
-*  -i i     :  interpolation period [1]  *
-*  -t       :  transpose filter  [FALSE]  *
-*  -k       :  filtering without gain [FALSE]  *
-* infile:        *
-*  coefficients      *
-*      , b(0), b(1), ..., b(m),    *
-*  excitation sequence     *
-*      , x(0), x(1), ...,      *
-* stdout:        *
-*  filtered sequence     *
-*      , y(0), y(1), ...,     *
-* require:       *
-*  zerodf(), zerodft()     *
-*         *
+*                                                                       *
+*    All Zero Digital Filter for Speech Synthesis                       *
+*                                                                       *
+*                                       1996.3  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               zerodf [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*               -m m     :  order of coefficients  [25]                 *
+*               -p p     :  frame period           [100]                *
+*               -i i     :  interpolation period   [1]                  *
+*               -t       :  transpose filter       [FALSE]              *
+*               -k       :  filtering without gain [FALSE]              *
+*       infile:                                                         *
+*               coefficients                                            * 
+*                       , b(0), b(1), ..., b(m),                        *
+*               excitation sequence                                     *
+*                       , x(0), x(1), ...,                              *
+*       stdout:                                                         *
+*               filtered sequence                                       *
+*                       , y(0), y(1), ...,                              *
+*       require:                                                        *
+*               zerodf(), zerodft()                                     *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -92,7 +92,7 @@ void usage (int status)
    fprintf(stderr, " %s - all zero digital filter for speech synthesis\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] bfile [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] bfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of coefficients  [%d]\n", ORDER);
    fprintf(stderr, "       -p p  : frame period           [%d]\n", FPERIOD);
@@ -162,7 +162,7 @@ int main (int argc, char **argv)
 
    if (fpc==NULL) {
       fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    c = dgetmem(m+m+m+3+m);
@@ -170,16 +170,16 @@ int main (int argc, char **argv)
    inc = cc + m + 1;
    d   = inc+ m + 1;
 
-   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) exit(1);
+   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
 
    for (;;) {
-      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) exit(0);
+      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
 
       for (i=0; i<=m; i++)
          inc[i] = (cc[i] - c[i])*iprd / fprd;
 
       for (j=fprd, i=(iprd+1)/2; j--;) {
-         if (freadf(&x, sizeof(x), 1, fp)!=1) exit(0);
+         if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
          if (ngain)
             for (i=m; i>=0; i--) c[i] /= c[0];
@@ -198,6 +198,6 @@ int main (int argc, char **argv)
       }
       movem(cc, c, sizeof(*cc), m+1);
    }
-   exit(0);
+   return(0);
 }
 

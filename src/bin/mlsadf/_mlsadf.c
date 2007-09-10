@@ -43,16 +43,16 @@
 
     MLSA Digital Filter
 
- double mlsadf(x, b, m, a, pd, d)
+        double mlsadf(x, b, m, a, pd, d)
 
- double x   : input
- double *c  : MLSA filter coefficients
- int m   : order of cepstrum
- double  a   : all-pass constant
- int pd  : order of pade approximation
- double  *d  : delay
+        double x     : input
+        double *c    : MLSA filter coefficients
+        int    m     : order of cepstrum
+        double a     : all-pass constant
+        int    pd    : order of pade approximation
+        double *d    : delay
 
- return value : filtered data
+        return value : filtered data
 
 *****************************************************************/
 
@@ -69,17 +69,27 @@ static double pade[] = {1.0,
 
 double *ppade;
 
-double mlsadf (double x, double *b, const int m, const double a, const int pd, double *d)
+static double mlsafir (double x, double *b, const int m, const double a, double *d)
 {
-   ppade = &pade[pd*(pd+1) / 2];
+   double y = 0.0, aa;
+   int i;
 
-   x = mlsadf1(x, b, m, a, pd, d);
-   x = mlsadf2(x, b, m, a, pd, &d[2*(pd+1)]);
+   aa = 1 - a*a;
 
-   return(x);
+   d[0] = x;
+   d[1] = aa*d[0] + a*d[1];
+
+   for (i=2; i<=m; i++) {
+      d[i] = d[i] + a*(d[i+1]-d[i-1]);
+      y += d[i]*b[i];
+   }
+
+   for (i=m+1; i>1; i--) d[i] = d[i-1];
+
+   return (y);
 }
 
-double mlsadf1 (double x, double *b, const int m, const double a, const int pd, double *d)
+static double mlsadf1 (double x, double *b, const int m, const double a, const int pd, double *d)
 {
    double v, out = 0.0, *pt, aa;
    int i;
@@ -102,7 +112,7 @@ double mlsadf1 (double x, double *b, const int m, const double a, const int pd, 
    return(out);
 }
 
-double mlsadf2 (double x, double *b, const int m, const double a, const int pd, double *d)
+static double mlsadf2 (double x, double *b, const int m, const double a, const int pd, double *d)
 {
    double v, out = 0.0, *pt, aa;
    int i;
@@ -124,23 +134,12 @@ double mlsadf2 (double x, double *b, const int m, const double a, const int pd, 
    return(out);
 }
 
-double mlsafir (double x, double *b, const int m, const double a, double *d)
+double mlsadf (double x, double *b, const int m, const double a, const int pd, double *d)
 {
-   double y = 0.0, aa;
-   int i;
+   ppade = &pade[pd*(pd+1) / 2];
 
-   aa = 1 - a*a;
+   x = mlsadf1(x, b, m, a, pd, d);
+   x = mlsadf2(x, b, m, a, pd, &d[2*(pd+1)]);
 
-   d[0] = x;
-   d[1] = aa*d[0] + a*d[1];
-
-   for (i=2; i<=m; i++) {
-      d[i] = d[i] + a*(d[i+1]-d[i-1]);
-      y += d[i]*b[i];
-   }
-
-   for (i=m+1; i>1; i--) d[i] = d[i-1];
-
-   return (y);
+   return(x);
 }
-

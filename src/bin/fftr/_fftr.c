@@ -38,16 +38,17 @@
 */
 
 /********************************************************
- $Id$							
- NAME:							
-	fftr - Fast Fourier Transform for Double sequence	   
+ $Id$                     
+ 
+ NAME:                     
+        fftr - Fast Fourier Transform for Double sequence      
  SYNOPSIS:                                             
-	int	fftr(x, y, m)				
-							
-	double	x[];	real part of data		
-	double	y[];	working area			
-	int	m;	number of data(radix 2)		
-		Naohiro Isshiki 	Dec.1995	modified
+        int   fftr(x, y, m)            
+                     
+        double  x[];   real part of data      
+        double  y[];   working area         
+        int     m;     number of data(radix 2)      
+                Naohiro Isshiki    Dec.1995   modified
 ********************************************************/
 
 #include <stdio.h>

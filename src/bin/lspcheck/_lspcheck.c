@@ -43,13 +43,13 @@
 
     Check order of LSP
 
- int lspcheck(lsp, ord)
+       int lspcheck(lsp, ord)
 
- double    *lsp : LSP
- int     ord  : order of LSP
+       double   *lsp  : LSP
+       int      ord   : order of LSP
 
- return value : 0 -> normal
-         -1-> ill condition
+       return   value : 0  -> normal
+                        -1 -> ill condition
 
 *****************************************************************/
 
@@ -76,10 +76,10 @@ int lspcheck (double *lsp, const int ord)
 
     Rearrangement of LSP
 
- void lsparng(lsp, ord)
+       void lsparng(lsp, ord)
 
- double    *lsp : LSP
- int     ord  : order of LSP
+       double    *lsp : LSP
+       int        ord : order of LSP
 
 *****************************************************************/
 

@@ -37,17 +37,17 @@
  ----------------------------------------------------------------
 */
 
-/************************************************
-*  $Id$ *
-* NAME:						*
-*	ifft - Inverse Fast Fourier Transform	*   
-* SYNOPSIS:					*
-*	int	ifft(x, y, m)			*
-*						*
-*	real	x[];	real part 		*
-*	real	y[];	imaginary part		*
-*	int	m;	size of FFT		*
-************************************************/
+/*****************************************************************
+*  $Id$         *
+*  NAME:                                                         *
+*      ifft - Inverse Fast Fourier Transform                     *   
+*  SYNOPSIS:                                                     *
+*      int   ifft(x, y, m)                                       *
+*                                                                *
+*      real   x[];   real part                                   *
+*      real   y[];   imaginary part                              *
+*      int    m;     size of FFT                                 *
+*****************************************************************/
 
 #include <stdio.h>
 #include <SPTK.h>

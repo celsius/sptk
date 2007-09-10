@@ -45,16 +45,16 @@
 
         double pitch(xw, l, thresh, low, high, eps, m, itr1, itr2, end)
 
- double *xw    : windowed data sequence
- int    l      : frame length (fft size)
- double thresh : voiced/unvoiced threshold
- int    low    : minmum points to search for
- int    high   : maximum points to search for
- double eps    : small value for log
- int    m      : order of cepstrum
- int    itr1   : minimum number of iteration
- int    itr2   : maximum number of iteration
- double end    : end condition
+        double *xw     : windowed data sequence
+        int     l      : frame length (fft size)
+        double  thresh : voiced/unvoiced threshold
+        int     low    : minmum points to search for
+        int     high   : maximum points to search for
+        double  eps    : small value for log
+        int     m      : order of cepstrum
+        int     itr1   : minimum number of iteration
+        int     itr2   : maximum number of iteration
+        double  end    : end condition
 
 ************************************************************************/
 

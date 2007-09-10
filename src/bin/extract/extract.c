@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*									*
-*    Extract Vector							*
-*									*
-*					1996.3  K.Koishida		*
-*									*
-*	usage:								*
-*		extract [ options ] [ indexfile ] [ infile ] > stdout	*
-*	options:							*
-*		-l l     :  order of vector	[10]			*
-*		-i i     :  codebook index	[0]			*
-*	infile:								*
-*		index file (int)					*
-*		    , index(0), index(1), ..., 				*
-*		data sequence						*
-*		    , x(0), x(1), ...,					*
-*	stdout:								*
-*		vectors which belong to index c				*
-*		    , x'(0), x'(1), ...,				*
-*									*
+*                                                                       *
+*    Extract Vector                                                     *
+*                                                                       *
+*                                               1996.3  K.Koishida      *
+*                                                                       *
+*       usage:                                                          *
+*               extract [ options ] [ indexfile ] [ infile ] > stdout   *
+*       options:                                                        *
+*               -l l     :  order of vector   [10]                      *
+*               -i i     :  codebook index   [0]                        *
+*       infile:                                                         *
+*               index file (int)                                        *
+*                   , index(0), index(1), ...,                          *
+*       data sequence                                                   *
+*                   , x(0), x(1), ...,                                  *
+*       stdout:                                                         *
+*                vectors which belong to index c                        *
+*                   , x'(0), x'(1), ...,                                *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

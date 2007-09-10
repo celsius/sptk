@@ -38,17 +38,17 @@
 */
 
 /************************************************************************
-*         *
-*    Summation of Vectors      *
-*         *
-*     1988.7  T.Kobayashi  *
-*     1996.5  K.Koishida  *
-* usage:        *
-*  vsum [ options ] [ infile ]>stdout   *
-* options:       *
-*  -l l     :  order of vector   [1] *
-*  -n n     :  number of vector   [all] *
-*         *
+*                                                                       *
+*    Summation of Vectors                                               *
+*                                                                       *
+*                                     1988.7  T.Kobayashi               *
+*                                     1996.5  K.Koishida                *
+*       usage:                                                          *
+*               vsum [ options ] [ infile ] > stdout                    *
+*       options:                                                        *
+*               -l l     :  order of vector    [1]                      *
+*               -n n     :  number of vector   [all]                    *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -76,7 +76,7 @@ void usage (int status)
    fprintf(stderr, " %s - summation of vector\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l   : order of vector    [%d]\n",LENG);
    fprintf(stderr, "       -n n   : number of vector   [EOD]\n");

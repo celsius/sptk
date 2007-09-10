@@ -43,14 +43,14 @@
 
     FFT Cepstral Analysis
 
-   	void fftcep(sp, flng, c, m, itr, ac);
+        void fftcep(sp, flng, c, m, itr, ac);
 
-	double *sp  : log power spectrum
-	int    flng : frame length
-	double *c   : cepstral coefficients
-	int    m    : order of cepstrum
-	int    itr  : number of iteration
-	double ac   : accelation factor
+        double *sp  : log power spectrum
+        int    flng : frame length
+        double *c   : cepstral coefficients
+        int    m    : order of cepstrum
+        int    itr  : number of iteration
+        double ac   : accelation factor
 
 ******************************************************************/
 

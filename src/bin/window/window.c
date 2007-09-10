@@ -38,34 +38,34 @@
 */
 
 /************************************************************************
-*         *
-*    Data Windowing       *
-*         *
-*     1996.1 N.Miyazaki  *
-*     1998.11 T.Masuko  *
-*         *
-* usage:        *
-*  window [ infile ] [ options ]>outfile   *
-* options:       *
-*  -l l  :  input frame length  [256]  *
-*  -L L  :  output frame length  [l]  *
-*  -n n  :  type of normalization [1]  *
-*   n=0: none     *
-*   n=1: normalize by power    *
-*   n=2: normalize by magnitude   *
-*  -w w  :  type of window    *
-*   w=0: blackman    window    *
-*   w=1: hamming     window    *
-*   w=2: hanning     window    *
-*   w=3: bartlett    window    *
-*   w=4: trapezoid   window    *
-*   w=5: rectangular window    *
-* infile:        *
-*  stdin for default     *
-*  input is assumed to be double    *
-* notice:        *
-*  if L>l, (L-l)-zeros are padded   *
-*         *
+*                                                                       *
+*    Data Windowing                                                     *
+*                                                                       *
+*                                      1996.1  N.Miyazaki               *
+*                                      1998.11 T.Masuko                 *
+*                                                                       *
+*       usage:                                                          *
+*               window [ infile ] [ options ] > outfile                 *
+*       options:                                                        *
+*               -l l  :  input frame length    [256]                    *
+*               -L L  :  output frame length   [l]                      *
+*               -n n  :  type of normalization [1]                      *
+*                          n=0: none                                    *
+*                          n=1: normalize by power                      *
+*                          n=2: normalize by magnitude                  *
+*               -w w  :  type of window                                 *
+*                          w=0: blackman    window                      *
+*                          w=1: hamming     window                      *
+*                          w=2: hanning     window                      *
+*                          w=3: bartlett    window                      *
+*                          w=4: trapezoid   window                      *
+*                          w=5: rectangular window                      *
+*       infile:                                                         *
+*               stdin for default                                       *
+*               input is assumed to be double                           *
+*       notice:                                                         *
+*               if L>l, (L-l)-zeros are padded                          *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -94,7 +94,7 @@ int usage (void)
    fprintf(stderr, " %s - data windowing\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>outfile\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > outfile\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : frame length of input  [%d]\n", FLENG);
    fprintf(stderr, "       -L L  : frame length of output [l]\n");

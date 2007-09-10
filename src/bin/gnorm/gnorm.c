@@ -38,26 +38,26 @@
 */
 
 /************************************************************************
-*									*
-*	Gain Normalization						*
-*					1995.11  T.Masuko		*
-*									*
-*	usage:								*
-*		gnorm [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-g g      :  gamma (if g>1.0, g=-1/g)	 	[0.0]	*
-*		-m m      :  order of generalized cepstrum	[25]	*
-*	infile:								*
-*		generalized cepstral coefficients			*
-*		    , c~(0), c~(1), ..., c~(M),				*
-*	stdout:								*
-*		normalized generalized cepstral coefficients		*
-*		    , K, c'(1), ..., c'(M),				*
-*	notice:								*
-*		if g > 1.0, g = -1 / g .				*
-*	require:							*
-*		gnorm(),						*
-*									*
+*                                                                       *
+*     Gain Normalization                                                *
+*                                       1995.11  T.Masuko               * 
+*                                                                       *
+*       usage:                                                          *
+*               gnorm [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -g g      :  gamma (if g>1.0, g=-1/g)        [0.0]      *
+*               -m m      :  order of generalized cepstrum   [25]       *
+*       infile:                                                         *
+*               generalized cepstral coefficients                       *
+*                   , c~(0), c~(1), ..., c~(M),                         *
+*       stdout:                                                         *
+*               normalized generalized cepstral coefficients            *
+*                   , K, c'(1), ..., c'(M),                             *
+*       notice:                                                         *
+*               if g > 1.0, g = -1 / g .                                *
+*       require:                                                        *
+*               gnorm(),                                                *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

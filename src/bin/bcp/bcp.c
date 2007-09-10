@@ -38,36 +38,36 @@ All Rights Reserved.
 */
 
 /************************************************************************
-*									*
-*    Block Copy								*
-*									*
-*					1988.7  T.Kobayashi		*
-*					1996.5  K.Koishida		*
-*									*
-*	usage:								*
-*		bcp [options] [infile] > stdout				*
-*	options:							*
-*		-l l     :  number of items contained 1 block	[512]	*
-*		-L L     :  number of destination block size	[N/A]	*
-*		-n n     :  order of items contained 1 block	[l-1]	*
-*		-N N     :  order of destination block size	[N/A]	*
-*		-s s     :  start number                        [0]	*
-*		-S S     :  start number in destination block   [0]     *
-*		-e e     :  end number                          [EOF]	*
-*		-f f     :  fill into empty block               [0.0]   *
-*		+type    :  data type 				[f]	*
-*				c (char)     s (short)			*
-*				i (int)      l (long)			*
-*				f (float)    d (double)			*
-*				a (ascii)				*
-*	infile:								*	
-*		data sequence					[stdin]	*
-*	stdout:								*
-*		copied data sequence					*
-*	note:								*
-*		When both (-l and -n) or (-L and -N) are specified,	*
-*		latter argument is adopted.				*
-*									*
+*                                                                       *
+*    Block Copy                                                         *
+*                                                                       *
+*                                       1988.7  T.Kobayashi             *
+*                                       1996.5  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               bcp [options] [infile] > stdout                         *
+*       options:                                                        *
+*               -l l     :  number of items contained 1 block   [512]   *
+*               -L L     :  number of destination block size    [N/A]   *
+*               -n n     :  order of items contained 1 block    [l-1]   *
+*               -N N     :  order of destination block size     [N/A]   *
+*               -s s     :  start number                        [0]     *
+*               -S S     :  start number in destination block   [0]     *
+*               -e e     :  end number                          [EOF]   *
+*               -f f     :  fill into empty block               [0.0]   *
+*               +type    :  data type                           [f]     *
+*                               c (char)     s (short)                  *
+*                               i (int)      l (long)                   *
+*                               f (float)    d (double)                 *
+*                               a (ascii)                               *
+*       infile:                                                         *   
+*               data sequence                                   [stdin] *
+*       stdout:                                                         *
+*               copied data sequence                                    *
+*       note:                                                           *
+*               When both (-l and -n) or (-L and -N) are specified,     *
+*               latter argument is adopted.                             *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -91,7 +91,7 @@ static char *rcs_id = "$Id$";
 
 
 /*  Command Name  */
-char	*cmnd;
+char   *cmnd;
 
 
 void usage (int status)
@@ -243,14 +243,14 @@ int main (int argc, char **argv)
    if (eno<0)
       eno = nitems;
    if (sno<0 || sno>=nitems || sno>eno || eno>nitems || dsno<0)
-      exit(1);
+      return(1);
 
    if (dnitems==0)
       dnitems = eno - sno + dsno;
 
    bcp(fp);
     
-   exit(0);
+   return(0);
 }
 
 void bcp (FILE *fp)

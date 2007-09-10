@@ -42,13 +42,13 @@
 
     Transform cepstrum to spectrum
 
-	void	c2sp(c, m, sp, y, l)
+        void   c2sp(c, m, sp, y, l)
 
-	double	*c  : cepstrum
-	int	m   : order of cepstrum
-	double	*x  : real part of spectrum
-	double	*y  : imaginary part of spectrum
-	double	l   : FFT length
+        double   *c  : cepstrum
+        int      m   : order of cepstrum
+        double   *x  : real part of spectrum
+        double   *y  : imaginary part of spectrum
+        double   l   : FFT length
 
 ***************************************************************/
 

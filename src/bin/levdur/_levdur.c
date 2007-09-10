@@ -42,18 +42,18 @@
     $Id$
 
     Solve an Autocorrelation Normal Equation
-   Using Levinson-Durbin Method
+    Using Levinson-Durbin Method
 
-    int levdur(r, a, m, eps);
+       int levdur(r, a, m, eps);
 
- double  *r : autocorrelation sequence
- double  *a : LP coefficients
- int     m  : order of LPC
- double eps : singular check (eps(if -1., 1.0e-6 is assumed))
+       double  *r    : autocorrelation sequence
+       double  *a    : LP coefficients
+       int     m     : order of LPC
+       double  eps   : singular check (eps(if -1., 1.0e-6 is assumed))
 
- return value :  0  -> normally completed
-   -1 -> abnormally completed
-   -2 -> unstable LPC
+       return  value :  0  -> normally completed
+                        -1 -> abnormally completed
+                        -2 -> unstable LPC
 
 ******************************************************************/
 

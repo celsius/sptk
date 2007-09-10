@@ -38,22 +38,22 @@
 */
 
 /************************************************************************
-*									*
-*    Binary File Dump							*
-*									*
-*					1996.5  K.Koishida		*
-*									*
-*	usage:								*
-*		dmp [options] [infile] > stdout				*
-*	options:							*
-*		-n n     :  block order  (0,...,n)           [INFINITE]	*
-*		-l l	 :  block length (1,...,l)           [INFINITE] *
-*		+type    :  data type 			     [f]	*
-*				c (char)     s (short)			*
-*				i (int)      l (long)			*
-*				f (float)    d (double)			*
-*		%format :  print format			     [N/A]	*
-*									*
+*                                                                       *
+*    Binary File Dump                                                   * 
+*                                                                       *
+*                                       1996.5  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               dmp [options] [infile] > stdout                         *
+*       options:                                                        *
+*               -n n     :  block order  (0,...,n)           [INFINITE] *
+*               -l l     :  block length (1,...,l)           [INFINITE] *
+*               +type    :  data type                        [f]        *
+*                               c (char)     s (short)                  *
+*                               i (int)      l (long)                   *
+*                               f (float)    d (double)                 *
+*               %format  :  print format                     [N/A]      *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

@@ -38,16 +38,16 @@
 */
 
 /************************************************************************
-*									*
-*    	echo arguments to the standard error				*
-*									*
-*					2000.5  T.Yoshimura		*
-*									*
-*	usage:								*
-*		echo2 [ options ] [ argument... ]			*
-*	options:							*
-*		-n  :  do not add the NEWLINE to the output. [FALSE]	*
-*									*
+*                                                                       *
+*       echo arguments to the standard error                            *
+*                                                                       *
+*                                       2000.5  T.Yoshimura             *
+*                                                                       *
+*       usage:                                                          *
+*               echo2 [ options ] [ argument... ]                       *
+*       options:                                                        *
+*               -n  :  do not add the NEWLINE to the output. [FALSE]    *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

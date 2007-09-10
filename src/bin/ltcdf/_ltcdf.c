@@ -43,14 +43,14 @@
 
     All-Pole Lattice Digital Filter
 
- double ltcdf(x, k, m, d)
+        double ltcdf(x, k, m, d)
 
- double x   : input
- double *k  : reflection coefficients
- int m   : order of coefficients
- double  *d  : delay
+        double   x     : input
+        double  *k     : reflection coefficients
+        int      m     : order of coefficients
+        double  *d     : delay
 
- return value : filtered data
+        return   value : filtered data
 
 *****************************************************************/
 

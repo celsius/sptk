@@ -38,28 +38,28 @@
 */
 
 /************************************************************************
-*									*
-*    Frequency Transformation						*
-*									*
-*					1988.2  K.Tokuda		*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		freqt [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of minimum phase sequence 	[25]	*
-*		-M M     :  order of warped sequence		[25]	*
-*		-a a     :  all-pass constant of input sequence	[0]	*
-*		-A A     :  all-pass constant of output sequence[0.35]	*
-*	infile:								*
-*		minimum phase sequence					*
-*		    , c(0), c(1), ..., c(M),				*
-*	stdout:								*
-*		warped sequence						*
-*		    , c~(0), c~(1), ..., c~(N),				*
-*	require:							*
-*		freqt()							*
-*									*
+*                                                                       *
+*    Frequency Transformation                                           *
+*                                                                       *
+*                                       1988.2  K.Tokuda                *
+*                                       1996.1  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               freqt [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -m m     :  order of minimum phase sequence     [25]    *
+*               -M M     :  order of warped sequence            [25]    *
+*               -a a     :  all-pass constant of input sequence [0]     *
+*               -A A     :  all-pass constant of output sequence[0.35]  *
+*       infile:                                                         *
+*               minimum phase sequence                                  *
+*                   , c(0), c(1), ..., c(M),                            *
+*       stdout:                                                         *
+*               warped sequence                                         *
+*                   , c~(0), c~(1), ..., c~(N),                         *
+*       require:                                                        *
+*               freqt()                                                 *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

@@ -43,14 +43,14 @@
 
     Vector Quantization
 
- int vq(x, cb, l, cbsize)
+       int vq(x, cb, l, cbsize)
 
- double  *x     : input vector
- double  *cb    : codebook vector
- int     l      : vector order
- int     cbsize : size of codebook
+       double  *x     : input vector
+       double  *cb    : codebook vector
+       int     l      : vector order
+       int     cbsize : size of codebook
 
- return value   : codebook index
+       return  value   : codebook index
 
 *****************************************************************/
 

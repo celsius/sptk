@@ -38,23 +38,23 @@
 */
 
 /************************************************************************
-*         *
-*    Generate Step Sequence      *
-*         *
-*     1989.7  K.Tokuda  *
-*     1996.4  K.Koishida  *
-*         *
-* usage:        *
-*  step [options]>stdout     *
-* options:       *
-*  -l l     :  length    [256]  *
-*  -n n     :  order    [255]  *
-* stdout:        *
-*  impulse sequence     *
-*      , 1, 1, 1, ...     *
-* notice:        *
-*  if l<0, generate infinite sequence   *
-*         *
+*                                                                       *
+*    Generate Step Sequence                                             *
+*                                                                       *
+*                                           1989.7  K.Tokuda            *
+*                                           1996.4  K.Koishida          *
+*                                                                       *
+*       usage:                                                          *
+*               step [options] > stdout                                 *
+*       options:                                                        *
+*               -l l     :  length    [256]                             *
+*               -n n     :  order     [255]                             *
+*       stdout:                                                         *
+*               impulse sequence                                        *
+*                       , 1, 1, 1, ...                                  *
+*       notice:                                                         *
+*               if l<0, generate infinite sequence                      *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -81,7 +81,7 @@ void usage (int status)
    fprintf(stderr, " %s - generate step sequence \n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length             [%d]\n", LENG);
    fprintf(stderr, "       -n n  : order              [%d]\n", LENG-1);

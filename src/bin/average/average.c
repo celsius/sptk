@@ -38,26 +38,26 @@ All Rights Reserved.
 */
 
 /************************************************************************
-*									*
-*    Calculation of Average						*
-*									*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		average [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-l l     :  frame length	[entire data]		*
-*			    if l>0, calculate average frame by frame	*
-*		-n n     :  order of sequence	[N/A]			*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ..., x(l-1),				*
-*	stdout:								*
-*		average							*
-*		    , (x(0)+x(1)...+x(l-1))/l,				*
-*	require:							*
-*		average()						*
-*									*
+*                                                                       *
+*    Calculation of Average                                             *
+*                                                                       *
+*                                       1996.1  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               average [ options ] [ infile ] > stdout                 *
+*       options:                                                        *
+*               -l l     :  frame length   [entire data]                *
+*                           if l>0, calculate average frame by frame    *
+*               -n n     :  order of sequence   [N/A]                   *
+*       infile:                                                         *
+*               data sequence                                           *
+*                   , x(0), x(1), ..., x(l-1),                          *
+*       stdout:                                                         *
+*               average                                                 *
+*                   , (x(0)+x(1)...+x(l-1))/l,                          *
+*       require:                                                        *
+*               average()                                               *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -154,5 +154,5 @@ int main (int argc, char **argv)
       ave /= num;
       fwritef(&ave, sizeof(ave), 1, stdout);
    }
-   exit(0);
+   return(0);
 }

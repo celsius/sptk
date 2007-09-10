@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*         *
-*    Real Sequence to Phase   (filter command)    *
-*         *
-*     1989.6  K.Tokuda  *
-*     1996.2  N.Isshiki Modified *
-*         *
-* usage:        *
-*  phase [ options ] [ infile ]>stdout   *
-*       options:       *
-*  -l l : FFT size     [256]  *
-*  -p p : numerator cofficients file   *
-*  -z z : denominator cofficients file   *
-*  -m m : order of denominator polynomial [L-1]  *
-*  -n n : order of numerator polynomial    [L-1]  *
-* infile:        *
-*  input sequense (float)     *
-* stdout:        *
-*  P0, P1, ..., PL/2 (float)(pi radian)   *
-*         *
+*                                                                       *
+*    Real Sequence to Phase   (filter command)                          *
+*                                                                       *
+*                                      1989.6  K.Tokuda                 *
+*                                      1996.2  N.Isshiki Modified       *
+*                                                                       *
+*       usage:                                                          *
+*               phase [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -l l : FFT size                         [256]           *
+*               -p p : numerator cofficients file                       *
+*               -z z : denominator cofficients file                     *
+*               -m m : order of denominator polynomial  [L-1]           *
+*               -n n : order of numerator polynomial    [L-1]           *
+*       infile:                                                         *
+*               input sequense (float)                                  *
+*       stdout:                                                         *
+*               P0, P1, ..., PL/2 (float)(pi radian)                    *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -85,7 +85,7 @@ void usage (int status)
    fprintf(stderr, " %s - transform real seauence to phase\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : flame length                    [%d]\n",FLMLNG);
    fprintf(stderr, "       -p p  : numerator cofficients file\n");
@@ -183,7 +183,7 @@ int main (int argc, char *argv[])
       }
       else {
          if (freadf(z, sizeof(*z), n+1, fp_z)==0 )
-            exit(0);
+            return(0);
       }
 
       if (*file_p=='\0' ) {
@@ -192,7 +192,7 @@ int main (int argc, char *argv[])
       }
       else {
          if (freadf(p, sizeof(*p), m+1, fp_p)==0 )
-            exit(0);
+            return(0);
       }
       phase(p, m, z, n, ph, flng, unlap);
       fwritef(ph, sizeof(*ph), no, stdout);

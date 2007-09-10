@@ -39,15 +39,15 @@
 
 /***************************************************************
   $Id$
-	group delay of digital filter
-		grpdelay(x, gd, size, is_alma);
+  group delay of digital filter
+      grpdelay(x, gd, size, is_alma);
 
-		double	*x:	 filter coefficients  seaqunece
-		double	*gd:	 group delay sequence
-		int	size:	 FFT size		
-		int     is_arma: if a then ARMA filter 
+      double   *x     :    filter coefficients  seaqunece
+      double   *gd    :    group delay sequence
+      int      size   :    FFT size      
+      int     is_arma :    if a then ARMA filter 
 
-		Naohiro Isshiki		Feb. 1996
+                              Naohiro Isshiki      Feb. 1996
 ****************************************************************/
 
 #include <stdio.h>

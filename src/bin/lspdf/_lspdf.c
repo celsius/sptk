@@ -43,14 +43,14 @@
 
     LSP Speech Synthesis Digital Filter
 
- double lspdf_even(x, a, m, d)
+        double lspdf_even(x, a, m, d)
 
- double x   : input
- double *f  : LSP coefficients
- int m   : order of coefficients
- double  *d  : delay
+        double   x     : input
+        double  *f     : LSP coefficients
+        int      m     : order of coefficients
+        double  *d     : delay
 
- return value : filtered data
+        return   value : filtered data
 
 *****************************************************************/
 

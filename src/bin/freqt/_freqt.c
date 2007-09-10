@@ -43,13 +43,13 @@
 
     Frequency Transformation
 
-	void	freqt(c1, m1, c2, m2, a)
+        void   freqt(c1, m1, c2, m2, a)
 
-	double	*c1   : minimum phase sequence
-	int	m1  : order of minimum phase sequence
-	double	*c2   : warped sequence
-	int	m2  : order of warped sequence
-	double	a     : all-pass constant
+        double   *c1   : minimum phase sequence
+        int      m1    : order of minimum phase sequence
+        double   *c2   : warped sequence
+        int      m2    : order of warped sequence
+        double   a     : all-pass constant
 
 ***************************************************************/
 

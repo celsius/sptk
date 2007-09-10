@@ -43,12 +43,12 @@
 
     Transformation LPC to Cepstrum
 
- void  lpc2c(a, m1, c, m2)
+       void  lpc2c(a, m1, c, m2)
 
- double  *a : LP coefficients
- int    m1 : order of LPC
- double  *c : cepstral coefficients
- int    m2 : order of cepstrum
+       double  *a : LP coefficients
+       int     m1 : order of LPC
+       double  *c : cepstral coefficients
+       int     m2 : order of cepstrum
 
 ****************************************************************/
 

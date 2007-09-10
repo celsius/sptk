@@ -38,36 +38,36 @@
 */
 
 /************************************************************************
-*									*
-*    Extract Frame from Data Sequence					*
-*									*
-*					1985.11 K.Tokuda		*
-*					1996.4  K.Koishida		*
-*									*
-*	usage:								*
-*		frame [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-l l     :  frame length		[256]		*
-*		-p p     :  frame period		[100]		*
-*		-n	 :  no center start point	[FALSE]		*
-*		+type    :  data type 			[f]		*
-*				c (char)     s (short)			*
-*				i (int)      l (long)			*
-*				f (float)    d (double)			*
-*									*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ..., 					*
-*	stdout:								*
-*		frame sequence						*
-*		    0, 0, ..., 0, x(0), x(1), ..., x(l/2),		*
-*		    , x(t), x(t+1),       ...,       x(t+l-1),		*
-*		    , x(2t), x(2t+1),     ....				*
-*		if -n specified						*
-*		    x(0), x(1),           ...,       x(l),		*
-*		    , x(t), x(t+1),       ...,       x(t+l-1),		*
-*		    , x(2t), x(2t+1),     ....				*
-*									*
+*                                                                       *
+*    Extract Frame from Data Sequence                                   *
+*                                                                       *
+*                                       1985.11 K.Tokuda                *
+*                                       1996.4  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               frame [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -l l     :  frame length                [256]           *
+*               -p p     :  frame period                [100]           *
+*               -n       :  no center start point       [FALSE]         *
+*               +type    :  data type                   [f]             *
+*                               c (char)     s (short)                  *
+*                               i (int)      l (long)                   *
+*                               f (float)    d (double)                 *
+*                                                                       *
+*       infile:                                                         *
+*               data sequence                                           *
+*                   , x(0), x(1), ...,                                  *
+*       stdout:                                                         *
+*               frame sequence                                          *
+*                   0, 0, ..., 0, x(0), x(1), ..., x(l/2),              *
+*                   , x(t), x(t+1),       ...,       x(t+l-1),          *
+*                   , x(2t), x(2t+1),     ....                          *
+*              if -n specified                                          *
+*                   x(0), x(1),           ...,       x(l),              *
+*                   , x(t), x(t+1),       ...,       x(t+l-1),          *
+*                   , x(2t), x(2t+1),     ....                          *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -108,7 +108,7 @@ void usage (int status)
    fprintf(stderr, "                f (float)     d (double)\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence              [stdin]\n");
+   fprintf(stderr, "       data sequence                 [stdin]\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       extracted data sequence\n");
 #ifdef SPTK_VERSION

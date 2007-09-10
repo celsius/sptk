@@ -38,35 +38,35 @@
 */
 
 /************************************************************************
-*									*
-*    Generalized Cepstral Analysis					*
-*									*
-*					1988.11 K.Tokuda		*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		gcep [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of generalized cepstrum    [25]	*
-*		-g g     :  gamma		             [0]	*
-*		-l l     :  frame length	             [256]	*
-*		-n       :  output normalized cepstrum	     [FALSE]	*
-*		(level2)						*
-*		-i i     :  minimum iteration		     [3]	*
-*		-j j     :  maximum iteration		     [10]	*
-*		-d d     :  end condition		     [0.001]	*
-*		-e e     :  small value added to periodgram  [0.0]	*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ..., x(L-1),				*
-*	stdout:								*
-*		generalized cepstral coefficeints			*
-*		    , c(0), c(1), ..., c(M),				*
+*                                                                       *
+*    Generalized Cepstral Analysis                                      *
+*                                                                       *
+*                                       1988.11 K.Tokuda                *
+*                                       1996.1  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               gcep [ options ] [ infile ] > stdout                    *
+*       options:                                                        *
+*               -m m     :  order of generalized cepstrum    [25]       *
+*               -g g     :  gamma                            [0]        *
+*               -l l     :  frame length                     [256]      *
+*               -n       :  output normalized cepstrum       [FALSE]    *
+*              (level2)                                                 *
+*               -i i     :  minimum iteration                [3]        *
+*               -j j     :  maximum iteration                [10]       *
+*               -d d     :  end condition                    [0.001]    *
+*               -e e     :  small value added to periodgram  [0.0]      *
+*       infile:                                                         *
+*               data sequence                                           *
+*                   , x(0), x(1), ..., x(L-1),                          *
+*       stdout:                                                         *
+*               generalized cepstral coefficeints                       *
+*                   , c(0), c(1), ..., c(M),                            *
 *       notice:                                                         *
-*               if g >= 1.0, g = -1 / g .                                *
-*	require:							*
-*		gcep()							*
-*									*
+*               if g >= 1.0, g = -1 / g .                               *
+*       require:                                                        *
+*               gcep()                                                  *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

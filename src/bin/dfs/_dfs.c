@@ -38,22 +38,22 @@
 */
 
 /************************************************************************
-	$Id$								
-	Standard Form Digital Filter					
-	latice digital filter						
-		double dfs(x, a, m, b, n, buf, bufp)			
-									
-		double x             : filter input			
-		double a[0]          : gain
-		double a[1],...,a[m] : AR coefficints
-		int  m   	     : order of AR part
-		double b[0],...,b[n] : MA coefficents
-		int  n		     : order of MA part
-		double buf[]	     : buffer
-		int *bufp	     : pointer for buffer
-		return		     : filter output	
-		1987.11  K.Tokuda					
-		1995.12  N.Isshiki					
+    $Id$                        
+        Standard Form Digital Filter               
+        latice digital filter                  
+            double dfs(x, a, m, b, n, buf, bufp)         
+                           
+            double x             : filter input         
+            double a[0]          : gain
+            double a[1],...,a[m] : AR coefficints
+            int  m               : order of AR part
+            double b[0],...,b[n] : MA coefficents
+            int  n               : order of MA part
+            double buf[]         : buffer
+            int *bufp            : pointer for buffer
+            return               : filter output   
+                1987.11  K.Tokuda               
+                1995.12  N.Isshiki               
 ************************************************************************/
 
 #include <stdio.h>

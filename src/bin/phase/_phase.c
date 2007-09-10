@@ -39,18 +39,18 @@
 
 /*******************************************************************
   $Id$
- comupte phase of digital filter or real seaquence
-  phase(p, mp, z, mz, ph, flng)
+  comupte phase of digital filter or real seaquence
+     phase(p, mp, z, mz, ph, flng)
 
-  double *p : numerator cofficients
-  int mp : order of numerator polynomial
-  double  *z : denominator cofficients
-  int  mz : order of denominator polynomilal
-  doble  *ph : phase
-  int flng : FFT size
-  int unlap : unlapping
+     double *p    : numerator cofficients
+     int     mp   : order of numerator polynomial
+     double *z    : denominator cofficients
+     int     mz   : order of denominator polynomilal
+     doble *ph    : phase
+     int    flng  : FFT size
+     int    unlap : unlapping
 
-   Naohiro Isshiki  Feb.1995
+                                       Naohiro Isshiki  Feb.1995
 ********************************************************************/
 
 #include <stdio.h>

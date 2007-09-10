@@ -38,23 +38,23 @@
 */
 
 /************************************************************************
-*									*
-*    Decimation								*
-*									*
-*					1996.4  K.Koishida		*
-*									*
-*	usage:								*
-*		decimate [options] [infile] > stdout			*
-*	options:							*
-*		-p p     :  decimation period	 	[10]		*
-*		-s s     :  start sample		[0]		*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ...					*
-*	stdout:								*
-*		decimated data						*
-*		    , x(s), x(s+p), x(s+2p), ..., 			*
-*									*
+*                                                                       *
+*    Decimation                                                         *
+*                                                                       *
+*                                       1996.4  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               decimate [options] [infile] > stdout                    *
+*       options:                                                        *
+*               -p p     :  decimation period       [10]                *
+*               -s s     :  start sample            [0]                 *
+*       infile:                                                         *
+*               data sequence                                           *
+*                   , x(0), x(1), ...                                   *
+*       stdout:                                                         *
+*               decimated data                                          *
+*                   , x(s), x(s+p), x(s+2p), ...,                       *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -133,7 +133,7 @@ int main (int argc, char **argv)
          fp = getfp(*argv, "r");
 
    for (i=0; i<start; i++)
-      if (freadf(&x, sizeof(x), 1, fp)!=1) exit(1);
+      if (freadf(&x, sizeof(x), 1, fp)!=1) return(1);
 
    i = period;
    while (freadf(&x, sizeof(x), 1, fp)==1) {

@@ -38,22 +38,22 @@
 */
 
 /************************************************************************
-*         *
-*    Generate Normal Distrubuted Random Value    *
-*         *
-*     1991.9 T.Kanno   *
-*     1996.1 N.Miyazaki modified *
-*         *
-* usage:        *
-*  nrand [ options ]>stdout    *
-* options:       *
-*  -l l  : output length  [256]  *
-*  -s s     : seed for nrand  [1]  *
-* stdout:        *
-*  random value (float)     *
-* notice:        *
-*  if l<0, generate infinite sequence   *
-*         *
+*                                                                       *
+*    Generate Normal Distrubuted Random Value                           *
+*                                                                       *
+*                                        1991.9 T.Kanno                 *
+*                                        1996.1 N.Miyazaki modified     *
+*                                                                       *
+*       usage:                                                          *
+*               nrand [ options ] > stdout                              *
+*       options:                                                        *
+*               -l l  : output length      [256]                        *
+*               -s s     : seed for nrand  [1]                          *
+*       stdout:                                                         *
+*               random value (float)                                    *
+*       notice:                                                         *
+*               if l<0, generate infinite sequence                      *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -82,7 +82,7 @@ void usage (void)
    fprintf(stderr, " %s - generate normal distributed random value\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : output length      [%d]\n",LENG);
    fprintf(stderr, "       -s s  : seed for nrand     [%d]\n",SEED);

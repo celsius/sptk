@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-*									*
-*    Transform Cepstrum to Autocorrelation				*
-*									*
-*					1986.9  K.Tokuda		*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		c2acr [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of cepstrum		[25]		*
-*		-M M     :  order of autocorrelation	[25]		*
-*		-l l     :  FFT length			[256]		*
-*	infile:								*
-*		cepstral coefficients					*
-*		    , c(0), c(1), ..., c(M),				*
-*	stdout:								*
-*		autocorrelation coefficeints				*
-*		    , r(0), r(1), ..., r(N),				*
-*	require:							*
-*		c2acr()							*
-*									*
+*                                                                       *
+*    Transform Cepstrum to Autocorrelation                              *
+*                                                                       *
+*                                       1986.9  K.Tokuda                *
+*                                       1996.1  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               c2acr [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -m m     :  order of cepstrum      [25]                 *
+*               -M M     :  order of autocorrelation   [25]             *
+*               -l l     :  FFT length         [256]                    *
+*       infile:                                                         *
+*               cepstral coefficients                                   *
+*                   , c(0), c(1), ..., c(M),                            *
+*       stdout:                                                         *
+*               autocorrelation coefficeints                            *
+*                   , r(0), r(1), ..., r(N),                            *
+*       require:                                                        *
+*               c2acr()                                                 *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -74,7 +74,7 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define ORDERC 25
 #define ORDERR 25
-#define	FLENG 256
+#define FLENG 256
 
 
 /*  Command Name  */
@@ -150,5 +150,5 @@ int main (int argc, char **argv)
       fwritef(r, sizeof(*r), n+1, stdout);
    }
    
-   exit(0);
+   return(0);
 }

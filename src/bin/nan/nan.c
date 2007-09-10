@@ -38,19 +38,19 @@
 */
 
 /************************************************************************
-*         *
-*    Find NaN & Infty & Indefinite Values    *
-*         *
-*     1997.7 G.Hirabayashi  *
-*         *
-* usage:        *
-*  nan [ options ] [ infile ]>stdout   *
-* options:       *
-*  -d       :  input is assumed to be double       [FALSE] *
-* infile:        *
-*  stdin for default     *
-*  input is assumed to be float    *
-*         *
+*                                                                       *
+*    Find NaN & Infty & Indefinite Values                               *
+*                                                                       *
+*                                    1997.7 G.Hirabayashi               *
+*                                                                       *
+*       usage:                                                          *
+*               nan [ options ] [ infile ] > stdout                     *
+*       options:                                                        *
+*               -d       :  input is assumed to be double       [FALSE] *
+*       infile:                                                         *
+*               stdin for default                                       *
+*               input is assumed to be float                            *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -85,7 +85,7 @@ void usage (int status)
    fprintf(stderr, " %s - find NaN and Infty values\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");

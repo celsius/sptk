@@ -38,22 +38,22 @@
 */
 
 /************************************************************************
-*									*
-*    Cepstrum to Impulse Response					*
-*					1988.8  T.Kobayashi		*
-*					1995.12 N.Isshiki   modified	*
-*									*
-*	usage:								*
-*		c2ir [ options ] [ infile ] > stdout			*
-*	options:       							*
-*		-m m	 :  order of cepstrum            [25]		*
-*		-M M	 :  order of impulse response    [255]		*
-*		-L L	 :  length of impulse responce   [256]		*
-*		-i	 :  input is minimum phase sequence		*
-*	infile:								*
-*		stdin for default					*
-*		input is assumed to be float				*
-*									*
+*                                                                       *
+*    Cepstrum to Impulse Response                                       *
+*                                       1988.8  T.Kobayashi             *
+*                                       1995.12 N.Isshiki   modified    *
+*                                                                       *
+*       usage:                                                          *
+*               c2ir [ options ] [ infile ] > stdout                    *
+*       options:                                                        *
+*               -m m    :  order of cepstrum            [25]            *
+*               -M M    :  order of impulse response    [255]           *
+*               -L L    :  length of impulse responce   [256]           *
+*               -i      :  input is minimum phase sequence              *
+*       infile:                                                         *
+*               stdin for default                                       *
+*               input is assumed to be float                            *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id="$Id$";
@@ -108,7 +108,7 @@ int main (int argc,char *argv[])
    double *buf, *x;
    char *s, *infile=NULL, c;
    int nr;
- 	int leng=LENG, nc=ORDER+1, is_i=0;
+   int leng=LENG, nc=ORDER+1, is_i=0;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -136,7 +136,7 @@ int main (int argc,char *argv[])
             leng = atoi(s);
             break;
          case 'h':
-            usage(0);				
+            usage(0);            
          default:
             fprintf(stderr, "%s: unknown option '%c'\n", cmnd, c);
             usage(1);
@@ -169,5 +169,5 @@ int main (int argc,char *argv[])
       }
    }
    
-   exit(0);
+   return(0);
 }

@@ -38,23 +38,23 @@
 */
 
 /************************************************************************
-*									*
-*    FFT for Complex Sequence						*
-*									*
-*					1995.12 N.Isshiki modified	*
-*	usage:								*
-*		fft [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-l l	 :  FFT size power of 2		[256]		*
-*		-m m     :  order of sequence		[l-1]		*
-*		-A	 :  amplitude			[FALSE]		*
-*		-R	 :  real part			[FALSE]		*
-*		-I	 :  imaginary part		[FALSE]		*
-*		-P	 :  power			[FALSE]		*
-*	infile:								*
-*		stdin for default					*
-*		input is assumed to be double				*
-*									*
+*                                                                       *
+*    FFT for Complex Sequence                                           *
+*                                                                       *
+*                                       1995.12 N.Isshiki modified      *
+*       usage:                                                          *
+*               fft [ options ] [ infile ] > stdout                     *
+*       options:                                                        *
+*               -l l     :  FFT size power of 2         [256]           *
+*               -m m     :  order of sequence           [l-1]           *
+*               -A       :  amplitude                   [FALSE]         *
+*               -R       :  real part                   [FALSE]         *
+*               -I       :  imaginary part              [FALSE]         *
+*               -P       :  power                       [FALSE]         *
+*       infile:                                                         *
+*               stdin for default                                       *
+*               input is assumed to be double                           *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -154,7 +154,7 @@ int main (int argc,char *argv[])
    if (nd==-1) nd = size; 
    if (nd>size) {
       fprintf(stderr, "%s: oder of sequence > FFT size\n", cmnd);
-      exit(1);
+      return(1);
    }
    if (infile) {
       fp = getfp(infile, "r");

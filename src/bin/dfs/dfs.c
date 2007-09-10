@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*									*
-*    Digital Filter in Standard Form					*
-*									*
-*					1989.6   K.Tokuda		*
-*					1995.12  N.Isshiiki modified	*
-*	usage:								*
-*		dfs [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-a k a1 a2 ... aM  : denominator coefficients (float)	*
-*					k:gain				*
-*		-b b0 b1 b2 ... bM : numerator coefficients (flaot)	*
-*		-p file_p          : denominator coefficients (float)	*
-*		-z file_z          : numerator coefficients (float)	*
-*	infile:								*
-*		input (float)						*
-*	stdout:								*
-*		output (float)						*
-*	note:								*
-*		M, N <= 2047						*
+*                                                                       *
+*    Digital Filter in Standard Form                                    *
+*                                                                       *
+*                                       1989.6   K.Tokuda               *
+*                                       1995.12  N.Isshiiki modified    *
+*       usage:                                                          *
+*               dfs [ options ] [ infile ] > stdout                     *
+*       options:                                                        *
+*               -a k a1 a2 ... aM  : denominator coefficients (float)   *
+*                                k : gain                               *
+*               -b b0 b1 b2 ... bM : numerator coefficients (flaot)     *
+*               -p file_p          : denominator coefficients (float)   *
+*               -z file_z          : numerator coefficients (float)     *
+*       infile:                                                         *
+*               input (float)                                           *
+*       stdout:                                                         *
+*               output (float)                                          *
+*       note:                                                           *
+*               M, N <= 2047                                            *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

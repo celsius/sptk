@@ -43,14 +43,14 @@
 
     Multi Stage Vector Quantization
 
- void msvq(x, cb, l, cbsize, stage, index)
+       void msvq(x, cb, l, cbsize, stage, index)
 
- double *x      : input vector
- double *cb     : codebook vector
- int    l       : order of vector
- int    *cbsize : size of codebook
- int    stage   : number of stage
- int    *index  : index of codebook
+       double *x      : input vector
+       double *cb     : codebook vector
+       int     l      : order of vector
+       int    *cbsize : size of codebook
+       int     stage  : number of stage
+       int    *index  : index of codebook
 
 *****************************************************************/
 

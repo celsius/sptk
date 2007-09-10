@@ -38,32 +38,32 @@
 */
 
 /************************************************************************
-*									*
-*    Inverse GLSA Digital Filter					*
-*									*
-*					1996.3  K.Koishida		*
-*									*
-*	usage:								*
-*		iglsadf [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of generalized cepstrum        [25]	*
-*		-g g     :  -1/gamma 			          [1]	*
-*		-p p     :  frame period		        [100]	*
-*		-i i     :  interpolation period	          [1]	*
-*		-n       :  regard input as normalized        [FALSE]	*
-*			    generalized cepstrum			*
-*		-k	 :  filtering without gain	      [FALSE]	*
-*	infile:								*
-*		generalized cepstral coefficients			*
-*		    , c(0), c(1), ..., c(M),				*
-*		excitation sequence					*
-*		    , x(0), x(1), ..., 					*
-*	stdout:								*
-*		filtered sequence					*
-*		    , y(0), y(1), ...,					*
-*	require:							*
-*		iglsadf()						*
-*									*
+*                                                                       *
+*    Inverse GLSA Digital Filter                                        *
+*                                                                       *
+*                                        1996.3  K.Koishida             * 
+*                                                                       *
+*       usage:                                                          *
+*               iglsadf [ options ] [ infile ] > stdout                 *
+*       options:                                                        *
+*               -m m     :  order of generalized cepstrum        [25]   *
+*               -g g     :  -1/gamma                             [1]    *
+*               -p p     :  frame period                         [100]  *
+*               -i i     :  interpolation period                 [1]    *
+*               -n       :  regard input as normalized           [FALSE]*
+*                           generalized cepstrum                        *
+*               -k       :  filtering without gain               [FALSE]*
+*       infile:                                                         *
+*               generalized cepstral coefficients                       *
+*                   , c(0), c(1), ..., c(M),                            *
+*               excitation sequence                                     *
+*                   , x(0), x(1), ...,                                  *
+*       stdout:                                                         *
+*               filtered sequence                                       *
+*                   , y(0), y(1), ...,                                  *
+*       require:                                                        *
+*               iglsadf()                                               *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -123,7 +123,7 @@ void usage(int status)
 int main (int argc, char **argv)
 {
    int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, stage=STAGE, 
-         i, j;
+       i, j;
    FILE *fp=stdin, *fpc=NULL;
    Boolean norm=NORM, ngain=NGAIN;
    double *c, *inc, *cc, *d, x, gamma;

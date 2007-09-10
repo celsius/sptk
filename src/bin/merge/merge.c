@@ -38,29 +38,29 @@
 */
 
 /************************************************************************
-*         *
-*    Data Merge        *
-*         *
-*     1986.6  K.Tokuda  *
-*     1996.5  K.Koishida  *
-*         *
-* usage:        *
-*  merge [options] file1 [file2]>stdout   *
-* options:       *
-*  -s s     :  insert point                        [0] *
-*  -l l     :  frame length of input data          [25]    *
-*  -n n     :  frame length of inserted data       [10]    *
-*  -o       :  over write mode   [FALSE] *
-*  +type    :  data type     [f] *
-*    c (char)     s (short)   *
-*    i (int)      l (long)   *
-*    f (float)    d (double)   *
-*         *
-* file1:  inserted data , x(0), x(1), ..., x(l-1)  *
-*  file2: input data      , y(0), y(1), ..., y(n-1)  *
-* stdout:        *
-*  x(0), ..., x(s), y(0), ...,y(n-1), x(s+1), ..., x(n-1)  *
-*         *
+*                                                                       *
+*    Data Merge                                                         *
+*                                                                       *
+*                                       1986.6  K.Tokuda                *
+*                                       1996.5  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               merge [options] file1 [file2] > stdout                  *
+*       options:                                                        *
+*               -s s     :  insert point                        [0]     *
+*               -l l     :  frame length of input data          [25]    *
+*               -n n     :  frame length of inserted data       [10]    *
+*               -o       :  over write mode                     [FALSE] *
+*               +type    :  data type                           [f]     *
+*                          c (char)     s (short)                       *
+*                          i (int)      l (long)                        *
+*                          f (float)    d (double)                      *
+*                                                                       *
+*       file1:  inserted data   , x(0), x(1), ..., x(l-1)               *
+*       file2:  input data      , y(0), y(1), ..., y(n-1)               *
+*       stdout:                                                         *
+*               x(0), ..., x(s), y(0), ...,y(n-1), x(s+1), ..., x(n-1)  *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -92,7 +92,7 @@ void usage (int status)
    fprintf(stderr, " %s - data merge\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] file1 [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] file1 [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -s s  : insert point                [%d]\n",START);
    fprintf(stderr, "       -l l  : frame length of input data  [%d]\n",LENG1);

@@ -38,32 +38,33 @@
 */
 
 /************************************************************************
-*         *
-*    Transform LSP to LPC       *
-*         *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  lsp2lpc [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of LPC  [25]  *
-*  -s s     :  sampling frequency (kHz) [10]  *
-*  -k       :  input & output gain  [TRUE]  *
-*  -i i     :  input format (see infile) [0]  *
-* infile:        *
-*       input format LSP     *
-*      0  normalized frequency (0 ~ pi)  *
-*      1  normalized frequency (0 ~ 0.5)  *
-*      2  frequency (kHz)    *
-*      3  frequency (Hz)    *
-*  LSP       *
-*      , f(1), ..., f(m),     *
-* stdout:        *
-*  LPC       *
-*      , K(=1), a(1), ..., a(M),    *
-* require:       *
-*  lsp2lpc()      *
-*         *
+*                                                                       *
+*    Transform LSP to LPC                                               *
+*                                                                       *
+*                                       1996.1  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               lsp2lpc [ options ] [ infile ] > stdout                 *
+*       options:                                                        *
+*               -m m     :  order of LPC                [25]            *
+*               -s s     :  sampling frequency (kHz)    [10]            *
+*               -k       :  input & output gain         [TRUE]          *
+*               -l       :  regard input as log gain    [FALSE]         *
+*               -i i     :  input format (see infile)   [0]             *
+*       infile:                                                         *
+*             input format      LSP                                     *
+*                   0           normalized frequency (0 ~ pi)           *
+*                   1           normalized frequency (0 ~ 0.5)          *
+*                   2           frequency (kHz)                         *
+*                   3           frequency (Hz)                          *
+*               LSP                                                     *
+*                   , f(1), ..., f(m),                                  *
+*       stdout:                                                         *
+*               LPC                                                     *
+*                   , K(=1), a(1), ..., a(M),                           *
+*       require:                                                        *
+*               lsp2lpc()                                               *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -98,11 +99,11 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of LPC                                    [%d]\n", ORDER);
-   fprintf(stderr, "       -s s  : sampling frequency                              [%d]\n", SAMPLING);
-   fprintf(stderr, "       -k    : input & output gain                             [TRUE]\n");
-   fprintf(stderr, "       -l    : regard input as log gain and output linear gain [%s]\n", BOOL[LOGGAIN]);
-   fprintf(stderr, "       -i i  : input format                                    [%d]\n", ITYPE);
+   fprintf(stderr, "       -m m  : order of LPC                                   [%d]\n", ORDER);
+   fprintf(stderr, "       -s s  : sampling frequency                             [%d]\n", SAMPLING);
+   fprintf(stderr, "       -k    : input & output gain                            [TRUE]\n");
+   fprintf(stderr, "       -l    : regard input as log gain and output linear one [%s]\n", BOOL[LOGGAIN]);
+   fprintf(stderr, "       -i i  : input format                                   [%d]\n", ITYPE);
    fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
    fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
    fprintf(stderr, "                 2 (frequency (kHz))\n");

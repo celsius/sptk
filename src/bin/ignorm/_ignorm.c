@@ -40,14 +40,14 @@
 /************************************************************************
   $Id$
 
-    Inverse Gain Normalization
-	
-	void 	ignorm(c1, c2, m, g)
+  Inverse Gain Normalization
+   
+      void    ignorm(c1, c2, m, g)
 
-	double	*c1 :  normalized generalized cepstral coefficients
-	double	*c2 :  genenralized cepstral coefficients
-	int	  m :  order of coefficients
-	double	  g :  gamma
+      double   *c1 :  normalized generalized cepstral coefficients
+      double   *c2 :  genenralized cepstral coefficients
+      int      m   :  order of coefficients
+      double   g   :  gamma
 
 ************************************************************************/
 

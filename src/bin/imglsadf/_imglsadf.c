@@ -43,33 +43,23 @@
 
     Inverse MGLSA Digital Filter
 
-	double	imglsadf(x, b, m, a, n, d)
+        double   imglsadf(x, b, m, a, n, d)
 
-	double	x   : input
-	double	*b  : filter coefficients (K, g*b'(1), ..., g*b'(m))
-	int	m   : order of cepstrum
-	double  a   : alpha
-	int     n   : -1/gamma
-	double  *d  : delay
+        double   x     : input
+        double   *b    : filter coefficients (K, g*b'(1), ..., g*b'(m))
+        int      m     : order of cepstrum
+        double   a     : alpha
+        int      n     : -1/gamma
+        double   *d    : delay
 
-	return value : filtered data
+        return   value : filtered data
 
 *****************************************************************/
 
 #include <stdio.h>
 #include <SPTK.h>
 
-double imglsadf (double x, double *b, const int m, const double a, const int n, double *d)
-{
-   int i;
-    
-   for (i=0; i<n; i++)
-      x = imglsadff(x, b, m, a, &d[i*(m+1)]);
-    
-    return(x);
-}
-
-double imglsadff (double x, double *b, const int m, const double a, double *d)
+static double imglsadff (double x, double *b, const int m, const double a, double *d)
 {
    int i;
    double y, aa;
@@ -82,12 +72,44 @@ double imglsadff (double x, double *b, const int m, const double a, double *d)
       y += d[i] * b[i+1];
    }
    y += x;
-    
+
    for (i=m; i>0; i--)
       d[i] = d[i-1];
+   
    d[0] = a * d[0] + aa * x;
 
    return(y);
+}
+
+double imglsadf (double x, double *b, const int m, const double a, const int n, double *d)
+{
+   int i;
+    
+   for (i=0; i<n; i++)
+      x = imglsadff(x, b, m, a, &d[i*(m+1)]);
+    
+   return(x);
+}
+static double imglsadff1 (double x, double *b, const int m, const double a, const double g, double *d)
+{
+   int i;
+   double y, aa;
+
+   aa = 1-a*a;
+
+   y = d[0] * b[1];
+   for (i=1; i<m; i++){
+      d[i] += a * (d[i+1] - d[i-1]);
+      y += d[i] * b[i+1];
+   }
+   y = g * y + x;
+
+  for (i=m; i>0; i--)
+     d[i] = d[i-1];
+  
+  d[0] = a * d[0] + aa * x;
+
+  return (y);
 }
 
 double imglsadf1 (double x, double *b, const int m, const double a, const int n, double *d)
@@ -103,23 +125,19 @@ double imglsadf1 (double x, double *b, const int m, const double a, const int n,
    return(x);
 }
 
-double imglsadff1 (double x, double *b, const int m, const double a, const double g, double *d)
+static double imglsadfft (double x, double *b, const int m, const double a, double *d)
 {
    int i;
-   double y, aa;
+   double y;
 
-   aa = 1-a*a;
+   y = x + (1.0 - a * a) * d[0];
 
-   y = d[0] * b[1];
-   for (i=1; i<m; i++){
-      d[i] += a * (d[i+1] - d[i-1]);
-      y += d[i] * b[i+1];
-   }
-   y = g * y + x;
-    
-   for (i=m; i>0; i--)
-      d[i] = d[i-1];
-   d[0] = a * d[0] + aa * x;
+   d[m] = b[m] * x + a * d[m-1];
+   for (i=m-1; i>=1; i--)
+      d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
+
+   for(i=0; i<m; i++)
+      d[i] = d[i+1];
 
    return (y);
 }
@@ -134,18 +152,18 @@ double imglsadft (double x, double *b, const int m, const double a, const int n,
    return(x);
 }
 
-double imglsadfft (double x, double *b, const int m, const double a, double *d)
+static double imglsadff1t (double x, double *b, const int m, const double a, const double g, double *d)
 {
    int i;
    double y;
 
-   y = x + (1.0 - a * a) * d[0];
-    
+   y = x + g * (1.0 - a * a) * d[0];
+
    d[m] = b[m] * x + a * d[m-1];
    for (i=m-1; i>=1; i--)
       d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
-    
-   for(i=0; i<m; i++)
+
+   for (i=0; i<m; i++)
       d[i] = d[i+1];
 
    return (y);
@@ -163,21 +181,3 @@ double imglsadf1t (double x, double *b, const int m, const double a, const int n
     
    return(x);
 }
-
-double imglsadff1t (double x, double *b, const int m, const double a, const double g, double *d)
-{
-   int i;
-   double y;
-
-   y = x + g * (1.0 - a * a) * d[0];
-    
-   d[m] = b[m] * x + a * d[m-1];
-   for (i=m-1; i>=1; i--)
-      d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
-    
-   for (i=0; i<m; i++)
-      d[i] = d[i+1];
-
-   return (y);
-}
-

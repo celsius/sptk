@@ -38,24 +38,24 @@
 */
 
 /************************************************************************
-*									*
-*    File dump								*
-*									*
-*					1988    T.Kobayashi		*
-*					1996.5  K.Koishida		*
-*									*
-*	usage:								*
-*		fd [options] [infile] > stdout			*
-*	options:							*
-*		-a a     :  address				[0]	*
-*		-n n     :  initial value for numbering         [0]	*
-*		-m m     :  modulo for numbering		[EOF]   *
-*		+type    :  data type 				[c]	*
-*				c (char)     s (short)			*
-*				i (int)      l (long)			*
-*				f (float)    d (double)			*
-*		%format  :  print format                        [N/A]	*
-*									*
+*                                                                       *
+*    File dump                                                          *
+*                                                                       *
+*                                       1988    T.Kobayashi             *
+*               1996.5  K.Koishida                                      *
+*                                                                       *
+*       usage:                                                          * 
+*               fd [options] [infile] > stdout                          *
+*       options:                                                        *
+*               -a a     :  address                             [0]     *
+*               -n n     :  initial value for numbering         [0]     *
+*               -m m     :  modulo for numbering                [EOF]   *
+*               +type    :  data type                           [c]     *
+*                               c (char)     s (short)                  *
+*                               i (int)      l (long)                   *
+*                               f (float)    d (double)                 *
+*               %format  :  print format                        [N/A]   *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

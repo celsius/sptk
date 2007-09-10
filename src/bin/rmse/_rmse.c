@@ -42,13 +42,13 @@
 
     Calculation of Root Mean Squared Error
 
- double rmse(x, y, n)
+       double rmse(x, y, n)
 
- double *x  : data sequence
- double *y  : data sequence
- int n   : data length
+       double *x     : data sequence
+       double *y     : data sequence
+       int     n     : data length
 
- return value :  RMSE of data
+       return  value :  RMSE of data
 
 ***************************************************************/
 

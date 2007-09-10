@@ -51,8 +51,8 @@
     int    stage  : -1 / gamma
     double lambda : leakage factor
     double step   : step size
-    double tau	   : momentum constant
-    double eps	   : minimum value for epsilon
+    double tau    : momentum constant
+    double eps    : minimum value for epsilon
 
     return value  : prediction error
 

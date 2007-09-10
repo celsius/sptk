@@ -39,14 +39,14 @@
 
 /************************************************************************
 *                                                                       *
-*      $Id$         *
+*      $Id$        *
 *                                                                       *
-*    Durand-Kerner-Aberth for Higher Order Equation   *
-*         *
-*     1988.12  K.Fukushi  *
-*     1989.3  T.Kobayashi modified *
-*     1999.12 T.Yoshimura modified *
-*         *
+*      Durand-Kerner-Aberth for Higher Order Equation                   *
+*                                                                       *
+*                                         1988.12 K.Fukushi             *
+*                                         1989.3  T.Kobayashi modified  *
+*                                         1999.12 T.Yoshimura modified  *
+*                                                                       *
 *    Usage: root_pol(a, odr, x, a_zero, eps, itrat)                     *
 *                                                                       *
 *    Description:                                                       *
@@ -55,11 +55,11 @@
 *        int           odr, a_zero, itrat;                              *
 *        double        eps;                                             *
 *                                                                       *
-*      Pn(x) = a[0]x^n + a[1]x^(n-1) + a[2]x^(n-2) + ... + a[n]         *
+*        Pn(x) = a[0]x^n + a[1]x^(n-1) + a[2]x^(n-2) + ... + a[n]       *
 *                                                                       *
 *    Output:                                                            *
 *                                                                       *
-*      x[0].re,x[0].im,...,x[n-1].re,x[n-1].im                          *
+*        x[0].re,x[0].im,...,x[n-1].re,x[n-1].im                        *
 *                                                                       *
 *                                                                       *
 ************************************************************************/

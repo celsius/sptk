@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*         *
-*    Execute Vector Operations      *
-*         *
-*     1988.6  T.Kobayashi  *
-*     1996.5  K.Koishida  *
-* usage:        *
-*  vopr [ options ] [ [ file1 ] [ file2 ] ]>stdout *
-* options:       *
-*  -l l     :  length of vector   [1] *
-*  -i       :  specified file contains a and b [FALSE] *
-*  -a       :  addition       (a + b)   *
-*  -s       :  subtraction    (a - b)   *
-*  -m       :  multiplication (a * b)   *
-*  -d       :  division       (a / b)   *
-*  -ATAN2   :  atan2          atan2(b,a)   *
-* notice:        *
-*  file1    : vector a. stdin for default   *
-*  file2    : vector b. stdin for default   *
-*         *
+*                                                                       *
+*    Execute Vector Operations                                          *
+*                                                                       *
+*                                               1988.6  T.Kobayashi     *
+*                                               1996.5  K.Koishida      *
+*       usage:                                                          *
+*               vopr [ options ] [ [ file1 ] [ file2 ]  > stdout        *
+*       options:                                                        *
+*               -l l     :  length of vector                [1]         *
+*               -i       :  specified file contains a and b [FALSE]     *
+*               -a       :  addition       (a + b)                      * 
+*               -s       :  subtraction    (a - b)                      *
+*               -m       :  multiplication (a * b)                      *
+*               -d       :  division       (a / b)                      *
+*               -ATAN2   :  atan2          atan2(b,a)                   *
+*        notice:                                                        *
+*               file1    : vector a. stdin for default                  *
+*               file2    : vector b. stdin for default                  *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -87,7 +87,7 @@ void usage (int status)
    fprintf(stderr, " %s - excute vector operations\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ file1 ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ file1 ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l   : length of vector                [%d]\n",LENG);
    fprintf(stderr, "       -n n   : order of vector                 [l-1]\n");

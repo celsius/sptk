@@ -38,24 +38,24 @@
 */
 
 /************************************************************************
-*									*
-*    clipping								*
-*									*
-*					1989.8.31   K.Tokuda		*
-*									*
-*	usage:								*
-*		clip [ -y Ymin Ymax] [infile] > stdout			*
-*	options:							*
-*	        -y    ymin ymax : lower bound & upper bound [-1.0 1.0]  *
-*	        -ymin ymin      : lower bound (ymax = inf)  [N/A]       *
-*	        -ymax ymax      : upper bound (ymin = -inf) [N/A]       *
-*	infile:								*
-*		data sequence (float)					*
-*	stdout:								*
-*		clipped data sequence (float)				*
-*	require:							*
-*		clip()							*
-*									*
+*                                                                       *
+*    clipping                                                           *
+*                                                                       *
+*                                     1989.8.31   K.Tokuda              *
+*                                                                       *
+*       usage:                                                          *
+*               clip [ -y Ymin Ymax] [infile] > stdout                  *
+*       options:                                                        *
+*               -y    ymin ymax : lower bound & upper bound [-1.0 1.0]  *
+*               -ymin ymin      : lower bound (ymax = inf)  [N/A]       *
+*               -ymax ymax      : upper bound (ymin = -inf) [N/A]       *
+*       infile:                                                         *
+*               data sequence (float)                                   *
+*       stdout:                                                         *
+*               clipped data sequence (float)                           *
+*       require:                                                        *
+*               clip()                                                  *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

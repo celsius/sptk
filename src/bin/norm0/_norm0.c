@@ -42,11 +42,11 @@
 
     Normalize coefficients
 
- void norm0(x, y, m)
+        void norm0(x, y, m)
 
- double *x  : input coefficients
- double *y  : normalized coefficients
- int m   : order of coefficients
+        double *x  : input coefficients
+        double *y  : normalized coefficients
+        int     m  : order of coefficients
 
 ***************************************************************/
 

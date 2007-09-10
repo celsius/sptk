@@ -42,12 +42,12 @@
 
     Transform Mel Cepstrum to MLSA Digital Filter Coefficients
 
- void mc2b(mc, b, m, a)
+        void mc2b(mc, b, m, a)
 
- double *mc : mel cepstral coefficients
- double *b  : MLSA digital filter coefficients
- int m   : order of mel cepstrum
- double a   : all-pass constant
+        double *mc  : mel cepstral coefficients
+        double *b   : MLSA digital filter coefficients
+        int     m   : order of mel cepstrum
+        double  a   : all-pass constant
 
 ***************************************************************/
 

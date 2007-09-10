@@ -92,7 +92,7 @@ double acep (double x, double *c, const int m, const double lambda, const double
    x = lmadf(x, cc, m, pd, d);
 
    for (i=m; i>=1; i--)
-	  e[i] = e[i-1];
+      e[i] = e[i-1];
    e[0] = x;
     
    gg = gg * lambda + (1.0 - lambda) * e[0] * e[0];

@@ -38,16 +38,16 @@
 */
 
 /************************************************************************
-*									*
-*    	concatenate and display files to the standard error 	        *
-*									*
-*					      2000.6  S.Sako	        *
-*									*
-*	usage:								*
-*		cat2 [ options ] [ infile1 ] [ infile2 ] ...		*
-*	options:							*
-*		-n  :  output with line number                 [FALSE]	*
-*									*
+*                                                                       *
+*       concatenate and display files to the standard error             *
+*                                                                       *
+*                                             2000.6  S.Sako            *
+*                                                                       *
+*       usage:                                                          *
+*               cat2 [ options ] [ infile1 ] [ infile2 ] ...            *
+*       options:                                                        *
+*               -n  :  output with line number                 [FALSE]  *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -112,7 +112,7 @@ int main (int argc, char **argv)
          stdinmode = -1;
          if ( (fp = fopen( *argv, "r"))==NULL) {
             fprintf(stderr, "%s: cannot open %s\n", cmnd, *argv);
-            exit(1);
+            return(1);
          }
          while(fgets(buf, 512, fp)!=0) {
             if (linenum>0) fprintf(stderr, "%6d  ", linenum++);

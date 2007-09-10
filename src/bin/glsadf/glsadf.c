@@ -38,32 +38,32 @@
 */
 
 /************************************************************************
-*									*
-*    GLSA Digital Filter for Speech Synthesis				*
-*									*
-*					1996.3  K.Koishida		*
-*									*
-*	usage:								*
-*		glsadf [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of generalized cepstrum        [25]	*
-*		-g g     :  -1/gamma 			          [1]	*
-*		-p p     :  frame period		        [100]	*
-*		-i i     :  interpolation period	          [1]	*
-*		-n       :  regard input as normalized	      [FALSE]	*
-*					generalized cepstrum		*
-*		-k	 :  filtering without gain	      [FALSE]	*
-*	infile:								*
-*		generalized cepstral coefficients			*
-*		    , c(0), c(1), ..., c(M),				*
-*		excitation sequence					*
-*		    , x(0), x(1), ..., 					*
-*	stdout:								*
-*		filtered sequence					*
-*		    , y(0), y(1), ...,					*
-*	require:							*
-*		glsadf()						*
-*									*
+*                                                                       *
+*    GLSA Digital Filter for Speech Synthesis                           *
+*                                                                       *
+*                                       1996.3  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               glsadf [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*               -m m     :  order of generalized cepstrum        [25]   *
+*               -g g     :  -1/gamma                             [1]    *
+*               -p p     :  frame period                         [100]  *
+*               -i i     :  interpolation period                 [1]    *
+*               -n       :  regard input as normalized           [FALSE]*
+*                           generalized cepstrum                        *
+*               -k       :  filtering without gain               [FALSE]*
+*        infile:                                                        *
+*               generalized cepstral coefficients                       *
+*                   , c(0), c(1), ..., c(M),                            *
+*               excitation sequence                                     *
+*                   , x(0), x(1), ...,                                  *
+*        stdout:                                                        *
+*               filtered sequence                                       *
+*                   , y(0), y(1), ...,                                  *
+*        require:                                                       *
+*               glsadf()                                                *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -172,7 +172,7 @@ int main (int argc, char **argv)
 
    if (fpc==NULL) {
       fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    if (stage==0) {
@@ -186,13 +186,13 @@ int main (int argc, char **argv)
    inc = cc + m + 1;
    d   = inc+ m + 1;
     
-   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) exit(1);
+   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
       if (!norm) gnorm(c, c, m, gamma);
          for (i=1; i<=m; i++)   
             c[i] *= gamma;
     
    for (;;) {
-      if (freadf(cc, sizeof(*cc), m+1, fpc) != m+1) exit(0);
+      if (freadf(cc, sizeof(*cc), m+1, fpc) != m+1) return(0);
       if(!norm) gnorm(cc, cc, m, gamma);
       for (i=1; i<=m; i++)
          cc[i] *= gamma;
@@ -201,7 +201,7 @@ int main (int argc, char **argv)
          inc[i] = (cc[i] - c[i])*iprd / fprd;
 
       for (j=fprd, i=(iprd+1)/2; j--;) {
-         if (freadf(&x, sizeof(x), 1, fp)!=1) exit(0);
+         if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
          if (!ngain) x *= c[0];
          x = glsadf(x, c, m, stage, d);

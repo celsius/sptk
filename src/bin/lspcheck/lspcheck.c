@@ -38,32 +38,32 @@
 */
 
 /************************************************************************
-*         *
-*    Check and Rearrange LSP       *
-*         *
-*     1996.6  K.Koishida  *
-*         *
-* usage:        *
-*  lspcheck [ options ] [ infile ]>stdout  *
-* options:       *
-*  -m m     :  order of LSP  [25]  *
-*  -s s     :  sampling frequency (kHz) [10]  *
-*  -k  :  input & output gain  [FALSE]  *
-*  -i i     :  input format (see infile) [0]  *
-*  -o o     :  output format (see infile) [i]  *
-*  -r  :  rearrange LSP  [FALSE]  *
-* infile:        *
-*       input format LSP     *
-*      0  normalized frequency (0 ~ pi)  *
-*      1  normalized frequency (0 ~ 0.5)  *
-*      2  frequency (kHz)    *
-*      3  frequency (Hz)    *
-*  LSP       *
-*      , f(1), ..., f(m),     *
-* stdout:        *
-*  frame number of irregular LSP of   *
-*  rearranged LSP if -r option is specified  *
-*         *
+*                                                                       *
+*    Check and Rearrange LSP                                            *
+*                                                                       *
+*                                         1996.6  K.Koishida            *
+*                                                                       *
+*       usage:                                                          *
+*               lspcheck [ options ] [ infile ] > stdout                *
+*       options:                                                        *
+*               -m m     :  order of LSP                [25]            *
+*               -s s     :  sampling frequency (kHz)    [10]            *
+*               -k       :  input & output gain         [FALSE]         *
+*               -i i     :  input format (see infile)   [0]             *
+*               -o o     :  output format (see infile)  [i]             *
+*               -r       :  rearrange LSP               [FALSE]         *
+*       infile:                                                         *
+*               input format LSP                                        *
+*                       0  normalized frequency (0 ~ pi)                *
+*                       1  normalized frequency (0 ~ 0.5)               *
+*                       2  frequency (kHz)                              *
+*                       3  frequency (Hz)                               *
+*               LSP                                                     *
+*                       , f(1), ..., f(m),                              *
+*       stdout:                                                         *
+*               frame number of irregular LSP of                        *
+*               rearranged LSP if -r option is specified                *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -96,7 +96,7 @@ void usage (int status)
    fprintf(stderr, " %s - check and rearrange LSP\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of LPC        [%d]\n", ORDER);
    fprintf(stderr, "       -s s  : sampling frequency  [%d]\n", SAMPLING);

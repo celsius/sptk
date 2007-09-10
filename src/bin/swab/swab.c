@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-*         *
-* Swap Bytes       *
-*         *
-*     1996    T.Kobayashi  *
-*     1997.3  G.Hirabayashi  *
-*         *
-* usage:        *
-*  swab [ options ] [ infile ]>stdout   *
-* options:       *
-*  -S S     :  start address        [0] *
-*  -s s     :  start offset number    [0] *
-*  -E E     :  end address        [EOF] *
-*  -e e     :  end offset number     [0] *
-*  +type    :  input data type    [s] *
-*    s (short)    l (long)   *
-*    f (float)    d (double)   *
-* infile:        *
-*  data sequence     [stdin] *
-* stdout:        *
-*  swapped data sequence     *
-*         *
+*                                                                       *
+*  Swap Bytes                                                           *
+*                                                                       *
+*                                   1996    T.Kobayashi                 *
+*                                   1997.3  G.Hirabayashi               *
+*                                                                       *
+*     usage:                                                            *
+*             swab [ options ] [ infile ] > stdout                      *
+*     options:                                                          *
+*             -S S     :  start address          [0]                    *
+*             -s s     :  start offset number    [0]                    *
+*             -E E     :  end address            [EOF]                  *
+*             -e e     :  end offset number      [0]                    *
+*             +type    :  input data type        [s]                    *
+*                          s (short)    l (long)                        *
+*                          f (float)    d (double)                      *
+*     infile:                                                           *
+*             data sequence                      [stdin]                * 
+*     stdout:                                                           *
+*             swapped data sequence                                     *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -88,7 +88,7 @@ void usage (int status)
    fprintf(stderr, " %s - Swap Bytes\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -S S   : start address       [%d]\n",START);
    fprintf(stderr, "       -s s   : start offset number [%d]\n",SNO);

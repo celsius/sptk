@@ -43,19 +43,19 @@
 
     Unbiased Estimation of Log Spectrum
 
- int uels(xw, flng, c, m, itr1, itr2, dd, e);
+        int uels(xw, flng, c, m, itr1, itr2, dd, e);
 
- double   *xw  : input sequence
- int      flng : frame length
- double   *c   : cepstrum
- int      m    : order of cepstrum
- int      itr1 : minimum number of iteration
- int      itr2 : maximum number of iteration
- double   dd   : end condition
- double   e    : initial value for log-periodgram
+        double   *xw   : input sequence
+        int      flng  : frame length
+        double   *c    : cepstrum
+        int      m     : order of cepstrum
+        int      itr1  : minimum number of iteration
+        int      itr2  : maximum number of iteration
+        double   dd    : end condition
+        double   e     : initial value for log-periodgram
 
- return value :  0 -> completed by end condition
-   -1-> completed by maximum iteration
+        return   value :  0 -> completed by end condition
+                          -1-> completed by maximum iteration
 
 *****************************************************************/
 
@@ -63,6 +63,65 @@
 #include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
+
+/* Fast Algorithm for Linear Prediction with Linear Phase */
+static void lplp (double *r, double *c, const int m)
+{
+   int k, n;
+   double pn, alpha, beta, gamma, tz=r[0]/2, rtz=1/tz, to=r[1], rttz=0, tto=1;
+   static double *p=NULL, *pp;
+   static int size;
+
+   if (p==NULL) {
+      p = dgetmem(m+m+4);
+      pp = p + m + 2;
+      size = m;
+   }
+   if (m>size) {
+      free(p);
+      p = dgetmem(m+m+2);
+      pp = p + m + 1;
+      size = m;
+    }
+
+    c[0] = 1.0 / r[0];
+    p[0] = 1.0;
+    p[1] = 0.0;
+    pp[0] = 0.0;
+
+    for (k=1; k<=m; k++) {
+       p[k+1] = 0.0;
+    
+    pp[k] = 0.0;
+    beta = -tz * rttz;
+    alpha = tto * rttz;
+    alpha -= (tto = to) * (rttz = rtz);
+    pn = p[1] + p[1] + alpha * p[0] + beta * pp[0];
+    pp[0] = p[0];
+    p[0] = pn;
+
+    for (n=1; n<=k; n++) {
+       pn = p[n+1] + pp[n - 1] + alpha * p[n] + beta * pp[n];
+       pp[n] = p[n];
+       p[n] = pn;
+    }
+    for (n=1,tz=p[0]*r[k]; n<=k; n++)
+       tz += p[n] * (r[k-n] + r[k+n]);
+
+    for (n=1,to=p[0]*r[1+k]; n<=k; n++)
+       to += p[n] * (r[1+k-n]+r[1+k+n]);
+
+    gamma = 0.5 * p[0] * (rtz = 1 / tz);
+
+    for (n=0; n<k; n++)
+       c[n] = c[n] + gamma * p[n];
+    
+    c[k] = gamma * p[k];
+  }
+  for (c[0]=1.0/c[0], n=1; n<=m; n++) c[n] *= c[0];
+
+  return;
+}
 
 int uels (double *xw, const int flng, double *c, const int m, const int itr1, const int itr2, const double dd, const double e)
 {
@@ -141,61 +200,3 @@ int uels (double *xw, const int flng, double *c, const int m, const int itr1, co
    if (flag) return(0);
    else     return(-1);
 }
-
-/* Fast Algorithm for Linear Prediction with Linear Phase */
-void lplp (double *r, double *c, const int m)
-{
-   int k, n;
-   double pn, alpha, beta, gamma, tz=r[0]/2, rtz=1/tz, to=r[1], rttz=0, tto=1;
-   static double *p=NULL, *pp;
-   static int size;
-
-   if (p==NULL) {
-      p = dgetmem(m+m+4);
-      pp = p + m + 2;
-      size = m;
-   }
-   if (m>size) {
-      free(p);
-      p = dgetmem(m+m+2);
-      pp = p + m + 1;
-      size = m;
-   }
-
-   c[0] = 1.0 / r[0];
-   p[0] = 1.0;
-   p[1] = 0.0;
-   pp[0] = 0.0;
-
-   for (k=1; k<=m; k++) {
-      p[k+1] = 0.0;
-      pp[k] = 0.0;
-      beta = -tz * rttz;
-      alpha = tto * rttz;
-      alpha -= (tto = to) * (rttz = rtz);
-      pn = p[1] + p[1] + alpha * p[0] + beta * pp[0];
-      pp[0] = p[0];
-      p[0] = pn;
-
-      for (n=1; n<=k; n++) {
-         pn = p[n+1] + pp[n - 1] + alpha * p[n] + beta * pp[n];
-         pp[n] = p[n];
-         p[n] = pn;
-      }
-      for (n=1,tz=p[0]*r[k]; n<=k; n++)
-         tz += p[n] * (r[k-n] + r[k+n]);
-
-      for (n=1,to=p[0]*r[1+k]; n<=k; n++)
-         to += p[n] * (r[1+k-n]+r[1+k+n]);
-
-      gamma = 0.5 * p[0] * (rtz = 1 / tz);
-
-      for (n=0; n<k; n++)
-         c[n] = c[n] + gamma * p[n];
-      c[k] = gamma * p[k];
-   }
-   for (c[0]=1.0/c[0], n=1; n<=m; n++) c[n] *= c[0];
-   
-   return;
-}
-

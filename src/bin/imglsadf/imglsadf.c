@@ -38,32 +38,32 @@
 */
 
 /************************************************************************
-*									*
-*    Inverse MGLSA Digital Filter					*
-*									*
-*					1996.3  K.Koishida		*
-*									*
-*	usage:								*
-*		imglsadf [ options ] [ infile ] > stdout		*
-*	options:							*
-*		-m m     :  order of mel-generalized cepstrum    [25]	*
-*		-a a     :  alpha			       [0.35]	*
-*		-g g     :  -1/gamma 			          [1]	*
-*		-p p     :  frame period		        [100]	*
-*		-i i     :  interpolation period	          [1]	*
-*		-t       :  transpose filter		      [FALSE]	*
-*		-k       :  filtering without gain	      [FALSE}	*
-*	infile:								*
-*		mel-generalized cepstral coefficients			*
-*		    , c~(0), c~(1), ..., c~(M),				*
-*		excitation sequence					*
-*		    , x(0), x(1), ..., 					*
-*	stdout:								*
-*		filtered sequence					*
-*		    , y(0), y(1), ...,					*
-*	require:							*
-*		imglsadf()						*
-*									*
+*                                                                       *
+*    Inverse MGLSA Digital Filter                                       *
+*                                                                       *
+*                                         1996.3  K.Koishida            *
+*                                                                       *
+*       usage:                                                          *
+*               imglsadf [ options ] [ infile ] > stdout                *
+*       options:                                                        *
+*               -m m     :  order of mel-generalized cepstrum    [25]   *
+*               -a a     :  alpha                                [0.35] *
+*               -g g     :  -1/gamma                             [1]    *
+*               -p p     :  frame period                         [100]  *
+*               -i i     :  interpolation period                 [1]    *
+*               -t       :  transpose filter                     [FALSE]*
+*               -k       :  filtering without gain               [FALSE}*
+*       infile:                                                         *
+*               mel-generalized cepstral coefficients                   *
+*                   , c~(0), c~(1), ..., c~(M),                         *
+*               excitation sequence                                     *
+*                   , x(0), x(1), ...,                                  *
+*        stdout:                                                        *
+*               filtered sequence                                       *
+*                   , y(0), y(1), ...,                                  *
+*        require:                                                       *
+*               imglsadf()                                              *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

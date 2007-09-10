@@ -38,33 +38,33 @@
 */
 
 /************************************************************************
-*         *
+*                                                                       *
 *    Mel Cepstral Analysis (2nd all-pass filter)                        *
-*         *
-*     1998.1  C.Miyajima  *
-*         *
-* usage:        *
-*  smcep [ options ] [infile]>stdout   *
-* options:       *
-*  -a alpha :  all-pass constant       [0.35] *
-*  -t theta :  emphasized frequency (theta * pi)[0.00] *
-*  -m m     :  order of mel cepstrum      [25] *
-*  -l l     :  frame length       [256] *
-*  -L L     :  ifft size for making matrices    [1024] *
-*  (level 2)      *
-*  -i i     :  minimum iteration       [2] *
-*  -j j     :  maximum iteration       [30] *
-*  -d d     :  end condition       [0.001] *
-*  -e e     :  initial value for log-periodgram [0.0] *
-* infile:        *
-*  data sequence      *
-*      , x(0), x(1), ..., x(L-1),    *
-* stdout:        *
-*  mel cepstrum      *
-*      , c~(0), c~(1), ..., c~(M),    *
-* require:       *
-*  smcep()       *
-*         *
+*                                                                       *
+*                                     1998.1  C.Miyajima                *
+*                                                                       *
+*       usage:                                                          *
+*               smcep [ options ] [infile] > stdout                     *
+*       options:                                                        *
+*               -a alpha :  all-pass constant                [0.35]     *
+*               -t theta :  emphasized frequency (theta * pi)[0.00]     *
+*               -m m     :  order of mel cepstrum            [25]       *
+*               -l l     :  frame length                     [256]      *
+*               -L L     :  ifft size for making matrices    [1024]     *
+*               (level 2)                                               *
+*               -i i     :  minimum iteration                [2]        *
+*               -j j     :  maximum iteration                [30]       *
+*               -d d     :  end condition                    [0.001]    *
+*               -e e     :  initial value for log-periodgram [0.0]      *
+*      infile:                                                          *
+*              data sequence                                            *
+*                      , x(0), x(1), ..., x(L-1),                       *
+*      stdout:                                                          *
+*              mel cepstrum                                             *
+*                      , c~(0), c~(1), ..., c~(M),                      *
+*      require:                                                         *
+*              smcep()                                                  *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -100,7 +100,7 @@ void usage (int status)
    fprintf(stderr, " %s - mel cepstral analysis\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : all-pass constant                [%g]\n", ALPHA);
    fprintf(stderr, "       -t t  : emphasized frequency  t*pi(rad)  [%g]\n", THETA);
