@@ -46,13 +46,14 @@
 *       usage:                                                          *
 *               mglsadf [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
-*               -m m     :  order of mel-generalized cepstrum    [25]   *
-*               -a a     :  alpha                                [0.35] *
-*               -g g     :  -1/gamma                             [1]    *
-*               -p p     :  frame period                         [100]  *
-*               -i i     :  interpolation period                 [1]    *
-*               -t       :  transpose filter                     [FALSE]*
-*               -k       :  filtering without gain               [FALSE]*
+*               -m m     :  order of mel-generalized cepstrum  [25]     *
+*               -a a     :  alpha                              [0.35]   *
+*               -g g     :  -1/gamma                           [1]      *
+*               -p p     :  frame period                       [100]    *
+*               -i i     :  interpolation period               [1]      *
+*               -t       :  transpose filter                   [FALSE]  *
+*               -k       :  filtering without gain             [FALSE]  *
+*               -P P     :  order of Pade approximation        [4]      *
 *       infile:                                                         *
 *               mel-generalized cepstral coefficients                   *
 *                      , c~(0), c~(1), ..., c~(M),                      *
@@ -61,12 +62,14 @@
 *       stdout:                                                         *
 *               filtered sequence                                       *
 *                      , y(0), y(1), ...,                               *
+*       notice:                                                         *
+*               if g==0, MLSA filter is used, P = 4 or 5                *
 *       require:                                                        *
-*               mglsadf()                                               *
+*               mglsadf(), mlsadf()                                     *
 *                                                                       *  
 ************************************************************************/
 
-static char *rcs_id = "$Id: mglsadf.c,v 1.10 2007/09/10 18:10:48 heigazen Exp $";
+static char *rcs_id = "$Id: mglsadf.c,v 1.11 2007/09/10 22:41:10 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -84,6 +87,7 @@ static char *rcs_id = "$Id: mglsadf.c,v 1.10 2007/09/10 18:10:48 heigazen Exp $"
 #define IPERIOD   1
 #define TRANSPOSE FA
 #define NGAIN     FA
+#define PADEORDER 4
 
 char *BOOL[] = {"FALSE", "TRUE"};
 #ifdef DOUBLE
@@ -111,6 +115,7 @@ void usage (int status)
    fprintf(stderr, "       -i i  : interpolation period              [%d]\n", IPERIOD);
    fprintf(stderr, "       -t    : transpose filter                  [%s]\n", BOOL[TRANSPOSE]);
    fprintf(stderr, "       -k    : filtering without gain            [%s]\n", BOOL[TRANSPOSE]);
+   fprintf(stderr, "       -P P  : order of Pade approximation       [%d]\n", PADEORDER);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       filter input (%s)                      [stdin]\n", FORMAT);
@@ -118,6 +123,8 @@ void usage (int status)
    fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  mgcfile:\n");
    fprintf(stderr, "       mel-generalized cepstrum (%s)\n", FORMAT);
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "       if g==0, MLSA filter is used, P should be 4 or 5\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
@@ -130,7 +137,7 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, stage=STAGE, i, j;
+   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, stage=STAGE, pd=PADEORDER, i, j;
    Boolean transpose=TRANSPOSE, ngain=NGAIN;
    FILE *fp=stdin, *fpc=NULL;
    double alpha=ALPHA, gamma, x, *c, *inc, *cc, *d;
@@ -168,6 +175,10 @@ int main (int argc, char **argv)
          case 'k':
             ngain = 1 - ngain;
             break;
+         case 'P':
+            pd = atoi(*++argv);
+            --argc;
+            break;
          case 'h':
             usage (0);
          default:
@@ -185,29 +196,38 @@ int main (int argc, char **argv)
       return(1);
    }
 
-   if (stage==0) {
-      fprintf(stderr, "%s : gamma should not equal to 0!\n", cmnd);
-      usage(1);
+   if (stage!=0) {  /* MGLSA */
+      gamma = -1 / (double)stage;
    }
-   gamma = -1 / (double)stage;
+   else { /* MLSA */
+      if ((pd<4) || (pd>5)) {
+         fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
+         return(1);
+      }
+   }
 
-   c = dgetmem(m+m+m+3+(m+1)*stage);
+   c = (stage!=0) ? dgetmem(m+m+m+3+(m+1)*stage)         /* MGLSA */ 
+                  : dgetmem(3*(m+1)+3*(pd+1)+pd*(m+2));  /* MLSA  */
    cc  = c  + m + 1;
    inc = cc + m + 1;
    d   = inc+ m + 1;
-
+      
    if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
    mc2b(c, c, m, alpha);
-   gnorm(c, c, m, gamma);
-   for (i=1; i<=m; i++)
-      c[i] *= gamma;
+   if (stage!=0) {  /* MGLSA */
+      gnorm(c, c, m, gamma);
+      for (i=1; i<=m; i++)
+         c[i] *= gamma;
+   }
 
    for (;;) {
       if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
       mc2b(cc, cc, m, alpha);
-      gnorm(cc, cc, m, gamma);
-      for (i=1; i<=m; i++)
-         cc[i] *= gamma;
+      if (stage!=0) {
+         gnorm(cc, cc, m, gamma);
+         for (i=1; i<=m; i++)
+            cc[i] *= gamma;
+      }
 
       for (i=0; i<=m; i++)
          inc[i] = (cc[i] - c[i])*iprd / fprd;
@@ -215,12 +235,17 @@ int main (int argc, char **argv)
       for (j=fprd, i=(iprd+1)/2; j--;) {
          if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
-         if (!ngain) x *= c[0];
-
-         if (transpose)
-            x = mglsadft(x, c, m, alpha, stage, d);
-         else
-            x = mglsadf(x, c, m, alpha, stage, d);
+         if (stage!=0) {  /* MGLSA */
+            if (!ngain) x *= c[0];
+            if (transpose)
+               x = mglsadft(x, c, m, alpha, stage, d);
+            else
+               x = mglsadf(x, c, m, alpha, stage, d);
+         }
+         else {  /* MLSA */
+            if (!ngain) x *= exp(c[0]);
+            x = mlsadf(x, c, m, alpha, pd, d);
+         }
 
          fwritef(&x, sizeof(x), 1, stdout);
 
@@ -232,7 +257,7 @@ int main (int argc, char **argv)
 
       movem(cc, c, sizeof(*cc), m+1);
    }
-   
+      
    return(0);
 }
 
