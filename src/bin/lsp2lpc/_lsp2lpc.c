@@ -39,15 +39,15 @@
 
 /****************************************************************
 
-    $Id: _lsp2lpc.c,v 1.6 2007/08/07 05:01:37 heigazen Exp $
+    $Id: _lsp2lpc.c,v 1.7 2007/09/10 12:49:21 heigazen Exp $
 
     Transformation LSP to LPC
 
- void lsp2lpc(lsp, a, m)
+        void lsp2lpc(lsp, a, m)
 
- double  *lsp : LSP
- double  *a   : LPC
- int     m    : order of LPC
+        double  *lsp : LSP
+        double  *a   : LPC
+        int      m   : order of LPC
 
 *****************************************************************/
 

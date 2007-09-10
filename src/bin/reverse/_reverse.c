@@ -39,13 +39,13 @@
 
 /************************************************************************
 
-  $Id: _reverse.c,v 1.4 2007/08/07 05:05:40 heigazen Exp $
+  $Id: _reverse.c,v 1.5 2007/09/10 12:49:30 heigazen Exp $
 
   Reverse the order of data in sequence
       reverse(real* p, int l)
 
-          double* p : data seqence (Overwrite)
-          int   l : length of sequence
+      double* p : data seqence (Overwrite)
+      int   l : length of sequence
 
 ************************************************************************/
 

@@ -39,15 +39,15 @@
 
 /***************************************************************
 
-    $Id: _par2lpc.c,v 1.6 2007/08/07 05:01:36 heigazen Exp $
+    $Id: _par2lpc.c,v 1.7 2007/09/10 12:49:26 heigazen Exp $
 
     Transformation PARCOR to LPC
 
- void par2lpc(k, a, m)
+       void par2lpc(k, a, m)
 
- double  *k   : PARCOR coefficients
- double  *a   : LP coefficients
- int     m    : order of LPC
+       double  *k   : PARCOR coefficients
+       double  *a   : LP coefficients
+       int      m   : order of LPC
 
 ****************************************************************/
 

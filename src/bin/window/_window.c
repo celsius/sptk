@@ -38,33 +38,174 @@
 */
 
 /****************************************************************
-$Id: _window.c,v 1.5 2007/08/07 05:04:38 heigazen Exp $
+   $Id: _window.c,v 1.6 2007/09/10 12:49:21 heigazen Exp $
 
    Window function
    ---------------
 
- double  window( name, x, size, pnflg );
+       double  window( name, x, size, pnflg );
 
-  char *name; window name
+       char *name : window name
 
-   blackman, hamming,
-   hanning,  bartlett, trapezoid
+                    blackman, hamming,
+                    hanning,  bartlett, trapezoid
 
-  real *x; 1 frame data
-  int size; window(frame) size
-  int nflg; normalizing flag
+       real *x    : 1 frame data
+       int  size  : window(frame) size
+       int  nflg  : normalizing flag
 
-   nflg = 0 : don't normalize
-          1 : normalize by power
-          2 : normalize by magnitude
+            nflg = 0 : don't normalize
+                   1 : normalize by power
+                   2 : normalize by magnitude
 
-    set windowed value to "*x" and return "normalizing gain".
+       set windowed value to "*x" and return "normalizing gain".
 *****************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
+
+
+/************************************************
+   Blackman window
+
+       double  *blackman(w, leng)
+
+       double  *w   : window values
+       int     leng : window length
+************************************************/
+
+static double *blackman (double *w, const int leng)
+{
+   int i;
+   double arg, x;
+   double *p;
+
+   arg = M_2PI / (leng - 1);
+   for (p=w, i=0; i<leng; i++)  {
+      x = arg * i;
+      *p++ = 0.42 - 0.50 * cos(x) + 0.08 * cos(x+x);
+   }
+   return(w);
+}
+
+
+/************************************************
+   Hamming window
+
+       double  *hamming(w, leng)
+       double  *w   : window values
+       int     leng : window length
+************************************************/
+
+static double *hamming (double *w, const int leng)
+{
+   int i;
+   double arg;
+   double *p;
+
+   arg = M_2PI / (leng - 1);
+   for (p=w, i=0; i<leng; i++)
+      *p++ = 0.54 - 0.46 * cos(i*arg);
+
+   return(w);
+}
+
+
+/************************************************
+   Hanning window
+
+       double  *hanning(w, leng)
+       double  *w   : window values
+       int     leng : window length
+************************************************/
+
+static double *hanning (double *w, const int leng)
+{
+   int i;
+   double arg;
+   double *p;
+
+   arg = M_2PI / (leng - 1);
+   for (p=w, i=0; i<leng; i++)
+      *p++ = 0.5 * (1 - cos(i * arg));
+
+   return(w);
+}
+
+
+/************************************************
+   Bartlett window
+
+       double  *bartlett(w, leng)
+       double  *w   : window values
+       int     leng : window length
+************************************************/
+
+static double *bartlett (double *w, const int leng)
+{
+   int k, m;
+   double *p, slope;
+
+   m = leng / 2;
+   slope = 2.0 / (double)(leng - 1);
+
+   for (k=0,p=w; k<m; k++)
+      *p++ = slope * k;
+   for ( ; k<leng; k++)
+      *p++ = 2.0 - slope * k;
+
+   return(w);
+}
+
+
+/************************************************
+   trapezoid window
+
+       double  *trapezoid(w, leng)
+       double  *w   : window values
+       int     leng : window length
+************************************************/
+
+static double *trapezoid (double *w, const int leng)
+{
+   int k, m1, m2;
+   double *p, slope;
+
+   m1 = leng / 4;
+   m2 = (leng * 3) / 4;
+   slope = 4.0 / (double)(leng - 1);
+
+   for (k=0,p=w; k<m1; k++)
+      *p++ = slope * k;
+   for ( ; k<m2; k++)
+      *p++ = 1.0;
+   for ( ; k<leng; k++)
+      *p++ = 4.0 - slope * k;
+
+   return(w);
+}
+
+
+/************************************************
+   rectangular window
+
+       double  *rectangular(w, leng)
+       double  *w   : window values
+       int     leng : window length
+************************************************/
+
+static double *rectangular (double *w, const int leng)
+{
+   int k;
+   double *p;
+
+   for (k=0,p=w; k<leng; k++)
+      *p++ = 1.0;
+
+   return(w);
+}
 
 double window (Window type, double *x, const int size, const int nflg)
 {
@@ -133,147 +274,5 @@ double window (Window type, double *x, const int size, const int nflg)
       x[i] = x[i] * w[i];
 
    return(g);
-}
-
-
-/************************************************
-  Blackman window
-
- double  *blackman(w, leng)
-
- double *w; window values
- int leng; window length
-************************************************/
-
-double *blackman (double *w, const int leng)
-{
-   int i;
-   double arg, x;
-   double *p;
-
-   arg = M_2PI / (leng - 1);
-   for (p=w, i=0; i<leng; i++)  {
-      x = arg * i;
-      *p++ = 0.42 - 0.50 * cos(x) + 0.08 * cos(x+x);
-   }
-   return(w);
-}
-
-
-/************************************************
-  Hamming window
-
- double  *hamming(w, leng)
- double *w; window values
- int leng; window length
-************************************************/
-
-double *hamming (double *w, const int leng)
-{
-   int i;
-   double arg;
-   double *p;
-
-   arg = M_2PI / (leng - 1);
-   for (p=w, i=0; i<leng; i++)
-      *p++ = 0.54 - 0.46 * cos(i*arg);
-
-   return(w);
-}
-
-
-/************************************************
-  Hanning window
-
- double  *hanning(w, leng)
- double *w; window values
- int leng; window length
-************************************************/
-
-double *hanning (double *w, const int leng)
-{
-   int i;
-   double arg;
-   double *p;
-
-   arg = M_2PI / (leng - 1);
-   for (p=w, i=0; i<leng; i++)
-      *p++ = 0.5 * (1 - cos(i * arg));
-
-   return(w);
-}
-
-
-/************************************************
-  Bartlett window
-
- double  *bartlett(w, leng)
-
- double *w; window values
- int leng; window length
-************************************************/
-
-double *bartlett (double *w, const int leng)
-{
-   int k, m;
-   double *p, slope;
-
-   m = leng / 2;
-   slope = 2.0 / (double)(leng - 1);
-
-   for (k=0,p=w; k<m; k++)
-      *p++ = slope * k;
-   for ( ; k<leng; k++)
-      *p++ = 2.0 - slope * k;
-
-   return(w);
-}
-
-
-/************************************************
-  trapezoid window
-
- double  *trapezoid(w, leng)
- double *w; window values
- int leng; window length
-************************************************/
-
-double *trapezoid (double *w, const int leng)
-{
-   int k, m1, m2;
-   double *p, slope;
-
-   m1 = leng / 4;
-   m2 = (leng * 3) / 4;
-   slope = 4.0 / (double)(leng - 1);
-
-   for (k=0,p=w; k<m1; k++)
-      *p++ = slope * k;
-   for ( ; k<m2; k++)
-      *p++ = 1.0;
-   for ( ; k<leng; k++)
-      *p++ = 4.0 - slope * k;
-
-   return(w);
-}
-
-
-/************************************************
-  rectangular window
-
- double  *rectangular(w, leng)
- double *w; window values
- int leng; window length
-************************************************/
-
-double *rectangular (double *w, const int leng)
-{
-   int k;
-   double *p;
-
-   for (k=0,p=w; k<leng; k++)
-      *p++ = 1.0;
-
-   return(w);
 }
 

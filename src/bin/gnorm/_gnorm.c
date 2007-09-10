@@ -38,16 +38,16 @@
 */
 
 /************************************************************************
-  $Id: _gnorm.c,v 1.7 2007/08/07 04:44:39 heigazen Exp $
+  $Id: _gnorm.c,v 1.8 2007/09/10 12:49:30 heigazen Exp $
 
     Gain Normalization
-	
-	void gnorm(c1, c2, m, g)
+   
+      void gnorm(c1, c2, m, g)
 
-	double	*c1 :  generalized cepstral coefficients
-	double	*c2 :  normalized generalized cepstral coefficients
-	int	  m :  order of coefficients
-	double	  g :  gamma
+      double   *c1 :  generalized cepstral coefficients
+      double   *c2 :  normalized generalized cepstral coefficients
+      int      m   :  order of coefficients
+      double   g   :  gamma
 
 ************************************************************************/
 

@@ -38,37 +38,37 @@
 */
 
 /************************************************************************
-*         *
-*     Multi Stage Vector Quantization     *
-*         *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  msvq [options] [ infile ]>stdout   *
-* options:       *
-*  -l l   :  order of vector  [26]  *
-*  -n n   :  order of vector  [25]  *
-*  -s s f :  codebook     [N/A N/A] *
-*    s: codebook size    *
-*    f: codebook file    *
-*  -q     :  output quantized vector [FALSE]  *
-* infile:        *
-*  input vector      *
-*      x(0), x(1), ..., x(l-1),    *
-* stdout:        *
-*  index of codebook (int)     *
-*      index(1), index(2) ...   index(n)   *
-*   index(i) is index of i-th stage   *
-*  quantized vector (if -q option is specified)  *
-*      x'(0), x'(1), ..., x'(l-1),    *
-* notice:        *
-*  -s option are specified number of stages  *
-* require:       *
-*  msvq() imsvq(), vq(), ivq()    *
-*         *
+*                                                                       *
+*     Multi Stage Vector Quantization                                   *
+*                                                                       *
+*                                    1996.1  K.Koishida                 *
+*                                                                       *
+*        usage:                                                         *
+*                msvq [options] [ infile ] > stdout                     *
+*        options:                                                       *
+*                -l l   :  order of vector         [26]                 *
+*                -n n   :  order of vector         [25]                 *
+*                -s s f :  codebook                [N/A N/A]            *
+*                     s : codebook size                                 *
+*                     f : codebook file                                 *
+*                -q     :  output quantized vector [FALSE]              *
+*        infile:                                                        *
+*                input vector                                           *
+*                        x(0), x(1), ..., x(l-1),                       *
+*        stdout:                                                        *
+*                index of codebook (int)                                *
+*                        index(1), index(2) ...   index(n)              *
+*                index(i) is index of i-th stage                        *
+*                quantized vector (if -q option is specified)           *
+*                        x'(0), x'(1), ..., x'(l-1),                    *
+*        notice:                                                        *
+*                -s option are specified number of stages               *
+*        require:                                                       *
+*                msvq() imsvq(), vq(), ivq()                            *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: msvq.c,v 1.7 2007/08/07 05:01:37 heigazen Exp $";
+static char *rcs_id = "$Id: msvq.c,v 1.8 2007/09/10 12:49:22 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -95,7 +95,7 @@ void usage (int status)
    fprintf(stderr, " %s - multi stage vector quantization\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] <stdin>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] < stdin > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l   : length of vector        [%d]\n", LENG);
    fprintf(stderr, "       -n n   : order of vector         [%d]\n", LENG-1);
@@ -176,7 +176,7 @@ int main (int argc, char **argv)
       fpcb = getfp(cbfile[i], "r");
       if (freadf(p, sizeof(*p), cbsize[i]*l, fpcb)!=cbsize[i]*l) {
          fprintf(stderr,"%s : Codebook size error of %d stage !\n",cmnd, ss);
-         exit(1);
+         return(1);
       }
       p += cbsize[i] * l;
    }

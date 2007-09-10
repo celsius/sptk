@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*									*
-*    Group Delay of Digital Filter					*
-*									*
-*					1988.8	T.Kobayashi		*
-*					1996.1  N.Isshiki modified	*
-*									*
-*	usage:								*
-*		grpdelay [ options ] [ infile ] > stdout		*
-*	options:							*
-*		-l l	 :  FFT size power of 2		[256]		*
-*		-m m	 :  order of filter		[l-1]		*
-*		-a	 :  ARMA filter					*
-*	infile:								*
-*		stdin for default					*
-*		input is asumed to be float				*
-*	Note that double precision FFT is used.				*
+*                                                                       *
+*    Group Delay of Digital Filter                                      *
+*                                                                       *
+*                                       1988.8   T.Kobayashi            *
+*                                       1996.1   N.Isshiki modified     *
+*                                                                       *
+*       usage:                                                          *
+*               grpdelay [ options ] [ infile ] > stdout                *
+*       options:                                                        *
+*               -l l    :  FFT size power of 2      [256]               *
+*               -m m    :  order of filter          [l-1]               *
+*               -a      :  ARMA filter                                  *
+*       infile:                                                         *
+*               stdin for default                                       *
+*               input is asumed to be float                             *
+*       Note that double precision FFT is used.                         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.7 2007/07/25 04:56:56 heigazen Exp $";
+static char *rcs_id = "$Id: grpdelay.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -144,7 +144,7 @@ int main (int argc,char *argv[])
    if (nd==-1) nd = size;
    if (nd>size) {
       fprintf(stderr, "%s: order of sequence > FFT size\n", cmnd);
-      exit(1);
+      return(1);
    }
    
    if (infile) {

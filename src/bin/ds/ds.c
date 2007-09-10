@@ -43,16 +43,16 @@
 *                                                                       *
 *                                       1994. 5  T.Kobayashi            *
 *                                       1997. 2  G.Hirabayashi          *
-*					1998. 6  M.Tamura		*
+*                                       1998. 6  M.Tamura               *
 *                                                                       *
 *       usage:                                                          *
-*               ds [ options ] [ infile ] > stdout                	*
+*               ds [ options ] [ infile ] > stdout                      *
 *       options:                                                        *
 *               -s s    :  conversion type              [21]            *
 *                           21   down sampling by 2:1                   *
 *                           43   down sampling by 4:3                   *
 *                           52   down sampling by 5:2                   *
-*                           54   down sampling by 5:4			*
+*                           54   down sampling by 5:4                   *
 *       infile:                                                         *
 *               data sequence (float)                   [stdin]         *
 *       stdout:                                                         *
@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ds.c,v 1.6 2007/07/24 02:58:50 heigazen Exp $";
+static char *rcs_id = "$Id: ds.c,v 1.7 2007/09/10 12:49:21 heigazen Exp $";
 
 /* Standard C Libraries  */
 #include <stdio.h>
@@ -195,7 +195,7 @@ int main (int argc,char *argv[])
       break;
    default:
       fprintf(stderr, "%s: dec/int rate not specifiec.\n",cmnd);
-      exit(1);
+      return(1);
    }
    decimate(fp);
    fclose(fp);

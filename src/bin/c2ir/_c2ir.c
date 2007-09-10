@@ -38,25 +38,25 @@
 */
 
 /******************************************************************
- $Id: _c2ir.c,v 1.6 2007/08/07 04:08:38 heigazen Exp $
+ $Id: _c2ir.c,v 1.7 2007/09/10 12:49:31 heigazen Exp $
 
-	cepstrum to impulse response
-		c2ir(c,nc,h,leng)
+        cepstrum to impulse response
+                c2ir(c,nc,h,leng)
 
-		double	*c   : cepstral sequence
-		int	nc   : order of cepstrum
-		double	*h   : impulse response
-		int	leng : length of impulse response
+                double   *c   : cepstral sequence
+                int      nc   : order of cepstrum
+                double   *h   : impulse response
+                int      leng : length of impulse response
 
-	impulse response to cepstrum
-		ic2ir(h,leng,nc,c)
+        impulse response to cepstrum
+                ic2ir(h,leng,nc,c)
 
-		double	*h   : impulse response
-		int	nc   : order of cepstrum
-		double	*c   : cepstral sequence
-		int	leng : length of impulse response
+                double   *h   : impulse response
+                int      nc   : order of cepstrum
+                double   *c   : cepstral sequence
+                int      leng : length of impulse response
 
-			Naohiro Isshiki,	Dec.1995
+                         Naohiro Isshiki,   Dec.1995
 ********************************************************************/
 
 #include <stdlib.h>

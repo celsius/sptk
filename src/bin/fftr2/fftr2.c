@@ -38,30 +38,30 @@
 */
 
 /************************************************************************
-*									*
-*    2D-FFT for Real Sequence						*
-*									*
-*					1989	T.Kobayashi		*
-*					1996.2  N.Miyazake modified	*
-*									*
-*	usage:								*
-*		fftr2 [ infile ] [ options ] > stdout			*
-*	options:							*
-*		-l l	 :  FFT size. power of 2	[64]		*
-*		-m m1 m2 :  region of support		[m1=64,m2=m1]   *
-*		-t	 :  transposed output				*
-*		-c	 :  compensated boundary			*
-*		-q	 :  first quadrant output			*
-*		-A	 :  amplitude					*
-*		-R	 :  real part					*
-*		-I	 :  imaginary part				*
-*		-P       :  power					*
-*	infile:								*
-*		stdin for default					*
-*		input is assumed to be double				*
+*                                                                       *
+*    2D-FFT for Real Sequence                                           *
+*                                                                       *
+*                                       1989    T.Kobayashi             *
+*                                       1996.2  N.Miyazake modified     *
+*                                                                       *
+*       usage:                                                          *
+*               fftr2 [ infile ] [ options ] > stdout                   *
+*       options:                                                        *
+*                -l l     :  FFT size. power of 2        [64]           *
+*                -m m1 m2 :  region of support          [m1=64,m2=m1]   *
+*                -t       :  transposed output                          *
+*                -c       :  compensated boundary                       *
+*                -q       :  first quadrant output                      *
+*                -A       :  amplitude                                  *
+*                -R       :  real part                                  *
+*                -I       :  imaginary part                             *
+*                -P       :  power                                      *
+*       infile:                                                         *
+*                stdin for default                                      *
+*                input is assumed to be double                          *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftr2.c,v 1.7 2007/07/24 06:13:12 heigazen Exp $";
+static char *rcs_id = "$Id: fftr2.c,v 1.8 2007/09/10 12:49:22 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -187,7 +187,7 @@ int main (int argc,char *argv[])
 
    if (n1>size || n2>size) {
       fprintf(stderr, "%s: Region size > FFT size\n", cmnd);
-      exit(1);
+      return(1);
    }
 
    if (infile)

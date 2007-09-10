@@ -39,18 +39,18 @@
 
 /****************************************************************
 
-    $Id: _vq.c,v 1.5 2007/08/07 05:04:38 heigazen Exp $
+    $Id: _vq.c,v 1.6 2007/09/10 12:49:23 heigazen Exp $
 
     Vector Quantization
 
- int vq(x, cb, l, cbsize)
+       int vq(x, cb, l, cbsize)
 
- double  *x     : input vector
- double  *cb    : codebook vector
- int     l      : vector order
- int     cbsize : size of codebook
+       double  *x     : input vector
+       double  *cb    : codebook vector
+       int     l      : vector order
+       int     cbsize : size of codebook
 
- return value   : codebook index
+       return  value   : codebook index
 
 *****************************************************************/
 

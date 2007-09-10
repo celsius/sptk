@@ -38,28 +38,28 @@
 */
 
 /************************************************************************
-*         *
-*    Generate Pulse Sequence      *
-*         *
-*     1989.6  K.Tokuda  *
-*     1996.4  K.Koishida  *
-*         *
-* usage:        *
-*  train [options]>stdout    *
-* options:       *
-*  -l l     :  length    [256]  *
-*  -p p     :  period    [0]  *
-*  -n n     :  type of normalization [1]  *
-*                       n=0: none                                       *
-*                       n=1: normalize by power                         *
-*                       n=2: normalize by magnitude                     *
-* stdout:        *
-*  p>0 pulse sequence with pitch p   *
-*  p = 0 M-sequence     *
-*         *
+*                                                                       *
+*    Generate Pulse Sequence                                            *
+*                                                                       *
+*                                            1989.6  K.Tokuda           *
+*                                            1996.4  K.Koishida         *
+*                                                                       *
+*       usage:                                                          *
+*               train [options] > stdout                                *
+*       options:                                                        *
+*               -l l     :  length                [256]                 *
+*               -p p     :  period                [0]                   *
+*               -n n     :  type of normalization [1]                   *
+*                             n=0: none                                 *
+*                             n=1: normalize by power                   *
+*                             n=2: normalize by magnitude               *
+*       stdout:                                                         *
+*               p>0 pulse sequence with pitch p                         *
+*               p = 0 M-sequence                                        *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: train.c,v 1.8 2007/08/07 05:05:40 heigazen Exp $";
+static char *rcs_id = "$Id: train.c,v 1.9 2007/09/10 12:49:23 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -86,7 +86,7 @@ void usage (int status)
    fprintf(stderr, " %s - generate pulse sequence\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : frame length          [%d]\n", LENG);
    fprintf(stderr, "       -p p  : frame period          [%d]\n", PERIOD);

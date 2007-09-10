@@ -38,22 +38,22 @@
 */
 
 /********************************************************
-$Id: _fft2.c,v 1.6 2007/08/07 04:16:57 heigazen Exp $
+$Id: _fft2.c,v 1.7 2007/09/10 12:49:20 heigazen Exp $
 
-*	fft2 : two dimensional fast Fourier transform 	*
-*			for complex sequence		*
-*							*
-*	int fft2( x, y, n )				*
-*							*
-*	double	x[0]...x[n*n-1];			*
-*			input : data sequence		*
-*			output : real part of DFT	*
-*	double	y[0]...y[n*n-1];			*
-*			input : working area		*
-*			output : imaginary part of DFT	*
-*	int	n;	size of DFT			*
-*							*
-*	T. Kobayashi	May, 1989.			*
+*   fft2 : two dimensional fast Fourier transform       *
+*                            for complex sequence       *
+*                                                       *
+*       int fft2( x, y, n )                             *
+*                                                       *
+*       double   x[0]...x[n*n-1];                       *
+*                       input  : data sequence          *
+*                       output : real part of DFT       *
+*       double   y[0]...y[n*n-1];                       *
+*                       input  : working area           *
+*                       output : imaginary part of DFT  *
+*       int      n;     size of DFT                     *
+*                                                       *
+*                       T. Kobayashi   May, 1989.       *
 ********************************************************/
 
 #include <stdio.h>

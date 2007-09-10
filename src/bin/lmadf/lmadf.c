@@ -38,36 +38,36 @@
 */
 
 /************************************************************************
-*         *
-*    LMA Digital Filter for Speech Synthesis    *
-*         *
-*     1986.6  K.Tokuda  *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  lmadf [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of cepstrum  [25]  *
-*  -p p     :  frame period  [100]  *
-*  -i i     :  interpolation period [1]  *
-*  -P P  :  order of pade approximation [4]  *
-*  -k  :  filtering without gain  [FALSE]  *
-* infile:        *
-*  cepstral coefficients     *
-*      , c~(0), c~(1), ..., c~(M),    *
-*  excitation sequence     *
-*      , x(0), x(1), ...,      *
-* stdout:        *
-*  filtered sequence     *
-*      , y(0), y(1), ...,     *
-* note:        *
-*  P = 4 or 5      *
-* require:       *
-*  lmadf()       *
-*         *
+*                                                                       *
+*    LMA Digital Filter for Speech Synthesis                            *
+*                                                                       *
+*                                      1986.6  K.Tokuda                 *
+*                                      1996.1  K.Koishida               *
+*                                                                       *
+*       usage:                                                          *
+*               lmadf [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -m m     :  order of cepstrum             [25]          *
+*               -p p     :  frame period                  [100]         *
+*               -i i     :  interpolation period          [1]           *
+*               -P P     :  order of pade approximation   [4]           *
+*               -k       :  filtering without gain        [FALSE]       *
+*       infile:                                                         *
+*               cepstral coefficients                                   *
+*                       , c~(0), c~(1), ..., c~(M),                     *
+*               excitation sequence                                     *
+                        , x(0), x(1), ...,                              *
+*       stdout:                                                         *
+*               filtered sequence                                       *
+*                       , y(0), y(1), ...,                              *
+*       note:                                                           *
+*               P = 4 or 5                                              *
+*       require:                                                        *
+*               lmadf()                                                 *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lmadf.c,v 1.8 2007/08/07 05:01:38 heigazen Exp $";
+static char *rcs_id = "$Id: lmadf.c,v 1.9 2007/09/10 12:49:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -170,12 +170,12 @@ int main (int argc, char **argv)
 
    if ((pd<4)||(pd>5)) {
       fprintf(stderr,"%s : Order of pade approximation is 4 or 5!\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    if (fpc==NULL) {
       fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    c = dgetmem(m+m+m+3+(m+1)*pd*2);
@@ -183,16 +183,16 @@ int main (int argc, char **argv)
    inc = cc + m + 1;
    d   = inc+ m + 1;
 
-   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) exit(1);
+   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
 
    for (;;) {
-      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) exit(0);
+      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
 
       for (i=0; i<=m; i++)
          inc[i] = (cc[i] - c[i])*iprd / fprd;
 
       for (j=fprd, i=(iprd+1)/2; j--;) {
-         if (freadf(&x, sizeof(x), 1, fp)!=1) exit(0);
+         if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
          if (!ngain) x *= exp(c[0]);
          x = lmadf(x, c, m, pd, d);

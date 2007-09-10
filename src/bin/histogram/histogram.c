@@ -38,30 +38,30 @@
 */
 
 /************************************************************************
-*									*
-*    Histogram								*
-*									*
-*					1986.9	K.Tokuda		*
-*					1995.7	K.Tokuda		*
-*					1996.3  N.Miyazaki		*
-*					2000.3  Y.Nankaku		*
-*			                              			*
-*	usage:								*
-*		histogram [ options ] [ infile ] > stdout		*
-*	options:							*
-*		-l l	 : sequence length		[256]		*
-*		-i i	 : infimum			[0]		*
-*		-j j	 : supremum			[1]		*
-*		-s s	 : step size			[0.1]		*
-*		-n	 : normalization		[off]		*
-*	infile:								*
-*		sample data (float)					*
-*	stdout:								*
-*		histogram (float)					*
-*									*
+*                                                                       *
+*    Histogram                                                          *
+*                                                                       *
+*                                       1986.9   K.Tokuda               *
+*                                       1995.7   K.Tokuda               *
+*                                       1996.3   N.Miyazaki             *
+*                                       2000.3   Y.Nankaku              *
+*                                                                       *
+*       usage:                                                          *
+*               histogram [ options ] [ infile ] > stdout               *
+*       options:                                                        *
+*               -l l    : sequence length               [256]           *
+*               -i i    : infimum                       [0]             *
+*               -j j    : supremum                      [1]             *
+*               -s s    : step size                     [0.1]           *
+*               -n      : normalization                 [off]           *
+*       infile:                                                         *
+*               sample data (float)                                     * 
+*       stdout:                                                         *
+*               histogram (float)                                       *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: histogram.c,v 1.7 2007/07/25 05:35:05 heigazen Exp $";
+static char *rcs_id = "$Id: histogram.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>

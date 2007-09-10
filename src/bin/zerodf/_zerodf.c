@@ -39,18 +39,18 @@
 
 /****************************************************************
 
-    $Id: _zerodf.c,v 1.5 2007/08/07 05:04:04 heigazen Exp $
+    $Id: _zerodf.c,v 1.6 2007/09/10 12:49:24 heigazen Exp $
 
     All Zero Digital Filter
 
- double zerodf(x, b, m, d)
+       double zerodf(x, b, m, d)
 
- double x   : input
- double *b  : MA coefficients
- int m   : order of coefficients
- double  *d  : delay
+       double   x     : input 
+       double  *b     : MA coefficients 
+       int      m     : order of coefficients
+       double  *d     : delay
 
- return value : filtered data
+       return   value : filtered data
 
 *****************************************************************/
 

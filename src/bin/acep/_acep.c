@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _acep.c,v 1.5 2007/07/20 07:01:24 heigazen Exp $
+    $Id: _acep.c,v 1.6 2007/09/10 12:49:31 heigazen Exp $
 
     Adaptive Cepstral Analysis
 
@@ -92,7 +92,7 @@ double acep (double x, double *c, const int m, const double lambda, const double
    x = lmadf(x, cc, m, pd, d);
 
    for (i=m; i>=1; i--)
-	  e[i] = e[i-1];
+      e[i] = e[i-1];
    e[0] = x;
     
    gg = gg * lambda + (1.0 - lambda) * e[0] * e[0];

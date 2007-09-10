@@ -39,37 +39,27 @@
 
 /****************************************************************
 
-    $Id: _mglsadf.c,v 1.6 2007/08/07 05:01:38 heigazen Exp $
+    $Id: _mglsadf.c,v 1.7 2007/09/10 12:49:31 heigazen Exp $
 
     MGLSA Digital Filter
 
- double mglsadf(x, b, m, a, n, d)
+        double mglsadf(x, b, m, a, n, d)
 
- double x   : input
- double *b  : filter coefficients (K, g*b'(1), ..., g*b'(m))
- int m   : order of cepstrum
- double  a   : alpha
- int     n   : -1/gamma
- double  *d  : delay
+        double  x     : input
+        double  *b    : filter coefficients (K, g*b'(1), ..., g*b'(m))
+        int     m     : order of cepstrum
+        double  a     : alpha
+        int     n     : -1/gamma
+        double  *d    : delay
 
- return value : filtered data
+        return  value : filtered data
 
 *****************************************************************/
 
 #include <stdio.h>
 #include <SPTK.h>
 
-double mglsadf (double x, double *b, const int m, const double a, const int n, double *d)
-{
-   int i;
-   
-   for (i=0; i<n; i++)
-      x = mglsadff(x, b, m, a, &d[i*(m+1)]);
-
-   return(x);
-}
-
-double mglsadff (double x, double *b, const int m, const double a, double *d)
+static double mglsadff (double x, double *b, const int m, const double a, double *d)
 {
    int i;
    double y, aa;
@@ -90,6 +80,38 @@ double mglsadff (double x, double *b, const int m, const double a, double *d)
    return (x);
 }
 
+double mglsadf (double x, double *b, const int m, const double a, const int n, double *d)
+{
+   int i;
+   
+   for (i=0; i<n; i++)
+      x = mglsadff(x, b, m, a, &d[i*(m+1)]);
+
+   return(x);
+}
+
+static double mglsadff1 (double x, double *b, const int m, const double a, const double g, double *d)
+{
+   int i;
+   double y, aa;
+
+   aa = 1 - a * a;
+
+   y = d[0] * b[1];
+   for (i=1; i<m; i++) {
+      d[i] += a * (d[i+1] - d[i-1]);
+      y += d[i] * b[i+1];
+  }
+  x -= g * y;
+
+  for (i=m; i>0; i--)
+     d[i] = d[i-1];
+  
+  d[0] = a * d[0] + aa * x;
+
+  return (x);
+}
+
 double mglsadf1 (double x, double *b, const int m, const double a, const int n, double *d)
 {
    int i;
@@ -103,23 +125,18 @@ double mglsadf1 (double x, double *b, const int m, const double a, const int n, 
    return(x);
 }
 
-double mglsadff1 (double x, double *b, const int m, const double a, const double g, double *d)
+static double mglsadfft (double x, double *b, const int m, const double a, double *d)
 {
    int i;
-   double y, aa;
 
-   aa = 1 - a * a;
+   x -= d[0] * (1.0 - a * a);
 
-   y = d[0] * b[1];
-   for (i=1; i<m; i++) {
-      d[i] += a * (d[i+1] - d[i-1]);
-      y += d[i] * b[i+1];
-   }
-   x -= g * y;
+   d[m] = b[m] * x + a * d[m-1];
+   for (i=m-1; i>=1; i--)
+      d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
 
-   for (i=m; i>0; i--)
-      d[i] = d[i-1];
-   d[0] = a * d[0] + aa * x;
+   for (i=0; i<m; i++)
+      d[i] = d[i+1];
 
    return (x);
 }
@@ -134,11 +151,11 @@ double mglsadft (double x, double *b, const int m, const double a, const int n, 
    return(x);
 }
 
-double mglsadfft (double x, double *b, const int m, const double a, double *d)
+static double mglsadff1t (double x, double *b, const int m, const double a, const double g, double *d)
 {
    int i;
 
-   x -= d[0] * (1.0 - a * a);
+   x -= d[0] * (1.0 - a * a) * g;
 
    d[m] = b[m] * x + a * d[m-1];
    for (i=m-1; i>=1; i--)
@@ -162,20 +179,3 @@ double mglsadf1t (double x, double *b, const int m, const double a, const int n,
 
    return(x);
 }
-
-double mglsadff1t (double x, double *b, const int m, const double a, const double g, double *d)
-{
-   int i;
-
-   x -= d[0] * (1.0 - a * a) * g;
-
-   d[m] = b[m] * x + a * d[m-1];
-   for (i=m-1; i>=1; i--)
-      d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
-
-   for (i=0; i<m; i++)
-      d[i] = d[i+1];
-
-   return (x);
-}
-

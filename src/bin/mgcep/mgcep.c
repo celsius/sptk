@@ -41,41 +41,41 @@
 *                                                                       *
 *    Mel-Generalized Cepstral Analysis                                  *
 *                                                                       *
-*               1990.7  K.Tokuda                                        *
-*               1996.3  K.Koishida                                      *
+*                                       1990.7  K.Tokuda                *
+*                                       1996.3  K.Koishida              *
 *                                                                       *
-*   usage:                                                              *
-*      mgcep [ options ] [ infile ]>stdout                            *
-*   options:                                                            *
-*      -a a     :  alapha            [0.35]                             *
-*      -g g     :  gamma            [0.0]                               *
-*      -m m     :  order of mel-generalized cepstrum   [25]             *
-*      -l l     :  frame length         [256]                           *
-*      -o o     :  output format  (see stdout)      [0]                 *
-*      (level 2)                                                        *
-*      -i i     :  minimum iteration         [2]                        *
-*      -j j     :  maximum iteration         [30]                       *
-*      -d d     :  end condition         [0.001]                        *
-*      -e e     :  small value added to periodgram    [0.0]             *
-*   infile:                                                             *
-*      data sequence                                                    *
-*          , x(0), x(1), ..., x(L-1),                                   *
-*   stdout:                                                             *
-*         output format   coefficients                                  *
-*          0      , c~(0), c~(1), ..., c~(m)                            *
-*          1      , b(0), b(1), ..., b(m)                               *
-*          2      , K~, c~'(1), ..., c~'(m)                             *
-*          3      , K, b'(1), ..., b'(m)                                *
-*          4      , K~, g*c~'(1), ..., g*c~'(m)                         *
-*          5      , K, g*b'(1), ..., g*b'(m)                            *
+*       usage:                                                          *
+*                mgcep [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*                -a a     :  alapha                              [0.35] *
+*                -g g     :  gamma                               [0.0]  *
+*                -m m     :  order of mel-generalized cepstrum   [25]   *
+*                -l l     :  frame length                        [256]  *
+*                -o o     :  output format  (see stdout)         [0]    *
+*                (level 2)                                              *
+*                -i i     :  minimum iteration                   [2]    *
+*                -j j     :  maximum iteration                   [30]   *
+*                -d d     :  end condition                       [0.001]*
+*                -e e     :  small value added to periodgram     [0.0]  *
+*       infile:                                                         *
+*                data sequence                                          *
+*                        , x(0), x(1), ..., x(L-1),                     *
+*       stdout:                                                         *
+*                output format   coefficients                           *
+*                0      , c~(0), c~(1), ..., c~(m)                      *
+*                1      , b(0), b(1), ..., b(m)                         *
+*                2      , K~, c~'(1), ..., c~'(m)                       *
+*                3      , K, b'(1), ..., b'(m)                          *
+*                4      , K~, g*c~'(1), ..., g*c~'(m)                   *
+*                5      , K, g*b'(1), ..., g*b'(m)                      *
 *       notice:                                                         *
-*               if g >= 1.0, g = -1 / g .                               *
-*   require:                                                            *
-*      mgcep()                                                          *
+*                if g >= 1.0, g = -1 / g .                              *
+*       require:                                                        *
+*                mgcep()                                                *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.11 2007/09/07 18:19:45 heigazen Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.12 2007/09/10 12:49:22 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -107,7 +107,7 @@ void usage (const int status)
    fprintf(stderr, " %s - mel-generalized cepstral analysis\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : alpha                             [%g]\n", ALPHA);
    fprintf(stderr, "       -g g  : gamma                             [%g]\n", GAMMA);

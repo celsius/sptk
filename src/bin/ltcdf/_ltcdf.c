@@ -39,18 +39,18 @@
 
 /****************************************************************
 
-    $Id: _ltcdf.c,v 1.4 2007/08/07 05:01:37 heigazen Exp $
+    $Id: _ltcdf.c,v 1.5 2007/09/10 12:49:20 heigazen Exp $
 
     All-Pole Lattice Digital Filter
 
- double ltcdf(x, k, m, d)
+        double ltcdf(x, k, m, d)
 
- double x   : input
- double *k  : reflection coefficients
- int m   : order of coefficients
- double  *d  : delay
+        double   x     : input
+        double  *k     : reflection coefficients
+        int      m     : order of coefficients
+        double  *d     : delay
 
- return value : filtered data
+        return   value : filtered data
 
 *****************************************************************/
 

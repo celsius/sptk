@@ -38,34 +38,34 @@
 */
 
 /************************************************************************
-*         *
-*    SNR, SNR_seg       *
-*         *
-*     1990.11 T.Kanno   *
-*     1996.3  K.Koishida  *
-*         *
-* usage:        *
-*  snr [ options ] file1 [ file2 ]>stdout  *
-* options:       *
-*  -l l     :  frame length     [256] *
-*  +ab      :  input data type (a: file1, b: file2) [sf] *
-*                               s : short       *
-*    f : float    *
-*  -o o     :  output format    [0] *
-* infile:        *
-*  data sequence      *
-*      , x(0), x(1), ...,     *
-*      , y(0), y(1), ...,     *
-* stdout:        *
-*  output format      output     *
-*                     0             SNR and SNRseg             *
-*                     1             SNR and SNRseg in detail   *
-*        2             SNR                        *
-*                     3             SNRseg                              *
-*         *
+*                                                                       *
+*    SNR, SNR_seg                                                       *
+*                                                                       *
+*                                        1990.11 T.Kanno                *
+*                                        1996.3  K.Koishida             *
+*                                                                       *
+*       usage:                                                          *
+*               snr [ options ] file1 [ file2 ] > stdout                *
+*       options:                                                        *
+*               -l l     :  frame length                         [256]  *
+*               +ab      :  input data type (a: file1, b: file2) [sf]   *
+*                               s : short                               *
+*                               f : float                               *
+*               -o o     :  output format                        [0]    *
+*      infile:                                                          *
+*               data sequence                                           *
+*                       , x(0), x(1), ...,                              * 
+*                       , y(0), y(1), ...,                              *
+*      stdout:                                                          *
+*               output format      output                               *
+*                       0             SNR and SNRseg                    *
+*                       1             SNR and SNRseg in detail          *
+*                       2             SNR                               *
+*                       3             SNRseg                            *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.8 2007/08/07 05:05:40 heigazen Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.9 2007/09/10 12:49:25 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -91,7 +91,7 @@ void usage (int status)
    fprintf(stderr, " %s - SNR and SNR_seg\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] file1 [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] file1 [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "      -l l  : frame length                         [%d]\n", LENG);
    fprintf(stderr, "      +ab   : input data type (a: file1, b: file2) [sf]\n");

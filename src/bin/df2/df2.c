@@ -38,26 +38,26 @@
 */
 
 /************************************************************************
-*									*
-*    2nd Order Standard Form Digital Filter				*
-*									*
-*					1985.8  K.Tokuda		*
-*					1995.12 N.Isshiki modified	*
-*									*
-*	usage:								*
-*		df2 [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-f f	:  sampling frequency		  [10000]	*
-*		-p f b	:  center frequency f(Hz)			*
-*			     and band width b(Hz) of pole [N/A]		*
-*		-z f b  :  center frequency f(Hz)			*
-*			     and band width b(Hz) of zero [N/A]		*
-*	note:								*
-*		-p and -z option can be specified repeatedly.		*
-*									*
+*                                                                       *
+*    2nd Order Standard Form Digital Filter                             *
+*                                                                       *
+*                                       1985.8  K.Tokuda                *
+*                                       1995.12 N.Isshiki modified      *
+*                                                                       *
+*       usage:                                                          *
+*               df2 [ options ] [ infile ] > stdout                     *
+*       options:                                                        *
+*               -f f     :  sampling frequency            [10000]       *
+*               -p f b   :  center frequency f(Hz)                      *
+*                            and band width b(Hz) of pole [N/A]         *
+*               -z f b   :  center frequency f(Hz)                      *
+*                            and band width b(Hz) of zero [N/A]         *
+*       note:                                                           *
+*               -p and -z option can be specified repeatedly.           *
+*                                                                       *
 ************************************************************************/ 
 
-static char *rcs_id = "$Id: df2.c,v 1.8 2007/07/24 02:06:16 heigazen Exp $";
+static char *rcs_id = "$Id: df2.c,v 1.9 2007/09/10 12:49:24 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>

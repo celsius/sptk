@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-*         *
-*    Generate Sinusoidal Sequence     *
-*         *
-*     1989.7  K.Tokuda  *
-*     1996.4  K.Koishida  *
-*         *
-* usage:        *
-*  sin [options]>stdout     *
-* options:       *
-*  -l l     :  length    [256]  *
-*  -p p     :  period    [10.0]  *
-*  -m m     :  magnitude    [1.0]  *
-* stdout:        *
-*  sinusoidal sequence     *
-*      , sin(2pi*0/p), sin(2pi*1/p), ..., sin(2pi*(l-1)/p *
-* notice:        *
-*  if l<0, generate infinite sequence   *
-*         *
+*                                                                       *
+*    Generate Sinusoidal Sequence                                       *
+*                                                                       *
+*     1989.7  K.Tokuda                                                  *
+*     1996.4  K.Koishida                                                *
+*                                                                       *
+*    usage:                                                             *
+*            sin [options] > stdout                                     *
+*    options:                                                           *
+*            -l l     :  length       [256]                             *
+*            -p p     :  period       [10.0]                            *
+*            -m m     :  magnitude    [1.0]                             *
+*    stdout:                                                            *
+*            sinusoidal sequence                                        *
+*                    , sin(2pi*0/p), sin(2pi*1/p), ..., sin(2pi*(l-1)/p *
+*    notice:                                                            *
+*            if l<0, generate infinite sequence                         *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sin.c,v 1.8 2007/08/07 05:05:40 heigazen Exp $";
+static char *rcs_id = "$Id: sin.c,v 1.9 2007/09/10 12:49:30 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -85,7 +85,7 @@ void usage (int status)
    fprintf(stderr, " %s - generate sinusoidal sequence\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length             [%d]\n", LENG);
    fprintf(stderr, "       -p p  : period             [%g]\n", PERIOD);

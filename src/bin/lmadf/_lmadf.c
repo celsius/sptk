@@ -39,35 +39,58 @@
 
 /****************************************************************
 
-    $Id: _lmadf.c,v 1.4 2007/08/07 05:01:38 heigazen Exp $
+    $Id: _lmadf.c,v 1.5 2007/09/10 12:49:31 heigazen Exp $
 
     LMA Digital Filter
 
- double lmadflt(x, c, m, pd, d)
+        double    lmadflt(x, c, m, pd, d)
 
- double x   : input
- double *c  : cepstrum
- int m   : order of cepstrum
- int pd  : order of pade approximation
- double  *d  : delay
+        double    x     : input
+        double    *c    : cepstrum
+        int       m     : order of cepstrum
+        int       pd    : order of pade approximation
+        double    *d    : delay
 
- return value : filtered data
+        return    value : filtered data
 
 *****************************************************************/
 
 #include <stdio.h>
 #include <SPTK.h>
 
-
 static double pade[] = {1.0,
                         1.0, 0.0,
                         1.0, 0.0, 0.0,
-                        1.0, 0.0, 0.0,    0.0,
+                        1.0, 0.0, 0.0,  0.0,
                         1.0, 0.4999273, 0.1067005, 0.01170221, 0.0005656279,
                         1.0, 0.4999391, 0.1107098, 0.01369984, 0.0009564853, 0.00003041721
                        };
 
 double *ppade;
+
+/****************************************************************
+
+    double lmafir(x, c, d, m, m1, m2)
+
+    double x  : input
+    double *c : cepstrum
+    int    m  : order of cepstrum
+    double *d : delay
+    int    m1 : start order
+    int    m2 : end order
+
+*****************************************************************/
+
+static double lmafir (double x, double *c, const int m, double *d, const int m1, const int m2)
+{
+   int i;
+
+   for (i=m-1; i>=1; i--) d[i] = d[i-1];
+      d[0] = x;
+   for (x=0.0,i=m1; i<=m2; i++) x += c[i] * d[i-1];
+
+   return(x);
+}
 
 double lmadf (double x, double *c, const int m, const int pd, double *d)
 {
@@ -81,15 +104,15 @@ double lmadf (double x, double *c, const int m, const int pd, double *d)
 
 /****************************************************************
 
- double lmadf1(x, c, m, d, m1, m2, pd)
+    double lmadf1(x, c, m, d, m1, m2, pd)
 
- double x  : input
- double *c : cepstrum
- int m  : order of cepstrum
- double  *d : delay
- int m1 : start order
- int m2 : end order
- int pd : order of pade approximation
+    double x  : input
+    double *c : cepstrum
+    int    m  : order of cepstrum
+    double *d : delay
+    int    m1 : start order
+    int    m2 : end order
+    int    pd : order of pade approximation
 
 *****************************************************************/
 
@@ -110,29 +133,5 @@ double lmadf1 (double x, double *c, const int m, double *d, const int m1, const 
    y += (pt[0] = x);
 
    return(y);
-}
-
-/****************************************************************
-
- double lmafir(x, c, d, m, m1, m2)
-
- double x  : input
- double *c : cepstrum
- int m  : order of cepstrum
- double  *d : delay
- int m1 : start order
- int m2 : end order
-
-*****************************************************************/
-
-double lmafir (double x, double *c, const int m, double *d, const int m1, const int m2)
-{
-   int i;
-
-   for (i=m-1; i>=1; i--) d[i] = d[i-1];
-   d[0] = x;
-   for (x=0.0,i=m1; i<=m2; i++) x += c[i] * d[i-1];
-
-   return(x);
 }
 

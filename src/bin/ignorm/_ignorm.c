@@ -38,16 +38,16 @@
 */
 
 /************************************************************************
-  $Id: _ignorm.c,v 1.7 2007/08/07 04:56:24 heigazen Exp $
+  $Id: _ignorm.c,v 1.8 2007/09/10 12:49:26 heigazen Exp $
 
-    Inverse Gain Normalization
-	
-	void 	ignorm(c1, c2, m, g)
+  Inverse Gain Normalization
+   
+      void    ignorm(c1, c2, m, g)
 
-	double	*c1 :  normalized generalized cepstral coefficients
-	double	*c2 :  genenralized cepstral coefficients
-	int	  m :  order of coefficients
-	double	  g :  gamma
+      double   *c1 :  normalized generalized cepstral coefficients
+      double   *c2 :  genenralized cepstral coefficients
+      int      m   :  order of coefficients
+      double   g   :  gamma
 
 ************************************************************************/
 

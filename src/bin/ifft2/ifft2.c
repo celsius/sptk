@@ -38,29 +38,29 @@
 */
 
 /************************************************************************
-*									*
-*    Inverse 2D-FFT for complex sequence				*
-*									*
-*					1989	T.Kobayashi		*
-*					1996.2  N.Miyazaki modified	*
-*									*
-*	usage:								*
-*		ifft2 [ infile ] [ options ] > stdout			*
-*	options:       							*
-*		-l l	 :  FFT size power of 2		[64]		*
-*		+r	 :  input is real				*
-*		-t 	 :  transposed output				*
-*		-c	 :  compensated boundary			*
-*		-q	 :  first quadrant output			*
-*		-R	 :  real part					*
-*		-I	 :  imaginary part				*
-*	infile:								*
-*		stdin for default					*
-*		input is assumed to be complex				*
-*									*
+*                                                                       *
+*    Inverse 2D-FFT for complex sequence                                *
+*                                                                       *
+*                                       1989    T.Kobayashi             *
+*                                       1996.2  N.Miyazaki modified     *
+*                                                                       *
+*       usage:                                                          *
+*               ifft2 [ infile ] [ options ] > stdout                   *
+*       options:                                                        *
+*               -l l    :  FFT size power of 2      [64]                *
+*               +r      :  input is real                                *
+*               -t      :  transposed output                            *
+*               -c      :  compensated boundary                         *
+*               -q      :  first quadrant output                        *
+*               -R      :  real part                                    *
+*               -I      :  imaginary part                               *
+*       infile:                                                         *
+*               stdin for default                                       *
+*               input is assumed to be complex                          *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft2.c,v 1.7 2007/08/01 07:36:07 heigazen Exp $";
+static char *rcs_id = "$Id: ifft2.c,v 1.8 2007/09/10 12:49:30 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>

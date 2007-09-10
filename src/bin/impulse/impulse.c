@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*         *
-*    Generate Impulse Sequence      *
-*         *
-*     1996.4  K.Koishida  *
-*         *
-* usage:        *
-*  impulse [options]>stdout    *
-* options:       *
-*  -l l     :  length    [256]  *
-*  -n n     :  order    [255]  *
-* stdout:        *
-*  impulse sequence     *
-*      , 1, 0, 0, ...     *
-* notice:        *
-*  if l<0, generate infinite sequence   *
-*         *
+*                                                                       *
+*    Generate Impulse Sequence                                          *
+*                                                                       *
+*                                           1996.4  K.Koishida          *
+*                                                                       *
+*       usage:                                                          *
+*               impulse [options] > stdout                              *
+*       options:                                                        *
+*               -l l     :  length    [256]                             *
+*               -n n     :  order     [255]                             *
+*       stdout:                                                         *
+*               impulse sequence                                        *
+*                      , 1, 0, 0, ...                                   *
+*       notice:                                                         *
+*               if l<0, generate infinite sequence                      *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: impulse.c,v 1.7 2007/08/07 04:58:02 heigazen Exp $";
+static char *rcs_id = "$Id: impulse.c,v 1.8 2007/09/10 12:49:20 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -79,7 +79,7 @@ void usage (int status)
    fprintf(stderr, " %s - generate impulse sequence\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length             [%d]\n", LENG);
    fprintf(stderr, "       -n n  : order              [%d]\n", LENG-1);

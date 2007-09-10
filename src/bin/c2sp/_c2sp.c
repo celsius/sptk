@@ -38,17 +38,17 @@
 */
 
 /***************************************************************
-    $Id: _c2sp.c,v 1.4 2007/07/20 09:10:29 heigazen Exp $
+    $Id: _c2sp.c,v 1.5 2007/09/10 12:49:26 heigazen Exp $
 
     Transform cepstrum to spectrum
 
-	void	c2sp(c, m, sp, y, l)
+        void   c2sp(c, m, sp, y, l)
 
-	double	*c  : cepstrum
-	int	m   : order of cepstrum
-	double	*x  : real part of spectrum
-	double	*y  : imaginary part of spectrum
-	double	l   : FFT length
+        double   *c  : cepstrum
+        int      m   : order of cepstrum
+        double   *x  : real part of spectrum
+        double   *y  : imaginary part of spectrum
+        double   l   : FFT length
 
 ***************************************************************/
 

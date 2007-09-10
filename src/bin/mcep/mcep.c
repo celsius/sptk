@@ -41,32 +41,32 @@
 *                                                                       *
 *    Mel Cepstral Analysis                                              *
 *                                                                       *
-*               1993.5  K.Tokuda                                        *
-*               1996.1  K.Koishida                                      *
+*                                     1993.5  K.Tokuda                  *
+*                                     1996.1  K.Koishida                *
 *                                                                       *
-*   usage:                                                              *
-*      mcep [ options ] [infile]>stdout                               *
-*   options:                                                            *
-*      -a alpha :  all-pass constant               [0.35]               *
-*      -m m     :  order of mel cepstrum           [25]                 *
-*      -l l     :  frame length                    [256]                *
-*      (level 2)                                                        *
-*      -i i     :  minimum iteration               [2]                  *
-*      -j j     :  maximum iteration               [30]                 *
-*      -d d     :  end condition                   [0.001]              *
-*      -e e     :  small value added to periodgram [0.0]                *
-*   infile:                                                             *
-*      data sequence                                                    *
-*          , x(0), x(1), ..., x(L-1),                                   *
-*   stdout:                                                             *
-*      mel cepstrum                                                     *
-*          , c~(0), c~(1), ..., c~(M),                                  *
-*   require:                                                            *
-*      mcep()                                                           *
+*       usage:                                                          *
+*                mcep [ options ] [infile] > stdout                     *
+*       options:                                                        *
+*               -a alpha :  all-pass constant               [0.35]      *
+*               -m m     :  order of mel cepstrum           [25]        *
+*               -l l     :  frame length                    [256        *
+*               (level 2)                                               *
+*               -i i     :  minimum iteration               [2]         *
+*               -j j     :  maximum iteration               [30]        *
+*               -d d     :  end condition                   [0.001]     *
+*               -e e     :  small value added to periodgram [0.0]       *
+*       infile:                                                         *
+*               data sequence                                           *
+*                       , x(0), x(1), ..., x(L-1),                      *
+*       stdout:                                                         *
+*               mel cepstrum                                            *
+*                       , c~(0), c~(1), ..., c~(M),                     *
+*       require:                                                        *
+*               mcep()                                                  *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mcep.c,v 1.9 2007/09/07 18:19:45 heigazen Exp $";
+static char *rcs_id = "$Id: mcep.c,v 1.10 2007/09/10 12:49:26 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -95,7 +95,7 @@ void usage (int status)
    fprintf(stderr, " %s - mel cepstral analysis\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : all-pass constant               [%g]\n", ALPHA);
    fprintf(stderr, "       -m m  : order of mel cepstrum           [%d]\n", ORDER);

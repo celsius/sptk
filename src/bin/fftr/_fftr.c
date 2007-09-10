@@ -38,16 +38,17 @@
 */
 
 /********************************************************
- $Id: _fftr.c,v 1.6 2007/08/07 04:18:04 heigazen Exp $							
- NAME:							
-	fftr - Fast Fourier Transform for Double sequence	   
+ $Id: _fftr.c,v 1.7 2007/09/10 12:49:20 heigazen Exp $                     
+ 
+ NAME:                     
+        fftr - Fast Fourier Transform for Double sequence      
  SYNOPSIS:                                             
-	int	fftr(x, y, m)				
-							
-	double	x[];	real part of data		
-	double	y[];	working area			
-	int	m;	number of data(radix 2)		
-		Naohiro Isshiki 	Dec.1995	modified
+        int   fftr(x, y, m)            
+                     
+        double  x[];   real part of data      
+        double  y[];   working area         
+        int     m;     number of data(radix 2)      
+                Naohiro Isshiki    Dec.1995   modified
 ********************************************************/
 
 #include <stdio.h>

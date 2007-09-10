@@ -38,28 +38,28 @@
 */
 
 /************************************************************************
-*									*
-*    Extract Vector							*
-*									*
-*					1996.3  K.Koishida		*
-*									*
-*	usage:								*
-*		extract [ options ] [ indexfile ] [ infile ] > stdout	*
-*	options:							*
-*		-l l     :  order of vector	[10]			*
-*		-i i     :  codebook index	[0]			*
-*	infile:								*
-*		index file (int)					*
-*		    , index(0), index(1), ..., 				*
-*		data sequence						*
-*		    , x(0), x(1), ...,					*
-*	stdout:								*
-*		vectors which belong to index c				*
-*		    , x'(0), x'(1), ...,				*
-*									*
+*                                                                       *
+*    Extract Vector                                                     *
+*                                                                       *
+*                                               1996.3  K.Koishida      *
+*                                                                       *
+*       usage:                                                          *
+*               extract [ options ] [ indexfile ] [ infile ] > stdout   *
+*       options:                                                        *
+*               -l l     :  order of vector   [10]                      *
+*               -i i     :  codebook index   [0]                        *
+*       infile:                                                         *
+*               index file (int)                                        *
+*                   , index(0), index(1), ...,                          *
+*       data sequence                                                   *
+*                   , x(0), x(1), ...,                                  *
+*       stdout:                                                         *
+*                vectors which belong to index c                        *
+*                   , x'(0), x'(1), ...,                                *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: extract.c,v 1.7 2007/07/24 04:34:45 heigazen Exp $";
+static char *rcs_id = "$Id: extract.c,v 1.8 2007/09/10 12:49:32 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

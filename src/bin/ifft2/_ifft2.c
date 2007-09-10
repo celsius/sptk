@@ -37,19 +37,19 @@
  ----------------------------------------------------------------
 */
 
-/********************************************************
-*  $Id: _ifft2.c,v 1.6 2007/08/07 04:54:59 heigazen Exp $ *
-*	ifft2 : two dimensional inverse fast Fourier	*
-*			transform			*
-*							*
-*	int ifft2( x, y, n )				*
-*							*
-*	real	x[0]...x[n*n-1]; real part		*
-*	real	y[0]...y[n*n-1]; imaginary part		*
-*	int	n;	size of IDFT			*
-*							*
-*	T. Kobayashi	May, 1989.			*
-********************************************************/
+/****************************************************************
+*  $Id: _ifft2.c,v 1.7 2007/09/10 12:49:30 heigazen Exp $       *
+*  ifft2 : two dimensional inverse fast Fourier                 *
+*      transform                                                *
+*                                                               *
+*      int ifft2( x, y, n )                                     *
+*                                                               *
+*      real   x[0]...x[n*n-1]; real part                        *
+*      real   y[0]...y[n*n-1]; imaginary part                   *
+*      int    n;               size of IDFT                     *
+*                                                               *
+*                     T. Kobayashi   May, 1989.                 *
+****************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>

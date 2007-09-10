@@ -38,32 +38,32 @@
 */
 
 /************************************************************************
-*         *
-*    Transform LPC to PARCOR      *
-*         *
-*     1988    K.Tokuda  *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  lpc2par [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of LPC   [25] *
-*  -g g     :  gamma of generalized cepstum [1.0] *
-*  -s       :  check stable or unstable  [FALSE] *
-* infile:        *
-*  LP Coefficeints      *
-*      , K, a(1), ..., a(m),    *
-* stdout:        *
-*  PARCOR       *
-*      , K, k(1), ..., k(m),    *
-* require:       *
-*  lpc2par()      *
+*                                                                       *
+*    Transform LPC to PARCOR                                            *
+*                                                                       *
+*                                        1988    K.Tokuda               *
+*                                        1996.1  K.Koishida             *
+*                                                                       *
+*       usage:                                                          *
+*               lpc2par [ options ] [ infile ] > stdout                 *
+*       options:                                                        *
+*               -m m     :  order of LPC                     [25]       *
+*               -g g     :  gamma of generalized cepstum     [1.0]      *
+*               -s       :  check stable or unstable         [FALSE]    *
+*       infile:                                                         *
+*               LP Coefficeints                                         *
+*                       , K, a(1), ..., a(m),                           *
+*       stdout:                                                         *
+*               PARCOR                                                  *
+*                       , K, k(1), ..., k(m),                           *
+*       require:                                                        *
+*               lpc2par()                                               *
 *       notice:                                                         *
-*               if g>1.0, g = -1 / g .                                *
-*         *
+*               if g>1.0, g = -1 / g .                                  *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2par.c,v 1.7 2007/08/07 05:01:39 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2par.c,v 1.8 2007/09/10 12:49:25 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -90,7 +90,7 @@ void usage (int status)
    fprintf(stderr, " %s - transform LPC to PARCOR\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of LPC                 [%d]\n", ORDER);
    fprintf(stderr, "       -g g  : gamma of generalized cepstum [%g]\n", GAMMA);

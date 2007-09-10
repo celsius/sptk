@@ -38,21 +38,21 @@
 */
 
 /********************************************************
-* $Id: _fftr2.c,v 1.6 2007/08/07 04:19:03 heigazen Exp $ *
-*	fftr2 : two dimensional fast Fourier transform 	*
-*			for real sequence		*
-*							*
-*	int fftr2( x, y, n )				*
-*							*
-*	real	x[0]...x[n*n-1];			*
-*			input : data sequence		*
-*			output : real part of DFT	*
-*	real	y[0]...y[n*n-1];			*
-*			input : working area		*
-*			output : imaginary part of DFT	*
-*	int	n;	size of DFT			*
-*							*
-*	T. Kobayashi	May, 1989.			*
+* $Id: _fftr2.c,v 1.7 2007/09/10 12:49:22 heigazen Exp $*
+*       fftr2 : two dimensional fast Fourier transform  *
+*                       for real sequence               *
+*                                                       *
+*       int fftr2( x, y, n )                            *
+*                                                       *
+*       real   x[0]...x[n*n-1];                         *
+*                       input  : data sequence          *
+*                       output : real part of DFT       *
+*       real   y[0]...y[n*n-1];                         *
+*                       input  : working area           *
+*                       output : imaginary part of DFT  *
+*       int    n;   size of DFT                         *
+*                                                       *
+*       T. Kobayashi        May, 1989.                  *
 ********************************************************/
 
 #include <stdio.h>

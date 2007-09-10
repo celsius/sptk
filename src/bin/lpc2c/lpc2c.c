@@ -38,29 +38,29 @@
 */
 
 /************************************************************************
-*         *
-*    Transform LPC to Cepstrum      *
-*         *
-*     1988.7  T.Kobayashi  *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  lpc2c [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of LPC  [25]  *
-*  -M M     :  order of cepstrum  [25]  *
-* infile:        *
-*  LP Coefficeints      *
-*      , K, a(1), ..., a(M),    *
-* stdout:        *
-*  cepstral coefficients     *
-*      , c(0), c(1), ..., c(N),    *
-* require:       *
-*  lpc2c()       *
-*         *
+*                                                                       *
+*    Transform LPC to Cepstrum                                          * 
+*                                                                       *
+*                                      1988.7  T.Kobayashi              *
+*                                      1996.1  K.Koishida               *
+*                                                                       *
+*       usage:                                                          *
+*               lpc2c [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -m m     :  order of LPC              [25]              *
+*               -M M     :  order of cepstrum         [25]              *
+*       infile:                                                         *
+*               LP Coefficeints                                         *
+*                       , K, a(1), ..., a(M),                           *
+*       stdout:                                                         *
+*               cepstral coefficients                                   *
+*                       , c(0), c(1), ..., c(N),                        *
+*       require:                                                        *
+*               lpc2c()                                                 *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2c.c,v 1.7 2007/08/07 05:01:36 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2c.c,v 1.8 2007/09/10 12:49:20 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -84,7 +84,7 @@ void usage (int status)
    fprintf(stderr, " %s - transform LPC to cepstrum\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDERA);
    fprintf(stderr, "       -M M  : order of cepstrum  [%d]\n", ORDERC);
@@ -140,6 +140,6 @@ int main (int argc, char **argv)
       lpc2c(a, m, c, n);
       fwritef(c, sizeof(*c), n+1, stdout);
    }
-   exit(0);
+   return(0);
 }
 

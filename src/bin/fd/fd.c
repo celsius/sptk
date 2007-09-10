@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-*									*
-*    File dump								*
-*									*
-*					1988    T.Kobayashi		*
-*					1996.5  K.Koishida		*
-*									*
-*	usage:								*
-*		fd [options] [infile] > stdout			*
-*	options:							*
-*		-a a     :  address				[0]	*
-*		-n n     :  initial value for numbering         [0]	*
-*		-m m     :  modulo for numbering		[EOF]   *
-*		+type    :  data type 				[c]	*
-*				c (char)     s (short)			*
-*				i (int)      l (long)			*
-*				f (float)    d (double)			*
-*		%format  :  print format                        [N/A]	*
-*									*
+*                                                                       *
+*    File dump                                                          *
+*                                                                       *
+*                                       1988    T.Kobayashi             *
+*               1996.5  K.Koishida                                      *
+*                                                                       *
+*       usage:                                                          * 
+*               fd [options] [infile] > stdout                          *
+*       options:                                                        *
+*               -a a     :  address                             [0]     *
+*               -n n     :  initial value for numbering         [0]     *
+*               -m m     :  modulo for numbering                [EOF]   *
+*               +type    :  data type                           [c]     *
+*                               c (char)     s (short)                  *
+*                               i (int)      l (long)                   *
+*                               f (float)    d (double)                 *
+*               %format  :  print format                        [N/A]   *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fd.c,v 1.9 2007/07/24 04:51:04 heigazen Exp $";
+static char *rcs_id = "$Id: fd.c,v 1.10 2007/09/10 12:49:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

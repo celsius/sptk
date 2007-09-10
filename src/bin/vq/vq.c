@@ -38,33 +38,33 @@
 */
 
 /************************************************************************
-*         *
-*     Vector Quantization      *
-*         *
-*     1995.12  K.Koishida  *
-*         *
-* usage:        *
-*  vq [ options ] cbfile [ infile ]>stdout  *
-* options:       *
-*  -l l      :  length of vector      [26]  *
-*  -n n   :  order of vector      [25]  *
-*  -q   :  output quantized vector [FALSE]  *
-* infile:        *
-*  input vector      *
-*      x(0), x(1), ...     *
-*  codebook vector      *
-*      cb(0), cb(1), ... cb(l*c-1)    *
-* stdout:        *
-*  index of codebook (int)     *
-*      index(0), index(1), ...,    *
-*  quantized vector (if -q option is specified)  *
-*      x'(0), x'(1), ...     *
-* require:       *
-*  vq()       *
-*         *
+*                                                                       *
+*     Vector Quantization                                               *
+*                                                                       *
+*                                           1995.12  K.Koishida         *
+*                                                                       *
+*        usage:                                                         *
+*                vq [ options ] cbfile [ infile ] > stdout              *
+*        options:                                                       *
+*                -l l      :  length of vector      [26]                *   
+*                -n n   :  order of vector          [25]                *
+*                -q   :  output quantized vector    [FALSE]             *
+*        infile:                                                        *
+*                input vector                                           *
+*                        x(0), x(1), ...                                *
+*                codebook vector                                        *
+*                        cb(0), cb(1), ... cb(l*c-1)                    *
+*        stdout:                                                        *
+*                index of codebook (int)                                *
+*                        index(0), index(1), ...,                       *
+*                quantized vector (if -q option is specified)           *
+*                        x'(0), x'(1), ...                              *
+*       require:                                                        *
+*                vq()                                                   *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vq.c,v 1.6 2007/08/07 05:04:38 heigazen Exp $";
+static char *rcs_id = "$Id: vq.c,v 1.7 2007/09/10 12:49:23 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -91,7 +91,7 @@ void usage (int status)
    fprintf(stderr, " %s - vector quantization\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] cbfile [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] cbfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length of vector        [%d]\n", LENG);
    fprintf(stderr, "       -n n  : order of vector         [%d]\n", LENG-1);
@@ -168,7 +168,7 @@ int main (int argc, char **argv)
 
    if (freadf(cb, sizeof(*cb), cbsize*l, fpcb)!=cbsize*l) {
       fprintf(stderr,"%s : Codebook size error !\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    if (! qflag)

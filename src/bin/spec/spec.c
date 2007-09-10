@@ -38,37 +38,37 @@
 */
 
 /************************************************************************
-*         *
-*    Transform Real Sequence to Spectrum    *
-*         *
-*     1985.11  K.Tokuda  *
-*     1996. 5  K.Koishida  *
-*         *
-* usage:        *
-*  spec [options] [infile]>stdout   *
-* options:       *
-*  -l l     :  frame length   [256] *
-*  -m m     :  order of MA part   [l-1] *
-*  -n n     :  order of AR part   [0] *
-*  -z z     :  MA coefficients filename  [NULL] *
-*  -p p     :  AR coefficients filename  [NULL] *
-*  -e e     :  small value for calculating log() [0] *
-*  -o o     :  output format (see stdout)  [0] *
-* infile:        *
-*  real sequence      *
-*      , c(0), c(1), ..., c(l-1),    *
-* stdout:        *
-*         output format       scale    *
-*         0 :     20 * log|H(z)|   *
-*         1 :          ln|H(z)|    *
-*         2 :          |H(z)|    *
-*         3 :          Re[H(z)], Im[H(z)]
-*  spectrum      *
-*      , s(0), s(1), ..., s(L/2),    *
-*         *
+*                                                                       *
+*    Transform Real Sequence to Spectrum                                *
+*                                                                       *
+*                                  1985.11  K.Tokuda                    *
+*                                  1996. 5  K.Koishida                  *
+*                                                                       *
+*       usage:                                                          *
+*               spec [options] [infile] > stdout                        *
+*       options:                                                        *
+*               -l l     :  frame length                      [256]     *
+*               -m m     :  order of MA part                  [l-1]     *
+*               -n n     :  order of AR part                  [0]       *
+*               -z z     :  MA coefficients filename          [NULL]    *
+*               -p p     :  AR coefficients filename          [NULL]    *
+*               -e e     :  small value for calculating log() [0]       *
+*               -o o     :  output format (see stdout)        [0]       *
+*       infile:                                                         *
+*               real sequence                                           *
+*                       , c(0), c(1), ..., c(l-1),                      *
+*       stdout:                                                         *
+*               output format       scale                               *
+*                           0 :     20 * log|H(z)|                      *
+*                           1 :          ln|H(z)|                       *
+*                           2 :          |H(z)|                         *
+*                           3 :          Re[H(z)], Im[H(z)]             *
+*       spectrum                                                        *
+*                       , s(0), s(1), ..., s(L/2),                      *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: spec.c,v 1.8 2007/08/07 05:05:39 heigazen Exp $";
+static char *rcs_id = "$Id: spec.c,v 1.9 2007/09/10 12:49:22 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -97,7 +97,7 @@ void usage (int status)
    fprintf(stderr, " %s - transform real sequence to spectrum\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : frame length                      [%d]\n", LENG);
    fprintf(stderr, "       -m m  : order of MA part                  [%d]\n", ORDERMA);
@@ -202,7 +202,7 @@ int main (int argc, char **argv)
       else {
          fillz(x, sizeof(*x), leng);
          if (freadf(x, sizeof(*x), orderma+1, fpma)==0)
-            exit(0);
+            return(0);
 
          fftr(x, y, leng);
          for (i=0; i<no; i++)
@@ -212,7 +212,7 @@ int main (int argc, char **argv)
       if (fpar!=NULL) {
          fillz(x, sizeof(*x), leng);
          if (freadf(x, sizeof(*x), orderar+1, fpar)==0)
-            exit(0);
+            return(0);
          k = x[0] * x[0];
          x[0] = 1.0;
          fftr(x, y, leng);

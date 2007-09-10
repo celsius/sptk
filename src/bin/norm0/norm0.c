@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*         *
-*    Normalize coefficients      *
-*         *
-*     1996.4  K.Koishida  *
-*         *
-* usage:        *
-*  norm0 [options] [infile]>stdout   *
-* options:       *
-*  -m m     :  order    [25]  *
-* infile:        *
-*  data sequence      *
-*      , x(0), x(1), ..., x(m),    *
-* stdout:        *
-*  normalized data sequence    *
-*      , 1/x(0), x(1)/x(0), ..., x(m)/x(0)   *
-*         *
+*                                                                       *
+*    Normalize coefficients                                             *
+*                                                                       *
+*                                   1996.4  K.Koishida                  *
+*                                                                       *
+*       usage:                                                          *
+*               norm0 [options] [infile] > stdout                       *
+*       options:                                                        *
+*               -m m     :  order    [25]                               *
+*       infile:                                                         *
+*               data sequence                                           *
+*                       , x(0), x(1), ..., x(m),                        *
+*       stdout:                                                         *
+*               normalized data sequence                                *
+*                       , 1/x(0), x(1)/x(0), ..., x(m)/x(0)             *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: norm0.c,v 1.7 2007/08/07 05:01:39 heigazen Exp $";
+static char *rcs_id = "$Id: norm0.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -79,7 +79,7 @@ void usage (int status)
    fprintf(stderr, " %s - normalize coefficients\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order              [%d]\n", ORDER);
    fprintf(stderr, "       -h    : print this message\n");
@@ -130,6 +130,6 @@ int main (int argc, char **argv)
       norm0(x, x, m);
       fwritef(x, sizeof(*x), m+1, stdout);
    }
-   exit(0);
+   return(0);
 }
 

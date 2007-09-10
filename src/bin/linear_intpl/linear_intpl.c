@@ -38,29 +38,29 @@
 */
 
 /************************************************************************
-*         *
-*    Linear Interpolation      *
-*         *
-*     1987.1  K.Tokuda  *
-*     1996.4  K.Koishida  *
-*         *
-* usage:        *
-*  linear-intpl [ options ] [ infile ]>stdout  *
-* options:       *
-*  -l l         : output length               [256] *
-*  -m m         : number of interpolation     [255] *
-*  -x xmin xmax : minimum of x & maximum of x [0.0 0.5] *
-* infile:        *
-*  data sequence      *
-*      , x0, y0, x1, y1..., xK, yK    *
-*   (x0 = xmin, xk = xmax)    *
-* stdout:        *
-*  interpolated data     *
-*      , y0, ..., yn     *
-*         *
+*                                                                       *
+*    Linear Interpolation                                               *
+*                                                                       *
+*                                             1987.1  K.Tokuda          *
+*                                             1996.4  K.Koishida        *
+*                                                                       *
+*       usage:                                                          *
+*               linear-intpl [ options ] [ infile ] > stdout            *
+*       options:                                                        *
+*               -l l         : output length               [256]        *
+*               -m m         : number of interpolation     [255]        *
+*               -x xmin xmax : minimum of x & maximum of x [0.0 0.5]    *
+*       infile:                                                         *
+*               data sequence                                           *
+*                       , x0, y0, x1, y1..., xK, yK                     *
+*                       (x0 = xmin, xk = xmax)                          *
+*       stdout:                                                         *
+*               interpolated data                                       *
+*                       , y0, ..., yn                                   *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: linear_intpl.c,v 1.7 2007/08/07 05:01:36 heigazen Exp $";
+static char *rcs_id = "$Id: linear_intpl.c,v 1.8 2007/09/10 12:49:26 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

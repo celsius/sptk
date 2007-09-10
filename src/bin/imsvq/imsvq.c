@@ -38,33 +38,33 @@
 */
 
 /************************************************************************
-*         *
-*     Decoder of Multi Stage Vector Quantization   *
-*         *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  imsvq [options] [ infile ]>stdout    *
-* options:       *
-*  -l l   :  length of vector  [26]  *
-*  -n n   :  order of vector  [25]  *
-*  -s s f :  codebook     [N/A N/A] *
-*   s: codebook size    *
-*   f: codebook file    *
-* infile:        *
-*  codebook index (int)     *
-*      index(0), index(1), ..., index(N),   *
-* stdout:        *
-*  quantized vector     *
-*      x'(0), x'(1), ..., x'(l-1),    *
-* notice:        *
-*  -s option are specified number of stages  *
-* require:       *
-*  imsvq(), ivq()      *
-*         *
+*                                                                       *
+*     Decoder of Multi Stage Vector Quantization                        *
+*                                                                       *
+*                                     1996.1  K.Koishida                *
+*                                                                       * 
+*        usage:                                                         *
+*                imsvq [options] [ infile ] > stdout                    *
+*        options:                                                       *
+*                -l l   :  length of vector        [26]                 *
+*                -n n   :  order of vector         [25]                 *
+*                -s s f :  codebook                [N/A N/A]            *
+*                     s :  codebook size                                *
+*                     f :  codebook file                                *
+*        infile:                                                        *
+*                codebook index (int)                                   *
+*                        index(0), index(1), ..., index(N),             *
+*        stdout:                                                        *
+*                quantized vector                                       *
+*                        x'(0), x'(1), ..., x'(l-1),                    *
+*        notice:                                                        *
+*                -s option are specified number of stages               *
+*        require:                                                       *
+*                imsvq(), ivq()                                         *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: imsvq.c,v 1.6 2007/08/07 05:01:38 heigazen Exp $";
+static char *rcs_id = "$Id: imsvq.c,v 1.7 2007/09/10 12:49:26 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -89,7 +89,7 @@ void usage (int status)
    fprintf(stderr, " %s - decoder of multi stage vector quantization \n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "         -l l   : length of vector   [%d]\n", LENG);
    fprintf(stderr, "         -n n   : order of vector    [%d]\n", LENG-1);
@@ -167,7 +167,7 @@ int main (int argc, char **argv)
       fpcb = getfp(cbfile[i], "r");
       if (freadf(p, sizeof(*p), cbsize[i]*l, fpcb)!=cbsize[i]*l) {
          fprintf(stderr,"%s : Codebook size error of %d stage !\n",cmnd, ss);
-         exit(1);
+         return(1);
       }
       p += cbsize[i] * l;
    }

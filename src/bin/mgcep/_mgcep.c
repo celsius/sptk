@@ -39,26 +39,26 @@
 
 /****************************************************************
 
-   $Id: _mgcep.c,v 1.8 2007/08/07 05:01:35 heigazen Exp $
+   $Id: _mgcep.c,v 1.9 2007/09/10 12:49:22 heigazen Exp $
 
    Mel-Generalized Cepstral Analysis
 
-   int mgcep(xw, flng, b, m, a, g, itr1, itr2, dd, e);
+       int mgcep(xw, flng, b, m, a, g, itr1, itr2, dd, e);
 
-   double   *xw  : input sequence
-   int      flng : frame length
-   double   *b   : coefficient b'(m)
-   int      m    : order of mel cepstrum
-   double   a    : alpha
-   double   g    : gamma
-   int      n    : order of recursions
-   int      itr1 : minimum number of iteration
-   int      itr2 : maximum number of iteration
-   double   dd   : end condition
-   double   e    : initial value for log-periodgram
+       double   *xw   : input sequence
+       int      flng  : frame length
+       double   *b    : coefficient b'(m)
+       int      m     : order of mel cepstrum
+       double   a     : alpha
+       double   g     : gamma
+       int      n     : order of recursions
+       int      itr1  : minimum number of iteration
+       int      itr2  : maximum number of iteration
+       double   dd    : end condition
+       double   e     : initial value for log-periodgram
 
-   return value :    0 -> completed by end condition
-                     -1-> completed by maximum iteration
+       return value   : 0 -> completed by end condition
+                        -1-> completed by maximum iteration
 
 *****************************************************************/
 
@@ -66,6 +66,93 @@
 #include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
+
+/*  gain(epsilon) calculation  */
+static double gain(double *er, double *c, int m, double g)
+{
+   int i;
+   double t;
+
+   if (g!=0.0) {
+      for (t=0.0,i=1; i<=m; i++) t += er[i] * c[i];
+      return(er[0] + g*t);
+   }
+   else return(er[0]);
+}
+
+/*  b'(m) to c(m)  */
+static void b2c(double *b, int m1, double *c, int m2, double a)
+{
+   int i, j;
+   static double *d=NULL, *g;
+   static int size;
+   double k;
+
+   if (d==NULL) {
+      size = m2;
+      d = dgetmem(size+size+2);
+      g = d + size + 1;
+   }
+   if (m2>size) {
+      free(d);
+      size = m2;
+      d = dgetmem(size+size+2);
+      g = d + size + 1;
+   }
+
+   k = 1 - a * a;
+
+   fillz(g, sizeof(*g), m2 + 1);
+
+   for (i=-m1; i<=0; i++) {
+      d[0] = g[0];
+      g[0] = b[-i];
+
+      if (1<=m2)
+         g[1] = k * d[0] + a * (d[1] = g[1]);
+
+      for (j=2; j<=m2; j++)
+         g[j] = d[j - 1] + a * ((d[j] = g[j]) - g[j - 1]);
+   }
+   movem(g, c, sizeof(*g), m2 + 1);
+   
+   return;
+}
+
+/*  recursion for p(m)  */
+static void ptrans(double *p, int m, double a)
+{
+   double d, o;
+
+   d = p[m];
+   for (m--; m>0; m--) {
+      o = p[m] + a * d;
+      d = p[m];
+      p[m] = o;
+   }
+   o =  a * d;
+   p[m] = (1. - a * a) * p[m] + o + o;
+   
+   return;
+}
+
+/*  recursion for q(m)  */
+static void qtrans(double *q, int m, double a)
+{
+   int i;
+   double d, o;
+
+   m += m;
+   i = 1;
+   d = q[i];
+   for (i++; i <= m; i++) {
+      o = q[i] + a * d;
+      d = q[i];
+      q[i] = o;
+   }
+   
+   return;
+}
 
 int mgcep (double *xw, int flng, double *b, const int m, const double a, const double g, const int n, const int itr1, const int itr2, const double dd, const double e)
 {
@@ -254,91 +341,3 @@ double newton (double *x, const int flng, double *c, const int m, const double a
 
    return(log(t));
 }
-
-/*  gain(epsilon) calculation  */
-double gain(double *er, double *c, int m, double g)
-{
-   int i;
-   double t;
-
-   if (g!=0.0) {
-      for (t=0.0,i=1; i<=m; i++) t += er[i] * c[i];
-      return(er[0] + g*t);
-   }
-   else return(er[0]);
-}
-
-/*  b'(m) to c(m)  */
-void b2c(double *b, int m1, double *c, int m2, double a)
-{
-   int i, j;
-   static double *d=NULL, *g;
-   static int size;
-   double k;
-
-   if (d==NULL) {
-      size = m2;
-      d = dgetmem(size+size+2);
-      g = d + size + 1;
-   }
-   if (m2>size) {
-      free(d);
-      size = m2;
-      d = dgetmem(size+size+2);
-      g = d + size + 1;
-   }
-
-   k = 1 - a * a;
-
-   fillz(g, sizeof(*g), m2 + 1);
-
-   for (i=-m1; i<=0; i++) {
-      d[0] = g[0];
-      g[0] = b[-i];
-
-      if (1<=m2)
-         g[1] = k * d[0] + a * (d[1] = g[1]);
-
-      for (j=2; j<=m2; j++)
-         g[j] = d[j - 1] + a * ((d[j] = g[j]) - g[j - 1]);
-   }
-   movem(g, c, sizeof(*g), m2 + 1);
-   
-   return;
-}
-
-/*  recursion for p(m)  */
-void ptrans(double *p, int m, double a)
-{
-   double d, o;
-
-   d = p[m];
-   for (m--; m>0; m--) {
-      o = p[m] + a * d;
-      d = p[m];
-      p[m] = o;
-   }
-   o =  a * d;
-   p[m] = (1. - a * a) * p[m] + o + o;
-   
-   return;
-}
-
-/*  recursion for q(m)  */
-void qtrans(double *q, int m, double a)
-{
-   int i;
-   double d, o;
-
-   m += m;
-   i = 1;
-   d = q[i];
-   for (i++; i <= m; i++) {
-      o = q[i] + a * d;
-      d = q[i];
-      q[i] = o;
-   }
-   
-   return;
-}
-

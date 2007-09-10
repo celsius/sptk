@@ -38,25 +38,25 @@
 */
 
 /******************************************************
- $Id: _df2.c,v 1.5 2007/08/07 04:13:54 heigazen Exp $
-  2nd order standard form digital filter
-	double df2(x,sf,f0p,wbp,f0z,wbz,fp,fz,buf,bufp)
+ $Id: _df2.c,v 1.6 2007/09/10 12:49:24 heigazen Exp $
+    2nd order standard form digital filter
+        double df2(x,sf,f0p,wbp,f0z,wbz,fp,fz,buf,bufp)
 
-	double	x     : filter input
-	double	sf    : sampling frequency
-	double	f0p   : center frequency of pole
-	double	wbp   : band width of pole
-	double    f0z   : center frequency of zero
-	double    wbz   : band witdth of zero
-	int	fp    : if pole is exist then fp = 1 
-	int	fz    : if zero is exist then fz = 1
-	double	buf[] : buffer ( which require 3 )
-	int	*bufp : work pointer
-	
-	return	      : filter output
+        double   x     : filter input
+        double   sf    : sampling frequency
+        double   f0p   : center frequency of pole
+        double   wbp   : band width of pole
+        double   f0z   : center frequency of zero
+        double   wbz   : band witdth of zero
+        int      fp    : if pole is exist then fp = 1 
+        int      fz    : if zero is exist then fz = 1
+        double   buf[] : buffer ( which require 3 )
+        int      *bufp : work pointer
+   
+        return         : filter output
 
-		Dec.1995 Naohiro Isshiki
-*******************************************************/	 
+                         Dec.1995 Naohiro Isshiki
+*******************************************************/    
 
 #include <stdio.h>
 #include <math.h>

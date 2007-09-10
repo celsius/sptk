@@ -38,47 +38,47 @@
 */
 
 /************************************************************************
-*         *
-*    Execute Scalar Operations      *
-*         *
-*     1990.11 T.Kobayashi  *
-*     1996.5  K.Koishida  *
-*     2000.5  T.Kobayashi  *
-* usage:        *
-*  sopr [ options ] [ infile ]>stdout   *
-* options:       *
-*  -a a     :  addition       (in + a)   *
-*  -s s     :  subtraction    (in - s)   *
-*  -m m     :  multiplication (in * m)   *
-*  -d d     :  division       (in / d)   *
-*  -ABS     :  absolute       (abs(in))   *
-*  -INV     :  inverse        (1 / in)   *
-*  -P       :  square         (in * in)   *
-*  -R       :  root           (sqrt(in))   *
-*  -SQRT    :  root           (sqrt(in))   *
-*  -LN      :  logarithm      (log(in))   *
-*  -LOG10   :  logarithm      (log10(in))   *
-*  -EXP     :  exponential    (exp(in))   *
-*  -POW10   :  power of 10    (10^(in))   *
-*  -FIX     :  round          ((int)in)   *
-*  -UNIT    :  unit step    (u(in))   *
-*  -CLIP    :  clipping       (in * u(in))   *
-*  -SIN     :  sin     (sin(in))                    *
-*  -COS     :  cos            (cos(in))                    *
-*  -TAN     :  tan            (tan(in))                    *
-*  -ATAN    :  atan           (atan(in))                   *
 *                                                                       *
-*  -r mn    :  read from memory n(0-9)            *
-*  -w mn    :  write to memory n(0-9)         *
+*    Execute Scalar Operations                                          *
 *                                                                       *
-* infile:        *
-*  data sequences (float)     *
-* stdout:        *
-*  data sequences after operations    *
-*         *
+*                                     1990.11 T.Kobayashi               *
+*                                     1996.5  K.Koishida                *
+*                                     2000.5  T.Kobayashi               *
+*       usage:                                                          *
+*               sopr [ options ] [ infile ] > stdout                    *
+*       options:                                                        *
+*               -a a     :  addition          (in + a)                  *
+*               -s s     :  subtraction       (in - s)                  *
+*               -m m     :  multiplication    (in * m)                  *
+*               -d d     :  division          (in / d)                  *
+*               -ABS     :  absolute          (abs(in))                 *
+*               -INV     :  inverse           (1 / in)                  *
+*               -P       :  square            (in * in)                 *
+*               -R       :  root              (sqrt(in))                *
+*               -SQRT    :  root              (sqrt(in))                *
+*               -LN      :  logarithm         (log(in))                 *
+*               -LOG10   :  logarithm         (log10(in))               *
+*               -EXP     :  exponential       (exp(in))                 *
+*               -POW10   :  power of 10       (10^(in))                 *
+*               -FIX     :  round             ((int)in)                 *
+*               -UNIT    :  unit step         (u(in))                   *
+*               -CLIP    :  clipping          (in * u(in)               *
+*               -SIN     :  sin               (sin(in))                 *
+*               -COS     :  cos               (cos(in))                 *
+*               -TAN     :  tan               (tan(in))                 *
+*               -ATAN    :  atan              (atan(in))                *
+*                                                                       *
+*               -r mn    :  read from memory n(0-9)                     *
+*               -w mn    :  write to memory  n(0-9)                     *
+*                                                                       *
+*      infile:                                                          *
+*               data sequences (float)                                  *
+*      stdout:                                                          *
+*               data sequences after operations                         *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.9 2007/08/07 05:05:39 heigazen Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.10 2007/09/10 12:49:22 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -104,7 +104,7 @@ void usage (int status)
    fprintf(stderr, " %s - execute scalar operations\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a   : addition            (in + a)\n");
    fprintf(stderr, "       -s s   : subtraction         (in - s)\n");
@@ -240,7 +240,7 @@ int main (int argc,char *argv[])
    else
       sopr(stdin);
 
-   exit(0);
+   return(0);
 }
 
 int sopr (FILE *fp)

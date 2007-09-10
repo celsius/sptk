@@ -38,44 +38,44 @@
 */
 
 /************************************************************************
-*         *
-*     LBG Algorithm for Vector Qauntizer Design   *
-*         *
-*     1996. 4  K.Koishida  *
-*         *
-* usage:        *
-*  lbg [ options ] [ indexfile ]<stdin>stdout  *
-* options:       *
-*  -l l      :  length of vector       [26]  *
-*  -n n      :  order of vector       [25]  *
-*  -t t      :  number of training vector  [N/A]  *
-*  -s s     :  initial codebook size    [1]  *
-*  -e e     :  final codebook size      [256]  *
-*  -f f     :  initial codebook filename  [NULL]  *
-*  (level 2)      *
-*  -d d   :  end condition  [0.0001] *
-*  -r r   :  splitting factor  [0.0001] *
-* infile:        *
-*  training vector (stdin)     *
-*      x(0), x(1), ... x(t*l-1)    *
-* stdout:        *
-*  trained codebook     *
-*      cb'(0), cb'(1), ... cb(l*e-1)   *
-* ifile: (if s>1)      *
-*  initial codebook (cbfile)     *
-*      cb(0), cb(1), ... cb(l*s-1)    *
-* indexfile:       *
-*  VQ index of training vector (int)   *
-*      index(0), index(1), ... index(t-1)   *
-* notice:        *
-*  codebook size (s and e) must be power of 2  *
-*  -t option can be omitted, when input from redirect *
-* require:       *
-*  lbg(), vq()      *
-*         *
+*                                                                       *
+*     LBG Algorithm for Vector Qauntizer Design                         *
+*                                                                       *
+*                                             1996. 4  K.Koishida       *
+*                                                                       *
+*        usage:                                                         *
+*                lbg [ options ] [ indexfile ] < stdin > stdout         *
+*        options:                                                       *
+*                -l l      :  length of vector           [26]           *
+*                -n n      :  order of vector            [25]           *
+*                -t t      :  number of training vector  [N/A]          *
+*                -s s      :  initial codebook size      [1]            *
+*                -e e      :  final codebook size        [256]          *
+*                -f f      :  initial codebook filename  [NULL]         *
+*                (level 2)                                              *
+*                -d d   :  end condition                 [0.0001]       * 
+*                -r r   :  splitting factor              [0.0001]       *
+*       infile:                                                         *
+*                training vector (stdin)                                *
+*                        x(0), x(1), ... x(t*l-1)                       *
+*       stdout:                                                         *
+*               trained codebook                                        *
+*                        cb'(0), cb'(1), ... cb(l*e-1)                  *
+*       ifile: (if s>1)                                                 *
+*              initial codebook (cbfile)                                *
+*                        cb(0), cb(1), ... cb(l*s-1)                    *
+*       indexfile:                                                      *
+*              VQ index of training vector (int)                        *
+*                        index(0), index(1), ... index(t-1)             *
+*       notice:                                                         *
+*              codebook size (s and e) must be power of 2               *
+*              -t option can be omitted, when input from redirect       *  
+*      require:                                                         *
+*              lbg(), vq()                                              *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lbg.c,v 1.8 2007/08/07 05:01:36 heigazen Exp $";
+static char *rcs_id = "$Id: lbg.c,v 1.9 2007/09/10 12:49:23 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -212,7 +212,7 @@ int main (int argc, char **argv)
 
    if (freadf(x, sizeof(*x), xsize, fp)!=xsize) {
       fprintf(stderr,"%s : Size error of training data !\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    if (icbsize==1) {
@@ -229,7 +229,7 @@ int main (int argc, char **argv)
       icb=dgetmem(icbsize*l);
       if (freadf(icb, sizeof(*icb), icbsize*l, fpcb)!=icbsize*l) {
          fprintf(stderr,"%s : Size error of initial codebook !\n",cmnd);
-         exit(1);
+         return(1);
       }
    }
 

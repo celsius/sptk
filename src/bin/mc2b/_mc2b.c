@@ -38,16 +38,16 @@
 */
 
 /***************************************************************
-    $Id: _mc2b.c,v 1.4 2007/08/07 05:01:36 heigazen Exp $
+    $Id: _mc2b.c,v 1.5 2007/09/10 12:49:24 heigazen Exp $
 
     Transform Mel Cepstrum to MLSA Digital Filter Coefficients
 
- void mc2b(mc, b, m, a)
+        void mc2b(mc, b, m, a)
 
- double *mc : mel cepstral coefficients
- double *b  : MLSA digital filter coefficients
- int m   : order of mel cepstrum
- double a   : all-pass constant
+        double *mc  : mel cepstral coefficients
+        double *b   : MLSA digital filter coefficients
+        int     m   : order of mel cepstrum
+        double  a   : all-pass constant
 
 ***************************************************************/
 

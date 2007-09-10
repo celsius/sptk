@@ -38,15 +38,15 @@
 */
 
 /***************************************************************
-    $Id: _norm0.c,v 1.4 2007/08/07 05:01:39 heigazen Exp $
+    $Id: _norm0.c,v 1.5 2007/09/10 12:49:24 heigazen Exp $
 
     Normalize coefficients
 
- void norm0(x, y, m)
+        void norm0(x, y, m)
 
- double *x  : input coefficients
- double *y  : normalized coefficients
- int m   : order of coefficients
+        double *x  : input coefficients
+        double *y  : normalized coefficients
+        int     m  : order of coefficients
 
 ***************************************************************/
 

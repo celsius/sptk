@@ -38,29 +38,29 @@
 */
 
 /************************************************************************
-*									*
-*	Inverse Gain Normalization					*
-*					1995.11  T.Masuko		*
-*									*
-*	usage:								*
-*		ignorm [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of generalized cepstrum	[25]	*
-*		-g g     :  gamma 				[0.0]	*
-*	infile:								*
-*		normalized generalized cepstral coefficients		*
-*		    , K, c'(1), ..., c'(M),				*
-*	stdout:								*
-*		generalized cepstral coefficients			*
-*		    , c~(0), c~(1), ..., c~(M),				*
-*	notice:								*
-*		if g > 1.0, g = -1 / g .				*
-*	require:							*
-*		ignorm(),						*
-*									*
+*                                                                       *
+*   Inverse Gain Normalization                                          *
+*                                       1995.11  T.Masuko               *
+*                                                                       *
+*       usage:                                                          *
+*               ignorm [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*               -m m     :  order of generalized cepstrum   [25]        *
+*               -g g     :  gamma                           [0.0]       *
+*       infile:                                                         *
+*               normalized generalized cepstral coefficients            *
+*                   , K, c'(1), ..., c'(M),                             *
+*       stdout:                                                         *
+*               generalized cepstral coefficients                       *
+*                   , c~(0), c~(1), ..., c~(M),                         *
+*       notice:                                                         *
+*               if g > 1.0, g = -1 / g .                                *
+*       require:                                                        *
+*               ignorm(),                                               *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ignorm.c,v 1.7 2007/08/02 08:05:05 heigazen Exp $";
+static char *rcs_id = "$Id: ignorm.c,v 1.8 2007/09/10 12:49:26 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

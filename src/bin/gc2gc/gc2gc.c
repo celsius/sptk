@@ -38,38 +38,38 @@
 */
 
 /************************************************************************
-*									*
-*    Generalized Cepstral Transformation				*
-*									*
-*					1987.11 K.Tokuda		*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		gc2gc [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of generalized cepstrum (input)  [25]	*
-*		-g g     :  gamma of generalized cepstrum (input) [0.0] *
-*		-n       :  regard input as normalized cepstrum   	*
-*		-u       :  regard input as multiplied by gamma   	*
-*		-M M     :  order of generalized cepstrum (output) [25]	*
-*		-G G     :  gamma of generalized cepstrum (output)[1.0] *
-*		-N       :  regard output as normalized cepstrum   	*
-*		-U       :  regard output as multiplied by gamma   	*
-*	infile:								*
-*		generalized cepstrum					*
-*		    , c(0), c(1), ..., c(m),				*
-*	stdout:								*
-*		generalized cepstrum					*
-*		    , c'(0)(=c(0)), c'(1), ..., c'(M),			*
-*	notice:								*
-*		if g > 1, g = -1 / g					*
-*		if G > 1, G = -1 / G					*
-*	require:							*
-*		gc2gc(), gnorm(), ignorm()				*
-*									*
+*                                                                       *
+*    Generalized Cepstral Transformation                                *
+*                                                                       *
+*                                       1987.11 K.Tokuda                *
+*                                       1996.1  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               gc2gc [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -m m     :  order of generalized cepstrum (input)  [25] *
+*               -g g     :  gamma of generalized cepstrum (input) [0.0] *
+*               -n       :  regard input as normalized cepstrum         *
+*               -u       :  regard input as multiplied by gamma         *
+*               -M M     :  order of generalized cepstrum (output) [25] *
+*               -G G     :  gamma of generalized cepstrum (output)[1.0] *
+*               -N       :  regard output as normalized cepstrum        *
+*               -U       :  regard output as multiplied by gamma        *
+*       infile:                                                         *
+*               generalized cepstrum                                    *
+*                   , c(0), c(1), ..., c(m),                            *
+*       stdout:                                                         *
+*               generalized cepstrum                                    *
+*                   , c'(0)(=c(0)), c'(1), ..., c'(M),                  *
+*       notice:                                                         *
+*               if g > 1, g = -1 / g                                    *
+*               if G > 1, G = -1 / G                                    *
+*       require:                                                        *
+*               gc2gc(), gnorm(), ignorm()                              *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: gc2gc.c,v 1.8 2007/08/07 04:21:13 heigazen Exp $";
+static char *rcs_id = "$Id: gc2gc.c,v 1.9 2007/09/10 12:49:20 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

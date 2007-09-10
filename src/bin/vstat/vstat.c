@@ -38,43 +38,43 @@
 */
 
 /************************************************************************
-*         *
-*    Obtain Means and Covariances of Input Vectors   *
-*         *
-*     1998.12 T.Masuko  *
-* usage:        *
-*  vstat [ options ] [ infile ]>stdout   *
-* options:       *
-*  -l l     :  length of vector   [1] *
-*  -n n     :  order of vector   [1-1] *
-*  -t t     :  number of vector   [all] *
-*  -d       :  diagonal covariance   [FALSE] *
-*  -r       :  output correlation instead of cov. [FALSE] *
-*  -o       :  output format  (see stdout)  [0] *
-* infile:        *
-*  data sequence      *
-*      x_1(1), ..., x_1(L), x_2(1) ...   *
-* stdout:        *
-*  output format      *
-*   0 mean vector and covariance matrix *
-*   1 mean vector    *
-*   2 covariance matrix   *
-*  mean vector      *
-*      m(1), ..., m(L),     *
-*  covariance matrix     *
-*      U(11), ..., m(1L),     *
-*      ...............,     *
-*      U(L1), ..., m(LL), ...    *
-* note:        *
-*  if '-d' is specified,     *
-*   off-diagonal elements are suppressed.  *
-*  '-d' and '-r' are exclusive    *
-*   ('-r' has priority over '-d').   *
-* require:       *
-*         *
+*                                                                       *
+*    Obtain Means and Covariances of Input Vectors                      *
+*                                                                       *
+*                                      1998.12 T.Masuko                 *
+*       usage:                                                          *
+*               vstat [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -l l     :  length of vector                   [1]      *
+*               -n n     :  order of vector                    [1-1]    *
+*               -t t     :  number of vector                   [all]    *
+*               -d       :  diagonal covariance                [FALSE]  *
+*               -r       :  output correlation instead of cov. [FALSE]  *
+*               -o       :  output format  (see stdout)        [0]      *
+*       infile:                                                         *
+*              data sequence                                            *
+*                      x_1(1), ..., x_1(L), x_2(1) ...                  *
+*       stdout:                                                         *
+*              output format                                            *
+*                          0 mean vector and covariance matrix          *
+*                          1 mean vector                                *
+*                          2 covariance matrix                          *
+*              mean vector                                              *
+*                      m(1), ..., m(L),                                 *
+*              covariance matrix                                        *
+*                      U(11), ..., m(1L),                               *
+*                      ...............,                                 *
+*                      U(L1), ..., m(LL), ...                           *
+*       note:                                                           *
+*              if '-d' is specified,                                    *
+*              off-diagonal elements are suppressed.                    *
+*              '-d' and '-r' are exclusive                              *
+*              ('-r' has priority over '-d').                           *
+*       require:                                                        *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vstat.c,v 1.9 2007/08/08 05:19:46 heigazen Exp $";
+static char *rcs_id = "$Id: vstat.c,v 1.10 2007/09/10 12:49:30 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -105,7 +105,7 @@ void usage (int status)
    fprintf(stderr, " %s - vector statistics calculation\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l   : length of vector                    [%d]\n", LENG);
    fprintf(stderr, "       -n n   : order of vector                     [l-1]\n");

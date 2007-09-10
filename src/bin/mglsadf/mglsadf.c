@@ -38,35 +38,35 @@
 */
 
 /************************************************************************
-*         *
-*    MGLSA Digital Filter for Speech Synthesis    *
-*         *
-*     1996.3  K.Koishida  *
-*         *
-* usage:        *
-*  mglsadf [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of mel-generalized cepstrum    [25] *
-*  -a a     :  alpha          [0.35] *
-*  -g g     :  -1/gamma              [1] *
-*  -p p     :  frame period          [100] *
-*  -i i     :  interpolation period           [1] *
-*  -t       :  transpose filter               [FALSE] *
-*  -k       :  filtering without gain            [FALSE] *
-* infile:        *
-*  mel-generalized cepstral coefficients   *
-*      , c~(0), c~(1), ..., c~(M),    *
-*  excitation sequence     *
-*      , x(0), x(1), ...,      *
-* stdout:        *
-*  filtered sequence     *
-*      , y(0), y(1), ...,     *
-* require:       *
-*  mglsadf()      *
-*         *
+*                                                                       *
+*    MGLSA Digital Filter for Speech Synthesis                          *
+*                                                                       *
+*                                        1996.3  K.Koishida             *
+*                                                                       *
+*       usage:                                                          *
+*               mglsadf [ options ] [ infile ] > stdout                 *
+*       options:                                                        *
+*               -m m     :  order of mel-generalized cepstrum    [25]   *
+*               -a a     :  alpha                                [0.35] *
+*               -g g     :  -1/gamma                             [1]    *
+*               -p p     :  frame period                         [100]  *
+*               -i i     :  interpolation period                 [1]    *
+*               -t       :  transpose filter                     [FALSE]*
+*               -k       :  filtering without gain               [FALSE]*
+*       infile:                                                         *
+*               mel-generalized cepstral coefficients                   *
+*                      , c~(0), c~(1), ..., c~(M),                      *
+*       excitation sequence                                             *
+*                      , x(0), x(1), ...,                               *
+*       stdout:                                                         *
+*               filtered sequence                                       *
+*                      , y(0), y(1), ...,                               *
+*       require:                                                        *
+*               mglsadf()                                               *
+*                                                                       *  
 ************************************************************************/
 
-static char *rcs_id = "$Id: mglsadf.c,v 1.8 2007/09/07 05:50:32 heigazen Exp $";
+static char *rcs_id = "$Id: mglsadf.c,v 1.9 2007/09/10 12:49:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -97,7 +97,7 @@ void usage (int status)
    fprintf(stderr, " %s - MGLSA digital filter for speech synthesis\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] mgcfile [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] mgcfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of mel-generalized cepstrum [%d]\n", ORDER);
    fprintf(stderr, "       -a a  : alpha                             [%g]\n", ALPHA);
@@ -177,7 +177,7 @@ int main (int argc, char **argv)
 
    if (fpc==NULL) {
       fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    if (stage==0) {
@@ -191,14 +191,14 @@ int main (int argc, char **argv)
    inc = cc + m + 1;
    d   = inc+ m + 1;
 
-   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) exit(1);
+   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
    mc2b(c, c, m, alpha);
    gnorm(c, c, m, gamma);
    for (i=1; i<=m; i++)
       c[i] *= gamma;
 
    for (;;) {
-      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) exit(0);
+      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
       mc2b(cc, cc, m, alpha);
       gnorm(cc, cc, m, gamma);
       for (i=1; i<=m; i++)
@@ -208,7 +208,7 @@ int main (int argc, char **argv)
          inc[i] = (cc[i] - c[i])*iprd / fprd;
 
       for (j=fprd, i=(iprd+1)/2; j--;) {
-         if (freadf(&x, sizeof(x), 1, fp)!=1) exit(0);
+         if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
          if (!ngain) x *= c[0];
 

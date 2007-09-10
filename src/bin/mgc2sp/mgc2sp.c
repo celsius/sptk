@@ -38,44 +38,44 @@
 */
 
 /************************************************************************
-*         *
-*    Transform Mel-Generalize Cepstrum to Spectrum   *
-*         *
-*     1996.4  K.Koishida  *
-*         *
-* usage:        *
-*  mgc2sp [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m  m    :  order of mel-genralized cepstrum    [25] *
-*  -a  a    :  alpha     [0.0]  *
-*  -g  g    :  gamma     [0.0]  *
-*  -n       :  regard input as normalized cepstrum [FALSE] *
-*  -u       :  regard input as multiplied by gamma [FALSE] *
-*  -l  l    :  FFT length     [256]  *
-*  -o  o    :  output format (see stdout)  [0]  *
-*  -p       :  output phase   [FALSE] *
-* infile:        *
-*  mel-generalized cepstrum    *
-*      , c(0), c(1), ..., c(m),    *
-* stdout:        *
-*         output format       scale    *
-*         0 :       20 * log|H(z)|   *
-*         1 :            ln|H(z)|    *
-*         2 :            |H(z)|    *
-*         (-p option is used)     *
-*         0 :       arg|H(z)| / pi       [pi rad] *
-*         1 :            arg|H(z)|            [rad] *
-*         2 :            arg|H(z)| * 180 / pi [deg] *
-*  spectrum      *
-*      , s(0), s(1), ..., s(L/2),    *
-* notice:        *
-*  if g>1.0, g = -1 / g .    *
-* require:       *
-*  mgc2sp()      *
-*         *
+*                                                                       *
+*    Transform Mel-Generalize Cepstrum to Spectrum                      *
+*                                                                       *
+*                                       1996.4  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               mgc2sp [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*               -m  m    :  order of mel-genralized cepstrum    [25]    *
+*               -a  a    :  alpha                               [0.0]   *
+*               -g  g    :  gamma                               [0.0]   *
+*               -n       :  regard input as normalized cepstrum [FALSE] *
+*               -u       :  regard input as multiplied by gamma [FALSE] *
+*               -l  l    :  FFT length                          [256]   *
+*               -o  o    :  output format (see stdout)          [0]     *
+*               -p       :  output phase                        [FALSE] *
+*      infile:                                                          *
+*               mel-generalized cepstrum                                *
+*                       , c(0), c(1), ..., c(m),                        *
+*      stdout:                                                          *
+*               output format       scale                               *
+*                      0 :          20 * log|H(z)|                      *
+*                      1 :          ln|H(z)|                            *
+*                      2 :          |H(z)|                              *
+*               (-p option is used)                                     *
+*                      0 :          arg|H(z)| / pi       [pi rad]       *
+*                      1 :          arg|H(z)|            [rad]          *
+*                      2 :          arg|H(z)| * 180 / pi [deg]          *
+*      spectrum                                                         *
+*                       , s(0), s(1), ..., s(L/2),                      *
+*      notice:                                                          *
+*               if g>1.0, g = -1 / g .                                  *
+*      require:                                                         *
+*               mgc2sp()                                                *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgc2sp.c,v 1.9 2007/09/07 05:50:31 heigazen Exp $";
+static char *rcs_id = "$Id: mgc2sp.c,v 1.10 2007/09/10 12:49:25 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -108,7 +108,7 @@ void usage (int status)
    fprintf(stderr, " %s - transform mel-generalized cepstrum to spectrum\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : alpha                               [%g]\n", ALPHA);
    fprintf(stderr, "       -g g  : gamma                               [%g]\n", GAMMA);

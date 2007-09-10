@@ -37,23 +37,23 @@
  ----------------------------------------------------------------
 */
 
-/************************************************
-* 
-*     $Id: _clip.c,v 1.6 2007/08/07 04:11:56 heigazen Exp $
-* 
-*	Data clipping				*
-*		1996.3.14			*
-*						*
-*	synopsis:				*
-*		clip(x, l, min, max, y)		*
-*						*
-*		double *x : input sequence	*
-*		int     l : sequence length	*
-*		double min: lower bound		*
-*		double max: upper bound		*
-*		double *y : output area		*
-*						*
-************************************************/
+/***************************************************************
+*                                                              * 
+*     $Id: _clip.c,v 1.7 2007/09/10 12:49:19 heigazen Exp $    *
+*                                                              *
+*       Data clipping                                          *        
+*               1996.3.14                                      *
+*                                                              *
+*       synopsis:                                              * 
+*               clip(x, l, min, max, y)                        *
+*                                                              *
+*              double *x  : input sequence                     *
+*              int    l   : sequence length                    *
+*              double min : lower bound                        *
+*              double max : upper bound                        *
+*              double *y  : output area                        *
+*                                                              *
+***************************************************************/
 
 #include <stdio.h>
 #include <SPTK.h>

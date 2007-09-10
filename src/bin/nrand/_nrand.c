@@ -38,7 +38,7 @@
 */
 
 /****************************************************************
-  $Id: _nrand.c,v 1.5 2007/08/07 05:01:37 heigazen Exp $
+  $Id: _nrand.c,v 1.6 2007/09/10 12:49:25 heigazen Exp $
 
     Generate Normal Distributed Random Value
         nrand(p, leng, seed)
@@ -54,6 +54,17 @@
 #include <SPTK.h>
 
 #define RAND_MAX 32767
+
+
+static double rnd (unsigned long *next)
+{
+   double r;
+
+   *next = *next * 1103515245L + 12345;
+   r = (*next / 65536L) % 32768L;
+
+   return(r/RAND_MAX);
+}
 
 int nrand (double *p, const int leng, const int seed)
 {
@@ -88,16 +99,6 @@ double nrandom (unsigned long *next)
       sw = 0;
       return(r2*s);
    }
-}
-
-double rnd (unsigned long *next)
-{
-   double r;
-
-   *next = *next * 1103515245L + 12345;
-   r = (*next / 65536L) % 32768L;
-
-   return(r/RAND_MAX);
 }
 
 unsigned long srnd (const unsigned int seed)

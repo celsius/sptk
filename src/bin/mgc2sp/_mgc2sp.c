@@ -39,19 +39,19 @@
 
 /***********************************************************************
 
-    $Id: _mgc2sp.c,v 1.5 2007/08/07 05:01:37 heigazen Exp $
+    $Id: _mgc2sp.c,v 1.6 2007/09/10 12:49:25 heigazen Exp $
 
     Transformation mel-generalized cepstrum to log spectrum
 
- void mgc2sp(mgc, m, a, g, sp, flng)
+        void mgc2sp(mgc, m, a, g, sp, flng)
 
- double *mgc  : mel-generalize cepstrum
- int m     : order of mel-generalized cepstrum
- double a     : alpha
- double g     : gamma
- double *x   : real part of spectrum
- double *y   : imaginary part of spectrum
- int  flng  : FFT length
+        double *mgc  : mel-generalize cepstrum
+        int     m    : order of mel-generalized cepstrum
+        double  a    : alpha
+        double  g    : gamma
+        double *x    : real part of spectrum
+        double *y    : imaginary part of spectrum
+        int     flng : FFT length
 
 ***********************************************************************/
 

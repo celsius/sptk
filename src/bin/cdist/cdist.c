@@ -38,29 +38,29 @@
 */
 
 /************************************************************************
-*									*
-*    Calculation of Cepstral Distance					*
-*					1996.7  K.Koishida		*
-*									*
-*	usage:								*
-*		cdist [ options ] cfile [ infile ] > stdout		*
-*	options:							*
-*		-m m     :  order of minimum-phase cepstrum	[25]	*
-*		-o o     :  output format			[0]	*
-*				0 ([dB])				*
-*				1 (squared error)			*
-*				2 (root squared error)			*
-*		-f       :  frame length	  		[FALSE]	*
-*	cfile:								*
-*	infile:								*
-*		minimum-phase cepstrum					*
-*		    , c(0), c(1), ..., c(m),				*
-*	stdout:								*
-*		cepstral distance					*
-*									*
+*                                                                       *
+*    Calculation of Cepstral Distance                                   *
+*                                       1996.7  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               cdist [ options ] cfile [ infile ] > stdout             *
+*       options:                                                        *
+*               -m m     :  order of minimum-phase cepstrum   [25]      *
+*               -o o     :  output format                     [0]       *
+*                               0 ([dB])                                *
+*                               1 (squared error)                       *
+*                               2 (root squared error)                  *
+*               -f       :  frame length                      [FALSE]   *
+*       cfile:                                                          *
+*       infile:                                                         *
+*               minimum-phase cepstrum                                  *
+*                          , c(0), c(1), ..., c(m),                     *
+*       stdout:                                                         *
+*               cepstral distance                                       *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: cdist.c,v 1.9 2007/08/07 04:11:16 heigazen Exp $";
+static char *rcs_id = "$Id: cdist.c,v 1.10 2007/09/10 12:49:25 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

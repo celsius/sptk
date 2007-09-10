@@ -39,20 +39,20 @@
 
 /***********************************************************************
 
-    $Id: _mgc2mgc.c,v 1.5 2007/08/07 05:01:37 heigazen Exp $
+    $Id: _mgc2mgc.c,v 1.6 2007/09/10 12:49:24 heigazen Exp $
 
     Frequency and Generalized Cepstral Transformation
 
- void mgc2mgc(c1, m1, a1, g1, c2, m2, a2, g2)
+        void mgc2mgc(c1, m1, a1, g1, c2, m2, a2, g2)
 
- double *c1   : minimum phase sequence (input)
- int m1    : order of c1
- double a1    : alpha of c1
- double g1    : gamma of c1
- double *c2   : transformed sequence (output)
- int m2    : order of c2
- double a2    : alpha of c2
- double g2    : gamma of c2
+        double *c1   : minimum phase sequence (input)
+        int     m1   : order of c1
+        double  a1   : alpha of c1
+        double  g1   : gamma of c1
+        double *c2   : transformed sequence (output)
+        int     m2   : order of c2
+        double  a2   : alpha of c2
+        double  g2   : gamma of c2
 
 ***********************************************************************/
 

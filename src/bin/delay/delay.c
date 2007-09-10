@@ -37,28 +37,28 @@
  ----------------------------------------------------------------
 */
 /************************************************************************
-*									*
-*    Delay Sequence							*
-*									*
-*					1996.4  K.Koishida		*
-*									*
-*	usage:								*
-*		delay [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-s s     :  start sample		[0]		*
-*		-f	 :  keep file size				*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ...					*
-*	stdout:								*
-*		delayed data						*
-*		    , 0, 0, ..., 0, x(1), x(2), ..., 			*
-*		      ------------					*
-*			s sample					*
-*									*
+*                                                                       *
+*    Delay Sequence                                                     *
+*                                                                       *
+*                                      1996.4  K.Koishida               *
+*                                                                       * 
+*       usage:                                                          *
+*               delay [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -s s     :  start sample      [0]                       *
+*               -f       :  keep file size                              *
+*       infile:                                                         *
+*              data sequence                                            *
+*                      , x(0), x(1), ...                                *
+*       stdout:                                                         *
+*              delayed data                                             *
+*                      , 0, 0, ..., 0, x(1), x(2), ...,                 *
+*                     ------------                                      *
+*                       s sample                                        *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: delay.c,v 1.11 2007/09/07 17:18:20 heigazen Exp $";
+static char *rcs_id = "$Id: delay.c,v 1.12 2007/09/10 12:49:33 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -149,6 +149,6 @@ int main (int argc, char **argv)
    if (keep) fwritef(x,sizeof(*x),i,stdout);
    else fwritef(x, sizeof(*x), i+start, stdout);
 
-   return(0);
+   exit(0);
 }
 

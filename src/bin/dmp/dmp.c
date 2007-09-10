@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*									*
-*    Binary File Dump							*
-*									*
-*					1996.5  K.Koishida		*
-*									*
-*	usage:								*
-*		dmp [options] [infile] > stdout				*
-*	options:							*
-*		-n n     :  block order  (0,...,n)           [INFINITE]	*
-*		-l l	 :  block length (1,...,l)           [INFINITE] *
-*		+type    :  data type 			     [f]	*
-*				c (char)     s (short)			*
-*				i (int)      l (long)			*
-*				f (float)    d (double)			*
-*		%format :  print format			     [N/A]	*
-*									*
+*                                                                       *
+*    Binary File Dump                                                   * 
+*                                                                       *
+*                                       1996.5  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               dmp [options] [infile] > stdout                         *
+*       options:                                                        *
+*               -n n     :  block order  (0,...,n)           [INFINITE] *
+*               -l l     :  block length (1,...,l)           [INFINITE] *
+*               +type    :  data type                        [f]        *
+*                               c (char)     s (short)                  *
+*                               i (int)      l (long)                   *
+*                               f (float)    d (double)                 *
+*               %format  :  print format                     [N/A]      *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dmp.c,v 1.9 2007/07/24 02:23:43 heigazen Exp $";
+static char *rcs_id = "$Id: dmp.c,v 1.10 2007/09/10 12:49:24 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

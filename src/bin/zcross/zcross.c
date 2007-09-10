@@ -38,22 +38,22 @@
 */
 
 /************************************************************************
-*         *
-*    Obtain Zero Cross       *
-*         *
-*     1996.3 N.Isshiki  *
-*         *
-* usage:        *
-*  zcross [ options ] [ infile ] >stdout   *
-* options:       *
-*  -l l  :  frame length  [256]  *
-*  -n  :  normalized by frame langth   *
-* infile:        *
-*  stdin for default     *
-*  input is assumed to be real    *
+*                                                                       *
+*    Obtain Zero Cross                                                  *
+*                                                                       *
+*                                       1996.3 N.Isshiki                *
+*                                                                       *
+*       usage:                                                          *
+*               zcross [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*               -l l  :  frame length  [256]                            *
+*               -n    :  normalized by frame langth                     *
+*       infile:                                                         *
+*               stdin for default                                       *
+*               input is assumed to be real                             *
 ************************************************************************/
 
-static char *rcs_id = "$Id: zcross.c,v 1.7 2007/08/07 05:04:04 heigazen Exp $";
+static char *rcs_id = "$Id: zcross.c,v 1.8 2007/09/10 12:49:32 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -77,7 +77,7 @@ int status;
    fprintf(stderr, " %s - zero cross\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : frame length               [%d]\n",FLENG);
    fprintf(stderr, "       -n    : normarized by frame length\n");
@@ -144,5 +144,5 @@ int main (int argc,char **argv)
       z = zcross(x, flng, norm);
       fwritef(&z, sizeof(z), 1, stdout);
    }
-   exit(0);
+   return(0);
 }

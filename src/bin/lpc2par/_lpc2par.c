@@ -39,18 +39,18 @@
 
 /***************************************************************
 
-    $Id: _lpc2par.c,v 1.5 2007/08/07 05:01:39 heigazen Exp $
+    $Id: _lpc2par.c,v 1.6 2007/09/10 12:49:25 heigazen Exp $
 
     Transformation LPC to PARCOR
 
- int lpc2par(a, k, m)
+        int lpc2par(a, k, m)
 
- double  *a : LP coefficients
- double  *k : PARCOR coefficients
- int      m : order of LPC
+        double  *a : LP coefficients
+        double  *k : PARCOR coefficients
+        int      m : order of LPC
 
- return value :  0  -> normally completed
-   -1 -> abnormally completed
+        return value :  0  -> normally completed
+                        -1 -> abnormally completed
 
 ****************************************************************/
 

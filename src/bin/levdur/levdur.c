@@ -38,29 +38,29 @@
 */
 
 /************************************************************************
-*         *
-*    Solve an Autocorrelation Normal Equation    *
-*   Using Levinson-Durbin Method   *
-*         *
-*     1987.9  K.Tokuda  *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  levdur [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of correlation [25]  *
-* infile:        *
-*  autocorrelation      *
-*      , r(0), r(1), ..., r(m),    *
-* stdout:        *
-*  LP Coefficeints      *
-*      , K, a(1), ..., a(m),    *
-* require:       *
-*  levdur()      *
-*         *
+*                                                                       *
+*    Solve an Autocorrelation Normal Equation                           *
+*    Using Levinson-Durbin Method                                       *
+*                                                                       *
+*                                       1987.9  K.Tokuda                *
+*                                       1996.1  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               levdur [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*               -m m  :  order of correlation [25]                      *
+*       infile:                                                         *
+*               autocorrelation                                         *
+*                        , r(0), r(1), ..., r(m),                       *
+*       stdout:                                                         *
+*               LP Coefficeints                                         *
+*                        , K, a(1), ..., a(m),                          *
+*       require:                                                        *
+*               levdur()                                                *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: levdur.c,v 1.7 2007/08/07 05:01:38 heigazen Exp $";
+static char *rcs_id = "$Id: levdur.c,v 1.8 2007/09/10 12:49:26 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

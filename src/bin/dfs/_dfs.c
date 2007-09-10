@@ -38,22 +38,22 @@
 */
 
 /************************************************************************
-	$Id: _dfs.c,v 1.5 2007/08/07 04:14:19 heigazen Exp $								
-	Standard Form Digital Filter					
-	latice digital filter						
-		double dfs(x, a, m, b, n, buf, bufp)			
-									
-		double x             : filter input			
-		double a[0]          : gain
-		double a[1],...,a[m] : AR coefficints
-		int  m   	     : order of AR part
-		double b[0],...,b[n] : MA coefficents
-		int  n		     : order of MA part
-		double buf[]	     : buffer
-		int *bufp	     : pointer for buffer
-		return		     : filter output	
-		1987.11  K.Tokuda					
-		1995.12  N.Isshiki					
+    $Id: _dfs.c,v 1.6 2007/09/10 12:49:21 heigazen Exp $                        
+        Standard Form Digital Filter               
+        latice digital filter                  
+            double dfs(x, a, m, b, n, buf, bufp)         
+                           
+            double x             : filter input         
+            double a[0]          : gain
+            double a[1],...,a[m] : AR coefficints
+            int  m               : order of AR part
+            double b[0],...,b[n] : MA coefficents
+            int  n               : order of MA part
+            double buf[]         : buffer
+            int *bufp            : pointer for buffer
+            return               : filter output   
+                1987.11  K.Tokuda               
+                1995.12  N.Isshiki               
 ************************************************************************/
 
 #include <stdio.h>

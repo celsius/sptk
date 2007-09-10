@@ -38,26 +38,26 @@
 */
 
 /************************************************************************
-*									*
-*    Decimation								*
-*									*
-*					1996.4  K.Koishida		*
-*									*
-*	usage:								*
-*		decimate [options] [infile] > stdout			*
-*	options:							*
-*		-p p     :  decimation period	 	[10]		*
-*		-s s     :  start sample		[0]		*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ...					*
-*	stdout:								*
-*		decimated data						*
-*		    , x(s), x(s+p), x(s+2p), ..., 			*
-*									*
+*                                                                       *
+*    Decimation                                                         *
+*                                                                       *
+*                                       1996.4  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               decimate [options] [infile] > stdout                    *
+*       options:                                                        *
+*               -p p     :  decimation period       [10]                *
+*               -s s     :  start sample            [0]                 *
+*       infile:                                                         *
+*               data sequence                                           *
+*                   , x(0), x(1), ...                                   *
+*       stdout:                                                         *
+*               decimated data                                          *
+*                   , x(s), x(s+p), x(s+2p), ...,                       *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: decimate.c,v 1.7 2007/07/23 07:40:39 heigazen Exp $";
+static char *rcs_id = "$Id: decimate.c,v 1.8 2007/09/10 12:49:33 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -133,7 +133,7 @@ int main (int argc, char **argv)
          fp = getfp(*argv, "r");
 
    for (i=0; i<start; i++)
-      if (freadf(&x, sizeof(x), 1, fp)!=1) exit(1);
+      if (freadf(&x, sizeof(x), 1, fp)!=1) return(1);
 
    i = period;
    while (freadf(&x, sizeof(x), 1, fp)==1) {

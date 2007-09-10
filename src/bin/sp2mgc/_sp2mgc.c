@@ -39,26 +39,26 @@
 
 /****************************************************************
 
-    $Id: _sp2mgc.c,v 1.1 2007/08/07 07:17:20 heigazen Exp $
+    $Id: _sp2mgc.c,v 1.2 2007/09/10 12:49:21 heigazen Exp $
 
- Extract mel-generalized cepstral coefficients for given spectrum
+    Extract mel-generalized cepstral coefficients for given spectrum
 
- int sp2mgc(xw, flng, b, m, a, g, itr1, itr2, dd, e);
+        int sp2mgc(xw, flng, b, m, a, g, itr1, itr2, dd, e);
 
- double   *xw  : input sequence
- int      flng : frame length
- double   *b   : coefficient b'(m)
- int      m    : order of mel cepstrum
- double   a    : alpha
- double   g    : gamma
- int      n    : order of recursions
- int      itr1 : minimum number of iteration
- int      itr2 : maximum number of iteration
- double   dd   : end condition
- double   e    : initial value for log-periodgram
+         double   *xw   : input sequence
+         int      flng  : frame length
+         double   *b    : coefficient b'(m)
+         int      m     : order of mel cepstrum
+         double   a     : alpha
+         double   g     : gamma
+         int      n     : order of recursions
+         int      itr1  : minimum number of iteration
+         int      itr2  : maximum number of iteration
+         double   dd    : end condition
+         double   e     : initial value for log-periodgram
 
- return value :  0 -> completed by end condition
-                 -1-> completed by maximum iteration
+         return   value :  0 -> completed by end condition
+                          -1-> completed by maximum iteration
 
 *****************************************************************/
 

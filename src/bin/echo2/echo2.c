@@ -38,19 +38,19 @@
 */
 
 /************************************************************************
-*									*
-*    	echo arguments to the standard error				*
-*									*
-*					2000.5  T.Yoshimura		*
-*									*
-*	usage:								*
-*		echo2 [ options ] [ argument... ]			*
-*	options:							*
-*		-n  :  do not add the NEWLINE to the output. [FALSE]	*
-*									*
+*                                                                       *
+*       echo arguments to the standard error                            *
+*                                                                       *
+*                                       2000.5  T.Yoshimura             *
+*                                                                       *
+*       usage:                                                          *
+*               echo2 [ options ] [ argument... ]                       *
+*       options:                                                        *
+*               -n  :  do not add the NEWLINE to the output. [FALSE]    *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: echo2.c,v 1.9 2007/08/07 04:14:40 heigazen Exp $";
+static char *rcs_id = "$Id: echo2.c,v 1.10 2007/09/10 12:49:24 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

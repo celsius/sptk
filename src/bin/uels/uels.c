@@ -38,34 +38,34 @@
 */
 
 /************************************************************************
-*         *
-*    Unbiased Estimation of Log Spectrum    *
-*         *
-*     1993.3  K.Tokuda  *
-*     1996.3  K.Koishida  *
-*         *
-* usage:        *
-*  uels [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of mel cepstrum     [25] *
-*  -l l     :  frame length          [256] *
-*  (level 2)      *
-*  -i i  :  minimum iteration      [2]  *
-*  -j j     :  maximum iteration      [30] *
-*  -d d     :  end condition      [0.001] *
-*  -e e     :  small value added to periodgram [0.0] *
-* infile:        *
-*  data sequence      *
-*      , x(0), x(1), ..., x(L-1),    *
-* stdout:        *
-*  cepstrum      *
-*      , c~(0), c~(1), ..., c~(M),    *
-* require:       *
-*  uels()       *
-*         *
+*                                                                       *
+*    Unbiased Estimation of Log Spectrum                                *
+*                                                                       *
+*                                     1993.3  K.Tokuda                  *
+*                                     1996.3  K.Koishida                *
+*                                                                       *
+*       usage:                                                          *
+*               uels [ options ] [ infile ] > stdout                    *
+*       options:                                                        *
+*               -m m     :  order of mel cepstrum           [25]        *
+*               -l l     :  frame length                    [256]       *
+*               (level 2)                                               *
+*               -i i     :  minimum iteration               [2]         *
+*               -j j     :  maximum iteration               [30]        *
+*               -d d     :  end condition                   [0.001]     *
+*               -e e     :  small value added to periodgram [0.0]       *
+*       infile:                                                         *
+*               data sequence                                           *
+*                       , x(0), x(1), ..., x(L-1),                      *
+*       stdout:                                                         *
+*               cepstrum                                                *
+*                       , c~(0), c~(1), ..., c~(M),                     *
+*       require:                                                        *
+*               uels()                                                  *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: uels.c,v 1.8 2007/09/07 18:19:45 heigazen Exp $";
+static char *rcs_id = "$Id: uels.c,v 1.9 2007/09/10 12:49:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -94,7 +94,7 @@ void usage (int status)
    fprintf(stderr, " %s - unbiased estimation of log spectrum\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of cepstrum               [%d]\n", ORDER);
    fprintf(stderr, "       -l l  : frame length                    [%d]\n", FLENG);

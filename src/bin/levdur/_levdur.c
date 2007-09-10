@@ -39,21 +39,21 @@
 
 /****************************************************************
 
-    $Id: _levdur.c,v 1.7 2007/09/08 05:49:27 heigazen Exp $
+    $Id: _levdur.c,v 1.8 2007/09/10 12:49:26 heigazen Exp $
 
     Solve an Autocorrelation Normal Equation
-   Using Levinson-Durbin Method
+    Using Levinson-Durbin Method
 
-    int levdur(r, a, m, eps);
+       int levdur(r, a, m, eps);
 
- double  *r : autocorrelation sequence
- double  *a : LP coefficients
- int     m  : order of LPC
- double eps : singular check (eps(if -1., 1.0e-6 is assumed))
+       double  *r    : autocorrelation sequence
+       double  *a    : LP coefficients
+       int     m     : order of LPC
+       double  eps   : singular check (eps(if -1., 1.0e-6 is assumed))
 
- return value :  0  -> normally completed
-   -1 -> abnormally completed
-   -2 -> unstable LPC
+       return  value :  0  -> normally completed
+                        -1 -> abnormally completed
+                        -2 -> unstable LPC
 
 ******************************************************************/
 

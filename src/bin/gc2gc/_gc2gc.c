@@ -38,18 +38,18 @@
 */
 
 /***************************************************************
-    $Id: _gc2gc.c,v 1.6 2007/08/07 04:21:13 heigazen Exp $
+    $Id: _gc2gc.c,v 1.7 2007/09/10 12:49:20 heigazen Exp $
 
-    Generalized Cepstral Transformation	
+    Generalized Cepstral Transformation   
 
-	void gc2gc(c1, m1, g1, c2, m2, g2)
+        void gc2gc(c1, m1, g1, c2, m2, g2)
 
-	double	*c1	: normalized generalized cepstrum (input)
-	int	m1	: order of gc1
-	double	g1	: gamma of gc1
-	double	*c2	: normalized generalized cepstrum (output)
-	int	m2	: order of gc2
-	double	g2	: gamma of gc2
+        double   *c1   : normalized generalized cepstrum (input)
+        int      m1    : order of gc1
+        double   g1    : gamma of gc1
+        double   *c2   : normalized generalized cepstrum (output)
+        int      m2    : order of gc2
+        double   g2    : gamma of gc2
 
 *****************************************************************/
 

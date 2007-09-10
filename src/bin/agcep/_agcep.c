@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _agcep.c,v 1.6 2007/08/07 04:03:55 heigazen Exp $
+    $Id: _agcep.c,v 1.7 2007/09/10 12:49:20 heigazen Exp $
 
     Adaptive Generalized Cepstral Analysis
 
@@ -51,8 +51,8 @@
     int    stage  : -1 / gamma
     double lambda : leakage factor
     double step   : step size
-    double tau	   : momentum constant
-    double eps	   : minimum value for epsilon
+    double tau    : momentum constant
+    double eps    : minimum value for epsilon
 
     return value  : prediction error
 

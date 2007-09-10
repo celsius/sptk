@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*         *
-*    Transform Mel Cepstrum to MLSA Digital Filter Coefficients  *
-*         *
-*     1995.12  K.Koishida  *
-*         *
-* usage:        *
-*  mc2b [ options ] [ infile ]>stdout   *
-* options:       *
-*  -a alpha :  all-pass constant  [0.35]  *
-*  -m m     :  order of mel cepstrum [25]  *
-* infile:        *
-*  mel cepstral coefficients    *
-*      , c~(0), c~(1), ..., c~(M),    *
-* stdout:        *
-*  MLSA filter coefficients    *
-*      , b(0), b(1), ..., b(M),    *
-* require:       *
-*  mc2b()       *
-*         *
+*                                                                       *
+*    Transform Mel Cepstrum to MLSA Digital Filter Coefficients         *
+*                                                                       *
+*                                     1995.12  K.Koishida               *
+*                                                                       *
+*       usage:                                                          *
+*               mc2b [ options ] [ infile ] > stdout                    *
+*       options:                                                        *
+*               -a alpha :  all-pass constant      [0.35]               *
+*               -m m     :  order of mel cepstrum  [25]                 *
+*       infile:                                                         *
+*               mel cepstral coefficients                               *
+*                       , c~(0), c~(1), ..., c~(M),                     *
+*       stdout:                                                         *
+*               MLSA filter coefficients                                *
+*                       , b(0), b(1), ..., b(M),                        *
+*       require:                                                        *
+*               mc2b()                                                  *
+*                                                                       *
 ************************************************************************/
 
 static char *rcs_id = "$Id:";
@@ -85,7 +85,7 @@ void usage (int status)
    fprintf(stderr, "          to MLSA digital filter coefficients\n");
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : all-pass constant     [%g]\n", ALPHA);
    fprintf(stderr, "       -m m  : order of mel-cepstrum [%d]\n", ORDER);

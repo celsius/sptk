@@ -39,24 +39,24 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.9 2007/09/07 17:36:52 heigazen Exp $
+    $Id: _mcep.c,v 1.10 2007/09/10 12:49:26 heigazen Exp $
 
     Mel-Cepstral Analysis
 
-    int mcep(xw, flng, mc, m, a, itr1, itr2, dd, e);
+        int mcep(xw, flng, mc, m, a, itr1, itr2, dd, e);
 
-    double   *xw  : input sequence
-    int      flng : frame length
-    double   *mc  : mel cepstrum
-    int      m    : order of mel cepstrum
-    double   a    : alpha
-    int      itr1 : minimum number of iteration
-    int      itr2 : maximum number of iteration
-    double   dd   : end condition
-    double   e    : initial value for log-periodgram
+        double   *xw   : input sequence
+        int      flng  : frame length
+        double   *mc   : mel cepstrum
+        int      m     : order of mel cepstrum
+        double   a     : alpha
+        int      itr1  : minimum number of iteration
+        int      itr2  : maximum number of iteration
+        double   dd    : end condition
+        double   e     : initial value for log-periodgram
 
-    return value :    0 -> completed by end condition
-                      -1-> completed by maximum iteration
+        return   value :    0 -> completed by end condition
+                            -1-> completed by maximum iteration
 
 *****************************************************************/
 
@@ -64,6 +64,41 @@
 #include <stdlib.h>
 #include <math.h>
 #include <SPTK.h>
+
+static void frqtr (double *c1, int m1, double *c2, int m2, const double a)
+{
+   int i, j;
+   static double *d=NULL, *g;
+   static int size;
+
+   if (d==NULL) {
+      size = m2;
+      d = dgetmem(size+size+2);
+      g = d + size + 1;
+   }
+
+   if (m2>size) {
+      free(d);
+      size = m2;
+      d = dgetmem(size+size+2);
+      g = d + size + 1;
+   }
+
+   fillz(g, sizeof(*g), m2+1);
+
+   for (i=-m1; i<=0; i++) {
+      if (0 <= m2) {
+         d[0] = g[0];
+         g[0] = c1[-i];
+      }
+      for (j=1; j<=m2; j++)
+         g[j] = d[j-1] + a*((d[j] = g[j]) - g[j-1]);
+   }
+
+   movem(g, c2, sizeof(*g), m2+1);
+
+   return;
+}
 
 int mcep (double *xw, const int flng, double *mc, const int m, const double a, const int itr1, const int itr2, const double dd, const double e)
 {
@@ -171,48 +206,12 @@ int mcep (double *xw, const int flng, double *mc, const int m, const double a, c
 
     Frequency Transformation for Calculating Coefficients
 
-    void frqtr(c1, m1, c2, m2, a)
+        void frqtr(c1, m1, c2, m2, a)
 
-    double *c1   : minimum phase sequence
-    int m1       : order of minimum phase sequence
-    double *c2   : warped sequence
-    int m2       : order of warped sequence
-    double a     : all-pass constant
+        double *c1   : minimum phase sequence
+        int m1       : order of minimum phase sequence
+        double *c2   : warped sequence
+        int m2       : order of warped sequence
+        double a     : all-pass constant
 
 ***************************************************************/
-
-void frqtr (double *c1, int m1, double *c2, int m2, const double a)
-{
-   int i, j;
-   static double *d=NULL, *g;
-   static int size;
-
-   if (d==NULL) {
-      size = m2;
-      d = dgetmem(size+size+2);
-      g = d + size + 1;
-   }
-
-   if (m2>size) {
-      free(d);
-      size = m2;
-      d = dgetmem(size+size+2);
-      g = d + size + 1;
-   }
-
-   fillz(g, sizeof(*g), m2+1);
-
-   for (i=-m1; i<=0; i++) {
-      if (0 <= m2) {
-         d[0] = g[0];
-         g[0] = c1[-i];
-      }
-      for (j=1; j<=m2; j++)
-         g[j] = d[j-1] + a*((d[j] = g[j]) - g[j-1]);
-   }
-
-   movem(g, c2, sizeof(*g), m2+1);
-   
-   return;
-}
-

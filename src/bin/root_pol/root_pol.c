@@ -38,33 +38,33 @@
 */
 
 /************************************************************************
-*                                          *
-*    Durand-Kerner-Aberth for Higher Order Equation   *
-*         *
-*     1988.12  K.Fukushi  *
-*     1989.3  T.Kobayashi modified *
-*     1999.12 T.Yoshimura modified *
-*         *
-* usage :        *
-*   root_pol [ options ] [ infile ]>stdout  *
-* options:       *
-*  -m  : order of equation           [32]  *
-*  -n  : number of maximum iteration    [1000] *
-*  -e  : eps      [1.0e-14] *
-*  -i  : a[0] = 1     [FALSE] *
-*  -s  : revert the coefficient   [FALSE] *
-*  -r  : ( radius, arg ) output    [(Real,Imag)] *
-* Pn(x) = a[0]x^n + a[1]x^n-1 + ... + a[n-1]x + a[n]  *
-* infile:        *
-*   stdin for default     *
-*   a[0],...,a[n]      *
-* outfile:       *
-*  x[0].re, x[1].re,...,x[n-1].re,    *
-*  x[0].im, x[1].im,...,x[n-1].im    *
-*         *
+*                                                                       *
+*    Durand-Kerner-Aberth for Higher Order Equation                     *
+*                                                                       *
+*                                         1988.12  K.Fukushi            *
+*                                         1989.3   T.Kobayashi modified *
+*                                         1999.12  T.Yoshimura modified *
+*                                                                       *
+*       usage :                                                         *
+*               root_pol [ options ] [ infile ] > stdout                *
+*       options:                                                        *
+*               -m  : order of equation              [32]               *
+*               -n  : number of maximum iteration    [1000]             *
+*               -e  : eps                            [1.0e-14]          *
+*               -i  : a[0] = 1                       [FALSE]            *
+*               -s  : revert the coefficient         [FALSE]            *
+*               -r  : ( radius, arg ) output         [(Real,Imag)]      *
+*               Pn(x) = a[0]x^n + a[1]x^n-1 + ... + a[n-1]x + a[n]      *
+*      infile:                                                          *
+*               stdin for default                                       *
+*                       a[0],...,a[n]                                   *
+*      outfile:                                                         *
+*                       x[0].re, x[1].re,...,x[n-1].re,                 *
+*                       x[0].im, x[1].im,...,x[n-1].im                  *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: root_pol.c,v 1.7 2007/08/07 05:05:38 heigazen Exp $";
+static char *rcs_id = "$Id: root_pol.c,v 1.8 2007/09/10 12:49:29 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -90,7 +90,7 @@ int usage (void)
    fprintf(stderr, " %s - Durand-Kerner-Aberth for higher order equation \n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m  : order of equation            [%d]\n",ORDER);
    fprintf(stderr, "       -n  : number of maximum iteration  [%d]\n",ITER);
@@ -167,7 +167,7 @@ int main (int argc,char *argv[])
       else {
          if ((fp=fopen(*argv, "r"))==NULL) {
             fprintf(stderr,"%s : cannot open %s !!\n", cmnd, *argv);
-            exit(0);
+            return(0);
          }
       }
    }

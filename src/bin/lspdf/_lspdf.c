@@ -39,18 +39,18 @@
 
 /****************************************************************
 
-    $Id: _lspdf.c,v 1.6 2007/08/07 05:01:36 heigazen Exp $
+    $Id: _lspdf.c,v 1.7 2007/09/10 12:49:23 heigazen Exp $
 
     LSP Speech Synthesis Digital Filter
 
- double lspdf_even(x, a, m, d)
+        double lspdf_even(x, a, m, d)
 
- double x   : input
- double *f  : LSP coefficients
- int m   : order of coefficients
- double  *d  : delay
+        double   x     : input
+        double  *f     : LSP coefficients
+        int      m     : order of coefficients
+        double  *d     : delay
 
- return value : filtered data
+        return   value : filtered data
 
 *****************************************************************/
 

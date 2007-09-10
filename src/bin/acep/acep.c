@@ -38,40 +38,40 @@
 */
 
 /************************************************************************
-*									                                             *
-*    Adaptive Cepstral Analysis						                        *
-*									                                             *
-*					1993.8  K.Tokuda		                                    *
-*					1996.1  K.Koishida		                                 *
-*									                                             *
-*	usage:								                                       *
-*		acep [ options ] [ pefile ] < stdin > stdout		*
-*	options:							*
-*		-m m     :  order of cepstrum		[25]		*
-*		-l l     :  leakage factor		[0.98]		*
-*		-t t	 :  momentum constant		[0.9]		*
-*		-k k     :  step size			[0.1]		*
-*		-p p     :  output period of cepstrum	[1]		*
-*		-s       :  smooth (average) cepstrum	[FALSE]		*
-*		-e e	 :  minimum value for epsilon   [0.0]		*
-*		-P P     :  order of pade approximation	[4]		*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ...	 				*
-*	stdout:								*
-*		cepstrum						*
-*		    , c(0), c(1), ..., c(M),				*
-*	output:								*
-*	        prediction error (if pefile is specified)		*
-*		    , e(0), e(1), ...					*
-*	note:								*
-*		P = 4 or 5						*
-*	require:							*
-*		lmadf()							*
-*									*
+*                                                                       *
+*    Adaptive Cepstral Analysis                                         *
+*                                                                       *
+*                                       1993.8  K.Tokuda                *
+*                                       1996.1  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*          acep [ options ] [ pefile ] < stdin > stdout                 *
+*       options:                                                        *
+*               -m m     :  order of cepstrum           [25]            *
+*               -l l     :  leakage factor              [0.98]          *
+*               -t t     :  momentum constant           [0.9]           *
+*               -k k     :  step size                   [0.1]           *
+*               -p p     :  output period of cepstrum   [1]             *
+*               -s       :  smooth (average) cepstrum   [FALSE]         *
+*               -e e     :  minimum value for epsilon   [0.0]           *
+*               -P P     :  order of Pade approximation [4]             *
+*       infile:                                                         *
+*               data sequence                                           *
+*                   , x(0), x(1), ...                                   *
+*       stdout:                                                         *
+*               cepstrum                                                *
+*                   , c(0), c(1), ..., c(M),                            *
+*       output:                                                         *
+*               prediction error (if pefile is specified)               *
+*                   , e(0), e(1), ...                                   *
+*       note:                                                           *
+*               P = 4 or 5                                              *
+*       require:                                                        *
+*               lmadf()                                                 *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: acep.c,v 1.9 2007/09/10 02:48:32 heigazen Exp $";
+static char *rcs_id = "$Id: acep.c,v 1.10 2007/09/10 12:49:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -100,7 +100,7 @@ char *FORMAT = "float";
 #endif /* DOUBLE */
 
 /*  Command Name  */
-char	*cmnd;
+char *cmnd;
 
 
 void usage (const int status)
@@ -132,7 +132,7 @@ void usage (const int status)
    fprintf(stderr, "\n");    
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
-#endif	    
+#endif       
    fprintf(stderr, "\n");
    exit(status);
 }
@@ -198,7 +198,7 @@ int main (int argc, char **argv)
 
    if ((pd < 4)||(pd > 5)) {
       fprintf(stderr,"%s : Order of pade approximation is 4 or 5!\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    c  = dgetmem(5*(m+1)+(m+1)*pd*2);
@@ -230,13 +230,13 @@ int main (int argc, char **argv)
       gg = (gg < eps) ? eps : gg;
       mu = step / gg;
       ttx = tt * e[0]; 
-	
+   
       for (i=1; i<=m; i++) {
          ep[i] = tau * ep[i] - ttx * e[i];
          c[i] -= mu * ep[i];
       }
 
-	   if (aveflag)
+      if (aveflag)
          for (i=0; i<=m; i++)
             avec[i] += c[i];
 
@@ -255,5 +255,5 @@ int main (int argc, char **argv)
             fwritef(c, sizeof(*c), m+1, stdout);
       }
    }
-   exit(0);
+   return(0);
 }

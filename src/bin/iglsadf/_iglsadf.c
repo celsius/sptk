@@ -39,24 +39,40 @@
 
 /****************************************************************
 
-    $Id: _iglsadf.c,v 1.5 2007/08/07 04:55:52 heigazen Exp $
+    $Id: _iglsadf.c,v 1.6 2007/09/10 12:49:32 heigazen Exp $
 
     Inverse GLSA Digital Filter
 
-	double	iglsadf(x, c, m, n, d)
+        double  iglsadf(x, c, m, n, d)
 
-	double	x   : input
-	double	*c  : filter coefficients (K, g*c'(1), ..., g*c'(m))
-	int	m   : order of cepstrum
-	int     n   : -1/gamma
-	double  *d  : delay
+        double  x     : input
+        double  *c    : filter coefficients (K, g*c'(1), ..., g*c'(m))
+        int     m     : order of cepstrum
+        int     n     : -1/gamma
+        double  *d    : delay
 
-	return value : filtered data
+        return  value : filtered data
 
 *****************************************************************/
 
 #include <stdio.h>
 #include <SPTK.h>
+
+static double gzerodf (double x, double *c, int m, const double g, double *d)
+{
+   double   y = 0.0;
+
+   for (m--; m>0; m--) {
+      y += c[m+1] * d[m];
+      d[m] = d[m-1];
+   }
+   y += c[1] * d[0];
+   d[0] = x;
+
+   x += y * g;
+
+   return(x);
+}
 
 double iglsadf (double x, double *c, const int m, const int n, double *d)
 {
@@ -80,20 +96,3 @@ double iglsadf1 (double x, double *c, const int m, const int n, double *d)
     
    return(x);
 }
-
-double gzerodf (double x, double *c, int m, const double g, double *d)
-{
-   double   y = 0.0;
-    
-   for (m--; m>0; m--) {
-      y += c[m+1] * d[m];
-      d[m] = d[m-1];
-   }
-   y += c[1] * d[0];
-   d[0] = x;
-
-   x += y * g;
-
-   return(x);
-}
-

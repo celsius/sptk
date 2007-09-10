@@ -39,25 +39,25 @@
 
 /****************************************************************
 
-    $Id: _smcep.c,v 1.8 2007/08/07 05:05:40 heigazen Exp $
+    $Id: _smcep.c,v 1.9 2007/09/10 12:49:25 heigazen Exp $
 
     Mel-Cepstral Analysis (2nd order all-pass filter)
 
- int smcep(xw, flng, mc, m, fftsz, a, t, itr1, itr2, dd, e);
+        int smcep(xw, flng, mc, m, fftsz, a, t, itr1, itr2, dd, e);
 
- double   *xw  : input sequence
- int      flng : frame length
- double   *mc  : mel cepstrum
- int      m    : order of mel cepstrum
- double   a    : alpha
- double   t    : theta
- int      itr1 : minimum number of iteration
- int      itr2 : maximum number of iteration
- double   dd   : end condition
- double   e    : initial value for log-periodgram
+        double   *xw   : input sequence
+        int      flng  : frame length
+        double   *mc   : mel cepstrum
+        int      m     : order of mel cepstrum
+        double   a     : alpha
+        double   t     : theta
+        int      itr1  : minimum number of iteration
+        int      itr2  : maximum number of iteration
+        double   dd    : end condition
+        double   e     : initial value for log-periodgram
 
- return value :  0 -> completed by end condition
-   -1-> completed by maximum iteration
+        return   value :  0 -> completed by end condition
+                          -1-> completed by maximum iteration
 
 *****************************************************************/
 
@@ -66,127 +66,68 @@
 #include <math.h>
 #include <SPTK.h>
 
-int smcep (double *xw, const int flng, double *mc, const int m, const int fftsz, const double a, 
-           const double t, const int itr1, const int itr2, const double dd, const double e)
+
+/***************************************************************
+
+  Warping Function and Its Derivative
+
+      double   warp(w, a, t)  &  derivw(w, a, t)
+
+      double  w     : frequency
+      double  a     : all-pass constant
+      double  t     : emphasized frequency
+
+***************************************************************/
+
+static double warp (const double w, const double a, const double t)
 {
-   int i, j;
-   int flag=0, f2, m2;
-   double u, s;
-   static double *x=NULL, *y, *c, *d, *al, *b;
-   static int size_x, size_d;
+   double ww, x, y;
 
-   if (x==NULL) {
-      x = dgetmem(3*flng);
-      y = x + flng;
-      c = y + flng;
-      size_x = flng;
+   x = w-t;
+   y = w+t;
 
-      d = dgetmem(3*m+3);
-      al = d + (m+1);
-      b = al + (m+1);
-      size_d = m;
-   }
-   if (flng>size_x) {
-      free(x);
-      x = dgetmem(3*flng);
-      y = x + flng;
-      c = y + flng;
-      size_x = flng;
-   }
-   if (m>size_d) {
-      free(d);
-      d = dgetmem(3*m+3);
-      al = d  + (m+1);
-      b  = al + (m+1);
-      size_d = m;
-   }
-
-   f2 = flng / 2.;
-   m2 = m + m;
-
-   movem(xw, x, sizeof(*x), flng);
-
-   /*  power spectrum  */
-   fftr(x, y, flng);
-   for (i=0; i<flng; i++) {
-      x[i] = x[i]*x[i] + y[i]*y[i];
-      c[i] = log(x[i]+e);
-   }
-
-   /*  1, (-a), (-a)^2, ..., (-a)^M  */
-
-   al[0] = 1.0;
-   for (i=1; i <=m; i++) al[i] = 0.0;
-
-   frqt_a(al, m, fftsz, a, t);
-
-
-   /*  initial value of cepstrum  */
-   ifftr(c, y, flng);    /*  c : IFFT[x]  */
-
-   c[0] /= 2.0;
-   c[flng/2] /= 2.0;
-   freqt2(c, f2, mc, m, fftsz, a, t);  /*  mc : mel cep.  */
-
-   s = c[0];
-
-   /*  Newton Raphson method  */
-   for (j=1; j<=itr2; j++) {
-      fillz(c, sizeof(*c), flng);
-      ifreqt2(mc, m, c, f2, fftsz, a, t); /*  mc : mel cep.  */
-
-      fftr(c, y, flng);   /*  c, y : FFT[mc]  */
-      for (i=0; i<flng; i++)
-         c[i] = x[i] / exp(c[i] + c[i]);
-      ifftr(c, y, flng);
-      frqtr2(c, f2, c, m2, fftsz, a, t); /*  c : r(k)  */
-
-      u = c[0];
-      if (j >= itr1) {
-         if (fabs((u - s)/u)<dd) {
-            flag = 1;
-            break;
-         }
-         s = u;
-      }
-
-      for (i=0; i<=m; i++)
-         b[i] = c[i] - al[i];
-      for (i=0; i<=m2; i++)  y[i] = c[i];
-      for (i=0; i<=m2; i+=2) y[i] -= c[0];
-      for (i=2; i<=m;  i+=2) c[i] += c[0];
-      c[0] += c[0];
-
-      if (theq(c, y, d, b, m+1, -1.0)) {
-         fprintf(stderr,"smcep : Error in theq() at %dth iteration !\n", j);
-         exit(1);
-      }
-
-      for (i=0; i<=m; i++) mc[i] += d[i];
-   }
-
-   if (flag) return(0);
-   else return(-1);
+   ww = w + atan2((a * sin(x)), (1.0 - a * cos(x)))
+        + atan2((a * sin(y)), (1.0 - a * cos(y)));
+        
+   return(ww);
 }
 
+
+/*============================================================*/
+
+static double derivw (const double w, const double  a, const double t)
+{
+   double dw, x, y, a2, aa;
+
+   x = w-t;
+   y = w+t;
+
+   a2 = a+a;
+   aa = a*a;
+
+   dw = 1.0 + (a * cos(x) - aa)/(1.0 - a2 * cos(x) + aa)
+        + (a * cos(y) - aa)/(1.0 - a2 * cos(y) + aa);
+        
+   return(dw);
+}
 
 /***************************************************************
 
   No.1  frqt_a    static : *l, size1
 
-    Frequency Transformation of "al" (second term of dE/dc)
+  Frequency Transformation of "al" (second term of dE/dc)
 
- void frqt_a(al, m, fftsz, a, t)
+      void frqt_a(al, m, fftsz, a, t)
 
- double *al   : sequence which will be warped
- int m     : order of warped sequence
- int fftsz : ifft size
- double a     : all-pass constant
-        double t     : emphasized frequency (t * pi)
+      double *al   : sequence which will be warped
+      int m        : order of warped sequence
+      int fftsz    : ifft size
+      double a     : all-pass constant
+      double t     : emphasized frequency (t * pi)
 
 ***************************************************************/
 
-void frqt_a (double *al, const int m, const int fftsz, const double a, const double t)
+static void frqt_a (double *al, const int m, const int fftsz, const double a, const double t)
 {
    int i, j;
    double  w, b, *ww, *f, *re, *im, *pf, *pl, *next;
@@ -258,27 +199,25 @@ void frqt_a (double *al, const int m, const int fftsz, const double a, const dou
    
    return;
 }
-
-
 /***************************************************************
 
   No.2  freqt2    static : *g, size2
 
-    Frequency Transformation
+  Frequency Transformation
 
- void freqt2(c1, m1, c2, m2, fftsz, a, t)
+      void freqt2(c1, m1, c2, m2, fftsz, a, t)
 
- double *c1   : minimum phase sequence
- int m1    : order of minimum phase sequence
- double *c2   : warped sequence
- int m2    : order of warped sequence
- int fftsz : ifft size
- double a     : all-pass constant
-        double t     : emphasized frequency (t * pi)
+      double *c1   : minimum phase sequence
+      int    m1    : order of minimum phase sequence
+      double *c2   : warped sequence
+      int    m2    : order of warped sequence
+      int    fftsz : ifft size
+      double a     : all-pass constant
+      double t     : emphasized frequency (t * pi)
 
 ***************************************************************/
 
-void freqt2 (double *c1, const int m1, double *c2, const int m2, const int fftsz, const double a, const double t)
+static void freqt2 (double *c1, const int m1, double *c2, const int m2, const int fftsz, const double a, const double t)
 {
    int i, j;
    double w, b, *ww, *dw, *f, *re, *im, *pf, *pg, *next;
@@ -375,21 +314,21 @@ void freqt2 (double *c1, const int m1, double *c2, const int m2, const int fftsz
 
   No.3  ifreqt2    static : *h, size3
 
-   Inverse Frequency Transformation
+  Inverse Frequency Transformation
 
- void ifreqt2(c1, m1, c2, m2, fftsz, a, t)
+      void ifreqt2(c1, m1, c2, m2, fftsz, a, t)
 
- double *c1   : minimum phase sequence
- int m1    : order of minimum phase sequence
- double *c2   : warped sequence
- int m2    : order of warped sequence
-        int fftsz : ifft size
- double a     : all-pass constant
-        double t     : emphasized frequency t * pi(rad)
+      double *c1   : minimum phase sequence
+      int    m1    : order of minimum phase sequence
+      double *c2   : warped sequence
+      int    m2    : order of warped sequence
+      int    fftsz : ifft size
+      double a     : all-pass constant
+      double t     : emphasized frequency t * pi(rad)
 
 ***************************************************************/
 
-void ifreqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
+static void ifreqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 {
    int i, j;
    double  w, b, *ww, *f,
@@ -501,21 +440,21 @@ void ifreqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 
   No.4  frqtr2    static : *k, size4
 
-    Frequency Transformation for Calculating Coefficients
+  Frequency Transformation for Calculating Coefficients
 
- void frqtr2(c1, m1, c2, m2, fftsz, a, t)
+      void frqtr2(c1, m1, c2, m2, fftsz, a, t)
 
- double *c1   : minimum phase sequence
- int m1    : order of minimum phase sequence
- double *c2   : warped sequence
- int m2    : order of warped sequence
- int fftsz  : frame length (fft size)
- double a     : all-pass constant
- double t     : emphasized frequency
+      double *c1   : minimum phase sequence
+      int    m1    : order of minimum phase sequence
+      double *c2   : warped sequence
+      int    m2    : order of warped sequence
+      int    fftsz : frame length (fft size)
+      double a     : all-pass constant
+      double t     : emphasized frequency
 
 ***************************************************************/
 
-void frqtr2 (double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
+static void frqtr2 (double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 {
    int  i, j;
    double  w, b, *ww, *f, *tc2,
@@ -601,47 +540,105 @@ void frqtr2 (double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
 }
 
 
-/***************************************************************
-
-  Warping Function and Its Derivative
-
-  double   warp(w, a, t)  &  derivw(w, a, t)
-
-  double  w     : frequency
-  double  a     : all-pass constant
-  double  t     : emphasized frequency
-
-***************************************************************/
-
-double warp (const double w, const double a, const double t)
+int smcep (double *xw, const int flng, double *mc, const int m, const int fftsz, const double a, 
+           const double t, const int itr1, const int itr2, const double dd, const double e)
 {
-   double ww, x, y;
+   int i, j;
+   int flag=0, f2, m2;
+   double u, s;
+   static double *x=NULL, *y, *c, *d, *al, *b;
+   static int size_x, size_d;
 
-   x = w-t;
-   y = w+t;
+   if (x==NULL) {
+      x = dgetmem(3*flng);
+      y = x + flng;
+      c = y + flng;
+      size_x = flng;
 
-   ww = w + atan2((a * sin(x)), (1.0 - a * cos(x)))
-        + atan2((a * sin(y)), (1.0 - a * cos(y)));
-        
-   return(ww);
+      d = dgetmem(3*m+3);
+      al = d + (m+1);
+      b = al + (m+1);
+      size_d = m;
+   }
+   if (flng>size_x) {
+      free(x);
+      x = dgetmem(3*flng);
+      y = x + flng;
+      c = y + flng;
+      size_x = flng;
+   }
+   if (m>size_d) {
+      free(d);
+      d = dgetmem(3*m+3);
+      al = d  + (m+1);
+      b  = al + (m+1);
+      size_d = m;
+   }
+
+   f2 = flng / 2.;
+   m2 = m + m;
+
+   movem(xw, x, sizeof(*x), flng);
+
+   /*  power spectrum  */
+   fftr(x, y, flng);
+   for (i=0; i<flng; i++) {
+      x[i] = x[i]*x[i] + y[i]*y[i];
+      c[i] = log(x[i]+e);
+   }
+
+   /*  1, (-a), (-a)^2, ..., (-a)^M  */
+
+   al[0] = 1.0;
+   for (i=1; i <=m; i++) al[i] = 0.0;
+
+   frqt_a(al, m, fftsz, a, t);
+
+
+   /*  initial value of cepstrum  */
+   ifftr(c, y, flng);    /*  c : IFFT[x]  */
+
+   c[0] /= 2.0;
+   c[flng/2] /= 2.0;
+   freqt2(c, f2, mc, m, fftsz, a, t);  /*  mc : mel cep.  */
+
+   s = c[0];
+
+   /*  Newton Raphson method  */
+   for (j=1; j<=itr2; j++) {
+      fillz(c, sizeof(*c), flng);
+      ifreqt2(mc, m, c, f2, fftsz, a, t); /*  mc : mel cep.  */
+
+      fftr(c, y, flng);   /*  c, y : FFT[mc]  */
+      for (i=0; i<flng; i++)
+         c[i] = x[i] / exp(c[i] + c[i]);
+      ifftr(c, y, flng);
+      frqtr2(c, f2, c, m2, fftsz, a, t); /*  c : r(k)  */
+
+      u = c[0];
+      if (j >= itr1) {
+         if (fabs((u - s)/u)<dd) {
+            flag = 1;
+            break;
+         }
+         s = u;
+      }
+
+      for (i=0; i<=m; i++)
+         b[i] = c[i] - al[i];
+      for (i=0; i<=m2; i++)  y[i] = c[i];
+      for (i=0; i<=m2; i+=2) y[i] -= c[0];
+      for (i=2; i<=m;  i+=2) c[i] += c[0];
+      c[0] += c[0];
+
+      if (theq(c, y, d, b, m+1, -1.0)) {
+         fprintf(stderr,"smcep : Error in theq() at %dth iteration !\n", j);
+         exit(1);
+      }
+
+      for (i=0; i<=m; i++) mc[i] += d[i];
+   }
+
+   if (flag) return(0);
+   else return(-1);
 }
-
-
-/*============================================================*/
-
-double derivw (const double w, const double  a, const double t)
-{
-   double dw, x, y, a2, aa;
-
-   x = w-t;
-   y = w+t;
-
-   a2 = a+a;
-   aa = a*a;
-
-   dw = 1.0 + (a * cos(x) - aa)/(1.0 - a2 * cos(x) + aa)
-        + (a * cos(y) - aa)/(1.0 - a2 * cos(y) + aa);
-        
-   return(dw);
-}
-

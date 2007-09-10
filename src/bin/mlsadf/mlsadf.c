@@ -38,38 +38,38 @@
 */
 
 /************************************************************************
-*         *
-*    MLSA Digital Filter for Speech Synthesis    *
-*         *
-*     1994.6  T.Kobayashi  *
-*     1996.3  K.Koishida  *
-*         *
-* usage:        *
-*  mlsadf [ options ] mcfile [ infile ]>stdout  *
-* options:       *
-*  -m m     :  order of cepstrum   [25]  *
-*  -a a     :  all-pass constant   [0.35]  *
-*  -p p     :  frame period   [100]  *
-*  -i i     :  interpolation period  [1]  *
-*  -b       :  mcep is filter coefficient b [FALSE] *
-*  -P P     :  order of pade approximation  [4]  *
-*  -k  :  filtering without gain  [FALSE] *
-* infile:        *
-*  mel cepstral coefficients    *
-*      , c~(0), c~(1), ..., c~(M),    *
-*  excitation sequence     *
-*      , x(0), x(1), ...,      *
-* stdout:        *
-*  filtered sequence     *
-*      , y(0), y(1), ...,     *
-* notice:        *
-*  P = 4 or 5      *
-* require:       *
-*  mlsadf()      *
-*         *
+*                                                                       *
+*    MLSA Digital Filter for Speech Synthesis                           *
+*                                                                       *
+*                                              1994.6  T.Kobayashi      *
+*                                              1996.3  K.Koishida       *
+*                                                                       *
+*       usage:                                                          *
+*               mlsadf [ options ] mcfile [ infile ] > stdout           *
+*       options:                                                        *
+*               -m m     :  order of cepstrum            [25]           *
+*               -a a     :  all-pass constant            [0.35]         *
+*               -p p     :  frame period                 [100]          *
+*               -i i     :  interpolation period         [1]            *
+*               -b       :  mcep is filter coefficient b [FALSE]        *
+*               -P P     :  order of pade approximation  [4]            *
+*               -k  :  filtering without gain            [FALSE]        *
+*       infile:                                                         *
+*               mel cepstral coefficients                               *
+*                       , c~(0), c~(1), ..., c~(M),                     *
+*               excitation sequence                                     *
+*                       , x(0), x(1), ...,                              *
+*       stdout:                                                         *
+*               filtered sequence                                       *
+*                       , y(0), y(1), ...,                              *
+*       notice:                                                         *
+*               P = 4 or 5                                              *
+*       require:                                                        *
+*               mlsadf()                                                *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mlsadf.c,v 1.9 2007/08/07 05:01:36 heigazen Exp $";
+static char *rcs_id = "$Id: mlsadf.c,v 1.10 2007/09/10 12:49:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -102,7 +102,7 @@ void usage (int status)
    fprintf(stderr, " %s - MLSA digital filter for speech synthesis\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] mcfile [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] mcfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of mel-cepstrum        [%d]\n", ORDER);
    fprintf(stderr, "       -a a  : all-pass constant            [%g]\n", ALPHA);
@@ -187,12 +187,12 @@ int main (int argc, char **argv)
 
    if ((pd<4) || (pd>5)) {
       fprintf(stderr,"%s : Order of pade approximation is 4 or 5!\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    if (fpc==NULL) {
       fprintf(stderr,"%s : Cannot open mel cepstrum file!\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    c = dgetmem(3*(m+1)+3*(pd+1)+pd*(m+2));
@@ -200,7 +200,7 @@ int main (int argc, char **argv)
    inc = cc + m + 1;
    d   = inc+ m + 1;
 
-   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) exit(1);
+   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
    if (! bflag)
       mc2b(c, c, m, a);
    if (inverse) {
@@ -209,7 +209,7 @@ int main (int argc, char **argv)
    }
 
    for (;;) {
-      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) exit(0);
+      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
       if (! bflag)
          mc2b(cc, cc, m, a);
       if (inverse) {
@@ -221,7 +221,7 @@ int main (int argc, char **argv)
          inc[i] = (cc[i] - c[i])* (double) iprd / (double) fprd;
 
       for (j=fprd, i=(iprd+1)/2; j--;) {
-         if (freadf(&x, sizeof(x), 1, fp)!=1) exit(0);
+         if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
          if (!ngain) x *= exp(c[0]);
          x = mlsadf(x, c, m, a, pd, d);

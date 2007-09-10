@@ -36,32 +36,31 @@
   PERFORMANCE OF THIS SOFTWARE.
  ----------------------------------------------------------------
 */
-
 /************************************************************************
-*									*
-*    Generate excitation 						*
-*									*
-*					1986.6  K.Tokuda		*
-*					1996.4  K.Koishida		*
-*									*
-*	usage:								*
-*		excite [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-p p     :  frame period			[100]	*
-*		-i i     :  interpolation period		[1]	*
-*		-n 	 :  gauss/M-sequence flag for unoiced	[FALSE]	*
-*				default is M-sequence			*	
-*		-s s	 :  seed for nrand			[1]	* 
-*	infile:								*
-*		pitch data						*
-*	stdout:								*
-*		excitation						*
-*	require:							*
-*		mseq()							*
-*									*
+*                                                                       *
+*    Generate excitation                                                *
+*                                                                       *
+*                                       1986.6  K.Tokuda                *
+*                                       1996.4  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               excite [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*               -p p     :  frame period                        [100]   *
+*               -i i     :  interpolation period                [1]     *
+*               -n       :  gauss/M-sequence flag for unoiced   [FALSE] *
+*                           default is M-sequence                       *   
+*               -s s     :  seed for nrand                      [1]     * 
+*      infile:                                                          *
+*               pitch data                                              *
+*      stdout:                                                          *
+*               excitation                                              *
+*      require:                                                         *
+*               mseq()                                                  *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: excite.c,v 1.8 2007/08/07 04:14:59 heigazen Exp $";
+static char *rcs_id = "$Id: excite.c,v 1.9 2007/09/10 12:49:20 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -154,12 +153,12 @@ int main (int argc, char **argv)
 
    if (gauss & (seed!=1)) next = srnd((unsigned int)seed);
 
-   if (freadf(&p1,sizeof(p1),1,fp)!=1) exit(1);
+   if (freadf(&p1,sizeof(p1),1,fp)!=1) return(1);
 
    pc = p1;
     
    for (;;) {
-      if (freadf(&p2, sizeof(p2),1,fp)!=1) exit(0);
+      if (freadf(&p2, sizeof(p2),1,fp)!=1) return(0);
  
       if ((p1!=0.0) && (p2 != 0.0))
          inc = (p2 - p1) * (double) iprd / (double) fprd;

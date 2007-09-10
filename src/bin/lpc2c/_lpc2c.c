@@ -39,16 +39,16 @@
 
 /****************************************************************
 
-    $Id: _lpc2c.c,v 1.6 2007/08/07 05:01:36 heigazen Exp $
+    $Id: _lpc2c.c,v 1.7 2007/09/10 12:49:20 heigazen Exp $
 
     Transformation LPC to Cepstrum
 
- void  lpc2c(a, m1, c, m2)
+       void  lpc2c(a, m1, c, m2)
 
- double  *a : LP coefficients
- int    m1 : order of LPC
- double  *c : cepstral coefficients
- int    m2 : order of cepstrum
+       double  *a : LP coefficients
+       int     m1 : order of LPC
+       double  *c : cepstral coefficients
+       int     m2 : order of cepstrum
 
 ****************************************************************/
 

@@ -38,15 +38,15 @@
 */
 
 /***********************************************************
- $Id: _zcross.c,v 1.5 2007/08/07 05:04:04 heigazen Exp $
+ $Id: _zcross.c,v 1.6 2007/09/10 12:49:32 heigazen Exp $
  obtain zero coss
-  zcross(x, fl, n)
+    zcross(x, fl, n)
 
-  double  *x : input sequence
-  int fl  : frame length
-  double n : flag of normalize
+    double  *x : input sequence
+    int     fl : frame length
+    double  n  : flag of normalize
 
-  Naohiro Isshiki,  March 1996
+                            Naohiro Isshiki,  March 1996
 ***********************************************************/
 
 #include <stdio.h>

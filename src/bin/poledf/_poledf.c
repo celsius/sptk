@@ -39,18 +39,18 @@
 
 /****************************************************************
 
-    $Id: _poledf.c,v 1.5 2007/08/07 05:01:39 heigazen Exp $
+    $Id: _poledf.c,v 1.6 2007/09/10 12:49:25 heigazen Exp $
 
     All Pole Digital Filter
 
- double poledf(x, a, m, d)
+        double poledf(x, a, m, d)
 
- double x   : input
- double *a  : AR coefficients
- int m   : order of coefficients
- double  *d  : delay
+        double   x    : input
+        double  *a    : AR coefficients
+        int      m    : order of coefficients
+        double  *d    : delay
 
- return value : filtered data
+        return  value : filtered data
 
 *****************************************************************/
 

@@ -37,17 +37,17 @@
  ----------------------------------------------------------------
 */
 
-/************************************************
-*  $Id: _ifft.c,v 1.9 2007/08/07 04:54:14 heigazen Exp $ *
-* NAME:						*
-*	ifft - Inverse Fast Fourier Transform	*   
-* SYNOPSIS:					*
-*	int	ifft(x, y, m)			*
-*						*
-*	real	x[];	real part 		*
-*	real	y[];	imaginary part		*
-*	int	m;	size of FFT		*
-************************************************/
+/*****************************************************************
+*  $Id: _ifft.c,v 1.10 2007/09/10 12:49:19 heigazen Exp $         *
+*  NAME:                                                         *
+*      ifft - Inverse Fast Fourier Transform                     *   
+*  SYNOPSIS:                                                     *
+*      int   ifft(x, y, m)                                       *
+*                                                                *
+*      real   x[];   real part                                   *
+*      real   y[];   imaginary part                              *
+*      int    m;     size of FFT                                 *
+*****************************************************************/
 
 #include <stdio.h>
 #include <SPTK.h>

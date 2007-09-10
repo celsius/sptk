@@ -38,39 +38,39 @@
 */
 
 /************************************************************************
-*									*
-*    Transform  Cepstrum to Spectrum					*
-*									*
-*					1986. 9  K.Tokuda		*
-*					1996. 4  K.Koishida		*
-*									*
-*	usage:								*
-*		c2sp [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m m     :  order of cepstrum		[25]		*
-*		-l l     :  frame length		[256]		*
-*		-p       :  output phase  (see stdout)	[FALSE]		*
-*		-o o     :  output format (see stdout)	[0]		*
-*	infile:								*
-*		cepstrum						*
-*		    , c(0), c(1), ..., c(M),				*
-*	stdout:								*
-*	        output format       scale				*
-*		       0 :	      20 * log|H(z)|			*
-*		       1 :            ln|H(z)|				*
-*		       2 :            |H(z)|				*
-*	        (-p option is used)					*
-*		       0 :	      arg|H(z)| / pi       [pi rad]	*
-*		       1 :            arg|H(z)|            [rad]	*
-*		       2 :            arg|H(z)| * 180 / pi [deg]	*
-*		spectrum						*
-*		    , s(0), s(1), ..., s(L/2),				*
-*	require:							*
-*		c2sp()							*
-*									*
+*                                                                       *
+*    Transform  Cepstrum to Spectrum                                    *
+*                                                                       *
+*                                       1986. 9  K.Tokuda               *
+*                                       1996. 4  K.Koishida             *
+*                                                                       *
+*       usage:                                                          *
+*               c2sp [ options ] [ infile ] > stdout                    *
+*       options:                                                        *
+*               -m m     :  order of cepstrum           [25]            *
+*               -l l     :  frame length                [256]           *
+*               -p       :  output phase  (see stdout)  [FALSE]         *
+*               -o o     :  output format (see stdout)  [0]             *
+*       infile:                                                         *
+*               cepstrum                                                *
+*                   , c(0), c(1), ..., c(M),                            *
+*       stdout:                                                         *
+*               output format         scale                             *
+*                      0 :            20 * log|H(z)|                    *
+*                      1 :            ln|H(z)|                          *
+*                      2 :            |H(z)|                            *
+*               (-p option is used)                                     *
+*                      0 :            arg|H(z)| / pi       [pi rad]     *
+*                      1 :            arg|H(z)|            [rad]        *
+*                      2 :            arg|H(z)| * 180 / pi [deg]        *
+*       spectrum                                                        *
+*                   , s(0), s(1), ..., s(L/2),                          *
+*       require:                                                        *
+*               c2sp()                                                  *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: c2sp.c,v 1.8 2007/08/07 04:09:39 heigazen Exp $";
+static char *rcs_id = "$Id: c2sp.c,v 1.9 2007/09/10 12:49:26 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -101,10 +101,10 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of cepstrum    [%d]\n", ORDER);
-   fprintf(stderr, "       -l l  : frame length         [%d]\n", LENG);
-   fprintf(stderr, "       -p    : output phase         [%s]\n", BOOL[PHASE]);
-   fprintf(stderr, "       -o o  : output format        [%d]\n", OTYPE);
+   fprintf(stderr, "       -m m  : order of cepstrum      [%d]\n", ORDER);
+   fprintf(stderr, "       -l l  : frame length           [%d]\n", LENG);
+   fprintf(stderr, "       -p    : output phase           [%s]\n", BOOL[PHASE]);
+   fprintf(stderr, "       -o o  : output format          [%d]\n", OTYPE);
    fprintf(stderr, "                0 (20*log|H(z)|)\n");
    fprintf(stderr, "                1 (ln|H(z)|)\n");
    fprintf(stderr, "                2 (|H(z)|)\n");
@@ -114,7 +114,7 @@ void usage (int status)
    fprintf(stderr, "                2 (arg|H(z)|*180 / pi [deg])\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       cepstrum (float)             [stdin]\n");
+   fprintf(stderr, "       cepstrum (float)               [stdin]\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       spectrum (float)\n");
 #ifdef SPTK_VERSION
@@ -198,7 +198,7 @@ int main (int argc, char **argv)
             for (i=no; i--;)
                x[i] = y[i] * 180 / PI;
             break;
-         default :		
+         default :      
             for (i=no; i--;)
                x[i] = y[i] / PI;
             break;
@@ -220,5 +220,5 @@ int main (int argc, char **argv)
       fwritef(x, sizeof(*x), no, stdout);
    }
    
-   exit(0);
+   return(0);
 }

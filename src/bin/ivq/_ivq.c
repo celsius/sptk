@@ -39,16 +39,16 @@
 
 /****************************************************************
 
-    $Id: _ivq.c,v 1.6 2007/08/07 05:01:37 heigazen Exp $
+    $Id: _ivq.c,v 1.7 2007/09/10 12:49:26 heigazen Exp $
 
     Decoder of Vector Quantization
 
- void ivq(index, cb, l, x)
+        void ivq(index, cb, l, x)
 
- int    index  : index of codebook
- double *cb    : codebook vector
- int    l      : vector order
- double *x     : decoded vector
+        int    index  : index of codebook
+        double *cb    : codebook vector
+        int    l      : vector order
+        double *x     : decoded vector
 
 *****************************************************************/
 

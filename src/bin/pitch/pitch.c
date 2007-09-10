@@ -38,39 +38,39 @@
 */
 
 /************************************************************************
-*         *
-*    Pitch Extract       *
-*         *
-*     1998.7  M.Tamura  *
-*                                       2000.3  T.Tanaka                *
-*         *
-* usage:        *
-*  pitch [ options ] [ infile ]>stdout   *
-* options:       *
-*               -s  s     :  sampling frequency   [10] *
-*  -l  l     :  frame length    [400] *
-*               -t  t     :  voiced/unvoiced threshhold  [6.0] *
-*  -L  L   :  minmum fundamental frequency [60] *
-*        to search for (Hz)    *
-*  -H  H   :  maximum fundamental frequency [240] *
-*          to search for (Hz)    *
-*  -e  e   :  small value for calculate log [0.0] *
-*               (level 2 :  for uels cepstral analysis)                 *
-*               -i  i     :  minimum number of iteration [2] *
-*               -j  j     :  maximum number of iteration [30] *
-*               -d  d     :  end condition   [0.1] *
-* infile:        *
-*  data sequence      *
-*      , x(0), x(1), ..., x(n-1),    *
-* stdout:        *
-*  pitch         *
-*      p(t)      *
-* require:       *
-*  pitch()       *
-*         *
-*************************************************************************/
+*                                                                       *
+*    Pitch Extract                                                      *
+*                                                                       *
+*                                      1998.7  M.Tamura                 *
+*                                      2000.3  T.Tanaka                 *
+*                                                                       *
+*       usage:                                                          *
+*               pitch [ options ] [ infile ] > stdout                   *
+*       options:                                                        *
+*               -s  s     :  sampling frequency            [10]         *
+*               -l  l     :  frame length                  [400]        *
+*               -t  t     :  voiced/unvoiced threshhold    [6.0]        *
+*               -L  L     :  minmum fundamental frequency  [60]         *
+*                            to search for (Hz)                         *
+*               -H  H     :  maximum fundamental frequency [240]        *
+*                            to search for (Hz)                         *
+*               -e  e     :  small value for calculate log [0.0]        *
+*               (level 2  :  for uels cepstral analysis)                *
+*               -i  i     :  minimum number of iteration   [2]          *
+*               -j  j     :  maximum number of iteration   [30]         *
+*               -d  d     :  end condition                 [0.1]        *
+*       infile:                                                         *
+*               data sequence                                           *
+*                       , x(0), x(1), ..., x(n-1),                      *
+*       stdout:                                                         *
+*               pitch                                                   *
+*               p(t)                                                    *
+*       require:                                                        *
+*               pitch()                                                 *
+*                                                                       *
+************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.14 2007/08/07 05:01:37 heigazen Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.15 2007/09/10 12:49:22 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -105,7 +105,7 @@ void usage (int status)
    fprintf(stderr, " %s - pitch extract\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -s s  : sampling frequency (kHz)        [%d]\n", FREQ);
    fprintf(stderr, "       -l l  : frame length                    [%d]\n", ILNG);

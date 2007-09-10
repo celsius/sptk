@@ -38,17 +38,17 @@
 */
 
 /***************************************************************
-    $Id: _rmse.c,v 1.6 2007/08/07 05:05:39 heigazen Exp $
+    $Id: _rmse.c,v 1.7 2007/09/10 12:49:25 heigazen Exp $
 
     Calculation of Root Mean Squared Error
 
- double rmse(x, y, n)
+       double rmse(x, y, n)
 
- double *x  : data sequence
- double *y  : data sequence
- int n   : data length
+       double *x     : data sequence
+       double *y     : data sequence
+       int     n     : data length
 
- return value :  RMSE of data
+       return  value :  RMSE of data
 
 ***************************************************************/
 

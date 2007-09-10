@@ -38,33 +38,33 @@
 */
 
 /************************************************************************
-*         *
-*    Find Minimum and Maximum Values     *
-*         *
-*     1988.7 T.Kobayashi  *
-*     1996.1 N.Isshiki  *
-*     1998.7 M.Tamura  *
-*         *
-* usage:        *
-*  minmax [ options ] [ infile ]>stdout   *
-* options:       *
-*  -l l  :  length of vector  [1]  *
-*  -n n  :  order of vector  [l-1]  *
-*  -b b  :  find n-best values  [1]  *
-*  -d d  :  output data number   [FALSE]  *
-* infile:        *
-*  data sequence (float)     *
-* stdout:        *
-*  minimum & maximum(float)    *
-*  n-best minimums & n-best maximum(float)   *
-*    ,when -n option is specified  *
-*  minimum:datanumber,... (ascii)    *
-*  maximum:datanumber,...  (ascii)    *
-*    ,when -d option is specified  *
-*         *
+*                                                                       *
+*    Find Minimum and Maximum Values                                    *
+*                                                                       *
+*                                       1988.7 T.Kobayashi              *
+*                                       1996.1 N.Isshiki                *
+*                                       1998.7 M.Tamura                 *
+*                                                                       *
+*       usage:                                                          *
+*               minmax [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*               -l l  :  length of vector     [1]                       *
+*               -n n  :  order of vector      [l-1]                     *
+*               -b b  :  find n-best values   [1]                       *
+*               -d d  :  output data number   [FALSE]                   *
+*       infile:                                                         *
+*               data sequence (float)                                   *
+*       stdout:                                                         *
+*               minimum & maximum(float)                                *
+*               n-best minimums & n-best maximum(float)                 *
+*                       ,when -n option is specified                    *
+*               minimum:datanumber,... (ascii)                          *
+*               maximum:datanumber,...  (ascii)                         *
+*                       ,when -d option is specified                    *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: minmax.c,v 1.7 2007/08/07 05:01:36 heigazen Exp $";
+static char *rcs_id = "$Id: minmax.c,v 1.8 2007/09/10 12:49:31 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -93,7 +93,7 @@ void usage (int status)
    fprintf(stderr, " %s - find minimum and maximum values\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length of vector   [%d]\n",DIM);
    fprintf(stderr, "       -n n  : order of vector    [l-1]\n");

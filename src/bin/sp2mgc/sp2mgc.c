@@ -38,46 +38,46 @@
 */
 
 /************************************************************************
-*         *
+*                                                                       *
 *    Extract mel-generalized cepstral coefficients for given spectrum   *
-*         *
-* usage:        *
-*  sp2mgcep [ options ] [ infile ]>stdout  *
-* options:       *
-*  -a a     :  alapha    [0.35] *
-*  -g g     :  gamma    [0.0] *
-*  -m m     :  order of mel-generalized cepstrum [25] *
-*  -l l     :  frame length   [256] *
-*               -A A     :  Input Amplitude Spectrum format     [0]     *
-*                             0 (20*log|H(z)|)                          *
-*                             1 (ln|H(z)|)                              *
-*                             2 (|H(z)|)                                *
-*  -o o     :  output format  (see stdout)  [0] *
-*  (level 2)      *
-*  -i i     :  minimum iteration   [2] *
-*  -j j     :  maximum iteration   [30] *
-*  -d d     :  end condition   [0.001] *
-*  -e e     :  small value added to periodgram  [0.0] *
-*               -P P     :  Input Power Spectrum                [FALSE] *
-* infile:        *
-*  data sequence      *
-*      , X(0), X(1), ..., X(L-1),    *
-* stdout:        *
-*       output format coefficients    *
-*      0  , c~(0), c~(1), ..., c~(m)  *
-*      1  , b(0), b(1), ..., b(m)   *
-*      2  , K~, c~'(1), ..., c~'(m)  *
-*      3  , K, b'(1), ..., b'(m)   *
-*      4  , K~, g*c~'(1), ..., g*c~'(m)  *
-*      5  , K, g*b'(1), ..., g*b'(m)  *
+*                                                                       *
+*       usage:                                                          *
+*               sp2mgcep [ options ] [ infile ] > stdout                *
+*       options:                                                        *
+*               -a a     :  alapha                            [0.35]    *
+*               -g g     :  gamma                             [0.0]     *
+*               -m m     :  order of mel-generalized cepstrum [25]      *
+*               -l l     :  frame length                      [256]     *
+*               -A A     :  Input Amplitude Spectrum format   [0]       *
+*                    0      (20*log|H(z)|)                              *
+*                    1      (ln|H(z)|)                                  *
+*                    2      (|H(z)|)                                    *
+*               -o o     :  output format  (see stdout)       [0]       *
+*               (level 2)                                               *
+*               -i i     :  minimum iteration                 [2]       *
+*               -j j     :  maximum iteration                 [30]      *
+*               -d d     :  end condition                     [0.001]   *
+*               -e e     :  small value added to periodgram   [0.0]     *
+*               -P P     :  Input Power Spectrum              [FALSE]   *
+*       infile:                                                         *
+*               data sequence                                           *
+*                       , X(0), X(1), ..., X(L-1),                      *
+*       stdout:                                                         *
+*               output format coefficients                              *
+*                    0  , c~(0), c~(1), ..., c~(m)                      *
+*                    1  , b(0), b(1), ..., b(m)                         *
+*                    2  , K~, c~'(1), ..., c~'(m)                       *
+*                    3  , K, b'(1), ..., b'(m)                          *
+*                    4  , K~, g*c~'(1), ..., g*c~'(m)                   *
+*                    5  , K, g*b'(1), ..., g*b'(m)                      *
 *       notice:                                                         *
-*               if g>1.0, g = -1 / g .                                *
-* require:       *
-*  mgcep()       *
-*         *
+*               if g>1.0, g = -1 / g .                                  *
+*       require:                                                        *
+*               mgcep()                                                 *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sp2mgc.c,v 1.2 2007/09/07 17:27:19 heigazen Exp $";
+static char *rcs_id = "$Id: sp2mgc.c,v 1.3 2007/09/10 12:49:21 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -110,7 +110,7 @@ void usage (int status)
    fprintf(stderr, " %s - transform spectrum to mel-generalized cepstrum\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : alpha                             [%g]\n", ALPHA);
    fprintf(stderr, "       -g g  : gamma                             [%g]\n", GAMMA);

@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-*         *
-*    Interpolation       *
-*         *
-*     1996.4  K.Koishida  *
-*         *
-* usage:        *
-*  interpolate [ options ] [ infile ]>stdout  *
-* options:       *
-*  -p p     :  interpolation period [10]  *
-*  -s s     :  start sample  [0]  *
-* infile:        *
-*  data sequence      *
-*      , x(0), x(1), ...     *
-* stdout:        *
-*  decimated data      *
-*      , 0, ..., 0, x(0), 0, ..., x(1), 0, ...,  *
-*        ---------  ------------- -------------  *
-*           s-1           p            p   *
+*                                                                       *
+*    Interpolation                                                      *
+*                                                                       *
+*                                            1996.4  K.Koishida         *
+*                                                                       *
+*       usage:                                                          *
+*               interpolate [ options ] [ infile ] > stdout             *
+*       options:                                                        *
+*               -p p     :  interpolation period   [10]                 *
+*               -s s     :  start sample           [0]                  *
+*       infile:                                                         *
+*               data sequence                                           *
+*                        , x(0), x(1), ...                              *
+*       stdout:                                                         *
+*               decimated data                                          *
+*                        , 0, ..., 0, x(0), 0, ..., x(1), 0, ...,       *
+*        ---------  ------------- -------------                         *
+*                        s-1           p            p                   *
 ************************************************************************/
 
-static char *rcs_id = "$Id: interpolate.c,v 1.7 2007/08/07 05:01:37 heigazen Exp $";
+static char *rcs_id = "$Id: interpolate.c,v 1.8 2007/09/10 12:49:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -83,7 +83,7 @@ void usage (int status)
    fprintf(stderr, " %s - interpolation \n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -p p  : interpolation period [%d]\n", PERIOD);
    fprintf(stderr, "       -s s  : start sample         [%d]\n", START);

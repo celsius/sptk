@@ -38,28 +38,28 @@
 */
 
 /************************************************************************
-*         *
-*    Calculation of Root Mean Squared Error    *
-*         *
-*     1996.3  K.Koishida  *
-*         *
-* usage:        *
-*  rmse [ options ] [ infile ]>stdout   *
-* options:       *
-*  -l l     :  frame length [entire data]  *
-*       if l>0, calculate rmse frame by frame *
-* infile:        *
-*  data sequence      *
-*      , x(0), x(1), ..., x(l-1),    *
-* stdout:        *
-*  rmse       *
-*      , x(0)+x(1)...+x(l-1)/l    *
-* require:       *
-*  rmse()       *
-*         *
+*                                                                       *
+*    Calculation of Root Mean Squared Error                             *
+*                                                                       *
+*                                     1996.3  K.Koishida                *
+*                                                                       *
+*       usage:                                                          *
+*               rmse [ options ] [ infile ] > stdout                    *
+*       options:                                                        *
+*               -l l     :  frame length [entire data]                  *
+*               if l>0, calculate rmse frame by frame                   *
+*       infile:                                                         *
+*               data sequence                                           *
+*                       , x(0), x(1), ..., x(l-1),                      *
+*       stdout:                                                         *
+*               rmse                                                    *
+*                       , x(0)+x(1)...+x(l-1)/l                         *
+*       require:                                                        *
+*               rmse()                                                  *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: rmse.c,v 1.8 2007/08/07 05:05:39 heigazen Exp $";
+static char *rcs_id = "$Id: rmse.c,v 1.9 2007/09/10 12:49:25 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -84,7 +84,7 @@ void usage (int status)
    fprintf(stderr, " %s - calculation of root mean squared error\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] file1 [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] file1 [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "      -l l  : frame length       [%d]\n", LENG);
    fprintf(stderr, "      -h    : print this message\n");

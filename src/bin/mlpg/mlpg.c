@@ -37,34 +37,34 @@
  ----------------------------------------------------------------
 */
 
-/************************************************************************************************
-*            *
-*    ML-based Parameter Generation from PDFs        *
-*            *
-*         2000.4  T.Masuko *
-*            *
-* usage:           *
-*  mlpg [ options ] [infile]>stdout      *
-* options:          *
-*  -m m              : order of vector                              [25]  *
-*  -l l              : length of vector                             [m-1]  *
-*  -d fn             : filename of delta coefficients               [N/A]  *
-*  -d coef [coef...] : delta coefficients                           [N/A]  *
-*  -r n w1 [w2]      : number and width of regression coefficients  [N/A]  *
-*  -i i              : type of input PDFs                           [0]  *
-*  -s s              : range of influenced frames                   [30]  *
-*  -h                : print this message      *
-* infile:           *
-*  PDF sequence         *
-*  ex.) , m(0), m(1), ..., m((m+1)*d-1),     *
-*     U(0), U(1), ..., U((m+1)*d-1),     *
-* stdout:           *
-*  parameter sequence        *
-*   , c(0), c(1), ..., c_1(m),      *
-*            *
-************************************************************************************************/
+/****************************************************************************************
+*                                                                                       *
+*    ML-based Parameter Generation from PDFs                                            *
+*                                                                                       *
+*                                    2000.4  T.Masuko                                   *
+*                                                                                       *
+*       usage:                                                                          *
+*               mlpg [ options ] [infile] > stdout                                      *
+*       options:                                                                        *
+*               -m m              : order of vector                              [25]   *
+*               -l l              : length of vector                             [m-1]  *
+*               -d fn             : filename of delta coefficients               [N/A]  *
+*               -d coef [coef...] : delta coefficients                           [N/A]  *
+*               -r n w1 [w2]      : number and width of regression coefficients  [N/A]  *
+*               -i i              : type of input PDFs                           [0]    *
+*               -s s              : range of influenced frames                   [30]   *
+*               -h                : print this message                                  *
+*       infile:                                                                         *
+*              PDF sequence                                                             *
+*              ex.)   , m(0), m(1), ..., m((m+1)*d-1),                                  *
+*                     U(0), U(1), ..., U((m+1)*d-1),                                    *
+*       stdout:                                                                         *
+*              parameter sequence                                                       *
+*                     , c(0), c(1), ..., c_1(m),                                        *
+*                                                                                       *
+****************************************************************************************/
 
-static char *rcs_id = "$Id: mlpg.c,v 1.10 2007/08/07 05:01:39 heigazen Exp $";
+static char *rcs_id = "$Id: mlpg.c,v 1.11 2007/09/10 12:49:26 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -164,7 +164,7 @@ void usage (int status)
    fprintf(stderr, " %s - obtain parameter sequence from PDF sequence\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [infile]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [infile] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m              : order of vector                              [%d]\n", ORDER);
    fprintf(stderr, "       -l l              : length of vector                             [m+1]\n");
@@ -225,7 +225,7 @@ int main (int argc, char **argv)
          case 'd':
             if (pst.dw.calccoef==1) {
                fprintf(stderr, "Options '-r' and '-d' should not be defined simultaneously.\n");
-               exit(1);
+               return(1);
             }
             pst.dw.calccoef = 0;
             if (isfloat(*++argv)) {
@@ -253,18 +253,18 @@ int main (int argc, char **argv)
          case 'r':
             if (pst.dw.calccoef==0) {
                fprintf(stderr, "Options '-r' and '-d' should not be defined simultaneously.\n");
-               exit(1);
+               return(1);
             }
             pst.dw.calccoef = 1;
             coeflen = atoi(*++argv);
             --argc;
             if ((coeflen!=1) && (coeflen!=2)) {
                fprintf(stderr, "Number of delta parameter should be 1 or 2\n");
-               exit(1);
+               return(1);
             }
             if (argc <= 1) {
                fprintf(stderr, "Window size for delta parameter required.\n");
-               exit(1);
+               return(1);
             }
             pst.dw.fn[pst.dw.num] = *++argv;
             pst.dw.num++;
@@ -272,7 +272,7 @@ int main (int argc, char **argv)
             if (coeflen==2) {
                if (argc <= 1) {
                   fprintf(stderr, "Window size for delta-delta parameter required.\n");
-                  exit(1);
+                  return(1);
                }
                pst.dw.fn[pst.dw.num] = *++argv;
                pst.dw.num++;
@@ -305,7 +305,7 @@ int main (int argc, char **argv)
       else
          if ((pdffp = fopen(*argv, "r"))==NULL) {
             fprintf(stderr, "%s: Can't open '%s'!\n", cmnd, *argv);
-            exit(2);
+            return(2);
          }
    }
 

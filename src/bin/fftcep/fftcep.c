@@ -38,34 +38,34 @@
 */
 
 /************************************************************************
-*									*
-*    FFT Cepstral Analysis						*
-*									*
-*					1985.11 K.Tokuda		*
-*					1996.3  K.Koishida		*
-*									*
-*	usage:								*
-*		fftcep [ options ] [ infile ] > stdout			*
-*	options:							*
-*		-m  m    :  order of cepstrum				*
-*		-l  l    :  frame length				*
-*		-j  j    :  number of iteration				*
-*		-k  k    :  accelation factor				*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ..., x(l-1),				*
-*	stdout:								*
-*		cepstral coefficients					*
-*		    , c(0), c(1), ..., c(m),				*
-*	require:							*
-*		fftcep()						*
-*	note:								*
-*		When -j & -k options are specified,			*
-*		improved cepstral analysis is performed.		* 
-*									*
+*                                                                       *
+*    FFT Cepstral Analysis                                              *
+*                                                                       *
+*                                       1985.11 K.Tokuda                *
+*                                       1996.3  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               fftcep [ options ] [ infile ] > stdout                  *
+*       options:                                                        *
+*               -m  m    :  order of cepstrum                           *
+*               -l  l    :  frame length                                *
+*               -j  j    :  number of iteration                         *
+*               -k  k    :  accelation factor                           *
+*       infile:                                                         *
+*               data sequence                                           *
+*                   , x(0), x(1), ..., x(l-1),                          *
+*       stdout:                                                         *
+*               cepstral coefficients                                   *
+*                   , c(0), c(1), ..., c(m),                            *
+*       require:                                                        *
+*               fftcep()                                                *
+*       note:                                                           *
+*               When -j & -k options are specified,                     *
+*               improved cepstral analysis is performed.                * 
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftcep.c,v 1.10 2007/07/24 05:39:47 heigazen Exp $";
+static char *rcs_id = "$Id: fftcep.c,v 1.11 2007/09/10 12:49:32 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

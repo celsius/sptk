@@ -38,25 +38,25 @@
 */
 
 /************************************************************************
-*         *
-*    Reverse the order of Data in Each Block    *
-*         *
-*     1993.7 K.Tokuda  *
-*     1996.1 N.miyazaki modified *
-*         *
-* usage:        *
-*  reverse [ options ] [ infile ]>stdout   *
-* options:       *
-*  -l l  : block length  [whole file]  *
-*  -n n  : block length - 1 [whole file]  *
-* infile:        *
-*  x0, x1, ..., xN, (real)     *
-* stdout:        *
-*  xN, ..., x1, x0, (real)     *
-*         *
+*                                                                       *
+*    Reverse the order of Data in Each Block                            *
+*                                                                       *
+*                                        1993.7 K.Tokuda                *
+*                                        1996.1 N.miyazaki modified     *
+*                                                                       *
+*       usage:                                                          *
+*               reverse [ options ] [ infile ] > stdout                 *
+*       options:                                                        *
+*               -l l  : block length  [whole file]                      *
+*               -n n  : block length - 1 [whole file]                   *
+*       infile:                                                         *
+*                       x0, x1, ..., xN, (real)                         *
+*       stdout:                                                         *
+*                       xN, ..., x1, x0, (real)                         *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: reverse.c,v 1.8 2007/08/07 05:05:40 heigazen Exp $";
+static char *rcs_id = "$Id: reverse.c,v 1.9 2007/09/10 12:49:30 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -81,7 +81,7 @@ void usage (void)
    fprintf(stderr, " %s - reverse the order of data in each block\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : block length       [whole file]\n");
    fprintf(stderr, "       -n n  : block length-1     [whole file]\n");
@@ -139,7 +139,7 @@ int main (int argc,char *argv[])
    if (l>MAX) {
       fprintf(stderr,
               "%s : -l L should be L <= %d !\n", cmnd, l_max);
-      exit(1);
+      return(1);
    }
 
    max = (l<0) ? MAX : l;

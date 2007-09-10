@@ -38,39 +38,39 @@
 */
 
 /************************************************************************
-*									*
-*    Adaptive Generalized Cepstral Analysis				*
-*									*
-*					1991.11 K.Tokuda		*
-*					1996.1  K.Koishida		*
-*									*
-*	usage:								*
-*		agcep [ options ] [ pefile ] < stdin > stdout		*
-*	options:							*
-*		-m m     :  order of generalized cepstrum	[25]	*
-*		-g g     :  -1 / gamma				[1]	*
-*		-l l     :  leakage factor			[0.98]	*
-*		-t t     :  momentum constant			[0.9]	*
-*		-k k     :  step size				[0.1]	*
-*		-p p     :  output period of cepstrum		[1]	*
-*		-s       :  smooth (average) cepstrum		[FALSE]	*
-*		-n       :  output normalized cepstrum 		[FALSE]	*
-*		-e e	 :  minimum value for epsilon		[0.0]	*
-*	infile:								*
-*		data sequence						*
-*		    , x(0), x(1), ...	 				*
-*	stdout:								*
-*		generalized cepstrum					*
-*		    , c(0), c(1), ..., c(m),				*
-*	output:								*
-*		prediction error (if pefile is specified)		*
-*		    , e(0), e(1), ...					*
-*	require:							*
-*		iglsadf1(), ignorm()					*
-*									*
+*                                                                       *
+*    Adaptive Generalized Cepstral Analysis                             *
+*                                                                       *
+*                                       1991.11 K.Tokuda                *
+*                                       1996.1  K.Koishida              *
+*                                                                       *
+*       usage:                                                          *
+*               agcep [ options ] [ pefile ] < stdin > stdout           *
+*       options:                                                        *
+*               -m m     :  order of generalized cepstrum        [25]   *
+*               -g g     :  -1 / gamma                           [1]    *
+*               -l l     :  leakage factor                       [0.98] *
+*               -t t     :  momentum constant                    [0.9]  *
+*               -k k     :  step size                            [0.1]  *
+*               -p p     :  output period of cepstrum            [1]    *
+*               -s       :  smooth (average) cepstrum            [FALSE]*
+*               -n       :  output normalized cepstrum           [FALSE]*
+*               -e e     :  minimum value for epsilon            [0.0]  *
+*       infile:                                                         *
+*               data sequence                                           *
+*                   , x(0), x(1), ...                                   *
+*       stdout:                                                         *
+*               generalized cepstrum                                    *
+*                   , c(0), c(1), ..., c(m),                            *
+*       output:                                                         *
+*               prediction error (if pefile is specified)               *
+*                   , e(0), e(1), ...                                   *
+*       require:                                                        *
+*               iglsadf1(), ignorm()                                    *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: agcep.c,v 1.11 2007/09/10 02:48:32 heigazen Exp $";
+static char *rcs_id = "$Id: agcep.c,v 1.12 2007/09/10 12:49:20 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -223,12 +223,12 @@ int main (int argc, char **argv)
       x = iglsadf1(x, c, m, stage, d);
 
       movem(d+(stage-1)*m, eg, sizeof(*d), m);
-	
+   
       gg = lambda * gg  + ll*eg[0]*eg[0];
       gg = (gg<eps) ? eps : gg;
       mu = step / gg;
       ttx = tt * x;
-	
+   
       for (i=1; i<=m; i++) {
          ep[i] = tau * ep[i] - ttx * eg[i];
          c[i] -= mu * ep[i];
@@ -243,7 +243,7 @@ int main (int argc, char **argv)
 
       if (fpe!=NULL)
          fwritef(&x, sizeof(x), 1, fpe);
-	
+   
       if (--j==0) {
          j = period;
          if (ave) {
@@ -262,5 +262,5 @@ int main (int argc, char **argv)
             fwritef(c, sizeof(*c), m+1, stdout);
       }
    }
-   exit(0);
+   return(0);
 }

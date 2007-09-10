@@ -49,10 +49,10 @@
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be real                             *
-*									                                             *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: acorr.c,v 1.11 2007/09/10 02:48:32 heigazen Exp $";
+static char *rcs_id = "$Id: acorr.c,v 1.12 2007/09/10 12:49:27 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -62,8 +62,8 @@ static char *rcs_id = "$Id: acorr.c,v 1.11 2007/09/10 02:48:32 heigazen Exp $";
 #include <SPTK.h>
 
 /* Default Values */
-#define LENG	256
-#define ORDER	25
+#define LENG   256
+#define ORDER   25
 
 #ifdef DOUBLE
 char *FORMAT = "double";
@@ -72,7 +72,7 @@ char *FORMAT = "float";
 #endif /* DOUBLE */
 
 /* Command Name  */
-char	*cmnd;
+char   *cmnd;
 
 
 void usage (int status)
@@ -94,7 +94,7 @@ void usage (int status)
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
-#endif		
+#endif      
    fprintf(stderr, "\n");
    exit(status);
 }
@@ -146,5 +146,5 @@ int main (int argc, char **argv)
       acorr(x,l,r,np);
       fwritef(r, sizeof(*r), np + 1, stdout);
    }
-   exit(0);	
+   return(0);   
 }

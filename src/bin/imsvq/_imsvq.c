@@ -39,18 +39,18 @@
 
 /****************************************************************
 
-    $Id: _imsvq.c,v 1.6 2007/08/07 05:01:38 heigazen Exp $
+    $Id: _imsvq.c,v 1.7 2007/09/10 12:49:26 heigazen Exp $
 
     Decoder of Multi Stage Vector Quantization
 
- imsvq(index, cb, l, cbsize, stage, x)
+        imsvq(index, cb, l, cbsize, stage, x)
 
- int    *index  : index of codebook
- real   *cb     : codebook vector
- int    l       : order of vector
- int    *cbsize : size of codebook
- int    stage   : number of stage
- real   *x      : decoded vector
+        int    *index  : index of codebook
+        real   *cb     : codebook vector
+        int    l       : order of vector
+        int    *cbsize : size of codebook
+        int    stage   : number of stage
+        real   *x      : decoded vector
 
 *****************************************************************/
 

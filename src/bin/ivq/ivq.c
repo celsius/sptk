@@ -38,27 +38,27 @@
 */
 
 /************************************************************************
-*         *
-*     Decoder of Vector Quantization     *
-*         *
-*     1996.1  K.Koishida  *
-*         *
-* usage:        *
-*  ivq [ options ] [ cbfile ] [ infile ]>stdout  *
-* options:       *
-*  -l l      :  length of vector      [26]  *
-*  -n n      :  order of vector      [25]  *
-* infile:        *
-*  codebook index (int)     *
-* stdout:        *
-*  quantized vector     *
-*      x'(0), x'(1), ..., x'(l-1),    *
-* require:       *
-*  ivq()       *
-*         *
+*                                                                       *
+*     Decoder of Vector Quantization                                    *
+*                                                                       *
+*                                                1996.1  K.Koishida     *
+*                                                                       *
+*        usage:                                                         *
+*                ivq [ options ] [ cbfile ] [ infile ] > stdout         *
+*        options:                                                       *
+*                -l l      :  length of vector      [26]                *
+*                -n n      :  order of vector       [25]                *
+*        infile:                                                        *
+*                codebook index (int)                                   *
+*        stdout:                                                        *
+*                quantized vector                                       *
+*                         x'(0), x'(1), ..., x'(l-1),                   *
+*        require:                                                       *
+*                ivq()                                                  *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ivq.c,v 1.6 2007/08/07 05:01:37 heigazen Exp $";
+static char *rcs_id = "$Id: ivq.c,v 1.7 2007/09/10 12:49:26 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -83,7 +83,7 @@ void usage (int status)
    fprintf(stderr, " %s - decoder of vector quantization \n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] cbfile [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] cbfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length of vector   [%d]\n", LENG);
    fprintf(stderr, "       -n n  : order of vector    [%d]\n", LENG-1);
@@ -154,7 +154,7 @@ int main (int argc, char **argv)
 
    if (freadf(cb, sizeof(*cb), cbsize*l, fpcb)!=cbsize*l) {
       fprintf(stderr,"%s : Codebook size error !\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    while (fread(&index, sizeof(index), 1, fp)==1) {

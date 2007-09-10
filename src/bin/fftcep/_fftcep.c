@@ -39,18 +39,18 @@
 
 /****************************************************************
 
-    $Id: _fftcep.c,v 1.5 2007/07/24 05:39:47 heigazen Exp $
+    $Id: _fftcep.c,v 1.6 2007/09/10 12:49:32 heigazen Exp $
 
     FFT Cepstral Analysis
 
-   	void fftcep(sp, flng, c, m, itr, ac);
+        void fftcep(sp, flng, c, m, itr, ac);
 
-	double *sp  : log power spectrum
-	int    flng : frame length
-	double *c   : cepstral coefficients
-	int    m    : order of cepstrum
-	int    itr  : number of iteration
-	double ac   : accelation factor
+        double *sp  : log power spectrum
+        int    flng : frame length
+        double *c   : cepstral coefficients
+        int    m    : order of cepstrum
+        int    itr  : number of iteration
+        double ac   : accelation factor
 
 ******************************************************************/
 

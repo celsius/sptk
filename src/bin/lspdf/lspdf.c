@@ -38,33 +38,33 @@
 */
 
 /************************************************************************
-*         *
-*    LSP Speech Synthesis Digital Filter    *
-*         *
-*     1996.9  K.Koishida  *
-*         *
-* usage:        *
-*  lspdf [ options ] [ infile ]>stdout   *
-* options:       *
-*  -m m     :  order of coefficients [25]  *
-*  -p p     :  frame period  [100]  *
-*  -i i     :  interpolation period [1]  *
-*  -k  :  filtering without gain      [FALSE]  *
-* infile:        *
-*  coefficients      *
-*      , K, f(1), ..., f(m),    *
-*  excitation sequence     *
-*      , x(0), x(1), ...,      *
-* stdout:        *
-*  filtered sequence     *
-*      , y(0), y(1), ...,     *
-* require:       *
-*  lspdf_even()      *
-*  lspdf_odd()      *
-*         *
+*                                                                       *
+*    LSP Speech Synthesis Digital Filter                                *
+*                                                                       *
+*                                      1996.9  K.Koishida               *
+*                                                                       *
+*       usage:                                                          *
+*               lspdf [ options ] [ infile ]>stdout                     *
+*       options:                                                        *
+*               -m m     :  order of coefficients   [25]                *
+*               -p p     :  frame period            [100]               *
+*               -i i     :  interpolation period    [1]                 *
+*               -k  :  filtering without gain       [FALSE]             *
+*       infile:                                                         *
+*               coefficients                                            *
+*                       , K, f(1), ..., f(m),                           *
+*               excitation sequence                                     *
+*                       , x(0), x(1), ...,                              *
+*       stdout:                                                         *
+*               filtered sequence                                       *
+*                       , y(0), y(1), ...,                              *
+*       require:                                                        *
+*               lspdf_even()                                            *
+*               lspdf_odd()                                             *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspdf.c,v 1.8 2007/09/04 13:39:08 heigazen Exp $";
+static char *rcs_id = "$Id: lspdf.c,v 1.9 2007/09/10 12:49:23 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -93,7 +93,7 @@ void usage (int status)
    fprintf(stderr, " %s - LSP speech synthesis digital filter\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] lspfile [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] lspfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of coefficients         [%d]\n", ORDER);
    fprintf(stderr, "       -p p  : frame period                  [%d]\n", FPERIOD);
@@ -102,7 +102,7 @@ void usage (int status)
    fprintf(stderr, "       -l    : regard input gain as log gain [%s]\n", BOOL[LOGGAIN]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       filter input (float)           [stdin]\n");
+   fprintf(stderr, "       filter input (float)                  [stdin]\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       filter output (float)\n");
    fprintf(stderr, "  lspfile:\n");
@@ -165,7 +165,7 @@ int main (int argc, char **argv)
 
    if (fpc==NULL) {
       fprintf(stderr,"%s : Cannot open LSP file!\n",cmnd);
-      exit(1);
+      return(1);
    }
 
    if (m % 2==0) flag_odd = 0;
@@ -176,16 +176,16 @@ int main (int argc, char **argv)
    inc = cc + m + 1;
    d   = inc+ m + 1;
 
-   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) exit(1);
+   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
 
    for (;;) {
-      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) exit(0);
+      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
 
       for (i=0; i<=m; i++)
          inc[i] = (cc[i] - c[i])*iprd / fprd;
 
       for (j=fprd, i=(iprd+1)/2; j--;) {
-         if (freadf(&x, sizeof(x), 1, fp)!=1) exit(0);
+         if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
          if (!ngain) {
             if (loggain)
@@ -207,6 +207,6 @@ int main (int argc, char **argv)
       }
       movem(cc, c, sizeof(*cc), m+1);
    }
-   exit(0);
+   return(0);
 }
 
