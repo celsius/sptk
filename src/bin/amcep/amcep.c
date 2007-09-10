@@ -93,6 +93,11 @@ static char *rcs_id = "$Id$";
 #define PADEORDER 4
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char*cmnd;
@@ -116,21 +121,12 @@ void usage (int status)
    fprintf(stderr, "       -e e  : minimum value for epsilon     [%g]\n", EPS);
    fprintf(stderr, "       -P P  : order of pade approximation   [%d]\n", PADEORDER);
    fprintf(stderr, "       -h    : print this message\n");
-#ifdef DOUBLE
    fprintf(stderr, "  stdin:\n");
-   fprintf(stderr, "       data sequence (double)\n");
+   fprintf(stderr, "       data sequence (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       mel-cepstrum (double)\n");
+   fprintf(stderr, "       mel-cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  pefile:\n");
-   fprintf(stderr, "       prediction error (double)\n");
-#else
-   fprintf(stderr, "  stdin:\n");
-   fprintf(stderr, "       data sequence (float)\n");
-   fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       mel-cepstrum (float)\n");
-   fprintf(stderr, "  pefile:\n");
-   fprintf(stderr, "       prediction error (float)\n");
-#endif /* DOUBLE */
+   fprintf(stderr, "       prediction error (%s)\n", FORMAT);
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       P = 4 or 5\n");
 #ifdef SPTK_VERSION

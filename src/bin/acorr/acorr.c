@@ -65,6 +65,11 @@ static char *rcs_id = "$Id$";
 #define LENG	256
 #define ORDER	25
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /* Command Name  */
 char	*cmnd;
@@ -81,17 +86,10 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of sequence  [%d]\n", ORDER);
    fprintf(stderr, "       -l l  : frame length       [%d]\n", LENG);
    fprintf(stderr, "       -h    : print this message\n");
-#ifdef DOUBLE
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (double)     [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       autocorrelation sequence (double)\n");
-#else
-   fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)      [stdin]\n");
-   fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       autocorrelation sequence (float)\n");
-#endif /* DOUBLE */
+   fprintf(stderr, "       autocorrelation sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

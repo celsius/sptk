@@ -93,6 +93,11 @@ static char *rcs_id = "$Id$";
 #define EPS 0.0
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -116,21 +121,12 @@ void usage (int status)
    fprintf(stderr, "       -n    : output normalized generalized cepstrum [%s]\n", BOOL[NORM]);
    fprintf(stderr, "       -e e  : minimum value for epsilon              [%g]\n", EPS);
    fprintf(stderr, "       -h    : print this message\n");
-#ifdef DOUBLE
    fprintf(stderr, "  stdin:\n");
-   fprintf(stderr, "       data sequence (double)\n");
+   fprintf(stderr, "       data sequence (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       generalized cepstrum (double)\n");
+   fprintf(stderr, "       generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  pefile:\n");
-   fprintf(stderr, "       prediction error (double)\n");
-#else
-   fprintf(stderr, "  stdin:\n");
-   fprintf(stderr, "       data sequence (float)\n");
-   fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       generalized cepstrum (float)\n");
-   fprintf(stderr, "  pefile:\n");
-   fprintf(stderr, "       prediction error (float)\n");
-#endif /* DOUBLE */
+   fprintf(stderr, "       prediction error (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
