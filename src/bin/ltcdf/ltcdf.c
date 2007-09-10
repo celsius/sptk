@@ -64,7 +64,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ltcdf.c,v 1.8 2007/09/10 12:49:20 heigazen Exp $";
+static char *rcs_id = "$Id: ltcdf.c,v 1.9 2007/09/10 18:10:53 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -81,6 +81,11 @@ static char *rcs_id = "$Id: ltcdf.c,v 1.8 2007/09/10 12:49:20 heigazen Exp $";
 #define NGAIN FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -100,11 +105,11 @@ void usage (int status)
    fprintf(stderr, "       -k    : filtering without gain [%s]\n", BOOL[NGAIN]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       filter input (float)           [stdin]\n");
+   fprintf(stderr, "       filter input (%s)           [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       filter output (float)\n");
+   fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  kfile:\n");
-   fprintf(stderr, "       PARCOR (float)\n");
+   fprintf(stderr, "       PARCOR (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

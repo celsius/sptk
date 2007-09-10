@@ -62,7 +62,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ulaw.c,v 1.8 2007/09/10 12:49:23 heigazen Exp $";
+static char *rcs_id = "$Id: ulaw.c,v 1.9 2007/09/10 18:10:48 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -80,6 +80,11 @@ static char *rcs_id = "$Id: ulaw.c,v 1.8 2007/09/10 12:49:23 heigazen Exp $";
 #define DECODER  FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -99,9 +104,9 @@ void usage (int status)
    fprintf(stderr, "       -d    : decoder mode        [%s]\n", BOOL[DECODER]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       input sequence      (float) [stdin]\n");
+   fprintf(stderr, "       input sequence      (%s) [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       compressed sequence (float)\n");
+   fprintf(stderr, "       compressed sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: smcep.c,v 1.10 2007/09/10 12:49:25 heigazen Exp $";
+static char *rcs_id = "$Id: smcep.c,v 1.11 2007/09/10 18:10:51 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -89,6 +89,11 @@ static char *rcs_id = "$Id: smcep.c,v 1.10 2007/09/10 12:49:25 heigazen Exp $";
 #define END    0.001
 #define EPS    0.0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -114,9 +119,9 @@ void usage (int status)
    fprintf(stderr, "       -d d  : end condition                    [%g]\n", END);
    fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n",EPS);
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       windowed sequences (float)    [stdin]\n");
+   fprintf(stderr, "       windowed sequences (%s)    [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       mel-cepstrum (float)\n");
+   fprintf(stderr, "       mel-cepstrum (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

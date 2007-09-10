@@ -59,7 +59,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: extract.c,v 1.8 2007/09/10 12:49:32 heigazen Exp $";
+static char *rcs_id = "$Id: extract.c,v 1.9 2007/09/10 18:10:49 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -74,6 +74,11 @@ static char *rcs_id = "$Id: extract.c,v 1.8 2007/09/10 12:49:32 heigazen Exp $";
 #define INDEX 0
 #define SIZE 256
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -91,9 +96,9 @@ void usage (int status)
    fprintf(stderr, "       -i i  : codebook index     [%d]\n", INDEX);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)      [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       extracted vector (float)\n");
+   fprintf(stderr, "       extracted vector (%s)\n", FORMAT);
    fprintf(stderr, "  ifile:\n");
    fprintf(stderr, "       indexfile (int)\n");
 #ifdef SPTK_VERSION

@@ -58,7 +58,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: clip.c,v 1.8 2007/09/10 12:49:19 heigazen Exp $";
+static char *rcs_id = "$Id: clip.c,v 1.9 2007/09/10 18:10:35 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -74,9 +74,15 @@ static char *rcs_id = "$Id: clip.c,v 1.8 2007/09/10 12:49:19 heigazen Exp $";
 #define YMIN -1.0
 #define YMAX 1.0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;
+
 
 void usage (int status)
 {
@@ -91,9 +97,9 @@ void usage (int status)
    fprintf(stderr, "       -ymax ymax      : upper bound (ymin = -inf) [N/A]\n");
    fprintf(stderr, "       -h              : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)                       [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)                       [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       clipped data sequence (float)\n");
+   fprintf(stderr, "       clipped data sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);

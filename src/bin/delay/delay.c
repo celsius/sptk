@@ -58,7 +58,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: delay.c,v 1.12 2007/09/10 12:49:33 heigazen Exp $";
+static char *rcs_id = "$Id: delay.c,v 1.13 2007/09/10 18:10:54 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -73,6 +73,11 @@ static char *rcs_id = "$Id: delay.c,v 1.12 2007/09/10 12:49:33 heigazen Exp $";
 #define KEEP FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -90,9 +95,9 @@ void usage (int status)
    fprintf(stderr, "       -f    : keep file length  [%s]\n", BOOL[KEEP]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)     [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)     [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       delayed data sequence (float)\n");
+   fprintf(stderr, "       delayed data sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);

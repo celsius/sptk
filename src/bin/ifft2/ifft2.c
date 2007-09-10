@@ -60,7 +60,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft2.c,v 1.8 2007/09/10 12:49:30 heigazen Exp $";
+static char *rcs_id = "$Id: ifft2.c,v 1.9 2007/09/10 18:10:49 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -70,6 +70,11 @@ static char *rcs_id = "$Id: ifft2.c,v 1.8 2007/09/10 12:49:30 heigazen Exp $";
 
 static int size=64, outopt=0, out=' ', is_fftr=0;
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 static char *cmnd;
@@ -92,9 +97,9 @@ int usage(void)
    fprintf(stderr, "       -I    : output imaginary part\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)         [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)         [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       IFFT sequence (float)\n");
+   fprintf(stderr, "       IFFT sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);

@@ -58,7 +58,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sin.c,v 1.9 2007/09/10 12:49:30 heigazen Exp $";
+static char *rcs_id = "$Id: sin.c,v 1.10 2007/09/10 18:10:41 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -74,6 +74,11 @@ static char *rcs_id = "$Id: sin.c,v 1.9 2007/09/10 12:49:30 heigazen Exp $";
 #define PERIOD    10.0
 #define MAGNITUDE 1.0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -92,7 +97,7 @@ void usage (int status)
    fprintf(stderr, "       -m m  : magnitude          [%g]\n", MAGNITUDE);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       sinusoidal sequence (float)\n");
+   fprintf(stderr, "       sinusoidal sequence (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if l<0, generate infinite sequence\n");
 #ifdef SPTK_VERSION

@@ -60,7 +60,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ignorm.c,v 1.8 2007/09/10 12:49:26 heigazen Exp $";
+static char *rcs_id = "$Id: ignorm.c,v 1.9 2007/09/10 18:10:52 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -74,6 +74,11 @@ static char *rcs_id = "$Id: ignorm.c,v 1.8 2007/09/10 12:49:26 heigazen Exp $";
 #define GAMMA 0.0
 #define ORDER 25
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -91,9 +96,9 @@ void usage (int status)
    fprintf(stderr, "       -g g  : gamma                           [%g]\n", GAMMA);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       normalized generalized cepstrum (float) [stdin]\n");
+   fprintf(stderr, "       normalized generalized cepstrum (%s) [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       generalized cepstrum (float)\n");
+   fprintf(stderr, "       generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if g > 1.0, g = -1 / g \n");
 #ifdef SPTK_VERSION

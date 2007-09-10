@@ -51,7 +51,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vsum.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $";
+static char *rcs_id = "$Id: vsum.c,v 1.9 2007/09/10 18:10:50 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -65,6 +65,11 @@ static char *rcs_id = "$Id: vsum.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $";
 /*  Default Values  */
 #define LENG  1
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -82,9 +87,9 @@ void usage (int status)
    fprintf(stderr, "       -n n   : number of vector   [EOD]\n");
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       vectors (float)             [stdin]\n");
+   fprintf(stderr, "       vectors (%s)             [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       summation of vector (float)\n");
+   fprintf(stderr, "       summation of vector (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

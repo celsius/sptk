@@ -64,7 +64,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: minmax.c,v 1.8 2007/09/10 12:49:31 heigazen Exp $";
+static char *rcs_id = "$Id: minmax.c,v 1.9 2007/09/10 18:10:48 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -82,6 +82,11 @@ static char *rcs_id = "$Id: minmax.c,v 1.8 2007/09/10 12:49:31 heigazen Exp $";
 #define OUTNUM FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;
@@ -101,9 +106,9 @@ void usage (int status)
    fprintf(stderr, "       -d    : output data number [%s]\n",BOOL[OUTNUM]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)      [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       minimum and maximum values (float)\n");
+   fprintf(stderr, "       minimum and maximum values (%s)\n", FORMAT);
    fprintf(stderr, "       or \"values:datanumber,...\" (ascii)\n");
    fprintf(stderr, "       ,if -d option is specified\n");
 #ifdef SPTK_VERSION

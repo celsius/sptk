@@ -77,7 +77,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sp2mgc.c,v 1.3 2007/09/10 12:49:21 heigazen Exp $";
+static char *rcs_id = "$Id: sp2mgc.c,v 1.4 2007/09/10 18:10:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -99,6 +99,11 @@ static char *rcs_id = "$Id: sp2mgc.c,v 1.3 2007/09/10 12:49:21 heigazen Exp $";
 #define END    0.001
 #define EPS    0.0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -136,9 +141,9 @@ void usage (int status)
    fprintf(stderr, "       -e e  : small value added to periodgram   [%g]\n", EPS);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       spectrum sequence (float)                 [stdin]\n");
+   fprintf(stderr, "       spectrum sequence (%s)                 [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       mel-generalized cepstrum (float)\n");
+   fprintf(stderr, "       mel-generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
 #ifdef SPTK_VERSION

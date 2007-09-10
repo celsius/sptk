@@ -58,7 +58,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ivq.c,v 1.7 2007/09/10 12:49:26 heigazen Exp $";
+static char *rcs_id = "$Id: ivq.c,v 1.8 2007/09/10 18:10:52 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -72,6 +72,11 @@ static char *rcs_id = "$Id: ivq.c,v 1.7 2007/09/10 12:49:26 heigazen Exp $";
 #define LENG  26
 #define CBSIZE  256
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -91,9 +96,9 @@ void usage (int status)
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       index (int)                [stdin]\n");
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       quantized vector (float)\n");
+   fprintf(stderr, "       quantized vector (%s)\n", FORMAT);
    fprintf(stderr, "  cbfile:\n");
-   fprintf(stderr, "       codebook (float)\n");
+   fprintf(stderr, "       codebook (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

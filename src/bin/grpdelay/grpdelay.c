@@ -56,7 +56,7 @@
 *       Note that double precision FFT is used.                         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $";
+static char *rcs_id = "$Id: grpdelay.c,v 1.9 2007/09/10 18:10:48 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -69,6 +69,11 @@ static char *rcs_id = "$Id: grpdelay.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $"
 #define SIZE 256
 #define AMRA 0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /* Command Name  */
 char *cmnd;
@@ -87,9 +92,9 @@ void usage (int status)
    fprintf(stderr, "       -a    : ARMA filter\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)       [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)       [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       group delay (float)\n");
+   fprintf(stderr, "       group delay (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);

@@ -65,7 +65,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftcep.c,v 1.11 2007/09/10 12:49:32 heigazen Exp $";
+static char *rcs_id = "$Id: fftcep.c,v 1.12 2007/09/10 18:10:50 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -83,6 +83,11 @@ static char *rcs_id = "$Id: fftcep.c,v 1.11 2007/09/10 12:49:32 heigazen Exp $";
 #define ACCELATION 0.0
 #define EPS 0.0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -103,9 +108,9 @@ void usage(int status)
    fprintf(stderr, "       -e e  : epsilon             [%g]\n", EPS);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       windowed sequence (float)   [stdin]\n");
+   fprintf(stderr, "       windowed sequence (%s)   [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       cepstrum (float)\n");
+   fprintf(stderr, "       cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       When -j & -k options are specified,\n");
    fprintf(stderr, "       improved cepstral analysis is performed.\n");

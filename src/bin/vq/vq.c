@@ -64,7 +64,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vq.c,v 1.7 2007/09/10 12:49:23 heigazen Exp $";
+static char *rcs_id = "$Id: vq.c,v 1.8 2007/09/10 18:10:48 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -80,6 +80,11 @@ static char *rcs_id = "$Id: vq.c,v 1.7 2007/09/10 12:49:23 heigazen Exp $";
 #define QFLAG  FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -98,12 +103,12 @@ void usage (int status)
    fprintf(stderr, "       -q    : output quantized vector [%s]\n", BOOL[QFLAG]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       vectors (float)                 [stdin]\n");
+   fprintf(stderr, "       vectors (%s)                 [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       index (int) or\n");
-   fprintf(stderr, "       quantized vectors (float) if -q option is specified\n");
+   fprintf(stderr, "       quantized vectors (%s) if -q option is specified\n", FORMAT);
    fprintf(stderr, "  cbfile:\n");
-   fprintf(stderr, "       codebook (float)\n");
+   fprintf(stderr, "       codebook (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

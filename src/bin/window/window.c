@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: window.c,v 1.8 2007/09/10 12:49:21 heigazen Exp $";
+static char *rcs_id = "$Id: window.c,v 1.9 2007/09/10 18:10:44 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -83,6 +83,11 @@ static char *rcs_id = "$Id: window.c,v 1.8 2007/09/10 12:49:21 heigazen Exp $";
 #define WINTYPE  BLACKMAN
 #define NORMFLG  1
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char* cmnd;
@@ -111,9 +116,9 @@ int usage (void)
    fprintf(stderr, "                 5 (rectangular)\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)          [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)          [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       windowed data sequence (float)\n");
+   fprintf(stderr, "       windowed data sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

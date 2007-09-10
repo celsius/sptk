@@ -61,7 +61,7 @@
 *                input is assumed to be double                          *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftr2.c,v 1.8 2007/09/10 12:49:22 heigazen Exp $";
+static char *rcs_id = "$Id: fftr2.c,v 1.9 2007/09/10 18:10:47 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -71,6 +71,11 @@ static char *rcs_id = "$Id: fftr2.c,v 1.8 2007/09/10 12:49:22 heigazen Exp $";
 #include <math.h>
 #include <string.h>
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 static char *cmnd;
@@ -97,9 +102,9 @@ int usage (void)
    fprintf(stderr, "       -P        : power\n");
    fprintf(stderr, "       -h        : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)             [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)             [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       FFT sequence (float)\n");
+   fprintf(stderr, "       FFT sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);

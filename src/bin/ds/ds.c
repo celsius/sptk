@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ds.c,v 1.7 2007/09/10 12:49:21 heigazen Exp $";
+static char *rcs_id = "$Id: ds.c,v 1.8 2007/09/10 18:10:44 heigazen Exp $";
 
 /* Standard C Libraries  */
 #include <stdio.h>
@@ -103,6 +103,11 @@ static char *rcs_id = "$Id: ds.c,v 1.7 2007/09/10 12:49:21 heigazen Exp $";
 #define COEF5DN LIB "/lpfcoef.5to2dn"
 
 #define mod(x) ((x) & (RBSIZE -1))
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 static char *cmnd, *coef, *coef1;
 static int start=-1, intrate, decrate, type=STYPE;
@@ -122,9 +127,9 @@ void usage (int status)
    fprintf(stderr, "                52  down sampling by 5:2\n");
    fprintf(stderr, "                54  down sampling by 5:4\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)                [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)                [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       conversioned data sequence (float)\n");
+   fprintf(stderr, "       conversioned data sequence (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       Default LPF coefficients File\n");
    fprintf(stderr, "        2:1 -> %s\n", COEF2_1);

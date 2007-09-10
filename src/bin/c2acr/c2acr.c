@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: c2acr.c,v 1.11 2007/09/10 12:49:31 heigazen Exp $";
+static char *rcs_id = "$Id: c2acr.c,v 1.12 2007/09/10 18:10:46 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -76,6 +76,11 @@ static char *rcs_id = "$Id: c2acr.c,v 1.11 2007/09/10 12:49:31 heigazen Exp $";
 #define ORDERR 25
 #define FLENG 256
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -94,9 +99,9 @@ void usage (int status)
    fprintf(stderr, "       -l l  : FFT length               [%d]\n", FLENG);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       cepstrum (float)                 [stdin]\n");
+   fprintf(stderr, "       cepstrum (%s)                 [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       autocorrelation (float)\n");
+   fprintf(stderr, "       autocorrelation (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

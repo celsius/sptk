@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.15 2007/09/10 12:49:22 heigazen Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.16 2007/09/10 18:10:45 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -94,6 +94,11 @@ static char *rcs_id = "$Id: pitch.c,v 1.15 2007/09/10 12:49:22 heigazen Exp $";
 #define MAXITR 30
 #define END    0.1
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -122,9 +127,9 @@ void usage (int status)
    fprintf(stderr, "       -d d  : end condition                   [%g]\n", END);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       windowed sequence (float)             [stdin]\n");
+   fprintf(stderr, "       windowed sequence (%s)             [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       pitch (float)\n");
+   fprintf(stderr, "       pitch (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

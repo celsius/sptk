@@ -59,7 +59,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vopr.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $";
+static char *rcs_id = "$Id: vopr.c,v 1.9 2007/09/10 18:10:49 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -76,6 +76,11 @@ static char *rcs_id = "$Id: vopr.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $";
 #define INV  FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -99,9 +104,9 @@ void usage (int status)
    fprintf(stderr, "       -ATAN2 : atan2          atan2(b,a)\n");
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data vectors (float)                     [stdin]\n");
+   fprintf(stderr, "       data vectors (%s)                     [stdin]\n", FORMAT);
    fprintf(stderr, "  file1:\n");
-   fprintf(stderr, "       data vectors (float)\n");
+   fprintf(stderr, "       data vectors (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       data vectors after operations (float)\n");
    fprintf(stderr, "  note:\n");

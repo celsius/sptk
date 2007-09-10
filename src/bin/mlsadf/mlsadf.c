@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mlsadf.c,v 1.10 2007/09/10 12:49:31 heigazen Exp $";
+static char *rcs_id = "$Id: mlsadf.c,v 1.11 2007/09/10 18:10:46 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -91,6 +91,11 @@ static char *rcs_id = "$Id: mlsadf.c,v 1.10 2007/09/10 12:49:31 heigazen Exp $";
 #define INVERSE   FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -114,11 +119,11 @@ void usage (int status)
    fprintf(stderr, "       -v    : inverse filter               [%s]\n", BOOL[INVERSE]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       filter input (float)                 [stdin]\n");
+   fprintf(stderr, "       filter input (%s)                 [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       filter output (float)\n");
+   fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  mcfile:\n");
-   fprintf(stderr, "       mel-cepstrum (float)\n");
+   fprintf(stderr, "       mel-cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       P = 4 or 5 \n");
 #ifdef SPTK_VERSION

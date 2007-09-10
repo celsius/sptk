@@ -56,7 +56,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nrand.c,v 1.8 2007/09/10 12:49:25 heigazen Exp $";
+static char *rcs_id = "$Id: nrand.c,v 1.9 2007/09/10 18:10:52 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -71,6 +71,11 @@ static char *rcs_id = "$Id: nrand.c,v 1.8 2007/09/10 12:49:25 heigazen Exp $";
 #define LENG 256
 #define SEED 1
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -88,7 +93,7 @@ void usage (void)
    fprintf(stderr, "       -s s  : seed for nrand     [%d]\n",SEED);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       random values (float)\n");
+   fprintf(stderr, "       random values (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if l<0, generate infinite sequence\n");
 #ifdef SPTK_VERSION

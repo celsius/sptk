@@ -63,7 +63,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2par.c,v 1.8 2007/09/10 12:49:25 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2par.c,v 1.9 2007/09/10 18:10:52 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -79,6 +79,11 @@ static char *rcs_id = "$Id: lpc2par.c,v 1.8 2007/09/10 12:49:25 heigazen Exp $";
 #define STABLE FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -97,9 +102,9 @@ void usage (int status)
    fprintf(stderr, "       -s    : check stable or unstable     [%s]\n", BOOL[STABLE]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdin\n");
-   fprintf(stderr, "       LP coefficients (float)              [stdin]\n");
+   fprintf(stderr, "       LP coefficients (%s)              [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       PARCOR (float) or \n");
+   fprintf(stderr, "       PARCOR (%s) or \n", FORMAT);
    fprintf(stderr, "       0 <stable>, -1 <unstable> (int) if -s option is specified\n");
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if g>1.0, g = -1 / g\n");

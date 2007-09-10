@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: spec.c,v 1.9 2007/09/10 12:49:22 heigazen Exp $";
+static char *rcs_id = "$Id: spec.c,v 1.10 2007/09/10 18:10:45 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -86,6 +86,11 @@ static char *rcs_id = "$Id: spec.c,v 1.9 2007/09/10 12:49:22 heigazen Exp $";
 #define EPS     0.0
 #define OTYPE   0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -111,9 +116,9 @@ void usage (int status)
    fprintf(stderr, "                 2 (|H(z)|)\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       real sequences (float)                    [stdin]\n");
+   fprintf(stderr, "       real sequences (%s)                    [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       spectrum (float)\n");
+   fprintf(stderr, "       spectrum (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

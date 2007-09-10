@@ -56,7 +56,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: reverse.c,v 1.9 2007/09/10 12:49:30 heigazen Exp $";
+static char *rcs_id = "$Id: reverse.c,v 1.10 2007/09/10 18:10:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -70,6 +70,11 @@ static char *rcs_id = "$Id: reverse.c,v 1.9 2007/09/10 12:49:30 heigazen Exp $";
 #define MAX 32767 /* 0x7fff */
 int l_max = MAX;
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*   Command Name  */
 char* cmnd;
@@ -87,9 +92,9 @@ void usage (void)
    fprintf(stderr, "       -n n  : block length-1     [whole file]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)      [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       reversed data sequence (float)\n");
+   fprintf(stderr, "       reversed data sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

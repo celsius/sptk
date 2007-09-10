@@ -59,7 +59,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: train.c,v 1.9 2007/09/10 12:49:23 heigazen Exp $";
+static char *rcs_id = "$Id: train.c,v 1.10 2007/09/10 18:10:49 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -75,6 +75,11 @@ static char *rcs_id = "$Id: train.c,v 1.9 2007/09/10 12:49:23 heigazen Exp $";
 #define PERIOD   0
 #define NORMAL  1
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -96,7 +101,7 @@ void usage (int status)
    fprintf(stderr, "                 2 normalize by magnitude\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       pulse sequence (float)\n");
+   fprintf(stderr, "       pulse sequence (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

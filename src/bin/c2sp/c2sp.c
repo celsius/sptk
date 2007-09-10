@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: c2sp.c,v 1.9 2007/09/10 12:49:26 heigazen Exp $";
+static char *rcs_id = "$Id: c2sp.c,v 1.10 2007/09/10 18:10:53 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -88,6 +88,11 @@ static char *rcs_id = "$Id: c2sp.c,v 1.9 2007/09/10 12:49:26 heigazen Exp $";
 #define OTYPE 0
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -114,9 +119,9 @@ void usage (int status)
    fprintf(stderr, "                2 (arg|H(z)|*180 / pi [deg])\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       cepstrum (float)               [stdin]\n");
+   fprintf(stderr, "       cepstrum (%s)             [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       spectrum (float)\n");
+   fprintf(stderr, "       spectrum (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

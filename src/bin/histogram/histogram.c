@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: histogram.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $";
+static char *rcs_id = "$Id: histogram.c,v 1.9 2007/09/10 18:10:50 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -69,6 +69,11 @@ static char *rcs_id = "$Id: histogram.c,v 1.8 2007/09/10 12:49:24 heigazen Exp $
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -88,9 +93,9 @@ int usage (int status)
    fprintf(stderr, "       -n    : normalization      FALSE\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)      [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       histogram (float)\n");
+   fprintf(stderr, "       histogram (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if l > 0, calculate histogram frame by frame\n");
 #ifdef SPTK_VERSION

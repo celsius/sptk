@@ -59,7 +59,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: rmse.c,v 1.9 2007/09/10 12:49:25 heigazen Exp $";
+static char *rcs_id = "$Id: rmse.c,v 1.10 2007/09/10 18:10:52 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -73,6 +73,11 @@ static char *rcs_id = "$Id: rmse.c,v 1.9 2007/09/10 12:49:25 heigazen Exp $";
 /*  Default Values  */
 #define LENG 0
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -89,11 +94,11 @@ void usage (int status)
    fprintf(stderr, "      -l l  : frame length       [%d]\n", LENG);
    fprintf(stderr, "      -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "      data sequence (float)      [stdin]\n");
+   fprintf(stderr, "      data sequence (%s)      [stdin]\n", FORMAT);
    fprintf(stderr, "  file1:\n");
-   fprintf(stderr, "      data sequence (float)\n");
+   fprintf(stderr, "      data sequence (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "      root mean squared error (float)\n");
+   fprintf(stderr, "      root mean squared error (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "      if l>0, calculate rmse frame by frame\n");
 #ifdef SPTK_VERSION

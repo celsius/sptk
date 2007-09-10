@@ -72,7 +72,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: mgc2mgc.c,v 1.9 2007/09/10 12:49:24 heigazen Exp $";
+static char *rcs_id = "$Id: mgc2mgc.c,v 1.10 2007/09/10 18:10:50 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -95,6 +95,11 @@ static char *rcs_id = "$Id: mgc2mgc.c,v 1.9 2007/09/10 12:49:24 heigazen Exp $";
 #define MULGFLG2 FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -120,9 +125,9 @@ void usage (int status)
    fprintf(stderr, "       -U    : regard output as multiplied by gamma                 [%s]\n", BOOL[MULGFLG2]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       mel-generalized cepstrum (float)                   [stdin]\n");
+   fprintf(stderr, "       mel-generalized cepstrum (%s)                   [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       transformed mel-generalized cepstrum (float)\n");
+   fprintf(stderr, "       transformed mel-generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if g>1.0, g = -1 / g\n");
    fprintf(stderr, "       if G>1.0, G = -1 / G\n");

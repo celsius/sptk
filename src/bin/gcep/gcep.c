@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: gcep.c,v 1.11 2007/09/10 12:49:22 heigazen Exp $";
+static char *rcs_id = "$Id: gcep.c,v 1.12 2007/09/10 18:10:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -90,6 +90,11 @@ static char *rcs_id = "$Id: gcep.c,v 1.11 2007/09/10 12:49:22 heigazen Exp $";
 #define EPS 0.0
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -114,9 +119,9 @@ void usage (int status)
    fprintf(stderr, "       -e e  : small value added to periodgram  [%g]\n", EPS);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       windowed sequence (float)          [stdin]\n");
+   fprintf(stderr, "       windowed sequence (%s)          [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       generalized cepstrum (float)\n");
+   fprintf(stderr, "       generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
 #ifdef SPTK_VERSION

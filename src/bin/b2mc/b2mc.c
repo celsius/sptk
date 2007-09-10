@@ -59,7 +59,7 @@ All Rights Reserved.
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: b2mc.c,v 1.9 2007/09/10 12:49:25 heigazen Exp $";
+static char *rcs_id = "$Id: b2mc.c,v 1.10 2007/09/10 18:10:51 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -73,6 +73,11 @@ static char *rcs_id = "$Id: b2mc.c,v 1.9 2007/09/10 12:49:25 heigazen Exp $";
 #define	ALPHA		0.35
 #define ORDER		25
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char	*cmnd;
@@ -90,9 +95,9 @@ void usage (int status)
    fprintf(stderr, "       -a a  : all-pass constant        [%g]\n", ALPHA);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       MLSA filter coefficients (float) [stdin]\n");
+   fprintf(stderr, "       MLSA filter coefficients (%s) [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       mel-cepstrum (float)\n");
+   fprintf(stderr, "       mel-cepstrum (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);

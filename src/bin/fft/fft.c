@@ -57,7 +57,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fft.c,v 1.9 2007/09/10 12:49:22 heigazen Exp $";
+static char *rcs_id = "$Id: fft.c,v 1.10 2007/09/10 18:10:49 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -69,7 +69,11 @@ static char *rcs_id = "$Id: fft.c,v 1.9 2007/09/10 12:49:22 heigazen Exp $";
 
 /* Default Values */
 #define SIZE 256
-
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;
@@ -91,9 +95,9 @@ void usage (int status)
    fprintf(stderr, "       -P    : power                [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (float)        [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)        [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       FFT seqeunce (float)\n");
+   fprintf(stderr, "       FFT seqeunce (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
