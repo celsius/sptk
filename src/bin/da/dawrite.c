@@ -42,7 +42,7 @@
 *    play 16-bit linear PCM data on LINUX and SS10                      *
 *                                                                       *
 *                                       1998.1  T.Kobayashi             *
-*					2000.3  M.Tamura                *
+*                                       2000.3  M.Tamura                *
 *                                                                       *
 *       usage:                                                          *
 *               dawrite [ options ] infile1 infile2 ... > stdout        *
@@ -51,7 +51,7 @@
 *                                            11.025,22.05,44.1kHz)[10]  *
 *               -c c  :  filename of low pass filter coef.   [Default]  *
 *               -g g  :  gain (.., -2, -1, 0, 1, 2, ..)            [0]  *
-*               -a a  :  amplitude gain (0..100)                 [N/A]	*
+*               -a a  :  amplitude gain (0..100)                 [N/A]  *
 *               -o o  :  output port                               [s]  *
 *                          s (speaker)    h (headphone)                 *
 *               -H H  :  header size in byte                       [0]  *
@@ -65,7 +65,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.11 2007/08/07 04:13:07 heigazen Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.12 2007/09/10 17:19:54 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -231,18 +231,18 @@ int main (int argc, char *argv[])
             infile[nfiles++] = s;
          else {
             fprintf(stderr, "%s: Number of files exceed %d\n", cmnd, MAXFILES);
-            exit(1);
+            return(1);
          }
       }
 
    if ((x = (float *)calloc(SIZE, sizeof(float)))==NULL) {
       fprintf(stderr, "%s: cannot allocate memory\n", cmnd);
-      exit(1);
+      return(1);
    }
    xs = (short *)x;
    if ((y = (short *)calloc(SIZE*2, sizeof(float)))==NULL) {
       fprintf(stderr, "%s: cannot allocate memory\n", cmnd);
-      exit(1);
+      return(1);
    }
 
    sndinit();
