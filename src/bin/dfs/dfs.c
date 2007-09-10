@@ -48,7 +48,7 @@
 *       options:                                                        *
 *               -a k a1 a2 ... aM  : denominator coefficients (float)   *
 *                                k : gain                               *
-*               -b b0 b1 b2 ... bM : numerator coefficients (flaot)     *
+*               -b b0 b1 b2 ... bM : numerator coefficients (float)     *
 *               -p file_p          : denominator coefficients (float)   *
 *               -z file_z          : numerator coefficients (float)     *
 *       infile:                                                         *
@@ -59,7 +59,7 @@
 *               M, N <= 2047                                            *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dfs.c,v 1.9 2007/09/10 12:49:21 heigazen Exp $";
+static char *rcs_id = "$Id: dfs.c,v 1.10 2007/09/10 18:03:03 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -72,6 +72,11 @@ static char *rcs_id = "$Id: dfs.c,v 1.9 2007/09/10 12:49:21 heigazen Exp $";
 /* Default Values */
 #define SIZE 2048
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;
@@ -91,9 +96,9 @@ void usage (int status)
    fprintf(stderr, "       -z zfile      : numerator coefficients file   [NULL]\n");
    fprintf(stderr, "       -h            : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       filter input (float)                          [stdin]\n"); 
+   fprintf(stderr, "       filter input (%s)                          [stdin]\n", FORMAT); 
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       filter output (float)\n");
+   fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       M,N <= %d \n",SIZE-1);
 #ifdef SPTK_VERSION
