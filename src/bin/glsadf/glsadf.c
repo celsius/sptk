@@ -46,13 +46,14 @@
 *       usage:                                                          *
 *               glsadf [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
-*               -m m     :  order of generalized cepstrum        [25]   *
-*               -g g     :  -1/gamma                             [1]    *
-*               -p p     :  frame period                         [100]  *
-*               -i i     :  interpolation period                 [1]    *
-*               -n       :  regard input as normalized           [FALSE]*
+*               -m m     :  order of generalized cepstrum   [25]        *
+*               -g g     :  -1/gamma                        [1]         *
+*               -p p     :  frame period                    [100]       *
+*               -i i     :  interpolation period            [1]         *
+*               -n       :  regard input as normalized      [FALSE]     *
 *                           generalized cepstrum                        *
-*               -k       :  filtering without gain               [FALSE]*
+*               -k       :  filtering without gain          [FALSE]     *
+*               -P P     :  order of Pade approximation     [4]         *
 *        infile:                                                        *
 *               generalized cepstral coefficients                       *
 *                   , c(0), c(1), ..., c(M),                            *
@@ -61,8 +62,10 @@
 *        stdout:                                                        *
 *               filtered sequence                                       *
 *                   , y(0), y(1), ...,                                  *
+*        note:                                                          *
+*               ig g==0, LMA filter is used, P should be 4 or 5         *
 *        require:                                                       *
-*               glsadf()                                                *
+*               glsadf(), lmadf()                                       *
 *                                                                       *
 ************************************************************************/
 
@@ -83,6 +86,7 @@ static char *rcs_id = "$Id$";
 #define IPERIOD 1
 #define NORM FA
 #define NGAIN FA
+#define PADEORD 4
 
 char *BOOL[] = {"FALSE", "TRUE"};
 #ifdef DOUBLE
@@ -117,6 +121,8 @@ void usage (int status)
    fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  gcfile:\n");
    fprintf(stderr, "       generalized cepstrum (%s)\n", FORMAT);
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "       if g==0, LMA filter is used, P should be 4 or 5\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
@@ -128,7 +134,7 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, stage=STAGE, i, j;
+   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, stage=STAGE, i, j, pd=PADEORD;
    FILE *fp=stdin, *fpc=NULL;
    Boolean norm=NORM, ngain=NGAIN;
    double *c, *inc, *cc, *d, x, gamma;
@@ -163,6 +169,10 @@ int main (int argc, char **argv)
          case 'k':
             ngain = 1 - ngain;
             break;
+         case 'P':
+            pd = atoi(*++argv);
+            --argc;
+            break;
          case 'h':
             usage(0);
          default:
@@ -180,27 +190,36 @@ int main (int argc, char **argv)
       return(1);
    }
 
-   if (stage==0) {
-      fprintf(stderr, "%s : gamma should not equal to 0!\n", cmnd);
-      usage(1);
+   if (stage!=0) {
+      gamma = -1 / (double)stage;
    }
-   gamma = -1 / (double)stage;
+   else {
+      if ((pd<4)||(pd>5)) {
+         fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
+         return(1);
+      }
+   }
     
-   c = dgetmem(m+m+m+3+m*stage);
+   c = (stage!=0) ? dgetmem(m+m+m+3+m*stage) 
+                  : dgetmem(m+m+m+3+(m+1)*pd*2);
    cc  = c  + m + 1;
    inc = cc + m + 1;
    d   = inc+ m + 1;
     
    if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
+   if (stage!=0) {
       if (!norm) gnorm(c, c, m, gamma);
-         for (i=1; i<=m; i++)   
-            c[i] *= gamma;
-    
+      for (i=1; i<=m; i++)   
+         c[i] *= gamma;
+   }
+
    for (;;) {
       if (freadf(cc, sizeof(*cc), m+1, fpc) != m+1) return(0);
-      if(!norm) gnorm(cc, cc, m, gamma);
-      for (i=1; i<=m; i++)
-         cc[i] *= gamma;
+      if (stage!=0) {  /* GLSA */
+         if(!norm) gnorm(cc, cc, m, gamma);
+         for (i=1; i<=m; i++)
+            cc[i] *= gamma;
+      }
    
       for (i=0; i<=m; i++)
          inc[i] = (cc[i] - c[i])*iprd / fprd;
@@ -208,8 +227,14 @@ int main (int argc, char **argv)
       for (j=fprd, i=(iprd+1)/2; j--;) {
          if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
-         if (!ngain) x *= c[0];
-         x = glsadf(x, c, m, stage, d);
+         if (stage!=0) {  /* GLSA */
+            if (!ngain) x *= c[0];
+            x = glsadf(x, c, m, stage, d);
+         }
+         else {  /* LMA */
+            if (!ngain) x *= exp(c[0]);
+            x = lmadf(x, c, m, pd, d);
+         }
       
          fwritef(&x, sizeof(x), 1, stdout);
             
@@ -222,6 +247,6 @@ int main (int argc, char **argv)
       movem(cc, c, sizeof(*cc), m+1);
    }
    
-   return 0;
+   return(0);
 }
 
