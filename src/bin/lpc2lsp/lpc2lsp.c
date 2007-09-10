@@ -49,6 +49,7 @@
 *               -m m  :  order of LPC                     [25]          *
 *               -s s  :  sampling frequency (kHz)         [10]          *
 *               -k    :  output gain                      [TRUE]        *
+*               -l    :  output log gain                  [FALSE]       *
 *               -o o  :  output format (see stdout)       [0]           *
 *               (level 2)                                               *
 *               -n n  :  split number of unit circle      [128]         *
@@ -70,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2lsp.c,v 1.12 2007/09/10 12:49:19 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2lsp.c,v 1.13 2007/09/10 17:19:12 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -92,6 +93,11 @@ static char *rcs_id = "$Id: lpc2lsp.c,v 1.12 2007/09/10 12:49:19 heigazen Exp $"
 #define LOGGAIN  FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -120,9 +126,9 @@ void usage (int status)
    fprintf(stderr, "       -d d  : end condition of interpolation          [%g]\n", END);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       LP coefficients (float)                         [stdin]\n");
+   fprintf(stderr, "       LP coefficients (%s)                         [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       LSP (float)\n");
+   fprintf(stderr, "       LSP (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
