@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _lmadf.c,v 1.5 2007/09/10 12:49:31 heigazen Exp $
+    $Id: _lmadf.c,v 1.6 2007/09/10 18:22:16 heigazen Exp $
 
     LMA Digital Filter
 
@@ -48,7 +48,7 @@
         double    x     : input
         double    *c    : cepstrum
         int       m     : order of cepstrum
-        int       pd    : order of pade approximation
+        int       pd    : order of Pade approximation
         double    *d    : delay
 
         return    value : filtered data
@@ -112,7 +112,7 @@ double lmadf (double x, double *c, const int m, const int pd, double *d)
     double *d : delay
     int    m1 : start order
     int    m2 : end order
-    int    pd : order of pade approximation
+    int    pd : order of Pade approximation
 
 *****************************************************************/
 

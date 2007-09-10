@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _mlsadf.c,v 1.6 2007/09/10 12:49:31 heigazen Exp $
+    $Id: _mlsadf.c,v 1.7 2007/09/10 18:22:15 heigazen Exp $
 
     MLSA Digital Filter
 
@@ -49,7 +49,7 @@
         double *c    : MLSA filter coefficients
         int    m     : order of cepstrum
         double a     : all-pass constant
-        int    pd    : order of pade approximation
+        int    pd    : order of Pade approximation
         double *d    : delay
 
         return value : filtered data

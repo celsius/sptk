@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _acep.c,v 1.6 2007/09/10 12:49:31 heigazen Exp $
+    $Id: _acep.c,v 1.7 2007/09/10 18:22:16 heigazen Exp $
 
     Adaptive Cepstral Analysis
 
@@ -50,7 +50,7 @@
     int         m : order of cepstrum
     double lambda : leakage factor
     double   step : step size
-    int        pd : order of pade approximation
+    int        pd : order of Pade approximation
     double    eps : minimum value for epsilon
 
     return value  : prediction error

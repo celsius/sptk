@@ -44,15 +44,15 @@ All Rights Reserved.
 *       usage:                                                          *
 *               amcep [ options ] [ pefile ] < stdin > stdout           * 
 *       options:                                                        *
-*               -m m     :  order of mel cepstrum[25]                   *
-*               -a a     :  alpha[0.35]                                 *
-*               -l l     :  leakage factor[0.98]                        * 
-*               -k k     :  step size[0.1]                              *
-*               -t t     :  momentum constant[0.9]                      *
-*               -p p     :  output period of mel cepstrum[1]            *
-*               -e e     :  minimum value for epsilon[FALSE]            *
-*               -s       :  smoothed (average) mel cepstrum[FALSE]      *
-*               -P P     :  order of pade approximation[4]              *
+*               -m m     :  order of mel cepstrum            [25]       *
+*               -a a     :  alpha                            [0.35]     *
+*               -l l     :  leakage factor                   [0.98]     * 
+*               -k k     :  step size                        [0.1]      *
+*               -t t     :  momentum constant                [0.9]      *
+*               -p p     :  output period of mel cepstrum    [1]        *
+*               -e e     :  minimum value for epsilon        [FALSE]    *
+*               -s       :  smoothed (average) mel cepstrum  [FALSE]    *
+*               -P P     :  order of Pade approximation      [4]        *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ...                                   *
@@ -69,7 +69,7 @@ All Rights Reserved.
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: amcep.c,v 1.11 2007/09/10 12:49:33 heigazen Exp $";
+static char *rcs_id = "$Id: amcep.c,v 1.12 2007/09/10 18:22:16 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -119,7 +119,7 @@ void usage (int status)
    fprintf(stderr, "       -p p  : output period of mel cepstrum [%d]\n", PERIOD);
    fprintf(stderr, "       -s    : output smoothed mel cepstrum  [%s]\n", BOOL[AVEFLAG]);
    fprintf(stderr, "       -e e  : minimum value for epsilon     [%g]\n", EPS);
-   fprintf(stderr, "       -P P  : order of pade approximation   [%d]\n", PADEORDER);
+   fprintf(stderr, "       -P P  : order of Pade approximation   [%d]\n", PADEORDER);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdin:\n");
    fprintf(stderr, "       data sequence (%s)\n", FORMAT);
@@ -201,7 +201,7 @@ int main (int argc, char **argv)
          fpe = getfp(*argv, "w");
 
    if ((pd<4) || (pd>5)) {
-      fprintf(stderr,"%s : Order of pade approximation is 4 or 5!\n",cmnd);
+      fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
       return(1);
    }
 

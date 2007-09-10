@@ -50,7 +50,7 @@
 *               -m m     :  order of cepstrum             [25]          *
 *               -p p     :  frame period                  [100]         *
 *               -i i     :  interpolation period          [1]           *
-*               -P P     :  order of pade approximation   [4]           *
+*               -P P     :  order of Pade approximation   [4]           *
 *               -k       :  filtering without gain        [FALSE]       *
 *       infile:                                                         *
 *               cepstral coefficients                                   *
@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lmadf.c,v 1.10 2007/09/10 18:10:46 heigazen Exp $";
+static char *rcs_id = "$Id: lmadf.c,v 1.11 2007/09/10 18:22:16 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -107,7 +107,7 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of cepstrum           [%d]\n", ORDER);
    fprintf(stderr, "       -p p  : frame period                [%d]\n", FPERIOD);
    fprintf(stderr, "       -i i  : interpolation period        [%d]\n", IPERIOD);
-   fprintf(stderr, "       -P P  : order of pade approximation [%d]\n", PADEORD);
+   fprintf(stderr, "       -P P  : order of Pade approximation [%d]\n", PADEORD);
    fprintf(stderr, "       -k    : filtering without gain      [%s]\n", BOOL[NGAIN]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -174,7 +174,7 @@ int main (int argc, char **argv)
          fp = getfp(*argv, "r");
 
    if ((pd<4)||(pd>5)) {
-      fprintf(stderr,"%s : Order of pade approximation is 4 or 5!\n",cmnd);
+      fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
       return(1);
    }
 

@@ -39,7 +39,7 @@
 
 /****************************************************************
 
-    $Id: _amcep.c,v 1.7 2007/08/07 04:04:53 heigazen Exp $
+    $Id: _amcep.c,v 1.8 2007/09/10 18:22:16 heigazen Exp $
 
     Adaptive Mel Cepstral Analysis
 
@@ -52,7 +52,7 @@
     double lambda : leakage factor
     double step   : step size
     double tau    : momentum constant
-    int    pd     : order of pade approximation
+    int    pd     : order of Pade approximation
     double eps    : minimum value for epsilon
 
     return value  : prediction error
