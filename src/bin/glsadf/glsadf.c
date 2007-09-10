@@ -63,7 +63,7 @@
 *               filtered sequence                                       *
 *                   , y(0), y(1), ...,                                  *
 *        note:                                                          *
-*               ig g==0, LMA filter is used, P should be 4 or 5         *
+*               if g==0, LMA filter is used, P should be 4 or 5         *
 *        require:                                                       *
 *               glsadf(), lmadf()                                       *
 *                                                                       *
