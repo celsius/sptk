@@ -69,7 +69,8 @@ all:
 
 install:
 	for i in *.sh ; do \
-		sed '/path/s:/usr/local/SPTK/bin:'$(BIN)':' $$i > $(BIN)/$$i ; \
+		sed -e 's:SPTK_VERSION:@PACKAGE_VERSION@:g' \
+			 -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' $$i > $(BIN)/$$i ; \
 		chmod 755 $(BIN)/$$i ; \
 		j=`basename $$i .sh` ; \
 		$(RM) $(BIN)/$$j ; \

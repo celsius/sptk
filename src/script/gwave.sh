@@ -38,18 +38,18 @@
 
 
 #########################################################################
-#									#
-#   $Id$              #
 #                                                                       #
-#   Draw a Waveform							#
-#									#
-#						1997.1  K.Koishida	#
-#									#
+#   Draw a Waveform                                                     #
+#                                                                       #
+#                                               1997.1  K.Koishida      #
+#                                                                       #
 #########################################################################
 
 onintr clean
 
-set path	= ( /usr/local/SPTK/bin $path )
+set path	   = ( /usr/local/SPTK/bin $path )
+set sptkver = 'SPTK_VERSION'
+set cvsid   = '$Id$'
 
 set cmnd	= $0
 set cmnd	= $cmnd:t
@@ -164,6 +164,8 @@ usage:
 	echo2 '        value of amplitude is deautomatically determined.'
 	echo2 '       If -n option is not used,'
 	echo2 '        entire waveform is displayed.'
+	echo2 "  SPTK: version $sptkver"
+	echo2 "  CVS Info: $cvsid"
 	echo2 ''
 exit $exit_status
 
