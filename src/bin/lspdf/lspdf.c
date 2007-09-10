@@ -46,10 +46,11 @@
 *       usage:                                                          *
 *               lspdf [ options ] [ infile ]>stdout                     *
 *       options:                                                        *
-*               -m m     :  order of coefficients   [25]                *
-*               -p p     :  frame period            [100]               *
-*               -i i     :  interpolation period    [1]                 *
-*               -k  :  filtering without gain       [FALSE]             *
+*               -m m     :  order of coefficients         [25]          *
+*               -p p     :  frame period                  [100]         *
+*               -i i     :  interpolation period          [1]           *
+*               -k       :  filtering without gain        [FALSE]       *
+*               -l       :  regard input gain as log gain [FALSE]       *
 *       infile:                                                         *
 *               coefficients                                            *
 *                       , K, f(1), ..., f(m),                           *
@@ -83,6 +84,11 @@ static char *rcs_id = "$Id$";
 #define LOGGAIN   FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
@@ -102,11 +108,11 @@ void usage (int status)
    fprintf(stderr, "       -l    : regard input gain as log gain [%s]\n", BOOL[LOGGAIN]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       filter input (float)                  [stdin]\n");
+   fprintf(stderr, "       filter input (%s)           [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       filter output (float)\n");
+   fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  lspfile:\n");
-   fprintf(stderr, "       LSP coefficients (float)\n");
+   fprintf(stderr, "       LSP coefficients (%s)\n", FORMAT);
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
