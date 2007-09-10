@@ -106,7 +106,7 @@ void usage (int status)
    fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of LPC                            [%d]\n", ORDER);
-   fprintf(stderr, "       -s s  : smapling frequency                      [%d]\n", SAMPLING);
+   fprintf(stderr, "       -s s  : sampling frequency                      [%d]\n", SAMPLING);
    fprintf(stderr, "       -k    : output gain                             [%s]\n", BOOL[GAIN]);
    fprintf(stderr, "       -l    : output log gain rather than linear gain [%s]\n", BOOL[GAIN]);
    fprintf(stderr, "       -o o  : output format                           [%d]\n", OTYPE);
