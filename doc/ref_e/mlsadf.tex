@@ -36,7 +36,7 @@
 % ----------------------------------------------------------------
 %
 \hypertarget{mlsadf}{}
-\name[ref:MLSA-IECE,ref:amcep-ICASSP92]{mlsadf}%
+\name[ref:MLSA-ICASSP,ref:MLSA-IECE,ref:amcep-ICASSP92]{mlsadf}%
 {MLSA digital filter for speech synthesis}{filters for speech synthesis}
 
 \begin{synopsis}
@@ -334,7 +334,7 @@ F_2(z) &= \sum_{m=2}^M b(m) {\it\Phi}_m(z) \notag
 \end{align}
 \par
 Also, the coefficients $A_{4,l}$ in figure \ref{fig:mlsadflt_MLSA}(b)
-have same value as the LMA filter (refer to lmadf).
+have same value as the LMA filter (refer to \hyperlink{lmadf}{lmadf}).
 \end{qsection}
 
 \begin{options}
@@ -346,7 +346,7 @@ have same value as the LMA filter (refer to lmadf).
                   (coefficients which are linear
                    transformed from mel-cepstrum)}{FALSE}
 	\argm{P}{Pa}{order of the Pad\'e approximation\\
-                     Pa can be assigned 4 or 5}{4}
+                     Pa should be 4 or 5}{4}
 	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
