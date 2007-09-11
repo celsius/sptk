@@ -69,13 +69,13 @@
 *      spectrum                                                         *
 *                       , s(0), s(1), ..., s(L/2),                      *
 *      notice:                                                          *
-*               if g>1.0, g = -1 / g .                                  *
+*               if g>=1.0, g = -1 / g                                   *
 *      require:                                                         *
 *               mgc2sp()                                                *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgc2sp.c,v 1.11 2007/09/10 18:10:51 heigazen Exp $";
+static char *rcs_id = "$Id: mgc2sp.c,v 1.12 2007/09/11 08:33:40 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -136,7 +136,7 @@ void usage (int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       spectrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g>1.0, g = -1 / g .\n");
+   fprintf(stderr, "       if g>=1.0, g = -1 / g \n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
@@ -171,7 +171,7 @@ int main (int argc, char **argv)
          case 'g':
             gamma = atof(*++argv);
             --argc;
-            if (gamma>1.0) gamma = -1.0 / gamma;
+            if (gamma>=1.0) gamma = -1.0 / gamma;
             break;
          case 'n':
             norm = 1 - norm;
