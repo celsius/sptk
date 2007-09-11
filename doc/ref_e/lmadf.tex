@@ -54,7 +54,7 @@ sending the result to standard output.
 Input and output data are in float format.
 
 The LMA filter is an extremely precise approximation of the
-exponential transfer function obtained from $M$-th order cepstrum
+exponential transfer function obtained from $M$-th order cepstral
 coefficients $c(m)$ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^{M} c(m) z^{-m}
@@ -204,7 +204,7 @@ in table \ref{tbl:lmadflt_pade}
 	\argm{p}{P}{frame period}{100}
 	\argm{i}{I}{interpolation period}{1}
 	\argm{P}{Pa}{order of the Pad\'e approximation\\
-                     Pa = 4 or 5 can be used}{4}
+                     $Pa$ should be $4$ or $5$}{4}
 	\argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
