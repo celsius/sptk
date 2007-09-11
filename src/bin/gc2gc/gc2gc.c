@@ -47,14 +47,14 @@
 *       usage:                                                          *
 *               gc2gc [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
-*               -m m     :  order of generalized cepstrum (input)  [25] *
-*               -g g     :  gamma of generalized cepstrum (input) [0.0] *
-*               -n       :  regard input as normalized cepstrum         *
-*               -u       :  regard input as multiplied by gamma         *
-*               -M M     :  order of generalized cepstrum (output) [25] *
-*               -G G     :  gamma of generalized cepstrum (output)[1.0] *
-*               -N       :  regard output as normalized cepstrum        *
-*               -U       :  regard output as multiplied by gamma        *
+*               -m m   :  order of generalized cepstrum (input)   [25]  *
+*               -g g   :  gamma of generalized cepstrum (input)   [0.0] *
+*               -n     :  regard input as normalized cepstrum           *
+*               -u     :  regard input as multiplied by gamma           *
+*               -M M   :  order of generalized cepstrum (output)  [25]  *
+*               -G G   :  gamma of generalized cepstrum (output)  [1.0] *
+*               -N     :  regard output as normalized cepstrum          *
+*               -U     :  regard output as multiplied by gamma          *
 *       infile:                                                         *
 *               generalized cepstrum                                    *
 *                   , c(0), c(1), ..., c(m),                            *
@@ -62,8 +62,8 @@
 *               generalized cepstrum                                    *
 *                   , c'(0)(=c(0)), c'(1), ..., c'(M),                  *
 *       notice:                                                         *
-*               if g > 1, g = -1 / g                                    *
-*               if G > 1, G = -1 / G                                    *
+*               if g >= 1, g = -1 / g                                   *
+*               if G >= 1, G = -1 / G                                   *
 *       require:                                                        *
 *               gc2gc(), gnorm(), ignorm()                              *
 *                                                                       *
@@ -122,8 +122,8 @@ void usage (int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       transformed generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g > 1, g = -1 / g\n");
-   fprintf(stderr, "       if G > 1, G = -1 / G\n");
+   fprintf(stderr, "       if g >= 1, g = -1 / g\n");
+   fprintf(stderr, "       if G >= 1, G = -1 / G\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
@@ -159,12 +159,12 @@ int main (int argc, char **argv)
          case 'g':
             g1 = atof(*++argv);
             --argc;
-            if (g1>1.0) g1 = -1.0 / g1;
+            if (g1>=1.0) g1 = -1.0 / g1;
             break;
          case 'G':
             g2 = atof(*++argv);
             --argc;
-            if (g2>1.0) g2 = -1.0 / g2;
+            if (g2>=1.0) g2 = -1.0 / g2;
             break;
          case 'n':
             norm1 = 1 - norm1;

@@ -65,8 +65,8 @@
 *               mel-generalized cepstrum                                 *
 *                       , c'(0)(=c(0)), c'(1), ..., c'(M),               *
 *       notice:                                                          *       
-*               if g>1.0, g = -1 / g                                     *
-*               if G>1.0, G = -1 / G                                     *
+*               if g>=1.0, g = -1 / g                                    *
+*               if G>=1.0, G = -1 / G                                    *
 *       require:                                                         *
 *               mgc2mgc(), gnorm(), ignorm()                             *
 *                                                                        *
@@ -129,8 +129,8 @@ void usage (int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       transformed mel-generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g>1.0, g = -1 / g\n");
-   fprintf(stderr, "       if G>1.0, G = -1 / G\n");
+   fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
+   fprintf(stderr, "       if G >= 1.0, G = -1 / G\n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
@@ -173,12 +173,12 @@ int main (int argc, char **argv)
          case 'g':
             g1 = atof(*++argv);
             --argc;
-            if (g1>1.0) g1 = -1.0 / g1;
+            if (g1>=1.0) g1 = -1.0 / g1;
             break;
          case 'G':
             g2 = atof(*++argv);
             --argc;
-            if (g2>1.0) g2 = -1.0 / g2;
+            if (g2>=1.0) g2 = -1.0 / g2;
             break;
          case 'n':
             norm1 = 1 - norm1;

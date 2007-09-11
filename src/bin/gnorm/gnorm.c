@@ -45,7 +45,7 @@
 *       usage:                                                          *
 *               gnorm [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
-*               -g g      :  gamma (if g>1.0, g=-1/g)        [0.0]      *
+*               -g g      :  gamma (if g>=1.0, g=-1/g)       [0.0]      *
 *               -m m      :  order of generalized cepstrum   [25]       *
 *       infile:                                                         *
 *               generalized cepstral coefficients                       *
@@ -54,7 +54,7 @@
 *               normalized generalized cepstral coefficients            *
 *                   , K, c'(1), ..., c'(M),                             *
 *       notice:                                                         *
-*               if g > 1.0, g = -1 / g .                                *
+*               if g >= 1.0, g = -1 / g                                 *
 *       require:                                                        *
 *               gnorm(),                                                *
 *                                                                       *
@@ -100,7 +100,7 @@ void usage (int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       normalized generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g > 1.0, g = -1 / g .\n");
+   fprintf(stderr, "       if g >= 1.0, g = -1 / g \n");
 #ifdef SPTK_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
@@ -128,7 +128,7 @@ int main (int argc, char **argv)
          case 'g':
             g = atof(*++argv);
             --argc;
-            if (g>1.0) g = -1.0 / g;
+            if (g>=1.0) g = -1.0 / g;
             break;
          case 'm':
             m = atoi(*++argv);
