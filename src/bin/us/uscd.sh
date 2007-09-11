@@ -50,7 +50,7 @@
 set path        = ( /usr/local/SPTK/bin $path )
 set libpath     = /usr/local/SPTK/lib
 set sptkver     = 'SPTK_VERSION'
-set cvsid       = '$Id: uscd.sh,v 1.9 2007/09/10 17:10:43 heigazen Exp $'
+set cvsid       = '$Id: uscd.sh,v 1.10 2007/09/11 04:42:19 heigazen Exp $'
 
 set cmnd        = `basename $0`
 
@@ -210,7 +210,7 @@ cat2 <<EOF
        -s s     : input sampling frequency (8,10,12,16kHz)   [10]
        -S s     : output sampling frequency 
                                       (11.025,22.05,44.1kHz) [11.025]
-       +x       : input/output data format                   [f]
+       +x       : input and output data format               [f]
                      s(short)   f(float)
        -h       : print this message
   infile:
