@@ -76,6 +76,7 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
 

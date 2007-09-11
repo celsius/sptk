@@ -63,7 +63,7 @@
 *               filtered sequence                                       *
 *                      , y(0), y(1), ...,                               *
 *       notice:                                                         *
-*               if g==0, MLSA filter is used, P = 4 or 5                *
+*               if g==0, MLSA filter is used, P should be 4 or 5        *
 *       require:                                                        *
 *               mglsadf(), mlsadf()                                     *
 *                                                                       *  
@@ -76,6 +76,7 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
 
