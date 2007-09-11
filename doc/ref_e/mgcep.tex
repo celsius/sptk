@@ -64,7 +64,7 @@ then the time sequence is given by
 Input and output data are in float format.
 
 In the mel-generalized cepstral analysis, the spectrum of the speech signal
-is modeled by $M$-th order mel-generalized cepstrum
+is modeled by $M$-th order mel-generalized cepstral
 coefficients $c_{\alpha, \gamma}(m)$
 as follows.
 \begin{align}
@@ -139,7 +139,7 @@ and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
 \begin{options}
 	\argm{a}{A}{alpha $\alpha$}{0.35}
 	\argm{g}{G}{power parameter of generalized cepstrum $\gamma$\\
-			 if $G>1.0$ then $\gamma=-1/G$.}{0}
+			 if $G \ge 1.0$ then $\gamma=-1/G$}{0}
 	\argm{m}{M}{order of mel-generalized cepstrum}{25}
 	\argm{l}{L}{frame length power of 2}{256}
 	\argm{o}{O}{output data style\\
