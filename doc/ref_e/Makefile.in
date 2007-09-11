@@ -57,10 +57,10 @@ INC  = cmndref.sty \
 	c2acr.tex \
 	c2ir.tex \
 	c2sp.tex \
-	ccp.tex \
 	cdist.tex \
 	clip.tex \
 	da.tex \
+	dawrite.tex \
 	decimate.tex \
 	delay.tex \
 	df2.tex \
@@ -116,7 +116,6 @@ INC  = cmndref.sty \
 	mgc2mgc.tex \
 	mgc2sp.tex \
 	mgcep.tex \
-	mgcep2.tex \
 	mglsadf.tex \
 	minmax.tex \
 	mlpg.tex \
@@ -133,20 +132,20 @@ INC  = cmndref.sty \
 	ramp.tex \
 	reverse.tex \
 	rmse.tex \
-	rndpg.tex \
 	root_pol.tex \
 	sin.tex \
 	snr.tex \
 	sopr.tex \
 	sp2mgc.tex \
 	spec.tex \
-	srcnv.tex \
 	step.tex \
 	swab.tex \
 	train.tex \
 	uels.tex \
 	ulaw.tex \
 	us.tex \
+	us16.tex \
+	uscd.tex \
 	vopr.tex \
 	vq.tex \
 	vstat.tex \
@@ -176,6 +175,7 @@ EPSF = fig/bcp.eps \
 	fig/clip.eps \
 	fig/mark.eps \
 	fig/pen-line.eps \
+	fig/join-type.eps \
 	fig/paint.eps \
 	fig/glogsp-on.eps \
 	fig/glogsp-sample.eps \
