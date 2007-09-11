@@ -49,10 +49,10 @@
 from {\em infile} (or standard input)
 to FP5301 plot format, 
 sending the result to standard output. 
-The output can viewed with ``xgr''.
+The output can viewed with \hyperlink{xgr}{xgr}.
 
 {\em glogsp} is implemented as a shell script 
-that uses the ``fig'' and ``fdrw'' commands.
+that uses the \hyperlink{fig}{fig} and \hyperlink{fdrw}{fdrw} commands.
 \end{qsection}
 
 \begin{options}
@@ -75,10 +75,10 @@ that uses the ``fig'' and ``fdrw'' commands.
 		       \begin{tabular}{cl}
 			1 & normalized frequency ($0 \sim 0.5$) \\
 			2 & normalized frequency ($0 \sim \pi$) \\
-			4 & frequency ($0 \sim 4$kHz) \\
-			5 & frequency ($0 \sim 5$kHz) \\
-			8 & frequency ($0 \sim 8$kHz) \\
-			10 & frequenc y($0 \sim 10$kHz) 
+			4 & frequency ($0 \sim 4$ kHz) \\
+			5 & frequency ($0 \sim 5$ kHz) \\
+			8 & frequency ($0 \sim 8$ kHz) \\
+			10 & frequency ($0 \sim 10$ kHz) 
 		       \end{tabular}\\\hspace*{\fill}}{1}
 	\argm{y}{ymin \; ymax}{ $y$ scale[dB]}{0 100}
 	\argm{ys}{YS}{ Y-axis scaling factor}{20}
@@ -88,19 +88,19 @@ that uses the ``fig'' and ``fdrw'' commands.
 	\argm{l}{L}{frame length}{256}
 	\argm{c}{\rm comment}{comment for the graph}{N/A}
 	\desc[1ex]{Usually, the options below do not need to be assigned.}
-	\argm{W}{W}{width of the graph ($\time 100$mm)}{0.6}
-	\argm{H}{H}{height of the graph ($\time 100$mm)}{0.6}
+	\argm{W}{W}{width of the graph ($\time 100$ mm)}{0.6}
+	\argm{H}{H}{height of the graph ($\time 100$ mm)}{0.6}
 	\argm{v}{}{over write mode}{FALSE}
 	\argm{o}{xo \; yo}{origin of the graph.
                       if -o option exists, -O is not effective}{40 205}
 	\argm{g}{G}{type of frame of the graph ($0 \sim 2$) (see also
 	\hyperlink{fig}{fig})}{2}
-	\argm{f}{file}{additional data file for fig}{NULL}
+	\argm{f}{file}{additional data file for \hyperlink{fig}{fig}}{NULL}
 	\argm{help}{}{print help in detail}{}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the example below, speech data sampled at 10kHz is read
+In the example below, speech data sampled at 10 kHz is read
 in short format from {\em data.s} file,
 the magnitude of its log spectrum is evaluated and plotted on the screen:
 \begin{quote}

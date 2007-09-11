@@ -78,15 +78,15 @@ the whole data in file {\em data.f} read in float format:
   \verb!vsum data.f > data.sum!
 \end{quote}
 \par
-In this example, the norm of 10 order vectors are
+In this example, the norm of 10-th order vectors are
 evaluated and written to {\em data.n}:
 \begin{quote}
   \verb!sopr data.f -P | vsum -n 10 | sopr -R > data.n!
 \end{quote}
 \par
-In the next example, 15 order coefficients vectors are read
+In the next example, 15-th order coefficients vectors are read
 from {\em data.f}, the average for every 3 frame is evaluated,
-and outputed to {\em data.av}:
+and output to {\em data.av}:
 \begin{quote}
   \verb!vsum -l 15 -n 3 data.f | sopr -d 3 > data.av!
 \end{quote}

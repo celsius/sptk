@@ -45,9 +45,9 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em freqt} converts an $M_1$-order minimum phase sequence 
+{\em freqt} converts an $M_1$-th order minimum phase sequence 
 from {\em infile} (or standard input) 
-into a frequency-transformed $M_2$-order sequence,
+into a frequency-transformed $M_2$-th order sequence,
 sending the result to standard output.
 
 Given the input sequence
@@ -71,7 +71,7 @@ c_{\alpha_2}^{(i)}(m) &=
          \end{cases} \notag \\
 & \qquad\qquad\qquad\qquad\qquad\qquad i = -M_1,\dots,-1,0 
 \end{align}
-The $M_2$ order frequency transformed output sequence is
+The $M_2$-th order frequency transformed output sequence is
 \begin{displaymath}
 c_{\alpha_2}^{(0)}(0), c_{\alpha_2}^{(0)}(1), \dots, c_{\alpha_2}^{(0)}(M_2)
 \end{displaymath}
@@ -89,7 +89,7 @@ Input and output data are in float format.
 \begin{qsection}{EXAMPLE}
 In the following example, the linear prediction coefficients in
 float format are read from {\em data.lpc} file, 
-transformed in 30 order LPC mel-cepstral coefficients,
+transformed in 30-th order LPC mel-cepstral coefficients,
 and written in {\em data.lpcmc} file:
 \begin{quote}
  \verb!lpc2c < data.lpc | freqt -m 30 > data.lpcmc!

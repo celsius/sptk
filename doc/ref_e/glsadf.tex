@@ -40,8 +40,8 @@
 {filters for speech synthesis}
 
 \begin{synopsis}
-\item [glsadf] [ --m $M$ ] [ --g $G$ ] [ --p $P$ ] [ --i $I$ ] [ --n ] [ --k ]
-	       {\em gcfile}  [ {\em infile} ]
+\item [glsadf] [ --m $M$ ] [ --g $G$ ] [ --p $P$ ] [ --i $I$ ] [ --n ] [ --k ] [ --P $Pa$ ]
+ {\em gcfile}  [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -107,18 +107,21 @@ in figure\ref{fig:glsadflt_GLSA}, where
 \newpage
 \begin{options}
 	\argm{m}{M}{order of generalized cepstrum}{25}
-	\argm{g}{G}{power parameter $\gamma=-1/G$ for generalized cepstrum}{1}
+	\argm{g}{G}{power parameter $\gamma=-1/G$ for generalized cepstrum\\
+			 if $G==0$ then the LMA filter is used. }{1}
 	\argm{p}{P}{frame period}{100}
 	\argm{i}{I}{interpolation period}{1}
 	\argm{n}{}{regard input as normalized generalized cepstrum}{FALSE}
 	\argm{k}{}{filtering without gain}{FALSE}
+	\argm{P}{Pa}{order of the Pad\'e approximation\\
+                     Pa = 4 or 5 can be used}{4}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 In this example, excitation is generated through the pitch data
 in the file {\em data.pitch} in float format, passed through a
 GLSA filter based on generalized cepstral coefficient file
-{\em data.gcep}, and the synthesized speech is outputed to
+{\em data.gcep}, and the synthesized speech is output to
 {\em data.syn}:
 \begin{quote}
  \verb!excite < data.pitch | glsadf data.gcep > data.syn!

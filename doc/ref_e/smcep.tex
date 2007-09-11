@@ -63,7 +63,7 @@ Input and output data are in float format.
 
 In the mel-cepstral analysis using
 a 2nd-order all pass function,
-the speech spectrum is modeled as  $m$ order cepstral
+the speech spectrum is modeled as $m$-th order cepstral
 coefficients $c(m)$ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^{M} c(m)\,B_m(e^{j\omega})
@@ -73,7 +73,7 @@ where
 \mathrm{Re}\left[B_m(e^{j\omega})\right]
 	=\left\{A^m(e^{j\omega})+A^m(e^{-j\omega})\right\}/2
 \end{displaymath}
-\par The Newton--Raphson method is applied to calculate
+\par The Newton-Raphson method is applied to calculate
 the mel-cepstral coefficients through the minimization
 of the cost function.
 \end{qsection}

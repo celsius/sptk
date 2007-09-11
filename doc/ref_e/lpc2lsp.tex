@@ -46,7 +46,7 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em lpc2lsp} calculates line spectral pair (LSP) coefficients 
-from $M$-order linear prediction (LPC) coefficients 
+from $M$-th order linear prediction (LPC) coefficients 
 from {\em infile} (or standard input),
 sending the result to standard output.
 
@@ -56,7 +56,7 @@ The gain $K$ is included in the LPC input vectors
 \end{displaymath}
 but $K$ is not used in the calculation of the LSP coefficients.
 
-The $M$-order polynomial linear prediction equation $A(z)$ is
+The $M$-th order polynomial linear prediction equation $A(z)$ is
 \begin{displaymath}
   A_M(z) = 1 + \sum_{m=1}^M a(m) z^{-m}
 \end{displaymath}
@@ -70,7 +70,7 @@ Also, the initial conditions are set as follows,
   A_0(z) = 1, \qquad B_0(z) = z^{-1}
 \end{displaymath}
 When we are given the linear prediction polynomial equation
-of $M$ order $A_M(z)$, and when the evaluation of $A_{M+1}(z)$
+of $M$-th order $A_M(z)$, and when the evaluation of $A_{M+1}(z)$
 is obtained with the value of $k(M+1)$ equal to $1$ or $-1$, 
 $P(z)$ and $Q(z)$ are defined as follow.
 \begin{align}
@@ -137,7 +137,7 @@ LSP coefficients.
 
 \begin{qsection}{EXAMPLE}
 In the following example, speech data is read in float format from
-{\em data.f}, 10 order LPC coefficients are calculated,
+{\em data.f}, 10-th order LPC coefficients are calculated,
 and the LSP coefficients are evaluated and written to {\em data.lsp}:
 \begin{quote}
 \verb!frame < data.f | window | lpc -m 10 |\!\\

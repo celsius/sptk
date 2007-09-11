@@ -51,10 +51,10 @@
 from {\em infile} (or standard input) 
 to a running spectrum plot in FP5301 plot format,
 sending the result to standard output. 
-The output can viewed with ``xgr''.
+The output can viewed with \hyperlink{xgr}{xgr}.
 
 {\em grlogsp} is implemented as a shell script 
-that uses the ``fig'' and ``fdrw'' commands.
+that uses the \hyperlink{fig}{fig} and \hyperlink{fdrw}{fdrw} commands.
 \end{qsection}
 
 \begin{options}
@@ -77,10 +77,10 @@ that uses the ``fig'' and ``fdrw'' commands.
 		       \begin{tabular}{cl}
 			1 & normalized frequency ($0 \sim 0.5$) \\
 			2 & normalized frequency ($0 \sim \pi$) \\
-			4 & frequency ($0 \sim 4$kHz) \\
-			5 & frequency ($0 \sim 5$kHz) \\
-			8 & frequency ($0 \sim 8$kHz) \\
-			10 & frequency ($0 \sim 10$kHz) \\
+			4 & frequency ($0 \sim 4$ kHz) \\
+			5 & frequency ($0 \sim 5$ kHz) \\
+			8 & frequency ($0 \sim 8$ kHz) \\
+			10 & frequency ($0 \sim 10$ kHz) \\
 		       \end{tabular}\\\hspace*{\fill}}{1}
 	\argm{y}{ymin}{ $y$ minimum}{-100}
 	\argm{yy}{YY}{ $y$ scale [dB/10mm]}{100}
@@ -95,8 +95,8 @@ that uses the ``fig'' and ``fdrw'' commands.
 	\argm{c, c2, c3}{\mbox{\em comment} 1 \sim 3}%
                         {comment for the graph}{N/A}
 	\desc[1ex]{Usually, the options below do not need to be assigned.}
-	\argm{W}{W}{width of the graph ($\times 100$mm)}{0.25}
-	\argm{H}{H}{height of the graph ($\times 100$mm)}{1.5}
+	\argm{W}{W}{width of the graph ($\times 100$ mm)}{0.25}
+	\argm{H}{H}{height of the graph ($\times 100$ mm)}{1.5}
 	\argm{z}{Z}{This option is used when data is written
                     recursively in the $y$ axis. the distance between
                     two graphs in the $y$ axis are given by $Z$.}{1}
@@ -107,7 +107,7 @@ that uses the ``fig'' and ``fdrw'' commands.
 	\argm{cy2}{cy2}{second comment position}{-14}
 	\argm{cy3}{cy3}{third comment position}{-20}
 	\argm{cs}{cs}{font size of the comments}{1}
-	\argm{f}{f}{additional data file for fig}{NULL}
+	\argm{f}{f}{additional data file for \hyperlink{fig}{fig}}{NULL}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

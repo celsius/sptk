@@ -45,7 +45,7 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em us16} upsamples data from 10kHz or 12kHz to 16kHz. 
+{\em us16} up-samples data from 10 kHz or 12 kHz to 16 kHz. 
 If {\em infile} and {\em outfile} arguments are not given, 
 standard input and standard output are used. 
 If several input files are given, 
@@ -56,20 +56,20 @@ but the suffixes are changed to ``.16''.
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S}{input sampling frequency 10|12kHz}{$10$}
-	\argp{t}{input data format\\
+	\argm{s}{S}{input sampling frequency 10|12 kHz}{$10$}
+	\argp{t}{input and output data format\\
 		\begin{tabular}{ll} \\[-1ex]
-			s & short (2bytes) \\
-			f & float (4bytes)
-		\end{tabular}\\}{s}
+			s & short (2 bytes) \\
+			f & float (4 bytes)
+		\end{tabular}\\}{f}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the example below, speech data sampled at 10kHz in short format
-is read from {\em data.10}, up sampling to 16kHz is undertaken,
+In the example below, speech data sampled at 10 kHz in short format
+is read from {\em data.10}, up sampling to 16 kHz is undertaken,
 and the results are written to {data.16}:
 \begin{quote}
-\verb!us16 -s 10 < data.10 > data.16!
+\verb!us16 +s -s 10 < data.10 > data.16!
 \end{quote}
 \end{qsection}
 

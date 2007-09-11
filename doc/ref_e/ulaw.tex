@@ -67,8 +67,8 @@ y(n) = sgn(x(n)) V \frac{(1+u)^{|x(n)|/V} - 1}{U}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the following, 16 bit data read from {\em data.s}
-is compressed to 8 bit ulaw format, and written to {\em data.ulaw}
+In the following, 16-bit data read from {\em data.s}
+is compressed to 8-bit ulaw format, and written to {\em data.ulaw}
 \begin{quote}
   \verb!x2x +sf data.s | ulaw | sopr -d 256 | x2x +fc -r > data.ulaw!
 \end{quote}

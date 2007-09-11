@@ -59,7 +59,7 @@ The windowed input sequence of length $L$ is
 Input and output data are in float format.
 \par
 In the generalized cepstral analysis,
-the speech spectrum is estimated by the $M$ order generalized
+the speech spectrum is estimated by the $M$-th order generalized
 cepstrum $c_\gamma(m)$ or by normalized generalized cepstrum 
 $c_\gamma'(m)$ using the log spectrum through the unbiased estimation
 method.
@@ -99,7 +99,7 @@ Newton--Raphson method applied.
 
 \begin{qsection}{EXAMPLE}
 The following example read speech data in float format from {\em data.f}
-file, undertakes the 15 order generalized cepstral analysis,
+file, undertakes the 15-th order generalized cepstral analysis,
 and writes the results in {\em data.gcep}:
 \begin{quote}
  \verb!frame < data.f | window | gcep -m 15 > data.gcep!
