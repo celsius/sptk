@@ -46,13 +46,13 @@
 *       usage:                                                          *
 *               iglsadf [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
-*               -m m     :  order of generalized cepstrum        [25]   *
-*               -g g     :  -1/gamma                             [1]    *
-*               -p p     :  frame period                         [100]  *
-*               -i i     :  interpolation period                 [1]    *
-*               -n       :  regard input as normalized           [FALSE]*
+*               -m m     :  order of generalized cepstrum   [25]        *
+*               -g g     :  -1/gamma                        [1]         *
+*               -p p     :  frame period                    [100]       *
+*               -i i     :  interpolation period            [1]         *
+*               -n       :  regard input as normalized      [FALSE]     *
 *                           generalized cepstrum                        *
-*               -k       :  filtering without gain               [FALSE]*
+*               -k       :  filtering without gain          [FALSE]     *
 *       infile:                                                         *
 *               generalized cepstral coefficients                       *
 *                   , c(0), c(1), ..., c(M),                            *
@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: iglsadf.c,v 1.10 2007/09/10 18:10:52 heigazen Exp $";
+static char *rcs_id = "$Id: iglsadf.c,v 1.11 2007/09/11 07:46:13 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -127,8 +127,7 @@ void usage(int status)
 
 int main (int argc, char **argv)
 {
-   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, stage=STAGE, 
-       i, j;
+   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, stage=STAGE, i, j;
    FILE *fp=stdin, *fpc=NULL;
    Boolean norm=NORM, ngain=NGAIN;
    double *c, *inc, *cc, *d, x, gamma;
@@ -175,7 +174,7 @@ int main (int argc, char **argv)
          fp = getfp(*argv, "r");
 
    if (fpc==NULL) {
-      fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
+      fprintf(stderr,"%s : Cannot open cepstrum file!\n", cmnd);
       return(1);
    }
    
