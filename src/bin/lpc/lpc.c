@@ -59,7 +59,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc.c,v 1.11 2007/09/10 18:10:45 heigazen Exp $";
+static char *rcs_id = "$Id: lpc.c,v 1.12 2007/09/11 03:53:57 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -151,8 +151,6 @@ int main (int argc, char **argv)
       case -2:
          fprintf(stderr, "%s : Extracted LPC coefficients become unstable!\n", cmnd);
          break;
-      case 0:
-      default:
       }
       
       fwritef(a, sizeof(*a), m+1, stdout);
