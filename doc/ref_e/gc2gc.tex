@@ -77,28 +77,20 @@ K_\alpha,\gamma c_\gamma'(1),\dots, \gamma c_\gamma'(M)
 
 \end{qsection}
 
-\begin{options}
-       -m m  :   [25]
-       -g g  :   [0]
-       -n    :     [FALSE]
-       -u    :     [FALSE]
-       -M M  :  [25]
-       -G G  :  [1]
-       -N    :    [FALSE]
-       -U    :    [FALSE]
+\begin{options} 
 	\argm{m}{M_1}{order of generalized cepstrum (input)}{25}
-	\argm{g}{G_1}{gamma of generalized cepstrum (input)
-  	 	      If $G_1 > 1.0$ then $\gamma_1=-1 / G_1$.}{0}
+	\argm{g}{G_1}{gamma of generalized cepstrum (input)\\
+  	 	      if $G_1 \ge 1.0$ then $\gamma_1=-1 / G_1$}{0}
 	\argm{n}{}{regard input as normalized cepstrum}{FALSE}
 	\argm{u}{}{regard input as multiplied by $\gamma_1$}{FALSE}
 	\argm{M}{M_2}{order of generalized cepstrum (output)}{25}
-	\argm{G}{G_2}{gamma of generalized cepstrum (output)
-		      If $G_2 > 1.0$ then $\gamma_2=-1 / G_2$.}{1}
+	\argm{G}{G_2}{gamma of generalized cepstrum (output)\\
+		      if $G_2 \ge 1.0$ then $\gamma_2=-1 / G_2$}{1}
 	\argm{N}{}{regard output as normalized cepstrum}{FALSE}
 	\argm{U}{}{regard output as multiplied by $\gamma_1$}{FALSE}
 \end{options}
 
-\begin{qsection}{EXAMPLE}
+\begin{qsection}{EXAMPLE} 
 In the following example, generalized cepstral coefficients
 with $M=10$ and $\gamma_1=-0.5$ are read in float format from
 {\em data.gcep} file, transformed into 30-th order cepstral coefficients,

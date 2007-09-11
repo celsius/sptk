@@ -45,11 +45,11 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em mgc2mgc} transforms generalized mel-cepstral coefficients
-$c_{\alpha_1,\gamma_1}(0),\dots,c_{\alpha_1,\gamma_1}(M_1)$
+{\em mgc2mgc} transforms mel-generalized cepstral coefficients
+$c_{\alpha_1,\gamma_1}(0), \dots, c_{\alpha_1,\gamma_1}(M_1)$
 from {\em infile} (or standard input) 
-into different sets of generalized mel-cepstral coefficients
-$c_{\alpha_2,\gamma_2}(0),\dots,c_{\alpha_2,\gamma_2}(M_2)$
+into a different set of mel-generalized cepstral coefficients
+$c_{\alpha_2,\gamma_2}(0), \dots, c_{\alpha_2,\gamma_2}(M_2)$
 sending the result to standard output.
 
 $\alpha$ characterizes the frequency-warping transform,
@@ -57,8 +57,8 @@ while $\gamma$ characterizes the generalized log magnitude transform.
 
 Input and output data are in float format.
 
-Firstly, a frequency transformation ( $\alpha_1 \rightarrow \alpha_2$ )
-is undertaken in the input generalized mel-cepstrum
+Firstly, a frequency transformation ($\alpha_1 \rightarrow \alpha_2$)
+is undertaken in the input mel-generalized cepstral
 coefficients $c_{\alpha_1,\gamma_1}(m)$,
 and $c_{\alpha_2,\gamma_1}(m)$ is calculated as follows.
 \begin{align} 
@@ -127,20 +127,20 @@ K_\alpha,\gamma c_{\alpha,\gamma}'(1),\dots, \gamma c_{\alpha,\gamma}'(M).
 	\argm{m}{M_1}{order of mel-generalized cepstrum (input)}{25}
 	\argm{a}{A_1}{alpha of mel-generalized cepstrum (input)}{0}
 	\argm{g}{G_1}{gamma of mel-generalized cepstrum (input)\\
-			if $G_1 > 1.0$ then $\gamma_1 = -1 / G_1$.}{0}
+			if $G_1 \ge 1.0$ then $\gamma_1 = -1 / G_1$}{0}
 	\argm{n}{}{regard input as normalized mel-generalized cepstrum}{FALSE}
 	\argm{u}{}{regard input as multiplied by gamma}{FALSE}
 	\argm{M}{M_2}{order of mel-generalized cepstrum (output)}{25}
 	\argm{A}{A_2}{alpha of mel-generalized cepstrum (output)}{0}
-	\argm{G}{G_2}{gamma of mel-generalized cepstrum (output)
-			if $G_2 > 1.0$ then $\gamma_2 =-1 / G_2$.}{1}
+	\argm{G}{G_2}{gamma of mel-generalized cepstrum (output)\\
+			if $G_2 \ge 1.0$ then $\gamma_2 =-1 / G_2$}{1}
 	\argm{N}{}{regard output as normalized mel-generalized cepstrum}{FALSE}
 	\argm{U}{}{regard input as multiplied by gamma}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 In the example below, 12-th order LPC coefficients are read in
-float format from {\em data.lpc}, 30-th order mel-cepstrum
+float format from {\em data.lpc}, 30-th order mel-cepstral
 coefficients are calculated and written to {\em data.mcep}:
 \begin{quote}
  \verb!mgc2mgc -m 12 -a 0 -g -1 -M 30 -A 0.31 -G 0!\\
