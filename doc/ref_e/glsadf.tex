@@ -108,13 +108,14 @@ in figure\ref{fig:glsadflt_GLSA}, where
 \begin{options}
 	\argm{m}{M}{order of generalized cepstrum}{25}
 	\argm{g}{G}{power parameter $\gamma=-1/G$ for generalized cepstrum\\
-			 if $G==0$ then the LMA filter is used. }{1}
+			 if $G==0$ then the LMA filter is used}{1}
 	\argm{p}{P}{frame period}{100}
 	\argm{i}{I}{interpolation period}{1}
 	\argm{n}{}{regard input as normalized generalized cepstrum}{FALSE}
 	\argm{k}{}{filtering without gain}{FALSE}
+	\desc[1ex]{The option below only works if $G==0$.}
 	\argm{P}{Pa}{order of the Pad\'e approximation\\
-                     Pa = 4 or 5 can be used}{4}
+                     $Pa$ should be $4$ or $5$}{4}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -126,11 +127,6 @@ GLSA filter based on generalized cepstral coefficient file
 \begin{quote}
  \verb!excite < data.pitch | glsadf data.gcep > data.syn!
 \end{quote} 
-\end{qsection}
-
-\begin{qsection}{BUGS}
-Correct response of this command is obtained only when
-$\gamma = -1/n$, with $n$ a natural number.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
