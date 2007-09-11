@@ -41,7 +41,7 @@
 \begin{synopsis}
 \item[fdrw] [ --F $F$ ] [ --R $R$ ] [ --W $W$ ] [ --H $H$ ] [ --o $xo \; yo$ ] 
             [ --g $G$ ] [ --m $M$ ]   
-\item[\ ~~~~~] [ --l $L$ ] [ --p $P$ ] [ --n $N$ ] [ --t $T$ ] 
+\item[\ ~~~~~] [ --l $L$ ] [ --p $P$ ] [ --j $J$ ] [ --n $N$ ] [ --t $T$ ] 
 	       [ --y $ymin \; ymax$ ] [ --z $Z$ ] [ --b ]  
 \item[\ ~~~~~] [ {\em infile} ]
 \end{synopsis}
@@ -65,7 +65,8 @@ Various options let you control the details of the plot layout.
 	\hspace*{2mm}1:~solid~~2:~dotted~~3:~dot and dash~~4:~broken~~5:~dash}{0}
 	\argm{l}{L}{line pitch}{0}
 	\argm{p}{P}{pen number ($1 \sim 10$)}{1}
-	\argm{n}{N}{number of sample}{0}
+	\argm{j}{J}{join number ($0 \sim 2$)}{1}
+	\argm{n}{N}{number of samples}{0}
 	\argm{t}{T}{rotation of coordinate axis. When $T=-1$, the
                     reference point is on the top-left. When $T=1$
                     the reference point is on the bottom-right.}{0}
@@ -100,7 +101,7 @@ the frequency response of a digital filter:
 \begin{quote}
   \verb!impulse | dfs -a 1 0.8 0.5 | spec | fdrw -y -60 40 | xgr!
 \end{quote}
-The $y$ axis goes from $-60$dB to $40$dB.
+The $y$ axis goes from $-60$ dB to $40$ dB.
 \par
 The running spectrum can be draw on the X window environment by:
 \begin{quote}
@@ -116,7 +117,7 @@ The running spectrum can be draw on the X window environment by:
 The command {\em psgr} prints the output in a laser printer in the
 same way that it is printed on the screen.
 Since the {\em fdrw} command includes a sequence of commands
-for a plotter machine(FP5301 protocol) in the output file,
+for a plotter machine (FP5301 protocol) in the output file,
 its output can be directly sent to a printer.
 \end{qsection}
 
