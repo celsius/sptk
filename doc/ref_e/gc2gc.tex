@@ -45,7 +45,7 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em gc2gc} uses a regressive equation 
-to transform a sequence of generalized cepstral coeffcients 
+to transform a sequence of generalized cepstral coefficients 
 with power parameter $\gamma_1$ from {\em infile} (or standard input)
 into generalized cepstral coefficients with power parameter $\gamma_2$, 
 sending the result to standard output.
@@ -101,7 +101,7 @@ K_\alpha,\gamma c_\gamma'(1),\dots, \gamma c_\gamma'(M)
 \begin{qsection}{EXAMPLE}
 In the following example, generalized cepstral coefficients
 with $M=10$ and $\gamma_1=-0.5$ are read in float format from
-{\em data.gcep} file, transformed into 30 order cepstral coefficients,
+{\em data.gcep} file, transformed into 30-th order cepstral coefficients,
 and written to {\em data.cep}:
 \begin{quote}
  \verb!gc2gc -m 10 -g 2 -M 30 -G 0 < data.gcep > data.cep!

@@ -54,7 +54,7 @@ sending the result to standard output.
 Input and output data are in float format.
 
 The LMA filter is an extremely precise approximation of the
-exponential transfer function obtained from $M$ order cepstrum
+exponential transfer function obtained from $M$-th order cepstrum
 coefficients $c(m)$ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^{M} c(m) z^{-m}
@@ -180,7 +180,7 @@ in table \ref{tbl:lmadflt_pade}
 
 \setcounter{table}{0}
 \begin{table}
-        \caption{The values for the coeffients $A_{L,l}$}
+        \caption{The values for the coefficients $A_{L,l}$}
         \label{tbl:lmadflt_coef}
         \setlength{\arrayrulewidth}{0.5pt}
         \renewcommand{\arraystretch}{1.2}
@@ -211,7 +211,7 @@ in table \ref{tbl:lmadflt_pade}
 \begin{qsection}{EXAMPLE}
 In this example, the excitation is generated from
 the pitch data read in float format from {\em data.pitch},
-passed through a LMA filter obtained from cepstrum file
+passed through an LMA filter obtained from cepstrum file
 {\em data.cep}, and the synthesized speech is written to
 {\em data.syn}.
 \begin{quote}

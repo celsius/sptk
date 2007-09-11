@@ -53,7 +53,7 @@ sending the result to standard output.
 Input and output data are in float format.
 
 In the mel-cepstral analysis, the spectrum of the speech signal
-is modeled by $M$ order mel-cepstral coefficients $c_{\alpha}(m)$
+is modeled by $M$-th order mel-cepstral coefficients $c_{\alpha}(m)$
 as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^M c_{\alpha}(m) \tilde{z}^{-m} 
@@ -66,8 +66,9 @@ first order all-pass function
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}.
 \end{displaymath}
 The phase characteristic is given by the variable $\alpha$.
-For a sampling rate 10kHz, $\alpha$ is made equal to $0.35$.
-For a sampling rate 8kHz, $\alpha$ is made equal to $0.31$.
+For a sampling rate 16 kHz, $\alpha$ is made equal to $0.42$.
+For a sampling rate 10 kHz, $\alpha$ is made equal to $0.35$.
+For a sampling rate 8 kHz, $\alpha$ is made equal to $0.31$.
 By making these choices for $\alpha$,
 the mel-scale becomes the good approximation to human
 sensitivity to the loudness speech sound.

@@ -41,7 +41,7 @@
 
 \begin{synopsis}
 \item [mglsadf] [ --m $M$ ] [ --a $A$ ] [ --g $G$ ] [ --p $P$ ]
-		[ --i $I$ ]  [ --t ] [ --k ]
+		[ --i $I$ ] [ --t ] [ --k ] [ --P $Pa$ ] 
 \item [\ ~~~~~~~~] {\em mgcfile}  [ {\em infile} ]
 \end{synopsis}
 
@@ -56,7 +56,7 @@ sending the result to standard output.
 Input and output data are in float format.
 
 The transfer function $H(z)$ related to the synthesis filter
-is obtained from the $M$ order mel-generalized cepstral coefficients
+is obtained from the $M$-th order mel-generalized cepstral coefficients
 $c_{\alpha, \gamma}(m)$ as follows.
 \begin{align}
 H(z) &= s_\gamma^{-1} \left( 
@@ -295,18 +295,21 @@ and can be expressed as
 \begin{options}
 	\argm{m}{M}{order of mel-generalized cepstrum}{25}
 	\argm{a}{A}{alpha}{0.35}
-	\argm{g}{G}{power parameter $\gamma=-1/G$ of generalized cepstrum }{1}
+	\argm{g}{G}{power parameter $\gamma=-1/G$ of generalized cepstrum\\
+			 if $G==0$ then the MLSA filter is used. }{1}
 	\argm{p}{P}{frame period}{100}
 	\argm{i}{I}{interpolation period}{1}
 	\argm{t}{}{transpose filter}{FALSE}
 	\argm{k}{}{filtering without gain}{FALSE}
+	\argm{P}{Pa}{order of the Pad\'e approximation\\
+                     Pa = 4 or 5 can be used}{4}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 In the following example,
 the excitation is constructed from pitch data
 read in float format from {\em data.pitch},
-passed through a MGLSA filter 
+passed through an MGLSA filter 
 built from the mel-generalized cepstrum in
 {\em data.mgcep},
 and the synthesized speech is written to {\em data.syn}:

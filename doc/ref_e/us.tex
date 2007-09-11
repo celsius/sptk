@@ -44,7 +44,7 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em us} us-samples data from {\em infile} (or standard input), 
+{\em us} up-samples data from {\em infile} (or standard input), 
 sending the result to standard output.
 
 The format of input and output data is float.
@@ -85,8 +85,8 @@ Filter coefficients are in ASCII format.
 
 \begin{qsection}{EXAMPLE}
 In this example, the speech data in the input file {\em data.16},
-which was sampled at 16kHz in float format, is converted to
-an 44.1kHz sampling rate:
+which was sampled at 16 kHz in float format, is converted to
+an 44.1 kHz sampling rate:
 \begin{quote}
 \verb!us -s 23F data.16 | us -s 23S | us -s 57 | \! \\
 \verb!us -c /usr/local/SPTK/lib/lpfcoef.5to7 -u 7 -d 8 > data.44! \\[5mm]

@@ -43,7 +43,7 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em lpc} calculates linear prediction coeffiecients (LPC) 
+{\em lpc} calculates linear prediction coefficients (LPC) 
 from $L$-length framed windowed data from {\em infile} (or standard input), 
 sending the result to standard output.
 
@@ -51,7 +51,7 @@ For each $L$-length input vector
 \begin{displaymath}
   x(0),x(1),\ldots,x(L-1), 
 \end{displaymath}
-the autocorrelation function is calculated (see ``accor''),
+the autocorrelation function is calculated (see \hyperlink{acorr}{acorr}),
 then the gain $K$ and the linear prediction coefficients 
 $a(k) (1 \leq k \leq M)$ 
 \begin{displaymath}
@@ -68,7 +68,7 @@ Input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In this example, the 20 order linear prediction analysis is applied
+In this example, the 20-th order linear prediction analysis is applied
 to input read from {\em data.f} in float format,
 and the linear prediction coefficients are written to
 {\em data.lpc}:

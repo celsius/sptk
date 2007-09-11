@@ -48,7 +48,7 @@
 from {\em infile} (or standard input), 
 sending the result to standard output. 
 {\em indexfile} contains a previously-computed sequence of 
-codebook indices corresponding to the input vectors.  
+codebook indexes corresponding to the input vectors.  
 Only those input vectors whose codebook index (from {\em indexfile}) 
 matches the index given by the ``--i'' option 
 are sent through to standard output.
@@ -60,7 +60,7 @@ are sent through to standard output.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the example below, a 10 order vector file {\em data.v}
+In the example below, a 10-th order vector file {\em data.v}
 in float format is quantized using a previously obtained
 codebook {\em data.idx} and writes to the output file {\em data.ex}
 the vectors which were quantized to the index 0 codeword.
