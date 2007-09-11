@@ -47,15 +47,15 @@
 *       usage:                                                          *
 *               agcep [ options ] [ pefile ] < stdin > stdout           *
 *       options:                                                        *
-*               -m m     :  order of generalized cepstrum        [25]   *
-*               -g g     :  -1 / gamma                           [1]    *
-*               -l l     :  leakage factor                       [0.98] *
-*               -t t     :  momentum constant                    [0.9]  *
-*               -k k     :  step size                            [0.1]  *
-*               -p p     :  output period of cepstrum            [1]    *
-*               -s       :  smooth (average) cepstrum            [FALSE]*
-*               -n       :  output normalized cepstrum           [FALSE]*
-*               -e e     :  minimum value for epsilon            [0.0]  *
+*               -m m     :  order of generalized cepstrum    [25]       *
+*               -g g     :  -1 / gamma                       [1]        *
+*               -l l     :  leakage factor                   [0.98]     *
+*               -t t     :  momentum constant                [0.9]      *
+*               -k k     :  step size                        [0.1]      *
+*               -p p     :  output period of cepstrum        [1]        *
+*               -s       :  smooth (average) cepstrum        [FALSE]    *
+*               -n       :  output normalized cepstrum       [FALSE]    *
+*               -e e     :  minimum value for epsilon        [0.0]      *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ...                                   *
@@ -201,6 +201,7 @@ int main (int argc, char **argv)
       fprintf(stderr, "%s : gamma should not equal to 0!\n", cmnd);
       usage(1);
    }
+   gamma = -1.0 / (double)stage;
          
    c  = dgetmem(5*(m+1)+m*stage);
    cc = c  + m + 1;
@@ -208,8 +209,6 @@ int main (int argc, char **argv)
    ep = eg + m + 1;
    avec = ep + m + 1;
    d = avec  + m + 1;
-
-   gamma = (stage==0) ? 0.0 : -1.0 / (double)stage;
    
    j  = period;
    ll = 1.0 - lambda;

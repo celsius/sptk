@@ -53,7 +53,7 @@
 *               -n       :  regard input as normalized      [FALSE]     *
 *                           generalized cepstrum                        *
 *               -k       :  filtering without gain          [FALSE]     *
-*               -P P     :  order of Pade approximation     [4]         *
+*               -P Pa    :  order of Pade approximation     [4]         *
 *        infile:                                                        *
 *               generalized cepstral coefficients                       *
 *                   , c(0), c(1), ..., c(M),                            *
@@ -114,7 +114,8 @@ void usage (int status)
    fprintf(stderr, "       -i i  : interpolation period          [%d]\n", IPERIOD);
    fprintf(stderr, "       -n    : regard input as normalized\n");
    fprintf(stderr, "               generalized cepstrum          [%s]\n", BOOL[NORM]);
-   fprintf(stderr, "       -k    : filtering without gain        [%s]\n",BOOL[NGAIN]);
+   fprintf(stderr, "       -k    : filtering without gain        [%s]\n", BOOL[NGAIN]);
+   fprintf(stderr, "       -P P  : order of Pade approximation   [%d]\n", PADEORD);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       filter input (%s)                  [stdin]\n", FORMAT);
