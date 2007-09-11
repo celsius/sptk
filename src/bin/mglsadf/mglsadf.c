@@ -63,19 +63,20 @@
 *               filtered sequence                                       *
 *                      , y(0), y(1), ...,                               *
 *       notice:                                                         *
-*               if g==0, MLSA filter is used, P = 4 or 5                *
+*               if g==0, MLSA filter is used, P should be 4 or 5        *
 *       require:                                                        *
 *               mglsadf(), mlsadf()                                     *
 *                                                                       *  
 ************************************************************************/
 
-static char *rcs_id = "$Id: mglsadf.c,v 1.11 2007/09/10 22:41:10 heigazen Exp $";
+static char *rcs_id = "$Id: mglsadf.c,v 1.12 2007/09/11 06:30:13 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
 

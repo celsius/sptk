@@ -69,13 +69,14 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: glsadf.c,v 1.13 2007/09/10 22:42:43 heigazen Exp $";
+static char *rcs_id = "$Id: glsadf.c,v 1.14 2007/09/11 06:30:13 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
 

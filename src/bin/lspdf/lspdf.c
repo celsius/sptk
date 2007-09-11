@@ -65,13 +65,14 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspdf.c,v 1.10 2007/09/10 17:19:12 heigazen Exp $";
+static char *rcs_id = "$Id: lspdf.c,v 1.11 2007/09/11 06:30:12 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <SPTK.h>
 
 
