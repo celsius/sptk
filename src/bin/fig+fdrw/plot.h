@@ -118,6 +118,7 @@ void bound(double xl, double yl, double xh, double yh);
 void rstbnd();
 int hatch(int ip, float *ax, float *ay, int n, float d, float t);
 int pen(int pen);
+int join (int join);
 int font(int n);
 int speed(int isp, int ip);
 int mark(int mrk, float ax[], float ay[], int n, float f, int m);
