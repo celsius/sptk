@@ -53,7 +53,8 @@ set cvsid       = '$Id$'
 
 set cmnd        = `basename $0`
 
-set type        = +sf
+set itype       = +ff
+set otype       = +ff
 set iext        = 10
 set oext        = 16
 
@@ -68,10 +69,12 @@ while($i < $#argv)
         @ i++
         switch($argv[$i])
         case +f:
-                set type = ''
+                set itype = '+ff'
+                set otype = '+ff'
                 breaksw
         case +s:
-                set type = '+sf'
+                set itype = '+sf'
+                set otype = '+fs'
                 breaksw
         case -s:
                 @ i++
@@ -118,13 +121,13 @@ if( $stdinput == 1) then
                         echo2 "${cmnd}: $outfile - File exits."
                         exit 1
                 endif
-                x2x $type |\
-                us $usops |\
-                x2x +fs > $outfile
+                x2x $itype |\
+                us  $usops |\
+                x2x $otype > $outfile
         else
-                x2x $type |\
-                us $usops |\
-                x2x +fs
+                x2x $itype |\
+                us  $usops |\
+                x2x $otype
         endif
         exit 0
 endif
@@ -140,13 +143,13 @@ foreach infile ($file)
                         echo2 "${cmnd}: $outfile - File exits."
                         exit 1
                 endif
-                x2x $type $infile |\
-                us $usops |\
-                x2x +fs > $outfile
+                x2x $itype $infile |\
+                us  $usops |\
+                x2x $otype > $outfile
         else
-                x2x $type $infile |\
-                us $usops |\
-                x2x +fs
+                x2x $itype $infile |\
+                us  $usops |\
+                x2x $otype
         endif
 end
 exit 0
@@ -163,7 +166,7 @@ cat2 <<EOF
 
   options:
        -s s     : input sampling frequency 10|12kHz          [10]
-       +x       : data format                                [s]
+       +x       : input and output data format               [f]
                      s(short)   f(float)
        -h       : print this message
   infile:
