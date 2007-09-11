@@ -38,7 +38,7 @@
 */
 
 /****************************************************************
-* $Id: plot.h,v 1.5 2007/09/10 14:21:01 heigazen Exp $          *  
+* $Id: plot.h,v 1.6 2007/09/11 06:26:30 heigazen Exp $          *  
 * HEADER for XY-PLOTTER library                                 *
 *                                                               *
 *    Following commands are valid for the xy plotter FP5301     *
@@ -118,6 +118,7 @@ void bound(double xl, double yl, double xh, double yh);
 void rstbnd();
 int hatch(int ip, float *ax, float *ay, int n, float d, float t);
 int pen(int pen);
+int join (int join);
 int font(int n);
 int speed(int isp, int ip);
 int mark(int mrk, float ax[], float ay[], int n, float f, int m);
