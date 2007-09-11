@@ -71,7 +71,7 @@ H(z) = \exp \sum_{m=0}^{M} c(m)\,B_m(e^{j\omega})
 where
 \begin{displaymath}
 \mathrm{Re}\left[B_m(e^{j\omega})\right]
-	=\left\{A^m(e^{j\omega})+A^m(e^{-j\omega})\right\}/2
+	= \frac{A^m(e^{j\omega})+A^m(e^{-j\omega})}{2}
 \end{displaymath}
 \par The Newton-Raphson method is applied to calculate
 the mel-cepstral coefficients through the minimization
@@ -81,7 +81,7 @@ of the cost function.
 \newpage
 \begin{options}
 	\argm{a}{A}{all-pass constant $\alpha$}{0.35}
-	\argm{t}{T}{emphasized frequency $\theta*\pi$(rad)}{0}
+	\argm{t}{T}{emphasized frequency $\theta*\pi$ (rad)}{0}
 	\argm{m}{M}{order of mel cepstrum}{25}
 	\argm{l}{L_1}{frame length}{256}
 	\argm{L}{L_2}{ifft size for making matrices}{256}
