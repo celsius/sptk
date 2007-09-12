@@ -129,7 +129,7 @@ implemented by C-shell scripts.
 
 2) To build and install all tools, type:
 
-         ./configure --prefix=/usr/local/SPTK
+        % ./configure --prefix=/usr/local/SPTK
         % make
         % make install
 
