@@ -151,6 +151,6 @@ int main (int argc, char **argv)
       fwritef(c, sizeof(*c), m+1, stdout);
    }
    
-   return 0;
+   return(0);
 }
 
