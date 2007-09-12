@@ -1,15 +1,15 @@
 #!/bin/csh -f
 # ----------------------------------------------------------------
 #       Speech Signal Processing Toolkit (SPTK): version 3.0
-# 		       SPTK Working Group
+#                        SPTK Working Group
 # 
-# 		 Department of Computer Science
-# 		 Nagoya Institute of Technology
-# 			      and
+#                  Department of Computer Science
+#                  Nagoya Institute of Technology
+#                               and
 #   Interdisciplinary Graduate School of Science and Engineering
-# 		 Tokyo Institute of Technology
-# 		    Copyright (c) 1984-2000
-# 		      All Rights Reserved.
+#                  Tokyo Institute of Technology
+#                     Copyright (c) 1984-2000
+#                       All Rights Reserved.
 # 
 # Permission is hereby granted, free of charge, to use and
 # distribute this software and its documentation without
@@ -39,8 +39,8 @@
 
 #########################################################################
 #                                                                       #
-#       Sampling rate conversion from 8|10|12|16kHz to                  #
-#                                                 11.025|22.05|44.1kHz  #
+#       Sampling rate conversion from 8|10|12|16 kHz to                 #
+#                                                 11.025|22.05|44.1 kHz #
 #                                                                       #
 #                                           1998    T.Kobayashi         #
 #                                           2000.7  S.Sako              #
@@ -50,7 +50,7 @@
 set path        = ( /usr/local/SPTK/bin $path )
 set libpath     = /usr/local/SPTK/lib
 set sptkver     = 'SPTK_VERSION'
-set cvsid       = '$Id: uscd.sh,v 1.10 2007/09/11 04:42:19 heigazen Exp $'
+set cvsid       = '$Id: uscd.sh,v 1.11 2007/09/12 06:28:25 heigazen Exp $'
 
 set cmnd        = `basename $0`
 
@@ -200,23 +200,23 @@ usage:
 
 cat2 <<EOF
 
- uscd - sampling rate conversion from 8|10|12|16kHz to 11.025|22.05|44.1kHz
+ uscd - sampling rate conversion from 8|10|12|16 kHz to 11.025|22.05|44.1 kHz
 
   usage:
        $cmnd [ options ] [ infile ] [ outfile ]
        $cmnd [ options ] [ infile1 ] [ infile2 ] ... [ outdir ]
 
   options:
-       -s s     : input sampling frequency (8,10,12,16kHz)   [10]
+       -s s     : input sampling frequency (8, 10, 12, 16 kHz) [10]
        -S s     : output sampling frequency 
-                                      (11.025,22.05,44.1kHz) [11.025]
-       +x       : input and output data format               [f]
+                                      (11.025, 22.05, 44.1kHz) [11.025]
+       +x       : input and output data format                 [f]
                      s(short)   f(float)
        -h       : print this message
   infile:
-       data sequence                                         [stdin]
+       data sequence                                           [stdin]
   stdout:
-       data sequence                                         [stdout]
+       data sequence                                           [stdout]
   notice:
 
   SPTK: version $sptkver
