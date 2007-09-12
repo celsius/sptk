@@ -47,7 +47,7 @@
 *               iglsadf [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
 *               -m m     :  order of generalized cepstrum   [25]        *
-*               -g g     :  -1/gamma                        [1]         *
+*               -g g     :  -1 / gamma                      [1]         *
 *               -p p     :  frame period                    [100]       *
 *               -i i     :  interpolation period            [1]         *
 *               -n       :  regard input as normalized      [FALSE]     *
@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: iglsadf.c,v 1.11 2007/09/11 07:46:13 heigazen Exp $";
+static char *rcs_id = "$Id: iglsadf.c,v 1.12 2007/09/12 06:54:02 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

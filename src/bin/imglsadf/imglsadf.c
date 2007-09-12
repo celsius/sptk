@@ -48,7 +48,7 @@
 *       options:                                                        *
 *               -m m     :  order of mel-generalized cepstrum  [25]     *
 *               -a a     :  alpha                              [0.35]   *
-*               -g g     :  -1/gamma                           [1]      *
+*               -g g     :  -1 / gamma                         [1]      *
 *               -p p     :  frame period                       [100]    *
 *               -i i     :  interpolation period               [1]      *
 *               -t       :  transpose filter                   [FALSE]  *
@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: imglsadf.c,v 1.13 2007/09/11 08:25:40 heigazen Exp $";
+static char *rcs_id = "$Id: imglsadf.c,v 1.14 2007/09/12 06:55:45 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -106,7 +106,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of generalized cepstrum [%d]\n", ORDER);
    fprintf(stderr, "       -a a  : alpha                         [%g]\n", ALPHA);
-   fprintf(stderr, "       -g g  : -1/gamma                      [%d]\n", STAGE);
+   fprintf(stderr, "       -g g  : -1 / gamma                    [%d]\n", STAGE);
    fprintf(stderr, "       -p p  : frame period                  [%d]\n", FPERIOD);
    fprintf(stderr, "       -i i  : interpolation period          [%d]\n", IPERIOD);
    fprintf(stderr, "       -t    : transepose filter             [%s]\n", BOOL[TRANSPOSE]);
