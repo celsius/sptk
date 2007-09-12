@@ -48,7 +48,7 @@
 *       options:                                                        *
 *               -m m     :  order of mel-generalized cepstrum  [25]     *
 *               -a a     :  alpha                              [0.35]   *
-*               -g g     :  -1/gamma                           [1]      *
+*               -g g     :  -1 / gamma                         [1]      *
 *               -p p     :  frame period                       [100]    *
 *               -i i     :  interpolation period               [1]      *
 *               -t       :  transpose filter                   [FALSE]  *
@@ -69,7 +69,7 @@
 *                                                                       *  
 ************************************************************************/
 
-static char *rcs_id = "$Id: mglsadf.c,v 1.12 2007/09/11 06:30:13 heigazen Exp $";
+static char *rcs_id = "$Id: mglsadf.c,v 1.13 2007/09/12 07:01:13 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
