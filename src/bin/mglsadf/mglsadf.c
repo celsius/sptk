@@ -48,7 +48,7 @@
 *       options:                                                        *
 *               -m m     :  order of mel-generalized cepstrum  [25]     *
 *               -a a     :  alpha                              [0.35]   *
-*               -g g     :  -1/gamma                           [1]      *
+*               -g g     :  -1 / gamma                         [1]      *
 *               -p p     :  frame period                       [100]    *
 *               -i i     :  interpolation period               [1]      *
 *               -t       :  transpose filter                   [FALSE]  *
