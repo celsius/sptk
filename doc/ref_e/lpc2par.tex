@@ -72,14 +72,14 @@ If the filter is not stable, then 1 is returned to the standard output.
 Input and output data are in float format.
 \par
 The transformation from LPC coefficients to PARCOR coefficients
-is undertaken as follows.
+is undertaken as follows:
 \begin{align} 
 k(m) &= a^{(m)}(m) \notag \\
-a^{(m-1)}(i) =& \frac{a^{(m)}(i)+a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)}, \notag
+a^{(m-1)}(i) &= \frac{a^{(m)}(i)+a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)}, \notag
 \end{align}
 where $1 \leq i \leq m-1$, $m=p, p-1, \dots, 1$.
 The initial condition is
-\begin{displaymath}
+\begin{displaymath}  
 a^{(M)}(m) = a(m), \qquad 1 \leq m \leq M.
 \end{displaymath}
 If we use the --g option, then the input contains normalized generalized

@@ -151,24 +151,15 @@ and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
 			 if $G \ge 1.0$ then $\gamma=-1/G$}{0}
 	\argm{m}{M}{order of mel-generalized cepstrum}{25}
 	\argm{l}{L}{frame length power of 2}{256}
-	\argm{o}{O}{output data style\\
-                        $O = 0$:\\
-			  $c_{\alpha, \gamma}(0), c_{\alpha, \gamma}(1),
-			  \dots, c_{\alpha, \gamma}(M)$\\
-			$O = 1$:\\
-			  $b_\gamma(0), b_\gamma(1), \dots, b_\gamma(M)$\\
-			$O = 2$:\\
-			  $K_\alpha, c_{\alpha, \gamma}'(1), 
-			  \dots, c_{\alpha, \gamma}'(M)$\\
-			$O = 3$:\\
-			  $K, b_\gamma'(1), \dots, b_\gamma'(M)$\\
-			$O = 4$:\\
-			  $K_\alpha, \gamma\,c_{\alpha, \gamma}'(1), \dots,
-			\gamma\,c_{\alpha, \gamma}'(M)$\\
-			$O = 5$:\\
-			  $K, \gamma\,b_\gamma'(1), \dots, 
-			  \gamma\,b_\gamma'(M)$
-			}{0}
+	\argm{o}{O}{output format \\
+		\begin{tabular}{ll} \\[-1ex]
+			$O = 0$ & $c_{\alpha, \gamma}(0), c_{\alpha, \gamma}(1), \dots, c_{\alpha, \gamma}(M)$\\
+			$O = 1$ & $b_\gamma(0), b_\gamma(1), \dots, b_\gamma(M)$\\
+			$O = 2$ & $K_\alpha, c_{\alpha, \gamma}'(1), \dots, c_{\alpha, \gamma}'(M)$\\
+			$O = 3$ & $K, b_\gamma'(1), \dots, b_\gamma'(M)$\\
+			$O = 4$ & $K_\alpha, \gamma\,c_{\alpha, \gamma}'(1), \dots, \gamma\,c_{\alpha, \gamma}'(M)$\\
+			$O = 5$ & $K, \gamma\,b_\gamma'(1), \dots, \gamma\,b_\gamma'(M)$
+		\end{tabular}\\\hspace*{\fill}}{0}
 	\desc[1ex]{Usually, the options below do not need to be assigned.}
 	\argm{i}{I}{minimum iteration of Newton-Raphson method}{2}
 	\argm{j}{J}{maximum iteration of Newton-Raphson method}{30}
@@ -176,7 +167,7 @@ and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
 	\argm{p}{P}{order of recursions}{$L-1$}
 	\argm{e}{E}{small value added to periodgram}{0}	
 \end{options}
-
+ 
 \begin{qsection}{EXAMPLE}
 In the following speech data in float format is read
 from {\em data.f} and analyzed with $\gamma=0$, $\alpha=0$

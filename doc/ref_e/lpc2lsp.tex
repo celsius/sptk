@@ -75,9 +75,10 @@ The PARCOR coefficients satisfy the following equations.
   B_m(z) &= z^{-1} (B_{m-1}(z) - k(m) A_{m-1}(z)) \notag
 \end{align}
 Also, the initial conditions are set as follows,
-\begin{displaymath}
-  A_0(z) = 1, \qquad B_0(z) = z^{-1}
-\end{displaymath}
+\begin{align}
+  A_0(z) &= 1 \notag \\
+  B_0(z) &= z^{-1}.
+\end{align}
 When we are given the linear prediction polynomial equation
 of $M$-th order $A_M(z)$, and when the evaluation of $A_{M+1}(z)$
 is obtained with the value of $k(M+1)$ equal to $1$ or $-1$, 
@@ -92,7 +93,7 @@ the boundary condition for the glottis of the fixed vocal tract model
 satisfies a perfect reflection characteristic.
 Also, $A_M(z)$ can be expressed as
 \begin{displaymath}
-  A_M(z) = ( P(z) + Q(z) ) / 2.
+  A_M(z) =  \frac{P(z) + Q(z)}{2}.
 \end{displaymath}
 When we express $A_M(z)$ in this way,
 $A_M(z)$ is stable.
