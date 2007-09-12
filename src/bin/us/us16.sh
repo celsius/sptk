@@ -1,15 +1,15 @@
 #!/bin/csh -f
 # ----------------------------------------------------------------
 #       Speech Signal Processing Toolkit (SPTK): version 3.0
-# 		       SPTK Working Group
+#                        SPTK Working Group
 # 
-# 		 Department of Computer Science
-# 		 Nagoya Institute of Technology
-# 			      and
+#                  Department of Computer Science
+#                  Nagoya Institute of Technology
+#                               and
 #   Interdisciplinary Graduate School of Science and Engineering
-# 		 Tokyo Institute of Technology
-# 		    Copyright (c) 1984-2000
-# 		      All Rights Reserved.
+#                  Tokyo Institute of Technology
+#                     Copyright (c) 1984-2000
+#                       All Rights Reserved.
 # 
 # Permission is hereby granted, free of charge, to use and
 # distribute this software and its documentation without
@@ -39,7 +39,7 @@
 
 #########################################################################
 #                                                                       #
-#       Sampling rate conversion from 10|12kHz to 16kHz                 #
+#       Sampling rate conversion from 10|12 kHz to 16 kHz               #
 #                                                                       #
 #                                           1998    T.Kobayashi         #
 #                                           2000.7  S.Sako              #
@@ -158,16 +158,16 @@ usage:
 
 cat2 <<EOF
 
- uscd - sampling rate conversion from 10|12kHz to 16kHz
+ uscd - sampling rate conversion from 10|12 kHz to 16 kHz
 
   usage:
        $cmnd [ options ] [ infile ] [ outfile ]
        $cmnd [ options ] [ infile1 ] [ infile2 ] ... [ outdir ]
 
   options:
-       -s s     : input sampling frequency 10|12kHz          [10]
+       -s s     : input sampling frequency 10|12 kHz         [10]
        +x       : input and output data format               [f]
-                     s(short)   f(float)
+                     s (short)   f (float)
        -h       : print this message
   infile:
        data sequence                                         [stdin]
