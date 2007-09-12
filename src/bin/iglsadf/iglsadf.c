@@ -47,7 +47,7 @@
 *               iglsadf [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
 *               -m m     :  order of generalized cepstrum   [25]        *
-*               -g g     :  -1/gamma                        [1]         *
+*               -g g     :  -1 / gamma                      [1]         *
 *               -p p     :  frame period                    [100]       *
 *               -i i     :  interpolation period            [1]         *
 *               -n       :  regard input as normalized      [FALSE]     *
