@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
 AC_INIT(SPTK, 3.1, dsp-cmnd@sp.nitech.ac.jp)
-AC_COPYRIGHT(Copyright 2001-2007 Nagoya Institute of Technology and Tokyo Institute of Technology)
+AC_COPYRIGHT(Copyright 1984-2007 Nagoya Institute of Technology and Tokyo Institute of Technology)
 AC_SUBST(PACKAGE_NAME)
 AC_SUBST(PACKAGE_VERSION)
 
