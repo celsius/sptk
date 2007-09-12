@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: glsadf.c,v 1.15 2007/09/11 07:46:13 heigazen Exp $";
+static char *rcs_id = "$Id: glsadf.c,v 1.16 2007/09/12 06:51:27 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -192,10 +192,10 @@ int main (int argc, char **argv)
       return(1);
    }
 
-   if (stage!=0) {
+   if (stage!=0) {  /* GLSA */
       gamma = -1 / (double)stage;
    }
-   else {
+   else {  /* LMA */
       if ((pd<4)||(pd>5)) {
          fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
          return(1);
