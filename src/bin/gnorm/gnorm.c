@@ -60,7 +60,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: gnorm.c,v 1.10 2007/09/11 08:33:41 heigazen Exp $";
+static char *rcs_id = "$Id: gnorm.c,v 1.11 2007/09/12 06:53:01 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -151,6 +151,6 @@ int main (int argc, char **argv)
       fwritef(c, sizeof(*c), m+1, stdout);
    }
    
-   return 0;
+   return(0);
 }
 
