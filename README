@@ -1,5 +1,5 @@
             Speech Signal Processing Toolkit (SPTK)
-             version 3.0 release December 25, 2002
+             version 3.1 release October 1, 2007
 
 The Speech Signal Processing Toolkit (SPTK) was developed and
 has been used in the research group of Prof. Satoshi Imai
@@ -8,13 +8,12 @@ Prof. Takao Kobayashi (currently he is with Interdisciplinary
 Graduate School of Science and Engineering, Tokyo Institute of
 Technology) at P&I laboratory, Tokyo Institute of Technology.
 This time some tools are chosen and arranged for distribution by
-Associate Prof. Keiichi Tokuda (currently he is with Department
+Prof. Keiichi Tokuda (currently he is with Department
 of Computer Science, Nagoya Institute of Technology) as an
-organizer in cooperation with Takashi Masuko (currently he is a
-Research Associate at Department of Interdisciplinary Graduate
-School of Science and Engineering, Tokyo Institute of
-Technology), Dr. Kazuhito Koishida (currently he is with
-Microsoft Research), and some graduate students.
+organizer in cooperation with Takashi Masuko (currently he is with
+the Corporate Research & Development Center, Toshiba Corporation), 
+Dr. Kazuhito Koishida (currently he is with Microsoft Research), 
+and some graduate students.
 
 The original source codes have been written by many people who
 took part in research of the research group.  The most original
@@ -25,7 +24,7 @@ synthesis, etc.), and Kazuhito Koishida (LSP, vector
 quantization, etc.).
 
 This version is accompanied by a Reference Manual (a total of
-180 pages written in Japanese). A User's Manual "Examples for
+180 pages written in Japanese).  A User's Manual "Examples for
 using SPTK" is also attached.  We are planing to translate the
 Reference Manual into English.
 
@@ -54,42 +53,51 @@ it helps justify ourselves to our various sponsors.
 
 The current copyright on the toolkit is
 
-----------------------------------------------------------------
-      Speech Signal Processing Toolkit (SPTK): version 3.0
-                       SPTK Working Group
-
-                 Department of Computer Science
-                 Nagoya Institute of Technology
-                              and
-  Interdisciplinary Graduate School of Science and Engineering
-                 Tokyo Institute of Technology
-                    Copyright (c) 1984-2000
-                      All Rights Reserved.
-
-Permission is hereby granted, free of charge, to use and
-distribute this software and its documentation without
-restriction, including without limitation the rights to use,
-copy, modify, merge, publish, distribute, sublicense, and/or
-sell copies of this work, and to permit persons to whom this
-work is furnished to do so, subject to the following conditions:
-
-  1. The code must retain the above copyright notice, this list
-     of conditions and the following disclaimer.
-
-  2. Any modifications must be clearly marked as such.
-                                                                       
-NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSITITUTE OF TECHNOLOGY,
-SPTK WORKING GROUP, AND THE CONTRIBUTORS TO THIS WORK DISCLAIM
-ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT
-SHALL NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSITITUTE OF
-TECHNOLOGY, SPTK WORKING GROUP, NOR THE CONTRIBUTORS BE LIABLE
-FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY
-DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
-WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTUOUS
-ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-----------------------------------------------------------------
+ ---------------------------------------------------------------  
+           Speech Signal Processing Toolkit (SPTK)                
+                     SPTK Working Group                           
+                                                                  
+                 Department of Computer Science                   
+                 Nagoya Institute of Technology                   
+                              and                                 
+  Interdisciplinary Graduate School of Science and Engineering    
+                 Tokyo Institute of Technology                    
+                                                                  
+                    Copyright (c) 1984-2007                       
+                      All Rights Reserved.                        
+                                                                  
+ Permission is hereby granted, free of charge, to use and         
+ distribute this software and its documentation without           
+ restriction, including without limitation the rights to use,     
+ copy, modify, merge, publish, distribute, sublicense, and/or     
+ sell copies of this work, and to permit persons to whom this     
+ work is furnished to do so, subject to the following conditions: 
+                                                                  
+   1. The source code must retain the above copyright notice,     
+      this list of conditions and the following disclaimer.       
+                                                                 
+   2. Any modifications to the source code must be clearly        
+      marked as such.                                             
+                                                                  
+   3. Redistributions in binary form must reproduce the above     
+      copyright notice, this list of conditions and the           
+      following disclaimer in the documentation and/or other      
+      materials provided with the distribution.  Otherwise, one   
+      must contact the SPTK working group.                        
+                                                                  
+ NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSTITUTE OF TECHNOLOGY,   
+ SPTK WORKING GROUP, AND THE CONTRIBUTORS TO THIS WORK DISCLAIM   
+ ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL       
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT   
+ SHALL NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSTITUTE OF         
+ TECHNOLOGY, SPTK WORKING GROUP, NOR THE CONTRIBUTORS BE LIABLE   
+ FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY        
+ DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,  
+ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTUOUS   
+ ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR          
+ PERFORMANCE OF THIS SOFTWARE.                                    
+                                                                  
+ ---------------------------------------------------------------  
 
 ****************************************************************
                           Environment
@@ -113,10 +121,15 @@ implemented by C-shell scripts.
 
 0) Enter 'src' directory.
 
-1) Read the comments in "Makefile" and make any necessary changes.
+1) Type
+
+        % ./configure --help
+   
+   and read the help messages.
 
 2) To build and install all tools, type:
 
+         ./configure --prefix=/usr/local/SPTK
         % make
         % make install
 
@@ -141,14 +154,14 @@ the Reference Manual may not be included in this version.
 Bug reports, comments, questions for the Speech Signal
 Processing Toolkit are very welcome.  Please send them to
 
-   dsp-cmnd@ip.titech.ac.jp
+   dsp-cmnd@sp.nitech.ac.jp
 
 by email. We will reply to any questions as much as possible but
 we cannot assure that we will reply to all messages.
 
 Please see
 
-   http://kt-lab.ics.nitech.ac.jp/~tokuda/SPTK/
+   http://sp-tk.sourceforge.net/
 
 for more information about the Speech Signal Processing Toolkit,
 (e.g., Examples for using Speech Signal Processing Toolkit).
@@ -161,9 +174,7 @@ Generic properties of each command are summarized as follows:
 
  i) Data has float-type format, i.e., single-precision floating
     point format.  This can be changed to double-type format by
-    specifying a compile option. It is noted that in the current
-    version the "float" specifications in the help messages do
-    not change by the compile option.
+    specifying a compile option.  
 
  ii) Data files do not have headers or any structures, i.e.,
      they are flat row files.
@@ -211,16 +222,14 @@ and others.
                            Who we are
 ****************************************************************
 
-SPTK working group is a voluntary group for developing the
-Speech Signal Processing Toolkit.  Current SPTK working group
-members are
+The SPTK working group is a voluntary group for developing the
+Speech Signal Processing Toolkit.  Current members are
 
-  Keiichi Tokuda (Organizer) tokuda@ics.nitech.ac.jp
-  Takashi Masuko             masuko@ip.titech.ac.jp
-  Shinji Sako                sako@ics.nitech.ac.jp
-  Yoshihiko Nankaku          nankaku@ics.nitech.ac.jp
-  Jun-ichi Yamagishi         Junichi.Yamagishi@ip.titech.ac.jp
+  Keiichi Tokuda (Organizer) tokuda@nitech.ac.jp
+  Shinji Sako                sako@mmsp.nitech.ac.jp
+  Yoshihiko Nankaku          nankaku@sp.nitech.ac.jp
+  Jun-ichi Yamagishi         jyamagis@inf.ed.ac.uk
 
 and the members are dynamically changing.  The current formal
 contact address of SPTK working group is
-dsp-cmnd@ip.titech.ac.jp.
+dsp-cmnd@sp.nitech.ac.jp.
