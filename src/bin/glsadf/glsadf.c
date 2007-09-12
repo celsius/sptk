@@ -192,10 +192,10 @@ int main (int argc, char **argv)
       return(1);
    }
 
-   if (stage!=0) {
+   if (stage!=0) {  /* GLSA */
       gamma = -1 / (double)stage;
    }
-   else {
+   else {  /* LMA */
       if ((pd<4)||(pd>5)) {
          fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
          return(1);
