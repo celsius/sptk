@@ -199,6 +199,8 @@ int main (int argc, char **argv)
 
    for (;;) {
       if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
+      if (!ngain && loggain)
+         c[0] = exp(c[0]);
 
       for (i=0; i<=m; i++)
          inc[i] = (cc[i] - c[i])*iprd / fprd;
@@ -206,11 +208,8 @@ int main (int argc, char **argv)
       for (j=fprd, i=(iprd+1)/2; j--;) {
          if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
-         if (!ngain) {
-            if (loggain)
-               c[0] = exp(c[0]);
+         if (!ngain)
             x *= c[0];
-         }
 
          if (flag_odd)
             x = lspdf_odd(x, c, m, d);
@@ -226,6 +225,7 @@ int main (int argc, char **argv)
       }
       movem(cc, c, sizeof(*cc), m+1);
    }
+
    return(0);
 }
 
