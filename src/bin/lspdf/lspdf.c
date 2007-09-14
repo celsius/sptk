@@ -104,6 +104,7 @@ char *FORMAT = "float";
 /*  Command Name  */
 char *cmnd;
 
+
 void usage (int status)
 {
    fprintf(stderr, "\n");
@@ -168,6 +169,7 @@ int main (int argc, char **argv)
             break;
          case 'l':
             loggain = 1 - loggain;
+            break;
          case 'h':
             usage (0);
          default:
