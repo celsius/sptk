@@ -1,12 +1,67 @@
-\documentclass[a4paper]{article}
+%  ---------------------------------------------------------------  %
+%            Speech Signal Processing Toolkit (SPTK)                %
+%                      SPTK Working Group                           %
+%                                                                   %
+%                  Department of Computer Science                   %
+%                  Nagoya Institute of Technology                   %
+%                               and                                 %
+%   Interdisciplinary Graduate School of Science and Engineering    %
+%                  Tokyo Institute of Technology                    %
+%                                                                   %
+%                     Copyright (c) 1984-2007                       %
+%                       All Rights Reserved.                        %
+%                                                                   %
+%  Permission is hereby granted, free of charge, to use and         %
+%  distribute this software and its documentation without           %
+%  restriction, including without limitation the rights to use,     %
+%  copy, modify, merge, publish, distribute, sublicense, and/or     %
+%  sell copies of this work, and to permit persons to whom this     %
+%  work is furnished to do so, subject to the following conditions: %
+%                                                                   %
+%    1. The source code must retain the above copyright notice,     %
+%       this list of conditions and the following disclaimer.       %
+%                                                                   %
+%    2. Any modifications to the source code must be clearly        %
+%       marked as such.                                             %
+%                                                                   %
+%    3. Redistributions in binary form must reproduce the above     %
+%       copyright notice, this list of conditions and the           %
+%       following disclaimer in the documentation and/or other      %
+%       materials provided with the distribution.  Otherwise, one   %
+%       must contact the SPTK working group.                        %
+%                                                                   %
+%  NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSTITUTE OF TECHNOLOGY,   %
+%  SPTK WORKING GROUP, AND THE CONTRIBUTORS TO THIS WORK DISCLAIM   %
+%  ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL       %
+%  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT   %
+%  SHALL NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSTITUTE OF         %
+%  TECHNOLOGY, SPTK WORKING GROUP, NOR THE CONTRIBUTORS BE LIABLE   %
+%  FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY        %
+%  DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,  %
+%  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTUOUS   %
+%  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR          %
+%  PERFORMANCE OF THIS SOFTWARE.                                    %
+%                                                                   %
+%  ---------------------------------------------------------------  %
+%
+%#!platex examples.tex
+\documentclass[a4paper,10pt]{article}
 \usepackage[dvips]{graphicx}
-\usepackage[dvips]{hyperref}
-\usepackage{html}
+\usepackage[dvips,
+        dvipdfm,
+        bookmarks=true,
+        bookmarkstype=toc,
+		debug=true,
+        pdfauthor={SPTK working group},
+        pdftitle={Exapmles for using SPTK ver. 3.1}]
+        {hyperref} 
+% \usepackage{html}
 \usepackage{times}
+\usepackage{txfonts}
 
 \setlength{\oddsidemargin}{0pt}
 \setlength{\textwidth}{160mm}
-
+ 
 \title{
   Examples for Using Speech Signal Processing Toolkit\\
   Ver. 3.1}
@@ -19,11 +74,11 @@
 
 \maketitle
 
-\begin{htmlonly}
-  By cliking links, your PC may play some speech files, which
-  were converted from ``float'' format into ``wav'' format
-  (16 kHz sampling, 16-bit integer).
-\end{htmlonly}
+% \begin{htmlonly}
+%   By cliking links, your PC may play some speech files, which
+%   were converted from ``float'' format into ``wav'' format
+%   (16 kHz sampling, 16-bit integer).
+% \end{htmlonly}
 
 \tableofcontents
 
@@ -35,8 +90,8 @@
 impulse -h
 \end{verbatim}
 
-\subsection{Data type conversion between ``big endian'' (Sun, HP, etc) and
-  ``little endian'' (Intel, DEC, etc)}
+\subsection{Data type conversion between ``big endian'' (Sparc, PA-RISC, PowerPC, etc.)
+and ``little endian'' (x86, IA-64, Alpha AXP, etc.)}
 
 \begin{description}
 \item[Files:]
@@ -64,7 +119,7 @@ dmp +s data.short | less
 \begin{description}
 \item[Files:]
   data.short: speech data (short integer: 16-bit, 16 kHz sampling)\\
-  \htmladdnormallink{data.float}{../data/data.float.wav}: 
+%   \htmladdnormallink{data.float}{data.float.wav}: 
   speech data (float, 16 kHz sampling)\\
 \end{description}
 
@@ -242,7 +297,7 @@ mgc2sp -m 20 -a 0.42 -g 0 -l 512 | glogsp -l 512 -x 8 ) | xgr
 \item[Files:]
   data.pitch: pitch data extracted from speech data "data.short"\\
   data.mcep: mel-cepstrum (float) \\
-  \htmladdnormallink{data.mcep.syn}{../data.mcep.syn.wav}: 
+%   \htmladdnormallink{data.mcep.syn}{data.mcep.syn.wav}: 
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 point (5 ms)\\
@@ -272,7 +327,7 @@ da +f -s 16 data.mcep.syn
 \begin{description}
 \item[Files:]
   data.short: speech data (short integer: 16-bit, 16 kHz sampling)\\
-  data.lpc: LPC coeffieicnts (float)
+  data.lpc: LPC coefficients (float)
 \item[Conditions:]
   frame length: 400 point (25 ms)\\
   frame period: 80 point (5 ms)\\
@@ -289,7 +344,7 @@ lpc -l 400 -m 20 > data.lpc
 
 \begin{description}
 \item[Files:]
-  data.lpc: LPC coeffieicnts (float)
+  data.lpc: LPC coefficients (float)
 \item[Conditions:]
   analysis order: 20
 \end{description}
@@ -313,7 +368,7 @@ grlogsp -l 512 -x 8 | xgr
 
 \begin{description}
 \item[Files:]
-  data.lpc: LPC coeffieicnts (float)
+  data.lpc: LPC coefficients (float)
 \item[Conditions:]
   analysis order: 20\\
   plotted frame: 65th\\
@@ -338,8 +393,8 @@ spec -l 512 -n 20 -p data.tmp | glogsp -l 512 -x 8 ;\
 \begin{description}
 \item[Files:]
    data.pitch: pitch data extracted from speech data "data"\\
-   data.lpc: LPC coeffieicnts (float)\\
-   \htmladdnormallink{data.lpc.syn}{../data.lpc.syn.wav}: 
+   data.lpc: LPC coefficients (float)\\
+%    \htmladdnormallink{data.lpc.syn}{data.lpc.syn.wav}: 
    synthesized speech (float)
 \item[Conditions:]
   frame period: 80 point (5 ms)\\
@@ -364,8 +419,8 @@ da +f -s 16 data.lpc.syn
 
 \begin{description}
 \item[Files:] 
-   data.lpc: LPC coeffieicnts (float)\\
-   data.par: PARCOR coeffieicnts (float)
+   data.lpc: LPC coefficients (float)\\
+   data.par: PARCOR coefficients (float)
 \item[Conditions:]
   analysis order: 20
 \end{description}
@@ -378,8 +433,8 @@ lpc2par -m 20 < data.lpc > data.par
 \begin{description}
 \item[Files:]
   data.pitch: pitch data extracted from speech data "data" (float)\\
-  data.par: PARCOR coeffieicnts (float)\\
-  \htmladdnormallink{data.par.syn}{data.par.syn.wav}: 
+  data.par: PARCOR coefficients (float)\\
+%   \htmladdnormallink{data.par.syn}{data.par.syn.wav}: 
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 point (5 ms)\\
@@ -399,8 +454,8 @@ gwave data.par.syn | xgr
 \subsection{Obtain LSP coefficients from LPC coefficients}
 \begin{description}
 \item[Files:]
-   data.lpc: LPC coeffieicnts (float)\\
-   data.lsp: LSP coeffieicnts (float)
+   data.lpc: LPC coefficients (float)\\
+   data.lsp: LSP coefficients (float)
 \item[Conditions:]
   analysis order: 20\\
   split number of unit circle: 256
@@ -415,8 +470,8 @@ lpc2lsp -m 20 -n 256 < data.lpc > data.lsp
 \begin{description}
 \item[Files:]
   data.pitch: pitch data extracted from speech data "data"\\
-  data.lsp: LSP coeffieicnts (float)\\
-  \htmladdnormallink{data.lsp.syn}{data.lsp.syn.wav}: 
+  data.lsp: LSP coefficients (float)\\
+%   \htmladdnormallink{data.lsp.syn}{data.lsp.syn.wav}: 
   synthesize speech (float)
 \item[Conditions:]
   frame period: 80 point (5 ms)\\
@@ -512,7 +567,7 @@ mgc2sp -m 20 -a 0.42 -g 2 -l 512 | glogsp -l 512 -x 8 ) | xgr
 \item[Files:]
   data.pitch: pitch data extracted from speech data "data"\\
   data.mgcep: mel-generalized cepstrum (float)\\
-  \htmladdnormallink{data.mgcep.syn}{data.mgcep.syn.wav}: 
+%   \htmladdnormallink{data.mgcep.syn}{data.mgcep.syn.wav}: 
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 point (5 ms)\\
@@ -634,7 +689,7 @@ cdist data.mcep.cep -m 255 > data.mcep.vq.cdist
 \item[Files:]
   data.pitch: pitch data extracted from speech data "data.short"\\
   data.mcep.vq: quantized mel-cepstrum (float) \\
-  \htmladdnormallink{data.mcep.vq.syn}{data.mcep.vq.syn.wav}: 
+%   \htmladdnormallink{data.mcep.vq.syn}{data.mcep.vq.syn.wav}: 
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 point (5 ms)\\
@@ -687,7 +742,7 @@ lpc -l 400 -m 12 | lpc2c -m 12 -M 12 > data.lpc.cep
   frame length: 400 point (25 ms)\\
   frame period: 80 point (5 ms)\\
   window: Blackman window\\
-  analisis order: 12\\
+  analysis order: 12\\
   order of LPC mel-cepstrum: 12
 \end{description}
 
@@ -786,9 +841,9 @@ grlogsp -l 512 -x 8 -O 4 -c "(d) MGCEP-MCEP" ) | xgr
 
 \begin{description}
 \item[Files:]
-  \htmladdnormallink{data.mcep.high.syn}{data.mcep.high.syn.wav}: 
+%   \htmladdnormallink{data.mcep.high.syn}{data.mcep.high.syn.wav}: 
   synthesized speech (float)\\
-  \htmladdnormallink{data.mcep.low.syn}{data.mcep.low.syn.wav}: 
+%   \htmladdnormallink{data.mcep.low.syn}{data.mcep.low.syn.wav}: 
   synthesized speech (float)
 \end{description}
 
@@ -808,9 +863,9 @@ tee data.mcep.low.syn | da +f -s 16
 
 \begin{description}
 \item[Files:]
-  \htmladdnormallink{data.mcep.fast.syn}{data.mcep.fast.syn.wav}: 
+%   \htmladdnormallink{data.mcep.fast.syn}{data.mcep.fast.syn.wav}: 
   synthesized speech (float)\\
-  \htmladdnormallink{data.mcep.slow.syn}{data.mcep.slow.syn.wav}: 
+%   \htmladdnormallink{data.mcep.slow.syn}{data.mcep.slow.syn.wav}: 
   synthesized speech (float)
 \end{description}
 
@@ -830,7 +885,7 @@ tee data.mcep.slow.syn | da +f -s 16
 
 \begin{description}
 \item[Files:]
-  \htmladdnormallink{data.mcep.hoarse.syn}{data.mcep.hoarse.syn.wav}: 
+%   \htmladdnormallink{data.mcep.hoarse.syn}{data.mcep.hoarse.syn.wav}: 
   synthesized speech (float)\\
 \end{description}
 
@@ -844,7 +899,7 @@ tee data.mcep.hoarse.syn | da +f -s 16
 
 \begin{description}
 \item[Files:]
-  \htmladdnormallink{data.mcep.robot.syn}{data.mcep.robot.syn.wav}: 
+%   \htmladdnormallink{data.mcep.robot.syn}{data.mcep.robot.syn.wav}: 
   synthesized speech (float)
 \end{description}
 
@@ -857,9 +912,9 @@ tee data.mcep.robot.syn | da +f -s 16
 
 \begin{description}
 \item[Files:]
-  \htmladdnormallink{data.mcep.child.syn}{data.mcep.child.syn.wav}: 
+%   \htmladdnormallink{data.mcep.child.syn}{data.mcep.child.syn.wav}: 
   synthesized speech (float)\\
-  \htmladdnormallink{data.mcep.deep.syn}{data.mcep.deep.syn.wav}: 
+%   \htmladdnormallink{data.mcep.deep.syn}{data.mcep.deep.syn.wav}: 
   synthesized speech (float)
 \end{description}
 
@@ -879,11 +934,11 @@ tee data.mcep.deep.syn | da +f -s 16
 
 \begin{description}
 \item[Files:]
-  \htmladdnormallink{data.float}{data.float.wav}: 
+%   \htmladdnormallink{data.float}{data.float.wav}: 
   original speech (float)\\
-  \htmladdnormallink{data.mcep.syn}{data.mcep.syn.wav}: 
+%   \htmladdnormallink{data.mcep.syn}{data.mcep.syn.wav}: 
   synthesized speech (float)\\
-  \htmladdnormallink{data.mcep.\{high,low,fast,slow,hoarse,robot,child,deep\}.syn}{data.mcep.various.syn.wav}: 
+%   \htmladdnormallink{data.mcep.\{high,low,fast,slow,hoarse,robot,child,deep\}.syn}{data.mcep.various.syn.wav}: 
   synthesized speech (float)
 \end{description}
 
@@ -903,8 +958,8 @@ data.mcep.{high,low,fast,slow,hoarse,robot,child,deep}.syn
   sample.mcep: mel-cepstrum generated from HMM (float)
 \item[Conditions:]
   analysis order: 24\\
-  weight coef. for calculating delta: $w(-1)=-0.5,w(0)=0,w(1)=0.5$\\
-  weight coef. for calculating delta-delta: $w(-1)=0.25,w(0)=-0.5,w(1)=0.25$
+  weight coefficients for calculating delta: $w(-1)=-0.5,w(0)=0,w(1)=0.5$\\
+  weight coefficients for calculating delta-delta: $w(-1)=0.25,w(0)=-0.5,w(1)=0.25$
 \item[Note:]
   The state sequence is determined according to the state
   duration densities of the HMM.  The algorithm is not included
@@ -941,7 +996,7 @@ mgc2sp -m 24 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \item[Files:]
   sample.pitch: pitch data generated by MSD-HMM (float)\\
   sample.mcep: mel-cepstrum (float) \\
-  \htmladdnormallink{sample.mcep.syn}{sample.mcep.syn.wav}: 
+%   \htmladdnormallink{sample.mcep.syn}{sample.mcep.syn.wav}: 
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 point (5 ms)\\
@@ -1007,7 +1062,7 @@ bcp -l 150 -s 100 -e 124 sample.pdf | dmp -n 24 | less
   sample.pitch: pitch data generated by MSD-HMM (float)\\
   sample.mcep.wo-dyn: mel-cepstrum generated without dynamic
   feature (float) \\
-  \htmladdnormallink{sample.mcep.wo-dyn.syn}{sample.mcep.wo-dyn.syn.wav}: 
+%   \htmladdnormallink{sample.mcep.wo-dyn.syn}{sample.mcep.wo-dyn.syn.wav}: 
   synthesized speech without dynamic feature (float)
 \item[Conditions:]
   frame period: 80 point (5 ms)\\
