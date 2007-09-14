@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspdf.c,v 1.12 2007/09/12 08:37:15 heigazen Exp $";
+static char *rcs_id = "$Id: lspdf.c,v 1.13 2007/09/14 12:30:29 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -103,6 +103,7 @@ char *FORMAT = "float";
 
 /*  Command Name  */
 char *cmnd;
+
 
 void usage (int status)
 {
@@ -168,6 +169,7 @@ int main (int argc, char **argv)
             break;
          case 'l':
             loggain = 1 - loggain;
+            break;
          case 'h':
             usage (0);
          default:
