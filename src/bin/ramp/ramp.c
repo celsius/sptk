@@ -57,7 +57,7 @@
 *               ramp [options] > stdout                                 *
 *       options:                                                        *
 *               -l l     :  length         [256]                        *
-*               -n n  :  order             [l-1]                        *
+*               -n n     :  order          [l-1]                        *
 *               -s s     :  start value    [0.0]                        *
 *               -e e     :  end  value     [N/A]                        *
 *               -t t     :  step size      [1.0]                        *
