@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Linear Interpolation                                               *
+*    Linear Interpolation of Data                                       *
 *                                                                       *
 *                                             1987.1  K.Tokuda          *
 *                                             1996.4  K.Koishida        *
@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: linear_intpl.c,v 1.10 2007/09/12 08:37:20 heigazen Exp $";
+static char *rcs_id = "$Id: linear_intpl.c,v 1.11 2007/09/15 14:12:29 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -98,7 +98,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - linear interpolation\n",cmnd);
+   fprintf(stderr, " %s - linear interpolation of data\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
