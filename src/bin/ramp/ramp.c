@@ -57,7 +57,7 @@
 *               ramp [options] > stdout                                 *
 *       options:                                                        *
 *               -l l     :  length         [256]                        *
-*               -n n  :  order             [l-1]                        *
+*               -n n     :  order          [l-1]                        *
 *               -s s     :  start value    [0.0]                        *
 *               -e e     :  end  value     [N/A]                        *
 *               -t t     :  step size      [1.0]                        *
@@ -71,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ramp.c,v 1.10 2007/09/12 08:37:24 heigazen Exp $";
+static char *rcs_id = "$Id: ramp.c,v 1.11 2007/09/15 17:28:11 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
