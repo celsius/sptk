@@ -60,7 +60,7 @@
 set path        = ( /usr/local/SPTK/bin $path )
 set libpath     = /usr/local/SPTK/lib
 set sptkver     = 'SPTK_VERSION'
-set cvsid       = '$Id: uscd.sh,v 1.12 2007/09/12 08:37:18 heigazen Exp $'
+set cvsid       = '$Id: uscd.sh,v 1.13 2007/09/15 14:43:03 heigazen Exp $'
 
 set cmnd        = `basename $0`
 
@@ -210,7 +210,7 @@ usage:
 
 cat2 <<EOF
 
- uscd - sampling rate conversion from 8|10|12|16 kHz to 11.025|22.05|44.1 kHz
+ uscd - up/down-sampling from 8, 10, 12, or 16 kHz to 11.025, 22.05, or 44.1 kHz
 
   usage:
        $cmnd [ options ] [ infile ] [ outfile ]
