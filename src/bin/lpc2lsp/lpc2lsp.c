@@ -124,7 +124,7 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of LPC                            [%d]\n", ORDER);
    fprintf(stderr, "       -s s  : sampling frequency                      [%d]\n", SAMPLING);
    fprintf(stderr, "       -k    : output gain                             [%s]\n", BOOL[GAIN]);
-   fprintf(stderr, "       -l    : output log gain rather than linear gain [%s]\n", BOOL[GAIN]);
+   fprintf(stderr, "       -l    : output log gain rather than linear gain [%s]\n", BOOL[LOGGAIN]);
    fprintf(stderr, "       -o o  : output format                           [%d]\n", OTYPE);
    fprintf(stderr, "                 0 (normalized frequency [0...pi])\n");
    fprintf(stderr, "                 1 (normalized frequency [0...0.5])\n");
