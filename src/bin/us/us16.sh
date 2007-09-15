@@ -168,7 +168,7 @@ usage:
 
 cat2 <<EOF
 
- us16 - sampling rate conversion from 10|12 kHz to 16 kHz
+ us16 - up-sampling from 10 or 12 kHz to 16 kHz
 
   usage:
        $cmnd [ options ] [ infile ] [ outfile ]

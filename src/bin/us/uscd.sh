@@ -210,7 +210,7 @@ usage:
 
 cat2 <<EOF
 
- uscd - sampling rate conversion from 8|10|12|16 kHz to 11.025|22.05|44.1 kHz
+ uscd - up/down-sampling from 8, 10, 12, or 16 kHz to 11.025, 22.05, or 44.1 kHz
 
   usage:
        $cmnd [ options ] [ infile ] [ outfile ]
