@@ -50,7 +50,7 @@
 \begin{synopsis}
  \item[spec]   [ --l $L$ ] [ --m $M$ ] [ --n $N$ ] [ --z {\em zfile} ]
                [ --p {\em pfile} ]
- \item[\ ~~~~] [ --o $O$ ] [ {\em infile} ]
+ \item[\ ~~~~] [ --e $E$ ] [ --o $O$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -126,6 +126,7 @@ the difference between the numerator and denominator phases}.
 			The {\em pfile} should follow this structure in
                         float format:\\
 			\hspace*{2ex}$K, a(1), \dots, a(M)$\\[-1ex]}{NULL}
+	\argm{e}{E}{small value for calculating $\log()$}{0.0}
 	\argm{o}{O}{output format\\
 			\begin{tabular}{lll} \\[-1ex]
 			$O=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\dots,L/2$\\
