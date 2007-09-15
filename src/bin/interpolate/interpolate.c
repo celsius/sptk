@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Interpolation                                                      *
+*    Interpolation of data sequence                                     *
 *                                                                       *
 *                                            1996.4  K.Koishida         *
 *                                                                       *
@@ -95,7 +95,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - interpolation \n",cmnd);
+   fprintf(stderr, " %s - interpolation of data sequence\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
