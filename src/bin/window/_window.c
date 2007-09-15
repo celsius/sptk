@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-   $Id: _window.c,v 1.7 2007/09/12 08:37:17 heigazen Exp $
+   $Id: _window.c,v 1.8 2007/09/15 16:58:17 heigazen Exp $
 
    Window function
    ---------------
@@ -222,7 +222,7 @@ double window (Window type, double *x, const int size, const int nflg)
    int i;
    static double g;
    static double *w=NULL;
-   static Window ptype=-1;
+   static Window ptype=BLACKMAN;
    static int psize=-1, pnflg=-1;
 
    if ((type!=ptype) || (size!=psize) || (nflg!=pnflg)) {
