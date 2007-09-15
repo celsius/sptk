@@ -63,7 +63,8 @@
 *               -i i     :  interpolation period         [1]            *
 *               -b       :  mcep is filter coefficient b [FALSE]        *
 *               -P P     :  order of Pade approximation  [4]            *
-*               -k  :  filtering without gain            [FALSE]        *
+*               -k       :  filtering without gain       [FALSE]        *
+*               -v       :  inverse filter               [FALSE]        *
 *       infile:                                                         *
 *               mel cepstral coefficients                               *
 *                       , c~(0), c~(1), ..., c~(M),                     *
@@ -79,7 +80,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mlsadf.c,v 1.13 2007/09/12 08:37:28 heigazen Exp $";
+static char *rcs_id = "$Id: mlsadf.c,v 1.14 2007/09/15 14:24:25 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
