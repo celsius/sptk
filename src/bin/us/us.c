@@ -49,12 +49,12 @@
 
 /************************************************************************
 *                                                                       *
-*    sampling rate conversion                                           *
+*    up-sampling                                                        *
 *                                                                       *
 *                                       1998.3  T.Kobayashi             *
 *                                                                       *
 *       usage:                                                          *
-*               srcnv [ options ] infile >stdout                        *
+*               us [ options ] infile >stdout                           *
 *       options:                                                        *
 *               -s s  :  conversion type                       [58]     *
 *               -c c  :  filename of low pass filter coef.     [Default]*
@@ -111,7 +111,7 @@ char *cmnd, *coef=NULL, *type=STYPE;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - sampling rate convert\n\n",cmnd);
+   fprintf(stderr, " %s - up-sampling\n\n",cmnd);
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] infile1 > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
@@ -123,8 +123,8 @@ void usage (int status)
    fprintf(stderr, "                57  up sampling by 5:7\n");
    fprintf(stderr, "                58  up sampling by 5:8\n");
    fprintf(stderr, "       -c c  : filename of low pass filter coefficients  [Default]\n");
-   fprintf(stderr, "       -u u  : upsampling ratio                          [N/A]\n");
-   fprintf(stderr, "       -d d  : downsampling ratio                        [N/A]\n");
+   fprintf(stderr, "       -u u  : up-sampling ratio                         [N/A]\n");
+   fprintf(stderr, "       -d d  : down-sampling ratio                       [N/A]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data                                              [stdin]\n");
