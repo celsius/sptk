@@ -59,7 +59,9 @@
 *       options:                                                        *
 *               -s s     :  insert point                        [0]     *
 *               -l l     :  frame length of input data          [25]    *
-*               -n n     :  frame length of inserted data       [10]    *
+*               -n n     :  order of input data                 [l-1]   *
+*               -L L     :  frame length of insert data         [10]    *
+*               -N N     :  order of insert data                [L-1]   *
 *               -o       :  over write mode                     [FALSE] *
 *               +type    :  data type                           [f]     *
 *                          c (char)     s (short)                       *
@@ -106,9 +108,9 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -s s  : insert point                [%d]\n",START);
    fprintf(stderr, "       -l l  : frame length of input data  [%d]\n",LENG1);
-   fprintf(stderr, "       -n n  : l - 1                       [%d]\n",LENG1-1);
+   fprintf(stderr, "       -n n  : order of input data         [l-1]\n");
    fprintf(stderr, "       -L L  : frame length of insert data [%d]\n",LENG2);
-   fprintf(stderr, "       -N N  : L - 1                       [%d]\n",LENG2-1);
+   fprintf(stderr, "       -N N  : order of insert data        [L-1]\n");
    fprintf(stderr, "       -o    : over write mode             [%s]\n",BOOL[WRITE]);
    fprintf(stderr, "       +type : data type                   [f]\n");
    fprintf(stderr, "                c (char)      s (short)\n");
