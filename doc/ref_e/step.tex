@@ -48,16 +48,16 @@
 \name{step}{generate step sequence}{signal generation}
 
 \begin{synopsis}
-\item[step] [ --l $L$ ] [ --n $N$ ]
+\item[step] [ --l $L$ ] [ --n $N$ ] [ --v $V$ ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em step} generates a unit step sequence of length $L$, 
+{\em step} generates a step sequence of length $L$, 
 sending the result to standard output.
 
 The output is in float format, as follows.
 \begin{displaymath}
-\underbrace{1, 1, 1, \dots, 1}_{L}
+\underbrace{V, V, V, \dots, V}_{L}
 \end{displaymath}
 \end{qsection}
 
@@ -66,6 +66,7 @@ The output is in float format, as follows.
                         In the case $L \le 0$ then values will be
                         generated indefinitely.}{256}
 	\argm{n}{N}{order}{255}
+	\argm{v}{V}{step value}{1.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
