@@ -78,7 +78,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: window.c,v 1.10 2007/09/12 08:37:17 heigazen Exp $";
+static char *rcs_id = "$Id: window.c,v 1.11 2007/09/15 17:15:54 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -161,7 +161,7 @@ int main (int argc,char *argv[])
          }
          switch (c) {
          case 'w':
-            wintype = atoi(s);
+            wintype = (Window) atoi(s);
             break;
          case 'l':
             fleng = atoi(s);
