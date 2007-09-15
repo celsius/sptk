@@ -57,17 +57,18 @@
 *       usage:                                                          *
 *               step [options] > stdout                                 *
 *       options:                                                        *
-*               -l l     :  length    [256]                             *
-*               -n n     :  order     [255]                             *
+*               -l l     :  length     [256]                            *
+*               -n n     :  order      [255]                            *
+*               -v v     :  step value [1.0]                            *
 *       stdout:                                                         *
 *               impulse sequence                                        *
-*                       , 1, 1, 1, ...                                  *
+*                       , v, v, v, ...                                  *
 *       notice:                                                         *
 *               if l<0, generate infinite sequence                      *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: step.c,v 1.10 2007/09/12 08:37:16 heigazen Exp $";
+static char *rcs_id = "$Id: step.c,v 1.11 2007/09/15 17:45:11 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -79,6 +80,7 @@ static char *rcs_id = "$Id: step.c,v 1.10 2007/09/12 08:37:16 heigazen Exp $";
 
 /*  Default Values  */
 #define LENG 256
+#define VALUE 1.0
 
 #ifdef DOUBLE
 char *FORMAT = "double";
@@ -100,6 +102,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length             [%d]\n", LENG);
    fprintf(stderr, "       -n n  : order              [%d]\n", LENG-1);
+   fprintf(stderr, "       -v v  : step value         [%g]\n", VALUE);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       step sequence (%s)\n", FORMAT);
@@ -118,7 +121,7 @@ void usage (int status)
 int main (int argc, char **argv)
 {
    int l=LENG, i;
-   double x=1.0;
+   double x=VALUE;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -133,6 +136,10 @@ int main (int argc, char **argv)
             break;
          case 'n':
             l = atoi(*++argv)+1;
+            --argc;
+            break;
+         case 'v':
+            x = atof(*++argv);
             --argc;
             break;
          case 'h':
