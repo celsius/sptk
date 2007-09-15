@@ -56,10 +56,8 @@
 *       usage:                                                          *
 *               nan [ options ] [ infile ] > stdout                     *
 *       options:                                                        *
-*               -d       :  input is assumed to be double       [FALSE] *
 *       infile:                                                         *
 *               stdin for default                                       *
-*               input is assumed to be float                            *
 *                                                                       *
 ************************************************************************/
 
