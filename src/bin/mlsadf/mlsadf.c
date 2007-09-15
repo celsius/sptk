@@ -63,7 +63,8 @@
 *               -i i     :  interpolation period         [1]            *
 *               -b       :  mcep is filter coefficient b [FALSE]        *
 *               -P P     :  order of Pade approximation  [4]            *
-*               -k  :  filtering without gain            [FALSE]        *
+*               -k       :  filtering without gain       [FALSE]        *
+*               -v       :  inverse filter               [FALSE]        *
 *       infile:                                                         *
 *               mel cepstral coefficients                               *
 *                       , c~(0), c~(1), ..., c~(M),                     *
