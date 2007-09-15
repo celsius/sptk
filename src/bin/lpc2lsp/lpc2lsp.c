@@ -81,7 +81,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2lsp.c,v 1.14 2007/09/12 08:37:12 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2lsp.c,v 1.15 2007/09/15 14:14:06 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -124,7 +124,7 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of LPC                            [%d]\n", ORDER);
    fprintf(stderr, "       -s s  : sampling frequency                      [%d]\n", SAMPLING);
    fprintf(stderr, "       -k    : output gain                             [%s]\n", BOOL[GAIN]);
-   fprintf(stderr, "       -l    : output log gain rather than linear gain [%s]\n", BOOL[GAIN]);
+   fprintf(stderr, "       -l    : output log gain rather than linear gain [%s]\n", BOOL[LOGGAIN]);
    fprintf(stderr, "       -o o  : output format                           [%d]\n", OTYPE);
    fprintf(stderr, "                 0 (normalized frequency [0...pi])\n");
    fprintf(stderr, "                 1 (normalized frequency [0...0.5])\n");
