@@ -48,21 +48,15 @@
 \name{nan}{data check}{data processing}
 
 \begin{synopsis}
-\item[nan] [ --d ] [ infile ]
+\item[nan] [ infile ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
 
 {\em nan} checks whether input data contains NaN, Infty, or Indefinite Value, 
 showing the positions where these values occurred. 
-If the --d option is not give, 
-the input format is float. 
 
 \end{qsection}
-
-\begin{options}
-        \argm{d}{}{regard input data as double}{FALSE}
-\end{options}
 
 \begin{qsection}{EXAMPLE}
 This example reads input data {\em data.f} in float format and checks it:

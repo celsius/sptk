@@ -56,14 +56,12 @@
 *       usage:                                                          *
 *               nan [ options ] [ infile ] > stdout                     *
 *       options:                                                        *
-*               -d       :  input is assumed to be double       [FALSE] *
 *       infile:                                                         *
 *               stdin for default                                       *
-*               input is assumed to be float                            *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nan.c,v 1.11 2007/09/12 08:37:27 heigazen Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.12 2007/09/15 14:26:53 heigazen Exp $";
 
 
 /* Standard C Libraries */
