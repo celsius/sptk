@@ -161,7 +161,7 @@ int main (int argc,char *argv[])
          }
          switch (c) {
          case 'w':
-            wintype = atoi(s);
+            wintype = (Window) atoi(s);
             break;
          case 'l':
             fleng = atoi(s);

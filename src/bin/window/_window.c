@@ -222,7 +222,7 @@ double window (Window type, double *x, const int size, const int nflg)
    int i;
    static double g;
    static double *w=NULL;
-   static Window ptype=BLACKMAN;
+   static Window ptype=(Window)-1;
    static int psize=-1, pnflg=-1;
 
    if ((type!=ptype) || (size!=psize) || (nflg!=pnflg)) {
