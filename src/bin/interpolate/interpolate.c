@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Interpolation                                                      *
+*    Interpolation of data sequence                                     *
 *                                                                       *
 *                                            1996.4  K.Koishida         *
 *                                                                       *
@@ -68,7 +68,7 @@
 *                        s-1           p            p                   *
 ************************************************************************/
 
-static char *rcs_id = "$Id: interpolate.c,v 1.10 2007/09/12 08:37:24 heigazen Exp $";
+static char *rcs_id = "$Id: interpolate.c,v 1.11 2007/09/15 14:07:50 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -95,7 +95,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - interpolation \n",cmnd);
+   fprintf(stderr, " %s - interpolation of data sequence\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
