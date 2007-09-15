@@ -68,7 +68,7 @@
 *                              C (unsigned char)  S (unsigned short)    *
 *                              I (unsigned int)   L (unsigned long)     *
 *               +a a     :  column number                     [1]       *
-*               %format  :  specify output format similar to  [FALSE]   *
+*               %format  :  specify output format similar to  [%g]      *
 *                           "printf()" of C function,                   *
 *                           if type2 is ascii formant.                  *
 *                                                                       *
@@ -117,7 +117,7 @@ void usage (int status)
    fprintf(stderr, "       -r      : specify rounding off when a real number\n");
    fprintf(stderr, "                 is substituted for a integer                [%s]\n",BOOL[ROUND]);
    fprintf(stderr, "       %%format : specify output format similar to 'printf()', \n");
-   fprintf(stderr, "                 if type2 is ascii.                          [N/A]\n");
+   fprintf(stderr, "                 if type2 is ascii.                          [%%g]\n");
    fprintf(stderr, "       -h      : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence                                    [stdin]\n");
