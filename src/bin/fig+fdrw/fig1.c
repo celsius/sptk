@@ -290,5 +290,5 @@ float argapf(float x, float a)
    float omg;
 
    omg = PI * x;
-   return(x + 2 * atan2(a * sin(omg), 1 - a * cos(omg)) / PI);
+   return(x + 2.0 * atan2(a * sin(omg), 1.0 - a * cos(omg)) / PI);
 }
