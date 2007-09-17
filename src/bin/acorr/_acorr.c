@@ -49,7 +49,7 @@
 
 /***********************************************************
 
-    $Id: _acorr.c,v 1.6 2007/09/12 08:37:15 heigazen Exp $
+    $Id: _acorr.c,v 1.7 2007/09/17 17:46:47 heigazen Exp $
 
     obtain autocorrelation sequence
     
@@ -71,7 +71,7 @@ void acorr (double *x, int l, double *r, const int np)
    int k, i;
 
    for (k=0; k<=np; k++) {
-      for (d=i=0; i<l-k; i++)
+      for (d=0.0,i=0; i<l-k; i++)
          d += x[i]*x[i+k];
       r[k] = d;
    }
