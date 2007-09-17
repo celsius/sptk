@@ -113,7 +113,7 @@ void graph(FILE *fp)
             ya = log10(ya);
             is_ylog = (ytype[3]=='*') ? -1 : 1;
          }
-         yfct = yl ? yl / (ymax - ymin) : 0;
+         yfct = (yl) ? yl / (ymax - ymin) : 0;
          yap  = (ya - ymin) * yfct;
          y00  = - ymin * yfct;
       }
