@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: linear_intpl.c,v 1.11 2007/09/15 14:12:29 heigazen Exp $";
+static char *rcs_id = "$Id: linear_intpl.c,v 1.12 2007/09/17 19:05:56 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -106,6 +106,8 @@ void usage (int status)
    fprintf(stderr, "       -l l         : output length               [%d]\n", LENG+1);
    fprintf(stderr, "       -m m         : number of interpolation     [%d]\n", LENG);
    fprintf(stderr, "       -x xmin xmax : minimum of x & maximum of x [%g %g]\n",MIN,MAX);
+   fprintf(stderr, "       -i xmin      : minimum of x                [%g]\n",MIN);
+   fprintf(stderr, "       -j xmax      : maximum of x                [%g]\n",MAX);
    fprintf(stderr, "       -h           : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)                      [stdin]\n", FORMAT);
@@ -142,17 +144,17 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'x':
-            i = atoi(*++argv);
+            i = atof(*++argv);
             --argc;
-            j = atoi(*++argv);
+            j = atof(*++argv);
             --argc;
             break;
          case 'i':
-            i = atoi(*++argv);
+            i = atof(*++argv);
             --argc;
             break;
          case 'j':
-            j = atoi(*++argv);
+            j = atof(*++argv);
             --argc;
             break;
          case 'h':
