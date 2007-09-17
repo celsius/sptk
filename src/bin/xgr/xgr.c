@@ -95,7 +95,7 @@ char *BOOL[] = {"FALSE", "TRUE"};
 #define LANDSCAPE FA
 #define REVERSE  FA
 #define C_FLG  FA
-#define M_FLG  FA
+#define MONO_FLG  FA
 #define FNO  1
 #define FORECOLOR "black"
 #define BACKCOLOR "white"
@@ -118,7 +118,7 @@ void usage (int status)
    fprintf(stderr, "       -s  s  : shrink                  [%g]\n",DEFAULT_SHRINK);
    fprintf(stderr, "       -l     : landscape               [%s]\n",BOOL[LANDSCAPE]);
    fprintf(stderr, "       -rv    : revese mode             [%s]\n",BOOL[REVERSE]);
-   fprintf(stderr, "       -m     : monochrome display mode [%s]\n",BOOL[M_FLG]);
+   fprintf(stderr, "       -m     : monochrome display mode [%s]\n",BOOL[MONO_FLG]);
    fprintf(stderr, "       -bg bg : background color        [%s]\n",BACKCOLOR);
    fprintf(stderr, "       -hl hl : highlight color         [%s]\n",HIGHCOLOR);
    fprintf(stderr, "       -bd bd : border color            [%s]\n",BRDRCOLOR);
@@ -140,7 +140,7 @@ void usage (int status)
 
 float shrink=DEFAULT_SHRINK;
 int landscape=LANDSCAPE;
-int reverse=REVERSE, c_flg=C_FLG, m_flg=M_FLG;
+int reverse=REVERSE, c_flg=C_FLG, mono_flg=MONO_FLG;
 int fno=FNO;
 char *fore_color=FORECOLOR, *back_color=BACKCOLOR, *high_color=HIGHCOLOR, *brdr_color=BRDRCOLOR, *mous_color=MOUSCOLOR;
 char *geometry=GEOMETRY, *dpy=DISPLAY, *windowtitle;
@@ -175,7 +175,7 @@ int main (int argc,char *argv[])
       }
       else if (strcmp(*argv, "-mono")==0 ||
                strcmp(*argv, "-m"    )==0    )  {
-         m_flg = 1 - m_flg;
+         mono_flg = 1 - mono_flg;
       }
       else if (strcmp(*argv, "-fno")==0 && argc>1)  {
          fno = atoi(*++argv);
