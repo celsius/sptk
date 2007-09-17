@@ -133,7 +133,8 @@ void usage (int status)
 int main (int argc, char **argv)
 {
    FILE *fp2=NULL, *fp1=stdin;
-   int size=sizeof(float), start=START, leng1=LENG1, leng2=LENG2, i, j, flag=1;
+   int start=START, leng1=LENG1, leng2=LENG2, i, j, flag=1;
+   size_t size=sizeof(float);
    Boolean write=WRITE;
    char *y, c, *s;
    double x;
