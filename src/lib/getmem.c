@@ -61,10 +61,10 @@
 
     int leng : data length
 
-    char *getmem(leng, type)
+    char *getmem(leng, size)
 
-    int leng : data length
-    unsignd type : size of data type
+    size_t leng : data length
+    size_t size : size of data type
 
 **********************************************************************/
 
@@ -72,60 +72,12 @@
 #include <stdlib.h>
 
 #ifdef DOUBLE
-#define	real double
+#define real double
 #else
-#define	real float
+#define real float
 #endif
 
-short *sgetmem (const int leng)
-{
-   char *getmem(int leng, unsigned int size);
-
-   return ( (short *)getmem(leng, sizeof(short)) );
-}
-
-
-long *lgetmem (const int leng)
-{
-   char *getmem(int leng, unsigned int size);
-
-   return ( (long *)getmem(leng, sizeof(long)) );
-}
-
-
-double *dgetmem (const int leng)
-{
-   char *getmem(int leng, unsigned int size);
-
-   return ( (double *)getmem(leng, sizeof(double)) );
-}
-
-
-float *fgetmem (const int leng)
-{
-   char *getmem(int leng, unsigned int size);
-
-   return ( (float *)getmem(leng, sizeof(float)) );
-}
-
-
-real *rgetmem (const int leng)
-{
-   char *getmem(int leng, unsigned int size);
-
-   return ( (real *)getmem(leng, sizeof(real)) );
-}
-
-
-float **ffgetmem (const int leng)
-{
-   char *getmem(int leng, unsigned int size);
-
-   return ( (float **)getmem(leng, sizeof(float *)) );
-}
-
-
-char *getmem (const int leng, const unsigned int size)
+char *getmem (const size_t leng, const size_t size)
 {
    char *p = NULL;
 
@@ -136,3 +88,32 @@ char *getmem (const int leng, const unsigned int size)
    return (p);
 }
 
+short *sgetmem (const int leng)
+{
+   return ( (short *)getmem((size_t)leng, sizeof(short)) );
+}
+
+long *lgetmem (const int leng)
+{
+   return ( (long *)getmem((size_t)leng, sizeof(long)) );
+}
+
+double *dgetmem (const int leng)
+{
+   return ( (double *)getmem((size_t)leng, sizeof(double)) );
+}
+
+float *fgetmem (const int leng)
+{
+   return ( (float *)getmem((size_t)leng, sizeof(float)) );
+}
+
+real *rgetmem (const int leng)
+{
+   return ( (real *)getmem((size_t)leng, sizeof(real)) );
+}
+
+float **ffgetmem (const int leng)
+{
+   return ( (float **)getmem((size_t)leng, sizeof(float *)) );
+}
