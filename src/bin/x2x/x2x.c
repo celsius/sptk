@@ -107,12 +107,12 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       +type1  : input data type                             [f]\n");
    fprintf(stderr, "       +type2  : output data type                            [type1]\n");
-   fprintf(stderr, "                 c (char)           s (short)\n");
-   fprintf(stderr, "                 i (int)            l (long)\n");
+   fprintf(stderr, "                 c (char)           C (unsigned char)\n");
+   fprintf(stderr, "                 s (short)          S (unsigned short)\n");
+   fprintf(stderr, "                 i (int)            I (unsigned int)\n");
+   fprintf(stderr, "                 l (long)           L (unsigned long)\n");
    fprintf(stderr, "                 f (float)          d (double)\n");
    fprintf(stderr, "                 a (ascii)\n");
-   fprintf(stderr, "                 C (unsigned char)  S (unsigned short)\n");
-   fprintf(stderr, "                 I (unsigned int)   L (unsigned long)\n");
    fprintf(stderr, "       +a a    : column number                               [%d]\n",COL);
    fprintf(stderr, "       -r      : specify rounding off when a real number\n");
    fprintf(stderr, "                 is substituted for a integer                [%s]\n",BOOL[ROUND]);
@@ -138,7 +138,8 @@ int main (int argc, char **argv)
 {
    char c1='f', c2='f', *form=FORM_FLOAT;
    double x;
-   int size1=0, size2=0, i=1, col=COL;
+   size_t size1=0, size2=0;
+   int i=1, col=COL;
    FILE *fp=stdin;
    Boolean round=ROUND;
    void x2x (void *x1, void *x2, char c1, char c2);
