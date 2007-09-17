@@ -49,7 +49,7 @@
 
 /******************************************************************
 
-    $Id: theq.c,v 1.6 2007/09/12 08:37:14 heigazen Exp $
+    $Id: theq.c,v 1.7 2007/09/17 17:29:17 heigazen Exp $
 
     Subroutine for Solving a Toeplitz plus Hankel
     Coefficient Matrix System of Equations  ( T + H ) a = b
@@ -269,16 +269,6 @@ int theq (double *t, double *h, double *a, double *b, const int n, double eps)
    static int size;
    double ex[4], ep[2], vx[4], bx[4], g[2];
    int i;
-
-   double **mtrx2(int, int);
-   void	cal_ex(double *,  double **, double **, const int);
-   void cal_ep(double *,  double **, double **, const int);
-   void cal_x (double **, double **, double *,  const int);
-   void cal_vx(double *,  double *,  double *);
-   void cal_p (double **, double **, double *,  const int);
-   int  cal_p0(double **, double **, double *,  const int, const double);
-   int  cal_bx(double *,  double *,  double *,  const double);
-   int  cal_g (double *,  double *,  double *,  double *, const int, const int, const double);
 
    if (r==NULL) {
       r  = mtrx2(n, 4); 
