@@ -48,7 +48,7 @@
 */
 
 /***********************************************************
-   $Id: SPTK.h,v 1.10 2007/09/12 08:37:18 heigazen Exp $ 
+   $Id: SPTK.h,v 1.11 2007/09/17 19:15:07 heigazen Exp $ 
    
    Speech Signal Processing Toolkit
    SPTK.h
@@ -103,8 +103,8 @@ int cholesky (double *c, double *a, double *b, const int n, double eps);
 #define fwritef fwrite
 #define freadf  fread
 #else
-int fwritef (double *ptr, const unsigned int size, const int nitems, FILE *fp);
-int freadf (double *ptr, const unsigned int size, const int nitems, FILE *fp);
+int fwritef (double *ptr, const size_t size, const int nitems, FILE *fp);
+int freadf  (double *ptr, const size_t size, const int nitems, FILE *fp);
 #endif /* DOUBLE */
 void fillz (void *ptr, const int size, const int nitem);
 FILE *getfp (char *name, char *opt);
