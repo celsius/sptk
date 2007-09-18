@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: bcut.c,v 1.10 2007/09/12 08:37:25 heigazen Exp $";
+static char *rcs_id = "$Id: bcut.c,v 1.11 2007/09/18 01:54:57 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -131,7 +131,8 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int size=sizeof(float), n=LENG;
+   size_t size=sizeof(float);
+   int n=LENG;
    long start=START, end=END, ptr;
    FILE *fp=stdin;
    char *s, c;

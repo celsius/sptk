@@ -80,7 +80,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: frame.c,v 1.10 2007/09/12 08:37:15 heigazen Exp $";
+static char *rcs_id = "$Id: frame.c,v 1.11 2007/09/18 01:58:09 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -132,7 +132,8 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int l=LENG, fprd=FPERIOD, size=sizeof(float), ns, i;
+   int l=LENG, fprd=FPERIOD, ns, i;
+   size_t size=sizeof(float); 
    FILE *fp=stdin;
    Boolean noctr = NOCTR;
    char *x, *xx, *p1, *p2, *p;
