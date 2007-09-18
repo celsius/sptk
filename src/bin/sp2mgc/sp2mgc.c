@@ -52,7 +52,7 @@
 *    Extract mel-generalized cepstral coefficients for given spectrum   *
 *                                                                       *
 *       usage:                                                          *
-*               sp2mgcep [ options ] [ infile ] > stdout                *
+*               sp2mgc [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
 *               -a a     :  alapha                            [0.35]    *
 *               -g g     :  gamma                             [0.0]     *
@@ -83,7 +83,7 @@
 *       notice:                                                         *
 *               if g>=1.0, g = -1 / g                                   *
 *       require:                                                        *
-*               mgcep()                                                 *
+*               sp2mgc()                                                *
 *                                                                       *
 ************************************************************************/
 

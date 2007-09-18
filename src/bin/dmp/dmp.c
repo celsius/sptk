@@ -116,9 +116,10 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int  n=-1, size=sizeof(float), i=0, eflag=0, lflag=0;
-   FILE  *fp=stdin;
-   char  *s, c, cc='f';
+   int n=-1, i=0, eflag=0, lflag=0;
+   size_t size=sizeof(float);
+   FILE *fp=stdin;
+   char *s, c, cc='f';
    char format[SIZE],form[SIZE];
    int ff=0;
    union u {

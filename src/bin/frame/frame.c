@@ -132,7 +132,8 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int l=LENG, fprd=FPERIOD, size=sizeof(float), ns, i;
+   int l=LENG, fprd=FPERIOD, ns, i;
+   size_t size=sizeof(float); 
    FILE *fp=stdin;
    Boolean noctr = NOCTR;
    char *x, *xx, *p1, *p2, *p;

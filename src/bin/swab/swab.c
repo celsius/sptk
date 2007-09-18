@@ -100,11 +100,11 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -S S   : start address       [%d]\n",START);
-   fprintf(stderr, "       -s s   : start offset number [%d]\n",SNO);
-   fprintf(stderr, "       -E E   : end address         [EOF]\n");
-   fprintf(stderr, "       -e e   : end offset number   [0]\n");
-   fprintf(stderr, "       +type  : input data type     [s]\n");
+   fprintf(stderr, "       -S S   : start address                [%d]\n",START);
+   fprintf(stderr, "       -s s   : start offset number          [%d]\n",SNO);
+   fprintf(stderr, "       -E E   : end address                  [EOF]\n");
+   fprintf(stderr, "       -e e   : end offset number            [0]\n");
+   fprintf(stderr, "       +type  : input and output data format [s]\n");
    fprintf(stderr, "                 s (short)     l (long)\n");
    fprintf(stderr, "                 f (float)     d (double)\n");
    fprintf(stderr, "       -h     : print this message\n");
@@ -127,8 +127,9 @@ int main (int argc,char *argv[])
 {
    FILE *fp=stdin;
    char *s;
-   int c, iosize=2;
-   void conv (FILE *fp, int iosize);
+   int c;
+   size_t iosize=2;
+   void conv (FILE *fp, size_t iosize);
    
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
@@ -191,7 +192,7 @@ int main (int argc,char *argv[])
    return(0);
 }
 
-void conv (FILE *fp, int iosize)
+void conv (FILE *fp, size_t iosize)
 {
    long adrs, n;
    int i;
@@ -213,7 +214,7 @@ void conv (FILE *fp, int iosize)
    return;
 }
 
-int ffseek(FILE *fp,long off)
+int ffseek (FILE *fp, long off)
 {
    int n;
 

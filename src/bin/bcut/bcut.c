@@ -131,7 +131,8 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int size=sizeof(float), n=LENG;
+   size_t size=sizeof(float);
+   int n=LENG;
    long start=START, end=END, ptr;
    FILE *fp=stdin;
    char *s, c;
