@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-* $Id: plot.c,v 1.10 2007/09/12 08:37:12 heigazen Exp $          *
+* $Id: plot.c,v 1.11 2007/09/18 03:38:12 heigazen Exp $          *
 * Interpret X-Y Ploter Commands    *
 ****************************************************************/
 
@@ -82,7 +82,7 @@ extern GC  gc;
 extern unsigned long forepix, backpix;
 extern float  shrink;
 extern int  landscape;
-extern int  c_flg, m_flg;
+extern int  c_flg, mono_flg;
 extern int  fno;
 
 static XPoint  points[SIZE];
@@ -396,7 +396,7 @@ static void newpen(int w )
    if (w<0 || w>10)
       w = 1;
 
-   if (!c_flg || m_flg)  {
+   if (!c_flg || mono_flg)  {
       line_width = l_width[w];
       XSetLineAttributes(display, gc,
                          line_width, line_style, CapButt, join_style);
