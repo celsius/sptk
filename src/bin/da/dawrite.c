@@ -141,7 +141,8 @@ void usage(int status)
 static char outport=OUTPORT;
 static short *y=NULL, *xs;
 static int gain=GAIN, is_verbose=VERBOSE;
-static int hdr_size=HEADERSIZE, data_size=sizeof(short);
+static int hdr_size=HEADERSIZE;
+static size_t data_size=sizeof(short);
 static int freq=DEFAULT_FREQ;
 static float *x, fgain=1;
 float ampgain=-1;

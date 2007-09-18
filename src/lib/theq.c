@@ -123,12 +123,12 @@ static double **mtrx2 (const int a, const int b)
    int i;
    double **x;
 
-   if (! (x = (double**)calloc((unsigned)a, sizeof(*x)))) {
+   if (! (x = (double**)calloc((size_t)a, sizeof(*x)))) {
       fprintf(stderr, "mtrx2() in theq() : memory allocation error !\n");
       exit(3);
    }
    for (i=0; i<a; i++)
-      if (! (x[i] = (double*)calloc((unsigned)b, sizeof(**x)))) {
+      if (! (x[i] = (double*)calloc((size_t)b, sizeof(**x)))) {
          fprintf(stderr, "mtrx2() in theq() : memory allocation error !\n");
           exit(3);
       }

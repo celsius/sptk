@@ -54,14 +54,16 @@
 
     movem(a, b, size, nitem)
 
-    void   *a : intput data
-    void   *b : output data
-    int  size : size of data type
-    int nitem : data length
+    void   *a    : intput data
+    void   *b    : output data
+    size_t size  : size of data type
+    int    nitem : data length
 
 *********************************************************/
 
-void movem (void *a, void *b, const int size, const int nitem)
+#include <stdio.h>
+
+void movem (void *a, void *b, const size_t size, const int nitem)
 {
    long i;
    char *c = a;

@@ -106,7 +106,7 @@ int cholesky (double *c, double *a, double *b, const int n, double eps);
 int fwritef (double *ptr, const size_t size, const int nitems, FILE *fp);
 int freadf  (double *ptr, const size_t size, const int nitems, FILE *fp);
 #endif /* DOUBLE */
-void fillz (void *ptr, const int size, const int nitem);
+void fillz (void *ptr, const size_t size, const int nitem);
 FILE *getfp (char *name, char *opt);
 short *sgetmem (const int leng);
 long *lgetmem (const int leng);
@@ -114,13 +114,13 @@ double *dgetmem (const int leng);
 float *fgetmem (const int leng);
 /* real *rgetmem (const int leng); */
 float **ffgetmem (const int leng);
-char *getmem (const int leng, const unsigned int size);
+char *getmem (const size_t leng, const size_t size);
 double gexp (const double r, const double x);
 double glog (const double r, const double x);
 int ifftr (double *x, double *y, const int l);
 void multim (double x[], const int xx, const int xy, double y[], const int yx, const int yy, double a[]);
 void addm (double x[], double y[], const int xx, const int yy, double a[]);
-void movem (void *a, void *b, const int size, const int nitem);
+void movem (void *a, void *b, const size_t size, const int nitem);
 int mseq (void);
 int theq (double *t, double *h, double *a, double *b, const int n, double eps);
 int toeplitz (double *t, double *a, double *b, const int n, double eps);

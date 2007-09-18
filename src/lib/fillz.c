@@ -54,13 +54,15 @@
 
     fillz(ptr, size, nitem)
 
-    xxxx *ptr : intput data
-    int size  : size of data type
-    int nitem : data length
+    void   *ptr  : intput data
+    size_t size  : size of data type
+    int    nitem : data length
 
 *********************************************************/
 
-void fillz (void *ptr, const int size, const int nitem)
+#include <stdio.h>
+
+void fillz (void *ptr, const size_t size, const int nitem)
 {
    long n;
    char *p = ptr;
