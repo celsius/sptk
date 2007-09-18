@@ -66,7 +66,7 @@
 *               data sequence (float)                                   *
 *       stdout:                                                         *
 *               minimum & maximum(float)                                *
-*               n-best minimums & n-best maximum(float)                 *
+*               n-best minimums & n-best maximum (float)                *
 *                       ,when -n option is specified                    *
 *               minimum:datanumber,... (ascii)                          *
 *               maximum:datanumber,...  (ascii)                         *
@@ -194,11 +194,12 @@ int minmax (FILE *fp,int dim,int nbest,Boolean outnum)
    min = dgetmem(nbest);
    max = dgetmem(nbest);
    s = dgetmem(dim);
-   minpos = (int **)calloc(sizeof(*minpos),nbest);
-   maxpos = (int **)calloc(sizeof(*maxpos),nbest);
-   nminpos = ( int *)calloc(sizeof(*nminpos),nbest);
-   nmaxpos = ( int *)calloc(sizeof(*nminpos),nbest);
-
+   if(outnum){
+      minpos = (int **)calloc(sizeof(*minpos),nbest);
+      maxpos = (int **)calloc(sizeof(*maxpos),nbest);
+      nminpos = ( int *)calloc(sizeof(*nminpos),nbest);
+      nmaxpos = ( int *)calloc(sizeof(*nminpos),nbest);
+   }
    for (k=0; !feof(fp); ) {
       if ((n=freadf(s, sizeof(*s), dim, fp))==0)
          break;
@@ -209,22 +210,24 @@ int minmax (FILE *fp,int dim,int nbest,Boolean outnum)
          }
          min[0]=s[0];
          max[0]=s[0];
-         for (i=0;i<nbest;i++) {
-            nminpos[i] = 1;
-            nmaxpos[i] = 1;
-            free(minpos[i]);
-            free(maxpos[i]);
-            minpos[i] = (int *)calloc(sizeof(**minpos),1);
-            maxpos[i] = (int *)calloc(sizeof(**maxpos),1);
-            minpos[i][0] = -1;
-            maxpos[i][0] = -1;
+         if(outnum){
+            for (i=0;i<nbest;i++) {
+               nminpos[i] = 1;
+               nmaxpos[i] = 1;
+               free(minpos[i]);
+               free(maxpos[i]);
+               minpos[i] = (int *)calloc(sizeof(**minpos),1);
+               maxpos[i] = (int *)calloc(sizeof(**maxpos),1);
+               minpos[i][0] = -1;
+               maxpos[i][0] = -1;
+            }	 
+            minpos[0][0] = 0;
+            maxpos[0][0] = 0;
          }
-         minpos[0][0] = 0;
-         maxpos[0][0] = 0;
-      }
+      }    
       else {
-         for (i=0;i<nbest;i++) {
-            if (s[0]==min[i]) {
+         for (i=0;i<nbest;i++) { 
+            if (s[0]==min[i] && outnum) {
                tmp = (int *)calloc(sizeof(*tmp),nminpos[i]);
                movem((double *)minpos[i],(double *)tmp,sizeof(*tmp),nminpos[i]);
                free(minpos[i]);
@@ -232,24 +235,29 @@ int minmax (FILE *fp,int dim,int nbest,Boolean outnum)
                movem((double *)tmp,(double *)minpos[i],sizeof(**minpos),nminpos[i]-1);
                minpos[i][nminpos[i]-1] = t;
                free(tmp);
-               break;
+               break;	      
             }
             if (s[0]<min[i]) {
-               free(minpos[nbest-1]);
+               if(outnum)
+                  free(minpos[nbest-1]);
                for (j=nbest-1;j>i;j--) {
                   min[j]=min[j-1];
-                  minpos[j] = minpos[j-1];
-                  nminpos[j] = nminpos[j-1];
+                  if(outnum){
+                     minpos[j] = minpos[j-1];
+                     nminpos[j] = nminpos[j-1];
+                  }
                }
                min[i] = s[0];
-               minpos[i] = (int *)calloc(sizeof(**minpos),1);
-               minpos[i][0] = t;
-               nminpos[i] = 1;
+               if(outnum){
+                  minpos[i] = (int *)calloc(sizeof(**minpos),1);
+                  minpos[i][0] = t;
+                  nminpos[i] = 1;
+               }
                break;
             }
          }
          for (i=0;i<nbest;i++) {
-            if (s[0]==max[i]) {
+            if (s[0]==max[i] && outnum) {
                tmp = (int *)calloc(sizeof(*tmp),nmaxpos[i]);
                movem((double *)maxpos[i],(double *)tmp,sizeof(*tmp),nmaxpos[i]);
                free(maxpos[i]);
@@ -260,23 +268,28 @@ int minmax (FILE *fp,int dim,int nbest,Boolean outnum)
                break;
             }
             if (s[0]>max[i]) {
-               free(maxpos[nbest-1]);
+               if(outnum)
+                  free(maxpos[nbest-1]);
                for (j=nbest-1;j>i;j--) {
                   max[j]=max[j-1];
-                  maxpos[j] = maxpos[j-1];
-                  nmaxpos[j] = nmaxpos[j-1];
+                  if(outnum){
+                     maxpos[j] = maxpos[j-1];
+                     nmaxpos[j] = nmaxpos[j-1];
+                  }
                }
                max[i] = s[0];
-               maxpos[i] = (int *)calloc(sizeof(**minpos),1);
-               maxpos[i][0] = t;
-               nmaxpos[i] = 1;
+               if(outnum){
+                  maxpos[i] = (int *)calloc(sizeof(**minpos),1);
+                  maxpos[i][0] = t;
+                  nmaxpos[i] = 1;
+               }
                break;
             }
          }
       }
       for (k=1; k<n; ++k) {
          for (i=0;i<nbest;i++) {
-            if (s[k]==min[i]) {
+            if (s[k]==min[i] && outnum) {
                tmp = (int *)calloc(sizeof(*tmp),nminpos[i]);
                movem((double *)minpos[i],(double *)tmp,sizeof(*tmp),nminpos[i]);
                free(minpos[i]);
@@ -287,21 +300,26 @@ int minmax (FILE *fp,int dim,int nbest,Boolean outnum)
                break;
             }
             if (s[k]<min[i]) {
-               free(minpos[nbest-1]);
+               if(outnum)
+                  free(minpos[nbest-1]);
                for (j=nbest-1;j>i;j--) {
                   min[j]=min[j-1];
-                  minpos[j] = minpos[j-1];
-                  nminpos[j] = nminpos[j-1];
+                  if(outnum){
+                     minpos[j] = minpos[j-1];
+                     nminpos[j] = nminpos[j-1];
+                  }
                }
                min[i] = s[k];
-               minpos[i] = (int *)calloc(sizeof(**minpos),1);
-               minpos[i][0] = k;
-               nminpos[i] = 1;
+               if(outnum){
+                  minpos[i] = (int *)calloc(sizeof(**minpos),1);
+                  minpos[i][0] = k;
+                  nminpos[i] = 1;
+               }
                break;
             }
          }
          for (i=0;i<nbest;i++) {
-            if (s[k]==max[i]) {
+            if (s[k]==max[i] && outnum) {
                tmp = (int *)calloc(sizeof(*tmp),nmaxpos[i]);
                movem((double *)maxpos[i],(double *)tmp,sizeof(*tmp),nmaxpos[i]);
                free(maxpos[i]);
@@ -312,16 +330,21 @@ int minmax (FILE *fp,int dim,int nbest,Boolean outnum)
                break;
             }
             if (s[k]>max[i]) {
-               free(maxpos[nbest-1]);
+               if(outnum)
+                  free(maxpos[nbest-1]);
                for (j=nbest-1;j>i;j--) {
                   max[j]=max[j-1];
-                  maxpos[j] = maxpos[j-1];
-                  nmaxpos[j] = nmaxpos[j-1];
+                  if(outnum){
+                     maxpos[j] = maxpos[j-1];
+                     nmaxpos[j] = nmaxpos[j-1];
+                  }
                }
                max[i] = s[k];
-               maxpos[i] = (int *)calloc(sizeof(**maxpos),1);
-               maxpos[i][0] = k;
-               nmaxpos[i] = 1;
+               if(outnum){
+                  maxpos[i] = (int *)calloc(sizeof(**maxpos),1);
+                  maxpos[i][0] = k;
+                  nmaxpos[i] = 1;
+               }
                break;
             }
          }
@@ -350,7 +373,6 @@ int minmax (FILE *fp,int dim,int nbest,Boolean outnum)
       }
       else
          t++;
-
    }
    if (dim==1) {
       if (outnum) {
