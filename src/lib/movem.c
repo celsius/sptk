@@ -48,20 +48,22 @@
 */
 
 /********************************************************
-    $Id: movem.c,v 1.5 2007/09/12 08:37:14 heigazen Exp $
+    $Id: movem.c,v 1.6 2007/09/18 03:52:41 heigazen Exp $
 
     Data Transfer Function
 
     movem(a, b, size, nitem)
 
-    void   *a : intput data
-    void   *b : output data
-    int  size : size of data type
-    int nitem : data length
+    void   *a    : intput data
+    void   *b    : output data
+    size_t size  : size of data type
+    int    nitem : data length
 
 *********************************************************/
 
-void movem (void *a, void *b, const int size, const int nitem)
+#include <stdio.h>
+
+void movem (void *a, void *b, const size_t size, const int nitem)
 {
    long i;
    char *c = a;

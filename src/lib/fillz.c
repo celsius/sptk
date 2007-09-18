@@ -48,19 +48,21 @@
 */
 
 /********************************************************
-    $Id: fillz.c,v 1.5 2007/09/12 08:37:14 heigazen Exp $
+    $Id: fillz.c,v 1.6 2007/09/18 03:52:41 heigazen Exp $
 
     Fill Data with Zero
 
     fillz(ptr, size, nitem)
 
-    xxxx *ptr : intput data
-    int size  : size of data type
-    int nitem : data length
+    void   *ptr  : intput data
+    size_t size  : size of data type
+    int    nitem : data length
 
 *********************************************************/
 
-void fillz (void *ptr, const int size, const int nitem)
+#include <stdio.h>
+
+void fillz (void *ptr, const size_t size, const int nitem)
 {
    long n;
    char *p = ptr;
