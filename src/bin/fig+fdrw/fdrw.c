@@ -122,7 +122,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - drw a graph\n",cmnd);
+   fprintf(stderr, " %s - draw a graph\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -162,7 +162,7 @@ long   nsmpls = NSMPLS;
 int    is_hold = BAR, is_y = 0;
 int    ltype = LTYPE, gtype = GTYPE, penno = PENNO, joinno = JOINNO, ctype = CTYPE;
 int    lmod[] = { 0, 2, 6, 3, 4};
-float  lpit[] = { 10, 1.6, 10, 3, 5};
+double  lpit[] = { 10, 1.6, 10, 3, 5};
 
 
 int main (int argc, char *argv[])
@@ -270,7 +270,7 @@ int main (int argc, char *argv[])
    join(joinno);
    while (!feof(fp)) {
       drw(fp);
-      if (dz) {
+      if (dz!=0.0) {
          if (ctype)
             plot(-ctype * dz, 0.0, -3);
          else
@@ -287,8 +287,8 @@ int drw(FILE *fp)
    char buf[64];
    int n, n2;
    double dx=0.0, h;
-   float *p;
-   float  *x, *y;
+   double *p;
+   double *x, *y;
 
    if ((x = calloc(BUF_LNG * 4, sizeof(*x)))==NULL)
       return(1);
@@ -301,7 +301,7 @@ int drw(FILE *fp)
          nitems = (nsmpls - n>BUF_LNG) ? BUF_LNG : nsmpls - n;
       else
          nitems = BUF_LNG;
-      if ((nitems = fread(y, sizeof(*y), nitems, fp))==0)
+      if ((nitems = freadf(y, sizeof(*y), nitems, fp))==0)
          break;
       if (nsmpls==0) {
          nsmpls = nitems;

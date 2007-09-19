@@ -63,25 +63,25 @@
 
 
 extern int ltype, type, is_t;
-extern float xo, yo, xl, yl, x00, y00, mh, mw, h, w;
-extern float xclip0, yclip0, xclip1, yclip1;
+extern double xo, yo, xl, yl, x00, y00, mh, mw, h, w;
+extern double xclip0, yclip0, xclip1, yclip1;
 
 static int lmod[]={ 0, 2, 6, 3, 4}, ptyp=1;
 static int is_xlog=0, is_ylog=0;
-static float lpit[]={ 10, 1.6, 10, 3, 5};
-static float dhat=1, that=45;
-static float xfct=1, yfct=1;
+static double lpit[]={ 10, 1.6, 10, 3, 5};
+static double dhat=1, that=45;
+static double xfct=1, yfct=1;
 static char label[BUFLNG / 2]="";
-static float xbuf[BUFLNG], ybuf[BUFLNG];
+static double xbuf[BUFLNG], ybuf[BUFLNG];
 
 void graph(FILE *fp)
 {
    static char buf[BUFLNG], arg[BUFLNG / 2], xtype[16], ytype[16];
-   static float xa, ya, xap, yap, xmin, xmax, ymin, ymax;
-   static float xs=-NSCALE, ys=-NSCALE;
+   static double xa, ya, xap, yap, xmin, xmax, ymin, ymax;
+   static double xs=-NSCALE, ys=-NSCALE;
    int n, c;
    char *s, *p;
-   float  x, y, lpt, th, dt, lscale, rad;
+   double  x, y, lpt, th, dt, lscale, rad;
    int  is_grid, old_lbl=0;
    char  xory;
 
@@ -417,7 +417,7 @@ void graph(FILE *fp)
    draw_fig0(xbuf, ybuf, n);
 }
 
-void draw_fig0(float x[],float y[],int n)
+void draw_fig0(double x[],double y[],int n)
 {
    if (n && ltype >= 0) {
       bound(xclip0, yclip0, xclip1, yclip1);
@@ -426,7 +426,7 @@ void draw_fig0(float x[],float y[],int n)
    }
 }
 
-int flush(float x[],float y[],int n)
+int flush(double x[],double y[],int n)
 {
    if (n>1) {
       draw_fig0(x, y, n);
@@ -438,14 +438,14 @@ int flush(float x[],float y[],int n)
       return(n);
 }
 
-void polyg(float x[],float y[],int n)
+void polyg(double x[],double y[],int n)
 {
    bound(xclip0, yclip0, xclip1, yclip1);
    hatch(ptyp, x, y, n, dhat, that);
    rstbnd();
 }
 
-int is_in(float x,float y)
+int is_in(double x,double y)
 {
    if (x >= 0 && x <= xl && y >= 0 && y <= yl)
       return(1);
@@ -453,9 +453,9 @@ int is_in(float x,float y)
       return(0);
 }
 
-void swap(float *x,float *y)
+void swap(double *x,double *y)
 {
-   float t;
+   double t;
 
    if (is_t) {
       t = *y;

@@ -77,17 +77,17 @@
 
 extern struct co_ord _org;
 
-void rotate (float th)
+void rotate (double th)
 {
    _rotate(_plnorm(_org.xo), _plnorm(_org.yo), _plnorm(th));
 }
 
-void factor (float fx, float fy)
+void factor (double fx, double fy)
 {
    _factor((int)(fx * SCALE + 0.5), (int)(fy * SCALE + 0.5), SCALE);
 }
 
-int offset (float x, float y)
+int offset (double x, double y)
 {
    _offset(_plnorm(x), _plnorm(y));
    return(0);
@@ -105,7 +105,7 @@ void rstbnd (void)
    wup_left(4000, 2850);
 }
 
-int hatch (int ip, float *ax, float *ay, int n, float d, float t)
+int hatch (int ip, double *ax, double *ay, int n, double d, double t)
 {
    if (n<3)
       return(1);
@@ -154,7 +154,7 @@ int speed (int isp, int ip)
    return(0);
 }
 
-int mark (int mrk, float ax[], float ay[], int n, float f, int m)
+int mark (int mrk, double ax[], double ay[], int n, double f, int m)
 {
    int i;
 
@@ -172,7 +172,7 @@ int mark (int mrk, float ax[], float ay[], int n, float f, int m)
    return(0);
 }
 
-int symbol (float x, float y, char *text, float h, float s, float th)
+int symbol (double x, double y, char *text, double h, double s, double th)
 {
    plot(x, y, 3);
    ascale(_plnorm(h));
@@ -182,7 +182,7 @@ int symbol (float x, float y, char *text, float h, float s, float th)
    return(0);
 }
 
-int number (float x, float y, float fval, float h, float s, float th, int m, int n)
+int number (double x, double y, double fval, double h, double s, double th, int m, int n)
 {
    char buf[32], format[8];
 
@@ -201,7 +201,7 @@ int number (float x, float y, float fval, float h, float s, float th, int m, int
    return(symbol(x, y, buf, h, s, th));
 }
 
-int italic (float th)
+int italic (double th)
 {
    int theta;
 
@@ -211,7 +211,7 @@ int italic (float th)
    return(0);
 }
 
-int line (int ip, float *ax, float *ay, int n)
+int line (int ip, double *ax, double *ay, int n)
 {
    struct {
       short x;
@@ -253,7 +253,7 @@ int line (int ip, float *ax, float *ay, int n)
    return(0);
 }
 
-int circle (float x, float y, float rs, float re, float ths, float the)
+int circle (double x, double y, double rs, double re, double ths, double the)
 {
    int r1, r2;
 

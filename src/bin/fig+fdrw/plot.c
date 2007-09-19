@@ -92,24 +92,24 @@ void plote (void)
    return;
 }
 
-int _plnorm (float x)
+int _plnorm (double x)
 {
    return((int)(10.0 * x + 0.5));
 }
 
-int _cordx (float x)
+int _cordx (double x)
 {
    return(_plnorm(x + _org.xo));
 }
 
-int _cordy (float y)
+int _cordy (double y)
 {
    return(_plnorm(y + _org.yo));
 }
 
 static short _ltype=0, _lscale=10;
 
-void plot (float x, float y, int z)
+void plot (double x, double y, int z)
 {
    int ip;
 
@@ -129,7 +129,7 @@ void plot (float x, float y, int z)
    }
 }
 
-int plotr (int ip, float x, float y)
+int plotr (int ip, double x, double y)
 {
    if (ip==1)
       rmove(_plnorm(x), _plnorm(y));
@@ -145,7 +145,7 @@ int plotr (int ip, float x, float y)
    return(0);
 }
 
-int plota (int ip, float x, float y)
+int plota (int ip, double x, double y)
 {
    if (ip==1)
       move(_cordx(x), _cordy(y));
@@ -161,7 +161,7 @@ int plota (int ip, float x, float y)
    return(0);
 }
 
-void mode (int ltype, float lscale)
+void mode (int ltype, double lscale)
 {
    _ltype  = ltype;
    _lscale = _plnorm(lscale);
@@ -177,7 +177,7 @@ void _chlnmod (int lmode)
       line_type(0);
 }
 
-void origin (float x, float y)
+void origin (double x, double y)
 {
    _org.xo = x;
    _org.yo = y;

@@ -240,15 +240,15 @@ int greek(char *p)
    return(-1);
 }
 
-float sleng(char *p, float h, float w)
+double sleng(char *p, double h, double w)
 {
    return((strlen(p) - 1) * w + LADJ * w);
 }
 
-void _symbol(float x, float y, char *p, float h, float w, float t)
+void _symbol(double x, double y, char *p, double h, double w, double t)
 {
    int i;
-   float dx, dy;
+   double dx, dy;
 
    symbol(x, y, p, h, w, t);
    for (i = 0; sub[i]; i += 4) {
@@ -259,7 +259,7 @@ void _symbol(float x, float y, char *p, float h, float w, float t)
    sub[0] = 0;
 }
 
-float ysadj (void)
+double ysadj (void)
 {
    int i;
 
@@ -270,13 +270,13 @@ float ysadj (void)
    return(0);
 }
 
-float rx(float x, float y, float t)
+double rx(double x, double y, double t)
 {
    t *= (3.141592653589793 / 180);
    return(x * cos(t) - y * sin(t));
 }
 
-float ry(float x, float y, float t)
+double ry(double x, double y, double t)
 {
    t *= (3.141592653589793 / 180);
    return(x * sin(t) + y * cos(t));
@@ -285,9 +285,9 @@ float ry(float x, float y, float t)
 #define PI 3.141592653589793
 #include <math.h>
 
-float argapf(float x, float a)
+double argapf(double x, double a)
 {
-   float omg;
+   double omg;
 
    omg = PI * x;
    return(x + 2.0 * atan2(a * sin(omg), 1.0 - a * cos(omg)) / PI);
