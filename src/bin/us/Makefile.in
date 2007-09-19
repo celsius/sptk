@@ -100,9 +100,17 @@ install: $(TARGET)
 	$(INSTALL) -m 755 $(TARGET) $(BIN)
 	cp $(COEF) $(LIB)
 	- for i in *.sh; do \
-		sed -e 's:SPTK_VERSION:@PACKAGE_VERSION@:g' \
-			 -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' \
-			 -e '/libpath/s:/usr/local/SPTK/lib:'$(LIB)':' $$i > $(BIN)/$$i; \
+		if [ '@DDOUBLE@' != '-DDOUBLE' ]; then \
+			sed -e 's:SPTK_VERSION:@PACKAGE_VERSION@:g' \
+				 -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' \
+				 -e '/libpath/s:/usr/local/SPTK/lib:'$(LIB)':' $$i > $(BIN)/$$i; \
+		else \
+			sed -e 's:SPTK_VERSION:@PACKAGE_VERSION@:g' \
+				 -e 's:ff:dd:g' -e 's:sf:sd:g' -e 's:fs:ds:g' -e 's:+f:+d:g' \
+				 -e 's:f (float):d (double):g' -e 's:\[f\]:[d]:g' \
+				 -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' \
+				 -e '/libpath/s:/usr/local/SPTK/lib:'$(LIB)':' $$i > $(BIN)/$$i; \
+		fi; \
 		chmod 755 $(BIN)/$$i; \
 		j=`basename $$i .sh`; \
 		$(RM) $(BIN)/$$j ; \

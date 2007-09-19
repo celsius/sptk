@@ -221,7 +221,7 @@ cat2 <<EOF
        -S s     : output sampling frequency 
                                       (11.025, 22.05, 44.1kHz) [11.025]
        +x       : input and output data format                 [f]
-                     s(short)   f(float)
+                     s (short)   f (float)
        -h       : print this message
   infile:
        data sequence                                           [stdin]

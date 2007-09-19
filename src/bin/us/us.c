@@ -61,7 +61,7 @@
 *               -u u  :  upsampling ratio                      [1]      *
 *               -d d  :  downsampling ratio                    [1]      *
 *       infile:                                                         *
-*               data sequence (float)                          [stdin]  *
+*               data sequence                                  [stdin]  *
 *       notice:                                                         *
 *                                                                       *
 ************************************************************************/
@@ -74,6 +74,7 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+#include <SPTK.h>
 
 
 /*  Required Functions  */
@@ -81,7 +82,7 @@ void srcnv(FILE *fp);
 void firin(double in);
 double firout(int os);
 void firinit(void);
-int freada(float *p,int bl,FILE *fp);
+int freada(double *p,int bl,FILE *fp);
 
 
 /* Default Value */
@@ -108,6 +109,12 @@ int freada(float *p,int bl,FILE *fp);
 /* Command Name */
 char *cmnd, *coef=NULL, *type=STYPE;
 
+#ifdef DOUBLE
+char *FORMAT = "double";
+#else
+char *FORMAT = "float";
+#endif /* DOUBLE */
+
 void usage (int status)
 {
    fprintf(stderr, "\n");
@@ -127,7 +134,7 @@ void usage (int status)
    fprintf(stderr, "       -d d  : down-sampling ratio                       [N/A]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data                                              [stdin]\n");
+   fprintf(stderr, "       data sequence (%s)                                [stdin]\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       Default LPF coefficients File\n");
    fprintf(stderr, "        2:3 -> %s\n", COEF23F);
@@ -252,12 +259,12 @@ int main (int argc,char *argv[])
 void srcnv (FILE *fp)
 {
    int is_cont, i, k, nread, count, nwr, delay;
-   float x[SIZE], y[DSIZE];
+   double x[SIZE], y[DSIZE];
 
    firinit();
    delay = start;
    for (count=is_cont=1; is_cont; ) {
-      if ((nread=fread(x, sizeof(*x), SIZE, fp))==0) {
+      if ((nread=freadf(x, sizeof(*x), SIZE, fp))==0) {
          is_cont = 0;
          nread = (d_rate * start) / u_rate;
          for (k=0; k<nread; ++k)
@@ -294,7 +301,7 @@ void srcnv (FILE *fp)
    }
 }
 
-static float rb[RBSIZE], hdn[RBSIZE + 1];
+static double rb[RBSIZE], hdn[RBSIZE + 1];
 static int flengdn=-1, indx=0;
 
 void firin (double in)
@@ -334,7 +341,7 @@ void firinit (void)
    }
 }
 
-int freada (float *p,int bl,FILE *fp)
+int freada (double *p,int bl,FILE *fp)
 {
    int c;
    char buf[LINEBUFSIZE];
@@ -342,7 +349,7 @@ int freada (float *p,int bl,FILE *fp)
    c = 0;
    while (c<bl ) {
       if (fgets( buf, LINEBUFSIZE, fp)==NULL) break;
-      p[c] = (float)atof( buf);
+      p[c] = atof( buf);
       c+=1;
    }
    return c;
