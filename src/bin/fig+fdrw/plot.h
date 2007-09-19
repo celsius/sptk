@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-* $Id: plot.h,v 1.7 2007/09/12 08:37:17 heigazen Exp $          *  
+* $Id: plot.h,v 1.8 2007/09/19 09:06:02 heigazen Exp $          *  
 * HEADER for XY-PLOTTER library                                 *
 *                                                               *
 *    Following commands are valid for the xy plotter FP5301     *
@@ -121,49 +121,49 @@ struct co_ord {
 #define SCALE 4096
 
 /*  Required Functions  */
-void rotate(float th);
-void factor(float fx, float fy);
-int offset(float x, float y);
+void rotate(double th);
+void factor(double fx, double fy);
+int offset(double x, double y);
 void bound(double xl, double yl, double xh, double yh);
 void rstbnd();
-int hatch(int ip, float *ax, float *ay, int n, float d, float t);
+int hatch(int ip, double *ax, double *ay, int n, double d, double t);
 int pen(int pen);
 int join (int join);
 int font(int n);
 int speed(int isp, int ip);
-int mark(int mrk, float ax[], float ay[], int n, float f, int m);
-int symbol(float x, float y, char *text, float h, float s, float th);
-int number(float x, float y, float fval, float h, float s, float th, int m, int n);
-int italic(float th);
-int line(int ip, float *ax, float *ay, int n);
-int circle(float x, float y, float rs, float re, float ths, float the);
+int mark(int mrk, double ax[], double ay[], int n, double f, int m);
+int symbol(double x, double y, char *text, double h, double s, double th);
+int number(double x, double y, double fval, double h, double s, double th, int m, int n);
+int italic(double th);
+int line(int ip, double *ax, double *ay, int n);
+int circle(double x, double y, double rs, double re, double ths, double the);
 int pntstyl(int ip);
 void plots(int mode);
 void plote();
-int _plnorm(float x);
-int _cordx(float x);
-int _cordy(float y);
-void plot(float x,float y, int z);
-int plotr(int ip, float x, float y);
-int plota(int ip, float x, float y);
-void mode(int ltype, float lscale);
+int _plnorm(double x);
+int _cordx(double x);
+int _cordy(double y);
+void plot(double x,double y, int z);
+int plotr(int ip, double x, double y);
+int plota(int ip, double x, double y);
+void mode(int ltype, double lscale);
 void _chlnmod(int lmode);
-void origin(float x, float y);
+void origin(double x, double y);
 void graph(FILE *fp);
-void draw_fig0(float x[],float y[],int n);
-int flush(float x[],float y[],int n);
-void polyg(float x[],float y[],int n);
-int is_in(float x,float y);
-void swap(float *x,float *y);
+void draw_fig0(double x[],double y[],int n);
+int flush(double x[],double y[],int n);
+void polyg(double x[],double y[],int n);
+int is_in(double x,double y);
+void swap(double *x,double *y);
 char *gettxt(char *s);
 char *script(char *s, int i);
 char *getarg(char *s, char *arg);
 char *gettyp(char *s, char *t);
 char *getname(char *s, char *t);
 int greek(char *p);
-float sleng(char *p, float h, float w);
-void _symbol(float x, float y, char *p, float h, float w, float t);
-float ysadj(void);
-float rx(float x, float y, float t);
-float ry(float x, float y, float t);
-float argapf(float x, float a);
+double sleng(char *p, double h, double w);
+void _symbol(double x, double y, char *p, double h, double w, double t);
+double ysadj(void);
+double rx(double x, double y, double t);
+double ry(double x, double y, double t);
+double argapf(double x, double a);
