@@ -61,6 +61,7 @@
 *               +ab      :  input data type (a: file1, b: file2) [sf]   *
 *                               s : short                               *
 *                               f : float                               *
+*                               d : double                              *
 *               -o o     :  output format                        [0]    *
 *      infile:                                                          *
 *               data sequence                                           *
@@ -75,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.10 2007/09/12 08:37:20 heigazen Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.11 2007/09/19 14:30:54 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -94,18 +95,27 @@ static char *rcs_id = "$Id: snr.c,v 1.10 2007/09/12 08:37:20 heigazen Exp $";
 /*  Command Name  */
 char *cmnd;
 
+#ifdef DOUBLE
+char  FORMAT1 = 'd';
+char *FORMAT2 = "double";
+char *FORMAT3 = "sd";
+#else
+char  FORMAT1 = 'f';
+char *FORMAT2 = "float";
+char *FORMAT3 = "sf";
+#endif /* DOUBLE */
 
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - SNR and SNR_seg\n", cmnd);
+   fprintf(stderr, " %s - evaluate SNR and segmental SNR\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] file1 [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "      -l l  : frame length                         [%d]\n", LENG);
-   fprintf(stderr, "      +ab   : input data type (a: file1, b: file2) [sf]\n");
-   fprintf(stderr, "                s (short)  f (float) \n");
+   fprintf(stderr, "      +ab   : input data type (a: file1, b: file2) [%s]\n", FORMAT3);
+   fprintf(stderr, "                s (short)  %c (%s)\n", FORMAT1, FORMAT2);
    fprintf(stderr, "      -o o  : output type                          [%d]\n", OTYPE);
    fprintf(stderr, "                0 SNR and SNRseg           (ascii)\n");
    fprintf(stderr, "                1 SNR and SNRseg in datail (ascii)\n");
@@ -113,7 +123,7 @@ void usage (int status)
    fprintf(stderr, "                3 SNRseg                   (float)\n");
    fprintf(stderr, "      -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "      data sequence                                [stdin]\n");
+   fprintf(stderr, "      data sequence (%s)                        [stdin]\n", FORMAT2);
    fprintf(stderr, "  file1:\n");
    fprintf(stderr, "      data sequence\n");
    fprintf(stderr, "  stdout:\n");
@@ -162,6 +172,7 @@ int main (int argc, char **argv)
          c1 = *++s;
          c2 = *++s;
          switch (c1) {
+         case 'd':
          case 'f':
             f1w = 0;
             if (c2=='s') f2w = 1;
