@@ -58,8 +58,8 @@
 *       options:                                                        *
 *               -s s  :  conversion type                       [58]     *
 *               -c c  :  filename of low pass filter coef.     [Default]*
-*               -u u  :  upsampling ratio                      [1]      *
-*               -d d  :  downsampling ratio                    [1]      *
+*               -u u  :  up-sampling ratio                     [1]      *
+*               -d d  :  down-sampling ratio                   [1]      *
 *       infile:                                                         *
 *               data sequence                                  [stdin]  *
 *       notice:                                                         *
@@ -123,12 +123,12 @@ void usage (int status)
    fprintf(stderr, "       %s [ options ] infile1 > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -s s  : conversion type                           [%s]\n",STYPE);
-   fprintf(stderr, "                23F up sampling by 2:3\n");
-   fprintf(stderr, "                23S up sampling by 2:3\n");
-   fprintf(stderr, "                34  up sampling by 3:4\n");
-   fprintf(stderr, "                45  up sampling by 4:5\n");
-   fprintf(stderr, "                57  up sampling by 5:7\n");
-   fprintf(stderr, "                58  up sampling by 5:8\n");
+   fprintf(stderr, "                23F up-sampling by 2:3\n");
+   fprintf(stderr, "                23S up-sampling by 2:3\n");
+   fprintf(stderr, "                34  up-sampling by 3:4\n");
+   fprintf(stderr, "                45  up-sampling by 4:5\n");
+   fprintf(stderr, "                57  up-sampling by 5:7\n");
+   fprintf(stderr, "                58  up-sampling by 5:8\n");
    fprintf(stderr, "       -c c  : filename of low pass filter coefficients  [Default]\n");
    fprintf(stderr, "       -u u  : up-sampling ratio                         [N/A]\n");
    fprintf(stderr, "       -d d  : down-sampling ratio                       [N/A]\n");
@@ -189,7 +189,7 @@ int main (int argc,char *argv[])
          case 'h':
             usage (0);
          default:
-            fprintf(stderr, "%s: Invalid option '%c'\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'\n", cmnd, *(*argv+1));
             usage (1);
          }
       }
@@ -230,7 +230,7 @@ int main (int argc,char *argv[])
       def_u_rate = 8;
    }
    else {
-      fprintf(stderr, "%s: Invalid option '%s'\n", cmnd, type);
+      fprintf(stderr, "%s : Invalid option '%s'\n", cmnd, type);
       usage (1);
    }
 
@@ -238,12 +238,12 @@ int main (int argc,char *argv[])
    if (u_rate==0) u_rate = def_u_rate;
 
    if (coef==NULL) {
-      fprintf(stderr, "%s: LPF-coef file not specified\n", cmnd);
+      fprintf(stderr, "%s : LPF-coef file not specified\n", cmnd);
       return(1);
    }
    if (infile) {
       if ((fp=fopen(infile, "r"))==NULL) {
-         fprintf(stderr, "%s: cannot open %s\n", cmnd, infile);
+         fprintf(stderr, "%s : cannot open %s\n", cmnd, infile);
          return(1);
       }
    }
@@ -283,7 +283,7 @@ void srcnv (FILE *fp)
          if (nwr>delay) {
             nwr -= delay;
             if (fwrite(y + delay, sizeof(*y), nwr, stdout)!=nwr) {
-               fprintf(stderr, "%s: write error\n", cmnd);
+               fprintf(stderr, "%s : write error\n", cmnd);
                exit(1);
             }
             delay = 0;
@@ -294,7 +294,7 @@ void srcnv (FILE *fp)
       }
       else {
          if (fwrite(y, sizeof(*y), nwr, stdout)!=nwr) {
-            fprintf(stderr, "%s: write error\n", cmnd);
+            fprintf(stderr, "%s : write error\n", cmnd);
             exit(1);
          }
       }
@@ -327,13 +327,13 @@ void firinit (void)
    FILE *fp;
 
    if ((fp=fopen(coef, "r"))==NULL) {
-      fprintf(stderr, "%s: cannot open %s\n", cmnd, coef);
+      fprintf(stderr, "%s : cannot open %s\n", cmnd, coef);
       exit(1);
    }
    flengdn = freada(hdn, RBSIZE + 1, fp);
    fclose(fp);
    if (--flengdn<0) {
-      fprintf(stderr, "%s: cannot read filter coefficients\n", cmnd);
+      fprintf(stderr, "%s : cannot read filter coefficients\n", cmnd);
       exit(1);
    }
    if (start) {
