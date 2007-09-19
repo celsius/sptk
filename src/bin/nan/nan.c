@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nan.c,v 1.12 2007/09/15 14:26:53 heigazen Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.13 2007/09/19 08:46:19 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -70,18 +70,6 @@ static char *rcs_id = "$Id: nan.c,v 1.12 2007/09/15 14:26:53 heigazen Exp $";
 #include <string.h>
 #include <math.h>
 #include <SPTK.h>
-
-#ifndef __USE_ISOC99
-#ifndef DOUBLE
-#define F_MASKEXP    0x7F800000L
-#define F_MASKSIG    0x007FFFFFL
-#define F_INDEFINITE 0xFFC00000L
-#define D_MASKEXP    0x7FF00000L
-#else
-#define D_MASKSIG    0x000FFFFFL
-#define D_INDEFINITE 0xFFF80000L
-#endif  /* DOUBLE */
-#endif  /* __USE_ISOC99 */
 
 #ifdef DOUBLE
 char *FORMAT = "double";
@@ -154,10 +142,9 @@ void nan_tmp (FILE *fp)
 #ifdef DOUBLE
    double x;
 #else
-   long x;
+   float x;
 #endif /* DOUBLE */
 
-#ifdef __USE_ISOC99
    while (fread(&x, sizeof(x), 1, fp)) {
       if (isinf(x))
          fprintf(stdout, "[No. %ld] is Infty\n", count);
@@ -165,35 +152,7 @@ void nan_tmp (FILE *fp)
          fprintf(stdout, "[No. %ld] is NaN\n", count);
       ++count;
    }
-#else
-   while(fread(&x, sizeof(x), 1, fp))
-   {
-#ifdef DOUBLE
-       long upper = (long *)&x;
-       long lower = upper+1;
-
-       if (!((*upper & D_MASKEXP) ^ D_MASKEXP)) {
-          if ((!(*upper & D_MASKSIG))&&(!*lower))
-             fprintf(stdout, "[No. %ld] is Infty\n", count);
-          else if((*upper == D_INDEFINITE)&&(!*lower))
-             fprintf(stderr, "[No. %ld] is Indifinite\n", count);
-          else
-             fprintf(stdout, "[No. %ld] is NaN\n", count);
-       }
-#else
-      if (!((x & F_MASKEXP) ^ F_MASKEXP)) {
-         if (!(x & F_MASKSIG))
-            fprintf(stdout, "[No. %ld] is Infty\n", count);
-         else if (x==F_INDEFINITE)
-            fprintf(stderr, "[No. %ld] is Indifinite\n", count);
-         else
-            fprintf(stdout, "[No. %ld] is NaN\n", count);
-      }
-#endif  /* DOUBLE */
-      ++count;
-   }
-#endif  /* __USE_ISOC99 */
-
+   
    return;
 }
 
