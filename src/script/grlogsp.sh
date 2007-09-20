@@ -245,7 +245,7 @@ usage:
         echo2 '       grlogsp.sh [ options ] [ infile ] > stdout'
         echo2 '  options:'
         echo2 '       -t             : transpose x and y axes       [FALSE]'
-        echo2 '       -O   O         : origin of graph              [6]    '
+        echo2 '       -O   O         : origin of graph              [1]    '
 if ( $help ) then
         echo2 '                         1 ( 25, yo) <mm>   +-----------+'
         echo2 '                         2 ( 60, yo) <mm>   |           |'
@@ -272,9 +272,9 @@ endif
         echo2 '       -e   e         : end frame number             [EOF]'
         echo2 '       -n   n         : number of frame              [EOF]'
         echo2 '       -l   l         : frame length                 [256]'
-        echo2 '       -c   "c"       : comment for the graph        [""]'
-        echo2 '       -c2  "c2"      : comment for the graph        [""]'
-        echo2 '       -c3  "c3"      : comment for the graph        [""]'
+        echo2 '       -c   "c"       : comment for the graph        [N/A]'
+        echo2 '       -c2  "c2"      : comment for the graph        [N/A]'
+        echo2 '       -c3  "c3"      : comment for the graph        [N/A]'
         echo2 '       -h             : print this message'
         echo2 '       -help          : print help in detail'
 if ( $help ) then

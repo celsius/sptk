@@ -96,7 +96,7 @@ int status;
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : frame length               [%d]\n",FLENG);
-   fprintf(stderr, "       -n    : normarized by frame length\n");
+   fprintf(stderr, "       -n    : normarized by frame length [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)              [stdin]\n", FORMAT);

@@ -117,7 +117,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - pitch extract\n",cmnd);
+   fprintf(stderr, " %s - pitch extraction\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);

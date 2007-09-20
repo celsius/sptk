@@ -109,7 +109,7 @@ int usage (void)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m  : order of equation            [%d]\n",ORDER);
    fprintf(stderr, "       -n  : number of maximum iteration  [%d]\n",ITER);
-   fprintf(stderr, "       -e  : eps                          [%1.1e]\n",EPS);
+   fprintf(stderr, "       -e  : error margin for roots       [%g]\n",EPS);
    fprintf(stderr, "       -i  : a[0] = 1                     [FALSE]\n");
    fprintf(stderr, "       -s  : revert the coefficient       [FALSE]\n");
    fprintf(stderr, "       -r  : (magnitude, arg) output      [(Real,Imag)]\n");

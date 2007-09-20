@@ -94,8 +94,8 @@ int usage (void)
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : FFT size power of 2 [256]\n");
-   fprintf(stderr, "       -R    : real part\n");
-   fprintf(stderr, "       -I    : imaginary part\n");
+   fprintf(stderr, "       -R    : real part           [FALSE]\n");
+   fprintf(stderr, "       -I    : imaginary part      [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)       [stdin]\n", FORMAT);

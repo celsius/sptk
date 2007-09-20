@@ -99,7 +99,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : FFT size power of 2 [%d]\n", SIZE);
    fprintf(stderr, "       -m m  : order of filter     [l-1]\n");
-   fprintf(stderr, "       -a    : ARMA filter\n");
+   fprintf(stderr, "       -a    : ARMA filter         [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)       [stdin]\n", FORMAT);

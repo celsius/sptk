@@ -102,9 +102,9 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l  : flame length                    [%d]\n",FLMLNG);
-   fprintf(stderr, "       -p p  : numerator cofficients file\n");
-   fprintf(stderr, "       -z z  : denominator cofficients file\n");
+   fprintf(stderr, "       -l l  : frame length                    [%d]\n",FLMLNG);
+   fprintf(stderr, "       -p p  : numerator cofficients file      [NULL]\n");
+   fprintf(stderr, "       -z z  : denominator cofficients file    [NULL]\n");
    fprintf(stderr, "       -m m  : order of denominator polynomial [L-1]\n");
    fprintf(stderr, "       -n n  : order of numerator polynomial   [L-1]\n");
    fprintf(stderr, "       -u    : unlapping                       [%s]\n",BOOL[UNLAP]);

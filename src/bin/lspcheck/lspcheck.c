@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Check and Rearrange LSP                                            *
+*    Check stability and rearrange LSP                                  *
 *                                                                       *
 *                                         1996.6  K.Koishida            *
 *                                                                       *
@@ -108,7 +108,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - check and rearrange LSP\n",cmnd);
+   fprintf(stderr, " %s - check stability and rearrange LSP\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);

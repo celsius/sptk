@@ -81,7 +81,7 @@ goto main
 
 usage:
         echo2 ''
-        echo2 " $cmnd - bell"
+        echo2 " $cmnd - ring a bell"
         echo2 ''
         echo2 '  usage:'
         echo2 "       $cmnd [ option ] [ num ] > stdout"
