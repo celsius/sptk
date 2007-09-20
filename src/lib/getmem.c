@@ -48,9 +48,9 @@
 */
 
 /********************************************************************
-    $Id: getmem.c,v 1.7 2007/09/17 19:22:34 heigazen Exp $
+    $Id: getmem.c,v 1.8 2007/09/20 16:34:50 heigazen Exp $
 
-    Memory Allocation Fanctions
+    Memory Allocation Functions
 
     short  *sgetmem(leng)
     long   *lgetmem(leng)
