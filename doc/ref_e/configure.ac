@@ -4,15 +4,15 @@ AC_PREREQ(2.59)
 AC_INIT(SPTK-Reference-Manual, 3.1, dsp-cmnd@sp.nitech.ac.jp)
 
 # Checks for programs.
-AC_PATH_PROGS([PLATEX], [platex latex], [:], [/usr/bin:$PATH])
-if test ! -f "$PLATEX"; then
+AC_PATH_PROGS([LATEX], [latex], [:], [/usr/bin:$PATH])
+if test ! -f "$LATEX"; then
         AC_MSG_ERROR(Can't find latex)
 fi
-AC_PATH_PROGS([DVIPS], [pdvips dvips], [:], [/usr/bin:$PATH])
+AC_PATH_PROGS([DVIPS], [dvips], [:], [/usr/bin:$PATH])
 if test ! -f "$DVIPS"; then
         AC_MSG_ERROR(Can't find dvips)
 fi
-AC_PATH_PROGS([MAKEINDEX], [mendex makeindex], [:], [/usr/bin:$PATH])
+AC_PATH_PROGS([MAKEINDEX], [makeindex], [:], [/usr/bin:$PATH])
 if test ! -f "$MAKEINDEX"; then
 	AC_MSG_ERROR(Can't find makeindex)
 fi
@@ -27,4 +27,3 @@ fi
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
-
