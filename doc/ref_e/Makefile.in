@@ -192,40 +192,41 @@ EPSF = fig/bcp.eps \
 	fig/grlogsp-on.eps \
 	fig/ifft.eps \
 	fig/ifft2.eps \
-	fig/merge.eps
+	fig/merge.eps \
+	fig/sptk_sigproc.eps
 
 
 ############################################################
 #### Intermediate Files ####################################
 ############################################################
 
-AUX	= $(SRC:.tex=.aux)
-IDX	= $(SRC:.tex=.idx)
-IND	= $(SRC:.tex=.ind)
+AUX = $(SRC:.tex=.aux)
+IDX = $(SRC:.tex=.idx)
+IND = $(SRC:.tex=.ind)
 
 
 ############################################################
 #### Target File ###########################################
 ############################################################
 
-DVI	= $(SRC:.tex=.dvi)
-PS	= $(SRC:.tex=.ps)
-PDF	= $(SRC:.tex=.pdf)
-TARGET	= $(PDF)
+DVI    = $(SRC:.tex=.dvi)
+PS     = $(SRC:.tex=.ps)
+PDF    = $(SRC:.tex=.pdf)
+TARGET = $(PDF)
 
 
 ############################################################
 #### Command Definitions ###################################
 ############################################################
 
-LATEX	= @PLATEX@
-MAKEIDX	= @MAKEINDEX@ -f
-DVIPS	= @DVIPS@ -f
-PSPDF	= @PS2PDF@
+LATEX   = @LATEX@
+MAKEIDX = @MAKEINDEX@ -f
+DVIPS   = @DVIPS@ -f
+PSPDF   = @PS2PDF@
 DVIPDF  = @DVIPDF@
 
-RM	= rm -rf
-TOUCH	= touch
+RM    = rm -rf
+TOUCH = touch
 
 
 ############################################################
@@ -243,11 +244,7 @@ TOUCH	= touch
 	$(RM) $*.dvi
 
 .idx.ind:
-	mv $*.idx $*.idx.jis
-	nkf -e $*.idx.jis > $*.idx
 	$(MAKEIDX) $<
-	mv $*.ind $*.ind.euc
-	nkf -j $*.ind.euc > $*.ind
 
 .tex.dvi:
 	$(LATEX) $<
