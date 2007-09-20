@@ -59,6 +59,7 @@
 set path    = ( /usr/local/SPTK/bin $path )
 set sptkver = 'SPTK_VERSION'
 set cvsid   = '$Id$'
+set format  = 'float'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -232,7 +233,7 @@ if ( $help ) then
         echo2 '       -f  file      : additional data file for fig [NULL]'
 endif
         echo2 '  infile:'
-        echo2 '       log spectrum (float)                         [stdin]'
+        echo2 "       log spectrum ($format)                         [stdin]"
         echo2 '  stdout:'
         echo2 '       XY-plotter command'
         echo2 "  SPTK: version $sptkver"
@@ -294,5 +295,11 @@ else
         set ee = "-e $e"
 endif
 
-bcut -s $s $ee +f $file |\
-fdrw -W $w -H $h -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln
+if ( $format == 'float' ) then
+        bcut -s $s $ee +f $file |\
+        fdrw -W $w -H $h -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln
+else
+        bcut -s $s $ee +d $file |\
+        fdrw -W $w -H $h -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln
+endif
+

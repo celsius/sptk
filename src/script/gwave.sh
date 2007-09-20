@@ -60,6 +60,7 @@ onintr clean
 set path    = ( /usr/local/SPTK/bin $path )
 set sptkver = 'SPTK_VERSION'
 set cvsid   = '$Id$'
+set format  = 'float'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -196,7 +197,11 @@ if ( ! $flagnumdata ) then
 endif
 
 if ( ! $flagy ) then
-        set val = (`x2x +{$type}f < $file | minmax | x2x +fs | x2x +sa`)
+        if ( $format == 'float' ) then
+                set val = (`x2x +{$type}f < $file | minmax | x2x +fs | x2x +sa`)
+        else
+                set val = (`x2x +{$type}d < $file | minmax | x2x +ds | x2x +sa`)
+        endif
 
         if ( $val[1] < 0 ) then
                 @ val[1] *= -1
@@ -248,10 +253,17 @@ while ( $numscreen > 0 )
                 yscale $ymin $ymax
 EOF
 
-        x2x +{$type}f $file |\
-        bcut -s $start -e $end |\
-        fdrw -o $ox $oy -W $width -H $height -p $pen -g 0 \
-             -y $ymin $ymax -n $numdata
+        if ( $format == 'float' ) then
+                x2x +{$type}f $file |\
+                bcut -s $start -e $end |\
+                fdrw -o $ox $oy -W $width -H $height -p $pen -g 0 \
+                     -y $ymin $ymax -n $numdata
+        else
+                x2x +{$type}d $file |\
+                bcut +d -s $start -e $end |\
+                fdrw -o $ox $oy -W $width -H $height -p $pen -g 0 \
+                     -y $ymin $ymax -n $numdata
+        endif
 
         @ numscreen--
         @ oy    -= 50

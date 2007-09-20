@@ -79,8 +79,14 @@ all:
 
 install:
 	for i in *.sh ; do \
-		sed -e 's:SPTK_VERSION:@PACKAGE_VERSION@:g' \
-			 -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' $$i > $(BIN)/$$i ; \
+		if [ '@DDOUBLE@' != '-DDOUBLE' ]; then \
+			sed -e 's:SPTK_VERSION:@PACKAGE_VERSION@:g' \
+			    -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' $$i > $(BIN)/$$i; \
+		else \
+			sed -e 's:SPTK_VERSION:@PACKAGE_VERSION@:g' \
+			    -e "s:format  = 'float':format  = 'double':g" \
+			    -e '/path/s:/usr/local/SPTK/bin:'$(BIN)':' $$i > $(BIN)/$$i; \
+		fi; \
 		chmod 755 $(BIN)/$$i ; \
 		j=`basename $$i .sh` ; \
 		$(RM) $(BIN)/$$j ; \
