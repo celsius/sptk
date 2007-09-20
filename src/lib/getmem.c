@@ -50,7 +50,7 @@
 /********************************************************************
     $Id$
 
-    Memory Allocation Fanctions
+    Memory Allocation Functions
 
     short  *sgetmem(leng)
     long   *lgetmem(leng)

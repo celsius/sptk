@@ -48,9 +48,9 @@
 */
 
 /*
-    freadf  : read float type datas and convert to double type.
+    freadf  : read float type data and convert to double type.
 
-    fwritef : convert double type datas to float type and write.
+    fwritef : convert double type data to float type and write.
 */
 
 
