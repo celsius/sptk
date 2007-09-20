@@ -91,7 +91,8 @@ int levdur (double *r, double *a, const int m, double eps)
    }
 
    if (eps<0.0) eps = 1.0e-6;
-   if ((rmd=r[0]) <= eps) return(-1);   
+   rmd=r[0];
+   if (((rmd < 0.0) ? -rmd : rmd) <= eps) return(-1);   
    a[0] = 0.0;
 
    for (l=1; l<=m; l++) {
