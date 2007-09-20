@@ -60,12 +60,12 @@
     double  *t : Toeplitz elements -> T(i,j) = t(|i-j|) t[0]..t[n-1]
     double  *h : Hankel elements -> H(i,j) = h(i+j)     h[0]...h[2*n-2]
     double  *a : solution vector of equation            a[0]...a[n-1]
-    double  *b : known vector  	                        b[0]...b[n-1]
+    double  *b : known vector  	                       b[0]...b[n-1]
     int      n : system order
     double eps : singular check (eps(if -1.0, 1.0e-6 is assumed))
 
     return value :
-         0  : normally completed
+          0 : normally completed
          -1 : abnormally completed
 
 ****************************************************************/
@@ -96,14 +96,14 @@ static int inverse (double *x, double *y, const double eps)
 {
    double det;
 
-   det = y[0] * y[3] - y[1] * y[2];
+   det = y[0]*y[3] - y[1]*y[2];
 
    if (fabs(det) < eps) return(-1);
 
-   x[0] = y[3] / det;
+   x[0] =  y[3] / det;
    x[1] = -y[1] / det;
    x[2] = -y[2] / det;
-   x[3] = y[0]  / det;
+   x[3] =  y[0] / det;
 
    return(0);
 }
@@ -167,7 +167,7 @@ static void cal_ex (double *ex, double **r, double **x, const int i)
    return;
 }
 
-void cal_ep (double *ep, double **r, double **p, int i)
+static void cal_ep (double *ep, double **r, double **p, const int i)
 {
    int j;
    double t[2], s[2];
@@ -183,7 +183,7 @@ void cal_ep (double *ep, double **r, double **p, int i)
    return;
 }
 
-int cal_bx (double *bx, double *vx, double *ex, const double eps)
+static int cal_bx (double *bx, double *vx, double *ex, const double eps)
 {
    double t[4], s[4];
 
@@ -231,7 +231,8 @@ static void cal_vx (double *vx, double *ex, double *bx)
    return;
 }
 
-static int cal_g (double *g, double *vx, double *b, double *ep, int i, int n, const double eps)
+static int cal_g (double *g, double *vx, double *b, double *ep, 
+                  const int i, const int n, const double eps)
 {
    double t[2], s[4], u[4];
 
