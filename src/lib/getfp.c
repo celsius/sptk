@@ -48,14 +48,14 @@
 */
 
 /***************************************************************
-    $Id: getfp.c,v 1.5 2007/09/12 08:37:14 heigazen Exp $
+    $Id: getfp.c,v 1.6 2007/09/20 16:35:29 heigazen Exp $
 
     File Open Function
 
     FILE *getfp(name, opt)
 
-    char name : file name
-    char opt  : file open mode
+    char *name : file name
+    char *opt  : file open mode
 
 ***************************************************************/
 
