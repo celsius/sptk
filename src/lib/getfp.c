@@ -54,8 +54,8 @@
 
     FILE *getfp(name, opt)
 
-    char name : file name
-    char opt  : file open mode
+    char *name : file name
+    char *opt  : file open mode
 
 ***************************************************************/
 
