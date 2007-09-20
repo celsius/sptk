@@ -71,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: histogram.c,v 1.10 2007/09/12 08:37:19 heigazen Exp $";
+static char *rcs_id = "$Id: histogram.c,v 1.11 2007/09/20 06:57:01 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -100,7 +100,7 @@ int usage (int status)
    fprintf(stderr, "       -i i  : infimum            [0.0]\n");
    fprintf(stderr, "       -j j  : supremum           [1.0]\n");
    fprintf(stderr, "       -s s  : step size          [0.1]\n");
-   fprintf(stderr, "       -n    : normalization      FALSE\n");
+   fprintf(stderr, "       -n    : normalization      [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);

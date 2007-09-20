@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: reverse.c,v 1.11 2007/09/12 08:37:28 heigazen Exp $";
+static char *rcs_id = "$Id: reverse.c,v 1.12 2007/09/20 06:57:01 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -98,8 +98,8 @@ void usage (void)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l  : block length       [whole file]\n");
-   fprintf(stderr, "       -n n  : block length-1     [whole file]\n");
+   fprintf(stderr, "       -l l  : length of block       [EOF]\n");
+   fprintf(stderr, "       -n n  : order of block        [EOF-1]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);

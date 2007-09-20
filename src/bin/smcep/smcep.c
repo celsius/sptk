@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Mel Cepstral Analysis (2nd all-pass filter)                        *
+*    Mel-cepstral analysis using 2nd order all-pass filter              *
 *                                                                       *
 *                                     1998.1  C.Miyajima                *
 *                                                                       *
@@ -77,7 +77,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: smcep.c,v 1.12 2007/09/12 08:37:16 heigazen Exp $";
+static char *rcs_id = "$Id: smcep.c,v 1.13 2007/09/20 06:57:01 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -112,7 +112,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - mel cepstral analysis\n",cmnd);
+   fprintf(stderr, " %s - mel-cepstral analysis using 2nd order all-pass filter\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);

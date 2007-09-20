@@ -58,7 +58,7 @@
 
 set path    = ( /usr/local/SPTK/bin $path )
 set sptkver = 'SPTK_VERSION'
-set cvsid   = '$Id: glogsp.sh,v 1.6 2007/09/12 08:37:21 heigazen Exp $'
+set cvsid   = '$Id: glogsp.sh,v 1.7 2007/09/20 06:57:01 heigazen Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -215,7 +215,7 @@ endif
         echo2 '       -ln ln        : line number                  [1]'
         echo2 '       -s  s         : start frame number           [0]'
         echo2 '       -l  l         : frame length                 [256]'
-        echo2 '       -c  "c"       : coment for the graph         [""]'
+        echo2 '       -c  "c"       : comment for the graph        [N/A]'
         echo2 '       -h            : print this message'
         echo2 '       -help         : print help in detail'
 if ( $help ) then

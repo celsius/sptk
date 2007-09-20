@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft2.c,v 1.10 2007/09/12 08:37:22 heigazen Exp $";
+static char *rcs_id = "$Id: ifft2.c,v 1.11 2007/09/20 06:57:01 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -99,12 +99,12 @@ int usage(void)
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : FFT size power of 2   [64]\n");
-   fprintf(stderr, "       +r    : input is real\n");
-   fprintf(stderr, "       -t    : transposed output\n");
-   fprintf(stderr, "       -c    : compensated boundary\n");
-   fprintf(stderr, "       -q    : first quadrant output\n");
-   fprintf(stderr, "       -R    : output real part\n");
-   fprintf(stderr, "       -I    : output imaginary part\n");
+   fprintf(stderr, "       +r    : input is real         [FALSE]\n");
+   fprintf(stderr, "       -t    : transposed output     [FALSE]\n");
+   fprintf(stderr, "       -c    : compensated boundary  [FALSE]\n");
+   fprintf(stderr, "       -q    : first quadrant output [FALSE]\n");
+   fprintf(stderr, "       -R    : output real part      [FALSE]\n");
+   fprintf(stderr, "       -I    : output imaginary part [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)         [stdin]\n", FORMAT);

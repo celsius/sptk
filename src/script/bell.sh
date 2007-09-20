@@ -57,7 +57,7 @@
 
 set path    = ( /usr/local/SPTK/bin $path )
 set sptkver = 'SPTK_VERSION'
-set cvsid   = '$Id: bell.sh,v 1.6 2007/09/12 08:37:21 heigazen Exp $'
+set cvsid   = '$Id: bell.sh,v 1.7 2007/09/20 06:57:01 heigazen Exp $'
 
 set cmnd    = $0
 set cmnd    = $cmnd:t
@@ -81,7 +81,7 @@ goto main
 
 usage:
         echo2 ''
-        echo2 " $cmnd - bell"
+        echo2 " $cmnd - ring a bell"
         echo2 ''
         echo2 '  usage:'
         echo2 "       $cmnd [ option ] [ num ] > stdout"

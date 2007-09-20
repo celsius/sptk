@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id="$Id: c2ir.c,v 1.11 2007/09/12 08:37:24 heigazen Exp $";
+static char *rcs_id="$Id: c2ir.c,v 1.12 2007/09/20 06:57:02 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -101,7 +101,7 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of cepstrum            [%d]\n", ORDER);
    fprintf(stderr, "       -M M  : order of impulse response    [%d]\n", LENG-1);
    fprintf(stderr, "       -L L  : length of impulse response   [%d]\n", LENG);
-   fprintf(stderr, "       -i    : input minimum phase sequence \n");
+   fprintf(stderr, "       -i    : input minimum phase sequence [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       cepstrum (%s)                     [stdin]\n", FORMAT);

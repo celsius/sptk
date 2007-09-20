@@ -63,7 +63,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft.c,v 1.11 2007/09/12 08:37:12 heigazen Exp $";
+static char *rcs_id = "$Id: ifft.c,v 1.12 2007/09/20 06:57:02 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -94,8 +94,8 @@ int usage (void)
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : FFT size power of 2 [256]\n");
-   fprintf(stderr, "       -R    : real part\n");
-   fprintf(stderr, "       -I    : imaginary part\n");
+   fprintf(stderr, "       -R    : real part           [FALSE]\n");
+   fprintf(stderr, "       -I    : imaginary part      [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)       [stdin]\n", FORMAT);

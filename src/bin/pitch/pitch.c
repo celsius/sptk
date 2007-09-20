@@ -80,7 +80,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.17 2007/09/12 08:37:26 heigazen Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.18 2007/09/20 06:57:01 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -117,7 +117,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - pitch extract\n",cmnd);
+   fprintf(stderr, " %s - pitch extraction\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);

@@ -66,7 +66,7 @@
 *       Note that double precision FFT is used.                         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.10 2007/09/12 08:37:13 heigazen Exp $";
+static char *rcs_id = "$Id: grpdelay.c,v 1.11 2007/09/20 06:57:02 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -99,7 +99,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : FFT size power of 2 [%d]\n", SIZE);
    fprintf(stderr, "       -m m  : order of filter     [l-1]\n");
-   fprintf(stderr, "       -a    : ARMA filter\n");
+   fprintf(stderr, "       -a    : ARMA filter         [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)       [stdin]\n", FORMAT);

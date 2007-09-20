@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vopr.c,v 1.10 2007/09/12 08:37:27 heigazen Exp $";
+static char *rcs_id = "$Id: vopr.c,v 1.11 2007/09/20 06:57:01 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -107,11 +107,11 @@ void usage (int status)
    fprintf(stderr, "       -l l   : length of vector                [%d]\n",LENG);
    fprintf(stderr, "       -n n   : order of vector                 [l-1]\n");
    fprintf(stderr, "       -i     : specified file contains a and b [%s]\n",BOOL[INV]);
-   fprintf(stderr, "       -a     : addition       (a + b)\n");
-   fprintf(stderr, "       -s     : subtraction    (a - b)\n");
-   fprintf(stderr, "       -m     : multiplication (a * b)\n");
-   fprintf(stderr, "       -d     : division       (a / b)\n");
-   fprintf(stderr, "       -ATAN2 : atan2          atan2(b,a)\n");
+   fprintf(stderr, "       -a     : addition       (a + b)          [FALSE]\n");
+   fprintf(stderr, "       -s     : subtraction    (a - b)          [FALSE]\n");
+   fprintf(stderr, "       -m     : multiplication (a * b)          [FALSE]\n");
+   fprintf(stderr, "       -d     : division       (a / b)          [FALSE]\n");
+   fprintf(stderr, "       -ATAN2 : atan2          atan2(b,a)       [FALSE]\n");
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data vectors (%s)                     [stdin]\n", FORMAT);

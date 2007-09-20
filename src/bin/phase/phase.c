@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: phase.c,v 1.10 2007/09/12 08:37:12 heigazen Exp $";
+static char *rcs_id = "$Id: phase.c,v 1.11 2007/09/20 06:57:01 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -102,9 +102,9 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l  : flame length                    [%d]\n",FLMLNG);
-   fprintf(stderr, "       -p p  : numerator cofficients file\n");
-   fprintf(stderr, "       -z z  : denominator cofficients file\n");
+   fprintf(stderr, "       -l l  : frame length                    [%d]\n",FLMLNG);
+   fprintf(stderr, "       -p p  : numerator cofficients file      [NULL]\n");
+   fprintf(stderr, "       -z z  : denominator cofficients file    [NULL]\n");
    fprintf(stderr, "       -m m  : order of denominator polynomial [L-1]\n");
    fprintf(stderr, "       -n n  : order of numerator polynomial   [L-1]\n");
    fprintf(stderr, "       -u    : unlapping                       [%s]\n",BOOL[UNLAP]);

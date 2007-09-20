@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftr.c,v 1.10 2007/09/12 08:37:12 heigazen Exp $";
+static char *rcs_id = "$Id: fftr.c,v 1.11 2007/09/20 06:57:01 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -104,11 +104,11 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : FFT size power of 2 [%d]\n", SIZE);
    fprintf(stderr, "       -m m  : order of sequence   [l-1]\n");
-   fprintf(stderr, "       -A    : amplitude\n");
-   fprintf(stderr, "       -R    : real part\n");
-   fprintf(stderr, "       -I    : imaginary part\n");
-   fprintf(stderr, "       -P    : power\n");
-   fprintf(stderr, "       -H    : output half size\n");
+   fprintf(stderr, "       -A    : amplitude           [FALSE]\n");
+   fprintf(stderr, "       -R    : real part           [FALSE]\n");
+   fprintf(stderr, "       -I    : imaginary part      [FALSE]\n");
+   fprintf(stderr, "       -P    : power               [FALSE]\n");
+   fprintf(stderr, "       -H    : output half size    [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)       [stdin]\n", FORMAT);

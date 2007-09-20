@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Check and Rearrange LSP                                            *
+*    Check stability and rearrange LSP                                  *
 *                                                                       *
 *                                         1996.6  K.Koishida            *
 *                                                                       *
@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspcheck.c,v 1.10 2007/09/12 08:37:18 heigazen Exp $";
+static char *rcs_id = "$Id: lspcheck.c,v 1.11 2007/09/20 06:57:01 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -108,7 +108,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - check and rearrange LSP\n",cmnd);
+   fprintf(stderr, " %s - check stability and rearrange LSP\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
