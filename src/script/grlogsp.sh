@@ -59,7 +59,8 @@
 
 set path    = ( /usr/local/SPTK/bin $path )
 set sptkver = 'SPTK_VERSION'
-set cvsid   = '$Id: grlogsp.sh,v 1.8 2007/09/20 06:57:01 heigazen Exp $'
+set cvsid   = '$Id: grlogsp.sh,v 1.9 2007/09/20 16:50:50 heigazen Exp $'
+set format  = 'float'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -295,7 +296,7 @@ if ( $help ) then
         echo2 '       -f   f         : additional data file for fig [NULL]'
 endif
         echo2 '  infile:'
-        echo2 '       log spectrum (float)                          [stdin]'
+        echo2 "       log spectrum ($format)                          [stdin]"
         echo2 '  stdout:'
         echo2 '       XY-plotter command'
         echo2 "  SPTK: version $sptkver"
@@ -394,5 +395,10 @@ endif
 
 if ($trans) set T = "-t -1"
 
-bcut -s $s $ee +f $file|\
-fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z
+if ( $format == 'float' ) then
+        bcut -s $s $ee +f $file|\
+        fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z
+else
+        bcut -s $s $ee +d $file|\
+        fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z
+endif
