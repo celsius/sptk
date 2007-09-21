@@ -48,26 +48,27 @@
 */
 
 /****************************************************************
-* XY PLOTTER library     *
-*        *
-* Calling sequence :     *
-*  factor(fx, fy);     *
-*  rotate(th);     *
-*  offset(x, y);     *
-*  bound(xl, yl, xh, yh);    *
-*  hatch(ip, x, y, n, d, t);   *
-*  pen(ip);     *
-*  speed(isp);     *
-*  mark(mrk, ax, ay, n, f[, m]);   *
-*  symbol(x, y, text, h, s, th)   *
-*  number(x, y, fval, h, s, th, m, n);  *
-*  italic(th)     *
-*  font(n)      *
-*  line(ip, x, y, n);    *
-*  circle(x, y, rs, re, ths, the)   *
-*  rcircle(rs, re, ths, the);   *
-*        *
-* Copyright 1985 by T. Kobayashi    *
+*        XY PLOTTER library                                     *
+*                                                               *
+*                                        1985  T. Kobayashi     *
+*                                                               *
+*                   Calling sequence :                          *
+*                   factor(fx, fy);                             *
+*                   rotate(th);                                 *
+*                   offset(x, y);                               *
+*                   bound(xl, yl, xh, yh);                      *
+*                   hatch(ip, x, y, n, d, t);                   *
+*                   pen(ip);                                    *
+*                   speed(isp);                                 *
+*                   mark(mrk, ax, ay, n, f[, m]);               *
+*                   symbol(x, y, text, h, s, th)                *
+*                   number(x, y, fval, h, s, th, m, n);         *
+*                   italic(th)                                  *
+*                   font(n)                                     *
+*                   line(ip, x, y, n);                          *
+*                   circle(x, y, rs, re, ths, the)              *
+*                   rcircle(rs, re, ths, the);                  *
+*                                                               *
 ****************************************************************/
 
 #include <stdio.h>

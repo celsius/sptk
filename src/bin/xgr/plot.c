@@ -48,8 +48,8 @@
 */
 
 /****************************************************************
-* $Id: plot.c,v 1.11 2007/09/18 03:38:12 heigazen Exp $          *
-* Interpret X-Y Ploter Commands    *
+* $Id: plot.c,v 1.12 2007/09/21 14:46:31 heigazen Exp $         *
+*          Interpret X-Y Ploter Commands                        *
 ****************************************************************/
 
 #include <X11/Xlib.h>

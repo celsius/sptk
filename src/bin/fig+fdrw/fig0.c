@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-* NAME : fig0 - subroutines for fig   *
+* NAME :         fig0 - subroutines for fig                     *
 ****************************************************************/
 #include <string.h>
 #include <stdlib.h>

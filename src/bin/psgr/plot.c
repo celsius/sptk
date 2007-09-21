@@ -49,8 +49,8 @@
 
 
 /********************************************************
-* $Id: plot.c,v 1.8 2007/09/12 08:37:13 heigazen Exp $   *
-* Interpret X-Y Plotter Commands   *
+* $Id: plot.c,v 1.9 2007/09/21 14:46:31 heigazen Exp $  *
+*       Interpret X-Y Plotter Commands                  *
 ********************************************************/
 
 #include <stdio.h>

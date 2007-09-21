@@ -48,8 +48,8 @@
 */
 
 /********************************************************
-* $Id: eps.c,v 1.6 2007/09/12 08:37:13 heigazen Exp $   *
-* Setup Commands for EPSF    *
+* $Id: eps.c,v 1.7 2007/09/21 14:46:31 heigazen Exp $   *
+*            Setup Commands for EPSF                    *
 ********************************************************/
 
 #include <stdio.h>

@@ -48,8 +48,8 @@
 */
 
 /********************************************************
-* $Id: fig.h,v 1.4 2007/09/12 08:37:17 heigazen Exp $   *
-* NAME : fig.h - Header for fig   *
+* $Id: fig.h,v 1.5 2007/09/21 14:46:31 heigazen Exp $   *
+* NAME :        fig.h - Header for fig                  *
 ********************************************************/
 
 #include <stdio.h>
