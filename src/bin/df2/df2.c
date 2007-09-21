@@ -57,7 +57,7 @@
 *       usage:                                                          *
 *               df2 [ options ] [ infile ] > stdout                     *
 *       options:                                                        *
-*               -f f     :  sampling frequency            [10000]       *
+*               -f f     :  sampling frequency(Hz)        [10000]       *
 *               -p f b   :  center frequency f(Hz)                      *
 *                            and band width b(Hz) of pole [N/A]         *
 *               -z f b   :  center frequency f(Hz)                      *
@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/ 
 
-static char *rcs_id = "$Id: df2.c,v 1.11 2007/09/12 08:37:18 heigazen Exp $";
+static char *rcs_id = "$Id: df2.c,v 1.12 2007/09/21 15:19:07 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>

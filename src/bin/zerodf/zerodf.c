@@ -54,7 +54,7 @@
 *                                       1996.3  K.Koishida              *
 *                                                                       *
 *       usage:                                                          *
-*               zerodf [ options ] [ infile ] > stdout                  *
+*               zerodf [ options ] bfile [ infile ] > stdout            *
 *       options:                                                        *
 *               -m m     :  order of coefficients  [25]                 *
 *               -p p     :  frame period           [100]                *
@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: zerodf.c,v 1.10 2007/09/12 08:37:18 heigazen Exp $";
+static char *rcs_id = "$Id: zerodf.c,v 1.11 2007/09/21 15:19:05 heigazen Exp $";
 
 
 /*  Standard C Libralies  */

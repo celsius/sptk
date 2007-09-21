@@ -56,8 +56,8 @@
 *        usage:                                                         *
 *                vq [ options ] cbfile [ infile ] > stdout              *
 *        options:                                                       *
-*                -l l      :  length of vector      [26]                *   
-*                -n n   :  order of vector          [25]                *
+*                -l l :  length of vector           [26]                *   
+*                -n n :  order of vector            [25]                *
 *                -q   :  output quantized vector    [FALSE]             *
 *        infile:                                                        *
 *                input vector                                           *
@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vq.c,v 1.9 2007/09/12 08:37:24 heigazen Exp $";
+static char *rcs_id = "$Id: vq.c,v 1.10 2007/09/21 15:19:00 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

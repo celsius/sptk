@@ -57,19 +57,19 @@
 *       usage:                                                          *
 *               train [options] > stdout                                *
 *       options:                                                        *
-*               -l l     :  length                [256]                 *
-*               -p p     :  period                [0]                   *
-*               -n n     :  type of normalization [1]                   *
-*                             n=0: none                                 *
-*                             n=1: normalize by power                   *
-*                             n=2: normalize by magnitude               *
+*               -l l     :  frame length                [256]           *
+*               -p p     :  frame period                [0]             *
+*               -n n     :  type of normalization       [1]             *
+*                             0 none                                    *
+*                             1 normalize by power                      *
+*                             2 normalize by magnitude                  *
 *       stdout:                                                         *
 *               p>0 pulse sequence with pitch p                         *
 *               p = 0 M-sequence                                        *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: train.c,v 1.11 2007/09/12 08:37:17 heigazen Exp $";
+static char *rcs_id = "$Id: train.c,v 1.12 2007/09/21 15:19:00 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

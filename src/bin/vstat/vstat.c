@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Obtain Means and Covariances of Input Vectors                      *
+*    Vector Statistics Calculation                                      *
 *                                                                       *
 *                                      1998.12 T.Masuko                 *
 *       usage:                                                          *
@@ -58,17 +58,17 @@
 *               -l l     :  length of vector                   [1]      *
 *               -n n     :  order of vector                    [1-1]    *
 *               -t t     :  number of vector                   [all]    *
+*               -o o     :  output format                      [0]      *
+*                             0 mean & covariance                       *
+*                             1 mean                                    *
+*                             2 covariance                              *
 *               -d       :  diagonal covariance                [FALSE]  *
+*               -i       :  output inverse cov. instead of cov.[FALSE]  * 
 *               -r       :  output correlation instead of cov. [FALSE]  *
-*               -o       :  output format  (see stdout)        [0]      *
 *       infile:                                                         *
 *              data sequence                                            *
 *                      x_1(1), ..., x_1(L), x_2(1) ...                  *
 *       stdout:                                                         *
-*              output format                                            *
-*                          0 mean vector and covariance matrix          *
-*                          1 mean vector                                *
-*                          2 covariance matrix                          *
 *              mean vector                                              *
 *                      m(1), ..., m(L),                                 *
 *              covariance matrix                                        *
@@ -84,7 +84,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vstat.c,v 1.12 2007/09/12 08:37:25 heigazen Exp $";
+static char *rcs_id = "$Id: vstat.c,v 1.13 2007/09/21 15:18:54 heigazen Exp $";
 
 
 /*  Standard C Libralies  */

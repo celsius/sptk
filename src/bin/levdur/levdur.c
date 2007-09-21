@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: levdur.c,v 1.10 2007/09/12 08:37:23 heigazen Exp $";
+static char *rcs_id = "$Id: levdur.c,v 1.11 2007/09/21 15:19:10 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -100,7 +100,7 @@ void usage (int status)
    fprintf(stderr, "                    using Levinson-Durbin method\n");
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of correlation [%d]\n", ORDER);
    fprintf(stderr, "       -h    : print this message\n");

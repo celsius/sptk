@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Find NaN & Infty & Indefinite Values                               *
+*    Find NaN and Infty Values                                          *
 *                                                                       *
 *                                    1997.7 G.Hirabayashi               *
 *                                                                       *
@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nan.c,v 1.13 2007/09/19 08:46:19 heigazen Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.14 2007/09/21 15:18:56 heigazen Exp $";
 
 
 /* Standard C Libraries */

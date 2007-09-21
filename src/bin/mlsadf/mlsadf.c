@@ -57,7 +57,7 @@
 *       usage:                                                          *
 *               mlsadf [ options ] mcfile [ infile ] > stdout           *
 *       options:                                                        *
-*               -m m     :  order of cepstrum            [25]           *
+*               -m m     :  order of mel-cepstrum        [25]           *
 *               -a a     :  all-pass constant            [0.35]         *
 *               -p p     :  frame period                 [100]          *
 *               -i i     :  interpolation period         [1]            *
@@ -80,7 +80,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mlsadf.c,v 1.14 2007/09/15 14:24:25 heigazen Exp $";
+static char *rcs_id = "$Id: mlsadf.c,v 1.15 2007/09/21 15:18:56 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

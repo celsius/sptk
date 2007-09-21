@@ -63,7 +63,7 @@
 *               -e  : eps                            [1.0e-14]          *
 *               -i  : a[0] = 1                       [FALSE]            *
 *               -s  : revert the coefficient         [FALSE]            *
-*               -r  : ( radius, arg ) output         [(Real,Imag)]      *
+*               -r  : ( magnitude, arg ) output      [(Real,Imag)]      *
 *               Pn(x) = a[0]x^n + a[1]x^n-1 + ... + a[n-1]x + a[n]      *
 *      infile:                                                          *
 *               stdin for default                                       *
@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: root_pol.c,v 1.11 2007/09/20 06:57:02 heigazen Exp $";
+static char *rcs_id = "$Id: root_pol.c,v 1.12 2007/09/21 15:18:59 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

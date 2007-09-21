@@ -58,8 +58,8 @@
 *            sin [options] > stdout                                     *
 *    options:                                                           *
 *            -l l     :  length       [256]                             *
-*            -p p     :  period       [10.0]                            *
-*            -m m     :  magnitude    [1.0]                             *
+*            -p p     :  period       [10]                              *
+*            -m m     :  magnitude    [1]                               *
 *    stdout:                                                            *
 *            sinusoidal sequence                                        *
 *                    , sin(2pi*0/p), sin(2pi*1/p), ..., sin(2pi*(l-1)/p *
@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sin.c,v 1.11 2007/09/12 08:37:27 heigazen Exp $";
+static char *rcs_id = "$Id: sin.c,v 1.12 2007/09/21 15:18:54 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

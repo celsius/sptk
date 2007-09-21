@@ -57,11 +57,14 @@
 *               mlpg [ options ] [infile] > stdout                                      *
 *       options:                                                                        *
 *               -m m              : order of vector                              [25]   *
-*               -l l              : length of vector                             [m-1]  *
+*               -l l              : length of vector                             [m+1]  *
 *               -d fn             : filename of delta coefficients               [N/A]  *
 *               -d coef [coef...] : delta coefficients                           [N/A]  *
 *               -r n w1 [w2]      : number and width of regression coefficients  [N/A]  *
 *               -i i              : type of input PDFs                           [0]    *
+*                                    0: ( m       , U      )                            *
+*                                    1: ( m       , U^{-1} )                            *
+*                                    2: ( mU^{-1} , U^{-1} )                            *
 *               -s s              : range of influenced frames                   [30]   *
 *               -h                : print this message                                  *
 *       infile:                                                                         *
@@ -74,7 +77,7 @@
 *                                                                                       *
 ****************************************************************************************/
 
-static char *rcs_id = "$Id: mlpg.c,v 1.12 2007/09/12 08:37:19 heigazen Exp $";
+static char *rcs_id = "$Id: mlpg.c,v 1.13 2007/09/21 15:19:11 heigazen Exp $";
 
 
 /* Standard C Libraries */

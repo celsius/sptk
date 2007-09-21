@@ -55,8 +55,8 @@
 *       usage:                                                          *
 *               gnorm [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
-*               -g g      :  gamma (if g>=1.0, g=-1/g)       [0.0]      *
-*               -m m      :  order of generalized cepstrum   [25]       *
+*               -m m      :  order of generalized cepstrum   [25]       *     
+*               -g g      :  gamma                           [0]        *
 *       infile:                                                         *
 *               generalized cepstral coefficients                       *
 *                   , c~(0), c~(1), ..., c~(M),                         *
@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: gnorm.c,v 1.12 2007/09/12 08:37:14 heigazen Exp $";
+static char *rcs_id = "$Id: gnorm.c,v 1.13 2007/09/21 15:19:10 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

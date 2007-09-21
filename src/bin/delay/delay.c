@@ -56,7 +56,7 @@
 *               delay [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
 *               -s s     :  start sample      [0]                       *
-*               -f       :  keep file size                              *
+*               -f       :  keep file length  [FALSE]                   *
 *       infile:                                                         *
 *              data sequence                                            *
 *                      , x(0), x(1), ...                                *
@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: delay.c,v 1.14 2007/09/12 08:37:23 heigazen Exp $";
+static char *rcs_id = "$Id: delay.c,v 1.15 2007/09/21 15:19:12 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

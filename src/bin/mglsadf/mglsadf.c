@@ -79,7 +79,7 @@
 *                                                                       *  
 ************************************************************************/
 
-static char *rcs_id = "$Id: mglsadf.c,v 1.14 2007/09/12 08:37:15 heigazen Exp $";
+static char *rcs_id = "$Id: mglsadf.c,v 1.15 2007/09/21 15:18:58 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -125,7 +125,7 @@ void usage (int status)
    fprintf(stderr, "       -p p  : frame period                      [%d]\n", FPERIOD);
    fprintf(stderr, "       -i i  : interpolation period              [%d]\n", IPERIOD);
    fprintf(stderr, "       -t    : transpose filter                  [%s]\n", BOOL[TRANSPOSE]);
-   fprintf(stderr, "       -k    : filtering without gain            [%s]\n", BOOL[TRANSPOSE]);
+   fprintf(stderr, "       -k    : filtering without gain            [%s]\n", BOOL[NGAIN]);
    fprintf(stderr, "       -P P  : order of Pade approximation       [%d]\n", PADEORDER);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");

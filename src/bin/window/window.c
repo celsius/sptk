@@ -55,30 +55,28 @@
 *                                      1998.11 T.Masuko                 *
 *                                                                       *
 *       usage:                                                          *
-*               window [ infile ] [ options ] > outfile                 *
+*               window [ options ] [ infile ] > outfile                 *
 *       options:                                                        *
-*               -l l  :  input frame length    [256]                    *
-*               -L L  :  output frame length   [l]                      *
-*               -n n  :  type of normalization [1]                      *
-*                          n=0: none                                    *
-*                          n=1: normalize by power                      *
-*                          n=2: normalize by magnitude                  *
-*               -w w  :  type of window                                 *
-*                          w=0: blackman    window                      *
-*                          w=1: hamming     window                      *
-*                          w=2: hanning     window                      *
-*                          w=3: bartlett    window                      *
-*                          w=4: trapezoid   window                      *
-*                          w=5: rectangular window                      *
+*               -l l  :  frame length of input    [256]                 *
+*               -L L  :  frane length of output   [l]                   *
+*               -n n  :  type of normalization    [1]                   *
+*                          0 none                                       *
+*                          1 normalize by power                         *
+*                          2 normalize by magnitude                     *
+*               -w w  :  type of window           [0]                   *
+*                          0 (blackman)                                 *
+*                          1 (hamming)                                  *
+*                          2 (hanning)                                  *
+*                          3 (bartlett)                                 *
+*                          4 (trapezoid)                                *
+*                          5 (rectangul)                                *
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be double                           *
-*       notice:                                                         *
-*               if L>l, (L-l)-zeros are padded                          *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: window.c,v 1.11 2007/09/15 17:15:54 heigazen Exp $";
+static char *rcs_id = "$Id: window.c,v 1.12 2007/09/21 15:18:54 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -57,21 +57,21 @@
 *     usage:                                                            *
 *             swab [ options ] [ infile ] > stdout                      *
 *     options:                                                          *
-*             -S S     :  start address          [0]                    *
-*             -s s     :  start offset number    [0]                    *
-*             -E E     :  end address            [EOF]                  *
-*             -e e     :  end offset number      [0]                    *
-*             +type    :  input data type        [s]                    *
+*             -S S     :  start address                [0]              *
+*             -s s     :  start offset number          [0]              *
+*             -E E     :  end address                  [EOF]            *
+*             -e e     :  end offset number            [0]              *
+*             +type    :  input and output data type   [s]              *
 *                          s (short)    l (long)                        *
 *                          f (float)    d (double)                      *
 *     infile:                                                           *
-*             data sequence                      [stdin]                * 
+*             data sequence                            [stdin]          * 
 *     stdout:                                                           *
 *             swapped data sequence                                     *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: swab.c,v 1.10 2007/09/18 01:53:45 heigazen Exp $";
+static char *rcs_id = "$Id: swab.c,v 1.11 2007/09/21 15:18:55 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

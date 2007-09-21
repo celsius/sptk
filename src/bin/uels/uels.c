@@ -57,13 +57,13 @@
 *       usage:                                                          *
 *               uels [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
-*               -m m     :  order of mel cepstrum           [25]        *
+*               -m m     :  order of cepstrum               [25]        *
 *               -l l     :  frame length                    [256]       *
 *               (level 2)                                               *
 *               -i i     :  minimum iteration               [2]         *
 *               -j j     :  maximum iteration               [30]        *
 *               -d d     :  end condition                   [0.001]     *
-*               -e e     :  small value added to periodgram [0.0]       *
+*               -e e     :  small value added to periodgram [0]         *
 *       infile:                                                         *
 *               data sequence                                           *
 *                       , x(0), x(1), ..., x(L-1),                      *
@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: uels.c,v 1.11 2007/09/12 08:37:23 heigazen Exp $";
+static char *rcs_id = "$Id: uels.c,v 1.12 2007/09/21 15:18:58 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -56,7 +56,7 @@
 *               ignorm [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
 *               -m m     :  order of generalized cepstrum   [25]        *
-*               -g g     :  gamma                           [0.0]       *
+*               -g g     :  gamma                           [0]         *
 *       infile:                                                         *
 *               normalized generalized cepstral coefficients            *
 *                   , K, c'(1), ..., c'(M),                             *
@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ignorm.c,v 1.11 2007/09/12 08:37:19 heigazen Exp $";
+static char *rcs_id = "$Id: ignorm.c,v 1.12 2007/09/21 15:19:08 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

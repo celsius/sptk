@@ -58,7 +58,7 @@
 *               lpc2par [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
 *               -m m     :  order of LPC                     [25]       *
-*               -g g     :  gamma of generalized cepstum     [1.0]      *
+*               -g g     :  gamma of generalized cepstum     [1]        *
 *               -s       :  check stable or unstable         [FALSE]    *
 *       infile:                                                         *
 *               LP Coefficeints                                         *
@@ -73,7 +73,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2par.c,v 1.10 2007/09/12 08:37:20 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2par.c,v 1.11 2007/09/21 15:19:09 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

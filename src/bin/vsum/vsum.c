@@ -57,11 +57,11 @@
 *               vsum [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
 *               -l l     :  order of vector    [1]                      *
-*               -n n     :  number of vector   [all]                    *
+*               -n n     :  number of vector   [EOD]                    *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vsum.c,v 1.10 2007/09/12 08:37:18 heigazen Exp $";
+static char *rcs_id = "$Id: vsum.c,v 1.11 2007/09/21 15:19:05 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

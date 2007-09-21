@@ -54,7 +54,7 @@
 *       usage:                                                          *
 *               acorr [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
-*               -m m     :  order of sequence           [12]            *
+*               -m m     :  order of sequence           [25]            *
 *               -l l     :  frame length                [256]           *
 *       infile:                                                         *
 *               stdin for default                                       *
@@ -62,7 +62,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: acorr.c,v 1.13 2007/09/12 08:37:15 heigazen Exp $";
+static char *rcs_id = "$Id: acorr.c,v 1.14 2007/09/21 15:19:12 heigazen Exp $";
 
 
 /* Standard C Libraries */

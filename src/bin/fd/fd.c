@@ -60,15 +60,16 @@
 *               -a a     :  address                             [0]     *
 *               -n n     :  initial value for numbering         [0]     *
 *               -m m     :  modulo for numbering                [EOF]   *
+*               -ent     :  number of data in each line         [0]     *
 *               +type    :  data type                           [c]     *
 *                               c (char)     s (short)                  *
 *                               i (int)      l (long)                   *
 *                               f (float)    d (double)                 *
-*               %format  :  print format                        [N/A]   *
+*               %form    :  print format(printf style)          [N/A]   *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fd.c,v 1.12 2007/09/18 03:52:14 heigazen Exp $";
+static char *rcs_id = "$Id: fd.c,v 1.13 2007/09/21 15:18:58 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

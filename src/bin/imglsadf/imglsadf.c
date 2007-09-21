@@ -54,7 +54,7 @@
 *                                         1996.3  K.Koishida            *
 *                                                                       *
 *       usage:                                                          *
-*               imglsadf [ options ] [ infile ] > stdout                *
+*               imglsadf [ options ] mgcfile [ infile ] > stdout        *
 *       options:                                                        *
 *               -m m     :  order of mel-generalized cepstrum  [25]     *
 *               -a a     :  alpha                              [0.35]   *
@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: imglsadf.c,v 1.15 2007/09/12 08:37:27 heigazen Exp $";
+static char *rcs_id = "$Id: imglsadf.c,v 1.16 2007/09/21 15:19:01 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

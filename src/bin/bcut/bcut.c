@@ -61,7 +61,7 @@
 *               -e e     :  end number                          [EOF]   *
 *               -l l     :  block length                        [1]     *
 *               -n n     :  block order                         [l-1]   *
-*               +type    :  data type                           [c]     *
+*               +type    :  data type                           [f]     *
 *                               c (char)     s (short)                  *
 *                               i (int)      l (long)                   *
 *                               f (float)    d (double)                 *
@@ -70,12 +70,12 @@
 *       stdout:                                                         *
 *               cut data sequence                                       *
 *       note:                                                           *
-*               When both -L and -n are specified,                      *
+*               When both -l and -n are specified,                      *
 *               latter argument is adopted.                             *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: bcut.c,v 1.11 2007/09/18 01:54:57 heigazen Exp $";
+static char *rcs_id = "$Id: bcut.c,v 1.12 2007/09/21 15:18:55 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

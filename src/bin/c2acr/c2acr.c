@@ -57,9 +57,9 @@
 *       usage:                                                          *
 *               c2acr [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
-*               -m m     :  order of cepstrum      [25]                 *
+*               -m m     :  order of cepstrum          [25]             *
 *               -M M     :  order of autocorrelation   [25]             *
-*               -l l     :  FFT length         [256]                    *
+*               -l l     :  FFT length                 [256]            *
 *       infile:                                                         *
 *               cepstral coefficients                                   *
 *                   , c(0), c(1), ..., c(M),                            *
@@ -71,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: c2acr.c,v 1.13 2007/09/12 08:37:25 heigazen Exp $";
+static char *rcs_id = "$Id: c2acr.c,v 1.14 2007/09/21 15:18:56 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

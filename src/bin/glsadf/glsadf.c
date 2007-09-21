@@ -54,7 +54,7 @@
 *                                       1996.3  K.Koishida              *
 *                                                                       *
 *       usage:                                                          *
-*               glsadf [ options ] [ infile ] > stdout                  *
+*               glsadf [ options ] gcfile [ infile ] > stdout           *
 *       options:                                                        *
 *               -m m     :  order of generalized cepstrum   [25]        *
 *               -g g     :  -1/gamma                        [1]         *
@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: glsadf.c,v 1.17 2007/09/12 08:37:28 heigazen Exp $";
+static char *rcs_id = "$Id: glsadf.c,v 1.18 2007/09/21 15:18:55 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

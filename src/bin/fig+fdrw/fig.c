@@ -62,10 +62,10 @@
 *          -W W     :  width of figure             [1]                  *
 *          -H H     :  height of figure            [1]                  *
 *          -o xo yo :  origin in mm                [20 20]              *
-*          -g g     :  draw grid                   [1]                  *
+*          -g g     :  draw grid                   [2]                  *
 *          -p p     :  pen number                  [1]                  *
 *          -j j     :  join number                 [0]                  *
-*          -s s     :  font size                   [0]                  *
+*          -s s     :  font size                   [1]                  *
 *          -f f     :  first opened file           [NULL]               *
 *          -t       :  transpose x and y axes      [FALSE]              *
 *                                                                       *

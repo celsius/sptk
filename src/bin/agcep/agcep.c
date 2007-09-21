@@ -47,40 +47,40 @@
   ---------------------------------------------------------------  
 */
 
-/************************************************************************
-*                                                                       *
-*    Adaptive Generalized Cepstral Analysis                             *
-*                                                                       *
-*                                       1991.11 K.Tokuda                *
-*                                       1996.1  K.Koishida              *
-*                                                                       *
-*       usage:                                                          *
-*               agcep [ options ] [ pefile ] < stdin > stdout           *
-*       options:                                                        *
-*               -m m     :  order of generalized cepstrum    [25]       *
-*               -g g     :  -1 / gamma                       [1]        *
-*               -l l     :  leakage factor                   [0.98]     *
-*               -t t     :  momentum constant                [0.9]      *
-*               -k k     :  step size                        [0.1]      *
-*               -p p     :  output period of cepstrum        [1]        *
-*               -s       :  smooth (average) cepstrum        [FALSE]    *
-*               -n       :  output normalized cepstrum       [FALSE]    *
-*               -e e     :  minimum value for epsilon        [0.0]      *
-*       infile:                                                         *
-*               data sequence                                           *
-*                   , x(0), x(1), ...                                   *
-*       stdout:                                                         *
-*               generalized cepstrum                                    *
-*                   , c(0), c(1), ..., c(m),                            *
-*       output:                                                         *
-*               prediction error (if pefile is specified)               *
-*                   , e(0), e(1), ...                                   *
-*       require:                                                        *
-*               iglsadf1(), ignorm()                                    *
-*                                                                       *
-************************************************************************/
+/******************************************************************************
+*                                                                             *
+*    Adaptive Generalized Cepstral Analysis                                   *
+*                                                                             *
+*                                       1991.11 K.Tokuda                      *
+*                                       1996.1  K.Koishida                    *
+*                                                                             *
+*       usage:                                                                *
+*               agcep [ options ] [ pefile ] < stdin > stdout                 *
+*       options:                                                              *
+*               -m m     :  order of generalized cepstrum          [25]       *
+*               -g g     :  -1 / gamma                             [1]        *
+*               -l l     :  leakage factor                         [0.98]     *
+*               -t t     :  momentum constant                      [0.9]      *
+*               -k k     :  step size                              [0.1]      *
+*               -p p     :  output period of generalized cepstrum  [1]        *
+*               -s       :  output smoothed generalized cepstrum   [FALSE]    *
+*               -n       :  output normalized generalized cepstrum [FALSE]    *
+*               -e e     :  minimum value for epsilon              [0]        *
+*       infile:                                                               *
+*               data sequence                                                 *
+*                   , x(0), x(1), ...                                         *
+*       stdout:                                                               *
+*               generalized cepstrum                                          *
+*                   , c(0), c(1), ..., c(m),                                  *
+*       output:                                                               *
+*               prediction error (if pefile is specified)                     *
+*                   , e(0), e(1), ...                                         *
+*       require:                                                              *
+*               iglsadf1(), ignorm()                                          *
+*                                                                             *
+******************************************************************************/
 
-static char *rcs_id = "$Id: agcep.c,v 1.14 2007/09/12 08:37:14 heigazen Exp $";
+static char *rcs_id = "$Id: agcep.c,v 1.15 2007/09/21 15:18:56 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

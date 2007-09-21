@@ -56,21 +56,22 @@
 *       usage:                                                          *
 *               average [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
-*               -l l     :  frame length   [entire data]                *
-*                           if l>0, calculate average frame by frame    *
-*               -n n     :  order of sequence   [N/A]                   *
+*               -l l     :  frame length        [0]                     *
+*               -n n     :  order of sequence   [l-1]                   *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ..., x(l-1),                          *
 *       stdout:                                                         *
 *               average                                                 *
 *                   , (x(0)+x(1)...+x(l-1))/l,                          *
+*       notice:                                                         *
+*                if l>0, calculate average frame by frame               *
 *       require:                                                        *
 *               average()                                               *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: average.c,v 1.12 2007/09/12 08:37:22 heigazen Exp $";
+static char *rcs_id = "$Id: average.c,v 1.13 2007/09/21 15:18:53 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

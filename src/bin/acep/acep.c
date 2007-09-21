@@ -55,15 +55,15 @@
 *                                       1996.1  K.Koishida              *
 *                                                                       *
 *       usage:                                                          *
-*          acep [ options ] [ pefile ] < stdin > stdout                 *
+*               acep [ options ] [ pefile ] < stdin > stdout            *
 *       options:                                                        *
 *               -m m     :  order of cepstrum           [25]            *
 *               -l l     :  leakage factor              [0.98]          *
 *               -t t     :  momentum constant           [0.9]           *
 *               -k k     :  step size                   [0.1]           *
 *               -p p     :  output period of cepstrum   [1]             *
-*               -s       :  smooth (average) cepstrum   [FALSE]         *
-*               -e e     :  minimum value for epsilon   [0.0]           *
+*               -s       :  output smoothed cepstrum    [FALSE]         *
+*               -e e     :  minimum value for epsilon   [0]             *
 *               -P P     :  order of Pade approximation [4]             *
 *       infile:                                                         *
 *               data sequence                                           *
@@ -81,7 +81,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: acep.c,v 1.12 2007/09/12 08:37:22 heigazen Exp $";
+static char *rcs_id = "$Id: acep.c,v 1.13 2007/09/21 15:18:56 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

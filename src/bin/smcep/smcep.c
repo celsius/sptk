@@ -56,8 +56,8 @@
 *       usage:                                                          *
 *               smcep [ options ] [infile] > stdout                     *
 *       options:                                                        *
-*               -a alpha :  all-pass constant                [0.35]     *
-*               -t theta :  emphasized frequency (theta * pi)[0.00]     *
+*               -a a     :  all-pass constant                [0.35]     *
+*               -t t     :  emphasized frequency t*pi(rad)   [0]        *
 *               -m m     :  order of mel cepstrum            [25]       *
 *               -l l     :  frame length                     [256]      *
 *               -L L     :  ifft size for making matrices    [1024]     *
@@ -65,7 +65,7 @@
 *               -i i     :  minimum iteration                [2]        *
 *               -j j     :  maximum iteration                [30]       *
 *               -d d     :  end condition                    [0.001]    *
-*               -e e     :  initial value for log-periodgram [0.0]      *
+*               -e e     :  initial value for log-periodgram [0]        *
 *      infile:                                                          *
 *              data sequence                                            *
 *                      , x(0), x(1), ..., x(L-1),                       *
@@ -77,7 +77,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: smcep.c,v 1.13 2007/09/20 06:57:01 heigazen Exp $";
+static char *rcs_id = "$Id: smcep.c,v 1.14 2007/09/21 15:19:06 heigazen Exp $";
 
 
 /*  Standard C Libralies  */

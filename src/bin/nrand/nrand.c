@@ -58,7 +58,7 @@
 *               nrand [ options ] > stdout                              *
 *       options:                                                        *
 *               -l l  : output length      [256]                        *
-*               -s s     : seed for nrand  [1]                          *
+*               -s s  : seed for nrand     [1]                          *
 *       stdout:                                                         *
 *               random value (float)                                    *
 *       notice:                                                         *
@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nrand.c,v 1.10 2007/09/12 08:37:19 heigazen Exp $";
+static char *rcs_id = "$Id: nrand.c,v 1.11 2007/09/21 15:19:07 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

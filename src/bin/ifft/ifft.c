@@ -51,19 +51,19 @@
 *    Inverse FFT for Complex Sequence                                   *
 *                                                                       *
 *       usage:                                                          *
-*               ifft [ infile ] [ options ] > stdout                    *
+*               ifft [ options ] [ infile ] > stdout                    *
 *                                                                       *
 *       options:                                                        *
 *               -l l    :  FFT size power of 2      [256]               *
-*               -R      :   real part                                   *
-*               -I      :  imaginary part                               *
+*               -R      :  real part                [FALSE]             *
+*               -I      :  imaginary part           [FALSE]             *
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be real                             *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft.c,v 1.12 2007/09/20 06:57:02 heigazen Exp $";
+static char *rcs_id = "$Id: ifft.c,v 1.13 2007/09/21 15:18:57 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -57,16 +57,16 @@
 *               lsp2lpc [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
 *               -m m     :  order of LPC                [25]            *
-*               -s s     :  sampling frequency (kHz)    [10]            *
+*               -s s     :  sampling frequency          [10]            *
 *               -k       :  input & output gain         [TRUE]          *
 *               -l       :  regard input as log gain    [FALSE]         *
-*               -i i     :  input format (see infile)   [0]             *
+*                           and output linear one                       *
+*               -i i     :  input format                [0]             *
+*                             0 (normalized frequency <0...pi>)         *
+*                             1 (normalized frequency <0...0.5>)        *
+*                             2 (frequency (kHz))                       *
+*                             3 (frequency (Hz))                        *
 *       infile:                                                         *
-*             input format      LSP                                     *
-*                   0           normalized frequency (0 ~ pi)           *
-*                   1           normalized frequency (0 ~ 0.5)          *
-*                   2           frequency (kHz)                         *
-*                   3           frequency (Hz)                          *
 *               LSP                                                     *
 *                   , f(1), ..., f(m),                                  *
 *       stdout:                                                         *
@@ -77,7 +77,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lsp2lpc.c,v 1.13 2007/09/12 08:37:19 heigazen Exp $";
+static char *rcs_id = "$Id: lsp2lpc.c,v 1.14 2007/09/21 15:18:58 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -57,7 +57,7 @@
 *               extract [ options ] [ indexfile ] [ infile ] > stdout   *
 *       options:                                                        *
 *               -l l     :  order of vector   [10]                      *
-*               -i i     :  codebook index   [0]                        *
+*               -i i     :  codebook index    [0]                       *
 *       infile:                                                         *
 *               index file (int)                                        *
 *                   , index(0), index(1), ...,                          *
@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: extract.c,v 1.10 2007/09/12 08:37:28 heigazen Exp $";
+static char *rcs_id = "$Id: extract.c,v 1.11 2007/09/21 15:19:00 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

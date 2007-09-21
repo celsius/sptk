@@ -47,29 +47,28 @@
   ---------------------------------------------------------------  
 */
 
-/************************************************************************
-*                                                                       *
-*    Digital Filter in Standard Form                                    *
-*                                                                       *
-*                                       1989.6   K.Tokuda               *
-*                                       1995.12  N.Isshiiki modified    *
-*       usage:                                                          *
-*               dfs [ options ] [ infile ] > stdout                     *
-*       options:                                                        *
-*               -a k a1 a2 ... aM  : denominator coefficients (float)   *
-*                                k : gain                               *
-*               -b b0 b1 b2 ... bM : numerator coefficients (float)     *
-*               -p file_p          : denominator coefficients (float)   *
-*               -z file_z          : numerator coefficients (float)     *
-*       infile:                                                         *
-*               input (float)                                           *
-*       stdout:                                                         *
-*               output (float)                                          *
-*       note:                                                           *
-*               M, N <= 2047                                            *
-************************************************************************/
+/**************************************************************************
+*                                                                         *
+*    Digital Filter in Standard Form                                      *
+*                                                                         *
+*                                       1989.6   K.Tokuda                 *
+*                                       1995.12  N.Isshiiki modified      *
+*       usage:                                                            *
+*               dfs [ options ] [ infile ] > stdout                       *
+*       options:                                                          *
+*               -a k a1 a2 ... aM  : denominator coefficients      [N/A]  *
+*               -b b0 b1 b2 ... bM : numerator coefficients        [N/A]  *
+*               -p pfile           : denominator coefficients file [NULL] *
+*               -z zfile           : numerator coefficients file   [NULL] *
+*       infile:                                                           *
+*               input (float)                                             *
+*       stdout:                                                           *
+*               output (float)                                            *
+*       note:                                                             *
+*               M, N <= 2047                                              *
+**************************************************************************/
 
-static char *rcs_id = "$Id: dfs.c,v 1.11 2007/09/12 08:37:25 heigazen Exp $";
+static char *rcs_id = "$Id: dfs.c,v 1.12 2007/09/21 15:18:55 heigazen Exp $";
 
 
 /* Standard C Libraries */

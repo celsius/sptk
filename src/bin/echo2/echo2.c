@@ -54,13 +54,13 @@
 *                                       2000.5  T.Yoshimura             *
 *                                                                       *
 *       usage:                                                          *
-*               echo2 [ options ] [ argument... ]                       *
+*               echo2 [ options ]                                       *
 *       options:                                                        *
-*               -n  :  do not add the NEWLINE to the output. [FALSE]    *
+*               -n  :  no output newline                      [TRUE]    *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: echo2.c,v 1.11 2007/09/12 08:37:27 heigazen Exp $";
+static char *rcs_id = "$Id: echo2.c,v 1.12 2007/09/21 15:19:00 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

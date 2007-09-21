@@ -55,7 +55,7 @@
 *                                      1996.3  K.Koishida               *
 *                                                                       *
 *       usage:                                                          *
-*               ltcdf [ options ] [ infile ] > stdout                   *
+*               ltcdf [ options ] kfile [ infile ] > stdout             *
 *       options:                                                        *
 *               -m m     :  order of coefficients  [25]                 *
 *               -p p     :  frame period           [100]                *
@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ltcdf.c,v 1.10 2007/09/12 08:37:18 heigazen Exp $";
+static char *rcs_id = "$Id: ltcdf.c,v 1.11 2007/09/21 15:19:11 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

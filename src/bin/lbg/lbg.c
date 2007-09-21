@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*     LBG Algorithm for Vector Qauntizer Design                         *
+*     LBG Algorithm for Vector Quantizer Design                         *
 *                                                                       *
 *                                             1996. 4  K.Koishida       *
 *                                                                       *
@@ -85,7 +85,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lbg.c,v 1.11 2007/09/12 08:37:19 heigazen Exp $";
+static char *rcs_id = "$Id: lbg.c,v 1.12 2007/09/21 15:19:08 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -54,9 +54,9 @@
 *                                    1996.1  K.Koishida                 *
 *                                                                       *
 *        usage:                                                         *
-*                msvq [options] [ infile ] > stdout                     *
+*                msvq [options] < stdin > stdout                        *
 *        options:                                                       *
-*                -l l   :  order of vector         [26]                 *
+*                -l l   :  length of vector        [26]                 *
 *                -n n   :  order of vector         [25]                 *
 *                -s s f :  codebook                [N/A N/A]            *
 *                     s : codebook size                                 *
@@ -78,7 +78,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: msvq.c,v 1.10 2007/09/12 08:37:22 heigazen Exp $";
+static char *rcs_id = "$Id: msvq.c,v 1.11 2007/09/21 15:19:06 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -56,27 +56,26 @@
 *       usage:                                                          *
 *               mgc2sp [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
+*               -a  a    :  alpha                               [0]     *
+*               -g  g    :  gamma                               [0]     *
 *               -m  m    :  order of mel-genralized cepstrum    [25]    *
-*               -a  a    :  alpha                               [0.0]   *
-*               -g  g    :  gamma                               [0.0]   *
 *               -n       :  regard input as normalized cepstrum [FALSE] *
 *               -u       :  regard input as multiplied by gamma [FALSE] *
 *               -l  l    :  FFT length                          [256]   *
-*               -o  o    :  output format (see stdout)          [0]     *
 *               -p       :  output phase                        [FALSE] *
+*                               0 (20 * log|H(z)|)                      *
+*                               1 (ln|H(z)|)                            *
+*                               2 (|H(z)|)                              *
+*                           -p option is specified                      *
+*                               0 (arg|H(z)| / pi       [pi rad])       *
+*                               1 (arg|H(z)|            [rad])          *
+*                               2 (arg|H(z)| * 180 / pi [deg])          *
+*               -o  o    :  output format (see stdout)          [0]     *
 *      infile:                                                          *
 *               mel-generalized cepstrum                                *
 *                       , c(0), c(1), ..., c(m),                        *
 *      stdout:                                                          *
-*               output format       scale                               *
-*                      0 :          20 * log|H(z)|                      *
-*                      1 :          ln|H(z)|                            *
-*                      2 :          |H(z)|                              *
-*               (-p option is used)                                     *
-*                      0 :          arg|H(z)| / pi       [pi rad]       *
-*                      1 :          arg|H(z)|            [rad]          *
-*                      2 :          arg|H(z)| * 180 / pi [deg]          *
-*      spectrum                                                         *
+*               spectrum                                                *
 *                       , s(0), s(1), ..., s(L/2),                      *
 *      notice:                                                          *
 *               if g>=1.0, g = -1 / g                                   *
@@ -85,7 +84,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgc2sp.c,v 1.13 2007/09/12 08:37:25 heigazen Exp $";
+static char *rcs_id = "$Id: mgc2sp.c,v 1.14 2007/09/21 15:19:06 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

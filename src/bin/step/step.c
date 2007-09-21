@@ -59,7 +59,7 @@
 *       options:                                                        *
 *               -l l     :  length     [256]                            *
 *               -n n     :  order      [255]                            *
-*               -v v     :  step value [1.0]                            *
+*               -v v     :  step value [1]                              *
 *       stdout:                                                         *
 *               impulse sequence                                        *
 *                       , v, v, v, ...                                  *
@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: step.c,v 1.11 2007/09/15 17:45:11 heigazen Exp $";
+static char *rcs_id = "$Id: step.c,v 1.12 2007/09/21 15:18:58 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

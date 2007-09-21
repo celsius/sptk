@@ -56,17 +56,17 @@
 *       usage:                                                          *
 *               dmp [options] [infile] > stdout                         *
 *       options:                                                        *
-*               -n n     :  block order  (0,...,n)           [INFINITE] *
-*               -l l     :  block length (1,...,l)           [INFINITE] *
+*               -n n     :  block order  (0,...,n)           [EOD]      *
+*               -l l     :  block length (1,...,l)           [EOD]      *
 *               +type    :  data type                        [f]        *
 *                               c (char)     s (short)                  *
 *                               i (int)      l (long)                   *
 *                               f (float)    d (double)                 *
-*               %format  :  print format                     [N/A]      *
+*               %form    :  print format(printf style)       [N/A]      *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dmp.c,v 1.12 2007/09/18 01:57:10 heigazen Exp $";
+static char *rcs_id = "$Id: dmp.c,v 1.13 2007/09/21 15:19:01 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

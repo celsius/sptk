@@ -63,9 +63,9 @@
 *               -n       :  output normalized cepstrum       [FALSE]    *
 *              (level2)                                                 *
 *               -i i     :  minimum iteration                [3]        *
-*               -j j     :  maximum iteration                [10]       *
+*               -j j     :  maximum iteration                [30]       *
 *               -d d     :  end condition                    [0.001]    *
-*               -e e     :  small value added to periodgram  [0.0]      *
+*               -e e     :  small value added to periodgram  [0]        *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ..., x(L-1),                          *
@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: gcep.c,v 1.13 2007/09/12 08:37:13 heigazen Exp $";
+static char *rcs_id = "$Id: gcep.c,v 1.14 2007/09/21 15:18:53 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -56,7 +56,7 @@
 *       usage:                                                          *
 *               mc2b [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
-*               -a alpha :  all-pass constant      [0.35]               *
+*               -a a     :  all-pass constant      [0.35]               *
 *               -m m     :  order of mel cepstrum  [25]                 *
 *       infile:                                                         *
 *               mel cepstral coefficients                               *

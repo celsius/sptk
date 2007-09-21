@@ -55,7 +55,7 @@
 *                                      1996.1  K.Koishida               *
 *                                                                       *
 *       usage:                                                          *
-*               lmadf [ options ] [ infile ] > stdout                   *
+*               lmadf [ options ] cfile [ infile ] > stdout             *
 *       options:                                                        *
 *               -m m     :  order of cepstrum             [25]          *
 *               -p p     :  frame period                  [100]         *
@@ -77,7 +77,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lmadf.c,v 1.12 2007/09/12 08:37:21 heigazen Exp $";
+static char *rcs_id = "$Id: lmadf.c,v 1.13 2007/09/21 15:18:57 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -112,7 +112,7 @@ void usage (int status)
    fprintf(stderr, " %s - LMA digital filter for speech synthesis\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] cfile [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] cfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of cepstrum           [%d]\n", ORDER);
    fprintf(stderr, "       -p p  : frame period                [%d]\n", FPERIOD);

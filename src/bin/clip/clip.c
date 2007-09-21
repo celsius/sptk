@@ -49,12 +49,12 @@
 
 /************************************************************************
 *                                                                       *
-*    clipping                                                           *
+*    data clipping                                                      *
 *                                                                       *
 *                                     1989.8.31   K.Tokuda              *
 *                                                                       *
 *       usage:                                                          *
-*               clip [ -y Ymin Ymax] [infile] > stdout                  *
+*               clip [option] [infile] > stdout                         *
 *       options:                                                        *
 *               -y    ymin ymax : lower bound & upper bound [-1.0 1.0]  *
 *               -ymin ymin      : lower bound (ymax = inf)  [N/A]       *
@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: clip.c,v 1.10 2007/09/12 08:37:12 heigazen Exp $";
+static char *rcs_id = "$Id: clip.c,v 1.11 2007/09/21 15:18:53 heigazen Exp $";
 
 
 /* Standard C Libraries */

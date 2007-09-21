@@ -57,10 +57,11 @@
 *       usage:                                                          *
 *               fftcep [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
-*               -m  m    :  order of cepstrum                           *
-*               -l  l    :  frame length                                *
-*               -j  j    :  number of iteration                         *
-*               -k  k    :  accelation factor                           *
+*               -m  m    :  order of cepstrum             [25]          *
+*               -l  l    :  frame length                  [256]         *
+*               -j  j    :  number of iteration           [0]           *
+*               -k  k    :  accelation factor             [0]           *
+*               -e  e    :  epsilon                       [0]           *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ..., x(l-1),                          *
@@ -75,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftcep.c,v 1.13 2007/09/12 08:37:22 heigazen Exp $";
+static char *rcs_id = "$Id: fftcep.c,v 1.14 2007/09/21 15:19:05 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -47,35 +47,32 @@
   ---------------------------------------------------------------  
 */
 
-/************************************************************************
-*                                                                       *
-*    play 16-bit linear PCM data on LINUX and SS10                      *
-*                                                                       *
-*                                       1998.1  T.Kobayashi             *
-*                                       2000.3  M.Tamura                *
-*                                                                       *
-*       usage:                                                          *
-*               dawrite [ options ] infile1 infile2 ... > stdout        *
-*       options:                                                        *
-*               -s s  :  sampling frequency (8,10,12,16,32,48           *
-*                                            11.025,22.05,44.1kHz)[10]  *
-*               -c c  :  filename of low pass filter coef.   [Default]  *
-*               -g g  :  gain (.., -2, -1, 0, 1, 2, ..)            [0]  *
-*               -a a  :  amplitude gain (0..100)                 [N/A]  *
-*               -o o  :  output port                               [s]  *
-*                          s (speaker)    h (headphone)                 *
-*               -H H  :  header size in byte                       [0]  *
-*               -v    :  display filename                      [FALSE]  *
-*               +x    :  data format                               [s]  *
-*                          s (short)      f (float)                     *
-*       infile:                                                         *
-*               data                                           [stdin]  *
-*       notice:                                                         *
-*               number of infile < 128                                  *
-*                                                                       *
-************************************************************************/
+/*****************************************************************************
+*                                                                            *
+*    play 16-bit linear PCM data                                             *
+*                                                                            *
+*                                       1998.1  T.Kobayashi                  *
+*                                       2000.3  M.Tamura                     *
+*                                                                            *
+*       usage:                                                               *
+*               dawrite [ options ] infile1 infile2 ... > stdout             *
+*       options:                                                             *
+*               -s s  :  sampling frequency (8,11.025,22.05,44.1kHz) [11]    *
+*               -g g  :  gain (.., -2, -1, 0, 1, 2, ..)              [0]     *
+*               -a a  :  amplitude gain (0..100)                     [N/A]   *
+*               -H H  :  header size in byte                         [0]     *
+*               -v    :  display filename                            [FALSE] *
+*               -w    :  byteswap                                    [FALSE] *
+*               +x    :  data format                                 [s]     *
+*                          s (short)      f (float)                          *
+*       infile:                                                              *
+*               data                                           [stdin]       *
+*       notice:                                                              *
+*               number of infile < 128                                       *
+*                                                                            *
+*****************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.14 2007/09/18 03:52:14 heigazen Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.15 2007/09/21 15:19:00 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -113,20 +110,20 @@ void usage(int status)
    fprintf(stderr, "       %s [ options ] infile1 infile2 ... > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -s s  : sampling frequency (%skHz) [%d]\n", AVAILABLE_FREQ, DEFAULT_FREQ);
-   fprintf(stderr, "       -g g  : gain (..,-2,-1,0,1,2,..)                  [%d]\n",GAIN);
-   fprintf(stderr, "       -a a  : amplitude gain (0..100)                   [N/A]\n");
+   fprintf(stderr, "       -g g  : gain (..,-2,-1,0,1,2,..)                    [%d]\n",GAIN);
+   fprintf(stderr, "       -a a  : amplitude gain (0..100)                     [N/A]\n");
 #ifdef SPARC
-   fprintf(stderr, "       -o o  : output port                               [%c]\n",OUTPORT);
+   fprintf(stderr, "       -o o  : output port                                 [%c]\n",OUTPORT);
    fprintf(stderr, "                  s(speaker)    h(headphone)\n");
 #endif /* SPARC */
-   fprintf(stderr, "       -H H  : header size in byte                       [%d]\n",HEADERSIZE);
-   fprintf(stderr, "       -v    : display filename                          [%s]\n",BOOL[VERBOSE]);
-   fprintf(stderr, "       -w    : byteswap                                  [FALSE]\n");
-   fprintf(stderr, "       +x    : data format                               [s]\n");
-   fprintf(stderr, "                  s(short)    f(float)\n");
+   fprintf(stderr, "       -H H  : header size in byte                         [%d]\n",HEADERSIZE);
+   fprintf(stderr, "       -v    : display filename                            [%s]\n",BOOL[VERBOSE]);
+   fprintf(stderr, "       -w    : byteswap                                    [FALSE]\n");
+   fprintf(stderr, "       +x    : data format                                 [s]\n");
+   fprintf(stderr, "                  s(short)    f(float)\n");  
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data                                              [stdin]\n");
+   fprintf(stderr, "       data                                                [stdin]\n");
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       number of infile < %d\n",MAXFILES);
 #ifdef SPTK_VERSION

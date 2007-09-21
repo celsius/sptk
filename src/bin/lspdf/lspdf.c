@@ -54,7 +54,7 @@
 *                                      1996.9  K.Koishida               *
 *                                                                       *
 *       usage:                                                          *
-*               lspdf [ options ] [ infile ]>stdout                     *
+*               lspdf [ options ] lspfile [ infile ] > stdout           *
 *       options:                                                        *
 *               -m m     :  order of coefficients         [25]          *
 *               -p p     :  frame period                  [100]         *
@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspdf.c,v 1.14 2007/09/14 15:04:30 heigazen Exp $";
+static char *rcs_id = "$Id: lspdf.c,v 1.15 2007/09/21 15:18:59 heigazen Exp $";
 
 
 /*  Standard C Libralies  */

@@ -59,14 +59,14 @@
 *       options:                                                        *
 *               -l l    :  FFT size power of 2      [256]               *
 *               -m m    :  order of filter          [l-1]               *
-*               -a      :  ARMA filter                                  *
+*               -a      :  ARMA filter              [FALSE]             *
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is asumed to be float                             *
 *       Note that double precision FFT is used.                         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.11 2007/09/20 06:57:02 heigazen Exp $";
+static char *rcs_id = "$Id: grpdelay.c,v 1.12 2007/09/21 15:18:58 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>

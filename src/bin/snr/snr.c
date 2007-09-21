@@ -49,34 +49,31 @@
 
 /************************************************************************
 *                                                                       *
-*    SNR, SNR_seg                                                       *
+*    evaluate SNR and segmental SNR                                     *
 *                                                                       *
 *                                        1990.11 T.Kanno                *
 *                                        1996.3  K.Koishida             *
 *                                                                       *
 *       usage:                                                          *
-*               snr [ options ] file1 [ file2 ] > stdout                *
+*               snr [ options ] file1 [ infile ] > stdout               *
 *       options:                                                        *
 *               -l l     :  frame length                         [256]  *
 *               +ab      :  input data type (a: file1, b: file2) [sf]   *
-*                               s : short                               *
-*                               f : float                               *
-*                               d : double                              *
-*               -o o     :  output format                        [0]    *
+*                               s (short)  f (float)                    *
+*               -o o     :  output type                          [0]    *
+*                             0 SNR and SNRseg           (ascii)        *
+*                             1 SNR and SNRseg in datail (ascii)        * 
+*                             2 SNR                      (float)        *
+*                             3 SNRseg                   (float)        *
 *      infile:                                                          *
 *               data sequence                                           *
 *                       , x(0), x(1), ...,                              * 
 *                       , y(0), y(1), ...,                              *
 *      stdout:                                                          *
-*               output format      output                               *
-*                       0             SNR and SNRseg                    *
-*                       1             SNR and SNRseg in detail          *
-*                       2             SNR                               *
-*                       3             SNRseg                            *
-*                                                                       *
+*               SNR,  SNRseg                                            *      
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.11 2007/09/19 14:30:54 heigazen Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.12 2007/09/21 15:19:08 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

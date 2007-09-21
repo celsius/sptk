@@ -54,7 +54,7 @@
 *                                                1996.1  K.Koishida     *
 *                                                                       *
 *        usage:                                                         *
-*                ivq [ options ] [ cbfile ] [ infile ] > stdout         *
+*                ivq [ options ] cbfile [ infile ] > stdout             *
 *        options:                                                       *
 *                -l l      :  length of vector      [26]                *
 *                -n n      :  order of vector       [25]                *
@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ivq.c,v 1.9 2007/09/12 08:37:20 heigazen Exp $";
+static char *rcs_id = "$Id: ivq.c,v 1.10 2007/09/21 15:19:09 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

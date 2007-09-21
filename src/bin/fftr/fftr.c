@@ -59,18 +59,18 @@
 *       options:                                                        *
 *               -l l     :  FFT size power of 2         [256]           *
 *               -m m     :  order of sequence           [l-1]           *
-*               -A       :  amplitude                                   *
-*               -R       :  real part                                   *
-*               -I       :  imaginary part                              *
-*               -H       :  output half size                            *
-*               -P       :  power                                       *
+*               -A       :  amplitude                   [FALSE]         *
+*               -R       :  real part                   [FALSE]         *
+*               -I       :  imaginary part              [FALSE]         *
+*               -P       :  power                       [FALSE]         *
+*               -H       :  output half size            [FALSE]         *
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be float                            *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftr.c,v 1.11 2007/09/20 06:57:01 heigazen Exp $";
+static char *rcs_id = "$Id: fftr.c,v 1.12 2007/09/21 15:18:53 heigazen Exp $";
 
 
 /* Standard C Libraries */

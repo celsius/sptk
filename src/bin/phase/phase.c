@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Real Sequence to Phase   (filter command)                          *
+*    Transform real seauence to phase                                   *
 *                                                                       *
 *                                      1989.6  K.Tokuda                 *
 *                                      1996.2  N.Isshiki Modified       *
@@ -57,11 +57,12 @@
 *       usage:                                                          *
 *               phase [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
-*               -l l : FFT size                         [256]           *
-*               -p p : numerator cofficients file                       *
-*               -z z : denominator cofficients file                     *
+*               -l l : frame length                     [256]           *
+*               -p p : numerator cofficients file       [NULL]          *
+*               -z z : denominator cofficients file     [NULL]          *
 *               -m m : order of denominator polynomial  [L-1]           *
 *               -n n : order of numerator polynomial    [L-1]           *
+*               -u   : unlapping                        [TRUE]          *
 *       infile:                                                         *
 *               input sequense (float)                                  *
 *       stdout:                                                         *
@@ -69,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: phase.c,v 1.11 2007/09/20 06:57:01 heigazen Exp $";
+static char *rcs_id = "$Id: phase.c,v 1.12 2007/09/21 15:18:54 heigazen Exp $";
 
 
 /* Standard C Libraries */

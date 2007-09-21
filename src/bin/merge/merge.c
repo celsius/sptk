@@ -55,7 +55,7 @@
 *                                       1996.5  K.Koishida              *
 *                                                                       *
 *       usage:                                                          *
-*               merge [options] file1 [file2] > stdout                  *
+*               merge [options] file1 [infile] > stdout                 *
 *       options:                                                        *
 *               -s s     :  insert point                        [0]     *
 *               -l l     :  frame length of input data          [25]    *
@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: merge.c,v 1.12 2007/09/17 19:01:28 heigazen Exp $";
+static char *rcs_id = "$Id: merge.c,v 1.13 2007/09/21 15:18:54 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

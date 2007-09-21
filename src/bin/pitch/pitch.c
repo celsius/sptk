@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Pitch Extract                                                      *
+*    Pitch Extraction                                                   *
 *                                                                       *
 *                                      1998.7  M.Tamura                 *
 *                                      2000.3  T.Tanaka                 *
@@ -60,11 +60,12 @@
 *               -s  s     :  sampling frequency            [10]         *
 *               -l  l     :  frame length                  [400]        *
 *               -t  t     :  voiced/unvoiced threshhold    [6.0]        *
-*               -L  L     :  minmum fundamental frequency  [60]         *
+*               -L  L     :  minimum fundamental frequency [60]         *
 *                            to search for (Hz)                         *
 *               -H  H     :  maximum fundamental frequency [240]        *
 *                            to search for (Hz)                         *
-*               -e  e     :  small value for calculate log [0.0]        *
+*               -e  e     :  small value for calculate log [0]          *
+*                            spectral envelope                          *
 *               (level 2  :  for uels cepstral analysis)                *
 *               -i  i     :  minimum number of iteration   [2]          *
 *               -j  j     :  maximum number of iteration   [30]         *
@@ -80,7 +81,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.18 2007/09/20 06:57:01 heigazen Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.19 2007/09/21 15:18:55 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -126,9 +127,9 @@ void usage (int status)
    fprintf(stderr, "       -l l  : frame length                    [%d]\n", ILNG);
    fprintf(stderr, "       -t t  : voiced/unvoiced threshold       [%.1f]\n", THRESH);
    fprintf(stderr, "       -L L  : minimum fundamental             [%d]\n", LOW);
-   fprintf(stderr, "               frequency to serach for (Hz)\n");
+   fprintf(stderr, "               frequency to search for (Hz)\n");
    fprintf(stderr, "       -H H  : maximum fundamental             [%d]\n", HIGH);
-   fprintf(stderr, "               frequency to serach for (Hz)\n");
+   fprintf(stderr, "               frequency to search for (Hz)\n");
    fprintf(stderr, "       -e e  : small value for calculate       [%g]\n", EPS);
    fprintf(stderr, "               log-spectral envelope\n");
    fprintf(stderr, "     (level 2 : for uels cepstral analysis)\n");

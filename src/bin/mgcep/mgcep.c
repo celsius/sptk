@@ -57,27 +57,28 @@
 *       usage:                                                          *
 *                mgcep [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
-*                -a a     :  alapha                              [0.35] *
-*                -g g     :  gamma                               [0.0]  *
+*                -a a     :  alpha                               [0.35] *
+*                -g g     :  gamma                               [0]    *
 *                -m m     :  order of mel-generalized cepstrum   [25]   *
 *                -l l     :  frame length                        [256]  *
 *                -o o     :  output format  (see stdout)         [0]    *
+*                              0 (c~0...c~m)                            * 
+*                              1 (b0...bm)                              *
+*                              2 (K~,c~'1...c~'m)                       *
+*                              3 (K,b'1...b'm)                          *
+*                              4 (K~,g*c~'1...g*c~'m)                   *
+*                              5 (K,g*b'1...g*b'm)                      *
 *                (level 2)                                              *
 *                -i i     :  minimum iteration                   [2]    *
 *                -j j     :  maximum iteration                   [30]   *
 *                -d d     :  end condition                       [0.001]*
-*                -e e     :  small value added to periodgram     [0.0]  *
+*                -p p     :  order of recursions                 [l-1]  *
+*                -e e     :  small value added to periodgram     [0]    *
 *       infile:                                                         *
 *                data sequence                                          *
 *                        , x(0), x(1), ..., x(L-1),                     *
 *       stdout:                                                         *
-*                output format   coefficients                           *
-*                0      , c~(0), c~(1), ..., c~(m)                      *
-*                1      , b(0), b(1), ..., b(m)                         *
-*                2      , K~, c~'(1), ..., c~'(m)                       *
-*                3      , K, b'(1), ..., b'(m)                          *
-*                4      , K~, g*c~'(1), ..., g*c~'(m)                   *
-*                5      , K, g*b'(1), ..., g*b'(m)                      *
+*                mel-generalized cepstrum (float)                       *
 *       notice:                                                         *
 *                if g >= 1.0, g = -1 / g                                *
 *       require:                                                        *
@@ -85,7 +86,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.15 2007/09/12 08:37:16 heigazen Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.16 2007/09/21 15:18:57 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

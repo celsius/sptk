@@ -55,7 +55,7 @@
 *                                      1996.11 K.Koishida               *
 *                                                                       *
 *       usage:                                                          *
-*               u-law [ options ] [ infile ] > stdout                   *
+*               ulaw [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
 *               -v v     :  maximum of input     [32768]                *
 *               -u u     :  compression ratio    [256]                  *
@@ -72,7 +72,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ulaw.c,v 1.10 2007/09/12 08:37:17 heigazen Exp $";
+static char *rcs_id = "$Id: ulaw.c,v 1.11 2007/09/21 15:18:59 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

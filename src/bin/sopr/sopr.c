@@ -78,8 +78,8 @@
 *               -TAN     :  tan               (tan(in))                 *
 *               -ATAN    :  atan              (atan(in))                *
 *                                                                       *
-*               -r mn    :  read from memory n(0-9)                     *
-*               -w mn    :  write to memory  n(0-9)                     *
+*               -r mn    :  read from memory regisiter n                *
+*               -w mn    :  write to memory regisiter n                 *
 *                                                                       *
 *      infile:                                                          *
 *               data sequences (float)                                  *
@@ -88,7 +88,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.12 2007/09/12 08:37:15 heigazen Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.13 2007/09/21 15:18:57 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -55,13 +55,13 @@
 *               amcep [ options ] [ pefile ] < stdin > stdout           * 
 *       options:                                                        *
 *               -m m     :  order of mel cepstrum            [25]       *
-*               -a a     :  alpha                            [0.35]     *
+*               -a a     :  all-pass constant                [0.35]     *
 *               -l l     :  leakage factor                   [0.98]     * 
-*               -k k     :  step size                        [0.1]      *
 *               -t t     :  momentum constant                [0.9]      *
+*               -k k     :  step size                        [0.1]      *
 *               -p p     :  output period of mel cepstrum    [1]        *
-*               -e e     :  minimum value for epsilon        [FALSE]    *
-*               -s       :  smoothed (average) mel cepstrum  [FALSE]    *
+*               -s       :  output smoothed mel cepstrum     [FALSE]    *
+*               -e e     :  minimum value for epsilon        [0]        *
 *               -P P     :  order of Pade approximation      [4]        *
 *       infile:                                                         *
 *               data sequence                                           *
@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: amcep.c,v 1.13 2007/09/12 08:37:17 heigazen Exp $";
+static char *rcs_id = "$Id: amcep.c,v 1.14 2007/09/21 15:19:09 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

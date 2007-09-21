@@ -75,12 +75,12 @@
 *       stdout:                                                         *
 *               copied data sequence                                    *
 *       note:                                                           *
-*               When both (-l and -n) or (-L and -N) are specified,     *
+*               When both (-L and -N) or (-l and -n) are specified,     *
 *               latter argument is adopted.                             *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: bcp.c,v 1.10 2007/09/12 08:37:28 heigazen Exp $";
+static char *rcs_id = "$Id: bcp.c,v 1.11 2007/09/21 15:19:00 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

@@ -57,21 +57,21 @@
 *       usage:                                                          *
 *          fdrw [options] [infile] > stdout                             *
 *       options:                                                        *
-*          -F F     :  factor    [1]                                    *  
+*          -F F     :  factor                              [1]          *
 *          -R R     :  rotation angle                      [0]          *
-*          -o xo yo :  origin in mm                        [20 20]      *
 *          -W W     :  width of figure                     [1]          *
 *          -H H     :  height of figure                    [1]          *
+*          -o xo yo :  origin in mm                        [20 25]      *
 *          -g g     :  draw grid                           [1]          *
 *          -m m     :  line type                           [0]          *
 *          -l l     :  line pitch                          [0]          *
 *          -p p     :  pen number                          [1]          *
 *          -j j     :  join number                         [1]          *
-*          -n n     :  number of samples                   [0]          *
+*          -n n     :  number of sample                    [0]          *
 *          -t t     :  coordinate type                     [0]          *
-*          -y y1 y2 :  scaling factor (y1=min, y2=max)     [-1 1]       *
+*          -y y1 y2 :  scaling factor                      [-1 1]       *
 *          -z z     :  offset for duplication              [0]          *
-*          -b       :  bar graph mode   [FALSE]                         *
+*          -b       :  bar graph mode                      [FALSE]      *
 *                                                                       *
 ************************************************************************/
 

@@ -54,22 +54,23 @@
 *                                               1988.6  T.Kobayashi     *
 *                                               1996.5  K.Koishida      *
 *       usage:                                                          *
-*               vopr [ options ] [ [ file1 ] [ file2 ]  > stdout        *
+*               vopr [ options ] [ [ file1 ] [ infile ]  > stdout       *
 *       options:                                                        *
 *               -l l     :  length of vector                [1]         *
+*               -n n     :  order of vector                 [l-1]       *
 *               -i       :  specified file contains a and b [FALSE]     *
-*               -a       :  addition       (a + b)                      * 
-*               -s       :  subtraction    (a - b)                      *
-*               -m       :  multiplication (a * b)                      *
-*               -d       :  division       (a / b)                      *
-*               -ATAN2   :  atan2          atan2(b,a)                   *
+*               -a       :  addition       (a + b)          [FALSE]     * 
+*               -s       :  subtraction    (a - b)          [FALSE]     *
+*               -m       :  multiplication (a * b)          [FALSE]     *
+*               -d       :  division       (a / b)          [FALSE]     *
+*               -ATAN2   :  atan2          atan2(b,a)       [FALSE]     *
 *        notice:                                                        *
-*               file1    : vector a. stdin for default                  *
-*               file2    : vector b. stdin for default                  *
+*               When both -l and -n are specified,                      *
+*               latter argument is adopted.                             *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vopr.c,v 1.11 2007/09/20 06:57:01 heigazen Exp $";
+static char *rcs_id = "$Id: vopr.c,v 1.12 2007/09/21 15:19:00 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
