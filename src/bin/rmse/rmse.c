@@ -54,16 +54,17 @@
 *                                     1996.3  K.Koishida                *
 *                                                                       *
 *       usage:                                                          *
-*               rmse [ options ] [ infile ] > stdout                    *
+*               rmse [ options ] file1 [ infile ] > stdout              *
 *       options:                                                        *
-*               -l l     :  frame length [entire data]                  *
-*               if l>0, calculate rmse frame by frame                   *
+*               -l l     :  frame length        [0]                     *
 *       infile:                                                         *
 *               data sequence                                           *
 *                       , x(0), x(1), ..., x(l-1),                      *
 *       stdout:                                                         *
 *               rmse                                                    *
 *                       , x(0)+x(1)...+x(l-1)/l                         *
+*       notice:                                                         *
+*               if l>0, calculate rmse frame by frame                   *
 *       require:                                                        *
 *               rmse()                                                  *
 *                                                                       *

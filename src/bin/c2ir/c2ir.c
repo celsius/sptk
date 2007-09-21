@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Cepstrum to Impulse Response                                       *
+*    Cepstrum to minimum phase Impulse Response                         *
 *                                       1988.8  T.Kobayashi             *
 *                                       1995.12 N.Isshiki   modified    *
 *                                                                       *
@@ -59,7 +59,7 @@
 *               -m m    :  order of cepstrum            [25]            *
 *               -M M    :  order of impulse response    [255]           *
 *               -L L    :  length of impulse responce   [256]           *
-*               -i      :  input is minimum phase sequence              *
+*               -i      :  input minimum phase sequence [FALSE]         *
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be float                            *

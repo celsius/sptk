@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*     LBG Algorithm for Vector Qauntizer Design                         *
+*     LBG Algorithm for Vector Quantizer Design                         *
 *                                                                       *
 *                                             1996. 4  K.Koishida       *
 *                                                                       *

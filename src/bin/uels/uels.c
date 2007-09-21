@@ -57,13 +57,13 @@
 *       usage:                                                          *
 *               uels [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
-*               -m m     :  order of mel cepstrum           [25]        *
+*               -m m     :  order of cepstrum               [25]        *
 *               -l l     :  frame length                    [256]       *
 *               (level 2)                                               *
 *               -i i     :  minimum iteration               [2]         *
 *               -j j     :  maximum iteration               [30]        *
 *               -d d     :  end condition                   [0.001]     *
-*               -e e     :  small value added to periodgram [0.0]       *
+*               -e e     :  small value added to periodgram [0]         *
 *       infile:                                                         *
 *               data sequence                                           *
 *                       , x(0), x(1), ..., x(L-1),                      *

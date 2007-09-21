@@ -54,7 +54,7 @@
 *       usage:                                                          *
 *               acorr [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
-*               -m m     :  order of sequence           [12]            *
+*               -m m     :  order of sequence           [25]            *
 *               -l l     :  frame length                [256]           *
 *       infile:                                                         *
 *               stdin for default                                       *

@@ -54,7 +54,7 @@
 *                                         1996.3  K.Koishida            *
 *                                                                       *
 *       usage:                                                          *
-*               imglsadf [ options ] [ infile ] > stdout                *
+*               imglsadf [ options ] mgcfile [ infile ] > stdout        *
 *       options:                                                        *
 *               -m m     :  order of mel-generalized cepstrum  [25]     *
 *               -a a     :  alpha                              [0.35]   *

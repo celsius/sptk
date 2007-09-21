@@ -51,12 +51,12 @@
 *    Inverse FFT for Complex Sequence                                   *
 *                                                                       *
 *       usage:                                                          *
-*               ifft [ infile ] [ options ] > stdout                    *
+*               ifft [ options ] [ infile ] > stdout                    *
 *                                                                       *
 *       options:                                                        *
 *               -l l    :  FFT size power of 2      [256]               *
-*               -R      :   real part                                   *
-*               -I      :  imaginary part                               *
+*               -R      :  real part                [FALSE]             *
+*               -I      :  imaginary part           [FALSE]             *
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be real                             *

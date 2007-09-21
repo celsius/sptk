@@ -60,11 +60,12 @@
 *               -a a     :  address                             [0]     *
 *               -n n     :  initial value for numbering         [0]     *
 *               -m m     :  modulo for numbering                [EOF]   *
+*               -ent     :  number of data in each line         [0]     *
 *               +type    :  data type                           [c]     *
 *                               c (char)     s (short)                  *
 *                               i (int)      l (long)                   *
 *                               f (float)    d (double)                 *
-*               %format  :  print format                        [N/A]   *
+*               %form    :  print format(printf style)          [N/A]   *
 *                                                                       *
 ************************************************************************/
 

@@ -56,7 +56,7 @@
 *               delay [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
 *               -s s     :  start sample      [0]                       *
-*               -f       :  keep file size                              *
+*               -f       :  keep file length  [FALSE]                   *
 *       infile:                                                         *
 *              data sequence                                            *
 *                      , x(0), x(1), ...                                *

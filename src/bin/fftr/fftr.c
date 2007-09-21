@@ -59,11 +59,11 @@
 *       options:                                                        *
 *               -l l     :  FFT size power of 2         [256]           *
 *               -m m     :  order of sequence           [l-1]           *
-*               -A       :  amplitude                                   *
-*               -R       :  real part                                   *
-*               -I       :  imaginary part                              *
-*               -H       :  output half size                            *
-*               -P       :  power                                       *
+*               -A       :  amplitude                   [FALSE]         *
+*               -R       :  real part                   [FALSE]         *
+*               -I       :  imaginary part              [FALSE]         *
+*               -P       :  power                       [FALSE]         *
+*               -H       :  output half size            [FALSE]         *
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be float                            *

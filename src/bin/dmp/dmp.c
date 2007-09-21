@@ -56,13 +56,13 @@
 *       usage:                                                          *
 *               dmp [options] [infile] > stdout                         *
 *       options:                                                        *
-*               -n n     :  block order  (0,...,n)           [INFINITE] *
-*               -l l     :  block length (1,...,l)           [INFINITE] *
+*               -n n     :  block order  (0,...,n)           [EOD]      *
+*               -l l     :  block length (1,...,l)           [EOD]      *
 *               +type    :  data type                        [f]        *
 *                               c (char)     s (short)                  *
 *                               i (int)      l (long)                   *
 *                               f (float)    d (double)                 *
-*               %format  :  print format                     [N/A]      *
+*               %form    :  print format(printf style)       [N/A]      *
 *                                                                       *
 ************************************************************************/
 

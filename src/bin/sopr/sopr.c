@@ -78,8 +78,8 @@
 *               -TAN     :  tan               (tan(in))                 *
 *               -ATAN    :  atan              (atan(in))                *
 *                                                                       *
-*               -r mn    :  read from memory n(0-9)                     *
-*               -w mn    :  write to memory  n(0-9)                     *
+*               -r mn    :  read from memory regisiter n                *
+*               -w mn    :  write to memory regisiter n                 *
 *                                                                       *
 *      infile:                                                          *
 *               data sequences (float)                                  *

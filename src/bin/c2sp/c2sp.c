@@ -59,21 +59,20 @@
 *       options:                                                        *
 *               -m m     :  order of cepstrum           [25]            *
 *               -l l     :  frame length                [256]           *
-*               -p       :  output phase  (see stdout)  [FALSE]         *
-*               -o o     :  output format (see stdout)  [0]             *
+*               -p       :  output phase                [FALSE]         *
+*               -o o     :  output format               [0]             *
+*                            0 (20 * log|H(z)|)                         *
+*                            1 (ln|H(z)|)                               *
+*                            2 (|H(z)|)                                 *
+*                           -p option is specified                      *
+*                            0 (arg|H(z)| / pi          [pi rad])       *
+*                            1 (arg|H(z)|               [rad])          *
+*                            2 (arg|H(z)| * 180 / pi    [deg])          *
 *       infile:                                                         *
 *               cepstrum                                                *
 *                   , c(0), c(1), ..., c(M),                            *
-*       stdout:                                                         *
-*               output format         scale                             *
-*                      0 :            20 * log|H(z)|                    *
-*                      1 :            ln|H(z)|                          *
-*                      2 :            |H(z)|                            *
-*               (-p option is used)                                     *
-*                      0 :            arg|H(z)| / pi       [pi rad]     *
-*                      1 :            arg|H(z)|            [rad]        *
-*                      2 :            arg|H(z)| * 180 / pi [deg]        *
-*       spectrum                                                        *
+*       stdout:                                                         *      
+*               spectrum                                                *
 *                   , s(0), s(1), ..., s(L/2),                          *
 *       require:                                                        *
 *               c2sp()                                                  *

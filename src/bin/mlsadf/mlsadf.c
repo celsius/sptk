@@ -57,7 +57,7 @@
 *       usage:                                                          *
 *               mlsadf [ options ] mcfile [ infile ] > stdout           *
 *       options:                                                        *
-*               -m m     :  order of cepstrum            [25]           *
+*               -m m     :  order of mel-cepstrum        [25]           *
 *               -a a     :  all-pass constant            [0.35]         *
 *               -p p     :  frame period                 [100]          *
 *               -i i     :  interpolation period         [1]            *

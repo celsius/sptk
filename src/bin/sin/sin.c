@@ -58,8 +58,8 @@
 *            sin [options] > stdout                                     *
 *    options:                                                           *
 *            -l l     :  length       [256]                             *
-*            -p p     :  period       [10.0]                            *
-*            -m m     :  magnitude    [1.0]                             *
+*            -p p     :  period       [10]                              *
+*            -m m     :  magnitude    [1]                               *
 *    stdout:                                                            *
 *            sinusoidal sequence                                        *
 *                    , sin(2pi*0/p), sin(2pi*1/p), ..., sin(2pi*(l-1)/p *

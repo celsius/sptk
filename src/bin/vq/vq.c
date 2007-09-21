@@ -56,8 +56,8 @@
 *        usage:                                                         *
 *                vq [ options ] cbfile [ infile ] > stdout              *
 *        options:                                                       *
-*                -l l      :  length of vector      [26]                *   
-*                -n n   :  order of vector          [25]                *
+*                -l l :  length of vector           [26]                *   
+*                -n n :  order of vector            [25]                *
 *                -q   :  output quantized vector    [FALSE]             *
 *        infile:                                                        *
 *                input vector                                           *

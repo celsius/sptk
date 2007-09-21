@@ -57,15 +57,15 @@
 *     usage:                                                            *
 *             swab [ options ] [ infile ] > stdout                      *
 *     options:                                                          *
-*             -S S     :  start address          [0]                    *
-*             -s s     :  start offset number    [0]                    *
-*             -E E     :  end address            [EOF]                  *
-*             -e e     :  end offset number      [0]                    *
-*             +type    :  input data type        [s]                    *
+*             -S S     :  start address                [0]              *
+*             -s s     :  start offset number          [0]              *
+*             -E E     :  end address                  [EOF]            *
+*             -e e     :  end offset number            [0]              *
+*             +type    :  input and output data type   [s]              *
 *                          s (short)    l (long)                        *
 *                          f (float)    d (double)                      *
 *     infile:                                                           *
-*             data sequence                      [stdin]                * 
+*             data sequence                            [stdin]          * 
 *     stdout:                                                           *
 *             swapped data sequence                                     *
 *                                                                       *

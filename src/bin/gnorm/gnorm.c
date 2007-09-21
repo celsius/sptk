@@ -55,8 +55,8 @@
 *       usage:                                                          *
 *               gnorm [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
-*               -g g      :  gamma (if g>=1.0, g=-1/g)       [0.0]      *
-*               -m m      :  order of generalized cepstrum   [25]       *
+*               -m m      :  order of generalized cepstrum   [25]       *     
+*               -g g      :  gamma                           [0]        *
 *       infile:                                                         *
 *               generalized cepstral coefficients                       *
 *                   , c~(0), c~(1), ..., c~(M),                         *

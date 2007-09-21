@@ -59,16 +59,18 @@
 *       usage:                                                          *
 *               histogram [ options ] [ infile ] > stdout               *
 *       options:                                                        *
-*               -l l    : sequence length               [256]           *
-*               -i i    : infimum                       [0]             *
-*               -j j    : supremum                      [1]             *
+*               -l l    : frame size                    [0]             *
+*               -i i    : infimum                       [0.0]           *
+*               -j j    : supremum                      [1.0]           *
 *               -s s    : step size                     [0.1]           *
-*               -n      : normalization                 [off]           *
+*               -n      : normalization                 [FALSE]         *
 *       infile:                                                         *
 *               sample data (float)                                     * 
 *       stdout:                                                         *
 *               histogram (float)                                       *
 *                                                                       *
+*       notice:                                                         *
+*               if l>0,calculate histogram frame by frame               *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";

@@ -58,7 +58,7 @@
 *               nrand [ options ] > stdout                              *
 *       options:                                                        *
 *               -l l  : output length      [256]                        *
-*               -s s     : seed for nrand  [1]                          *
+*               -s s  : seed for nrand     [1]                          *
 *       stdout:                                                         *
 *               random value (float)                                    *
 *       notice:                                                         *

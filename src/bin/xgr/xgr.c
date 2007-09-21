@@ -54,19 +54,19 @@
 *    1992.03 T. KANNO                                           *
 *                                                               *
 *       usage:                                                  *
-*               xgr [ options ] [ infile ]                      *
+*               xgr [ options ] [ infile ] > stdout             *
 *       options:                                                *
-*               -s  s  : window reduction                       *
-*               -l     : landscape mode                         *
-*               -rv    : reverse mode                           *
-*               -m     : monochrome display mode                *
-*               -bg bg : background color                       *
-*               -hl hl : highlight color                        *
-*               -bd bd : border color                           *
-*               -ms ms : mouse color                            *
-*               -g  g  : window geometry                        *
-*               -d  d  : display server                         *
-*               -t  t  : window title                           *
+*               -s  s  : shrink                    [3.38667]    *
+*               -l     : landscape                 [FALSE]      *
+*               -rv    : reverse mode              [FALSE]      *
+*               -m     : monochrome display mode   [FALSE]      *
+*               -bg bg : background color          [white]      *
+*               -hl hl : highlight color           [blue]       *
+*               -bd bd : border color              [blue]       *
+*               -ms ms : mouse color               [red]        *
+*               -g  g  : geometry                  [NULL]       *
+*               -d  d  : display                   [NULL]       *
+*               -t  t  : window title              [xgr]        *
 *       infile:                                                 *
 *               plotter commands                                *
 *                                                               *

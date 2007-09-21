@@ -54,7 +54,7 @@
 *                                       1996.3  K.Koishida              *
 *                                                                       *
 *       usage:                                                          *
-*               zerodf [ options ] [ infile ] > stdout                  *
+*               zerodf [ options ] bfile [ infile ] > stdout            *
 *       options:                                                        *
 *               -m m     :  order of coefficients  [25]                 *
 *               -p p     :  frame period           [100]                *

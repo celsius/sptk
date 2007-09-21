@@ -55,7 +55,7 @@
 *                                      1996.11 K.Koishida               *
 *                                                                       *
 *       usage:                                                          *
-*               u-law [ options ] [ infile ] > stdout                   *
+*               ulaw [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
 *               -v v     :  maximum of input     [32768]                *
 *               -u u     :  compression ratio    [256]                  *

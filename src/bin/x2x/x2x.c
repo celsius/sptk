@@ -57,20 +57,20 @@
 *       usage:                                                          *
 *               x2x [options] [infile] > stdout                         *
 *       options:                                                        *
-*               -r       :  specify rounding off when a real number     *
-*                           is substituted for a integer      [FALSE]   *
 *               +type1   :  input data type                   [f]       *
 *               +type2   :  output data type                  [type1]   *
-*                              c (char)           s (short)             *
-*                              i (int)            l (long)              *
-*                              f (float)          d (double)            *
-*                              a (ascii)                                *
-*                              C (unsigned char)  S (unsigned short)    *
-*                              I (unsigned int)   L (unsigned long)     *
+*                           c (char)           C (unsigned char)        *
+*                           s (short)          S (unsigned short)       *
+*                           i (int)            I (unsigned int)         *
+*                           l (long)           L (unsigned long)        *
+*                           f (float)          d (double)               *
+*                           a (ascii)                                   *
 *               +a a     :  column number                     [1]       *
+*               -r       :  specify rounding off when a real number     *
+*                           is substituted for a integer      [FALSE]   *
 *               %format  :  specify output format similar to  [%g]      *
-*                           "printf()" of C function,                   *
-*                           if type2 is ascii formant.                  *
+*                           "printf()".                                 *
+*                           if type2 is ascii.                          *
 *                                                                       *
 ************************************************************************/
 

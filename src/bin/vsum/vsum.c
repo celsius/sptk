@@ -57,7 +57,7 @@
 *               vsum [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
 *               -l l     :  order of vector    [1]                      *
-*               -n n     :  number of vector   [all]                    *
+*               -n n     :  number of vector   [EOD]                    *
 *                                                                       *
 ************************************************************************/
 

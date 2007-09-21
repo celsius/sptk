@@ -57,9 +57,9 @@
 *       usage:                                                          *
 *               c2acr [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
-*               -m m     :  order of cepstrum      [25]                 *
+*               -m m     :  order of cepstrum          [25]             *
 *               -M M     :  order of autocorrelation   [25]             *
-*               -l l     :  FFT length         [256]                    *
+*               -l l     :  FFT length                 [256]            *
 *       infile:                                                         *
 *               cepstral coefficients                                   *
 *                   , c(0), c(1), ..., c(M),                            *

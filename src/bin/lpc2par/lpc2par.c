@@ -58,7 +58,7 @@
 *               lpc2par [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
 *               -m m     :  order of LPC                     [25]       *
-*               -g g     :  gamma of generalized cepstum     [1.0]      *
+*               -g g     :  gamma of generalized cepstum     [1]        *
 *               -s       :  check stable or unstable         [FALSE]    *
 *       infile:                                                         *
 *               LP Coefficeints                                         *

@@ -57,7 +57,7 @@
 *       usage:                                                          *
 *               df2 [ options ] [ infile ] > stdout                     *
 *       options:                                                        *
-*               -f f     :  sampling frequency            [10000]       *
+*               -f f     :  sampling frequency(Hz)        [10000]       *
 *               -p f b   :  center frequency f(Hz)                      *
 *                            and band width b(Hz) of pole [N/A]         *
 *               -z f b   :  center frequency f(Hz)                      *

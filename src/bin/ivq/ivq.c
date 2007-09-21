@@ -54,7 +54,7 @@
 *                                                1996.1  K.Koishida     *
 *                                                                       *
 *        usage:                                                         *
-*                ivq [ options ] [ cbfile ] [ infile ] > stdout         *
+*                ivq [ options ] cbfile [ infile ] > stdout             *
 *        options:                                                       *
 *                -l l      :  length of vector      [26]                *
 *                -n n      :  order of vector       [25]                *

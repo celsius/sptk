@@ -75,7 +75,7 @@
 *       stdout:                                                         *
 *               copied data sequence                                    *
 *       note:                                                           *
-*               When both (-l and -n) or (-L and -N) are specified,     *
+*               When both (-L and -N) or (-l and -n) are specified,     *
 *               latter argument is adopted.                             *
 *                                                                       *
 ************************************************************************/

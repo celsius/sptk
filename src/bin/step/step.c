@@ -59,7 +59,7 @@
 *       options:                                                        *
 *               -l l     :  length     [256]                            *
 *               -n n     :  order      [255]                            *
-*               -v v     :  step value [1.0]                            *
+*               -v v     :  step value [1]                              *
 *       stdout:                                                         *
 *               impulse sequence                                        *
 *                       , v, v, v, ...                                  *

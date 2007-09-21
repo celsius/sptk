@@ -49,37 +49,37 @@
 
 /************************************************************************
 *                                                                       *
-*    Extract mel-generalized cepstral coefficients for given spectrum   *
+*   Transform spectrum to mel-generalized cepstrum                      *
 *                                                                       *
 *       usage:                                                          *
 *               sp2mgc [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
 *               -a a     :  alapha                            [0.35]    *
-*               -g g     :  gamma                             [0.0]     *
+*               -g g     :  gamma                             [0]       *
 *               -m m     :  order of mel-generalized cepstrum [25]      *
 *               -l l     :  frame length                      [256]     *
-*               -A A     :  Input Amplitude Spectrum format   [0]       *
-*                    0      (20*log|H(z)|)                              *
-*                    1      (ln|H(z)|)                                  *
-*                    2      (|H(z)|)                                    *
-*               -o o     :  output format  (see stdout)       [0]       *
+*               -A A     :  Input format                      [0]       *
+*                             0 (20*log|H(z)|)                          *
+*                             1 (ln|H(z)|)                              *
+*                             2 (|H(z)|)                                *
+*               -o o     :  output format                     [0]       *
+*                             0 (c~0...c~m)                             *
+*                             1 (b0...bm)                               *
+*                             2 (K~,c~'1...c~'m)                        *
+*                             3 (K,b'1...b'm)                           *
+*                             4 (K~,g*c~'1...g*c~'m)                    *
+*                             5 (K,g*b'1...g*b'm)                       *
 *               (level 2)                                               *
 *               -i i     :  minimum iteration                 [2]       *
 *               -j j     :  maximum iteration                 [30]      *
 *               -d d     :  end condition                     [0.001]   *
-*               -e e     :  small value added to periodgram   [0.0]     *
-*               -P P     :  Input Power Spectrum              [FALSE]   *
+*               -p p     :  order of recursions               [l-1]     *
+*               -e e     :  small value added to periodgram   [0]       *
 *       infile:                                                         *
 *               data sequence                                           *
 *                       , X(0), X(1), ..., X(L-1),                      *
 *       stdout:                                                         *
-*               output format coefficients                              *
-*                    0  , c~(0), c~(1), ..., c~(m)                      *
-*                    1  , b(0), b(1), ..., b(m)                         *
-*                    2  , K~, c~'(1), ..., c~'(m)                       *
-*                    3  , K, b'(1), ..., b'(m)                          *
-*                    4  , K~, g*c~'(1), ..., g*c~'(m)                   *
-*                    5  , K, g*b'(1), ..., g*b'(m)                      *
+*               mel-generalized cepstrum (float)                        *
 *       notice:                                                         *
 *               if g>=1.0, g = -1 / g                                   *
 *       require:                                                        *

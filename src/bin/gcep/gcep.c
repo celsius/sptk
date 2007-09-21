@@ -63,9 +63,9 @@
 *               -n       :  output normalized cepstrum       [FALSE]    *
 *              (level2)                                                 *
 *               -i i     :  minimum iteration                [3]        *
-*               -j j     :  maximum iteration                [10]       *
+*               -j j     :  maximum iteration                [30]       *
 *               -d d     :  end condition                    [0.001]    *
-*               -e e     :  small value added to periodgram  [0.0]      *
+*               -e e     :  small value added to periodgram  [0]        *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ..., x(L-1),                          *

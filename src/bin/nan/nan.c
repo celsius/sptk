@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Find NaN & Infty & Indefinite Values                               *
+*    Find NaN and Infty Values                                          *
 *                                                                       *
 *                                    1997.7 G.Hirabayashi               *
 *                                                                       *

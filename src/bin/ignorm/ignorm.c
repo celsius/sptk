@@ -56,7 +56,7 @@
 *               ignorm [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
 *               -m m     :  order of generalized cepstrum   [25]        *
-*               -g g     :  gamma                           [0.0]       *
+*               -g g     :  gamma                           [0]         *
 *       infile:                                                         *
 *               normalized generalized cepstral coefficients            *
 *                   , K, c'(1), ..., c'(M),                             *

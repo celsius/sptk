@@ -57,14 +57,14 @@
 *               mgc2mgc [ options ] [ infile ] > stdout                  *
 *       options:                                                         *
 *               -m  m    : order of generalized cepstrum (input)  [25]   *
-*               -a  a    : alpha of generalized cepstrum (input)  [0.0]  *
-*               -g  g    : gamma of generalized cepstrum (input)  [0.0]  *
+*               -a  a    : alpha of generalized cepstrum (input)  [0]    *
+*               -g  g    : gamma of generalized cepstrum (input)  [0]    *
 *               -n       : regard input as normalized                    *
 *                          mel-generalized cepstrum               [FALSE]*
 *               -u       : regard input as multiplied by gamma    [FALSE]*
 *               -M  M    : order of generalized cepstrum (output) [25]   *
-*               -A  A    : alpha of generalized cepstrum (output) [0.0]  *
-*               -G  G    : gamma of generalized cepstrum (output) [1.0]  *
+*               -A  A    : alpha of generalized cepstrum (output) [0]    *
+*               -G  G    : gamma of generalized cepstrum (output) [1]    *
 *               -N  N    : regard output as normalized                   *
 *                          mel-generalized cepstrum               [FALSE]*
 *               -U  : regard output as multiplied by gamma        [FALSE]*
@@ -74,7 +74,7 @@
 *       stdout:                                                          *
 *               mel-generalized cepstrum                                 *
 *                       , c'(0)(=c(0)), c'(1), ..., c'(M),               *
-*       notice:                                                          *       
+*       notice:                                                          *    
 *               if g>=1.0, g = -1 / g                                    *
 *               if G>=1.0, G = -1 / G                                    *
 *       require:                                                         *

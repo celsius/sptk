@@ -55,7 +55,7 @@
 *                                      1996.3  K.Koishida               *
 *                                                                       *
 *       usage:                                                          *
-*               ltcdf [ options ] [ infile ] > stdout                   *
+*               ltcdf [ options ] kfile [ infile ] > stdout             *
 *       options:                                                        *
 *               -m m     :  order of coefficients  [25]                 *
 *               -p p     :  frame period           [100]                *

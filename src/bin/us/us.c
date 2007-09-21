@@ -54,15 +54,28 @@
 *                                       1998.3  T.Kobayashi             *
 *                                                                       *
 *       usage:                                                          *
-*               us [ options ] infile >stdout                           *
+*               us [ options ] infile1 > stdout                         *
 *       options:                                                        *
 *               -s s  :  conversion type                       [58]     *
+*                         23F up-sampling by 2:3                        *
+*                         23S up-sampling by 2:3                        *
+*                         34  up-sampling by 3:4                        *
+*                         45  up-sampling by 4:5                        *
+*                         57  up-sampling by 5:7                        *
+*                         58  up-sampling by 5:8                        *
 *               -c c  :  filename of low pass filter coef.     [Default]*
-*               -u u  :  up-sampling ratio                     [1]      *
-*               -d d  :  down-sampling ratio                   [1]      *
+*               -u u  :  up-sampling ratio                     [N/A]    *
+*               -d d  :  down-sampling ratio                   [N/A]    *
 *       infile:                                                         *
 *               data sequence                                  [stdin]  *
 *       notice:                                                         *
+*               Default LPF coefficients File                           *
+*                2:3 -> /usr/local/cmnd/lib/lpfcoef.2to3f               *
+*                2:3 -> /usr/local/cmnd/lib/lpfcoef.2to3s               *
+*                3:4 -> /usr/local/cmnd/lib/lpfcoef.3to4                *
+*                4:5 -> /usr/local/cmnd/lib/lpfcoef.4to5                *
+*                5:7 -> /usr/local/cmnd/lib/lpfcoef.5to7                *
+*                5:8 -> /usr/local/cmnd/lib/lpfcoef.5to8                *
 *                                                                       *
 ************************************************************************/
 

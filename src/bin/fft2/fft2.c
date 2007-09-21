@@ -59,13 +59,13 @@
 *       options:                                                        *
 *               -l l     :  FFT size power of 2         [64]            *
 *               -m m1 m2 :  region of support           [m1=64,m2=m1]   *
-*               -t       :  transposed output                           *
-*               -c       :  compensated boundary                        *
-*               -q       :  first quadrant output                       *
-*               -A       :  amplitude                                   *
-*               -R       :  real part                                   *
-*               -I       :  imaginary part                              *
-*               -P       :  power                                       *
+*               -t       :  transposed output           [FALSE]         *
+*               -c       :  compensated boundary        [FALSE]         *
+*               -q       :  first quadrant output       [FALSE]         *
+*               -A       :  amplitude                   [FALSE]         *
+*               -R       :  real part                   [FALSE]         *
+*               -I       :  imaginary part              [FALSE]         *
+*               -P       :  power                       [FALSE]         *
 *      infile:                                                          *
 *               stdin for default                                       *
 *               input is assumed to be double                           *

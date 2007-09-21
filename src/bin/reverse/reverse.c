@@ -57,8 +57,8 @@
 *       usage:                                                          *
 *               reverse [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
-*               -l l  : block length  [whole file]                      *
-*               -n n  : block length - 1 [whole file]                   *
+*               -l l  : length of block  [EOF]                          *
+*               -n n  : order of block   [EOF-1]                        *
 *       infile:                                                         *
 *                       x0, x1, ..., xN, (real)                         *
 *       stdout:                                                         *

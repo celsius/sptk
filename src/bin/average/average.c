@@ -56,15 +56,16 @@
 *       usage:                                                          *
 *               average [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
-*               -l l     :  frame length   [entire data]                *
-*                           if l>0, calculate average frame by frame    *
-*               -n n     :  order of sequence   [N/A]                   *
+*               -l l     :  frame length        [0]                     *
+*               -n n     :  order of sequence   [l-1]                   *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ..., x(l-1),                          *
 *       stdout:                                                         *
 *               average                                                 *
 *                   , (x(0)+x(1)...+x(l-1))/l,                          *
+*       notice:                                                         *
+*                if l>0, calculate average frame by frame               *
 *       require:                                                        *
 *               average()                                               *
 *                                                                       *

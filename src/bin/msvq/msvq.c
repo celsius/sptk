@@ -54,9 +54,9 @@
 *                                    1996.1  K.Koishida                 *
 *                                                                       *
 *        usage:                                                         *
-*                msvq [options] [ infile ] > stdout                     *
+*                msvq [options] < stdin > stdout                        *
 *        options:                                                       *
-*                -l l   :  order of vector         [26]                 *
+*                -l l   :  length of vector        [26]                 *
 *                -n n   :  order of vector         [25]                 *
 *                -s s f :  codebook                [N/A N/A]            *
 *                     s : codebook size                                 *

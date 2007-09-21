@@ -60,6 +60,7 @@
 *       options:                                                        *
 *               -s s    :  conversion type              [21]            *
 *                           21   down sampling by 2:1                   *
+*                           32   down sampling by 3:2                   *
 *                           43   down sampling by 4:3                   *
 *                           52   down sampling by 5:2                   *
 *                           54   down sampling by 5:4                   *
@@ -70,6 +71,7 @@
 *       notice:                                                         *
 *               Default LPF coefficients File                           *
 *                2:1 -> /usr/local/cmnd/lib/lpfcoef.2to1                *
+*                3:2 -> /usr/local/cmnd/lib/lpfcoef.3to2                *
 *                4:3 -> /usr/local/cmnd/lib/lpfcoef.4to3                *
 *                5:2 -> /usr/local/cmnd/lib/lpfcoef.5to2up              *
 *                5:2 -> /usr/local/cmnd/lib/lpfcoef.5to2dn              *

@@ -125,7 +125,7 @@ void usage (int status)
    fprintf(stderr, "       -p p  : frame period                      [%d]\n", FPERIOD);
    fprintf(stderr, "       -i i  : interpolation period              [%d]\n", IPERIOD);
    fprintf(stderr, "       -t    : transpose filter                  [%s]\n", BOOL[TRANSPOSE]);
-   fprintf(stderr, "       -k    : filtering without gain            [%s]\n", BOOL[TRANSPOSE]);
+   fprintf(stderr, "       -k    : filtering without gain            [%s]\n", BOOL[NGAIN]);
    fprintf(stderr, "       -P P  : order of Pade approximation       [%d]\n", PADEORDER);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");

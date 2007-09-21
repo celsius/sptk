@@ -54,7 +54,7 @@
 *                                        1996.3  K.Koishida             * 
 *                                                                       *
 *       usage:                                                          *
-*               iglsadf [ options ] [ infile ] > stdout                 *
+*               iglsadf [ options ] gcfile [ infile ] > stdout          *
 *       options:                                                        *
 *               -m m     :  order of generalized cepstrum   [25]        *
 *               -g g     :  -1 / gamma                      [1]         *

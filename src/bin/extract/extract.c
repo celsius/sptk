@@ -57,7 +57,7 @@
 *               extract [ options ] [ indexfile ] [ infile ] > stdout   *
 *       options:                                                        *
 *               -l l     :  order of vector   [10]                      *
-*               -i i     :  codebook index   [0]                        *
+*               -i i     :  codebook index    [0]                       *
 *       infile:                                                         *
 *               index file (int)                                        *
 *                   , index(0), index(1), ...,                          *

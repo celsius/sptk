@@ -58,15 +58,15 @@
 *       options:                                                        *
 *               -l l     :  length         [256]                        *
 *               -n n     :  order          [l-1]                        *
-*               -s s     :  start value    [0.0]                        *
+*               -s s     :  start value    [0]                          *
 *               -e e     :  end  value     [N/A]                        *
-*               -t t     :  step size      [1.0]                        *
+*               -t t     :  step size      [1]                          *
 *       stdout:                                                         *
 *               ramp sequence                                           *
 *                       , s, s+t, s+2t, ..., s+(l-1)t                   *
 *       notice:                                                         *
 *               If l<0, generate infinite sequence                      *
-*               When both -e and -l and -n are specified 2 or more,     *
+*               When -l and -n and -e are specified 2 or more,          *
 *               latter argument is adopted.                             *
 *                                                                       *
 ************************************************************************/

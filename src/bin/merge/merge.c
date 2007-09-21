@@ -55,7 +55,7 @@
 *                                       1996.5  K.Koishida              *
 *                                                                       *
 *       usage:                                                          *
-*               merge [options] file1 [file2] > stdout                  *
+*               merge [options] file1 [infile] > stdout                 *
 *       options:                                                        *
 *               -s s     :  insert point                        [0]     *
 *               -l l     :  frame length of input data          [25]    *

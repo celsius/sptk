@@ -59,7 +59,7 @@
 *       options:                                                        *
 *               -l l    :  FFT size power of 2      [256]               *
 *               -m m    :  order of filter          [l-1]               *
-*               -a      :  ARMA filter                                  *
+*               -a      :  ARMA filter              [FALSE]             *
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is asumed to be float                             *

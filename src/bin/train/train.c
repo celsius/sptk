@@ -57,12 +57,12 @@
 *       usage:                                                          *
 *               train [options] > stdout                                *
 *       options:                                                        *
-*               -l l     :  length                [256]                 *
-*               -p p     :  period                [0]                   *
-*               -n n     :  type of normalization [1]                   *
-*                             n=0: none                                 *
-*                             n=1: normalize by power                   *
-*                             n=2: normalize by magnitude               *
+*               -l l     :  frame length                [256]           *
+*               -p p     :  frame period                [0]             *
+*               -n n     :  type of normalization       [1]             *
+*                             0 none                                    *
+*                             1 normalize by power                      *
+*                             2 normalize by magnitude                  *
 *       stdout:                                                         *
 *               p>0 pulse sequence with pitch p                         *
 *               p = 0 M-sequence                                        *

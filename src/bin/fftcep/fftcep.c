@@ -57,10 +57,11 @@
 *       usage:                                                          *
 *               fftcep [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
-*               -m  m    :  order of cepstrum                           *
-*               -l  l    :  frame length                                *
-*               -j  j    :  number of iteration                         *
-*               -k  k    :  accelation factor                           *
+*               -m  m    :  order of cepstrum             [25]          *
+*               -l  l    :  frame length                  [256]         *
+*               -j  j    :  number of iteration           [0]           *
+*               -k  k    :  accelation factor             [0]           *
+*               -e  e    :  epsilon                       [0]           *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ..., x(l-1),                          *

@@ -54,7 +54,7 @@
 *                                      1996.9  K.Koishida               *
 *                                                                       *
 *       usage:                                                          *
-*               lspdf [ options ] [ infile ]>stdout                     *
+*               lspdf [ options ] lspfile [ infile ] > stdout           *
 *       options:                                                        *
 *               -m m     :  order of coefficients         [25]          *
 *               -p p     :  frame period                  [100]         *

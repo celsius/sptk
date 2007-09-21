@@ -100,7 +100,7 @@ void usage (int status)
    fprintf(stderr, "                    using Levinson-Durbin method\n");
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of correlation [%d]\n", ORDER);
    fprintf(stderr, "       -h    : print this message\n");

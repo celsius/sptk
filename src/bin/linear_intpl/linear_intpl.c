@@ -60,6 +60,8 @@
 *               -l l         : output length               [256]        *
 *               -m m         : number of interpolation     [255]        *
 *               -x xmin xmax : minimum of x & maximum of x [0.0 0.5]    *
+*               -i xmin      : minimum of x                [0]          *
+*               -j xmax      : maximum of x                [0.5]        *
 *       infile:                                                         *
 *               data sequence                                           *
 *                       , x0, y0, x1, y1..., xK, yK                     *
@@ -101,7 +103,7 @@ void usage (int status)
    fprintf(stderr, " %s - linear interpolation of data\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l         : output length               [%d]\n", LENG+1);
    fprintf(stderr, "       -m m         : number of interpolation     [%d]\n", LENG);

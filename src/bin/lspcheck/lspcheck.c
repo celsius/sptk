@@ -57,17 +57,16 @@
 *               lspcheck [ options ] [ infile ] > stdout                *
 *       options:                                                        *
 *               -m m     :  order of LSP                [25]            *
-*               -s s     :  sampling frequency (kHz)    [10]            *
+*               -s s     :  sampling frequency          [10]            *
 *               -k       :  input & output gain         [FALSE]         *
-*               -i i     :  input format (see infile)   [0]             *
-*               -o o     :  output format (see infile)  [i]             *
+*               -i i     :  input format                [0]             *
+*               -o o     :  output format               [i]             *
+*                             0 (normalized frequency <0...pi>)         *   
+*                             1 (normalized frequency <0...0.5>)        *
+*                             2 (frequency (kHz))                       *
+*                             3 (frequency (Hz))                        *
 *               -r       :  rearrange LSP               [FALSE]         *
 *       infile:                                                         *
-*               input format LSP                                        *
-*                       0  normalized frequency (0 ~ pi)                *
-*                       1  normalized frequency (0 ~ 0.5)               *
-*                       2  frequency (kHz)                              *
-*                       3  frequency (Hz)                               *
 *               LSP                                                     *
 *                       , f(1), ..., f(m),                              *
 *       stdout:                                                         *

@@ -54,9 +54,9 @@
 *                                       2000.5  T.Yoshimura             *
 *                                                                       *
 *       usage:                                                          *
-*               echo2 [ options ] [ argument... ]                       *
+*               echo2 [ options ]                                       *
 *       options:                                                        *
-*               -n  :  do not add the NEWLINE to the output. [FALSE]    *
+*               -n  :  no output newline                      [TRUE]    *
 *                                                                       *
 ************************************************************************/
 
