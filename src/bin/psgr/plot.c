@@ -49,8 +49,8 @@
 
 
 /********************************************************
-* $Id$   *
-* Interpret X-Y Plotter Commands   *
+* $Id$  *
+*       Interpret X-Y Plotter Commands                  *
 ********************************************************/
 
 #include <stdio.h>

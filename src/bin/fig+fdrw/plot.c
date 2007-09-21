@@ -49,22 +49,23 @@
 
 
 /****************************************************************
-* XY-Plotter Library       *
-*        *
-* Calling sequence :     *
-*  plopen(mode);     *
-*  _plsend(buf, nbytes);    *
-*  _plnorm(x);     *
-*  plots(mode);     *
-*  plote();     *
-*  plot(x, y, z);     *
-*  plotr(ip, x, y);    *
-*  plota(ip, x, y);    *
-*  origin(x, y);     *
-*  mode(ltype, lscale);    *
-*  chlnmod(_lnmode);    *
-*        *
-* Copyright 1985 by T. Kobayashi    *
+*         XY-Plotter Library                                    * 
+*                                                               *
+*                                        1985  T. Kobayashi     *
+*                                                               *
+*         Calling sequence :                                    *
+*                 plopen(mode);                                 *
+*                 _plsend(buf, nbytes);                         *
+*                 _plnorm(x);                                   *
+*                 plots(mode);                                  *
+*                 plote();                                      *
+*                 plot(x, y, z);                                *
+*                 plotr(ip, x, y);                              *
+*                 plota(ip, x, y);                              *
+*                 origin(x, y);                                 *
+*                 mode(ltype, lscale);                          *
+*                 chlnmod(_lnmode);                             *
+*                                                               *
 ****************************************************************/
 
 #include <stdio.h>
