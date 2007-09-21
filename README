@@ -20,7 +20,7 @@ Engineering, Nagoya Institute of Technology) as a coordinator in
 cooperation with Dr. Takashi Masuko (currently he is with
 Corporate Research & Development Center, Toshiba Corp.),
 Dr. Kazuhito Koishida (currently he is with Microsoft Research),
-Dr. Shinji Sako (currently he is a Research Asociate, Nagoya
+Dr. Shinji Sako (currently he is a Research Associate, Nagoya
 Institute of Technology), Dr, Heiga Zen (currently he is a
 PostDoc fellow at Nagoya Institute of Technology), and some
 graduate students.
@@ -68,48 +68,52 @@ details.
 
 The current copyright on the toolkit is
 
-----------------------------------------------------------------
-      Speech Signal Processing Toolkit (SPTK): version 3.1
-                       SPTK Working Group
-
-                 Department of Computer Science
-                 Nagoya Institute of Technology
-                              and
-  Interdisciplinary Graduate School of Science and Engineering
-                 Tokyo Institute of Technology
-                    Copyright (c) 1984-2007
-                      All Rights Reserved.
-
-Permission is hereby granted, free of charge, to use and
-distribute this software and its documentation without
-restriction, including without limitation the rights to use,
-copy, modify, merge, publish, distribute, sublicense, and/or
-sell copies of this work, and to permit persons to whom this
-work is furnished to do so, subject to the following conditions:
-
- 1. The code must retain the above copyright notice, this list
-    of conditions and the following disclaimer.
-
- 2. Any modifications must be clearly marked as such.
-
- 3. Redistributions in binary form must reproduce the above
-    copyright notice, this list of conditions and the following
-    disclaimer in the documentation and/or other materials
-    provided with the distribution.  Otherwise, one must contact
-    the HTS working group.
-
-NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSTITUTE OF TECHNOLOGY,
-SPTK WORKING GROUP, AND THE CONTRIBUTORS TO THIS WORK DISCLAIM
-ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT
-SHALL NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSTITUTE OF
-TECHNOLOGY, SPTK WORKING GROUP, NOR THE CONTRIBUTORS BE LIABLE
-FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY
-DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
-WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTUOUS
-ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-----------------------------------------------------------------
+ ---------------------------------------------------------------  
+           Speech Signal Processing Toolkit (SPTK)                
+                                                                  
+                     SPTK Working Group                           
+                                                                   
+                 Department of Computer Science                   
+                 Nagoya Institute of Technology                   
+                                and                                 
+  Interdisciplinary Graduate School of Science and Engineering    
+                 Tokyo Institute of Technology                    
+                                                                    
+                    Copyright (c) 1984-2007                       
+                      All Rights Reserved.                        
+                                                                 
+ Permission is hereby granted, free of charge, to use and         
+ distribute this software and its documentation without           
+ restriction, including without limitation the rights to use,     
+ copy, modify, merge, publish, distribute, sublicense, and/or     
+ sell copies of this work, and to permit persons to whom this     
+ work is furnished to do so, subject to the following conditions: 
+                                                                    
+   1. The source code must retain the above copyright notice,     
+      this list of conditions and the following disclaimer.       
+                                                                    
+   2. Any modifications to the source code must be clearly        
+      marked as such.                                             
+                                                                    
+   3. Redistributions in binary form must reproduce the above     
+      copyright notice, this list of conditions and the           
+      following disclaimer in the documentation and/or other      
+      materials provided with the distribution.  Otherwise, one   
+      must contact the SPTK working group.                        
+                                                                    
+ NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSTITUTE OF TECHNOLOGY,   
+ SPTK WORKING GROUP, AND THE CONTRIBUTORS TO THIS WORK DISCLAIM   
+ ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL       
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT   
+ SHALL NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSTITUTE OF         
+ TECHNOLOGY, SPTK WORKING GROUP, NOR THE CONTRIBUTORS BE LIABLE   
+ FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY        
+ DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,  
+ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTUOUS   
+ ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR          
+ PERFORMANCE OF THIS SOFTWARE.                                    
+                                                                    
+ ---------------------------------------------------------------  
 
 ****************************************************************
                           Environment
@@ -224,9 +228,8 @@ and others.
                            Who we are
 ****************************************************************
 
-SPTK working group is a voluntary group for developing the
-Speech Signal Processing Toolkit.  Current SPTK working group
-members are
+The SPTK working group is a voluntary group for developing the
+Speech Signal Processing Toolkit.  Current members are
 
  Keiichi Tokuda (Coordinator) http://www.sp.nitech.ac.jp/~tokuda/
  Takashi Masuko
