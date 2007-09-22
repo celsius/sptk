@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-* $Id: plot.h,v 1.8 2007/09/19 09:06:02 heigazen Exp $          *  
+* $Id: plot.h,v 1.9 2007/09/22 13:01:11 heigazen Exp $          *  
 * HEADER for XY-PLOTTER library                                 *
 *                                                               *
 *    Following commands are valid for the xy plotter FP5301     *
@@ -112,8 +112,8 @@
 /* interfacing */
 
 struct co_ord {
-   float xo;
-   float yo;
+   double xo;
+   double yo;
 };
 
 #define sign(x)  (x & 0xffff8000)
