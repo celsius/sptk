@@ -3,3 +3,4 @@ log*
 configure.scan
 Makefile
 config.status
+Makefile.in
