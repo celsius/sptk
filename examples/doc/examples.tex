@@ -96,7 +96,8 @@ DEC Alpha AXP) and ``big endian'' (Sun SPARC, HP PA-RISC, IBM PowerPC, Motorola
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling, little endian)\\
+  data.short: speech data included in this example (short integer: 16-bit, 16
+  kHz sampling, little endian)\\
   data.short-b: speech data (short integer: 16-bit, 16 kHz sampling, big endian)
 \end{description}
 
@@ -108,7 +109,7 @@ swab +s < data.short > data.short-b
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)
 \end{description}
 
 \begin{verbatim}
@@ -119,7 +120,7 @@ dmp +s data.short | less
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)\\
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)\\
 %   \htmladdnormallink{data.float}{data.float.wav}: 
   speech data (float, 16 kHz sampling)\\
 \end{description}
@@ -132,7 +133,7 @@ x2x +sf < data.short > data.float
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)
 \end{description}
 
 \begin{verbatim}
@@ -145,7 +146,7 @@ gwave +s data.short | xgr
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)\\
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)\\
   figure.eps: Encapsulated PostScript file
 \end{description}
 
@@ -157,7 +158,7 @@ gwave +s data.short | psgr > figure.eps
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)
 \item[Note:]
   This works only on Sun and Linux.
 \end{description}
@@ -170,7 +171,7 @@ da -s 16 -a 100 data.short
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)
 \end{description}
 
 \begin{verbatim}
@@ -186,7 +187,7 @@ gwave +s | xgr
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)\\
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)\\
 \item[Conditions:]
   frame length: 640 points (40 ms)\\
   frame period: 80 points (5 ms)\\
@@ -224,7 +225,7 @@ fdrw -y 0 250 -W 1.5 -H 0.4 < data.pitch | xgr
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)\\
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)\\
   data.mcep: mel-cepstrum (float)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
@@ -327,7 +328,7 @@ da +f -s 16 data.mcep.syn
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)\\
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)\\
   data.lpc: LPC coefficients (float)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
@@ -719,7 +720,7 @@ da +f -s 16 data.mcep.vq.syn
 
 \begin{description}
 \item[Files:] 
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
   frame period: 80 points (5 ms)\\
@@ -738,7 +739,7 @@ lpc -l 400 -m 12 | lpc2c -m 12 -M 12 > data.lpc.cep
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
   frame period: 80 points (5 ms)\\
@@ -766,7 +767,7 @@ mgc2mgc -m 12 -a 0 -g -1 -n -u -M 12 -A 0.42 -G 0 > data.lpc.mcep
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling)\\
+  data.short: speech data included in this example (short integer: 16-bit, 16 kHz sampling)\\
   data.mcep: mel-cepstrum (float)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
@@ -786,7 +787,7 @@ mcep -l 512 -m 12 -a 0.42 > data.mcep.mcep
 
 \begin{description}
 \item[Files:]
-   speech data: data (short integer: 16-bit, 10 kHz sampling)\\
+   data.short: speech data included in this example (short integer: 16-bit, 10 kHz sampling)\\
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
   frame period: 80 points (5 ms)\\
@@ -955,7 +956,7 @@ data.mcep.{high,low,fast,slow,hoarse,robot,child,deep}.syn
 \begin{description}
 \item[Files:]
   sample.pdf: sequence of mean and variance
-              corresponding to a state sequence (float)\\
+              corresponding to a state sequence included in this example (float, little endian)\\
   sample.mcep: mel-cepstrum generated from HMM (float)
 \item[Conditions:]
   analysis order: 24\\
@@ -995,7 +996,8 @@ mgc2sp -m 24 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 
 \begin{description}
 \item[Files:]
-  sample.pitch: pitch data generated by MSD-HMM (float)\\
+  sample.pitch: pitch data generated by a sequence of MSD-HMMs included in this
+  example (float, little endian)\\
   sample.mcep: mel-cepstrum (float) \\
 %   \htmladdnormallink{sample.mcep.syn}{sample.mcep.syn.wav}: 
   synthesized speech (float)
