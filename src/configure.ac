@@ -2,10 +2,13 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
 AC_INIT(SPTK, 3.1, dsp-cmnd@sp.nitech.ac.jp)
+AC_CONFIG_AUX_DIR([config])
 AC_COPYRIGHT(Copyright 1984-2007 Nagoya Institute of Technology and Tokyo Institute of Technology)
+AM_INIT_AUTOMAKE(SPTK, 3.1, nostdinc no-installinfo no-installman)
 AC_SUBST(PACKAGE_NAME)
 AC_SUBST(PACKAGE_VERSION)
 
+AC_CONFIG_SRCDIR([bin/acep/acep.c])
 
 # Checks for programs.
 AC_PROG_CC
@@ -25,9 +28,13 @@ AC_CHECK_LIB([m], [main])
 
 # Checks for X Window Systems
 AC_PATH_X
-AC_SUBST(x_includes)
-AC_SUBST(x_libraries)
+AC_PATH_XTRA
 
+if test x$no_x = "x"; then
+	AM_CONDITIONAL( USEXGR, true)
+	else
+	AM_CONDITIONAL( USEXGR, false)
+fi
 
 # Checks for header files.
 AC_HEADER_STDC
@@ -38,6 +45,8 @@ AC_CHECK_HEADERS([fcntl.h limits.h stdlib.h string.h strings.h sys/ioctl.h])
 AC_C_CONST
 AC_TYPE_SIZE_T
 
+# use host info
+AC_CANONICAL_HOST
 
 # Checks for library functions.
 AC_PROG_GCC_TRADITIONAL
@@ -45,35 +54,61 @@ AC_FUNC_MALLOC
 AC_FUNC_STRTOD
 AC_CHECK_FUNCS([bzero memset pow sqrt strrchr])
 
-
-# Checks for OS
-AC_CANONICAL_TARGET
-case "$target_os" in
-   *linux*)
-	DA_OSTYPE=LINUX
-   ;;
-   *solaris*)
-   	DA_OSTYPE=SOLARIS
-   ;;
-   *sun*)
-   	DA_OSTYPE=SUNOS
-   ;;
-   *freebsd*)
-   	DA_OSTYPE=FreeBSD
-   ;;
-esac
-AC_SUBST(DA_OSTYPE)
-
-
 # Checks for double 
-AC_ARG_VAR([DOUBLE],[use double precision instead of single precision for floating point operations])
-if test -z $DOUBLE; then
-	DOUBLE=0
+use_double=no
+AC_ARG_ENABLE(double,
+	      [  --enable-double         deal with data in double (default=no)],
+	      [ if test "$enable_double" = "yes"; then
+	       		use_double=yes
+			AC_DEFINE(DOUBLE)
+		fi])
+use_da=yes
+AC_ARG_ENABLE(da,
+	      [  --enable-da             use audio output (default=yes)],
+	      [ if test "$enable_da" = "no"; then
+	       		use_da=no
+		fi])
+
+# Checks for audio device
+if test "$use_da" = "yes"; then
+AC_MSG_CHECKING(audio device)
+	case $host in
+	*-sunos*)
+		AC_MSG_RESULT([sunos])
+		AC_CHECK_HEADER([sys/audioio.h],
+				[AC_DEFINE(SOLARIS)],
+				[AC_MSG_ERROR([sys/audioio.h is not found])])
+		AM_CONDITIONAL( USEDA, true)
+		;;
+	*-solaris*)
+		AC_MSG_RESULT([solaris])
+		AC_CHECK_HEADER([sys/audioio.h],
+				[AC_DEFINE(SOLARIS)],
+				[AC_MSG_ERROR([sys/audioio.h is not found])])
+		AM_CONDITIONAL( USEDA, true)
+		;;
+	*-linux*)
+		AC_MSG_RESULT([linux])
+		AC_CHECK_HEADER([sys/soundcard.h],
+				[AC_DEFINE(LINUX)],
+				[AC_MSG_ERROR([sys/soundcard.h is not found])])
+		AM_CONDITIONAL( USEDA, true)
+		;;
+	*-freebsd*)
+		AC_MSG_RESULT([freebsd])
+		AC_CHECK_HEADER([sys/soundcard.h],
+				[AC_DEFINE(LINUX)],
+				[AC_MSG_ERROR([sys/soundcard.h is not found])])
+		AM_CONDITIONAL( USEDA, true)
+		;;
+	*)
+		AC_MSG_WARN([not found])
+		AM_CONDITIONAL( USEDA, false)
+		;;
+	esac
+else
+	AM_CONDITIONAL( USEDA, false)
 fi
-if test "$DOUBLE" -ne 0; then
-	DDOUBLE=-DDOUBLE
-fi
-AC_SUBST(DDOUBLE)
 
 AC_CONFIG_FILES([Makefile
                  bin/Makefile
@@ -183,7 +218,6 @@ AC_CONFIG_FILES([Makefile
                  bin/zerodf/Makefile
                  include/Makefile
                  lib/Makefile
-                 lib/Makefile.lib
                  script/Makefile])
 AC_OUTPUT
 
