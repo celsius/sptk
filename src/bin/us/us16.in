@@ -1,4 +1,4 @@
-#!/bin/csh -f
+#! @cshpath@ -f
 #  ---------------------------------------------------------------  #
 #            Speech Signal Processing Toolkit (SPTK)                #
 #                      SPTK Working Group                           #
@@ -56,10 +56,10 @@
 #                                                                       #
 #########################################################################
 
-set path        = ( /usr/local/SPTK/bin $path )
-set libpath     = /usr/local/SPTK/lib
+set path        = ( @binpath@ $path )
+set libpath     = @libpath@
 set sptkver     = 'SPTK_VERSION'
-set cvsid       = '$Id: us16.sh,v 1.11 2007/09/15 14:43:03 heigazen Exp $'
+set cvsid       = '$Id: us16.in,v 1.1 2007/09/22 17:50:46 s_sako Exp $'
 
 set cmnd        = `basename $0`
 
