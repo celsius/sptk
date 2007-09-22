@@ -56,7 +56,7 @@
 #########################################################################
 
 set path    = ( @binpath@ $path )
-set sptkver = 'SPTK_VERSION'
+set sptkver = '@sptk_version@'
 set cvsid   = '$Id$'
 
 set cmnd    = $0

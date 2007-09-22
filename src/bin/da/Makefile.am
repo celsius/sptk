@@ -13,6 +13,7 @@ EXTRA_DIST = da.in
 
 replace_path  = sed -e 's,@bindir@,$(DESTDIR)$(bindir),g' \
 	       -e 's,@libdir@,$(DESTDIR)$(libdir),g' \
+	       -e 's,@sptk_version@,$(PACKAGE_VERSION),g' \
 	       -e 's,@cshpath@,$(CSH),' 
 
 .in.sh:

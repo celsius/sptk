@@ -19,7 +19,8 @@ EXTRA_DIST = us16.in uscd.in
 
 replace_path  = sed -e 's,@bindir@,$(DESTDIR)$(bindir),g' \
 	       -e 's,@libdir@,$(DESTDIR)$(libdir),g'  \
-	       -e 's,@cshpath@,$(csh),' 
+	       -e 's,@sptk_version@,$(PACKAGE_VERSION),g'  \
+	       -e 's,@cshpath@,$(CSH),' 
 
 .in.sh:
 	$(replace_path) < $< > $@
