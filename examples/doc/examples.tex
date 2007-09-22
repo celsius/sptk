@@ -78,7 +78,7 @@
 %   By cliking links, your PC may play some speech files, which
 %   were converted from ``float'' format into ``wav'' format
 %   (16 kHz sampling, 16-bit integer).
-% \end{htmlonly}
+% \end{htmlonly} 
 
 \tableofcontents
 
@@ -90,17 +90,18 @@
 impulse -h
 \end{verbatim}
 
-\subsection{Data type conversion between ``big endian'' (Sparc, PA-RISC, PowerPC, etc.)
-and ``little endian'' (x86, IA-64, Alpha AXP, etc.)}
+\subsection{Data type conversion between ``little endian'' (e.g., Intel x86,
+DEC Alpha AXP) and ``big endian'' (Sun SPARC, HP PA-RISC, IBM PowerPC, Motorola
+680x0).}
 
 \begin{description}
 \item[Files:]
-  data.short: speech data (short integer: 16-bit, 16 kHz sampling, big endian)\\
-  data.short-l: speech data (short integer: 16-bit, 16 kHz sampling, little endian)
+  data.short: speech data (short integer: 16-bit, 16 kHz sampling, little endian)\\
+  data.short-b: speech data (short integer: 16-bit, 16 kHz sampling, big endian)
 \end{description}
 
 \begin{verbatim}
-swab +s < data.short > data.short-l
+swab +s < data.short > data.short-b
 \end{verbatim}
 
 \subsection{Dump a binary data file}
