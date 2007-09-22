@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.1 2007/09/22 17:43:46 s_sako Exp $
+## $Id: Makefile.am,v 1.2 2007/09/22 19:18:21 s_sako Exp $
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = us
 bin_SCRIPTS = us16.sh uscd.sh
@@ -19,7 +19,8 @@ EXTRA_DIST = us16.in uscd.in
 
 replace_path  = sed -e 's,@bindir@,$(DESTDIR)$(bindir),g' \
 	       -e 's,@libdir@,$(DESTDIR)$(libdir),g'  \
-	       -e 's,@cshpath@,$(csh),' 
+	       -e 's,@sptk_version@,$(PACKAGE_VERSION),g'  \
+	       -e 's,@cshpath@,$(CSH),' 
 
 .in.sh:
 	$(replace_path) < $< > $@

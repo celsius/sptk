@@ -58,8 +58,8 @@
 set path        = ( @binpath@ $path )
 set libpath     = @libpath@
 set cmnd        = `basename $0`
-set sptkver     = 'SPTK_VERSION'
-set cvsid       = '$Id: da.in,v 1.1 2007/09/22 17:49:50 s_sako Exp $'
+set sptkver     = '@sptk_version@'
+set cvsid       = '$Id: da.in,v 1.2 2007/09/22 19:18:20 s_sako Exp $'
 
 set file        = ""
 set stdinput    = 1

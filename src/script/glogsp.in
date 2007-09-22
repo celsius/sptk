@@ -57,8 +57,8 @@
 #########################################################################
 
 set path    = ( @binpath@ $path )
-set sptkver = 'SPTK_VERSION'
-set cvsid   = '$Id: glogsp.in,v 1.1 2007/09/22 17:49:17 s_sako Exp $'
+set sptkver = '@sptk_version@'
+set cvsid   = '$Id: glogsp.in,v 1.2 2007/09/22 19:17:40 s_sako Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
