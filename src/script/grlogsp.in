@@ -1,4 +1,4 @@
-#! /bin/csh -f
+#! @cshpath@ -f
 #  ---------------------------------------------------------------  #
 #            Speech Signal Processing Toolkit (SPTK)                #
 #                      SPTK Working Group                           #
@@ -57,10 +57,9 @@
 #                                                                       #
 #########################################################################
 
-set path    = ( /usr/local/SPTK/bin $path )
+set path    = ( @binpath@ $path )
 set sptkver = 'SPTK_VERSION'
 set cvsid   = '$Id$'
-set format  = 'float'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -246,7 +245,7 @@ usage:
         echo2 '       grlogsp.sh [ options ] [ infile ] > stdout'
         echo2 '  options:'
         echo2 '       -t             : transpose x and y axes       [FALSE]'
-        echo2 '       -O   O         : origin of graph              [1]    '
+        echo2 '       -O   O         : origin of graph              [6]    '
 if ( $help ) then
         echo2 '                         1 ( 25, yo) <mm>   +-----------+'
         echo2 '                         2 ( 60, yo) <mm>   |           |'
@@ -273,9 +272,9 @@ endif
         echo2 '       -e   e         : end frame number             [EOF]'
         echo2 '       -n   n         : number of frame              [EOF]'
         echo2 '       -l   l         : frame length                 [256]'
-        echo2 '       -c   "c"       : comment for the graph        [N/A]'
-        echo2 '       -c2  "c2"      : comment for the graph        [N/A]'
-        echo2 '       -c3  "c3"      : comment for the graph        [N/A]'
+        echo2 '       -c   "c"       : comment for the graph        [""]'
+        echo2 '       -c2  "c2"      : comment for the graph        [""]'
+        echo2 '       -c3  "c3"      : comment for the graph        [""]'
         echo2 '       -h             : print this message'
         echo2 '       -help          : print help in detail'
 if ( $help ) then
@@ -296,7 +295,7 @@ if ( $help ) then
         echo2 '       -f   f         : additional data file for fig [NULL]'
 endif
         echo2 '  infile:'
-        echo2 "       log spectrum ($format)                          [stdin]"
+        echo2 '       log spectrum (float)                          [stdin]'
         echo2 '  stdout:'
         echo2 '       XY-plotter command'
         echo2 "  SPTK: version $sptkver"
@@ -395,10 +394,5 @@ endif
 
 if ($trans) set T = "-t -1"
 
-if ( $format == 'float' ) then
-        bcut -s $s $ee +f $file|\
-        fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z
-else
-        bcut -s $s $ee +d $file|\
-        fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z
-endif
+bcut -s $s $ee +f $file|\
+fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z

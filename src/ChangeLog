@@ -1,0 +1,4196 @@
+2007-09-22 22:08  heigazen
+
+	* bin/lbg/lbg.c (1.13): Fix bug: DOUBLE compile doesn't work
+	  properly.
+
+2007-09-22 22:01  heigazen
+
+	* bin/fig+fdrw/: fig0.c (1.11), fig1.c (1.11), plot.c (1.9), plot.h
+	  (1.9), plsub.c (1.10): Fix bug: DOUBLE compile doesn't work
+	  properly.
+
+2007-09-22 00:18  heigazen
+
+	* bin/: average/average.c (1.13), clip/clip.c (1.11), fftr/fftr.c
+	  (1.12), gcep/gcep.c (1.14), ds/ds.c (1.10), fig+fdrw/fdrw.c
+	  (1.14), fig+fdrw/fig.c (1.14), merge/merge.c (1.13),
+	  phase/phase.c (1.12), reverse/reverse.c (1.13), sin/sin.c (1.12),
+	  sp2mgc/sp2mgc.c (1.8), vstat/vstat.c (1.13), window/window.c
+	  (1.12), bcut/bcut.c (1.12), dfs/dfs.c (1.12), glsadf/glsadf.c
+	  (1.18), pitch/pitch.c (1.19), spec/spec.c (1.12), swab/swab.c
+	  (1.11), us/us.c (1.14), acep/acep.c (1.13), agcep/agcep.c (1.15),
+	  c2acr/c2acr.c (1.14), mlsadf/mlsadf.c (1.15), nan/nan.c (1.14),
+	  gc2gc/gc2gc.c (1.13), ifft/ifft.c (1.13), lmadf/lmadf.c (1.13),
+	  mc2b/mc2b.c (1.11), mcep/mcep.c (1.13), mgcep/mgcep.c (1.16),
+	  sopr/sopr.c (1.13), fd/fd.c (1.13), fftr2/fftr2.c (1.12),
+	  grpdelay/grpdelay.c (1.12), lsp2lpc/lsp2lpc.c (1.14),
+	  mglsadf/mglsadf.c (1.15), step/step.c (1.12), uels/uels.c (1.12),
+	  lspdf/lspdf.c (1.15), ramp/ramp.c (1.12), root_pol/root_pol.c
+	  (1.12), ulaw/ulaw.c (1.11), xgr/xgr.c (1.11), bcp/bcp.c (1.11),
+	  c2ir/c2ir.c (1.13), da/dawrite.c (1.15), echo2/echo2.c (1.12),
+	  extract/extract.c (1.11), ifft2/ifft2.c (1.12), train/train.c
+	  (1.12), vopr/vopr.c (1.12), vq/vq.c (1.10), zcross/zcross.c
+	  (1.12), dmp/dmp.c (1.13), imglsadf/imglsadf.c (1.16),
+	  mgc2mgc/mgc2mgc.c (1.13), fftcep/fftcep.c (1.14),
+	  histogram/histogram.c (1.12), vsum/vsum.c (1.11), zerodf/zerodf.c
+	  (1.11), lpc2lsp/lpc2lsp.c (1.16), lspcheck/lspcheck.c (1.12),
+	  mgc2sp/mgc2sp.c (1.14), msvq/msvq.c (1.11), smcep/smcep.c (1.14),
+	  x2x/x2x.c (1.15), df2/df2.c (1.12), iglsadf/iglsadf.c (1.14),
+	  nrand/nrand.c (1.11), rmse/rmse.c (1.12), ignorm/ignorm.c (1.12),
+	  lbg/lbg.c (1.12), snr/snr.c (1.12), amcep/amcep.c (1.14),
+	  ivq/ivq.c (1.10), lpc2par/lpc2par.c (1.11), c2sp/c2sp.c (1.12),
+	  fft2/fft2.c (1.12), gnorm/gnorm.c (1.13), levdur/levdur.c (1.11),
+	  linear_intpl/linear_intpl.c (1.13), ltcdf/ltcdf.c (1.11),
+	  mlpg/mlpg.c (1.13), acorr/acorr.c (1.14), delay/delay.c (1.15):
+	  Fix inconsistencies between help messages & header comments.
+
+2007-09-21 23:46  heigazen
+
+	* bin/: fig+fdrw/fig.h (1.5), fig+fdrw/fig0.c (1.10),
+	  fig+fdrw/fig1.c (1.10), fig+fdrw/plot.c (1.8), fig+fdrw/plsub.c
+	  (1.9), psgr/eps.c (1.7), psgr/plot.c (1.9), xgr/plot.c (1.12),
+	  xgr/window.c (1.9): Fix comments.
+
+2007-09-21 01:50  heigazen
+
+	* script/: Makefile.in (1.4), glogsp.sh (1.8), grlogsp.sh (1.9),
+	  gwave.sh (1.7): Support DOUBLE compile.
+
+2007-09-21 01:35  heigazen
+
+	* lib/getfp.c (1.6): char -> char *
+
+2007-09-21 01:34  heigazen
+
+	* lib/: getmem.c (1.8), fileio.c (1.7): Fix typo.
+
+2007-09-21 01:29  heigazen
+
+	* bin/levdur/_levdur.c (1.10): Fix rmd checking.
+
+2007-09-21 01:24  heigazen
+
+	* lib/theq.c (1.9): Add "static" and "const".
+
+2007-09-20 15:57  heigazen
+
+	* bin/zcross/zcross.c (1.11), bin/fftr/fftr.c (1.11),
+	  bin/histogram/histogram.c (1.11), bin/ifft2/ifft2.c (1.11),
+	  bin/lspcheck/lspcheck.c (1.11), bin/phase/phase.c (1.11),
+	  bin/pitch/pitch.c (1.18), bin/reverse/reverse.c (1.12),
+	  bin/smcep/smcep.c (1.13), bin/vopr/vopr.c (1.11), script/bell.sh
+	  (1.7), script/glogsp.sh (1.7), script/grlogsp.sh (1.8),
+	  bin/c2ir/c2ir.c (1.12), bin/fft2/fft2.c (1.11), bin/fftr2/fftr2.c
+	  (1.11), bin/grpdelay/grpdelay.c (1.11), bin/ifft/ifft.c (1.12),
+	  bin/root_pol/root_pol.c (1.11): Fix inconsistencies between
+	  reference manual & help messages.
+
+2007-09-19 23:35  heigazen
+
+	* bin/us/us.c (1.13): Small fixes.
+
+2007-09-19 23:30  heigazen
+
+	* bin/: us/Makefile.in (1.4), us/us.c (1.12), us/uscd.sh (1.14),
+	  snr/snr.c (1.11): Support DOUBLE compilation.
+
+2007-09-19 18:06  heigazen
+
+	* bin/fig+fdrw/: fdrw.c (1.13), fig.c (1.13), fig0.c (1.9), fig1.c
+	  (1.9), plot.c (1.7), plot.h (1.8), plsub.c (1.8): Use double
+	  instead of float.
+
+2007-09-19 17:46  heigazen
+
+	* bin/nan/nan.c (1.13): Use standard C99.
+
+2007-09-19 17:45  heigazen
+
+	* bin/nan/Makefile.in (1.3): Add -std=c99.
+
+2007-09-19 04:56  heigazen
+
+	* bin/minmax/minmax.c (1.11): Store data numbers only if option
+	  '-d' is specified.
+
+2007-09-18 12:52  heigazen
+
+	* bin/da/dawrite.c (1.14), bin/fd/fd.c (1.12), include/SPTK.h
+	  (1.12), lib/fillz.c (1.6), lib/movem.c (1.6), lib/theq.c (1.8):
+	  Use size_t instead of int.
+
+2007-09-18 12:38  heigazen
+
+	* bin/xgr/plot.c (1.11): m_flg -> mono_flg.
+
+2007-09-18 11:01  heigazen
+
+	* bin/sp2mgc/sp2mgc.c (1.7): Use size_t instead of int.
+
+2007-09-18 10:57  heigazen
+
+	* bin/: dmp/dmp.c (1.12), frame/frame.c (1.11): Use size_t instead
+	  of int.
+
+2007-09-18 10:53  heigazen
+
+	* bin/: swab/swab.c (1.10), bcut/bcut.c (1.11): Use size_t instead
+	  of int.
+
+2007-09-18 04:22  heigazen
+
+	* lib/getmem.c (1.7): Use size_t instead of int.  Remove prototype
+	  definitions.
+
+2007-09-18 04:14  heigazen
+
+	* lib/fileio.c (1.6), include/SPTK.h (1.11): Use size_t instead of
+	  int.
+
+2007-09-18 04:05  heigazen
+
+	* bin/linear_intpl/linear_intpl.c (1.12): Add -i and -j options.
+
+2007-09-18 04:01  heigazen
+
+	* bin/merge/merge.c (1.12): Use size_t instead of int.
+
+2007-09-18 03:55  heigazen
+
+	* bin/x2x/x2x.c (1.14): Use size_t instead of int.
+
+2007-09-18 03:51  heigazen
+
+	* bin/xgr/xgr.c (1.10): Rename m_flg -> mono_flg.
+
+2007-09-18 03:43  heigazen
+
+	* bin/fig+fdrw/fig0.c (1.8): Add ().
+
+2007-09-18 03:43  heigazen
+
+	* bin/fig+fdrw/fig1.c (1.8): 1 & 2 -> 1.0 & 2.0
+
+2007-09-18 02:46  heigazen
+
+	* bin/acorr/_acorr.c (1.7): Modify initialization.
+
+2007-09-18 02:29  heigazen
+
+	* lib/theq.c (1.7): Remove prototype definitions.
+
+2007-09-16 02:45  heigazen
+
+	* bin/step/step.c (1.11): Add -v option to specify step value.
+
+2007-09-16 02:28  heigazen
+
+	* bin/ramp/ramp.c (1.11): Fix a comment.
+
+2007-09-16 02:15  heigazen
+
+	* bin/window/: window.c (1.11), _window.c (1.9): Modify casting.
+
+2007-09-16 01:58  heigazen
+
+	* bin/window/_window.c (1.8): Change initialization.
+
+2007-09-15 23:49  heigazen
+
+	* bin/x2x/x2x.c (1.13): N/A -> %%g
+
+2007-09-15 23:43  heigazen
+
+	* bin/us/: us16.sh (1.11), uscd.sh (1.13): Update help messages.
+
+2007-09-15 23:41  heigazen
+
+	* bin/us/us16.sh (1.10): uscd -> us16
+
+2007-09-15 23:40  heigazen
+
+	* bin/us/us.c (1.11): Small fix.
+
+2007-09-15 23:26  heigazen
+
+	* bin/nan/nan.c (1.12): Remove -d option.
+
+2007-09-15 23:24  heigazen
+
+	* bin/mlsadf/mlsadf.c (1.14): Update comment.
+
+2007-09-15 23:22  heigazen
+
+	* bin/merge/merge.c (1.11): Update help message.
+
+2007-09-15 23:14  heigazen
+
+	* bin/lpc2lsp/lpc2lsp.c (1.15): Fix a bug.
+
+2007-09-15 23:12  heigazen
+
+	* bin/linear_intpl/linear_intpl.c (1.11): Update comment.
+
+2007-09-15 23:07  heigazen
+
+	* bin/interpolate/interpolate.c (1.11): Update message.
+
+2007-09-15 00:04  heigazen
+
+	* bin/lspdf/lspdf.c (1.14): Fix bug: option '-l' doesn't work.
+
+2007-09-14 21:30  heigazen
+
+	* bin/lspdf/lspdf.c (1.13): break in switch was missing.
+
+2007-09-12 17:37  heigazen
+
+	* bin/clip/Makefile.in (1.2), bin/clip/_clip.c (1.8),
+	  bin/clip/clip.c (1.10), bin/fftr/Makefile.in (1.2),
+	  bin/fftr/_fftr.c (1.8), bin/fftr/fftr.c (1.10),
+	  bin/ifft/Makefile.in (1.2), bin/ifft/_ifft.c (1.11),
+	  bin/ifft/ifft.c (1.11), bin/lpc2c/Makefile.in (1.2),
+	  bin/lpc2c/_lpc2c.c (1.8), bin/lpc2c/lpc2c.c (1.10),
+	  bin/lpc2lsp/Makefile.in (1.2), bin/lpc2lsp/_lpc2lsp.c (1.7),
+	  bin/lpc2lsp/lpc2lsp.c (1.14), bin/phase/Makefile.in (1.2),
+	  bin/phase/_phase.c (1.7), bin/phase/phase.c (1.10),
+	  bin/xgr/Makefile.in (1.2), bin/xgr/config.h (1.4),
+	  bin/xgr/gcdata.h (1.4), bin/xgr/plot.c (1.10), bin/xgr/window.c
+	  (1.8), bin/xgr/xgr.c (1.9), bin/xgr/xgr.h (1.7),
+	  bin/cat2/Makefile.in (1.2), bin/cat2/cat2.c (1.11),
+	  bin/gc2gc/Makefile.in (1.2), bin/gc2gc/_gc2gc.c (1.8),
+	  bin/gc2gc/gc2gc.c (1.12), bin/gcep/Makefile.in (1.2),
+	  bin/gcep/_gcep.c (1.7), bin/gcep/gcep.c (1.13),
+	  bin/grpdelay/Makefile.in (1.2), bin/grpdelay/_grpdelay.c (1.8),
+	  bin/grpdelay/grpdelay.c (1.10), bin/merge/Makefile.in (1.2),
+	  bin/merge/merge.c (1.10), bin/poledf/Makefile.in (1.2),
+	  bin/poledf/_poledf.c (1.7), bin/poledf/poledf.c (1.11),
+	  bin/psgr/Makefile.in (1.2), bin/psgr/dict.c (1.5), bin/psgr/eps.c
+	  (1.6), bin/psgr/plot.c (1.8), bin/psgr/psgr.c (1.9),
+	  bin/psgr/psgr.h (1.6), bin/xgr/tills/till1.dat (1.3),
+	  bin/xgr/tills/till11.dat (1.3), bin/xgr/tills/till13.dat (1.3),
+	  bin/xgr/tills/till14.dat (1.3), bin/xgr/tills/till15.dat (1.3),
+	  bin/xgr/tills/till2.dat (1.3), bin/xgr/tills/till5.dat (1.3),
+	  bin/xgr/tills/till6.dat (1.3), bin/xgr/tills/till7.dat (1.3),
+	  bin/xgr/tills/till8.dat (1.3), bin/agcep/Makefile.in (1.2),
+	  bin/agcep/_agcep.c (1.8), bin/agcep/agcep.c (1.14),
+	  bin/gnorm/Makefile.in (1.2), bin/gnorm/_gnorm.c (1.9),
+	  bin/gnorm/gnorm.c (1.12), bin/xgr/marks/mark0.dat (1.3),
+	  bin/xgr/marks/mark1.dat (1.3), bin/xgr/marks/mark10.dat (1.3),
+	  bin/xgr/marks/mark11.dat (1.3), bin/xgr/marks/mark12.dat (1.3),
+	  bin/xgr/marks/mark13.dat (1.3), bin/xgr/marks/mark14.dat (1.3),
+	  bin/xgr/marks/mark15.dat (1.3), bin/xgr/marks/mark2.dat (1.3),
+	  bin/xgr/marks/mark3.dat (1.3), bin/xgr/marks/mark4.dat (1.3),
+	  bin/xgr/marks/mark5.dat (1.3), bin/xgr/marks/mark6.dat (1.3),
+	  bin/xgr/marks/mark7.dat (1.3), bin/xgr/marks/mark8.dat (1.3),
+	  bin/xgr/marks/mark9.dat (1.3), bin/xgr/tills/till0.dat (1.3),
+	  bin/xgr/tills/till10.dat (1.3), bin/xgr/tills/till12.dat (1.3),
+	  bin/xgr/tills/till16.dat (1.3), bin/xgr/tills/till3.dat (1.3),
+	  bin/xgr/tills/till4.dat (1.3), bin/xgr/tills/till9.dat (1.3),
+	  lib/Makefile.in (1.2), lib/Makefile.lib.in (1.3), lib/agexp.c
+	  (1.5), lib/cholesky.c (1.5), lib/fileio.c (1.5), lib/fillz.c
+	  (1.5), lib/getfp.c (1.5), lib/getmem.c (1.6), lib/gexp.c (1.5),
+	  lib/glog.c (1.6), lib/ifftr.c (1.5), lib/matrix.c (1.6),
+	  lib/movem.c (1.5), lib/mseq.c (1.5), lib/theq.c (1.6),
+	  lib/toeplitz.c (1.5), bin/acorr/Makefile.in (1.2),
+	  bin/acorr/_acorr.c (1.6), bin/acorr/acorr.c (1.13),
+	  bin/fftr2/Makefile.in (1.2), bin/fftr2/_fftr2.c (1.8),
+	  bin/fftr2/fftr2.c (1.10), bin/frame/Makefile.in (1.2),
+	  bin/frame/frame.c (1.10), bin/lspdf/Makefile.in (1.2),
+	  bin/lspdf/_lspdf.c (1.8), bin/lspdf/lspdf.c (1.12),
+	  bin/mcep/Makefile.in (1.2), bin/mcep/_mcep.c (1.11),
+	  bin/mcep/mcep.c (1.12), bin/mglsadf/Makefile.in (1.2),
+	  bin/mglsadf/_mglsadf.c (1.8), bin/mglsadf/mglsadf.c (1.14),
+	  bin/sopr/Makefile.in (1.2), bin/sopr/sopr.c (1.12),
+	  bin/sp2mgc/Makefile.in (1.2), bin/sp2mgc/_sp2mgc.c (1.3),
+	  bin/sp2mgc/sp2mgc.c (1.6), bin/b2mc/Makefile.in (1.2),
+	  bin/b2mc/_b2mc.c (1.6), bin/b2mc/b2mc.c (1.11),
+	  bin/impulse/Makefile.in (1.2), bin/impulse/impulse.c (1.10),
+	  bin/mc2b/Makefile.in (1.2), bin/mc2b/_mc2b.c (1.6),
+	  bin/mc2b/mc2b.c (1.10), bin/mgcep/Makefile.in (1.2),
+	  bin/mgcep/_mgcep.c (1.10), bin/mgcep/mgcep.c (1.15),
+	  bin/smcep/Makefile.in (1.2), bin/smcep/_smcep.c (1.10),
+	  bin/smcep/smcep.c (1.12), bin/spec/Makefile.in (1.2),
+	  bin/spec/spec.c (1.11), bin/step/Makefile.in (1.2),
+	  bin/step/step.c (1.10), bin/amcep/Makefile.in (1.2),
+	  bin/amcep/_amcep.c (1.9), bin/amcep/amcep.c (1.13),
+	  bin/fft/Makefile.in (1.2), bin/fft/_fft.c (1.7), bin/fft/fft.c
+	  (1.11), bin/fig+fdrw/Makefile.in (1.2), bin/fig+fdrw/fdrw.c
+	  (1.12), bin/fig+fdrw/fig.c (1.12), bin/fig+fdrw/fig.h (1.4),
+	  bin/fig+fdrw/fig0.c (1.7), bin/fig+fdrw/fig1.c (1.7),
+	  bin/fig+fdrw/plot.c (1.6), bin/fig+fdrw/plot.h (1.7),
+	  bin/fig+fdrw/plsub.c (1.7), bin/norm0/Makefile.in (1.2),
+	  bin/norm0/_norm0.c (1.6), bin/norm0/norm0.c (1.10),
+	  bin/train/Makefile.in (1.2), bin/train/train.c (1.11),
+	  bin/ulaw/Makefile.in (1.2), bin/ulaw/_ulaw.c (1.7),
+	  bin/ulaw/ulaw.c (1.10), bin/window/Makefile.in (1.2),
+	  bin/window/_window.c (1.7), bin/window/window.c (1.10),
+	  bin/df2/Makefile.in (1.2), bin/df2/_df2.c (1.7), bin/df2/df2.c
+	  (1.11), bin/lspcheck/Makefile.in (1.2), bin/lspcheck/_lspcheck.c
+	  (1.7), bin/lspcheck/lspcheck.c (1.10), bin/ltcdf/Makefile.in
+	  (1.2), bin/ltcdf/_ltcdf.c (1.6), bin/ltcdf/ltcdf.c (1.10),
+	  bin/us/Makefile.in (1.3), bin/us/us.c (1.10), bin/us/us16.sh
+	  (1.9), bin/us/uscd.sh (1.12), bin/vsum/Makefile.in (1.2),
+	  bin/vsum/vsum.c (1.10), bin/zerodf/Makefile.in (1.2),
+	  bin/zerodf/_zerodf.c (1.7), bin/zerodf/zerodf.c (1.10),
+	  include/Makefile.in (1.2), include/SPTK.h (1.10),
+	  bin/cdist/Makefile.in (1.2), bin/cdist/cdist.c (1.12),
+	  bin/histogram/Makefile.in (1.2), bin/histogram/_histogram.c
+	  (1.10), bin/histogram/histogram.c (1.10), bin/ignorm/Makefile.in
+	  (1.2), bin/ignorm/_ignorm.c (1.9), bin/ignorm/ignorm.c (1.11),
+	  bin/lbg/_lbg.c (1.9), bin/lbg/lbg.c (1.11),
+	  bin/lsp2lpc/Makefile.in (1.2), bin/lsp2lpc/_lsp2lpc.c (1.8),
+	  bin/lsp2lpc/lsp2lpc.c (1.13), bin/mlpg/Makefile.in (1.2),
+	  bin/mlpg/mlpg.c (1.12), bin/nrand/Makefile.in (1.2),
+	  bin/nrand/_nrand.c (1.7), bin/nrand/nrand.c (1.10),
+	  bin/x2x/Makefile.in (1.2), bin/x2x/x2x.c (1.12),
+	  bin/c2sp/Makefile.in (1.2), bin/c2sp/_c2sp.c (1.6),
+	  bin/c2sp/c2sp.c (1.11), bin/imsvq/Makefile.in (1.2),
+	  bin/imsvq/_imsvq.c (1.8), bin/imsvq/imsvq.c (1.9),
+	  bin/ivq/Makefile.in (1.2), bin/ivq/_ivq.c (1.8), bin/ivq/ivq.c
+	  (1.9), bin/lbg/Makefile.in (1.2), bin/linear_intpl/Makefile.in
+	  (1.2), bin/linear_intpl/linear_intpl.c (1.10),
+	  bin/lpc2par/Makefile.in (1.2), bin/lpc2par/_lpc2par.c (1.7),
+	  bin/lpc2par/lpc2par.c (1.10), bin/root_pol/Makefile.in (1.2),
+	  bin/root_pol/_root_pol.c (1.6), bin/root_pol/root_pol.c (1.10),
+	  bin/snr/Makefile.in (1.2), bin/snr/snr.c (1.10),
+	  bin/lmadf/Makefile.in (1.2), bin/lmadf/_lmadf.c (1.7),
+	  bin/lmadf/lmadf.c (1.12), script/Makefile.in (1.3),
+	  script/bell.sh (1.6), script/glogsp.sh (1.6), script/grlogsp.sh
+	  (1.7), script/gwave.sh (1.6), bin/acep/Makefile.in (1.2),
+	  bin/acep/_acep.c (1.8), bin/acep/acep.c (1.12),
+	  bin/average/Makefile.in (1.2), bin/average/_average.c (1.8),
+	  bin/average/average.c (1.12), bin/fd/Makefile.in (1.2),
+	  bin/fd/fd.c (1.11), bin/fftcep/Makefile.in (1.2),
+	  bin/fftcep/_fftcep.c (1.7), bin/fftcep/fftcep.c (1.13),
+	  bin/ifft2/Makefile.in (1.2), bin/ifft2/_ifft2.c (1.8),
+	  bin/ifft2/ifft2.c (1.10), bin/msvq/Makefile.in (1.2),
+	  bin/msvq/_msvq.c (1.7), bin/msvq/msvq.c (1.10),
+	  bin/par2lpc/Makefile.in (1.2), bin/par2lpc/_par2lpc.c (1.8),
+	  bin/par2lpc/par2lpc.c (1.10), bin/swab/Makefile.in (1.2),
+	  bin/swab/swab.c (1.9), bin/zcross/Makefile.in (1.2),
+	  bin/zcross/_zcross.c (1.7), bin/zcross/zcross.c (1.10),
+	  bin/da/Makefile.in (1.3), bin/da/da.h (1.9), bin/da/da.sh (1.9),
+	  bin/da/dawrite.c (1.13), bin/delay/Makefile.in (1.2),
+	  bin/delay/delay.c (1.14), bin/levdur/Makefile.in (1.2),
+	  bin/levdur/_levdur.c (1.9), bin/levdur/levdur.c (1.10),
+	  bin/minmax/Makefile.in (1.2), bin/minmax/minmax.c (1.10),
+	  bin/rmse/Makefile.in (1.2), bin/rmse/_rmse.c (1.8),
+	  bin/rmse/rmse.c (1.11), bin/uels/Makefile.in (1.2),
+	  bin/uels/_uels.c (1.13), bin/uels/uels.c (1.11),
+	  bin/c2ir/Makefile.in (1.2), bin/c2ir/_c2ir.c (1.8),
+	  bin/c2ir/c2ir.c (1.11), bin/decimate/Makefile.in (1.2),
+	  bin/decimate/decimate.c (1.10), bin/freqt/Makefile.in (1.2),
+	  bin/freqt/_freqt.c (1.8), bin/freqt/freqt.c (1.10),
+	  bin/iglsadf/Makefile.in (1.2), bin/iglsadf/_iglsadf.c (1.7),
+	  bin/iglsadf/iglsadf.c (1.13), bin/interpolate/Makefile.in (1.2),
+	  bin/interpolate/interpolate.c (1.10), bin/mgc2mgc/Makefile.in
+	  (1.2), bin/mgc2mgc/_mgc2mgc.c (1.7), bin/mgc2mgc/mgc2mgc.c
+	  (1.12), bin/ramp/Makefile.in (1.2), bin/ramp/ramp.c (1.10),
+	  bin/vq/Makefile.in (1.2), bin/vq/_vq.c (1.7), bin/vq/vq.c (1.9),
+	  bin/bcut/Makefile.in (1.2), bin/bcut/bcut.c (1.10),
+	  bin/c2acr/Makefile.in (1.2), bin/c2acr/_c2acr.c (1.7),
+	  bin/c2acr/c2acr.c (1.13), bin/dfs/Makefile.in (1.2),
+	  bin/dfs/_dfs.c (1.7), bin/dfs/dfs.c (1.11), bin/dmp/Makefile.in
+	  (1.2), bin/dmp/dmp.c (1.11), bin/ds/Makefile.in (1.2),
+	  bin/ds/ds.c (1.9), bin/excite/Makefile.in (1.2),
+	  bin/excite/excite.c (1.11), bin/fft2/Makefile.in (1.2),
+	  bin/fft2/_fft2.c (1.8), bin/fft2/fft2.c (1.10),
+	  bin/mgc2sp/Makefile.in (1.2), bin/mgc2sp/_mgc2sp.c (1.7),
+	  bin/mgc2sp/mgc2sp.c (1.13), bin/vstat/Makefile.in (1.2),
+	  bin/vstat/vstat.c (1.12), bin/lpc/Makefile.in (1.2),
+	  bin/lpc/_lpc.c (1.8), bin/lpc/lpc.c (1.13), bin/pitch/Makefile.in
+	  (1.2), bin/pitch/_pitch.c (1.12), bin/pitch/pitch.c (1.17),
+	  bin/echo2/Makefile.in (1.2), bin/echo2/echo2.c (1.11),
+	  bin/imglsadf/Makefile.in (1.2), bin/imglsadf/_imglsadf.c (1.7),
+	  bin/imglsadf/imglsadf.c (1.15), bin/nan/Makefile.in (1.2),
+	  bin/nan/nan.c (1.11), bin/sin/Makefile.in (1.2), bin/sin/sin.c
+	  (1.11), bin/vopr/Makefile.in (1.2), bin/vopr/vopr.c (1.10),
+	  Makefile.in (1.3), bin/Makefile.in (1.2), bin/bcp/Makefile.in
+	  (1.2), bin/bcp/bcp.c (1.10), bin/extract/Makefile.in (1.2),
+	  bin/extract/extract.c (1.10), bin/glsadf/Makefile.in (1.2),
+	  bin/glsadf/_glsadf.c (1.6), bin/glsadf/glsadf.c (1.17),
+	  bin/mlsadf/Makefile.in (1.2), bin/mlsadf/_mlsadf.c (1.8),
+	  bin/mlsadf/mlsadf.c (1.13), bin/reverse/Makefile.in (1.2),
+	  bin/reverse/_reverse.c (1.6), bin/reverse/reverse.c (1.11):
+	  Update license.
+
+2007-09-12 16:01  heigazen
+
+	* bin/mglsadf/mglsadf.c (1.13): Update comments.
+
+2007-09-12 15:54  heigazen
+
+	* bin/: iglsadf/iglsadf.c (1.12), imglsadf/imglsadf.c (1.14):
+	  Update comments.
+
+2007-09-12 15:53  heigazen
+
+	* bin/gnorm/gnorm.c (1.11): Small update.
+
+2007-09-12 15:51  heigazen
+
+	* bin/glsadf/glsadf.c (1.16): Add comments.
+
+2007-09-12 15:43  heigazen
+
+	* configure.ac (1.4): Update copyright.
+
+2007-09-12 15:42  heigazen
+
+	* script/: bell.sh (1.5), glogsp.sh (1.5), grlogsp.sh (1.6),
+	  gwave.sh (1.5): Arrange spaces.
+
+2007-09-12 15:28  heigazen
+
+	* bin/us/: uscd.sh (1.11), us16.sh (1.8): Arrange spaces.
+
+2007-09-12 15:20  heigazen
+
+	* bin/da/da.sh (1.8): Replace tab by spaces.  Add x86_64 into
+	  switches.
+
+2007-09-12 14:51  heigazen
+
+	* lib/Makefile.lib.in (1.2): Add license.
+
+2007-09-11 17:33  heigazen
+
+	* bin/: mgc2sp/mgc2sp.c (1.12), gc2gc/gc2gc.c (1.11), gnorm/gnorm.c
+	  (1.10), ignorm/ignorm.c (1.10), mgc2mgc/mgc2mgc.c (1.11),
+	  mgcep/mgcep.c (1.14), sp2mgc/sp2mgc.c (1.5): If g>1.0 then
+	  g=-1/g.
+
+2007-09-11 17:25  heigazen
+
+	* bin/imglsadf/imglsadf.c (1.13): Arrange spaces.
+
+2007-09-11 16:46  heigazen
+
+	* bin/: agcep/agcep.c (1.13), glsadf/glsadf.c (1.15),
+	  iglsadf/iglsadf.c (1.11): Update gamma handling.
+
+2007-09-11 15:30  heigazen
+
+	* bin/: lspdf/lspdf.c (1.11), glsadf/glsadf.c (1.14),
+	  mglsadf/mglsadf.c (1.12): Include math.h.
+
+2007-09-11 15:26  heigazen
+
+	* bin/fig+fdrw/plot.h (1.6): Add prototype definition of function
+	  join().
+
+2007-09-11 13:42  heigazen
+
+	* bin/us/uscd.sh (1.10): Update usage message.
+
+2007-09-11 13:42  heigazen
+
+	* bin/us/us16.sh (1.7): Set default input/output format to float.
+	  Update usage message.
+
+2007-09-11 12:53  heigazen
+
+	* bin/lpc/lpc.c (1.12): Fix a small bug.
+
+2007-09-11 07:42  heigazen
+
+	* bin/glsadf/glsadf.c (1.13): Fix typo.
+
+2007-09-11 07:41  heigazen
+
+	* bin/glsadf/glsadf.c (1.12): Call lmadf() if g==0.
+
+2007-09-11 07:41  heigazen
+
+	* bin/mglsadf/mglsadf.c (1.11): Call mlsadf() if g==0.
+
+2007-09-11 03:22  heigazen
+
+	* bin/: mlsadf/_mlsadf.c (1.7), mlsadf/mlsadf.c (1.12),
+	  acep/_acep.c (1.7), acep/acep.c (1.11), amcep/_amcep.c (1.8),
+	  amcep/amcep.c (1.12), lmadf/_lmadf.c (1.6), lmadf/lmadf.c (1.11):
+	  pade -> Pade.  Update error message when pade != 4 or 5.
+
+2007-09-11 03:10  heigazen
+
+	* bin/: clip/clip.c (1.9), fftr/fftr.c (1.9), gcep/gcep.c (1.12),
+	  impulse/impulse.c (1.9), lpc2c/lpc2c.c (1.9), reverse/reverse.c
+	  (1.10), sp2mgc/sp2mgc.c (1.4), phase/phase.c (1.9),
+	  excite/excite.c (1.10), imsvq/imsvq.c (1.8), sin/sin.c (1.10),
+	  vstat/vstat.c (1.11), ds/ds.c (1.8), par2lpc/par2lpc.c (1.9),
+	  window/window.c (1.9), glsadf/glsadf.c (1.11), lpc/lpc.c (1.11),
+	  pitch/pitch.c (1.16), spec/spec.c (1.10), c2acr/c2acr.c (1.12),
+	  gc2gc/gc2gc.c (1.10), ifft/ifft.c (1.10), lmadf/lmadf.c (1.10),
+	  mc2b/mc2b.c (1.9), mlsadf/mlsadf.c (1.11), nan/nan.c (1.10),
+	  sopr/sopr.c (1.11), fftr2/fftr2.c (1.9),
+	  interpolate/interpolate.c (1.9), lsp2lpc/lsp2lpc.c (1.12),
+	  mcep/mcep.c (1.11), mgcep/mgcep.c (1.13), c2ir/c2ir.c (1.10),
+	  fig+fdrw/fdrw.c (1.11), grpdelay/grpdelay.c (1.9),
+	  mglsadf/mglsadf.c (1.10), minmax/minmax.c (1.9), ramp/ramp.c
+	  (1.9), root_pol/root_pol.c (1.9), step/step.c (1.9), uels/uels.c
+	  (1.10), ulaw/ulaw.c (1.9), vq/vq.c (1.8), extract/extract.c
+	  (1.9), fft/fft.c (1.10), ifft2/ifft2.c (1.9), imglsadf/imglsadf.c
+	  (1.12), norm0/norm0.c (1.9), train/train.c (1.10), vopr/vopr.c
+	  (1.9), zcross/zcross.c (1.9), cdist/cdist.c (1.11),
+	  fftcep/fftcep.c (1.12), histogram/histogram.c (1.9),
+	  lspcheck/lspcheck.c (1.9), mgc2mgc/mgc2mgc.c (1.10),
+	  poledf/poledf.c (1.10), vsum/vsum.c (1.9), zerodf/zerodf.c (1.9),
+	  b2mc/b2mc.c (1.10), decimate/decimate.c (1.9), freqt/freqt.c
+	  (1.9), mgc2sp/mgc2sp.c (1.11), msvq/msvq.c (1.9), smcep/smcep.c
+	  (1.11), df2/df2.c (1.10), iglsadf/iglsadf.c (1.10),
+	  ignorm/ignorm.c (1.9), ivq/ivq.c (1.8), lbg/lbg.c (1.10),
+	  lpc2par/lpc2par.c (1.9), nrand/nrand.c (1.9), rmse/rmse.c (1.10),
+	  c2sp/c2sp.c (1.10), fft2/fft2.c (1.9), gnorm/gnorm.c (1.9),
+	  levdur/levdur.c (1.9), linear_intpl/linear_intpl.c (1.9),
+	  ltcdf/ltcdf.c (1.9), delay/delay.c (1.13): Tracker:Bugs 1572611.
+	  Output proper help messages when compiled with '-DDOUBLE' option.
+
+2007-09-11 03:03  heigazen
+
+	* bin/dfs/dfs.c (1.10): Fix typo.  Output proper help messages when
+	  compiled with '-DDOUBLE' option.
+
+2007-09-11 02:19  heigazen
+
+	* bin/: da/dawrite.c (1.12), fig+fdrw/fig.c (1.11): Replace exit()
+	  in main() by return().
+
+2007-09-11 02:19  heigazen
+
+	* bin/: lpc2lsp/lpc2lsp.c (1.13), lspdf/lspdf.c (1.10): Add
+	  description about '-l' option to the comment.
+
+2007-09-11 02:10  heigazen
+
+	* bin/da/Makefile.in (1.2), bin/da/da.sh (1.7), bin/us/Makefile.in
+	  (1.2), bin/us/us16.sh (1.6), bin/us/uscd.sh (1.9),
+	  script/Makefile.in (1.2), script/bell.sh (1.4), script/glogsp.sh
+	  (1.4), script/grlogsp.sh (1.5), script/gwave.sh (1.4): Modify
+	  shell scripts to output SPTK version and CVS info in its help
+	  message.
+
+2007-09-10 23:21  heigazen
+
+	* bin/: psgr/plot.c (1.7), psgr/psgr.h (1.5), fig+fdrw/fdrw.c
+	  (1.10), fig+fdrw/fig.c (1.10), fig+fdrw/fig0.c (1.6),
+	  fig+fdrw/plot.h (1.5), fig+fdrw/plsub.c (1.6), psgr/psgr.c (1.8),
+	  xgr/plot.c (1.9), xgr/xgr.c (1.8), xgr/xgr.h (1.6): Fix for
+	  Tracker:Bugs 1572619.  Corners of curved lines become sharp.
+
+2007-09-10 21:52  heigazen
+
+	* include/SPTK.h (1.9): Remove prototype definitions of functions
+	  which are called from their files. only.
+
+2007-09-10 21:49  heigazen
+
+	* bin/: average/average.c (1.11), clip/_clip.c (1.7), clip/clip.c
+	  (1.8), fftr/fftr.c (1.8), ifft/_ifft.c (1.10), ifft/ifft.c (1.9),
+	  lpc2lsp/_lpc2lsp.c (1.6), lpc2lsp/lpc2lsp.c (1.12),
+	  agcep/_agcep.c (1.7), agcep/agcep.c (1.12), cat2/cat2.c (1.10),
+	  excite/excite.c (1.9), fft2/_fft2.c (1.7), fft2/fft2.c (1.8),
+	  fftr/_fftr.c (1.7), gc2gc/_gc2gc.c (1.7), gc2gc/gc2gc.c (1.9),
+	  impulse/impulse.c (1.8), lpc2c/_lpc2c.c (1.7), lpc2c/lpc2c.c
+	  (1.8), ltcdf/_ltcdf.c (1.5), ltcdf/ltcdf.c (1.8), merge/merge.c
+	  (1.9), phase/_phase.c (1.6), phase/phase.c (1.8), bcut/bcut.c
+	  (1.9), dfs/_dfs.c (1.6), dfs/dfs.c (1.9), ds/ds.c (1.7),
+	  lsp2lpc/_lsp2lpc.c (1.7), lsp2lpc/lsp2lpc.c (1.11),
+	  sp2mgc/_sp2mgc.c (1.2), sp2mgc/sp2mgc.c (1.3), us/us.c (1.9),
+	  us/us16.sh (1.5), window/_window.c (1.6), window/window.c (1.8),
+	  fft/_fft.c (1.6), fft/fft.c (1.9), fftr2/_fftr2.c (1.7),
+	  fftr2/fftr2.c (1.8), gcep/_gcep.c (1.6), gcep/gcep.c (1.11),
+	  imglsadf/_imglsadf.c (1.6), imglsadf/imglsadf.c (1.11),
+	  lpc/_lpc.c (1.7), lpc/lpc.c (1.10), mgcep/_mgcep.c (1.9),
+	  mgcep/mgcep.c (1.12), msvq/_msvq.c (1.6), msvq/msvq.c (1.8),
+	  nan/nan.c (1.9), pitch/_pitch.c (1.11), pitch/pitch.c (1.15),
+	  sopr/sopr.c (1.10), spec/spec.c (1.9), lbg/_lbg.c (1.8),
+	  lbg/lbg.c (1.9), lspdf/_lspdf.c (1.7), lspdf/lspdf.c (1.9),
+	  ramp/ramp.c (1.8), step/step.c (1.8), train/train.c (1.9),
+	  ulaw/_ulaw.c (1.6), ulaw/ulaw.c (1.8), vq/_vq.c (1.6), vq/vq.c
+	  (1.7), df2/_df2.c (1.6), df2/df2.c (1.9), dmp/dmp.c (1.10),
+	  echo2/echo2.c (1.10), grpdelay/_grpdelay.c (1.7),
+	  grpdelay/grpdelay.c (1.8), histogram/histogram.c (1.8),
+	  mc2b/_mc2b.c (1.5), mc2b/mc2b.c (1.8), mgc2mgc/_mgc2mgc.c (1.6),
+	  mgc2mgc/mgc2mgc.c (1.9), norm0/_norm0.c (1.5), norm0/norm0.c
+	  (1.8), vopr/vopr.c (1.8), vsum/vsum.c (1.8), zerodf/_zerodf.c
+	  (1.6), zerodf/zerodf.c (1.8), b2mc/b2mc.c (1.9), cdist/cdist.c
+	  (1.10), lpc2par/_lpc2par.c (1.6), lpc2par/lpc2par.c (1.8),
+	  mgc2sp/_mgc2sp.c (1.6), mgc2sp/mgc2sp.c (1.10), nrand/_nrand.c
+	  (1.6), nrand/nrand.c (1.8), poledf/_poledf.c (1.6),
+	  poledf/poledf.c (1.9), rmse/_rmse.c (1.7), rmse/rmse.c (1.9),
+	  smcep/_smcep.c (1.9), smcep/smcep.c (1.10), snr/snr.c (1.9),
+	  x2x/x2x.c (1.11), c2sp/_c2sp.c (1.5), c2sp/c2sp.c (1.9),
+	  ignorm/_ignorm.c (1.8), ignorm/ignorm.c (1.8), imsvq/_imsvq.c
+	  (1.7), imsvq/imsvq.c (1.7), ivq/_ivq.c (1.7), ivq/ivq.c (1.7),
+	  levdur/_levdur.c (1.8), levdur/levdur.c (1.8),
+	  linear_intpl/linear_intpl.c (1.8), mcep/_mcep.c (1.10),
+	  mcep/mcep.c (1.10), mlpg/mlpg.c (1.11), par2lpc/_par2lpc.c (1.7),
+	  par2lpc/par2lpc.c (1.8), acorr/acorr.c (1.12),
+	  root_pol/_root_pol.c (1.5), root_pol/root_pol.c (1.8),
+	  freqt/_freqt.c (1.7), freqt/freqt.c (1.8), glsadf/_glsadf.c
+	  (1.5), glsadf/glsadf.c (1.10), gnorm/_gnorm.c (1.8),
+	  gnorm/gnorm.c (1.8), ifft2/_ifft2.c (1.7), ifft2/ifft2.c (1.8),
+	  reverse/_reverse.c (1.5), reverse/reverse.c (1.9), sin/sin.c
+	  (1.9), swab/swab.c (1.8), vstat/vstat.c (1.10), acep/_acep.c
+	  (1.6), acep/acep.c (1.10), bcp/bcp.c (1.9), c2acr/c2acr.c (1.11),
+	  c2ir/_c2ir.c (1.7), c2ir/c2ir.c (1.9), fd/fd.c (1.10),
+	  interpolate/interpolate.c (1.8), lmadf/_lmadf.c (1.5),
+	  lmadf/lmadf.c (1.9), lspcheck/_lspcheck.c (1.6),
+	  lspcheck/lspcheck.c (1.8), mglsadf/_mglsadf.c (1.7),
+	  mglsadf/mglsadf.c (1.9), minmax/minmax.c (1.8), mlsadf/_mlsadf.c
+	  (1.6), mlsadf/mlsadf.c (1.10), uels/_uels.c (1.12), uels/uels.c
+	  (1.9), extract/extract.c (1.8), fftcep/_fftcep.c (1.6),
+	  fftcep/fftcep.c (1.11), iglsadf/_iglsadf.c (1.6),
+	  iglsadf/iglsadf.c (1.9), zcross/_zcross.c (1.6), zcross/zcross.c
+	  (1.8), amcep/amcep.c (1.11), decimate/decimate.c (1.8),
+	  delay/delay.c (1.12), frame/frame.c (1.9): Fix tabs in comments.
+	  Replace exit() in main() by return().  Declare 'static' if this
+	  function is not called from other files.
+
+2007-09-10 11:48  heigazen
+
+	* bin/: acep/acep.c (1.9), acorr/acorr.c (1.11), agcep/agcep.c
+	  (1.11), amcep/amcep.c (1.10), average/average.c (1.10): Fix the
+	  previous modification: Change help message when SPTK is compiled
+	  with -DDOUBLE option.
+
+2007-09-10 11:31  heigazen
+
+	* bin/lpc2lsp/lpc2lsp.c (1.11): Fix typo.
+
+2007-09-10 10:54  heigazen
+
+	* bin/xgr/README.jis (1.2): Remove README.jis.
+
+2007-09-08 14:49  heigazen
+
+	* bin/levdur/_levdur.c (1.7): Bug fix: Tracker bug 1572612
+
+2007-09-08 03:19  heigazen
+
+	* bin/: smcep/smcep.c (1.9), gcep/gcep.c (1.10), mcep/mcep.c (1.9),
+	  mgcep/mgcep.c (1.11), uels/uels.c (1.8): Remove the previous fix.
+
+2007-09-08 03:13  heigazen
+
+	* bin/lpc/lpc.c (1.9): Fix the previous fix.
+
+2007-09-08 02:36  heigazen
+
+	* bin/: mcep/_mcep.c (1.9), uels/_uels.c (1.11): exit(0) -> exit(1)
+	  because this is erronous exit.
+
+2007-09-08 02:27  heigazen
+
+	* bin/: gcep/gcep.c (1.9), sp2mgc/sp2mgc.c (1.2): g>1.0 -> g>=1.0
+
+2007-09-08 02:18  heigazen
+
+	* bin/delay/delay.c (1.11): Fix the previous fix.
+
+2007-09-07 15:32  heigazen
+
+	* bin/us/uscd.sh (1.8): Remove --h option.
+
+2007-09-07 15:25  heigazen
+
+	* bin/: acep/acep.c (1.8), acorr/acorr.c (1.10), agcep/agcep.c
+	  (1.10), amcep/amcep.c (1.9), average/average.c (1.9): Output
+	  proper help message when they are compiled with '-DDOUBLE'
+	  option.
+
+2007-09-07 15:13  heigazen
+
+	* bin/us/uscd.sh (1.7): Change default input/output format to
+	  float.
+
+2007-09-07 14:50  heigazen
+
+	* bin/: mgc2sp/mgc2sp.c (1.9), agcep/agcep.c (1.9), glsadf/glsadf.c
+	  (1.9), iglsadf/iglsadf.c (1.8), imglsadf/imglsadf.c (1.10),
+	  mgc2mgc/mgc2mgc.c (1.8), mglsadf/mglsadf.c (1.8): Check gamma to
+	  avoid zero division.
+
+2007-09-05 17:00  heigazen
+
+	* bin/lsp2lpc/lsp2lpc.c (1.10): Add '-l' option.
+
+2007-09-04 22:39  heigazen
+
+	* bin/: lsp2lpc/lsp2lpc.c (1.9), lpc2lsp/lpc2lsp.c (1.10),
+	  lspdf/lspdf.c (1.8): Support log gain for LSPs.
+
+2007-08-10 23:19  heigazen
+
+	* bin/lsp2lpc/lsp2lpc.c (1.8): Add option '-l' to regard input as
+	  log gain and output linear one.
+
+2007-08-10 23:17  heigazen
+
+	* bin/lpc2lsp/lpc2lsp.c (1.9): Minor fix.
+
+2007-08-10 21:17  heigazen
+
+	* bin/lpc2lsp/lpc2lsp.c (1.8): Add option '-l' to output log gain
+	  instead of linear one.
+
+2007-08-09 16:00  heigazen
+
+	* bin/merge/merge.c (1.8): Fix bug: return value of main function
+	  always becomes 1.
+
+2007-08-08 14:19  heigazen
+
+	* bin/vstat/vstat.c (1.9): Add option '-i' to output inverse
+	  covariance instead of covariance matrix.
+
+2007-08-07 16:20  heigazen
+
+	* bin/sp2mgc/.cvsignore (1.2): Add Makefile to .cvsignore.
+
+2007-08-07 16:17  heigazen
+
+	* configure (1.3), configure.ac (1.3), bin/sp2mgc/.cvsignore (1.1),
+	  bin/sp2mgc/Makefile.in (1.1), bin/sp2mgc/_sp2mgc.c (1.1),
+	  bin/sp2mgc/sp2mgc.c (1.1), include/SPTK.h (1.8): Add sp2mgc.
+
+2007-08-07 15:13  heigazen
+
+	* configure (1.2), configure.ac (1.2), bin/mgcep2/.cvsignore (1.2),
+	  bin/mgcep2/Makefile.in (1.2), bin/mgcep2/_mgcep2.c (1.6),
+	  bin/mgcep2/mgcep2.c (1.7), bin/rndpg/.cvsignore (1.3),
+	  bin/rndpg/Makefile.in (1.2), bin/rndpg/rndpg.c (1.8),
+	  bin/srcnv/.cvsignore (1.2), bin/srcnv/Makefile.in (1.2),
+	  bin/srcnv/lpfcoef.2to3f (1.2), bin/srcnv/lpfcoef.2to3s (1.2),
+	  bin/srcnv/lpfcoef.3to4 (1.2), bin/srcnv/lpfcoef.4to5 (1.2),
+	  bin/srcnv/lpfcoef.5to7 (1.2), bin/srcnv/lpfcoef.5to8 (1.2),
+	  bin/srcnv/srcnv.c (1.9), bin/ccp/.cvsignore (1.2),
+	  bin/ccp/Makefile.in (1.2), bin/ccp/ccp.c (1.8): Remove unused
+	  programs.
+
+2007-08-07 15:10  heigazen
+
+	* Makefile.in (1.2): Small fix.
+
+2007-08-07 15:09  heigazen
+
+	* script/: bell.sh (1.3), glogsp.sh (1.3), grlogsp.sh (1.4),
+	  gwave.sh (1.3): Add CVS tags.
+
+2007-08-07 15:08  heigazen
+
+	* lib/.cvsignore (1.2): Add libSPTK.a to .cvsignore.
+
+2007-08-07 15:08  heigazen
+
+	* lib/theq.c (1.5): Add static to local functions.  Re-order
+	  functions.
+
+2007-08-07 15:07  heigazen
+
+	* lib/matrix.c (1.5): Add static to local functions.
+
+2007-08-07 15:03  heigazen
+
+	* include/SPTK.h (1.7): List functions in bin/_*.c.  Add structure
+	  "complex" to SPTK.h.	Remove char *BOOL[].
+
+2007-08-07 15:00  heigazen
+
+	* bin/us/.cvsignore (1.2): Add us to .cvsignore.
+
+2007-08-07 15:00  heigazen
+
+	* bin/us/: us16.sh (1.4), uscd.sh (1.6): Add CVS tag.
+
+2007-08-07 15:00  heigazen
+
+	* bin/us/us.c (1.8): Add CVS tag.  Fix prototype definitions.
+
+2007-08-07 14:58  heigazen
+
+	* bin/xgr/.cvsignore (1.2): Add xgr to .cvsignore.
+
+2007-08-07 14:57  heigazen
+
+	* bin/xgr/: plot.c (1.8), window.c (1.7), xgr.c (1.7): Cleanup
+	  source code.
+
+2007-08-07 14:56  heigazen
+
+	* bin/xgr/xgr.h (1.5): Add CVS tag.  Remove prototype definitions
+	  for static functions.
+
+2007-08-07 14:55  heigazen
+
+	* bin/xgr/: config.h (1.3), gcdata.h (1.3): Add CVS tag.
+
+2007-08-07 14:55  heigazen
+
+	* bin/psgr/.cvsignore (1.2): Add psgr to .cvsignore.
+
+2007-08-07 14:53  heigazen
+
+	* bin/psgr/: plot.c (1.6), psgr.c (1.7): Cleanup source code.
+
+2007-08-07 14:47  heigazen
+
+	* bin/psgr/eps.c (1.5): Cleanup source code.
+
+2007-08-07 14:44  heigazen
+
+	* bin/psgr/dict.c (1.4): Add CVS tag.
+
+2007-08-07 14:43  heigazen
+
+	* bin/fig+fdrw/.cvsignore (1.2): Add fdrw and fig to .cvsignore.
+
+2007-08-07 14:42  heigazen
+
+	* bin/fig+fdrw/plsub.c (1.5): Cleanup source code.  Remove register
+	  variables.
+
+2007-08-07 14:42  heigazen
+
+	* bin/fig+fdrw/plot.h (1.4): Add CVS Id.  Remove prototype
+	  definitions for functions in stdlib.h and math.h.
+
+2007-08-07 14:36  heigazen
+
+	* bin/fig+fdrw/plot.c (1.5): Remove register variables.  Include
+	  math.h and stdlib.h.
+
+2007-08-07 14:29  heigazen
+
+	* bin/fig+fdrw/fig1.c (1.6): Cleanup source code.  Remove register
+	  variables.
+
+2007-08-07 14:28  heigazen
+
+	* bin/fig+fdrw/fig0.c (1.5): Cleanup source code.  Remove register
+	  variables.  Fix bug: add final argument for mak().
+
+2007-08-07 14:25  heigazen
+
+	* bin/fig+fdrw/fig.h (1.3): Add CVS Id.  Remove prototype
+	  definitions in math.h.
+
+2007-08-07 14:24  heigazen
+
+	* bin/fig+fdrw/fig.c (1.9): Cleanup source code.
+
+2007-08-07 14:08  heigazen
+
+	* bin/fig+fdrw/: fdrw.c (1.9), fig.c (1.8): Add char *BOOL[].
+	  Cleanup source code.	Remove register variables.
+
+2007-08-07 14:06  heigazen
+
+	* bin/fft2/.cvsignore (1.2): Add fft2 to .cvsignore.
+
+2007-08-07 14:04  heigazen
+
+	* bin/: vopr/.cvsignore (1.2), vopr/vopr.c (1.7), vq/.cvsignore
+	  (1.2), vq/_vq.c (1.5), vq/vq.c (1.6), vstat/.cvsignore (1.2),
+	  vstat/vstat.c (1.8), vsum/.cvsignore (1.2), vsum/vsum.c (1.7),
+	  window/.cvsignore (1.2), window/_window.c (1.5), window/window.c
+	  (1.7), x2x/.cvsignore (1.2), x2x/x2x.c (1.10),
+	  root_pol/.cvsignore (1.2), root_pol/_root_pol.c (1.4),
+	  root_pol/root_pol.c (1.7), ramp/.cvsignore (1.2), ramp/ramp.c
+	  (1.7), rmse/.cvsignore (1.2), rmse/_rmse.c (1.6), rmse/rmse.c
+	  (1.8), rndpg/.cvsignore (1.2), rndpg/rndpg.c (1.7),
+	  sopr/.cvsignore (1.2), sopr/sopr.c (1.9), spec/.cvsignore (1.2),
+	  spec/spec.c (1.8), step/.cvsignore (1.2), step/step.c (1.7),
+	  swab/.cvsignore (1.2), swab/swab.c (1.7), uels/.cvsignore (1.2),
+	  uels/_uels.c (1.10), uels/uels.c (1.7), reverse/.cvsignore (1.2),
+	  reverse/_reverse.c (1.4), reverse/reverse.c (1.8), sin/.cvsignore
+	  (1.2), sin/sin.c (1.8), smcep/.cvsignore (1.2), smcep/_smcep.c
+	  (1.8), smcep/smcep.c (1.8), snr/.cvsignore (1.2), snr/snr.c
+	  (1.8), train/.cvsignore (1.2), train/train.c (1.8),
+	  ulaw/.cvsignore (1.2), ulaw/_ulaw.c (1.5), ulaw/ulaw.c (1.7):
+	  Cleanup source code.
+
+2007-08-07 14:01  heigazen
+
+	* bin/: mgcep/.cvsignore (1.2), mgcep/_mgcep.c (1.8), mgcep/mgcep.c
+	  (1.10), lbg/.cvsignore (1.2), lbg/_lbg.c (1.7), lbg/lbg.c (1.8),
+	  linear_intpl/.cvsignore (1.2), linear_intpl/linear_intpl.c (1.7),
+	  lpc2c/.cvsignore (1.2), lpc2c/_lpc2c.c (1.6), lpc2c/lpc2c.c
+	  (1.7), lpc2lsp/.cvsignore (1.2), lpc2lsp/_lpc2lsp.c (1.5),
+	  lpc2lsp/lpc2lsp.c (1.7), lspcheck/.cvsignore (1.2),
+	  lspcheck/_lspcheck.c (1.5), lspcheck/lspcheck.c (1.7),
+	  lspdf/.cvsignore (1.2), lspdf/_lspdf.c (1.6), lspdf/lspdf.c
+	  (1.7), mc2b/.cvsignore (1.2), mc2b/_mc2b.c (1.4), mc2b/mc2b.c
+	  (1.7), minmax/.cvsignore (1.2), minmax/minmax.c (1.7),
+	  mlsadf/.cvsignore (1.2), mlsadf/_mlsadf.c (1.5), mlsadf/mlsadf.c
+	  (1.9), par2lpc/.cvsignore (1.2), par2lpc/_par2lpc.c (1.6),
+	  par2lpc/par2lpc.c (1.7), interpolate/.cvsignore (1.2),
+	  interpolate/interpolate.c (1.7), ivq/.cvsignore (1.2), ivq/_ivq.c
+	  (1.6), ivq/ivq.c (1.6), lsp2lpc/.cvsignore (1.2),
+	  lsp2lpc/_lsp2lpc.c (1.6), lsp2lpc/lsp2lpc.c (1.7),
+	  ltcdf/.cvsignore (1.2), ltcdf/_ltcdf.c (1.4), ltcdf/ltcdf.c
+	  (1.7), merge/.cvsignore (1.2), merge/merge.c (1.7),
+	  mgc2mgc/.cvsignore (1.2), mgc2mgc/_mgc2mgc.c (1.5),
+	  mgc2mgc/mgc2mgc.c (1.7), mgc2sp/.cvsignore (1.2),
+	  mgc2sp/_mgc2sp.c (1.5), mgc2sp/mgc2sp.c (1.8), msvq/.cvsignore
+	  (1.2), msvq/_msvq.c (1.5), msvq/msvq.c (1.7), nrand/.cvsignore
+	  (1.2), nrand/_nrand.c (1.5), nrand/nrand.c (1.7),
+	  pitch/.cvsignore (1.2), pitch/_pitch.c (1.10), pitch/pitch.c
+	  (1.14), imsvq/.cvsignore (1.2), imsvq/_imsvq.c (1.6),
+	  imsvq/imsvq.c (1.6), levdur/.cvsignore (1.2), levdur/_levdur.c
+	  (1.6), levdur/levdur.c (1.7), lmadf/.cvsignore (1.2),
+	  lmadf/_lmadf.c (1.4), lmadf/lmadf.c (1.8), lpc/.cvsignore (1.2),
+	  lpc/_lpc.c (1.6), lpc/lpc.c (1.8), mglsadf/.cvsignore (1.2),
+	  mglsadf/_mglsadf.c (1.6), mglsadf/mglsadf.c (1.7), nan/.cvsignore
+	  (1.2), nan/nan.c (1.8), phase/.cvsignore (1.2), phase/_phase.c
+	  (1.5), phase/phase.c (1.7), lpc2par/.cvsignore (1.2),
+	  lpc2par/_lpc2par.c (1.5), lpc2par/lpc2par.c (1.7),
+	  mcep/.cvsignore (1.2), mcep/_mcep.c (1.8), mcep/mcep.c (1.8),
+	  mlpg/.cvsignore (1.2), mlpg/mlpg.c (1.10), norm0/.cvsignore
+	  (1.2), norm0/_norm0.c (1.4), norm0/norm0.c (1.7),
+	  poledf/.cvsignore (1.2), poledf/_poledf.c (1.5), poledf/poledf.c
+	  (1.8), zcross/.cvsignore (1.2), zcross/_zcross.c (1.5),
+	  zcross/zcross.c (1.7), zerodf/.cvsignore (1.2), zerodf/_zerodf.c
+	  (1.5), zerodf/zerodf.c (1.7): Cleanup source code.
+
+2007-08-07 13:58  heigazen
+
+	* bin/impulse/: .cvsignore (1.2), impulse.c (1.7): Cleanup source
+	  code.
+
+2007-08-07 13:57  heigazen
+
+	* bin/imglsadf/: .cvsignore (1.2), imglsadf.c (1.9): Add char
+	  *BOOL[].  Add imglsadf to .cvsignore.
+
+2007-08-07 13:56  heigazen
+
+	* bin/ignorm/: .cvsignore (1.2), _ignorm.c (1.7): Add ignorm to
+	  .cvsignore.
+
+2007-08-07 13:55  heigazen
+
+	* bin/iglsadf/: .cvsignore (1.2), _iglsadf.c (1.5), iglsadf.c
+	  (1.7): Add char *BOOL[].  Add iglsadf to .cvsignore.	Include
+	  SPTK.h
+
+2007-08-07 13:54  heigazen
+
+	* bin/ifft2/: .cvsignore (1.2), _ifft2.c (1.6): Add ifft2 to
+	  .cvsignore.
+
+2007-08-07 13:54  heigazen
+
+	* bin/ifft/: .cvsignore (1.2), _ifft.c (1.9): Add ifft to
+	  .cvsignore.
+
+2007-08-07 13:53  heigazen
+
+	* bin/histogram/: .cvsignore (1.2), _histogram.c (1.9): Add
+	  histogram to .cvsignore.
+
+2007-08-07 13:45  heigazen
+
+	* bin/grpdelay/: .cvsignore (1.2), _grpdelay.c (1.6): Add grpdelay
+	  to .cvsignore.
+
+2007-08-07 13:44  heigazen
+
+	* bin/gnorm/: .cvsignore (1.2), _gnorm.c (1.7): Add gnorm to
+	  .cvsignore.
+
+2007-08-07 13:44  heigazen
+
+	* bin/glsadf/.cvsignore (1.2): Add glsadf to .cvsignore.
+
+2007-08-07 13:43  heigazen
+
+	* bin/: gcep/.cvsignore (1.2), gcep/_gcep.c (1.5), gcep/gcep.c
+	  (1.8), glsadf/glsadf.c (1.8): Add char *BOOL[].
+
+2007-08-07 13:21  heigazen
+
+	* bin/gc2gc/: .cvsignore (1.2), _gc2gc.c (1.6), gc2gc.c (1.8): Add
+	  char *BOOL[].  Add gc2gc to .cvsignore.
+
+2007-08-07 13:20  heigazen
+
+	* bin/freqt/: .cvsignore (1.2), _freqt.c (1.6): Add final line.
+	  Add frame to .cvsignore.
+
+2007-08-07 13:19  heigazen
+
+	* bin/frame/: .cvsignore (1.2), frame.c (1.8): Add char *BOOL[].
+	  Add frame to .cvsignore.
+
+2007-08-07 13:19  heigazen
+
+	* bin/fftr2/: .cvsignore (1.2), _fftr2.c (1.6): Add fftr2 to
+	  .cvsignore.  Remove redundunt spaces.  Add final line.
+
+2007-08-07 13:18  heigazen
+
+	* bin/fftr/.cvsignore (1.2): Add fftr to .cvsignore.
+
+2007-08-07 13:18  heigazen
+
+	* bin/fftr/_fftr.c (1.6): Add final line.
+
+2007-08-07 13:17  heigazen
+
+	* bin/fftcep/.cvsignore (1.2): Add fftcep to .cvsignore.
+
+2007-08-07 13:16  heigazen
+
+	* bin/fft2/_fft2.c (1.6): Remove redundunt spaces.
+
+2007-08-07 13:15  heigazen
+
+	* bin/fft/.cvsignore (1.2): Add fft to .cvsignore.
+
+2007-08-07 13:13  heigazen
+
+	* bin/: delay/delay.c (1.10), echo2/echo2.c (1.9), excite/excite.c
+	  (1.8): Add char *BOOL[].
+
+2007-08-07 13:13  heigazen
+
+	* bin/da/: da.h (1.8), da.sh (1.6), dawrite.c (1.11): Add CVS
+	  Information to .sh files.  Add Boolean definition and char
+	  *BOOL[].
+
+2007-08-07 13:11  heigazen
+
+	* bin/: clip/_clip.c (1.6), df2/_df2.c (1.5), dfs/_dfs.c (1.5):
+	  Include SPTK.h.
+
+2007-08-07 13:11  heigazen
+
+	* bin/cdist/cdist.c (1.9): Add char *BOOL.
+
+2007-08-07 13:09  heigazen
+
+	* bin/c2sp/: .cvsignore (1.2), c2sp.c (1.8): Add c2sp to
+	  .cvsignore.  Output CVS Information.	Add char *BOOL.
+
+2007-08-07 13:08  heigazen
+
+	* bin/c2acr/: .cvsignore (1.2), _c2acr.c (1.6), c2acr.c (1.10):
+	  Output CVS information.  Add c2acr to .cvsignore.
+
+2007-08-07 13:06  heigazen
+
+	* bin/: bcp/bcp.c (1.8), bcut/bcut.c (1.8), c2ir/_c2ir.c (1.6),
+	  c2ir/c2ir.c (1.8): Output CVS information.
+
+2007-08-07 13:06  heigazen
+
+	* bin/b2mc/: _b2mc.c (1.5), b2mc.c (1.8): Output CVS information.
+	  Include SPTK.h.
+
+2007-08-07 13:05  heigazen
+
+	* bin/average/: .cvsignore (1.2), _average.c (1.7), average.c
+	  (1.8): Add average to .cvsignore.  Output CVS Information.
+
+2007-08-07 13:04  heigazen
+
+	* bin/amcep/: .cvsignore (1.2), _amcep.c (1.7), amcep.c (1.8): Add
+	  amcep to .cvsignore.	Add char *BOOL.  Output CVS Information.
+
+2007-08-07 13:03  heigazen
+
+	* bin/agcep/: .cvsignore (1.2), _agcep.c (1.6), agcep.c (1.8): Add
+	  agcep to .cvsignore.	Add char *BOOL.  Output CVS Information.
+
+2007-08-07 13:01  heigazen
+
+	* bin/acorr/: .cvsignore (1.2), _acorr.c (1.5), acorr.c (1.9): Add
+	  acorr to .cvsignore.	Output CVS information.  Include SPTK.h in
+	  _acorr.c.
+
+2007-08-07 12:50  heigazen
+
+	* bin/acep/: .cvsignore (1.2), acep.c (1.7): Add acep to
+	  .cvsignore.  Add char *BOOL.
+
+2007-08-06 17:53  kyo_n
+
+	* bin/us/uscd.sh (1.5):
+	  uscdのヘルプがおかしいという問題に関して
+
+	  --hオプションでもヘルプが見れるようにしました。
+
+	  uscdの入出力の問題に関して
+
+	  引数がfloat型の場合も対応できるように変更しました。
+
+2007-08-02 17:35  heigazen
+
+	* lib/agexp.c (1.4), lib/cholesky.c (1.4), lib/fileio.c (1.4),
+	  lib/getfp.c (1.4), lib/getmem.c (1.5), lib/gexp.c (1.4),
+	  lib/glog.c (1.5), lib/ifftr.c (1.4), lib/matrix.c (1.4),
+	  lib/movem.c (1.4), lib/mseq.c (1.4), lib/toeplitz.c (1.4),
+	  bin/lpc2c/.cvsignore (1.1), bin/lspcheck/.cvsignore (1.1),
+	  lib/.cvsignore (1.1), lib/fillz.c (1.4), lib/theq.c (1.4),
+	  bin/lpc2c/_lpc2c.c (1.5), bin/mc2b/.cvsignore (1.1),
+	  bin/minmax/.cvsignore (1.1), bin/vq/.cvsignore (1.1),
+	  bin/fig+fdrw/fdrw.c (1.8), bin/fig+fdrw/fig.c (1.7),
+	  bin/fig+fdrw/fig0.c (1.4), bin/fig+fdrw/fig1.c (1.5),
+	  bin/lspdf/.cvsignore (1.1), bin/lspdf/_lspdf.c (1.5),
+	  bin/mgc2mgc/.cvsignore (1.1), bin/vstat/.cvsignore (1.1),
+	  bin/vstat/vstat.c (1.7), bin/fig+fdrw/.cvsignore (1.1),
+	  bin/ivq/.cvsignore (1.1), bin/nrand/.cvsignore (1.1),
+	  bin/smcep/.cvsignore (1.1), bin/smcep/_smcep.c (1.7),
+	  bin/smcep/smcep.c (1.7), bin/lsp2lpc/.cvsignore (1.1),
+	  bin/lsp2lpc/_lsp2lpc.c (1.5), bin/mgcep/.cvsignore (1.1),
+	  bin/mgcep/_mgcep.c (1.7), bin/mlsadf/.cvsignore (1.1),
+	  bin/mlsadf/mlsadf.c (1.8), bin/vsum/.cvsignore (1.1),
+	  bin/x2x/.cvsignore (1.1), bin/x2x/x2x.c (1.9),
+	  bin/lmadf/.cvsignore (1.1), bin/lmadf/lmadf.c (1.7),
+	  bin/ltcdf/.cvsignore (1.1), bin/mglsadf/.cvsignore (1.1),
+	  bin/nan/.cvsignore (1.1), bin/sin/.cvsignore (1.1), bin/sin/sin.c
+	  (1.7), bin/phase/.cvsignore (1.1), bin/reverse/.cvsignore (1.1),
+	  bin/levdur/.cvsignore (1.1), bin/levdur/_levdur.c (1.5),
+	  bin/mcep/.cvsignore (1.1), bin/mcep/_mcep.c (1.7),
+	  bin/ccp/.cvsignore (1.1), bin/linear_intpl/.cvsignore (1.1),
+	  bin/pitch/_pitch.c (1.9), bin/window/.cvsignore (1.1),
+	  bin/window/_window.c (1.4), bin/msvq/.cvsignore (1.1),
+	  bin/pitch/.cvsignore (1.1), bin/ulaw/.cvsignore (1.1),
+	  bin/ulaw/_ulaw.c (1.4), bin/xgr/.cvsignore (1.1), bin/xgr/plot.c
+	  (1.7), bin/xgr/window.c (1.6), bin/imsvq/.cvsignore (1.1),
+	  bin/imsvq/_imsvq.c (1.5), bin/lpc2par/.cvsignore (1.1),
+	  bin/merge/.cvsignore (1.1), bin/poledf/.cvsignore (1.1),
+	  bin/snr/.cvsignore (1.1), bin/lpc2lsp/_lpc2lsp.c (1.4),
+	  bin/rmse/.cvsignore (1.1), bin/rmse/_rmse.c (1.5),
+	  bin/rmse/rmse.c (1.7), bin/rndpg/.cvsignore (1.1),
+	  bin/rndpg/rndpg.c (1.6), bin/lbg/.cvsignore (1.1),
+	  bin/lpc2lsp/.cvsignore (1.1), bin/step/.cvsignore (1.1),
+	  bin/spec/spec.c (1.7), bin/mgc2sp/.cvsignore (1.1),
+	  bin/mgc2sp/mgc2sp.c (1.7), bin/ramp/.cvsignore (1.1),
+	  bin/sopr/.cvsignore (1.1), bin/sopr/sopr.c (1.8),
+	  bin/spec/.cvsignore (1.1), bin/swab/.cvsignore (1.1),
+	  bin/interpolate/.cvsignore (1.1), bin/mgcep2/.cvsignore (1.1),
+	  bin/mgcep2/_mgcep2.c (1.5), bin/train/.cvsignore (1.1),
+	  bin/train/train.c (1.7), bin/uels/.cvsignore (1.1),
+	  bin/uels/_uels.c (1.9), bin/us/.cvsignore (1.1), include/SPTK.h
+	  (1.6), bin/impulse/.cvsignore (1.1), bin/par2lpc/.cvsignore
+	  (1.1), include/.cvsignore (1.1), .cvsignore (1.2),
+	  bin/mlpg/.cvsignore (1.1), bin/root_pol/.cvsignore (1.1),
+	  bin/vopr/.cvsignore (1.1), bin/zcross/.cvsignore (1.1),
+	  script/.cvsignore (1.1), bin/.cvsignore (1.1),
+	  bin/norm0/.cvsignore (1.1), bin/psgr/.cvsignore (1.1),
+	  bin/srcnv/.cvsignore (1.1), bin/zerodf/.cvsignore (1.1): Cleanup
+	  source codes.  Add .cvsinore.
+
+2007-08-02 17:05  heigazen
+
+	* bin/: ignorm/.cvsignore (1.1), ignorm/_ignorm.c (1.6),
+	  ignorm/ignorm.c (1.7), imglsadf/.cvsignore (1.1),
+	  imglsadf/_imglsadf.c (1.5), imglsadf/imglsadf.c (1.8): Cleanup
+	  source codes.  Add .cvsinore.
+
+2007-08-01 16:36  heigazen
+
+	* bin/ifft/: ifft.c (1.8), _ifft.c (1.8): Cleanup source codes.
+
+2007-08-01 16:36  heigazen
+
+	* bin/: ifft2/.cvsignore (1.1), ifft2/_ifft2.c (1.5), ifft2/ifft2.c
+	  (1.7), iglsadf/.cvsignore (1.1), iglsadf/_iglsadf.c (1.4),
+	  iglsadf/iglsadf.c (1.6), lpc/.cvsignore (1.1), lpc/_lpc.c (1.5),
+	  lpc/lpc.c (1.7): Cleanup source codes.  Add .cvsinore.
+
+2007-07-25 14:36  heigazen
+
+	* include/SPTK.h (1.5): List proto-types of SPTK functions in
+	  libSPTK.a (from acep to ifft).
+
+2007-07-25 14:35  heigazen
+
+	* bin/: histogram/.cvsignore (1.1), histogram/_histogram.c (1.8),
+	  histogram/histogram.c (1.7), ifft/.cvsignore (1.1), ifft/_ifft.c
+	  (1.7), ifft/ifft.c (1.7): Cleanup source codes.  Add .cvsinore.
+
+2007-07-25 13:56  heigazen
+
+	* bin/: gcep/.cvsignore (1.1), gcep/_gcep.c (1.4), gcep/gcep.c
+	  (1.7), glsadf/.cvsignore (1.1), glsadf/_glsadf.c (1.4),
+	  glsadf/glsadf.c (1.7), gnorm/.cvsignore (1.1), gnorm/_gnorm.c
+	  (1.6), gnorm/gnorm.c (1.7), grpdelay/.cvsignore (1.1),
+	  grpdelay/_grpdelay.c (1.5), grpdelay/grpdelay.c (1.7): Cleanup
+	  source codes.  Add .cvsinore.
+
+2007-07-24 19:15  heigazen
+
+	* bin/: frame/.cvsignore (1.1), frame/frame.c (1.7),
+	  freqt/.cvsignore (1.1), freqt/_freqt.c (1.5), freqt/freqt.c
+	  (1.7), gc2gc/.cvsignore (1.1), gc2gc/_gc2gc.c (1.5),
+	  gc2gc/gc2gc.c (1.7): Cleanup source codes.  Add .cvsinore.
+
+2007-07-24 15:13  heigazen
+
+	* bin/: fftr2/.cvsignore (1.1), fftr2/_fftr2.c (1.5), fftr2/fftr2.c
+	  (1.7), fftr/.cvsignore (1.1), fftr/_fftr.c (1.5), fftr/fftr.c
+	  (1.7): Cleanup source codes.	Add .cvsinore.
+
+2007-07-24 14:39  heigazen
+
+	* bin/fftcep/: .cvsignore (1.1), _fftcep.c (1.5), fftcep.c (1.10):
+	  Cleanup source codes.  Add .cvsinore.
+
+2007-07-24 14:31  heigazen
+
+	* bin/fft2/: .cvsignore (1.1), _fft2.c (1.5), fft2.c (1.7): Cleanup
+	  source codes.  Add .cvsinore.
+
+2007-07-24 14:06  heigazen
+
+	* bin/fft/: .cvsignore (1.1), _fft.c (1.5), fft.c (1.8): Cleanup
+	  source codes.  Add .cvsinore.
+
+2007-07-24 13:51  heigazen
+
+	* bin/fd/: .cvsignore (1.1), fd.c (1.9): Cleanup source codes.	Add
+	  .cvsinore.
+
+2007-07-24 13:34  heigazen
+
+	* bin/extract/: .cvsignore (1.1), extract.c (1.7): Cleanup source
+	  codes.  Add .cvsinore.
+
+2007-07-24 13:30  heigazen
+
+	* bin/excite/: .cvsignore (1.1), excite.c (1.7): Cleanup source
+	  codes.  Add .cvsinore.
+
+2007-07-24 12:03  heigazen
+
+	* bin/echo2/: .cvsignore (1.1), echo2.c (1.8): Cleanup source
+	  codes.  Add .cvsinore.
+
+2007-07-24 11:58  heigazen
+
+	* bin/ds/: .cvsignore (1.1), ds.c (1.6), lpfcoef.3to2 (1.1):
+	  Cleanup source codes.  Add .cvsinore.  Add 3:2 downsampling
+	  filter.
+
+2007-07-24 11:23  heigazen
+
+	* bin/dmp/: .cvsignore (1.1), dmp.c (1.9): Cleanup source codes.
+	  Add .cvsinore.
+
+2007-07-24 11:15  heigazen
+
+	* bin/dfs/: dfs.c (1.8), _dfs.c (1.4), .cvsignore (1.1): Cleanup
+	  source codes.  Add .cvsinore.
+
+2007-07-24 11:06  heigazen
+
+	* bin/df2/: .cvsignore (1.1), _df2.c (1.4), df2.c (1.8): Cleanup
+	  source codes.  Add .cvsinore.
+
+2007-07-23 16:44  heigazen
+
+	* bin/delay/: .cvsignore (1.1), delay.c (1.9): Cleanup source
+	  codes.
+
+2007-07-23 16:40  heigazen
+
+	* bin/decimate/: .cvsignore (1.1), decimate.c (1.7): Cleanup source
+	  codes.
+
+2007-07-23 14:15  heigazen
+
+	* bin/da/: .cvsignore (1.1), da.h (1.7), dawrite.c (1.10): Cleanup
+	  source codes.
+
+2007-07-23 13:30  heigazen
+
+	* bin/clip/: .cvsignore (1.1), _clip.c (1.5), clip.c (1.7): Cleanup
+	  source codes.
+
+2007-07-23 13:18  heigazen
+
+	* bin/: cat2/cat2.c (1.9), cdist/.cvsignore (1.1), cdist/cdist.c
+	  (1.8): Cleanup source codes.
+
+2007-07-23 13:13  heigazen
+
+	* bin/cat2/.cvsignore (1.1): Add .cvsignore.
+
+2007-07-23 13:12  heigazen
+
+	* bin/cat2/cat2.c (1.8): Cleanup source codes.
+
+2007-07-23 11:34  mr_alex
+
+	* bin/clip/_clip.c (1.4):
+	  register int --> int
+
+2007-07-23 11:34  mr_alex
+
+	* bin/: da/dawrite.c (1.9), ccp/ccp.c (1.7):
+	  register char --> char
+
+2007-07-23 11:33  mr_alex
+
+	* bin/fd/fd.c (1.8):
+	  register FILE --> FILE
+
+2007-07-23 11:30  mr_alex
+
+	* bin/: ifft/_ifft.c (1.6), histogram/_histogram.c (1.7):
+	  register int --> int
+
+2007-07-23 11:27  mr_alex
+
+	* bin/: lspcheck/_lspcheck.c (1.4), lpc2c/_lpc2c.c (1.4),
+	  imglsadf/_imglsadf.c (1.4):
+	  register int --> int
+
+2007-07-23 11:24  mr_alex
+
+	* bin/: mglsadf/_mglsadf.c (1.5), lspdf/_lspdf.c (1.4):
+	  register int --> int
+
+2007-07-23 11:20  mr_alex
+
+	* bin/: rmse/_rmse.c (1.4), poledf/_poledf.c (1.4),
+	  mlsadf/_mlsadf.c (1.4):
+	  register int --> int
+
+2007-07-23 11:19  mr_alex
+
+	* bin/smcep/_smcep.c (1.6):
+	  register int --> register
+
+2007-07-23 11:09  mr_alex
+
+	* bin/vq/_vq.c (1.4):
+	  register int --> int
+
+2007-07-20 18:10  heigazen
+
+	* bin/c2sp/: .cvsignore (1.1), _c2sp.c (1.4), c2sp.c (1.7): Cleanup
+	  source codes.
+
+2007-07-20 18:02  heigazen
+
+	* bin/c2ir/: .cvsignore (1.1), c2ir.c (1.7), _c2ir.c (1.5): Cleanup
+	  source codes.
+
+2007-07-20 17:52  heigazen
+
+	* bin/c2acr/c2acr.c (1.8): Update rcs_id
+
+2007-07-20 17:51  heigazen
+
+	* bin/c2acr/: .cvsignore (1.1), _c2acr.c (1.5), c2acr.c (1.7),
+	  c2acr.c (1.9): Cleanup source codes.
+
+2007-07-20 17:39  heigazen
+
+	* bin/bcp/.cvsignore (1.1): Add cvsignore.
+
+2007-07-20 17:38  heigazen
+
+	* bin/bcut/.cvsignore (1.1): Update cvsignore
+
+2007-07-20 17:38  heigazen
+
+	* bin/bcut/bcut.c (1.7): Cleanup source codes.
+
+2007-07-20 17:32  heigazen
+
+	* bin/bcp/bcp.c (1.7): Cleanup source codes.
+
+2007-07-20 17:14  heigazen
+
+	* bin/b2mc/: .cvsignore (1.1), _b2mc.c (1.4), b2mc.c (1.7): Cleanup
+	  source codes.
+
+2007-07-20 17:06  heigazen
+
+	* bin/average/: .cvsignore (1.1), _average.c (1.6), average.c
+	  (1.7): Cleanup source codes.
+
+2007-07-20 16:58  heigazen
+
+	* bin/: amcep/.cvsignore (1.1), amcep/_amcep.c (1.6), amcep/amcep.c
+	  (1.7), acorr/acorr.c (1.8): Cleanup source codes.
+
+2007-07-20 16:38  heigazen
+
+	* bin/: acorr/_acorr.c (1.4), acorr/acorr.c (1.6), acorr/.cvsignore
+	  (1.1), acorr/acorr.c (1.7), agcep/.cvsignore (1.1),
+	  agcep/_agcep.c (1.5), agcep/agcep.c (1.7): Cleanup source codes.
+
+2007-07-20 16:01  heigazen
+
+	* bin/acep/: _acep.c (1.5), acep.c (1.6), .cvsignore (1.1): Cleanup
+	  source code.	Fix bug: pd rather than PADEORD should be used to
+	  allocate memory.
+
+2007-07-20 11:49  heigazen
+
+	* bin/mcep/Makefile (1.5), bin/mcep/Makefile.in (1.1), .cvsignore
+	  (1.1), Makefile (1.11), Makefile.in (1.1), config.guess (1.1),
+	  config.sub (1.1), configure (1.1), configure.ac (1.1), install-sh
+	  (1.1), bin/acep/Makefile (1.7), bin/acep/Makefile.in (1.1),
+	  bin/ltcdf/Makefile (1.4), bin/ltcdf/Makefile.in (1.1),
+	  bin/mlpg/Makefile (1.4), bin/mlpg/Makefile.in (1.1),
+	  bin/spec/Makefile (1.4), bin/spec/Makefile.in (1.1),
+	  bin/us/Makefile (1.8), bin/us/Makefile.in (1.1),
+	  bin/vopr/Makefile (1.4), bin/vopr/Makefile.in (1.1),
+	  bin/zerodf/Makefile (1.4), bin/zerodf/Makefile.in (1.1),
+	  lib/Makefile (1.5), lib/Makefile.in (1.1), lib/Makefile.lib
+	  (1.3), lib/Makefile.lib.in (1.1), bin/b2mc/Makefile (1.4),
+	  bin/b2mc/Makefile.in (1.1), bin/dfs/Makefile (1.4),
+	  bin/dfs/Makefile.in (1.1), bin/mc2b/Makefile (1.4),
+	  bin/mc2b/Makefile.in (1.1), bin/fft2/Makefile (1.4),
+	  bin/fft2/Makefile.in (1.1), bin/imglsadf/Makefile (1.4),
+	  bin/impulse/Makefile (1.4), bin/impulse/Makefile.in (1.1),
+	  bin/ulaw/Makefile (1.4), bin/ulaw/Makefile.in (1.1),
+	  bin/x2x/Makefile (1.4), bin/x2x/Makefile.in (1.1),
+	  bin/bcut/Makefile (1.4), bin/bcut/Makefile.in (1.1),
+	  bin/cat2/Makefile (1.4), bin/cat2/Makefile.in (1.1),
+	  bin/clip/Makefile (1.4), bin/clip/Makefile.in (1.1),
+	  bin/fftcep/Makefile (1.4), bin/fftcep/Makefile.in (1.1),
+	  bin/fftr2/Makefile (1.4), bin/fftr2/Makefile.in (1.1),
+	  bin/gc2gc/Makefile (1.4), bin/gc2gc/Makefile.in (1.1),
+	  bin/imglsadf/Makefile.in (1.1), bin/linear_intpl/Makefile (1.4),
+	  bin/linear_intpl/Makefile.in (1.1), bin/merge/Makefile (1.4),
+	  bin/merge/Makefile.in (1.1), bin/minmax/Makefile (1.4),
+	  bin/minmax/Makefile.in (1.1), bin/c2sp/Makefile (1.4),
+	  bin/c2sp/Makefile.in (1.1), bin/fd/Makefile (1.5),
+	  bin/fd/Makefile.in (1.1), bin/glsadf/Makefile (1.4),
+	  bin/glsadf/Makefile.in (1.1), bin/ifft/Makefile (1.5),
+	  bin/ifft/Makefile.in (1.1), bin/lpc/Makefile (1.4),
+	  bin/lpc/Makefile.in (1.1), bin/mgc2sp/Makefile (1.4),
+	  bin/mgc2sp/Makefile.in (1.1), bin/par2lpc/Makefile (1.4),
+	  bin/par2lpc/Makefile.in (1.1), bin/dmp/Makefile (1.4),
+	  bin/dmp/Makefile.in (1.1), bin/frame/Makefile (1.4),
+	  bin/frame/Makefile.in (1.1), bin/gnorm/Makefile (1.4),
+	  bin/gnorm/Makefile.in (1.1), bin/imsvq/Makefile (1.4),
+	  bin/imsvq/Makefile.in (1.1), bin/smcep/Makefile (1.4),
+	  bin/smcep/Makefile.in (1.1), bin/decimate/Makefile (1.4),
+	  bin/mgcep/Makefile (1.5), bin/mgcep/Makefile.in (1.1),
+	  bin/nrand/Makefile (1.4), bin/nrand/Makefile.in (1.1),
+	  bin/decimate/Makefile.in (1.1), bin/train/Makefile.in (1.1),
+	  bin/average/Makefile (1.4), bin/average/Makefile.in (1.1),
+	  bin/c2acr/Makefile (1.4), bin/c2acr/Makefile.in (1.1),
+	  bin/delay/Makefile (1.5), bin/delay/Makefile.in (1.1),
+	  bin/gcep/Makefile (1.4), bin/gcep/Makefile.in (1.1),
+	  bin/iglsadf/Makefile (1.4), bin/iglsadf/Makefile.in (1.1),
+	  bin/lpc2c/Makefile (1.4), bin/lpc2c/Makefile.in (1.1),
+	  bin/train/Makefile (1.4), bin/acorr/Makefile (1.4),
+	  bin/acorr/Makefile.in (1.1), bin/da/Makefile (1.14),
+	  bin/da/Makefile.in (1.1), bin/pitch/Makefile (1.4),
+	  bin/pitch/Makefile.in (1.1), bin/psgr/Makefile (1.5),
+	  bin/psgr/Makefile.in (1.1), bin/ramp/Makefile (1.4),
+	  bin/ramp/Makefile.in (1.1), bin/rndpg/Makefile (1.4),
+	  bin/root_pol/Makefile (1.4), bin/root_pol/Makefile.in (1.1),
+	  bin/sin/Makefile (1.4), bin/sin/Makefile.in (1.1),
+	  bin/srcnv/Makefile (1.5), bin/srcnv/Makefile.in (1.1),
+	  bin/step/Makefile (1.4), bin/step/Makefile.in (1.1),
+	  bin/vq/Makefile (1.4), bin/vq/Makefile.in (1.1), script/Makefile
+	  (1.6), script/Makefile.in (1.1), bin/cdist/Makefile (1.4),
+	  bin/cdist/Makefile.in (1.1), bin/fig+fdrw/Makefile (1.5),
+	  bin/fig+fdrw/Makefile.in (1.1), bin/lbg/Makefile (1.4),
+	  bin/lbg/Makefile.in (1.1), bin/lspdf/Makefile (1.4),
+	  bin/lspdf/Makefile.in (1.1), bin/rndpg/Makefile.in (1.1),
+	  bin/vstat/Makefile (1.4), bin/vstat/Makefile.in (1.1),
+	  bin/histogram/Makefile (1.4), bin/histogram/Makefile.in (1.1),
+	  bin/ignorm/Makefile (1.4), bin/ignorm/Makefile.in (1.1),
+	  bin/snr/Makefile (1.4), bin/snr/Makefile.in (1.1),
+	  bin/vsum/Makefile (1.4), bin/vsum/Makefile.in (1.1),
+	  bin/window/Makefile (1.4), bin/window/Makefile.in (1.1),
+	  include/Makefile (1.4), include/Makefile.in (1.1),
+	  bin/c2ir/Makefile (1.4), bin/c2ir/Makefile.in (1.1),
+	  bin/excite/Makefile (1.4), bin/excite/Makefile.in (1.1),
+	  bin/lpc2par/Makefile (1.4), bin/lpc2par/Makefile.in (1.1),
+	  bin/mgc2mgc/Makefile (1.4), bin/mgc2mgc/Makefile.in (1.1),
+	  bin/norm0/Makefile (1.4), bin/norm0/Makefile.in (1.1),
+	  bin/reverse/Makefile (1.4), bin/reverse/Makefile.in (1.1),
+	  bin/bcp/Makefile (1.4), bin/bcp/Makefile.in (1.1),
+	  bin/echo2/Makefile (1.4), bin/echo2/Makefile.in (1.1),
+	  bin/extract/Makefile.in (1.1), bin/fft/Makefile (1.4),
+	  bin/fft/Makefile.in (1.1), bin/msvq/Makefile (1.4),
+	  bin/msvq/Makefile.in (1.1), bin/nan/Makefile (1.6),
+	  bin/nan/Makefile.in (1.1), bin/poledf/Makefile (1.4),
+	  bin/poledf/Makefile.in (1.1), bin/amcep/Makefile.in (1.1),
+	  bin/ccp/Makefile (1.4), bin/ccp/Makefile.in (1.1),
+	  bin/extract/Makefile (1.4), bin/fftr/Makefile (1.4),
+	  bin/fftr/Makefile.in (1.1), bin/levdur/Makefile (1.4),
+	  bin/levdur/Makefile.in (1.1), bin/lpc2lsp/Makefile (1.4),
+	  bin/lpc2lsp/Makefile.in (1.1), bin/sopr/Makefile (1.4),
+	  bin/sopr/Makefile.in (1.1), bin/Makefile (1.9), bin/Makefile.in
+	  (1.1), bin/amcep/Makefile (1.4), bin/ds/Makefile (1.5),
+	  bin/ds/Makefile.in (1.1), bin/ifft2/Makefile (1.4),
+	  bin/ifft2/Makefile.in (1.1), bin/mgcep2/Makefile (1.4),
+	  bin/mgcep2/Makefile.in (1.1), bin/mlsadf/Makefile (1.4),
+	  bin/mlsadf/Makefile.in (1.1), bin/uels/Makefile (1.6),
+	  bin/uels/Makefile.in (1.1), bin/xgr/Makefile (1.5),
+	  bin/xgr/Makefile.in (1.1), bin/df2/Makefile (1.4),
+	  bin/df2/Makefile.in (1.1), bin/interpolate/Makefile (1.4),
+	  bin/interpolate/Makefile.in (1.1), bin/ivq/Makefile (1.4),
+	  bin/ivq/Makefile.in (1.1), bin/lmadf/Makefile (1.4),
+	  bin/lmadf/Makefile.in (1.1), bin/lspcheck/Makefile (1.4),
+	  bin/lspcheck/Makefile.in (1.1), bin/phase/Makefile (1.4),
+	  bin/phase/Makefile.in (1.1), bin/rmse/Makefile (1.4),
+	  bin/zcross/Makefile (1.4), bin/zcross/Makefile.in (1.1),
+	  bin/rmse/Makefile.in (1.1), bin/agcep/Makefile (1.4),
+	  bin/agcep/Makefile.in (1.1), bin/freqt/Makefile (1.4),
+	  bin/freqt/Makefile.in (1.1), bin/grpdelay/Makefile (1.4),
+	  bin/grpdelay/Makefile.in (1.1), bin/lsp2lpc/Makefile.in (1.1),
+	  bin/swab/Makefile (1.4), bin/swab/Makefile.in (1.1),
+	  bin/lsp2lpc/Makefile (1.4), bin/mglsadf/Makefile (1.4),
+	  bin/mglsadf/Makefile.in (1.1): Support configure script.
+
+2007-07-19 18:57  heigazen
+
+	* include/SPTK.h (1.4): Bug fix
+
+2007-07-19 18:57  heigazen
+
+	* lib/getmem.c (1.4): unsigned size -> unsigned int size
+
+2007-07-19 15:25  heigazen
+
+	* include/SPTK.h (1.3): Fix prototype declarations.
+
+2007-07-19 15:18  heigazen
+
+	* bin/sopr/Makefile (1.3), bin/bcp/Makefile (1.3), bin/fd/Makefile
+	  (1.4), bin/fft/Makefile (1.3), bin/gcep/Makefile (1.3),
+	  bin/histogram/Makefile (1.3), bin/impulse/Makefile (1.3),
+	  bin/merge/Makefile (1.3), bin/mgcep2/Makefile (1.3),
+	  bin/mglsadf/Makefile (1.3), bin/ulaw/Makefile (1.3),
+	  bin/window/Makefile (1.3), lib/Makefile (1.4), bin/Makefile
+	  (1.8), bin/clip/Makefile (1.3), bin/glsadf/Makefile (1.3),
+	  bin/grpdelay/Makefile (1.3), bin/linear_intpl/Makefile (1.3),
+	  bin/mlsadf/Makefile (1.3), bin/nan/Makefile (1.5),
+	  bin/ramp/Makefile (1.3), bin/rmse/Makefile (1.3),
+	  bin/smcep/Makefile (1.3), bin/uels/Makefile (1.5),
+	  bin/acorr/Makefile (1.3), bin/c2ir/Makefile (1.3),
+	  bin/df2/Makefile (1.3), bin/excite/Makefile (1.3),
+	  bin/extract/Makefile (1.3), bin/imsvq/Makefile (1.3),
+	  bin/rndpg/Makefile (1.3), bin/vq/Makefile (1.3), bin/dmp/Makefile
+	  (1.3), bin/lpc/Makefile (1.3), include/Makefile (1.3),
+	  bin/amcep/Makefile (1.3), bin/c2acr/Makefile (1.3),
+	  bin/fft2/Makefile (1.3), bin/fftr/Makefile (1.3),
+	  bin/iglsadf/Makefile (1.3), bin/nrand/Makefile (1.3),
+	  bin/sin/Makefile (1.3), bin/snr/Makefile (1.3),
+	  bin/srcnv/Makefile (1.4), bin/cat2/Makefile (1.3),
+	  bin/cdist/Makefile (1.3), bin/da/Makefile (1.13),
+	  bin/freqt/Makefile (1.3), bin/ltcdf/Makefile (1.3),
+	  bin/mcep/Makefile (1.4), bin/mgc2sp/Makefile (1.3),
+	  bin/train/Makefile (1.3), bin/vstat/Makefile (1.3),
+	  script/Makefile (1.5), bin/gnorm/Makefile (1.3),
+	  bin/ignorm/Makefile (1.3), bin/lspcheck/Makefile (1.3),
+	  bin/minmax/Makefile (1.3), bin/par2lpc/Makefile (1.3),
+	  bin/phase/Makefile (1.3), bin/reverse/Makefile (1.3),
+	  bin/swab/Makefile (1.3), bin/vsum/Makefile (1.3), Makefile
+	  (1.10), bin/echo2/Makefile (1.3), bin/ifft/Makefile (1.4),
+	  bin/lpc2par/Makefile (1.3), bin/mlpg/Makefile (1.3),
+	  bin/norm0/Makefile (1.3), bin/pitch/Makefile (1.3),
+	  bin/agcep/Makefile (1.3), bin/fftr2/Makefile (1.3),
+	  bin/ifft2/Makefile (1.3), bin/levdur/Makefile (1.3),
+	  bin/msvq/Makefile (1.3), bin/zerodf/Makefile (1.3),
+	  bin/acep/Makefile (1.6), bin/bcut/Makefile (1.3),
+	  bin/c2sp/Makefile (1.3), bin/dfs/Makefile (1.3), bin/ds/Makefile
+	  (1.4), bin/fftcep/Makefile (1.3), bin/lsp2lpc/Makefile (1.3),
+	  bin/mgc2mgc/Makefile (1.3), bin/mgcep/Makefile (1.4),
+	  bin/spec/Makefile (1.3), bin/decimate/Makefile (1.3),
+	  bin/frame/Makefile (1.3), bin/imglsadf/Makefile (1.3),
+	  bin/lmadf/Makefile (1.3), bin/lpc2lsp/Makefile (1.3),
+	  bin/lspdf/Makefile (1.3), bin/psgr/Makefile (1.4),
+	  bin/root_pol/Makefile (1.3), bin/step/Makefile (1.3),
+	  bin/us/Makefile (1.7), bin/vopr/Makefile (1.3), bin/xgr/Makefile
+	  (1.4), bin/zcross/Makefile (1.3), bin/average/Makefile (1.3),
+	  bin/b2mc/Makefile (1.3), bin/ccp/Makefile (1.3),
+	  bin/delay/Makefile (1.4), bin/fig+fdrw/Makefile (1.4),
+	  bin/gc2gc/Makefile (1.3), bin/interpolate/Makefile (1.3),
+	  bin/ivq/Makefile (1.3), bin/mc2b/Makefile (1.3),
+	  bin/poledf/Makefile (1.3), bin/lbg/Makefile (1.3),
+	  bin/lpc2c/Makefile (1.3), bin/x2x/Makefile (1.3): Cleanup
+	  Makefile
+
+2007-07-19 03:24  heigazen
+
+	* bin/mcep/: Makefile (1.3), _mcep.c (1.6), mcep.c (1.7): Cleanup
+	  source codes.
+
+2007-07-19 03:00  heigazen
+
+	* bin/mgcep/: Makefile (1.3), _mgcep.c (1.6), mgcep.c (1.9): Make
+	  source codes clear.
+
+2007-04-12 17:59  kyo_n
+
+	* lib/glog.c (1.4):
+	  ----------------------------------------------------------------------
+	  テストです
+
+2007-01-13 16:01  s_sako
+
+	* bin/: psgr/plot.c (1.5), psgr/psgr.h (1.4), xgr/plot.c (1.6),
+	  xgr/xgr.h (1.4): fix prototype declaration
+
+2007-01-13 15:59  s_sako
+
+	* bin/root_pol/root_pol.c (1.6): add missing prototype declarations
+
+2007-01-13 15:15  s_sako
+
+	* bin/smcep/_smcep.c (1.5): avoid re-defining M_PI
+
+2007-01-13 15:13  s_sako
+
+	* bin/dmp/dmp.c (1.8): remove unexpexted string(F12?) on
+	  dmp.c:98(F12?)
+
+2007-01-13 15:06  s_sako
+
+	* bin/: amcep/_amcep.c (1.5), mgcep/_mgcep.c (1.5),
+	  mgcep2/_mgcep2.c (1.4), nrand/_nrand.c (1.4), smcep/_smcep.c
+	  (1.4), uels/_uels.c (1.8): add missing prototype declarations
+
+2007-01-13 14:47  s_sako
+
+	* bin/: average/_average.c (1.5), gnorm/_gnorm.c (1.5),
+	  histogram/_histogram.c (1.6), ifft/_ifft.c (1.5),
+	  ignorm/_ignorm.c (1.5), ivq/_ivq.c (1.5), par2lpc/_par2lpc.c
+	  (1.5): add: #include <stdio.h>
+
+2006-12-21 16:23  mr_alex
+
+	* bin/: acep/Makefile (1.5), acep/acep.c (1.5), acorr/acorr.c
+	  (1.5), agcep/agcep.c (1.6), amcep/amcep.c (1.6),
+	  average/average.c (1.6), b2mc/b2mc.c (1.6), bcp/bcp.c (1.6),
+	  bcut/bcut.c (1.6), c2acr/c2acr.c (1.6), c2ir/c2ir.c (1.6),
+	  c2sp/c2sp.c (1.6), cat2/cat2.c (1.7), ccp/ccp.c (1.6),
+	  cdist/cdist.c (1.7), clip/clip.c (1.6), da/dawrite.c (1.8),
+	  decimate/decimate.c (1.6), delay/delay.c (1.8), df2/df2.c (1.7),
+	  dfs/dfs.c (1.7), dmp/dmp.c (1.7), ds/ds.c (1.5), echo2/echo2.c
+	  (1.7), excite/excite.c (1.6), extract/extract.c (1.6), fd/fd.c
+	  (1.7), fft/fft.c (1.7), fft2/fft2.c (1.6), fftcep/fftcep.c (1.9),
+	  fftr/fftr.c (1.6), fftr2/fftr2.c (1.6), fig+fdrw/fdrw.c (1.7),
+	  fig+fdrw/fig.c (1.6), frame/frame.c (1.6), freqt/freqt.c (1.6),
+	  gc2gc/gc2gc.c (1.6), gcep/gcep.c (1.6), glsadf/glsadf.c (1.6),
+	  gnorm/gnorm.c (1.6), grpdelay/grpdelay.c (1.6),
+	  histogram/histogram.c (1.6), ifft/ifft.c (1.6), ifft2/ifft2.c
+	  (1.6), ignorm/ignorm.c (1.6), imglsadf/imglsadf.c (1.7),
+	  impulse/impulse.c (1.6), interpolate/interpolate.c (1.6),
+	  ivq/ivq.c (1.5), lbg/lbg.c (1.7), levdur/levdur.c (1.6),
+	  linear_intpl/linear_intpl.c (1.6), lmadf/lmadf.c (1.6), lpc/lpc.c
+	  (1.6), lpc2c/lpc2c.c (1.6), lpc2lsp/lpc2lsp.c (1.6),
+	  lpc2par/lpc2par.c (1.6), lsp2lpc/lsp2lpc.c (1.6),
+	  lspcheck/lspcheck.c (1.6), lspdf/lspdf.c (1.6), ltcdf/ltcdf.c
+	  (1.6), mc2b/mc2b.c (1.6), mcep/mcep.c (1.6), merge/merge.c (1.6),
+	  mgc2mgc/mgc2mgc.c (1.6), mgc2sp/mgc2sp.c (1.6), mgcep/_mgcep.c
+	  (1.4), mgcep/mgcep.c (1.8), mgcep2/mgcep2.c (1.6),
+	  mglsadf/mglsadf.c (1.6), minmax/minmax.c (1.6), mlpg/mlpg.c
+	  (1.9), mlsadf/mlsadf.c (1.7), msvq/msvq.c (1.6), nan/nan.c (1.7),
+	  norm0/norm0.c (1.6), nrand/nrand.c (1.6), par2lpc/par2lpc.c
+	  (1.6), phase/phase.c (1.6), pitch/pitch.c (1.13), poledf/poledf.c
+	  (1.7), psgr/psgr.c (1.6), ramp/ramp.c (1.6), reverse/reverse.c
+	  (1.7), rmse/rmse.c (1.6), rndpg/rndpg.c (1.5),
+	  root_pol/root_pol.c (1.5), sin/sin.c (1.6), smcep/smcep.c (1.6),
+	  snr/snr.c (1.7), sopr/sopr.c (1.7), spec/spec.c (1.6),
+	  srcnv/srcnv.c (1.8), step/step.c (1.6), swab/swab.c (1.6),
+	  train/train.c (1.6), uels/Makefile (1.4), uels/_uels.c (1.7),
+	  uels/uels.c (1.6), ulaw/ulaw.c (1.6), us/us.c (1.7), vopr/vopr.c
+	  (1.6), vq/vq.c (1.5), vstat/vstat.c (1.6), vsum/vsum.c (1.6),
+	  window/window.c (1.6), x2x/x2x.c (1.8), xgr/xgr.c (1.6),
+	  zcross/zcross.c (1.6), zerodf/zerodf.c (1.6):
+	  バージョン番号を文字列として出力するようにしました
+
+2006-12-19 22:02  mr_alex
+
+	* bin/: Makefile (1.7), acep/Makefile (1.4), acep/acep.c (1.4),
+	  acorr/acorr.c (1.4), agcep/agcep.c (1.5), amcep/amcep.c (1.5),
+	  average/average.c (1.5), b2mc/b2mc.c (1.5), bcp/bcp.c (1.5),
+	  bcut/bcut.c (1.5), c2acr/c2acr.c (1.5), c2ir/c2ir.c (1.5),
+	  c2sp/c2sp.c (1.5), cat2/cat2.c (1.6), ccp/ccp.c (1.5),
+	  cdist/cdist.c (1.6), clip/clip.c (1.5), da/dawrite.c (1.7),
+	  decimate/decimate.c (1.5), delay/delay.c (1.7), df2/df2.c (1.6),
+	  dfs/dfs.c (1.6), dmp/dmp.c (1.6), ds/ds.c (1.4), echo2/echo2.c
+	  (1.6), excite/excite.c (1.5), extract/extract.c (1.5), fd/fd.c
+	  (1.6), fft/fft.c (1.6), fft2/fft2.c (1.5), fftcep/fftcep.c (1.8),
+	  fftr/fftr.c (1.5), fftr2/fftr2.c (1.5), fig+fdrw/fdrw.c (1.6),
+	  fig+fdrw/fig.c (1.5), frame/frame.c (1.5), freqt/freqt.c (1.5),
+	  gc2gc/gc2gc.c (1.5), gcep/gcep.c (1.5), glsadf/glsadf.c (1.5),
+	  gnorm/gnorm.c (1.5), grpdelay/grpdelay.c (1.5),
+	  histogram/histogram.c (1.5), ifft/ifft.c (1.5), ifft2/ifft2.c
+	  (1.5), iglsadf/iglsadf.c (1.5), ignorm/ignorm.c (1.5),
+	  imglsadf/imglsadf.c (1.6), impulse/impulse.c (1.5), imsvq/imsvq.c
+	  (1.5), interpolate/interpolate.c (1.5), ivq/ivq.c (1.4),
+	  lbg/lbg.c (1.6), levdur/levdur.c (1.5),
+	  linear_intpl/linear_intpl.c (1.5), lmadf/lmadf.c (1.5), lpc/lpc.c
+	  (1.5), lpc2c/lpc2c.c (1.5), lpc2lsp/lpc2lsp.c (1.5),
+	  lpc2par/lpc2par.c (1.5), lsp2lpc/lsp2lpc.c (1.5),
+	  lspcheck/lspcheck.c (1.5), lspdf/lspdf.c (1.5), ltcdf/ltcdf.c
+	  (1.5), mc2b/mc2b.c (1.5), mcep/_mcep.c (1.5), mcep/mcep.c (1.5),
+	  merge/merge.c (1.5), mgc2mgc/mgc2mgc.c (1.5), mgc2sp/mgc2sp.c
+	  (1.5), mgcep/mgcep.c (1.7), mgcep2/mgcep2.c (1.5),
+	  mglsadf/mglsadf.c (1.5), minmax/minmax.c (1.5), mlpg/mlpg.c
+	  (1.8), mlsadf/mlsadf.c (1.6), msvq/msvq.c (1.5), nan/nan.c (1.6),
+	  norm0/norm0.c (1.5), nrand/nrand.c (1.5), par2lpc/par2lpc.c
+	  (1.5), phase/phase.c (1.5), pitch/pitch.c (1.12), poledf/poledf.c
+	  (1.6), psgr/psgr.c (1.5), ramp/ramp.c (1.5), reverse/reverse.c
+	  (1.6), rmse/rmse.c (1.5), rndpg/rndpg.c (1.4),
+	  root_pol/root_pol.c (1.4), sin/sin.c (1.5), smcep/smcep.c (1.5),
+	  snr/snr.c (1.6), sopr/sopr.c (1.6), spec/spec.c (1.5),
+	  srcnv/srcnv.c (1.7), step/step.c (1.5), swab/swab.c (1.5),
+	  train/train.c (1.5), uels/Makefile (1.3), uels/_uels.c (1.6),
+	  uels/uels.c (1.5), ulaw/ulaw.c (1.5), us/us.c (1.6), vopr/vopr.c
+	  (1.5), vq/vq.c (1.4), vstat/vstat.c (1.5), vsum/vsum.c (1.5),
+	  window/window.c (1.5), x2x/x2x.c (1.7), xgr/xgr.c (1.5),
+	  zcross/zcross.c (1.5), zerodf/zerodf.c (1.5):
+	  ヘルプメッセージにバージョン番号をいれました
+
+2006-12-15 20:06  mr_alex
+
+	* bin/: Makefile (1.6), acep/Makefile (1.3), acep/_acep.c (1.4),
+	  agcep/_agcep.c (1.4), agcep/agcep.c (1.4), amcep/_amcep.c (1.4),
+	  amcep/amcep.c (1.4), average/_average.c (1.4), average/average.c
+	  (1.4), b2mc/b2mc.c (1.4), bcp/bcp.c (1.4), bcut/bcut.c (1.4),
+	  c2acr/_c2acr.c (1.4), c2acr/c2acr.c (1.4), c2ir/_c2ir.c (1.4),
+	  c2ir/c2ir.c (1.4), c2sp/c2sp.c (1.4), cat2/cat2.c (1.5),
+	  ccp/ccp.c (1.4), cdist/cdist.c (1.5), clip/clip.c (1.4),
+	  decimate/decimate.c (1.4), delay/delay.c (1.6), df2/df2.c (1.5),
+	  dfs/dfs.c (1.5), dmp/dmp.c (1.5), echo2/echo2.c (1.5),
+	  excite/excite.c (1.4), extract/extract.c (1.4), fd/Makefile
+	  (1.3), fd/fd.c (1.5), fft/_fft.c (1.4), fft/fft.c (1.5),
+	  fft2/_fft2.c (1.4), fft2/fft2.c (1.4), fftcep/_fftcep.c (1.4),
+	  fftcep/fftcep.c (1.7), fftr/_fftr.c (1.4), fftr/fftr.c (1.4),
+	  fftr2/fftr2.c (1.4), fig+fdrw/Makefile (1.3), fig+fdrw/fdrw.c
+	  (1.5), fig+fdrw/fig.c (1.4), fig+fdrw/fig0.c (1.3),
+	  fig+fdrw/fig1.c (1.4), fig+fdrw/plot.c (1.4), fig+fdrw/plot.h
+	  (1.3), fig+fdrw/plsub.c (1.4), frame/frame.c (1.4),
+	  freqt/_freqt.c (1.4), freqt/freqt.c (1.4), gc2gc/_gc2gc.c (1.4),
+	  gc2gc/gc2gc.c (1.4), gcep/gcep.c (1.4), glsadf/glsadf.c (1.4),
+	  gnorm/_gnorm.c (1.4), gnorm/gnorm.c (1.4), grpdelay/_grpdelay.c
+	  (1.4), grpdelay/grpdelay.c (1.4), histogram/_histogram.c (1.5),
+	  ifft/Makefile (1.3), ifft/_ifft.c (1.4), ifft/ifft.c (1.4),
+	  iglsadf/iglsadf.c (1.4), ignorm/_ignorm.c (1.4), ignorm/ignorm.c
+	  (1.4), imglsadf/imglsadf.c (1.5), impulse/impulse.c (1.4),
+	  imsvq/_imsvq.c (1.4), imsvq/imsvq.c (1.4),
+	  interpolate/interpolate.c (1.4), ivq/_ivq.c (1.4), lbg/_lbg.c
+	  (1.6), lbg/lbg.c (1.5), levdur/_levdur.c (1.4), levdur/levdur.c
+	  (1.4), linear_intpl/linear_intpl.c (1.4), lmadf/lmadf.c (1.4),
+	  lpc/_lpc.c (1.4), lpc/lpc.c (1.4), lpc2c/lpc2c.c (1.4),
+	  lpc2lsp/_lpc2lsp.c (1.3), lpc2lsp/lpc2lsp.c (1.4),
+	  lpc2par/_lpc2par.c (1.4), lpc2par/lpc2par.c (1.4),
+	  lsp2lpc/_lsp2lpc.c (1.4), lsp2lpc/lsp2lpc.c (1.4),
+	  lspcheck/lspcheck.c (1.4), lspdf/lspdf.c (1.4), ltcdf/ltcdf.c
+	  (1.4), mc2b/mc2b.c (1.4), mcep/mcep.c (1.4), merge/merge.c (1.4),
+	  mgc2mgc/_mgc2mgc.c (1.4), mgc2mgc/mgc2mgc.c (1.4),
+	  mgc2sp/_mgc2sp.c (1.4), mgc2sp/mgc2sp.c (1.4), mgcep/mgcep.c
+	  (1.6), mgcep2/mgcep2.c (1.4), mglsadf/_mglsadf.c (1.4),
+	  mglsadf/mglsadf.c (1.4), minmax/minmax.c (1.4), mlpg/mlpg.c
+	  (1.7), mlsadf/mlsadf.c (1.5), msvq/_msvq.c (1.4), msvq/msvq.c
+	  (1.4), nan/nan.c (1.5), norm0/norm0.c (1.4), nrand/nrand.c (1.4),
+	  par2lpc/_par2lpc.c (1.4), par2lpc/par2lpc.c (1.4), phase/_phase.c
+	  (1.4), phase/phase.c (1.4), pitch/pitch.c (1.11), poledf/poledf.c
+	  (1.5), psgr/Makefile (1.3), psgr/dict.c (1.3), psgr/eps.c (1.4),
+	  psgr/plot.c (1.4), psgr/psgr.c (1.4), psgr/psgr.h (1.3),
+	  ramp/ramp.c (1.4), reverse/reverse.c (1.5), rmse/rmse.c (1.4),
+	  sin/sin.c (1.4), smcep/smcep.c (1.4), snr/snr.c (1.5),
+	  sopr/sopr.c (1.5), spec/spec.c (1.4), srcnv/srcnv.c (1.6),
+	  step/step.c (1.4), swab/swab.c (1.4), train/train.c (1.4),
+	  uels/_uels.c (1.5), uels/uels.c (1.4), ulaw/ulaw.c (1.4), us/us.c
+	  (1.5), vopr/vopr.c (1.4), vstat/vstat.c (1.4), vsum/vsum.c (1.4),
+	  window/window.c (1.4), x2x/x2x.c (1.6), xgr/Makefile (1.3),
+	  xgr/plot.c (1.5), xgr/window.c (1.5), xgr/xgr.c (1.4), xgr/xgr.h
+	  (1.3), zcross/_zcross.c (1.4), zcross/zcross.c (1.4),
+	  zerodf/_zerodf.c (1.4), zerodf/zerodf.c (1.4):
+	  ANSI化を再度やり直しました
+
+2006-12-13 21:36  mr_alex
+
+	* bin/uels/_uels.c (1.4):
+
+	  for (i=0; i<flng; i++){	  x[i] = cr[i] = log(x[i]*x[i] +
+	  y[i]*y[i] += e); }
+
+	  ↓
+
+	  for (i=0; i<flng; i++){	  x[i] = x[i]*x[i] + y[i]*y[i];
+	  x[i] = cr[i] = log(x[i] += e); } と変更しました
+
+2006-12-13 16:32  mr_alex
+
+	* bin/x2x/x2x.c (1.5):
+	  正負の場合分けをしました
+
+2006-12-11 16:16  mr_alex
+
+	* bin/: Makefile (1.5), agcep/_agcep.c (1.3), agcep/agcep.c (1.3),
+	  amcep/_amcep.c (1.3), amcep/amcep.c (1.3), average/_average.c
+	  (1.3), average/average.c (1.3), b2mc/_b2mc.c (1.3), b2mc/b2mc.c
+	  (1.3), bcp/bcp.c (1.3), bcut/bcut.c (1.3), c2acr/_c2acr.c (1.3),
+	  c2acr/c2acr.c (1.3), c2ir/_c2ir.c (1.3), c2ir/c2ir.c (1.3),
+	  c2sp/_c2sp.c (1.3), c2sp/c2sp.c (1.3), ccp/ccp.c (1.3),
+	  cdist/cdist.c (1.4), clip/_clip.c (1.3), clip/clip.c (1.3),
+	  da/dawrite.c (1.6), decimate/decimate.c (1.3), delay/Makefile
+	  (1.3), df2/_df2.c (1.3), df2/df2.c (1.4), dfs/_dfs.c (1.3),
+	  dfs/dfs.c (1.4), dmp/dmp.c (1.4), ds/ds.c (1.3), echo2/echo2.c
+	  (1.4), excite/excite.c (1.3), extract/extract.c (1.3), fd/fd.c
+	  (1.4), fft/_fft.c (1.3), fft/fft.c (1.4), fft2/_fft2.c (1.3),
+	  fft2/fft2.c (1.3), fftcep/_fftcep.c (1.3), fftcep/fftcep.c (1.6),
+	  fftr/_fftr.c (1.3), fftr/fftr.c (1.3), fftr2/_fftr2.c (1.4),
+	  fftr2/fftr2.c (1.3), fig+fdrw/fdrw.c (1.4), fig+fdrw/fig.c (1.3),
+	  fig+fdrw/fig1.c (1.3), fig+fdrw/plot.c (1.3), fig+fdrw/plsub.c
+	  (1.3), frame/frame.c (1.3), freqt/_freqt.c (1.3), freqt/freqt.c
+	  (1.3), gc2gc/_gc2gc.c (1.3), gc2gc/gc2gc.c (1.3), gcep/_gcep.c
+	  (1.3), gcep/gcep.c (1.3), glsadf/_glsadf.c (1.3), glsadf/glsadf.c
+	  (1.3), gnorm/_gnorm.c (1.3), gnorm/gnorm.c (1.3),
+	  grpdelay/_grpdelay.c (1.3), grpdelay/grpdelay.c (1.3),
+	  histogram/_histogram.c (1.4), histogram/histogram.c (1.4),
+	  ifft/_ifft.c (1.3), ifft/ifft.c (1.3), ifft2/_ifft2.c (1.4),
+	  ifft2/ifft2.c (1.4), iglsadf/_iglsadf.c (1.3), iglsadf/iglsadf.c
+	  (1.3), ignorm/_ignorm.c (1.3), ignorm/ignorm.c (1.3),
+	  imglsadf/_imglsadf.c (1.3), imglsadf/imglsadf.c (1.4),
+	  impulse/impulse.c (1.3), imsvq/_imsvq.c (1.3), imsvq/imsvq.c
+	  (1.3), interpolate/interpolate.c (1.3), ivq/_ivq.c (1.3),
+	  ivq/ivq.c (1.3), lbg/_lbg.c (1.5), lbg/lbg.c (1.4),
+	  levdur/_levdur.c (1.3), levdur/levdur.c (1.3),
+	  linear_intpl/linear_intpl.c (1.3), lmadf/_lmadf.c (1.3),
+	  lmadf/lmadf.c (1.3), lpc/_lpc.c (1.3), lpc/lpc.c (1.3),
+	  lpc2c/_lpc2c.c (1.3), lpc2c/lpc2c.c (1.3), lpc2lsp/lpc2lsp.c
+	  (1.3), lpc2par/_lpc2par.c (1.3), lpc2par/lpc2par.c (1.3),
+	  lsp2lpc/_lsp2lpc.c (1.3), lsp2lpc/lsp2lpc.c (1.3),
+	  lspcheck/_lspcheck.c (1.3), lspcheck/lspcheck.c (1.3),
+	  lspdf/_lspdf.c (1.3), lspdf/lspdf.c (1.3), ltcdf/_ltcdf.c (1.3),
+	  ltcdf/ltcdf.c (1.3), mc2b/_mc2b.c (1.3), mc2b/mc2b.c (1.3),
+	  mcep/_mcep.c (1.4), mcep/mcep.c (1.3), merge/merge.c (1.3),
+	  mgc2mgc/_mgc2mgc.c (1.3), mgc2mgc/mgc2mgc.c (1.3),
+	  mgc2sp/_mgc2sp.c (1.3), mgc2sp/mgc2sp.c (1.3), mgcep/_mgcep.c
+	  (1.3), mgcep/mgcep.c (1.5), mgcep2/_mgcep2.c (1.3),
+	  mgcep2/mgcep2.c (1.3), mglsadf/_mglsadf.c (1.3),
+	  mglsadf/mglsadf.c (1.3), minmax/minmax.c (1.3), mlpg/mlpg.c
+	  (1.6), mlsadf/_mlsadf.c (1.3), mlsadf/mlsadf.c (1.4),
+	  msvq/_msvq.c (1.3), msvq/msvq.c (1.3), nan/Makefile (1.4),
+	  norm0/_norm0.c (1.3), norm0/norm0.c (1.3), nrand/_nrand.c (1.3),
+	  nrand/nrand.c (1.3), par2lpc/_par2lpc.c (1.3), par2lpc/par2lpc.c
+	  (1.3), phase/_phase.c (1.3), phase/phase.c (1.3), pitch/_pitch.c
+	  (1.8), pitch/pitch.c (1.10), poledf/_poledf.c (1.3),
+	  poledf/poledf.c (1.4), psgr/eps.c (1.3), psgr/plot.c (1.3),
+	  psgr/psgr.c (1.3), ramp/ramp.c (1.3), reverse/_reverse.c (1.3),
+	  reverse/reverse.c (1.4), rmse/_rmse.c (1.3), rmse/rmse.c (1.3),
+	  rndpg/rndpg.c (1.3), root_pol/_root_pol.c (1.3),
+	  root_pol/root_pol.c (1.3), sin/sin.c (1.3), smcep/_smcep.c (1.3),
+	  smcep/smcep.c (1.3), snr/snr.c (1.4), sopr/sopr.c (1.4),
+	  spec/spec.c (1.3), srcnv/srcnv.c (1.5), step/step.c (1.3),
+	  swab/swab.c (1.3), train/train.c (1.3), uels/_uels.c (1.3),
+	  uels/uels.c (1.3), ulaw/_ulaw.c (1.3), ulaw/ulaw.c (1.3), us/us.c
+	  (1.4), vopr/vopr.c (1.3), vq/_vq.c (1.3), vq/vq.c (1.3),
+	  vstat/vstat.c (1.3), vsum/vsum.c (1.3), window/_window.c (1.3),
+	  window/window.c (1.3), x2x/x2x.c (1.4), xgr/plot.c (1.4),
+	  xgr/window.c (1.4), xgr/xgr.c (1.3), zcross/_zcross.c (1.3),
+	  zcross/zcross.c (1.3), zerodf/_zerodf.c (1.3), zerodf/zerodf.c
+	  (1.3):
+	  Chenged KR to ANSI
+
+2006-12-11 16:05  mr_alex
+
+	* bin/acorr/: _acorr.c (1.3), acorr.c (1.3):
+	  KR to ANSI
+
+2006-12-11 15:59  mr_alex
+
+	* lib/: Makefile (1.3), Makefile.lib (1.2), agexp.c (1.3),
+	  cholesky.c (1.3), fileio.c (1.3), fillz.c (1.3), getfp.c (1.3),
+	  getmem.c (1.3), gexp.c (1.3), glog.c (1.3), ifftr.c (1.3),
+	  matrix.c (1.3), movem.c (1.3), mseq.c (1.3), theq.c (1.3),
+	  toeplitz.c (1.3):
+	  ライブラリのANSI化を行いました
+
+2006-12-11 15:50  mr_alex
+
+	* bin/acep/acep.c (1.3):
+	  テストです-
+
+2006-12-07 17:29  mr_alex
+
+	* bin/nan/nan.c (1.4):
+	  ヘルプメッセージを修正しました。
+
+2006-12-07 13:01  mr_alex
+
+	* bin/nan/nan.c (1.3):
+	  nan()をnan_tmp()と変更しました -
+
+2006-12-06 17:42  mr_alex
+
+	* bin/mgcep/mgcep.c (1.4):
+	  if (g >1) を if(g>=1)としました
+
+2006-12-06 17:37  mr_alex
+
+	* bin/nan/Makefile (1.3):
+	  nan関数を適当にnan2と変更しました。
+	  このような対応でよろしいでしょうか?
+
+2006-11-04 14:34  mr_alex
+
+	* bin/fftcep/fftcep.c (1.5):
+	  case 'e': eps = atof(*++argv); --argc; break;
+	  のパッチを当てました
+
+2006-11-04 14:27  mr_alex
+
+	* bin/pitch/pitch.c (1.9):
+	  < m = freq / 10 * 25; ---
+	  > m = (freq * 25) / 10;
+	  としました。
+
+2006-11-04 14:27  mr_alex
+
+	* bin/pitch/_pitch.c (1.7):
+	  < x[i] /= l * i; ---
+	  > x[i] /= l; x[i] *= i;
+	  としました。
+
+2006-11-04 14:15  mr_alex
+
+	* bin/mgcep/mgcep.c (1.3):
+	  if( g >1 ) を if( g>=1)としました
+
+2006-10-23 09:30  s_sako
+
+	* bin/dmp/dmp.c (1.3): fix: +l option does not work
+
+2006-10-14 15:50  mr_alex
+
+	* bin/delay/delay.c (1.5):
+	  最初のSPTKのコメント部分を追加
+
+2006-10-14 15:39  mr_alex
+
+	* bin/delay/delay.c (1.4):
+	  エラーメッセージにコマンド名を出力するように変更
+
+2006-10-14 15:07  mr_alex
+
+	* bin/delay/delay.c (1.3):
+	  startがleng以下でない場合、エラーをはいて終了するように変更しました
+
+2006-10-14 14:09  mr_alex
+
+	* bin/acep/_acep.c (1.3):
+	  tau をdouble型で宣言しました
+
+2006-10-06 21:16  mr_alex
+
+	* bin/mcep/_mcep.c (1.3): [no log message]
+
+2006-10-06 13:47  mr_alex
+
+	* bin/cat2/cat2.c (1.4): [no log message]
+
+2006-06-22 11:02  sako
+
+	* bin/da/Makefile (1.12), bin/us/Makefile (1.6), script/Makefile
+	  (1.4): sako : makefile
+
+2003-03-28 22:24  masuko
+
+	* bin/da/Makefile (1.11), bin/us/Makefile (1.5), script/Makefile
+	  (1.3): Modify symbolic links.
+
+2002-12-25 19:06  sako
+
+	* script/Makefile (1.2): fix 2.0->3.0 ./src/script/Makefile
+
+2002-12-25 19:06  sako
+
+	* include/Makefile (1.2): fix 2.0->3.0 ./src/include/Makefile
+
+2002-12-25 19:06  sako
+
+	* Makefile (1.9): fix 2.0->3.0 ./src/Makefile
+
+2002-12-25 19:06  sako
+
+	* lib/Makefile (1.2): fix 2.0->3.0 ./src/lib/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/zerodf/Makefile (1.2): fix 2.0->3.0 ./src/bin/zerodf/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/zcross/Makefile (1.2): fix 2.0->3.0 ./src/bin/zcross/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/xgr/Makefile (1.2): fix 2.0->3.0 ./src/bin/xgr/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/x2x/Makefile (1.2): fix 2.0->3.0 ./src/bin/x2x/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/window/Makefile (1.2): fix 2.0->3.0 ./src/bin/window/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/vsum/Makefile (1.2): fix 2.0->3.0 ./src/bin/vsum/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/vstat/Makefile (1.2): fix 2.0->3.0 ./src/bin/vstat/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/vq/Makefile (1.2): fix 2.0->3.0 ./src/bin/vq/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/vopr/Makefile (1.2): fix 2.0->3.0 ./src/bin/vopr/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/us/Makefile (1.4): fix 2.0->3.0 ./src/bin/us/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/ulaw/Makefile (1.2): fix 2.0->3.0 ./src/bin/ulaw/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/uels/Makefile (1.2): fix 2.0->3.0 ./src/bin/uels/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/train/Makefile (1.2): fix 2.0->3.0 ./src/bin/train/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/swab/Makefile (1.2): fix 2.0->3.0 ./src/bin/swab/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/step/Makefile (1.2): fix 2.0->3.0 ./src/bin/step/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/srcnv/Makefile (1.3): fix 2.0->3.0 ./src/bin/srcnv/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/spec/Makefile (1.2): fix 2.0->3.0 ./src/bin/spec/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/sopr/Makefile (1.2): fix 2.0->3.0 ./src/bin/sopr/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/snr/Makefile (1.2): fix 2.0->3.0 ./src/bin/snr/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/smcep/Makefile (1.2): fix 2.0->3.0 ./src/bin/smcep/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/sin/Makefile (1.2): fix 2.0->3.0 ./src/bin/sin/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/root_pol/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/root_pol/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/rndpg/Makefile (1.2): fix 2.0->3.0 ./src/bin/rndpg/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/rmse/Makefile (1.2): fix 2.0->3.0 ./src/bin/rmse/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/reverse/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/reverse/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/ramp/Makefile (1.2): fix 2.0->3.0 ./src/bin/ramp/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/psgr/Makefile (1.2): fix 2.0->3.0 ./src/bin/psgr/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/poledf/Makefile (1.2): fix 2.0->3.0 ./src/bin/poledf/Makefile
+
+2002-12-25 19:06  sako
+
+	* bin/pitch/Makefile (1.2): fix 2.0->3.0 ./src/bin/pitch/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/phase/Makefile (1.2): fix 2.0->3.0 ./src/bin/phase/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/par2lpc/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/par2lpc/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/nrand/Makefile (1.2): fix 2.0->3.0 ./src/bin/nrand/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/norm0/Makefile (1.2): fix 2.0->3.0 ./src/bin/norm0/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/msvq/Makefile (1.2): fix 2.0->3.0 ./src/bin/msvq/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/mlsadf/Makefile (1.2): fix 2.0->3.0 ./src/bin/mlsadf/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/mlpg/Makefile (1.2): fix 2.0->3.0 ./src/bin/mlpg/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/minmax/Makefile (1.2): fix 2.0->3.0 ./src/bin/minmax/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/mglsadf/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/mglsadf/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/mgcep2/Makefile (1.2): fix 2.0->3.0 ./src/bin/mgcep2/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/mgcep/Makefile (1.2): fix 2.0->3.0 ./src/bin/mgcep/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/mgc2sp/Makefile (1.2): fix 2.0->3.0 ./src/bin/mgc2sp/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/mgc2mgc/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/mgc2mgc/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/merge/Makefile (1.2): fix 2.0->3.0 ./src/bin/merge/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/mcep/Makefile (1.2): fix 2.0->3.0 ./src/bin/mcep/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/mc2b/Makefile (1.2): fix 2.0->3.0 ./src/bin/mc2b/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/ltcdf/Makefile (1.2): fix 2.0->3.0 ./src/bin/ltcdf/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/lspdf/Makefile (1.2): fix 2.0->3.0 ./src/bin/lspdf/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/nan/Makefile (1.2): fix 2.0->3.0 ./src/bin/nan/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/lspcheck/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/lspcheck/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/lsp2lpc/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/lsp2lpc/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/lpc2par/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/lpc2par/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/lpc2lsp/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/lpc2lsp/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/lpc2c/Makefile (1.2): fix 2.0->3.0 ./src/bin/lpc2c/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/lpc/Makefile (1.2): fix 2.0->3.0 ./src/bin/lpc/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/lmadf/Makefile (1.2): fix 2.0->3.0 ./src/bin/lmadf/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/linear_intpl/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/linear_intpl/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/levdur/Makefile (1.2): fix 2.0->3.0 ./src/bin/levdur/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/lbg/Makefile (1.2): fix 2.0->3.0 ./src/bin/lbg/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/ivq/Makefile (1.2): fix 2.0->3.0 ./src/bin/ivq/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/interpolate/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/interpolate/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/imsvq/Makefile (1.2): fix 2.0->3.0 ./src/bin/imsvq/Makefile
+
+2002-12-25 19:05  sako
+
+	* bin/impulse/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/impulse/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/imglsadf/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/imglsadf/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/ignorm/Makefile (1.2): fix 2.0->3.0 ./src/bin/ignorm/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/iglsadf/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/iglsadf/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/ifft2/Makefile (1.2): fix 2.0->3.0 ./src/bin/ifft2/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/ifft/Makefile (1.2): fix 2.0->3.0 ./src/bin/ifft/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/histogram/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/histogram/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/grpdelay/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/grpdelay/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/gnorm/Makefile (1.2): fix 2.0->3.0 ./src/bin/gnorm/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/glsadf/Makefile (1.2): fix 2.0->3.0 ./src/bin/glsadf/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/gcep/Makefile (1.2): fix 2.0->3.0 ./src/bin/gcep/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/gc2gc/Makefile (1.2): fix 2.0->3.0 ./src/bin/gc2gc/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/freqt/Makefile (1.2): fix 2.0->3.0 ./src/bin/freqt/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/frame/Makefile (1.2): fix 2.0->3.0 ./src/bin/frame/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/fig+fdrw/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/fig+fdrw/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/fftr2/Makefile (1.2): fix 2.0->3.0 ./src/bin/fftr2/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/fftr/Makefile (1.2): fix 2.0->3.0 ./src/bin/fftr/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/fftcep/Makefile (1.2): fix 2.0->3.0 ./src/bin/fftcep/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/fft2/Makefile (1.2): fix 2.0->3.0 ./src/bin/fft2/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/fft/Makefile (1.2): fix 2.0->3.0 ./src/bin/fft/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/fd/Makefile (1.2): fix 2.0->3.0 ./src/bin/fd/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/extract/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/extract/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/excite/Makefile (1.2): fix 2.0->3.0 ./src/bin/excite/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/echo2/Makefile (1.2): fix 2.0->3.0 ./src/bin/echo2/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/ds/Makefile (1.3): fix 2.0->3.0 ./src/bin/ds/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/dmp/Makefile (1.2): fix 2.0->3.0 ./src/bin/dmp/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/dfs/Makefile (1.2): fix 2.0->3.0 ./src/bin/dfs/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/df2/Makefile (1.2): fix 2.0->3.0 ./src/bin/df2/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/delay/Makefile (1.2): fix 2.0->3.0 ./src/bin/delay/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/decimate/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/decimate/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/da/Makefile (1.10): fix 2.0->3.0 ./src/bin/da/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/clip/Makefile (1.2): fix 2.0->3.0 ./src/bin/clip/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/cdist/Makefile (1.2): fix 2.0->3.0 ./src/bin/cdist/Makefile
+
+2002-12-25 19:04  sako
+
+	* bin/ccp/Makefile (1.2): fix 2.0->3.0 ./src/bin/ccp/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/cat2/Makefile (1.2): fix 2.0->3.0 ./src/bin/cat2/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/c2sp/Makefile (1.2): fix 2.0->3.0 ./src/bin/c2sp/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/c2ir/Makefile (1.2): fix 2.0->3.0 ./src/bin/c2ir/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/c2acr/Makefile (1.2): fix 2.0->3.0 ./src/bin/c2acr/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/bcut/Makefile (1.2): fix 2.0->3.0 ./src/bin/bcut/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/bcp/Makefile (1.2): fix 2.0->3.0 ./src/bin/bcp/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/b2mc/Makefile (1.2): fix 2.0->3.0 ./src/bin/b2mc/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/average/Makefile (1.2): fix 2.0->3.0
+	  ./src/bin/average/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/amcep/Makefile (1.2): fix 2.0->3.0 ./src/bin/amcep/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/agcep/Makefile (1.2): fix 2.0->3.0 ./src/bin/agcep/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/acorr/Makefile (1.2): fix 2.0->3.0 ./src/bin/acorr/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/Makefile (1.4): fix 2.0->3.0 ./src/bin/Makefile
+
+2002-12-25 19:03  sako
+
+	* bin/acep/Makefile (1.2): fix 2.0->3.0 ./src/bin/acep/Makefile
+
+2002-12-25 14:35  sako
+
+	* script/gwave.sh (1.2): src/script/gwave.sh
+
+2002-12-25 14:35  sako
+
+	* script/grlogsp.sh (1.3): src/script/grlogsp.sh
+
+2002-12-25 14:34  sako
+
+	* script/glogsp.sh (1.2): src/script/glogsp.sh
+
+2002-12-25 14:34  sako
+
+	* script/bell.sh (1.2): src/script/bell.sh
+
+2002-12-25 14:34  sako
+
+	* include/SPTK.h (1.2): src/include/SPTK.h
+
+2002-12-25 14:34  sako
+
+	* lib/toeplitz.c (1.2): src/lib/toeplitz.c
+
+2002-12-25 14:34  sako
+
+	* lib/theq.c (1.2): src/lib/theq.c
+
+2002-12-25 14:34  sako
+
+	* lib/mseq.c (1.2): src/lib/mseq.c
+
+2002-12-25 14:34  sako
+
+	* lib/movem.c (1.2): src/lib/movem.c
+
+2002-12-25 14:34  sako
+
+	* lib/matrix.c (1.2): src/lib/matrix.c
+
+2002-12-25 14:34  sako
+
+	* lib/ifftr.c (1.2): src/lib/ifftr.c
+
+2002-12-25 14:34  sako
+
+	* lib/glog.c (1.2): src/lib/glog.c
+
+2002-12-25 14:34  sako
+
+	* lib/gexp.c (1.2): src/lib/gexp.c
+
+2002-12-25 14:34  sako
+
+	* lib/getmem.c (1.2): src/lib/getmem.c
+
+2002-12-25 14:34  sako
+
+	* lib/getfp.c (1.2): src/lib/getfp.c
+
+2002-12-25 14:34  sako
+
+	* lib/fillz.c (1.2): src/lib/fillz.c
+
+2002-12-25 14:34  sako
+
+	* lib/fileio.c (1.2): src/lib/fileio.c
+
+2002-12-25 14:34  sako
+
+	* lib/cholesky.c (1.2): src/lib/cholesky.c
+
+2002-12-25 14:34  sako
+
+	* lib/agexp.c (1.2): src/lib/agexp.c
+
+2002-12-25 14:34  sako
+
+	* bin/zerodf/zerodf.c (1.2): src/bin/zerodf/zerodf.c
+
+2002-12-25 14:34  sako
+
+	* bin/zerodf/_zerodf.c (1.2): src/bin/zerodf/_zerodf.c
+
+2002-12-25 14:34  sako
+
+	* bin/zcross/zcross.c (1.2): src/bin/zcross/zcross.c
+
+2002-12-25 14:34  sako
+
+	* bin/zcross/_zcross.c (1.2): src/bin/zcross/_zcross.c
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till9.dat (1.2): src/bin/xgr/tills/till9.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till8.dat (1.2): src/bin/xgr/tills/till8.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till7.dat (1.2): src/bin/xgr/tills/till7.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till6.dat (1.2): src/bin/xgr/tills/till6.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till5.dat (1.2): src/bin/xgr/tills/till5.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till4.dat (1.2): src/bin/xgr/tills/till4.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till3.dat (1.2): src/bin/xgr/tills/till3.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till2.dat (1.2): src/bin/xgr/tills/till2.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till16.dat (1.2): src/bin/xgr/tills/till16.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till15.dat (1.2): src/bin/xgr/tills/till15.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till14.dat (1.2): src/bin/xgr/tills/till14.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till13.dat (1.2): src/bin/xgr/tills/till13.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till12.dat (1.2): src/bin/xgr/tills/till12.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till11.dat (1.2): src/bin/xgr/tills/till11.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till10.dat (1.2): src/bin/xgr/tills/till10.dat
+
+2002-12-25 14:34  sako
+
+	* bin/xgr/tills/till1.dat (1.2): src/bin/xgr/tills/till1.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/tills/till0.dat (1.2): src/bin/xgr/tills/till0.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/xgr.h (1.2): src/bin/xgr/xgr.h
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/xgr.c (1.2): src/bin/xgr/xgr.c
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/window.c (1.3): src/bin/xgr/window.c
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/plot.c (1.3): src/bin/xgr/plot.c
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/gcdata.h (1.2): src/bin/xgr/gcdata.h
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/config.h (1.2): src/bin/xgr/config.h
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark9.dat (1.2): src/bin/xgr/marks/mark9.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark8.dat (1.2): src/bin/xgr/marks/mark8.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark7.dat (1.2): src/bin/xgr/marks/mark7.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark6.dat (1.2): src/bin/xgr/marks/mark6.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark5.dat (1.2): src/bin/xgr/marks/mark5.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark4.dat (1.2): src/bin/xgr/marks/mark4.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark3.dat (1.2): src/bin/xgr/marks/mark3.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark2.dat (1.2): src/bin/xgr/marks/mark2.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark15.dat (1.2): src/bin/xgr/marks/mark15.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark14.dat (1.2): src/bin/xgr/marks/mark14.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark13.dat (1.2): src/bin/xgr/marks/mark13.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark12.dat (1.2): src/bin/xgr/marks/mark12.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark11.dat (1.2): src/bin/xgr/marks/mark11.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark10.dat (1.2): src/bin/xgr/marks/mark10.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark1.dat (1.2): src/bin/xgr/marks/mark1.dat
+
+2002-12-25 14:33  sako
+
+	* bin/xgr/marks/mark0.dat (1.2): src/bin/xgr/marks/mark0.dat
+
+2002-12-25 14:33  sako
+
+	* bin/x2x/x2x.c (1.3): src/bin/x2x/x2x.c
+
+2002-12-25 14:33  sako
+
+	* bin/window/window.c (1.2): src/bin/window/window.c
+
+2002-12-25 14:33  sako
+
+	* bin/window/_window.c (1.2): src/bin/window/_window.c
+
+2002-12-25 14:33  sako
+
+	* bin/vsum/vsum.c (1.2): src/bin/vsum/vsum.c
+
+2002-12-25 14:33  sako
+
+	* bin/vstat/vstat.c (1.2): src/bin/vstat/vstat.c
+
+2002-12-25 14:33  sako
+
+	* bin/vq/vq.c (1.2): src/bin/vq/vq.c
+
+2002-12-25 14:33  sako
+
+	* bin/vq/_vq.c (1.2): src/bin/vq/_vq.c
+
+2002-12-25 14:33  sako
+
+	* bin/vopr/vopr.c (1.2): src/bin/vopr/vopr.c
+
+2002-12-25 14:33  sako
+
+	* bin/us/uscd.sh (1.4): src/bin/us/uscd.sh
+
+2002-12-25 14:33  sako
+
+	* bin/us/us16.sh (1.3): src/bin/us/us16.sh
+
+2002-12-25 14:33  sako
+
+	* bin/us/us.c (1.3): src/bin/us/us.c
+
+2002-12-25 14:33  sako
+
+	* bin/ulaw/ulaw.c (1.2): src/bin/ulaw/ulaw.c
+
+2002-12-25 14:32  sako
+
+	* bin/ulaw/_ulaw.c (1.2): src/bin/ulaw/_ulaw.c
+
+2002-12-25 14:32  sako
+
+	* bin/uels/uels.c (1.2): src/bin/uels/uels.c
+
+2002-12-25 14:32  sako
+
+	* bin/uels/_uels.c (1.2): src/bin/uels/_uels.c
+
+2002-12-25 14:32  sako
+
+	* bin/train/train.c (1.2): src/bin/train/train.c
+
+2002-12-25 14:32  sako
+
+	* bin/swab/swab.c (1.2): src/bin/swab/swab.c
+
+2002-12-25 14:32  sako
+
+	* bin/step/step.c (1.2): src/bin/step/step.c
+
+2002-12-25 14:32  sako
+
+	* bin/srcnv/srcnv.c (1.4): src/bin/srcnv/srcnv.c
+
+2002-12-25 14:32  sako
+
+	* bin/spec/spec.c (1.2): src/bin/spec/spec.c
+
+2002-12-25 14:32  sako
+
+	* bin/sopr/sopr.c (1.3): src/bin/sopr/sopr.c
+
+2002-12-25 14:32  sako
+
+	* bin/snr/snr.c (1.3): src/bin/snr/snr.c
+
+2002-12-25 14:32  sako
+
+	* bin/smcep/smcep.c (1.2): src/bin/smcep/smcep.c
+
+2002-12-25 14:32  sako
+
+	* bin/smcep/_smcep.c (1.2): src/bin/smcep/_smcep.c
+
+2002-12-25 14:32  sako
+
+	* bin/sin/sin.c (1.2): src/bin/sin/sin.c
+
+2002-12-25 14:32  sako
+
+	* bin/root_pol/root_pol.c (1.2): src/bin/root_pol/root_pol.c
+
+2002-12-25 14:32  sako
+
+	* bin/root_pol/_root_pol.c (1.2): src/bin/root_pol/_root_pol.c
+
+2002-12-25 14:32  sako
+
+	* bin/rndpg/rndpg.c (1.2): src/bin/rndpg/rndpg.c
+
+2002-12-25 14:32  sako
+
+	* bin/rmse/rmse.c (1.2): src/bin/rmse/rmse.c
+
+2002-12-25 14:32  sako
+
+	* bin/rmse/_rmse.c (1.2): src/bin/rmse/_rmse.c
+
+2002-12-25 14:32  sako
+
+	* bin/reverse/reverse.c (1.3): src/bin/reverse/reverse.c
+
+2002-12-25 14:32  sako
+
+	* bin/reverse/_reverse.c (1.2): src/bin/reverse/_reverse.c
+
+2002-12-25 14:32  sako
+
+	* bin/ramp/ramp.c (1.2): src/bin/ramp/ramp.c
+
+2002-12-25 14:32  sako
+
+	* bin/psgr/psgr.h (1.2): src/bin/psgr/psgr.h
+
+2002-12-25 14:32  sako
+
+	* bin/psgr/psgr.c (1.2): src/bin/psgr/psgr.c
+
+2002-12-25 14:32  sako
+
+	* bin/psgr/plot.c (1.2): src/bin/psgr/plot.c
+
+2002-12-25 14:32  sako
+
+	* bin/psgr/eps.c (1.2): src/bin/psgr/eps.c
+
+2002-12-25 14:32  sako
+
+	* bin/psgr/dict.c (1.2): src/bin/psgr/dict.c
+
+2002-12-25 14:32  sako
+
+	* bin/poledf/poledf.c (1.3): src/bin/poledf/poledf.c
+
+2002-12-25 14:32  sako
+
+	* bin/poledf/_poledf.c (1.2): src/bin/poledf/_poledf.c
+
+2002-12-25 14:32  sako
+
+	* bin/pitch/pitch.c (1.8): src/bin/pitch/pitch.c
+
+2002-12-25 14:32  sako
+
+	* bin/pitch/_pitch.c (1.6): src/bin/pitch/_pitch.c
+
+2002-12-25 14:32  sako
+
+	* bin/phase/phase.c (1.2): src/bin/phase/phase.c
+
+2002-12-25 14:32  sako
+
+	* bin/phase/_phase.c (1.2): src/bin/phase/_phase.c
+
+2002-12-25 14:32  sako
+
+	* bin/par2lpc/par2lpc.c (1.2): src/bin/par2lpc/par2lpc.c
+
+2002-12-25 14:32  sako
+
+	* bin/par2lpc/_par2lpc.c (1.2): src/bin/par2lpc/_par2lpc.c
+
+2002-12-25 14:32  sako
+
+	* bin/nrand/nrand.c (1.2): src/bin/nrand/nrand.c
+
+2002-12-25 14:32  sako
+
+	* bin/nrand/_nrand.c (1.2): src/bin/nrand/_nrand.c
+
+2002-12-25 14:32  sako
+
+	* bin/norm0/norm0.c (1.2): src/bin/norm0/norm0.c
+
+2002-12-25 14:31  sako
+
+	* bin/norm0/_norm0.c (1.2): src/bin/norm0/_norm0.c
+
+2002-12-25 14:31  sako
+
+	* bin/msvq/msvq.c (1.2): src/bin/msvq/msvq.c
+
+2002-12-25 14:31  sako
+
+	* bin/msvq/_msvq.c (1.2): src/bin/msvq/_msvq.c
+
+2002-12-25 14:31  sako
+
+	* bin/mlsadf/mlsadf.c (1.3): src/bin/mlsadf/mlsadf.c
+
+2002-12-25 14:31  sako
+
+	* bin/mlsadf/_mlsadf.c (1.2): src/bin/mlsadf/_mlsadf.c
+
+2002-12-25 14:31  sako
+
+	* bin/mlpg/mlpg.c (1.5): src/bin/mlpg/mlpg.c
+
+2002-12-25 14:31  sako
+
+	* bin/minmax/minmax.c (1.2): src/bin/minmax/minmax.c
+
+2002-12-25 14:31  sako
+
+	* bin/mglsadf/mglsadf.c (1.2): src/bin/mglsadf/mglsadf.c
+
+2002-12-25 14:31  sako
+
+	* bin/mglsadf/_mglsadf.c (1.2): src/bin/mglsadf/_mglsadf.c
+
+2002-12-25 14:31  sako
+
+	* bin/mgcep2/mgcep2.c (1.2): src/bin/mgcep2/mgcep2.c
+
+2002-12-25 14:31  sako
+
+	* bin/mgcep2/_mgcep2.c (1.2): src/bin/mgcep2/_mgcep2.c
+
+2002-12-25 14:31  sako
+
+	* bin/mgcep/mgcep.c (1.2): src/bin/mgcep/mgcep.c
+
+2002-12-25 14:31  sako
+
+	* bin/mgcep/_mgcep.c (1.2): src/bin/mgcep/_mgcep.c
+
+2002-12-25 14:31  sako
+
+	* bin/mgc2sp/mgc2sp.c (1.2): src/bin/mgc2sp/mgc2sp.c
+
+2002-12-25 14:31  sako
+
+	* bin/mgc2sp/_mgc2sp.c (1.2): src/bin/mgc2sp/_mgc2sp.c
+
+2002-12-25 14:31  sako
+
+	* bin/mgc2mgc/mgc2mgc.c (1.2): src/bin/mgc2mgc/mgc2mgc.c
+
+2002-12-25 14:31  sako
+
+	* bin/mgc2mgc/_mgc2mgc.c (1.2): src/bin/mgc2mgc/_mgc2mgc.c
+
+2002-12-25 14:31  sako
+
+	* bin/merge/merge.c (1.2): src/bin/merge/merge.c
+
+2002-12-25 14:31  sako
+
+	* bin/mcep/mcep.c (1.2): src/bin/mcep/mcep.c
+
+2002-12-25 14:31  sako
+
+	* bin/mcep/_mcep.c (1.2): src/bin/mcep/_mcep.c
+
+2002-12-25 14:31  sako
+
+	* bin/mc2b/mc2b.c (1.2): src/bin/mc2b/mc2b.c
+
+2002-12-25 14:31  sako
+
+	* bin/mc2b/_mc2b.c (1.2): src/bin/mc2b/_mc2b.c
+
+2002-12-25 14:31  sako
+
+	* bin/ltcdf/ltcdf.c (1.2): src/bin/ltcdf/ltcdf.c
+
+2002-12-25 14:31  sako
+
+	* bin/ltcdf/_ltcdf.c (1.2): src/bin/ltcdf/_ltcdf.c
+
+2002-12-25 14:31  sako
+
+	* bin/lspdf/lspdf.c (1.2): src/bin/lspdf/lspdf.c
+
+2002-12-25 14:31  sako
+
+	* bin/lspdf/_lspdf.c (1.2): src/bin/lspdf/_lspdf.c
+
+2002-12-25 14:31  sako
+
+	* bin/nan/nan.c (1.2): src/bin/nan/nan.c
+
+2002-12-25 14:31  sako
+
+	* bin/lspcheck/lspcheck.c (1.2): src/bin/lspcheck/lspcheck.c
+
+2002-12-25 14:31  sako
+
+	* bin/lspcheck/_lspcheck.c (1.2): src/bin/lspcheck/_lspcheck.c
+
+2002-12-25 14:31  sako
+
+	* bin/lsp2lpc/lsp2lpc.c (1.2): src/bin/lsp2lpc/lsp2lpc.c
+
+2002-12-25 14:31  sako
+
+	* bin/lsp2lpc/_lsp2lpc.c (1.2): src/bin/lsp2lpc/_lsp2lpc.c
+
+2002-12-25 14:31  sako
+
+	* bin/lpc2par/lpc2par.c (1.2): src/bin/lpc2par/lpc2par.c
+
+2002-12-25 14:31  sako
+
+	* bin/lpc2par/_lpc2par.c (1.2): src/bin/lpc2par/_lpc2par.c
+
+2002-12-25 14:31  sako
+
+	* bin/lpc2lsp/lpc2lsp.c (1.2): src/bin/lpc2lsp/lpc2lsp.c
+
+2002-12-25 14:31  sako
+
+	* bin/lpc2lsp/_lpc2lsp.c (1.2): src/bin/lpc2lsp/_lpc2lsp.c
+
+2002-12-25 14:31  sako
+
+	* bin/lpc2c/lpc2c.c (1.2): src/bin/lpc2c/lpc2c.c
+
+2002-12-25 14:30  sako
+
+	* bin/lpc2c/_lpc2c.c (1.2): src/bin/lpc2c/_lpc2c.c
+
+2002-12-25 14:30  sako
+
+	* bin/lpc/lpc.c (1.2): src/bin/lpc/lpc.c
+
+2002-12-25 14:30  sako
+
+	* bin/lpc/_lpc.c (1.2): src/bin/lpc/_lpc.c
+
+2002-12-25 14:30  sako
+
+	* bin/lmadf/lmadf.c (1.2): src/bin/lmadf/lmadf.c
+
+2002-12-25 14:30  sako
+
+	* bin/lmadf/_lmadf.c (1.2): src/bin/lmadf/_lmadf.c
+
+2002-12-25 14:30  sako
+
+	* bin/linear_intpl/linear_intpl.c (1.2):
+	  src/bin/linear_intpl/linear_intpl.c
+
+2002-12-25 14:30  sako
+
+	* bin/levdur/levdur.c (1.2): src/bin/levdur/levdur.c
+
+2002-12-25 14:30  sako
+
+	* bin/levdur/_levdur.c (1.2): src/bin/levdur/_levdur.c
+
+2002-12-25 14:30  sako
+
+	* bin/lbg/lbg.c (1.3): src/bin/lbg/lbg.c
+
+2002-12-25 14:30  sako
+
+	* bin/lbg/_lbg.c (1.4): src/bin/lbg/_lbg.c
+
+2002-12-25 14:30  sako
+
+	* bin/ivq/ivq.c (1.2): src/bin/ivq/ivq.c
+
+2002-12-25 14:30  sako
+
+	* bin/ivq/_ivq.c (1.2): src/bin/ivq/_ivq.c
+
+2002-12-25 14:30  sako
+
+	* bin/interpolate/interpolate.c (1.2):
+	  src/bin/interpolate/interpolate.c
+
+2002-12-25 14:30  sako
+
+	* bin/imsvq/imsvq.c (1.2): src/bin/imsvq/imsvq.c
+
+2002-12-25 14:30  sako
+
+	* bin/imsvq/_imsvq.c (1.2): src/bin/imsvq/_imsvq.c
+
+2002-12-25 14:30  sako
+
+	* bin/impulse/impulse.c (1.2): src/bin/impulse/impulse.c
+
+2002-12-25 14:30  sako
+
+	* bin/imglsadf/imglsadf.c (1.3): src/bin/imglsadf/imglsadf.c
+
+2002-12-25 14:30  sako
+
+	* bin/imglsadf/_imglsadf.c (1.2): src/bin/imglsadf/_imglsadf.c
+
+2002-12-25 14:30  sako
+
+	* bin/ignorm/ignorm.c (1.2): src/bin/ignorm/ignorm.c
+
+2002-12-25 14:30  sako
+
+	* bin/ignorm/_ignorm.c (1.2): src/bin/ignorm/_ignorm.c
+
+2002-12-25 14:30  sako
+
+	* bin/iglsadf/iglsadf.c (1.2): src/bin/iglsadf/iglsadf.c
+
+2002-12-25 14:30  sako
+
+	* bin/iglsadf/_iglsadf.c (1.2): src/bin/iglsadf/_iglsadf.c
+
+2002-12-25 14:30  sako
+
+	* bin/ifft2/ifft2.c (1.3): src/bin/ifft2/ifft2.c
+
+2002-12-25 14:30  sako
+
+	* bin/ifft2/_ifft2.c (1.3): src/bin/ifft2/_ifft2.c
+
+2002-12-25 14:30  sako
+
+	* bin/ifft/ifft.c (1.2): src/bin/ifft/ifft.c
+
+2002-12-25 14:30  sako
+
+	* bin/ifft/_ifft.c (1.2): src/bin/ifft/_ifft.c
+
+2002-12-25 14:30  sako
+
+	* bin/histogram/histogram.c (1.3): src/bin/histogram/histogram.c
+
+2002-12-25 14:30  sako
+
+	* bin/histogram/_histogram.c (1.3): src/bin/histogram/_histogram.c
+
+2002-12-25 14:30  sako
+
+	* bin/grpdelay/grpdelay.c (1.2): src/bin/grpdelay/grpdelay.c
+
+2002-12-25 14:30  sako
+
+	* bin/grpdelay/_grpdelay.c (1.2): src/bin/grpdelay/_grpdelay.c
+
+2002-12-25 14:30  sako
+
+	* bin/gnorm/gnorm.c (1.2): src/bin/gnorm/gnorm.c
+
+2002-12-25 14:30  sako
+
+	* bin/gnorm/_gnorm.c (1.2): src/bin/gnorm/_gnorm.c
+
+2002-12-25 14:30  sako
+
+	* bin/glsadf/glsadf.c (1.2): src/bin/glsadf/glsadf.c
+
+2002-12-25 14:30  sako
+
+	* bin/glsadf/_glsadf.c (1.2): src/bin/glsadf/_glsadf.c
+
+2002-12-25 14:30  sako
+
+	* bin/gcep/gcep.c (1.2): src/bin/gcep/gcep.c
+
+2002-12-25 14:30  sako
+
+	* bin/gcep/_gcep.c (1.2): src/bin/gcep/_gcep.c
+
+2002-12-25 14:30  sako
+
+	* bin/gc2gc/gc2gc.c (1.2): src/bin/gc2gc/gc2gc.c
+
+2002-12-25 14:29  sako
+
+	* bin/gc2gc/_gc2gc.c (1.2): src/bin/gc2gc/_gc2gc.c
+
+2002-12-25 14:29  sako
+
+	* bin/freqt/freqt.c (1.2): src/bin/freqt/freqt.c
+
+2002-12-25 14:29  sako
+
+	* bin/freqt/_freqt.c (1.2): src/bin/freqt/_freqt.c
+
+2002-12-25 14:29  sako
+
+	* bin/frame/frame.c (1.2): src/bin/frame/frame.c
+
+2002-12-25 14:29  sako
+
+	* bin/fig+fdrw/plsub.c (1.2): src/bin/fig+fdrw/plsub.c
+
+2002-12-25 14:29  sako
+
+	* bin/fig+fdrw/plot.h (1.2): src/bin/fig+fdrw/plot.h
+
+2002-12-25 14:29  sako
+
+	* bin/fig+fdrw/plot.c (1.2): src/bin/fig+fdrw/plot.c
+
+2002-12-25 14:29  sako
+
+	* bin/fig+fdrw/fig1.c (1.2): src/bin/fig+fdrw/fig1.c
+
+2002-12-25 14:29  sako
+
+	* bin/fig+fdrw/fig0.c (1.2): src/bin/fig+fdrw/fig0.c
+
+2002-12-25 14:29  sako
+
+	* bin/fig+fdrw/fig.h (1.2): src/bin/fig+fdrw/fig.h
+
+2002-12-25 14:29  sako
+
+	* bin/fig+fdrw/fig.c (1.2): src/bin/fig+fdrw/fig.c
+
+2002-12-25 14:29  sako
+
+	* bin/fig+fdrw/fdrw.c (1.3): src/bin/fig+fdrw/fdrw.c
+
+2002-12-25 14:29  sako
+
+	* bin/fftr2/fftr2.c (1.2): src/bin/fftr2/fftr2.c
+
+2002-12-25 14:29  sako
+
+	* bin/fftr2/_fftr2.c (1.3): src/bin/fftr2/_fftr2.c
+
+2002-12-25 14:29  sako
+
+	* bin/fftr/fftr.c (1.2): src/bin/fftr/fftr.c
+
+2002-12-25 14:29  sako
+
+	* bin/fftr/_fftr.c (1.2): src/bin/fftr/_fftr.c
+
+2002-12-25 14:29  sako
+
+	* bin/fftcep/fftcep.c (1.4): src/bin/fftcep/fftcep.c
+
+2002-12-25 14:29  sako
+
+	* bin/fftcep/_fftcep.c (1.2): src/bin/fftcep/_fftcep.c
+
+2002-12-25 14:29  sako
+
+	* bin/fft2/fft2.c (1.2): src/bin/fft2/fft2.c
+
+2002-12-25 14:29  sako
+
+	* bin/fft2/_fft2.c (1.2): src/bin/fft2/_fft2.c
+
+2002-12-25 14:29  sako
+
+	* bin/fft/fft.c (1.3): src/bin/fft/fft.c
+
+2002-12-25 14:29  sako
+
+	* bin/fft/_fft.c (1.2): src/bin/fft/_fft.c
+
+2002-12-25 14:29  sako
+
+	* bin/fd/fd.c (1.3): src/bin/fd/fd.c
+
+2002-12-25 14:29  sako
+
+	* bin/extract/extract.c (1.2): src/bin/extract/extract.c
+
+2002-12-25 14:29  sako
+
+	* bin/excite/excite.c (1.2): src/bin/excite/excite.c
+
+2002-12-25 14:29  sako
+
+	* bin/echo2/echo2.c (1.3): src/bin/echo2/echo2.c
+
+2002-12-25 14:29  sako
+
+	* bin/ds/ds.c (1.2): src/bin/ds/ds.c
+
+2002-12-25 14:29  sako
+
+	* bin/dmp/dmp.c (1.2): src/bin/dmp/dmp.c
+
+2002-12-25 14:29  sako
+
+	* bin/dfs/dfs.c (1.3): src/bin/dfs/dfs.c
+
+2002-12-25 14:29  sako
+
+	* bin/dfs/_dfs.c (1.2): src/bin/dfs/_dfs.c
+
+2002-12-25 14:29  sako
+
+	* bin/df2/df2.c (1.3): src/bin/df2/df2.c
+
+2002-12-25 14:29  sako
+
+	* bin/df2/_df2.c (1.2): src/bin/df2/_df2.c
+
+2002-12-25 14:29  sako
+
+	* bin/delay/delay.c (1.2): src/bin/delay/delay.c
+
+2002-12-25 14:29  sako
+
+	* bin/decimate/decimate.c (1.2): src/bin/decimate/decimate.c
+
+2002-12-25 14:29  sako
+
+	* bin/da/dawrite.c (1.5): src/bin/da/dawrite.c
+
+2002-12-25 14:29  sako
+
+	* bin/da/da.sh (1.5): src/bin/da/da.sh
+
+2002-12-25 14:29  sako
+
+	* bin/da/da.h (1.6): src/bin/da/da.h
+
+2002-12-25 14:28  sako
+
+	* bin/clip/clip.c (1.2): src/bin/clip/clip.c
+
+2002-12-25 14:28  sako
+
+	* bin/clip/_clip.c (1.2): src/bin/clip/_clip.c
+
+2002-12-25 14:28  sako
+
+	* bin/cdist/cdist.c (1.3): src/bin/cdist/cdist.c
+
+2002-12-25 14:28  sako
+
+	* bin/ccp/ccp.c (1.2): src/bin/ccp/ccp.c
+
+2002-12-25 14:28  sako
+
+	* bin/cat2/cat2.c (1.3): src/bin/cat2/cat2.c
+
+2002-12-25 14:28  sako
+
+	* bin/c2sp/c2sp.c (1.2): src/bin/c2sp/c2sp.c
+
+2002-12-25 14:28  sako
+
+	* bin/c2sp/_c2sp.c (1.2): src/bin/c2sp/_c2sp.c
+
+2002-12-25 14:28  sako
+
+	* bin/c2ir/c2ir.c (1.2): src/bin/c2ir/c2ir.c
+
+2002-12-25 14:28  sako
+
+	* bin/c2ir/_c2ir.c (1.2): src/bin/c2ir/_c2ir.c
+
+2002-12-25 14:28  sako
+
+	* bin/c2acr/c2acr.c (1.2): src/bin/c2acr/c2acr.c
+
+2002-12-25 14:28  sako
+
+	* bin/c2acr/_c2acr.c (1.2): src/bin/c2acr/_c2acr.c
+
+2002-12-25 14:28  sako
+
+	* bin/bcut/bcut.c (1.2): src/bin/bcut/bcut.c
+
+2002-12-25 14:28  sako
+
+	* bin/bcp/bcp.c (1.2): src/bin/bcp/bcp.c
+
+2002-12-25 14:28  sako
+
+	* bin/b2mc/b2mc.c (1.2): src/bin/b2mc/b2mc.c
+
+2002-12-25 14:28  sako
+
+	* bin/b2mc/_b2mc.c (1.2): src/bin/b2mc/_b2mc.c
+
+2002-12-25 14:28  sako
+
+	* bin/average/average.c (1.2): src/bin/average/average.c
+
+2002-12-25 14:28  sako
+
+	* bin/average/_average.c (1.2): src/bin/average/_average.c
+
+2002-12-25 14:28  sako
+
+	* bin/amcep/amcep.c (1.2): src/bin/amcep/amcep.c
+
+2002-12-25 14:28  sako
+
+	* bin/amcep/_amcep.c (1.2): src/bin/amcep/_amcep.c
+
+2002-12-25 14:28  sako
+
+	* bin/agcep/agcep.c (1.2): src/bin/agcep/agcep.c
+
+2002-12-25 14:28  sako
+
+	* bin/agcep/_agcep.c (1.2): src/bin/agcep/_agcep.c
+
+2002-12-25 14:28  sako
+
+	* bin/acorr/acorr.c (1.2): src/bin/acorr/acorr.c
+
+2002-12-25 14:28  sako
+
+	* bin/acorr/_acorr.c (1.2): src/bin/acorr/_acorr.c
+
+2002-12-25 14:28  sako
+
+	* bin/acep/acep.c (1.2): src/bin/acep/acep.c
+
+2002-12-25 14:28  sako
+
+	* bin/acep/_acep.c (1.2): src/bin/acep/_acep.c
+
+2002-07-10 22:45  masuko
+
+	* Makefile (1.8), bin/da/da.h (1.5), bin/da/dawrite.c (1.4):
+	  FreeBSD is supported by da and dawrite.
+
+2001-11-28 19:09  masuko
+
+	* bin/poledf/poledf.c (1.2): do not call function poledf(t) when
+	  the order is equal to zero.
+
+2001-06-18 21:43  yossie
+
+	* bin/xgr/: plot.c (1.2), window.c (1.2): name confliction in
+	  window.c
+
+2001-01-15 22:27  yossie
+
+	* bin/mlsadf/mlsadf.c (1.2): add option -v for inverse filter
+
+2001-01-15 12:30  yossie
+
+	* bin/imglsadf/imglsadf.c (1.2): no 'break' in case 'k'
+
+2000-12-25 15:09  masuko
+
+	* bin/us/: lpfcoef.2to3f (1.2), lpfcoef.2to3s (1.2), lpfcoef.3to4
+	  (1.2), lpfcoef.4to5 (1.2), lpfcoef.5to7 (1.2): The precision of
+	  coefficients were improved.
+
+2000-12-25 14:53  masuko
+
+	* bin/rndpg/: Makefile (1.1), rndpg.c (1.1): Randomized parameter
+	  generation from p.d.f. sequence.
+
+2000-12-25 14:47  masuko
+
+	* Makefile (1.7): Add 'CC' definitions for some OSs.
+
+2000-07-17 22:39  masuko
+
+	* bin/da/dawrite.c (1.3): bug fix.
+
+2000-07-11 18:58  masuko
+
+	* bin/Makefile (1.3): [no log message]
+
+2000-07-11 18:57  masuko
+
+	* bin/us/Makefile (1.3): Ignore symbolic link error.
+
+2000-07-05 23:28  yossie
+
+	* bin/cat2/cat2.c (1.2): cat2: fgets != 0
+
+2000-06-30 17:48  sako
+
+	* bin/da/da.h (1.4): SPTK/src/bin/da/da.h
+
+2000-06-30 17:47  sako
+
+	* bin/da/dawrite.c (1.2): SPTK/src/bin/da/dawrite.c
+
+2000-06-30 14:07  mtamura
+
+	* bin/da/da.sh (1.4): [no log message]
+
+2000-06-29 22:29  sako
+
+	* bin/us/uscd.sh (1.3): commit SPTK/src/bin/us/uscd.sh
+
+2000-06-29 21:35  masuko
+
+	* bin/us/: us16.sh (1.2), uscd.sh (1.2): Change ccp to x2x.
+
+2000-06-29 03:39  sako
+
+	* bin/us/us16.sh (1.1): commit SPTK/src/bin/us/us16.sh
+
+2000-06-25 02:54  sako
+
+	* bin/cat2/cat2.c (1.1): add SPTK/src/bin/cat2/cat2.c
+
+2000-06-25 02:54  sako
+
+	* bin/cat2/Makefile (1.1): add SPTK/src/bin/cat2/Makefile
+
+2000-06-25 02:53  sako
+
+	* bin/us/us.c (1.2): commit SPTK/src/bin/us/us.c
+
+2000-06-25 02:53  sako
+
+	* bin/us/Makefile (1.2): commit SPTK/src/bin/us/Makefile
+
+2000-06-25 02:51  sako
+
+	* bin/us/uscd.sh (1.1): add SPTK/src/bin/us/uscd.sh
+
+2000-06-25 02:50  sako
+
+	* bin/da/da.sh (1.3): commit SPTK/src/bin/da/da.sh
+
+2000-06-25 02:49  sako
+
+	* bin/da/Makefile (1.9): commit SPTK/src/bin/da/Makefile
+
+2000-06-23 23:51  yossie
+
+	* script/grlogsp.sh (1.2): spell miss in grlogsp.sh
+
+2000-06-23 13:28  masuko
+
+	* bin/da/da.sh (1.2): Bug fix, etc.
+
+2000-06-22 10:05  sako
+
+	* bin/da/Makefile (1.8): fix SPTK/src/bin/da/Makefile
+
+2000-06-22 10:04  sako
+
+	* bin/da/: da.sh (1.1), dawrite.c (1.1): fix
+	  SPTK/src/bin/da/{da.sh,dawrite.c}
+
+2000-06-22 10:03  sako
+
+	* bin/da/da.c (1.6): remove da.c
+
+2000-06-22 10:02  sako
+
+	* bin/da/daplay.sh (1.8): remove daplay.sh
+
+2000-06-21 17:18  yossie
+
+	* bin/sopr/sopr.c (1.2): add operation for memory register to sopr
+
+2000-06-17 23:02  yossie
+
+	* bin/fd/fd.c (1.2): modify fd.c
+
+2000-06-15 14:48  sako
+
+	* bin/da/da.h (1.3): commit SPTK/src/bin/da/da.h
+
+2000-06-15 14:48  sako
+
+	* bin/da/da.c (1.5): commit SPTK/src/bin/da/da.c
+
+2000-06-15 14:47  sako
+
+	* bin/da/daplay.sh (1.7): commit SPTK/src/bin/da/daplay.sh
+
+2000-06-14 15:38  sako
+
+	* bin/da/daplay.sh (1.6): commit SPTK/src/bin/da/daplay.sh
+
+2000-06-14 13:44  nankaku
+
+	* bin/lbg/_lbg.c (1.3): [no log message]
+
+2000-06-14 13:29  nankaku
+
+	* bin/lbg/: _lbg.c (1.2), lbg.c (1.2): [no log message]
+
+2000-06-08 19:47  masuko
+
+	* Makefile (1.6): Comments for option DA_OSTYPE were modified.
+
+2000-06-02 18:02  sako
+
+	* bin/da/daplay.sh (1.5): commit daplay.sh
+
+2000-06-02 17:03  sako
+
+	* bin/da/daplay.sh (1.4): commit daplay.sh
+
+2000-06-02 16:09  yossie
+
+	* Makefile (1.5): modify Makefile
+
+2000-06-02 16:07  yossie
+
+	* Makefile (1.4): check and modify reference manual
+
+2000-06-02 13:28  sako
+
+	* bin/da/daplay.sh (1.3): commit SPTK/src/bin/da/daplay.sh
+
+2000-05-24 13:56  sako
+
+	* Makefile (1.3), bin/Makefile (1.2): commit SPTK/src/Makefile
+
+2000-05-24 11:07  masuko
+
+	* bin/da/daplay.sh (1.2): The command 'us' is used instead of
+	  'srcnv'.
+
+2000-05-24 11:04  masuko
+
+	* bin/: ds/Makefile (1.2), srcnv/Makefile (1.2): [no log message]
+
+2000-05-24 11:02  masuko
+
+	* bin/us/: Makefile (1.1), lpfcoef.2to3f (1.1), lpfcoef.2to3s
+	  (1.1), lpfcoef.3to4 (1.1), lpfcoef.4to5 (1.1), lpfcoef.5to7
+	  (1.1), lpfcoef.5to8 (1.1), us.c (1.1): Sampling rate conversion
+	  (up sampling).
+
+2000-05-23 16:35  masuko
+
+	* bin/da/Makefile (1.7): Modified OS-dependent rules.
+
+2000-05-23 16:10  sako
+
+	* bin/da/Makefile (1.6): commit work/src/bin/da/Makefile
+
+2000-05-23 15:43  sako
+
+	* bin/da/daplay.sh (1.1): move daplay.sh
+
+2000-05-23 15:42  sako
+
+	* script/daplay.sh (1.5): remove(move) SPTK/src/script/daplay.sh
+
+2000-05-20 15:26  mtamura
+
+	* bin/pitch/: _pitch.c (1.5), pitch.c (1.7): [no log message]
+
+2000-05-20 14:51  mtamura
+
+	* bin/pitch/pitch.c (1.6): [no log message]
+
+2000-05-19 17:25  yossie
+
+	* bin/srcnv/srcnv.c (1.3): change buffersize in srcnv.c
+
+2000-05-19 16:45  mtamura
+
+	* bin/pitch/pitch.c (1.5): [no log message]
+
+2000-05-19 16:22  mtamura
+
+	* bin/pitch/: pitch.c (1.4), _pitch.c (1.4): [no log message]
+
+2000-05-19 13:40  mtamura
+
+	* bin/icep/: icep.c (1.2), _icep.c (1.2), Makefile (1.3): [no log
+	  message]
+
+2000-05-19 13:15  mtamura
+
+	* bin/fftcep/fftcep.c (1.3): [no log message]
+
+2000-05-19 13:07  mtamura
+
+	* bin/fftcep/: Makefile (1.1), fftcep.c (1.1), _fftcep.c (1.1),
+	  fftcep.c (1.2): [no log message]
+
+2000-05-19 13:02  mtamura
+
+	* bin/icep/Makefile (1.2): [no log message]
+
+2000-05-19 11:33  yossie
+
+	* bin/: cdist/cdist.c (1.2), df2/df2.c (1.2), dfs/dfs.c (1.2),
+	  fft/fft.c (1.2), fftr2/_fftr2.c (1.2), fig+fdrw/fdrw.c (1.2),
+	  ifft2/_ifft2.c (1.2), ifft2/ifft2.c (1.2), reverse/reverse.c
+	  (1.2): deleted double *calloc()
+
+2000-05-19 10:58  yossie
+
+	* bin/echo2/echo2.c (1.2): writed original code
+
+2000-05-17 16:30  mtamura
+
+	* script/daplay.sh (1.4): [no log message]
+
+2000-05-15 16:41  sako
+
+	* bin/: da/da_10.fir (1.3), da/da_12.fir (1.3), da/ss10snd.h (1.2),
+	  srcnv/coef.063-222-70 (1.2), srcnv/coef.125-250-120 (1.2),
+	  srcnv/coef.222-444-60 (1.2), srcnv/coef.296-333-360 (1.2): [no
+	  log message]
+
+2000-05-15 16:40  sako
+
+	* bin/da/Makefile (1.5): edit SPTK/src/bin/da/Makefile
+
+2000-05-15 11:39  masuko
+
+	* bin/zerodf/: _zerodf.c.patch (1.2), zerodf.c.patch (1.2): remove
+	  needless patch files for zerodf
+
+2000-05-10 11:22  masuko
+
+	* bin/mlpg/mlpg.c (1.4): An equation for second order regression
+	  coefficient are modified.
+
+2000-05-01 19:52  masuko
+
+	* bin/mlpg/mlpg.c (1.3): update mlpg.c
+
+2000-04-29 00:50  sako
+
+	* bin/srcnv/srcnv.c (1.2): edit SPTK/doc/ref/srcnv.tex
+
+2000-04-20 19:55  masuko
+
+	* bin/mlpg/mlpg.c (1.2): edit SPTK/src/bin/mlpg/mlpg.c
+
+2000-04-20 05:13  sako
+
+	* bin/da/: Makefile (1.3), Makefile (1.4): SPTK/src/bin/da/Makefile
+
+2000-04-20 05:11  sako
+
+	* script/daplay.sh (1.3): SPTK/src/script/daplay.sh
+
+2000-04-20 04:31  sako
+
+	* script/daplay.sh (1.2): commit SPTK/src/script/daplay.sh
+
+2000-04-20 04:11  sako
+
+	* script/daplay.sh (1.1): commit SPTK/src/script/daplay.sh
+
+2000-04-20 04:09  sako
+
+	* bin/srcnv/: lpfcoef.3to4 (1.1), lpfcoef.4to5 (1.1), lpfcoef.5to7
+	  (1.1), lpfcoef.5to8 (1.1), coef.063-222-70 (1.1),
+	  coef.125-250-120 (1.1), coef.222-444-60 (1.1), coef.296-333-360
+	  (1.1): commit SPTK/src/bin/srcnv
+
+2000-04-20 04:08  sako
+
+	* bin/srcnv/: Makefile (1.1), lpfcoef.2to3f (1.1), lpfcoef.2to3s
+	  (1.1): commit SPTK/src/bin/srcnv/Makefile
+
+2000-04-20 04:05  sako
+
+	* bin/srcnv/srcnv.c (1.1): commit SPTK/src/bin/srcnv/srcnv.c
+
+2000-04-20 03:56  sako
+
+	* bin/da/da.h (1.2): add SPTK/src/bin/da/da.h
+
+2000-04-20 03:56  sako
+
+	* bin/da/da.c (1.4): add SPTK/src/bin/da/da.c
+
+2000-04-19 09:20  sako
+
+	* bin/da/da.h (1.1): add SPTK/src/bin/da/da.h
+
+2000-04-18 22:06  sako
+
+	* bin/da/: Makefile (1.2), da.c (1.3), da_10.fir (1.2), da_12.fir
+	  (1.2): edit SPTK/src/bin/da/*
+
+2000-04-10 19:02  sako
+
+	* bin/da/da.c (1.2): edit SPTK/doc/ref/da.tex
+
+2000-04-10 17:59  sako
+
+	* bin/x2x/x2x.c (1.2): edit SPTK/src/bin/x2x/x2x.c
+
+2000-04-06 17:57  mtamura
+
+	* bin/pitch/: pitch.c (1.3), _pitch.c (1.3): [no log message]
+
+2000-04-03 16:14  mtamura
+
+	* bin/pitch/: pitch.c (1.2), _pitch.c (1.2): [no log message]
+
+2000-03-27 16:25  nankaku
+
+	* bin/snr/snr.c (1.2): edit SPTK/src/bin/snr
+
+2000-03-27 15:47  nankaku
+
+	* bin/histogram/: _histogram.c (1.2), histogram.c (1.2): edit
+	  SPTK/src/bin/histogram
+
+2000-03-02 14:38  develper
+
+	* Makefile (1.2): edit SPTK/src/Makefile
+
+2000-03-01 22:58  yossie
+
+	* Makefile (1.1), bin/Makefile (1.1), bin/acep/Makefile (1.1),
+	  bin/acep/_acep.c (1.1), bin/acep/acep.c (1.1), bin/acorr/Makefile
+	  (1.1), bin/acorr/_acorr.c (1.1), bin/acorr/acorr.c (1.1),
+	  bin/lmadf/Makefile (1.1), bin/lmadf/_lmadf.c (1.1),
+	  bin/lmadf/lmadf.c (1.1), bin/gnorm/Makefile (1.1),
+	  bin/gnorm/_gnorm.c (1.1), bin/gnorm/gnorm.c (1.1),
+	  bin/iglsadf/Makefile (1.1), bin/iglsadf/_iglsadf.c (1.1),
+	  bin/iglsadf/iglsadf.c (1.1), bin/ignorm/Makefile (1.1),
+	  bin/ignorm/_ignorm.c (1.1), bin/ignorm/ignorm.c (1.1),
+	  bin/zerodf/Makefile (1.1), bin/zerodf/_zerodf.c (1.1),
+	  bin/zerodf/_zerodf.c.patch (1.1), bin/zerodf/zerodf.c (1.1),
+	  bin/zerodf/zerodf.c.patch (1.1), bin/agcep/Makefile (1.1),
+	  bin/agcep/_agcep.c (1.1), bin/agcep/agcep.c (1.1),
+	  bin/amcep/Makefile (1.1), bin/amcep/_amcep.c (1.1),
+	  bin/amcep/amcep.c (1.1), bin/b2mc/Makefile (1.1),
+	  bin/b2mc/_b2mc.c (1.1), bin/b2mc/b2mc.c (1.1), bin/mc2b/Makefile
+	  (1.1), bin/mc2b/_mc2b.c (1.1), bin/mc2b/mc2b.c (1.1),
+	  bin/mlsadf/Makefile (1.1), bin/mlsadf/_mlsadf.c (1.1),
+	  bin/mlsadf/mlsadf.c (1.1), bin/average/Makefile (1.1),
+	  bin/average/_average.c (1.1), bin/average/average.c (1.1),
+	  bin/bcp/Makefile (1.1), bin/bcp/bcp.c (1.1), bin/bcut/Makefile
+	  (1.1), bin/bcut/bcut.c (1.1), bin/c2acr/Makefile (1.1),
+	  bin/c2acr/_c2acr.c (1.1), bin/echo2/Makefile (1.1),
+	  bin/echo2/echo2.c (1.1), bin/fft/Makefile (1.1), bin/fft/_fft.c
+	  (1.1), bin/fft/fft.c (1.1), bin/fftr/Makefile (1.1),
+	  bin/fftr/_fftr.c (1.1), bin/fftr/fftr.c (1.1), bin/c2acr/c2acr.c
+	  (1.1), bin/c2ir/Makefile (1.1), bin/c2ir/_c2ir.c (1.1),
+	  bin/c2ir/c2ir.c (1.1), bin/c2sp/Makefile (1.1), bin/c2sp/_c2sp.c
+	  (1.1), bin/c2sp/c2sp.c (1.1), bin/ccp/Makefile (1.1),
+	  bin/ccp/ccp.c (1.1), bin/cdist/Makefile (1.1), bin/cdist/cdist.c
+	  (1.1), bin/clip/Makefile (1.1), bin/clip/_clip.c (1.1),
+	  bin/clip/clip.c (1.1), bin/da/Makefile (1.1), bin/da/da.c (1.1),
+	  bin/da/da_10.fir (1.1), bin/da/da_12.fir (1.1), bin/da/ss10snd.h
+	  (1.1), bin/decimate/Makefile (1.1), bin/decimate/decimate.c
+	  (1.1), bin/delay/Makefile (1.1), bin/delay/delay.c (1.1),
+	  bin/df2/Makefile (1.1), bin/df2/_df2.c (1.1), bin/df2/df2.c
+	  (1.1), bin/dfs/Makefile (1.1), bin/dfs/_dfs.c (1.1),
+	  bin/dfs/dfs.c (1.1), bin/dmp/Makefile (1.1), bin/dmp/dmp.c (1.1),
+	  bin/ds/Makefile (1.1), bin/ds/ds.c (1.1), bin/ds/lpfcoef.2to1
+	  (1.1), bin/ds/lpfcoef.4to3 (1.1), bin/ds/lpfcoef.5to2dn (1.1),
+	  bin/ds/lpfcoef.5to2up (1.1), bin/excite/Makefile (1.1),
+	  bin/excite/excite.c (1.1), bin/nrand/Makefile (1.1),
+	  bin/nrand/_nrand.c (1.1), bin/nrand/nrand.c (1.1),
+	  bin/extract/Makefile (1.1), bin/extract/extract.c (1.1),
+	  bin/fd/Makefile (1.1), bin/fd/fd.c (1.1), bin/fig+fdrw/Makefile
+	  (1.1), bin/fig+fdrw/fdrw.c (1.1), bin/fig+fdrw/fig.c (1.1),
+	  bin/fig+fdrw/fig.h (1.1), bin/fig+fdrw/fig0.c (1.1),
+	  bin/fig+fdrw/fig1.c (1.1), bin/fig+fdrw/plot.c (1.1),
+	  bin/fig+fdrw/plot.h (1.1), bin/fig+fdrw/plsub.c (1.1),
+	  bin/fft2/Makefile (1.1), bin/fft2/_fft2.c (1.1), bin/fft2/fft2.c
+	  (1.1), bin/fftr2/Makefile (1.1), bin/fftr2/_fftr2.c (1.1),
+	  bin/fftr2/fftr2.c (1.1), bin/frame/Makefile (1.1),
+	  bin/frame/frame.c (1.1), bin/freqt/Makefile (1.1),
+	  bin/freqt/_freqt.c (1.1), bin/freqt/freqt.c (1.1),
+	  bin/gc2gc/Makefile (1.1), bin/gc2gc/_gc2gc.c (1.1),
+	  bin/gc2gc/gc2gc.c (1.1), bin/gcep/Makefile (1.1),
+	  bin/gcep/_gcep.c (1.1), bin/gcep/gcep.c (1.1),
+	  bin/glsadf/Makefile (1.1), bin/glsadf/_glsadf.c (1.1),
+	  bin/glsadf/glsadf.c (1.1), bin/grpdelay/Makefile (1.1),
+	  bin/grpdelay/_grpdelay.c (1.1), bin/grpdelay/grpdelay.c (1.1),
+	  bin/ifft/Makefile (1.1), bin/ifft/_ifft.c (1.1), bin/ifft/ifft.c
+	  (1.1), bin/poledf/Makefile (1.1), bin/poledf/_poledf.c (1.1),
+	  bin/poledf/poledf.c (1.1), bin/histogram/Makefile (1.1),
+	  bin/histogram/_histogram.c (1.1), bin/histogram/histogram.c
+	  (1.1), bin/icep/Makefile (1.1), bin/icep/_icep.c (1.1),
+	  bin/icep/icep.c (1.1), bin/ifft2/Makefile (1.1),
+	  bin/ifft2/_ifft2.c (1.1), bin/minmax/Makefile (1.1),
+	  bin/minmax/minmax.c (1.1), bin/x2x/Makefile (1.1), bin/x2x/x2x.c
+	  (1.1), bin/ifft2/ifft2.c (1.1), bin/imglsadf/Makefile (1.1),
+	  bin/imglsadf/_imglsadf.c (1.1), bin/imglsadf/imglsadf.c (1.1),
+	  bin/impulse/Makefile (1.1), bin/impulse/impulse.c (1.1),
+	  bin/imsvq/Makefile (1.1), bin/imsvq/_imsvq.c (1.1),
+	  bin/imsvq/imsvq.c (1.1), bin/ivq/Makefile (1.1), bin/ivq/_ivq.c
+	  (1.1), bin/ivq/ivq.c (1.1), bin/interpolate/Makefile (1.1),
+	  bin/interpolate/interpolate.c (1.1), bin/lbg/Makefile (1.1),
+	  bin/lbg/_lbg.c (1.1), bin/lbg/lbg.c (1.1), bin/levdur/Makefile
+	  (1.1), bin/levdur/_levdur.c (1.1), bin/levdur/levdur.c (1.1),
+	  bin/linear_intpl/Makefile (1.1), bin/linear_intpl/linear_intpl.c
+	  (1.1), bin/vq/Makefile (1.1), bin/vq/_vq.c (1.1), bin/vq/vq.c
+	  (1.1), bin/lpc/Makefile (1.1), bin/lpc/_lpc.c (1.1),
+	  bin/lpc/lpc.c (1.1), bin/lpc2c/Makefile (1.1), bin/lpc2c/_lpc2c.c
+	  (1.1), bin/lpc2c/lpc2c.c (1.1), bin/lpc2lsp/Makefile (1.1),
+	  bin/lpc2lsp/_lpc2lsp.c (1.1), bin/lpc2lsp/lpc2lsp.c (1.1),
+	  bin/nan/Makefile (1.1), bin/nan/nan.c (1.1), bin/lpc2par/Makefile
+	  (1.1), bin/lpc2par/_lpc2par.c (1.1), bin/lpc2par/lpc2par.c (1.1),
+	  bin/lsp2lpc/Makefile (1.1), bin/lsp2lpc/_lsp2lpc.c (1.1),
+	  bin/lsp2lpc/lsp2lpc.c (1.1), bin/lspcheck/Makefile (1.1),
+	  bin/lspcheck/_lspcheck.c (1.1), bin/lspcheck/lspcheck.c (1.1),
+	  bin/lspdf/Makefile (1.1), bin/lspdf/_lspdf.c (1.1),
+	  bin/lspdf/lspdf.c (1.1), bin/ltcdf/Makefile (1.1),
+	  bin/ltcdf/_ltcdf.c (1.1), bin/ltcdf/ltcdf.c (1.1),
+	  bin/mcep/Makefile (1.1), bin/mcep/_mcep.c (1.1), bin/mcep/mcep.c
+	  (1.1), bin/merge/Makefile (1.1), bin/merge/merge.c (1.1),
+	  bin/mgc2mgc/Makefile (1.1), bin/mgc2mgc/_mgc2mgc.c (1.1),
+	  bin/mgc2mgc/mgc2mgc.c (1.1), bin/mgc2sp/Makefile (1.1),
+	  bin/mgc2sp/_mgc2sp.c (1.1), bin/mgc2sp/mgc2sp.c (1.1),
+	  bin/mgcep/Makefile (1.1), bin/mgcep/_mgcep.c (1.1),
+	  bin/mgcep/mgcep.c (1.1), bin/mgcep2/Makefile (1.1),
+	  bin/mgcep2/_mgcep2.c (1.1), bin/mgcep2/mgcep2.c (1.1),
+	  bin/mglsadf/Makefile (1.1), bin/mglsadf/_mglsadf.c (1.1),
+	  bin/mglsadf/mglsadf.c (1.1), bin/mlpg/Makefile (1.1),
+	  bin/mlpg/mlpg.c (1.1), bin/msvq/Makefile (1.1), bin/msvq/_msvq.c
+	  (1.1), bin/msvq/msvq.c (1.1), bin/norm0/Makefile (1.1),
+	  bin/norm0/_norm0.c (1.1), bin/norm0/norm0.c (1.1),
+	  bin/par2lpc/Makefile (1.1), bin/par2lpc/_par2lpc.c (1.1),
+	  bin/par2lpc/par2lpc.c (1.1), bin/phase/Makefile (1.1),
+	  bin/phase/_phase.c (1.1), bin/phase/phase.c (1.1),
+	  bin/pitch/Makefile (1.1), bin/pitch/_pitch.c (1.1),
+	  bin/pitch/pitch.c (1.1), bin/psgr/Makefile (1.1), bin/psgr/dict.c
+	  (1.1), bin/psgr/eps.c (1.1), bin/psgr/plot.c (1.1),
+	  bin/psgr/psgr.c (1.1), bin/psgr/psgr.h (1.1), bin/ramp/Makefile
+	  (1.1), bin/ramp/ramp.c (1.1), bin/reverse/Makefile (1.1),
+	  bin/reverse/_reverse.c (1.1), bin/reverse/reverse.c (1.1),
+	  bin/rmse/Makefile (1.1), bin/rmse/_rmse.c (1.1), bin/rmse/rmse.c
+	  (1.1), bin/root_pol/Makefile (1.1), bin/root_pol/_root_pol.c
+	  (1.1), bin/root_pol/root_pol.c (1.1), bin/sin/Makefile (1.1),
+	  bin/sin/sin.c (1.1), bin/snr/Makefile (1.1), bin/snr/snr.c (1.1),
+	  bin/sopr/Makefile (1.1), bin/sopr/sopr.c (1.1), bin/spec/Makefile
+	  (1.1), bin/spec/spec.c (1.1), bin/step/Makefile (1.1),
+	  bin/step/step.c (1.1), bin/swab/Makefile (1.1), bin/swab/swab.c
+	  (1.1), bin/train/Makefile (1.1), bin/train/train.c (1.1),
+	  bin/uels/Makefile (1.1), bin/uels/_uels.c (1.1), bin/uels/uels.c
+	  (1.1), bin/ulaw/Makefile (1.1), bin/ulaw/_ulaw.c (1.1),
+	  bin/ulaw/ulaw.c (1.1), bin/vopr/Makefile (1.1), bin/vopr/vopr.c
+	  (1.1), bin/vstat/Makefile (1.1), bin/vstat/vstat.c (1.1),
+	  bin/vsum/Makefile (1.1), bin/vsum/vsum.c (1.1),
+	  bin/window/Makefile (1.1), bin/window/_window.c (1.1),
+	  bin/window/window.c (1.1), bin/xgr/Makefile (1.1),
+	  bin/xgr/README.jis (1.1), bin/xgr/config.h (1.1),
+	  bin/xgr/gcdata.h (1.1), bin/xgr/plot.c (1.1), bin/xgr/window.c
+	  (1.1), bin/xgr/xgr.c (1.1), bin/xgr/xgr.h (1.1),
+	  bin/xgr/marks/mark0.dat (1.1), bin/xgr/marks/mark1.dat (1.1),
+	  bin/xgr/marks/mark10.dat (1.1), bin/xgr/marks/mark11.dat (1.1),
+	  bin/xgr/marks/mark12.dat (1.1), bin/xgr/marks/mark13.dat (1.1),
+	  bin/xgr/marks/mark14.dat (1.1), bin/xgr/marks/mark15.dat (1.1),
+	  bin/xgr/marks/mark2.dat (1.1), bin/xgr/marks/mark3.dat (1.1),
+	  bin/xgr/marks/mark4.dat (1.1), bin/xgr/marks/mark5.dat (1.1),
+	  bin/xgr/marks/mark6.dat (1.1), bin/xgr/marks/mark7.dat (1.1),
+	  bin/xgr/marks/mark8.dat (1.1), bin/xgr/marks/mark9.dat (1.1),
+	  bin/xgr/tills/till0.dat (1.1), bin/xgr/tills/till1.dat (1.1),
+	  bin/xgr/tills/till10.dat (1.1), bin/xgr/tills/till11.dat (1.1),
+	  bin/xgr/tills/till12.dat (1.1), bin/xgr/tills/till13.dat (1.1),
+	  bin/xgr/tills/till14.dat (1.1), bin/xgr/tills/till15.dat (1.1),
+	  bin/xgr/tills/till16.dat (1.1), bin/xgr/tills/till2.dat (1.1),
+	  bin/xgr/tills/till3.dat (1.1), bin/xgr/tills/till4.dat (1.1),
+	  bin/xgr/tills/till5.dat (1.1), bin/xgr/tills/till6.dat (1.1),
+	  bin/xgr/tills/till7.dat (1.1), bin/xgr/tills/till8.dat (1.1),
+	  bin/xgr/tills/till9.dat (1.1), bin/zcross/Makefile (1.1),
+	  bin/smcep/Makefile (1.1), bin/smcep/_smcep.c (1.1),
+	  bin/smcep/smcep.c (1.1), bin/zcross/_zcross.c (1.1),
+	  bin/zcross/zcross.c (1.1), include/Makefile (1.1), include/SPTK.h
+	  (1.1), lib/Makefile (1.1), lib/Makefile.lib (1.1), lib/agexp.c
+	  (1.1), lib/cholesky.c (1.1), lib/fileio.c (1.1), lib/fillz.c
+	  (1.1), lib/getfp.c (1.1), lib/getmem.c (1.1), lib/gexp.c (1.1),
+	  lib/glog.c (1.1), lib/ifftr.c (1.1), lib/matrix.c (1.1),
+	  lib/movem.c (1.1), lib/mseq.c (1.1), lib/theq.c (1.1),
+	  lib/toeplitz.c (1.1), script/Makefile (1.1), script/bell.sh
+	  (1.1), script/glogsp.sh (1.1), script/grlogsp.sh (1.1),
+	  script/gwave.sh (1.1): Initial revision
+
+2000-03-01 22:58  yossie
+
+	* Makefile (1.1.1.1), bin/Makefile (1.1.1.1), bin/acep/Makefile
+	  (1.1.1.1), bin/acep/_acep.c (1.1.1.1), bin/acep/acep.c (1.1.1.1),
+	  bin/acorr/Makefile (1.1.1.1), bin/acorr/_acorr.c (1.1.1.1),
+	  bin/acorr/acorr.c (1.1.1.1), bin/lmadf/Makefile (1.1.1.1),
+	  bin/lmadf/_lmadf.c (1.1.1.1), bin/lmadf/lmadf.c (1.1.1.1),
+	  bin/gnorm/Makefile (1.1.1.1), bin/gnorm/_gnorm.c (1.1.1.1),
+	  bin/gnorm/gnorm.c (1.1.1.1), bin/iglsadf/Makefile (1.1.1.1),
+	  bin/iglsadf/_iglsadf.c (1.1.1.1), bin/iglsadf/iglsadf.c
+	  (1.1.1.1), bin/ignorm/Makefile (1.1.1.1), bin/ignorm/_ignorm.c
+	  (1.1.1.1), bin/ignorm/ignorm.c (1.1.1.1), bin/zerodf/Makefile
+	  (1.1.1.1), bin/zerodf/_zerodf.c (1.1.1.1),
+	  bin/zerodf/_zerodf.c.patch (1.1.1.1), bin/zerodf/zerodf.c
+	  (1.1.1.1), bin/zerodf/zerodf.c.patch (1.1.1.1),
+	  bin/agcep/Makefile (1.1.1.1), bin/agcep/_agcep.c (1.1.1.1),
+	  bin/agcep/agcep.c (1.1.1.1), bin/amcep/Makefile (1.1.1.1),
+	  bin/amcep/_amcep.c (1.1.1.1), bin/amcep/amcep.c (1.1.1.1),
+	  bin/b2mc/Makefile (1.1.1.1), bin/b2mc/_b2mc.c (1.1.1.1),
+	  bin/b2mc/b2mc.c (1.1.1.1), bin/mc2b/Makefile (1.1.1.1),
+	  bin/mc2b/_mc2b.c (1.1.1.1), bin/mc2b/mc2b.c (1.1.1.1),
+	  bin/mlsadf/Makefile (1.1.1.1), bin/mlsadf/_mlsadf.c (1.1.1.1),
+	  bin/mlsadf/mlsadf.c (1.1.1.1), bin/average/Makefile (1.1.1.1),
+	  bin/average/_average.c (1.1.1.1), bin/average/average.c
+	  (1.1.1.1), bin/bcp/Makefile (1.1.1.1), bin/bcp/bcp.c (1.1.1.1),
+	  bin/bcut/Makefile (1.1.1.1), bin/bcut/bcut.c (1.1.1.1),
+	  bin/c2acr/Makefile (1.1.1.1), bin/c2acr/_c2acr.c (1.1.1.1),
+	  bin/echo2/Makefile (1.1.1.1), bin/echo2/echo2.c (1.1.1.1),
+	  bin/fft/Makefile (1.1.1.1), bin/fft/_fft.c (1.1.1.1),
+	  bin/fft/fft.c (1.1.1.1), bin/fftr/Makefile (1.1.1.1),
+	  bin/fftr/_fftr.c (1.1.1.1), bin/fftr/fftr.c (1.1.1.1),
+	  bin/c2acr/c2acr.c (1.1.1.1), bin/c2ir/Makefile (1.1.1.1),
+	  bin/c2ir/_c2ir.c (1.1.1.1), bin/c2ir/c2ir.c (1.1.1.1),
+	  bin/c2sp/Makefile (1.1.1.1), bin/c2sp/_c2sp.c (1.1.1.1),
+	  bin/c2sp/c2sp.c (1.1.1.1), bin/ccp/Makefile (1.1.1.1),
+	  bin/ccp/ccp.c (1.1.1.1), bin/cdist/Makefile (1.1.1.1),
+	  bin/cdist/cdist.c (1.1.1.1), bin/clip/Makefile (1.1.1.1),
+	  bin/clip/_clip.c (1.1.1.1), bin/clip/clip.c (1.1.1.1),
+	  bin/da/Makefile (1.1.1.1), bin/da/da.c (1.1.1.1),
+	  bin/da/da_10.fir (1.1.1.1), bin/da/da_12.fir (1.1.1.1),
+	  bin/da/ss10snd.h (1.1.1.1), bin/decimate/Makefile (1.1.1.1),
+	  bin/decimate/decimate.c (1.1.1.1), bin/delay/Makefile (1.1.1.1),
+	  bin/delay/delay.c (1.1.1.1), bin/df2/Makefile (1.1.1.1),
+	  bin/df2/_df2.c (1.1.1.1), bin/df2/df2.c (1.1.1.1),
+	  bin/dfs/Makefile (1.1.1.1), bin/dfs/_dfs.c (1.1.1.1),
+	  bin/dfs/dfs.c (1.1.1.1), bin/dmp/Makefile (1.1.1.1),
+	  bin/dmp/dmp.c (1.1.1.1), bin/ds/Makefile (1.1.1.1), bin/ds/ds.c
+	  (1.1.1.1), bin/ds/lpfcoef.2to1 (1.1.1.1), bin/ds/lpfcoef.4to3
+	  (1.1.1.1), bin/ds/lpfcoef.5to2dn (1.1.1.1), bin/ds/lpfcoef.5to2up
+	  (1.1.1.1), bin/excite/Makefile (1.1.1.1), bin/excite/excite.c
+	  (1.1.1.1), bin/nrand/Makefile (1.1.1.1), bin/nrand/_nrand.c
+	  (1.1.1.1), bin/nrand/nrand.c (1.1.1.1), bin/extract/Makefile
+	  (1.1.1.1), bin/extract/extract.c (1.1.1.1), bin/fd/Makefile
+	  (1.1.1.1), bin/fd/fd.c (1.1.1.1), bin/fig+fdrw/Makefile
+	  (1.1.1.1), bin/fig+fdrw/fdrw.c (1.1.1.1), bin/fig+fdrw/fig.c
+	  (1.1.1.1), bin/fig+fdrw/fig.h (1.1.1.1), bin/fig+fdrw/fig0.c
+	  (1.1.1.1), bin/fig+fdrw/fig1.c (1.1.1.1), bin/fig+fdrw/plot.c
+	  (1.1.1.1), bin/fig+fdrw/plot.h (1.1.1.1), bin/fig+fdrw/plsub.c
+	  (1.1.1.1), bin/fft2/Makefile (1.1.1.1), bin/fft2/_fft2.c
+	  (1.1.1.1), bin/fft2/fft2.c (1.1.1.1), bin/fftr2/Makefile
+	  (1.1.1.1), bin/fftr2/_fftr2.c (1.1.1.1), bin/fftr2/fftr2.c
+	  (1.1.1.1), bin/frame/Makefile (1.1.1.1), bin/frame/frame.c
+	  (1.1.1.1), bin/freqt/Makefile (1.1.1.1), bin/freqt/_freqt.c
+	  (1.1.1.1), bin/freqt/freqt.c (1.1.1.1), bin/gc2gc/Makefile
+	  (1.1.1.1), bin/gc2gc/_gc2gc.c (1.1.1.1), bin/gc2gc/gc2gc.c
+	  (1.1.1.1), bin/gcep/Makefile (1.1.1.1), bin/gcep/_gcep.c
+	  (1.1.1.1), bin/gcep/gcep.c (1.1.1.1), bin/glsadf/Makefile
+	  (1.1.1.1), bin/glsadf/_glsadf.c (1.1.1.1), bin/glsadf/glsadf.c
+	  (1.1.1.1), bin/grpdelay/Makefile (1.1.1.1),
+	  bin/grpdelay/_grpdelay.c (1.1.1.1), bin/grpdelay/grpdelay.c
+	  (1.1.1.1), bin/ifft/Makefile (1.1.1.1), bin/ifft/_ifft.c
+	  (1.1.1.1), bin/ifft/ifft.c (1.1.1.1), bin/poledf/Makefile
+	  (1.1.1.1), bin/poledf/_poledf.c (1.1.1.1), bin/poledf/poledf.c
+	  (1.1.1.1), bin/histogram/Makefile (1.1.1.1),
+	  bin/histogram/_histogram.c (1.1.1.1), bin/histogram/histogram.c
+	  (1.1.1.1), bin/icep/Makefile (1.1.1.1), bin/icep/_icep.c
+	  (1.1.1.1), bin/icep/icep.c (1.1.1.1), bin/ifft2/Makefile
+	  (1.1.1.1), bin/ifft2/_ifft2.c (1.1.1.1), bin/minmax/Makefile
+	  (1.1.1.1), bin/minmax/minmax.c (1.1.1.1), bin/x2x/Makefile
+	  (1.1.1.1), bin/x2x/x2x.c (1.1.1.1), bin/ifft2/ifft2.c (1.1.1.1),
+	  bin/imglsadf/Makefile (1.1.1.1), bin/imglsadf/_imglsadf.c
+	  (1.1.1.1), bin/imglsadf/imglsadf.c (1.1.1.1),
+	  bin/impulse/Makefile (1.1.1.1), bin/impulse/impulse.c (1.1.1.1),
+	  bin/imsvq/Makefile (1.1.1.1), bin/imsvq/_imsvq.c (1.1.1.1),
+	  bin/imsvq/imsvq.c (1.1.1.1), bin/ivq/Makefile (1.1.1.1),
+	  bin/ivq/_ivq.c (1.1.1.1), bin/ivq/ivq.c (1.1.1.1),
+	  bin/interpolate/Makefile (1.1.1.1), bin/interpolate/interpolate.c
+	  (1.1.1.1), bin/lbg/Makefile (1.1.1.1), bin/lbg/_lbg.c (1.1.1.1),
+	  bin/lbg/lbg.c (1.1.1.1), bin/levdur/Makefile (1.1.1.1),
+	  bin/levdur/_levdur.c (1.1.1.1), bin/levdur/levdur.c (1.1.1.1),
+	  bin/linear_intpl/Makefile (1.1.1.1),
+	  bin/linear_intpl/linear_intpl.c (1.1.1.1), bin/vq/Makefile
+	  (1.1.1.1), bin/vq/_vq.c (1.1.1.1), bin/vq/vq.c (1.1.1.1),
+	  bin/lpc/Makefile (1.1.1.1), bin/lpc/_lpc.c (1.1.1.1),
+	  bin/lpc/lpc.c (1.1.1.1), bin/lpc2c/Makefile (1.1.1.1),
+	  bin/lpc2c/_lpc2c.c (1.1.1.1), bin/lpc2c/lpc2c.c (1.1.1.1),
+	  bin/lpc2lsp/Makefile (1.1.1.1), bin/lpc2lsp/_lpc2lsp.c (1.1.1.1),
+	  bin/lpc2lsp/lpc2lsp.c (1.1.1.1), bin/nan/Makefile (1.1.1.1),
+	  bin/nan/nan.c (1.1.1.1), bin/lpc2par/Makefile (1.1.1.1),
+	  bin/lpc2par/_lpc2par.c (1.1.1.1), bin/lpc2par/lpc2par.c
+	  (1.1.1.1), bin/lsp2lpc/Makefile (1.1.1.1), bin/lsp2lpc/_lsp2lpc.c
+	  (1.1.1.1), bin/lsp2lpc/lsp2lpc.c (1.1.1.1), bin/lspcheck/Makefile
+	  (1.1.1.1), bin/lspcheck/_lspcheck.c (1.1.1.1),
+	  bin/lspcheck/lspcheck.c (1.1.1.1), bin/lspdf/Makefile (1.1.1.1),
+	  bin/lspdf/_lspdf.c (1.1.1.1), bin/lspdf/lspdf.c (1.1.1.1),
+	  bin/ltcdf/Makefile (1.1.1.1), bin/ltcdf/_ltcdf.c (1.1.1.1),
+	  bin/ltcdf/ltcdf.c (1.1.1.1), bin/mcep/Makefile (1.1.1.1),
+	  bin/mcep/_mcep.c (1.1.1.1), bin/mcep/mcep.c (1.1.1.1),
+	  bin/merge/Makefile (1.1.1.1), bin/merge/merge.c (1.1.1.1),
+	  bin/mgc2mgc/Makefile (1.1.1.1), bin/mgc2mgc/_mgc2mgc.c (1.1.1.1),
+	  bin/mgc2mgc/mgc2mgc.c (1.1.1.1), bin/mgc2sp/Makefile (1.1.1.1),
+	  bin/mgc2sp/_mgc2sp.c (1.1.1.1), bin/mgc2sp/mgc2sp.c (1.1.1.1),
+	  bin/mgcep/Makefile (1.1.1.1), bin/mgcep/_mgcep.c (1.1.1.1),
+	  bin/mgcep/mgcep.c (1.1.1.1), bin/mgcep2/Makefile (1.1.1.1),
+	  bin/mgcep2/_mgcep2.c (1.1.1.1), bin/mgcep2/mgcep2.c (1.1.1.1),
+	  bin/mglsadf/Makefile (1.1.1.1), bin/mglsadf/_mglsadf.c (1.1.1.1),
+	  bin/mglsadf/mglsadf.c (1.1.1.1), bin/mlpg/Makefile (1.1.1.1),
+	  bin/mlpg/mlpg.c (1.1.1.1), bin/msvq/Makefile (1.1.1.1),
+	  bin/msvq/_msvq.c (1.1.1.1), bin/msvq/msvq.c (1.1.1.1),
+	  bin/norm0/Makefile (1.1.1.1), bin/norm0/_norm0.c (1.1.1.1),
+	  bin/norm0/norm0.c (1.1.1.1), bin/par2lpc/Makefile (1.1.1.1),
+	  bin/par2lpc/_par2lpc.c (1.1.1.1), bin/par2lpc/par2lpc.c
+	  (1.1.1.1), bin/phase/Makefile (1.1.1.1), bin/phase/_phase.c
+	  (1.1.1.1), bin/phase/phase.c (1.1.1.1), bin/pitch/Makefile
+	  (1.1.1.1), bin/pitch/_pitch.c (1.1.1.1), bin/pitch/pitch.c
+	  (1.1.1.1), bin/psgr/Makefile (1.1.1.1), bin/psgr/dict.c
+	  (1.1.1.1), bin/psgr/eps.c (1.1.1.1), bin/psgr/plot.c (1.1.1.1),
+	  bin/psgr/psgr.c (1.1.1.1), bin/psgr/psgr.h (1.1.1.1),
+	  bin/ramp/Makefile (1.1.1.1), bin/ramp/ramp.c (1.1.1.1),
+	  bin/reverse/Makefile (1.1.1.1), bin/reverse/_reverse.c (1.1.1.1),
+	  bin/reverse/reverse.c (1.1.1.1), bin/rmse/Makefile (1.1.1.1),
+	  bin/rmse/_rmse.c (1.1.1.1), bin/rmse/rmse.c (1.1.1.1),
+	  bin/root_pol/Makefile (1.1.1.1), bin/root_pol/_root_pol.c
+	  (1.1.1.1), bin/root_pol/root_pol.c (1.1.1.1), bin/sin/Makefile
+	  (1.1.1.1), bin/sin/sin.c (1.1.1.1), bin/snr/Makefile (1.1.1.1),
+	  bin/snr/snr.c (1.1.1.1), bin/sopr/Makefile (1.1.1.1),
+	  bin/sopr/sopr.c (1.1.1.1), bin/spec/Makefile (1.1.1.1),
+	  bin/spec/spec.c (1.1.1.1), bin/step/Makefile (1.1.1.1),
+	  bin/step/step.c (1.1.1.1), bin/swab/Makefile (1.1.1.1),
+	  bin/swab/swab.c (1.1.1.1), bin/train/Makefile (1.1.1.1),
+	  bin/train/train.c (1.1.1.1), bin/uels/Makefile (1.1.1.1),
+	  bin/uels/_uels.c (1.1.1.1), bin/uels/uels.c (1.1.1.1),
+	  bin/ulaw/Makefile (1.1.1.1), bin/ulaw/_ulaw.c (1.1.1.1),
+	  bin/ulaw/ulaw.c (1.1.1.1), bin/vopr/Makefile (1.1.1.1),
+	  bin/vopr/vopr.c (1.1.1.1), bin/vstat/Makefile (1.1.1.1),
+	  bin/vstat/vstat.c (1.1.1.1), bin/vsum/Makefile (1.1.1.1),
+	  bin/vsum/vsum.c (1.1.1.1), bin/window/Makefile (1.1.1.1),
+	  bin/window/_window.c (1.1.1.1), bin/window/window.c (1.1.1.1),
+	  bin/xgr/Makefile (1.1.1.1), bin/xgr/README.jis (1.1.1.1),
+	  bin/xgr/config.h (1.1.1.1), bin/xgr/gcdata.h (1.1.1.1),
+	  bin/xgr/plot.c (1.1.1.1), bin/xgr/window.c (1.1.1.1),
+	  bin/xgr/xgr.c (1.1.1.1), bin/xgr/xgr.h (1.1.1.1),
+	  bin/xgr/marks/mark0.dat (1.1.1.1), bin/xgr/marks/mark1.dat
+	  (1.1.1.1), bin/xgr/marks/mark10.dat (1.1.1.1),
+	  bin/xgr/marks/mark11.dat (1.1.1.1), bin/xgr/marks/mark12.dat
+	  (1.1.1.1), bin/xgr/marks/mark13.dat (1.1.1.1),
+	  bin/xgr/marks/mark14.dat (1.1.1.1), bin/xgr/marks/mark15.dat
+	  (1.1.1.1), bin/xgr/marks/mark2.dat (1.1.1.1),
+	  bin/xgr/marks/mark3.dat (1.1.1.1), bin/xgr/marks/mark4.dat
+	  (1.1.1.1), bin/xgr/marks/mark5.dat (1.1.1.1),
+	  bin/xgr/marks/mark6.dat (1.1.1.1), bin/xgr/marks/mark7.dat
+	  (1.1.1.1), bin/xgr/marks/mark8.dat (1.1.1.1),
+	  bin/xgr/marks/mark9.dat (1.1.1.1), bin/xgr/tills/till0.dat
+	  (1.1.1.1), bin/xgr/tills/till1.dat (1.1.1.1),
+	  bin/xgr/tills/till10.dat (1.1.1.1), bin/xgr/tills/till11.dat
+	  (1.1.1.1), bin/xgr/tills/till12.dat (1.1.1.1),
+	  bin/xgr/tills/till13.dat (1.1.1.1), bin/xgr/tills/till14.dat
+	  (1.1.1.1), bin/xgr/tills/till15.dat (1.1.1.1),
+	  bin/xgr/tills/till16.dat (1.1.1.1), bin/xgr/tills/till2.dat
+	  (1.1.1.1), bin/xgr/tills/till3.dat (1.1.1.1),
+	  bin/xgr/tills/till4.dat (1.1.1.1), bin/xgr/tills/till5.dat
+	  (1.1.1.1), bin/xgr/tills/till6.dat (1.1.1.1),
+	  bin/xgr/tills/till7.dat (1.1.1.1), bin/xgr/tills/till8.dat
+	  (1.1.1.1), bin/xgr/tills/till9.dat (1.1.1.1), bin/zcross/Makefile
+	  (1.1.1.1), bin/smcep/Makefile (1.1.1.1), bin/smcep/_smcep.c
+	  (1.1.1.1), bin/smcep/smcep.c (1.1.1.1), bin/zcross/_zcross.c
+	  (1.1.1.1), bin/zcross/zcross.c (1.1.1.1), include/Makefile
+	  (1.1.1.1), include/SPTK.h (1.1.1.1), lib/Makefile (1.1.1.1),
+	  lib/Makefile.lib (1.1.1.1), lib/agexp.c (1.1.1.1), lib/cholesky.c
+	  (1.1.1.1), lib/fileio.c (1.1.1.1), lib/fillz.c (1.1.1.1),
+	  lib/getfp.c (1.1.1.1), lib/getmem.c (1.1.1.1), lib/gexp.c
+	  (1.1.1.1), lib/glog.c (1.1.1.1), lib/ifftr.c (1.1.1.1),
+	  lib/matrix.c (1.1.1.1), lib/movem.c (1.1.1.1), lib/mseq.c
+	  (1.1.1.1), lib/theq.c (1.1.1.1), lib/toeplitz.c (1.1.1.1),
+	  script/Makefile (1.1.1.1), script/bell.sh (1.1.1.1),
+	  script/glogsp.sh (1.1.1.1), script/grlogsp.sh (1.1.1.1),
+	  script/gwave.sh (1.1.1.1): Speech Signal Processing Toolkit
+

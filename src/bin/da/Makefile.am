@@ -1,0 +1,46 @@
+## Process this file with automake to produce Makefile.in
+##
+## $Id$
+if USEDA
+INCLUDES = -I$(top_srcdir)/include
+bin_PROGRAMS = dawrite
+bin_SCRIPTS = da.sh
+dawrite_SOURCES = da.h dawrite.c 
+dawrite_LDADD = $(top_srcdir)/lib/libSPTK.a
+endif
+
+EXTRA_DIST = da.in
+
+replace_path  = sed -e 's,@bindir@,$(DESTDIR)$(bindir),g' \
+	       -e 's,@libdir@,$(DESTDIR)$(libdir),g' \
+	       -e 's,@cshpath@,$(CSH),' 
+
+.in.sh:
+	$(replace_path) < $< > $@
+	chmod +x $@
+
+
+install-binSCRIPTS: $(bin_SCRIPTS)
+	@$(NORMAL_INSTALL)
+	test -z "$(bindir)" || $(mkdir_p) "$(DESTDIR)$(bindir)"
+	@list='$(bin_SCRIPTS)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  if test -f $$d$$p; then \
+	    f=`echo "$$p" | sed 's|^.*/||;$(transform)'`; \
+	    echo " $(binSCRIPT_INSTALL) '$$d$$p' '$(DESTDIR)$(bindir)/$$f'"; \
+	    $(binSCRIPT_INSTALL) "$$d$$p" "$(DESTDIR)$(bindir)/$$f"; \
+	  else :; fi; \
+	  p2=`basename $$p .sh`; \
+	  rm -f $(DESTDIR)$(bindir)/$$p2; \
+	  (cd $(DESTDIR)$(bindir); $(LN_S) $$p  $$p2) \
+	done
+
+uninstall-binSCRIPTS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(bin_SCRIPTS)'; for p in $$list; do \
+	  f=`echo "$$p" | sed 's|^.*/||;$(transform)'`; \
+	  echo " rm -f '$(DESTDIR)$(bindir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(bindir)/$$f"; \
+	  p2=`basename $$p .sh`; \
+	  rm -f "$(DESTDIR)$(bindir)/$$p2"; \
+	done

@@ -1,0 +1,48 @@
+
+****************************************************************
+                        Acknowledgments
+****************************************************************
+
+The following people have contributed to the development of SPTK
+in various ways.  It is their work that makes it all possible.
+In no special order:
+
+Takao Kobayashi
+Keiichi Tokuda
+Takashi Masuko
+Chiyomi Miyajima
+Masatsune Tamura
+Takayoshi Yoshimura
+Shinji Sako
+Yoshihiko Nankaku
+Toshihiko Kato
+Gou Hirabayashi
+Naohiro Isshiki
+Noboru Miyazaki
+Toshio Kanno
+Kenji Chiba
+Toshiaki Fukada
+Satoshi Imai
+Tadashi Kitamura
+Heiga Zen
+
+and others.
+
+****************************************************************
+                           Who we are
+****************************************************************
+
+The SPTK working group is a voluntary group for developing the
+Speech Signal Processing Toolkit.  Current members are
+
+ Keiichi Tokuda (Coordinator) http://www.sp.nitech.ac.jp/~tokuda/
+ Takashi Masuko
+ Shinji Sako                  http://www.mmsp.nitech.ac.jp/~sako/
+ Yoshihiko Nankaku            http://www.sp.nitech.ac.jp/~nankaku/
+ Heiga Zen                    http://www.sp.nitech.ac.jp/~zen/
+ Junichi Yamagishi            http://homepages.inf.ed.ac.uk/jyamagis/
+
+and the members are dynamically changing.  The current formal
+contact address of SPTK working group is
+dsp-cmnd@sp.nitech.ac.jp.
+****************************************************************

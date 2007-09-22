@@ -1,0 +1,55 @@
+
+
+            Speech Signal Processing Toolkit (SPTK)
+              version 3.1 release October 1, 2007
+
+The Speech Signal Processing Toolkit (SPTK) is a suite of speech
+signal processing tools for UNIX environments, e.g., LPC
+analysis, PARCOR analysis, LSP analysis, PARCOR synthesis
+filter, LSP synthesis filter, vector quantization techniques,
+and other extended versions of them.
+
+SPTK was developed and has been used in the research group of
+Prof. Satoshi Imai (he has retired) and Prof. Takao Kobayashi
+(currently he is with Interdisciplinary Graduate School of
+Science and Engineering, Tokyo Institute of Technology) at P&I
+laboratory, Tokyo Institute of Technology.  A sub-set of tools
+is chosen and arranged for distribution by Prof. Keiichi Tokuda
+(currently he is with Department of Computer Science and
+Engineering, Nagoya Institute of Technology) as a coordinator in
+cooperation with Dr. Takashi Masuko (currently he is with
+Corporate Research & Development Center, Toshiba Corp.),
+Dr. Kazuhito Koishida (currently he is with Microsoft Research),
+Dr. Shinji Sako (currently he is a Research Associate, Nagoya
+Institute of Technology), Dr, Heiga Zen (currently he is a
+PostDoc fellow at Nagoya Institute of Technology), and some
+graduate students.
+
+The original source codes have been written by many people who
+took part in activities of the research group.  The most
+original source codes of this distribution were written by Takao
+Kobayashi (graph, data processing, FFT, sampling rate
+conversion, etc.), Keiichi Tokuda (speech analysis, speech
+synthesis, etc.), and Kazuhito Koishida (LSP, vector
+quantization, etc.).
+
+This version is accompanied by a Reference Manual. A small
+User's Manual "Examples for using SPTK" is also attached.
+
+****************************************************************
+                           What's new
+****************************************************************
+
+The differences between version 3.0 and 3.1:
+
+ - change from K&R to ANSI C.
+
+ - bug fixes
+
+ - add several commands
+
+ - release a Reference Manual written in English, and abandon
+   Japanese manuals and web pages
+
+Please see ChangeLog included in the release for details.
+

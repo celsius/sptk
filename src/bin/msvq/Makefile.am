@@ -1,0 +1,7 @@
+## Process this file with automake to produce Makefile.in
+##
+## $Id$
+INCLUDES = -I$(top_srcdir)/include
+bin_PROGRAMS = msvq
+msvq_SOURCES = _msvq.c msvq.c 
+msvq_LDADD = $(top_srcdir)/lib/libSPTK.a

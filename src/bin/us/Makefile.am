@@ -1,0 +1,51 @@
+## Process this file with automake to produce Makefile.in
+##
+## $Id$
+INCLUDES = -I$(top_srcdir)/include
+bin_PROGRAMS = us
+bin_SCRIPTS = us16.sh uscd.sh
+us_SOURCES = us.c 
+us_LDADD = $(top_srcdir)/lib/libSPTK.a
+
+lpcoefdir = $(DESTDIR)$(libdir)
+dist_lpcoef_DATA = lpfcoef.2to3f \
+	lpfcoef.2to3s \
+	lpfcoef.3to4 \
+	lpfcoef.4to5 \
+	lpfcoef.5to7 \
+	lpfcoef.5to8
+
+EXTRA_DIST = us16.in uscd.in
+
+replace_path  = sed -e 's,@bindir@,$(DESTDIR)$(bindir),g' \
+	       -e 's,@libdir@,$(DESTDIR)$(libdir),g'  \
+	       -e 's,@cshpath@,$(csh),' 
+
+.in.sh:
+	$(replace_path) < $< > $@
+	chmod +x $@
+
+install-binSCRIPTS: $(bin_SCRIPTS)
+	@$(NORMAL_INSTALL)
+	test -z "$(bindir)" || $(mkdir_p) "$(DESTDIR)$(bindir)"
+	@list='$(bin_SCRIPTS)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  if test -f $$d$$p; then \
+	    f=`echo "$$p" | sed 's|^.*/||;$(transform)'`; \
+	    echo " $(binSCRIPT_INSTALL) '$$d$$p' '$(DESTDIR)$(bindir)/$$f'"; \
+	    $(binSCRIPT_INSTALL) "$$d$$p" "$(DESTDIR)$(bindir)/$$f"; \
+	  else :; fi; \
+	  p2=`basename $$p .sh`; \
+	  rm -f "$(DESTDIR)$(bindir)/$$p2"; \
+	  (cd $(DESTDIR)$(bindir); $(LN_S) $$p  $$p2) \
+	done
+
+uninstall-binSCRIPTS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(bin_SCRIPTS)'; for p in $$list; do \
+	  f=`echo "$$p" | sed 's|^.*/||;$(transform)'`; \
+	  echo " rm -f '$(DESTDIR)$(bindir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(bindir)/$$f"; \
+	  p2=`basename $$p .sh`; \
+	  rm -f "$(DESTDIR)$(bindir)/$$p2"; \
+	done
