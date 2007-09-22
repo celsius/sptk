@@ -85,7 +85,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lbg.c,v 1.12 2007/09/21 15:19:08 heigazen Exp $";
+static char *rcs_id = "$Id: lbg.c,v 1.13 2007/09/22 13:08:30 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -105,13 +105,13 @@ static char *rcs_id = "$Id: lbg.c,v 1.12 2007/09/21 15:19:08 heigazen Exp $";
 
 #define MAXVALUE 1e23
 #define abs(x)  ( (x<0) ? (-(x)) : (x) )
-				    
+
 #ifdef DOUBLE
 char *FORMAT = "double";
 #else
 char *FORMAT = "float";
 #endif /* DOUBLE */
-				    
+
 /*  Command Name  */
 char *cmnd;
 
@@ -211,10 +211,16 @@ int main (int argc, char **argv)
 
    if (tnum==-1) {
       ispipe = fseek(fp,0L,2);
+      
+#ifdef DOUBLE
+      tnum = ftell(fp)/l/sizeof(double);
+#else
       tnum = ftell(fp)/l/sizeof(float);
+#endif /* DOUBLE */
+
       rewind(fp);
       if (ispipe==-1) {
-         fprintf(stderr,"%s: -t option must be specified, when input via pipe!\n",cmnd);
+         fprintf(stderr,"%s : -t option must be specified, when input via pipe!\n",cmnd);
          usage (1);
       }
    }
