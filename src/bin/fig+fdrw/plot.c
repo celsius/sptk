@@ -85,7 +85,7 @@ void plots (int mode)
       home();   /* HOME */
    }
    term(TRM);
-   _org.xo = _org.yo = 0;
+   _org.xo = _org.yo = 0.0;
 }
 
 void plote (void)

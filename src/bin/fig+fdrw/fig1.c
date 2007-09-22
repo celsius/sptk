@@ -242,7 +242,10 @@ int greek(char *p)
 
 double sleng(char *p, double h, double w)
 {
-   return((strlen(p) - 1) * w + LADJ * w);
+   int len = strlen(p);
+   double ret = (len-1)*w + LADJ*w;
+
+   return(ret);
 }
 
 void _symbol(double x, double y, char *p, double h, double w, double t)

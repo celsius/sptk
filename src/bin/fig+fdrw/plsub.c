@@ -204,9 +204,9 @@ int number (double x, double y, double fval, double h, double s, double th, int 
 
 int italic (double th)
 {
-   int theta;
+   int theta = 256 * tan(th * DEG_RAD);
 
-   if ((theta=256 * tan(th * DEG_RAD))>4000)
+   if (theta>4000)
       return(1);
    aitalic(theta);
    return(0);

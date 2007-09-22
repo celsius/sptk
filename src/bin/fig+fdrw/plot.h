@@ -112,8 +112,8 @@
 /* interfacing */
 
 struct co_ord {
-   float xo;
-   float yo;
+   double xo;
+   double yo;
 };
 
 #define sign(x)  (x & 0xffff8000)

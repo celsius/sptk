@@ -68,9 +68,9 @@ extern double xclip0, yclip0, xclip1, yclip1;
 
 static int lmod[]={ 0, 2, 6, 3, 4}, ptyp=1;
 static int is_xlog=0, is_ylog=0;
-static double lpit[]={ 10, 1.6, 10, 3, 5};
-static double dhat=1, that=45;
-static double xfct=1, yfct=1;
+static double lpit[]={ 10.0, 1.6, 10.0, 3.0, 5.0};
+static double dhat=1.0, that=45.0;
+static double xfct=1.0, yfct=1.0;
 static char label[BUFLNG / 2]="";
 static double xbuf[BUFLNG], ybuf[BUFLNG];
 
@@ -91,7 +91,7 @@ void graph(FILE *fp)
          ;    /* comment line */
       else if ( (!is_t && strcmp(arg, "x")==0) || (is_t && strcmp(arg, "y")==0) ) {
          s = gettyp(s, xtype);
-         if (sscanf(s, "%f %f %f", &xmin, &xmax, &xa) != 3)
+         if (sscanf(s, "%lf %lf %lf", &xmin, &xmax, &xa) != 3)
             xa = xmin;
          if (strncmp(xtype, "log", 3)==0) {
             xmin = log10(xmin);
@@ -105,7 +105,7 @@ void graph(FILE *fp)
       }
       else if ( (!is_t && strcmp(arg, "y")==0) || (is_t && strcmp(arg, "x")==0) ) {
          s = gettyp(s, ytype);
-         if (sscanf(s, "%f %f %f", &ymin, &ymax, &ya) != 3)
+         if (sscanf(s, "%lf %lf %lf", &ymin, &ymax, &ya) != 3)
             ya = ymin;
          if (strncmp(ytype, "log", 3)==0) {
             ymin = log10(ymin);
@@ -261,7 +261,7 @@ void graph(FILE *fp)
       }
       else if (strncmp(arg, "title", 5)==0
                || strncmp(arg, "print", 5)==0) {
-         sscanf(s, "%f %f", &x, &y);
+         sscanf(s, "%lf %lf", &x, &y);
          swap(&x, &y);
          if (*arg=='p') {
             x = xfct * xt(x) + x00;
@@ -288,16 +288,16 @@ void graph(FILE *fp)
          join(atoi(s));
       }
       else if (strcmp(arg, "csize")==0) {
-         if (sscanf(s, "%f %f", &h, &w) != 2)
+         if (sscanf(s, "%lf %lf", &h, &w) != 2)
             w = h;
       }
       else if (strcmp(arg, "hight")==0) {
-         if (sscanf(s, "%f %f", &mh, &mw) != 2)
+         if (sscanf(s, "%lf %lf", &mh, &mw) != 2)
             mw = mh;
       }
       else if (strcmp(arg, "line")==0) {
          n = flush(xbuf, ybuf, n);
-         if (sscanf(s, "%d %f", &ltype, &lpt) != 2) {
+         if (sscanf(s, "%d %lf", &ltype, &lpt) != 2) {
             if (ltype>0)
                lpt = lpit[ltype - 1];
          }
@@ -315,7 +315,7 @@ void graph(FILE *fp)
             strcpy(label, s);
       }
       else if (strcmp(arg, "paint")==0) {
-         sscanf(s, "%d %f %f", &ptyp, &dhat, &that);
+         sscanf(s, "%d %lf %lf", &ptyp, &dhat, &that);
       }
       else if (strcmp(arg, "clip")==0) {
          draw_fig0(xbuf, ybuf, n);
