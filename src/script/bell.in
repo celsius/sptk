@@ -1,4 +1,4 @@
-#!/bin/csh -f
+#!@cshpath@ -f
 #  ---------------------------------------------------------------  #
 #            Speech Signal Processing Toolkit (SPTK)                #
 #                      SPTK Working Group                           #
@@ -55,9 +55,9 @@
 #                                                                       #
 #########################################################################
 
-set path    = ( /usr/local/SPTK/bin $path )
+set path    = ( @binpath@ $path )
 set sptkver = 'SPTK_VERSION'
-set cvsid   = '$Id: bell.sh,v 1.7 2007/09/20 06:57:01 heigazen Exp $'
+set cvsid   = '$Id: bell.in,v 1.1 2007/09/22 17:49:17 s_sako Exp $'
 
 set cmnd    = $0
 set cmnd    = $cmnd:t
@@ -81,7 +81,7 @@ goto main
 
 usage:
         echo2 ''
-        echo2 " $cmnd - ring a bell"
+        echo2 " $cmnd - bell"
         echo2 ''
         echo2 '  usage:'
         echo2 "       $cmnd [ option ] [ num ] > stdout"
