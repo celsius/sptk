@@ -87,12 +87,6 @@ static char *rcs_id = "$Id$";
 #define STEP  1.0
 #define EFLAG FA
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 char *cmnd;
 

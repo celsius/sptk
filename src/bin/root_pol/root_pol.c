@@ -89,12 +89,6 @@ static char *rcs_id = "$Id$";
 #define ITER  1000
 #define EPS   1.0e-14
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /* Command Name */
 char *cmnd;
 

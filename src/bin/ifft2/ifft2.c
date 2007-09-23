@@ -80,12 +80,6 @@ static char *rcs_id = "$Id$";
 
 static int size=64, outopt=0, out=' ', is_fftr=0;
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 static char *cmnd;
 

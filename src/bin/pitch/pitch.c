@@ -105,12 +105,6 @@ static char *rcs_id = "$Id$";
 #define MAXITR 30
 #define END    0.1
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 char *cmnd;
 

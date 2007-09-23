@@ -83,12 +83,6 @@ static char *rcs_id = "$Id$";
 #define ORDERC  25
 #define ORDERA  25
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 char *cmnd;
 

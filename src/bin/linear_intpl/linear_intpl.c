@@ -87,12 +87,6 @@ static char *rcs_id = "$Id$";
 #define MIN 0.0
 #define MAX 0.5
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 char *cmnd;
 

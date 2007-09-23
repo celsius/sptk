@@ -106,12 +106,6 @@ static char *rcs_id = "$Id$";
 #define MAXVALUE 1e23
 #define abs(x)  ( (x<0) ? (-(x)) : (x) )
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 char *cmnd;
 

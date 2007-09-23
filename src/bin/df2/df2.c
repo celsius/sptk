@@ -80,12 +80,6 @@ static char *rcs_id = "$Id$";
 #define SAMPLEF 10000
 #define SIZE 2048
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /* Command Name */
 char *cmnd;
 

@@ -81,12 +81,6 @@ static char *rcs_id = "$Id$";
 #define LENG 256
 #define SEED 1
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 char *cmnd;
 

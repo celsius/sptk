@@ -81,12 +81,6 @@ static char *rcs_id = "$Id$";
 #include <math.h>
 #include <string.h>
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 static char *cmnd;
 

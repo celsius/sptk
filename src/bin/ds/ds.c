@@ -115,11 +115,6 @@ static char *rcs_id = "$Id$";
 #define COEF5DN LIB "/lpfcoef.5to2dn"
 
 #define mod(x) ((x) & (RBSIZE -1))
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 static char *cmnd, *coef, *coef1;
 static int start=-1, intrate, decrate, type=STYPE;

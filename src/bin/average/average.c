@@ -83,12 +83,6 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define LENG 0
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 char *cmnd;
 

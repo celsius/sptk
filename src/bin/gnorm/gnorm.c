@@ -84,12 +84,6 @@ static char *rcs_id = "$Id$";
 #define GAMMA 0.0
 #define ORDER 25
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 char *cmnd;
 

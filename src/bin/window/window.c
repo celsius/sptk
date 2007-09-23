@@ -91,12 +91,6 @@ static char *rcs_id = "$Id$";
 #define WINTYPE  BLACKMAN
 #define NORMFLG  1
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 char* cmnd;
 

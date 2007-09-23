@@ -122,11 +122,6 @@ int freada(double *p,int bl,FILE *fp);
 /* Command Name */
 char *cmnd, *coef=NULL, *type=STYPE;
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 void usage (int status)
 {

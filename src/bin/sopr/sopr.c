@@ -107,12 +107,6 @@ char *cmnd;
 /* Default Value  */
 #define MEMSIZE  10
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 void usage (int status)
 {
    fprintf(stderr, "\n");

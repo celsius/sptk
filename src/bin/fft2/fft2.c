@@ -82,12 +82,6 @@ static char *rcs_id = "$Id$";
 #include <math.h>
 #include <SPTK.h>
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 static char *cmnd;
 int size=64, outopt=0, n1=0, n2=0, out=' ';
 

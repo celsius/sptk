@@ -80,12 +80,6 @@ static char *rcs_id = "$Id$";
 #define MAX 32767 /* 0x7fff */
 int l_max = MAX;
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*   Command Name  */
 char* cmnd;
 

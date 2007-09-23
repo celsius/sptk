@@ -84,12 +84,6 @@ static char *rcs_id = "$Id$";
 #define PERIOD    10.0
 #define MAGNITUDE 1.0
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
-
 /*  Command Name  */
 char *cmnd;
 
