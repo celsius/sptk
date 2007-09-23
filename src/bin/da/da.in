@@ -56,7 +56,7 @@
 #########################################################################
 
 set path        = ( @binpath@ $path )
-set libpath     = @libpath@
+set libpath     = '@libpath@'
 set cmnd        = `basename $0`
 set sptkver     = '@sptk_version@'
 set cvsid       = '$Id$'

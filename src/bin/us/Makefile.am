@@ -16,12 +16,13 @@ dist_lpcoef_DATA = lpfcoef.2to3f \
 	lpfcoef.5to8
 
 EXTRA_DIST = us16.in uscd.in
+CLEANFILES = $(bin_PROGRAMS) $(bin_SCRIPTS)
 
 IO_SYMBOL = @IO_SYMBOL@
 IO_FORMAT = @IO_FORMAT@
 
-replace_path  = sed -e 's,@bindir@,$(DESTDIR)$(bindir),g' \
-	       -e 's,@libdir@,$(DESTDIR)$(libdir),g'  \
+replace_path  = sed -e 's,@binpath@,$(DESTDIR)$(bindir),g' \
+	       -e 's,@libpath@,$(DESTDIR)$(libdir),g'  \
 	       -e 's,@sptk_version@,$(PACKAGE_VERSION),g'  \
 	       -e 's,@cshpath@,$(CSH),' \
 	       -e 's,@io_symbol@,$(IO_SYMBOL),g' \

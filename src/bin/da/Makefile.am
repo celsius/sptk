@@ -10,9 +10,10 @@ dawrite_LDADD = $(top_srcdir)/lib/libSPTK.a
 endif
 
 EXTRA_DIST = da.in
+CLEANFILES = $(bin_PROGRAMS) $(bin_SCRIPTS)
 
-replace_path  = sed -e 's,@bindir@,$(DESTDIR)$(bindir),g' \
-	       -e 's,@libdir@,$(DESTDIR)$(libdir),g' \
+replace_path  = sed -e 's,@binpath@,$(DESTDIR)$(bindir),g' \
+	       -e 's,@libpath@,$(DESTDIR)$(libdir),g' \
 	       -e 's,@sptk_version@,$(PACKAGE_VERSION),g' \
 	       -e 's,@cshpath@,$(CSH),' 
 
