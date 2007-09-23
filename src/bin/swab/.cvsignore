@@ -1,3 +1,4 @@
 Makefile
 swab
 Makefile.in
+.deps

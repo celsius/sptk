@@ -1,3 +1,4 @@
 Makefile
 mc2b
 Makefile.in
+.deps

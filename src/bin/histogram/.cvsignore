@@ -1,3 +1,4 @@
 Makefile
 histogram
 Makefile.in
+.deps

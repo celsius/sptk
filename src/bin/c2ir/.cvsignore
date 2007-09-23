@@ -1,3 +1,4 @@
 Makefile
 c2ir
 Makefile.in
+.deps

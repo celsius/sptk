@@ -1,3 +1,4 @@
 Makefile
 fd
 Makefile.in
+.deps

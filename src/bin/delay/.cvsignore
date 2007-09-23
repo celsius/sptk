@@ -1,3 +1,4 @@
 Makefile
 delay
 Makefile.in
+.deps

@@ -1,3 +1,4 @@
 Makefile
 dfs
 Makefile.in
+.deps

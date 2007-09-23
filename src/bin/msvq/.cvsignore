@@ -1,3 +1,4 @@
 Makefile
 msvq
 Makefile.in
+.deps

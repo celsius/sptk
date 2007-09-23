@@ -4,3 +4,6 @@ configure.scan
 Makefile
 config.status
 Makefile.in
+aclocal.m4
+config.log
+configure

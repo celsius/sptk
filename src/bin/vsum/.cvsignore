@@ -1,3 +1,4 @@
 Makefile
 vsum
 Makefile.in
+.deps

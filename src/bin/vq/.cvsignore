@@ -1,3 +1,4 @@
 Makefile
 vq
 Makefile.in
+.deps

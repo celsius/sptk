@@ -1,3 +1,4 @@
 Makefile
 bcut
 Makefile.in
+.deps

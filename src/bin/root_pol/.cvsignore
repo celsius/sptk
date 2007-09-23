@@ -1,3 +1,4 @@
 Makefile
 root_pol
 Makefile.in
+.deps

@@ -1,3 +1,4 @@
 Makefile
 interpolate
 Makefile.in
+.deps

@@ -1,3 +1,4 @@
 Makefile
 imsvq
 Makefile.in
+.deps

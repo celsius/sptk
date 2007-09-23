@@ -1,3 +1,4 @@
 Makefile
 pitch
 Makefile.in
+.deps
