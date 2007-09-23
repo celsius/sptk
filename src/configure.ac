@@ -96,7 +96,7 @@ AC_MSG_CHECKING(audio device)
 	*-freebsd*)
 		AC_MSG_RESULT([freebsd])
 		AC_CHECK_HEADER([sys/soundcard.h],
-				[AC_DEFINE(LINUX)],
+				[AC_DEFINE(FreeBSD)],
 				[AC_MSG_ERROR([sys/soundcard.h is not found])])
 		AM_CONDITIONAL( USEDA, true)
 		;;
