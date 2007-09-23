@@ -55,13 +55,18 @@ AC_CHECK_FUNCS([bzero memset pow sqrt strrchr])
 
 # Checks for double 
 use_double=no
+IO_SYMBOL='f'
+IO_FORMAT='float'
 AC_ARG_ENABLE(double,
 	      [  --enable-double         deal with data in double (default=no)],
 	      [ if test "$enable_double" = "yes"; then
 	       		use_double=yes
+			IO_SYMBOL='d'
+			IO_FORMAT='double'
 			AC_DEFINE(DOUBLE)
 		fi])
-AC_SUBST(use_double)
+AC_SUBST(IO_SYMBOL)
+AC_SUBST(IO_FORMAT)
 		
 # Checks for da command
 use_da=yes
