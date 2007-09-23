@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: us.c,v 1.16 2007/09/23 15:08:36 heigazen Exp $";
+static char *rcs_id = "$Id: us.c,v 1.17 2007/09/23 17:46:34 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -290,7 +290,7 @@ void srcnv (FILE *fp)
       if (delay) {
          if (nwr>delay) {
             nwr -= delay;
-            if (fwrite(y + delay, sizeof(*y), nwr, stdout)!=nwr) {
+            if (fwritef(y + delay, sizeof(*y), nwr, stdout)!=nwr) {
                fprintf(stderr, "%s : write error\n", cmnd);
                exit(1);
             }
@@ -301,7 +301,7 @@ void srcnv (FILE *fp)
          }
       }
       else {
-         if (fwrite(y, sizeof(*y), nwr, stdout)!=nwr) {
+         if (fwritef(y, sizeof(*y), nwr, stdout)!=nwr) {
             fprintf(stderr, "%s : write error\n", cmnd);
             exit(1);
          }
