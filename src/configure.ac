@@ -61,6 +61,9 @@ AC_ARG_ENABLE(double,
 	       		use_double=yes
 			AC_DEFINE(DOUBLE)
 		fi])
+AC_SUBST(use_double)
+		
+# Checks for da command
 use_da=yes
 AC_ARG_ENABLE(da,
 	      [  --enable-da             use audio output (default=yes)],
