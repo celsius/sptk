@@ -290,7 +290,7 @@ void srcnv (FILE *fp)
       if (delay) {
          if (nwr>delay) {
             nwr -= delay;
-            if (fwrite(y + delay, sizeof(*y), nwr, stdout)!=nwr) {
+            if (fwritef(y + delay, sizeof(*y), nwr, stdout)!=nwr) {
                fprintf(stderr, "%s : write error\n", cmnd);
                exit(1);
             }
@@ -301,7 +301,7 @@ void srcnv (FILE *fp)
          }
       }
       else {
-         if (fwrite(y, sizeof(*y), nwr, stdout)!=nwr) {
+         if (fwritef(y, sizeof(*y), nwr, stdout)!=nwr) {
             fprintf(stderr, "%s : write error\n", cmnd);
             exit(1);
          }
