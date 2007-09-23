@@ -1,3 +1,4 @@
 Makefile
 lmadf
 Makefile.in
+.deps

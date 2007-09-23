@@ -1,3 +1,4 @@
 Makefile
 ltcdf
 Makefile.in
+.deps

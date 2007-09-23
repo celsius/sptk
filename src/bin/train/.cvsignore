@@ -1,3 +1,4 @@
 Makefile
 train
 Makefile.in
+.deps

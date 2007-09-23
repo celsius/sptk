@@ -1,3 +1,4 @@
 Makefile
 gcep
 Makefile.in
+.deps

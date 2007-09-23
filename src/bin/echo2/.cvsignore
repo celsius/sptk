@@ -1,3 +1,4 @@
 echo2
 Makefile
 Makefile.in
+.deps

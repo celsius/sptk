@@ -1,3 +1,4 @@
 Makefile
 minmax
 Makefile.in
+.deps

@@ -1,3 +1,4 @@
 Makefile
 phase
 Makefile.in
+.deps

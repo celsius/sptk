@@ -1,3 +1,4 @@
 Makefile
 bcp
 Makefile.in
+.deps

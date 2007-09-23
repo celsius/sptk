@@ -1,3 +1,4 @@
 Makefile
 impulse
 Makefile.in
+.deps

@@ -1,3 +1,4 @@
 Makefile
 fftcep
 Makefile.in
+.deps

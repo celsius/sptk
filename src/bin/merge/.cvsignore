@@ -1,3 +1,4 @@
 Makefile
 merge
 Makefile.in
+.deps

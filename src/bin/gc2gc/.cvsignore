@@ -1,3 +1,4 @@
 Makefile
 gc2gc
 Makefile.in
+.deps

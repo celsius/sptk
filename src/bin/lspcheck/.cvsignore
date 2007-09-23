@@ -1,3 +1,4 @@
 Makefile
 lspcheck
 Makefile.in
+.deps

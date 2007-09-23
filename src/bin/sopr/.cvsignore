@@ -1,3 +1,4 @@
 Makefile
 sopr
 Makefile.in
+.deps

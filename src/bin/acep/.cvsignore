@@ -1,3 +1,5 @@
 Makefile
 acep
 Makefile.in
+.deps
+.deps

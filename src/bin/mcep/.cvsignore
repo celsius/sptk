@@ -1,3 +1,4 @@
 Makefile
 mcep
 Makefile.in
+.deps

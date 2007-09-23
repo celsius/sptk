@@ -1,3 +1,4 @@
 Makefile
 sin
 Makefile.in
+.deps
