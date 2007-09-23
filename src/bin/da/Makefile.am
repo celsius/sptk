@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.2 2007/09/22 19:18:20 s_sako Exp $
+## $Id: Makefile.am,v 1.3 2007/09/23 16:23:01 heigazen Exp $
 if USEDA
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = dawrite
@@ -10,9 +10,10 @@ dawrite_LDADD = $(top_srcdir)/lib/libSPTK.a
 endif
 
 EXTRA_DIST = da.in
+CLEANFILES = $(bin_PROGRAMS) $(bin_SCRIPTS)
 
-replace_path  = sed -e 's,@bindir@,$(DESTDIR)$(bindir),g' \
-	       -e 's,@libdir@,$(DESTDIR)$(libdir),g' \
+replace_path  = sed -e 's,@binpath@,$(DESTDIR)$(bindir),g' \
+	       -e 's,@libpath@,$(DESTDIR)$(libdir),g' \
 	       -e 's,@sptk_version@,$(PACKAGE_VERSION),g' \
 	       -e 's,@cshpath@,$(CSH),' 
 

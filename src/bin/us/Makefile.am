@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.3 2007/09/23 13:05:24 heigazen Exp $
+## $Id: Makefile.am,v 1.4 2007/09/23 16:23:01 heigazen Exp $
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = us
 bin_SCRIPTS = us16.sh uscd.sh
@@ -16,12 +16,13 @@ dist_lpcoef_DATA = lpfcoef.2to3f \
 	lpfcoef.5to8
 
 EXTRA_DIST = us16.in uscd.in
+CLEANFILES = $(bin_PROGRAMS) $(bin_SCRIPTS)
 
 IO_SYMBOL = @IO_SYMBOL@
 IO_FORMAT = @IO_FORMAT@
 
-replace_path  = sed -e 's,@bindir@,$(DESTDIR)$(bindir),g' \
-	       -e 's,@libdir@,$(DESTDIR)$(libdir),g'  \
+replace_path  = sed -e 's,@binpath@,$(DESTDIR)$(bindir),g' \
+	       -e 's,@libpath@,$(DESTDIR)$(libdir),g'  \
 	       -e 's,@sptk_version@,$(PACKAGE_VERSION),g'  \
 	       -e 's,@cshpath@,$(CSH),' \
 	       -e 's,@io_symbol@,$(IO_SYMBOL),g' \
