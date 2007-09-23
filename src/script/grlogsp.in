@@ -59,8 +59,8 @@
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: grlogsp.in,v 1.4 2007/09/23 02:52:00 heigazen Exp $'
-set use_dbl = '@use_double'
+set cvsid   = '$Id: grlogsp.in,v 1.5 2007/09/23 05:49:38 heigazen Exp $'
+set use_dbl = '@double@'
 
 set cmnd = $0
 set cmnd = $cmnd:t
