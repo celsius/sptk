@@ -60,7 +60,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: cat2.c,v 1.11 2007/09/12 08:37:13 heigazen Exp $";
+static char *rcs_id = "$Id: cat2.c,v 1.12 2007/09/23 13:38:33 heigazen Exp $";
 
 
 /*  Standard C Libraries **/
@@ -84,9 +84,9 @@ void usage (int status)
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence                      [stdin]\n");
    fprintf(stderr, "  notice:\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

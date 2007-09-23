@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: delay.c,v 1.15 2007/09/21 15:19:12 heigazen Exp $";
+static char *rcs_id = "$Id: delay.c,v 1.16 2007/09/23 13:38:34 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -108,9 +108,9 @@ void usage (int status)
    fprintf(stderr, "       data sequence (%s)     [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       delayed data sequence (%s)\n", FORMAT);
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

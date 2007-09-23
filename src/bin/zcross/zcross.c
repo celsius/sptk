@@ -63,7 +63,7 @@
 *               input is assumed to be real                             *
 ************************************************************************/
 
-static char *rcs_id = "$Id: zcross.c,v 1.12 2007/09/21 15:19:00 heigazen Exp $";
+static char *rcs_id = "$Id: zcross.c,v 1.13 2007/09/23 13:38:45 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -102,9 +102,9 @@ int status;
    fprintf(stderr, "       data sequence (%s)              [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       zero cross rate (%s)\n", FORMAT);
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

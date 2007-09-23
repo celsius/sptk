@@ -79,7 +79,7 @@
 *                                                                       *  
 ************************************************************************/
 
-static char *rcs_id = "$Id: mglsadf.c,v 1.15 2007/09/21 15:18:58 heigazen Exp $";
+static char *rcs_id = "$Id: mglsadf.c,v 1.16 2007/09/23 13:38:40 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -136,9 +136,9 @@ void usage (int status)
    fprintf(stderr, "       mel-generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if g==0, MLSA filter is used, P should be 4 or 5\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

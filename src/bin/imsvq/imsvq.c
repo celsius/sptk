@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: imsvq.c,v 1.9 2007/09/12 08:37:20 heigazen Exp $";
+static char *rcs_id = "$Id: imsvq.c,v 1.10 2007/09/23 13:38:37 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -120,9 +120,9 @@ void usage (int status)
    fprintf(stderr, "         codebook (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "         -s option are specified number of stages\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
