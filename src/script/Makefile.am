@@ -9,7 +9,8 @@ CLEANFILES = $(bin_SCRIPTS)
 replace_path  = sed -e 's,@binpath@,$(DESTDIR)$(bindir),g' \
 	       -e 's,@libpath@,$(DESTDIR)$(libdir),g' \
 	       -e 's,@sptk_version@,$(PACKAGE_VERSION),g' \
-	       -e 's,@cshpath@,$(CSH),' 
+	       -e 's,@cshpath@,$(CSH),' \
+	       -e 's,@use_double@,$(use_double),g'
 
 .in.sh: 
 	$(replace_path) < $< > $@

@@ -60,6 +60,7 @@
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
 set cvsid   = '$Id$'
+set use_dbl = '@use_double'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -295,7 +296,11 @@ if ( $help ) then
         echo2 '       -f   f         : additional data file for fig [NULL]'
 endif
         echo2 '  infile:'
+if ( $use_dbl == 'yes' ) then
+        echo2 '       log spectrum (double)                         [stdin]'
+else
         echo2 '       log spectrum (float)                          [stdin]'
+endif
         echo2 '  stdout:'
         echo2 '       XY-plotter command'
         echo2 "  SPTK: version $sptkver"
@@ -396,3 +401,11 @@ if ($trans) set T = "-t -1"
 
 bcut -s $s $ee +f $file|\
 fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z
+
+if ( $use_dbl == 'yes' ) then
+        bcut +d -s $s $ee $file|\
+        fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z
+else
+        bcut +f -s $s $ee $file|\
+        fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z
+endif
