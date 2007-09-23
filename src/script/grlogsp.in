@@ -399,9 +399,6 @@ endif
 
 if ($trans) set T = "-t -1"
 
-bcut -s $s $ee +f $file|\
-fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z
-
 if ( $use_dbl == 'yes' ) then
         bcut +d -s $s $ee $file|\
         fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z
