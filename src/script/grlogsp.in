@@ -60,7 +60,7 @@
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
 set cvsid   = '$Id$'
-set use_dbl = '@use_double'
+set use_dbl = '@double@'
 
 set cmnd = $0
 set cmnd = $cmnd:t
