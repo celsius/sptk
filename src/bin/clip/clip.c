@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: clip.c,v 1.12 2007/09/23 13:38:34 heigazen Exp $";
+static char *rcs_id = "$Id: clip.c,v 1.13 2007/09/23 15:08:26 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -83,12 +83,6 @@ static char *rcs_id = "$Id: clip.c,v 1.12 2007/09/23 13:38:34 heigazen Exp $";
 #define FLT_MIN -3.4e+38
 #define YMIN -1.0
 #define YMAX 1.0
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;

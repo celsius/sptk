@@ -80,7 +80,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ds.c,v 1.11 2007/09/23 13:38:34 heigazen Exp $";
+static char *rcs_id = "$Id: ds.c,v 1.12 2007/09/23 15:08:27 heigazen Exp $";
 
 /* Standard C Libraries  */
 #include <stdio.h>
@@ -115,11 +115,6 @@ static char *rcs_id = "$Id: ds.c,v 1.11 2007/09/23 13:38:34 heigazen Exp $";
 #define COEF5DN LIB "/lpfcoef.5to2dn"
 
 #define mod(x) ((x) & (RBSIZE -1))
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 static char *cmnd, *coef, *coef1;
 static int start=-1, intrate, decrate, type=STYPE;

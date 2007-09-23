@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: gnorm.c,v 1.14 2007/09/23 13:38:36 heigazen Exp $";
+static char *rcs_id = "$Id: gnorm.c,v 1.15 2007/09/23 15:08:30 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -83,12 +83,6 @@ static char *rcs_id = "$Id: gnorm.c,v 1.14 2007/09/23 13:38:36 heigazen Exp $";
 /*  Default Values  */
 #define GAMMA 0.0
 #define ORDER 25
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

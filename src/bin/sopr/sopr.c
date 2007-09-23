@@ -88,7 +88,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.14 2007/09/23 13:38:43 heigazen Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.15 2007/09/23 15:08:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -106,12 +106,6 @@ char *cmnd;
 
 /* Default Value  */
 #define MEMSIZE  10
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 void usage (int status)
 {

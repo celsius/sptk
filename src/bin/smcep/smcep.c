@@ -77,7 +77,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: smcep.c,v 1.15 2007/09/23 13:38:42 heigazen Exp $";
+static char *rcs_id = "$Id: smcep.c,v 1.16 2007/09/23 15:08:35 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -98,12 +98,6 @@ static char *rcs_id = "$Id: smcep.c,v 1.15 2007/09/23 13:38:42 heigazen Exp $";
 #define MAXITR 30
 #define END    0.001
 #define EPS    0.0
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

@@ -81,7 +81,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.20 2007/09/23 13:38:42 heigazen Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.21 2007/09/23 15:08:35 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -104,12 +104,6 @@ static char *rcs_id = "$Id: pitch.c,v 1.20 2007/09/23 13:38:42 heigazen Exp $";
 #define MINITR 2
 #define MAXITR 30
 #define END    0.1
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

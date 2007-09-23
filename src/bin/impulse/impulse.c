@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: impulse.c,v 1.11 2007/09/23 13:38:37 heigazen Exp $";
+static char *rcs_id = "$Id: impulse.c,v 1.12 2007/09/23 15:08:31 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -78,12 +78,6 @@ static char *rcs_id = "$Id: impulse.c,v 1.11 2007/09/23 13:38:37 heigazen Exp $"
 
 /*  Default Values  */
 #define LENG 256
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

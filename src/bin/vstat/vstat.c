@@ -84,7 +84,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vstat.c,v 1.14 2007/09/23 13:38:44 heigazen Exp $";
+static char *rcs_id = "$Id: vstat.c,v 1.15 2007/09/23 15:08:37 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -105,14 +105,10 @@ static char *rcs_id = "$Id: vstat.c,v 1.14 2007/09/23 13:38:44 heigazen Exp $";
 #define CORR    FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;
+
 
 void usage (int status)
 {

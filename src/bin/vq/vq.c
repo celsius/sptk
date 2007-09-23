@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vq.c,v 1.11 2007/09/23 13:38:44 heigazen Exp $";
+static char *rcs_id = "$Id: vq.c,v 1.12 2007/09/23 15:08:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -90,11 +90,6 @@ static char *rcs_id = "$Id: vq.c,v 1.11 2007/09/23 13:38:44 heigazen Exp $";
 #define QFLAG  FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

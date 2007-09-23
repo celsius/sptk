@@ -72,7 +72,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ulaw.c,v 1.12 2007/09/23 13:38:43 heigazen Exp $";
+static char *rcs_id = "$Id: ulaw.c,v 1.13 2007/09/23 15:08:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -90,11 +90,6 @@ static char *rcs_id = "$Id: ulaw.c,v 1.12 2007/09/23 13:38:43 heigazen Exp $";
 #define DECODER  FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

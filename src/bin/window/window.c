@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: window.c,v 1.13 2007/09/23 13:38:44 heigazen Exp $";
+static char *rcs_id = "$Id: window.c,v 1.14 2007/09/23 15:08:37 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -90,12 +90,6 @@ static char *rcs_id = "$Id: window.c,v 1.13 2007/09/23 13:38:44 heigazen Exp $";
 #define FLENG  256
 #define WINTYPE  BLACKMAN
 #define NORMFLG  1
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char* cmnd;

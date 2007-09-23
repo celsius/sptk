@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: minmax.c,v 1.12 2007/09/23 13:38:40 heigazen Exp $";
+static char *rcs_id = "$Id: minmax.c,v 1.13 2007/09/23 15:08:34 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -92,11 +92,6 @@ static char *rcs_id = "$Id: minmax.c,v 1.12 2007/09/23 13:38:40 heigazen Exp $";
 #define OUTNUM FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;

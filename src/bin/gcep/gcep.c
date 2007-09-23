@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: gcep.c,v 1.15 2007/09/23 13:38:36 heigazen Exp $";
+static char *rcs_id = "$Id: gcep.c,v 1.16 2007/09/23 15:08:29 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -100,11 +100,6 @@ static char *rcs_id = "$Id: gcep.c,v 1.15 2007/09/23 13:38:36 heigazen Exp $";
 #define EPS 0.0
 
 char *BOOL[] = {"FALSE", "TRUE"};
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

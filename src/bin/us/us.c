@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: us.c,v 1.15 2007/09/23 13:38:44 heigazen Exp $";
+static char *rcs_id = "$Id: us.c,v 1.16 2007/09/23 15:08:36 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -122,11 +122,6 @@ int freada(double *p,int bl,FILE *fp);
 /* Command Name */
 char *cmnd, *coef=NULL, *type=STYPE;
 
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 void usage (int status)
 {

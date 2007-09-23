@@ -73,19 +73,13 @@
 *               if l>0,calculate histogram frame by frame               *
 ************************************************************************/
 
-static char *rcs_id = "$Id: histogram.c,v 1.13 2007/09/23 13:38:37 heigazen Exp $";
+static char *rcs_id = "$Id: histogram.c,v 1.14 2007/09/23 15:08:30 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <SPTK.h>
 #include <stdlib.h>
 #include <string.h>
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

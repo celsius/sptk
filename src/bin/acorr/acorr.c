@@ -62,7 +62,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: acorr.c,v 1.15 2007/09/23 13:38:32 heigazen Exp $";
+static char *rcs_id = "$Id: acorr.c,v 1.16 2007/09/23 15:08:20 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -74,12 +74,6 @@ static char *rcs_id = "$Id: acorr.c,v 1.15 2007/09/23 13:38:32 heigazen Exp $";
 /* Default Values */
 #define LENG   256
 #define ORDER   25
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /* Command Name  */
 char   *cmnd;

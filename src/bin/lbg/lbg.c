@@ -85,7 +85,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lbg.c,v 1.14 2007/09/23 13:38:38 heigazen Exp $";
+static char *rcs_id = "$Id: lbg.c,v 1.15 2007/09/23 15:08:32 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -105,12 +105,6 @@ static char *rcs_id = "$Id: lbg.c,v 1.14 2007/09/23 13:38:38 heigazen Exp $";
 
 #define MAXVALUE 1e23
 #define abs(x)  ( (x<0) ? (-(x)) : (x) )
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2c.c,v 1.11 2007/09/23 13:38:38 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2c.c,v 1.12 2007/09/23 15:08:32 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -82,12 +82,6 @@ static char *rcs_id = "$Id: lpc2c.c,v 1.11 2007/09/23 13:38:38 heigazen Exp $";
 /*  Default Values  */
 #define ORDERC  25
 #define ORDERA  25
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

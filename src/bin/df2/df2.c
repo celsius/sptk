@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/ 
 
-static char *rcs_id = "$Id: df2.c,v 1.13 2007/09/23 13:38:34 heigazen Exp $";
+static char *rcs_id = "$Id: df2.c,v 1.14 2007/09/23 15:08:26 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -79,12 +79,6 @@ static char *rcs_id = "$Id: df2.c,v 1.13 2007/09/23 13:38:34 heigazen Exp $";
 /* Default Values */
 #define SAMPLEF 10000
 #define SIZE 2048
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;

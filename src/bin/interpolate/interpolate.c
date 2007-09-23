@@ -68,7 +68,7 @@
 *                        s-1           p            p                   *
 ************************************************************************/
 
-static char *rcs_id = "$Id: interpolate.c,v 1.12 2007/09/23 13:38:38 heigazen Exp $";
+static char *rcs_id = "$Id: interpolate.c,v 1.13 2007/09/23 15:08:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -81,12 +81,6 @@ static char *rcs_id = "$Id: interpolate.c,v 1.12 2007/09/23 13:38:38 heigazen Ex
 /*  Default Values  */
 #define PERIOD 10
 #define START 0
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

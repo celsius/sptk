@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: imglsadf.c,v 1.17 2007/09/23 13:38:37 heigazen Exp $";
+static char *rcs_id = "$Id: imglsadf.c,v 1.18 2007/09/23 15:08:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -96,11 +96,6 @@ static char *rcs_id = "$Id: imglsadf.c,v 1.17 2007/09/23 13:38:37 heigazen Exp $
 #define NGAIN FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

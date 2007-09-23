@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nan.c,v 1.15 2007/09/23 13:38:41 heigazen Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.16 2007/09/23 15:08:34 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -70,12 +70,6 @@ static char *rcs_id = "$Id: nan.c,v 1.15 2007/09/23 13:38:41 heigazen Exp $";
 #include <string.h>
 #include <math.h>
 #include <SPTK.h>
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /* Command Name */
 char *cmnd;

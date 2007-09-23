@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft2.c,v 1.13 2007/09/23 13:38:37 heigazen Exp $";
+static char *rcs_id = "$Id: ifft2.c,v 1.14 2007/09/23 15:08:30 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -79,12 +79,6 @@ static char *rcs_id = "$Id: ifft2.c,v 1.13 2007/09/23 13:38:37 heigazen Exp $";
 #include <SPTK.h>
 
 static int size=64, outopt=0, out=' ', is_fftr=0;
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 static char *cmnd;

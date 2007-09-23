@@ -31,7 +31,7 @@ AC_PATH_XTRA
 
 if test x$no_x = "x"; then
 	AM_CONDITIONAL( USEXGR, true)
-	else
+else
 	AM_CONDITIONAL( USEXGR, false)
 fi
 
@@ -67,6 +67,12 @@ AC_ARG_ENABLE(double,
 		fi])
 AC_SUBST(IO_SYMBOL)
 AC_SUBST(IO_FORMAT)
+
+if test "$use_double" = "yes"; then
+	AC_DEFINE(FORMAT,"double")
+else
+	AC_DEFINE(FORMAT,"float")
+fi
 		
 # Checks for da command
 use_da=yes

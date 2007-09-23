@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: phase.c,v 1.13 2007/09/23 13:38:41 heigazen Exp $";
+static char *rcs_id = "$Id: phase.c,v 1.14 2007/09/23 15:08:35 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -85,11 +85,6 @@ static char *rcs_id = "$Id: phase.c,v 1.13 2007/09/23 13:38:41 heigazen Exp $";
 #define UNLAP  TR
 
 char *BOOL[] = {"FALSE", "TRUE"};
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /* Command Name */
 char  *cmnd;

@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: decimate.c,v 1.11 2007/09/23 13:38:34 heigazen Exp $";
+static char *rcs_id = "$Id: decimate.c,v 1.12 2007/09/23 15:08:26 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -79,12 +79,6 @@ static char *rcs_id = "$Id: decimate.c,v 1.11 2007/09/23 13:38:34 heigazen Exp $
 /*  Default Values  */
 #define PERIOD 10
 #define START 0
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*  Command Name  */
 char *cmnd;

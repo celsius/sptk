@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: reverse.c,v 1.14 2007/09/23 13:38:42 heigazen Exp $";
+static char *rcs_id = "$Id: reverse.c,v 1.15 2007/09/23 15:08:35 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -79,12 +79,6 @@ static char *rcs_id = "$Id: reverse.c,v 1.14 2007/09/23 13:38:42 heigazen Exp $"
 /*  Default Values  */
 #define MAX 32767 /* 0x7fff */
 int l_max = MAX;
-
-#ifdef DOUBLE
-char *FORMAT = "double";
-#else
-char *FORMAT = "float";
-#endif /* DOUBLE */
 
 /*   Command Name  */
 char* cmnd;
