@@ -143,9 +143,9 @@ void usage (int status)
    fprintf(stderr, "       LP coefficients (%s)                         [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       LSP (%s)\n", FORMAT);
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

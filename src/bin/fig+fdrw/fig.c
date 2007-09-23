@@ -128,9 +128,9 @@ void usage (int status)
    fprintf(stderr, "       command\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       plotter command\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s",PACKAGE_VERSION);
 #endif
    fprintf(stderr, "\n");
    exit(status);

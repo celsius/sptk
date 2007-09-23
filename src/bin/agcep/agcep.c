@@ -137,11 +137,11 @@ void usage (int status)
    fprintf(stderr, "       generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  pefile:\n");
    fprintf(stderr, "       prediction error (%s)\n", FORMAT);
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
-#endif /* SPTK_VERSION */
+#endif /* PACKAGE_VERSION */
    fprintf(stderr, "\n");
    exit(status);
 }

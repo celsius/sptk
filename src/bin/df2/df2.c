@@ -110,9 +110,9 @@ void usage (int status)
    fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       -p and -z option can be specified repeatedly.\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

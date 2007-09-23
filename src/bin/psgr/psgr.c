@@ -140,9 +140,9 @@ void usage (int status)
    fprintf(stderr, "       plotter commands             [stdin]\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       PostScript codes (EPSF)\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

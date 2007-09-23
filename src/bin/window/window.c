@@ -127,9 +127,9 @@ int usage (void)
    fprintf(stderr, "       data sequence (%s)          [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       windowed data sequence (%s)\n", FORMAT);
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

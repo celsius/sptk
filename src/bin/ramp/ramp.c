@@ -117,9 +117,9 @@ void usage (int status)
    fprintf(stderr, "       if l<0, generate infinite sequence\n");
    fprintf(stderr, "       When -l and -n and -e are specified 2 or more,\n");
    fprintf(stderr, "       latter argument is adopted.\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

@@ -156,9 +156,9 @@ void usage (int status)
    fprintf(stderr, "       mel-generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

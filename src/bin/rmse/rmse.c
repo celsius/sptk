@@ -112,9 +112,9 @@ void usage (int status)
    fprintf(stderr, "      root mean squared error (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "      if l>0, calculate rmse frame by frame\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

@@ -151,9 +151,9 @@ void usage (int status)
    fprintf(stderr, "        5:2 -> %s\n", COEF5DN);
    fprintf(stderr, "        5:4 -> %s\n", COEF5UP);
    fprintf(stderr, "        5:4 -> %s\n", COEF5DN);
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

@@ -125,9 +125,9 @@ void usage(int status)
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       When -j & -k options are specified,\n");
    fprintf(stderr, "       improved cepstral analysis is performed.\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");

@@ -111,9 +111,9 @@ void usage (int status)
    fprintf(stderr, "       extracted vector (%s)\n", FORMAT);
    fprintf(stderr, "  ifile:\n");
    fprintf(stderr, "       indexfile (int)\n");
-#ifdef SPTK_VERSION
+#ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n", SPTK_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
