@@ -1,17 +1,20 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.5 2007/09/23 05:49:38 heigazen Exp $
+## $Id: Makefile.am,v 1.6 2007/09/23 12:42:25 heigazen Exp $
 bin_SCRIPTS = bell.sh glogsp.sh grlogsp.sh gwave.sh
 EXTRA_DIST = bell.in glogsp.in grlogsp.in gwave.in
 
 CLEANFILES = $(bin_SCRIPTS)
-use_double = @use_double@
+
+IO_SYMBOL = @IO_SYMBOL@
+IO_FORMAT = @IO_FORMAT@
 
 replace_path  = sed -e 's,@binpath@,$(DESTDIR)$(bindir),g' \
  	            -e 's,@libpath@,$(DESTDIR)$(libdir),g' \
 	            -e 's,@sptk_version@,$(PACKAGE_VERSION),g' \
 	            -e 's,@cshpath@,$(CSH),' \
-	            -e 's,@double@,$(use_double),g'
+	            -e 's,@io_symbol@,$(IO_SYMBOL),g' \
+		    -e 's,@io_format@,$(IO_FORMAT),g'
 
 .in.sh: 
 	$(replace_path) < $< > $@
