@@ -44,18 +44,17 @@
 %                                                                   %
 %  ---------------------------------------------------------------  %
 %
-%#!platex examples.tex
+%#!latex examples.tex
 \documentclass[a4paper,10pt]{article}
-\usepackage[dvips]{graphicx}
+
+\usepackage{movie15}
 \usepackage[dvips,
-        dvipdfm,
-        bookmarks=true,
-        bookmarkstype=toc,
-		debug=true,
-        pdfauthor={SPTK working group},
-        pdftitle={Examples for using SPTK ver. 3.1}]
-        {hyperref} 
-% \usepackage{html}
+            bookmarks=true,
+            bookmarkstype=toc,
+            pdfauthor={SPTK working group},
+            pdftitle={Examples for using SPTK ver. 3.1}]
+            {hyperref}
+\usepackage[dvips]{graphicx,color}
 \usepackage{times}
 \usepackage{txfonts}
 
@@ -74,12 +73,6 @@
 
 \maketitle
 
-% \begin{htmlonly}
-%   By cliking links, your PC may play some speech files, which
-%   were converted from ``float'' format into ``wav'' format
-%   (16 kHz sampling, 16-bit integer).
-% \end{htmlonly} 
-
 \tableofcontents
 
 \section{Basics}
@@ -90,9 +83,10 @@
 impulse -h
 \end{verbatim}
 
-\subsection{Data type conversion between ``little endian'' (e.g., Intel x86,
-DEC Alpha AXP) and ``big endian'' (Sun SPARC, HP PA-RISC, IBM PowerPC, Motorola
-680x0).}
+\subsection{Data type conversion between ``little endian'' and ``big endian.''}
+% You can convert data type between ``little endian'' (e.g., Intel x86,
+% DEC Alpha AXP) and ``big endian'' (e.g., Sun SPARC, HP PA-RISC, IBM PowerPC,
+% Motorola 680x0) using ``swab'' command.
 
 \begin{description}
 \item[Files:]
@@ -120,8 +114,10 @@ dmp +s data.short | less
 \begin{description}
 \item[Files:]
   data.short: speech data included in this example (short integer, 16 kHz sampling)\\
-%   \htmladdnormallink{data.float}{data.float.wav}: 
-  speech data (float, 16 kHz sampling)\\
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.float}}}]{}{}{wav/data_float.wav}:
+  speech data (float, 16 kHz sampling)\footnote{By cliking links in this PDF file, your PC may play some speech files, which
+were converted from ``float'' format into ``wav'' format
+(16 kHz sampling, 16-bit integer).}\\
 \end{description}
 
 \begin{verbatim}
@@ -139,7 +135,7 @@ x2x +sf < data.short > data.float
 gwave +s data.short | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{data.gwave.eps}
+\includegraphics[width=10cm]{eps/data.gwave.eps}
 
 \subsection{Save the figure in an Encapsulated PostScript file}
 
@@ -178,7 +174,7 @@ bcut +s -s 1000 -e 11000 < data.short |\
 gwave +s | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{data.bcut.gwave.eps}
+\includegraphics[width=10cm]{eps/data.bcut.gwave.eps}
 
 \section{Pitch Extraction from Speech Waveform}
 
@@ -216,7 +212,7 @@ window -l 640 | pitch -s 16 -l 640 -t 4.5 -L 60 -H 170 > data.pitch
 fdrw -y 0 250 -W 1.5 -H 0.4 < data.pitch | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{data.pitch.fdrw.eps}
+\includegraphics[width=10cm]{eps/data.pitch.fdrw.eps}
 
 \section{Speech Analysis/Synthesis Based on Mel-Cepstral Representation}
 
@@ -258,14 +254,14 @@ bcut -n 20 -s 10 -e 135 < data.mcep |\
 mgc2sp -m 20 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 | xgr
 \end{verbatim}
 
-\includegraphics[width=3cm]{data.mcep.grlogsp.eps}
+\includegraphics[width=3cm]{eps/data.mcep.grlogsp.eps}
 
 \begin{verbatim}
 bcut -n 20 -s 10 -e 135 < data.mcep |\
 mgc2sp -m 20 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \end{verbatim}
 
-\includegraphics[height=3cm]{data.mcep.grlogsp-t.eps}
+\includegraphics[height=3cm]{eps/data.mcep.grlogsp-t.eps}
 
 \subsection{Plotting the spectral estimate with the FFT spectrum}
 
@@ -290,7 +286,7 @@ bcut -n 20 -s 65 -e 65 < data.mcep |\
 mgc2sp -m 20 -a 0.42 -g 0 -l 512 | glogsp -l 512 -x 8 ) | xgr
 \end{verbatim}
 
-\includegraphics[width=5cm]{data.mcep.glogsp.eps}
+\includegraphics[width=5cm]{eps/data.mcep.glogsp.eps}
 
 \subsection{Speech synthesis from mel-cepstrum}
 
@@ -298,7 +294,7 @@ mgc2sp -m 20 -a 0.42 -g 0 -l 512 | glogsp -l 512 -x 8 ) | xgr
 \item[Files:]
   data.pitch: pitch data extracted from speech data "data.short"\\
   data.mcep: mel-cepstrum (float) \\
-%   \htmladdnormallink{data.mcep.syn}{data.mcep.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.syn}}}]{}{}{wav/data_mcep_syn.wav}: 
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 points (5 ms)\\
@@ -315,7 +311,7 @@ mlsadf -m 20 -a 0.42 -p 80 data.mcep > data.mcep.syn
 gwave data.mcep.syn | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{data.mcep.syn.gwave.eps}
+\includegraphics[width=10cm]{eps/data.mcep.syn.gwave.eps}
 
 \begin{verbatim}
 da +f -s 16 data.mcep.syn
@@ -363,7 +359,7 @@ mgc2sp -m 20 -a 0 -g -1 -n -u -l 512 |\
 grlogsp -l 512 -x 8 | xgr
 \end{verbatim}
 
-\includegraphics[width=3cm]{data.lpc.grlogsp.eps}
+\includegraphics[width=3cm]{eps/data.lpc.grlogsp.eps}
 
 \subsection{Plotting the spectral estimate with the FFT spectrum}
 
@@ -387,7 +383,7 @@ spec -l 512 -n 20 -p data.tmp | glogsp -l 512 -x 8 ;\
 \rm data.tmp ) | xgr
 \end{verbatim}
 
-\includegraphics[width=5cm]{data.lpc.glogsp.eps}
+\includegraphics[width=5cm]{eps/data.lpc.glogsp.eps}
 
 \subsection{Speech synthesis from LPC coefficients}
 
@@ -395,7 +391,7 @@ spec -l 512 -n 20 -p data.tmp | glogsp -l 512 -x 8 ;\
 \item[Files:]
    data.pitch: pitch data extracted from speech data "data"\\
    data.lpc: LPC coefficients (float)\\
-%    \htmladdnormallink{data.lpc.syn}{data.lpc.syn.wav}: 
+\includemovie[text={\textcolor[named]{Blue}{\underline{data.lpc.syn}}}]{}{}{wav/data_lpc_syn.wav}: 
    synthesized speech (float)
 \item[Conditions:]
   frame period: 80 points (5 ms)\\
@@ -410,7 +406,7 @@ excite -p 80 data.pitch | poledf -m 20 -p 80 data.lpc > data.lpc.syn
 gwave data.lpc.syn | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{data.lpc.syn.gwave.eps}
+\includegraphics[width=10cm]{eps/data.lpc.syn.gwave.eps}
 
 \begin{verbatim}
 da +f -s 16 data.lpc.syn
@@ -435,7 +431,7 @@ lpc2par -m 20 < data.lpc > data.par
 \item[Files:]
   data.pitch: pitch data extracted from speech data "data" (float)\\
   data.par: PARCOR coefficients (float)\\
-%   \htmladdnormallink{data.par.syn}{data.par.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.par.syn}}}]{}{}{wav/data_par_syn.wav}:
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 points (5 ms)\\
@@ -450,7 +446,7 @@ excite -p 80 data.pitch | ltcdf -m 20 -p 80 data.par > data.par.syn
 gwave data.par.syn | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{data.par.syn.gwave.eps}
+\includegraphics[width=10cm]{eps/data.par.syn.gwave.eps}
 
 \subsection{Obtain LSP coefficients from LPC coefficients}
 \begin{description}
@@ -472,7 +468,7 @@ lpc2lsp -m 20 -n 256 < data.lpc > data.lsp
 \item[Files:]
   data.pitch: pitch data extracted from speech data "data"\\
   data.lsp: LSP coefficients (float)\\
-%   \htmladdnormallink{data.lsp.syn}{data.lsp.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.lsp.syn}}}]{}{}{wav/data_lsp_syn.wav}:
   synthesize speech (float)
 \item[Conditions:]
   frame period: 80 points (5 ms)\\
@@ -487,7 +483,7 @@ excite -p 80 data.pitch | lspdf -m 20 -p 80 data.lsp > data.lsp.syn
 gwave data.lsp.syn | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{data.lsp.syn.gwave.eps}
+\includegraphics[width=10cm]{eps/data.lsp.syn.gwave.eps}
 
 \begin{verbatim}
 da +f -s 16 data.lsp.syn
@@ -534,7 +530,7 @@ bcut -n 20 -s 10 -e 135 < data.mgcep |\
 mgc2sp -m 20 -a 0.42 -g 2 -l 512 | grlogsp -l 512 -x 8 | xgr
 \end{verbatim}
 
-\includegraphics[width=3cm]{data.mgcep.grlogsp.eps}
+\includegraphics[width=3cm]{eps/data.mgcep.grlogsp.eps}
 
 \subsection{Plotting the spectral estimate with the FFT spectrum}
 
@@ -560,7 +556,7 @@ bcut -n 20 -s 65 -e 65 < data.mgcep |\
 mgc2sp -m 20 -a 0.42 -g 2 -l 512 | glogsp -l 512 -x 8 ) | xgr
 \end{verbatim}
 
-\includegraphics[width=5cm]{data.mgcep.glogsp.eps}
+\includegraphics[width=5cm]{eps/data.mgcep.glogsp.eps}
 
 \subsection{Speech synthesis from mel-generalized cepstrum}
 
@@ -568,7 +564,7 @@ mgc2sp -m 20 -a 0.42 -g 2 -l 512 | glogsp -l 512 -x 8 ) | xgr
 \item[Files:]
   data.pitch: pitch data extracted from speech data "data"\\
   data.mgcep: mel-generalized cepstrum (float)\\
-%   \htmladdnormallink{data.mgcep.syn}{data.mgcep.syn.wav}: 
+    \includemovie[text={\textcolor[named]{Blue}{\underline{data.mgcep.syn}}}]{}{}{wav/data_mgcep_syn.wav}:
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 points (5 ms)\\
@@ -586,7 +582,7 @@ mglsadf -m 20 -a 0.42 -g 2 -p 80 data.mgcep > data.mgcep.syn
 gwave data.mgcep.syn | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{data.mgcep.syn.gwave.eps}
+\includegraphics[width=10cm]{eps/data.mgcep.syn.gwave.eps}
 
 \begin{verbatim}
 da +f -s 16 data.mgcep.syn
@@ -662,7 +658,7 @@ mgc2sp -m 20 -a 0.42 -g 0 -l 512 |\
 grlogsp -l 512 -x 8 -O 2 -c "(b) quantized" ) | xgr
 \end{verbatim}
 
-\includegraphics[width=6cm]{data.mcep.vq.grlogsp.eps}
+\includegraphics[width=6cm]{eps/data.mcep.vq.grlogsp.eps}
 
 \subsection{Perfomance evaluation on the training data}
 
@@ -690,7 +686,7 @@ cdist data.mcep.cep -m 255 > data.mcep.vq.cdist
 \item[Files:]
   data.pitch: pitch data extracted from speech data "data.short"\\
   data.mcep.vq: quantized mel-cepstrum (float) \\
-%   \htmladdnormallink{data.mcep.vq.syn}{data.mcep.vq.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.vq.syn}}}]{}{}{wav/data_mcep_vq_syn.wav}:
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 points (5 ms)\\
@@ -707,7 +703,7 @@ mlsadf -m 20 -a 0.42 -p 80 data.mcep.vq > data.mcep.vq.syn
 gwave data.mcep.vq.syn | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{data.mcep.vq.syn.gwave.eps}
+\includegraphics[width=10cm]{eps/data.mcep.vq.syn.gwave.eps}
 
 \begin{verbatim}
 da +f -s 16 data.mcep.vq.syn
@@ -834,7 +830,7 @@ mgc2sp -m 12 -a 0.42 -g 0 -l 512 |\
 grlogsp -l 512 -x 8 -O 4 -c "(d) MGCEP-MCEP" ) | xgr
 \end{verbatim}
 
-\includegraphics[width=12cm]{data.all.mcep.grlogsp.eps}
+\includegraphics[width=12cm]{eps/data.all.mcep.grlogsp.eps}
 
 \section{Playing with the Vocoder Based on Mel-Cepstrum}
 
@@ -842,9 +838,9 @@ grlogsp -l 512 -x 8 -O 4 -c "(d) MGCEP-MCEP" ) | xgr
 
 \begin{description}
 \item[Files:]
-%   \htmladdnormallink{data.mcep.high.syn}{data.mcep.high.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.high.syn}}}]{}{}{wav/data_mcep_high_syn.wav}:
   synthesized speech (float)\\
-%   \htmladdnormallink{data.mcep.low.syn}{data.mcep.low.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.low.syn}}}]{}{}{wav/data_mcep_low_syn.wav}:
   synthesized speech (float)
 \end{description}
 
@@ -864,9 +860,9 @@ tee data.mcep.low.syn | da +f -s 16
 
 \begin{description}
 \item[Files:]
-%   \htmladdnormallink{data.mcep.fast.syn}{data.mcep.fast.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.fast.syn}}}]{}{}{wav/data_mcep_fast_syn.wav}:
   synthesized speech (float)\\
-%   \htmladdnormallink{data.mcep.slow.syn}{data.mcep.slow.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.slow.syn}}}]{}{}{wav/data_mcep_slow_syn.wav}:
   synthesized speech (float)
 \end{description}
 
@@ -886,7 +882,7 @@ tee data.mcep.slow.syn | da +f -s 16
 
 \begin{description}
 \item[Files:]
-%   \htmladdnormallink{data.mcep.hoarse.syn}{data.mcep.hoarse.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.hoarse.syn}}}]{}{}{wav/data_mcep_hoarse_syn.wav}:
   synthesized speech (float)\\
 \end{description}
 
@@ -900,7 +896,7 @@ tee data.mcep.hoarse.syn | da +f -s 16
 
 \begin{description}
 \item[Files:]
-%   \htmladdnormallink{data.mcep.robot.syn}{data.mcep.robot.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.robot.syn}}}]{}{}{wav/data_mcep_robot_syn.wav}:
   synthesized speech (float)
 \end{description}
 
@@ -913,9 +909,9 @@ tee data.mcep.robot.syn | da +f -s 16
 
 \begin{description}
 \item[Files:]
-%   \htmladdnormallink{data.mcep.child.syn}{data.mcep.child.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.child.syn}}}]{}{}{wav/data_mcep_child_syn.wav}:
   synthesized speech (float)\\
-%   \htmladdnormallink{data.mcep.deep.syn}{data.mcep.deep.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.deep.syn}}}]{}{}{wav/data_mcep_deep_syn.wav}:
   synthesized speech (float)
 \end{description}
 
@@ -935,11 +931,20 @@ tee data.mcep.deep.syn | da +f -s 16
 
 \begin{description}
 \item[Files:]
-%   \htmladdnormallink{data.float}{data.float.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.float}}}]{}{}{wav/data_float.wav}:
   original speech (float)\\
-%   \htmladdnormallink{data.mcep.syn}{data.mcep.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.syn}}}]{}{}{wav/data_mcep_syn.wav}:
   synthesized speech (float)\\
-%   \htmladdnormallink{data.mcep.\{high,low,fast,slow,hoarse,robot,child,deep\}.syn}{data.mcep.various.syn.wav}: 
+  data.mcep.\{
+  \includemovie[text={\textcolor[named]{Blue}{\underline{high}}}]{}{}{wav/data_mcep_high_syn.wav},
+  \includemovie[text={\textcolor[named]{Blue}{\underline{low}}}]{}{}{wav/data_mcep_low_syn.wav},
+  \includemovie[text={\textcolor[named]{Blue}{\underline{fast}}}]{}{}{wav/data_mcep_fast_syn.wav},
+  \includemovie[text={\textcolor[named]{Blue}{\underline{slow}}}]{}{}{wav/data_mcep_slow_syn.wav},
+  \includemovie[text={\textcolor[named]{Blue}{\underline{hoarse}}}]{}{}{wav/data_mcep_hoarse_syn.wav},
+  \includemovie[text={\textcolor[named]{Blue}{\underline{robot}}}]{}{}{wav/data_mcep_robot_syn.wav},
+  \includemovie[text={\textcolor[named]{Blue}{\underline{child}}}]{}{}{wav/data_mcep_child_syn.wav},
+  \includemovie[text={\textcolor[named]{Blue}{\underline{deep}}}]{}{}{wav/data_mcep_deep_syn.wav}
+  \}.syn: 
   synthesized speech (float)
 \end{description}
 
@@ -964,7 +969,7 @@ data.mcep.{high,low,fast,slow,hoarse,robot,child,deep}.syn
 \item[Note:]
   The state sequence is determined according to the state
   duration densities of the HMM.  The algorithm is not included
-  in the SPTK-3.1.
+  in SPTK-3.1.
 \end{description}
 
 \begin{verbatim}
@@ -989,7 +994,7 @@ bcut -n 24 -s 100 -e 250 < sample.mcep |\
 mgc2sp -m 24 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \end{verbatim}
 
-\includegraphics[height=3cm]{sample.mcep.grlogsp-t.eps}
+\includegraphics[height=3cm]{eps/sample.mcep.grlogsp-t.eps}
 
 \subsection{Speech synthesis from the generated mel-cepstrum}
 
@@ -998,14 +1003,14 @@ mgc2sp -m 24 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
   sample.pitch: pitch data generated by a sequence of MSD-HMMs included in this
   example (float, little endian)\\
   sample.mcep: mel-cepstrum (float) \\
-%   \htmladdnormallink{sample.mcep.syn}{sample.mcep.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{sample.mcep.syn}}}]{}{}{wav/sample_mcep_syn.wav}:
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 points (5 ms)\\
   analysis order: 24\\
   frequency warping parameter: $\alpha = 0.42$
 \item[Note:]
-  Pitch pattern generation algorithm is not included in the SPTK-3.1.
+  Pitch pattern generation algorithm is not included in SPTK-3.1.
 \end{description}
 
 \begin{verbatim}
@@ -1017,7 +1022,7 @@ mlsadf -p 80 -a 0.42 -m 24 sample.mcep > sample.mcep.syn
 gwave +f sample.mcep.syn | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{sample.mcep.syn.gwave.eps}
+\includegraphics[width=10cm]{eps/sample.mcep.syn.gwave.eps}
 
 \begin{verbatim}
 da +f -s 16 sample.mcep.syn
@@ -1064,7 +1069,7 @@ bcp -l 150 -s 100 -e 124 sample.pdf | dmp -n 24 | less
   sample.pitch: pitch data generated by MSD-HMM (float)\\
   sample.mcep.wo-dyn: mel-cepstrum generated without dynamic
   feature (float) \\
-%   \htmladdnormallink{sample.mcep.wo-dyn.syn}{sample.mcep.wo-dyn.syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{sample.mcep.wo-dyn.syn}}}]{}{}{wav/sample_mcep_wo-dyn_syn.wav}:
   synthesized speech without dynamic feature (float)
 \item[Conditions:]
   frame period: 80 points (5 ms)\\
@@ -1081,7 +1086,7 @@ bcut -n 24 -s 100 -e 250 < sample.mcep.wo-dyn |\
 mgc2sp -m 24 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \end{verbatim}
 
-\includegraphics[height=3cm]{sample.mcep.wo-dyn.grlogsp-t.eps}
+\includegraphics[height=3cm]{eps/sample.mcep.wo-dyn.grlogsp-t.eps}
 
 \begin{verbatim}
 excite -p 80 sample.pitch |\
@@ -1092,7 +1097,7 @@ mlsadf -p 80 -a 0.42 -m 24 sample.mcep.wo-dyn > sample.mcep.wo-dyn.syn
 gwave +f sample.mcep.wo-dyn.syn | xgr
 \end{verbatim}
 
-\includegraphics[width=10cm]{sample.mcep.wo-dyn.syn.gwave.eps}
+\includegraphics[width=10cm]{eps/sample.mcep.wo-dyn.syn.gwave.eps}
 
 \begin{verbatim}
 da +f -s 16 sample.mcep.wo-dyn.syn sample.mcep.syn
