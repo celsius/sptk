@@ -64,7 +64,7 @@
 *               -v    :  display filename                            [FALSE] *
 *               -w    :  byteswap                                    [FALSE] *
 *               +x    :  data format                                 [s]     *
-*                          s (short)      f (float)                          *
+*                          s (short)   f (float)   d (double)                *
 *       infile:                                                              *
 *               data                                           [stdin]       *
 *       notice:                                                              *
@@ -80,15 +80,12 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <SPTK.h>
 #include "da.h"
 
 
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
-
-
 /* Default Value */
-#define SIZE     256*400
+#define SIZE     256*200
 #define MAXFILES 128
 #define INITGAIN 0
 
@@ -97,10 +94,10 @@ char *BOOL[] = {"FALSE", "TRUE"};
 #define HEADERSIZE  0
 #define VERBOSE     FA
 
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /* Command Name */
 char *cmnd;
-
 
 void usage(int status)
 {
@@ -109,18 +106,18 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] infile1 infile2 ... > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -s s  : sampling frequency (%skHz) [%d]\n", AVAILABLE_FREQ, DEFAULT_FREQ);
+   fprintf(stderr, "       -s s  : sampling frequency (%s kHz) [%d]\n", AVAILABLE_FREQ, DEFAULT_FREQ);
    fprintf(stderr, "       -g g  : gain (..,-2,-1,0,1,2,..)                    [%d]\n",GAIN);
    fprintf(stderr, "       -a a  : amplitude gain (0..100)                     [N/A]\n");
 #ifdef SPARC
    fprintf(stderr, "       -o o  : output port                                 [%c]\n",OUTPORT);
-   fprintf(stderr, "                  s(speaker)    h(headphone)\n");
+   fprintf(stderr, "                  s (speaker)    h (headphone)\n");
 #endif /* SPARC */
    fprintf(stderr, "       -H H  : header size in byte                         [%d]\n",HEADERSIZE);
    fprintf(stderr, "       -v    : display filename                            [%s]\n",BOOL[VERBOSE]);
    fprintf(stderr, "       -w    : byteswap                                    [FALSE]\n");
    fprintf(stderr, "       +x    : data format                                 [s]\n");
-   fprintf(stderr, "                  s(short)    f(float)\n");  
+   fprintf(stderr, "                  s (short)  f (float)   d (double)\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data                                                [stdin]\n");
@@ -130,7 +127,7 @@ void usage(int status)
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
-#endif
+#endif /* PACKAGE_VERSION */
    fprintf(stderr, "\n");
    exit(status);
 }
@@ -141,8 +138,9 @@ static int gain=GAIN, is_verbose=VERBOSE;
 static int hdr_size=HEADERSIZE;
 static size_t data_size=sizeof(short);
 static int freq=DEFAULT_FREQ;
-static float *x, fgain=1;
-float ampgain=-1;
+static float *xf;
+static double *x, fgain=1.0;
+double ampgain=-1.0;
 int byteswap=0;
 size_t abuf_size;
 
@@ -152,7 +150,7 @@ int org_vol, org_channels, org_precision, org_freq;
 
 #if defined(SOLARIS) || defined(SUNOS)
 audio_info_t org_data;
-#endif /* SOLARIS */
+#endif /* SOLARIS or SUNOS */
 
 int main (int argc, char *argv[])
 {
@@ -167,6 +165,8 @@ int main (int argc, char *argv[])
    
    if ((s = getenv("DA_FLOAT"))!=NULL)
       data_size = sizeof(float);
+   if ((s = getenv("DA_DOUBLE"))!=NULL)
+      data_size = sizeof(double);
    if ((s = getenv("DA_SMPLFREQ"))!=NULL)
       freq = (int)(1000*atof(s));
    if ((s = getenv("DA_GAIN"))!=NULL)
@@ -229,6 +229,9 @@ int main (int argc, char *argv[])
          case 'f':
             data_size = sizeof(float);
             break;
+         case 'd':
+            data_size = sizeof(double);
+            break;
          default:
             fprintf(stderr, "%s : Invalid option '%c' !\n",cmnd, *(*argv+1));
             usage(1);
@@ -238,36 +241,37 @@ int main (int argc, char *argv[])
          if (nfiles<MAXFILES)
             infile[nfiles++] = s;
          else {
-            fprintf(stderr, "%s: Number of files exceed %d\n", cmnd, MAXFILES);
+            fprintf(stderr, "%s : Number of files exceed %d\n", cmnd, MAXFILES);
             return(1);
          }
       }
 
-   if ((x = (float *)calloc(SIZE, sizeof(float)))==NULL) {
-      fprintf(stderr, "%s: cannot allocate memory\n", cmnd);
+   if ((x = (double *)calloc(SIZE, sizeof(double)))==NULL) {
+      fprintf(stderr, "%s : cannot allocate memory\n", cmnd);
       return(1);
    }
+   xf = (float *)x;
    xs = (short *)x;
-   if ((y = (short *)calloc(SIZE*2, sizeof(float)))==NULL) {
-      fprintf(stderr, "%s: cannot allocate memory\n", cmnd);
+   if ((y = (short *)calloc(SIZE*2, sizeof(double)))==NULL) {
+      fprintf(stderr, "%s : cannot allocate memory\n", cmnd);
       return(1);
    }
 
    sndinit();
    i = (gain < 0) ? -gain : gain;
    while (i--)
-      fgain *= 2;
+      fgain *= 2.0;
    if (gain < 0)
-      fgain = 1 / fgain;
+      fgain = 1.0 / fgain;
 
    if (nfiles) {
       for (i=0; i<nfiles; i++) {
          if ((fp = fopen(infile[i], "r"))==NULL) {
-            fprintf(stderr, "%s: cannot open %s\n", cmnd, infile[i]);
+            fprintf(stderr, "%s : cannot open %s\n", cmnd, infile[i]);
          } 
          else {
             if (is_verbose) {
-               fprintf(stderr, "%s: %s\n", cmnd, infile[i]);
+               fprintf(stderr, "%s : %s\n", cmnd, infile[i]);
             }
             direct(fp);
             fclose(fp);
@@ -295,8 +299,10 @@ void direct (FILE *fp)
 
    while ((nread=fread(x, data_size, SIZE, fp))) {
       for (k=0; k<nread; k++) {
-         if (data_size==sizeof(float))
+         if (data_size==sizeof(double))
             d = x[k];
+         else if (data_size==sizeof(float))
+            d = *(xf + k);
          else
             d = *(xs + k);
          y[k] = d * fgain;
@@ -346,13 +352,13 @@ void sndinit (void)
       dtype =_48000_16BIT_LINEAR;
       break;
    default:
-      fprintf(stderr,"%s: unavailable sampling frequency\n", cmnd);
+      fprintf(stderr,"%s : unavailable sampling frequency\n", cmnd);
       exit(1);
    }
    init_audiodev(dtype);
 
-   if (ampgain>=0) {
-      if(ampgain>100) ampgain = 100;
+   if (ampgain>=0.0) {
+      if(ampgain>100.0) ampgain = 100.0;
          change_play_gain(ampgain);
    }
    
@@ -378,7 +384,7 @@ void init_audiodev (int dtype)
    int arg;
 
    if ((adfp = fopen( AUDIO_DEV, "w")) == NULL) {
-      fprintf( stderr, "%s: can't open audio device\n", cmnd);
+      fprintf( stderr, "%s : can't open audio device\n", cmnd);
       exit(1);
    }
    
