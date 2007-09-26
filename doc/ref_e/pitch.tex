@@ -106,7 +106,7 @@ Speech data with sampling rate 10kHz is read in float format
 from {\em data.f}, the pitch is evaluated, and
 the output is written to {\em data.pitch}:
 \begin{quote}
-  \verb!frame -l 400 < data.f | window -l 400 | pitch -l 400 > data.pitch !
+  \verb!frame +f -l 400 < data.f | window -l 400 | pitch -l 400 > data.pitch !
 \end{quote}
 \end{qsection}
 
