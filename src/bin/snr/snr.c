@@ -59,7 +59,7 @@
 *       options:                                                        *
 *               -l l     :  frame length                         [256]  *
 *               +ab      :  input data type (a: file1, b: file2) [sf]   *
-*                               s (short)  f (float)                    *
+*                               s (short)  f (float)  d (double)        *
 *               -o o     :  output type                          [0]    *
 *                             0 SNR and SNRseg           (ascii)        *
 *                             1 SNR and SNRseg in datail (ascii)        * 
@@ -73,7 +73,7 @@
 *               SNR,  SNRseg                                            *      
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.13 2007/09/23 13:38:43 heigazen Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.14 2007/09/26 14:15:43 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
