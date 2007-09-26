@@ -98,7 +98,7 @@ Assume that data of the input file {\em data.f}
 If it is desired to copy the array {a(1), a(2), ... , a(10)}, 
 the following command can be used.
 \begin{quote}
-\verb!bcp data.f +f -l 21 -s 1 -e 10 > data.bcp!
+\verb!bcp +f -l 21 -s 1 -e 10 data.f > data.bcp!
 \end{quote}
 
 \par
@@ -106,7 +106,7 @@ A different example with respect to the same input file {\em data.f}
 follows
 
 \begin{quote}
-\verb!bcp data.f +f -l 21 -s 3 -e 5 -S 6 -L 10 > data.bcp!
+\verb!bcp +f -l 21 -s 3 -e 5 -S 6 -L 10 data.f > data.bcp!
 \end{quote}
 
 In this example, the output block is
