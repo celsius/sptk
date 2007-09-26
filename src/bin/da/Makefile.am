@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.3 2007/09/23 16:23:01 heigazen Exp $
+## $Id: Makefile.am,v 1.4 2007/09/26 14:28:12 heigazen Exp $
 if USEDA
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = dawrite
@@ -15,7 +15,10 @@ CLEANFILES = $(bin_PROGRAMS) $(bin_SCRIPTS)
 replace_path  = sed -e 's,@binpath@,$(DESTDIR)$(bindir),g' \
 	       -e 's,@libpath@,$(DESTDIR)$(libdir),g' \
 	       -e 's,@sptk_version@,$(PACKAGE_VERSION),g' \
-	       -e 's,@cshpath@,$(CSH),' 
+	       -e 's,@cshpath@,$(CSH),' \
+	       -e 's,@io_symbol@,$(IO_SYMBOL),g' \
+	       -e 's,@io_format@,$(IO_FORMAT),g'
+	       
 
 .in.sh:
 	$(replace_path) < $< > $@
