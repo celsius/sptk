@@ -149,7 +149,7 @@ In the following example, speech data is read in float format from
 {\em data.f}, 10-th order LPC coefficients are calculated,
 and the LSP coefficients are evaluated and written to {\em data.lsp}:
 \begin{quote}
-\verb!frame < data.f | window | lpc -m 10 |\!\\
+\verb!frame +f < data.f | window | lpc -m 10 |\!\\
 \verb!lpc2lsp -m 10 > data.lsp!
 \end{quote}
 \end{qsection}
