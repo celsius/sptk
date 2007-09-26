@@ -59,7 +59,7 @@
 *       options:                                                        *
 *               -l l     :  frame length                         [256]  *
 *               +ab      :  input data type (a: file1, b: file2) [sf]   *
-*                               s (short)  f (float)                    *
+*                               s (short)  f (float)  d (double)        *
 *               -o o     :  output type                          [0]    *
 *                             0 SNR and SNRseg           (ascii)        *
 *                             1 SNR and SNRseg in datail (ascii)        * 
