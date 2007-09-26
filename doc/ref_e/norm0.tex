@@ -77,7 +77,7 @@ Speech data is read from {\em data.f} in float format,
 the 15-th order autocorrelation coefficients are evaluated
 and normalized, and the results is written to {\em data.nacorr}:
 \begin{quote}
-  \verb!frame < data.f | window | acorr -m 15 |\ !\\
+  \verb!frame +f < data.f | window | acorr -m 15 |\ !\\
   \verb!norm0 -m 15 > data.nacorr!
 \end{quote}
 \end{qsection}

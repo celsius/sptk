@@ -103,10 +103,12 @@ from {\em data.f}, and analyzed with $\gamma=0$, $\alpha=0$
 (which correspond to UELS method for log spectrum estimation)
 and the resulting cepstral coefficients are written {\em data.cep}:
 \begin{quote}
-  \verb!frame < data.f | window | fftr -A -H | sp2mgc -i 2 > data.cep !
+  \verb!frame +f < data.f | window | \! \\
+  \verb!fftr -A -H | sp2mgc -i 2 > data.cep!
 \end{quote}
 \begin{quote}
-  \verb!frame < data.f | window | fftr -P -H | sp2mgc -i 3 > data.cep !
+  \verb!frame +f < data.f | window | \! \\
+  \verb!fftr -P -H | sp2mgc -i 3 > data.cep!
 \end{quote}
 \end{qsection}
 
