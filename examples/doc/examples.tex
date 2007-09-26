@@ -161,7 +161,7 @@ gwave +s data.short | psgr > figure.eps
 \end{description}
 
 \begin{verbatim}
-da -s 16 -a 100 data.short
+da +s -s 16 -a 100 data.short
 \end{verbatim}
 
 \subsection{Cut a portion out of a file}
@@ -194,7 +194,7 @@ gwave +s | xgr
 \end{description}
 
 \begin{verbatim}
-x2x +sf data.short | frame -l 640 -p 80 |\
+x2x +sf data.short | frame +f -l 640 -p 80 |\
 window -l 640 | pitch -s 16 -l 640 -t 4.5 -L 60 -H 170 > data.pitch
 \end{verbatim}
 
@@ -234,7 +234,7 @@ fdrw -y 0 250 -W 1.5 -H 0.4 < data.pitch | xgr
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 -L 512 |\
+x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 -L 512 |\
 mcep -l 512 -m 20 -a 0.42 > data.mcep
 \end{verbatim}
 
@@ -252,14 +252,14 @@ mcep -l 512 -m 20 -a 0.42 > data.mcep
 \end{description}
 
 \begin{verbatim}
-bcut -n 20 -s 10 -e 135 < data.mcep |\
+bcut +f -n 20 -s 10 -e 135 < data.mcep |\
 mgc2sp -m 20 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 | xgr
 \end{verbatim}
 
 \includegraphics[width=3cm]{eps/data.mcep.grlogsp.eps}
 
 \begin{verbatim}
-bcut -n 20 -s 10 -e 135 < data.mcep |\
+bcut +f -n 20 -s 10 -e 135 < data.mcep |\
 mgc2sp -m 20 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \end{verbatim}
 
@@ -279,12 +279,12 @@ mgc2sp -m 20 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \end{description}
 
 \begin{verbatim}
-( x2x +sf < data.short | frame -l 400 -p 80 | \
-bcut -l 400 -s 65 -e 65 |\
+( x2x +sf < data.short | frame +f -l 400 -p 80 | \
+bcut +f -l 400 -s 65 -e 65 |\
 window -l 400 -L 512 | spec -l 512 |\
 glogsp -l 512 -x 8 -p 2 ;\
 \
-bcut -n 20 -s 65 -e 65 < data.mcep |\
+bcut +f -n 20 -s 65 -e 65 < data.mcep |\
 mgc2sp -m 20 -a 0.42 -g 0 -l 512 | glogsp -l 512 -x 8 ) | xgr
 \end{verbatim}
 
@@ -335,7 +335,7 @@ da +f -s 16 data.mcep.syn
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 |\
+x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 |\
 lpc -l 400 -m 20 > data.lpc
 \end{verbatim}
 
@@ -349,14 +349,14 @@ lpc -l 400 -m 20 > data.lpc
 \end{description}
 
 \begin{verbatim}
-bcut -n 20 -s 10 -e 135 < data.lpc |\
+bcut +f -n 20 -s 10 -e 135 < data.lpc |\
 spec -l 512 -n 20 | grlogsp -l 512 -x 8 | xgr
 \end{verbatim}
 
 or
 
 \begin{verbatim}
-bcut -n 20 -s 10 -e 135 < data.lpc |\
+bcut +f -n 20 -s 10 -e 135 < data.lpc |\
 mgc2sp -m 20 -a 0 -g -1 -n -u -l 512 |\
 grlogsp -l 512 -x 8 | xgr
 \end{verbatim}
@@ -375,12 +375,12 @@ grlogsp -l 512 -x 8 | xgr
 \end{description}
 
 \begin{verbatim}
-( x2x +sf < data.short | frame -l 400 -p 80 | \
-bcut -l 400 -s 65 -e 65 |\
+( x2x +sf < data.short | frame +f -l 400 -p 80 | \
+bcut +f -l 400 -s 65 -e 65 |\
 window -l 400 -L 512 | spec -l 512 |\
 glogsp -l 512 -x 8 -p 2 ;\
 \
-bcut -n 20 -s 65 -e 65 < data.lpc > data.tmp ;\
+bcut +f -n 20 -s 65 -e 65 < data.lpc > data.tmp ;\
 spec -l 512 -n 20 -p data.tmp | glogsp -l 512 -x 8 ;\
 \rm data.tmp ) | xgr
 \end{verbatim}
@@ -405,7 +405,7 @@ excite -p 80 data.pitch | poledf -m 20 -p 80 data.lpc > data.lpc.syn
 \end{verbatim}
 
 \begin{verbatim}
-gwave data.lpc.syn | xgr
+gwave +f data.lpc.syn | xgr
 \end{verbatim}
 
 \includegraphics[width=10cm]{eps/data.lpc.syn.gwave.eps}
@@ -445,7 +445,7 @@ excite -p 80 data.pitch | ltcdf -m 20 -p 80 data.par > data.par.syn
 \end{verbatim}
 
 \begin{verbatim}
-gwave data.par.syn | xgr
+gwave +f data.par.syn | xgr
 \end{verbatim}
 
 \includegraphics[width=10cm]{eps/data.par.syn.gwave.eps}
@@ -482,7 +482,7 @@ excite -p 80 data.pitch | lspdf -m 20 -p 80 data.lsp > data.lsp.syn
 \end{verbatim}
 
 \begin{verbatim}
-gwave data.lsp.syn | xgr
+gwave +f data.lsp.syn | xgr
 \end{verbatim}
 
 \includegraphics[width=10cm]{eps/data.lsp.syn.gwave.eps}
@@ -510,7 +510,7 @@ da +f -s 16 data.lsp.syn
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 -L 512 |\
+x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 -L 512 |\
 mgcep -m 20 -a 0.42 -g 2 -l 512 > data.mgcep
 \end{verbatim}
 
@@ -528,7 +528,7 @@ mgcep -m 20 -a 0.42 -g 2 -l 512 > data.mgcep
 \end{description}
 
 \begin{verbatim}
-bcut -n 20 -s 10 -e 135 < data.mgcep |\
+bcut +f -n 20 -s 10 -e 135 < data.mgcep |\
 mgc2sp -m 20 -a 0.42 -g 2 -l 512 | grlogsp -l 512 -x 8 | xgr
 \end{verbatim}
 
@@ -549,12 +549,12 @@ mgc2sp -m 20 -a 0.42 -g 2 -l 512 | grlogsp -l 512 -x 8 | xgr
 \end{description}
 
 \begin{verbatim}
-( x2x +sf < data.short | frame -l 400 -p 80 | \
-bcut -l 400 -s 65 -e 65 |\
+( x2x +sf < data.short | frame +f -l 400 -p 80 | \
+bcut +f -l 400 -s 65 -e 65 |\
 window -l 400 -L 512 | spec -l 512 |\
 glogsp -l 512 -x 8 -p 2 ;\
 \
-bcut -n 20 -s 65 -e 65 < data.mgcep |\
+bcut +f -n 20 -s 65 -e 65 < data.mgcep |\
 mgc2sp -m 20 -a 0.42 -g 2 -l 512 | glogsp -l 512 -x 8 ) | xgr
 \end{verbatim}
 
@@ -581,7 +581,7 @@ mglsadf -m 20 -a 0.42 -g 2 -p 80 data.mgcep > data.mgcep.syn
 \end{verbatim}
 
 \begin{verbatim}
-gwave data.mgcep.syn | xgr
+gwave +f data.mgcep.syn | xgr
 \end{verbatim}
 
 \includegraphics[width=10cm]{eps/data.mgcep.syn.gwave.eps}
@@ -651,11 +651,11 @@ ivq -n 20 codebook.mcep < data.mcep.index > data.mcep.vq
 \end{description}
 
 \begin{verbatim}
-( bcut -n 20 -s 10 -e 135 < data.mcep |\
+( bcut +f -n 20 -s 10 -e 135 < data.mcep |\
 mgc2sp -m 20 -a 0.42 -g 0 -l 512 |\
 grlogsp -l 512 -x 8 -O 1 -c "(a) original" ;\
 \
-bcut -n 20 -s 10 -e 135 < data.mcep.vq |\
+bcut +f -n 20 -s 10 -e 135 < data.mcep.vq |\
 mgc2sp -m 20 -a 0.42 -g 0 -l 512 |\
 grlogsp -l 512 -x 8 -O 2 -c "(b) quantized" ) | xgr
 \end{verbatim}
@@ -702,7 +702,7 @@ mlsadf -m 20 -a 0.42 -p 80 data.mcep.vq > data.mcep.vq.syn
 \end{verbatim}
 
 \begin{verbatim}
-gwave data.mcep.vq.syn | xgr
+gwave +f data.mcep.vq.syn | xgr
 \end{verbatim}
 
 \includegraphics[width=10cm]{eps/data.mcep.vq.syn.gwave.eps}
@@ -727,7 +727,7 @@ da +f -s 16 data.mcep.vq.syn
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 |\
+x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 |\
 lpc -l 400 -m 12 | lpc2c -m 12 -M 12 > data.lpc.cep
 \end{verbatim}
 
@@ -746,7 +746,7 @@ lpc -l 400 -m 12 | lpc2c -m 12 -M 12 > data.lpc.cep
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 |\
+x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 |\
 lpc -l 400 -m 12 |\
 lpc2c -m 12 -M 256 |\
 freqt -m 256 -a 0 -M 12 -A 0.42 > data.lpc.mcep
@@ -755,7 +755,7 @@ freqt -m 256 -a 0 -M 12 -A 0.42 > data.lpc.mcep
 or
 
 \begin{verbatim}
-x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 |\
+x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 |\
 lpc -l 400 -m 12 |\
 mgc2mgc -m 12 -a 0 -g -1 -n -u -M 12 -A 0.42 -G 0 > data.lpc.mcep
 \end{verbatim}
@@ -776,7 +776,7 @@ mgc2mgc -m 12 -a 0 -g -1 -n -u -M 12 -A 0.42 -G 0 > data.lpc.mcep
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 -L 512 |\
+x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 -L 512 |\
 mcep -l 512 -m 12 -a 0.42 > data.mcep.mcep
 \end{verbatim}
 
@@ -796,7 +796,7 @@ mcep -l 512 -m 12 -a 0.42 > data.mcep.mcep
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 -L 512 |\
+x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 -L 512 |\
 mgcep -m 12 -a 0.42 -g 2 -l 512 |\
 mgc2mgc -m 12 -a 0.42 -g 2 -M 12 -A 0.42 -G 0 > data.mgcep.mcep
 \end{verbatim}
@@ -815,19 +815,19 @@ mgc2mgc -m 12 -a 0.42 -g 2 -M 12 -A 0.42 -G 0 > data.mgcep.mcep
 
 \begin{verbatim}
 (\
-bcut -n 12 -s 10 -e 135 < data.lpc.cep |\
+bcut +f -n 12 -s 10 -e 135 < data.lpc.cep |\
 mgc2sp -m 12 -a 0 -g 0 -l 512 |\
 grlogsp -l 512 -x 8 -O 1 -c "(a) LPC-CEP" ;\
 \
-bcut -n 12 -s 10 -e 135 < data.lpc.mcep |\
+bcut +f -n 12 -s 10 -e 135 < data.lpc.mcep |\
 mgc2sp -m 12 -a 0.42 -g 0 -l 512 |\
 grlogsp -l 512 -x 8 -O 2 -c "(b) LPC-MCEP" ;\
 \
-bcut -n 12 -s 10 -e 135 < data.mcep.mcep |\
+bcut +f -n 12 -s 10 -e 135 < data.mcep.mcep |\
 mgc2sp -m 12 -a 0.42 -g 0 -l 512 |\
 grlogsp -l 512 -x 8 -O 3 -c "(c) MCEP" ;\
 \
-bcut -n 12 -s 10 -e 135 < data.mgcep.mcep |\
+bcut +f -n 12 -s 10 -e 135 < data.mgcep.mcep |\
 mgc2sp -m 12 -a 0.42 -g 0 -l 512 |\
 grlogsp -l 512 -x 8 -O 4 -c "(d) MGCEP-MCEP" ) | xgr
 \end{verbatim}
@@ -951,7 +951,7 @@ tee data.mcep.deep.syn | da +f -s 16
 \end{description}
 
 \begin{verbatim}
-da -v +f -s 16 data.float data.mcep.syn \
+da +f -v -s 16 data.float data.mcep.syn \
 data.mcep.{high,low,fast,slow,hoarse,robot,child,deep}.syn
 \end{verbatim}
 
@@ -992,7 +992,7 @@ mlpg -m 24 -d -0.5 0 0.5 -d 0.25 -0.5 0.25 sample.pdf > sample.mcep
 \end{description}
 
 \begin{verbatim}
-bcut -n 24 -s 100 -e 250 < sample.mcep |\
+bcut +f -n 24 -s 100 -e 250 < sample.mcep |\
 mgc2sp -m 24 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \end{verbatim}
 
@@ -1043,25 +1043,25 @@ da +f -s 16 sample.mcep.syn
 \subsubsection{Dump static feature vectors}
 
 \begin{verbatim}
-bcp -l 150 -s 0 -e 24 sample.pdf | dmp -n 24 | less
+bcp +f -l 150 -s 0 -e 24 sample.pdf | dmp -n 24 | less
 \end{verbatim}
 
 \subsubsection{Dump variance vectors of static feature vectors}
 
 \begin{verbatim}
-bcp -l 150 -s 75 -e 99 sample.pdf | dmp -n 24 | less
+bcp +f -l 150 -s 75 -e 99 sample.pdf | dmp -n 24 | less
 \end{verbatim}
 
 \subsubsection{Dump dynamic feature vectors (delta)}
 
 \begin{verbatim}
-bcp -l 150 -s 25 -e 49 sample.pdf | dmp -n 24 | less
+bcp +f -l 150 -s 25 -e 49 sample.pdf | dmp -n 24 | less
 \end{verbatim}
 
 \subsubsection{Dump variance vectors of dynamic feature vectors (delta)}
 
 \begin{verbatim}
-bcp -l 150 -s 100 -e 124 sample.pdf | dmp -n 24 | less
+bcp +f -l 150 -s 100 -e 124 sample.pdf | dmp -n 24 | less
 \end{verbatim}
 
 \subsection{Speech synthesis without dynamic feature}
@@ -1080,11 +1080,11 @@ bcp -l 150 -s 100 -e 124 sample.pdf | dmp -n 24 | less
 \end{description}
 
 \begin{verbatim}
-bcp -l 150 -s 0 -e 24 sample.pdf > sample.mcep.wo-dyn
+bcp +f -l 150 -s 0 -e 24 sample.pdf > sample.mcep.wo-dyn
 \end{verbatim}
 
 \begin{verbatim}
-bcut -n 24 -s 100 -e 250 < sample.mcep.wo-dyn |\
+bcut +f -n 24 -s 100 -e 250 < sample.mcep.wo-dyn |\
 mgc2sp -m 24 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \end{verbatim}
 
