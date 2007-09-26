@@ -75,7 +75,7 @@ The frame length is 256, the frame period 100, every frame is
 passed through a Blackman window, and the autocorrelation function sequence
 is found in {\em data.acorr}.
 \begin{center}
- \verb!frame -l 256 -p 100 < data.f | window | acorr -m 10 > data.acorr!
+ \verb!frame +f -l 256 -p 100 < data.f | window | acorr -m 10 > data.acorr!
 \end{center}
 \end{qsection}
 

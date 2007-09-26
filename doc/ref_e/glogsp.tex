@@ -113,7 +113,7 @@ In the example below, speech data sampled at 10 kHz is read
 in short format from {\em data.s} file,
 the magnitude of its log spectrum is evaluated and plotted on the screen:
 \begin{quote}
- \verb!x2x +sf data.s | bcut -s 4000 -e 4255 | window -n 2| spec |\! \\
+ \verb!x2x +sf data.s | bcut +f -s 4000 -e 4255 | window -n 2| spec |\! \\
  \verb!glogsp -x 5 | xgr!
 \end{quote}
 \begin{center}
