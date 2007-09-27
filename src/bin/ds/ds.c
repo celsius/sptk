@@ -175,7 +175,7 @@ int main (int argc,char *argv[])
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s: unknown option '%c'\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : unknown option '%c'\n", cmnd, *(*argv+1));
             usage(1);
          }
       }
@@ -206,7 +206,7 @@ int main (int argc,char *argv[])
       intrate = INTRATE5;
       break;
    default:
-      fprintf(stderr, "%s: dec/int rate not specifiec.\n",cmnd);
+      fprintf(stderr, "%s : dec/int rate not specifiec.\n",cmnd);
       return(1);
    }
    decimate(fp);
@@ -257,7 +257,7 @@ void decimate (FILE *fp)
          if (nwr>delay) {
             nwr -= delay;
             if (fwritef(y + delay, sizeof(*y), nwr, stdout)!=nwr) {
-               fprintf(stderr, "%s: write error\n", cmnd);
+               fprintf(stderr, "%s : write error\n", cmnd);
                exit(1);
             }
             delay = 0;
@@ -268,7 +268,7 @@ void decimate (FILE *fp)
       }
       else {
          if (fwritef(y, sizeof(*y), nwr, stdout)!=nwr) {
-            fprintf(stderr, "%s: write error\n", cmnd);
+            fprintf(stderr, "%s : write error\n", cmnd);
             exit(1);
          }
       }
@@ -337,24 +337,24 @@ void firinit (void)
    int freada(double *p, int bl, FILE *fp);
 
    if ((fp = fopen(coef, "r"))==NULL) {
-      fprintf(stderr, "%s: cannot open %s\n", cmnd, coef);
+      fprintf(stderr, "%s : cannot open %s\n", cmnd, coef);
       exit(1);
    }
    flengdn = freada(hdn, RBSIZE + 1, fp);
    fclose(fp);
    if (--flengdn<0) {
-      fprintf(stderr, "%s: cannot read filter coefficients\n", cmnd);
+      fprintf(stderr, "%s : cannot read filter coefficients\n", cmnd);
       exit(1);
    }
    if (type==52 || type==54) {
       if ((fp = fopen(coef1, "r"))==NULL) {
-         fprintf(stderr, "%s: cannot open %s\n", cmnd, coef1);
+         fprintf(stderr, "%s : cannot open %s\n", cmnd, coef1);
          exit(1);
       }
       flengup = freada(hup, RBSIZE +1, fp);
       fclose(fp);
       if (--flengup<0) {
-         fprintf(stderr, "%s: cannot read filter coefficients\n",cmnd);
+         fprintf(stderr, "%s : cannot read filter coefficients\n",cmnd);
          exit(1);
       }
       start = (((flengup / 2) * intrate) + (flengdn / 2)) / decrate;

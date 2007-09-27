@@ -317,7 +317,7 @@ int main (int argc, char **argv)
       }
       else
          if ((pdffp = fopen(*argv, "r"))==NULL) {
-            fprintf(stderr, "%s: Can't open '%s'!\n", cmnd, *argv);
+            fprintf(stderr, "%s : Can't open '%s'!\n", cmnd, *argv);
             return(2);
          }
    }

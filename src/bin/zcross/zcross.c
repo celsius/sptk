@@ -138,7 +138,7 @@ int main (int argc,char **argv)
             usage (0);
          default:
             fprintf(stderr,
-                    "%s: unknown option '%c'\n", cmnd, c);
+                    "%s : unknown option '%c'\n", cmnd, c);
             usage (1);
             break;
          }

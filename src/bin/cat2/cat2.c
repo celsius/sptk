@@ -121,7 +121,7 @@ int main (int argc, char **argv)
       else {
          stdinmode = -1;
          if ( (fp = fopen( *argv, "r"))==NULL) {
-            fprintf(stderr, "%s: cannot open %s\n", cmnd, *argv);
+            fprintf(stderr, "%s : cannot open %s\n", cmnd, *argv);
             return(1);
          }
          while(fgets(buf, 512, fp)!=0) {

@@ -195,7 +195,7 @@ int main (int argc,char *argv[])
    }
 
    if (n1>size || n2>size) {
-      fprintf(stderr, "%s: Region size > FFT size\n", cmnd);
+      fprintf(stderr, "%s : region size > FFT size\n", cmnd);
       return(1);
    }
 
@@ -230,7 +230,7 @@ int main (int argc,char *argv[])
             break;
          n2 = n1 = sqrt((double)k);
          if (k!=n1*n1) {
-            fprintf(stderr, "%s: region of support is not square!\n", cmnd);
+            fprintf(stderr, "%s : region of support is not square!\n", cmnd);
             return(-1);
          }
          if (n1<size) {
