@@ -63,7 +63,7 @@
 *               input is assumed to be real                             *
 ************************************************************************/
 
-static char *rcs_id = "$Id: zcross.c,v 1.14 2007/09/23 15:08:37 heigazen Exp $";
+static char *rcs_id = "$Id: zcross.c,v 1.15 2007/09/27 03:36:47 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -138,7 +138,7 @@ int main (int argc,char **argv)
             usage (0);
          default:
             fprintf(stderr,
-                    "%s: unknown option '%c'\n", cmnd, c);
+                    "%s : unknown option '%c'\n", cmnd, c);
             usage (1);
             break;
          }

@@ -77,7 +77,7 @@
 *                                                                                       *
 ****************************************************************************************/
 
-static char *rcs_id = "$Id: mlpg.c,v 1.14 2007/09/23 13:38:40 heigazen Exp $";
+static char *rcs_id = "$Id: mlpg.c,v 1.15 2007/09/27 03:36:46 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -317,7 +317,7 @@ int main (int argc, char **argv)
       }
       else
          if ((pdffp = fopen(*argv, "r"))==NULL) {
-            fprintf(stderr, "%s: Can't open '%s'!\n", cmnd, *argv);
+            fprintf(stderr, "%s : Can't open '%s'!\n", cmnd, *argv);
             return(2);
          }
    }

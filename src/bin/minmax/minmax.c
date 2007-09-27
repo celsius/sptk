@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: minmax.c,v 1.13 2007/09/23 15:08:34 heigazen Exp $";
+static char *rcs_id = "$Id: minmax.c,v 1.14 2007/09/27 03:36:46 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -161,7 +161,7 @@ int main (int argc,char *argv[])
             usage (0);
          default:
             fprintf(stderr,
-                    "%s: unknown option '%c'\n", cmnd, c);
+                    "%s : unknown option '%c'\n", cmnd, c);
             usage (1);
             break;
          }

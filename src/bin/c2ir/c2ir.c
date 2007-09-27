@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id="$Id: c2ir.c,v 1.15 2007/09/23 15:08:25 heigazen Exp $";
+static char *rcs_id="$Id: c2ir.c,v 1.16 2007/09/27 03:36:46 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -147,7 +147,7 @@ int main (int argc,char *argv[])
          case 'h':
             usage(0);            
          default:
-            fprintf(stderr, "%s: unknown option '%c'\n", cmnd, c);
+            fprintf(stderr, "%s : unknown option '%c'\n", cmnd, c);
             usage(1);
          }
       }
