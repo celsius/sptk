@@ -124,6 +124,15 @@ else
 	AM_CONDITIONAL( USEDA, false)
 fi
 
+# check solaris & gcc
+case $host in
+	 *-solaris*)
+	 	if test "$GCC" = "yes"; then
+			CFLAGS="-std=c99 $CFLAGS"
+		fi
+	;;
+esac
+
 AC_CONFIG_FILES([Makefile
                  bin/Makefile
                  bin/acep/Makefile
