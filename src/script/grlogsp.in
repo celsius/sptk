@@ -298,8 +298,9 @@ endif
         echo2 "       log spectrum (@io_format@)                          [stdin]"
         echo2 '  stdout:'
         echo2 '       XY-plotter command'
-        echo2 "  SPTK: version $sptkver"
-        echo2 "  CVS Info: $cvsid"
+        echo2 ''
+        echo2 " SPTK: version $sptkver"
+        echo2 " CVS Info: $cvsid"
         echo2 ''
 exit 0
 

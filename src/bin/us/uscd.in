@@ -231,8 +231,8 @@ cat2 <<EOF
        data sequence                                           [stdout]
   notice:
 
-  SPTK: version $sptkver
-  CVS Info: $cvsid
+ SPTK: version $sptkver
+ CVS Info: $cvsid
   
 EOF
 exit 1

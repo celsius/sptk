@@ -207,8 +207,8 @@ EOF
        data sequence                                             [stdin]
   notice:
 
-  SPTK: version $sptkver
-  CVS Info: $cvsid
+ SPTK: version $sptkver
+ CVS Info: $cvsid
   
 EOF
                 exit 1

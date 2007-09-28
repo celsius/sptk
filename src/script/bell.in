@@ -89,8 +89,9 @@ usage:
         echo2 '       -h  : print this message'
         echo2 '  notice:'
         echo2 '       num : number of bell      [1]'
-        echo2 "  SPTK: version $sptkver"
-        echo2 "  CVS Info: $cvsid"
+        echo2 ''
+        echo2 " SPTK: version $sptkver"
+        echo2 " CVS Info: $cvsid"
 exit $exit_status
 
 main:
