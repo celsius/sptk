@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-* $Id: plot.h,v 1.9 2007/09/22 13:01:11 heigazen Exp $          *  
+* $Id: plot.h,v 1.10 2007/09/28 03:26:01 s_sako Exp $          *  
 * HEADER for XY-PLOTTER library                                 *
 *                                                               *
 *    Following commands are valid for the xy plotter FP5301     *
@@ -155,7 +155,7 @@ int flush(double x[],double y[],int n);
 void polyg(double x[],double y[],int n);
 int is_in(double x,double y);
 void swap(double *x,double *y);
-char *gettxt(char *s);
+char *gettxt_fig(char *s);
 char *script(char *s, int i);
 char *getarg(char *s, char *arg);
 char *gettyp(char *s, char *t);

@@ -77,7 +77,7 @@ static char *grk[]={"Alpha", "Beta", "Gamma", "Delta",
 static unsigned char sub[SBUFLNG];
 static int nsub;
 
-char *gettxt(char *s)
+char *gettxt_fig(char *s)
 {
    char *p;
    int i, c;
@@ -191,7 +191,7 @@ char *getarg(char *s, char *arg)
    if (*s=='\0')
       return(NULL);
    else if (*s=='"') {
-      gettxt(s);
+      gettxt_fig(s);
       while ((*arg++ = *s++))
          ;
    }
@@ -225,7 +225,7 @@ char *getname(char *s, char *t)
    else {
       if (!is_number(*t))
          *t = '\0';
-      t = gettxt(s);
+      t = gettxt_fig(s);
    }
    return(t);
 }
