@@ -8,6 +8,8 @@ us_SOURCES = us.c
 us_LDADD = $(top_srcdir)/lib/libSPTK.a
 
 lpcoefdir = $(DESTDIR)$(libdir)
+us_CPPFLAGS = -DLIB=\"$(lpcoefdir)\"
+
 dist_lpcoef_DATA = lpfcoef.2to3f \
 	lpfcoef.2to3s \
 	lpfcoef.3to4 \
