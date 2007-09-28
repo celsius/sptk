@@ -155,7 +155,7 @@ int flush(double x[],double y[],int n);
 void polyg(double x[],double y[],int n);
 int is_in(double x,double y);
 void swap(double *x,double *y);
-char *gettxt(char *s);
+char *gettxt_fig(char *s);
 char *script(char *s, int i);
 char *getarg(char *s, char *arg);
 char *gettyp(char *s, char *t);

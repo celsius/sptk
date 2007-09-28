@@ -267,7 +267,7 @@ void graph(FILE *fp)
             x = xfct * xt(x) + x00;
             y = yfct * yt(y) + y00;
          }
-         s = gettxt(s);
+         s = gettxt_fig(s);
          th = getarg(s + strlen(s) + 1, arg) ? atof(arg) : 0;
          if (*(arg + 5)) {
             x -= rx(LADJ * h / 2, h / 2, th);
