@@ -58,7 +58,7 @@
 set path        = ( @binpath@ $path )
 set libpath     = '@libpath@'
 set sptkver     = '@sptk_version@'
-set cvsid       = '$Id: da.in,v 1.4 2007/09/26 14:28:12 heigazen Exp $'
+set cvsid       = '$Id: da.in,v 1.5 2007/09/28 08:24:07 heigazen Exp $'
 
 set cmnd        = $0
 set cmnd        = $cmnd:t
@@ -207,8 +207,8 @@ EOF
        data sequence                                             [stdin]
   notice:
 
-  SPTK: version $sptkver
-  CVS Info: $cvsid
+ SPTK: version $sptkver
+ CVS Info: $cvsid
   
 EOF
                 exit 1

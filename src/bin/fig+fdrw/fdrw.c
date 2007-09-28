@@ -75,6 +75,8 @@
 *                                                                       *
 ************************************************************************/
 
+static char *rcs_id = "$Id: fdrw.c,v 1.17 2007/09/28 08:24:07 heigazen Exp $";
+
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -145,6 +147,7 @@ void usage (int status)
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s",PACKAGE_VERSION);
+   fprintf(stderr, " CVS Info: %s",rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
