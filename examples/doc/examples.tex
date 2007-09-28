@@ -195,7 +195,7 @@ gwave +s | xgr
 
 \begin{verbatim}
 x2x +sf data.short | frame +f -l 640 -p 80 |\
-window -l 640 | pitch -s 16 -l 640 -t 4.5 -L 60 -H 170 > data.pitch
+window -l 640 | pitch -s 16 -l 640 -t 6.0 -L 80 -H 165 > data.pitch
 \end{verbatim}
 
 \subsection{Plotting the extracted pitch contour}
@@ -831,7 +831,7 @@ bcut +f -n 12 -s 10 -e 135 < data.mgcep.mcep |\
 mgc2sp -m 12 -a 0.42 -g 0 -l 512 |\
 grlogsp -l 512 -x 8 -O 4 -c "(d) MGCEP-MCEP" ) | xgr
 \end{verbatim}
-
+ 
 \includegraphics[width=12cm]{eps/data.all.mcep.grlogsp.eps}
 
 \section{Playing with the Vocoder Based on Mel-Cepstrum}
@@ -922,7 +922,7 @@ sopr -m 0.4 data.pitch |\
 excite -p 80 | mlsadf -m 20 -a 0.1 -p 80 data.mcep |\
 tee data.mcep.child.syn | da +f -s 16
 \end{verbatim}
-
+ 
 \begin{verbatim}
 sopr -m 2 data.pitch |\
 excite -p 80 | mlsadf -m 20 -a 0.6 -p 80 data.mcep |\
@@ -975,7 +975,7 @@ data.mcep.{high,low,fast,slow,hoarse,robot,child,deep}.syn
 \end{description}
 
 \begin{verbatim}
-mlpg -m 24 -d -0.5 0 0.5 -d 0.25 -0.5 0.25 sample.pdf > sample.mcep
+mlpg -m 24 -i 1 -d -0.5 0 0.5 -d 0.25 -0.5 0.25 sample.pdf > sample.mcep
 \end{verbatim}
 
 \subsection{Plotting spectra calculated from generated mel-cepstrum}
@@ -995,7 +995,7 @@ mlpg -m 24 -d -0.5 0 0.5 -d 0.25 -0.5 0.25 sample.pdf > sample.mcep
 bcut +f -n 24 -s 100 -e 250 < sample.mcep |\
 mgc2sp -m 24 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \end{verbatim}
-
+ 
 \includegraphics[height=3cm]{eps/sample.mcep.grlogsp-t.eps}
 
 \subsection{Speech synthesis from the generated mel-cepstrum}
@@ -1049,7 +1049,7 @@ bcp +f -l 150 -s 0 -e 24 sample.pdf | dmp -n 24 | less
 \subsubsection{Dump variance vectors of static feature vectors}
 
 \begin{verbatim}
-bcp +f -l 150 -s 75 -e 99 sample.pdf | dmp -n 24 | less
+bcp +f -l 150 -s 75 -e 99 sample.pdf | sopr -INV | dmp -n 24 | less
 \end{verbatim}
 
 \subsubsection{Dump dynamic feature vectors (delta)}
@@ -1061,7 +1061,7 @@ bcp +f -l 150 -s 25 -e 49 sample.pdf | dmp -n 24 | less
 \subsubsection{Dump variance vectors of dynamic feature vectors (delta)}
 
 \begin{verbatim}
-bcp +f -l 150 -s 100 -e 124 sample.pdf | dmp -n 24 | less
+bcp +f -l 150 -s 100 -e 124 sample.pdf | sopr -INV | dmp -n 24 | less
 \end{verbatim}
 
 \subsection{Speech synthesis without dynamic feature}
@@ -1082,7 +1082,7 @@ bcp +f -l 150 -s 100 -e 124 sample.pdf | dmp -n 24 | less
 \begin{verbatim}
 bcp +f -l 150 -s 0 -e 24 sample.pdf > sample.mcep.wo-dyn
 \end{verbatim}
-
+ 
 \begin{verbatim}
 bcut +f -n 24 -s 100 -e 250 < sample.mcep.wo-dyn |\
 mgc2sp -m 24 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
