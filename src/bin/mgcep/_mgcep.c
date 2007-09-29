@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-   $Id: _mgcep.c,v 1.10 2007/09/12 08:37:16 heigazen Exp $
+   $Id: _mgcep.c,v 1.11 2007/09/29 17:28:19 heigazen Exp $
 
    Mel-Generalized Cepstral Analysis
 
@@ -223,7 +223,7 @@ int mgcep (double *xw, int flng, double *b, const int m, const double a, const d
    if (g!=-1.0) {
       for (j=1; j<=itr2; j++) {
          epo = ep;
-         ep = newton(x, flng, b, m, a, g, n, i);
+         ep = newton(x, flng, b, m, a, g, n, j);
 
          if (j >= itr1)
             if (fabs((epo - ep)/ep)<dd) {
