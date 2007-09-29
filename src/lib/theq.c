@@ -98,7 +98,7 @@ static int inverse (double *x, double *y, const double eps)
 
    det = y[0]*y[3] - y[1]*y[2];
 
-   if (fabs(det) < eps) return(-1);
+   if ((fabs(det)<eps) || isnan(det)) return(-1);
 
    x[0] =  y[3] / det;
    x[1] = -y[1] / det;
