@@ -160,7 +160,7 @@ int sp2mgc (double *xw, const int flng, double *b, const int m, const double a, 
    if (g!=-1.0) {
       for (j=1; j<=itr2; j++) {
          epo = ep;
-         ep = newton(x, flng, b, m, a, g, n, i);
+         ep = newton(x, flng, b, m, a, g, n, j);
 
          if (j >= itr1)
             if (fabs((epo - ep)/ep)<dd) {
