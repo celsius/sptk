@@ -119,7 +119,10 @@ dmp +s data.short | less
   \includemovie[text={\textcolor[named]{Blue}{\underline{data.float}}}]{}{}{wav/data_float.wav}:
   speech data (float, 16 kHz sampling)\footnote{By clicking links in this PDF file, your PC may play some speech files, which
 were converted from ``float'' format into ``wav'' format
-(16 kHz sampling, 16-bit integer).}\\
+(16 kHz sampling, 16-bit integer).}\footnote{If you compiled SPTK with
+\texttt{"--enable-double"} option, please use \texttt{"+sd"} option instead
+of \texttt{"+sf"} and \texttt{"+d"} option instead
+of \texttt{"+f"}.}\\
 \end{description}
 
 \begin{verbatim}
@@ -962,7 +965,9 @@ data.mcep.{high,low,fast,slow,hoarse,robot,child,deep}.syn
 \begin{description}
 \item[Files:]
   sample.pdf: sequence of mean and variance
-              corresponding to a state sequence included in this example (float, little endian)\\
+              corresponding to a state sequence included in this example (float, little endian)\footnote{If you compiled SPTK with
+\texttt{"--enable-double"} option, please first convert this file into double
+format:\\ \texttt{x2x +sd sample.pdf > sample.pdf.double}}\\
   sample.mcep: mel-cepstrum generated from a sequence of HMMs (float)
 \item[Conditions:]
   analysis order: 24\\
@@ -1003,7 +1008,9 @@ mgc2sp -m 24 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \begin{description}
 \item[Files:]
   sample.pitch: pitch data generated from a sequence of MSD-HMMs included in this
-  example (float, little endian)\\
+  example (float, little endian)\footnote{If you compiled SPTK with
+\texttt{"--enable-double"} option, please first convert this file into double
+format:\\ \texttt{x2x +sd sample.pitch > sample.pitch.double}}\\
   sample.mcep: mel-cepstrum (float) \\
   \includemovie[text={\textcolor[named]{Blue}{\underline{sample.mcep.syn}}}]{}{}{wav/sample_mcep_syn.wav}:
   synthesized speech (float)
