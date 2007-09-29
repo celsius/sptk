@@ -49,7 +49,7 @@
 
 /******************************************************************
 
-    $Id: theq.c,v 1.9 2007/09/20 16:24:47 heigazen Exp $
+    $Id: theq.c,v 1.10 2007/09/29 16:48:36 heigazen Exp $
 
     Subroutine for Solving a Toeplitz plus Hankel
     Coefficient Matrix System of Equations  ( T + H ) a = b
@@ -98,7 +98,7 @@ static int inverse (double *x, double *y, const double eps)
 
    det = y[0]*y[3] - y[1]*y[2];
 
-   if (fabs(det) < eps) return(-1);
+   if ((fabs(det)<eps) || isnan(det)) return(-1);
 
    x[0] =  y[3] / det;
    x[1] = -y[1] / det;
