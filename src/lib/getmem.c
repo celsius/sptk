@@ -48,7 +48,7 @@
 */
 
 /********************************************************************
-    $Id: getmem.c,v 1.8 2007/09/20 16:34:50 heigazen Exp $
+    $Id: getmem.c,v 1.9 2007/09/30 16:20:25 heigazen Exp $
 
     Memory Allocation Functions
 
@@ -82,7 +82,7 @@ char *getmem (const size_t leng, const size_t size)
    char *p = NULL;
 
    if ((p = (char *)calloc(leng, size)) == NULL){
-      fprintf(stderr, "Memory allocation error !\n");
+      fprintf(stderr, "Cannot allocate memory!\n");
       exit(3);
    }
    return (p);

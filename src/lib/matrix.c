@@ -49,7 +49,7 @@
 
 /*****************************************************************
 
-    $Id: matrix.c,v 1.6 2007/09/12 08:37:14 heigazen Exp $
+    $Id: matrix.c,v 1.7 2007/09/30 16:20:25 heigazen Exp $
 
     compute matrix functions
 
@@ -96,7 +96,7 @@ static void mm (double x[], const int xx, const int xy, double y[], const int yx
    }
 
    if (xx != yy) {
-      fprintf(stderr,"bad matrix size x= %d*%d,y= %d*%d\n",xx,xy,yx,yy);
+      fprintf(stderr,"Invalid matrix size x= %d*%d,y= %d*%d\n",xx,xy,yx,yy);
       exit(1);
    }
 

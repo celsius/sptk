@@ -66,7 +66,7 @@
 *       Note that double precision FFT is used.                         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.15 2007/09/27 03:36:46 heigazen Exp $";
+static char *rcs_id = "$Id: grpdelay.c,v 1.16 2007/09/30 16:20:44 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -141,8 +141,7 @@ int main (int argc,char *argv[])
          case 'h':
             usage(0);
          default:
-            fprintf(stderr,
-               "%s : unknown option '%c'\n", cmnd, c);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, c);
             break;
          }
       }
@@ -152,7 +151,7 @@ int main (int argc,char *argv[])
 
    if (nd==-1) nd = size;
    if (nd>size) {
-      fprintf(stderr, "%s : order of sequence > FFT size\n", cmnd);
+      fprintf(stderr, "%s : Order of sequence %d should be less than the FFT size %d!\n", cmnd, nd, size);
       return(1);
    }
    

@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-   $Id: _window.c,v 1.9 2007/09/15 17:15:55 heigazen Exp $
+   $Id: _window.c,v 1.10 2007/09/30 16:20:26 heigazen Exp $
 
    Window function
    ---------------
@@ -252,7 +252,7 @@ double window (Window type, double *x, const int size, const int nflg)
          rectangular(w, size);
          break;
       default:
-         fprintf(stderr, "window : unknown window type\n");
+         fprintf(stderr, "window : Unknown window type %d!\n", (int)type);
          exit(1);
       }
 

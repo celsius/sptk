@@ -48,7 +48,7 @@
 */
 
 /***************************************************************
-    $Id: getfp.c,v 1.6 2007/09/20 16:35:29 heigazen Exp $
+    $Id: getfp.c,v 1.7 2007/09/30 16:20:25 heigazen Exp $
 
     File Open Function
 
@@ -67,7 +67,7 @@ FILE *getfp (char *name, char *opt)
    FILE *fp;
 
    if ((fp = fopen(name, opt)) == NULL){
-      fprintf(stderr, "Can't open '%s'!\n", name);
+      fprintf(stderr, "Cannot open file %s!\n", name);
       exit(2);
    }
 

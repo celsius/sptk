@@ -72,7 +72,7 @@
 *                                                                            *
 *****************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.17 2007/09/26 14:28:12 heigazen Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.18 2007/09/30 16:20:52 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -216,7 +216,7 @@ int main (int argc, char *argv[])
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage(1);
          }
       } 
@@ -233,7 +233,7 @@ int main (int argc, char *argv[])
             data_size = sizeof(double);
             break;
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n",cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n",cmnd, *(*argv+1));
             usage(1);
          }
       }
@@ -241,19 +241,19 @@ int main (int argc, char *argv[])
          if (nfiles<MAXFILES)
             infile[nfiles++] = s;
          else {
-            fprintf(stderr, "%s : Number of files exceed %d\n", cmnd, MAXFILES);
+            fprintf(stderr, "%s : Number of files exceed %d!\n", cmnd, MAXFILES);
             return(1);
          }
       }
 
    if ((x = (double *)calloc(SIZE, sizeof(double)))==NULL) {
-      fprintf(stderr, "%s : cannot allocate memory\n", cmnd);
+      fprintf(stderr, "%s : Cannot allocate memory!\n", cmnd);
       return(1);
    }
    xf = (float *)x;
    xs = (short *)x;
    if ((y = (short *)calloc(SIZE*2, sizeof(double)))==NULL) {
-      fprintf(stderr, "%s : cannot allocate memory\n", cmnd);
+      fprintf(stderr, "%s : Cannot allocate memory!\n", cmnd);
       return(1);
    }
 
@@ -267,7 +267,7 @@ int main (int argc, char *argv[])
    if (nfiles) {
       for (i=0; i<nfiles; i++) {
          if ((fp = fopen(infile[i], "r"))==NULL) {
-            fprintf(stderr, "%s : cannot open %s\n", cmnd, infile[i]);
+            fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, infile[i]);
          } 
          else {
             if (is_verbose) {
@@ -352,7 +352,7 @@ void sndinit (void)
       dtype =_48000_16BIT_LINEAR;
       break;
    default:
-      fprintf(stderr,"%s : unavailable sampling frequency\n", cmnd);
+      fprintf(stderr,"%s : Unavailable sampling frequency %d!\n", cmnd, freq);
       exit(1);
    }
    init_audiodev(dtype);
@@ -384,7 +384,7 @@ void init_audiodev (int dtype)
    int arg;
 
    if ((adfp = fopen( AUDIO_DEV, "w")) == NULL) {
-      fprintf( stderr, "%s : can't open audio device\n", cmnd);
+      fprintf( stderr, "%s : Cannot open audio device\n", cmnd);
       exit(1);
    }
    

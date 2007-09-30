@@ -72,7 +72,7 @@
 *                                                               *
 ****************************************************************/
 
-static char *rcs_id = "$Id: xgr.c,v 1.13 2007/09/27 03:36:46 heigazen Exp $";
+static char *rcs_id = "$Id: xgr.c,v 1.14 2007/09/30 16:20:52 heigazen Exp $";
 
 
 /*  Standard C Libraries */
@@ -232,7 +232,7 @@ int main (int argc,char *argv[])
    if (c==EOF)
       return(-1);
    else if (c!='=')  {
-      fprintf(stderr, "%s : unexpected data format!\n", cmnd);
+      fprintf(stderr, "%s : Unexpected data format!\n", cmnd);
       return(-1);
    }
    open_display(dpy);

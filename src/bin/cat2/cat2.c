@@ -60,7 +60,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: cat2.c,v 1.13 2007/09/27 03:36:47 heigazen Exp $";
+static char *rcs_id = "$Id: cat2.c,v 1.14 2007/09/30 16:20:25 heigazen Exp $";
 
 
 /*  Standard C Libraries **/
@@ -114,14 +114,14 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage(1);
          }
       }
       else {
          stdinmode = -1;
          if ( (fp = fopen( *argv, "r"))==NULL) {
-            fprintf(stderr, "%s : cannot open %s\n", cmnd, *argv);
+            fprintf(stderr, "%s : Cannot open %s!\n", cmnd, *argv);
             return(1);
          }
          while(fgets(buf, 512, fp)!=0) {

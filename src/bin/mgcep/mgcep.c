@@ -86,7 +86,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.18 2007/09/23 15:08:34 heigazen Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.19 2007/09/30 16:20:31 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -210,7 +210,7 @@ int main (int argc, char **argv)
          case 'h':
             usage (0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage (1);
          }
       }

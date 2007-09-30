@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: imsvq.c,v 1.11 2007/09/23 15:08:31 heigazen Exp $";
+static char *rcs_id = "$Id: imsvq.c,v 1.12 2007/09/30 16:20:42 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -160,7 +160,7 @@ int main (int argc, char **argv)
          case 'h':
             usage (0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage (1);
          }
       }
@@ -175,7 +175,7 @@ int main (int argc, char **argv)
    for (i=0; i<stage; i++) {
       fpcb = getfp(cbfile[i], "r");
       if (freadf(p, sizeof(*p), cbsize[i]*l, fpcb)!=cbsize[i]*l) {
-         fprintf(stderr,"%s : Codebook size error of %d stage !\n",cmnd, ss);
+         fprintf(stderr,"%s : Codebook size error of %d stage!\n",cmnd, ss);
          return(1);
       }
       p += cbsize[i] * l;

@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: poledf.c,v 1.13 2007/09/23 15:08:35 heigazen Exp $";
+static char *rcs_id = "$Id: poledf.c,v 1.14 2007/09/30 16:20:38 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -161,7 +161,7 @@ int main (int argc, char **argv)
          case 'h':
             usage (0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage (1);
          }
       }
@@ -175,7 +175,7 @@ int main (int argc, char **argv)
       return(1);
    }
    if (m<0) {
-      fprintf(stderr, "%s : Order must be equal to or greater than zero\n", cmnd);
+      fprintf(stderr, "%s : Order must be equal to or greater than zero!\n", cmnd);
       return(1);
    }
 

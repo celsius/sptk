@@ -49,7 +49,7 @@
 
 /******************************************************************
 
-    $Id: theq.c,v 1.10 2007/09/29 16:48:36 heigazen Exp $
+    $Id: theq.c,v 1.11 2007/09/30 16:20:25 heigazen Exp $
 
     Subroutine for Solving a Toeplitz plus Hankel
     Coefficient Matrix System of Equations  ( T + H ) a = b
@@ -124,12 +124,12 @@ static double **mtrx2 (const int a, const int b)
    double **x;
 
    if (! (x = (double**)calloc((size_t)a, sizeof(*x)))) {
-      fprintf(stderr, "mtrx2() in theq() : memory allocation error !\n");
+      fprintf(stderr, "mtrx2() in theq() : Cannot allocate memory!\n");
       exit(3);
    }
    for (i=0; i<a; i++)
       if (! (x[i] = (double*)calloc((size_t)b, sizeof(**x)))) {
-         fprintf(stderr, "mtrx2() in theq() : memory allocation error !\n");
+         fprintf(stderr, "mtrx2() in theq() : Cannot allocate memory!\n");
           exit(3);
       }
 

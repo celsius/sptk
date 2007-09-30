@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: root_pol.c,v 1.14 2007/09/23 15:08:35 heigazen Exp $";
+static char *rcs_id = "$Id: root_pol.c,v 1.15 2007/09/30 16:20:41 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -175,7 +175,7 @@ int main (int argc,char *argv[])
       }
       else {
          if ((fp=fopen(*argv, "r"))==NULL) {
-            fprintf(stderr,"%s : cannot open %s !!\n", cmnd, *argv);
+            fprintf(stderr,"%s : Cannot open file %s!\n", cmnd, *argv);
             return(0);
          }
       }

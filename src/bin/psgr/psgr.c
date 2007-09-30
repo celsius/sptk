@@ -58,7 +58,7 @@
 *      Ver. 0.99  '93.8                                 *
 ********************************************************/
 
-static char *rcs_id = "$Id: psgr.c,v 1.10 2007/09/23 13:38:42 heigazen Exp $";
+static char *rcs_id = "$Id: psgr.c,v 1.11 2007/09/30 16:20:28 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -222,7 +222,7 @@ int main (int argc,char *argv[] )
             usage (0);
             break;
          default :
-            fprintf(stderr, "%s : Invalid option '%c' !\n", progname, flg);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", progname, flg);
             usage (1);
             break;
          }
@@ -251,8 +251,7 @@ int main (int argc,char *argv[] )
 
    if (filename!=NULL)  {
       if ((fp = fopen(filename, "r"))==NULL)  {
-         fprintf(stderr, "%s: Can't open file '%s'!\n",
-                 progname, filename);
+         fprintf(stderr, "%s : Cannot open file %s!\n", progname, filename);
          return(2);
       }
    }
@@ -265,11 +264,11 @@ int main (int argc,char *argv[] )
 
    ungetc(flg=fgetc(fp), fp);
    if (flg==(char)EOF)  {
-      fprintf(stderr, "%s: Input file is empty!\n", progname);
+      fprintf(stderr, "%s : Input file is empty!\n", progname);
       return(-1);
    }
    else if (flg!='=')  {
-      fprintf(stderr, "%s: Unexpected data format!\n", progname);
+      fprintf(stderr, "%s : Unexpected data format!\n", progname);
       return(-1);
    }
 

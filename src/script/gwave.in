@@ -59,7 +59,7 @@ onintr clean
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: gwave.in,v 1.7 2007/09/28 08:24:06 heigazen Exp $'
+set cvsid   = '$Id: gwave.in,v 1.8 2007/09/30 16:20:40 heigazen Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -134,7 +134,7 @@ while ($i < $#argv)
                 set file = $argv[$i]
                 set flagfile = 1
                 if ( ! -f $file ) then
-                        echo2 "${cmnd} : Can't open file "'"'"$file"'"'" \!"
+                        echo2 "${cmnd} : Cannot open file ${file}\!"
                         set exit_status = 1
                         goto usage
                 endif

@@ -48,7 +48,7 @@
 */
 
 /********************************************************
-   $Id: _fft.c,v 1.7 2007/09/12 08:37:17 heigazen Exp $               
+   $Id: _fft.c,v 1.8 2007/09/30 16:20:30 heigazen Exp $               
        NAME:               
                 fft - fast fourier transform    
        SYNOPSIS:               
@@ -80,7 +80,7 @@ static int checkm (const int m)
       if (k==m)
          return(0);
    }
-   fprintf(stderr, "fft : m must be a integer of power of 2\n");
+   fprintf(stderr, "fft : m must be a integer of power of 2!\n");
 
    return(-1);
 }

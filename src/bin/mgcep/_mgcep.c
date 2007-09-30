@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-   $Id: _mgcep.c,v 1.11 2007/09/29 17:28:19 heigazen Exp $
+   $Id: _mgcep.c,v 1.12 2007/09/30 16:20:31 heigazen Exp $
 
    Mel-Generalized Cepstral Analysis
 
@@ -339,7 +339,7 @@ double newton (double *x, const int flng, double *c, const int m, const double a
          qr[i] *= 1.0 + g;
 
    if (theq(pr, &qr[2], &b[1], &rr[1], m, -1.)) {
-      fprintf(stderr, "mgcep : Error in theq() at %dth iteration !\n",j);
+      fprintf(stderr, "mgcep : Error in theq() at %dth iteration!\n",j);
       exit(1);
    }
 

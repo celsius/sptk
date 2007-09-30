@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: reverse.c,v 1.15 2007/09/23 15:08:35 heigazen Exp $";
+static char *rcs_id = "$Id: reverse.c,v 1.16 2007/09/30 16:20:42 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -146,8 +146,7 @@ int main (int argc,char *argv[])
    }
 
    if (l>MAX) {
-      fprintf(stderr,
-              "%s : -l L should be L <= %d !\n", cmnd, l_max);
+      fprintf(stderr, "%s : -l L should be L <= %d!\n", cmnd, l_max);
       return(1);
    }
 

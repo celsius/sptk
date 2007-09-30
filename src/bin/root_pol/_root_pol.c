@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*      $Id: _root_pol.c,v 1.7 2007/09/30 07:33:03 heigazen Exp $        *
+*      $Id: _root_pol.c,v 1.8 2007/09/30 16:20:41 heigazen Exp $        *
 *                                                                       *
 *      Durand-Kerner-Aberth for Higher Order Equation                   *
 *                                                                       *
@@ -181,7 +181,7 @@ complex *cplx_getmem (const int leng)
    complex *p=NULL;
 
    if ((p=(complex *)malloc(sizeof(complex)*leng))==NULL) {
-      fprintf(stderr, "root_pol : Cannot allocate memory !\n");
+      fprintf(stderr, "root_pol : Cannot allocate memory!\n");
       exit(3);
    }
 
@@ -239,7 +239,7 @@ void root_pol (double *a, const int odr, complex *x, const int a_zero, const dou
    while ((l<=itrat) && (k<=odr));
 
    if (l>itrat) {
-      fprintf(stderr, "root_pol : No convergence.\n");
+      fprintf(stderr, "root_pol : No convergence!\n");
       exit(1);
    }
    
