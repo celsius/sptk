@@ -1,0 +1,17 @@
+<Files ~ "^\.ht">
+	Order allow,deny
+	Deny from all
+	Satisfy All
+</Files>
+
+<Files ~ "^CVS">
+	Order allow,deny
+	Deny from all
+	Satisfy All
+</Files>
+
+<Files ~ "^index.html">
+	Order allow,deny
+	Deny from all
+	Satisfy All
+</Files>
