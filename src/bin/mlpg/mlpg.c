@@ -77,7 +77,7 @@
 *                                                                                       *
 ****************************************************************************************/
 
-static char *rcs_id = "$Id: mlpg.c,v 1.15 2007/09/27 03:36:46 heigazen Exp $";
+static char *rcs_id = "$Id: mlpg.c,v 1.16 2007/09/30 07:33:26 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -237,7 +237,7 @@ int main (int argc, char **argv)
          switch (*(*argv+1)) {
          case 'd':
             if (pst.dw.calccoef==1) {
-               fprintf(stderr, "Options '-r' and '-d' should not be defined simultaneously.\n");
+               fprintf(stderr, "%s : Options '-r' and '-d' should not be defined simultaneously.\n", cmnd);
                return(1);
             }
             pst.dw.calccoef = 0;
@@ -265,18 +265,18 @@ int main (int argc, char **argv)
             break;
          case 'r':
             if (pst.dw.calccoef==0) {
-               fprintf(stderr, "Options '-r' and '-d' should not be defined simultaneously.\n");
+               fprintf(stderr, "%s : Options '-r' and '-d' should not be defined simultaneously.\n", cmnd);
                return(1);
             }
             pst.dw.calccoef = 1;
             coeflen = atoi(*++argv);
             --argc;
             if ((coeflen!=1) && (coeflen!=2)) {
-               fprintf(stderr, "Number of delta parameter should be 1 or 2\n");
+               fprintf(stderr, "%s : Number of delta parameter should be 1 or 2\n", cmnd);
                return(1);
             }
             if (argc <= 1) {
-               fprintf(stderr, "Window size for delta parameter required.\n");
+               fprintf(stderr, "%s : Window size for delta parameter required.\n", cmnd);
                return(1);
             }
             pst.dw.fn[pst.dw.num] = *++argv;
@@ -284,7 +284,7 @@ int main (int argc, char **argv)
             --argc;
             if (coeflen==2) {
                if (argc <= 1) {
-                  fprintf(stderr, "Window size for delta-delta parameter required.\n");
+                  fprintf(stderr, "%s : Window size for delta-delta parameter required.\n", cmnd);
                   return(1);
                }
                pst.dw.fn[pst.dw.num] = *++argv;
@@ -317,7 +317,7 @@ int main (int argc, char **argv)
       }
       else
          if ((pdffp = fopen(*argv, "r"))==NULL) {
-            fprintf(stderr, "%s : Can't open '%s'!\n", cmnd, *argv);
+            fprintf(stderr, "%s : Cannot open '%s'!\n", cmnd, *argv);
             return(2);
          }
    }
@@ -454,16 +454,16 @@ void InitDWin(PStream *pst)
 
    /* memory allocation */
    if ((pst->dw.width=(int **) calloc(pst->dw.num, sizeof(int *)))==NULL) {
-      fprintf(stderr, "Cannot Allocate Memory\n");
+      fprintf(stderr, "%s : Cannot allocate memory\n", cmnd);
       exit(1);
    }
    for (i=0; i<pst->dw.num; i++)
       if ((pst->dw.width[i]=(int *) calloc(2, sizeof(int)))==NULL) {
-         fprintf(stderr, "Cannot Allocate Memory\n");
+         fprintf(stderr, "%s : Cannot allocate memory\n", cmnd);
          exit(1);
       }
    if ((pst->dw.coef=(double **) calloc(pst->dw.num, sizeof(double *)))==NULL) {
-      fprintf(stderr, "Cannot Allocate Memory\n");
+      fprintf(stderr, "%s : Cannot allocate memory\n", cmnd);
       exit(1);
    }
 
@@ -480,7 +480,7 @@ void InitDWin(PStream *pst)
          }
          else {      /* read from file */
             if ((fp=fopen(pst->dw.fn[i], "r"))==NULL) {
-               fprintf(stderr, "file %s not found\n", pst->dw.fn[i]);
+               fprintf(stderr, "%s : File %s not found\n", cmnd, pst->dw.fn[i]);
                exit(1);
             }
 
@@ -507,7 +507,7 @@ void InitDWin(PStream *pst)
       for (i=1; i<pst->dw.num; i++) {
          leng = atoi(pst->dw.fn[i]);
          if (leng<1) {
-            fprintf(stderr, "Width for regression coefficient shuould be more than 1.\n");
+            fprintf(stderr, "%s : Width for regression coefficient shuould be more than 1.\n", cmnd);
             exit(1);
          }
          pst->dw.width[i][WLEFT] = -leng;
@@ -559,7 +559,7 @@ double *dcalloc(int x, int xoff)
    double  *ptr;
 
    if ((ptr=(double *) calloc(x, sizeof(*ptr)))==NULL) {
-      fprintf(stderr, "Cannot Allocate Memory\n");
+      fprintf(stderr, "%s : Cannot allocate memory\n", cmnd);
       exit(1);
    }
    ptr += xoff;
@@ -574,7 +574,7 @@ double **ddcalloc(int x, int y, int xoff, int yoff)
    int i;
 
    if ((ptr=(double **) calloc(x, sizeof(*ptr)))==NULL) {
-      fprintf(stderr, "Cannot Allocate Memory\n");
+      fprintf(stderr, "%s : Cannot allocate memory\n", cmnd);
       exit(1);
    }
    for (i=0; i<x; i++)
@@ -591,7 +591,7 @@ double ***dddcalloc(int x, int y, int z, int xoff, int yoff, int zoff)
    int i;
 
    if ((ptr=(double ***) calloc(x, sizeof(*ptr)))==NULL) {
-      fprintf(stderr, "Cannot Allocate Memory\n");
+      fprintf(stderr, "%s : Cannot allocate memory\n", cmnd);
       exit(1);
    }
    for (i=0; i<x; i++)
