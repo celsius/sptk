@@ -181,7 +181,7 @@ complex *cplx_getmem (const int leng)
    complex *p=NULL;
 
    if ((p=(complex *)malloc(sizeof(complex)*leng))==NULL) {
-      fprintf(stderr, "Memory allocation error !\n");
+      fprintf(stderr, "root_pol : Cannot allocate memory !\n");
       exit(3);
    }
 
