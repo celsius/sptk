@@ -62,7 +62,7 @@
 *                               s (short)  f (float)  d (double)        *
 *               -o o     :  output type                          [0]    *
 *                             0 SNR and SNRseg           (ascii)        *
-*                             1 SNR and SNRseg in datail (ascii)        * 
+*                             1 SNR and SNRseg in detail (ascii)        * 
 *                             2 SNR                      (float)        *
 *                             3 SNRseg                   (float)        *
 *      infile:                                                          *
@@ -73,7 +73,7 @@
 *               SNR,  SNRseg                                            *      
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.15 2007/09/30 16:20:39 heigazen Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.16 2007/09/30 18:37:51 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -115,7 +115,7 @@ void usage (int status)
    fprintf(stderr, "                s (short)  %c (%s)\n", FORMAT1, FORMAT2);
    fprintf(stderr, "      -o o  : output type                          [%d]\n", OTYPE);
    fprintf(stderr, "                0 SNR and SNRseg           (ascii)\n");
-   fprintf(stderr, "                1 SNR and SNRseg in datail (ascii)\n");
+   fprintf(stderr, "                1 SNR and SNRseg in detail (ascii)\n");
    fprintf(stderr, "                2 SNR                      (float)\n");
    fprintf(stderr, "                3 SNRseg                   (float)\n");
    fprintf(stderr, "      -h    : print this message\n");

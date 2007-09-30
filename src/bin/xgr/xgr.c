@@ -72,7 +72,7 @@
 *                                                               *
 ****************************************************************/
 
-static char *rcs_id = "$Id: xgr.c,v 1.14 2007/09/30 16:20:52 heigazen Exp $";
+static char *rcs_id = "$Id: xgr.c,v 1.15 2007/09/30 18:37:52 heigazen Exp $";
 
 
 /*  Standard C Libraries */
@@ -117,7 +117,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -s  s  : shrink                  [%g]\n",DEFAULT_SHRINK);
    fprintf(stderr, "       -l     : landscape               [%s]\n",BOOL[LANDSCAPE]);
-   fprintf(stderr, "       -rv    : revese mode             [%s]\n",BOOL[REVERSE]);
+   fprintf(stderr, "       -rv    : reverse mode            [%s]\n",BOOL[REVERSE]);
    fprintf(stderr, "       -m     : monochrome display mode [%s]\n",BOOL[MONO_FLG]);
    fprintf(stderr, "       -bg bg : background color        [%s]\n",BACKCOLOR);
    fprintf(stderr, "       -hl hl : highlight color         [%s]\n",HIGHCOLOR);

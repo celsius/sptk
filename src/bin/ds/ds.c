@@ -80,7 +80,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ds.c,v 1.14 2007/09/30 16:20:25 heigazen Exp $";
+static char *rcs_id = "$Id: ds.c,v 1.15 2007/09/30 18:37:52 heigazen Exp $";
 
 /* Standard C Libraries  */
 #include <stdio.h>
@@ -136,7 +136,7 @@ void usage (int status)
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)                [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       conversioned data sequence (%s)\n", FORMAT);
+   fprintf(stderr, "       converted data sequence (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       Default LPF coefficients File\n");
    fprintf(stderr, "        2:1 -> %s\n", COEF2_1);

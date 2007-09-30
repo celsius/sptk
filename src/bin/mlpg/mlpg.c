@@ -77,7 +77,7 @@
 *                                                                                       *
 ****************************************************************************************/
 
-static char *rcs_id = "$Id: mlpg.c,v 1.17 2007/09/30 16:20:41 heigazen Exp $";
+static char *rcs_id = "$Id: mlpg.c,v 1.18 2007/09/30 18:37:52 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -197,7 +197,7 @@ void usage (int status)
    fprintf(stderr, "       parameter sequence\n");
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       1) Option '-d' may be repeated to use multiple delta parameters.\n");
-   fprintf(stderr, "       2) Options '-d' and '-r' shuold not be defined simultaneously.\n");
+   fprintf(stderr, "       2) Options '-d' and '-r' should not be defined simultaneously.\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);

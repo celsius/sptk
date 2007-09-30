@@ -63,7 +63,7 @@
 *               input is assumed to be real                             *
 ************************************************************************/
 
-static char *rcs_id = "$Id: zcross.c,v 1.16 2007/09/30 16:20:52 heigazen Exp $";
+static char *rcs_id = "$Id: zcross.c,v 1.17 2007/09/30 18:37:50 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -90,7 +90,7 @@ int status;
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : frame length               [%d]\n",FLENG);
-   fprintf(stderr, "       -n    : normarized by frame length [FALSE]\n");
+   fprintf(stderr, "       -n    : normalized by frame length [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)              [stdin]\n", FORMAT);

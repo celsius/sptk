@@ -60,7 +60,7 @@
 *               -m  m    :  order of cepstrum             [25]          *
 *               -l  l    :  frame length                  [256]         *
 *               -j  j    :  number of iteration           [0]           *
-*               -k  k    :  accelation factor             [0]           *
+*               -k  k    :  acceleration factor           [0]           *
 *               -e  e    :  epsilon                       [0]           *
 *       infile:                                                         *
 *               data sequence                                           *
@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftcep.c,v 1.17 2007/09/30 16:20:52 heigazen Exp $";
+static char *rcs_id = "$Id: fftcep.c,v 1.18 2007/09/30 18:37:51 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -91,7 +91,7 @@ static char *rcs_id = "$Id: fftcep.c,v 1.17 2007/09/30 16:20:52 heigazen Exp $";
 #define ORDER 25
 #define FLNG 256
 #define MAXITR 0
-#define ACCELATION 0.0
+#define ACCELERATION 0.0
 #define EPS 0.0
 
 /*  Command Name  */
@@ -109,7 +109,7 @@ void usage(int status)
    fprintf(stderr, "       -m m  : order of cepstrum   [%d]\n", ORDER);
    fprintf(stderr, "       -l l  : frame length        [%d]\n", FLNG);
    fprintf(stderr, "       -j j  : number of iteration [%d]\n", MAXITR);
-   fprintf(stderr, "       -k k  : accelation factor   [%g]\n", ACCELATION);
+   fprintf(stderr, "       -k k  : acceleration factor [%g]\n", ACCELERATION);
    fprintf(stderr, "       -e e  : epsilon             [%g]\n", EPS);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -131,7 +131,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int  m=ORDER, l=FLNG, itr=MAXITR, i;
-   double ac=ACCELATION, eps=EPS, *x, *y, *c;
+   double ac=ACCELERATION, eps=EPS, *x, *y, *c;
    FILE *fp=stdin;
     
    if ((cmnd = strrchr(argv[0], '/'))==NULL)

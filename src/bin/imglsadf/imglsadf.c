@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: imglsadf.c,v 1.19 2007/09/30 16:20:34 heigazen Exp $";
+static char *rcs_id = "$Id: imglsadf.c,v 1.20 2007/09/30 18:37:51 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -114,7 +114,7 @@ void usage (int status)
    fprintf(stderr, "       -g g  : -1 / gamma                    [%d]\n", STAGE);
    fprintf(stderr, "       -p p  : frame period                  [%d]\n", FPERIOD);
    fprintf(stderr, "       -i i  : interpolation period          [%d]\n", IPERIOD);
-   fprintf(stderr, "       -t    : transepose filter             [%s]\n", BOOL[TRANSPOSE]);
+   fprintf(stderr, "       -t    : transpose filter              [%s]\n", BOOL[TRANSPOSE]);
    fprintf(stderr, "       -k    : filtering without gain        [%s]\n", BOOL[NGAIN]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");

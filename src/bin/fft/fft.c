@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fft.c,v 1.15 2007/09/30 16:20:30 heigazen Exp $";
+static char *rcs_id = "$Id: fft.c,v 1.16 2007/09/30 18:37:51 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -102,7 +102,7 @@ void usage (int status)
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)        [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       FFT seqeunce (%s)\n", FORMAT);
+   fprintf(stderr, "       FFT sequence (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);

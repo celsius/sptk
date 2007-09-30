@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vopr.c,v 1.15 2007/09/30 16:20:33 heigazen Exp $";
+static char *rcs_id = "$Id: vopr.c,v 1.16 2007/09/30 18:37:51 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -95,7 +95,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - excute vector operations\n",cmnd);
+   fprintf(stderr, " %s - execute vector operations\n",cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ file1 ] [ infile ] > stdout\n", cmnd);

@@ -59,7 +59,7 @@ onintr clean
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: gwave.in,v 1.8 2007/09/30 16:20:40 heigazen Exp $'
+set cvsid   = '$Id: gwave.in,v 1.9 2007/09/30 18:37:51 heigazen Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -171,7 +171,7 @@ usage:
         echo2 '       XY-plotter command'
         echo2 '  notice:'
         echo2 '       If options of amplitude are not used,'
-        echo2 '        value of amplitude is deautomatically determined.'
+        echo2 '        value of amplitude is automatically determined.'
         echo2 '       If -n option is not used,'
         echo2 '        entire waveform is displayed.'
         echo2 ''

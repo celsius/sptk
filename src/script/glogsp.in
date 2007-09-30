@@ -58,7 +58,7 @@
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: glogsp.in,v 1.8 2007/09/30 16:20:40 heigazen Exp $'
+set cvsid   = '$Id: glogsp.in,v 1.9 2007/09/30 18:37:51 heigazen Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -215,7 +215,7 @@ endif
         echo2 '       -ln ln        : line number                  [1]'
         echo2 '       -s  s         : start frame number           [0]'
         echo2 '       -l  l         : frame length                 [256]'
-        echo2 '       -c  "c"       : coment for the graph         [""]'
+        echo2 '       -c  "c"       : comment for the graph        [""]'
         echo2 '       -h            : print this message'
         echo2 '       -help         : print help in detail'
 if ( $help ) then
