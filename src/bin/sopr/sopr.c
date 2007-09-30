@@ -78,8 +78,8 @@
 *               -TAN     :  tan               (tan(in))                 *
 *               -ATAN    :  atan              (atan(in))                *
 *                                                                       *
-*               -r mn    :  read from memory regisiter n                *
-*               -w mn    :  write to memory regisiter n                 *
+*               -r mn    :  read from memory register n                 *
+*               -w mn    :  write to memory register n                  *
 *                                                                       *
 *      infile:                                                          *
 *               data sequences (float)                                  *
@@ -136,8 +136,8 @@ void usage (int status)
    fprintf(stderr, "       -TAN   : tan                 (tan(in))\n");
    fprintf(stderr, "       -ATAN  : atan                (atan(in))\n");
    fprintf(stderr, "\n");
-   fprintf(stderr, "       -r mn  : read from memory regisiter n\n");
-   fprintf(stderr, "       -w mn  : write to memory regisiter n\n");
+   fprintf(stderr, "       -r mn  : read from memory register n\n");
+   fprintf(stderr, "       -w mn  : write to memory register n\n");
    fprintf(stderr, "\n");
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");

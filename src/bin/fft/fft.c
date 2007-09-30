@@ -102,7 +102,7 @@ void usage (int status)
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)        [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       FFT seqeunce (%s)\n", FORMAT);
+   fprintf(stderr, "       FFT sequence (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);

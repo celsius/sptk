@@ -117,7 +117,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -s  s  : shrink                  [%g]\n",DEFAULT_SHRINK);
    fprintf(stderr, "       -l     : landscape               [%s]\n",BOOL[LANDSCAPE]);
-   fprintf(stderr, "       -rv    : revese mode             [%s]\n",BOOL[REVERSE]);
+   fprintf(stderr, "       -rv    : reverse mode            [%s]\n",BOOL[REVERSE]);
    fprintf(stderr, "       -m     : monochrome display mode [%s]\n",BOOL[MONO_FLG]);
    fprintf(stderr, "       -bg bg : background color        [%s]\n",BACKCOLOR);
    fprintf(stderr, "       -hl hl : highlight color         [%s]\n",HIGHCOLOR);

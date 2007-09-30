@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Transform real seauence to phase                                   *
+*    Transform real sequence to phase                                   *
 *                                                                       *
 *                                      1989.6  K.Tokuda                 *
 *                                      1996.2  N.Isshiki Modified       *
@@ -58,8 +58,8 @@
 *               phase [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
 *               -l l : frame length                     [256]           *
-*               -p p : numerator cofficients file       [NULL]          *
-*               -z z : denominator cofficients file     [NULL]          *
+*               -p p : numerator coefficients file      [NULL]          *
+*               -z z : denominator coefficients file    [NULL]          *
 *               -m m : order of denominator polynomial  [L-1]           *
 *               -n n : order of numerator polynomial    [L-1]           *
 *               -u   : unlapping                        [TRUE]          *
@@ -93,14 +93,14 @@ char  *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - transform real seauence to phase\n", cmnd);
+   fprintf(stderr, " %s - transform real sequence to phase\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : frame length                    [%d]\n",FLMLNG);
-   fprintf(stderr, "       -p p  : numerator cofficients file      [NULL]\n");
-   fprintf(stderr, "       -z z  : denominator cofficients file    [NULL]\n");
+   fprintf(stderr, "       -p p  : numerator coefficients file     [NULL]\n");
+   fprintf(stderr, "       -z z  : denominator coefficients file   [NULL]\n");
    fprintf(stderr, "       -m m  : order of denominator polynomial [L-1]\n");
    fprintf(stderr, "       -n n  : order of numerator polynomial   [L-1]\n");
    fprintf(stderr, "       -u    : unlapping                       [%s]\n",BOOL[UNLAP]);

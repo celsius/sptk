@@ -136,7 +136,7 @@ void usage (int status)
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)                [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       conversioned data sequence (%s)\n", FORMAT);
+   fprintf(stderr, "       converted data sequence (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       Default LPF coefficients File\n");
    fprintf(stderr, "        2:1 -> %s\n", COEF2_1);

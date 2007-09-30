@@ -215,7 +215,7 @@ endif
         echo2 '       -ln ln        : line number                  [1]'
         echo2 '       -s  s         : start frame number           [0]'
         echo2 '       -l  l         : frame length                 [256]'
-        echo2 '       -c  "c"       : coment for the graph         [""]'
+        echo2 '       -c  "c"       : comment for the graph        [""]'
         echo2 '       -h            : print this message'
         echo2 '       -help         : print help in detail'
 if ( $help ) then

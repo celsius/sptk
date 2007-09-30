@@ -64,10 +64,10 @@
 *                          1 normalize by power                         *
 *                          2 normalize by magnitude                     *
 *               -w w  :  type of window           [0]                   *
-*                          0 (blackman)                                 *
-*                          1 (hamming)                                  *
-*                          2 (hanning)                                  *
-*                          3 (bartlett)                                 *
+*                          0 (Blackman)                                 *
+*                          1 (Hamming)                                  *
+*                          2 (Hanning)                                  *
+*                          3 (Bartlett)                                 *
 *                          4 (trapezoid)                                *
 *                          5 (rectangul)                                *
 *       infile:                                                         *
@@ -110,10 +110,10 @@ int usage (void)
    fprintf(stderr, "                 1 normalize by power\n");
    fprintf(stderr, "                 2 normalize by magnitude\n");
    fprintf(stderr, "       -w w  : type of window         [%d]\n", WINTYPE);
-   fprintf(stderr, "                 0 (blackman)\n");
-   fprintf(stderr, "                 1 (hamming)\n");
-   fprintf(stderr, "                 2 (hanning)\n");
-   fprintf(stderr, "                 3 (bartlett)\n");
+   fprintf(stderr, "                 0 (Blackman)\n");
+   fprintf(stderr, "                 1 (Hamming)\n");
+   fprintf(stderr, "                 2 (Hanning)\n");
+   fprintf(stderr, "                 3 (Bartlett)\n");
    fprintf(stderr, "                 4 (trapezoid)\n");
    fprintf(stderr, "                 5 (rectangular)\n");
    fprintf(stderr, "       -h    : print this message\n");

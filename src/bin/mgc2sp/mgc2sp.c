@@ -58,7 +58,7 @@
 *       options:                                                        *
 *               -a  a    :  alpha                               [0]     *
 *               -g  g    :  gamma                               [0]     *
-*               -m  m    :  order of mel-genralized cepstrum    [25]    *
+*               -m  m    :  order of mel-generalized cepstrum   [25]    *
 *               -n       :  regard input as normalized cepstrum [FALSE] *
 *               -u       :  regard input as multiplied by gamma [FALSE] *
 *               -l  l    :  FFT length                          [256]   *
@@ -121,7 +121,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : alpha                               [%g]\n", ALPHA);
    fprintf(stderr, "       -g g  : gamma                               [%g]\n", GAMMA);
-   fprintf(stderr, "       -m m  : order of mel-genralized cepstrum    [%d]\n", ORDER);
+   fprintf(stderr, "       -m m  : order of mel-generalized cepstrum   [%d]\n", ORDER);
    fprintf(stderr, "       -n    : regard input as normalized cepstrum [%s]\n", BOOL[NORM]);
    fprintf(stderr, "       -u    : regard input as multiplied by gamma [%s]\n", BOOL[MULG]);
    fprintf(stderr, "       -l l  : FFT length                          [%d]\n", LENG);

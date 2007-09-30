@@ -58,7 +58,7 @@
 *               lpc2par [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
 *               -m m     :  order of LPC                     [25]       *
-*               -g g     :  gamma of generalized cepstum     [1]        *
+*               -g g     :  gamma of generalized cepsrtum    [1]        *
 *               -s       :  check stable or unstable         [FALSE]    *
 *       infile:                                                         *
 *               LP Coefficeints                                         *
@@ -102,12 +102,12 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of LPC                 [%d]\n", ORDER);
-   fprintf(stderr, "       -g g  : gamma of generalized cepstum [%g]\n", GAMMA);
-   fprintf(stderr, "       -s    : check stable or unstable     [%s]\n", BOOL[STABLE]);
+   fprintf(stderr, "       -m m  : order of LPC                  [%d]\n", ORDER);
+   fprintf(stderr, "       -g g  : gamma of generalized cepstrum [%g]\n", GAMMA);
+   fprintf(stderr, "       -s    : check stable or unstable      [%s]\n", BOOL[STABLE]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdin\n");
-   fprintf(stderr, "       LP coefficients (%s)              [stdin]\n", FORMAT);
+   fprintf(stderr, "       LP coefficients (%s)               [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       PARCOR (%s) or \n", FORMAT);
    fprintf(stderr, "       0 <stable>, -1 <unstable> (int) if -s option is specified\n");

@@ -60,7 +60,7 @@
 *               -m m     :  order of LPC              [25]              *
 *               -M M     :  order of cepstrum         [25]              *
 *       infile:                                                         *
-*               LP Coefficeints                                         *
+*               LP Coefficients                                         *
 *                       , K, a(1), ..., a(M),                           *
 *       stdout:                                                         *
 *               cepstral coefficients                                   *
@@ -99,7 +99,7 @@ void usage (int status)
    fprintf(stderr, "       -M M  : order of cepstrum  [%d]\n", ORDERC);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       LP coefficiets (%s)     [stdin]\n", FORMAT);
+   fprintf(stderr, "       LP coefficients (%s)    [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       cepstrum (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
