@@ -170,7 +170,7 @@ int main (int argc, char **argv)
          case 'h':
             usage (0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage (1);
          }
       }
@@ -185,7 +185,7 @@ int main (int argc, char **argv)
    for (i=0; i<stage; i++) {
       fpcb = getfp(cbfile[i], "r");
       if (freadf(p, sizeof(*p), cbsize[i]*l, fpcb)!=cbsize[i]*l) {
-         fprintf(stderr,"%s : Codebook size error of %d stage !\n",cmnd, ss);
+         fprintf(stderr,"%s : Codebook size error of %d stage!\n",cmnd, ss);
          return(1);
       }
       p += cbsize[i] * l;

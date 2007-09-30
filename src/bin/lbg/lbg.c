@@ -196,7 +196,7 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage(1);
          }
       }
@@ -214,7 +214,7 @@ int main (int argc, char **argv)
 
       rewind(fp);
       if (ispipe==-1) {
-         fprintf(stderr,"%s : -t option must be specified, when input via pipe!\n",cmnd);
+         fprintf(stderr, "%s : -t option must be specified, when input via pipe!\n",cmnd);
          usage (1);
       }
    }
@@ -226,7 +226,7 @@ int main (int argc, char **argv)
    cb = dgetmem(csize);
 
    if (freadf(x, sizeof(*x), xsize, fp)!=xsize) {
-      fprintf(stderr,"%s : Size error of training data !\n",cmnd);
+      fprintf(stderr,"%s : Size error of training data!\n",cmnd);
       return(1);
    }
 
@@ -243,7 +243,7 @@ int main (int argc, char **argv)
    else {
       icb=dgetmem(icbsize*l);
       if (freadf(icb, sizeof(*icb), icbsize*l, fpcb)!=icbsize*l) {
-         fprintf(stderr,"%s : Size error of initial codebook !\n",cmnd);
+         fprintf(stderr,"%s : Size error of initial codebook!\n",cmnd);
          return(1);
       }
    }

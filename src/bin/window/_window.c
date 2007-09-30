@@ -252,7 +252,7 @@ double window (Window type, double *x, const int size, const int nflg)
          rectangular(w, size);
          break;
       default:
-         fprintf(stderr, "window : unknown window type\n");
+         fprintf(stderr, "window : Unknown window type %d!\n", (int)type);
          exit(1);
       }
 

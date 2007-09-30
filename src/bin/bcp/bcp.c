@@ -213,7 +213,7 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage(1);
          }
       }
@@ -243,7 +243,7 @@ int main (int argc, char **argv)
             size = sizeof(double);
             break;
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage(1);
          }
       }

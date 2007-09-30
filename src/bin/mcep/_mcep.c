@@ -154,7 +154,7 @@ int mcep (double *xw, const int flng, double *mc, const int m, const double a, c
    for (i=0; i<flng; i++) {
       x[i] = x[i]*x[i] + y[i]*y[i] + e;
       if (x[i] <= 0) {
-         fprintf(stderr, "mcep : The log periodogram has '0', please use '-e' option !\n");
+         fprintf(stderr, "mcep : The log periodogram has '0', use '-e' option!\n");
          exit(1);
       }
       c[i] = log(x[i]);

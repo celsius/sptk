@@ -175,7 +175,7 @@ while ($i < $#argv)
         default:
                 set file = $argv[$i]
                 if ( ! -f $file ) then
-                        echo2 "${cmnd} : Can't open file "'"'"$file"'"'" \!"
+                        echo2 "${cmnd} : Cannot open file ${file}\!"
                         set exit_status = 1
                         goto usage
                 endif

@@ -158,7 +158,7 @@ int gcep (double *xw, const int flng, double *gc, const int m, const double g, c
       for (i=2; i<=m+m; i++) hr[i] *= 1 + g;
 
       if (theq(rr, &hr[2], &y[1], &er[1], m, -1.0)) {
-         fprintf(stderr, "gcep : Error in theq() at %dth iteration !\n", j);
+         fprintf(stderr, "gcep : Error in theq() at %dth iteration!\n", j);
          exit(1);
       }
 

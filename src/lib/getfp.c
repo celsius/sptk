@@ -67,7 +67,7 @@ FILE *getfp (char *name, char *opt)
    FILE *fp;
 
    if ((fp = fopen(name, opt)) == NULL){
-      fprintf(stderr, "Can't open '%s'!\n", name);
+      fprintf(stderr, "Cannot open file %s!\n", name);
       exit(2);
    }
 

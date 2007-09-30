@@ -146,8 +146,7 @@ int main (int argc,char *argv[])
    }
 
    if (l>MAX) {
-      fprintf(stderr,
-              "%s : -l L should be L <= %d !\n", cmnd, l_max);
+      fprintf(stderr, "%s : -l L should be L <= %d!\n", cmnd, l_max);
       return(1);
    }
 

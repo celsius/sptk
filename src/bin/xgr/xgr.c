@@ -232,7 +232,7 @@ int main (int argc,char *argv[])
    if (c==EOF)
       return(-1);
    else if (c!='=')  {
-      fprintf(stderr, "%s : unexpected data format!\n", cmnd);
+      fprintf(stderr, "%s : Unexpected data format!\n", cmnd);
       return(-1);
    }
    open_display(dpy);

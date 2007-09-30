@@ -181,7 +181,7 @@ complex *cplx_getmem (const int leng)
    complex *p=NULL;
 
    if ((p=(complex *)malloc(sizeof(complex)*leng))==NULL) {
-      fprintf(stderr, "root_pol : Cannot allocate memory !\n");
+      fprintf(stderr, "root_pol : Cannot allocate memory!\n");
       exit(3);
    }
 
@@ -239,7 +239,7 @@ void root_pol (double *a, const int odr, complex *x, const int a_zero, const dou
    while ((l<=itrat) && (k<=odr));
 
    if (l>itrat) {
-      fprintf(stderr, "root_pol : No convergence.\n");
+      fprintf(stderr, "root_pol : No convergence!\n");
       exit(1);
    }
    

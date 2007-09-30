@@ -141,7 +141,7 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c' !\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage(1);
          }
       }
@@ -162,7 +162,7 @@ int main (int argc, char **argv)
    cb = x + l;
 
    if (freadf(cb, sizeof(*cb), cbsize*l, fpcb)!=cbsize*l) {
-      fprintf(stderr,"%s : Codebook size error !\n",cmnd);
+      fprintf(stderr,"%s : Codebook size error!\n",cmnd);
       return(1);
    }
 

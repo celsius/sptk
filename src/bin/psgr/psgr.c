@@ -222,7 +222,7 @@ int main (int argc,char *argv[] )
             usage (0);
             break;
          default :
-            fprintf(stderr, "%s : Invalid option '%c' !\n", progname, flg);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", progname, flg);
             usage (1);
             break;
          }
@@ -251,8 +251,7 @@ int main (int argc,char *argv[] )
 
    if (filename!=NULL)  {
       if ((fp = fopen(filename, "r"))==NULL)  {
-         fprintf(stderr, "%s: Can't open file '%s'!\n",
-                 progname, filename);
+         fprintf(stderr, "%s : Cannot open file %s!\n", progname, filename);
          return(2);
       }
    }
@@ -265,11 +264,11 @@ int main (int argc,char *argv[] )
 
    ungetc(flg=fgetc(fp), fp);
    if (flg==(char)EOF)  {
-      fprintf(stderr, "%s: Input file is empty!\n", progname);
+      fprintf(stderr, "%s : Input file is empty!\n", progname);
       return(-1);
    }
    else if (flg!='=')  {
-      fprintf(stderr, "%s: Unexpected data format!\n", progname);
+      fprintf(stderr, "%s : Unexpected data format!\n", progname);
       return(-1);
    }
 

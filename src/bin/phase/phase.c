@@ -161,14 +161,12 @@ int main (int argc, char *argv[])
          case 'h':
             usage (0);
          default:
-            fprintf(stderr,
-                    "%s : not available option !\n", cmnd);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage (1);
          }
       }
       else {
-         fprintf(stderr,
-                 "%s : input file is not available !\n", cmnd);
+         fprintf(stderr, "%s : Input file is not available!\n", cmnd);
          usage (1);
       }
    if (m<0) m = flng - 1;

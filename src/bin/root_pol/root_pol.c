@@ -175,7 +175,7 @@ int main (int argc,char *argv[])
       }
       else {
          if ((fp=fopen(*argv, "r"))==NULL) {
-            fprintf(stderr,"%s : cannot open %s !!\n", cmnd, *argv);
+            fprintf(stderr,"%s : Cannot open file %s!\n", cmnd, *argv);
             return(0);
          }
       }

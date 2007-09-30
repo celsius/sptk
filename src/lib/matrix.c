@@ -96,7 +96,7 @@ static void mm (double x[], const int xx, const int xy, double y[], const int yx
    }
 
    if (xx != yy) {
-      fprintf(stderr,"bad matrix size x= %d*%d,y= %d*%d\n",xx,xy,yx,yy);
+      fprintf(stderr,"Invalid matrix size x= %d*%d,y= %d*%d\n",xx,xy,yx,yy);
       exit(1);
    }
 

@@ -158,11 +158,11 @@ int main (int argc, char *argv[])
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : invalid option !\n", cmnd);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
             usage(1);
          }
       else {
-         fprintf(stderr, "%s : invalid option !\n", cmnd);
+         fprintf(stderr, "%s : Invalid option!\n", cmnd);
          usage(1);
       }
 

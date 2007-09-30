@@ -226,7 +226,7 @@ endif
 
 foreach infile ( ${file} )
         if ( ! -f $infile ) then
-                echo2 "${cmnd} : Can't open file "'"'"$infile"'"'" \!"
+                echo2 "${cmnd} : Cannot open file ${infile}\!"
                 break
         endif
         if ( $verbosemode ) then
@@ -282,7 +282,7 @@ foreach infile ( ${file} )
                         dawrite $daoption[*] +@io_symbol@ -s 48
                         breaksw
                 default
-                        echo2 "${cmnd} : unavailable sampling frequency"
+                        echo2 "${cmnd} : Unavailable sampling frequency ${freq}!"
                         goto usage
         endsw
         if( $stdinput == 1 ) then
@@ -330,7 +330,7 @@ endif
 
 foreach infile ($file)
         if ( ! -f $infile ) then
-                echo2 "${cmnd} : Can't open file "'"'"$file"'"'" \!"
+                echo2 "${cmnd} : Cannot open file ${file}\!"
                 break
         endif
         if ( $verbosemode ) then

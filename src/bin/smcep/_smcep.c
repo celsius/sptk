@@ -642,7 +642,7 @@ int smcep (double *xw, const int flng, double *mc, const int m, const int fftsz,
       c[0] += c[0];
 
       if (theq(c, y, d, b, m+1, -1.0)) {
-         fprintf(stderr,"smcep : Error in theq() at %dth iteration !\n", j);
+         fprintf(stderr,"smcep : Error in theq() at %dth iteration!\n", j);
          exit(1);
       }
 

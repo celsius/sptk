@@ -152,7 +152,7 @@ int main (int argc,char *argv[])
          case 'h':
             usage(0);
          default:
-            fprintf(stderr,"%s : unknown option '%c'\n", cmnd, c);
+            fprintf(stderr,"%s : Invalid option '%c'!\n", cmnd, c);
             usage(1);
          }
       }
@@ -162,7 +162,7 @@ int main (int argc,char *argv[])
 
    if (nd==-1) nd = size; 
    if (nd>size) {
-      fprintf(stderr, "%s : oder of sequence > FFT size\n", cmnd);
+      fprintf(stderr, "%s : Order of sequence %d should be less than the FFT size %d!\n", cmnd, nd, size);
       return(1);
    }
    if (infile) {

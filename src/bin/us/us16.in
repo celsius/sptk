@@ -103,7 +103,7 @@ while($i < $#argv)
                         set stdinput = -1
                 else
                         if( ${#file} > 1 ) then
-                            echo2 "${cmnd} : too many input files"
+                            echo2 "${cmnd} : Too many input files!"
                             exit 1
                         endif
                         set outfile = $argv[$i]
@@ -130,7 +130,7 @@ endsw
 if( $stdinput == 1) then
         if ($?outfile) then
                 if( -e $outfile) then
-                        echo2 "${cmnd} : $outfile - File exits."
+                        echo2 "${cmnd} : File $outfile exits!"
                         exit 1
                 endif
                 x2x $itype |\
@@ -152,7 +152,7 @@ foreach infile ($file)
 
         if ($?outfile) then
                 if ( -e $outfile ) then
-                        echo2 "${cmnd} : $outfile - File exits."
+                        echo2 "${cmnd} : File $outfile exits!"
                         exit 1
                 endif
                 x2x $itype $infile |\

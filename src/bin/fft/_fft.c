@@ -80,7 +80,7 @@ static int checkm (const int m)
       if (k==m)
          return(0);
    }
-   fprintf(stderr, "fft : m must be a integer of power of 2\n");
+   fprintf(stderr, "fft : m must be a integer of power of 2!\n");
 
    return(-1);
 }
