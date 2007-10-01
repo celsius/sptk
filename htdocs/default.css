@@ -1,0 +1,33 @@
+body{
+   margin: 0px;
+   font-family: sans-serif,arial,helvetica;
+   background-color: #ffffff;
+   color: #00000;
+   font-size: 95%;
+}
+
+div.head{
+   margin: 0 0 1em 0;
+   padding: 8px 0 4px 250px;
+   background-image: url(image/SPTK_01.gif);
+   background-repeat: no-repeat;
+   background-position: left top;
+   background-color: #003366;
+   font-weight: bold;
+   color: white;
+   font-size: 130%;
+}
+
+p{
+   margin: 1em;
+}
+
+hr{
+   width: 95%;
+   height: 1px;
+}
+
+img{
+   border-width: 0px;
+   margin: 0 4px 0 0;	
+}
