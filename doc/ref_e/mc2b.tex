@@ -85,7 +85,8 @@ these mel-cepstral coefficients are transformed into
 MLSA filter coefficients, and these coefficients $b(m)$
 are written to {\em data.b}:
 \begin{quote}
- \verb!frame +f < data.f | window | mcep -m 12 | mc2b -m 12 > data.b!
+ \verb!frame +f < data.f | window | mcep -m 12 |\ !\\
+ \verb!mc2b -m 12 > data.b!
 \end{quote} 
 \end{qsection}
 
