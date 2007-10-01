@@ -8,6 +8,7 @@ AM_INIT_AUTOMAKE(SPTK, 3.1, nostdinc no-installinfo no-installman)
 AC_SUBST(PACKAGE_NAME)
 AC_SUBST(PACKAGE_VERSION)
 
+AC_PREFIX_DEFAULT(/usr/local/SPTK)
 AC_CONFIG_SRCDIR([bin/acep/acep.c])
 
 # Checks for programs.
