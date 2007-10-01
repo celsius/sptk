@@ -27,6 +27,10 @@ hr{
    height: 1px;
 }
 
+address{
+   margin: 1em;
+}
+
 img{
    border-width: 0px;
    margin: 0 4px 0 0;	
