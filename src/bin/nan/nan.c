@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*    Find NaN and Infty Values                                          *
+*    Find NaN and Infinity Values                                       *
 *                                                                       *
 *                                    1997.7 G.Hirabayashi               *
 *                                                                       *
@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nan.c,v 1.18 2007/09/30 16:20:30 heigazen Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.19 2007/10/01 02:15:30 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -78,7 +78,7 @@ char *cmnd;
 void usage (int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - find NaN and Infty values\n", cmnd);
+   fprintf(stderr, " %s - find NaN and Infinity values\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -141,7 +141,7 @@ void nan_tmp (FILE *fp)
 
    while (fread(&x, sizeof(x), 1, fp)) {
       if (isinf(x))
-         fprintf(stdout, "[No. %ld] is Infty\n", count);
+         fprintf(stdout, "[No. %ld] is Infinity\n", count);
       if (isnan(x))
          fprintf(stdout, "[No. %ld] is NaN\n", count);
       ++count;
