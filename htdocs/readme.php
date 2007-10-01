@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html lang="en">
+<head>
+<title>Speech Singal Processing Toolkit (SPTK)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<link rel="stylesheet" type="text/css" href="default.css"> 
+</head>
+<body>
+
+<div class=head>
+ Speech Signal Processing Toolkit (SPTK)<br>
+ Version 3.1<br>
+ October 1, 2007 
+</div>
+<h2>README</h2>
+<p>
+<?php
+$readme = "/home/groups/s/sp/sp-tk/SPTK/README";
+
+echo "<pre>";
+readfile( $readme);
+echo "</pre>";
+
+echo "<address>Last modified: ";
+echo date( "M d, Y", filemtime( $readme));
+echo "</address>";
+?>
+
+</p>
+</body>
+</html>
