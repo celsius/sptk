@@ -2,7 +2,7 @@
 /* 
  * generate 'bitmap text' from text
  *
- * $Id: mailto.php,v 1.1 2007/10/01 03:09:14 s_sako Exp $
+ * $Id: mailto.php,v 1.2 2007/10/01 03:15:42 s_sako Exp $
  */
 header("Content-type: image/png");
 
@@ -14,7 +14,7 @@ $text = "dsp-cmnd@sp.nitech.ac.jp";
 $font = 'Vera.ttf';
 imageantialias($im,True);
 imagecolortransparent($im, $white);
-imagettftext($im, 11, 0, 10, 20, $black, $font, $text);
+imagettftext($im, 10, 0, 10, 20, $black, $font, $text);
 imagepng($im);
 imagedestroy($im);
 ?> 
