@@ -35,3 +35,12 @@ img{
    border-width: 0px;
    margin: 0 4px 0 0;	
 }
+
+pre{
+   margin: 1.5em;
+}
+
+h2{
+   font-size: 130%;
+   margin: 1em;
+}   
