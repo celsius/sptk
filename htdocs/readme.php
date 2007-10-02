@@ -14,19 +14,22 @@
  October 1, 2007 
 </div>
 <h2>README</h2>
-<p>
+<hr>
+
 <?php
 $readme = "/home/groups/s/sp/sp-tk/SPTK/README";
+if( file_exists( $readme){
+   $body = file( $readme);
+   echo '<pre>';
+   foreach( $line as $body)
+      echo htmlentites( $line);
+   echo '</pre>';
 
-echo "<pre>";
-readfile( $readme);
-echo "</pre>";
-
-echo "<address>Last modified: ";
-echo date( "M d, Y", filemtime( $readme));
-echo "</address>";
+   echo '<hr><address>Last modified';
+   echo date( "M d, Y", filemtime( $readme));
+   echo '</address>';
+}
 ?>
 
-</p>
 </body>
 </html>
