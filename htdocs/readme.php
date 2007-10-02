@@ -18,7 +18,7 @@
 
 <?php
 $readme = "/home/groups/s/sp/sp-tk/SPTK/README";
-if( file_exists( $readme){
+if( file_exists( $readme)){
    $body = file( $readme);
    echo '<pre>';
    foreach( $line as $body)
