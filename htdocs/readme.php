@@ -22,7 +22,7 @@ if( file_exists( $readme)){
    $body = file( $readme);
    echo '<pre>';
    foreach( $body as $line)
-      echo htmlentites( $line);
+      echo htmlentities( $line);
    echo '</pre>';
 
    echo '<hr><address>Last modified';
