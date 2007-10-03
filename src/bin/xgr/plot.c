@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-* $Id: plot.c,v 1.12 2007/09/21 14:46:31 heigazen Exp $         *
+* $Id: plot.c,v 1.13 2007/10/03 16:50:36 heigazen Exp $         *
 *          Interpret X-Y Ploter Commands                        *
 ****************************************************************/
 
@@ -180,7 +180,7 @@ static void polyline (XPoint *points, int frame, int fill, int n )
       line(points, n+1);
 }
 
-static int polyg (int type)
+/* static int polyg (int type)
 {
    int  x, y, w, h;
 
@@ -188,7 +188,7 @@ static int polyg (int type)
    dplot(type, normx(x), normy(y+h), norm(w), norm(h));
 
    return(0);
-}
+} */
 
 #define LEVEL 256
 #define POINTS 1024
@@ -265,10 +265,10 @@ static void reset_fill (void)
    fillbox(15, 0, 0, 0, 0);
 }
 
-static void box (short x, short y, short w, short h)
+/* static void box (short x, short y, short w, short h)
 {
    XDrawRectangle(display, main_window, gc, x, y, w, h);
-}
+} */
 
 static void fillbox (int type, short x, short y, short w, short h)
 {
