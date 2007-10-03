@@ -48,7 +48,7 @@
 */
 
 /*
- * $Id: gcdata.h,v 1.5 2007/10/03 17:03:32 heigazen Exp $
+ * $Id: gcdata.h,v 1.6 2007/10/03 17:16:25 heigazen Exp $
  *   Hedder for setup plotting parts
  */
 
@@ -63,6 +63,12 @@
 #define FCH  25
 #define LFCH 50   /* Large font height */
 
+/*
+ *	Color name data
+ */
+static char	*c_name[] = { "black",  "black", "blue", 
+                          "red",    "medium sea green",
+                          "violet", "orange", "turquoise" };
 /*
  * Fonts name
  */
@@ -82,6 +88,29 @@ static char *f_name[] = {
    "-adobe-symbol-medium-r-normal-*-*-140-*-*-p-*-adobe-fontspecific",
    "-adobe-symbol-medium-r-normal-*-*-160-*-*-p-*-adobe-fontspecific"
 };
+
+/*
+ *	Line width data
+ */
+static int l_width[] = {0, 1, 1, 2, 3, 4, 1, 2, 3, 4};
+
+/*
+ *	Line style data
+ */
+static struct	line_style_info  {
+	char	list[8];
+	int	no;
+}  l_style[] = { { { 1, 1},               2 },  /* Dummy for Solid */
+                 { { 1, 5},               2 },  /* dotted2 */
+                 { { 1, 3},               2 },  /* dotted */
+                 { { 4, 2},               2 },  /* dashed */
+                 { { 7, 3},               2 },	/* long_dashed	*/
+                 { { 1, 1},               2 },	/* Dummy for Solid */
+                 { { 8, 2, 2, 2},         4 },	/* dot_dashed */
+                 { {10, 2, 2, 2},         4 },	/* dot_dashed2	*/
+                 { { 8, 2, 1, 2, 1, 2},   6 },	/* double_dot_dashed */
+                 { { 6, 2, 2, 2, 2, 2},   6 }	/* double_dot_dashed2 */
+               };
 
 /*
  * Mark bitmap data
@@ -106,6 +135,13 @@ static char *f_name[] = {
 #include "marks/mark14.dat"
 #include "marks/mark15.dat"
 
+static char	*mark_bits[] = {
+   mark0_bits,  mark1_bits,  mark2_bits,  mark3_bits,
+   mark4_bits,  mark5_bits,  mark6_bits,  mark7_bits,
+   mark8_bits,  mark9_bits,  mark10_bits, mark11_bits,
+   mark12_bits, mark13_bits, mark14_bits, mark15_bits
+};
+
 /*
  * Till Pattern
  */
@@ -129,3 +165,11 @@ static char *f_name[] = {
 #include "tills/till14.dat"
 #include "tills/till15.dat"
 #include "tills/till16.dat"
+
+static char	*till_bits[] = {
+   till0_bits,  till1_bits,  till2_bits,  till3_bits,
+   till4_bits,  till5_bits,  till6_bits,  till7_bits,
+   till8_bits,  till9_bits,  till10_bits, till11_bits,
+   till12_bits, till13_bits, till14_bits, till15_bits,
+   till16_bits
+};
