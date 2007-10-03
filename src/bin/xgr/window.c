@@ -66,7 +66,7 @@ GC  gc, pixmapGC;
 unsigned long forepix, backpix, highpix, brdrpix, mouspix;
 
 static XSizeHints  xsh;
-static Atom   property;
+/* static Atom   property; */
 static Pixmap   pixmap;
 static Cursor   watch_cur;
 static XGCValues  gcval;
