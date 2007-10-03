@@ -182,7 +182,7 @@ int minmax (FILE *fp,int dim,int nbest,Boolean outnum)
 {
    double *s;
    int k, n, i, j;
-   int **minpos,**maxpos,*nmaxpos,*nminpos,*tmp, t=0;
+   int **minpos=NULL,**maxpos=NULL,*nmaxpos=NULL,*nminpos=NULL,*tmp, t=0;
    double *min,*max;
 
    min = dgetmem(nbest);
