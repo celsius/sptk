@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: minmax.c,v 1.15 2007/09/30 16:20:51 heigazen Exp $";
+static char *rcs_id = "$Id: minmax.c,v 1.16 2007/10/03 16:39:02 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -182,7 +182,7 @@ int minmax (FILE *fp,int dim,int nbest,Boolean outnum)
 {
    double *s;
    int k, n, i, j;
-   int **minpos,**maxpos,*nmaxpos,*nminpos,*tmp, t=0;
+   int **minpos=NULL,**maxpos=NULL,*nmaxpos=NULL,*nminpos=NULL,*tmp, t=0;
    double *min,*max;
 
    min = dgetmem(nbest);
