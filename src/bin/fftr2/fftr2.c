@@ -289,13 +289,13 @@ void trans (double *p)
 
    if (outopt>0) {
       for (q=p+sizeh*size,k=sizeh; --k>=0; q+=size) {
-         fwrite(q+sizeh, sizeof(*p), sizeh, stdout);
-         fwrite(q, sizeof(*p), nout, stdout);
+         fwritef(q+sizeh, sizeof(*p), sizeh, stdout);
+         fwritef(q, sizeof(*p), nout, stdout);
       }
       for (q=p,k=nout; --k>=0; q+=size) {
          if (outopt>0)
-            fwrite(q+sizeh, sizeof(*p), sizeh, stdout);
-         fwrite(q, sizeof(*p), nout, stdout);
+            fwritef(q+sizeh, sizeof(*p), sizeh, stdout);
+         fwritef(q, sizeof(*p), nout, stdout);
       }
    }
 }
