@@ -71,7 +71,7 @@
 *                input is assumed to be double                          *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftr2.c,v 1.16 2007/09/30 16:20:31 heigazen Exp $";
+static char *rcs_id = "$Id: fftr2.c,v 1.17 2007/10/05 14:38:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -289,13 +289,13 @@ void trans (double *p)
 
    if (outopt>0) {
       for (q=p+sizeh*size,k=sizeh; --k>=0; q+=size) {
-         fwrite(q+sizeh, sizeof(*p), sizeh, stdout);
-         fwrite(q, sizeof(*p), nout, stdout);
+         fwritef(q+sizeh, sizeof(*p), sizeh, stdout);
+         fwritef(q, sizeof(*p), nout, stdout);
       }
       for (q=p,k=nout; --k>=0; q+=size) {
          if (outopt>0)
-            fwrite(q+sizeh, sizeof(*p), sizeh, stdout);
-         fwrite(q, sizeof(*p), nout, stdout);
+            fwritef(q+sizeh, sizeof(*p), sizeh, stdout);
+         fwritef(q, sizeof(*p), nout, stdout);
       }
    }
 }
