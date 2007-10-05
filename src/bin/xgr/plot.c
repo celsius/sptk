@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-* $Id: plot.c,v 1.13 2007/10/03 16:50:36 heigazen Exp $         *
+* $Id: plot.c,v 1.14 2007/10/05 18:21:42 heigazen Exp $         *
 *          Interpret X-Y Ploter Commands                        *
 ****************************************************************/
 
@@ -72,33 +72,33 @@
 
 Cord pb;
 
-static int sp = 1;
-static int cw = FCW, ch = FCH, th = 0;
+static int sp=1;
+static int cw=FCW, ch=FCH, th=0;
 
-extern Display  *display;
-extern Window  main_window;
-extern int  screen;
-extern GC  gc;
+extern Display *display;
+extern Window main_window;
+extern int screen;
+extern GC gc;
 extern unsigned long forepix, backpix;
-extern float  shrink;
-extern int  landscape;
-extern int  c_flg, mono_flg;
-extern int  fno;
+extern float shrink;
+extern int landscape;
+extern int c_flg, mono_flg;
+extern int fno;
 
-static XPoint  points[SIZE];
-static int  line_width = 1;
-static int  line_style = LineSolid;
-static int  join_style = JoinMiter;
+static XPoint points[SIZE];
+static int line_width=1;
+static int line_style=LineSolid;
+static int join_style=JoinMiter;
 static XRectangle rect;
 
 
-static char *symbol_upper = "ABGDEZHQIKLMNXOPRSTUFCYW";
-static char *symbol_lower = "abgdezhqiklmnxoprstufcyw";
-#define  INFTY 165
-#define  SPACE 32
+static char *symbol_upper="ABGDEZHQIKLMNXOPRSTUFCYW";
+static char *symbol_lower="abgdezhqiklmnxoprstufcyw";
+#define INFTY 165
+#define SPACE 32
 
-static void line(XPoint *points,int n );
-static void fillpoly(XPoint *points,int type,int n );
+static void line(XPoint *points, int n);
+static void fillpoly(XPoint *points, int type, int n);
 static void reset_fill (void);
 static void dplot (int density, short x, short y, short w, short h);
 static void fillbox (int type, short x, short y, short w, short h);
@@ -170,9 +170,9 @@ static void line (XPoint *points, int n)
    XDrawLines(display, main_window, gc, points, n, CoordModeOrigin);
 }
 
-static void polyline (XPoint *points, int frame, int fill, int n )
+static void polyline (XPoint *points, int frame, int fill, int n)
 {  
-   if ( fill!=-1 && (fill%=10)!=9 )  {
+   if (fill!=-1 && (fill%=10)!=9)  {
       fillpoly(points, fill+6, n+1);
       reset_fill();
    }
@@ -180,7 +180,7 @@ static void polyline (XPoint *points, int frame, int fill, int n )
       line(points, n+1);
 }
 
-/* static int polyg (int type)
+static int polyg (int type)
 {
    int  x, y, w, h;
 
@@ -188,7 +188,7 @@ static void polyline (XPoint *points, int frame, int fill, int n )
    dplot(type, normx(x), normy(y+h), norm(w), norm(h));
 
    return(0);
-} */
+}
 
 #define LEVEL 256
 #define POINTS 1024
@@ -220,7 +220,7 @@ static void dplot (int density, short x, short y, short w, short h)
    XDrawPoints(display, main_window, gc, pos, n_plot, CoordModeOrigin);
 }
 
-static void hatching(int type )
+static void hatching (int type)
 {
    int n;
    int  frame;
@@ -235,7 +235,7 @@ static void hatching(int type )
    points[n].x = points[0].x;
    points[n].y = points[0].y;
 
-   switch ( type-=20 )  {
+   switch (type-=20)  {
    case 1:
       frame = 1;
       type = -1;
@@ -265,10 +265,10 @@ static void reset_fill (void)
    fillbox(15, 0, 0, 0, 0);
 }
 
-/* static void box (short x, short y, short w, short h)
+static void box (short x, short y, short w, short h)
 {
    XDrawRectangle(display, main_window, gc, x, y, w, h);
-} */
+}
 
 static void fillbox (int type, short x, short y, short w, short h)
 {
@@ -285,7 +285,7 @@ static void fillbox (int type, short x, short y, short w, short h)
    XFreePixmap(display, till_pmap);
 }
 
-static void fillpoly(XPoint *points,int type,int n )
+static void fillpoly(XPoint *points, int type, int n)
 {
    Pixmap till_pmap;
 
@@ -379,7 +379,7 @@ static int text (char *s, int n, int fn)
                   points[0].x, points[0].y, s, n);
    else  {
       xadj = ccw / shrink;
-      yadj = (cch>FCH ? 0.75 : 1.25) * cch / shrink;
+      yadj = ((cch>FCH) ? 0.75 : 1.25) * cch / shrink;
       while (n)  {
          cx = points[0].x - xadj;
          cy = points[0].y - yadj * --n;
@@ -391,7 +391,7 @@ static int text (char *s, int n, int fn)
    return 0;
 }
 
-static void newpen(int w )
+static void newpen (int w)
 {
    if (w<0 || w>10)
       w = 1;
@@ -436,7 +436,7 @@ static int line_type (int w)
    return(0);
 }
 
-static void clip(int xmin,int ymin,int xmax,int ymax )
+static void clip (int xmin,int ymin,int xmax,int ymax)
 {
    rect.x = xmin;
    rect.y = ymin;
@@ -446,7 +446,7 @@ static void clip(int xmin,int ymin,int xmax,int ymax )
    XSetClipRectangles(display, gc, 0, 0, &rect, 1, Unsorted);
 }
 
-static void mark(int w )
+static void mark (int w)
 {
    Pixmap mark_pmap;
 
@@ -463,7 +463,7 @@ static void mark(int w )
    XFreePixmap(display, mark_pmap);
 }
 
-static void circle(int x0,int y0,int r1,int r2,int arg1,int arg2 )
+static void circle (int x0, int y0, int r1, int r2, int arg1, int arg2)
 {
    int  x, y;
    unsigned int width, height;
