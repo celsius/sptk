@@ -99,9 +99,12 @@ typedef struct {
 /* library routines */
 double agexp (double r, double x, double y);
 int cholesky (double *c, double *a, double *b, const int n, double eps);
+int freada (double *p, const int bl, FILE *fp);
+int fwritex (void *ptr, const size_t size, const int nitems, FILE *fp);
+int freadx (void *ptr, const size_t size, const int nitems, FILE *fp);
 #ifdef DOUBLE
-#define fwritef fwrite
-#define freadf  fread
+int fwritef (float *ptr, const size_t size, const int nitems, FILE *fp);
+int freadf  (float *ptr, const size_t size, const int nitems, FILE *fp);
 #else
 int fwritef (double *ptr, const size_t size, const int nitems, FILE *fp);
 int freadf  (double *ptr, const size_t size, const int nitems, FILE *fp);
