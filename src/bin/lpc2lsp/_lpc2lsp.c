@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _lpc2lsp.c,v 1.7 2007/09/12 08:37:12 heigazen Exp $
+    $Id: _lpc2lsp.c,v 1.8 2007/10/08 16:49:27 heigazen Exp $
 
     Transformation LPC to LSP
 
@@ -71,7 +71,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 static double chebpoly (const double x, double *c, const int mh)
 {

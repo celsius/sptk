@@ -63,15 +63,19 @@
 *               input is assumed to be real                             *
 ************************************************************************/
 
-static char *rcs_id = "$Id: zcross.c,v 1.17 2007/09/30 18:37:50 heigazen Exp $";
+static char *rcs_id = "$Id: zcross.c,v 1.18 2007/10/08 16:49:35 heigazen Exp $";
 
 
 /* Standard C Libraries */
 #include <stdio.h>
 #include <stdlib.h>
-#include <SPTK.h>
 #include <string.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /* Default Values */
 #define FLENG 256

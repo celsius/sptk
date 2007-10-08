@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-   $Id: _window.c,v 1.10 2007/09/30 16:20:26 heigazen Exp $
+   $Id: _window.c,v 1.11 2007/10/08 16:49:28 heigazen Exp $
 
    Window function
    ---------------
@@ -74,8 +74,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /************************************************
    Blackman window

@@ -74,15 +74,19 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: minmax.c,v 1.16 2007/10/03 16:39:02 heigazen Exp $";
+static char *rcs_id = "$Id: minmax.c,v 1.17 2007/10/08 16:49:35 heigazen Exp $";
 
 
 /* Standard C Libraries */
 #include <stdio.h>
 #include <stdlib.h>
-#include <SPTK.h>
 #include <string.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /* Defualt Values */
 #define DIM 1

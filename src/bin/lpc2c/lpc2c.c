@@ -70,14 +70,19 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2c.c,v 1.14 2007/09/30 18:37:51 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2c.c,v 1.15 2007/10/08 16:49:28 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define ORDERC  25

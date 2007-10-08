@@ -72,16 +72,19 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ulaw.c,v 1.14 2007/09/30 16:20:33 heigazen Exp $";
+static char *rcs_id = "$Id: ulaw.c,v 1.15 2007/10/08 16:49:30 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
-
-
+#endif
 
 /*  Default Values  */
 #define MAXVALUE 32768.0

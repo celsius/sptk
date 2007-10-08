@@ -48,7 +48,7 @@
 */
 
 /********************************************************
- $Id: _fftr.c,v 1.8 2007/09/12 08:37:12 heigazen Exp $                     
+ $Id: _fftr.c,v 1.9 2007/10/08 16:49:27 heigazen Exp $                     
  
  NAME:                     
         fftr - Fast Fourier Transform for Double sequence      
@@ -64,7 +64,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 extern double *_sintbl;
 extern int maxfftsize;

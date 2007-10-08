@@ -70,15 +70,19 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: levdur.c,v 1.14 2007/09/30 16:20:39 heigazen Exp $";
+static char *rcs_id = "$Id: levdur.c,v 1.15 2007/10/08 16:49:32 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define ORDER  25

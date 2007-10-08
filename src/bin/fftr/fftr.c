@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftr.c,v 1.16 2007/09/30 16:20:19 heigazen Exp $";
+static char *rcs_id = "$Id: fftr.c,v 1.17 2007/10/08 16:49:27 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -78,8 +78,12 @@ static char *rcs_id = "$Id: fftr.c,v 1.16 2007/09/30 16:20:19 heigazen Exp $";
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /* Default Values */
 #define SIZE 256

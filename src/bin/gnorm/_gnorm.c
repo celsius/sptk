@@ -48,7 +48,7 @@
 */
 
 /************************************************************************
-  $Id: _gnorm.c,v 1.9 2007/09/12 08:37:14 heigazen Exp $
+  $Id: _gnorm.c,v 1.10 2007/10/08 16:49:34 heigazen Exp $
 
     Gain Normalization
    
@@ -63,7 +63,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void gnorm (double *c1, double *c2, int m, const double g)
 {

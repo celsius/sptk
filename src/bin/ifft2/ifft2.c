@@ -70,13 +70,18 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft2.c,v 1.14 2007/09/23 15:08:30 heigazen Exp $";
+static char *rcs_id = "$Id: ifft2.c,v 1.15 2007/10/08 16:49:34 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 static int size=64, outopt=0, out=' ', is_fftr=0;
 

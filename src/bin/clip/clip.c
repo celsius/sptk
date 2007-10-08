@@ -68,15 +68,19 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: clip.c,v 1.13 2007/09/23 15:08:26 heigazen Exp $";
+static char *rcs_id = "$Id: clip.c,v 1.14 2007/10/08 16:49:27 heigazen Exp $";
 
 
 /* Standard C Libraries */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /* Default Value */
 #define FLT_MAX 3.4e+38

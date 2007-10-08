@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _lpc2c.c,v 1.8 2007/09/12 08:37:12 heigazen Exp $
+    $Id: _lpc2c.c,v 1.9 2007/10/08 16:49:28 heigazen Exp $
 
     Transformation LPC to Cepstrum
 
@@ -64,7 +64,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void lpc2c (double *a, int m1, double *c, const int m2)
 {

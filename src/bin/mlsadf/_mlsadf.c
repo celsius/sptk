@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _mlsadf.c,v 1.8 2007/09/12 08:37:28 heigazen Exp $
+    $Id: _mlsadf.c,v 1.9 2007/10/08 16:49:34 heigazen Exp $
 
     MLSA Digital Filter
 
@@ -67,7 +67,12 @@
 *****************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 static double pade[] = {1.0,
                         1.0, 0.0,

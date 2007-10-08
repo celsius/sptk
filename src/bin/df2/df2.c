@@ -67,14 +67,19 @@
 *                                                                       *
 ************************************************************************/ 
 
-static char *rcs_id = "$Id: df2.c,v 1.15 2007/09/30 16:20:39 heigazen Exp $";
+static char *rcs_id = "$Id: df2.c,v 1.16 2007/10/08 16:49:31 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <SPTK.h>
 #include <string.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /* Default Values */
 #define SAMPLEF 10000

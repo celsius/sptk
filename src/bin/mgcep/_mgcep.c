@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-   $Id: _mgcep.c,v 1.12 2007/09/30 16:20:31 heigazen Exp $
+   $Id: _mgcep.c,v 1.13 2007/10/08 16:49:29 heigazen Exp $
 
    Mel-Generalized Cepstral Analysis
 
@@ -75,7 +75,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 /*  gain(epsilon) calculation  */
 static double gain(double *er, double *c, int m, double g)

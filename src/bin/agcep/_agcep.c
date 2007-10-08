@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _agcep.c,v 1.8 2007/09/12 08:37:14 heigazen Exp $
+    $Id: _agcep.c,v 1.9 2007/10/08 16:49:28 heigazen Exp $
 
     Adaptive Generalized Cepstral Analysis
 
@@ -71,7 +71,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 double agcep (double x, double *c, const int m, const int stage, const double lambda, const double step, const double tau, const double eps)
 {

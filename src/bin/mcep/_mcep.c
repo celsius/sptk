@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.12 2007/09/30 16:20:40 heigazen Exp $
+    $Id: _mcep.c,v 1.13 2007/10/08 16:49:32 heigazen Exp $
 
     Mel-Cepstral Analysis
 
@@ -73,7 +73,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 static void frqtr (double *c1, int m1, double *c2, int m2, const double a)
 {

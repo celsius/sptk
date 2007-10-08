@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _lspdf.c,v 1.8 2007/09/12 08:37:15 heigazen Exp $
+    $Id: _lspdf.c,v 1.9 2007/10/08 16:49:30 heigazen Exp $
 
     LSP Speech Synthesis Digital Filter
 
@@ -66,7 +66,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 double lspdf_even (double x, double *f, const int m, double *d)
 {

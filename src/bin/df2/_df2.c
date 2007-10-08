@@ -48,7 +48,7 @@
 */
 
 /******************************************************
- $Id: _df2.c,v 1.7 2007/09/12 08:37:18 heigazen Exp $
+ $Id: _df2.c,v 1.8 2007/10/08 16:49:31 heigazen Exp $
     2nd order standard form digital filter
         double df2(x,sf,f0p,wbp,f0z,wbz,fp,fz,buf,bufp)
 
@@ -70,7 +70,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 double df2 (const double x, const double sf, const double f0p, const double wbp, const double f0z, const double wbz, 
             const int fp, const int fz, double *buf, int *bufp)

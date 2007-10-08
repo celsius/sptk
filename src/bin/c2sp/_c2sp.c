@@ -48,7 +48,7 @@
 */
 
 /***************************************************************
-    $Id: _c2sp.c,v 1.6 2007/09/12 08:37:20 heigazen Exp $
+    $Id: _c2sp.c,v 1.7 2007/10/08 16:49:32 heigazen Exp $
 
     Transform cepstrum to spectrum
 
@@ -63,7 +63,12 @@
 ***************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void c2sp (double *c, const int m, double *x, double *y, const int l)
 {

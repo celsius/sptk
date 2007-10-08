@@ -71,14 +71,20 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fig.c,v 1.16 2007/09/28 08:24:07 heigazen Exp $";
+static char *rcs_id = "$Id: fig.c,v 1.17 2007/10/08 16:49:30 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
-#include <SPTK.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
+
 #include "plot.h"
 
 

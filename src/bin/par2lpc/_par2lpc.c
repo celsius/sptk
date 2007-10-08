@@ -49,7 +49,7 @@
 
 /***************************************************************
 
-    $Id: _par2lpc.c,v 1.8 2007/09/12 08:37:22 heigazen Exp $
+    $Id: _par2lpc.c,v 1.9 2007/10/08 16:49:33 heigazen Exp $
 
     Transformation PARCOR to LPC
 
@@ -62,7 +62,12 @@
 ****************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void par2lpc (double *k, double *a, const int m)
 {

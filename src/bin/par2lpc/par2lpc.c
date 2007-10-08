@@ -68,14 +68,19 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: par2lpc.c,v 1.13 2007/09/30 16:20:42 heigazen Exp $";
+static char *rcs_id = "$Id: par2lpc.c,v 1.14 2007/10/08 16:49:33 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define ORDER  25

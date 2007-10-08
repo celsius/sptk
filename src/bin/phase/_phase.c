@@ -48,7 +48,7 @@
 */
 
 /*******************************************************************
-  $Id: _phase.c,v 1.7 2007/09/12 08:37:12 heigazen Exp $
+  $Id: _phase.c,v 1.8 2007/10/08 16:49:28 heigazen Exp $
   comupte phase of digital filter or real seaquence
      phase(p, mp, z, mz, ph, flng)
 
@@ -66,7 +66,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void phase (double *p, const int mp, double *z, const int mz, double *ph, const int flng, const int unlap)
 {

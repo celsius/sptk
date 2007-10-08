@@ -48,7 +48,7 @@
 */
 
 /***************************************************************
-    $Id: _mc2b.c,v 1.6 2007/09/12 08:37:16 heigazen Exp $
+    $Id: _mc2b.c,v 1.7 2007/10/08 16:49:31 heigazen Exp $
 
     Transform Mel Cepstrum to MLSA Digital Filter Coefficients
 
@@ -62,7 +62,12 @@
 ***************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void mc2b (double *mc, double *b, int m, const double a)
 {

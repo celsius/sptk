@@ -77,16 +77,20 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: smcep.c,v 1.17 2007/09/30 16:20:38 heigazen Exp $";
+static char *rcs_id = "$Id: smcep.c,v 1.18 2007/10/08 16:49:32 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <SPTK.h>
 #include <math.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define ALPHA  0.35

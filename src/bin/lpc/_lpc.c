@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _lpc.c,v 1.8 2007/09/12 08:37:26 heigazen Exp $
+    $Id: _lpc.c,v 1.9 2007/10/08 16:49:28 heigazen Exp $
 
     LPC Analysis Using Levinson-Durbin method
 
@@ -68,7 +68,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 int lpc (double *x, const int flng, double *a, const int m)
 {

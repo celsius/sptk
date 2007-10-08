@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _uels.c,v 1.14 2007/09/30 16:20:43 heigazen Exp $
+    $Id: _uels.c,v 1.15 2007/10/08 16:49:35 heigazen Exp $
 
     Unbiased Estimation of Log Spectrum
 
@@ -72,7 +72,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 /* Fast Algorithm for Linear Prediction with Linear Phase */
 static void lplp (double *r, double *c, const int m)

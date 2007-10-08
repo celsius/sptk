@@ -48,7 +48,7 @@
 */
 
 /************************************************************************
-    $Id: _ulaw.c,v 1.7 2007/09/12 08:37:17 heigazen Exp $
+    $Id: _ulaw.c,v 1.8 2007/10/08 16:49:30 heigazen Exp $
 
     u-law coder
 
@@ -74,7 +74,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 #define abs(x) ((x>=0) ? (x) : (-(x)))
 #define sign(x) ((x>=0) ? 1 : (-1))

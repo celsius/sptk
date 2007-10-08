@@ -52,7 +52,7 @@
 *    2D-FFT for Real Sequence                                           *
 *                                                                       *
 *                                       1989    T.Kobayashi             *
-*                                       1996.2  N.Miyazake modified     *
+*                                       1996.2  N.Miyazaki modified     *
 *                                                                       *
 *       usage:                                                          *
 *                fftr2 [ infile ] [ options ] > stdout                  *
@@ -71,15 +71,20 @@
 *                input is assumed to be double                          *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftr2.c,v 1.17 2007/10/05 14:38:36 heigazen Exp $";
+static char *rcs_id = "$Id: fftr2.c,v 1.18 2007/10/08 16:49:29 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <SPTK.h>
 #include <math.h>
 #include <string.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Command Name  */
 static char *cmnd;
@@ -118,7 +123,7 @@ int usage (void)
    exit(1);
 }
 
-int main (int argc,char *argv[])
+int main (int argc, char *argv[])
 {
    FILE *fp;
    char *s, *infile=NULL, c;
@@ -276,7 +281,7 @@ int main (int argc,char *argv[])
 
    free(x);
  
-   return 0;
+   return(0);
 }
 
 void trans (double *p)
@@ -285,7 +290,7 @@ void trans (double *p)
    double *q;
 
    sizeh = size / 2;
-   nout = (outopt == 1) ? sizeh : sizeh + 1;
+   nout = (outopt==1) ? sizeh : sizeh+1;
 
    if (outopt>0) {
       for (q=p+sizeh*size,k=sizeh; --k>=0; q+=size) {
@@ -298,4 +303,6 @@ void trans (double *p)
          fwritef(q, sizeof(*p), nout, stdout);
       }
    }
+   
+   return;
 }

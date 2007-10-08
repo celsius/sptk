@@ -48,7 +48,7 @@
 */
 
 /***************************************************************
-    $Id: _rmse.c,v 1.8 2007/09/12 08:37:23 heigazen Exp $
+    $Id: _rmse.c,v 1.9 2007/10/08 16:49:32 heigazen Exp $
 
     Calculation of Root Mean Squared Error
 
@@ -64,7 +64,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 double rmse (double *x, double *y, const int n)
 {

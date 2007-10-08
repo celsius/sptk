@@ -49,7 +49,7 @@
 
 /**********************************************************************
 
-    $Id: _pitch.c,v 1.12 2007/09/12 08:37:26 heigazen Exp $
+    $Id: _pitch.c,v 1.13 2007/10/08 16:49:29 heigazen Exp $
 
     Pitch Extract
 
@@ -71,7 +71,12 @@
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 double pitch (double *xw, const int l, const double thresh, const int low, const int high, 
               const double eps, const int m, const int itr1, const int itr2, const double end)

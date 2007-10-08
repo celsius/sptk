@@ -63,15 +63,20 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft.c,v 1.15 2007/09/23 15:08:30 heigazen Exp $";
+static char *rcs_id = "$Id: ifft.c,v 1.16 2007/10/08 16:49:27 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <SPTK.h>
 #include <string.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 static int size=256, out=' ';
 

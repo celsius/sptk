@@ -48,7 +48,7 @@
 */
 
 /********************************************************
-   $Id: _fft.c,v 1.8 2007/09/30 16:20:30 heigazen Exp $               
+   $Id: _fft.c,v 1.9 2007/10/08 16:49:29 heigazen Exp $               
        NAME:               
                 fft - fast fourier transform    
        SYNOPSIS:               
@@ -66,8 +66,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 double *_sintbl=0;
 int maxfftsize=0;

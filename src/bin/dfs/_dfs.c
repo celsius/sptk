@@ -48,7 +48,7 @@
 */
 
 /************************************************************************
-    $Id: _dfs.c,v 1.7 2007/09/12 08:37:25 heigazen Exp $                        
+    $Id: _dfs.c,v 1.8 2007/10/08 16:49:28 heigazen Exp $                        
         Standard Form Digital Filter               
         latice digital filter                  
             double dfs(x, a, m, b, n, buf, bufp)         
@@ -67,7 +67,12 @@
 ************************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 double dfs (double x, double *a, int m, double *b, int n, double *buf, int *bufp)
 {

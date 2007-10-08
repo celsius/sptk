@@ -49,7 +49,7 @@
 
 /************************************************************************
 
-  $Id: _reverse.c,v 1.6 2007/09/12 08:37:28 heigazen Exp $
+  $Id: _reverse.c,v 1.7 2007/10/08 16:49:33 heigazen Exp $
 
   Reverse the order of data in sequence
       reverse(real* p, int l)
@@ -60,7 +60,12 @@
 ************************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void reverse (double *x, const int l)
 {

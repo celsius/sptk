@@ -68,15 +68,19 @@
 *                        s-1           p            p                   *
 ************************************************************************/
 
-static char *rcs_id = "$Id: interpolate.c,v 1.14 2007/09/30 16:20:44 heigazen Exp $";
+static char *rcs_id = "$Id: interpolate.c,v 1.15 2007/10/08 16:49:35 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define PERIOD 10

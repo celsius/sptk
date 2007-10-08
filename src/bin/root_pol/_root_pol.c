@@ -49,7 +49,7 @@
 
 /************************************************************************
 *                                                                       *
-*      $Id: _root_pol.c,v 1.8 2007/09/30 16:20:41 heigazen Exp $        *
+*      $Id: _root_pol.c,v 1.9 2007/10/08 16:49:33 heigazen Exp $        *
 *                                                                       *
 *      Durand-Kerner-Aberth for Higher Order Equation                   *
 *                                                                       *
@@ -78,7 +78,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 typedef enum { plus, minus, multiply, divide } opt;
 
