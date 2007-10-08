@@ -49,7 +49,7 @@
 
 /******************************************************************
 
-    $Id: theq.c,v 1.11 2007/09/30 16:20:25 heigazen Exp $
+    $Id: theq.c,v 1.12 2007/10/08 17:46:51 heigazen Exp $
 
     Subroutine for Solving a Toeplitz plus Hankel
     Coefficient Matrix System of Equations  ( T + H ) a = b
@@ -98,7 +98,10 @@ static int inverse (double *x, double *y, const double eps)
 
    det = y[0]*y[3] - y[1]*y[2];
 
-   if ((fabs(det)<eps) || isnan(det)) return(-1);
+   if ((fabs(det)<eps) || isnan(det)) {
+      fprintf(stderr, "theq() : determinant of the normal matrix is too small!\n");
+      return(-1);
+   }
 
    x[0] =  y[3] / det;
    x[1] = -y[1] / det;
