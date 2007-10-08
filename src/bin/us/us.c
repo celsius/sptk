@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: us.c,v 1.18 2007/09/30 16:20:27 heigazen Exp $";
+static char *rcs_id = "$Id: us.c,v 1.19 2007/10/08 16:38:34 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -87,22 +87,24 @@ static char *rcs_id = "$Id: us.c,v 1.18 2007/09/30 16:20:27 heigazen Exp $";
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Required Functions  */
 void srcnv(FILE *fp);
 void firin(double in);
 double firout(int os);
 void firinit(void);
-int freada(double *p,int bl,FILE *fp);
 
 
 /* Default Value */
 #define RBSIZE  512
 #define DSIZE  512
 #define SIZE  256
-#define LINEBUFSIZE 256
 #define STYPE  "58"
 #define mod(x) ((x) & (RBSIZE -1))
 
@@ -347,18 +349,4 @@ void firinit (void)
    if (start) {
       start = flengdn / (2 * d_rate);
    }
-}
-
-int freada (double *p,int bl,FILE *fp)
-{
-   int c;
-   char buf[LINEBUFSIZE];
-
-   c = 0;
-   while (c<bl ) {
-      if (fgets( buf, LINEBUFSIZE, fp)==NULL) break;
-      p[c] = atof( buf);
-      c+=1;
-   }
-   return c;
 }
