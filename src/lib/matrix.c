@@ -49,7 +49,7 @@
 
 /*****************************************************************
 
-    $Id: matrix.c,v 1.7 2007/09/30 16:20:25 heigazen Exp $
+    $Id: matrix.c,v 1.8 2007/10/08 16:30:39 heigazen Exp $
 
     compute matrix functions
 
@@ -79,7 +79,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 static double *tmp;
 static int tmpsize = 0;

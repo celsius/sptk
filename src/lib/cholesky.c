@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-    $Id: cholesky.c,v 1.5 2007/09/12 08:37:14 heigazen Exp $
+    $Id: cholesky.c,v 1.6 2007/10/08 16:30:39 heigazen Exp $
 
     Solve Linear Set of Equations
 		       Using Cholesky Decomposition 
@@ -69,7 +69,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 int cholesky (double *c, double *a, double *b, const int n, double eps)
 {
