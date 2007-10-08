@@ -86,7 +86,12 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 /* Default Values */
 #define DECRATE5 5
@@ -101,8 +106,6 @@ static char *rcs_id = "$Id$";
 #define RBSIZE 512
 #define SIZE 256
 #define STYPE 21
-
-#define BUFLENGTH 256
 
 #ifndef LIB
 #define LIB "/usr/local/SPTK/lib"
@@ -334,7 +337,6 @@ double firout (int os)
 void firinit (void)
 {
    FILE *fp;
-   int freada(double *p, int bl, FILE *fp);
 
    if ((fp = fopen(coef, "r"))==NULL) {
       fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, coef);
@@ -361,18 +363,4 @@ void firinit (void)
    }
    else
       start = flengdn / (2 * decrate);
-}
-
-int freada (double *p, int bl, FILE *fp)
-{
-   int c;
-   char buf[BUFLENGTH];
-
-   c = 0;
-   while (c<bl) {
-      if (fgets( buf, BUFLENGTH, fp) == NULL) break;
-      p[c] = atof(buf);
-      c+=1;
-   }
-   return c;
 }
