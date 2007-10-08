@@ -67,7 +67,12 @@
 *****************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 static double imglsadff (double x, double *b, const int m, const double a, double *d)
 {

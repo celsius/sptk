@@ -67,7 +67,12 @@
 *****************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 static double pade[] = {1.0,
                         1.0, 0.0,

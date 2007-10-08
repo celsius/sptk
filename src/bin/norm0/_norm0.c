@@ -61,7 +61,12 @@
 ***************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void norm0 (double *x, double *y, int m)
 {

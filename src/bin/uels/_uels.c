@@ -72,7 +72,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 /* Fast Algorithm for Linear Prediction with Linear Phase */
 static void lplp (double *r, double *c, const int m)

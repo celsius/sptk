@@ -68,7 +68,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 int lpc (double *x, const int flng, double *a, const int m)
 {

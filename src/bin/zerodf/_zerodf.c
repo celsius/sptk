@@ -66,7 +66,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 double zerodf (double x, double *b, int m, double *d)
 {

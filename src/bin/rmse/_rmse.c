@@ -64,7 +64,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 double rmse (double *x, double *y, const int n)
 {

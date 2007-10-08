@@ -97,8 +97,12 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <ctype.h>
 #include <math.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Command Name  */
 char *cmnd;

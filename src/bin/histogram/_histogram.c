@@ -55,7 +55,12 @@
 ****************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 int histogram (double *x, const int size, const double min, const double max, const double step, double *h)
 {

@@ -66,7 +66,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void msvq (double *x, double *cb, const int l, int *cbsize, const int stage, int *index)
 {

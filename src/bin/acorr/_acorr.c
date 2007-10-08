@@ -63,7 +63,12 @@
 ***********************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void acorr (double *x, int l, double *r, const int np)
 {

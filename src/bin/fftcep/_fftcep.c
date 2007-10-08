@@ -66,7 +66,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void fftcep (double *sp, const int flng, double *c, const int m, int itr, double ac)
 {

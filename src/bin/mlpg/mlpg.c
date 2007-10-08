@@ -85,8 +85,12 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /* default values */
 #define  ORDER  25

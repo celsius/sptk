@@ -75,7 +75,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 int sp2mgc (double *xw, const int flng, double *b, const int m, const double a, const double g, const int n, 
             const int itr1, const int itr2, const double dd, const double e, const int itype)

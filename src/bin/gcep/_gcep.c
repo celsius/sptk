@@ -73,7 +73,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 int gcep (double *xw, const int flng, double *gc, const int m, const double g, const int itr1, const int itr2, const double d, const double e)
 {

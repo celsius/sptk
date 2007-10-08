@@ -79,8 +79,12 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define LENG 1

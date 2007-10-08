@@ -62,7 +62,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void grpdelay (double *x, double *gd, const int size, const int is_arma)
 {

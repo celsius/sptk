@@ -80,7 +80,12 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 static char *cmnd;
 int size=64, outopt=0, n1=0, n2=0, out=' ';

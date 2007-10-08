@@ -63,7 +63,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void gnorm (double *c1, double *c2, int m, const double g)
 {

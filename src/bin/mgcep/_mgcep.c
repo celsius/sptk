@@ -75,7 +75,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 /*  gain(epsilon) calculation  */
 static double gain(double *er, double *c, int m, double g)

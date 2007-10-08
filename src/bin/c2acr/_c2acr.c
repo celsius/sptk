@@ -66,7 +66,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void c2acr(double *c, const int m1, double *r, const int m2, const int flng)
 {

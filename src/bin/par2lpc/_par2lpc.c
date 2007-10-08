@@ -62,7 +62,12 @@
 ****************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void par2lpc (double *k, double *a, const int m)
 {

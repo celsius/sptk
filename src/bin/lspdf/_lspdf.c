@@ -66,7 +66,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 double lspdf_even (double x, double *f, const int m, double *d)
 {

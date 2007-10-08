@@ -74,7 +74,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 #define abs(x) ((x>=0) ? (x) : (-(x)))
 #define sign(x) ((x>=0) ? 1 : (-1))

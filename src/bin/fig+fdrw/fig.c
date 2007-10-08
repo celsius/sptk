@@ -77,8 +77,14 @@ static char *rcs_id = "$Id$";
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <string.h>
-#include <SPTK.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
+
 #include "plot.h"
 
 

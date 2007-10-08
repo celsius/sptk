@@ -73,8 +73,13 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <SPTK.h>
 #include <string.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /* Default Values */
 #define SAMPLEF 10000

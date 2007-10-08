@@ -69,7 +69,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 #define MAXVALUE 1e23
 #define abs(x) ( (x<0) ? (-(x)) : (x) )

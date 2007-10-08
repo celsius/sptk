@@ -66,7 +66,12 @@
 ***************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void clip (double *x, const int l, const double min, const double max, double *y)
 {

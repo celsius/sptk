@@ -83,7 +83,12 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define ALPHA 0.35
