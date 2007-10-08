@@ -87,8 +87,12 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define LENG 256
@@ -198,15 +202,15 @@ int main (int argc, char **argv)
 
    if (!noctr) {
       i = (int)((l + 1) / 2);
-      if (fread(&x[(int)(l/2)*size], size, i, fp)!=i) 
+      if (freadx(&x[(int)(l/2)*size], size, i, fp)!=i) 
          return 0;
    }
    else {
-      if (fread(x, size, l, fp)!=l)
+      if (freadx(x, size, l, fp)!=l)
       return 0;
    }
 
-   fwrite(x, size, l, stdout);
+   fwritex(x, size, l, stdout);
 
    if ((ns = (l-fprd))>0) {
       p = &x[fprd * size];
@@ -215,18 +219,18 @@ int main (int argc, char **argv)
          i = ns * size;
          while (i--) *p1++ = *p2++;
    
-         if (fread(p1, size, fprd, fp)!=fprd) break;
-            fwrite(x, size, l, stdout);
+         if (freadx(p1, size, fprd, fp)!=fprd) break;
+            fwritex(x, size, l, stdout);
       }
    }
    else {
       i = -ns;
       xx = (char *)dgetmem(i*size);
       for (;;) {
-         if (fread(xx, size, i, fp)!=i) break;
+         if (freadx(xx, size, i, fp)!=i) break;
 
-         if (fread(x, size, l, fp) != l) break;
-         fwrite(x, size, l, stdout);
+         if (freadx(x, size, l, fp) != l) break;
+         fwritex(x, size, l, stdout);
       }
    }
    

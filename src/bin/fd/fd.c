@@ -77,8 +77,12 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define START 0
@@ -233,7 +237,7 @@ void fdump (FILE *fp)
          entry = 10;
    }
     
-   fread(&u, size, 1, fp);
+   freadx(&u, size, 1, fp);
    
    while(!feof(fp))
       for (n=adrs=start; (n<mod) && !feof(fp); adrs+=entry*size) {
@@ -270,7 +274,7 @@ void fdump (FILE *fp)
             default:
                break;
             }
-            fread(&u, size, 1, fp);
+            freadx(&u, size, 1, fp);
          }
          if (size==1 && is_char) {
             s[i] = '\0';

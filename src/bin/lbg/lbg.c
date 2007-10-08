@@ -90,10 +90,14 @@ static char *rcs_id = "$Id$";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
-#include <SPTK.h>
 #include <stdlib.h>
 #include <string.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define LENG 26
@@ -257,7 +261,7 @@ int main (int argc, char **argv)
       for (i=0,p=x; i<tnum; i++,p+=l)
          tindex[i] = vq(p, cb, l, ecbsize);
 
-      fwrite(tindex, sizeof(*tindex), tnum, fpi);
+      fwritex(tindex, sizeof(*tindex), tnum, fpi);
    }
 
    return(0);

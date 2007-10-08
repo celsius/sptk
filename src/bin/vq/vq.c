@@ -79,10 +79,14 @@ static char *rcs_id = "$Id$";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
-#include <SPTK.h>
 #include <stdlib.h>
 #include <string.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define LENG   26
@@ -184,7 +188,7 @@ int main (int argc, char **argv)
    if (! qflag)
       while (freadf(x, sizeof(*x), l, fp)==l) {
          index = vq(x, cb, l, cbsize);
-         fwrite(&index, sizeof(index), 1, stdout);
+         fwritex(&index, sizeof(index), 1, stdout);
       }
    else
       while (freadf(x, sizeof(*x), l, fp)==l) {

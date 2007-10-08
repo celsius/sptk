@@ -74,8 +74,12 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define SIZE 128
@@ -201,7 +205,7 @@ int main (int argc, char **argv)
    for (i=0; ; i++) {
       if ((n>=0) && (i>=n+lflag))
          i = 0;
-      if (fread(&x.f, size, 1, fp)!=1)
+      if (freadx(&x.f, size, 1, fp)!=1)
          break;
       if (eflag)
          printf("%d\t0\n", i+lflag);

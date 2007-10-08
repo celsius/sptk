@@ -80,8 +80,12 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define ORDER 25
@@ -169,7 +173,7 @@ int main (int argc, char **argv)
       stable = lpc2par(a, k, m);
 
       if (flags)
-         fwrite(&stable, sizeof(stable), 1, stdout);
+         fwritex(&stable, sizeof(stable), 1, stdout);
       else
          fwritef(k, sizeof(*k), m+1, stdout);
    }

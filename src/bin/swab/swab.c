@@ -78,8 +78,12 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Command Name  */
 char *cmnd;
@@ -202,12 +206,12 @@ void conv (FILE *fp, size_t iosize)
       return;
 
    for (n=sno; (adrs<=_end) && (n<=eno); adrs+=iosize,++n) {
-      fread(ibuf, iosize, 1, fp);
+      freadx(ibuf, iosize, 1, fp);
       if (feof(fp))
          break;
       for (i=0; i<iosize; ++i)
          obuf[i] = ibuf[iosize - 1 - i];
-      fwrite(obuf, iosize, 1, stdout);
+      fwritex(obuf, iosize, 1, stdout);
    }
  
    return;

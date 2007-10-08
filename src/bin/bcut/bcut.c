@@ -83,8 +83,12 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define START 0
@@ -200,13 +204,13 @@ int main (int argc, char **argv)
       
    ptr = start * n;
    while(ptr--)
-      if (fread(&x, size, 1, fp) != 1) return(0);
+      if (freadx(&x, size, 1, fp) != 1) return(0);
     
    ptr = (end - start + 1) * n;
    while (end==-1 || ptr--) {
-      if (fread(&x, size, 1, fp)!=1)
+      if (freadx(&x, size, 1, fp)!=1)
          break;
-      fwrite(&x, size, 1, stdout);
+      fwritex(&x, size, 1, stdout);
    }
 
    return(0);

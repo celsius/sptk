@@ -88,8 +88,12 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define START 0
@@ -317,13 +321,13 @@ void bcp (FILE *fp)
       filln(fz, size, nfz);
    }
 
-   while (fread(buf, sizeof(*buf), ibytes, fp)==ibytes) {
+   while (freadx(buf, sizeof(*buf), ibytes, fp)==ibytes) {
       if (nlz)
-      fwrite(lz, sizeof(*lz), nlz, stdout);
-      fwrite(buf + offset, sizeof(*buf), obytes, stdout);
+      fwritex(lz, sizeof(*lz), nlz, stdout);
+      fwritex(buf + offset, sizeof(*buf), obytes, stdout);
 
       if (nfz)
-         fwrite(fz, sizeof(*fz), nfz, stdout);
+         fwritex(fz, sizeof(*fz), nfz, stdout);
    }
 }
 

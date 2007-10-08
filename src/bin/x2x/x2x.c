@@ -82,8 +82,12 @@ static char *rcs_id = "$Id$";
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define ROUND      FA
@@ -324,12 +328,12 @@ int main (int argc, char **argv)
       else
          while (fscanf(fp, "%le", &x)!=EOF) {
             x2x(&x, &x, 'd', c2);
-            fwrite(&x, size2, 1, stdout);
+            fwritex(&x, size2, 1, stdout);
          }
    }
    else {
       if (c2=='a') {
-         while (fread(&x, size1, 1, fp)==1) {
+         while (freadx(&x, size1, 1, fp)==1) {
             x2x(&x, &x, c1, 'd');
             switch ( c1) {
             case 'd':
@@ -352,9 +356,9 @@ int main (int argc, char **argv)
          }
       }
       else
-         while (fread(&x, size1, 1, fp)==1) {
+         while (freadx(&x, size1, 1, fp)==1) {
             x2x(&x, &x, c1, c2);
-            fwrite(&x, size2, 1, stdout);
+            fwritex(&x, size2, 1, stdout);
          }
    }
 
