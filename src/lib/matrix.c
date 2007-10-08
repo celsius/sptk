@@ -79,7 +79,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 static double *tmp;
 static int tmpsize = 0;
