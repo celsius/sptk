@@ -56,12 +56,55 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(WIN32)
+#include <fcntl.h>
+#include <io.h>
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
+
+#define LINEBUFSIZE 256
+
+/* freada: read ascii */
+int freada (double *p, const int bl, FILE *fp)
+{
+   int c;
+   char buf[LINEBUFSIZE];
+
+   c = 0;
+   while (c<bl) {
+      if (fgets(buf,LINEBUFSIZE,fp)==NULL) break;
+      p[c] = atof(buf);
+      c++;
+   }
+   return(c);
+}
+
+/* fritex: wrapper function for fwrite */
+int fwritex (void *ptr, const size_t size, const int nitems, FILE *fp)
+{
+#if defined(WIN32)
+   _setmode( _fileno(fp), _O_BINARY );
+#endif
+   return(fwrite(ptr, size, nitems, fp));
+}
+
+/* freadx: wrapper function for fread */
+int freadx (void *ptr, const size_t size, const int nitems, FILE *fp)
+{
+#if defined(WIN32)
+   _setmode( _fileno(fp), _O_BINARY );
+#endif
+   return(fread(ptr, size, nitems, fp));
+}
+
+/* --------------- double I/O compile --------------- */ 
+#ifndef DOUBLE
 
 static float *f;
 static int items;
-
-#ifndef DOUBLE
 
 int fwritef (double *ptr, const size_t size, const int nitems, FILE *fp)
 {
@@ -74,6 +117,10 @@ int fwritef (double *ptr, const size_t size, const int nitems, FILE *fp)
    }
    for (i=0; i<nitems; i++)
       f[i] = ptr[i];
+
+#if defined(WIN32)
+   _setmode( _fileno(fp), _O_BINARY );
+#endif
 	
    return fwrite(f, sizeof(float), nitems, fp);
 }
@@ -87,6 +134,11 @@ int freadf (double *ptr, const size_t size, const int nitems, FILE *fp)
       items = nitems;
       f = fgetmem(items);
    }
+
+#if defined(WIN32)
+   _setmode( _fileno(fp), _O_BINARY );
+#endif
+
    n = fread(f, sizeof(float), nitems, fp);
    for (i=0; i<n; i++)
       ptr[i] = f[i];
@@ -94,5 +146,18 @@ int freadf (double *ptr, const size_t size, const int nitems, FILE *fp)
    return n;
 }
 
-#endif	/* DOUBLE */
+/* --------------- float I/O compile --------------- */
+#else  /* DOUBLE */
 
+int fwritef (float *ptr, const size_t size, const int nitems, FILE *fp)
+{
+   return(fwritex(ptr, size, nitems, fp));
+}
+
+int freadf (float *ptr, const size_t size, const int nitems, FILE *fp)
+{
+   return(freadx(ptr, size, nitems, fp));
+}
+
+#endif	/* DOUBLE */
+              
