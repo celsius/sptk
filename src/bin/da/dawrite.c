@@ -72,7 +72,7 @@
 *                                                                            *
 *****************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.18 2007/09/30 16:20:52 heigazen Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.19 2007/10/08 16:45:18 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -80,9 +80,14 @@ static char *rcs_id = "$Id: dawrite.c,v 1.18 2007/09/30 16:20:52 heigazen Exp $"
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <SPTK.h>
-#include "da.h"
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
+
+#include "da.h"
 
 /* Default Value */
 #define SIZE     256*200
@@ -297,7 +302,7 @@ void direct (FILE *fp)
  
    if (hdr_size) fseek(fp, (long)hdr_size, 0);
 
-   while ((nread=fread(x, data_size, SIZE, fp))) {
+   while ((nread=freadx(x, data_size, SIZE, fp))) {
       for (k=0; k<nread; k++) {
          if (data_size==sizeof(double))
             d = x[k];
@@ -374,7 +379,7 @@ void sndinit (void)
 
 void sndout (int leng)
 {
-   fwrite(y, sizeof(short), leng, adfp);
+   fwritex(y, sizeof(short), leng, adfp);
    write(ADFD, y, 0);
 }
 

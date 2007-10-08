@@ -73,15 +73,19 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2par.c,v 1.15 2007/09/30 18:37:51 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2par.c,v 1.16 2007/10/08 16:47:51 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define ORDER 25
@@ -169,7 +173,7 @@ int main (int argc, char **argv)
       stable = lpc2par(a, k, m);
 
       if (flags)
-         fwrite(&stable, sizeof(stable), 1, stdout);
+         fwritex(&stable, sizeof(stable), 1, stdout);
       else
          fwritef(k, sizeof(*k), m+1, stdout);
    }

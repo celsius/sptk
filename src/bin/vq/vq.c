@@ -74,15 +74,19 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vq.c,v 1.13 2007/09/30 16:20:33 heigazen Exp $";
+static char *rcs_id = "$Id: vq.c,v 1.14 2007/10/08 16:47:51 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
-#include <SPTK.h>
 #include <stdlib.h>
 #include <string.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define LENG   26
@@ -184,7 +188,7 @@ int main (int argc, char **argv)
    if (! qflag)
       while (freadf(x, sizeof(*x), l, fp)==l) {
          index = vq(x, cb, l, cbsize);
-         fwrite(&index, sizeof(index), 1, stdout);
+         fwritex(&index, sizeof(index), 1, stdout);
       }
    else
       while (freadf(x, sizeof(*x), l, fp)==l) {

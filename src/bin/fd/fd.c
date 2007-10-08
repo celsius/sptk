@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fd.c,v 1.15 2007/09/30 16:20:44 heigazen Exp $";
+static char *rcs_id = "$Id: fd.c,v 1.16 2007/10/08 16:45:19 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -77,8 +77,12 @@ static char *rcs_id = "$Id: fd.c,v 1.15 2007/09/30 16:20:44 heigazen Exp $";
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define START 0
@@ -233,7 +237,7 @@ void fdump (FILE *fp)
          entry = 10;
    }
     
-   fread(&u, size, 1, fp);
+   freadx(&u, size, 1, fp);
    
    while(!feof(fp))
       for (n=adrs=start; (n<mod) && !feof(fp); adrs+=entry*size) {
@@ -270,7 +274,7 @@ void fdump (FILE *fp)
             default:
                break;
             }
-            fread(&u, size, 1, fp);
+            freadx(&u, size, 1, fp);
          }
          if (size==1 && is_char) {
             s[i] = '\0';

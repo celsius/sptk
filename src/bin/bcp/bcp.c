@@ -80,7 +80,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: bcp.c,v 1.13 2007/09/30 16:20:52 heigazen Exp $";
+static char *rcs_id = "$Id: bcp.c,v 1.14 2007/10/08 16:45:19 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -88,8 +88,12 @@ static char *rcs_id = "$Id: bcp.c,v 1.13 2007/09/30 16:20:52 heigazen Exp $";
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define START 0
@@ -317,13 +321,13 @@ void bcp (FILE *fp)
       filln(fz, size, nfz);
    }
 
-   while (fread(buf, sizeof(*buf), ibytes, fp)==ibytes) {
+   while (freadx(buf, sizeof(*buf), ibytes, fp)==ibytes) {
       if (nlz)
-      fwrite(lz, sizeof(*lz), nlz, stdout);
-      fwrite(buf + offset, sizeof(*buf), obytes, stdout);
+      fwritex(lz, sizeof(*lz), nlz, stdout);
+      fwritex(buf + offset, sizeof(*buf), obytes, stdout);
 
       if (nfz)
-         fwrite(fz, sizeof(*fz), nfz, stdout);
+         fwritex(fz, sizeof(*fz), nfz, stdout);
    }
 }
 

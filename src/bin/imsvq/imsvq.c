@@ -74,16 +74,20 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: imsvq.c,v 1.12 2007/09/30 16:20:42 heigazen Exp $";
+static char *rcs_id = "$Id: imsvq.c,v 1.13 2007/10/08 16:45:18 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
-#include <SPTK.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define LENG  26
@@ -183,7 +187,7 @@ int main (int argc, char **argv)
 
    x = dgetmem(l);
 
-   while (fread(index, sizeof(*index), stage, fp)==stage) {
+   while (freadx(index, sizeof(*index), stage, fp)==stage) {
       imsvq(index, cb, l, cbsize, stage, x);
       fwritef(x, sizeof(*x), l, stdout);
    }

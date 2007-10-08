@@ -69,15 +69,19 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: extract.c,v 1.14 2007/09/30 16:20:52 heigazen Exp $";
+static char *rcs_id = "$Id: extract.c,v 1.15 2007/10/08 16:45:17 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define LENG 10
@@ -154,7 +158,7 @@ int main (int argc, char **argv)
 
    x = dgetmem(l);
 
-   while (freadf(x, sizeof(*x), l, fp)==l && fread(&i, sizeof(i), 1, fpi)==1)
+   while (freadf(x, sizeof(*x), l, fp)==l && freadx(&i, sizeof(i), 1, fpi)==1)
       if (i==index)
          fwritef(x, sizeof(*x), l, stdout);
 

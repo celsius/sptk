@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nan.c,v 1.19 2007/10/01 02:15:30 heigazen Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.20 2007/10/08 16:45:18 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -69,7 +69,12 @@ static char *rcs_id = "$Id: nan.c,v 1.19 2007/10/01 02:15:30 heigazen Exp $";
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 /* Command Name */
 char *cmnd;
@@ -139,7 +144,7 @@ void nan_tmp (FILE *fp)
    float x;
 #endif /* DOUBLE */
 
-   while (fread(&x, sizeof(x), 1, fp)) {
+   while (freadx(&x, sizeof(x), 1, fp)) {
       if (isinf(x))
          fprintf(stdout, "[No. %ld] is Infinity\n", count);
       if (isnan(x))

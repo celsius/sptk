@@ -73,7 +73,7 @@
 *               SNR,  SNRseg                                            *      
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.16 2007/09/30 18:37:51 heigazen Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.17 2007/10/08 16:45:18 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -81,8 +81,12 @@ static char *rcs_id = "$Id: snr.c,v 1.16 2007/09/30 18:37:51 heigazen Exp $";
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define LENG  256
@@ -205,14 +209,14 @@ int main (int argc, char **argv)
       if (f1w==0)
          xn = freadf(x, sizeof(*x), l, fp1);
       else {
-         xn = fread(xs, sizeof(*xs), l, fp1);
+         xn = freadx(xs, sizeof(*xs), l, fp1);
          for (i=0; i<xn; i++)
             x[i] = (double) xs[i];
       }
       if (f2w==0)
          yn = freadf(y, sizeof(*y), l, fp2);
       else {
-         yn = fread(ys, sizeof(*ys), l, fp2);
+         yn = freadx(ys, sizeof(*ys), l, fp2);
          for (i=0; i<yn; i++)
             y[i] = (double) ys[i];
       }

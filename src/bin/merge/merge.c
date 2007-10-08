@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: merge.c,v 1.15 2007/09/30 16:20:24 heigazen Exp $";
+static char *rcs_id = "$Id: merge.c,v 1.16 2007/10/08 16:45:19 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -83,8 +83,12 @@ static char *rcs_id = "$Id: merge.c,v 1.15 2007/09/30 16:20:24 heigazen Exp $";
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define START 0
@@ -212,26 +216,26 @@ int main (int argc, char **argv)
 
    for (; ;) {
       for (j=start,i=leng1; j-- && i--;) {
-         if (fread(&x, size, 1, fp1)!=1)
+         if (freadx(&x, size, 1, fp1)!=1)
             break;
-         fwrite(&x, size, 1, stdout);
+         fwritex(&x, size, 1, stdout);
       }
       for (j=leng2; j--;)
          if (write) {
-            if (fread(&x, size, 1, fp1)!=1)
+            if (freadx(&x, size, 1, fp1)!=1)
                break;
             i--;
          }
-      if (fread(y, size, leng2, fp2)!=leng2)
+      if (freadx(y, size, leng2, fp2)!=leng2)
          if (!flag)
             break;
 
-      fwrite(y, size, leng2, stdout);
+      fwritex(y, size, leng2, stdout);
       flag = 0;
       for (; i-->0;) {
-         if (fread(&x, size, 1, fp1)!=1)
+         if (freadx(&x, size, 1, fp1)!=1)
             break;
-         fwrite(&x, size, 1, stdout);
+         fwritex(&x, size, 1, stdout);
       }
    }
    

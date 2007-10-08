@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dmp.c,v 1.15 2007/09/30 16:20:33 heigazen Exp $";
+static char *rcs_id = "$Id: dmp.c,v 1.16 2007/10/08 16:45:18 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -74,8 +74,12 @@ static char *rcs_id = "$Id: dmp.c,v 1.15 2007/09/30 16:20:33 heigazen Exp $";
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <SPTK.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Default Values  */
 #define SIZE 128
@@ -201,7 +205,7 @@ int main (int argc, char **argv)
    for (i=0; ; i++) {
       if ((n>=0) && (i>=n+lflag))
          i = 0;
-      if (fread(&x.f, size, 1, fp)!=1)
+      if (freadx(&x.f, size, 1, fp)!=1)
          break;
       if (eflag)
          printf("%d\t0\n", i+lflag);

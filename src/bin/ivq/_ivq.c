@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _ivq.c,v 1.8 2007/09/12 08:37:20 heigazen Exp $
+    $Id: _ivq.c,v 1.9 2007/10/08 16:45:18 heigazen Exp $
 
     Decoder of Vector Quantization
 
@@ -63,7 +63,12 @@
 *****************************************************************/
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
 #include <SPTK.h>
+#endif
 
 void ivq (const int index, double *cb, const int l, double *x)
 {
