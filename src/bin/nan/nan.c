@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nan.c,v 1.20 2007/10/08 16:45:18 heigazen Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.21 2007/10/09 06:29:49 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -145,10 +145,17 @@ void nan_tmp (FILE *fp)
 #endif /* DOUBLE */
 
    while (freadx(&x, sizeof(x), 1, fp)) {
+#ifdef WIN32
+      if (!_finite(x))
+         fprintf(stdout, "[No. %ld] is Infinity\n", count);
+      if (_isnan(x))
+         fprintf(stdout, "[No. %ld] is NaN\n", count);
+#else
       if (isinf(x))
          fprintf(stdout, "[No. %ld] is Infinity\n", count);
       if (isnan(x))
          fprintf(stdout, "[No. %ld] is NaN\n", count);
+#endif
       ++count;
    }
    
