@@ -77,7 +77,7 @@
 *                                                                                       *
 ****************************************************************************************/
 
-static char *rcs_id = "$Id: mlpg.c,v 1.19 2007/10/08 16:49:32 heigazen Exp $";
+static char *rcs_id = "$Id: mlpg.c,v 1.20 2007/10/09 02:50:40 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -103,7 +103,7 @@ char  *cmnd;
 
 
 /*  Other Definitions  */
-#ifdef DOULBE
+#ifdef DOUBLE
 typedef double real;
 #else
 typedef float real;
