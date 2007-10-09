@@ -125,4 +125,4 @@ void rect(int x,int y,int w,int h,int fill );
 void tangle(int size,int fill );
 void arc(int x,int y,int r,int ang1,int ang2,int fill );
 void symbol(char *code,int size,int xoffset,int yoffset );
-void clip(int x0,int y0,int x1,int y1 );
+void clipping(int x0,int y0,int x1,int y1 );
