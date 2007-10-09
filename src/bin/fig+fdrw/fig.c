@@ -71,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fig.c,v 1.17 2007/10/08 16:49:30 heigazen Exp $";
+static char *rcs_id = "$Id: fig.c,v 1.18 2007/10/09 09:14:34 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -253,17 +253,18 @@ int main (int argc, char *argv[])
    join(joinno);
 
    if (file) {
-      if ((fp=fopen(file, "r")))
-         graph(fp);
+      fp = getfp(file, "rt");
+      graph(fp);
+      fclose(fp);
    }
    if (nfiles==0)
       graph(stdin);
    else {
-      for (n=0; n<nfiles; ++n)
-         if ((fp=fopen(infile[n], "r"))) {
-            graph(fp);
-            fclose(fp);
-         }
+      for (n=0; n<nfiles; ++n) {
+         fp = getfp(infile[n], "rt");
+         graph(fp);
+         fclose(fp);
+      }
    }
    plote();
    return(0);
