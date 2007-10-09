@@ -25,9 +25,9 @@ clean:
 	nmake /f Makefile.mak clean
 	cd ..
 	
-install:
-	@if not exist $(INSTALLDIR) mkdir $(INSTALLDIR)
-	mkdir $(INSTALLDIR)\bin
+install::
+	@if not exist "$(INSTALLDIR)" mkdir "$(INSTALLDIR)"
+	
 	cd bin
 	copy *.exe $(INSTALLDIR)
 	cd ..
