@@ -65,7 +65,9 @@
         int      itr2  : maximum number of iteration
         double   dd    : end condition
         double   e     : initial value for log-periodgram
-
+        double   f     : mimimum value of the determinant 
+                         of the normal matrix
+                         
         return   value :  0 -> completed by end condition
                           -1-> completed by maximum iteration
 
@@ -342,7 +344,7 @@ static void freqt2 (double *c1, const int m1, double *c2, const int m2, const in
 
 ***************************************************************/
 
-static void ifreqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
+static void ifreqt2 (double *c1, int m1, double *c2, int m2, int fftsz, double a, double t)
 {
    int i, j;
    double  w, b, *ww, *f,
@@ -468,7 +470,7 @@ static void ifreqt2(double *c1,int m1,double *c2,int m2,int fftsz,double a,doubl
 
 ***************************************************************/
 
-static void frqtr2 (double *c1,int m1,double *c2,int m2,int fftsz,double a,double t)
+static void frqtr2 (double *c1, int m1, double *c2, int m2, int fftsz, double a, double t)
 {
    int  i, j;
    double  w, b, *ww, *f, *tc2,
@@ -555,7 +557,7 @@ static void frqtr2 (double *c1,int m1,double *c2,int m2,int fftsz,double a,doubl
 
 
 int smcep (double *xw, const int flng, double *mc, const int m, const int fftsz, const double a, 
-           const double t, const int itr1, const int itr2, const double dd, const double e)
+           const double t, const int itr1, const int itr2, const double dd, const double e, const double f)
 {
    int i, j;
    int flag=0, f2, m2;
@@ -645,7 +647,7 @@ int smcep (double *xw, const int flng, double *mc, const int m, const int fftsz,
       for (i=2; i<=m;  i+=2) c[i] += c[0];
       c[0] += c[0];
 
-      if (theq(c, y, d, b, m+1, -1.0)) {
+      if (theq(c, y, d, b, m+1, f)) {
          fprintf(stderr,"smcep : Error in theq() at %dth iteration!\n", j);
          exit(1);
       }

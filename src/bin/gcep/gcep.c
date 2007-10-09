@@ -66,6 +66,8 @@
 *               -j j     :  maximum iteration                [30]       *
 *               -d d     :  end condition                    [0.001]    *
 *               -e e     :  small value added to periodgram  [0]        *
+*               -f f     :  mimimum value of the determinant            *
+*                           of the normal matrix             [0.000001] *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ..., x(L-1),                          *
@@ -102,6 +104,7 @@ static char *rcs_id = "$Id$";
 #define MAXITR 30
 #define END 0.001
 #define EPS 0.0
+#define MINDET 0.000001
 
 char *BOOL[] = {"FALSE", "TRUE"};
 
@@ -126,6 +129,8 @@ void usage (int status)
    fprintf(stderr, "       -j j  : maximum iteration                [%d]\n", MAXITR);
    fprintf(stderr, "       -d d  : end condition                    [%g]\n", END);
    fprintf(stderr, "       -e e  : small value added to periodgram  [%g]\n", EPS);
+   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n", MINDET);
+   fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       windowed sequence (%s)          [stdin]\n", FORMAT);
@@ -146,7 +151,7 @@ int main(int argc, char **argv)
 {
    int m=ORDER, flng=FLENG, itr1=MINITR, itr2=MAXITR, norm=NORM, flag=0;
    FILE *fp=stdin;
-   double *gc, *x, g=GAMMA, end=END, e=EPS;
+   double *gc, *x, g=GAMMA, end=END, e=EPS, f=MINDET;
     
    if ((cmnd = strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -188,6 +193,10 @@ int main(int argc, char **argv)
             e = atof(*++argv);
             --argc;
             break;
+         case 'f':
+            f = atof(*++argv);
+            --argc;
+            break;
          case 'h':
             usage(0);
          default:
@@ -202,7 +211,7 @@ int main(int argc, char **argv)
    gc = x + flng;
 
    while (freadf(x, sizeof(*x), flng, fp)==flng) {
-      flag = gcep(x, flng, gc, m, g, itr1, itr2, end, e);
+      flag = gcep(x, flng, gc, m, g, itr1, itr2, end, e, f);
       if(!norm)
          ignorm(gc, gc, m, g);
       fwritef(gc, sizeof(*gc), m+1, stdout);

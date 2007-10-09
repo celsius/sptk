@@ -66,7 +66,9 @@
          int      itr2  : maximum number of iteration
          double   dd    : end condition
          double   e     : initial value for log-periodgram
-
+         double   f     : mimimum value of the determinant 
+                          of the normal matrix
+                         
          return   value :  0 -> completed by end condition
                           -1-> completed by maximum iteration
 
@@ -83,7 +85,7 @@
 #endif
 
 int sp2mgc (double *xw, const int flng, double *b, const int m, const double a, const double g, const int n, 
-            const int itr1, const int itr2, const double dd, const double e, const int itype)
+            const int itr1, const int itr2, const double dd, const double e, const double f, const int itype)
 {
    int i, j, flag=0;
    static double *x=NULL, *d;
@@ -141,7 +143,7 @@ int sp2mgc (double *xw, const int flng, double *b, const int m, const double a, 
 
    /* initial value */
    fillz(b, sizeof(*b), m+1);
-   ep = newton(x, flng, b, m, a, -1.0, n, 0);
+   ep = newton(x, flng, b, m, a, -1.0, n, 0, f);
 
    if (g!=-1.0) {
       if (a!=0.0) {
@@ -165,7 +167,7 @@ int sp2mgc (double *xw, const int flng, double *b, const int m, const double a, 
    if (g!=-1.0) {
       for (j=1; j<=itr2; j++) {
          epo = ep;
-         ep = newton(x, flng, b, m, a, g, n, j);
+         ep = newton(x, flng, b, m, a, g, n, j, f);
 
          if (j >= itr1)
             if (fabs((epo - ep)/ep)<dd) {

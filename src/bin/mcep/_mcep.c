@@ -64,7 +64,9 @@
         int      itr2  : maximum number of iteration
         double   dd    : end condition
         double   e     : initial value for log-periodgram
-
+        double   f     : mimimum value of the determinant 
+                         of the normal matrix
+                         
         return   value :    0 -> completed by end condition
                             -1-> completed by maximum iteration
 
@@ -115,7 +117,8 @@ static void frqtr (double *c1, int m1, double *c2, int m2, const double a)
    return;
 }
 
-int mcep (double *xw, const int flng, double *mc, const int m, const double a, const int itr1, const int itr2, const double dd, const double e)
+int mcep (double *xw, const int flng, double *mc, const int m, const double a, const int itr1, const int itr2, 
+          const double dd, const double e, const double f)
 {
    int i, j;
    int flag=0, f2, m2;
@@ -204,7 +207,7 @@ int mcep (double *xw, const int flng, double *mc, const int m, const double a, c
       for (i=2; i<=m;  i+=2) c[i] += c[0];
       c[0] += c[0];
 
-      if (theq(c, y, d, b, m+1, -1.0)) {
+      if (theq(c, y, d, b, m+1, f)) {
          fprintf(stderr,"mcep : Error in theq() at %dth iteration !\n", j);
          exit(1);
       }

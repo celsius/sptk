@@ -57,7 +57,7 @@
 *               -a a     :  alapha                            [0.35]    *
 *               -g g     :  gamma                             [0]       *
 *               -m m     :  order of mel-generalized cepstrum [25]      *
-*               -l l     :  frame length                      [256]     *
+*               -l l     :  FFT length                        [256]     *
 *               -A A     :  Input format                      [0]       *
 *                             0 (20*log|H(z)|)                          *
 *                             1 (ln|H(z)|)                              *
@@ -75,6 +75,8 @@
 *               -d d     :  end condition                     [0.001]   *
 *               -p p     :  order of recursions               [l-1]     *
 *               -e e     :  small value added to periodgram   [0]       *
+*               -f f     :  mimimum value of the determinant            *
+*                           of the normal matrix             [0.000001] *
 *       infile:                                                         *
 *               data sequence                                           *
 *                       , X(0), X(1), ..., X(L-1),                      *
@@ -112,6 +114,7 @@ static char *rcs_id = "$Id$";
 #define MAXITR 30
 #define END    0.001
 #define EPS    0.0
+#define MINDET 0.000001
 
 /*  Command Name  */
 char *cmnd;
@@ -128,7 +131,7 @@ void usage (int status)
    fprintf(stderr, "       -a a  : alpha                             [%g]\n", ALPHA);
    fprintf(stderr, "       -g g  : gamma                             [%g]\n", GAMMA);
    fprintf(stderr, "       -m m  : order of mel-generalized cepstrum [%d]\n", ORDER);
-   fprintf(stderr, "       -l l  : frame length                      [%d]\n", FLENG);
+   fprintf(stderr, "       -l l  : FFT length                        [%d]\n", FLENG);
    fprintf(stderr, "       -i i  : input format                      [%d]\n", ITYPE);
    fprintf(stderr, "                 0 (20*log|H(z)|)\n");
    fprintf(stderr, "                 1 (ln|H(z)|)\n");
@@ -147,6 +150,8 @@ void usage (int status)
    fprintf(stderr, "       -d d  : end condition                     [%g]\n", END);
    fprintf(stderr, "       -p p  : order of recursions               [l-1]\n");
    fprintf(stderr, "       -e e  : small value added to periodgram   [%g]\n", EPS);
+   fprintf(stderr, "       -f f  : mimimum value of the determinant  [%g]\n", MINDET);
+   fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       spectrum sequence (%s)                 [stdin]\n", FORMAT);
@@ -168,7 +173,7 @@ int main (int argc, char **argv)
 {
    int m=ORDER, flng=FLENG, itr1=MINITR, itr2=MAXITR, n=-1, flag=0, otype=OTYPE, i, mode=0;
    FILE *fp=stdin;
-   double *b, *x, a=ALPHA, g=GAMMA, end=END, e=EPS;
+   double *b, *x, a=ALPHA, g=GAMMA, end=END, e=EPS, f=MINDET;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -218,6 +223,10 @@ int main (int argc, char **argv)
             e = atof(*++argv);
             --argc;
             break;
+         case 'f':
+            f = atof(*++argv);
+            --argc;
+            break;
          case 'i':
             mode = atoi(*++argv);
             --argc;
@@ -239,7 +248,7 @@ int main (int argc, char **argv)
    b = x + flng;
 
    while (freadf(x, sizeof(*x), flng/2 + 1, fp)==(flng/2 + 1)) {
-      flag = sp2mgc(x, flng, b, m, a, g, n, itr1, itr2, end, e, mode);
+      flag = sp2mgc(x, flng, b, m, a, g, n, itr1, itr2, end, e, f, mode);
 
       if (otype==0 || otype==1 || otype==2 || otype==4)
          ignorm(b, b, m, g);   /*  K, b'r  -->  br  */

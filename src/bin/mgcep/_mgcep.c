@@ -66,7 +66,9 @@
        int      itr2  : maximum number of iteration
        double   dd    : end condition
        double   e     : initial value for log-periodgram
-
+       double   f     : mimimum value of the determinant 
+                        of the normal matrix
+                         
        return value   : 0 -> completed by end condition
                         -1-> completed by maximum iteration
 
@@ -169,7 +171,8 @@ static void qtrans(double *q, int m, double a)
    return;
 }
 
-int mgcep (double *xw, int flng, double *b, const int m, const double a, const double g, const int n, const int itr1, const int itr2, const double dd, const double e)
+int mgcep (double *xw, int flng, double *b, const int m, const double a, const double g, const int n, const int itr1, const int itr2, 
+           const double dd, const double e, const double f)
 {
    int i, j, flag=0;
    static double *x=NULL, *y, *d;
@@ -204,7 +207,7 @@ int mgcep (double *xw, int flng, double *b, const int m, const double a, const d
 
    /* initial value */
    fillz(b, sizeof(*b), m+1);
-   ep = newton(x, flng, b, m, a, -1.0, n, 0);
+   ep = newton(x, flng, b, m, a, -1.0, n, 0, f);
 
    if (g!=-1.0) {
       if (a!=0.0) {
@@ -228,7 +231,7 @@ int mgcep (double *xw, int flng, double *b, const int m, const double a, const d
    if (g!=-1.0) {
       for (j=1; j<=itr2; j++) {
          epo = ep;
-         ep = newton(x, flng, b, m, a, g, n, j);
+         ep = newton(x, flng, b, m, a, g, n, j, f);
 
          if (j >= itr1)
             if (fabs((epo - ep)/ep)<dd) {
@@ -242,7 +245,8 @@ int mgcep (double *xw, int flng, double *b, const int m, const double a, const d
    else return(-1);
 }
 
-double newton (double *x, const int flng, double *c, const int m, const double a, const double g, const int n, const int j)
+double newton (double *x, const int flng, double *c, const int m, const double a, const double g, 
+               const int n, const int j, const double f)
 {
    int i, m2;
    double t=0, s, tr, ti, trr, tii;
@@ -343,7 +347,7 @@ double newton (double *x, const int flng, double *c, const int m, const double a
       for (i=2; i<=m2; i++)
          qr[i] *= 1.0 + g;
 
-   if (theq(pr, &qr[2], &b[1], &rr[1], m, -1.)) {
+   if (theq(pr, &qr[2], &b[1], &rr[1], m, f)) {
       fprintf(stderr, "mgcep : Error in theq() at %dth iteration!\n",j);
       exit(1);
    }

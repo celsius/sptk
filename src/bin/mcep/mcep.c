@@ -65,6 +65,8 @@
 *               -j j     :  maximum iteration               [30]        *
 *               -d d     :  end condition                   [0.001]     *
 *               -e e     :  small value added to periodgram [0]         *
+*               -f f     :  mimimum value of the determinant            *
+*                           of the normal matrix            [0.000001]  *
 *       infile:                                                         *
 *               data sequence                                           *
 *                       , x(0), x(1), ..., x(L-1),                      *
@@ -98,6 +100,7 @@ static char *rcs_id = "$Id$";
 #define MAXITR 30
 #define END 0.001
 #define EPS 0.0
+#define MINDET 0.000001
 
 /*  Command Name  */
 char *cmnd;
@@ -111,15 +114,17 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -a a  : all-pass constant               [%g]\n", ALPHA);
-   fprintf(stderr, "       -m m  : order of mel cepstrum           [%d]\n", ORDER);
-   fprintf(stderr, "       -l l  : frame length                    [%d]\n", FLENG);
+   fprintf(stderr, "       -a a  : all-pass constant                [%g]\n", ALPHA);
+   fprintf(stderr, "       -m m  : order of mel cepstrum            [%d]\n", ORDER);
+   fprintf(stderr, "       -l l  : frame length                     [%d]\n", FLENG);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "     (level 2)\n");
-   fprintf(stderr, "       -i i  : minimum iteration               [%d]\n", MINITR);
-   fprintf(stderr, "       -j j  : maximum iteration               [%d]\n", MAXITR);
-   fprintf(stderr, "       -d d  : end condition                   [%g]\n", END);
-   fprintf(stderr, "       -e e  : small value added to periodgram [%g]\n",EPS);
+   fprintf(stderr, "       -i i  : minimum iteration                [%d]\n", MINITR);
+   fprintf(stderr, "       -j j  : maximum iteration                [%d]\n", MAXITR);
+   fprintf(stderr, "       -d d  : end condition                    [%g]\n", END);
+   fprintf(stderr, "       -e e  : small value added to periodgram  [%g]\n", EPS);
+   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n", MINDET);
+   fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       windowed sequences (%s)              [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
@@ -138,7 +143,7 @@ int main (int argc, char **argv)
 {
    int m=ORDER, flng=FLENG, itr1=MINITR, itr2=MAXITR, flag=0;
    FILE *fp=stdin;
-   double *mc, *x, a=ALPHA, end=END, e=EPS;
+   double *mc, *x, a=ALPHA, end=END, e=EPS, f=MINDET;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -175,6 +180,10 @@ int main (int argc, char **argv)
             e = atof(*++argv);
             --argc;
             break;
+         case 'f':
+            f = atof(*++argv);
+            --argc;
+            break;
          case 'h':
             usage (0);
          default:
@@ -189,7 +198,7 @@ int main (int argc, char **argv)
    mc = x + flng;
 
    while (freadf(x, sizeof(*x), flng, fp)==flng) {
-      flag = mcep(x, flng, mc, m, a, itr1, itr2, end, e);
+      flag = mcep(x, flng, mc, m, a, itr1, itr2, end, e, f);
       fwritef(mc, sizeof(*mc), m+1, stdout);
    }
    

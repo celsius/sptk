@@ -51,7 +51,7 @@
 \begin{synopsis}
 \item[mgcep]   [ --a $A$ ] [ --g $G$ ] [ --m $M$ ] [ --l $L$ ] 
 	       [ --o $O$ ]
-\item[\ ~~~~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --p $P$ ] [ -- e $E$ ] 
+\item[\ ~~~~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --p $P$ ] [ -- e $E$ ] [ --f $F$ ] 
 		 [ {\em infile} ]
 \end{synopsis}
 
@@ -166,6 +166,7 @@ and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
 	\argm{d}{D}{end condition of Newton-Raphson method}{0.001}
 	\argm{p}{P}{order of recursions}{$L-1$}
 	\argm{e}{E}{small value added to periodgram}{0}	
+	\argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
  
 \begin{qsection}{EXAMPLE}

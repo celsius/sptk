@@ -48,7 +48,7 @@
 \name{lpc}{LPC analysis using Levinson-Durbin method}{signal processing}
 
 \begin{synopsis}
-\item [lpc] [ --l $L$ ] [ --m $M$ ] [ {\em infile} ] 
+\item [lpc] [ --l $L$ ] [ --m $M$ ] [ --f $F$ ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -74,6 +74,7 @@ Input and output data are in float format.
 \begin{options}
 	\argm{l}{L}{frame length}{256}
 	\argm{m}{M}{order of LPC}{25}
+	\argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

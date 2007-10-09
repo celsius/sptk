@@ -59,7 +59,9 @@
        int     flng : flame length
        double  *a   : LP coefficients
        int     m    : order of LPC
-
+       double  f    : mimimum value of the determinant 
+                      of the normal matrix
+                         
        return value :  0  -> normally completed
                        -1 -> abnormally completed
                        -2 -> unstable LPC
@@ -75,7 +77,7 @@
 #include <SPTK.h>
 #endif
 
-int lpc (double *x, const int flng, double *a, const int m)
+int lpc (double *x, const int flng, double *a, const int m, const double f)
 {
    int flag;
    static double *r=NULL;
@@ -92,7 +94,7 @@ int lpc (double *x, const int flng, double *a, const int m)
    }
 
    acorr(x, flng, r, m);
-   flag = levdur(r, a, m, -1);
+   flag = levdur(r, a, m, f);
 
    return(flag);
 }

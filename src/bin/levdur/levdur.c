@@ -58,7 +58,9 @@
 *       usage:                                                          *
 *               levdur [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
-*               -m m  :  order of correlation [25]                      *
+*               -m m  :  order of correlation              [25]         *
+*               -f f  :  mimimum value of the determinant               *
+*                        of the normal matrix              [0.000001]   *
 *       infile:                                                         *
 *               autocorrelation                                         *
 *                        , r(0), r(1), ..., r(m),                       *
@@ -86,6 +88,7 @@ static char *rcs_id = "$Id$";
 
 /*  Default Values  */
 #define ORDER  25
+#define MINDET 0.000001
 
 /*  Command Name  */
 char *cmnd;
@@ -100,10 +103,12 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of correlation [%d]\n", ORDER);
+   fprintf(stderr, "       -m m  : order of correlation             [%d]\n", ORDER);
+   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n", MINDET);
+   fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       autocorrelation (%s)      [stdin]\n", FORMAT);
+   fprintf(stderr, "       autocorrelation (%s)                  [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       LP coefficients (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
@@ -120,7 +125,7 @@ int main (int argc, char **argv)
 {
    int  m=ORDER, flag;
    FILE *fp=stdin;
-   double *r, *a;
+   double *r, *a, f=MINDET;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -131,6 +136,10 @@ int main (int argc, char **argv)
          switch (*(*argv+1)) {
          case 'm':
             m = atoi(*++argv);
+            --argc;
+            break;
+         case 'f':
+            f = atof(*++argv);
             --argc;
             break;
          case 'h':
@@ -147,7 +156,7 @@ int main (int argc, char **argv)
    r = a + m + 1;
 
    while (freadf(r, sizeof(*r), m+1, fp)==m+1) {
-      flag = levdur(r, a, m, -1.0);
+      flag = levdur(r, a, m, f);
       fwritef(a, sizeof(*a), m+1, stdout);
    }
    

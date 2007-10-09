@@ -56,8 +56,10 @@
 *       usage:                                                          *
 *               lpc [ options ] [ infile ] > stdout                     *
 *       options:                                                        *
-*               -l l     :  frame length                [256]           *
-*               -m m     :  order of LPC                [25]            *
+*               -l l  :  frame length                      [256]        *
+*               -m m  :  order of LPC                      [25]         *
+*               -f f  :  mimimum value of the determinant               *
+*                        of the normal matrix              [0.000001]   *
 *       infile:                                                         *
 *               data sequence                                           *
 *                       , x(0), x(1), ..., x(l-1),                      *
@@ -86,6 +88,7 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define ORDER 25
 #define FLNG 256
+#define MINDET 0.000001
 
 /*  Command Name  */
 char *cmnd;
@@ -99,11 +102,13 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l  : frame length       [%d]\n", FLNG);
-   fprintf(stderr, "       -m m  : order of LPC       [%d]\n", ORDER);
+   fprintf(stderr, "       -l l  : frame length                     [%d]\n", FLNG);
+   fprintf(stderr, "       -m m  : order of LPC                     [%d]\n", ORDER);
+   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n", MINDET);
+   fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       windowed sequence (%s)  [stdin]\n", FORMAT);
+   fprintf(stderr, "       windowed sequence (%s)                [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       LP coefficients (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
@@ -117,9 +122,9 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int m=ORDER, l=FLNG, flag;
+   int m=ORDER, l=FLNG, flag, t=0;
    FILE *fp=stdin;
-   double *x, *a;
+   double *x, *a, f=MINDET;
 
    if ((cmnd = strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -136,6 +141,10 @@ int main (int argc, char **argv)
             l = atoi(*++argv);
             --argc;
             break;
+         case 'f':
+            f = atof(*++argv);
+            --argc;
+            break;
          case 'h':
             usage (0);
          default:
@@ -150,18 +159,19 @@ int main (int argc, char **argv)
    a = x + l;
 
    while (freadf(x, sizeof(*x), l, fp)==l) {
-      flag = lpc(x, l, a, m);
+      flag = lpc(x, l, a, m, f);
       switch(flag) {
       case -1:
-         fprintf(stderr, "%s : The coefficient matrix of the normal equation is singular!\n", cmnd);
+         fprintf(stderr, "%s : The coefficient matrix of the normal equation is singular at %dth frame!\n", cmnd, t);
          exit(1);
          break;
       case -2:
-         fprintf(stderr, "%s : Extracted LPC coefficients become unstable!\n", cmnd);
+         fprintf(stderr, "%s : Extracted LPC coefficients become unstable at %dth frame!\n", cmnd, t);
          break;
       }
       
       fwritef(a, sizeof(*a), m+1, stdout);
+      t++;
    }
 
    return(0);

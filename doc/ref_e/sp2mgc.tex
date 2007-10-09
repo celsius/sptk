@@ -51,8 +51,7 @@
 \begin{synopsis}
 \item[sp2mgc]   [ --a $A$ ] [ --g $G$ ] [ --m $M$ ] [ --l $L$ ] 
 	       [ --i $I$ ] [ --o $O$ ]
-\item[\ ~~~~~~~] [ --j $J$ ] [ --k $K$ ] [ --d $D$ ] [ --p $P$ ] [ -- e $E$ ] 
-		 [ {\em infile} ]
+\item[\ ~~~~~~~] [ --j $J$ ] [ --k $K$ ] [ --d $D$ ] [ --p $P$ ] [ --e $E$ ] [ --f $F$ ] [ --f $F$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -77,7 +76,7 @@ controlled by the --i and --o options, respectively.
 				$I=1$ & $\ln |H(z)|$ \\
 				$I=2$ & $|H(z)|$ \\
 				$I=3$ & $|H(z)|^2$ \\[1ex]
-        	        \end{tabular} \\
+        	\end{tabular} \\
 			}{0}
 	\argm{o}{O}{output data style\\
 			\begin{tabular}{ll} \\[-1ex]
@@ -95,6 +94,7 @@ controlled by the --i and --o options, respectively.
 	\argm{d}{D}{end condition of Newton-Raphson method}{0.001}
 	\argm{p}{P}{order of recursions}{$L-1$}
 	\argm{e}{E}{small value added to periodgram}{0}	
+	\argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
