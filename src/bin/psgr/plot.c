@@ -58,8 +58,8 @@
 #include "psgr.h"
 
 #define BUFSIZE 2048
-#define MADJ    0.275
-#define PU_PT   (72.0/254.0)
+#define MADJ 0.275
+#define PU_PT (72.0/254.0)
 
 #define norm(x)  (int)(x)
 #define moveto(x, y) printf("%d %d MT\n", (x), (y))
@@ -95,9 +95,9 @@ static char *fillpattern[] = {
 
 static char *symbol_up="ABGDEZHQIKLMNXOPRSTUFCYW";
 static char *symbol_lw="abgdezhqiklmnxoprstufcyw";
-#define  INFTY 165
-#define  SPACE 32
-static char  *font[] = { "FnS", "FnC", "FnCO", "FnCB", "FnCBO" };
+#define INFTY 165
+#define SPACE 32
+static char *font[] = { "FnS", "FnC", "FnCO", "FnCB", "FnCBO" };
 static float fnmag[] = {  1.375,  1.50,   1.50,   1.50,   1.50  };
 
 Cord pb;

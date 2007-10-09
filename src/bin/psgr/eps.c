@@ -72,20 +72,7 @@
 
 float loffset;
 
-void epsf_setup (FILE *fp, float shrink, int xoffset, int yoffset, struct bbmargin bbm, int ncopy )
-{
-   int xmin, ymin, xmax, ymax;
-
-   if (!psmode)
-      bbox(fp, &xmin, &ymin, &xmax, &ymax,
-           shrink, xoffset, yoffset, bbm);
-   epsf_init(&xmin, &ymin, &xmax, &ymax, ncopy);
-   epsf_scale(shrink, xoffset, yoffset);
-
-   return;
-}
-
-void epsf_init (int *xmin, int *ymin, int *xmax, int *ymax, int ncopy )
+static void epsf_init (int *xmin, int *ymin, int *xmax, int *ymax, int ncopy)
 {
    char *user_name;
    char creation_date[64];
@@ -135,7 +122,7 @@ void epsf_init (int *xmin, int *ymin, int *xmax, int *ymax, int ncopy )
    return;
 }
 
-void epsf_scale (float shrink, int xoffset, int yoffset )
+static void epsf_scale (float shrink, int xoffset, int yoffset )
 {
    float unit_length;
 
@@ -159,20 +146,35 @@ void epsf_scale (float shrink, int xoffset, int yoffset )
    return;
 }
 
-void epsf_end (void)
+static int getd (FILE *fp, int *x, int *y)
 {
-   if (clip_mode)
-      printf("GR\n");
-   printf("%%Trailer\n");
-   if ( psmode )
-      printf("%%%%Pages: 1\n");
-   printf("showpage\n");
-   printf("%%%%EOF\n");
+   static int c;
 
-   return;
+   while ((c=getc(fp))=='\n' || c==' ')
+      ;
+
+   if (isdigit(c))  {
+      ungetc(c, fp);
+      fscanf(fp, "%d %d", x, y);
+      return(1);
+   }
+   else
+      return(0);
 }
 
-void bbox (FILE *fp, int *xmin, int *ymin, int *xmax, int *ymax, float shrink, int xoffset, int yoffset, struct bbmargin bbm )
+static int getstrlength (FILE *fp)
+{
+   int n;
+   int  c;
+
+   n = 0;
+   while (isprint(c=getc(fp)) || (c&0xff)>0)
+      n++;
+
+   return (n);
+}
+
+static void bbox (FILE *fp, int *xmin, int *ymin, int *xmax, int *ymax, float shrink, int xoffset, int yoffset, struct bbmargin bbm )
 {
    char c;
    int n, x, y;
@@ -293,30 +295,30 @@ void bbox (FILE *fp, int *xmin, int *ymin, int *xmax, int *ymax, float shrink, i
    return;
 }
 
-int getd (FILE *fp, int *x, int *y)
+/* epsf_setup: setup epsf */
+void epsf_setup (FILE *fp, float shrink, int xoffset, int yoffset, struct bbmargin bbm, int ncopy )
 {
-   static int c;
+   int xmin, ymin, xmax, ymax;
 
-   while ((c=getc(fp))=='\n' || c==' ')
-      ;
+   if (!psmode)
+      bbox(fp, &xmin, &ymin, &xmax, &ymax,
+           shrink, xoffset, yoffset, bbm);
+   epsf_init(&xmin, &ymin, &xmax, &ymax, ncopy);
+   epsf_scale(shrink, xoffset, yoffset);
 
-   if (isdigit(c))  {
-      ungetc(c, fp);
-      fscanf(fp, "%d %d", x, y);
-      return(1);
-   }
-   else
-      return(0);
+   return;
 }
 
-int getstrlength (FILE *fp)
+/* epsf_end: terminate epsf */
+void epsf_end (void)
 {
-   int n;
-   int  c;
+   if (clip_mode)
+      printf("GR\n");
+   printf("%%Trailer\n");
+   if ( psmode )
+      printf("%%%%Pages: 1\n");
+   printf("showpage\n");
+   printf("%%%%EOF\n");
 
-   n = 0;
-   while (isprint(c=getc(fp)) || (c&0xff)>0)
-      n++;
-
-   return (n);
+   return;
 }
