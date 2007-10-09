@@ -145,10 +145,17 @@ void nan_tmp (FILE *fp)
 #endif /* DOUBLE */
 
    while (freadx(&x, sizeof(x), 1, fp)) {
+#ifdef WIN32
+      if (!_finite(x))
+         fprintf(stdout, "[No. %ld] is Infinity\n", count);
+      if (_isnan(x))
+         fprintf(stdout, "[No. %ld] is NaN\n", count);
+#else
       if (isinf(x))
          fprintf(stdout, "[No. %ld] is Infinity\n", count);
       if (isnan(x))
          fprintf(stdout, "[No. %ld] is NaN\n", count);
+#endif
       ++count;
    }
    
