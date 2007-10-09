@@ -123,6 +123,15 @@ static int _getcord (FILE *fp, struct cord *buf)
       return(0);
 }
 
+void polylines (int *x,int *y, int n)
+{
+   moveto(*x++, *y++);
+   while (--n>0)
+      lineto(*x++, *y++);
+
+   printf("ST\n");
+}
+
 static void _flush (void)
 {
    if (sp>1)  {
@@ -143,15 +152,6 @@ static void _send (struct cord *buf)
    yb[sp++] = norm(buf->y);
    
    return;
-}
-
-void polylines (int *x,int *y, int n)
-{
-   moveto(*x++, *y++);
-   while (--n>0)
-      lineto(*x++, *y++);
-
-   printf("ST\n");
 }
 
 static void rectangle (int x0, int y0, int x1, int y1, int frame, int fill)
