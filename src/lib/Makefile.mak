@@ -1,8 +1,7 @@
 # Makefile for VC++ 2005 nmake tool
 #
-# Jong-Jin Kim <kimjj@etri.re.kr>
-# 2007.10.8
-#
+#            2007.10  Jong-Jin Kim
+# 
 
 .c.obj:
 	$(CC) /nologo /Fo$(@D)\  $(CFLAGS) /c $<
