@@ -150,9 +150,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fpcb==NULL)
-         fpcb = getfp(*argv, "r");
+         fpcb = getfp(*argv, "rb");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    fseek(fpcb,0,2);
 #ifdef DOUBLE

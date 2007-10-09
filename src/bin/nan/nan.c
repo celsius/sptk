@@ -127,7 +127,7 @@ int main (int argc,char *argv[])
       else
          infile = s;
    }
-   if (infile) fp = getfp(infile, "r");
+   if (infile) fp = getfp(infile, "rb");
    else  fp = stdin;
 
    nan_tmp(fp);

@@ -173,7 +173,7 @@ int main (int argc,char *argv[])
          infile = s;
    }
    if (infile) {
-      fp = getfp(infile, "r");
+      fp = getfp(infile, "rb");
    }
    else
       fp = stdin;

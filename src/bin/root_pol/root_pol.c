@@ -177,14 +177,10 @@ int main (int argc,char *argv[])
             usage ();
          }
       }
-      else {
-         if ((fp=fopen(*argv, "r"))==NULL) {
-            fprintf(stderr,"%s : Cannot open file %s!\n", cmnd, *argv);
-            return(0);
-         }
-      }
+      else
+         fp = getfp(*argv, "rb");
    }
-
+         
    a = dgetmem(odr+1);
    odr = freadf(a,sizeof(*a),odr,fp)-1;
 

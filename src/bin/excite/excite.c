@@ -163,7 +163,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (gauss & (seed!=1)) next = srnd((unsigned int)seed);
 

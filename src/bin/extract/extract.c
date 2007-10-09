@@ -152,9 +152,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fpi == NULL)
-         fpi = getfp(*argv, "r");
+         fpi = getfp(*argv, "rb");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    x = dgetmem(l);
 

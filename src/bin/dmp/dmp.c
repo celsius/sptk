@@ -200,7 +200,7 @@ int main (int argc, char **argv)
          ff = 1;
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    for (i=0; ; i++) {
       if ((n>=0) && (i>=n+lflag))

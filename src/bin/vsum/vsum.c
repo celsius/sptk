@@ -136,7 +136,7 @@ int main (int argc,char *argv[])
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    s = dgetmem(leng + leng);
    x = s + leng;

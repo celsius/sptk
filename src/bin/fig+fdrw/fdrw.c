@@ -246,7 +246,7 @@ int main (int argc, char *argv[])
          }
       }
       else
-         fp = getfp(*argv,"r");
+         fp = getfp(*argv,"rb");
    }
    plots(0x81);
    mode(lmod[ltype], (lpt==0) ? lpit[ltype] : lpt);

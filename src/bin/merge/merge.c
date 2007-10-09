@@ -208,9 +208,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fp2==NULL)
-         fp2 = getfp(*argv, "r");
+         fp2 = getfp(*argv, "rb");
       else
-         fp1 = getfp(*argv, "r");
+         fp1 = getfp(*argv, "rb");
 
    y = (char *)dgetmem(leng2 * size);
 

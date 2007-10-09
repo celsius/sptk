@@ -207,7 +207,7 @@ int main (int argc, char **argv)
          }
       }
       else 
-         fpe = getfp(*argv, "w");
+         fpe = getfp(*argv, "wb");
 
    if ((pd<4) || (pd>5)) {
       fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);

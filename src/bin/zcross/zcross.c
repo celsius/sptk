@@ -150,7 +150,7 @@ int main (int argc,char **argv)
          infile = s;
    }
    if (infile)
-      fp = getfp(infile,"r");
+      fp = getfp(infile,"rb");
 
    x = dgetmem(flng);
    while (freadf(x, sizeof(*x), flng, fp)==flng) {

@@ -184,7 +184,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    no = leng / 2 + 1;
 
@@ -203,9 +203,9 @@ int main (int argc, char **argv)
    }
 
    if (*filema!='\0')
-      fpma = getfp(filema, "r");
+      fpma = getfp(filema, "rb");
    if (*filear!='\0')
-      fpar = getfp(filear, "r");
+      fpar = getfp(filear, "rb");
 
    for (;;) {
       if ((fpma==NULL) && (fpar!=NULL))

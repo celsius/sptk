@@ -297,8 +297,10 @@ int main (int argc, char **argv)
       }
       else if (**argv=='%')
          form = *argv;
+      else if (c1=='a')
+         fp = getfp(*argv, "rt");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (round)
       r = 0.5;

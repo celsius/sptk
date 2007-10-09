@@ -194,7 +194,7 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'f':
-            fpcb = getfp(*++argv, "r");
+            fpcb = getfp(*++argv, "rb");
             --argc;
             break;
          case 'h':
@@ -205,7 +205,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fpi = getfp(*argv, "w");
+         fpi = getfp(*argv, "wb");
 
    if (tnum==-1) {
       ispipe = fseek(fp,0L,2);

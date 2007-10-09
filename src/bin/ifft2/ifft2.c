@@ -170,7 +170,7 @@ int main (int argc,char *argv[])
    }
  
    if (infile) {
-      fp = getfp(infile, "r");
+      fp = getfp(infile, "rb");
       dft(fp);
       fclose(fp);
    } 

@@ -170,9 +170,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fpc==NULL)
-         fpc = getfp(*argv, "r");
+         fpc = getfp(*argv, "rb");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (fpc==NULL) {
       fprintf(stderr,"%s : Cannot open coefficients file!\n",cmnd);

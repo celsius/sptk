@@ -205,7 +205,7 @@ int main (int argc, char **argv)
          ff = 1;
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    fdump(fp);
 

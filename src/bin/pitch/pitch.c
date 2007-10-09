@@ -203,7 +203,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    low = freq * 1000 / H;
    high = freq * 1000 / L;

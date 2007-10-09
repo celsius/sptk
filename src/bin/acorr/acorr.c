@@ -147,7 +147,7 @@ int main (int argc, char **argv)
          infile = s;
    }
    if (infile)
-      fp = getfp(infile,"r");
+      fp = getfp(infile,"rb");
   
    x = dgetmem(l + np + 1);
    r = x + l;

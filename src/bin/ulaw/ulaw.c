@@ -159,7 +159,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (! decoder)
       while (freadf(&x, sizeof(x), 1, fp)==1) {

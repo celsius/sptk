@@ -179,7 +179,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv,"r");
+         fp = getfp(*argv,"rb");
 
    for (i=0,num=0; i<stage; i++)
       num += cbsize[i];
@@ -187,7 +187,7 @@ int main (int argc, char **argv)
    p = cb;
 
    for (i=0; i<stage; i++) {
-      fpcb = getfp(cbfile[i], "r");
+      fpcb = getfp(cbfile[i], "rb");
       if (freadf(p, sizeof(*p), cbsize[i]*l, fpcb)!=cbsize[i]*l) {
          fprintf(stderr,"%s : Codebook size error of %d stage!\n",cmnd, ss);
          return(1);

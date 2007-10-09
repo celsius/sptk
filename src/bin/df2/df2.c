@@ -158,7 +158,7 @@ int main (int argc, char *argv[])
          }
       }
       else
-         fpp = getfp(*argv, "r");
+         fpp = getfp(*argv, "rb");
 
    n = (fp>fz) ? fp : fz;
    for (i=0; i<n; i++) {

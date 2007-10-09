@@ -147,7 +147,7 @@ int main (int argc, char **argv)
          }
       }
       else 
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (start>leng) {
       fprintf(stderr, "%s : Start point %d should be %d or less!\n", cmnd, start, leng);

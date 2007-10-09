@@ -144,7 +144,7 @@ int main (int argc, char **argv)
          }
       }
       else 
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    for (i=0; i<start; i++)
       if (freadf(&x, sizeof(x), 1, fp)!=1) return(1);

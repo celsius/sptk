@@ -204,7 +204,7 @@ int main (int argc, char **argv)
       }
    }
    else
-      fpe = getfp(*argv, "w");
+      fpe = getfp(*argv, "wb");
 
    if (stage==0) {
       fprintf(stderr, "%s : gamma should not equal to 0!\n", cmnd);

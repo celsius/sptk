@@ -190,9 +190,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fp1==NULL)
-         fp1 = getfp(*argv, "r");
+         fp1 = getfp(*argv, "rb");
       else
-         fp2 = getfp(*argv, "r");
+         fp2 = getfp(*argv, "rb");
 
    x = dgetmem(l+l);
    y = x + l;

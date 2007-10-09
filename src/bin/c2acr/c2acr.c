@@ -153,7 +153,7 @@ int main (int argc, char **argv)
          }
       }
       else 
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    c = dgetmem(m+n+2);
    r = c + m + 1;

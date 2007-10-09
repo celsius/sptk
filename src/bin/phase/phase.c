@@ -182,10 +182,10 @@ int main (int argc, char *argv[])
    ph = &z[flng];
 
    if (*file_z!='\0')
-      fp_z = getfp(file_z, "r");
+      fp_z = getfp(file_z, "rb");
 
    if (*file_p!='\0')
-      fp_p = getfp(file_p, "r");
+      fp_p = getfp(file_p, "rb");
 
    if (*file_z=='\0' && *file_p=='\0')
       fp_z = stdin;

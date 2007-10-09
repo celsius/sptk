@@ -180,7 +180,7 @@ int main (int argc,char *argv[])
    
    nout = (nout) ? size / 2 + 1 : size;
    if (infile) {
-      fp = getfp(infile, "r");
+      fp = getfp(infile, "rb");
       dft(fp,size,nd,out,nout);
       fclose(fp);
    }

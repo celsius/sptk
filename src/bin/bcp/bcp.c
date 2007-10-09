@@ -251,8 +251,10 @@ int main (int argc, char **argv)
             usage(1);
          }
       }
+      else if (size==0)
+         fp = getfp(*argv, "rt");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (eno<0)
       eno = nitems;

@@ -195,7 +195,7 @@ int main (int argc, char **argv)
          }
       }
       else 
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    gc1 = dgetmem(m1+m2+2);
    gc2 = gc1 + m1 + 1;

@@ -166,7 +166,7 @@ int main (int argc, char *argv[])
          }
       } 
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
    }
  
    k = (int)((j - i) / st + 1.0);
