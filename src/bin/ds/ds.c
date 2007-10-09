@@ -183,7 +183,7 @@ int main (int argc,char *argv[])
          }
       }
       else
-         fp  = getfp(*argv,"r");
+         fp  = getfp(*argv, "rb");
 
    switch (type) {
    case 21:
@@ -338,10 +338,7 @@ void firinit (void)
 {
    FILE *fp;
 
-   if ((fp = fopen(coef, "r"))==NULL) {
-      fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, coef);
-      exit(1);
-   }
+   fp = getfp(coef, "rt");
    flengdn = freada(hdn, RBSIZE + 1, fp);
    fclose(fp);
    if (--flengdn<0) {
@@ -349,10 +346,7 @@ void firinit (void)
       exit(1);
    }
    if (type==52 || type==54) {
-      if ((fp = fopen(coef1, "r"))==NULL) {
-         fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, coef1);
-         exit(1);
-      }
+      fp = getfp(coef1, "rt");
       flengup = freada(hup, RBSIZE +1, fp);
       fclose(fp);
       if (--flengup<0) {
