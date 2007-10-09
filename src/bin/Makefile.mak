@@ -19,8 +19,7 @@ LIBS	=  /NOLOGO /SUBSYSTEM:CONSOLE /MACHINE:X86 $(SPTKLIB) $(SYSLIB)
        
 all: acep.exe acorr.exe agcep.exe amcep.exe \
 	average.exe b2mc.exe bcp.exe bcut.exe c2acr.exe \
-	c2ir.exe c2sp.exe cat2.exe cdist.exe clip.exe \
-#	da.exe \
+	c2ir.exe c2sp.exe cat2.exe cdist.exe clip.exe da.exe \
 	decimate.exe delay.exe df2.exe dfs.exe dmp.exe ds.exe echo2.exe \
 	excite.exe extract.exe fd.exe fft.exe fft2.exe fftcep.exe fftr.exe fftr2.exe \
 	frame.exe freqt.exe gc2gc.exe gcep.exe glsadf.exe gnorm.exe \
@@ -30,13 +29,10 @@ all: acep.exe acorr.exe agcep.exe amcep.exe \
 	lpc2par.exe lsp2lpc.exe lspcheck.exe lspdf.exe ltcdf.exe mc2b.exe mcep.exe \
 	merge.exe mgc2mgc.exe mgc2sp.exe mgcep.exe mglsadf.exe minmax.exe mlpg.exe \
 	mlsadf.exe msvq.exe nan.exe norm0.exe nrand.exe par2lpc.exe phase.exe pitch.exe \
-	poledf.exe \
-#	psgr.exe 
+	poledf.exe psgr.exe \
 	ramp.exe reverse.exe rmse.exe root_pol.exe sin.exe smcep.exe snr.exe \
 	sopr.exe sp2mgc.exe spec.exe step.exe swab.exe train.exe uels.exe ulaw.exe \
-	us.exe 
-	vopr.exe \
-	vq.exe vstat.exe vsum.exe window.exe x2x.exe \
+	us.exe vopr.exe vq.exe vstat.exe vsum.exe window.exe x2x.exe \
 #	xgr.exe 
 	zcross.exe zerodf.exe 
 	
@@ -97,9 +93,10 @@ clip.exe : clip\clip.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
     $(CL) /OUT:$@ $(LIBS) $(@B).obj
 	
-# da.exe : da\dawrite.obj
-	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
-    $(CL) /OUT:$@ $(LIBS) $(@B).obj
+da.exe : da\dawrite.obj da\winplay.obj
+	$(CC) $(CFLAGS) /c da\dawrite.c
+	$(CC) $(CFLAGS) /c da\winplay.c
+    $(CL) /OUT:$@ $(LIBS) winmm.lib dawrite.obj winplay.obj
 	
 decimate.exe : decimate\decimate.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
@@ -456,4 +453,3 @@ zerodf.exe : zerodf\zerodf.obj
 clean:	
 	del *.exe
 	del *.obj
-		

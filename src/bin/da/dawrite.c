@@ -72,22 +72,22 @@
 *                                                                            *
 *****************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.19 2007/10/08 16:45:18 heigazen Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.20 2007/10/09 09:06:21 heigazen Exp $";
 
 
 /* Standard C Libraries */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifndef WIN32
 #include <unistd.h>
-
-#if defined(WIN32)
-#include "SPTK.h"
-#else
-#include <SPTK.h>
 #endif
-
+#include <SPTK.h>
 #include "da.h"
+
+#ifdef WIN32
+#include "winplay.h"
+#endif
 
 /* Default Value */
 #define SIZE     256*200
@@ -99,7 +99,7 @@ static char *rcs_id = "$Id: dawrite.c,v 1.19 2007/10/08 16:45:18 heigazen Exp $"
 #define HEADERSIZE  0
 #define VERBOSE     FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL_STR[] = {"FALSE", "TRUE"};
 
 /* Command Name */
 char *cmnd;
@@ -119,7 +119,7 @@ void usage(int status)
    fprintf(stderr, "                  s (speaker)    h (headphone)\n");
 #endif /* SPARC */
    fprintf(stderr, "       -H H  : header size in byte                         [%d]\n",HEADERSIZE);
-   fprintf(stderr, "       -v    : display filename                            [%s]\n",BOOL[VERBOSE]);
+   fprintf(stderr, "       -v    : display filename                            [%s]\n",BOOL_STR[VERBOSE]);
    fprintf(stderr, "       -w    : byteswap                                    [FALSE]\n");
    fprintf(stderr, "       +x    : data format                                 [s]\n");
    fprintf(stderr, "                  s (short)  f (float)   d (double)\n");
@@ -142,7 +142,7 @@ static short *y=NULL, *xs;
 static int gain=GAIN, is_verbose=VERBOSE;
 static int hdr_size=HEADERSIZE;
 static size_t data_size=sizeof(short);
-static int freq=DEFAULT_FREQ;
+static int freq=DEFAULT_FREQ*1000;
 static float *xf;
 static double *x, fgain=1.0;
 double ampgain=-1.0;
@@ -271,9 +271,9 @@ int main (int argc, char *argv[])
 
    if (nfiles) {
       for (i=0; i<nfiles; i++) {
-         if ((fp = fopen(infile[i], "r"))==NULL) {
+         if ((fp = fopen(infile[i], "rb"))==NULL) {
             fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, infile[i]);
-         } 
+         }
          else {
             if (is_verbose) {
                fprintf(stderr, "%s : %s\n", cmnd, infile[i]);
@@ -285,8 +285,10 @@ int main (int argc, char *argv[])
    }
    else direct(stdin);
 
+#ifndef WIN32
    fclose(adfp);
    close(ACFD);
+#endif
 
    reset_audiodev();
    
@@ -316,7 +318,6 @@ void direct (FILE *fp)
       sndout(nread);
    }
 }
-
 
 void sndinit (void)
 {
@@ -362,6 +363,7 @@ void sndinit (void)
    }
    init_audiodev(dtype);
 
+
    if (ampgain>=0.0) {
       if(ampgain>100.0) ampgain = 100.0;
          change_play_gain(ampgain);
@@ -379,16 +381,22 @@ void sndinit (void)
 
 void sndout (int leng)
 {
+#ifdef WIN32
+   win32_audio_play(y, leng);
+#else
    fwritex(y, sizeof(short), leng, adfp);
    write(ADFD, y, 0);
+#endif
 }
+
+
 
 void init_audiodev (int dtype)
 {
 #if defined(LINUX) || defined(FreeBSD)
    int arg;
-
-   if ((adfp = fopen( AUDIO_DEV, "w")) == NULL) {
+   
+   if ((adfp = fopen(AUDIO_DEV, "wb")) == NULL) {
       fprintf( stderr, "%s : Cannot open audio device\n", cmnd);
       exit(1);
    }
@@ -419,7 +427,7 @@ void init_audiodev (int dtype)
    audio_info_t data;
 
    ACFD = open(AUDIO_CTLDEV, O_RDWR, 0);
-   adfp = fopen(AUDIO_DEV, "w");
+   adfp = fopen(AUDIO_DEV, "wb");
    ADFD = adfp->_file;
 
    AUDIO_INITINFO(&data);
@@ -432,6 +440,13 @@ void init_audiodev (int dtype)
 
    ioctl(ADFD,AUDIO_SETINFO,&data);
 #endif /* SPARC */
+
+#ifdef WIN32
+   if (WIN32AUDIO_NO_ERROR != win32_audio_open (freq, 16)) {
+      fprintf(stderr, "Failed to open win32 audio device\n");
+      exit(1);
+   }
+#endif /* WIN32 */
 }
 
 void change_output_port (unsigned int port)
@@ -450,6 +465,10 @@ void change_output_port (unsigned int port)
  
    ioctl(ACFD, AUDIO_SETINFO, &data);
 #endif /* SPARC */
+
+#ifdef WIN32
+
+#endif /* WIN32 */
 }
 
 void change_play_gain (float volume)
@@ -474,11 +493,15 @@ void change_play_gain (float volume)
 
    ioctl(ACFD, AUDIO_SETINFO, &data);
 #endif /* SPARC */
+
+#ifdef WIN32
+   vol = (int) ((MAXAMPGAIN*volume)/100.0);
+   win32_audio_set_volume (vol);
+#endif /* WIN32 */   
 }
 
 void reset_audiodev (void)
 {
-
 #if defined(LINUX) || defined(FreeBSD)
    ACFD = open( MIXER_DEV, O_RDWR, 0);
    ADFD = open( AUDIO_DEV, O_RDWR, 0);
@@ -497,6 +520,10 @@ void reset_audiodev (void)
    ioctl(ACFD, AUDIO_SETINFO, &org_data);
    close(ACFD);
 #endif /* SPARC */
+
+#ifdef WIN32
+	win32_audio_close();
+#endif /* WINDOWS */
 }
 
 int byteswap_vec (void *vec, int size, int blocks)
@@ -517,3 +544,4 @@ int byteswap_vec (void *vec, int size, int blocks)
 
    return i;  /* number of blocks */
 }
+
