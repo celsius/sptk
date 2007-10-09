@@ -86,11 +86,11 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
 
 #if defined(WIN32)
 #include "SPTK.h"
 #else
+#include <strings.h>
 #include <SPTK.h>
 #endif
 
