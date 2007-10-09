@@ -103,7 +103,7 @@ char  *cmnd;
 
 
 /*  Other Definitions  */
-#ifdef DOULBE
+#ifdef DOUBLE
 typedef double real;
 #else
 typedef float real;
