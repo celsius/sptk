@@ -48,13 +48,13 @@
 \name{interpolate}{interpolation of data sequence}{signal processing}
 
 \begin{synopsis}
-\item[interpolate] [ --p $P$ ] [ --s $S$ ] [ {\em infile} ]
+\item[interpolate] [ --p $P$ ] [ --s $S$ ] [ --d ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
 {\em interpolate} supplements a sequence of input data
 from {\em infile} (or standard input)
-by 0 with interval $P$ and start number $S$,
+by 0 or input data with interval $P$ and start number $S$,
 sending the result to standard output.
 
 If the input data is
@@ -65,6 +65,10 @@ then the output data is
 \begin{displaymath}
 \underbrace{0, 0, \dots, 0}_{S-1},\underbrace{x(0), 0, 0, \dots, 0}_{P},\underbrace{x(1), 0, 0, \dots, 0}_{P},x(2), \dots
 \end{displaymath}
+If the --d option is given, the output data is
+\begin{displaymath}
+\underbrace{0, 0, \dots, 0}_{S-1},\underbrace{x(0), x(0), x(0), \dots, x(0)}_{P},\underbrace{x(1), x(1), x(1), \dots, x(1)}_{P},x(2), \dots
+\end{displaymath}
 \par
 Input and output data are in float format.
 \end{qsection}
@@ -72,6 +76,7 @@ Input and output data are in float format.
 \begin{options}
         \argm{p}{P}{interpolation period}{10}
         \argm{s}{S}{start sample}{0}
+        \argm{d}{}{pad input data rather than 0}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

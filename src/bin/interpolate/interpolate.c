@@ -63,12 +63,20 @@
 *                        , x(0), x(1), ...                              *
 *       stdout:                                                         *
 *               decimated data                                          *
-*                        , 0, ..., 0, x(0), 0, ..., x(1), 0, ...,       *
-*        ---------  ------------- -------------                         *
-*                        s-1           p            p                   *
+*                                                                       *
+*       if -d is not specified (default)                                *
+*                , 0, ..., 0, x(0), 0, ..., x(1), 0, ...,               *
+*        --------- ---------- -------------                             *
+*                      s-1          p       p                           *
+*                                                                       *
+*       otherwise,                                                      *
+*                , 0, ..., 0, x(0), x(0), ..., x(1), x(1), ...,         *
+*        --------- ---------- ----------------                          *
+*                      s-1            p        p                        *
+*                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: interpolate.c,v 1.15 2007/10/08 16:49:35 heigazen Exp $";
+static char *rcs_id = "$Id: interpolate.c,v 1.16 2007/10/09 03:29:43 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -85,6 +93,9 @@ static char *rcs_id = "$Id: interpolate.c,v 1.15 2007/10/08 16:49:35 heigazen Ex
 /*  Default Values  */
 #define PERIOD 10
 #define START 0
+#define PADINPUT FA
+
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
@@ -98,8 +109,9 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -p p  : interpolation period [%d]\n", PERIOD);
-   fprintf(stderr, "       -s s  : start sample         [%d]\n", START);
+   fprintf(stderr, "       -p p  : interpolation period         [%d]\n", PERIOD);
+   fprintf(stderr, "       -s s  : start sample                 [%d]\n", START);
+   fprintf(stderr, "       -d    : padding input rather than 0  [%s]\n", BOOL[PADINPUT]); 
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)        [stdin]\n", FORMAT);
@@ -117,10 +129,10 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int  period=PERIOD, start=START;
+   int  i, period=PERIOD, start=START;
    FILE *fp=stdin;
    double *x;
-
+   Boolean padinput;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -137,6 +149,9 @@ int main (int argc, char **argv)
             start = atoi(*++argv);
             --argc;
             break;
+         case 'd':
+            padinput = 1 - padinput;
+            break;
          case 'h':
             usage(0);
          default:
@@ -151,8 +166,13 @@ int main (int argc, char **argv)
 
    fwritef(x, sizeof(*x), start, stdout);
 
-   while (freadf(x, sizeof(*x), 1, fp)==1)
+   while (freadf(x, sizeof(*x), 1, fp)==1) {
+      if (padinput) {
+         for (i=1; i<period; i++)
+            x[i] = x[0];
+      }
       fwritef(x, sizeof(*x), period, stdout);
+   }
 
    return(0);
 }
