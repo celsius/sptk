@@ -49,7 +49,7 @@
 
 
 /********************************************************
-* $Id: plot.c,v 1.13 2007/10/09 18:40:08 heigazen Exp $  *
+* $Id: plot.c,v 1.14 2007/10/09 18:41:12 heigazen Exp $  *
 *       Interpret X-Y Plotter Commands                  *
 ********************************************************/
 
@@ -123,6 +123,15 @@ static int _getcord (FILE *fp, struct cord *buf)
       return(0);
 }
 
+void polylines (int *x,int *y, int n)
+{
+   moveto(*x++, *y++);
+   while (--n>0)
+      lineto(*x++, *y++);
+
+   printf("ST\n");
+}
+
 static void _flush (void)
 {
    if (sp>1)  {
@@ -143,15 +152,6 @@ static void _send (struct cord *buf)
    yb[sp++] = norm(buf->y);
    
    return;
-}
-
-void polylines (int *x,int *y, int n)
-{
-   moveto(*x++, *y++);
-   while (--n>0)
-      lineto(*x++, *y++);
-
-   printf("ST\n");
 }
 
 static void rectangle (int x0, int y0, int x1, int y1, int frame, int fill)
