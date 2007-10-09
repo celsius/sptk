@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _levdur.c,v 1.12 2007/10/08 16:49:32 heigazen Exp $
+    $Id: _levdur.c,v 1.13 2007/10/09 06:29:09 heigazen Exp $
 
     Solve an Autocorrelation Normal Equation
     Using Levinson-Durbin Method
@@ -97,7 +97,11 @@ int levdur (double *r, double *a, const int m, double eps)
 
    if (eps<0.0) eps = 1.0e-6;
    rmd=r[0];
+#ifdef WIN32
+   if ( (((rmd<0.0)?-rmd:rmd)<=eps) || _isnan(rmd) ) return(-1);
+#else
    if ( (((rmd<0.0)?-rmd:rmd)<=eps) || isnan(rmd) ) return(-1);
+#endif
    a[0] = 0.0;
 
    for (l=1; l<=m; l++) {
@@ -111,7 +115,11 @@ int levdur (double *r, double *a, const int m, double eps)
       a[l] = mue;
 
       rmd = (1.0 - mue * mue) * rmd;
+#ifdef WIN32
+      if ( (((rmd<0.0)?-rmd:rmd)<=eps) || _isnan(rmd) ) return(-1);
+#else
       if ( (((rmd<0.0)?-rmd:rmd)<=eps) || isnan(rmd) ) return(-1);
+#endif
       if (((mue<0.0) ? -mue : mue) >= 1.0) flag = -2;
 
       for (k=0; k<=l; k++) c[k] = a[k];
