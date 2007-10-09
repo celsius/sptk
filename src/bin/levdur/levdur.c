@@ -72,7 +72,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: levdur.c,v 1.16 2007/10/09 04:33:30 heigazen Exp $";
+static char *rcs_id = "$Id: levdur.c,v 1.17 2007/10/09 10:07:13 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -150,7 +150,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    a = dgetmem(m+m+2);
    r = a + m + 1;

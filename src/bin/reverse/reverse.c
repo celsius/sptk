@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: reverse.c,v 1.17 2007/10/08 16:49:33 heigazen Exp $";
+static char *rcs_id = "$Id: reverse.c,v 1.18 2007/10/09 10:06:58 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -146,7 +146,7 @@ int main (int argc,char *argv[])
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
    }
 
    if (l>MAX) {

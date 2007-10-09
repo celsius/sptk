@@ -81,7 +81,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.23 2007/10/08 16:49:29 heigazen Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.24 2007/10/09 10:07:02 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -203,7 +203,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    low = freq * 1000 / H;
    high = freq * 1000 / L;

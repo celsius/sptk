@@ -80,7 +80,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: bcp.c,v 1.14 2007/10/08 16:45:19 heigazen Exp $";
+static char *rcs_id = "$Id: bcp.c,v 1.15 2007/10/09 10:07:08 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -251,8 +251,10 @@ int main (int argc, char **argv)
             usage(1);
          }
       }
+      else if (size==0)
+         fp = getfp(*argv, "rt");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (eno<0)
       eno = nitems;

@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: decimate.c,v 1.14 2007/10/08 16:49:36 heigazen Exp $";
+static char *rcs_id = "$Id: decimate.c,v 1.15 2007/10/09 10:07:12 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -144,7 +144,7 @@ int main (int argc, char **argv)
          }
       }
       else 
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    for (i=0; i<start; i++)
       if (freadf(&x, sizeof(x), 1, fp)!=1) return(1);

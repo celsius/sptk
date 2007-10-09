@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fft.c,v 1.17 2007/10/08 16:49:29 heigazen Exp $";
+static char *rcs_id = "$Id: fft.c,v 1.18 2007/10/09 10:07:08 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -170,7 +170,7 @@ int main (int argc,char *argv[])
       return(1);
    }
    if (infile) {
-      fp = getfp(infile, "r");
+      fp = getfp(infile, "rb");
       dft(fp,size,nd,out);
       fclose(fp);
    }

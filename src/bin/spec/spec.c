@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: spec.c,v 1.16 2007/10/08 16:49:29 heigazen Exp $";
+static char *rcs_id = "$Id: spec.c,v 1.17 2007/10/09 10:07:02 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -184,7 +184,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    no = leng / 2 + 1;
 
@@ -203,9 +203,9 @@ int main (int argc, char **argv)
    }
 
    if (*filema!='\0')
-      fpma = getfp(filema, "r");
+      fpma = getfp(filema, "rb");
    if (*filear!='\0')
-      fpar = getfp(filear, "r");
+      fpar = getfp(filear, "rb");
 
    for (;;) {
       if ((fpma==NULL) && (fpar!=NULL))

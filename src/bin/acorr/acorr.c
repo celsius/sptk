@@ -62,7 +62,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: acorr.c,v 1.19 2007/10/08 16:49:33 heigazen Exp $";
+static char *rcs_id = "$Id: acorr.c,v 1.20 2007/10/09 10:07:14 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -147,7 +147,7 @@ int main (int argc, char **argv)
          infile = s;
    }
    if (infile)
-      fp = getfp(infile,"r");
+      fp = getfp(infile,"rb");
   
    x = dgetmem(l + np + 1);
    r = x + l;

@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: delay.c,v 1.19 2007/10/08 16:49:36 heigazen Exp $";
+static char *rcs_id = "$Id: delay.c,v 1.20 2007/10/09 10:07:14 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -147,7 +147,7 @@ int main (int argc, char **argv)
          }
       }
       else 
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (start>leng) {
       fprintf(stderr, "%s : Start point %d should be %d or less!\n", cmnd, start, leng);

@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: amcep.c,v 1.18 2007/10/08 16:49:33 heigazen Exp $";
+static char *rcs_id = "$Id: amcep.c,v 1.19 2007/10/09 10:07:13 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -207,7 +207,7 @@ int main (int argc, char **argv)
          }
       }
       else 
-         fpe = getfp(*argv, "w");
+         fpe = getfp(*argv, "wb");
 
    if ((pd<4) || (pd>5)) {
       fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);

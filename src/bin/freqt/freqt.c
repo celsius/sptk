@@ -72,7 +72,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: freqt.c,v 1.14 2007/10/08 16:49:33 heigazen Exp $";
+static char *rcs_id = "$Id: freqt.c,v 1.15 2007/10/09 10:07:11 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -160,7 +160,7 @@ int main (int argc, char **argv)
          }
       }
       else 
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    c1 = dgetmem(m1+m2+2);
    c2 = c1 + m1 + 1;

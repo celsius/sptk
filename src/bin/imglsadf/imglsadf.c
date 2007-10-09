@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: imglsadf.c,v 1.21 2007/10/08 16:49:29 heigazen Exp $";
+static char *rcs_id = "$Id: imglsadf.c,v 1.22 2007/10/09 10:07:09 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -185,9 +185,9 @@ int main(int argc, char **argv)
          }
       }
       else if (fpc == NULL)
-         fpc = getfp(*argv, "r");
+         fpc = getfp(*argv, "rb");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (fpc == NULL) {
       fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);

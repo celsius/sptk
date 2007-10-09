@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/ 
 
-static char *rcs_id = "$Id: df2.c,v 1.16 2007/10/08 16:49:31 heigazen Exp $";
+static char *rcs_id = "$Id: df2.c,v 1.17 2007/10/09 10:07:12 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -158,7 +158,7 @@ int main (int argc, char *argv[])
          }
       }
       else
-         fpp = getfp(*argv, "r");
+         fpp = getfp(*argv, "rb");
 
    n = (fp>fz) ? fp : fz;
    for (i=0; i<n; i++) {

@@ -71,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: swab.c,v 1.14 2007/10/08 16:45:19 heigazen Exp $";
+static char *rcs_id = "$Id: swab.c,v 1.15 2007/10/09 10:07:02 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -188,7 +188,7 @@ int main (int argc,char *argv[])
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    conv(fp, iosize);
    

@@ -85,7 +85,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lbg.c,v 1.17 2007/10/08 16:47:51 heigazen Exp $";
+static char *rcs_id = "$Id: lbg.c,v 1.18 2007/10/09 10:07:12 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -194,7 +194,7 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'f':
-            fpcb = getfp(*++argv, "r");
+            fpcb = getfp(*++argv, "rb");
             --argc;
             break;
          case 'h':
@@ -205,7 +205,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fpi = getfp(*argv, "w");
+         fpi = getfp(*argv, "wb");
 
    if (tnum==-1) {
       ispipe = fseek(fp,0L,2);

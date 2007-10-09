@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: merge.c,v 1.16 2007/10/08 16:45:19 heigazen Exp $";
+static char *rcs_id = "$Id: merge.c,v 1.17 2007/10/09 10:07:02 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -208,9 +208,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fp2==NULL)
-         fp2 = getfp(*argv, "r");
+         fp2 = getfp(*argv, "rb");
       else
-         fp1 = getfp(*argv, "r");
+         fp1 = getfp(*argv, "rb");
 
    y = (char *)dgetmem(leng2 * size);
 

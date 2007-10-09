@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspdf.c,v 1.19 2007/10/08 16:49:30 heigazen Exp $";
+static char *rcs_id = "$Id: lspdf.c,v 1.20 2007/10/09 10:07:07 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -177,9 +177,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fpc==NULL)
-         fpc = getfp(*argv, "r");
+         fpc = getfp(*argv, "rb");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (fpc==NULL) {
       fprintf(stderr,"%s : Cannot open LSP file!\n",cmnd);

@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vopr.c,v 1.17 2007/10/08 16:49:30 heigazen Exp $";
+static char *rcs_id = "$Id: vopr.c,v 1.18 2007/10/09 10:07:08 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -184,7 +184,7 @@ int main (int argc, char **argv)
    if (nfiles==0)
       vopr(stdin, stdin);
    else {
-      fp1 = getfp(infile[0], "r");
+      fp1 = getfp(infile[0], "rb");
       if (nfiles==1) {
          if (inv)
             vopr(fp1, fp1);
@@ -192,7 +192,7 @@ int main (int argc, char **argv)
             vopr(stdin, fp1);
       }
       else {
-         fp2 = getfp(infile[1], "r");
+         fp2 = getfp(infile[1], "rb");
          vopr(fp1, fp2);
       }
    }

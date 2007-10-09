@@ -72,7 +72,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: linear_intpl.c,v 1.17 2007/10/08 16:49:32 heigazen Exp $";
+static char *rcs_id = "$Id: linear_intpl.c,v 1.18 2007/10/09 10:07:13 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -165,7 +165,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    t = (j - i) / (double) l;
 

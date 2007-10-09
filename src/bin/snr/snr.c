@@ -73,7 +73,7 @@
 *               SNR,  SNRseg                                            *      
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.17 2007/10/08 16:45:18 heigazen Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.18 2007/10/09 10:07:13 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -190,9 +190,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fp1==NULL)
-         fp1 = getfp(*argv, "r");
+         fp1 = getfp(*argv, "rb");
       else
-         fp2 = getfp(*argv, "r");
+         fp2 = getfp(*argv, "rb");
 
    x = dgetmem(l+l);
    y = x + l;

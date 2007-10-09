@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspcheck.c,v 1.16 2007/10/08 16:49:35 heigazen Exp $";
+static char *rcs_id = "$Id: lspcheck.c,v 1.17 2007/10/09 10:07:10 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -181,7 +181,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (otype<0)
       otype = itype;

@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: excite.c,v 1.15 2007/10/08 16:49:28 heigazen Exp $";
+static char *rcs_id = "$Id: excite.c,v 1.16 2007/10/09 10:07:01 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -163,7 +163,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (gauss & (seed!=1)) next = srnd((unsigned int)seed);
 

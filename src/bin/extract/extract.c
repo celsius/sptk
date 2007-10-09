@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: extract.c,v 1.15 2007/10/08 16:45:17 heigazen Exp $";
+static char *rcs_id = "$Id: extract.c,v 1.16 2007/10/09 10:07:08 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -152,9 +152,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fpi == NULL)
-         fpi = getfp(*argv, "r");
+         fpi = getfp(*argv, "rb");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    x = dgetmem(l);
 

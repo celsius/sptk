@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fd.c,v 1.16 2007/10/08 16:45:19 heigazen Exp $";
+static char *rcs_id = "$Id: fd.c,v 1.17 2007/10/09 10:07:06 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -205,7 +205,7 @@ int main (int argc, char **argv)
          ff = 1;
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    fdump(fp);
 

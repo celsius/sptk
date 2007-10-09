@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vq.c,v 1.14 2007/10/08 16:47:51 heigazen Exp $";
+static char *rcs_id = "$Id: vq.c,v 1.15 2007/10/09 10:07:08 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -164,9 +164,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fpcb==NULL)
-         fpcb = getfp(*argv, "r");
+         fpcb = getfp(*argv, "rb");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    fseek(fpcb,0,2);
 #ifdef DOUBLE

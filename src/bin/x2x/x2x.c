@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.18 2007/10/08 16:45:18 heigazen Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.19 2007/10/09 10:07:12 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -297,8 +297,10 @@ int main (int argc, char **argv)
       }
       else if (**argv=='%')
          form = *argv;
+      else if (c1=='a')
+         fp = getfp(*argv, "rt");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (round)
       r = 0.5;

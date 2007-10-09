@@ -80,7 +80,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mlsadf.c,v 1.19 2007/10/08 16:49:34 heigazen Exp $";
+static char *rcs_id = "$Id: mlsadf.c,v 1.20 2007/10/09 10:07:05 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -196,9 +196,9 @@ int main (int argc, char **argv)
          }
       }
       else if (fpc==NULL)
-         fpc = getfp(*argv, "r");
+         fpc = getfp(*argv, "rb");
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if ((pd<4) || (pd>5)) {
       fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);

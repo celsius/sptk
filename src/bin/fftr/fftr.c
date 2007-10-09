@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftr.c,v 1.17 2007/10/08 16:49:27 heigazen Exp $";
+static char *rcs_id = "$Id: fftr.c,v 1.18 2007/10/09 10:06:58 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -180,7 +180,7 @@ int main (int argc,char *argv[])
    
    nout = (nout) ? size / 2 + 1 : size;
    if (infile) {
-      fp = getfp(infile, "r");
+      fp = getfp(infile, "rb");
       dft(fp,size,nd,out,nout);
       fclose(fp);
    }

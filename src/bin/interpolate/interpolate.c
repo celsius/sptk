@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: interpolate.c,v 1.16 2007/10/09 03:29:43 heigazen Exp $";
+static char *rcs_id = "$Id: interpolate.c,v 1.17 2007/10/09 10:07:06 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -160,7 +160,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    x = dgetmem(period);
 

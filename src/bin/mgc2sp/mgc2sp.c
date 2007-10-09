@@ -84,7 +84,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgc2sp.c,v 1.19 2007/10/08 16:49:31 heigazen Exp $";
+static char *rcs_id = "$Id: mgc2sp.c,v 1.20 2007/10/09 10:07:11 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -206,7 +206,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    x = dgetmem(l+l+m+1);
    y = x + l;

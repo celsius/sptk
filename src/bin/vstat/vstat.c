@@ -84,7 +84,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vstat.c,v 1.17 2007/10/08 16:49:34 heigazen Exp $";
+static char *rcs_id = "$Id: vstat.c,v 1.18 2007/10/09 10:07:02 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -194,7 +194,7 @@ int main (int argc,char *argv[])
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    switch (outtype) {
    case 1:

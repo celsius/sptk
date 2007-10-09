@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fdrw.c,v 1.18 2007/10/08 16:49:30 heigazen Exp $";
+static char *rcs_id = "$Id: fdrw.c,v 1.19 2007/10/09 10:07:07 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -246,7 +246,7 @@ int main (int argc, char *argv[])
          }
       }
       else
-         fp = getfp(*argv,"r");
+         fp = getfp(*argv,"rb");
    }
    plots(0x81);
    mode(lmod[ltype], (lpt==0) ? lpit[ltype] : lpt);

@@ -63,7 +63,7 @@
 *               input is assumed to be real                             *
 ************************************************************************/
 
-static char *rcs_id = "$Id: zcross.c,v 1.18 2007/10/08 16:49:35 heigazen Exp $";
+static char *rcs_id = "$Id: zcross.c,v 1.19 2007/10/09 10:07:08 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -150,7 +150,7 @@ int main (int argc,char **argv)
          infile = s;
    }
    if (infile)
-      fp = getfp(infile,"r");
+      fp = getfp(infile,"rb");
 
    x = dgetmem(flng);
    while (freadf(x, sizeof(*x), flng, fp)==flng) {

@@ -66,7 +66,7 @@
 *       Note that double precision FFT is used.                         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.17 2007/10/08 16:49:31 heigazen Exp $";
+static char *rcs_id = "$Id: grpdelay.c,v 1.18 2007/10/09 10:07:07 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -160,7 +160,7 @@ int main (int argc,char *argv[])
    }
    
    if (infile) {
-      fp = getfp(infile, "r");
+      fp = getfp(infile, "rb");
    }
    else
       fp = stdin;

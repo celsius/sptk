@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: root_pol.c,v 1.16 2007/10/08 16:49:33 heigazen Exp $";
+static char *rcs_id = "$Id: root_pol.c,v 1.17 2007/10/09 10:07:08 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -177,14 +177,10 @@ int main (int argc,char *argv[])
             usage ();
          }
       }
-      else {
-         if ((fp=fopen(*argv, "r"))==NULL) {
-            fprintf(stderr,"%s : Cannot open file %s!\n", cmnd, *argv);
-            return(0);
-         }
-      }
+      else
+         fp = getfp(*argv, "rb");
    }
-
+         
    a = dgetmem(odr+1);
    odr = freadf(a,sizeof(*a),odr,fp)-1;
 

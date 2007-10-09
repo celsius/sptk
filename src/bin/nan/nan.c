@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nan.c,v 1.21 2007/10/09 06:29:49 heigazen Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.22 2007/10/09 10:07:05 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -127,7 +127,7 @@ int main (int argc,char *argv[])
       else
          infile = s;
    }
-   if (infile) fp = getfp(infile, "r");
+   if (infile) fp = getfp(infile, "rb");
    else  fp = stdin;
 
    nan_tmp(fp);

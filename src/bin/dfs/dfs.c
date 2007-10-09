@@ -68,7 +68,7 @@
 *               M, N <= 2047                                              *
 **************************************************************************/
 
-static char *rcs_id = "$Id: dfs.c,v 1.16 2007/10/08 16:49:28 heigazen Exp $";
+static char *rcs_id = "$Id: dfs.c,v 1.17 2007/10/09 10:07:02 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -172,11 +172,11 @@ int main (int argc, char *argv[])
       }
 
    if (*file_z!='\0') {
-      fp_z = getfp(file_z, "r");
+      fp_z = getfp(file_z, "rb");
       nb = freadf(b, sizeof(*b), SIZE, fp_z) - 1;
    }
    if (*file_p!='\0') {
-      fp_p = getfp(file_p, "r");
+      fp_p = getfp(file_p, "rb");
       na = freadf(a, sizeof(*a), SIZE, fp_p) - 1;
    }
 

@@ -88,7 +88,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.21 2007/10/09 04:33:30 heigazen Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.22 2007/10/09 10:07:06 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -228,7 +228,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    if (n==-1)
       n = flng-1;

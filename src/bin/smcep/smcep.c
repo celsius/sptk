@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: smcep.c,v 1.19 2007/10/09 04:33:29 heigazen Exp $";
+static char *rcs_id = "$Id: smcep.c,v 1.20 2007/10/09 10:07:12 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -206,7 +206,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         fp = getfp(*argv, "r");
+         fp = getfp(*argv, "rb");
 
    t *= M_PI;
 

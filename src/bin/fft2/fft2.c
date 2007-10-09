@@ -72,7 +72,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fft2.c,v 1.17 2007/10/08 16:49:28 heigazen Exp $";
+static char *rcs_id = "$Id: fft2.c,v 1.18 2007/10/09 10:07:13 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -207,7 +207,7 @@ int main (int argc,char *argv[])
    }
 
    if (infile)
-      fp = getfp(infile, "r");
+      fp = getfp(infile, "rb");
    else
       fp = stdin;
 
