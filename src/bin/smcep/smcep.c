@@ -66,6 +66,8 @@
 *               -j j     :  maximum iteration                [30]       *
 *               -d d     :  end condition                    [0.001]    *
 *               -e e     :  initial value for log-periodgram [0]        *
+*               -f f     :  mimimum value of the determinant            *
+*                           of the normal matrix            [0.000001]  *  
 *      infile:                                                          *
 *              data sequence                                            *
 *                      , x(0), x(1), ..., x(L-1),                       *
@@ -77,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: smcep.c,v 1.18 2007/10/08 16:49:32 heigazen Exp $";
+static char *rcs_id = "$Id: smcep.c,v 1.19 2007/10/09 04:33:29 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -102,6 +104,7 @@ static char *rcs_id = "$Id: smcep.c,v 1.18 2007/10/08 16:49:32 heigazen Exp $";
 #define MAXITR 30
 #define END    0.001
 #define EPS    0.0
+#define MINDET 0.000001
 
 /*  Command Name  */
 char *cmnd;
@@ -125,7 +128,9 @@ void usage (int status)
    fprintf(stderr, "       -i i  : minimum iteration                [%d]\n", MINITR);
    fprintf(stderr, "       -j j  : maximum iteration                [%d]\n", MAXITR);
    fprintf(stderr, "       -d d  : end condition                    [%g]\n", END);
-   fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n",EPS);
+   fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n", EPS);
+   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n", MINDET);
+   fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       windowed sequences (%s)    [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
@@ -144,7 +149,7 @@ int main (int argc, char **argv)
 {
    int m=ORDER, flng=FLENG, fftsz=FFTSZ, itr1=MINITR, itr2=MAXITR, flag=0;
    FILE *fp=stdin;
-   double *mc, *x, a=ALPHA, t=THETA, end=END, e=EPS;
+   double *mc, *x, a=ALPHA, t=THETA, end=END, e=EPS, f=MINDET;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -189,6 +194,10 @@ int main (int argc, char **argv)
             e = atof(*++argv);
             --argc;
             break;
+         case 'f':
+            f = atof(*++argv);
+            --argc;
+            break;
          case 'h':
             usage (0);
          default:
@@ -205,7 +214,7 @@ int main (int argc, char **argv)
    mc = x + flng;
 
    while (freadf(x, sizeof(*x), flng, fp)==flng) {
-      flag = smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, e);
+      flag = smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, e, f);
       fwritef(mc, sizeof(*mc), m+1, stdout);
    }
       

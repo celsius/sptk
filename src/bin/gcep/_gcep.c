@@ -49,11 +49,11 @@
 
 /****************************************************************
 
-    $Id: _gcep.c,v 1.9 2007/10/08 16:49:29 heigazen Exp $
+    $Id: _gcep.c,v 1.10 2007/10/09 04:33:29 heigazen Exp $
 
     Generalized Cepstral Analysis
 
-        int gcep(xw, flng, gc, m, g, itr1, itr2, d, e);
+        int gcep(xw, flng, gc, m, g, itr1, itr2, d, e, f);
 
         double    *xw  : input sequence
         int       flng : frame length
@@ -64,6 +64,8 @@
         int       itr2 : maximum number of iteration
         double    d    : end condition
         double    e    : initial value for log-periodgram
+        double    f    : mimimum value of the determinant 
+                         of the normal matrix
 
         return value :    0 -> completed by end condition
                           -1-> completed by maximum iteration
@@ -80,7 +82,8 @@
 #include <SPTK.h>
 #endif
 
-int gcep (double *xw, const int flng, double *gc, const int m, const double g, const int itr1, const int itr2, const double d, const double e)
+int gcep (double *xw, const int flng, double *gc, const int m, const double g, const int itr1, const int itr2, 
+          const double d, const double e, const double f)
 {
    int i, j, flag=0;
    double t, s, dd=0.0;
@@ -162,7 +165,7 @@ int gcep (double *xw, const int flng, double *gc, const int m, const double g, c
 
       for (i=2; i<=m+m; i++) hr[i] *= 1 + g;
 
-      if (theq(rr, &hr[2], &y[1], &er[1], m, -1.0)) {
+      if (theq(rr, &hr[2], &y[1], &er[1], m, f)) {
          fprintf(stderr, "gcep : Error in theq() at %dth iteration!\n", j);
          exit(1);
       }

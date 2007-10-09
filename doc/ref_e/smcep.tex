@@ -50,7 +50,7 @@
  
 \begin{synopsis}
 \item [smcep] [ --a $A$ ] [ --t $T$ ] [ --m $M$ ] [ --l $L$ ]
-\item [\ ~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --e $E$ ] [ {\em infile} ]
+\item [\ ~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --e $E$ ] [ --f $F$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -99,6 +99,7 @@ of the cost function.
 	\argm{j}{J}{maximum iteration of Newton-Raphson method}{30}
 	\argm{d}{D}{end condition of Newton-Raphson}{0.001}
 	\argm{e}{E}{small value added to periodgram}{0}
+	\argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
