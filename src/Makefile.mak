@@ -1,8 +1,7 @@
 # Makefile for VC++ 2005 nmake tool
 #
-# Jong-Jin Kim <kimjj@etri.re.kr>
-# 2007.10.8
-#
+#            2007.10  Jong-Jin Kim
+# 
 
 # You can modify this variable's value to your own
 INSTALLDIR = c:\SPTK-3.1.win\bin
