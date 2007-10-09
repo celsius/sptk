@@ -249,11 +249,8 @@ int main (int argc,char *argv[] )
 
    orientation = orientations[landscape];
 
-   if (filename!=NULL)  {
-      if ((fp = fopen(filename, "r"))==NULL)  {
-         fprintf(stderr, "%s : Cannot open file %s!\n", progname, filename);
-         return(2);
-      }
+   if (filename!=NULL) {
+      fp = getfp(filename, "rt");
    }
    else  {
       fp = tmpfile();
