@@ -68,6 +68,12 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <string.h>
 
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
+
 /*  Command Name  */
 char *cmnd;
 
@@ -120,10 +126,7 @@ int main (int argc, char **argv)
       }
       else {
          stdinmode = -1;
-         if ( (fp = fopen( *argv, "r"))==NULL) {
-            fprintf(stderr, "%s : Cannot open %s!\n", cmnd, *argv);
-            return(1);
-         }
+         fp = getfp(*argv, "rt");
          while(fgets(buf, 512, fp)!=0) {
             if (linenum>0) fprintf(stderr, "%6d  ", linenum++);
             fputs(buf, stderr);

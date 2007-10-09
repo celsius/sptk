@@ -64,9 +64,9 @@ static char *rcs_id = "$Id$";
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <SPTK.h>
 #include "psgr.h"
 
-typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
 #if HAS_STDLIB
