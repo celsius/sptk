@@ -345,9 +345,11 @@ poledf.exe : poledf\poledf.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
     $(CL) /OUT:$@ $(LIBS) $(@B).obj
 	
-psgr.exe : psgr\psgr.obj
-	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
-    $(CL) /OUT:$@ $(LIBS) $(@B).obj
+psgr.exe : psgr\psgr.obj psgr\dict.obj psgr\plot.obj psgr\eps.obj
+	$(CC) $(CFLAGS) /c psgr\psgr.c
+	$(CC) $(CFLAGS) /c psgr\dict.c
+	$(CC) $(CFLAGS) /c psgr\plot.c
+    $(CL) /OUT:$@ $(LIBS) psgr.obj dict.obj plot.obj eps.obj
 	
 ramp.exe : ramp\ramp.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
