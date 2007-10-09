@@ -58,7 +58,7 @@
 *      Ver. 0.99  '93.8                                 *
 ********************************************************/
 
-static char *rcs_id = "$Id: psgr.c,v 1.11 2007/09/30 16:20:28 heigazen Exp $";
+static char *rcs_id = "$Id: psgr.c,v 1.12 2007/10/09 08:52:26 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -249,11 +249,8 @@ int main (int argc,char *argv[] )
 
    orientation = orientations[landscape];
 
-   if (filename!=NULL)  {
-      if ((fp = fopen(filename, "r"))==NULL)  {
-         fprintf(stderr, "%s : Cannot open file %s!\n", progname, filename);
-         return(2);
-      }
+   if (filename!=NULL) {
+      fp = getfp(filename, "rt");
    }
    else  {
       fp = tmpfile();

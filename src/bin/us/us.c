@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: us.c,v 1.20 2007/10/09 06:31:30 heigazen Exp $";
+static char *rcs_id = "$Id: us.c,v 1.21 2007/10/09 08:51:45 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -252,10 +252,7 @@ int main (int argc,char *argv[])
       return(1);
    }
    if (infile) {
-      if ((fp=fopen(infile, "r"))==NULL) {
-         fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, infile);
-         return(1);
-      }
+      fp=getfp(infile, "rb");
    }
    else {
       fp = stdin;
@@ -336,10 +333,7 @@ void firinit (void)
 {
    FILE *fp;
 
-   if ((fp=fopen(coef, "r"))==NULL) {
-      fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, coef);
-      exit(1);
-   }
+   fp=getfp(coef, "rt");
    flengdn = freada(hdn, RBSIZE + 1, fp);
    fclose(fp);
    if (--flengdn<0) {

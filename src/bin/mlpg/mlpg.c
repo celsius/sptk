@@ -77,7 +77,7 @@
 *                                                                                       *
 ****************************************************************************************/
 
-static char *rcs_id = "$Id: mlpg.c,v 1.20 2007/10/09 02:50:40 heigazen Exp $";
+static char *rcs_id = "$Id: mlpg.c,v 1.21 2007/10/09 08:53:05 heigazen Exp $";
 
 
 /* Standard C Libraries */
@@ -320,10 +320,7 @@ int main (int argc, char **argv)
          }
       }
       else
-         if ((pdffp = fopen(*argv, "r"))==NULL) {
-            fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, *argv);
-            return(2);
-         }
+         pdffp = getfp(*argv, "rb");
    }
 
    InitPStream(&pst);
@@ -482,11 +479,9 @@ void InitDWin(PStream *pst)
          if (pst->dw.fn[i][0]==' ') {
             fsize = str2darray(pst->dw.fn[i], &(pst->dw.coef[i]));
          }
-         else {      /* read from file */
-            if ((fp=fopen(pst->dw.fn[i], "r"))==NULL) {
-               fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, pst->dw.fn[i]);
-               exit(1);
-            }
+         else {      
+            /* read from file */
+            fp = getfp(pst->dw.fn[i], "rb");
 
             /* check the number of coefficients */
             fseek(fp, 0L, 2);
