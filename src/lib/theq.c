@@ -98,7 +98,11 @@ static int inverse (double *x, double *y, const double eps)
 
    det = y[0]*y[3] - y[1]*y[2];
 
+#ifdef WIN32
+   if ((fabs(det)<eps) || _isnan(det)) {
+#else
    if ((fabs(det)<eps) || isnan(det)) {
+#endif
       fprintf(stderr, "theq() : determinant of the normal matrix is too small!\n");
       return(-1);
    }
