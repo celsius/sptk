@@ -160,4 +160,3 @@ int freadf (float *ptr, const size_t size, const int nitems, FILE *fp)
 }
 
 #endif	/* DOUBLE */
-              
