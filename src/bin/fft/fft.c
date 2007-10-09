@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fft.c,v 1.18 2007/10/09 10:07:08 heigazen Exp $";
+static char *rcs_id = "$Id: fft.c,v 1.19 2007/10/09 17:35:57 heigazen Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -145,9 +145,7 @@ int main (int argc,char *argv[])
          case 'p':
          case 'r':
             c -= ('a' - 'A');
-#ifdef AOP
          case 'A':
-#endif
          case 'I':
          case 'P':
          case 'R':
@@ -198,11 +196,9 @@ int dft (FILE *fp, const int size, const int nd, const int out)
       if (out=='P')
          for (k=0; k<size; k++)
             x[k] = x[k] * x[k] + y[k] * y[k];
-#ifdef AOP
       else if (out=='A')
          for (k=0; k<size; k++)
             x[k] = sqrt(x[k]*x[k] + y[k]*y[k]);
-#endif
       if (out!='I')
          fwritef(x, sizeof(*x), size, stdout);
       if (out==' ' || out=='I')
