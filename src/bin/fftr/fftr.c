@@ -153,9 +153,7 @@ int main (int argc,char *argv[])
          case 'p':
          case 'r':
             c -= ('a' - 'A');
-#ifdef AOP
          case 'A':
-#endif
          case 'I':
          case 'P':
          case 'R':
@@ -206,11 +204,9 @@ int dft (FILE *fp, const int size, const int nd, const int out, const int nout)
       if (out=='P')
          for (k=0; k<size; k++)
             x[k] = x[k]*x[k] + y[k]*y[k];
-#ifdef AOP
       else if (out=='A')
          for (k=0; k<size; k++)
             x[k] = sqrt(x[k]*x[k] + y[k]*y[k]);
-#endif
       if (out!='I')
          fwritef(x, sizeof(*x), nout, stdout);
       if (out==' ' || out=='I')
