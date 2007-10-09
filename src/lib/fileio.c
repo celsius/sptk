@@ -73,6 +73,10 @@ int freada (double *p, const int bl, FILE *fp)
    int c;
    char buf[LINEBUFSIZE];
 
+#if defined(WIN32)
+   _setmode( _fileno(fp), _O_TEXT );
+#endif
+
    c = 0;
    while (c<bl) {
       if (fgets(buf,LINEBUFSIZE,fp)==NULL) break;
