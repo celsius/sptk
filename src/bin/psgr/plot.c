@@ -123,6 +123,18 @@ static int _getcord (FILE *fp, struct cord *buf)
       return(0);
 }
 
+static void _flush (void)
+{
+   if (sp>1)  {
+      polylines(xb, yb, sp--);
+      xb[0] = xb[sp];
+      yb[0] = yb[sp];
+      sp = 1;
+   }
+   
+   return;
+}
+
 static void _send (struct cord *buf)
 {
    if (sp==BUFSIZE)
@@ -140,18 +152,6 @@ void polylines (int *x,int *y, int n)
       lineto(*x++, *y++);
 
    printf("ST\n");
-}
-
-static void _flush (void)
-{
-   if (sp>1)  {
-      polylines(xb, yb, sp--);
-      xb[0] = xb[sp];
-      yb[0] = yb[sp];
-      sp = 1;
-   }
-   
-   return;
 }
 
 static void rectangle (int x0, int y0, int x1, int y1, int frame, int fill)
