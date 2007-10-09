@@ -60,13 +60,19 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: cat2.c,v 1.14 2007/09/30 16:20:25 heigazen Exp $";
+static char *rcs_id = "$Id: cat2.c,v 1.15 2007/10/09 09:31:12 heigazen Exp $";
 
 
 /*  Standard C Libraries **/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if defined(WIN32)
+#include "SPTK.h"
+#else
+#include <SPTK.h>
+#endif
 
 /*  Command Name  */
 char *cmnd;
@@ -120,10 +126,7 @@ int main (int argc, char **argv)
       }
       else {
          stdinmode = -1;
-         if ( (fp = fopen( *argv, "r"))==NULL) {
-            fprintf(stderr, "%s : Cannot open %s!\n", cmnd, *argv);
-            return(1);
-         }
+         fp = getfp(*argv, "rt");
          while(fgets(buf, 512, fp)!=0) {
             if (linenum>0) fprintf(stderr, "%6d  ", linenum++);
             fputs(buf, stderr);

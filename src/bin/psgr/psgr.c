@@ -58,15 +58,15 @@
 *      Ver. 0.99  '93.8                                 *
 ********************************************************/
 
-static char *rcs_id = "$Id: psgr.c,v 1.12 2007/10/09 08:52:26 heigazen Exp $";
+static char *rcs_id = "$Id: psgr.c,v 1.13 2007/10/09 09:34:10 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <SPTK.h>
 #include "psgr.h"
 
-typedef enum _Boolean {FA, TR} Boolean;
 char *BOOL[] = {"FALSE", "TRUE"};
 
 #if HAS_STDLIB
