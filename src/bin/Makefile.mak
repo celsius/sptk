@@ -30,7 +30,7 @@ all: acep.exe acorr.exe agcep.exe amcep.exe \
 	mlsadf.exe msvq.exe nan.exe norm0.exe nrand.exe par2lpc.exe phase.exe pitch.exe \
 	poledf.exe psgr.exe \
 	ramp.exe reverse.exe rmse.exe root_pol.exe sin.exe smcep.exe snr.exe \
-	sopr.exe sp2mgc.exe spec.exe step.exe swab.exe train.exe uels.exe ulaw.exe \
+	sopr.exe sp2mc.exe sp2mgc.exe spec.exe step.exe swab.exe train.exe uels.exe ulaw.exe \
 	us.exe vopr.exe vq.exe vstat.exe vsum.exe window.exe x2x.exe \
 #	xgr.exe 
 	zcross.exe zerodf.exe 
@@ -383,6 +383,10 @@ sopr.exe : sopr\sopr.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
     $(CL) /OUT:$@ $(LIBS) $(@B).obj
 	
+sp2mc.exe : sp2mc\sp2mc.obj
+	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
+    $(CL) /OUT:$@ $(LIBS) $(@B).obj
+    
 sp2mgc.exe : sp2mgc\sp2mgc.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
     $(CL) /OUT:$@ $(LIBS) $(@B).obj

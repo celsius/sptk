@@ -89,6 +89,7 @@ SUBDIRS = acep \
 	smcep \
 	snr \
 	sopr \
+	sp2mc \
 	sp2mgc \
 	spec \
 	step \
