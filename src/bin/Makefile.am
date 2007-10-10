@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.1 2007/09/22 17:43:45 s_sako Exp $
+## $Id: Makefile.am,v 1.2 2007/10/10 08:40:33 heigazen Exp $
 
 SUBDIRS = acep \
 	acorr \
@@ -89,6 +89,7 @@ SUBDIRS = acep \
 	smcep \
 	snr \
 	sopr \
+	sp2mc \
 	sp2mgc \
 	spec \
 	step \
