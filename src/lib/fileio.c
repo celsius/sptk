@@ -47,22 +47,28 @@
   ---------------------------------------------------------------  
 */
 
-/*
-    freadf  : read float type data and convert to double type.
+/********************************************************************
+    $Id$
 
-    fwritef : convert double type data to float type and write.
-*/
+    File I/O Functions
 
+    int freada  (p, bl, fp)
+    int fwritex (ptr, size, nitems, fp)
+    int freadx  (ptr, size, nitems, fp)
+    int fwritef (ptr, size, nitems, fp)
+    int freadf  (ptr, size, nitems, fp)
+
+**********************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include <fcntl.h>
-#include <io.h>
-#include "SPTK.h"
+#  include <fcntl.h>
+#  include <io.h>
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 #define LINEBUFSIZE 256
@@ -110,6 +116,7 @@ int freadx (void *ptr, const size_t size, const int nitems, FILE *fp)
 static float *f;
 static int items;
 
+/* fwritef : convert double type data to float type and write */
 int fwritef (double *ptr, const size_t size, const int nitems, FILE *fp)
 {
    int i;
@@ -129,6 +136,7 @@ int fwritef (double *ptr, const size_t size, const int nitems, FILE *fp)
    return fwrite(f, sizeof(float), nitems, fp);
 }
 
+/* freadf : read float type data and convert to double type */
 int freadf (double *ptr, const size_t size, const int nitems, FILE *fp)
 {
    int i, n;
@@ -153,11 +161,13 @@ int freadf (double *ptr, const size_t size, const int nitems, FILE *fp)
 /* --------------- float I/O compile --------------- */
 #else  /* DOUBLE */
 
+/* fwritef : write float type data */
 int fwritef (float *ptr, const size_t size, const int nitems, FILE *fp)
 {
    return(fwritex(ptr, size, nitems, fp));
 }
 
+/* freadf : read float type data */
 int freadf (float *ptr, const size_t size, const int nitems, FILE *fp)
 {
    return(freadx(ptr, size, nitems, fp));
