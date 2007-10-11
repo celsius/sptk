@@ -54,14 +54,15 @@
 *       usage:                                                          *
 *               sp2mgc [ options ] [ infile ] > stdout                  *
 *       options:                                                        *
-*               -a a     :  alapha                            [0.35]    *
+*               -a a     :  all-pass constant                 [0.35]    *
 *               -g g     :  gamma                             [0]       *
 *               -m m     :  order of mel-generalized cepstrum [25]      *
 *               -l l     :  FFT length                        [256]     *
-*               -A A     :  Input format                      [0]       *
+*               -i i     :  Input format                      [0]       *
 *                             0 (20*log|H(z)|)                          *
 *                             1 (ln|H(z)|)                              *
 *                             2 (|H(z)|)                                *
+*                             3 (|H(z)|)^2                              *
 *               -o o     :  output format                     [0]       *
 *                             0 (c~0...c~m)                             *
 *                             1 (b0...bm)                               *
@@ -70,16 +71,16 @@
 *                             4 (K~,g*c~'1...g*c~'m)                    *
 *                             5 (K,g*b'1...g*b'm)                       *
 *               (level 2)                                               *
-*               -i i     :  minimum iteration                 [2]       *
-*               -j j     :  maximum iteration                 [30]      *
+*               -j j     :  minimum iteration                 [2]       *
+*               -k k     :  maximum iteration                 [30]      *
 *               -d d     :  end condition                     [0.001]   *
 *               -p p     :  order of recursions               [l-1]     *
 *               -e e     :  small value added to periodgram   [0]       *
 *               -f f     :  mimimum value of the determinant            *
 *                           of the normal matrix             [0.000001] *
 *       infile:                                                         *
-*               data sequence                                           *
-*                       , X(0), X(1), ..., X(L-1),                      *
+*               spectrum sequence                                       *
+*                       , X(0), X(1), ..., X(L/2),                      *
 *       stdout:                                                         *
 *               mel-generalized cepstrum (float)                        *
 *       notice:                                                         *
@@ -89,18 +90,27 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sp2mgc.c,v 1.14 2007/10/09 10:06:58 heigazen Exp $";
+static char *rcs_id = "$Id: sp2mgc.c,v 1.15 2007/10/11 05:58:23 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
+#ifdef HAVE_STRING_H
+#  include <string.h>
+#else
+#  include <strings.h>
+#  ifndef HAVE_STRRCHR
+#     define strrchr rindex
+#  endif
+#endif
+
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 /*  Default Values  */
@@ -145,8 +155,8 @@ void usage (int status)
    fprintf(stderr, "                 4 (K~,g*c~'1...g*c~'m)\n");
    fprintf(stderr, "                 5 (K,g*b'1...g*b'm)\n");
    fprintf(stderr, "     (level 2)\n");
-   fprintf(stderr, "       -I I  : minimum iteration                 [%d]\n", MINITR);
-   fprintf(stderr, "       -J J  : maximum iteration                 [%d]\n", MAXITR);
+   fprintf(stderr, "       -j j  : minimum iteration                 [%d]\n", MINITR);
+   fprintf(stderr, "       -k k  : maximum iteration                 [%d]\n", MAXITR);
    fprintf(stderr, "       -d d  : end condition                     [%g]\n", END);
    fprintf(stderr, "       -p p  : order of recursions               [l-1]\n");
    fprintf(stderr, "       -e e  : small value added to periodgram   [%g]\n", EPS);
@@ -199,15 +209,19 @@ int main (int argc, char **argv)
             flng = atoi(*++argv);
             --argc;
             break;
+         case 'i':
+            mode = atoi(*++argv);
+            --argc;
+            break;
          case 'o':
             otype = atoi(*++argv);
             --argc;
             break;
-         case 'I':
+         case 'j':
             itr1 = atoi(*++argv);
             --argc;
             break;
-         case 'J':
+         case 'k':
             itr2 = atoi(*++argv);
             --argc;
             break;
@@ -225,10 +239,6 @@ int main (int argc, char **argv)
             break;
          case 'f':
             f = atof(*++argv);
-            --argc;
-            break;
-         case 'i':
-            mode = atoi(*++argv);
             --argc;
             break;
          case 'h':
