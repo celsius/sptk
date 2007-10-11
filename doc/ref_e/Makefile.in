@@ -146,6 +146,7 @@ INC  = cmndref.sty \
 	sin.tex \
 	snr.tex \
 	sopr.tex \
+	sp2mc.tex \
 	sp2mgc.tex \
 	spec.tex \
 	step.tex \
