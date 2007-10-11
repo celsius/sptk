@@ -44,72 +44,65 @@
 %                                                                   %
 %  ---------------------------------------------------------------  %
 %
-\hypertarget{mcep}{}
-\name[ref:mcep-IEICE,ref:amcep-ICASSP92]{mcep}{mel cepstral analysis}%
-{speech analysis}
+\hypertarget{sp2mc}{}
+\name[ref:mcep-IEICE,ref:amcep-ICASSP92]{sp2mc}%
+{transform spectrum to mel-cepstrum}{speech analysis}
 
 \begin{synopsis}
-\item [mcep] [ --a $A$ ] [ --m $M$ ] [ --l $L$ ] [ --i $I$ ] [ --j $J$ ] 
-	     [ --d $D$ ] [ --e $E$ ] [ --f $F$ ] [ {\em infile} ]
+\item[sp2mgc]   [ --a $A$ ] [ --m $M$ ] [ --l $L$ ] [ --i $I$ ] 
+\item[\ ~~~~~~~] [ --j $J$ ] [ --k $K$ ] [ --d $D$ ] [ --e $E$ ] [ --f $F$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em mcep} uses mel-cepstral analysis 
-to calculate mel-cepstral coefficients $c_{\alpha}(m)$ 
-from $L$-length framed windowed data from {\em infile} (or standard input), 
-sending the result to standard output.
-
-Input and output data are in float format.
-
-In the mel-cepstral analysis, the spectrum of the speech signal
-is modeled by $M$-th order mel-cepstral coefficients $c_{\alpha}(m)$
-as follows.
-\begin{displaymath}
-H(z) = \exp \sum_{m=0}^M c_{\alpha}(m) \tilde{z}^{-m} 
-\end{displaymath}
-For this command ``mcep'', it is applied a cost function
-based on the unbiased estimation log spectrum method.
-The variable $\tilde{z}^{-1}$ can be expressed as the following
-first order all-pass function
-\begin{displaymath}
-\tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}.
-\end{displaymath}
-The phase characteristic is given by the variable $\alpha$.
-For a sampling rate 16 kHz, $\alpha$ is made equal to $0.42$.
-For a sampling rate 10 kHz, $\alpha$ is made equal to $0.35$.
-For a sampling rate 8 kHz, $\alpha$ is made equal to $0.31$.
-By making these choices for $\alpha$,
-the mel-scale becomes the good approximation to human
-sensitivity to the loudness speech sound.
-
-The Newton-Raphson method is used to minimize the cost function
-when evaluating mel-cepstral coefficients.
+{\em sp2mc} uses mel-cepstral analysis to calculate mel-cepstral coefficients 
+from $L$-length periodgram input data 
+from {\em infile} (or standard input), 
+sending the result to standard output. 
+There are several different input formats,
+controlled by the --i option.
 \end{qsection}
 
 \begin{options}
-	\argm{a}{A}{all-pass constant $\alpha$}{0.35}
-	\argm{m}{M}{order of mel cepstrum}{25}
-	\argm{l}{L}{frame length}{256}
+	\argm{a}{A}{alpha $\alpha$}{0.35}
+	\argm{m}{M}{order of mel-generalized cepstrum}{25}
+	\argm{l}{L}{FFT length power of 2}{256}
+	\argm{i}{I}{input data style\\
+			\begin{tabular}{ll} \\[-1ex]
+				$I=0$ & $20 \times \log |H(z)|$ \\
+				$I=1$ & $\ln |H(z)|$ \\
+				$I=2$ & $|H(z)|$ \\
+				$I=3$ & $|H(z)|^2$ \\[1ex]
+        	\end{tabular} \\
+			}{0}
 	\desc[1ex]{Usually, the options below do not need to be assigned.}
-	\argm{i}{I}{minimum iteration of Newton-Raphson method}{2}
-	\argm{j}{J}{maximum iteration of Newton-Raphson method}{30}
-	\argm{d}{D}{end condition of Newton-Raphson}{0.001}
-	\argm{e}{E}{small value added to periodgram}{0.0}
+	\argm{j}{J}{minimum iteration of Newton-Raphson method}{2}
+	\argm{k}{K}{maximum iteration of Newton-Raphson method}{30}
+	\argm{d}{D}{end condition of Newton-Raphson method}{0.001}
+	\argm{e}{E}{small value added to periodgram}{0}	
 	\argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-Speech data is read in float format from {\em data.f} and 
-analyzed, and mel-cepstral coefficients are written to {\em data.mcep}:
+In the following speech data in float format is read
+from {\em data.f}, and analyzed with $\alpha=0$
+(which correspond to UELS method for log spectrum estimation)
+and the resulting cepstral coefficients are written {\em data.cep}:
 \begin{quote}
- \verb!frame +f < data.f | window | mcep > data.mcep !
+  \verb!frame +f < data.f | window | \! \\
+  \verb!fftr -A -H | sp2mc -i 2 > data.cep!
+\end{quote}
+\begin{quote}
+  \verb!frame +f < data.f | window | \! \\
+  \verb!fftr -P -H | sp2mc -i 3 > data.cep!
 \end{quote}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
 \hyperlink{uels}{uels},
 \hyperlink{gcep}{gcep},
+\hyperlink{mcep}{mcep},
 \hyperlink{mgcep}{mgcep},
 \hyperlink{mlsadf}{mlsadf},
-\hyperlink{sp2mc}{sp2mc}
+\hyperlink{sp2mc}{sp2mgc},
+\hyperlink{mgc2sp}{mgc2sp}
 \end{qsection}
