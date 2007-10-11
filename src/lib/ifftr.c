@@ -48,7 +48,7 @@
 */
 
 /***************************************************************
-    $Id: ifftr.c,v 1.6 2007/10/08 16:30:39 heigazen Exp $
+    $Id: ifftr.c,v 1.7 2007/10/11 07:36:32 heigazen Exp $
 
     Inverse Fast Fourier Transform for Real Sequence
 
@@ -63,9 +63,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 int ifftr (double *x, double *y, const int l)

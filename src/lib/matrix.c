@@ -49,7 +49,7 @@
 
 /*****************************************************************
 
-    $Id: matrix.c,v 1.8 2007/10/08 16:30:39 heigazen Exp $
+    $Id: matrix.c,v 1.9 2007/10/11 07:36:32 heigazen Exp $
 
     compute matrix functions
 
@@ -81,9 +81,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 static double *tmp;
