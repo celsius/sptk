@@ -62,8 +62,8 @@
 *                             1 (ln|H(z)|)                              *
 *                             2 (|H(z)|)                                *
 *               (level 2)                                               *
-*               -I I     :  minimum iteration                 [2]       *
-*               -J J     :  maximum iteration                 [30]      *
+*               -j j     :  minimum iteration                 [2]       *
+*               -k k     :  maximum iteration                 [30]      *
 *               -d d     :  end condition                     [0.001]   *
 *               -e e     :  small value added to periodgram   [0]       *
 *               -f f     :  mimimum value of the determinant            *
@@ -133,8 +133,8 @@ void usage (int status)
    fprintf(stderr, "                 2 (|H(z)|)\n");
    fprintf(stderr, "                 3 (|H(z)|)^2\n");
    fprintf(stderr, "     (level 2)\n");
-   fprintf(stderr, "       -I I  : minimum iteration                 [%d]\n", MINITR);
-   fprintf(stderr, "       -J J  : maximum iteration                 [%d]\n", MAXITR);
+   fprintf(stderr, "       -j j  : minimum iteration                 [%d]\n", MINITR);
+   fprintf(stderr, "       -k k  : maximum iteration                 [%d]\n", MAXITR);
    fprintf(stderr, "       -d d  : end condition                     [%g]\n", END);
    fprintf(stderr, "       -e e  : small value added to periodgram   [%g]\n", EPS);
    fprintf(stderr, "       -f f  : mimimum value of the determinant  [%g]\n", MINDET);
@@ -179,11 +179,15 @@ int main (int argc, char **argv)
             flng = atoi(*++argv);
             --argc;
             break;
-         case 'I':
+         case 'i':
+            mode = atoi(*++argv);
+            --argc;
+            break;
+         case 'j':
             itr1 = atoi(*++argv);
             --argc;
             break;
-         case 'J':
+         case 'k':
             itr2 = atoi(*++argv);
             --argc;
             break;
@@ -197,10 +201,6 @@ int main (int argc, char **argv)
             break;
          case 'f':
             f = atof(*++argv);
-            --argc;
-            break;
-         case 'i':
-            mode = atoi(*++argv);
             --argc;
             break;
          case 'h':
