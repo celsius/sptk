@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _c2acr.c,v 1.8 2007/10/08 16:49:34 heigazen Exp $
+    $Id: _c2acr.c,v 1.9 2007/10/16 02:21:18 heigazen Exp $
 
     Transformation Cepstrum to Autocorrelation
 
@@ -68,9 +68,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void c2acr(double *c, const int m1, double *r, const int m2, const int flng)

@@ -48,7 +48,7 @@
 */
 
 /***************************************************************
-  $Id: _histogram.c,v 1.11 2007/10/08 16:49:27 heigazen Exp $
+  $Id: _histogram.c,v 1.12 2007/10/16 02:20:54 heigazen Exp $
    histogram
       histogram(x, size, min, max, step, h);
       Naohiro Isshiki      Feb. 1996
@@ -57,9 +57,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 int histogram (double *x, const int size, const double min, const double max, const double step, double *h)

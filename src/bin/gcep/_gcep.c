@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _gcep.c,v 1.10 2007/10/09 04:33:29 heigazen Exp $
+    $Id: _gcep.c,v 1.11 2007/10/16 02:20:57 heigazen Exp $
 
     Generalized Cepstral Analysis
 
@@ -77,9 +77,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 int gcep (double *xw, const int flng, double *gc, const int m, const double g, const int itr1, const int itr2, 

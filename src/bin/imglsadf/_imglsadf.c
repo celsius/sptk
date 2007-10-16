@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _imglsadf.c,v 1.8 2007/10/08 16:49:29 heigazen Exp $
+    $Id: _imglsadf.c,v 1.9 2007/10/16 02:20:58 heigazen Exp $
 
     Inverse MGLSA Digital Filter
 
@@ -69,9 +69,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 static double imglsadff (double x, double *b, const int m, const double a, double *d)

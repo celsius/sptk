@@ -49,7 +49,7 @@
 
 /***************************************************************
 
-    $Id: _freqt.c,v 1.9 2007/10/08 16:49:33 heigazen Exp $
+    $Id: _freqt.c,v 1.10 2007/10/16 02:21:16 heigazen Exp $
 
     Frequency Transformation
 
@@ -67,9 +67,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void freqt (double *c1, const int m1, double *c2, const int m2, const double a)

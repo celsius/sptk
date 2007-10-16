@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _iglsadf.c,v 1.8 2007/10/08 16:49:35 heigazen Exp $
+    $Id: _iglsadf.c,v 1.9 2007/10/16 02:21:20 heigazen Exp $
 
     Inverse GLSA Digital Filter
 
@@ -68,9 +68,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 static double gzerodf (double x, double *c, int m, const double g, double *d)

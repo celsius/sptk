@@ -48,7 +48,7 @@
 */
 
 /***************************************************************
-  $Id: _grpdelay.c,v 1.9 2007/10/08 16:49:31 heigazen Exp $
+  $Id: _grpdelay.c,v 1.10 2007/10/16 02:21:09 heigazen Exp $
   group delay of digital filter
       grpdelay(x, gd, size, is_alma);
 
@@ -64,9 +64,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void grpdelay (double *x, double *gd, const int size, const int is_arma)

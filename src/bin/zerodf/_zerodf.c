@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _zerodf.c,v 1.8 2007/10/08 16:49:31 heigazen Exp $
+    $Id: _zerodf.c,v 1.9 2007/10/16 02:21:10 heigazen Exp $
 
     All Zero Digital Filter
 
@@ -68,9 +68,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 double zerodf (double x, double *b, int m, double *d)

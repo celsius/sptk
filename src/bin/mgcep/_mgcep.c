@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-   $Id: _mgcep.c,v 1.14 2007/10/09 04:33:30 heigazen Exp $
+   $Id: _mgcep.c,v 1.15 2007/10/16 02:20:58 heigazen Exp $
 
    Mel-Generalized Cepstral Analysis
 
@@ -79,9 +79,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 /*  gain(epsilon) calculation  */

@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _amcep.c,v 1.10 2007/10/08 16:49:33 heigazen Exp $
+    $Id: _amcep.c,v 1.11 2007/10/16 02:21:16 heigazen Exp $
 
     Adaptive Mel Cepstral Analysis
 
@@ -74,9 +74,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 double amcep (double x, double *b, const int m, const double a, const double lambda, const double step, const double tau, const int pd, const double eps)

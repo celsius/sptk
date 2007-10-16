@@ -74,18 +74,27 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: zerodf.c,v 1.16 2007/10/09 10:07:09 heigazen Exp $";
+static char *rcs_id = "$Id: zerodf.c,v 1.17 2007/10/16 02:21:10 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
 #include <stdio.h>
-#include <string.h>
+
+#ifdef HAVE_STRING_H
+#  include <string.h>
+#else
+#  include <strings.h>
+#  ifndef HAVE_STRRCHR
+#     define strrchr rindex
+#  endif
+#endif
+
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 /*  Default Values  */

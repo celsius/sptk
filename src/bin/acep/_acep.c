@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _acep.c,v 1.9 2007/10/08 16:49:34 heigazen Exp $
+    $Id: _acep.c,v 1.10 2007/10/16 02:21:18 heigazen Exp $
 
     Adaptive Cepstral Analysis
 
@@ -72,9 +72,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 double acep (double x, double *c, const int m, const double lambda, const double step, const double tau, const int pd, const double eps)

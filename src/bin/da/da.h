@@ -47,7 +47,7 @@
   ---------------------------------------------------------------  
 */
 
-/* $Id: da.h,v 1.10 2007/10/09 09:06:21 heigazen Exp $ */
+/* $Id: da.h,v 1.11 2007/10/16 02:21:20 heigazen Exp $ */
 
 #include <stdio.h>
 #include <fcntl.h>
@@ -56,36 +56,36 @@
 #endif
 
 #if defined(LINUX) || defined(FreeBSD)
-#include <sys/soundcard.h>
-#define AUDIO_DEV "/dev/dsp"
-#define MIXER_DEV "/dev/mixer"
-#define MAXAMPGAIN 100
-#define AVAILABLE_FREQ "8,11.025,22.05,44.1"
-#define DEFAULT_FREQ 11
+#  include <sys/soundcard.h>
+#  define AUDIO_DEV "/dev/dsp"
+#  define MIXER_DEV "/dev/mixer"
+#  define MAXAMPGAIN 100
+#  define AVAILABLE_FREQ "8,11.025,22.05,44.1"
+#  define DEFAULT_FREQ 11
 #endif /* LINUX or FreeBSD */
 
 #ifdef SUNOS
-#define SPARC
-#include <sun/audioio.h>
+#  define SPARC
+#  include <sun/audioio.h>
 #endif /* SUNOS */
 
 #ifdef SOLARIS
-#define SPARC
-#include <sys/audioio.h>
+#  define SPARC
+#  include <sys/audioio.h>
 #endif /* SOLARIS */
 
 #ifdef SPARC
-#define AUDIO_DEV "/dev/audio"
-#define AUDIO_CTLDEV "/dev/audioctl"
-#define MAXAMPGAIN 255
-#define AVAILABLE_FREQ "8,11.025,16,22.05,32,44.1,48"
-#define DEFAULT_FREQ 16
+#  define AUDIO_DEV "/dev/audio"
+#  define AUDIO_CTLDEV "/dev/audioctl"
+#  define MAXAMPGAIN 255
+#  define AVAILABLE_FREQ "8,11.025,16,22.05,32,44.1,48"
+#  define DEFAULT_FREQ 16
 #endif /* SPARC */
 
 #ifdef WIN32
-#define AVAILABLE_FREQ  "8,11.025,22.05,44.1"
-#define MAXAMPGAIN      65535
-#define DEFAULT_FREQ    16
+#  define AVAILABLE_FREQ  "8,11.025,22.05,44.1"
+#  define MAXAMPGAIN      65535
+#  define DEFAULT_FREQ    16
 #endif
 
 #define U_LAW 1

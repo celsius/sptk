@@ -79,19 +79,26 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: us.c,v 1.21 2007/10/09 08:51:45 heigazen Exp $";
+static char *rcs_id = "$Id: us.c,v 1.22 2007/10/16 02:20:56 heigazen Exp $";
 
 
 /* Standard C Libraries */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
+#ifdef HAVE_STRING_H
+#  include <string.h>
+#else
+#  include <strings.h>
+#  ifndef HAVE_STRRCHR
+#     define strrchr rindex
+#  endif
+#endif
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <strings.h>
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 /*  Required Functions  */
@@ -240,7 +247,7 @@ int main (int argc,char *argv[])
       def_u_rate = 8;
    }
    else {
-      fprintf(stderr, "%s : Given dec/int rate %d is not supported!\n",cmnd,type);
+      fprintf(stderr, "%s : Given dec/int rate %s is not supported!\n",cmnd,type);
       usage (1);
    }
 

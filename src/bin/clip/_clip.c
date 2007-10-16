@@ -49,7 +49,7 @@
 
 /***************************************************************
 *                                                              * 
-*     $Id: _clip.c,v 1.9 2007/10/08 16:49:27 heigazen Exp $    *
+*     $Id: _clip.c,v 1.10 2007/10/16 02:20:53 heigazen Exp $    *
 *                                                              *
 *       Data clipping                                          *        
 *               1996.3.14                                      *
@@ -68,9 +68,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void clip (double *x, const int l, const double min, const double max, double *y)

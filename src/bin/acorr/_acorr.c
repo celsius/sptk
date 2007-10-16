@@ -49,7 +49,7 @@
 
 /***********************************************************
 
-    $Id: _acorr.c,v 1.8 2007/10/08 16:49:33 heigazen Exp $
+    $Id: _acorr.c,v 1.9 2007/10/16 02:21:16 heigazen Exp $
 
     obtain autocorrelation sequence
     
@@ -65,9 +65,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void acorr (double *x, int l, double *r, const int np)

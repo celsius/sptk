@@ -49,11 +49,11 @@
 
 /****************************************************************
 
-    $Id: _sp2mgc.c,v 1.6 2007/10/09 04:33:30 heigazen Exp $
+    $Id: _sp2mgc.c,v 1.7 2007/10/16 02:20:56 heigazen Exp $
 
     Extract mel-generalized cepstral coefficients for given spectrum
 
-        int sp2mgc(xw, flng, b, m, a, g, itr1, itr2, dd, e);
+        int sp2mgc(xw, flng, b, m, a, g, itr1, itr2, dd, e, itype);
 
          double   *xw   : input sequence
          int      flng  : frame length
@@ -68,6 +68,7 @@
          double   e     : initial value for log-periodgram
          double   f     : mimimum value of the determinant 
                           of the normal matrix
+         int      itype : input data type
                          
          return   value :  0 -> completed by end condition
                           -1-> completed by maximum iteration
@@ -79,9 +80,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 int sp2mgc (double *xw, const int flng, double *b, const int m, const double a, const double g, const int n, 

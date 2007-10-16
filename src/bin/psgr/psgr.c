@@ -58,24 +58,33 @@
 *      Ver. 0.99  '93.8                                 *
 ********************************************************/
 
-static char *rcs_id = "$Id: psgr.c,v 1.13 2007/10/09 09:34:10 heigazen Exp $";
+static char *rcs_id = "$Id: psgr.c,v 1.14 2007/10/16 02:20:56 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <SPTK.h>
+
+#ifdef HAVE_STRING_H
+#  include <string.h>
+#else 
+#  include <strings.h>
+#  ifndef HAVE_STRRCHR
+#     define strrchr rindex
+#  endif
+#endif
+
+#if defined(WIN32)
+#  include "SPTK.h"
+#else
+#  include <SPTK.h>
+#endif
+
 #include "psgr.h"
+
 
 char *BOOL[] = {"FALSE", "TRUE"};
 
-#if HAS_STDLIB
-#include <strings.h>
-#define RINDEX(s, c)    rindex(s, c)
-#else
-#include <string.h>
-#define RINDEX(s, c)    strrchr(s, c)
-#endif
 
 #define MaxPaperTypes 6 /*  Paper Media  */
 
@@ -165,8 +174,8 @@ int main (int argc,char *argv[] )
    float shrink=SHRINK;
 
    progname = *argv;
-   if (RINDEX(progname, '/'))
-      progname = (char *)(RINDEX(progname, '/') + 1);
+   if (strrchr(progname, '/'))
+      progname = (char *)(strrchr(progname, '/') + 1);
    while (--argc)  {
       if (*(str=*++argv)=='-')  {
          flg = *++str;

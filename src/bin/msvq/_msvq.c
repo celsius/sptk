@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _msvq.c,v 1.8 2007/10/08 16:49:29 heigazen Exp $
+    $Id: _msvq.c,v 1.9 2007/10/16 02:20:57 heigazen Exp $
 
     Multi Stage Vector Quantization
 
@@ -68,9 +68,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void msvq (double *x, double *cb, const int l, int *cbsize, const int stage, int *index)

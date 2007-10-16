@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-  $Id: _nrand.c,v 1.8 2007/10/08 16:49:32 heigazen Exp $
+  $Id: _nrand.c,v 1.9 2007/10/16 02:21:12 heigazen Exp $
 
     Generate Normal Distributed Random Value
         nrand(p, leng, seed)
@@ -63,9 +63,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 #define RAND_MAX 32767

@@ -48,7 +48,7 @@
 */
 
 /***************************************************************
-    $Id: _norm0.c,v 1.7 2007/10/08 16:49:30 heigazen Exp $
+    $Id: _norm0.c,v 1.8 2007/10/16 02:21:08 heigazen Exp $
 
     Normalize coefficients
 
@@ -63,9 +63,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void norm0 (double *x, double *y, int m)

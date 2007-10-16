@@ -48,7 +48,7 @@
 */
 
 /********************************************************
-* $Id: _fftr2.c,v 1.9 2007/10/08 16:49:29 heigazen Exp $*
+* $Id: _fftr2.c,v 1.10 2007/10/16 02:20:58 heigazen Exp $*
 *       fftr2 : two dimensional fast Fourier transform  *
 *                       for real sequence               *
 *                                                       *
@@ -69,9 +69,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 int fftr2 (double x[], double y[], const int n)

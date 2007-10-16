@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-   $Id: _window.c,v 1.11 2007/10/08 16:49:28 heigazen Exp $
+   $Id: _window.c,v 1.12 2007/10/16 02:20:55 heigazen Exp $
 
    Window function
    ---------------
@@ -76,9 +76,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 /************************************************

@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _levdur.c,v 1.13 2007/10/09 06:29:09 heigazen Exp $
+    $Id: _levdur.c,v 1.14 2007/10/16 02:21:14 heigazen Exp $
 
     Solve an Autocorrelation Normal Equation
     Using Levinson-Durbin Method
@@ -72,9 +72,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 int levdur (double *r, double *a, const int m, double eps)

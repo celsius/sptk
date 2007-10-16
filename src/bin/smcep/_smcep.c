@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _smcep.c,v 1.13 2007/10/09 04:33:29 heigazen Exp $
+    $Id: _smcep.c,v 1.14 2007/10/16 02:21:12 heigazen Exp $
 
     Mel-Cepstral Analysis (2nd order all-pass filter)
 
@@ -78,9 +78,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 /***************************************************************

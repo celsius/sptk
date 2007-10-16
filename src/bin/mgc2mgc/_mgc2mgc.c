@@ -49,7 +49,7 @@
 
 /***********************************************************************
 
-    $Id: _mgc2mgc.c,v 1.8 2007/10/08 16:49:31 heigazen Exp $
+    $Id: _mgc2mgc.c,v 1.9 2007/10/16 02:21:10 heigazen Exp $
 
     Frequency and Generalized Cepstral Transformation
 
@@ -70,9 +70,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void mgc2mgc (double *c1, const int m1, const double a1, const double g1, double *c2, const int m2, const double a2, const double g2)

@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _vq.c,v 1.8 2007/10/08 16:49:36 heigazen Exp $
+    $Id: _vq.c,v 1.9 2007/10/16 02:21:08 heigazen Exp $
 
     Vector Quantization
 
@@ -67,9 +67,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 int vq (double *x, double *cb, const int l, const int cbsize)

@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _fftcep.c,v 1.8 2007/10/08 16:49:35 heigazen Exp $
+    $Id: _fftcep.c,v 1.9 2007/10/16 02:21:20 heigazen Exp $
 
     FFT Cepstral Analysis
 
@@ -68,9 +68,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void fftcep (double *sp, const int flng, double *c, const int m, int itr, double ac)

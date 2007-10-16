@@ -72,21 +72,30 @@
 *                                                                            *
 *****************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.20 2007/10/09 09:06:21 heigazen Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.21 2007/10/16 02:21:20 heigazen Exp $";
 
 
 /* Standard C Libraries */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#ifndef WIN32
-#include <unistd.h>
-#endif
-#include <SPTK.h>
-#include "da.h"
 
-#ifdef WIN32
-#include "winplay.h"
+#ifdef HAVE_STRING_H
+#  include <string.h>
+#else
+#  include <strings.h>
+#  ifndef HAVE_STRRCHR
+#     define strrchr rindex
+#  endif
+#endif
+
+#ifndef WIN32
+#  include <unistd.h>
+#  include <SPTK.h>
+#  include "da.h"
+#else
+#  include "SPTK.h"
+#  include "da.h"
+#  include "winplay.h"
 #endif
 
 /* Default Value */

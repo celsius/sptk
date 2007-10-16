@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _imsvq.c,v 1.9 2007/10/08 16:45:18 heigazen Exp $
+    $Id: _imsvq.c,v 1.10 2007/10/16 02:21:14 heigazen Exp $
 
     Decoder of Multi Stage Vector Quantization
 
@@ -68,9 +68,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void imsvq (int *index, double *cb, const int l, int *cbsize, const int stage, double *x)

@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _lsp2lpc.c,v 1.9 2007/10/08 16:49:28 heigazen Exp $
+    $Id: _lsp2lpc.c,v 1.10 2007/10/16 02:20:55 heigazen Exp $
 
     Transformation LSP to LPC
 
@@ -66,9 +66,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void lsp2lpc (double *lsp, double *a, const int m)

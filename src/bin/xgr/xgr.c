@@ -72,24 +72,23 @@
 *                                                               *
 ****************************************************************/
 
-static char *rcs_id = "$Id: xgr.c,v 1.15 2007/09/30 18:37:52 heigazen Exp $";
+static char *rcs_id = "$Id: xgr.c,v 1.16 2007/10/16 02:20:53 heigazen Exp $";
 
 
 /*  Standard C Libraries */
 #include <stdio.h>
 #include <stdlib.h>
-#include "xgr.h"
 
-typedef enum _Boolean {FA, TR} Boolean;
-char *BOOL[] = {"FALSE", "TRUE"};
-
-#if HAS_STDLIB
-#include <strings.h> /* for rindex() */
-#define RINDEX(s, c) rindex(s, c)
+#ifdef HAVE_STRING_H
+#  include <string.h>
 #else
-#include <string.h>
-#define RINDEX(s, c) strrchr(s, c)
+#  include <strings.h>
+#  ifndef HAVE_STRRCHR
+#     define strrchr rindex
+#  endif
 #endif
+
+#include "xgr.h"
 
 /* Defalut Value */
 #define LANDSCAPE FA
@@ -104,6 +103,9 @@ char *BOOL[] = {"FALSE", "TRUE"};
 #define MOUSCOLOR "red"
 #define GEOMETRY NULL
 #define DISPLAY  NULL
+
+typedef enum _Boolean {FA, TR} Boolean;
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /* Command Name */
 char *cmnd;
@@ -150,8 +152,8 @@ int main (int argc,char *argv[])
    char c;
 
    cmnd = windowtitle = *argv;
-   if (RINDEX(cmnd, '/'))
-      cmnd = windowtitle = (char *)(RINDEX(cmnd, '/') + 1);
+   if (strrchr(cmnd, '/'))
+      cmnd = windowtitle = (char *)(strrchr(cmnd, '/') + 1);
 
    while (--argc)  {
       if ((strcmp(*++argv, "-s")==0) && argc>1)  {

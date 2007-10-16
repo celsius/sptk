@@ -48,7 +48,7 @@
 */
 
 /********************************************************
-$Id: _fft2.c,v 1.9 2007/10/08 16:49:28 heigazen Exp $
+$Id: _fft2.c,v 1.10 2007/10/16 02:20:54 heigazen Exp $
 
 *   fft2 : two dimensional fast Fourier transform       *
 *                            for complex sequence       *
@@ -71,9 +71,9 @@ $Id: _fft2.c,v 1.9 2007/10/08 16:49:28 heigazen Exp $
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 int fft2 (double x[], double y[], const int n)

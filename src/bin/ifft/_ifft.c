@@ -48,7 +48,7 @@
 */
 
 /*****************************************************************
-*  $Id: _ifft.c,v 1.12 2007/10/08 16:49:27 heigazen Exp $         *
+*  $Id: _ifft.c,v 1.13 2007/10/16 02:20:53 heigazen Exp $         *
 *  NAME:                                                         *
 *      ifft - Inverse Fast Fourier Transform                     *   
 *  SYNOPSIS:                                                     *
@@ -62,9 +62,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 int ifft (double *x, double *y, const int m)

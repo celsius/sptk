@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _lmadf.c,v 1.8 2007/10/08 16:49:34 heigazen Exp $
+    $Id: _lmadf.c,v 1.9 2007/10/16 02:21:18 heigazen Exp $
 
     LMA Digital Filter
 
@@ -68,9 +68,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 static double pade[] = {1.0,

@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-*  $Id: _ifft2.c,v 1.9 2007/10/08 16:49:34 heigazen Exp $       *
+*  $Id: _ifft2.c,v 1.10 2007/10/16 02:21:17 heigazen Exp $       *
 *  ifft2 : two dimensional inverse fast Fourier                 *
 *      transform                                                *
 *                                                               *
@@ -65,9 +65,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 int ifft2 (double x[], double y[], const int n)

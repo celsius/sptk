@@ -48,7 +48,7 @@
 */
 
 /***************************************************************
-    $Id: _gc2gc.c,v 1.9 2007/10/08 16:49:28 heigazen Exp $
+    $Id: _gc2gc.c,v 1.10 2007/10/16 02:20:55 heigazen Exp $
 
     Generalized Cepstral Transformation   
 
@@ -67,9 +67,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void gc2gc (double *c1, const int m1, const double g1, double *c2, const int m2, const double g2)

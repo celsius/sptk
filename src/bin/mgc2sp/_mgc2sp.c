@@ -49,7 +49,7 @@
 
 /***********************************************************************
 
-    $Id: _mgc2sp.c,v 1.8 2007/10/08 16:49:31 heigazen Exp $
+    $Id: _mgc2sp.c,v 1.9 2007/10/16 02:21:11 heigazen Exp $
 
     Transformation mel-generalized cepstrum to log spectrum
 
@@ -69,9 +69,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void mgc2sp (double *mgc, const int m, const double a, const double g, double *x, double *y, const int flng)

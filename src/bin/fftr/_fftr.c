@@ -48,7 +48,7 @@
 */
 
 /********************************************************
- $Id: _fftr.c,v 1.9 2007/10/08 16:49:27 heigazen Exp $                     
+ $Id: _fftr.c,v 1.10 2007/10/16 02:20:54 heigazen Exp $                     
  
  NAME:                     
         fftr - Fast Fourier Transform for Double sequence      
@@ -66,9 +66,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 extern double *_sintbl;
