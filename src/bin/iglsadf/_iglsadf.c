@@ -68,9 +68,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 static double gzerodf (double x, double *c, int m, const double g, double *d)

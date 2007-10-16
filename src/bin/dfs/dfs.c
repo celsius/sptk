@@ -75,12 +75,21 @@ static char *rcs_id = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <string.h>
+
+#ifdef HAVE_STRING_H
+#  include <string.h>
+#else
+#  include <strings.h>
+#  ifndef HAVE_STRRCHR
+#     define strrchr rindex
+#  endif
+#endif
+
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 /* Default Values */

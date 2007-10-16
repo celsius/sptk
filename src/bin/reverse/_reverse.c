@@ -62,9 +62,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void reverse (double *x, const int l)

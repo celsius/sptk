@@ -68,9 +68,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void imsvq (int *index, double *cb, const int l, int *cbsize, const int stage, double *x)

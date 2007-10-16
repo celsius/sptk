@@ -67,9 +67,9 @@
 #include <stdlib.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void gc2gc (double *c1, const int m1, const double g1, double *c2, const int m2, const double g2)

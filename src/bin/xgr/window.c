@@ -55,9 +55,19 @@
 #include <X11/cursorfont.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
+#ifdef HAVE_STRING_H
+#  include <string.h>
+#else 
+#  include <strings.h>
+#  ifndef HAVE_STRRCHR
+#     define strrchr rindex
+#  endif
+#endif
+
 #include "gcdata.h"
 #include "xgr.h"
+
 
 Display  *display;
 Window  main_window;
@@ -105,11 +115,12 @@ void init_window(int argc,char *argv[])
 
    screen = DefaultScreen(display);
 
-#if BSD
+#if defined(HAVE_BZERO) && !defined(HAVE_MEMSET)
    bzero(&xsh, sizeof(xsh));
 #else
    memset(&xsh, 0, sizeof(xsh));
 #endif
+
    if (geometry)  {
       int bitmask;
 

@@ -55,17 +55,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include "psgr.h"
-
-
-#if HAS_STDLIB
-#include <strings.h>
-#include <stdlib.h>
-#else
-#include <string.h>
-#include <stdlib.h>
-#endif  /* HAS_STDLIB */
-
 
 #define plot_min(x, min, pmin) ((x<min) ? ((x>=pmin)?(x):(pmin)) : (min))
 #define plot_max(x, max, pmax) ((x>max) ? ((x<=pmax)?(x):(pmax)) : (max))

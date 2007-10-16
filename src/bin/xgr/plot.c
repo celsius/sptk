@@ -202,12 +202,7 @@ static void dplot (int density, short x, short y, short w, short h)
 
    n_max = ++w * ++h;
    n_plot = (density * n_max) / LEVEL;
-
-#if BSD
-   bzero((char *)flg, sizeof(*flg)*POINTS);
-#else
    memset(flg, 0, sizeof(*flg)*POINTS);
-#endif
 
    for (n=0; n<n_plot; n++)  {
       p = (int)(n_max * (double)rand() / (double)INT_MAX);

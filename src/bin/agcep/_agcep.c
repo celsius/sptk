@@ -73,9 +73,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 double agcep (double x, double *c, const int m, const int stage, const double lambda, const double step, const double tau, const double eps)

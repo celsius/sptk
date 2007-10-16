@@ -72,9 +72,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 double df2 (const double x, const double sf, const double f0p, const double wbp, const double f0z, const double wbz, 

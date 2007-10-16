@@ -72,9 +72,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 double acep (double x, double *c, const int m, const double lambda, const double step, const double tau, const int pd, const double eps)

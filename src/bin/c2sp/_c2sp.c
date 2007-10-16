@@ -65,9 +65,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void c2sp (double *c, const int m, double *x, double *y, const int l)

@@ -66,9 +66,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 void lpc2c (double *a, int m1, double *c, const int m2)

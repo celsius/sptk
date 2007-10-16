@@ -77,45 +77,10 @@
 #include <math.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
-
-static void frqtr (double *c1, int m1, double *c2, int m2, const double a)
-{
-   int i, j;
-   static double *d=NULL, *g;
-   static int size;
-
-   if (d==NULL) {
-      size = m2;
-      d = dgetmem(size+size+2);
-      g = d + size + 1;
-   }
-
-   if (m2>size) {
-      free(d);
-      size = m2;
-      d = dgetmem(size+size+2);
-      g = d + size + 1;
-   }
-
-   fillz(g, sizeof(*g), m2+1);
-
-   for (i=-m1; i<=0; i++) {
-      if (0 <= m2) {
-         d[0] = g[0];
-         g[0] = c1[-i];
-      }
-      for (j=1; j<=m2; j++)
-         g[j] = d[j-1] + a*((d[j] = g[j]) - g[j-1]);
-   }
-
-   movem(g, c2, sizeof(*g), m2+1);
-
-   return;
-}
 
 int mcep (double *xw, const int flng, double *mc, const int m, const double a, const int itr1, const int itr2, 
           const double dd, const double e, const double f)
@@ -233,3 +198,38 @@ int mcep (double *xw, const int flng, double *mc, const int m, const double a, c
         double a     : all-pass constant
 
 ***************************************************************/
+
+void frqtr (double *c1, int m1, double *c2, int m2, const double a)
+{
+   int i, j;
+   static double *d=NULL, *g;
+   static int size;
+
+   if (d==NULL) {
+      size = m2;
+      d = dgetmem(size+size+2);
+      g = d + size + 1;
+   }
+
+   if (m2>size) {
+      free(d);
+      size = m2;
+      d = dgetmem(size+size+2);
+      g = d + size + 1;
+   }
+
+   fillz(g, sizeof(*g), m2+1);
+
+   for (i=-m1; i<=0; i++) {
+      if (0 <= m2) {
+         d[0] = g[0];
+         g[0] = c1[-i];
+      }
+      for (j=1; j<=m2; j++)
+         g[j] = d[j-1] + a*((d[j] = g[j]) - g[j-1]);
+   }
+
+   movem(g, c2, sizeof(*g), m2+1);
+
+   return;
+}

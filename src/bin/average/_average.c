@@ -64,9 +64,9 @@
 #include <stdio.h>
 
 #if defined(WIN32)
-#include "SPTK.h"
+#  include "SPTK.h"
 #else
-#include <SPTK.h>
+#  include <SPTK.h>
 #endif
 
 double average (double *x, const int n)
