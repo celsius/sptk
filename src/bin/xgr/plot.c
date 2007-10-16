@@ -48,7 +48,7 @@
 */
 
 /****************************************************************
-* $Id: plot.c,v 1.15 2007/10/16 02:20:53 heigazen Exp $         *
+* $Id: plot.c,v 1.16 2007/10/16 18:24:37 heigazen Exp $         *
 *          Interpret X-Y Ploter Commands                        *
 ****************************************************************/
 
@@ -202,8 +202,13 @@ static void dplot (int density, short x, short y, short w, short h)
 
    n_max = ++w * ++h;
    n_plot = (density * n_max) / LEVEL;
+   
+#if defined(HAVE_MEMSET)
    memset(flg, 0, sizeof(*flg)*POINTS);
-
+#elif defined(HAVE_BZERO)
+   bzero((char *)flg, sizeof(*flg)*POINTS);
+#endif
+   
    for (n=0; n<n_plot; n++)  {
       p = (int)(n_max * (double)rand() / (double)INT_MAX);
       if (flg[p]==0)  {
