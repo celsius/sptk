@@ -24,8 +24,7 @@ AC_PROG_AR
 AC_PATH_PROG(CSH,csh,csh)
 
 # Checks for libraries.
-AC_CHECK_LIB([m], [log])
-
+AC_CHECK_LIB([m],[log],,AC_MSG_ERROR(Cannot find libm))
 
 # Checks for X Window Systems
 AC_PATH_X
@@ -53,7 +52,20 @@ AC_CANONICAL_HOST
 AC_PROG_GCC_TRADITIONAL
 AC_FUNC_MALLOC
 AC_FUNC_STRTOD
-AC_CHECK_FUNCS([bzero memset pow sqrt strrchr])
+AC_CHECK_FUNC(pow,,AC_MSG_ERROR("Cannot find pow()"))
+AC_CHECK_FUNC(sqr,,AC_MSG_ERROR("Cannot find sqr()"))
+
+find_memset=no
+find_strrchr=no
+AC_CHECK_FUNCS([bzero memset],find_memset="yes",)
+AC_CHECK_FUNCS([strrchr rindex],find_strrchr="yes",)
+
+if test "$find_memset" != "yes"; then
+	AC_MSG_ERROR("Cannot find memset() or bzero()")
+fi
+if test "$find_strrchr" != "yes"; then
+	AC_MSG_ERROR("Cannot find strrchr() or rindex()")
+fi
 
 # Checks for double 
 use_double=no
