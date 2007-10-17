@@ -60,13 +60,13 @@
 *                -a a     :  alpha                             [0.35]   *
 *                -g g     :  gamma                             [0]      *
 *                -m m     :  order of mel-generalized cepstrum [25]     *
-*                -l l     :  frame length                      [256]    *
-*                -k k     :  Input format                      [0]      *
+*                -l l     :  frame length (FFT length)         [256]    *
+*                -q q     :  Input format                      [0]      *
 *                              0 (windowed data sequence)               *
 *                              1 (20*log|f(w)|)                         *
 *                              2 (ln|f(w)|)                             *
 *                              3 (|f(w)|)                               *
-*                              4 (|f(w)|)^2                             *
+*                              4 (|f(w)|^2)                             *
 *                -o o     :  output format  (see stdout)       [0]      *
 *                              0 (c~0...c~m)                            * 
 *                              1 (b0...bm)                              *
@@ -83,9 +83,9 @@
 *                -f f     :  mimimum value of the determinant           *
 *                            of the normal matrix            [0.000001] *
 *       infile:                                                         *
-*                windowed sequence (if k==0)                            *
+*                windowed sequence (if q==0)                            *
 *                        , x(0), x(1), ..., x(L-1),                     *
-*                spectrum sequence (if k>0)                             *
+*                spectrum sequence (otherwise)                          *
 *                        , x(0), x(1), ..., x(L/2),                     *
 *       stdout:                                                         *
 *                mel-generalized cepstrum (float)                       *
@@ -146,8 +146,8 @@ void usage (const int status)
    fprintf(stderr, "       -a a  : alpha                             [%g]\n", ALPHA);
    fprintf(stderr, "       -g g  : gamma                             [%g]\n", GAMMA);
    fprintf(stderr, "       -m m  : order of mel-generalized cepstrum [%d]\n", ORDER);
-   fprintf(stderr, "       -l l  : frame length                      [%d]\n", FLENG);
-   fprintf(stderr, "       -k k  : input format                      [%d]\n", ITYPE);
+   fprintf(stderr, "       -l l  : frame length (FFT length)         [%d]\n", FLENG);
+   fprintf(stderr, "       -q q  : input format                      [%d]\n", ITYPE);
    fprintf(stderr, "                 0 (windowed sequence\n");
    fprintf(stderr, "                 1 (20*log|f(w)|)\n");
    fprintf(stderr, "                 2 (ln|f(w)|)\n");
@@ -215,7 +215,7 @@ int main (int argc, char **argv)
             flng = atoi(*++argv);
             --argc;
             break;
-         case 'k':
+         case 'q':
             itype = atoi(*++argv);
             --argc;
             break;
