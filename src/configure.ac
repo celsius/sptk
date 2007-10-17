@@ -236,7 +236,6 @@ AC_CONFIG_FILES([Makefile
                  bin/snr/Makefile
                  bin/sopr/Makefile
                  bin/sp2mc/Makefile
-                 bin/sp2mgc/Makefile
                  bin/spec/Makefile
                  bin/step/Makefile
                  bin/swab/Makefile
