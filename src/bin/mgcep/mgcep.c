@@ -86,7 +86,7 @@
 *                windowed sequence (if q==0)                            *
 *                        , x(0), x(1), ..., x(L-1),                     *
 *                spectrum sequence (otherwise)                          *
-*                        , x(0), x(1), ..., x(L/2),                     *
+*                        , f(0), f(1), ..., f(L/2),                     *
 *       stdout:                                                         *
 *                mel-generalized cepstrum (float)                       *
 *       notice:                                                         *
@@ -96,7 +96,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.26 2007/10/17 15:47:26 heigazen Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.27 2007/10/17 17:16:03 heigazen Exp $";
 
 
 /*  Standard C Libraries  */

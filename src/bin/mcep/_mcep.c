@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.15 2007/10/16 02:21:15 heigazen Exp $
+    $Id: _mcep.c,v 1.16 2007/10/17 17:16:03 heigazen Exp $
 
     Mel-Cepstral Analysis
 
@@ -66,7 +66,8 @@
         double   e     : initial value for log-periodgram
         double   f     : mimimum value of the determinant 
                          of the normal matrix
-                         
+        int      itype : input data type
+                                
         return   value :    0 -> completed by end condition
                             -1-> completed by maximum iteration
 
@@ -83,7 +84,7 @@
 #endif
 
 int mcep (double *xw, const int flng, double *mc, const int m, const double a, const int itr1, const int itr2, 
-          const double dd, const double e, const double f)
+          const double dd, const double e, const double f, const int itype)
 {
    int i, j;
    int flag=0, f2, m2;
@@ -122,17 +123,51 @@ int mcep (double *xw, const int flng, double *mc, const int m, const double a, c
 
    movem(xw, x, sizeof(*x), flng);
 
-   /*  power spectrum  */
-   fftr(x, y, flng);
+   switch (itype) {
+   case 0:   /* windowed data sequence */
+      fftr(x, y, flng);
+      for (i=0; i<flng; i++) {
+         x[i] = x[i]*x[i] + y[i]*y[i] + e;  /*  periodegram  */
+      }
+      break;
+   case 1:   /* dB */
+      for (i=0; i<=flng/2; i++) {
+         x[i] /= 20.0 / log(10.0);  /* dB -> amplitude spectrum */
+         x[i] = x[i]*x[i]+e;  /* amplitude -> periodgram */
+      }
+      break;
+   case 2:  /* log */
+      for (i=0; i<=flng/2; i++) {
+         x[i] = exp(x[i]);  /* log -> amplitude spectrum */
+         x[i] = x[i]*x[i]+e;  /* amplitude -> periodgram */
+      }
+      break;
+   case 3:  /* amplitude */
+      for (i=0; i<=flng/2; i++) {
+         x[i] = x[i]*x[i]+e;  /* amplitude -> periodgram */
+      }
+      break;
+   case 4:  /* periodgram */
+      for (i=0; i<=flng/2; i++) {
+         x[i] = x[i]+e;
+      }
+      break;
+   default:
+     fprintf(stderr, "mcep : input type %d is not supported!\n", itype);
+     exit(1);
+   }
+   if (itype>0) {
+      for (i=1; i<flng/2; i++)
+         x[flng-i] = x[i];
+   }
    for (i=0; i<flng; i++) {
-      x[i] = x[i]*x[i] + y[i]*y[i] + e;
-      if (x[i] <= 0) {
-         fprintf(stderr, "mcep : The log periodogram has '0', use '-e' option!\n");
+      if (x[i] <= 0.0) {
+         fprintf(stderr, "mcep : periodogram has '0', use '-e' option to floor it!\n");
          exit(1);
       }
       c[i] = log(x[i]);
    }
-
+   
    /*  1, (-a), (-a)^2, ..., (-a)^M  */
    al[0] = 1.0;
    for (i=1; i<=m; i++)
