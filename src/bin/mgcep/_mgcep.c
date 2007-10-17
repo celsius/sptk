@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-   $Id: _mgcep.c,v 1.16 2007/10/17 04:57:17 heigazen Exp $
+   $Id: _mgcep.c,v 1.17 2007/10/17 05:03:36 heigazen Exp $
 
    Mel-Generalized Cepstral Analysis
 
@@ -201,7 +201,6 @@ int mgcep (double *xw, int flng, double *b, const int m, const double a, const d
 
    movem(xw, x, sizeof(*x), flng);
 
-   /* Amplitude Spectrum*/ 
    switch (itype) {
    case 0:   /* windowed data sequence */
 	   fftr(x, y, flng);

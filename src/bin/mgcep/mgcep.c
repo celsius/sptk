@@ -63,10 +63,10 @@
 *                -l l     :  frame length                      [256]    *
 *                -k k     :  Input format                      [0]      *
 *                              0 (windowed data sequence)               *
-*                              1 (20*log|H(z)|)                         *
-*                              2 (ln|H(z)|)                             *
-*                              3 (|H(z)|)                               *
-*                              4 (|H(z)|)^2                             *
+*                              1 (20*log|f(w)|)                         *
+*                              2 (ln|f(w)|)                             *
+*                              3 (|f(w)|)                               *
+*                              4 (|f(w)|)^2                             *
 *                -o o     :  output format  (see stdout)       [0]      *
 *                              0 (c~0...c~m)                            * 
 *                              1 (b0...bm)                              *
@@ -96,7 +96,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.24 2007/10/17 04:57:17 heigazen Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.25 2007/10/17 05:03:36 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
