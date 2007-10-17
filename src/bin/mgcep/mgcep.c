@@ -86,7 +86,7 @@
 *                windowed sequence (if q==0)                            *
 *                        , x(0), x(1), ..., x(L-1),                     *
 *                spectrum sequence (otherwise)                          *
-*                        , x(0), x(1), ..., x(L/2),                     *
+*                        , f(0), f(1), ..., f(L/2),                     *
 *       stdout:                                                         *
 *                mel-generalized cepstrum (float)                       *
 *       notice:                                                         *
