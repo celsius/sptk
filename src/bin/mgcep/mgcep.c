@@ -61,6 +61,12 @@
 *                -g g     :  gamma                             [0]      *
 *                -m m     :  order of mel-generalized cepstrum [25]     *
 *                -l l     :  frame length                      [256]    *
+*                -k k     :  Input format                      [0]      *
+*                              0 (windowed data sequence)               *
+*                              1 (20*log|H(z)|)                         *
+*                              2 (ln|H(z)|)                             *
+*                              3 (|H(z)|)                               *
+*                              4 (|H(z)|)^2                             *
 *                -o o     :  output format  (see stdout)       [0]      *
 *                              0 (c~0...c~m)                            * 
 *                              1 (b0...bm)                              *
@@ -77,8 +83,10 @@
 *                -f f     :  mimimum value of the determinant           *
 *                            of the normal matrix            [0.000001] *
 *       infile:                                                         *
-*                data sequence                                          *
+*                windowed sequence (if k==0)                            *
 *                        , x(0), x(1), ..., x(L-1),                     *
+*                spectrum sequence (if k>0)                             *
+*                        , x(0), x(1), ..., x(L/2),                     *
 *       stdout:                                                         *
 *                mel-generalized cepstrum (float)                       *
 *       notice:                                                         *
@@ -104,7 +112,6 @@ static char *rcs_id = "$Id$";
 #  endif
 #endif
 
-
 #if defined(WIN32)
 #  include "SPTK.h"
 #else
@@ -117,6 +124,7 @@ static char *rcs_id = "$Id$";
 #define ORDER  25
 #define FLENG  256
 #define OTYPE  0
+#define ITYPE  0
 #define MINITR 2
 #define MAXITR 30
 #define END    0.001
@@ -139,6 +147,12 @@ void usage (const int status)
    fprintf(stderr, "       -g g  : gamma                             [%g]\n", GAMMA);
    fprintf(stderr, "       -m m  : order of mel-generalized cepstrum [%d]\n", ORDER);
    fprintf(stderr, "       -l l  : frame length                      [%d]\n", FLENG);
+   fprintf(stderr, "       -k k  : input format                      [%d]\n", ITYPE);
+   fprintf(stderr, "                 0 (windowed sequence\n");
+   fprintf(stderr, "                 1 (20*log|f(w)|)\n");
+   fprintf(stderr, "                 2 (ln|f(w)|)\n");
+   fprintf(stderr, "                 3 (|f(w)|)\n");
+   fprintf(stderr, "                 4 (|f(w)|)^2\n");
    fprintf(stderr, "       -o o  : output format                     [%d]\n", OTYPE);
    fprintf(stderr, "                 0 (c~0...c~m)\n");
    fprintf(stderr, "                 1 (b0...bm)\n");
@@ -156,7 +170,7 @@ void usage (const int status)
    fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       windowed sequence (%s)                 [stdin]\n", FORMAT);
+   fprintf(stderr, "       windowed sequence or spectrum (%s)     [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       mel-generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
@@ -173,7 +187,7 @@ void usage (const int status)
 
 int main (int argc, char **argv)
 {
-   int m=ORDER, flng=FLENG, itr1=MINITR, itr2=MAXITR, n=-1, flag=0, otype=OTYPE, i;
+   int m=ORDER, flng=FLENG, ilng=FLENG, itr1=MINITR, itr2=MAXITR, n=-1, flag=0, otype=OTYPE, itype=ITYPE, i;
    FILE *fp=stdin;
    double *b, *x, a=ALPHA, g=GAMMA, end=END, e=EPS, f=MINDET;
 
@@ -199,6 +213,10 @@ int main (int argc, char **argv)
             break;
          case 'l':
             flng = atoi(*++argv);
+            --argc;
+            break;
+         case 'k':
+            itype = atoi(*++argv);
             --argc;
             break;
          case 'o':
@@ -241,12 +259,16 @@ int main (int argc, char **argv)
 
    if (n==-1)
       n = flng-1;
+   if (itype==0)
+      ilng = flng;
+   else
+      ilng = flng/2+1;
 
    x = dgetmem(flng+m+m+2);
    b = x+flng;
 
-   while (freadf(x, sizeof(*x), flng, fp)==flng) {
-      flag = mgcep(x, flng, b, m, a, g, n, itr1, itr2, end, e, f);
+   while (freadf(x, sizeof(*x), ilng, fp)==ilng) {
+      flag = mgcep(x, flng, b, m, a, g, n, itr1, itr2, end, e, f, itype);
 
       if (otype==0 || otype==1 || otype==2 || otype==4)
          ignorm(b, b, m, g);  /* K, b'r --> br  */
@@ -263,5 +285,5 @@ int main (int argc, char **argv)
       fwritef(b, sizeof(*b), m+1, stdout);
    }
  
-   return 0;
+   return(0);
 }

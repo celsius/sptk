@@ -50,7 +50,7 @@
 
 \begin{synopsis}
 \item[mgcep]   [ --a $A$ ] [ --g $G$ ] [ --m $M$ ] [ --l $L$ ] 
-	       [ --o $O$ ]
+	       [ --k $K$ ] [ --o $O$ ]
 \item[\ ~~~~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --p $P$ ] [ -- e $E$ ] [ --f $F$ ] 
 		 [ {\em infile} ]
 \end{synopsis}
@@ -151,6 +151,14 @@ and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
 			 if $G \ge 1.0$ then $\gamma=-1/G$}{0}
 	\argm{m}{M}{order of mel-generalized cepstrum}{25}
 	\argm{l}{L}{frame length power of 2}{256}
+    \argm{i}{I}{input data style\\
+        \begin{tabular}{ll} \\[-1ex]
+            $K=0$ & windowed data sequence \\
+            $K=1$ & $20 \times \log |f(w)|$ \\
+            $K=2$ & $\ln |f(w)|$ \\
+            $K=3$ & $|f(w)|$ \\
+            $K=4$ & $|f(w)|^2$ \\[1ex]
+        \end{tabular}\\\hspace*{\fill}}{0}
 	\argm{o}{O}{output format \\
 		\begin{tabular}{ll} \\[-1ex]
 			$O = 0$ & $c_{\alpha, \gamma}(0), c_{\alpha, \gamma}(1), \dots, c_{\alpha, \gamma}(M)$\\
@@ -193,6 +201,15 @@ in the following representation.
   K, a(1), a(2), \dots, a(M)
 \end{displaymath}
 \end{qsection}
+
+In the following, speech data in float format is read
+from {\em data.f}, and analyzed with $\gamma=0$, $\alpha=0$
+(which correspond to UELS method for log spectrum estimation)
+and the resulting cepstral coefficients are written {\em data.cep}:
+\begin{quote}
+  \verb!frame +f < data.f | window | \! \\
+  \verb!fftr -A -H | mgcep -k 3 > data.cep!
+\end{quote}
 
 \begin{qsection}{SEE ALSO}
 \hyperlink{uels}{uels},

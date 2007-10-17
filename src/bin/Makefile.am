@@ -90,7 +90,6 @@ SUBDIRS = acep \
 	snr \
 	sopr \
 	sp2mc \
-	sp2mgc \
 	spec \
 	step \
 	swab \
