@@ -48,7 +48,7 @@
 */
 
 /***********************************************************
-   $Id: SPTK.h,v 1.15 2007/10/10 08:40:33 heigazen Exp $ 
+   $Id: SPTK.h,v 1.16 2007/10/17 04:57:17 heigazen Exp $ 
    
    Speech Signal Processing Toolkit
    SPTK.h
@@ -189,7 +189,8 @@ int mcep (double *xw, const int flng, double *mc, const int m, const double a, c
 void frqtr (double *c1, int m1, double *c2, int m2, const double a);
 void mgc2mgc (double *c1, const int m1, const double a1, const double g1, double *c2, const int m2, const double a2, const double g2);
 void mgc2sp (double *mgc, const int m, const double a, const double g, double *x, double *y, const int flng);
-int mgcep (double *xw, int flng, double *b, const int m, const double a, const double g, const int n, const int itr1, const int itr2, const double dd, const double e, const double f);
+int mgcep (double *xw, int flng, double *b, const int m, const double a, const double g, const int n, 
+           const int itr1, const int itr2, const double dd, const double e, const double f, const int itype);
 double newton (double *x, const int flng, double *c, const int m, const double a, const double g, const int n, const int j, const double f);
 double mglsadf (double x, double *b, const int m, const double a, const int n, double *d);
 double mglsadf1 (double x, double *b, const int m, const double a, const int n, double *d);
@@ -212,8 +213,6 @@ double rmse (double *x, double *y, const int n);
 void output_root_pol (complex *x, int odr, int form);
 void root_pol (double *a, const int odr, complex *x, const int a_zero, const double eps, const int itrat);
 complex *cplx_getmem (const int leng);
-int sp2mgc (double *xw, const int flng, double *b, const int m, const double a, const double g, const int n, 
-            const int itr1, const int itr2, const double dd, const double e, const double f, const int itype);
 int smcep (double *xw, const int flng, double *mc, const int m, const int fftsz, const double a,
            const double t, const int itr1, const int itr2, const double dd, const double e, const double f);
 int uels (double *xw, const int flng, double *c, const int m, const int itr1, const int itr2, const double dd, const double e);
