@@ -201,7 +201,6 @@ int mgcep (double *xw, int flng, double *b, const int m, const double a, const d
 
    movem(xw, x, sizeof(*x), flng);
 
-   /* Amplitude Spectrum*/ 
    switch (itype) {
    case 0:   /* windowed data sequence */
 	   fftr(x, y, flng);
