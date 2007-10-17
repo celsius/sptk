@@ -53,7 +53,7 @@ AC_PROG_GCC_TRADITIONAL
 AC_FUNC_MALLOC
 AC_FUNC_STRTOD
 AC_CHECK_FUNC(pow,,AC_MSG_ERROR("Cannot find pow()"))
-AC_CHECK_FUNC(sqr,,AC_MSG_ERROR("Cannot find sqr()"))
+AC_CHECK_FUNC(sqrt,,AC_MSG_ERROR("Cannot find sqrt()"))
 
 find_memset=no
 find_strrchr=no
