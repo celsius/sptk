@@ -219,7 +219,7 @@ TARGET = $(PDF)
 ############################################################
 
 LATEX   = @LATEX@
-MAKEIDX = @MAKEINDEX@ -f
+MAKEIDX = @MAKEINDEX@
 DVIPS   = @DVIPS@ -f
 PSPDF   = @PS2PDF@
 DVIPDF  = @DVIPDF@
