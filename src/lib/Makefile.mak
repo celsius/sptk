@@ -90,7 +90,6 @@ MODULES = ..\bin\acep\_acep.obj \
 		..\bin\rmse\_rmse.obj \
 		..\bin\root_pol\_root_pol.obj \
 		..\bin\smcep\_smcep.obj \
-		..\bin\sp2mgc\_sp2mgc.obj \
 		..\bin\uels\_uels.obj \
 		..\bin\ulaw\_ulaw.obj \
 		..\bin\vq\_vq.obj \
