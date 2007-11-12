@@ -192,6 +192,9 @@ int main (int argc,char *argv[])
          case 'd':
             diagc = 1 - diagc;
             break;
+         case 'i':
+            inv = 1 - inv;
+            break;
          case 'r':
             corr = 1 - corr;
             break;
