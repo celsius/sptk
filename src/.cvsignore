@@ -9,3 +9,4 @@ config.log
 configure
 config_opt.sh
 patch*
+*.sh
