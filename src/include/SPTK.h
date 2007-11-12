@@ -48,7 +48,7 @@
 */
 
 /***********************************************************
-   $Id: SPTK.h,v 1.16 2007/10/17 04:57:17 heigazen Exp $ 
+   $Id: SPTK.h,v 1.17 2007/11/12 02:17:16 heigazen Exp $ 
    
    Speech Signal Processing Toolkit
    SPTK.h
@@ -185,7 +185,8 @@ double lspdf_even (double x, double *f, const int m, double *d);
 double lspdf_odd (double x, double *f, const int m, double *d);
 double ltcdf (double x, double *k, int m, double *d);
 void mc2b (double *mc, double *b, int m, const double a);
-int mcep (double *xw, const int flng, double *mc, const int m, const double a, const int itr1, const int itr2, const double dd, const double e, const double f);
+int mcep (double *xw, const int flng, double *mc, const int m, const double a, 
+          const int itr1, const int itr2, const double dd, const double e, const double f, const int itype);
 void frqtr (double *c1, int m1, double *c2, int m2, const double a);
 void mgc2mgc (double *c1, const int m1, const double a1, const double g1, double *c2, const int m2, const double a2, const double g2);
 void mgc2sp (double *mgc, const int m, const double a, const double g, double *x, double *y, const int flng);
