@@ -84,7 +84,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vstat.c,v 1.19 2007/10/16 02:21:17 heigazen Exp $";
+static char *rcs_id = "$Id: vstat.c,v 1.20 2007/11/12 02:02:17 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -191,6 +191,9 @@ int main (int argc,char *argv[])
             break;
          case 'd':
             diagc = 1 - diagc;
+            break;
+         case 'i':
+            inv = 1 - inv;
             break;
          case 'r':
             corr = 1 - corr;
