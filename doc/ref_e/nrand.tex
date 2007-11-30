@@ -48,7 +48,7 @@
 \name{nrand}{generate normal distributed random value}{signal generation}
 
 \begin{synopsis}
-\item[nrand] [ --l $L$ ] [ --s $S$ ]
+\item[nrand] [ --l $L$ ] [ --s $S$ ] [ --m $M$ ] [ --v $V$ ] [ --d $D$ ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -63,6 +63,9 @@ Output data is in float format.
 			In the case $L \le 0$ then random values will be
                         generated indefinitely.}{256}
 	\argm{s}{S}{seed for nrand}{1}
+	\argm{m}{M}{mean of normal distribution}
+	\argm{v}{V}{variance of normal distribution}
+	\argm{d}{D}{standard deviation of normal distribution}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
