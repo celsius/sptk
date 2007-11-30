@@ -59,6 +59,9 @@
 *       options:                                                        *
 *               -l l  : output length      [256]                        *
 *               -s s  : seed for nrand     [1]                          *
+*               -m m  : mean               [0.0]                        *
+*               -v v  : variance           [1.0]                        *
+*               -d d  : standard deviation [1.0]                        *
 *       stdout:                                                         *
 *               random value (float)                                    *
 *       notice:                                                         *
@@ -93,6 +96,9 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define LENG 256
 #define SEED 1
+#define MEAN 0.0
+#define VAR  1.0
+#define SDEV 1.0
 
 /*  Command Name  */
 char *cmnd;
@@ -108,6 +114,9 @@ void usage (void)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : output length      [%d]\n",LENG);
    fprintf(stderr, "       -s s  : seed for nrand     [%d]\n",SEED);
+   fprintf(stderr, "       -m m  : mean               [%g]\n",MEAN);
+   fprintf(stderr, "       -v v  : variance           [%g]\n",VAR);
+   fprintf(stderr, "       -d d  : standard deviation [%g]\n",SDEV);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       random values (%s)\n", FORMAT);
@@ -128,7 +137,7 @@ int main (int argc,char *argv[])
    char *str, flg;
    int leng=LENG, seed=SEED,  i;
    long next=SEED;
-   double p;
+   double p,mean=MEAN,sdev=SDEV;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -149,19 +158,29 @@ int main (int argc,char *argv[])
          case 's':
             seed = atoi(str);
             break;
+         case 'm':
+            mean = atof(str);
+            break;
+         case 'v':
+            sdev = atof(str);
+            sdev = sqrt(sdev);
+            break;
+         case 'd':
+            sdev = atof(str);
+            break;
          case 'h':
          default :
             usage ();
          }
       }
       else usage ();
-
    }
 
    if (seed!=1) next = srnd((unsigned int)seed);
 
    for (i=0;; i++) {
       p = (double)nrandom(&next);
+      p = mean + sdev*p;
       fwritef(&p, sizeof(p), 1, stdout);
 
       if (i==leng-1) break;
