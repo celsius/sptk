@@ -49,7 +49,7 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.16 2007/10/17 17:16:03 heigazen Exp $
+    $Id: _mcep.c,v 1.17 2007/12/13 10:36:45 heigazen Exp $
 
     Mel-Cepstral Analysis
 
@@ -176,8 +176,8 @@ int mcep (double *xw, const int flng, double *mc, const int m, const double a, c
    /*  initial value of cepstrum  */
    ifftr(c, y, flng);            /*  c : IFFT[x]  */
 
-   c[0] /= 2.0;
-   c[flng/2] /= 2.0;
+   c[0]  /= 2.0;
+   c[f2] /= 2.0;
    freqt(c, f2, mc, m, a);         /*  mc : mel cep.  */
    s = c[0];
 
