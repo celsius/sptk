@@ -86,7 +86,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mcep.c,v 1.21 2007/10/17 17:16:03 heigazen Exp $";
+static char *rcs_id = "$Id: mcep.c,v 1.22 2008/02/25 17:16:20 heigazen Exp $";
 
 
 /*  Standard C Libraries  */
@@ -230,7 +230,7 @@ int main (int argc, char **argv)
    x = dgetmem(flng+m+1);
    mc = x + flng;
 
-   while (freadf(x, sizeof(*x), ilng, fp)==flng) {
+   while (freadf(x, sizeof(*x), ilng, fp)==ilng) {
       flag = mcep(x, flng, mc, m, a, itr1, itr2, end, e, f, itype);
       fwritef(mc, sizeof(*mc), m+1, stdout);
    }
