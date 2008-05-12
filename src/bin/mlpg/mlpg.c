@@ -459,7 +459,7 @@ void InitDWin(PStream *pst)
    int  str2darray(char *, double **);
    int i, j;
    int  fsize, leng;
-   double  x, s4, s2, s0;
+   double  x, a0, a1, a2;
    FILE  *fp;
 
    /* memory allocation */
@@ -525,28 +525,15 @@ void InitDWin(PStream *pst)
       }
 
       leng = atoi(pst->dw.fn[1]);
-      s2 = 1;
-      for (j=2; j <= leng; j++) {
-         x = j * j;
-         s2 += x;
-      }
-      s2 += s2;
+      for (a1=0,j=-leng; j<=leng; a1+=j*j,j++);
       for (j=-leng; j<=leng; j++)
-         pst->dw.coef[1][j] = j / s2;
+         pst->dw.coef[1][j] = j / a1;
 
       if (pst->dw.num>2) {
          leng = atoi(pst->dw.fn[2]);
-         s2 = s4 = 1;
-         for (j=2; j<=leng; j++) {
-            x = j * j;
-            s2 += x;
-            s4 += x * x;
-         }
-         s2 += s2;
-         s4 += s4;
-         s0 = leng + leng + 1;
+         for (a0=a1=a2=0,j=-leng; j<=leng; a0++,a1+=j*j,a2+=j*j*j*j,j++);
          for (j=-leng; j<=leng; j++)
-            pst->dw.coef[2][j] = (s0*j*j - s2)/(s4*s0 - s2*s2)/2;
+            pst->dw.coef[2][j] = (a0*j*j - a1)/(a2*a0 - a1*a1)/2;
       }
    }
 
