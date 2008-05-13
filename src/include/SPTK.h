@@ -48,7 +48,7 @@
 */
 
 /***********************************************************
-   $Id: SPTK.h,v 1.17 2007/11/12 02:17:16 heigazen Exp $ 
+   $Id: SPTK.h,v 1.18 2008/05/13 06:14:25 heigazen Exp $ 
    
    Speech Signal Processing Toolkit
    SPTK.h
@@ -153,7 +153,7 @@ int fftr (double *x, double *y, const int m);
 int fftr2 (double x[], double y[], const int n);
 void freqt (double *c1, const int m1, double *c2, const int m2, const double a);
 void gc2gc (double *c1, const int m1, const double g1, double *c2, const int m2, const double g2);
-int gcep (double *xw, const int flng, double *gc, const int m, const double g, const int itr1, const int itr2, const double d, const double e, const double f);
+int gcep (double *xw, const int flng, double *gc, const int m, const double g, const int itr1, const int itr2, const double d, const double e, const double f, const int itype);
 double glsadf (double x, double *c, const int m, const int n, double *d);
 double glsadf1 (double x, double *c, const int m, const int n, double *d);
 void gnorm (double *c1, double *c2, int m, const double g);
@@ -215,8 +215,8 @@ void output_root_pol (complex *x, int odr, int form);
 void root_pol (double *a, const int odr, complex *x, const int a_zero, const double eps, const int itrat);
 complex *cplx_getmem (const int leng);
 int smcep (double *xw, const int flng, double *mc, const int m, const int fftsz, const double a,
-           const double t, const int itr1, const int itr2, const double dd, const double e, const double f);
-int uels (double *xw, const int flng, double *c, const int m, const int itr1, const int itr2, const double dd, const double e);
+           const double t, const int itr1, const int itr2, const double dd, const double e, const double f, const int itype);
+int uels (double *xw, const int flng, double *c, const int m, const int itr1, const int itr2, const double dd, const double e, const int itype);
 double ulaw_c (const double x, const double max, const double mu);
 double ulaw_d (const double x, const double max, const double mu);
 int vq (double *x, double *cb, const int l, const int cbsize);

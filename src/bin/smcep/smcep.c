@@ -10,7 +10,7 @@
    Interdisciplinary Graduate School of Science and Engineering    
                   Tokyo Institute of Technology                    
                                                                    
-                     Copyright (c) 1984-2007                       
+                     Copyright (c) 1984-2008                       
                        All Rights Reserved.                        
                                                                    
   Permission is hereby granted, free of charge, to use and         
@@ -61,6 +61,12 @@
 *               -m m     :  order of mel cepstrum            [25]       *
 *               -l l     :  frame length                     [256]      *
 *               -L L     :  ifft size for making matrices    [1024]     *
+*               -q q     :  Input format                     [0]        *
+*                             0 (windowed data sequence)                *
+*                             1 (20*log|f(w)|)                          *
+*                             2 (ln|f(w)|)                              *
+*                             3 (|f(w)|)                                *
+*                             4 (|f(w)|^2)                              *
 *               (level 2)                                               *
 *               -i i     :  minimum iteration                [2]        *
 *               -j j     :  maximum iteration                [30]       *
@@ -79,7 +85,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: smcep.c,v 1.21 2007/10/16 02:21:12 heigazen Exp $";
+static char *rcs_id = "$Id: smcep.c,v 1.22 2008/05/13 06:14:25 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -109,6 +115,7 @@ static char *rcs_id = "$Id: smcep.c,v 1.21 2007/10/16 02:21:12 heigazen Exp $";
 #define ORDER  25
 #define FLENG  256
 #define FFTSZ  256 * 4
+#define ITYPE  0
 #define MINITR 2
 #define MAXITR 30
 #define END    0.001
@@ -132,6 +139,12 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of mel cepstrum            [%d]\n", ORDER);
    fprintf(stderr, "       -l l  : frame length                     [%d]\n", FLENG);
    fprintf(stderr, "       -L L  : ifft size for making matrices    [%d]\n", FFTSZ);
+   fprintf(stderr, "       -q q  : input format                     [%d]\n", ITYPE);
+   fprintf(stderr, "                 0 (windowed sequence\n");
+   fprintf(stderr, "                 1 (20*log|f(w)|)\n");
+   fprintf(stderr, "                 2 (ln|f(w)|)\n");
+   fprintf(stderr, "                 3 (|f(w)|)\n");
+   fprintf(stderr, "                 4 (|f(w)|)^2\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "     (level 2)\n");
    fprintf(stderr, "       -i i  : minimum iteration                [%d]\n", MINITR);
@@ -156,7 +169,7 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int m=ORDER, flng=FLENG, fftsz=FFTSZ, itr1=MINITR, itr2=MAXITR, flag=0;
+   int m=ORDER, flng=FLENG, itype=ITYPE, fftsz=FFTSZ, itr1=MINITR, itr2=MAXITR, flag=0;
    FILE *fp=stdin;
    double *mc, *x, a=ALPHA, t=THETA, end=END, e=EPS, f=MINDET;
 
@@ -185,6 +198,10 @@ int main (int argc, char **argv)
             break;
          case 'L':
             fftsz = atoi(*++argv);
+            --argc;
+            break;
+         case 'q':
+            itype = atoi(*++argv);
             --argc;
             break;
          case 'i':
@@ -223,7 +240,7 @@ int main (int argc, char **argv)
    mc = x + flng;
 
    while (freadf(x, sizeof(*x), flng, fp)==flng) {
-      flag = smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, e, f);
+      flag = smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, e, f, itype);
       fwritef(mc, sizeof(*mc), m+1, stdout);
    }
       

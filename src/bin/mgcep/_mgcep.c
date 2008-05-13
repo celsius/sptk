@@ -49,11 +49,11 @@
 
 /****************************************************************
 
-   $Id: _mgcep.c,v 1.17 2007/10/17 05:03:36 heigazen Exp $
+   $Id: _mgcep.c,v 1.18 2008/05/13 06:14:25 heigazen Exp $
 
    Mel-Generalized Cepstral Analysis
 
-       int mgcep(xw, flng, b, m, a, g, itr1, itr2, dd, e);
+       int mgcep(xw, flng, b, m, a, g, itr1, itr2, dd, e, itype);
 
        double   *xw   : input sequence
        int      flng  : frame length

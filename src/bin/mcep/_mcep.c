@@ -49,11 +49,11 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.17 2007/12/13 10:36:45 heigazen Exp $
+    $Id: _mcep.c,v 1.18 2008/05/13 06:14:25 heigazen Exp $
 
     Mel-Cepstral Analysis
 
-        int mcep(xw, flng, mc, m, a, itr1, itr2, dd, e);
+        int mcep(xw, flng, mc, m, a, itr1, itr2, dd, e, itype);
 
         double   *xw   : input sequence
         int      flng  : frame length
