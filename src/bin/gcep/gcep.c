@@ -10,7 +10,7 @@
    Interdisciplinary Graduate School of Science and Engineering    
                   Tokyo Institute of Technology                    
                                                                    
-                     Copyright (c) 1984-2007                       
+                     Copyright (c) 1984-2008                       
                        All Rights Reserved.                        
                                                                    
   Permission is hereby granted, free of charge, to use and         
@@ -60,6 +60,12 @@
 *               -m m     :  order of generalized cepstrum    [25]       *
 *               -g g     :  gamma                            [0]        *
 *               -l l     :  frame length                     [256]      *
+*               -q q     :  Input format                     [0]        *
+*                             0 (windowed data sequence)                *
+*                             1 (20*log|f(w)|)                          *
+*                             2 (ln|f(w)|)                              *
+*                             3 (|f(w)|)                                *
+*                             4 (|f(w)|^2)                              *
 *               -n       :  output normalized cepstrum       [FALSE]    *
 *              (level2)                                                 *
 *               -i i     :  minimum iteration                [3]        *
@@ -108,6 +114,7 @@ static char *rcs_id = "$Id$";
 #define ORDER 25
 #define GAMMA 0.0
 #define FLENG 256
+#define ITYPE 0
 #define NORM FA
 #define MINITR 2
 #define MAXITR 30
@@ -132,6 +139,12 @@ void usage (int status)
    fprintf(stderr, "       -m m  : order of generalized cepstrum    [%d]\n", ORDER);
    fprintf(stderr, "       -g g  : gamma                            [%g]\n", GAMMA);
    fprintf(stderr, "       -l l  : frame length                     [%d]\n", FLENG);
+   fprintf(stderr, "       -q q  : input format                     [%d]\n", ITYPE);
+   fprintf(stderr, "                 0 (windowed sequence\n");
+   fprintf(stderr, "                 1 (20*log|f(w)|)\n");
+   fprintf(stderr, "                 2 (ln|f(w)|)\n");
+   fprintf(stderr, "                 3 (|f(w)|)\n");
+   fprintf(stderr, "                 4 (|f(w)|)^2\n");
    fprintf(stderr, "       -n    : output normalized cepstrum       [%s]\n", BOOL[NORM]);
    fprintf(stderr, "     (level2)\n");
    fprintf(stderr, "       -i i  : minimum iteration                [%d]\n", MINITR);
@@ -158,7 +171,7 @@ void usage (int status)
 
 int main(int argc, char **argv)
 {
-   int m=ORDER, flng=FLENG, itr1=MINITR, itr2=MAXITR, norm=NORM, flag=0;
+   int m=ORDER, flng=FLENG, itr1=MINITR, itr2=MAXITR, itype=ITYPE, norm=NORM, flag=0;
    FILE *fp=stdin;
    double *gc, *x, g=GAMMA, end=END, e=EPS, f=MINDET;
     
@@ -176,6 +189,10 @@ int main(int argc, char **argv)
             break;
          case 'l':
             flng = atoi(*++argv);
+            --argc;
+            break;
+         case 'q':
+            itype = atoi(*++argv);
             --argc;
             break;
          case 'g':
@@ -220,7 +237,7 @@ int main(int argc, char **argv)
    gc = x + flng;
 
    while (freadf(x, sizeof(*x), flng, fp)==flng) {
-      flag = gcep(x, flng, gc, m, g, itr1, itr2, end, e, f);
+      flag = gcep(x, flng, gc, m, g, itr1, itr2, end, e, f, itype);
       if(!norm)
          ignorm(gc, gc, m, g);
       fwritef(gc, sizeof(*gc), m+1, stdout);

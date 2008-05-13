@@ -10,7 +10,7 @@
    Interdisciplinary Graduate School of Science and Engineering    
                   Tokyo Institute of Technology                    
                                                                    
-                     Copyright (c) 1984-2007                       
+                     Copyright (c) 1984-2008                       
                        All Rights Reserved.                        
                                                                    
   Permission is hereby granted, free of charge, to use and         
@@ -94,7 +94,7 @@ double pitch (double *xw, const int l, const double thresh, const int low, const
    movem(xw,x,sizeof(*x),l);
 
    /* voiced/unvoiced detection */
-   uels(x, l, c, m, itr1, itr2, end, eps);
+   uels(x, l, c, m, itr1, itr2, end, eps, 0);
    fillz(c+m,l-m,sizeof(double));
    fftr(c,y,l);
 

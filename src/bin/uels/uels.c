@@ -10,7 +10,7 @@
    Interdisciplinary Graduate School of Science and Engineering    
                   Tokyo Institute of Technology                    
                                                                    
-                     Copyright (c) 1984-2007                       
+                     Copyright (c) 1984-2008                       
                        All Rights Reserved.                        
                                                                    
   Permission is hereby granted, free of charge, to use and         
@@ -59,6 +59,12 @@
 *       options:                                                        *
 *               -m m     :  order of cepstrum               [25]        *
 *               -l l     :  frame length                    [256]       *
+*               -q q     :  Input format                    [0]         *
+*                             0 (windowed data sequence)                *
+*                             1 (20*log|f(w)|)                          *
+*                             2 (ln|f(w)|)                              *
+*                             3 (|f(w)|)                                *
+*                             4 (|f(w)|^2)                              *
 *               (level 2)                                               *
 *               -i i     :  minimum iteration               [2]         *
 *               -j j     :  maximum iteration               [30]        *
@@ -101,6 +107,7 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define ORDER  25
 #define FLENG  256
+#define ITYPE  0
 #define MINITR 2
 #define MAXITR 30
 #define END    0.001
@@ -120,6 +127,12 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of cepstrum               [%d]\n", ORDER);
    fprintf(stderr, "       -l l  : frame length                    [%d]\n", FLENG);
+   fprintf(stderr, "       -q q  : input format                     [%d]\n", ITYPE);
+   fprintf(stderr, "                 0 (windowed sequence\n");
+   fprintf(stderr, "                 1 (20*log|f(w)|)\n");
+   fprintf(stderr, "                 2 (ln|f(w)|)\n");
+   fprintf(stderr, "                 3 (|f(w)|)\n");
+   fprintf(stderr, "                 4 (|f(w)|)^2\n");
    fprintf(stderr, "     (level 2)\n");
    fprintf(stderr, "       -i i  : minimum iteration               [%d]\n", MINITR);
    fprintf(stderr, "       -j j  : maximum iteration               [%d]\n", MAXITR);
@@ -141,7 +154,7 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int m=ORDER, flng=FLENG, itr1=MINITR, itr2=MAXITR, flag=0;
+   int m=ORDER, flng=FLENG, itype=ITYPE, itr1=MINITR, itr2=MAXITR, flag=0;
    FILE *fp=stdin;
    double *c, *x, end=END, e=EPS;
 
@@ -158,6 +171,10 @@ int main (int argc, char **argv)
             break;
          case 'l':
             flng = atoi(*++argv);
+            --argc;
+            break;
+         case 'q':
+            itype = atoi(*++argv);
             --argc;
             break;
          case 'i':
@@ -190,7 +207,7 @@ int main (int argc, char **argv)
    c = x + flng;
 
    while (freadf(x, sizeof(*x), flng, fp)==flng) {
-      flag = uels(x, flng, c, m, itr1, itr2, end, e);
+      flag = uels(x, flng, c, m, itr1, itr2, end, e, itype);
       fwritef(c, sizeof(*c), m+1, stdout);
    }
    

@@ -53,7 +53,7 @@
 
    Mel-Generalized Cepstral Analysis
 
-       int mgcep(xw, flng, b, m, a, g, itr1, itr2, dd, e);
+       int mgcep(xw, flng, b, m, a, g, itr1, itr2, dd, e, itype);
 
        double   *xw   : input sequence
        int      flng  : frame length

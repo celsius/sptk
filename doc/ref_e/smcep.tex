@@ -49,7 +49,7 @@
 {mel-cepstral analysis using 2nd order all-pass filter}{speech analysis}
  
 \begin{synopsis}
-\item [smcep] [ --a $A$ ] [ --t $T$ ] [ --m $M$ ] [ --l $L$ ]
+\item [smcep] [ --a $A$ ] [ --t $T$ ] [ --m $M$ ] [ --l $L$ ] [ --q $Q$ ]
 \item [\ ~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --e $E$ ] [ --f $F$ ] [ {\em infile} ]
 \end{synopsis}
 
@@ -94,6 +94,14 @@ of the cost function.
 	\argm{m}{M}{order of mel cepstrum}{25}
 	\argm{l}{L_1}{frame length}{256}
 	\argm{L}{L_2}{ifft size for making matrices}{1024}
+	\argm{q}{Q}{input data style\\
+        \begin{tabular}{ll} \\[-1ex]
+            $Q=0$ & windowed data sequence \\
+            $Q=1$ & $20 \times \log |f(w)|$ \\
+            $Q=2$ & $\ln |f(w)|$ \\
+            $Q=3$ & $|f(w)|$ \\
+            $Q=4$ & $|f(w)|^2$ \\[1ex]
+        \end{tabular}\\\hspace*{\fill}}{0}
 	\desc[1ex]{Usually, the options below do not need to be assigned.}
 	\argm{i}{I}{minimum iteration of Newton-Raphson method}{2}
 	\argm{j}{J}{maximum iteration of Newton-Raphson method}{30}

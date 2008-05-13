@@ -53,7 +53,7 @@
 
     Generalized Cepstral Analysis
 
-        int gcep(xw, flng, gc, m, g, itr1, itr2, d, e, f);
+        int gcep(xw, flng, gc, m, g, itr1, itr2, d, e, f, itype);
 
         double    *xw  : input sequence
         int       flng : frame length
@@ -66,6 +66,7 @@
         double    e    : initial value for log-periodgram
         double    f    : mimimum value of the determinant 
                          of the normal matrix
+        int      itype : input data type
 
         return value :    0 -> completed by end condition
                           -1-> completed by maximum iteration
@@ -83,7 +84,7 @@
 #endif
 
 int gcep (double *xw, const int flng, double *gc, const int m, const double g, const int itr1, const int itr2, 
-          const double d, const double e, const double f)
+          const double d, const double e, const double f, const int itype)
 {
    int i, j, flag=0;
    double t, s, dd=0.0;
@@ -113,13 +114,45 @@ int gcep (double *xw, const int flng, double *gc, const int m, const double g, c
 
    movem(xw, x, sizeof(*x), flng);
     
-   /*  power spectrum  */
-   fftr(x, y, flng);
-   for (i=0; i<flng; i++) {
-      x[i] = x[i]*x[i] + y[i]*y[i];
-      cr[i] = log(x[i] + e);
+   switch (itype) {
+   case 0:   /* windowed data sequence */
+      fftr(x, y, flng);
+      for (i=0; i<flng; i++) {
+         x[i] = x[i]*x[i] + y[i]*y[i] + e;  /*  periodegram  */
+      }
+      break;
+   case 1:   /* dB */
+      for (i=0; i<=flng/2; i++) {
+         x[i] /= 20.0 / log(10.0);  /* dB -> amplitude spectrum */
+         x[i] = x[i]*x[i]+e;  /* amplitude -> periodgram */
+      }
+      break;
+   case 2:  /* log */
+      for (i=0; i<=flng/2; i++) {
+         x[i] = exp(x[i]);  /* log -> amplitude spectrum */
+         x[i] = x[i]*x[i]+e;  /* amplitude -> periodgram */
+      }
+      break;
+   case 3:  /* amplitude */
+      for (i=0; i<=flng/2; i++) {
+         x[i] = x[i]*x[i]+e;  /* amplitude -> periodgram */
+      }
+      break;
+   case 4:  /* periodgram */
+      for (i=0; i<=flng/2; i++) {
+         x[i] = x[i]+e;
+      }
+      break;
+   default:
+     fprintf(stderr, "mgcep : Input type %d is not supported!\n", itype);
+     exit(1);
    }
-    
+   if (itype>0) {
+      for (i=1; i<flng/2; i++)
+         x[flng-i] = x[i];
+   }
+   for (i=0; i<flng; i++)
+      cr[i] = log(x[i]);
 
    /*  initial value of generalized cepstrum  */
    ifftr(cr, y, flng);   /*  x : IFFT[x]  */

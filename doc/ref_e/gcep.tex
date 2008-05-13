@@ -49,7 +49,7 @@
 {generalized cepstral analysis}{speech analysis}
 
 \begin{synopsis}
-\item [gcep] [ --m $M$ ] [ --g $G$ ] [ --l $L$ ] [ --n ]
+\item [gcep] [ --m $M$ ] [ --g $G$ ] [ --l $L$ ] [ --q $Q$ ] [ --n ]
 	     [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --e $E$ ] [ --f $F$ ]
 \item [\ ~~~~~~~] [ {\em infile} ]
 \end{synopsis}
@@ -96,6 +96,14 @@ Newton--Raphson method applied.
 	            if $G \ge 1.0$ then $\gamma=-1/G$}{0}
 	\argm{l}{L}{frame length}{256}
 	\argm{n}{}{output normalized cepstrum}{FALSE}
+	\argm{q}{Q}{input data style\\
+        \begin{tabular}{ll} \\[-1ex]
+            $Q=0$ & windowed data sequence \\
+            $Q=1$ & $20 \times \log |f(w)|$ \\
+            $Q=2$ & $\ln |f(w)|$ \\
+            $Q=3$ & $|f(w)|$ \\
+            $Q=4$ & $|f(w)|^2$ \\[1ex]
+        \end{tabular}\\\hspace*{\fill}}{0}
 	\desc[1ex]{Usually, the options below do not need to be assigned.}
 	\argm{i}{I}{minimum iteration}{2}
 	\argm{j}{J}{maximum iteration}{30}
