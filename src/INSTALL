@@ -4,7 +4,8 @@
 ****************************************************************
 
 We expect that all programs can be compiled and can work on most
-of UNIX-type operation systems.
+of UNIX-type operation systems.  For Windows operation system,
+a makefile for Microsoft Visual C++ is also included.
 
 Note that some commands need C-shell (/bin/csh) since they are
 implemented by C-shell scripts.
@@ -30,3 +31,6 @@ implemented by C-shell scripts.
 The X-window library is not required for compilation of all tools
 except a command 'xgr' since only 'xgr' uses the X-window library.
 
+For Microsoft Visual C++, please use src/Makefile.mak.  Note that
+some of commands of SPTK which use GUI and/or audio I/O are not 
+supported on the Windows operating system.
