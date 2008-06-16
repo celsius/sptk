@@ -4,7 +4,7 @@
 # 
 
 # You can modify this variable's value to your own
-INSTALLDIR = c:\SPTK-3.1.win\bin
+INSTALLDIR = c:\SPTK-3.2.win\bin
 
 all:
 	cd lib
