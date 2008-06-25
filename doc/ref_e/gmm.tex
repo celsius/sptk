@@ -1,0 +1,111 @@
+% ----------------------------------------------------------------- %
+%             The Speech Signal Processing Toolkit (SPTK)           %
+%             developed by SPTK Working Group                       %
+%             http://sp-tk.sourceforge.net/                         %
+% ----------------------------------------------------------------- %
+%                                                                   %
+%  Copyright (c) 1984-2007  Tokyo Institute of Technology           %
+%                           Interdisciplinary Graduate School of    %
+%                           Science and Engineering                 %
+%                                                                   %
+%                1996-2008  Nagoya Institute of Technology          %
+%                           Department of Computer Science          %
+%                                                                   %
+% All rights reserved.                                              %
+%                                                                   %
+% Redistribution and use in source and binary forms, with or        %
+% without modification, are permitted provided that the following   %
+% conditions are met:                                               %
+%                                                                   %
+% - Redistributions of source code must retain the above copyright  %
+%   notice, this list of conditions and the following disclaimer.   %
+% - Redistributions in binary form must reproduce the above         %
+%   copyright notice, this list of conditions and the following     %
+%   disclaimer in the documentation and/or other materials provided %
+%   with the distribution.                                          %
+% - Neither the name of the SPTK working group nor the names of its %
+%   contributors may be used to endorse or promote products derived %
+%   from this software without specific prior written permission.   %
+%                                                                   %
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            %
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       %
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          %
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          %
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS %
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          %
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   %
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     %
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON %
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   %
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    %
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
+% POSSIBILITY OF SUCH DAMAGE.                                       %
+% ----------------------------------------------------------------- %
+\hypertarget{gmm}{}
+\name{gmm}{EM estimation of GMM}{data processing}
+
+\begin{synopsis}
+\item[gmm] [ --l $L$ ] [ --m $M$ ] [ --t $T$ ] [ --a A ] [ --b N ]
+           [ --e $E$ ] [ --v $V$ ] [ --w $W$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em gmm} estimates the Gaussian mixture model (GMM) which consists of $M$ Gaussian components 
+from {\em infile} (or standard input), sending the estimated GMM parameters to standard output.
+
+For $L$-dimensional input vectors $\bx_1, \dots, \bx_T$,
+{\em gmm} estimates a GMM $\lambda$ with $M$ Gaussian components with the $L \times 1$ mean vectors 
+$\{ \bmu_m \}_{m=1}^M$ and the $L\times L$ diagonal covariance matrices $\{ \bSigma_m \}_{m=1}^M$
+so as to maximize its likelihood to the training data using the EM algorithm. 
+That is, 
+\begin{align}
+   P( \bx_1, \dots, \bx_T \mid \lambda ) &= \prod_{t=1}^{T} 
+   \sum_{m=1}^{M} w_m \mathcal{N} \left( \bx_t \; ; \; \bmu_m, \bSigma_m \right) \notag \\
+   \hat{\lambda} &= \arg \max_\lambda P( \bx_1, \dots, \bx_T \mid \lambda ) \notag
+\end{align}
+The output format is 
+\begin{align}
+    & w_1, \dots, w_M, \notag\\
+    & \mu_1(1), \dots, \mu_1(L),
+      \sigma^2_1(1), \dots, \sigma^2_1(L), \notag \\
+    & \mu_2(1), \dots, \mu_2(L),
+      \sigma^2_2(1), \dots, \sigma^2_2(L), \notag \\
+    & 
+      \qquad \qquad \vdots \notag \\
+    & \mu_M(1), \dots, \mu_M(L),
+      \sigma^2_M(1), \dots, \sigma^2_M(L) \notag
+ \end{align}
+\end{qsection}
+
+\begin{options}
+	\argm{l}{L}{length of vector}{26}
+	\argm{m}{M}{number of Gaussian components}{16}
+	\argm{t}{T}{number of training vectors}{N/A}
+	\argm{a}{A}{minimum number of EM iterations}{0}
+	\argm{b}{B}{maximum number of EM iterations}{20}
+	\argm{e}{E}{convergence factor}{1e-05}
+	\argm{v}{V}{flooring value for variance}{0.001}
+	\argm{v}{V}{flooring value for weights (1/M)*w}{0.001}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+The output file {\em data.gmm} contains the weights, means and diagonal elements of covariance matrices 
+of Gaussian components estimated from the whole data in {\em data.f} read in float format.
+\begin{quote}
+  \verb!gmm data.f > data.stat!
+\end{quote}
+
+In the example below, an 8-mixture GMM estimated from 15-th order coefficients vector from
+{\em data.f} is sent to {\em data.gmm}:
+\begin{quote}
+  \verb!gmm -l 15 -m 8 data.f > data.gmm!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+\hyperlink{average}{average},
+\hyperlink{vsum}{vsum}
+\hyperlink{vstat}{vstat}
+\hyperlink{vq}{vq}
+\hyperlink{msvq}{msvq}
+\end{qsection}
