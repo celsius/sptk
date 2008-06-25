@@ -55,14 +55,14 @@ sending the result to standard output.
 Output data is in float format.
 \end{qsection}
 
-\begin{options}
+\begin{options} 
 	\argm{l}{L}{output length\\
 			In the case $L \le 0$ then random values will be
                         generated indefinitely.}{256}
 	\argm{s}{S}{seed for nrand}{1}
-	\argm{m}{M}{mean of normal distribution}
-	\argm{v}{V}{variance of normal distribution}
-	\argm{d}{D}{standard deviation of normal distribution}
+	\argm{m}{M}{mean of normal distribution}{0.0}
+	\argm{v}{V}{variance of normal distribution}{1.0}
+	\argm{d}{D}{standard deviation of normal distribution}{1.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
