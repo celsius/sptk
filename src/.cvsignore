@@ -10,3 +10,5 @@ configure
 config_opt.sh
 patch*
 *.sh
+SPTK-3.2
+*.gz

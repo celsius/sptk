@@ -90,6 +90,20 @@ typedef struct {
    double im;
 } complex;
 
+/* struct for Gaussian distribution */
+typedef struct _Gauss {
+   double *mean;
+   double *var;
+   double gconst;
+} Gauss;
+
+/* structure for GMM */
+typedef struct _GMM {
+   int nmix;
+   double *weight;
+   Gauss *gauss;
+} GMM;
+
 
 /* library routines */
 double agexp (double r, double x, double y);

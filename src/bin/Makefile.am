@@ -38,6 +38,7 @@ SUBDIRS = acep \
 	gc2gc \
 	gcep \
 	glsadf \
+	gmm \
 	gnorm \
 	grpdelay \
 	histogram \
