@@ -70,6 +70,7 @@ INC  = cmndref.sty \
 	dawrite.tex \
 	decimate.tex \
 	delay.tex \
+	delta.tex \
 	df2.tex \
 	dfs.tex \
 	dmp.tex \

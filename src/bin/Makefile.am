@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.5 2008/06/25 07:44:44 heigazen Exp $
+## $Id: Makefile.am,v 1.6 2008/06/26 07:50:36 heigazen Exp $
 
 SUBDIRS = acep \
 	acorr \
@@ -19,6 +19,7 @@ SUBDIRS = acep \
 	da \
 	decimate \
 	delay \
+	delta \
 	df2 \
 	dfs \
 	dmp \
