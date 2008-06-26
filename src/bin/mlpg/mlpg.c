@@ -522,13 +522,13 @@ void InitDWin(PStream *pst)
       leng = atoi(pst->dw.fn[1]);
       for (a1=0,j=-leng; j<=leng; a1+=j*j,j++);
       for (j=-leng; j<=leng; j++)
-         pst->dw.coef[1][j] = j / a1;
+         pst->dw.coef[1][j] = (double)j / (double)a1;
 
       if (pst->dw.num>2) {
          leng = atoi(pst->dw.fn[2]);
          for (a0=a1=a2=0,j=-leng; j<=leng; a0++,a1+=j*j,a2+=j*j*j*j,j++);
          for (j=-leng; j<=leng; j++)
-            pst->dw.coef[2][j] = (a0*j*j - a1)/(a2*a0 - a1*a1)/2;
+            pst->dw.coef[2][j] = ((double)(a0*j*j - a1))/((double)(a2*a0 - a1*a1))/2;
       }
    }
 
