@@ -19,6 +19,7 @@ SUBDIRS = acep \
 	da \
 	decimate \
 	delay \
+	delta \
 	df2 \
 	dfs \
 	dmp \

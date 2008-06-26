@@ -166,6 +166,7 @@ AC_CONFIG_FILES([Makefile
                  bin/da/Makefile
                  bin/decimate/Makefile
                  bin/delay/Makefile
+                 bin/delta/Makefile
                  bin/df2/Makefile
                  bin/dfs/Makefile
                  bin/dmp/Makefile
