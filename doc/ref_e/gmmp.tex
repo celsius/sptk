@@ -41,33 +41,19 @@
 % OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
 % POSSIBILITY OF SUCH DAMAGE.                                       %
 % ----------------------------------------------------------------- %
-\hypertarget{gmm}{}
-\name{gmm}{GMM parameter estimation}{model training}
+\hypertarget{gmmp}{}
+\name{gmmp}{calculation of GMM log-probability}{probability calculation}
 
 \begin{synopsis}
-\item [gmm] [ --l $L$ ] [ --m $M$ ] [ --t $T$ ] [ --a $A$ ] [ --b $B$ ]
-        [ --e $E$ ] [ --v $V$ ]
-\item [\ ~~~~] [ {\em infile} ]
+\item [gmmp] [ --l $L$ ] [ --m $M$ ] [ --a ] {\em gmmfile} [ {\em infile} ]
 \end{synopsis}
 
-\newfont{\bggg}{cmr10 scaled\magstep3}
-\newcommand{\bigzerol}{\smash{\hbox{\bggg 0}}}
-\newcommand{\bigzerou}{\smash{\lower1.3ex\hbox{\bggg 0}}}
-
 \begin{qsection}{DESCRIPTION}
-{\em gmm} uses expectation maximization (EM) algorithm to estimate
-Gaussian mixture model (GMM) parameters with diagonal covariance
-matrices from a sequence of vectors from {\em infile} (or standard
-input), sending the result to standard output.
-
-The input sequence $\bX$ consists of $T$ float vectors $\bx$, each of
-size $L$:
-\begin{align}
- &\bX=\left[\bx(0), \bx(1), \dots, \bx(T-1)\right]\notag,\\
- &\bx(t)=\left[x_t(0), x_t(1), \ldots, x_t(L-1)\right].\notag
-\end{align}
-The result is GMM parameters $\lambda$ consisting of $M$ mixture weights
-$\bw$ and $M$ Gaussians with mean vector $\bmu$ and variance vector
+{\em gmmp} calculates GMM log-probabilities of input vectors from {\em
+infile} (or standard input). 
+{\em gmmfile} has the same file format as generated with {\em gmm} command, 
+i.e., {\em gmmfile} consists of $M$ mixture weights
+$\bw$ and $M$ Gaussians with mean vector $\bmu$ and diagonal variance vector
 $\bv$, each of length $L$:
 \begin{align}
  \lambda =
@@ -76,93 +62,53 @@ $\bv$, each of length $L$:
  \bw &=\left[ w(0), w(1), \ldots, w(M-1) \right],\notag\\
  \bmu(m) &=\left[\mu_m(0), \mu_m(1), \ldots, \mu_m(L-1)\right],\notag\\
  \bv(m) &=\left[\sigma_m^2(0), \sigma_m^2(1), \ldots,
- \sigma_m^2(L-1)\right],\notag
+ \sigma_m^2(L-1)\right].\notag
 \end{align}
+
+
+The input sequence consists of $T$ float vectors $\bx$, each of
+size $L$:
+\begin{displaymath}
+ \bx(0), \bx(1), \dots, \bx(T-1).
+\end{displaymath}
+The result is a sequence of log-probabilities of input vectors:
+\begin{displaymath}
+ \log b(\bx(0)), \log b(\bx(1)), \ldots, \log b(\bx(T-1)),
+\end{displaymath}
+or an average log-probability (if -a option is used):
+\begin{displaymath}
+ \log P(\bX) = \frac{1}{T}\sum_{t=0}^{T-1}\log b(\bx(t)),
+\end{displaymath}
 where
-\begin{displaymath}
- \sum_{m=0}^{M-1}w(m)=1.
-\end{displaymath}
-
-GMM parameter set $\lambda$ is initialized with an LBG algorithm, then
-the following EM steps are used iteratively to obtain new parameter set
-$\hat{\lambda}$:
 \begin{align}
-   \hat{w}(m) & = \frac{1}{T}
-   \sum_{t=0}^{T-1}p(m\mid\bx(t),\lambda),\notag\\
-  \hat{\bmu}(m) & 
- = \frac{\sum_{t=0}^{T-1}p(m\mid\bx(t),\lambda)\bx(t)}
- {\sum_{t=0}^{T-1}p(m\mid\bx(t),\lambda)}, \notag\\[2mm]
-  \hat{\sigma}_m^2(l)&
-  =\frac{\sum_{t=0}^{T-1}p(m\mid\bx(t),\lambda)x_t^2(l)}
-  {\sum_{t=0}^{T-1}p(m\mid\bx(t),\lambda)}
- - \hat{\mu}_m^2(l),\notag
+ &b(\bx(t)) =\sum_{m=0}^{M-1}
+ w(m){\cal N}(\bx(t) \; ; \; \bmu(m),\bv(m)),\notag\\
+ &{\cal N}(\bx(t) \; ; \; \bmu(m),\bv(m))%
+  =\frac{1}{(2\pi)^{L/2}\prod_{l=0}^{L-1}\sigma_m(l)}%
+  \exp{\left\{-\frac{1}{2}%
+    \sum_{l=0}^{L-1}
+    \frac{\left(x_t(l)-\mu_m(l)\right)^2}%
+    {\sigma_m^2(l)}\right\}}.\notag
 \end{align}
-where $p(m\mid\bx(t),\lambda)$ is a posterior probability of being in
-the $m$-th component at time $t$:
-\begin{displaymath}
- p(m\mid\bx(t),\lambda)
- = \frac{w(m){\cal N}(\bx(t)\mid \bmu(m),\bv(m))}
- {\sum_{k=0}^{M-1}w(k){\cal N}(\bx(t)\mid \bmu(k),\bv(k))},
-\end{displaymath}
- and
-\begin{align}
- {\cal N}(\bx(t)\mid\bmu(m),\bv(m))%
- &=\frac{1}{(2\pi)^{L/2}\,|\Sigma(m)|^{1/2}}%
- \exp{\left\{-\frac{1}{2}%
- (\bx(t)-\bmu(m))'\,\Sigma(m)^{-1}\,%
- (\bx(t)-\bmu(m))\right\}}\notag\\
- &=\frac{1}{(2\pi)^{L/2}\prod_{l=0}^{L-1}\sigma_m(l)}%
- \exp{\left\{-\frac{1}{2}%
- \sum_{l=0}^{L-1}
- \frac{\left(x_t(l)-\mu_m(l)\right)^2}%
- {\sigma_m^2(l)}\right\}},\notag
-\end{align}
-where $\Sigma(m)$ is a diagonal matrix with diagonal elements
- $\bv(m)$:
-\begin{displaymath}
- \Sigma(m)=\left[
- \begin{array}{cccc}
-  \sigma_m^2(0) & & &\bigzerou\\
-  & \sigma_m^2(1) & &\\
-  & & \ddots &\\
-  \bigzerol & & & \sigma_m^2(L-1)\\
- \end{array}\right].\notag
-\end{displaymath}
-
-Average log-probability for training data $X$
-\begin{displaymath}
-  \log P(\bX)
- =\frac{1}{T}\sum_{t=0}^{T-1}
- \log\sum_{m=0}^{M-1}w(m){\cal N}(\bx(t)\mid\bmu(m),\bv(m))
-\end{displaymath}
-is increased by iterating the above steps. The average log-probability $\log
-P(\bX)$ at each iterative step is printed on the standard error output.
-The EM steps are iterated at least $A$ times and stopped at the $B$-th
-iteration or when there is a small absolute change in $\log P(\bX)~(\leq
-E)$.
 
 \end{qsection}
 
 \begin{options}
- \argm{l}{L}{length of vector}{26}
- \argm{m}{M}{number of Gaussian components}{16}
- \argm{t}{T}{number of training vectors}{N/A}
- \argm{a}{A}{minimum number of EM iterations}{0}
- \argm{b}{B}{maximum number of EM iterations (A$\leq$ B)}{20}
- \argm{e}{E}{end condition for EM iteration}{0.00001}
- \argm{v}{V}{flooring value for variances}{0.001}
+        \argm{l}{L}{length of vector}{26}
+        \argm{m}{M}{number of Gaussian components}{16}
+        \argm{a}{}{print average log-probability}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the following example, a GMM with 8 Gaussian components is generated
-from training vectors {\em data.f} in float format, and GMM parameters
-are written to {\em gmm.f}.
+In the following example, frame log-probabilities of input data {\em
+data.f} for GMM with 8 Gaussians {\em gmm.f} are written to {\em
+probs.f}.
+
 \begin{quote}
-\verb! gmm -m 8 data.f > gmm.f!
+\verb! gmmp -m 8 gmm.f data.f > probs.f!
 \end{quote}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
-\hyperlink{gmmp}{gmmp},
-\hyperlink{lbg}{lbg}
+\hyperlink{gmm}{gmm}
 \end{qsection}
