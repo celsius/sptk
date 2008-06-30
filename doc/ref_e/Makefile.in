@@ -93,6 +93,7 @@ INC  = cmndref.sty \
 	glogsp.tex \
 	glsadf.tex \
 	gmm.tex \
+	gmmp.tex \
 	gnorm.tex \
 	grlogsp.tex \
 	grpdelay.tex \
