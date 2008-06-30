@@ -92,6 +92,7 @@ static char *rcs_id = "$Id$";
 #  include <SPTK.h>
 #endif
 
+#include "gmm.h"
 
 /*  Default Values  */
 #define DEF_L       26
@@ -106,13 +107,8 @@ static char *rcs_id = "$Id$";
 #define END         0.0001
 #define EPSILON     1.0e-6
 #define MAXVALUE    1.0e10
-#define LZERO       (-1.0e10) /* ~log(0) */
-#define LSMALL      (-0.5e10) /* log values < LSMALL are set to LZERO */
 
 char *BOOL[] = {"FALSE", "TRUE"};
-
-/*  Macro  */
-#define sq(x)       ((x)*(x))
 
 /*  Command Name  */
 char    *cmnd;
