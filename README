@@ -43,7 +43,9 @@ User's Manual "Examples for using SPTK" is also attached.
 
 The differences between version 3.1 and 3.2:
 
- - released under New and Simplified BSD license
+ - released under the New and Simplified BSD license
+ 
+ - add 'gmm' and 'delta' commands 
 
  - bug fixes
 
@@ -247,7 +249,8 @@ Speech Signal Processing Toolkit.  Current members are
  Heiga Zen                    http://www.sp.nitech.ac.jp/~zen/
  Junichi Yamagishi            http://homepages.inf.ed.ac.uk/jyamagis/
 
-and the members are dynamically changing.  The current formal
-contact address of SPTK working group is
-dsp-cmnd@sp.nitech.ac.jp.
+and the members are dynamically changing.  If you want to contact
+the SPTK working group, please use Tracker of the SPTK 
+SourceForge page (http://sourceforge.net/projects/sp-tk/).
+
 ****************************************************************
