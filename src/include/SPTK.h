@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***********************************************************
-   $Id: SPTK.h,v 1.21 2008/07/02 06:54:29 heigazen Exp $ 
+   $Id: SPTK.h,v 1.22 2008/07/02 07:06:40 heigazen Exp $ 
    
    Speech Signal Processing Toolkit
    SPTK.h
@@ -211,6 +211,8 @@ double mglsadf (double x, double *b, const int m, const double a, const int n, d
 double mglsadf1 (double x, double *b, const int m, const double a, const int n, double *d);
 double mglsadft (double x, double *b, const int m, const double a, const int n, double *d);
 double mglsadf1t (double x, double *b, const int m, const double a, const int n, double *d);
+int str2darray (char *c, double **x);
+int isfloat (char *c);
 double mlsadf (double x, double *b, const int m, const double a, const int pd, double *d);
 void msvq (double *x, double *cb, const int l, int *cbsize, const int stage, int *index);
 void norm0 (double *x, double *y, int m);

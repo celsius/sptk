@@ -79,6 +79,7 @@ MODULES = ..\bin\acep\_acep.obj \
 		..\bin\mgc2sp\_mgc2sp.obj \
 		..\bin\mgcep\_mgcep.obj \
 		..\bin\mglsadf\_mglsadf.obj \
+		..\bin\mlpg\_mlpg.obj \
 		..\bin\mlsadf\_mlsadf.obj \
 		..\bin\msvq\_msvq.obj \
 		..\bin\norm0\_norm0.obj \

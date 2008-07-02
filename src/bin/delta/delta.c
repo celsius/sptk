@@ -65,7 +65,7 @@
 *                                                                                       *
 ****************************************************************************************/
 
-static char *rcs_id = "$Id: delta.c,v 1.1 2008/06/26 07:50:36 heigazen Exp $";
+static char *rcs_id = "$Id: delta.c,v 1.2 2008/07/02 07:06:40 heigazen Exp $";
 
 
 /*  Standard C Libralies  */
@@ -144,9 +144,6 @@ int main (int argc,char *argv[])
    int i, j, l, d, t, tj, ispipe, fsize, leng=LENG, total=T;
    int dw_num=1, **dw_width=NULL, dw_calccoef=-1, dw_coeflen=1, dw_maxw[2]={0,0}, dw_leng=1;
    char **dw_fn = (char **)calloc(sizeof(char *), argc);
-
-   int str2darray(char *c, double **x);
-   int isfloat (char *c);
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -358,75 +355,4 @@ int main (int argc,char *argv[])
    fwritef(dx, sizeof(*dx), dw_num*total*leng, stdout);  
    
    return(0);
-}
-
-int str2darray(char *c, double **x)
-{
-   int i, size, sp;
-   char *p, *buf;
-
-   while (isspace(*c))
-      c++;
-   if (*c=='\0') {
-      *x = NULL;
-      return(0);
-   }
-
-   size = 1;
-   sp = 0;
-   for (p=c; *p!='\0'; p++) {
-      if (!isspace(*p)) {
-         if (sp==1) {
-            size++;
-            sp = 0;
-         }
-      }
-      else
-         sp = 1;
-   }
-   buf = getmem(strlen(c), sizeof(*buf));
-   *x = dgetmem(size);
-   for (i=0; i<size; i++)
-      (*x)[i] = strtod(c, &c);
-   return(size);
-}
-
-int isfloat (char *c)
-{
-   int isnum=0, wfe=1;
-   int i=0;
-
-   if (strlen(c)==0)
-      return(0);
-
-   if ((c[i]=='+') || (c[i]=='-'))
-      i++;
-   while ((c[i] >= '0') && (c[i] <= '9')) {
-      isnum = 1;
-      i++;
-   }
-   if (c[i]=='.') {
-      i++;
-      while ((c[i] >= '0') && (c[i] <= '9')) {
-         isnum = 1;
-         i++;
-      }
-   }
-   if ((c[i]=='e') || (c[i]=='E')) {
-      wfe = 0;
-      i++;
-      if ((c[i]=='+') || (c[i]=='-'))
-         i++;
-      while ((c[i] >= '0') && (c[i] <= '9')) {
-         wfe = 1;
-         i++;
-      }
-   }
-   if ((c[i]=='f') || (c[i]=='F') || (c[i]=='l') || (c[i]=='L'))
-      i++;
-
-   if ((c[i]=='\0') && isnum && wfe)
-      return(1);
-   else
-      return(0);
 }
