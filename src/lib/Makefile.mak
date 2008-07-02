@@ -51,6 +51,7 @@ MODULES = ..\bin\acep\_acep.obj \
 		..\bin\gc2gc\_gc2gc.obj \
 		..\bin\gcep\_gcep.obj \
 		..\bin\glsadf\_glsadf.obj \
+		..\bin\gmm\_gmm.obj \
 		..\bin\gnorm\_gnorm.obj \
 		..\bin\grpdelay\_grpdelay.obj \
 		..\bin\histogram\_histogram.obj \

@@ -40,6 +40,7 @@ nodist_libSPTK_a_SOURCES = $(top_srcdir)/include/SPTK.h \
 		$(top_srcdir)/bin/gc2gc/_gc2gc.c \
 		$(top_srcdir)/bin/gcep/_gcep.c \
 		$(top_srcdir)/bin/glsadf/_glsadf.c \
+		$(top_srcdir)/bin/gmm/_gmm.c \
 		$(top_srcdir)/bin/gnorm/_gnorm.c \
 		$(top_srcdir)/bin/grpdelay/_grpdelay.c \
 		$(top_srcdir)/bin/histogram/_histogram.c \
