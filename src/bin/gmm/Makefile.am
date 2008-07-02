@@ -1,9 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.2 2008/06/30 09:34:46 heigazen Exp $
+## $Id: Makefile.am,v 1.3 2008/07/02 06:53:59 heigazen Exp $
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = gmm gmmp
-gmm_SOURCES = gmm.c 
+gmm_SOURCES = _gmm.c gmm.c 
 gmm_LDADD = $(top_srcdir)/lib/libSPTK.a
-gmmp_SOURCES = gmmp.c
+gmmp_SOURCES = _gmm.c gmmp.c
 gmmp_LDADD = $(top_srcdir)/lib/libSPTK.a

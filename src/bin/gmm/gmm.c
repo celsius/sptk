@@ -69,7 +69,7 @@
  *                                                                       *
  ************************************************************************/
 
-static char *rcs_id = "$Id: gmm.c,v 1.2 2008/06/30 09:34:46 heigazen Exp $";
+static char *rcs_id = "$Id: gmm.c,v 1.3 2008/07/02 06:53:59 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -160,11 +160,6 @@ int main (int argc, char **argv)
           ave_logp0, ave_logp1, change = MAXVALUE, tmp1, tmp2;
    int ispipe, l, L=DEF_L , m, M=DEF_M, N, t, T=DEF_T,
        i, Imin=DEF_IMIN, Imax=DEF_IMAX, *tindex, *cntcb;
-
-   double cal_gconst (double *var, const int D);
-   void fillz_gmm (GMM *gmm, const int M, const int L);
-   double log_wgd (GMM gmm, const int m, double *dat, const int L);
-   double log_add (double logx, double logy);
 
    if ((cmnd=strrchr(argv[0],'/'))==NULL)
       cmnd = argv[0];
@@ -329,7 +324,7 @@ int main (int argc, char **argv)
 
       for (t=0,ave_logp1=0.0,pd=dat; t<T; t++,pd+=L) {
          for (m=0,logb=LZERO; m<M; m++) {
-            logwgd[m] = log_wgd(gmm, m, pd, L);
+            logwgd[m] = log_wgd(&gmm, m, pd, L);
             logb = log_add(logb, logwgd[m]);
          }
          ave_logp1 += logb;
@@ -387,71 +382,4 @@ int main (int argc, char **argv)
    }
    
    return(0);
-}
-
-double cal_gconst (double *var, const int D)
-{
-   int d;
-   double gconst;
-
-   gconst = D * log(M_2PI);
-   for (d=0; d<D; d++)
-      gconst += log(var[d]);
-   
-   return(gconst);
-}
-
-void fillz_gmm (GMM *gmm, const int M, const int L)
-{
-   int m, l, ll;
-
-   for (m=0; m<M; m++) {
-      gmm->weight[m] = 0.;
-    
-      for (l=0; l<L; l++)
-         gmm->gauss[m].mean[l] = 0.;
-    
-      for (l=0; l<L; l++)
-         gmm->gauss[m].var[l] = 0.;
-   }
-   
-   return;
-}
-
-double log_wgd (GMM gmm, const int m, double *dat, const int L)
-{
-   int l;
-   double sum, diff, lwgd;
-
-   sum = gmm.gauss[m].gconst;
-
-   for (l=0; l<L; l++) {
-      diff = dat[l] - gmm.gauss[m].mean[l];
-      sum += sq(diff) / gmm.gauss[m].var[l];
-   }
-
-   lwgd = log(gmm.weight[m]) - 0.5 * sum;    
-
-   return(lwgd);
-}
-
-double log_add (double logx, double logy)
-{
-   double swap, diff, minLogExp, z;
-
-   if  (logx < logy) {
-      swap = logx;
-      logx = logy;
-      logy = swap;
-   }
-
-   diff = logy - logx;
-   minLogExp = -log(-LZERO);
-
-   if (diff < minLogExp)
-      return((logx<LSMALL) ? LZERO : logx);
-   else {
-      z = exp(diff);
-      return(logx + log(1.0+z));
-   }
 }

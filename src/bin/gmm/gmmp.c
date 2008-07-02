@@ -62,7 +62,7 @@
  *                                                                       *
  ************************************************************************/
 
-static char *rcs_id = "$Id: gmmp.c,v 1.1 2008/06/30 09:34:46 heigazen Exp $";
+static char *rcs_id = "$Id: gmmp.c,v 1.2 2008/07/02 06:53:59 heigazen Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -100,203 +100,126 @@ char *cmnd;
 
 void usage (int status)
 {
-  fprintf(stderr, "\n");
-  fprintf(stderr, " %s - Calculaton of GMM log-probability\n",cmnd);
-  fprintf(stderr, "\n");
-  fprintf(stderr, "  usage:\n");
-  fprintf(stderr, "       %s [ options ] gmmfile [ infile ] > stdout\n", cmnd);
-  fprintf(stderr, "  options:\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - Calculaton of GMM log-probability\n",cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] gmmfile [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
 
-  fprintf(stderr, "       -l l  : dimensionality of vectors          [%d]\n", DEF_L);
-  fprintf(stderr, "       -m m  : number of Gaussian components      [%d]\n", DEF_M);
-  fprintf(stderr, "       -a    : output average log-probability     [%s]\n", BOOL[DEF_A]);
-  fprintf(stderr, "       -h    : print this message\n");
-  fprintf(stderr, "  infile:\n");
-  fprintf(stderr, "       input data sequence (float)                [stdin]\n");
-  fprintf(stderr, "  gmmfile:\n");
-  fprintf(stderr, "       GMM parameters (float)\n");
-  fprintf(stderr, "  stdout:\n");
-  fprintf(stderr, "       log-probabilities or average log-probability (float)\n");
-  fprintf(stderr, "\n");
-  exit(status);
+   fprintf(stderr, "       -l l  : dimensionality of vectors          [%d]\n", DEF_L);
+   fprintf(stderr, "       -m m  : number of Gaussian components      [%d]\n", DEF_M);
+   fprintf(stderr, "       -a    : output average log-probability     [%s]\n", BOOL[DEF_A]);
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       input data sequence (float)                [stdin]\n");
+   fprintf(stderr, "  gmmfile:\n");
+   fprintf(stderr, "       GMM parameters (float)\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       log-probabilities or average log-probability (float)\n");
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 int main (int argc, char **argv)
 {
-  FILE    *fp=stdin, *fgmm=NULL;
-  GMM     gmm;
-  double  *dat, logwgd, *logp, ave_logp,
-          cal_gconst(double  *var, int D),
-          log_outp(GMM gmm, double *dat, int M, int L);
-  int     m, l, t, M = DEF_M, L = DEF_L, T;
-  Boolean aflag = DEF_A;
+   FILE *fp=stdin, *fgmm=NULL;
+   GMM gmm;
+   double  *dat, logwgd, *logp, ave_logp;
+   int m, l, t, M=DEF_M, L=DEF_L, T;
+   Boolean aflag=DEF_A;
 
-  if( ( cmnd = strrchr( argv[0], '/' ) ) == NULL )
-    cmnd = argv[0];
-  else
-    cmnd++;
+   if ((cmnd=strrchr( argv[0], '/' ))==NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
 
 
-  /* -- Check options -- */
-
-  while( --argc )
-    if( **++argv == '-' ) {
-      switch( *(*argv+1) ){
-      case 'h':
-        usage( 0 );
-        break;
-      case 'l':
-	L = atoi(*++argv);
-	--argc;
-	break;
-      case 'm':
-	M = atoi(*++argv);
-	--argc;
-	break;
-	case 'a':
-	  aflag = TR;
-	  break;
-      default:
-	fprintf( stderr, "%s: Illegal option \"%s\".\n", cmnd, *argv );
-	usage( 1 );
+   while (--argc)
+      if (**++argv == '-') {
+         switch (*(*argv+1)) {
+         case 'h':
+            usage( 0 );
+            break;
+         case 'l':
+            L = atoi(*++argv);
+            --argc;
+            break;
+         case 'm':
+            M = atoi(*++argv);
+            --argc;
+            break;
+         case 'a':
+            aflag = TR;
+            break;
+         default:
+            fprintf(stderr, "%s: Illegal option \"%s\".\n", cmnd, *argv);
+            usage(1);
+         }
       }
-    }
-    else if ( fgmm == NULL )
-      fgmm = getfp( *argv, "rb" );
-    else
-      fp = getfp( *argv, "rb" );
+      else if (fgmm==NULL)
+         fgmm = getfp(*argv, "rb");
+      else
+         fp = getfp(*argv, "rb");
 
 
-  /* -- Read GMM parameters -- */
+   /* Read GMM parameters */
+   if (fgmm==NULL) {
+      fprintf(stderr, "%s : GMM file name required !\n", cmnd);
+      usage(1);
+   }
 
-  if ( fgmm == NULL ){
-    fprintf( stderr, "%s : GMM file name required !\n", cmnd );
-    usage( 1 );
-  }
+   gmm.weight = dgetmem(M);
+   gmm.gauss = (Gauss *) getmem(M, sizeof(Gauss));
+   
+   for (m=0; m<M; m++) {
+      gmm.gauss[m].mean = dgetmem(L);
+      gmm.gauss[m].var  = dgetmem(L);
+   }
 
-  gmm.weight = dgetmem( M );
-  gmm.gauss = (Gauss *) getmem( M, sizeof(Gauss) );
-  for( m = 0; m < M; m++ ){
-    gmm.gauss[m].mean = dgetmem( L );
-    gmm.gauss[m].var  = dgetmem( L );
-  }
+   freadf(gmm.weight, sizeof(double), M, fgmm);
+   for (m=0; m<M; m++) {
+      freadf(gmm.gauss[m].mean, sizeof(double), L, fgmm);
+      freadf(gmm.gauss[m].var,  sizeof(double), L, fgmm);
+   }
+   fclose(fgmm);
 
-  freadf( gmm.weight, sizeof(double), M, fgmm );
-  for( m = 0; m < M; m++ ){
-    freadf( gmm.gauss[m].mean, sizeof(double), L, fgmm );
-    freadf( gmm.gauss[m].var, sizeof(double), L, fgmm );
-  }
-  fclose( fgmm );
-
-  for( m = 0; m < M; m++ )
-    gmm.gauss[m].gconst = cal_gconst( gmm.gauss[m].var, L );
-
-
-  /* -- Read data -- */
-
-  fseek( fp, 0, 2 );
-  T = (int)( (double)ftell( fp )
-	     / (double)sizeof(float) / (double)L );
-  rewind( fp );
-
-  if( !T ){
-    fprintf( stderr, "%s: No input data !\n", cmnd );
-    usage( 1 );
-  }
-
-  dat = dgetmem( T * L );
-  logp = dgetmem( T );
-
-  freadf( dat, sizeof(double), T * L, fp );
-  fclose( fp );
+   for (m=0; m<M; m++)
+      gmm.gauss[m].gconst = cal_gconst(gmm.gauss[m].var, L);
 
 
-  /* -- Calculation of log-probability -- */
+   /* Read data */
+   fseek(fp, 0, 2);
+   T = (int)( (double)ftell( fp )
+            / (double)sizeof(float) / (double)L );
+   rewind(fp);
 
-  for( t = 0, ave_logp = 0.; t < T; t++, dat += L ){
-    logp[t] = log_outp( gmm, dat, M, L );
-    ave_logp += logp[t];
-  }
-  ave_logp /= (double)T;
+   if (!T) {
+      fprintf(stderr, "%s: No input data !\n", cmnd);
+      usage(1);
+   }
 
+   dat = dgetmem(T*L);
+   logp = dgetmem(T);
 
-  /* -- Output log-probability -- */
-
-  if( aflag )
-    fwritef( &ave_logp, sizeof( double ), 1, stdout );
-  else
-    fwritef( logp, sizeof( double ), T, stdout );
-
-  return( 0 );
-}
+   freadf(dat, sizeof(double), T*L, fp);
+   fclose(fp);
 
 
-/* -------------------------------------------------------------------- */
-/*  Subroutines                                                         */
-/* -------------------------------------------------------------------- */
-
-double cal_gconst( double *var, int D )
-{
-  int    d;
-  double gconst;
-
-  gconst = D * log( 2.* M_PI );
-  for( d = 0; d < D; d++ )
-    gconst += log( var[d] );
-  return( gconst );
-}
+   /* Calculation of log-probability */
+   for (t=0, ave_logp=0.0; t<T; t++,dat+=L) {
+      logp[t] = log_outp(&gmm, dat, M, L);
+      ave_logp += logp[t];
+   }
+   ave_logp /= (double)T;
 
 
-double log_outp( GMM gmm, double *dat, int M, int L )
-{
-  int    m;
-  double logwgd, logb,
-         log_wgd( GMM gmm, int m, double *dat, int L ),
-         log_add( double logx, double logy );
+   /* Output log-probability */
 
-  for( m = 0, logb = LZERO; m < M; m++ ){
-    logwgd = log_wgd( gmm, m, dat, L );
-    logb = log_add( logb, logwgd );
-  }
-  return( logb );
-}
+   if (aflag)
+      fwritef(&ave_logp, sizeof(double), 1, stdout);
+   else
+      fwritef(logp, sizeof(double), T, stdout);
 
-
-double log_wgd( GMM gmm, int m, double *dat, int L )
-{
-  int    l;
-  double sum, diff, lwgd;
-
-  sum = gmm.gauss[m].gconst;
-
-  for( l = 0; l < L; l++ ){
-    diff = dat[l] - gmm.gauss[m].mean[l];
-    sum += sq( diff ) / gmm.gauss[m].var[l];
-  }
-
-  lwgd = log( gmm.weight[m] ) - 0.5 * sum;    
-
-  return( lwgd );
-}
-
-
-double log_add( double logx, double logy )
-{
-  double swap, diff, minLogExp, z;
-
-  if( logx < logy ){
-    swap = logx;
-    logx = logy;
-    logy = swap;
-  }
-
-  diff = logy - logx;
-  minLogExp = -log( -LZERO );
-
-  if( diff < minLogExp )
-    return( ( logx < LSMALL ) ? LZERO : logx );
-  else{
-    z = exp( diff );
-    return( logx + log( 1.0 + z ) );
-  }
+   return(0);
 }
