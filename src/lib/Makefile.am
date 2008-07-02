@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.2 2007/11/12 02:02:58 heigazen Exp $
+## $Id: Makefile.am,v 1.3 2008/07/02 06:54:43 heigazen Exp $
 INCLUDES=-I$(top_srcdir)/include
 lib_LIBRARIES = libSPTK.a
 libSPTK_a_SOURCES = agexp.c \
@@ -40,6 +40,7 @@ nodist_libSPTK_a_SOURCES = $(top_srcdir)/include/SPTK.h \
 		$(top_srcdir)/bin/gc2gc/_gc2gc.c \
 		$(top_srcdir)/bin/gcep/_gcep.c \
 		$(top_srcdir)/bin/glsadf/_glsadf.c \
+		$(top_srcdir)/bin/gmm/_gmm.c \
 		$(top_srcdir)/bin/gnorm/_gnorm.c \
 		$(top_srcdir)/bin/grpdelay/_grpdelay.c \
 		$(top_srcdir)/bin/histogram/_histogram.c \
