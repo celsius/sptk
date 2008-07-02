@@ -164,13 +164,11 @@ typedef struct _PStream {
 } PStream;
 
 /*  Required Functions  */
-int isfloat(char *c);
 void InitPStream(PStream *pst);
 void InitDWin(PStream *pst);
 double *dcalloc(int x, int xoff);
 double **ddcalloc(int x, int y, int xoff, int yoff);
 double ***dddcalloc(int x, int y, int z, int xoff, int yoff, int zoff);
-int str2darray(char *c, double **x);
 double *mlpg(PStream *pst);
 int doupdate(PStream *pst, int d);
 void calc_pi(PStream *pst, int d);
@@ -224,7 +222,6 @@ int main (int argc, char **argv)
    int coeflen;
    PStream pst;
    int i, j;
-   int isfloat(char *);
    void InitPStream(PStream *);
    double *mlpg(PStream *);
 
@@ -359,48 +356,6 @@ int main (int argc, char **argv)
    return(0);
 }
 
-
-int isfloat (char *c)
-{
-   int isnum=0, wfe=1;
-   int i=0;
-
-   if (strlen(c)==0)
-      return(0);
-
-   if ((c[i]=='+') || (c[i]=='-'))
-      i++;
-   while ((c[i] >= '0') && (c[i] <= '9')) {
-      isnum = 1;
-      i++;
-   }
-   if (c[i]=='.') {
-      i++;
-      while ((c[i] >= '0') && (c[i] <= '9')) {
-         isnum = 1;
-         i++;
-      }
-   }
-   if ((c[i]=='e') || (c[i]=='E')) {
-      wfe = 0;
-      i++;
-      if ((c[i]=='+') || (c[i]=='-'))
-         i++;
-      while ((c[i] >= '0') && (c[i] <= '9')) {
-         wfe = 1;
-         i++;
-      }
-   }
-   if ((c[i]=='f') || (c[i]=='F') || (c[i]=='l') || (c[i]=='L'))
-      i++;
-
-   if ((c[i]=='\0') && isnum && wfe)
-      return(1);
-   else
-      return(0);
-}
-
-
 void InitPStream(PStream *pst)
 {
    void InitDWin(PStream *);
@@ -450,8 +405,7 @@ void InitPStream(PStream *pst)
 
 void InitDWin(PStream *pst)
 {
-   double  *dcalloc(int, int);
-   int  str2darray(char *, double **);
+   double *dcalloc(int, int);
    int i, j;
    int  fsize, leng;
    double  x, a0, a1, a2;
@@ -589,38 +543,6 @@ double ***dddcalloc(int x, int y, int z, int xoff, int yoff, int zoff)
    ptr += xoff;
    return(ptr);
 }
-
-int str2darray(char *c, double **x)
-{
-   int i, size, sp;
-   char *p, *buf;
-
-   while (isspace(*c))
-      c++;
-   if (*c=='\0') {
-      *x = NULL;
-      return(0);
-   }
-
-   size = 1;
-   sp = 0;
-   for (p=c; *p!='\0'; p++) {
-      if (!isspace(*p)) {
-         if (sp==1) {
-            size++;
-            sp = 0;
-         }
-      }
-      else
-         sp = 1;
-   }
-   buf = getmem(strlen(c), sizeof(*buf));
-   *x = dgetmem(size);
-   for (i=0; i<size; i++)
-      (*x)[i] = strtod(c, &c);
-   return(size);
-}
-
 
 /*--------------------------------------------------------------------*/
 
