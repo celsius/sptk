@@ -46,23 +46,23 @@
 {speech analysis}
 
 \begin{synopsis}
-\item [agcep] [ --m $M$ ] [ --g $G$ ] [ --l $L$ ] [ --t $T$] [ --k $K$ ]
-	      [ --p $P$ ]
+\item [agcep] [ --m $M$ ] [ --c $C$ ] [ --l $L$ ] [ --t $T$] [ --k $K$ ]
+              [ --p $P$ ]
 \item [\ ~~~~~~]  [ --s ] [ --n ] [ --e $E$ ] [ {\em pefile} ] $<$ {\em infile}
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-	{\em agcep} uses adaptive generalized cepstral analysis
-	\cite{ref:agcep-IEICEtaikai90s}
-	to calculate cepstral coefficients $c_\gamma(m)$ 
-	from unframed float data from standard input,
-	sending the result to standard output. 
-	If {\em pefile} is given, 
-	{\em agcep} writes the prediction error to that file.
+        {\em agcep} uses adaptive generalized cepstral analysis
+        \cite{ref:agcep-IEICEtaikai90s}
+        to calculate cepstral coefficients $c_\gamma(m)$ 
+        from unframed float data from standard input,
+        sending the result to standard output. 
+        If {\em pefile} is given, 
+        {\em agcep} writes the prediction error to that file.
 
-	The format for input and output data is float.
+        The format for input and output data is float.
 
-	The algorithm to calculate recursively the
+        The algorithm to calculate recursively the
         adaptive generalized cepstral coefficients is 
  %
 \begin{align}
@@ -78,7 +78,7 @@
   \mu^{(n)} &= \frac{k}{M \varepsilon^{(n)}} \notag \\
   \varepsilon^{(n)} &= \lambda \varepsilon^{(n-1)}
      + (1-\lambda)e_\gamma^2(n) \notag
-\end{align}	
+\end{align}     
 
 where
 $\bc_\gamma = [c_\gamma(1),\ldots,c_\gamma(M)]^\top$,
@@ -166,19 +166,19 @@ adaptive cepstral analysis.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{order of generalized cepstrum}{25}
-	\argm{g}{G}{power parameter $\gamma=-1/G$ for generalized cepstrum}{1}
-	\argm{l}{L}{leakage factor $\lambda$}{0.98}
-	\argm{t}{T}{momentum constant $\tau$}{0.9}
-	\argm{k}{K}{step size $k$}{0.1}
-	\argm{p}{P}{output period of generalized cepstrum}{1}
-	\argm{s}{}{output smoothed generalized cepstrum}{FALSE}
-	\argm{n}{}{output normalized generalized cepstrum}{FALSE}
-	\argm{e}{E}{minimum value for $\varepsilon^{(n)}$}{0.0}
+        \argm{m}{M}{order of generalized cepstrum}{25}
+        \argm{c}{C}{power parameter $\gamma=-1/C$ for generalized cepstrum}{1}
+        \argm{l}{L}{leakage factor $\lambda$}{0.98}
+        \argm{t}{T}{momentum constant $\tau$}{0.9}
+        \argm{k}{K}{step size $k$}{0.1}
+        \argm{p}{P}{output period of generalized cepstrum}{1}
+        \argm{s}{}{output smoothed generalized cepstrum}{FALSE}
+        \argm{n}{}{output normalized generalized cepstrum}{FALSE}
+        \argm{e}{E}{minimum value for $\varepsilon^{(n)}$}{0.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-	In this example, the speech data is in the file {\em data.f}
+        In this example, the speech data is in the file {\em data.f}
         in float format, the cepstral coefficients are written to
         the file {\em data.agcep},
         and the prediction error can be found in {\em data.er}.

@@ -46,8 +46,8 @@
 {filters for speech synthesis}
 
 \begin{synopsis}
-\item [iglsadf] [ --m $M$ ] [ --g $G$ ] [ --p $P$ ] [ --i $I$ ]
-	  	[ --n ] [ --k ] {\em gcfile}  [ {\em infile} ] 
+\item [iglsadf] [ --m $M$ ] [ --c $C$ ] [ --p $P$ ] [ --i $I$ ]
+                [ --n ] [ --k ] {\em gcfile}  [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -62,12 +62,12 @@ Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{order of generalized cepstrum}{25}
-	\argm{g}{G}{power parameter $\gamma=-1/G$ of generalized cepstrum}{1}
-	\argm{p}{P}{frame period}{100}
-	\argm{i}{I}{interpolation period}{1}
-	\argm{n}{}{regard input as normalized generalized cepstrum}{FALSE}
-	\argm{k}{}{filtering without gain}{FALSE}
+        \argm{m}{M}{order of generalized cepstrum}{25}
+        \argm{c}{C}{power parameter $\gamma=-1/C$ of generalized cepstrum}{1}
+        \argm{p}{P}{frame period}{100}
+        \argm{i}{I}{interpolation period}{1}
+        \argm{n}{}{regard input as normalized generalized cepstrum}{FALSE}
+        \argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -80,8 +80,8 @@ speech data and cepstral coefficients are
 inputed to {\em iglsadf} command and the resulting excitation file
 is written to {\em data.e}.
 \begin{quote}
- \verb!frame +f < data.f | window | gcep -m 15 -g 2 > data.gc!\\
- \verb!iglsadf -m 15 -g 2 data.gc < data.f > data.e!
+ \verb!frame +f < data.f | window | gcep -m 15 -c 2 > data.gc!\\
+ \verb!iglsadf -m 15 -c 2 data.gc < data.f > data.e!
 \end{quote}
 \end{qsection}
 

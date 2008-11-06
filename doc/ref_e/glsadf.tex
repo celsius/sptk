@@ -46,7 +46,7 @@
 {filters for speech synthesis}
 
 \begin{synopsis}
-\item [glsadf] [ --m $M$ ] [ --g $G$ ] [ --p $P$ ] [ --i $I$ ] [ --n ] [ --k ] [ --P $Pa$ ]
+\item [glsadf] [ --m $M$ ] [ --c $C$ ] [ --p $P$ ] [ --i $I$ ] [ --n ] [ --k ] [ --P $Pa$ ]
  {\em gcfile}  [ {\em infile} ]
 \end{synopsis}
 
@@ -67,17 +67,17 @@ normalized generalized cepstral coefficients $c_\gamma'(m)$ is
 H(z) &= K \cdot D(z) \notag \\
      &= \begin{cases} \;\;\displaystyle
           K \cdot \left( 1+\gamma\sum_{m=1}^{M} c_\gamma'(m) z^{-m}
-		\right)^{1/\gamma}, & 0<\gamma\leq -1 \\ 
-		\;\;\displaystyle K \cdot \exp \sum_{m=1}^{M} c_\gamma'(m) z^{-m}, & \gamma=0
-	\end{cases}\notag
+                \right)^{1/\gamma}, & 0<\gamma\leq -1 \\ 
+                \;\;\displaystyle K \cdot \exp \sum_{m=1}^{M} c_\gamma'(m) z^{-m}, & \gamma=0
+        \end{cases}\notag
 \end{align}
 In this case, we are considering only values for the power parameter
-$\gamma=-1/G$, where $G$ is a natural number.
-The filter $D(z)$ can be realized through a $G$ level cascade as shown
+$\gamma=-1/C$, where $C$ is a natural number.
+The filter $D(z)$ can be realized through a $C$ level cascade as shown
 in figure\ref{fig:glsadflt_GLSA}, where
 \begin{displaymath}
 \frac{1}{C(z)} = \frac{1}
-		{\displaystyle 1+\gamma\sum_{m=1}^{M} c_\gamma'(m) z^{-m}}
+                {\displaystyle 1+\gamma\sum_{m=1}^{M} c_\gamma'(m) z^{-m}}
 \end{displaymath}
 
 \setcounter{figure}{0}
@@ -101,7 +101,7 @@ in figure\ref{fig:glsadflt_GLSA}, where
   \put(320,40){\makebox(0,0){Output}}
   \put(60,65){\makebox(0,0){\bf level 1}}
   \put(140,65){\makebox(0,0){\bf level 2}}
-  \put(270,65){\makebox(0,0){\bf level $G$}}
+  \put(270,65){\makebox(0,0){\bf level $C$}}
 
 \end{picture}
 \caption{Structure of filter $D(z)$}
@@ -112,15 +112,15 @@ in figure\ref{fig:glsadflt_GLSA}, where
 
 \newpage
 \begin{options}
-	\argm{m}{M}{order of generalized cepstrum}{25}
-	\argm{g}{G}{power parameter $\gamma=-1/G$ for generalized cepstrum\\
-			 if $G==0$ then the LMA filter is used}{1}
-	\argm{p}{P}{frame period}{100}
-	\argm{i}{I}{interpolation period}{1}
-	\argm{n}{}{regard input as normalized generalized cepstrum}{FALSE}
-	\argm{k}{}{filtering without gain}{FALSE}
-	\desc[1ex]{The option below only works if $G==0$.}
-	\argm{P}{Pa}{order of the Pad\'e approximation\\
+        \argm{m}{M}{order of generalized cepstrum}{25}
+        \argm{c}{C}{power parameter $\gamma=-1/C$ for generalized cepstrum\\
+                         if $C==0$ then the LMA filter is used}{1}
+        \argm{p}{P}{frame period}{100}
+        \argm{i}{I}{interpolation period}{1}
+        \argm{n}{}{regard input as normalized generalized cepstrum}{FALSE}
+        \argm{k}{}{filtering without gain}{FALSE}
+        \desc[1ex]{The option below only works if $C==0$.}
+        \argm{P}{Pa}{order of the Pad\'e approximation\\
                      $Pa$ should be $4$ or $5$}{4}
 \end{options}
 

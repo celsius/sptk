@@ -44,7 +44,7 @@
 \hypertarget{ignorm}{}
 \name{ignorm}{inverse gain normalization}{signal processing}
 \begin{synopsis}
-\item [ignorm] [ --m $M$ ] [ --g $G$ ] [ {\em infile} ]
+\item [ignorm] [ --m $M$ ] [ --g $G$ ] [ --c $C$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -64,17 +64,20 @@ c_\gamma(m) = \left( c_\gamma'(0) \right)^{\gamma} c_\gamma'(m), \qquad m>0
 Also, the gain $K = c_\gamma(0)$ is
 \begin{displaymath}
 c_\gamma(0) = \begin{cases} \;\; \displaystyle
-	  \frac{\Bigl(c_\gamma'(0)\Bigr)^{\gamma} - 1.0}{\gamma},
-		& 0<|\gamma|\leq 1 \\ \;\; \displaystyle
-	  \log c_\gamma'(0),  & \gamma=0
-	\end{cases}
+          \frac{\Bigl(c_\gamma'(0)\Bigr)^{\gamma} - 1.0}{\gamma},
+                & 0<|\gamma|\leq 1 \\ \;\; \displaystyle
+          \log c_\gamma'(0),  & \gamma=0
+        \end{cases}
 \end{displaymath}
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{order of generalized cepstrum}{25}
-	\argm{g}{G}{power parameter $\gamma$ of generalized cepstrum\\
-		    if $G \ge 1.0$ then $\gamma=-1/G$.}{0}
+        \argm{m}{M}{order of generalized cepstrum}{25}
+        \argm{g}{G}{power parameter $\gamma$ of generalized cepstrum\\
+                         $\gamma=G$}{0}
+        \argm{c}{C}{power parameter $\gamma$ of generalized cepstrum\\
+                        $\gamma =-1 / $(int)$ C$\\
+                        $C$ must be $C \geq 1$}{}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -84,7 +87,7 @@ float format are read from {\em data.ngcep} $(M=15, \gamma=-0.5)$,
 and the not-normalized generalized cepstral coefficients
 are output to {\em data.gcep}.
 \begin{quote}
- \verb! ignorm -m 15 -g -0.5 < data.ngcep > data.gcep!
+ \verb! ignorm -m 15 -c 2 < data.ngcep > data.gcep!
 \end{quote} 
 \end{qsection}
 

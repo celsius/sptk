@@ -45,7 +45,7 @@
 \name{gnorm}{gain normalization}{speech parameter transformation}
 
 \begin{synopsis}
-\item [gnorm] [ --m $M$ ] [ --g $G$ ] [ {\em infile} ]
+\item [gnorm] [ --m $M$ ] [ --g $G$ ] [ --c $C$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -63,17 +63,20 @@ c_\gamma'(m) = \frac{c_\gamma(m)}{1+\gamma c_\gamma(0)}, \qquad m>0
 Also, the gain $K = c_\gamma'(0)$ is
 \begin{displaymath}
 K = \begin{cases} \;\;\displaystyle
-	  \left(\frac{1}{1+\gamma c_\gamma(0)}\right)^{1/\gamma},
-		& 0<|\gamma|\leq 1 \\ \;\;\displaystyle
-	  \exp c_\gamma(0),  & \gamma=0
-	\end{cases}
+          \left(\frac{1}{1+\gamma c_\gamma(0)}\right)^{1/\gamma},
+                & 0<|\gamma|\leq 1 \\ \;\;\displaystyle
+          \exp c_\gamma(0),  & \gamma=0
+        \end{cases}
 \end{displaymath}
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{order of generalized cepstrum}{25}
-	\argm{g}{G}{power parameter $\gamma$ of generalized cepstrum,\\
-		    if $G \ge 1.0$ then $\gamma=-1/G$}{0}
+        \argm{m}{M}{order of generalized cepstrum}{25}
+        \argm{g}{G}{power parameter $\gamma$ of generalized cepstrum,\\
+                         $\gamma=G$}{0}
+        \argm{c}{C}{power parameter $\gamma$ of generalized cepstrum,\\
+                        $\gamma =-1 / $(int)$ C$\\
+                        $C$ must be $C \geq 1$}{}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -81,7 +84,7 @@ In this example, generalized cepstral coefficients in float format
 are read from file {\em data.gcep} $(M=15, \gamma=-0.5)$,
 normalized and output to {\em data.ngcep}:
 \begin{quote}
- \verb!gnorm -m 15 -g 2 < data.gcep > data.ngcep!
+ \verb!gnorm -m 15 -c 2 < data.gcep > data.ngcep!
 \end{quote} 
 \end{qsection}
 
