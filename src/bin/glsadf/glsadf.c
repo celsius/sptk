@@ -52,7 +52,7 @@
 *               glsadf [ options ] gcfile [ infile ] > stdout           *
 *       options:                                                        *
 *               -m m     :  order of generalized cepstrum   [25]        *
-*               -g g     :  -1/gamma                        [1]         *
+*               -c c     :  gamma = -1 / (int) c            [1]         *
 *               -p p     :  frame period                    [100]       *
 *               -i i     :  interpolation period            [1]         *
 *               -n       :  regard input as normalized      [FALSE]     *
@@ -68,13 +68,13 @@
 *               filtered sequence                                       *
 *                   , y(0), y(1), ...,                                  *
 *        note:                                                          *
-*               if g==0, LMA filter is used, P should be 4 or 5         *
+*               if c==0, LMA filter is used, P should be 4 or 5         *
 *        require:                                                       *
 *               glsadf(), lmadf()                                       *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: glsadf.c,v 1.25 2008/06/16 05:48:44 heigazen Exp $";
+static char *rcs_id = "$Id: glsadf.c,v 1.26 2008/11/06 15:40:51 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -122,7 +122,7 @@ void usage (int status)
    fprintf(stderr, "       %s [ options ] gcfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of generalized cepstrum [%d]\n", ORDER);
-   fprintf(stderr, "       -g g  : -1 / gamma                    [%d]\n", STAGE);
+   fprintf(stderr, "       -c c  : gamma = -1 / (int) c          [%d]\n", STAGE);
    fprintf(stderr, "       -p p  : frame period                  [%d]\n", FPERIOD);
    fprintf(stderr, "       -i i  : interpolation period          [%d]\n", IPERIOD);
    fprintf(stderr, "       -n    : regard input as normalized\n");
@@ -137,7 +137,7 @@ void usage (int status)
    fprintf(stderr, "  gcfile:\n");
    fprintf(stderr, "       generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g==0, LMA filter is used, P should be 4 or 5\n");
+   fprintf(stderr, "       if c==0, LMA filter is used, P should be 4 or 5\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -166,7 +166,7 @@ int main (int argc, char **argv)
             m = atoi(*++argv);
             --argc;
             break;
-         case 'g':
+         case 'c':
             stage = atoi(*++argv);
             --argc;
             break;

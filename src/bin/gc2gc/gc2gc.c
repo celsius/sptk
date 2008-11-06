@@ -54,10 +54,14 @@
 *       options:                                                          *
 *               -m m   :  order of generalized cepstrum (input)   [25]    *
 *               -g g   :  gamma of generalized cepstrum (input)   [0]     *
+*               -c  c  :  gamma of generalized cepstrum (input)           *
+*                         gamma = -1 / (int) c                            *
 *               -n     :  regard input as normalized cepstrum     [FALSE] *
 *               -u     :  regard input as multiplied by gamma     [FALSE] *
 *               -M M   :  order of generalized cepstrum (output)  [25]    *
 *               -G G   :  gamma of generalized cepstrum (output)  [1]     *
+*               -C  C  :  gamma of generalized cepstrum (output)          *
+*                         gamma = -1 / (int) C                            *
 *               -N     :  regard output as normalized cepstrum    [FALSE] *
 *               -U     :  regard output as multiplied by gamma    [FALSE] *
 *       infile:                                                           *
@@ -67,14 +71,13 @@
 *               generalized cepstrum                                      *
 *                   , c'(0)(=c(0)), c'(1), ..., c'(M),                    *
 *       notice:                                                           *
-*               if g >= 1, g = -1 / g                                     *
-*               if G >= 1, G = -1 / G                                     *
+*               value of c and C must be c>=1, C>=1                       *
 *       require:                                                          *
 *               gc2gc(), gnorm(), ignorm()                                *
 *                                                                         *
 **************************************************************************/
 
-static char *rcs_id = "$Id: gc2gc.c,v 1.20 2008/06/16 05:48:34 heigazen Exp $";
+static char *rcs_id = "$Id: gc2gc.c,v 1.21 2008/11/06 15:40:51 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -123,10 +126,12 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of generalized cepstrum (input)  [%d]\n", ORDER1);
    fprintf(stderr, "       -g g  : gamma of generalized cepstrum (input)  [%g]\n", GAMMA1);
+   fprintf(stderr, "       -c c  : gamma of mel-generalized cepstrum = -1 / (int) c (input) \n");
    fprintf(stderr, "       -n    : regard input as normalized cepstrum    [%s]\n", BOOL[NORMFLG1]);
    fprintf(stderr, "       -u    : regard input as multiplied by gamma    [%s]\n", BOOL[MULGFLG1]);
    fprintf(stderr, "       -M M  : order of generalized cepstrum (output) [%d]\n", ORDER2);
    fprintf(stderr, "       -G G  : gamma of generalized cepstrum (output) [%g]\n", GAMMA2);
+   fprintf(stderr, "       -C C  : gamma of mel-generalized cepstrum = -1 / (int) C (output)\n");
    fprintf(stderr, "       -N    : regard output as normalized cepstrum   [%s]\n", BOOL[NORMFLG2]);
    fprintf(stderr, "       -U    : regard output as multiplied by gamma   [%s]\n", BOOL[MULGFLG2]);
    fprintf(stderr, "       -h    : print this message\n");
@@ -135,8 +140,7 @@ void usage (int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       transformed generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g >= 1, g = -1 / g\n");
-   fprintf(stderr, "       if G >= 1, G = -1 / G\n");
+   fprintf(stderr, "      value of c and C must be c>=1, C>=1 \n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -170,14 +174,24 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'g':
-            g1 = atof(*++argv);
-            --argc;
-            if (g1>=1.0) g1 = -1.0 / g1;
-            break;
+	    g1 = atof(*++argv);
+	    --argc;            
+            break;             
+         case 'c':             
+	    g1 = atoi(*++argv);
+	    --argc;         
+           if (g1 < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);   
+	    g1 = -1.0 / g1;    
+            break;             
          case 'G':
             g2 = atof(*++argv);
             --argc;
-            if (g2>=1.0) g2 = -1.0 / g2;
+            break;
+         case 'C':             
+	    g2 = atoi(*++argv);
+	    --argc;            
+            if (g2 < 1) fprintf(stderr, "%s : value of C must be C>=1!\n", cmnd);
+	    g2 = -1.0 / g2;    
             break;
          case 'n':
             norm1 = 1 - norm1;

@@ -54,6 +54,8 @@
 *       options:                                                        *
 *               -m m     :  order of LPC                     [25]       *
 *               -g g     :  gamma of generalized cepsrtum    [1]        *
+*               -c  c    :  gamma of generalized cepstrum (input)       *
+*                           gamma = -1 / (int) c                        *
 *               -s       :  check stable or unstable         [FALSE]    *
 *       infile:                                                         *
 *               LP Coefficeints                                         *
@@ -64,11 +66,11 @@
 *       require:                                                        *
 *               lpc2par()                                               *
 *       notice:                                                         *
-*               if g>1.0, g = -1 / g .                                  *
+*               value of c must be c>=1                                 *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lpc2par.c,v 1.19 2008/06/16 05:48:40 heigazen Exp $";
+static char *rcs_id = "$Id: lpc2par.c,v 1.20 2008/11/06 15:40:51 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -112,6 +114,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of LPC                  [%d]\n", ORDER);
    fprintf(stderr, "       -g g  : gamma of generalized cepstrum [%g]\n", GAMMA);
+   fprintf(stderr, "       -c c  : gamma of mel-generalized cepstrum = -1 / (int) c (input) \n");
    fprintf(stderr, "       -s    : check stable or unstable      [%s]\n", BOOL[STABLE]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdin\n");
@@ -120,7 +123,7 @@ void usage (int status)
    fprintf(stderr, "       PARCOR (%s) or \n", FORMAT);
    fprintf(stderr, "       0 <stable>, -1 <unstable> (int) if -s option is specified\n");
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g>1.0, g = -1 / g\n");
+   fprintf(stderr, "       value of c must be c>=1\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
@@ -152,8 +155,13 @@ int main (int argc, char **argv)
          case 'g':
             g = atof(*++argv);
             --argc;
-            if (g>1.0) g = -1.0 / g;
             break;
+         case 'c':             
+	    g = atoi(*++argv);
+	    --argc;         
+	    if (g < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);
+	    g = -1.0 / g;    
+            break;    
          case 's':
             flags = 1 - flags;
             break;

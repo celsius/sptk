@@ -53,6 +53,7 @@
 *       options:                                                        *
 *               -a  a    :  alpha                               [0]     *
 *               -g  g    :  gamma                               [0]     *
+*               -c c     :  gamma = -1 / (int) c                        *
 *               -m  m    :  order of mel-generalized cepstrum   [25]    *
 *               -n       :  regard input as normalized cepstrum [FALSE] *
 *               -u       :  regard input as multiplied by gamma [FALSE] *
@@ -73,13 +74,13 @@
 *               spectrum                                                *
 *                       , s(0), s(1), ..., s(L/2),                      *
 *      notice:                                                          *
-*               if g>=1.0, g = -1 / g                                   *
+*               value of c must be c>=1                                 *
 *      require:                                                         *
 *               mgc2sp()                                                *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgc2sp.c,v 1.22 2008/06/16 05:48:39 heigazen Exp $";
+static char *rcs_id = "$Id: mgc2sp.c,v 1.23 2008/11/06 15:40:51 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -129,6 +130,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : alpha                               [%g]\n", ALPHA);
    fprintf(stderr, "       -g g  : gamma                               [%g]\n", GAMMA);
+   fprintf(stderr, "       -c c  : gamma  = -1 / (int) c                 \n");
    fprintf(stderr, "       -m m  : order of mel-generalized cepstrum   [%d]\n", ORDER);
    fprintf(stderr, "       -n    : regard input as normalized cepstrum [%s]\n", BOOL[NORM]);
    fprintf(stderr, "       -u    : regard input as multiplied by gamma [%s]\n", BOOL[MULG]);
@@ -148,7 +150,7 @@ void usage (int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       spectrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g>=1.0, g = -1 / g \n");
+   fprintf(stderr, "       value of c must be c>=1\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
@@ -183,8 +185,13 @@ int main (int argc, char **argv)
          case 'g':
             gamma = atof(*++argv);
             --argc;
-            if (gamma>=1.0) gamma = -1.0 / gamma;
             break;
+         case 'c':             
+	    gamma = atoi(*++argv);
+	    --argc;     
+ 	    if (gamma < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);        
+	    gamma = -1.0 / gamma;    
+            break; 
          case 'n':
             norm = 1 - norm;
             break;

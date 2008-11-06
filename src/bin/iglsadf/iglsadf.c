@@ -52,7 +52,7 @@
 *               iglsadf [ options ] gcfile [ infile ] > stdout          *
 *       options:                                                        *
 *               -m m     :  order of generalized cepstrum   [25]        *
-*               -g g     :  -1 / gamma                      [1]         *
+*               -c c     :  gamma = -1 / (int) c            [1]         *
 *               -p p     :  frame period                    [100]       *
 *               -i i     :  interpolation period            [1]         *
 *               -n       :  regard input as normalized      [FALSE]     *
@@ -71,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: iglsadf.c,v 1.21 2008/06/16 05:48:46 heigazen Exp $";
+static char *rcs_id = "$Id: iglsadf.c,v 1.22 2008/11/06 15:40:51 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -117,7 +117,7 @@ void usage(int status)
    fprintf(stderr, "       %s [ options ] gcfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of generalized cepstrum [%d]\n", ORDER);
-   fprintf(stderr, "       -g g  : -1 / gamma                    [%d]\n", STAGE);
+   fprintf(stderr, "       -c c  : gamma = -1 / (int) c          [%d]\n", STAGE);
    fprintf(stderr, "       -p p  : frame period                  [%d]\n", FPERIOD);
    fprintf(stderr, "       -i i  : interpolation period          [%d]\n", IPERIOD);
    fprintf(stderr, "       -n    : regard input as normalized    [%s]\n", BOOL[NORM]);
@@ -157,7 +157,7 @@ int main (int argc, char **argv)
             m = atoi(*++argv);
             --argc;
             break;
-         case 'g':
+         case 'c':
             stage = atoi(*++argv);
             --argc;
             break;

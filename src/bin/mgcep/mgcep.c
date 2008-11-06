@@ -54,6 +54,7 @@
 *       options:                                                        *
 *                -a a     :  alpha                             [0.35]   *
 *                -g g     :  gamma                             [0]      *
+*                -c c     :  gamma = -1 / (int) c                       *
 *                -m m     :  order of mel-generalized cepstrum [25]     *
 *                -l l     :  frame length (FFT length)         [256]    *
 *                -q q     :  Input format                      [0]      *
@@ -85,13 +86,13 @@
 *       stdout:                                                         *
 *                mel-generalized cepstrum (float)                       *
 *       notice:                                                         *
-*                if g >= 1.0, g = -1 / g                                *
+*                value of c must be c>=1                                *
 *       require:                                                        *
 *                mgcep()                                                *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgcep.c,v 1.28 2008/06/16 05:48:37 heigazen Exp $";
+static char *rcs_id = "$Id: mgcep.c,v 1.29 2008/11/06 15:40:51 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -140,6 +141,7 @@ void usage (const int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : alpha                             [%g]\n", ALPHA);
    fprintf(stderr, "       -g g  : gamma                             [%g]\n", GAMMA);
+   fprintf(stderr, "       -c c  : gamma  = -1 / (int) c                 \n");
    fprintf(stderr, "       -m m  : order of mel-generalized cepstrum [%d]\n", ORDER);
    fprintf(stderr, "       -l l  : frame length (FFT length)         [%d]\n", FLENG);
    fprintf(stderr, "       -q q  : input format                      [%d]\n", ITYPE);
@@ -169,7 +171,7 @@ void usage (const int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       mel-generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
+   fprintf(stderr, "       value of c must be c>=1\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
@@ -200,8 +202,13 @@ int main (int argc, char **argv)
          case 'g':
             g = atof(*++argv);
             --argc;
-            if (g >= 1.0) g = -1.0 / g;
             break;
+         case 'c':             
+	    g = atoi(*++argv);
+	    --argc; 
+	    if (g < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);          
+	    g = -1.0 / g;    
+            break; 
          case 'm':
             m = atoi(*++argv);
             --argc;
