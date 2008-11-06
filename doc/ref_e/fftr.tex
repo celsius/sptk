@@ -46,7 +46,7 @@
 
 \begin{synopsis}
  \item[fftr] [ --l $L$ ] [ --m $M$] [ --\{ A $|$ R $|$ I $|$ P \} ] [ --H ]
-	     [ {\em infile} ] 
+             [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -63,35 +63,35 @@ arranged as shown below.
 \begin{array}{lll}
 \mbox{Input sequence} & 
 \overbrace{\framebox[4.5cm]{$x_0, x_1, \ldots, x_{M}, 0,
-					\ldots,0$}}^{L}  & \\
-		& \makebox[4.5cm]{0\hfill $L-1$} &
+                                        \ldots,0$}}^{L}  & \\
+                & \makebox[4.5cm]{0\hfill $L-1$} &
 \end{array}
 \end{displaymath}
 \begin{displaymath}
 \begin{array}{lll}
 \mbox{Output sequence} & \overbrace{\framebox[4.5cm]{real part}}^{L} &
-	   \overbrace{\framebox[4.5cm]{imaginary part}}^{L} \\
-		& \makebox[4.5cm]{0\hfill $L-1$} &
-		\makebox[4.5cm]{0\hfill $L-1$}
+           \overbrace{\framebox[4.5cm]{imaginary part}}^{L} \\
+                & \makebox[4.5cm]{0\hfill $L-1$} &
+                \makebox[4.5cm]{0\hfill $L-1$}
 \end{array}
 \end{displaymath}
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{FFT size power of 2}{256}
-	\argm{m}{M}{order of sequence}{L-1}
-	\argm{A}{}{output magnitude}{FALSE}
-	\argm{R}{}{output real part}{FALSE}
-	\argm{I}{}{output imaginary part}{FALSE}
-	\argm{P}{}{output power spectrum}{FALSE}
-	\argm{H}{}{output half size}{FALSE}
+        \argm{l}{L}{FFT size power of 2}{256}
+        \argm{m}{M}{order of sequence}{L-1}
+        \argm{A}{}{output magnitude}{FALSE}
+        \argm{R}{}{output real part}{FALSE}
+        \argm{I}{}{output imaginary part}{FALSE}
+        \argm{P}{}{output power spectrum}{FALSE}
+        \argm{H}{}{output half size}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 In the example below, a sine wave is passed through a Blackman window,
 its DFT is evaluated and the magnitude is plotted:
 \begin{quote}
-  \verb!sin -t 30 | window | fftr -A | fdrw | xgr!
+  \verb!sin -p 30 | window | fftr -A | fdrw | xgr!
 \end{quote}
 
 \end{qsection}

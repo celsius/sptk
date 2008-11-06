@@ -46,7 +46,7 @@
 
 \begin{synopsis}
 \item[ifft2] [ --l $L$ ] [ +r ] [ --t ] [ --c ] [ --q ] 
-	     [ --\{ R $|$ I \} ] [ {\em infile} ]
+             [ --\{ R $|$ I \} ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -61,20 +61,20 @@ The input and output data is in float format, arranged as follows.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{FFT size power of 2}{64}
-	\argp{{\bf r}}{regard input as real values rather than complex values}{FALSE}
-	\argm{t}{}{Output results in transposed form (see also \hyperlink{fft2}{fft2}).}{FALSE}
-	\argm{c}{}{When results are transposed, 1 boundary data is copied from the
-	opposite side, and then output $(L+1)\times (L+1)$ data (see also \hyperlink{fft2}{fft2}).}{FALSE}
-	\argm{q}{}{Output first $1/4$ data of FFT results only.
-		   As in the above c option, boundary data is compensated and 
-		   $(\frac{L}{2}+1)\times(\frac{L}{2}+1)$ data are output.
-		\begin{center}
-		\leavevmode
-		\includegraphics{fig/fft2-quad.eps}
-		\end{center}~}{FALSE} %\hspace*{\fill}
-	\argm{R}{}{output only real part}{FALSE}
-	\argm{I}{}{output only imaginary part}{FALSE}
+        \argm{l}{L}{FFT size power of 2}{64}
+        \argp{{\bf r}}{regard input as real values rather than complex values}{FALSE}
+        \argm{t}{}{Output results in transposed form (see also \hyperlink{fft2}{fft2}).}{FALSE}
+        \argm{c}{}{When results are transposed, 1 boundary data is copied from the
+        opposite side, and then output $(L+1)\times (L+1)$ data (see also \hyperlink{fft2}{fft2}).}{FALSE}
+        \argm{q}{}{Output first $1/4$ data of FFT results only.
+                   As in the above c option, boundary data is compensated and 
+                   $(\frac{L}{2}+1)\times(\frac{L}{2}+1)$ data are output.
+                \begin{center}
+                \leavevmode
+                \includegraphics{fig/fft2-quad.eps}
+                \end{center}~}{FALSE} %\hspace*{\fill}
+        \argm{R}{}{output only real part}{FALSE}
+        \argm{I}{}{output only imaginary part}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -82,7 +82,7 @@ This example reads a sequence of 2-dimensional complex numbers in float format
 from {\em data.f} file, evaluates its 2-dimensional IDFT and outputs it to {\em
 data.dft} file:
 \begin{quote}
-  \verb!ifft2 -A < data.f > data.ifft2!
+  \verb!ifft2 < data.f > data.ifft2!
 \end{quote}
 \end{qsection}
 

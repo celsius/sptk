@@ -75,33 +75,33 @@ are undertaken.
 \begin{description}
 \item{when $L=1$}~\\
 \begin{tabular}{l|c|c|c|c|c} \cline{2-6}
-{\em file1} (stdin)	& {$a_1$} & {$a_2$} & {\dots}
-			& {$a_i$} & {\dots} \\ \cline{2-6}
-\multicolumn{6}{c}{}	\\[-10pt] \cline{2-6}
-{\em infile}		& {$b_1$} & {$b_2$} & {\dots}
-			& {$b_i$} & {\dots} \\ \cline{2-6}
-\multicolumn{6}{c}{}	\\[-10pt] \cline{2-6}
-{\em Output} (stdout)	& {$y_1$} & {$y_2$} & {\dots}
-			& {$y_i$} & {\dots} \\ \cline{2-6}
+{\em file1} (stdin)     & {$a_1$} & {$a_2$} & {\dots}
+                        & {$a_i$} & {\dots} \\ \cline{2-6}
+\multicolumn{6}{c}{}    \\[-10pt] \cline{2-6}
+{\em infile}            & {$b_1$} & {$b_2$} & {\dots}
+                        & {$b_i$} & {\dots} \\ \cline{2-6}
+\multicolumn{6}{c}{}    \\[-10pt] \cline{2-6}
+{\em Output} (stdout)   & {$y_1$} & {$y_2$} & {\dots}
+                        & {$y_i$} & {\dots} \\ \cline{2-6}
 \end{tabular}
 \par
 One data from one file corresponds to one data on the other file.
 \item{when $L\geq 2$}~\\
 \begin{tabular}{l|c|c|c|l} \cline{2-5}
-{\em file1} (stdin)	& {$a_{11}$,\dots,$a_{1L}$}
-			& {$a_{21}$,\dots,$a_{2L}$}
-			& {$a_{31}$,\dots,$a_{3L}$}
-			& {$a_{41}$,\dots} \\ \cline{2-5}
-\multicolumn{5}{c}{}	\\[-10pt]
-			\cline{2-2}
-{\em infile}		& {$b_{1}$,\dots,$b_{L}$}
-			& \multicolumn{3}{c}{} \\ \cline{2-2}
-\multicolumn{5}{c}{}	\\[-10pt]
-			\cline{2-5}			
-{\em Output} (stdout)	& {$y_{11}$,\dots,$y_{1L}$}
-			& {$y_{21}$,\dots,$y_{2L}$}
-			& {$y_{31}$,\dots,$y_{3L}$}
-			& {$y_{41}$,\dots} \\ \cline{2-5}
+{\em file1} (stdin)     & {$a_{11}$,\dots,$a_{1L}$}
+                        & {$a_{21}$,\dots,$a_{2L}$}
+                        & {$a_{31}$,\dots,$a_{3L}$}
+                        & {$a_{41}$,\dots} \\ \cline{2-5}
+\multicolumn{5}{c}{}    \\[-10pt]
+                        \cline{2-2}
+{\em infile}            & {$b_{1}$,\dots,$b_{L}$}
+                        & \multicolumn{3}{c}{} \\ \cline{2-2}
+\multicolumn{5}{c}{}    \\[-10pt]
+                        \cline{2-5}                     
+{\em Output} (stdout)   & {$y_{11}$,\dots,$y_{1L}$}
+                        & {$y_{21}$,\dots,$y_{2L}$}
+                        & {$y_{31}$,\dots,$y_{3L}$}
+                        & {$y_{41}$,\dots} \\ \cline{2-5}
 \end{tabular}
 \par
 In this case the operation vector is read only once
@@ -118,19 +118,19 @@ and the action does not depend on the vector length.
 \begin{description}
 \item{when $L\geq 1$}~\\
 \begin{tabular}{l|c|c|c|c|l} \cline{2-6}
-{\em file} (stdin)	& {$a_{11}$,\dots,$a_{1L}$}
-			& {$b_{11}$,\dots,$b_{1L}$}
-			& {$a_{21}$,\dots,$a_{2L}$}
-			& {$b_{21}$,\dots,$b_{2L}$}
-			& ~~~ \\ \cline{2-6}
-%			& {$a_{31}$,\dots} \\ \cline{2-6}
-\multicolumn{6}{c}{}	\\[-10pt]
-			\cline{2-2} \cline{4-4} \cline{6-6}
-{\em Output} (stdout)	& {$y_{11}$,\dots,$y_{1L}$} &
-			& {$y_{21}$,\dots,$y_{2L}$} &
-			& ~~~ \\
-%			& {$y_{31}$,\dots} \\
-			\cline{2-2} \cline{4-4} \cline{6-6}
+{\em file} (stdin)      & {$a_{11}$,\dots,$a_{1L}$}
+                        & {$b_{11}$,\dots,$b_{1L}$}
+                        & {$a_{21}$,\dots,$a_{2L}$}
+                        & {$b_{21}$,\dots,$b_{2L}$}
+                        & ~~~ \\ \cline{2-6}
+%                       & {$a_{31}$,\dots} \\ \cline{2-6}
+\multicolumn{6}{c}{}    \\[-10pt]
+                        \cline{2-2} \cline{4-4} \cline{6-6}
+{\em Output} (stdout)   & {$y_{11}$,\dots,$y_{1L}$} &
+                        & {$y_{21}$,\dots,$y_{2L}$} &
+                        & ~~~ \\
+%                       & {$y_{31}$,\dots} \\
+                        \cline{2-2} \cline{4-4} \cline{6-6}
 \end{tabular}
 \par
 Input vectors are read from a single file.
@@ -138,15 +138,15 @@ Input vectors are read from a single file.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{length of vector}{1}
-	\argm{n}{N}{order of vector}{L-1}
-	\argm{i}{}{when only a file is specified, 
+        \argm{l}{L}{length of vector}{1}
+        \argm{n}{N}{order of vector}{L-1}
+        \argm{i}{}{when only a file is specified, 
                    the file contains a and b.}{FALSE}
-	\argm{a}{}{addition $y_i=a_i+b_i$}{FALSE}
-	\argm{s}{}{subtraction $y_i=a_i-b_i$}{FALSE}
-	\argm{m}{}{multiplication $y_i=a_i*b_i$}{FALSE}
-	\argm{d}{}{division $y_i=a_i/b_i$}{FALSE}
-	\argm{ATAN2}{}{atan2 $y_i=\atan2(b_i,a_i)$}{FALSE}
+        \argm{a}{}{addition $y_i=a_i+b_i$}{FALSE}
+        \argm{s}{}{subtraction $y_i=a_i-b_i$}{FALSE}
+        \argm{m}{}{multiplication $y_i=a_i*b_i$}{FALSE}
+        \argm{d}{}{division $y_i=a_i/b_i$}{FALSE}
+        \argm{ATAN2}{}{atan2 $y_i=\atan2(b_i,a_i)$}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -160,13 +160,13 @@ In the following example, a sin wave is passed through
 a window with length 256 and coefficients given from
 {\em data.w}:
 \begin{quote}
-  \verb!sin -t 30 -l 1000 | vopr data.w -l 256 -m | fdrw | xgr!
+  \verb!sin -p 30 -l 1000 | vopr data.w -l 256 -m | fdrw | xgr!
 \end{quote}
 The above example can be undertaken in similar way
 through the example below if the contents of {\em data.w} corresponds
 to Blackman window:
 \begin{quote}
-  \verb!sin -t 30 -l 1000 | window | fdrw | xgr!
+  \verb!sin -p 30 -l 1000 | window | fdrw | xgr!
 \end{quote}
 \end{qsection}
 

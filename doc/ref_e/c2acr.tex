@@ -72,9 +72,9 @@ Fourier transform of the power spectrum.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M_1}{order of cepstrum}{25}
-	\argm{M}{M_2}{order of autocorrelation}{25}
-	\argm{l}{L}{FFT length}{256}
+        \argm{m}{M_1}{order of cepstrum}{25}
+        \argm{M}{M_2}{order of autocorrelation}{25}
+        \argm{l}{L}{FFT length}{256}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -83,7 +83,7 @@ coefficients calculated from the autocorrelation coefficients,
 which were obtained from the 30-th order cepstral coefficients
 file {\em data.cep}:
 \begin{quote}
-  \verb!c2acr -m 30 -M 15 < data.cep | lev_dur -n 15 > data.lpc!
+  \verb!c2acr -m 30 -M 15 < data.cep | levdur -m 15 > data.lpc!
 \end{quote}
 \end{qsection}
 
