@@ -46,8 +46,8 @@
 {generalized cepstral analysis}{speech analysis}
 
 \begin{synopsis}
-\item [gcep] [ --m $M$ ] [ --g $G$ ] [ --l $L$ ] [ --q $Q$ ] [ --n ]
-	     [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --e $E$ ] [ --f $F$ ]
+\item [gcep] [ --m $M$ ] [ --g $G$ ] [ --c $C$ ] [ --l $L$ ] [ --q $Q$ ] [ --n ]
+             [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --e $E$ ] [ --f $F$ ]
 \item [\ ~~~~~~~] [ {\em infile} ]
 \end{synopsis}
 
@@ -71,15 +71,15 @@ $c_\gamma'(m)$ using the log spectrum through the unbiased estimation
 method.
 \begin{align}
 H(z) &= s_\gamma^{-1}\left(
-	\sum_{m=0}^{M} c_\gamma(m)z^{-m} \right) \notag \\
+        \sum_{m=0}^{M} c_\gamma(m)z^{-m} \right) \notag \\
      &= K \cdot s_\gamma^{-1}\left(
-	\sum_{m=1}^{M} c_\gamma'(m)z^{-m} \right) \notag \\
+        \sum_{m=1}^{M} c_\gamma'(m)z^{-m} \right) \notag \\
      &= \begin{cases} \;\; \displaystyle
-	K\cdot \left( 1+\gamma\sum_{m=1}^{M} c_\gamma'(m)z^{-m}
-		\right)^{1/\gamma}, & -1 \leq \gamma < 0 \\
-	\;\;\displaystyle K\cdot \exp \sum_{m=1}^{M} c_\gamma'(m)z^{-m}, 
-		& \gamma=0
-	\end{cases}\notag
+        K\cdot \left( 1+\gamma\sum_{m=1}^{M} c_\gamma'(m)z^{-m}
+                \right)^{1/\gamma}, & -1 \leq \gamma < 0 \\
+        \;\;\displaystyle K\cdot \exp \sum_{m=1}^{M} c_\gamma'(m)z^{-m}, 
+                & \gamma=0
+        \end{cases}\notag
 \end{align}
 To find the minimum value of cost function,
 if $\gamma=-1$ then the linear prediction method is used,
@@ -88,12 +88,15 @@ Newton--Raphson method applied.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{order of generalized cepstrum}{25}
-	\argm{g}{G}{gamma of generalized cepstrum\\
-	            if $G \ge 1.0$ then $\gamma=-1/G$}{0}
-	\argm{l}{L}{frame length}{256}
-	\argm{n}{}{output normalized cepstrum}{FALSE}
-	\argm{q}{Q}{input data style\\
+        \argm{m}{M}{order of generalized cepstrum}{25}
+        \argm{g}{G}{gamma of generalized cepstrum\\
+                         $\gamma=G$}{0}
+        \argm{c}{C}{gamma of generalized cepstrum\\
+                        $\gamma =-1 / $(int)$ C$\\
+                        $C$ must be $C \geq 1$}{}
+        \argm{l}{L}{frame length}{256}
+        \argm{n}{}{output normalized cepstrum}{FALSE}
+        \argm{q}{Q}{input data style\\
         \begin{tabular}{ll} \\[-1ex]
             $Q=0$ & windowed data sequence \\
             $Q=1$ & $20 \times \log |f(w)|$ \\
@@ -101,16 +104,16 @@ Newton--Raphson method applied.
             $Q=3$ & $|f(w)|$ \\
             $Q=4$ & $|f(w)|^2$ \\[1ex]
         \end{tabular}\\\hspace*{\fill}}{0}
-	\desc[1ex]{Usually, the options below do not need to be assigned.}
-	\argm{i}{I}{minimum iteration}{2}
-	\argm{j}{J}{maximum iteration}{30}
-	\argm{d}{D}{Newton-Raphson method end condition.
+        \desc[1ex]{Usually, the options below do not need to be assigned.}
+        \argm{i}{I}{minimum iteration}{2}
+        \argm{j}{J}{maximum iteration}{30}
+        \argm{d}{D}{Newton-Raphson method end condition.
                     The default value is $D=0.001$.
                     In this case the end point is achieved when
                     the evaluation rate of $\varepsilon^{(i)}$ is
                     $0.001$, that is when its value changes less then $0.1\%$.}{0.001}
-	\argm{e}{E}{small value added to periodgram}{0}
-	\argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
+        \argm{e}{E}{small value added to periodgram}{0}
+        \argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

@@ -46,8 +46,10 @@
 {speech parameter transformation}
 
 \begin{synopsis}
- \item [mgc2mgc] [ --m $M_1$ ] [ --a $A_1$ ] [ --g $G_1$ ] [ --n ] [ --u ]
- \item [\ ~~~~~~~~~~~] [ --M $M_2$ ] [ --A $A_2$ ] [ --G $G_2$ ] [ --N ] [ --U ] [ {\em infile} ] 
+ \item [mgc2mgc] [ --m $M_1$ ] [ --a $A_1$ ] [ --g $G_1$ ] [ --c
+   $C_1$ ] [ --n ] [ --u ]
+ \item [\ ~~~~~~~~~~~] [ --M $M_2$ ] [ --A $A_2$ ] [ --G $G_2$ ]
+   [ --C $C_2$ ] [ --N ] [ --U ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -71,12 +73,12 @@ and $c_{\alpha_2,\gamma_1}(m)$ is calculated as follows.
 \alpha &= (\alpha_2-\alpha_1)/(1-\alpha_1\alpha_2) \notag \\
 c_{\alpha_2,\gamma_1}^{(i)}(m) &= \begin{cases}
           \;\; c_{\alpha_1,\gamma_1}(-i)
-	    +\alpha\,c_{\alpha_2,\gamma_1}^{(i-1)}(0), &  m=0 \\
+            +\alpha\,c_{\alpha_2,\gamma_1}^{(i-1)}(0), &  m=0 \\
           \;\; (1-\alpha^2)\,c_{\alpha_2,\gamma_1}^{(i-1)}(0)
             +\alpha\,c_{\alpha_2,\gamma_1}^{(i-1)}(1), &  m=1 \\
           \;\; c_{\alpha_2,\gamma_1}^{(i-1)}(m-1) 
-	    +\alpha\, \left(c_{\alpha_2,\gamma_1}^{(i-1)}(m)
-	    -c_{\alpha_2,\gamma_1}^{(i)}(m-1)\right), &   m=2,\dots,M_2
+            +\alpha\, \left(c_{\alpha_2,\gamma_1}^{(i-1)}(m)
+            -c_{\alpha_2,\gamma_1}^{(i)}(m-1)\right), &   m=2,\dots,M_2
          \end{cases} \notag \\
 &\hspace{70mm} i = -M_1,\dots,-1,0 \notag
 \end{align}
@@ -85,10 +87,10 @@ Then the gain is normalized and $c_{\alpha_2,\gamma_1}'(m)$
 is evaluated.
 \begin{align}
 K_{\alpha_2} &= 
-	s_{\gamma_1}^{-1}\left(c_{\alpha_2,\gamma_1}^{(0)}(0)\right), \notag \\ 
+        s_{\gamma_1}^{-1}\left(c_{\alpha_2,\gamma_1}^{(0)}(0)\right), \notag \\ 
 c_{\alpha_2,\gamma_1}'(m) &=
           c_{\alpha_2,\gamma_1}^{(0)}(m)/\left(1+\gamma_1\,
-	  c_{\alpha_2,\gamma_1}^{(0)}(0)\right), \qquad m = 1,2,\dots, M_2 \notag
+          c_{\alpha_2,\gamma_1}^{(0)}(0)\right), \qquad m = 1,2,\dots, M_2 \notag
 \end{align}
 
 Afterwards, $c_{\alpha_2,\gamma_1}'(m)$ is transformed into 
@@ -98,17 +100,17 @@ $c_{\alpha_2,\gamma_2}'(m)$ through a generalized log transformation
 c_{\alpha_2,\gamma_2}'(m) &=
         c_{\alpha_2,\gamma_1}'(m)+\sum_{k=1}^{m-1} \frac{k}{m}
           \left\{ \gamma_2\,c_{\alpha_2,\gamma_1}(k)\,
-	  c_{\alpha_2,\gamma_2}'(m-k) 
+          c_{\alpha_2,\gamma_2}'(m-k) 
  -\gamma_1\,c_{\alpha_2,\gamma_2}(k)\,
           c_{\alpha_2,\gamma_1}'(m-k) \right\},  \notag \\
-	  &\hspace{70mm} m = 1, 2, \dots, M_2 \notag
+          &\hspace{70mm} m = 1, 2, \dots, M_2 \notag
 \end{align}
 
 Finally, the gain is inverse normalized and $c_{\alpha_2,\gamma_2}(m)$
 is calculated.
 \begin{align}
 c_{\alpha_2,\gamma_2}(0) &= 
-	s_{\gamma_2}\left(K_{\alpha_2}\right), \notag \\
+        s_{\gamma_2}\left(K_{\alpha_2}\right), \notag \\
 c_{\alpha_2,\gamma_2}(m) &= 
           c_{\alpha_2,\gamma_2}'(m)\,\left(1+\gamma_2\, 
           c_{\alpha_2,\gamma_2}(0)\right), 
@@ -130,18 +132,24 @@ K_\alpha,\gamma c_{\alpha,\gamma}'(1),\dots, \gamma c_{\alpha,\gamma}'(M).
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M_1}{order of mel-generalized cepstrum (input)}{25}
-	\argm{a}{A_1}{alpha of mel-generalized cepstrum (input)}{0}
-	\argm{g}{G_1}{gamma of mel-generalized cepstrum (input)\\
-			if $G_1 \ge 1.0$ then $\gamma_1 = -1 / G_1$}{0}
-	\argm{n}{}{regard input as normalized mel-generalized cepstrum}{FALSE}
-	\argm{u}{}{regard input as multiplied by gamma}{FALSE}
-	\argm{M}{M_2}{order of mel-generalized cepstrum (output)}{25}
-	\argm{A}{A_2}{alpha of mel-generalized cepstrum (output)}{0}
-	\argm{G}{G_2}{gamma of mel-generalized cepstrum (output)\\
-			if $G_2 \ge 1.0$ then $\gamma_2 =-1 / G_2$}{1}
-	\argm{N}{}{regard output as normalized mel-generalized cepstrum}{FALSE}
-	\argm{U}{}{regard input as multiplied by gamma}{FALSE}
+        \argm{m}{M_1}{order of mel-generalized cepstrum (input)}{25}
+        \argm{a}{A_1}{alpha of mel-generalized cepstrum (input)}{0}
+        \argm{g}{G_1}{gamma of mel-generalized cepstrum (input)\\
+                        $\gamma_1 = G_1$}{0}
+        \argm{c}{C_1}{gamma of mel-generalized cepstrum (input)\\
+                        $\gamma_1 =-1 / $(int)$ C_1$\\
+                        $C_1$ must be $C_1 \geq 1$}{}
+        \argm{n}{}{regard input as normalized mel-generalized cepstrum}{FALSE}
+        \argm{u}{}{regard input as multiplied by gamma}{FALSE}
+        \argm{M}{M_2}{order of mel-generalized cepstrum (output)}{25}
+        \argm{A}{A_2}{alpha of mel-generalized cepstrum (output)}{0}
+        \argm{G}{G_2}{gamma of mel-generalized cepstrum (output)\\
+                        $\gamma_2 = G_2$}{1}
+        \argm{C}{C_2}{gamma of mel-generalized cepstrum (output)\\
+                        $\gamma_2 =-1 / $(int)$ G_2$\\
+                        $C_2$ must be $C_2 \geq 1$}{}
+        \argm{N}{}{regard output as normalized mel-generalized cepstrum}{FALSE}
+        \argm{U}{}{regard input as multiplied by gamma}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

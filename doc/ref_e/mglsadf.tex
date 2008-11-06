@@ -46,8 +46,8 @@
 {filters for speech synthesis}
 
 \begin{synopsis}
-\item [mglsadf] [ --m $M$ ] [ --a $A$ ] [ --g $G$ ] [ --p $P$ ]
-		[ --i $I$ ] [ --t ] [ --k ] [ --P $Pa$ ] 
+\item [mglsadf] [ --m $M$ ] [ --a $A$ ] [ --c $C$ ] [ --p $P$ ]
+                [ --i $I$ ] [ --t ] [ --k ] [ --P $Pa$ ] 
 \item [\ ~~~~~~~~] {\em mgcfile}  [ {\em infile} ]
 \end{synopsis}
 
@@ -66,12 +66,12 @@ is obtained from the $M$-th order mel-generalized cepstral coefficients
 $c_{\alpha, \gamma}(m)$ as follows.
 \begin{align}
 H(z) &= s_\gamma^{-1} \left( 
-	   \sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m} \right) \\
+           \sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m} \right) \\
      &= \begin{cases} \;\;\displaystyle
               \left( 1+\gamma\sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m}
-		\right)^{1/\gamma}, & 0<\gamma\leq -1 \\ \;\;\displaystyle
-	    \exp \sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m}, & \gamma=0
-	  \end{cases} \notag
+                \right)^{1/\gamma}, & 0<\gamma\leq -1 \\ \;\;\displaystyle
+            \exp \sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m}, & \gamma=0
+          \end{cases} \notag
 \end{align}
 where
 \begin{displaymath}
@@ -80,17 +80,17 @@ where
 The transfer function $H(z)$ can be rewritten as
 \begin{align}
 H(z) &= s_\gamma^{-1} \left( \sum_{m=0}^M b_\gamma'(m) 
-		{\it\Phi}_m(z) \right) \notag \\
+                {\it\Phi}_m(z) \right) \notag \\
      &= K \cdot D(z) 
 \end{align}
 where
 \begin{displaymath}
 {\it\Phi}_m(z) = \begin{cases}
-	  \;\;1, & m=0 \\ \;\;\displaystyle
-	  \frac{\displaystyle (1-\alpha^2)z^{-1}}
-	    {\displaystyle 1-\alpha z^{-1}}
-	    \tilde{z}^{-(m-1)},& m\geq 1
-	\end{cases}
+          \;\;1, & m=0 \\ \;\;\displaystyle
+          \frac{\displaystyle (1-\alpha^2)z^{-1}}
+            {\displaystyle 1-\alpha z^{-1}}
+            \tilde{z}^{-(m-1)},& m\geq 1
+        \end{cases}
 \end{displaymath}
 and
 \begin{align}
@@ -102,15 +102,15 @@ the coefficients $c_{\alpha, \gamma}(m)$ by normalizing
 (refer to \hyperlink{gnorm}{gnorm}), and applying linear transformation
 (refer to \hyperlink{mc2b}{mc2b} and \hyperlink{b2mc}{b2mc}).
 Here we are considering only cases where power parameter
-is $\gamma=-1/G$ ($G$:natural number).
+is $\gamma=-1/C$ ($C$:natural number).
 In this case the filter $D(z)$ is realized as shown in figure 
 \ref{fig:mglsadflt_MGLSA}(b),
-where each filter of the $G$ level cascaded filter is realized as shown in
+where each filter of the $C$ level cascaded filter is realized as shown in
 figure \ref{fig:mglsadflt_MGLSA}(a), 
 and can be expressed as
 \begin{displaymath}
 \frac{1}{B(\tilde{z})} = \frac{1}{\displaystyle 1+\gamma 
-	\sum_{m=1}^M b_\gamma'(m) {\it\Phi}_m(z)}
+        \sum_{m=1}^M b_\gamma'(m) {\it\Phi}_m(z)}
 \end{displaymath}
 \setcounter{figure}{0}
 \begin{figure}[t]
@@ -286,11 +286,11 @@ and can be expressed as
 \put(320,40){\makebox(0,0){Output}}
 \put(60,65){\makebox(0,0){\bf 1st stage}}
 \put(140,65){\makebox(0,0){\bf 2nd stage}}
-\put(270,65){\makebox(0,0){\bf $G$th stage}}
+\put(270,65){\makebox(0,0){\bf $C$th stage}}
 \end{picture}
 \end{center}
 \begin{center}
-(b)~~$G$ level cascaded filter $1/B(z)$  
+(b)~~$C$ level cascaded filter $1/B(z)$  
 \end{center}
 \label{fig:mglsadflt_MGLSA}
 \caption{Realization synthesis filter $D(z)$}
@@ -299,16 +299,16 @@ and can be expressed as
 
 \newpage
 \begin{options}
-	\argm{m}{M}{order of mel-generalized cepstrum}{25}
-	\argm{a}{A}{alpha}{0.35}
-	\argm{g}{G}{power parameter $\gamma=-1/G$ of generalized cepstrum\\
-			 if $G==0$, the MLSA filter is used}{1}
-	\argm{p}{P}{frame period}{100}
-	\argm{i}{I}{interpolation period}{1}
-	\argm{t}{}{transpose filter}{FALSE}
-	\argm{k}{}{filtering without gain}{FALSE}
-	\desc[1ex]{The option below only works if $G==0$.}
-	\argm{P}{Pa}{order of the Pad\'e approximation\\
+        \argm{m}{M}{order of mel-generalized cepstrum}{25}
+        \argm{a}{A}{alpha}{0.35}
+        \argm{c}{C}{power parameter $\gamma=-1/C$ of generalized cepstrum\\
+                         if $C==0$, the MLSA filter is used}{1}
+        \argm{p}{P}{frame period}{100}
+        \argm{i}{I}{interpolation period}{1}
+        \argm{t}{}{transpose filter}{FALSE}
+        \argm{k}{}{filtering without gain}{FALSE}
+        \desc[1ex]{The option below only works if $C==0$.}
+        \argm{P}{Pa}{order of the Pad\'e approximation\\
                      $Pa$ should be $4$ or $5$}{4}
 \end{options}
  

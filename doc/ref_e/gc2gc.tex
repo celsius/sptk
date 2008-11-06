@@ -45,8 +45,8 @@
 \name{gc2gc}{generalized cepstral transformation}{speech parameter transformation}
 
 \begin{synopsis}
-\item [gc2gc] [ --m $M_1$ ] [ --g $G_1$ ] [ --n ] [ --u ] 
-\item [\ ~~~~~~]  [ --M $M_2$ ] [ --G $G_2$ ] [ --N ] [ --U ] [ {\em infile} ]
+\item [gc2gc] [ --m $M_1$ ] [ --g $G_1$ ] [ --c $C_1$ ] [ --n ] [ --u ] 
+\item [\ ~~~~~~]  [ --M $M_2$ ] [ --G $G_2$ ] [ --C $C_2$ ] [ --N ] [ --U ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -62,9 +62,9 @@ The regressive equation for the generalized cepstral coefficients
 follows.
 \begin{displaymath}
   c_{\gamma_2}(m) = c_{\gamma_1}(m) + \sum_{k=1}^{m-1}\frac{k}{m}
-		      (\gamma_2 c_{\gamma_1}(k)c_{\gamma_2}(m-k)
-     		  -\gamma_1 c_{\gamma_2}(k)
-			c_{\gamma_1}(m-k)), \qquad m>0.
+                      (\gamma_2 c_{\gamma_1}(k)c_{\gamma_2}(m-k)
+                  -\gamma_1 c_{\gamma_2}(k)
+                        c_{\gamma_1}(m-k)), \qquad m>0.
 \end{displaymath}
 For the above equation, in case $\gamma_1=-1, \gamma_2=0$,
 then LPC cepstral coefficients are obtained from the LPC coefficients,
@@ -84,16 +84,22 @@ K_\alpha,\gamma c_\gamma'(1),\dots, \gamma c_\gamma'(M)
 \end{qsection}
 
 \begin{options} 
-	\argm{m}{M_1}{order of generalized cepstrum (input)}{25}
-	\argm{g}{G_1}{gamma of generalized cepstrum (input)\\
-  	 	      if $G_1 \ge 1.0$ then $\gamma_1=-1 / G_1$}{0}
-	\argm{n}{}{regard input as normalized cepstrum}{FALSE}
-	\argm{u}{}{regard input as multiplied by $\gamma_1$}{FALSE}
-	\argm{M}{M_2}{order of generalized cepstrum (output)}{25}
-	\argm{G}{G_2}{gamma of generalized cepstrum (output)\\
-		      if $G_2 \ge 1.0$ then $\gamma_2=-1 / G_2$}{1}
-	\argm{N}{}{regard output as normalized cepstrum}{FALSE}
-	\argm{U}{}{regard output as multiplied by $\gamma_1$}{FALSE}
+        \argm{m}{M_1}{order of generalized cepstrum (input)}{25}
+        \argm{g}{G_1}{gamma of generalized cepstrum (input)\\
+                        $\gamma_1 = G_1$}{0}
+        \argm{c}{C_1}{gamma of generalized cepstrum (input)\\
+                        $\gamma_1 =-1 / $(int)$ C_1$\\
+                        $C_1$ must be $C_1 \geq 1$}{}
+        \argm{n}{}{regard input as normalized cepstrum}{FALSE}
+        \argm{u}{}{regard input as multiplied by $\gamma_1$}{FALSE}
+        \argm{M}{M_2}{order of generalized cepstrum (output)}{25}
+        \argm{G}{G_2}{gamma of generalized cepstrum (output)\\
+                        $\gamma_2 = G_2$}{1}
+        \argm{C}{C_2}{gamma of mel-generalized cepstrum (output)\\
+                        $\gamma_2 =-1 / $(int)$ G_2$\\
+                        $C_2$ must be $C_2 \geq 1$}{}
+        \argm{N}{}{regard output as normalized cepstrum}{FALSE}
+        \argm{U}{}{regard output as multiplied by $\gamma_1$}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE} 
@@ -102,7 +108,7 @@ with $M=10$ and $\gamma_1=-0.5$ are read in float format from
 {\em data.gcep} file, transformed into 30-th order cepstral coefficients,
 and written to {\em data.cep}:
 \begin{quote}
- \verb!gc2gc -m 10 -g 2 -M 30 -G 0 < data.gcep > data.cep!
+ \verb!gc2gc -m 10 -c 2 -M 30 -G 0 < data.gcep > data.cep!
 \end{quote} 
 \end{qsection}
 

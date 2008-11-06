@@ -46,8 +46,8 @@
 {filters for speech synthesis}
 
 \begin{synopsis}
-\item [imglsadf] [ --m $M$ ] [ --a $A$ ] [ --g $G$ ] [ --p $P$ ]
-		 [ --i $I$ ]  [ --t ]  [ --k ]
+\item [imglsadf] [ --m $M$ ] [ --a $A$ ] [ --c $C$ ] [ --p $P$ ]
+                 [ --i $I$ ]  [ --t ]  [ --k ]
 \item [\ ~~~~~~~~~] {\em mgcfile} [ {\em infile} ]
 \end{synopsis}
 
@@ -63,13 +63,13 @@ Input and output data are in float format.
 \end{qsection}
 
 \begin{options} 
-	\argm{m}{M}{order of generalized cepstrum}{25}
-	\argm{a}{A}{$\alpha$}{0.35}
-	\argm{g}{G}{power parameter $\gamma=-1/G$ for generalized cepstrum}{1}
-	\argm{p}{P}{frame period}{100}
-	\argm{i}{I}{interpolation period}{1}
-	\argm{t}{}{transpose filter}{FALSE}
-	\argm{k}{}{filtering without gain}{FALSE}
+        \argm{m}{M}{order of generalized cepstrum}{25}
+        \argm{a}{A}{$\alpha$}{0.35}
+        \argm{c}{C}{power parameter $\gamma=-1/C$ for generalized cepstrum}{1}
+        \argm{p}{P}{frame period}{100}
+        \argm{i}{I}{interpolation period}{1}
+        \argm{t}{}{transpose filter}{FALSE}
+        \argm{k}{}{filtering without gain}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -83,8 +83,8 @@ inputed to {\em imglsadf} command and the resulting excitation file
 is written to {\em data.e}.
 \begin{quote}
  \verb!frame +f < data.f | window | \!\\
- \verb!    mgcep -m 15 -a 0.35 -g -0.5 > data.mgc!\\
- \verb!imglsadf -m 15 -a 0.35 -g -0.5 data.mgc < data.f \!\\
+ \verb!    mgcep -m 15 -a 0.35 -c 2 > data.mgc!\\
+ \verb!imglsadf -m 15 -a 0.35 -c 2 data.mgc < data.f \!\\
  \verb!    > data.e!
 \end{quote} 
 \end{qsection}

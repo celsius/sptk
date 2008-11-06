@@ -45,7 +45,7 @@
 \name{lpc2par}{transform LPC to PARCOR}{speech parameter transformation}
 
 \begin{synopsis}
-\item [lpc2par] [ --m $M$ ] [ --g $G$ ] [ --s ] [ {\em infile} ] 
+\item [lpc2par] [ --m $M$ ] [ --g $G$ ] [ --c $C$ ] [ --s ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -101,10 +101,13 @@ If this condition satisfy then the filter is stable.
 \end{qsection}
 
 \begin{options}
-	\argm{m}{M}{order of LPC}{25}
-	\argm{g}{G}{gamma of generalized cepstrum\\
-			If $G>1.0$ then $\gamma=-1/G$.}{1}
-	\argm{s}{}{check stable or unstable}{FALSE}
+        \argm{m}{M}{order of LPC}{25}
+        \argm{g}{G}{gamma of generalized cepstrum\\
+                         $\gamma=G$}{0}
+        \argm{c}{C}{gamma of generalized cepstrum\\
+                        $\gamma =-1 / $(int)$ C$\\
+                        $C$ must be $C \geq 1$}{}
+        \argm{s}{}{check stable or unstable}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
