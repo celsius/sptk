@@ -46,13 +46,13 @@
 
 \begin{synopsis}
 \item[gwave] [ --s $S$ ] [ --e $E$ ] [ --n $N$ ] [ --i $I$ ] [ --y $ymax$ ]
-	       [ --y2 $ymin$ ] [ --p $P$ ] 
+               [ --y2 $ymin$ ] [ --p $P$ ] 
 \item[\ ~~~~~~~~] [ +{\em type} ]  [ {\em infile} ]
 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em gwave} converts converts speech waveform data 
+{\em gwave} converts speech waveform data 
 from {\em infile} (or standard input) to FP5301 plot format, 
 sending the result to standard output. 
 The output can viewed with \hyperlink{xgr}{xgr}.
@@ -62,24 +62,24 @@ that uses the \hyperlink{fig}{fig} and \hyperlink{fdrw}{fdrw} commands.
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S}{start point}{0}
-	\argm{e}{E}{end point}{EOF}
-	\argm{n}{N}{data number of one screen\\
-		    if this option is omitted,
+        \argm{s}{S}{start point}{0}
+        \argm{e}{E}{end point}{EOF}
+        \argm{n}{N}{data number of one screen\\
+                    if this option is omitted,
                     all of the data is plotted on one screen.}{N/A}
-	\argm{i}{I}{number of screen}{5}
-	\argm{y}{ymax}{maximum amplitude\\
+        \argm{i}{I}{number of screen}{5}
+        \argm{y}{ymax}{maximum amplitude\\
                        if this option is omitted,
                        ymax is maximum value of the input data.}{N/A}
-	\argm{y2}{ymin}{minimum amplitude}{-YMAX}
-	\argm{p}{P}{pen type($1 \sim 10$)}{1}
-	\argp{t}{Input data format\\ 
-		\begin{tabular}{llcll} \\[-1ex]
-			s & short (2 bytes) & \quad &
-			i & int (4 bytes) \\
-			f & float (4 bytes) & \quad &
-			d & double (8 bytes) \\
-		\end{tabular}}{f}
+        \argm{y2}{ymin}{minimum amplitude}{-YMAX}
+        \argm{p}{P}{pen type($1 \sim 10$)}{1}
+        \argp{t}{Input data format\\ 
+                \begin{tabular}{llcll} \\[-1ex]
+                        s & short (2 bytes) & \quad &
+                        i & int (4 bytes) \\
+                        f & float (4 bytes) & \quad &
+                        d & double (8 bytes) \\
+                \end{tabular}}{f}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

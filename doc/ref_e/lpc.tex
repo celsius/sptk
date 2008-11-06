@@ -63,15 +63,15 @@ $a(k) (1 \leq k \leq M)$
 \begin{displaymath}
   K, a(1), \ldots, a(M)
 \end{displaymath}
-are calculated using the Levinson-Durbin algorithm. 
+are calculated using the Levinson-Durbin algorithm (see \hyperlink{levdur}{levdur}). 
 
 Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{frame length}{256}
-	\argm{m}{M}{order of LPC}{25}
-	\argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
+        \argm{l}{L}{frame length}{256}
+        \argm{m}{M}{order of LPC}{25}
+        \argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
