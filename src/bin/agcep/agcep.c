@@ -53,7 +53,7 @@
 *               agcep [ options ] [ pefile ] < stdin > stdout                 *
 *       options:                                                              *
 *               -m m     :  order of generalized cepstrum          [25]       *
-*               -g g     :  -1 / gamma                             [1]        *
+*               -c c     :  gamma = -1 / (int) c                   [1]        *
 *               -l l     :  leakage factor                         [0.98]     *
 *               -t t     :  momentum constant                      [0.9]      *
 *               -k k     :  step size                              [0.1]      *
@@ -69,7 +69,7 @@
 *                   , c(0), c(1), ..., c(m),                                  *
 *       output:                                                               *
 *               prediction error (if pefile is specified)                     *
-*                   , e(0), e(1), ...                                         *
+*                   , e(0), e(1), ...                                         *  
 *       require:                                                              *
 *               iglsadf1(), ignorm()                                          *
 *                                                                             *
@@ -125,7 +125,7 @@ void usage (int status)
    fprintf(stderr, "       %s [ options ] [ pefile ] < stdin > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of generalized cepstrum          [%d]\n", ORDER);
-   fprintf(stderr, "       -g g  : -1 / gamma                             [%d]\n", STAGE);
+   fprintf(stderr, "       -c c  : gamma = -1 / (int) c                   [%d]\n", STAGE);
    fprintf(stderr, "       -l l  : leakage factor                         [%g]\n", LAMBDA);
    fprintf(stderr, "       -t t  : momentum constant                      [%g]\n", TAU);
    fprintf(stderr, "       -k k  : step size                              [%g]\n", STEP);
@@ -182,7 +182,7 @@ int main (int argc, char **argv)
          m = atoi(*++argv);
          --argc;
          break;
-      case 'g':
+      case 'c':
          stage = atoi(*++argv);
          --argc;
          break;

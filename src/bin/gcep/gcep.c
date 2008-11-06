@@ -54,6 +54,7 @@
 *       options:                                                        *
 *               -m m     :  order of generalized cepstrum    [25]       *
 *               -g g     :  gamma                            [0]        *
+*               -c c     :  gamma = -1 / (int) c                        *
 *               -l l     :  frame length                     [256]      *
 *               -q q     :  Input format                     [0]        *
 *                             0 (windowed data sequence)                *
@@ -76,7 +77,7 @@
 *               generalized cepstral coefficeints                       *
 *                   , c(0), c(1), ..., c(M),                            *
 *       notice:                                                         *
-*               if g >= 1.0, g = -1 / g .                               *
+*               value of c must be c>=1                                 *
 *       require:                                                        *
 *               gcep()                                                  *
 *                                                                       *
@@ -133,6 +134,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of generalized cepstrum    [%d]\n", ORDER);
    fprintf(stderr, "       -g g  : gamma                            [%g]\n", GAMMA);
+   fprintf(stderr, "       -c c  : gamma  = -1 / (int) c                 \n");
    fprintf(stderr, "       -l l  : frame length                     [%d]\n", FLENG);
    fprintf(stderr, "       -q q  : input format                     [%d]\n", ITYPE);
    fprintf(stderr, "                 0 (windowed sequence\n");
@@ -154,7 +156,7 @@ void usage (int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g >= 1.0, g = -1 / g\n");
+   fprintf(stderr, "       value of c must be c>=1\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -193,8 +195,13 @@ int main(int argc, char **argv)
          case 'g':
             g = atof(*++argv);
             --argc;
-            if (g>=1.0) g = -1.0 / g;
             break;
+         case 'c':             
+	    g = atoi(*++argv);
+	    --argc; 
+    	    if (g < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);        
+	    g = -1.0 / g;    
+            break;    
          case 'n':
             norm = 1 - norm;
             break;

@@ -53,7 +53,7 @@
 *       options:                                                        *
 *               -m m     :  order of mel-generalized cepstrum  [25]     *
 *               -a a     :  alpha                              [0.35]   *
-*               -g g     :  -1 / gamma                         [1]      *
+*               -c c     :  gamma = -1 / (int) c               [1]      *
 *               -p p     :  frame period                       [100]    *
 *               -i i     :  interpolation period               [1]      *
 *               -t       :  transpose filter                   [FALSE]  *
@@ -68,7 +68,7 @@
 *               filtered sequence                                       *
 *                      , y(0), y(1), ...,                               *
 *       notice:                                                         *
-*               if g==0, MLSA filter is used, P should be 4 or 5        *
+*               if c==0, MLSA filter is used, P should be 4 or 5        *
 *       require:                                                        *
 *               mglsadf(), mlsadf()                                     *
 *                                                                       *  
@@ -124,7 +124,7 @@ void usage (int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of mel-generalized cepstrum [%d]\n", ORDER);
    fprintf(stderr, "       -a a  : alpha                             [%g]\n", ALPHA);
-   fprintf(stderr, "       -g g  : -1 / gamma                        [%d]\n", STAGE);
+   fprintf(stderr, "       -c c  : gamma = -1 / (int) c              [%d]\n", STAGE);
    fprintf(stderr, "       -p p  : frame period                      [%d]\n", FPERIOD);
    fprintf(stderr, "       -i i  : interpolation period              [%d]\n", IPERIOD);
    fprintf(stderr, "       -t    : transpose filter                  [%s]\n", BOOL[TRANSPOSE]);
@@ -138,7 +138,7 @@ void usage (int status)
    fprintf(stderr, "  mgcfile:\n");
    fprintf(stderr, "       mel-generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if g==0, MLSA filter is used, P should be 4 or 5\n");
+   fprintf(stderr, "       if c==0, MLSA filter is used, P should be 4 or 5\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
@@ -171,7 +171,7 @@ int main (int argc, char **argv)
             alpha = atof(*++argv);
             --argc;
             break;
-         case 'g':
+         case 'c':
             stage = atoi(*++argv);
             --argc;
             break;
