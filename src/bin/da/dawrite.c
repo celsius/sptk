@@ -67,7 +67,7 @@
 *                                                                            *
 *****************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.22 2008/06/16 05:48:46 heigazen Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.23 2008/11/07 13:39:05 tatsuyaito Exp $";
 
 
 /* Standard C Libraries */
@@ -413,18 +413,18 @@ void init_audiodev (int dtype)
    ACFD = open( MIXER_DEV, O_RDWR, 0);
 
    ioctl(ADFD, SNDCTL_DSP_GETBLKSIZE, &abuf_size);
-   ioctl(ADFD, SOUND_PCM_READ_BITS, &org_precision);
-   ioctl(ADFD, SOUND_PCM_READ_CHANNELS, &org_channels);
-   ioctl(ADFD, SOUND_PCM_READ_RATE, &org_freq);
+   ioctl(ADFD, SNDCTL_DSP_SETFMT, &org_precision);
+   ioctl(ADFD, SNDCTL_DSP_CHANNELS, &org_channels);
+   ioctl(ADFD, SNDCTL_DSP_SPEED, &org_freq);
    ioctl(ACFD, SOUND_MIXER_READ_PCM, &org_vol);
  
    arg = data_type[dtype].precision;
-   ioctl(ADFD, SOUND_PCM_WRITE_BITS, &arg);
+   ioctl(ADFD, SNDCTL_DSP_SETFMT, &arg);
    /* arg = data_type[dtype].channel; */
    arg = 0;
-   ioctl(ADFD, SOUND_PCM_WRITE_CHANNELS, &arg);
+   ioctl(ADFD, SNDCTL_DSP_CHANNELS, &arg);
    arg = data_type[dtype].sample;
-   ioctl(ADFD, SOUND_PCM_WRITE_RATE, &arg);
+   ioctl(ADFD, SNDCTL_DSP_SPEED, &arg);
 #endif /* LINUX || FreeBSD */
 
 #ifdef SPARC
@@ -510,9 +510,9 @@ void reset_audiodev (void)
    ACFD = open( MIXER_DEV, O_RDWR, 0);
    ADFD = open( AUDIO_DEV, O_RDWR, 0);
 
-   ioctl(ADFD, SOUND_PCM_WRITE_BITS, &org_precision);
-   ioctl(ADFD, SOUND_PCM_WRITE_CHANNELS, &org_channels);
-   ioctl(ADFD, SOUND_PCM_WRITE_RATE, &org_freq);
+   ioctl(ADFD, SNDCTL_DSP_SETFMT, &org_precision);
+   ioctl(ADFD, SNDCTL_DSP_CHANNELS, &org_channels);
+   ioctl(ADFD, SNDCTL_DSP_SPEED, &org_freq);
    ioctl(ACFD, SOUND_MIXER_WRITE_PCM, &org_vol);
 
    close(ADFD);
