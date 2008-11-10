@@ -68,6 +68,7 @@ INC  = cmndref.sty \
 	clip.tex \
 	da.tex \
 	dawrite.tex \
+	dct.tex \
 	decimate.tex \
 	delay.tex \
 	delta.tex \
@@ -166,6 +167,7 @@ INC  = cmndref.sty \
 	zerodf.tex \
 	ref.tex
 EPSF = fig/bcp.eps \
+	fig/dct.eps \
 	fig/df2.eps \
 	fig/fft2.eps \
 	fig/fft2-trans.eps \
