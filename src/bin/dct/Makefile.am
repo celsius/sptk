@@ -1,0 +1,7 @@
+## Process this file with automake to produce Makefile.in
+##
+## $Id$
+INCLUDES = -I$(top_srcdir)/include
+bin_PROGRAMS = dct
+dct_SOURCES = dct.c
+dct_LDADD = $(top_srcdir)/lib/libSPTK.a
