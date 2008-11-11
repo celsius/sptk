@@ -1,7 +1,7 @@
 
 
             Speech Signal Processing Toolkit (SPTK)
-              version 3.2 release June 27, 2008
+             version 3.2 release November 11, 2008
 
 The Speech Signal Processing Toolkit (SPTK) is a suite of speech
 signal processing tools for UNIX environments, e.g., LPC
@@ -45,7 +45,7 @@ The differences between version 3.1 and 3.2:
 
  - released under the New and Simplified BSD license
  
- - add 'gmm' and 'delta' commands 
+ - add 'gmm', 'delta', and 'dct' commands 
 
  - bug fixes
 
