@@ -7,19 +7,21 @@ body{
 }
 
 div.head{
-   margin: 0 0 1em 0;
-   padding: 8px 0 4px 250px;
-   background-image: url(image/SPTK_01.gif);
-   background-repeat: no-repeat;
-   background-position: left top;
+   text-align: center;
+   margin: 0px 0px 20px 0px;
+   padding: 8px 0px 8px 0px;
    background-color: #003366;
    font-weight: bold;
    color: #ffffff;
    font-size: 130%;
 }
 
+.image{
+   margin:15px;
+}
+
 p{
-   margin: 1em;
+   margin: 10px 40px 10px 40px;
 }
 
 hr{
@@ -44,4 +46,23 @@ pre{
 h2{
    font-size: 130%;
    margin: 1em 0 0.5em 1em;
-}   
+}
+
+a:link {
+   color:#EE7700;
+}
+
+a:active {
+   color:#EE7700;
+   text-decoration:underline;
+}
+
+a:visited {
+   color:#EE7700;
+   text-decoration:underline;
+}
+
+a:hover {
+   background-color:#999999;
+   color:#FFFFFF;
+}

@@ -5,13 +5,16 @@
 <title>Speech Singal Processing Toolkit (SPTK)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <link rel="stylesheet" type="text/css" href="default.css"> 
+<link rel="shortcut icon" href="image/favicon.ico">
 </head>
 <body>
 
+<center><img class="image" src="image/logo.png"></center>
+
 <div class=head>
  Speech Signal Processing Toolkit (SPTK)<br>
- Version 3.1<br>
- October 1, 2007 
+ Version 3.2<br>
+ November 11, 2008
 </div>
 <h2>README</h2>
 <hr>
