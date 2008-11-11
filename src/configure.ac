@@ -164,6 +164,7 @@ AC_CONFIG_FILES([Makefile
                  bin/cdist/Makefile
                  bin/clip/Makefile
                  bin/da/Makefile
+                 bin/dct/Makefile
                  bin/decimate/Makefile
                  bin/delay/Makefile
                  bin/delta/Makefile
