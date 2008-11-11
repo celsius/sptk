@@ -17,6 +17,7 @@ SUBDIRS = acep \
 	cdist \
 	clip \
 	da \
+	dct \
 	decimate \
 	delay \
 	delta \
