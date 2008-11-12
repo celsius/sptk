@@ -42,36 +42,40 @@
 % POSSIBILITY OF SUCH DAMAGE.                                       %
 % ----------------------------------------------------------------- %
 \hypertarget{dct}{}
-\name{dct}{DCT for complex sequence}{signal processing}
+\name{dct}{DCT-II}{signal processing}
 
 \begin{synopsis}
-\item[dct] [ --l $L$ ]  [ --\{ R $|$ I \} ] [ {\em infile} ] 
+\item[dct] [ --l $L$ ]  [ --\{ I \} ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em dct} calculates the Discrete Cosine Transformation (DCT) 
-of complex-valued data from {\em infile} (or standard input), 
+{\em dct} calculates the Discrete Cosine Transformation II (DCT-II) 
+of input data from {\em infile} (or standard input), 
 sending the results to standard output.
 The input and output data is in float format, arranged as follows.
 \begin{center}
  \leavevmode
  \includegraphics{fig/dct.eps} 
 \end{center}
+The Discrete Cosine Transformation II is
+\begin{displaymath}
+ X_{k} = \sum_{l=0}^{L-1}x_{l}\cos\left\{\frac{\pi}{L}\left( l+\frac{1}{2}\right)k\right\}
+\end{displaymath}
+\par
 \end{qsection}
 
 \begin{options}
         \argm{l}{L}{DCT size}{256}
-        \argm{R}{}{output only real part}{FALSE}
-        \argm{I}{}{output only imaginary part}{FALSE}
+        \argm{I}{}{use complex number}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In this example, the DCT is evaluated from a data file
+In this example, the DCT is evaluated from a complex-valued data file
 {\em data.f} in float format
 (real part: 256 points, imaginary part: 256 points),
 and the output is written to {\em data.dct}:
 \begin{quote}
-  \verb!dct data.f -l 256 > data.dct!
+  \verb!dct data.f -l 256 -I > data.dct!
 \end{quote}
 \end{qsection}
 
