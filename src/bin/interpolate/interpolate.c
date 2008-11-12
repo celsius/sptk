@@ -71,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: interpolate.c,v 1.19 2008/06/16 05:48:45 heigazen Exp $";
+static char *rcs_id = "$Id: interpolate.c,v 1.20 2008/11/12 10:58:17 s_sako Exp $";
 
 
 /*  Standard C Libraries  */
@@ -136,7 +136,7 @@ int main (int argc, char **argv)
    int  i, period=PERIOD, start=START;
    FILE *fp=stdin;
    double *x;
-   Boolean padinput;
+   Boolean padinput = PADINPUT;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
