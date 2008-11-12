@@ -279,8 +279,9 @@ int main(int argc, char *argv[])
       } else
          infile = s;
    }
-
-   fp = getfp(infile, "rb");
+   if (infile) 
+     fp = getfp(infile, "rb");
+   else fp = stdin;
    if(out == ' ') {
      x = dgetmem(size2 = size + size);
      y = x + size;
@@ -316,7 +317,7 @@ int main(int argc, char *argv[])
        fwrite(pImag, sizeof(*pReal), size, stdout);
      }
    }
-   fclose(fp);
+   if (infile) fclose(fp);
 
    return (0);
 }
