@@ -136,7 +136,7 @@ int main (int argc, char **argv)
    int  i, period=PERIOD, start=START;
    FILE *fp=stdin;
    double *x;
-   Boolean padinput;
+   Boolean padinput = PADINPUT;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
