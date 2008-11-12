@@ -51,15 +51,14 @@
 *               dct [ options ] [ infile ] > stdout                     *
 *       options:                                                        *
 *               -l l     :  DCT size                    [256]           *
-*               -R       :  real part                   [FALSE]         *
-*               -I       :  imaginary part              [FALSE]         *
+*               -I       :  use complex number          [FALSE]         *
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be double                           *
 *                                                                       *
 ************************************************************************/
 static char *rcs_id =
-    "$Id: dct.c,v 1.2 2008/11/11 10:27:33 uratec Exp $";
+    "$Id: dct.c,v 1.3 2008/11/12 11:13:07 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -93,6 +92,13 @@ char *cmnd;
 
 #include <memory.h>
 
+/* workspace */
+static int dct_table_size = 0;
+static float *dct_workspace = NULL;
+static float *pLocalReal = NULL;
+static float *pLocalImag = NULL;
+static float *pWeightReal = NULL;
+static float *pWeightImag = NULL;
 
 int usage(void)
 {
@@ -105,8 +111,7 @@ int usage(void)
            cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : DCT size             [%d]\n", SIZE);
-   fprintf(stderr, "       -R    : real part            [FALSE]\n");
-   fprintf(stderr, "       -I    : imaginary part       [FALSE]\n");
+   fprintf(stderr, "       -I    : use comlex number       [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)        [stdin]\n",
@@ -156,15 +161,6 @@ int dft(float *pReal, float *pImag, const int nDFTLength)
    free(pTempReal);
    free(pTempImag);
 }
-
-
-/* workspace */
-static int dct_table_size = 0;
-static float *dct_workspace = NULL;
-static float *pLocalReal = NULL;
-static float *pLocalImag = NULL;
-static float *pWeightReal = NULL;
-static float *pWeightImag = NULL;
 
 /* nSize <= 0 : release resources  */
 /*       >  0 : create cosine table of which size is 'nSize' */
@@ -244,6 +240,18 @@ int main(int argc, char *argv[])
    FILE *fp;
    char *s, *infile = NULL, c;
    int dft(float *pReal, float *pImag, const int nDFTLength);
+   static int dct_create_table(const int nSize);
+   int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal,
+			const float *pInImag);
+
+   float *pReal, *pImag;
+   int k, n;
+
+   FILE *getfp();
+
+   double *x, *y, *dgetmem();
+   int size2;
+   float *x2, *y2;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -262,7 +270,6 @@ int main(int argc, char *argv[])
             size = atoi(s);
             break;
          case 'I':
-         case 'R':
             out = c;
             break;
          case 'h':
@@ -273,53 +280,42 @@ int main(int argc, char *argv[])
          infile = s;
    }
 
-   float *pReal, *pImag;
-   int k, n;
-
-   FILE *getfp();
-
-   double *x, *y, *dgetmem();
-   int size2;
-   float *x2, *y2;
-
    fp = getfp(infile, "rb");
-
-   x = dgetmem(size2 = size + size);
-   y = x + size;
-   if ((pReal = (float *) calloc(size2, sizeof(float))) == NULL) {
-      fprintf(stderr, "No memory allocated : pReal\n");
-      exit(1);
-   }
-   pImag = pReal + size;
-   if ((x2 = (float *) calloc(size2, sizeof(float))) == NULL) {
-      fprintf(stderr, "No memory allocated : x2\n");
-      exit(1);
-   }
-   y2 = x2 + size;
-
-   while (!feof(fp)) {
-      fillz(x, size2, sizeof(double));
-      fillz(y, size, sizeof(double));
-      if (freadf(x, sizeof(*x), size, fp) == 0)
+   if(out == ' ') {
+     x = dgetmem(size2 = size + size);
+     y = x + size;
+     if ((pReal = (float *) calloc(size2, sizeof(float))) == NULL) {
+       fprintf(stderr, "No memory allocated : pReal\n");
+       exit(1);
+     }
+     pImag = pReal + size;
+     if ((x2 = (float *) calloc(size2, sizeof(float))) == NULL) {
+       fprintf(stderr, "No memory allocated : x2\n");
+       exit(1);
+     }
+     y2 = x2 + size;
+     
+     while (!feof(fp)) {
+       fillz(x, size2, sizeof(double));
+       fillz(y, size, sizeof(double));
+       if (freadf(x, sizeof(*x), size, fp) == 0)
          break;
-      if (freadf(y, sizeof(*y), size, fp) == 0)
+       if (freadf(y, sizeof(*y), size, fp) == 0)
          break;
-
-      for (k = 0; k < size; k++) {
+       
+       for (k = 0; k < size; k++) {
          x2[k] = (float) x[k];
          y2[k] = (float) y[k];
-      }
-
-      dct_create_table(size);
-      dct_based_on_dft(pReal, pImag, (const float *) x2,
-                       (const float *) y2);
-
-      if (out != 'I')
-         fwrite(pReal, sizeof(*pReal), size, stdout);
-      if (out == ' ' || out == 'I')
-         fwrite(pImag, sizeof(*pReal), size, stdout);
+       }
+       
+       dct_create_table(size);
+       dct_based_on_dft(pReal, pImag, (const float *) x2,
+			(const float *) y2);
+       
+       fwrite(pReal, sizeof(*pReal), size, stdout);
+       fwrite(pImag, sizeof(*pReal), size, stdout);
+     }
    }
-
    fclose(fp);
 
    return (0);
