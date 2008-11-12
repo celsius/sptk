@@ -7,7 +7,8 @@ SUBDIRS = include lib bin script
 include_HEADERS = include/SPTK.h
 
 # Additional files to be included in the distribution.
-EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL NEWS README
+EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL NEWS README Makefile.mak \
+	     bin/Makefile.mak include/Makefile.mak lib/Makefile.mak
 
 # Files to remove by 'make distclean'
 DISTCLEANFILES = *.log *.out *~ bin/*~ bin/*/*~ config/*~ include/*~ lib/*~ scripts/*~
