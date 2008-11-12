@@ -1,7 +1,7 @@
 
 
             Speech Signal Processing Toolkit (SPTK)
-             version 3.2 release November 11, 2008
+             version 3.2 release November 12, 2008
 
 The Speech Signal Processing Toolkit (SPTK) is a suite of speech
 signal processing tools for UNIX environments, e.g., LPC
@@ -21,10 +21,12 @@ cooperation with Dr. Takashi Masuko (currently he is with
 Corporate Research & Development Center, Toshiba Corp.),
 Dr. Kazuhito Koishida (currently he is with Microsoft Research),
 Dr. Shinji Sako (currently he is a Research Associate, Nagoya
-Institute of Technology), Dr. Heiga Zen (currently he is a
-PostDoc fellow at Nagoya Institute of Technology), Dr. Toru 
-Takahashi (currently he is an Assistant Professor at Kyoto 
-University), and some graduate students.
+Institute of Technology), Dr. Heiga Zen (currently he is with
+Toshiba Europe Research Ltd. Cambridge Research Laboratory),
+Dr. Toru Takahashi (currently he is an Assistant Professor at
+Kyoto University), Dr. Keiichiro Oura (currently he is a PostDoc
+fellow at Nagoya Institute of Technology), and some graduate
+students.
 
 The original source codes have been written by many people who
 took part in activities of the research group.  The most
@@ -231,6 +233,7 @@ Satoshi Imai
 Tadashi Kitamura
 Heiga Zen
 Toru Takahashi
+Keiichiro Oura
 
 and others.
 
