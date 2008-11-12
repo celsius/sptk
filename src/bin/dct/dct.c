@@ -58,7 +58,7 @@
 *                                                                       *
 ************************************************************************/
 static char *rcs_id =
-    "$Id: dct.c,v 1.3 2008/11/12 11:13:07 tatsuyaito Exp $";
+    "$Id: dct.c,v 1.4 2008/11/12 13:52:03 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -279,8 +279,9 @@ int main(int argc, char *argv[])
       } else
          infile = s;
    }
-
-   fp = getfp(infile, "rb");
+   if (infile) 
+     fp = getfp(infile, "rb");
+   else fp = stdin;
    if(out == ' ') {
      x = dgetmem(size2 = size + size);
      y = x + size;
@@ -316,7 +317,7 @@ int main(int argc, char *argv[])
        fwrite(pImag, sizeof(*pReal), size, stdout);
      }
    }
-   fclose(fp);
+   if (infile) fclose(fp);
 
    return (0);
 }
