@@ -54,6 +54,8 @@
 
 static char *rcs_id = "$Id$";
 
+#ifdef WIN32
+
 #include <windows.h>
 #include <mmsystem.h>
 #include "winplay.h"
@@ -173,3 +175,4 @@ void win32_audio_close (void)
       Sleep(10);
 }
 
+#endif
