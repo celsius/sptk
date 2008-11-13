@@ -48,7 +48,7 @@ The differences between version 3.1 and 3.2:
  - add 'gmm', 'delta', and 'dct' commands 
 
  - Command options are rearranged for improving consistency
-   among related commands, e.g., mgcep, mglsa, etc
+   among related commands, e.g., 'mgcep', 'mglsa', etc
 
  - bug fixes
 

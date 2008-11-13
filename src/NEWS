@@ -1,13 +1,20 @@
+
 ****************************************************************
                            What's new
 ****************************************************************
 
 The differences between version 3.1 and 3.2:
 
- - released under New and Simplified BSD license
+ - released under the New and Simplified BSD license
+ 
+ - add 'gmm', 'delta', and 'dct' commands 
+
+ - Command options are rearranged for improving consistency
+   among related commands, e.g., mgcep, mglsa, etc
 
  - bug fixes
 
- - support Windows
+ - support Windows (except 'xgr')
 
 Please see ChangeLog included in the release for details.
+
