@@ -298,7 +298,6 @@ int main(int argc, char *argv[])
    
    while (!feof(fp)) {
      fillz(x, size2, sizeof(double));
-     fillz(y, size, sizeof(double));
      if (freadf(x, sizeof(*x), size, fp) == 0)
        break;
      if(out=='I') {
