@@ -52,7 +52,9 @@
 *                                                                       *
 *************************************************************************/   
 
-static char *rcs_id = "$Id: winplay.c,v 1.2 2008/06/16 05:48:46 heigazen Exp $";
+static char *rcs_id = "$Id: winplay.c,v 1.3 2008/11/13 05:10:54 s_sako Exp $";
+
+#ifdef WIN32
 
 #include <windows.h>
 #include <mmsystem.h>
@@ -173,3 +175,4 @@ void win32_audio_close (void)
       Sleep(10);
 }
 
+#endif
