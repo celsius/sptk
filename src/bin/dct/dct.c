@@ -58,7 +58,7 @@
 *                                                                       *
 ************************************************************************/
 static char *rcs_id =
-    "$Id: dct.c,v 1.6 2008/11/13 05:50:42 uratec Exp $";
+    "$Id: dct.c,v 1.7 2008/11/13 07:22:24 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
 
    FILE *getfp();
 
-   double *x, *y, *dgetmem();
+   double *x, *y, *pReal2, *pImag2, *dgetmem();
    int size2;
    float *x2, *y2;
 
@@ -284,7 +284,9 @@ int main(int argc, char *argv[])
    else fp = stdin;
 
    x = dgetmem(size2 = size + size);
+   pReal2 = dgetmem(size2 = size + size);
    y = x + size;
+   pImag2 = pReal2 + size;
    if ((pReal = (float *) calloc(size2, sizeof(float))) == NULL) {
      fprintf(stderr, "No memory allocated : pReal\n");
      exit(1);
@@ -298,6 +300,7 @@ int main(int argc, char *argv[])
    
    while (!feof(fp)) {
      fillz(x, size2, sizeof(double));
+     fillz(y, size, sizeof(double));
      if (freadf(x, sizeof(*x), size, fp) == 0)
        break;
      if(out=='I') {
@@ -315,9 +318,14 @@ int main(int argc, char *argv[])
      dct_based_on_dft(pReal, pImag, (const float *) x2,
 		      (const float *) y2);
      
-     fwrite(pReal, sizeof(*pReal), size, stdout);
+     for (k = 0; k < size; k++) {
+       pReal2[k] = (double) pReal[k];
+       pImag2[k] = (double) pImag[k];
+     }
+
+     fwritef(pReal2, sizeof(*pReal2), size, stdout);
      if(out=='I')
-       fwrite(pImag, sizeof(*pReal), size, stdout);
+       fwritef(pImag2, sizeof(*pReal2), size, stdout);
      
 
    }
