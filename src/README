@@ -52,7 +52,7 @@ The differences between version 3.1 and 3.2:
 
  - bug fixes
 
- - support Windows
+ - support Windows (except 'xgr')
 
 Please see ChangeLog included in the release for details.
 
