@@ -11,7 +11,7 @@ CL		= link
 CPU		= win32
 
 SPTKCFG	= /I ..\include
-SYSCFG	= /O2 /Ot /GL /FD /EHsc /MT /W3 /nologo /c /Zi /TC /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_CONSOLE" /D "_MBCS" /D "_CRT_SECURE_NO_WARNINGS"
+SYSCFG	= /O2 /Ot /GL /FD /EHsc /MT /W3 /nologo /c /Zi /TC /D "NDEBUG" /D "HAVE_STRING_H" /D "WIN32" /D "_WINDOWS" /D "_CONSOLE" /D "_MBCS" /D "_CRT_SECURE_NO_WARNINGS"
 CFLAGS	= $(SYSCFG) $(SPTKCFG)
  
 
