@@ -1,11 +1,11 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.4 2007/09/26 14:28:12 heigazen Exp $
+## $Id: Makefile.am,v 1.5 2008/11/13 03:25:17 s_sako Exp $
 if USEDA
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = dawrite
 bin_SCRIPTS = da.sh
-dawrite_SOURCES = da.h dawrite.c 
+dawrite_SOURCES = da.h dawrite.c winplay.c winplay.h
 dawrite_LDADD = $(top_srcdir)/lib/libSPTK.a
 endif
 
