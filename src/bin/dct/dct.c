@@ -58,7 +58,7 @@
 *                                                                       *
 ************************************************************************/
 static char *rcs_id =
-    "$Id: dct.c,v 1.5 2008/11/13 01:44:23 tatsuyaito Exp $";
+    "$Id: dct.c,v 1.6 2008/11/13 05:50:42 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -298,7 +298,6 @@ int main(int argc, char *argv[])
    
    while (!feof(fp)) {
      fillz(x, size2, sizeof(double));
-     fillz(y, size, sizeof(double));
      if (freadf(x, sizeof(*x), size, fp) == 0)
        break;
      if(out=='I') {
