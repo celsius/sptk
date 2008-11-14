@@ -14,8 +14,6 @@ implemented by C-shell scripts.
                           Installation
 ****************************************************************
 
-0) Enter 'src' directory.
-
 1) Type
 
        % ./configure --help
