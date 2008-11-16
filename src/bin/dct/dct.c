@@ -165,7 +165,7 @@ int dft(float *pReal, float *pImag, const int nDFTLength)
 /* nSize <= 0 : release resources  */
 /*       >  0 : create cosine table of which size is 'nSize' */
 
-static int dct_create_table(const int nSize)
+int dct_create_table(const int nSize)
 {
    register int k, n;
 
@@ -240,7 +240,7 @@ int main(int argc, char *argv[])
    FILE *fp;
    char *s, *infile = NULL, c;
    int dft(float *pReal, float *pImag, const int nDFTLength);
-   static int dct_create_table(const int nSize);
+   int dct_create_table(const int nSize);
    int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal,
 			const float *pInImag);
 
