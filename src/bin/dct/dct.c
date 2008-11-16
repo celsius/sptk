@@ -58,7 +58,7 @@
 *                                                                       *
 ************************************************************************/
 static char *rcs_id =
-    "$Id: dct.c,v 1.7 2008/11/13 07:22:24 tatsuyaito Exp $";
+    "$Id: dct.c,v 1.8 2008/11/16 14:16:26 s_sako Exp $";
 
 
 /*  Standard C Libraries  */
@@ -165,7 +165,7 @@ int dft(float *pReal, float *pImag, const int nDFTLength)
 /* nSize <= 0 : release resources  */
 /*       >  0 : create cosine table of which size is 'nSize' */
 
-static int dct_create_table(const int nSize)
+int dct_create_table(const int nSize)
 {
    register int k, n;
 
@@ -240,7 +240,7 @@ int main(int argc, char *argv[])
    FILE *fp;
    char *s, *infile = NULL, c;
    int dft(float *pReal, float *pImag, const int nDFTLength);
-   static int dct_create_table(const int nSize);
+   int dct_create_table(const int nSize);
    int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal,
 			const float *pInImag);
 
