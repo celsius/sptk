@@ -67,7 +67,7 @@
 *               fftcep()                                                *
 *       note:                                                           *
 *               When -j & -k options are specified,                     *
-*               improved cepstral analysis is performed.                * 
+*               improved cepstral analysis is performed.                *
 *                                                                       *
 ************************************************************************/
 
@@ -141,7 +141,7 @@ int main(int argc, char **argv)
    int  m=ORDER, l=FLNG, itr=MAXITR, i;
    double ac=ACCELERATION, eps=EPS, *x, *y, *c;
    FILE *fp=stdin;
-    
+
    if ((cmnd = strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
    else
@@ -176,22 +176,22 @@ int main(int argc, char **argv)
             usage(1);
          }
       }
-      else 
+      else
          fp = getfp(*argv, "rb");
- 
+
    x = dgetmem(l+l+m+1);
    y = x + l; c = y + l;
-   
-   while (freadf(x, sizeof(*x), l, fp)==1) {
+
+   while (freadf(x, sizeof(*x), l, fp)==l) {
       fftr(x, y, l);
-   
+
       for (i=0; i<l; i++)
          x[i] = log(x[i]*x[i] + y[i]*y[i] + eps);
 
       fftcep(x, l, c, m, itr, ac);
- 
+
       fwritef(c, sizeof(*c), m+1, stdout);
    }
-   
+
    return 0;
 }
