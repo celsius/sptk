@@ -111,13 +111,13 @@ The $y$ axis goes from $-60$ dB to $40$ dB.
 \par
 The running spectrum can be draw on the X window environment by:
 \begin{quote}
- \verb!fig -g 0 -w 0.4 << EOF ! \\
+ \verb!fig -g 0 -W 0.4 << EOF ! \\
  \verb!~~~~x 0 5 !\\
  \verb!~~~~xscale 0 1 2 3 4 5 !\\
  \verb!~~~~xname "FREQUENCY (kHz)"!\\
  \verb!EOF!\\
  \verb!spec < data |\ !\\
- \verb!fdrw -w 0.4 -h 0.2 -g 0 -n 129 -y -30 30 -z 3 |\ !\\
+ \verb!fdrw -W 0.4 -H 0.2 -g 0 -n 129 -y -30 30 -z 3 |\ !\\
  \verb!xgr !
 \end{quote}
 The command {\em psgr} prints the output in a laser printer in the
