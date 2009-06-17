@@ -92,7 +92,7 @@ $x$ 座標は等間隔になります．
 ディジタルフィルタのインパルス応答を
 Xウィンドウ上に描く:
 \begin{quote}
-  \verb!impulse | dfs -a 1 0.8 0.5 | fdrw -h 0.3 | xgr!
+  \verb!impulse | dfs -a 1 0.8 0.5 | fdrw -H 0.3 | xgr!
 \end{quote}
 グラフの幅は10cm，高さは3cmになります．
 \par
@@ -106,13 +106,13 @@ $y$ 軸は $-60$dB から 40dB となります．
 連続するフレームのスペクトルを
 Xウィンドウ上に描く:
 \begin{quote}
- \verb!fig -g 0 -w 0.4 << EOF ! \\
+ \verb!fig -g 0 -W 0.4 << EOF ! \\
  \verb!　　x 0 5 !\\
  \verb!　　xscale 0 1 2 3 4 5 !\\
  \verb!　　xname "FREQUENCY (kHz)"!\\
  \verb!EOF!\\
  \verb!spec < data |\ !\\
- \verb!fdrw -w 0.4 -h 0.2 -g 0 -n 129 -y -30 30 -z 3 |\ !\\
+ \verb!fdrw -W 0.4 -H 0.2 -g 0 -n 129 -y -30 30 -z 3 |\ !\\
  \verb!xgr !
 \end{quote}
 %{\em xgr} のように画面に出力するための
