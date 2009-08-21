@@ -1,0 +1,461 @@
+/* ----------------------------------------------------------------- */
+/*             The Speech Signal Processing Toolkit (SPTK)           */
+/*             developed by SPTK Working Group                       */
+/*             http://sp-tk.sourceforge.net/                         */
+/* ----------------------------------------------------------------- */
+/*                                                                   */
+/*  Copyright (c) 1984-2007  Tokyo Institute of Technology           */
+/*                           Interdisciplinary Graduate School of    */
+/*                           Science and Engineering                 */
+/*                                                                   */
+/*                1996-2008  Nagoya Institute of Technology          */
+/*                           Department of Computer Science          */
+/*                                                                   */
+/* All rights reserved.                                              */
+/*                                                                   */
+/* Redistribution and use in source and binary forms, with or        */
+/* without modification, are permitted provided that the following   */
+/* conditions are met:                                               */
+/*                                                                   */
+/* - Redistributions of source code must retain the above copyright  */
+/*   notice, this list of conditions and the following disclaimer.   */
+/* - Redistributions in binary form must reproduce the above         */
+/*   copyright notice, this list of conditions and the following     */
+/*   disclaimer in the documentation and/or other materials provided */
+/*   with the distribution.                                          */
+/* - Neither the name of the SPTK working group nor the names of its */
+/*   contributors may be used to endorse or promote products derived */
+/*   from this software without specific prior written permission.   */
+/*                                                                   */
+/* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            */
+/* CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       */
+/* INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          */
+/* MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          */
+/* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS */
+/* BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          */
+/* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   */
+/* TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     */
+/* DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON */
+/* ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   */
+/* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    */
+/* OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           */
+/* POSSIBILITY OF SUCH DAMAGE.                                       */
+/* ----------------------------------------------------------------- */
+
+/*******************************************************************************
+*                                                                              *
+*    PCA : Principal Component Analysis                                        *
+*                                                                              *
+*                                           2009.8 A.Tamamori                  *
+*                                                                              *
+*       usage:                                                                 *
+*               pca [ options ] [ infile ] > stdout                            *
+*       options:                                                               *
+*                -m    : order of vector                            [24]       *
+*                -l    : length of vector                           [m+1]      *
+*                -t t  : number of input vectors                    [EOF]      *
+*                -n n  : output number of pricipal component        [2]        *
+*                -i    : iteration of jacobi method                 [10000]    *
+*                -e    : threshold of convergence of jacobi method  [0.000001] *
+*                -v    : output eigenvector                         [FALSE]    *
+*                -V    : output eigenvalue                          [FALSE]    *
+*                -c    : output cumulative contribution rate        [FALSE]    *
+*       infile:                                                                *
+*                set of vector                                                 *
+*                    X = [X(0), X(1), ..., X(t-1)],                            *
+*                    where                                                     *  
+*                        X(0)=[x(0), x(1), ..., x(l-1)]^T,                     *
+*                        X(1)=[x(l), x(l+1), ..., x(2*l-1)]^T,                 *
+*                          ...                                                 *
+*                        X(t-1)=[x((t-1)*l), x((t-1)*l+1), ..., x(t*l-1)]^T    *
+*       stdout:                                                                *
+*                pricipal component score                                      *
+*                   z_1(0), ..., z_1(n-1), z_2(0), ..., z_2(n-1),              *
+*                eigenvector (if -e option is specified)                       *
+*                   evec_1(0), ..., evec_1(l-1), evec_2(0), ..., evec_2(l-1),  *
+*                eigenvalue  (if -E option is specified)                       *
+*                   eval(0), eval(1), ..., eval(n-1)                           *
+*                cumulative cotribution rate (if -a option is specified)       *
+*                                                                              *
+*       notice:                                                                *
+*                Calculation of PCA is based on jacobi method                  *
+*                                                                              *
+********************************************************************************/
+
+static char *rcs_id = "$Id$";
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#ifdef HAVE_STRING_H
+#  include <string.h>
+#else
+#  include <strings.h>
+#  ifndef HAVE_STRRCHR
+#     define strrchr rindex
+#  endif
+#endif
+
+#if defined(WIN32)
+#  include "SPTK.h"
+#else
+#  include <SPTK.h>
+#endif
+
+/* Defalut Values */
+#define LENG           24
+#define PRICOMP_ORDER  2
+#define EPS            0.000001
+#define ITEMAX         10000
+
+typedef enum {FALSE = -1, TRUE = 1} BOOL;
+
+/* Command Name */
+char *cmnd;
+
+void usage (int status)
+{
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - Pricipal Component Analysis\n", cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of sequence                          [%d]\n", LENG-1);
+   fprintf(stderr, "       -l L  : length of vector                           [m+1]\n");
+   fprintf(stderr, "       -t t  : number of input vectors                    [EOF]\n");
+   fprintf(stderr, "       -n n  : output order of principal component        [%d]\n", PRICOMP_ORDER);
+   fprintf(stderr, "       -t t  : number of input vectors                    [EOF]\n");
+   fprintf(stderr, "       -i    : iteration of jacobi method                 [%d]\n", ITEMAX);
+   fprintf(stderr, "       -e    : threshold of convergence of jacobi method  [%f]\n", EPS);
+   fprintf(stderr, "       -v    : output eigen vectors                       [FALSE]\n");
+   fprintf(stderr, "       -V    : output eigen value                         [FALSE]\n");
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       data set       [stdin]\n");
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       Principal component score \n");
+#ifdef PACKAGE_VERSION
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
+#endif
+   fprintf(stderr, "\n");
+   exit(status);
+}
+
+double ** malloc_matrix(int n)
+{
+  double **m;
+  double *mtmp;
+  int i, j;
+
+  if ((mtmp = (double *)malloc(sizeof(double) * n * n)) == NULL) {
+    fprintf(stderr, "Can't malloc in %s\n", cmnd);
+    exit(EXIT_FAILURE);
+  }
+  if ((m = (double **)malloc(sizeof(double *) * n)) == NULL) {
+    fprintf(stderr, "Can't malloc in %s\n", cmnd);
+    exit(EXIT_FAILURE);
+  }
+  for (i = 0; i < n; i++) {
+    m[i] = &(mtmp[i * n]);
+  }
+  return m;
+}
+  
+int jacobi(double **m, int n, double eps, double *e_val, double **e_vec, int itemax)
+{
+  int i, j, k;
+  int count;
+  int ret;
+  double **a;
+  double max_e;
+  int r, c;
+  double a1, a2, a3;
+  double co, si;
+  double w1, w2;
+  double t1, ta;
+  double tmp;
+  
+  for(i=0;i<n;i++) {
+    for(j=i+1;j<n;j++) {
+      if (m[i][j] != m[j][i]) {
+	return -1;
+      }
+    }
+  }
+  
+  if((a = malloc_matrix(n)) == NULL){
+    fprintf(stderr, "Error : Can't malloc at jacobi in %s\n", cmnd);
+    exit(EXIT_FAILURE);
+  }
+  for(i=0;i<n;i++) {
+    for(j=0;j<n;j++) {
+      a[i][j] = m[i][j];
+    }
+  }
+
+  for(i=0;i<n;i++) {
+    for(j=0;j<n;j++) {
+      e_vec[i][j] = (i == j) ? 1.0 : 0.0;
+    }
+  }
+
+  count = 0;
+  
+  while(1) {
+
+    max_e = 0.0;
+    for(i=0;i<n;i++) {
+      for(j=i+1;j<n;j++) {
+	if (max_e < fabs(a[i][j])) {
+	  max_e = fabs(a[i][j]);
+	  r = i;
+	  c = j;
+	}
+      }
+    }
+    if (max_e <= eps) {
+      ret = count;
+      break;
+    }
+    if (count >= itemax) {
+      ret = -2;
+      break;
+    }
+
+    a1 = a[r][r];
+    a2 = a[c][c];
+    a3 = a[r][c];
+    
+    t1 = fabs(a1 - a2);
+    ta = 2.0 * a3 / (t1 + sqrt(t1 * t1 + 4.0 * a3 * a3));
+    co = sqrt(1.0 / (ta * ta + 1.0));
+    si = ta * co;
+    if (a1 < a2) si = -si;
+    
+    for(i=0;i<n;i++) {
+      w1 = e_vec[i][r];
+      w2 = e_vec[i][c];
+      e_vec[i][r] = w1 * co + w2 * si;
+      e_vec[i][c] = -w1 * si + w2 * co;
+      if (i == r || i == c) continue;
+      w1 = a[i][r];
+      w2 = a[i][c];
+      a[i][r] = w1 * co + w2 * si;
+      a[i][c] = -w1 * si + w2 * co;
+      a[r][i] = a[i][r];
+      a[c][i] = a[i][c];
+    }
+    a[r][r] = a1 * co * co + a2 * si * si + 2.0 * a3 * co * si;
+    a[c][c] = a1 + a2 - a[r][r];
+    a[r][c] = 0.0;
+    a[c][r] = 0.0;
+    
+    count++;
+  }
+  
+  for(i=0;i<n;i++) {
+    e_val[i] = a[i][i];
+  }
+  
+  for(i=0;i<n;i++) {
+    for(j=i+1;j<n;j++) {
+      tmp = e_vec[i][j];
+      e_vec[i][j] = e_vec[j][i];
+      e_vec[j][i] = tmp;
+    }
+  }
+  
+  for(i=0;i<n;i++) {
+    for(j=n-2;j>=i;j--) {
+      if (e_val[j] < e_val[j+1]) {
+	tmp = e_val[j];
+	e_val[j] = e_val[j+1];
+	e_val[j+1] = tmp;
+	for(k=0;k<n;k++) {
+	  tmp = e_vec[j][k];
+	  e_vec[j][k] = e_vec[j+1][k];
+	  e_vec[j+1][k] = tmp;
+	}
+      }
+    }
+  }
+
+  free(a[0]); free(a);
+
+  return (ret);
+}
+
+int main (int argc,char *argv[])
+{
+   FILE *fp = stdin;
+   int i, j, k, n = -1, leng = LENG, total = -1, ispipe;
+   BOOL out_evecFlg = FALSE, out_evalFlg = FALSE;
+   double sum;
+   double *buf = NULL;
+   double *mean = NULL, **var = NULL;
+   double *tmp = NULL;
+   double eps = EPS;
+   int itemax = ITEMAX;
+   double **e_vec = NULL, *e_val = NULL; /* eigenvector and eigenvalue */
+   double *tmp_eigen = NULL;
+   float *cont_rate = NULL; /* contribution rate */
+   double jacobi_conv;
+   double *z = NULL; /* output principal component score */
+   
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   
+   while (--argc) {
+      if ((**++argv) == '-'){
+         switch (*(*argv + 1)) {
+	 case 'm':
+            leng = atoi(*++argv) + 1;
+            --argc;
+            break;
+         case 'l':
+            leng = atoi(*++argv);
+            --argc;
+            break;
+	 case 't':
+	   total = atoi(*++argv);
+	   --argc;
+	   break;
+	 case 'n':
+	   n = atoi(*++argv);
+	   --argc;
+	   break;
+	 case 'e':
+	   eps = atof(*++argv);
+	   --argc;
+	   break;
+	 case 'i':
+	   itemax = atoi(*++argv);
+	   --argc;
+	   break;
+	 case 'v':
+	   out_evecFlg = TRUE;
+	   --argc;
+	   break;
+	 case 'V':
+	   out_evalFlg = TRUE;
+	   --argc;
+	   break;
+	 case 'h':
+            usage(EXIT_SUCCESS);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(argv + 1));
+            usage(EXIT_FAILURE);
+         }
+      }
+      else
+	fp = getfp(*argv, "rb");
+   }
+
+   /* -- Count number of input vectors -- */   
+   if (total == -1) {
+      ispipe = fseek(fp, 0L, SEEK_END);
+      total = (int)(ftell(fp) / (double)leng / (double)sizeof(float));
+      rewind(fp);
+      
+      if (ispipe != 0) {   /* input vectors is from standard input via pipe */
+         fprintf(stderr, "\n %s (Error) -t option must be specified for the standard input via pipe.\n", cmnd);
+         usage(EXIT_FAILURE);
+      }
+   }
+
+   if(n == -1){
+     fprintf(stderr, "\n %s (Error) -n option must be specified.\n", cmnd);
+     usage(EXIT_FAILURE);
+   }else if(n > leng){
+     fprintf(stderr, "\n %s (Error) output number of pricipal component"
+	     " must be less than length of vector.\n", cmnd);
+     usage(EXIT_FAILURE);
+   }
+
+/* PCA */
+   /* allocate memory for input vectors */ 
+   buf = dgetmem(leng * total);
+   
+   /* read input vectors */
+   freadf(buf, sizeof(*buf), total * leng, fp);
+
+   /* allocate memory for mean vectors and covariance matrix */
+   mean = dgetmem(leng);
+   var = malloc_matrix(leng);
+   
+   /* calculate mean vector */
+   for(i = 0; i < leng; i++){
+     for(j = 0, sum = 0.0; j < total; j++)
+       sum += buf[i + j * leng];
+     mean[i] = sum / total;
+   }
+   /* calculate cov. mat. */
+   for(i = 0; i < leng; i++){
+     for(j = 0; j < leng; j++){
+       sum = 0.0;
+       for(k = 0; k < total; k++)
+	 sum += (buf[i + k * leng] - mean[i]) * (buf[j + k * leng] - mean[j]);
+       var[i][j] = sum / total;
+     }
+   }
+   
+   /* allocate memory for eigenvector and eigenvalue */
+   e_vec = malloc_matrix(leng);
+   e_val = dgetmem(leng);
+   
+   /* calculate eig.vector and eig.value with jacobi method */
+   if((jacobi_conv = jacobi(var, leng, eps, e_val, e_vec, itemax)) == -1){
+     fprintf(stderr, "Error : matrix is not symmetric.\n");
+     exit(EXIT_FAILURE);
+   }
+   else if(jacobi_conv == -2){
+     fprintf(stderr, "Error : loop in jacobi method reached %d times.\n", itemax);
+     exit(EXIT_FAILURE);
+   }
+   
+   /* allocate memory for contribution rate of each eigen value */
+   cont_rate = fgetmem(leng);
+    for(j = 0; j < leng; j++){
+     sum = 0.0;
+     for(i = 0; i < leng; i++)
+       sum += e_val[i];
+     cont_rate[j] = (float)e_val[j] / (float)sum;
+   }
+
+
+   /* allocate memory for pricipal component score */
+   z = dgetmem(n * total);
+   fillz(z, n * total, sizeof(double));
+
+   /* calculate pricipal component score */
+   for(k = 0; k < total; k++)
+     for(i = 0; i < n; i++)
+       for(j = 0; j < leng; j++)
+	 z[k * leng + i] += e_vec[i][j] * (buf[k * leng + j] - mean[j]);
+
+#if 1
+   for(i=0;i<total;i++)
+     for(j=0;j<n;j++)
+       printf("%lf\n", z[i * leng + j ]);
+#endif
+
+   /* output principal component score */
+   fwritef(z, sizeof(*z), n * total, stdout);
+
+   /* output eigenvector */
+   if(out_evecFlg == TRUE)
+     for(i = 0; i < n; i++)
+       fwritef(e_vec[i], sizeof(double), leng, stdout);
+   
+   /* output eigenvalue */
+   if(out_evalFlg == TRUE)
+     fwritef(e_val, sizeof(double), n, stdout);
+   
+   return 0;
+}
