@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -57,11 +57,12 @@
 *               -i i     :  interpolation period          [1]           *
 *               -P P     :  order of Pade approximation   [4]           *
 *               -k       :  filtering without gain        [FALSE]       *
+*               -v       :  inverse filter                [FALSE]       *
 *       infile:                                                         *
 *               cepstral coefficients                                   *
 *                       , c~(0), c~(1), ..., c~(M),                     *
 *               excitation sequence                                     *
-                        , x(0), x(1), ...,                              *
+*                        , x(0), x(1), ...,                             *
 *       stdout:                                                         *
 *               filtered sequence                                       *
 *                       , y(0), y(1), ...,                              *
@@ -72,7 +73,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lmadf.c,v 1.20 2008/06/16 05:48:45 heigazen Exp $";
+static char *rcs_id = "$Id: lmadf.c,v 1.21 2009/09/11 07:17:49 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -102,6 +103,7 @@ static char *rcs_id = "$Id: lmadf.c,v 1.20 2008/06/16 05:48:45 heigazen Exp $";
 #define IPERIOD 1
 #define PADEORD 4
 #define NGAIN FA
+#define INVERSE   FA
 
 char *BOOL[] = {"FALSE", "TRUE"};
 
@@ -121,6 +123,7 @@ void usage (int status)
    fprintf(stderr, "       -p p  : frame period                [%d]\n", FPERIOD);
    fprintf(stderr, "       -i i  : interpolation period        [%d]\n", IPERIOD);
    fprintf(stderr, "       -P P  : order of Pade approximation [%d]\n", PADEORD);
+   fprintf(stderr, "       -v    : inverse filter              [%s]\n", BOOL[INVERSE]);
    fprintf(stderr, "       -k    : filtering without gain      [%s]\n", BOOL[NGAIN]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -146,7 +149,7 @@ int main (int argc, char **argv)
    int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, i, j, pd=PADEORD;
    FILE *fp=stdin, *fpc=NULL;
    double *c, *inc, *cc, *d, x;
-   Boolean ngain=NGAIN;
+   Boolean ngain=NGAIN, inverse=INVERSE;
 
    if ((cmnd=strrchr(argv[0], '/'))==NULL)
       cmnd = argv[0];
@@ -173,6 +176,9 @@ int main (int argc, char **argv)
             break;
          case 'k':
             ngain = 1 - ngain;
+            break;
+         case 'v':
+            inverse = 1 - inverse;
             break;
          case 'h':
             usage (0);
@@ -202,10 +208,17 @@ int main (int argc, char **argv)
    d   = inc+ m + 1;
 
    if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
+   if (inverse) {
+      c[0] = 0;
+      for (i=1; i<=m; i++) c[i] *= -1;
+   }
 
    for (;;) {
       if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
-
+      if (inverse) {
+         cc[0] = 0;
+         for (i=1; i<=m; i++) cc[i] *= -1;
+      }
       for (i=0; i<=m; i++)
          inc[i] = (cc[i] - c[i])*iprd / fprd;
 
@@ -213,8 +226,7 @@ int main (int argc, char **argv)
          if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
          if (!ngain) x *= exp(c[0]);
-         x = lmadf(x, c, m, pd, d);
-
+	   x = lmadf(x, c, m, pd, d);
          fwritef(&x, sizeof(x), 1, stdout);
 
          if (!--i) {
