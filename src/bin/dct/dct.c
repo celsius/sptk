@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -58,7 +58,7 @@
 *                                                                       *
 ************************************************************************/
 static char *rcs_id =
-    "$Id: dct.c,v 1.8 2008/11/16 14:16:26 s_sako Exp $";
+    "$Id: dct.c,v 1.9 2009/09/11 07:19:21 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -98,6 +98,15 @@ static float *pLocalImag = NULL;
 static float *pWeightReal = NULL;
 static float *pWeightImag = NULL;
 
+static int dct_table_size_fft = 0;
+static double *dct_workspace2 = NULL;
+static double *pLocalReal2 = NULL;
+static double *pLocalImag2 = NULL;
+static double *pWeightReal2 = NULL;
+static double *pWeightImag2 = NULL;
+
+
+
 #include <memory.h>
 
 int usage(void)
@@ -126,6 +135,7 @@ int usage(void)
    fprintf(stderr, "\n");
    exit(1);
 }
+
 
 int dft(float *pReal, float *pImag, const int nDFTLength)
 {
@@ -164,6 +174,52 @@ int dft(float *pReal, float *pImag, const int nDFTLength)
 
 /* nSize <= 0 : release resources  */
 /*       >  0 : create cosine table of which size is 'nSize' */
+
+int dct_create_table_fft(const int nSize)
+{
+   register int k, n;
+
+   if (nSize == dct_table_size_fft) {
+      /* no needs to resize workspace. */
+      return (0);
+   } else {
+      /* release resources to resize workspace. */
+      if (dct_workspace2 != NULL) {
+         free(dct_workspace2);
+         dct_workspace2 = NULL;
+      }
+      pLocalReal2 = NULL;
+      pLocalImag2 = NULL;
+      pWeightReal2 = NULL;
+      pWeightImag2 = NULL;
+   }
+
+   /* getting resources. */
+   if (nSize <= 0) {
+      dct_table_size_fft = 0;
+      return (0);
+   } else {
+      dct_table_size_fft = nSize;
+      dct_workspace2 =
+          (double *) malloc(sizeof(double) * (dct_table_size_fft * 6));
+      pWeightReal2 = dct_workspace2;
+      pWeightImag2 = dct_workspace2 + dct_table_size_fft;
+      pLocalReal2 = dct_workspace2 + (2 * dct_table_size_fft);
+      pLocalImag2 = dct_workspace2 + (4 * dct_table_size_fft);
+
+      for (k = 0; k < dct_table_size_fft; k++) {
+         pWeightReal2[k] =
+             cos(k * PI / (2.0 * dct_table_size_fft)) /
+             sqrt(2.0 * dct_table_size_fft);
+         pWeightImag2[k] =
+             -sin(k * PI / (2.0 * dct_table_size_fft)) /
+             sqrt(2.0 * dct_table_size_fft);
+      }
+      pWeightReal2[0] /= sqrt(2.0);
+      pWeightImag2[0] /= sqrt(2.0);
+   }
+
+}
 
 int dct_create_table(const int nSize)
 {
@@ -208,7 +264,38 @@ int dct_create_table(const int nSize)
       pWeightReal[0] /= sqrt(2.0);
       pWeightImag[0] /= sqrt(2.0);
    }
+
 }
+
+int dct_based_on_fft(float *pReal, float *pImag, const float *pInReal,
+                     const float *pInImag)
+{
+   register int n, k;
+
+
+   for (n = 0; n < dct_table_size_fft; n++) {
+     pLocalReal2[n] = (double) pInReal[n];
+     pLocalImag2[n] = (double) pInImag[n];
+     pLocalReal2[dct_table_size_fft + n] = (double) pInReal[dct_table_size_fft - 1 - n];
+     pLocalImag2[dct_table_size_fft + n] = (double) pInImag[dct_table_size_fft - 1 - n];
+   }
+
+
+   fft(pLocalReal2, pLocalImag2, dct_table_size_fft * 2); // double input
+
+
+   for (k = 0; k < dct_table_size_fft; k++) {
+     pReal[k] = (float) 
+          (pLocalReal2[k] * pWeightReal2[k] -
+          pLocalImag2[k] * pWeightImag2[k]);
+     pImag[k] = (float)
+          (pLocalReal2[k] * pWeightImag2[k] +
+          pLocalImag2[k] * pWeightReal2[k]);
+   }
+
+
+}
+
 
 int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal,
                      const float *pInImag)
@@ -223,6 +310,7 @@ int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal,
    }
 
    dft(pLocalReal, pLocalImag, dct_table_size * 2);
+
 
    for (k = 0; k < dct_table_size; k++) {
       pReal[k] =
@@ -239,13 +327,16 @@ int main(int argc, char *argv[])
 {
    FILE *fp;
    char *s, *infile = NULL, c;
+   int dct_create_table_fft(const int nSize);
+   int dct_based_on_fft(float *pReal, float *pImag, const float *pInReal,
+			const float *pInImag);
    int dft(float *pReal, float *pImag, const int nDFTLength);
    int dct_create_table(const int nSize);
    int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal,
 			const float *pInImag);
 
    float *pReal, *pImag;
-   int k, n;
+   int k, n, i, j, iter;
 
    FILE *getfp();
 
@@ -313,16 +404,24 @@ int main(int argc, char *argv[])
        y2[k] = (float) y[k];
      }
 
-         
-     dct_create_table(size);
-     dct_based_on_dft(pReal, pImag, (const float *) x2,
-		      (const float *) y2);
-     
-     for (k = 0; k < size; k++) {
-       pReal2[k] = (double) pReal[k];
-       pImag2[k] = (double) pImag[k];
-     }
 
+     iter = 0;
+     i = size;
+     while((i /= 2) != 0) {
+       iter++;
+     }
+     j = 1;
+     for(i = 1; i <= iter; i++) {
+       j *= 2;
+     }
+     if (size != j) {
+       dct_create_table(size);
+       dct_based_on_dft(pReal, pImag, (const float *) x2, (const float *) y2);
+     } else {
+       dct_create_table_fft(size);
+       dct_based_on_fft(pReal, pImag, (const float *) x2, (const float *) y2);      
+    }
+    
      fwritef(pReal2, sizeof(*pReal2), size, stdout);
      if(out=='I')
        fwritef(pImag2, sizeof(*pReal2), size, stdout);
