@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -57,6 +57,7 @@
 *               -p p     :  frame period                       [100]    *
 *               -i i     :  interpolation period               [1]      *
 *               -t       :  transpose filter                   [FALSE]  *
+*               -v       :  inverse filter                     [FALSE]  *
 *               -k       :  filtering without gain             [FALSE]  *
 *               -P P     :  order of Pade approximation        [4]      *
 *       infile:                                                         *
@@ -105,6 +106,7 @@ static char *rcs_id = "$Id$";
 #define FPERIOD   100
 #define IPERIOD   1
 #define TRANSPOSE FA
+#define INVERSE   FA
 #define NGAIN     FA
 #define PADEORDER 4
 
@@ -128,6 +130,7 @@ void usage (int status)
    fprintf(stderr, "       -p p  : frame period                      [%d]\n", FPERIOD);
    fprintf(stderr, "       -i i  : interpolation period              [%d]\n", IPERIOD);
    fprintf(stderr, "       -t    : transpose filter                  [%s]\n", BOOL[TRANSPOSE]);
+   fprintf(stderr, "       -v    : inverse filter                    [%s]\n", BOOL[INVERSE]);
    fprintf(stderr, "       -k    : filtering without gain            [%s]\n", BOOL[NGAIN]);
    fprintf(stderr, "       -P P  : order of Pade approximation       [%d]\n", PADEORDER);
    fprintf(stderr, "       -h    : print this message\n");
@@ -152,7 +155,7 @@ void usage (int status)
 int main (int argc, char **argv)
 {
    int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, stage=STAGE, pd=PADEORDER, i, j;
-   Boolean transpose=TRANSPOSE, ngain=NGAIN;
+   Boolean transpose=TRANSPOSE, ngain=NGAIN, inverse=INVERSE;
    FILE *fp=stdin, *fpc=NULL;
    double alpha=ALPHA, gamma, x, *c, *inc, *cc, *d;
 
@@ -185,6 +188,9 @@ int main (int argc, char **argv)
             break;
          case 't':
             transpose = 1 - transpose;
+            break;
+         case 'v':
+            inverse = 1 - inverse;
             break;
          case 'k':
             ngain = 1 - ngain;
@@ -233,6 +239,10 @@ int main (int argc, char **argv)
       for (i=1; i<=m; i++)
          c[i] *= gamma;
    }
+   if (inverse) {
+      c[0] = 0;
+      for (i=1; i<=m; i++) c[i] *= -1;
+   }
 
    for (;;) {
       if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
@@ -241,6 +251,10 @@ int main (int argc, char **argv)
          gnorm(cc, cc, m, gamma);
          for (i=1; i<=m; i++)
             cc[i] *= gamma;
+      }
+      if (inverse) {
+         cc[0] = 0;
+         for (i=1; i<=m; i++) cc[i] *= -1;
       }
 
       for (i=0; i<=m; i++)
