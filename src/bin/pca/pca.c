@@ -42,45 +42,55 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/*******************************************************************************
-*                                                                              *
-*    PCA : Principal Component Analysis                                        *
-*                                                                              *
-*                                           2009.8 A.Tamamori                  *
-*                                                                              *
-*       usage:                                                                 *
-*               pca [ options ] [ infile ] > stdout                            *
-*       options:                                                               *
-*                -m    : order of vector                            [24]       *
-*                -l    : length of vector                           [m+1]      *
-*                -t t  : number of input vectors                    [EOF]      *
-*                -n n  : output number of pricipal component        [2]        *
-*                -i    : iteration of jacobi method                 [10000]    *
-*                -e    : threshold of convergence of jacobi method  [0.000001] *
-*                -v    : output eigenvector                         [FALSE]    *
-*                -V    : output eigenvalue                          [FALSE]    *
-*                -c    : output cumulative contribution rate        [FALSE]    *
-*       infile:                                                                *
-*                set of vector                                                 *
-*                    X = [X(0), X(1), ..., X(t-1)],                            *
-*                    where                                                     *  
-*                        X(0)=[x(0), x(1), ..., x(l-1)]^T,                     *
-*                        X(1)=[x(l), x(l+1), ..., x(2*l-1)]^T,                 *
-*                          ...                                                 *
-*                        X(t-1)=[x((t-1)*l), x((t-1)*l+1), ..., x(t*l-1)]^T    *
-*       stdout:                                                                *
-*                pricipal component score                                      *
-*                   z_1(0), ..., z_1(n-1), z_2(0), ..., z_2(n-1),              *
-*                eigenvector (if -e option is specified)                       *
-*                   evec_1(0), ..., evec_1(l-1), evec_2(0), ..., evec_2(l-1),  *
-*                eigenvalue  (if -E option is specified)                       *
-*                   eval(0), eval(1), ..., eval(n-1)                           *
-*                cumulative cotribution rate (if -a option is specified)       *
-*                                                                              *
-*       notice:                                                                *
-*                Calculation of PCA is based on jacobi method                  *
-*                                                                              *
-********************************************************************************/
+/********************************************************************************
+*                                                                               *
+*    PCA : Principal Component Analysis                                         *
+*                                                                               *
+*                                           2009.8 A.Tamamori                   *
+*                                                                               *
+*       usage:                                                                  *
+*                pca [ options ] [ infile ] > stdout                            *
+*                                                                               *
+*       options:                                                                *
+*                -l L  : length of vector                           [3]         *
+*                -t t  : number of input vectors                    [EOF]       *
+*                -n N  : output number of pricipal component        [2]         *
+*                -i I  : iteration of jacobi method                 [10000]     *
+*                -e e  : threshold of convergence of jacobi method  [0.000001]  *
+*                -v    : output eigenvectors and mean vector        [FALSE]     *
+*                -V    : output eigenvalues                         [FALSE]     *
+*                -p    : output principal component score           [FALSE]     *
+*                -c    : output cumulative contribution rate        [FALSE]     *
+*                                                                               *
+*       infile:                                                                 *
+*                training vectors                                               *
+*                    X(0), X(1), X(2), ...                                      *
+*                    where                                                      *  
+*                        X(0)=[x(0), x(1), ..., x(L-1)],                        *
+*                        X(1)=[x(L), x(L+1), ..., x(2*L-1)],                    *
+*                        X(2)=[x(2*L), x(L+1), ..., x(3*L-1)],                  *
+*                          .                                                    *
+*                          .                                                    *
+*                          .                                                    *
+*                                                                               *
+*       stdout:                                                                 *
+*                eigenvectors and mean vector (if -v option is specified)       *
+*                   evec(1), evec(2), ..., evec(N), mean                        *
+*                                                                               *
+*                eigenvalues  (if -V option is specified)                       *
+*                   eval(1), eval(2), ..., eval(N)                              *
+*                                                                               *
+*                principal component scores (if -p option is specified)         *
+*                   z_1(1), ..., z_1(N), z_2(1), ..., z_2(N), ...,              *
+*                                                                               *
+*                contribution rate (output if -c option is specified)           *
+*                   c(1), c(2), ..., c(N)                                       *
+*                                                                               *
+*       notice:                                                                 *
+*                Calculation of PCA is based on jacobi method.                  *
+*                Output Mean vector is placed at tail of all other output.      *
+*                                                                               *
+*********************************************************************************/
 
 static char *rcs_id = "$Id$";
 
@@ -122,20 +132,20 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of sequence                          [%d]\n", LENG-1);
-   fprintf(stderr, "       -l L  : length of vector                           [m+1]\n");
-   fprintf(stderr, "       -t t  : number of input vectors                    [EOF]\n");
-   fprintf(stderr, "       -n n  : output order of principal component        [%d]\n", PRICOMP_ORDER);
-   fprintf(stderr, "       -t t  : number of input vectors                    [EOF]\n");
-   fprintf(stderr, "       -i    : iteration of jacobi method                 [%d]\n", ITEMAX);
-   fprintf(stderr, "       -e    : threshold of convergence of jacobi method  [%f]\n", EPS);
-   fprintf(stderr, "       -v    : output eigen vectors                       [FALSE]\n");
-   fprintf(stderr, "       -V    : output eigen value                         [FALSE]\n");
+   fprintf(stderr, "       -l L  : length of vector(for input and output)                   [%d]\n", LENG);
+   fprintf(stderr, "       -t t  : number of input vectors                                  [EOF]\n");
+   fprintf(stderr, "       -n N  : output order of principal component                      [%d]\n", PRICOMP_ORDER);
+   fprintf(stderr, "       -i I  : iteration of jacobi method                               [%d]\n", ITEMAX);
+   fprintf(stderr, "       -e e  : threshold of convergence of jacobi method                [%f]\n", EPS);
+   fprintf(stderr, "       -v    : output eigen vectors                                     [FALSE]\n");
+   fprintf(stderr, "       -V    : output eigen values                                      [FALSE]\n");
+   fprintf(stderr, "       -c    : output contribution rates                                [FALSE]\n");
+   fprintf(stderr, "       -p    : output principal component scores of each training data  [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data set       [stdin]\n");
+   fprintf(stderr, "       training data set       [stdin]\n");
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       Principal component score \n");
+   fprintf(stderr, "       eigen vectors, eigen values, principal component scores, contribution rates\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -292,35 +302,31 @@ int jacobi(double **m, int n, double eps, double *e_val, double **e_vec, int ite
 int main (int argc,char *argv[])
 {
    FILE *fp = stdin;
-   int i, j, k, n = -1, leng = LENG, total = -1, ispipe;
-   BOOL out_evecFlg = FALSE, out_evalFlg = FALSE;
+   int i, j, k, n = PRICOMP_ORDER, leng = LENG, total = -1, ispipe;
+   BOOL out_evecFlg = FALSE;
+   BOOL out_pri_compFlg = FALSE, out_evalFlg = FALSE, out_cont_rateFlg = FALSE;
    double sum;
    double *buf = NULL;
    double *mean = NULL, **var = NULL;
-   double *tmp = NULL;
    double eps = EPS;
    int itemax = ITEMAX;
    double **e_vec = NULL, *e_val = NULL; /* eigenvector and eigenvalue */
-   double *tmp_eigen = NULL;
-   float *cont_rate = NULL; /* contribution rate */
+   double *cont_rate = NULL; /* contribution rate */
    double jacobi_conv;
    double *z = NULL; /* output principal component score */
+   double *y = NULL;
    
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    
-   while (--argc) {
+   while (--argc) 
       if ((**++argv) == '-'){
          switch (*(*argv + 1)) {
-	 case 'm':
-            leng = atoi(*++argv) + 1;
-            --argc;
-            break;
          case 'l':
             leng = atoi(*++argv);
-            --argc;
+	    --argc;
             break;
 	 case 't':
 	   total = atoi(*++argv);
@@ -340,12 +346,16 @@ int main (int argc,char *argv[])
 	   break;
 	 case 'v':
 	   out_evecFlg = TRUE;
-	   --argc;
-	   break;
+	   break;	   
 	 case 'V':
 	   out_evalFlg = TRUE;
-	   --argc;
 	   break;
+	 case 'c':
+	   out_cont_rateFlg = TRUE;
+	   break;
+	 case 'p':
+	   out_pri_compFlg = TRUE;
+	   break;	   
 	 case 'h':
             usage(EXIT_SUCCESS);
          default:
@@ -355,24 +365,20 @@ int main (int argc,char *argv[])
       }
       else
 	fp = getfp(*argv, "rb");
-   }
 
    /* -- Count number of input vectors -- */   
    if (total == -1) {
-      ispipe = fseek(fp, 0L, SEEK_END);
-      total = (int)(ftell(fp) / (double)leng / (double)sizeof(float));
-      rewind(fp);
-      
-      if (ispipe != 0) {   /* input vectors is from standard input via pipe */
-         fprintf(stderr, "\n %s (Error) -t option must be specified for the standard input via pipe.\n", cmnd);
-         usage(EXIT_FAILURE);
-      }
+     ispipe = fseek(fp, 0L, SEEK_END); /* set current position to EOF */
+     total = (int)(ftell(fp) / (double)leng / (double)sizeof(float));
+     rewind(fp); /* return current position to the front */
+
+     if (ispipe != 0) {   /* input vectors is from standard input via pipe */
+       fprintf(stderr, "\n %s (Error) -t option must be specified for the standard input via pipe.\n", cmnd);
+       usage(EXIT_FAILURE);
+     }
    }
 
-   if(n == -1){
-     fprintf(stderr, "\n %s (Error) -n option must be specified.\n", cmnd);
-     usage(EXIT_FAILURE);
-   }else if(n > leng){
+   if(n > leng){
      fprintf(stderr, "\n %s (Error) output number of pricipal component"
 	     " must be less than length of vector.\n", cmnd);
      usage(EXIT_FAILURE);
@@ -409,7 +415,7 @@ int main (int argc,char *argv[])
    e_vec = malloc_matrix(leng);
    e_val = dgetmem(leng);
    
-   /* calculate eig.vector and eig.value with jacobi method */
+   /* calculate eig.vec. and eig.val. with jacobi method */
    if((jacobi_conv = jacobi(var, leng, eps, e_val, e_vec, itemax)) == -1){
      fprintf(stderr, "Error : matrix is not symmetric.\n");
      exit(EXIT_FAILURE);
@@ -419,19 +425,22 @@ int main (int argc,char *argv[])
      exit(EXIT_FAILURE);
    }
    
-   /* allocate memory for contribution rate of each eigen value */
-   cont_rate = fgetmem(leng);
-    for(j = 0; j < leng; j++){
+   /* allocate memory for contribution rate of each eigenvalue */
+   cont_rate = dgetmem(leng);
+
+   /* calculate contribution rate of each eigenvalue */
+   for(j = 0; j < leng; j++){
      sum = 0.0;
      for(i = 0; i < leng; i++)
        sum += e_val[i];
-     cont_rate[j] = (float)e_val[j] / (float)sum;
+     cont_rate[j] = e_val[j] / sum;
    }
-
 
    /* allocate memory for pricipal component score */
    z = dgetmem(n * total);
+   y = dgetmem(total);
    fillz(z, n * total, sizeof(double));
+   fillz(y, total, sizeof(double));
 
    /* calculate pricipal component score */
    for(k = 0; k < total; k++)
@@ -439,23 +448,26 @@ int main (int argc,char *argv[])
        for(j = 0; j < leng; j++)
 	 z[k * leng + i] += e_vec[i][j] * (buf[k * leng + j] - mean[j]);
 
-#if 1
-   for(i=0;i<total;i++)
-     for(j=0;j<n;j++)
-       printf("%lf\n", z[i * leng + j ]);
-#endif
-
-   /* output principal component score */
-   fwritef(z, sizeof(*z), n * total, stdout);
-
-   /* output eigenvector */
-   if(out_evecFlg == TRUE)
-     for(i = 0; i < n; i++)
-       fwritef(e_vec[i], sizeof(double), leng, stdout);
+/* end of PCA */
    
-   /* output eigenvalue */
-   if(out_evalFlg == TRUE)
-     fwritef(e_val, sizeof(double), n, stdout);
+   for(i = 0; i < n; i++){
+     if(out_evecFlg == TRUE){ /* -v option */
+       fwritef(e_vec[i], sizeof(double), leng, stdout);
+     }
+     if(out_evalFlg == TRUE){ /* -V option */
+       fwritef(e_val + i, sizeof(double), 1, stdout);
+     }
+     else if(out_cont_rateFlg == TRUE){ /* -c option */
+       fwritef(cont_rate + i, sizeof(double), 1, stdout);
+     }
+     else if(out_pri_compFlg == TRUE){ /* -p option */
+       for(j = 0; j < total; j++)
+	 y[j] = z[j * leng + i];
+       fwritef(y, sizeof(*y), total, stdout);       
+     }
+   }
+   if(out_evecFlg == TRUE) /* mean vector */
+     fwritef(mean, sizeof(double), leng, stdout);
    
    return 0;
 }
