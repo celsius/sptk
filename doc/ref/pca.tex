@@ -1,0 +1,107 @@
+% ----------------------------------------------------------------
+%       Speech Signal Processing Toolkit (SPTK): version 3.0
+%                      SPTK Working Group
+% 
+%                Department of Computer Science
+%                Nagoya Institute of Technology
+%                             and
+%   Interdisciplinary Graduate School of Science and Engineering
+%                Tokyo Institute of Technology
+%                   Copyright (c) 1984-2000
+%                     All Rights Reserved.
+% 
+% Permission is hereby granted, free of charge, to use and
+% distribute this software and its documentation without
+% restriction, including without limitation the rights to use,
+% copy, modify, merge, publish, distribute, sublicense, and/or
+% sell copies of this work, and to permit persons to whom this
+% work is furnished to do so, subject to the following conditions:
+% 
+%   1. The code must retain the above copyright notice, this list
+%      of conditions and the following disclaimer.
+% 
+%   2. Any modifications must be clearly marked as such.
+%                                                                        
+% NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSITITUTE OF TECHNOLOGY,
+% SPTK WORKING GROUP, AND THE CONTRIBUTORS TO THIS WORK DISCLAIM
+% ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL
+% IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT
+% SHALL NAGOYA INSTITUTE OF TECHNOLOGY, TOKYO INSITITUTE OF
+% TECHNOLOGY, SPTK WORKING GROUP, NOR THE CONTRIBUTORS BE LIABLE
+% FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY
+% DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+% WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
+% ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+% PERFORMANCE OF THIS SOFTWARE.
+% ----------------------------------------------------------------
+%
+\name{pca}{主成分分析}{信号処理}
+\def\Vec#1{\mbox{\boldmath $#1$}}
+
+\begin{synopsis}
+\item[pca] [ --l $L$ ] [ --n $N$] [ --i $I$] [ --e $e$]
+ [ --\{ v $|$ V $|$ p $|$ c \} ] 
+ [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+$L$次元ベクトルの集合からなる学習データ
+\[
+ \Vec{x}(0), \Vec{x}(1), \Vec{x}(2), \Vec{x}(3), \cdots \;\;\;
+ ただし\;\;\Vec{x}(i) = (x_{i}(1), x_{i}(2), \cdots, x_{i}(L))
+\]
+を{\em infile}から読み込み, 主成分分析を実行します．
+固有値・固有ベクトルはヤコビ法により数値的に求めます．
+分析次数{\em N}は各出力データの次元数の役割を果たします．
+ オプションを指定することで学習データの主成分得点や
+固有値の寄与率も出力可能です．
+データ形式は入出力ともfloat 形です．
+\end{qsection}
+
+\begin{options}
+ \argm{l}{L}{ベクトルの次元数．}{3}
+ \argm{n}{N}{分析次数．}{2}
+ \argm{i}{I}{ヤコビ法における繰り返し回数の限界．}{10000}
+ \argm{e}{e}{ヤコビ法における収束の閾値．}{0.000001}
+ \argm{v}{}{固有ベクトル及び学習データの平均ベクトルを出力．}{FALSE}
+ \argm{V}{}{固有値を出力．}{FALSE}
+ \argm{c}{}{固有値の寄与率を出力．}{FALSE}
+ \argm{p}{}{学習データそれぞれの主成分得点を出力．}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+float形式のファイル {\em data.f} にある学習データ
+($L=3$）を主成分分析し，{\em pca.dat} に
+ 固有ベクトル，固有値および平均ベクトルを出力する:
+\begin{quote}
+  \verb!pca data.f -n 2 -l 2 -v -V > pca.dft!
+\end{quote}
+ 固有ベクトル，固有値，寄与率，学習データの主成分得点は各主成分毎に
+この順でまとめて出力します．
+平均ベクトルはそれらの一番後ろに出力される形となります．
+ 
+ 例えば，固有ベクトルが
+ \[
+  \Vec{e}_{1} = (0.173,0.5), \;\;\; \Vec{e}_{2} = (-0.141,0.141)
+ \]
+ であり，対応する固有値が
+\[
+ \lambda_{1} = 2, \;\;\;\lambda_{2} = 1
+\]
+ で，学習データの平均ベクトルが
+ \[
+  \Vec{m} = (1.5, 2.3)
+ \]
+ であったとき，上記コマンドによって{\em pca.dat}には
+以下のように出力されます．
+\[
+ 0.173,\;\; 0.5,\;\; 2,\;\; -0.141,\;\; 0.141,\;\; 1,\;\; 1.5,\;\; 2
+\]
+ 前半の3つが第1主成分の固有ベクトル，固有値であり，それに続く3つが
+第2主成分に関する固有ベクトルおよび固有値です．
+最後に分布の平均ベクトルとなります．
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+ pcap
+\end{qsection}
