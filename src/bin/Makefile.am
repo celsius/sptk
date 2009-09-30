@@ -85,6 +85,7 @@ SUBDIRS = acep \
 	poledf \
 	psgr \
 	ramp \
+	rawtowav \
 	reverse \
 	rmse \
 	root_pol \
