@@ -141,6 +141,7 @@ INC  = cmndref.sty \
 	poledf.tex \
 	psgr.tex \
 	ramp.tex \
+	raw2wav.tex \
 	reverse.tex \
 	rmse.tex \
 	root_pol.tex \
