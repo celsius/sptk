@@ -92,7 +92,7 @@
 *                                                                               *
 *********************************************************************************/
 
-static char *rcs_id = "$Id: pca.c,v 1.2 2009/09/29 09:20:16 mataki Exp $";
+static char *rcs_id = "$Id: pca.c,v 1.3 2009/09/30 06:57:18 mataki Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -137,7 +137,7 @@ void usage (int status)
    fprintf(stderr, "       -n N  : output order of principal component                      [%d]\n", PRICOMP_ORDER);
    fprintf(stderr, "       -i I  : iteration of jacobi method                               [%d]\n", ITEMAX);
    fprintf(stderr, "       -e e  : threshold of convergence of jacobi method                [%f]\n", EPS);
-   fprintf(stderr, "       -v    : output eigen vectors                                     [FALSE]\n");
+   fprintf(stderr, "       -v    : output eigen vectors and mean vector                     [FALSE]\n");
    fprintf(stderr, "       -V    : output eigen values                                      [FALSE]\n");
    fprintf(stderr, "       -c    : output contribution rates                                [FALSE]\n");
    fprintf(stderr, "       -p    : output principal component scores of each training data  [FALSE]\n");
