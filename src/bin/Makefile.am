@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.7 2008/11/11 09:45:21 s_sako Exp $
+## $Id: Makefile.am,v 1.8 2009/09/30 07:19:21 senzaimin Exp $
 
 SUBDIRS = acep \
 	acorr \
@@ -85,6 +85,7 @@ SUBDIRS = acep \
 	poledf \
 	psgr \
 	ramp \
+	rawtowav \
 	reverse \
 	rmse \
 	root_pol \
