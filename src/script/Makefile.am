@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 ##
 ## $Id$
-bin_SCRIPTS = bell.sh glogsp.sh grlogsp.sh gwave.sh
-EXTRA_DIST = bell.in glogsp.in grlogsp.in gwave.in
+bin_SCRIPTS = bell.sh glogsp.sh grlogsp.sh gwave.sh raw2wav.sh
+EXTRA_DIST = bell.in glogsp.in grlogsp.in gwave.in raw2wav.in
 
 CLEANFILES = $(bin_SCRIPTS)
 
@@ -10,7 +10,7 @@ IO_SYMBOL = @IO_SYMBOL@
 IO_FORMAT = @IO_FORMAT@
 
 replace_path  = sed -e 's,@binpath@,$(DESTDIR)$(bindir),g' \
- 	            -e 's,@libpath@,$(DESTDIR)$(libdir),g' \
+	            -e 's,@libpath@,$(DESTDIR)$(libdir),g' \
 	            -e 's,@sptk_version@,$(PACKAGE_VERSION),g' \
 	            -e 's,@cshpath@,$(CSH),' \
 	            -e 's,@io_symbol@,$(IO_SYMBOL),g' \
