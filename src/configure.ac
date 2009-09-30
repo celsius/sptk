@@ -232,6 +232,7 @@ AC_CONFIG_FILES([Makefile
                  bin/poledf/Makefile
                  bin/psgr/Makefile
                  bin/ramp/Makefile
+                 bin/rawtowav/Makefile
                  bin/reverse/Makefile
                  bin/rmse/Makefile
                  bin/root_pol/Makefile
