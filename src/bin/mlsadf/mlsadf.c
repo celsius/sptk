@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mlsadf.c,v 1.22 2008/06/16 05:48:45 heigazen Exp $";
+static char *rcs_id = "$Id: mlsadf.c,v 1.23 2009/10/08 05:43:51 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -223,8 +223,7 @@ int main (int argc, char **argv)
    if (! bflag)
       mc2b(c, c, m, a);
    if (inverse) {
-      c[0] = 0;
-      for (i=1; i<=m; i++) c[i] *= -1;
+      for (i=0; i<=m; i++) c[i] *= -1;
    }
 
    for (;;) {
@@ -232,8 +231,7 @@ int main (int argc, char **argv)
       if (! bflag)
          mc2b(cc, cc, m, a);
       if (inverse) {
-         cc[0] = 0;
-         for (i=1; i<=m; i++) cc[i] *= -1;
+         for (i=0; i<=m; i++) cc[i] *= -1;
       }
 
       for (i=0; i<=m; i++)
