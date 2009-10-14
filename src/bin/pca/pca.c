@@ -88,7 +88,7 @@
 *                                                                               *
 *       notice:                                                                 *
 *                Calculation of PCA is based on jacobi method.                  *
-*                Output Mean vector is placed at tail of all other output.      *
+*                Output Mean vector is placed at the tail of all other output.  *
 *                                                                               *
 *********************************************************************************/
 
@@ -451,16 +451,16 @@ int main (int argc,char *argv[])
 /* end of PCA */
    
    for(i = 0; i < n; i++){
-     if(out_evecFlg == TRUE){ /* -v option */
+     if(out_evecFlg == TRUE){
        fwritef(e_vec[i], sizeof(double), leng, stdout);
      }
-     if(out_evalFlg == TRUE){ /* -V option */
+     if(out_evalFlg == TRUE){
        fwritef(e_val + i, sizeof(double), 1, stdout);
      }
-     else if(out_cont_rateFlg == TRUE){ /* -c option */
+     else if(out_cont_rateFlg == TRUE){
        fwritef(cont_rate + i, sizeof(double), 1, stdout);
      }
-     else if(out_pri_compFlg == TRUE){ /* -p option */
+     else if(out_pri_compFlg == TRUE){
        for(j = 0; j < total; j++)
 	 y[j] = z[j * leng + i];
        fwritef(y, sizeof(*y), total, stdout);       
@@ -468,6 +468,6 @@ int main (int argc,char *argv[])
    }
    if(out_evecFlg == TRUE) /* mean vector */
      fwritef(mean, sizeof(double), leng, stdout);
-   
+
    return 0;
 }
