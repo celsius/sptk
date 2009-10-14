@@ -88,11 +88,11 @@
 *                                                                               *
 *       notice:                                                                 *
 *                Calculation of PCA is based on jacobi method.                  *
-*                Output Mean vector is placed at tail of all other output.      *
+*                Output Mean vector is placed at the tail of all other output.  *
 *                                                                               *
 *********************************************************************************/
 
-static char *rcs_id = "$Id: pca.c,v 1.3 2009/09/30 06:57:18 mataki Exp $";
+static char *rcs_id = "$Id: pca.c,v 1.4 2009/10/14 10:18:30 mataki Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -451,16 +451,16 @@ int main (int argc,char *argv[])
 /* end of PCA */
    
    for(i = 0; i < n; i++){
-     if(out_evecFlg == TRUE){ /* -v option */
+     if(out_evecFlg == TRUE){
        fwritef(e_vec[i], sizeof(double), leng, stdout);
      }
-     if(out_evalFlg == TRUE){ /* -V option */
+     if(out_evalFlg == TRUE){
        fwritef(e_val + i, sizeof(double), 1, stdout);
      }
-     else if(out_cont_rateFlg == TRUE){ /* -c option */
+     else if(out_cont_rateFlg == TRUE){
        fwritef(cont_rate + i, sizeof(double), 1, stdout);
      }
-     else if(out_pri_compFlg == TRUE){ /* -p option */
+     else if(out_pri_compFlg == TRUE){
        for(j = 0; j < total; j++)
 	 y[j] = z[j * leng + i];
        fwritef(y, sizeof(*y), total, stdout);       
@@ -468,6 +468,6 @@ int main (int argc,char *argv[])
    }
    if(out_evecFlg == TRUE) /* mean vector */
      fwritef(mean, sizeof(double), leng, stdout);
-   
+
    return 0;
 }
