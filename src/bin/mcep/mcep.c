@@ -66,7 +66,7 @@
 *               -j j     :  maximum iteration               [30]        *
 *               -d d     :  end condition                   [0.001]     *
 *               -e e     :  small value added to periodgram [0]         *
-*               -f f     :  mimimum value of the determinant            *
+*               -f f     :  minimum value of the determinant            *
 *                           of the normal matrix            [0.000001]  *
 *       infile:                                                         *
 *               windowed sequence (if q==0)                             *
@@ -142,7 +142,7 @@ void usage (int status)
    fprintf(stderr, "       -j j  : maximum iteration                [%d]\n", MAXITR);
    fprintf(stderr, "       -d d  : end condition                    [%g]\n", END);
    fprintf(stderr, "       -e e  : small value added to periodgram  [%g]\n", EPS);
-   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n", MINDET);
+   fprintf(stderr, "       -f f  : minimum value of the determinant [%g]\n", MINDET);
    fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       windowed sequences (%s)              [stdin]\n", FORMAT);
