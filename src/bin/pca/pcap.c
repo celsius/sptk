@@ -62,7 +62,7 @@
 *                                                                          *
 ****************************************************************************/
 
-static char *rcs_id = "$Id: pcap.c,v 1.1 2009/09/30 06:45:47 mataki Exp $";
+static char *rcs_id = "$Id: pcap.c,v 1.2 2009/10/28 08:37:28 mataki Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -198,12 +198,11 @@ int main (int argc,char *argv[])
 
    e_vec = malloc_matrix(eigen_num, leng);
    mean = dgetmem(leng);
-
+   
+   freadf(mean, sizeof(double), leng, fpca);
    for(i = 0; i < eigen_num - 1; i++)
      freadf(e_vec[i], sizeof(double), leng, fpca);
-   freadf(mean, sizeof(double), leng, fpca);
 
-   
    
    /* Count of test data vectors */
    fseek(fp, 0L, SEEK_END);
@@ -221,7 +220,6 @@ int main (int argc,char *argv[])
    /* read test data */
    freadf(test_data, sizeof(double), leng * total, fp);
 
-
    
    /* allocate memory for pricipal component score */
    z = dgetmem(order * total);
@@ -231,7 +229,6 @@ int main (int argc,char *argv[])
    for(i = 0; i < total; i++) for(j = 0; j < order; j++)
      for(k = 0; k < leng; k++)
        z[i * order + j] += e_vec[j][k] * (test_data[i * leng + k] - mean[k]);
-
 
    /* output principal component score */
    for(i = 0; i < total; i++)
