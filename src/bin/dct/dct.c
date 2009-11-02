@@ -52,13 +52,14 @@
 *       options:                                                        *
 *               -l l     :  DCT size                    [256]           *
 *               -I       :  use complex number          [FALSE]         *
+*               -d       : without using fft algorithm  [FALSE]         *
 *       infile:                                                         *
 *               stdin for default                                       *
 *               input is assumed to be double                           *
 *                                                                       *
 ************************************************************************/
 static char *rcs_id =
-    "$Id: dct.c,v 1.9 2009/09/11 07:19:21 tatsuyaito Exp $";
+    "$Id: dct.c,v 1.10 2009/11/02 10:00:01 tatsuyaito Exp $";
 
 
 /*  Standard C Libraries  */
@@ -86,6 +87,9 @@ static int size = 256, out = ' ';
 
 /* Default Values */
 #define SIZE 256
+#define DFTMODE FA
+
+char *BOOL[] = {"FALSE", "TRUE"};
 
 /*  Command Name  */
 char *cmnd;
@@ -121,6 +125,7 @@ int usage(void)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : DCT size             [%d]\n", SIZE);
    fprintf(stderr, "       -I    : use comlex number       [FALSE]\n");
+   fprintf(stderr, "       -d    : without using fft algorithm (use dft) [%s]\n", BOOL[DFTMODE]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)        [stdin]\n",
@@ -339,7 +344,7 @@ int main(int argc, char *argv[])
    int k, n, i, j, iter;
 
    FILE *getfp();
-
+   Boolean dftmode=DFTMODE;
    double *x, *y, *pReal2, *pImag2, *dgetmem();
    int size2;
    float *x2, *y2;
@@ -362,6 +367,9 @@ int main(int argc, char *argv[])
             break;
          case 'I':
             out = c;
+            break;
+         case 'd':
+            dftmode = 1 - dftmode;
             break;
          case 'h':
          default:
@@ -414,7 +422,7 @@ int main(int argc, char *argv[])
      for(i = 1; i <= iter; i++) {
        j *= 2;
      }
-     if (size != j) {
+     if (size != j || dftmode) {
        dct_create_table(size);
        dct_based_on_dft(pReal, pImag, (const float *) x2, (const float *) y2);
      } else {
@@ -426,6 +434,7 @@ int main(int argc, char *argv[])
      if(out=='I')
        fwritef(pImag2, sizeof(*pReal2), size, stdout);
      
+
 
    }
 
