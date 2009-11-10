@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2008  Nagoya Institute of Technology          %
+%                1996-2009  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -46,7 +46,7 @@
 
 \begin{synopsis}
 \item [lspcheck] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --i $I$ ] [ --o $O$ ]
-		[ --r ] [ {\em infile} ] 
+		[ --r $R$] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -72,18 +72,23 @@ that have been rearranged so the filter is stable.
 			$1$ & normalized frequency $(0 \ldots 0.5)$ \\
 			$2$ & frequency (kHz) \\
 			$3$ & frequency (Hz)  \\
-		\end{tabular}\\\hspace*{\fill}}{0}
-	\argm{r}{}{rearrange LSP}{FALSE}
+		\end{tabular}\\\hspace*{\fill}}{$I$}
+	\argm{r}{R}{rearrange LSP\\
+check the distance between two consecutive LSPs\\
+and extend the distance (if it is smaller than $R\times \pi/M$)\\
+$s.t.\hspace{0.5cm} 0 < R < 1$}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 In the following example, 10-th order LSP coefficients are
 read from {\em data.lsp} in float format,
 stability is checked, the unstable coefficients are rearranged
-so that they become stable, and the rearranged LSP coefficients
-are written to {\em data.lspr}:
+so that they become stable, and the distance between two
+consecutive LSPs are extended to $\pi /1000$ if
+ it is smaller than $\pi /1000$, and the
+ rearranged LSP coefficients are written to {\em data.lspr}:
 \begin{quote}
-\verb!lspcheck -r < data.lsp > data.lspr!
+\verb!lspcheck -m 10 -r 0.01 < data.lsp > data.lspr!
 \end{quote}
 \end{qsection}
 
