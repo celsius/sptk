@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -51,6 +51,7 @@
 *****************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 #if defined(WIN32)
@@ -60,6 +61,38 @@
 #endif
 
 #include "gmm.h"
+
+double cal_det (double **var, const int D)
+{
+  int i, j, k;
+  double det=1.0, tmp, **tmp_var;
+
+  tmp_var = (double **)malloc(sizeof(double *) * D);
+  for (i=0; i<D; i++)
+    tmp_var[i] = (double *)malloc(sizeof(double) * D);
+
+  for (i=0; i<D; i++)
+    for (j=0; j<=i; j++)
+      tmp_var[i][j] = var[i][j];
+
+  for (i=0; i<D; i++)
+    for(j=0; j<i; j++){
+      tmp_var[j][i]=tmp_var[i][j];
+    }
+  for (i=0; i<D; i++){
+    for (j=0; j<D; j++){
+      if (i < j) {
+	tmp = tmp_var[j][i] / tmp_var[i][i];
+	for (k=0; k<D; k++){
+	  tmp_var[j][k] -= tmp_var[i][k] * tmp;
+	}
+      }
+    }
+  }
+  for (i=0; i<D; i++)
+    det *= tmp_var[i][i];
+  return (det);
+}
 
 double cal_gconst (double *var, const int D)
 {
@@ -73,9 +106,25 @@ double cal_gconst (double *var, const int D)
    return(gconst);
 }
 
+double cal_gconstf (double **var, const int D)
+{
+   int d,i;
+   double gconst, tmp;
+   static int num=0;
+
+   tmp = cal_det(var, D);
+   if (tmp < LZERO){
+     return 0;
+   }
+   gconst = D * log(M_2PI);
+   gconst += log(tmp);
+
+   return(gconst);
+}
+
 void fillz_gmm (GMM *gmm, const int M, const int L)
 {
-   int m, l, ll;
+   int m, l;
 
    for (m=0; m<M; m++) {
       gmm->weight[m] = 0.;
@@ -90,6 +139,28 @@ void fillz_gmm (GMM *gmm, const int M, const int L)
    return;
 }
 
+void fillz_gmmf (GMM *gmm, const int M, const int L)
+{
+  int m, l, ll;
+
+  for (m=0; m<M; m++) {
+    gmm->weight[m] = 0.;
+    
+    for (l=0; l<L; l++)
+      gmm->gauss[m].mean[l] = 0.;
+    
+    for (l=0; l<L; l++)
+      for (ll=0; ll<L; ll++)
+         gmm->gauss[m].cov[l][ll] = 0.;
+
+    for (l=0; l<L; l++)
+      for (ll=0; ll<L; ll++)
+         gmm->gauss[m].inv[l][ll] = 0.;
+   }
+   return;
+}
+
+
 double log_wgd (GMM *gmm, const int m, double *dat, const int L)
 {
    int l;
@@ -101,10 +172,66 @@ double log_wgd (GMM *gmm, const int m, double *dat, const int L)
       diff = dat[l] - gmm->gauss[m].mean[l];
       sum += sq(diff) / gmm->gauss[m].var[l];
    }
-
    lwgd = log(gmm->weight[m]) - 0.5 * sum;    
-
    return(lwgd);
+}
+
+double log_wgdf (GMM *gmm, const int m, double *dat, const int L)
+{
+  int i, j, k, l, ll;
+  double sum, *diff, tmp, lwgd, inv_a[L][L];
+  double **a;
+
+  a = (double **)malloc(sizeof(double *) * L);
+  for (l=0; l<L; l++)
+    a[l] = (double *)malloc(sizeof(double) * L);
+
+  for (i=0; i<L; i++)
+    for (j=0; j<=i; j++)
+      a[i][j] = gmm->gauss[m].cov[i][j];
+
+  for (i=0; i<L; i++)
+    for(j=0; j<i; j++)
+      a[j][i] = a[i][j];
+
+  diff = dgetmem(L);
+  sum = gmm->gauss[m].gconst;
+  
+  for (i=0; i<L; i++){
+    for (j=0; j<L; j++){
+      inv_a[i][j] = (i==j)?1.0:0.0;
+    }
+  }
+  for (i=0; i<L; i++){
+    tmp = 1/a[i][i];
+    for (j=0; j<L; j++){
+      a[i][j] *= tmp;
+      inv_a[i][j] *= tmp;
+    }
+    for (j=0; j<L; j++){
+      if (i != j){
+	tmp = a[j][i];
+	for (k=0; k<L; k++){
+	  a[j][k] -= a[i][k] * tmp;
+	  inv_a[j][k] -= inv_a[i][k] * tmp;
+	}
+      }
+    }
+  }
+      
+  for (l=0; l<L; l++)
+    diff[l] = dat[l] - gmm->gauss[m].mean[l];
+
+  for (l=0; l<L;l++){
+    for (ll=0, tmp=0.; ll<L; ll++)
+      tmp += diff[ll] * inv_a[ll][l];
+    sum += tmp * diff[l];
+  }
+  
+  lwgd = log(gmm->weight[m]) - 0.5 * sum;    
+
+  free(a);  
+  return(lwgd);
 }
 
 double log_add (double logx, double logy)
