@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***********************************************************
-   $Id: SPTK.h,v 1.22 2008/07/02 07:06:40 heigazen Exp $ 
+   $Id: SPTK.h,v 1.23 2009/11/13 12:59:54 senzaimin Exp $ 
    
    Speech Signal Processing Toolkit
    SPTK.h
@@ -94,6 +94,8 @@ typedef struct {
 typedef struct _Gauss {
    double *mean;
    double *var;
+  double **cov;
+  double **inv;
    double gconst;
 } Gauss;
 
@@ -165,9 +167,13 @@ void gc2gc (double *c1, const int m1, const double g1, double *c2, const int m2,
 int gcep (double *xw, const int flng, double *gc, const int m, const double g, const int itr1, const int itr2, const double d, const double e, const double f, const int itype);
 double glsadf (double x, double *c, const int m, const int n, double *d);
 double glsadf1 (double x, double *c, const int m, const int n, double *d);
+double cal_det (double **var, const int D);
 double cal_gconst (double *var, const int D);
+double cal_gconstf (double **var, const int D);
 void fillz_gmm (GMM *gmm, const int M, const int L);
+void fillz_gmmf (GMM *gmm, const int M, const int L);
 double log_wgd (GMM *gmm, const int m, double *dat, const int L);
+double log_wgdf (GMM *gmm, const int m, double *dat, const int L);
 double log_add (double logx, double logy);
 double log_outp (GMM *gmm, double *dat, const int M, const int L);
 void gnorm (double *c1, double *c2, int m, const double g);
@@ -194,7 +200,7 @@ int lpc2lsp (double *lpc, double *lsp, const int order, const int numsp, const i
 int lpc2par (double *a, double *k, const int m);
 void lsp2lpc (double *lsp, double *a, const int m);
 int lspcheck (double *lsp, const int ord);
-void lsparrange (double *lsp, const int ord);
+void lsparrange (double *lsp, const int ord, double alpha, int itype, int sampling);
 double lspdf_even (double x, double *f, const int m, double *d);
 double lspdf_odd (double x, double *f, const int m, double *d);
 double ltcdf (double x, double *k, int m, double *d);
