@@ -179,8 +179,8 @@ int jacobi(double **m, int n, double eps, double *e_val, double **e_vec, int ite
   double t1, ta;
   double tmp;
   
-  for(i=0;i<n;i++) {
-    for(j=i+1;j<n;j++) {
+  for(i = 0; i < n; i++) {
+    for(j = i + 1; j < n; j++) {
       if (m[i][j] != m[j][i]) {
 	return -1;
       }
@@ -191,8 +191,8 @@ int jacobi(double **m, int n, double eps, double *e_val, double **e_vec, int ite
     fprintf(stderr, "Error : Can't malloc at jacobi in %s\n", cmnd);
     exit(EXIT_FAILURE);
   }
-  for(i=0;i<n;i++) {
-    for(j=0;j<n;j++) {
+  for(i = 0; i < n; i++) {
+    for(j = 0; j < n; j++) {
       a[i][j] = m[i][j];
     }
   }
