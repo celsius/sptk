@@ -293,8 +293,7 @@ int main (int argc,char *argv[])
 {
    FILE *fp = stdin, *fp_eigen = NULL;
    int i, j, k, n = PRICOMP_ORDER, leng = LENG, total = -1, ispipe;
-   BOOL out_evecFlg = FALSE;
-   BOOL out_evalFlg = FALSE, out_cont_rateFlg = FALSE;
+   BOOL out_evecFlg = out_evalFlg = FALSE;
    double sum;
    double *buf = NULL;
    double *mean = NULL, **var = NULL;
