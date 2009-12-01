@@ -80,6 +80,7 @@ SUBDIRS = acep \
 	norm0 \
 	nrand \
 	par2lpc \
+	pca \
 	phase \
 	pitch \
 	poledf \
