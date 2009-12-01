@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.8 2009/09/30 07:19:21 senzaimin Exp $
+## $Id: Makefile.am,v 1.9 2009/12/01 20:57:32 mataki Exp $
 
 SUBDIRS = acep \
 	acorr \
@@ -80,6 +80,7 @@ SUBDIRS = acep \
 	norm0 \
 	nrand \
 	par2lpc \
+	pca \
 	phase \
 	pitch \
 	poledf \
