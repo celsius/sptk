@@ -83,7 +83,7 @@
 *                                                                                *
 *********************************************************************************/
 
-static char *rcs_id = "$Id: pca.c,v 1.7 2009/11/16 16:25:00 mataki Exp $";
+static char *rcs_id = "$Id: pca.c,v 1.8 2009/12/01 22:09:33 mataki Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -293,7 +293,7 @@ int main (int argc,char *argv[])
 {
    FILE *fp = stdin, *fp_eigen = NULL;
    int i, j, k, n = PRICOMP_ORDER, leng = LENG, total = -1, ispipe;
-   BOOL out_evecFlg = out_evalFlg = FALSE;
+   BOOL out_evecFlg=FALSE ,out_evalFlg = FALSE;
    double sum;
    double *buf = NULL;
    double *mean = NULL, **var = NULL;
