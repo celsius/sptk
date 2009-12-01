@@ -227,6 +227,7 @@ AC_CONFIG_FILES([Makefile
                  bin/norm0/Makefile
                  bin/nrand/Makefile
                  bin/par2lpc/Makefile
+		 bin/pca/Makefile
                  bin/phase/Makefile
                  bin/pitch/Makefile
                  bin/poledf/Makefile
