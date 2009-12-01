@@ -1,53 +1,18 @@
+The Speech Signal Processing Toolkit (SPTK) is a software for speech signal
+processing tools for UNIX environments. This software is released under the
+New and Simplified BSD license. See the COPYING file in the same directory as
+this file for the license.
 
-****************************************************************
-                        Acknowledgments
-****************************************************************
+The SPTK has been developed by several members of SPTK Working Group and some
+guraduate students in Nagoya Institute of Technology:
 
-The following people have contributed to the development of SPTK
-in various ways.  It is their work that makes it all possible.
-In no special order:
-
-Takao Kobayashi
-Keiichi Tokuda
-Takashi Masuko
-Chiyomi Miyajima
-Masatsune Tamura
-Takayoshi Yoshimura
-Shinji Sako
-Yoshihiko Nankaku
-Fernando Gil Resende Junior
-Toshihiko Kato
-Gou Hirabayashi
-Naohiro Isshiki
-Noboru Miyazaki
-Toshio Kanno
-Kenji Chiba
-Toshiaki Fukada
-Satoshi Imai
-Tadashi Kitamura
-Heiga Zen
-Toru Takahashi
-Keiichiro Oura
-and others.
-
-****************************************************************
-                           Who we are
-****************************************************************
-
-The SPTK working group is a voluntary group for developing the
-Speech Signal Processing Toolkit. Current members are
-
- Keiichi Tokuda (Coordinator) http://www.sp.nitech.ac.jp/~tokuda/
- Takashi Masuko
- Toru Takahashi               http://winnie.kuis.kyoto-u.ac.jp/~tall/
- Shinji Sako                  http://www.mmsp.nitech.ac.jp/~sako/
- Yoshihiko Nankaku            http://www.sp.nitech.ac.jp/~nankaku/
+ Keiichi Tokuda      http://www.sp.nitech.ac.jp/~tokuda/
+ (Produce and Design)
+ Keiichiro Oura      http://www.sp.nitech.ac.jp/~uratec/
+ (Main Maintainer)
+ Shinji Sako         http://www.mmsp.nitech.ac.jp/~sako/
  Heiga Zen
- Junichi Yamagishi            http://homepages.inf.ed.ac.uk/jyamagis/
- Keiichiro Oura               http://www.sp.nitech.ac.jp/~uratec/
-
-and the members are dynamically changing. If you want to contact
-the SPTK working group, please use Tracker of the SPTK
-SourceForge page (http://sourceforge.net/projects/sp-tk/).
-
-****************************************************************
+ Takashi Nose
+ Toru Takahashi      http://winnie.kuis.kyoto-u.ac.jp/~tall/
+ Junichi Yamagishi   http://homepages.inf.ed.ac.uk/jyamagis/
+ Yoshihiko Nankaku   http://www.sp.nitech.ac.jp/~nankaku/
