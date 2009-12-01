@@ -344,7 +344,7 @@ pca.exe : pca\pca.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
-ppca.exe : ppca\ppca.obj
+pcap.exe : pcap\pcap.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
