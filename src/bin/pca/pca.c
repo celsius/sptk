@@ -289,7 +289,7 @@ int jacobi(double **m, int n, double eps, double *e_val, double **e_vec, int ite
   return (ret);
 }
 
-int main (int argc,char *argv[])
+int main (int argc, char *argv[])
 {
    FILE *fp = stdin, *fp_eigen = NULL;
    int i, j, k, n = PRICOMP_ORDER, leng = LENG, total = -1, ispipe;
