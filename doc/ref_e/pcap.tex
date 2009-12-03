@@ -1,5 +1,5 @@
 % ----------------------------------------------------------------
-%       Speech Signal Processing Toolkit (SPTK): version 3.0
+%       Speech Signal Processing Toolkit (SPTK): version 3.3
 %                      SPTK Working Group
 % 
 %                Department of Computer Science
@@ -48,10 +48,13 @@
  sending the result to standard output.
 
  The input data set must be composed of $L$-dimension,
- mean and eigen vectors:
+ mean vector $\Vec{m}$ and eigen vectors $\Vec{e}(i)$:
 \[
- \Vec{x}(0), \Vec{x}(1), \Vec{x}(2), \Vec{x}(3), \cdots \;\;\;
- where\;\;\Vec{x}(i) = (x_{i}(1), x_{i}(2), \cdots, x_{i}(L))
+ \Vec{m}, \Vec{e}(0), \Vec{e}(1), \Vec{e}(2), \cdots
+ \]
+ \[
+ where\;\;\Vec{m} = (m(1), m(2), \cdots, m(L))\;\;and\;\;
+ \Vec{e}(i) = (e_{i}(1), e_{i}(2), \cdots, e_{i}(L))
 \]
 
 Input and output data are in float format. 
@@ -62,19 +65,20 @@ Input and output data are in float format.
  \argm{n}{N}{number principal components for output}{2}
 \end{options}
 
+
 \begin{qsection}{EXAMPLE}
  In the example below,
- the eigen vectors and the eigen values are
- calculated from three-dimentional training vectors
- from {\em pca.dat}.
- The mean vectors and eigen vectors are sent to
- {\em pca.dat}, and the eigen values are sent to {\em eigen.dat}.
+ the principal component scores are calculated
+ from {\em test.dat} and sent to {\em score.dat},
+ using {\em pca.dat}
+ in which the mean vectors and the eigen vectors
+ are contained.
 \begin{quote}
   \verb!pcap pca.dat -l 3 -n 2 < test.dat > score.dat!
 \end{quote} 
-\end{qsection}
 In the {\em pca.dat}, the mean vector must be in the front of
 eigen vectors.
+\end{qsection} 
 \begin{qsection}{SEE ALSO}
- pcap
+ \hyperlink{pca}{pca}
 \end{qsection}
