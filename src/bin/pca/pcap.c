@@ -200,7 +200,6 @@ int main (int argc, char *argv[])
    freadf(mean, sizeof(double), leng, fpca);
    for(i = 0; i < eigen_num - 1; i++)
      freadf(e_vec[i], sizeof(double), leng, fpca);
-
    
    /* Count of test data vectors */
    fseek(fp, 0L, SEEK_END);
