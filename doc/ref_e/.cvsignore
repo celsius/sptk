@@ -15,5 +15,4 @@ autom4te.cache
 tmp
 .texlipse
 SEEALSO.pl
-Makefile
 *.ps
