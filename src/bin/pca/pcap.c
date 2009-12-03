@@ -62,7 +62,7 @@
 *                                                                          *
 ****************************************************************************/
 
-static char *rcs_id = "$Id: pcap.c,v 1.2 2009/10/28 08:37:28 mataki Exp $";
+static char *rcs_id = "$Id: pcap.c,v 1.3 2009/12/03 05:00:43 mataki Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -137,7 +137,7 @@ double ** malloc_matrix(int row, int col)
   return m;
 }  
 
-int main (int argc,char *argv[])
+int main (int argc, char *argv[])
 {
    FILE *fp = stdin, *fpca = NULL;
    int i, j, k, n = -1;
