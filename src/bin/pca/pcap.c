@@ -137,7 +137,7 @@ double ** malloc_matrix(int row, int col)
   return m;
 }  
 
-int main (int argc,char *argv[])
+int main (int argc, char *argv[])
 {
    FILE *fp = stdin, *fpca = NULL;
    int i, j, k, n = -1;
