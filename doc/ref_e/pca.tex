@@ -1,5 +1,5 @@
 % ----------------------------------------------------------------
-%       Speech Signal Processing Toolkit (SPTK): version 3.0
+%       Speech Signal Processing Toolkit (SPTK): version 3.3
 %                      SPTK Working Group
 % 
 %                Department of Computer Science
@@ -71,20 +71,20 @@ Input and output data are in float format.
 \begin{qsection}{EXAMPLE}
  In the example below,
  the eigen vectors and the eigen values are
- calculated from three-dimentional training vectors
- from {\em data.f}.
+ calculated  from {\em data.f}
+ which contains three-dimentional training vectors.
  The mean vectors and eigen vectors are sent to
  {\em pca.dat}, and the eigen values are sent to {\em eigen.dat}.
 \begin{quote}
-  \verb!pca data.f -n 2 -l 2 -v -V eigen.dat > pca.dat!
+  \verb!pca data.f -n 2 -l 3 -v -V eigen.dat > pca.dat!
 \end{quote} 
-\end{qsection}
 In the {\em pca.dat}, the mean vector is in the front of
 eigen vectors.
 In the {\em eigen.dat}, 
 the eigen values and their contribution ratio are bound per
 the same principal component and ordered according to the
 magnitude of the eigen values.
+\end{qsection} 
 \begin{qsection}{SEE ALSO}
- pcap
+ \hyperlink{pcap}{pcap}
 \end{qsection}
