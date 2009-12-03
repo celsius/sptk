@@ -62,7 +62,7 @@
 *                                                                          *
 ****************************************************************************/
 
-static char *rcs_id = "$Id: pcap.c,v 1.4 2009/12/03 05:07:32 mataki Exp $";
+static char *rcs_id = "$Id: pcap.c,v 1.5 2009/12/03 05:22:24 mataki Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -200,7 +200,6 @@ int main (int argc, char *argv[])
    freadf(mean, sizeof(double), leng, fpca);
    for(i = 0; i < eigen_num - 1; i++)
      freadf(e_vec[i], sizeof(double), leng, fpca);
-
    
    /* Count of test data vectors */
    fseek(fp, 0L, SEEK_END);
