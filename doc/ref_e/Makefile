@@ -221,11 +221,11 @@ TARGET = $(PDF)
 #### Command Definitions ###################################
 ############################################################
 
-LATEX   = @LATEX@
-MAKEIDX = @MAKEINDEX@
-DVIPS   = @DVIPS@ -f
-PSPDF   = @PS2PDF@
-DVIPDF  = @DVIPDF@
+LATEX   = platex
+MAKEIDX = mendex -f
+DVIPS   = dvips -f
+PSPDF   = ps2pdf
+DVIPDF  = dvipdfmx
 
 RM    = rm -rf
 TOUCH = touch
