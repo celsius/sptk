@@ -182,8 +182,6 @@ int main (int argc, char *argv[])
 	     " must be less than dimentionality of vector.\n", cmnd);
      usage(EXIT_FAILURE);
    }
-
-
    
    /* Read eigen vectors and mean vector */
    if(fpca == NULL){
