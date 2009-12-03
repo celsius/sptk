@@ -8,6 +8,7 @@ main.out
 main.ilg
 main.pdf
 main.ind
+main.log
 config.status
 autom4te.cache
 .project
