@@ -1,6 +1,3 @@
 Makefile
-bell.sh
-glogsp.sh
-grlogsp.sh
-gwave.sh
+*.sh
 Makefile.in
