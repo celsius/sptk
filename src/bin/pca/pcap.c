@@ -62,7 +62,7 @@
 *                                                                          *
 ****************************************************************************/
 
-static char *rcs_id = "$Id: pcap.c,v 1.3 2009/12/03 05:00:43 mataki Exp $";
+static char *rcs_id = "$Id: pcap.c,v 1.4 2009/12/03 05:07:32 mataki Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -182,8 +182,6 @@ int main (int argc, char *argv[])
 	     " must be less than dimentionality of vector.\n", cmnd);
      usage(EXIT_FAILURE);
    }
-
-
    
    /* Read eigen vectors and mean vector */
    if(fpca == NULL){
