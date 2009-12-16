@@ -1,3 +1,232 @@
+2009-12-16 15:46  tatsuyaito
+
+	* include/SPTK.h: Dec.16.2009 SPTK.h updated
+
+2009-12-16 15:40  tatsuyaito
+
+	* bin/lmadf/: _lmadf.c, lmadf.c: Dec.16.2009 lmadf (lmadf.c
+	  _lmadf.c lmadf.tex) updated
+
+2009-12-16 15:39  tatsuyaito
+
+	* bin/mlsadf/: _mlsadf.c, mlsadf.c: Dec.16.2009 mlsadf (mlsadf.c
+	  _mlsadf.c mlsadf.tex) updated
+
+2009-12-16 14:15  tatsuyaito
+
+	* bin/glsadf/: _glsadf.c, glsadf.c: Dec.16.2009 glsadf (glsadf.c
+	  _glsadf.c glsadf.tex) updated
+
+2009-12-16 14:14  tatsuyaito
+
+	* bin/mglsadf/: _mglsadf.c, mglsadf.c: Dec.16.2009 mglsadf
+	  (mglsadf.c _mglsadf.c mglsadf.tex) updated
+
+2009-12-03 14:32  uratec
+
+	* .cvsignore, script/.cvsignore: add *.sh and *.pl to .cvsignore
+
+2009-12-03 14:29  uratec
+
+	* bin/rawtowav/.cvsignore: add .cvsignore to rawtowav directory.
+
+2009-12-03 14:22  mataki
+
+	* bin/pca/pcap.c: commit test for mailing list
+
+2009-12-03 14:21  uratec
+
+	* bin/dct/Makefile.in: remove Makefile.in if dct directory.
+
+2009-12-03 14:07  mataki
+
+	* bin/pca/pcap.c: commit test for mailing list
+
+2009-12-03 14:00  mataki
+
+	* bin/pca/pcap.c: commit test for mailing list(not for bug fix)
+
+2009-12-02 13:42  mataki
+
+	* bin/pca/pca.c: for commit mail test(not for bug fix)
+
+2009-12-02 13:20  mataki
+
+	* bin/pca/pca.c: for commit mail test(not for bug fix)
+
+2009-12-02 07:44  mataki
+
+	* bin/pca/.cvsignore: add pca/pcap command.
+
+2009-12-02 07:09  mataki
+
+	* bin/pca/pca.c: modification of a little bug of pca.c
+
+2009-12-02 06:22  mataki
+
+	* configure.ac: add bin/pca/Makefile
+
+2009-12-02 06:03  mataki
+
+	* bin/Makefile.mak: little modification for compiling pca and pcap
+
+2009-12-02 06:00  mataki
+
+	* bin/pca/Makefile.am: For compilation of pca and pcap
+
+2009-12-02 05:57  mataki
+
+	* bin/Makefile.am: little modification for compiling pca and pcap
+
+2009-12-02 05:55  mataki
+
+	* bin/Makefile.mak: little modificaion for compiling pca and pcap
+
+2009-12-02 03:49  uratec
+
+	* COPYING: update COPYING for version 3.3
+
+2009-12-02 03:46  uratec
+
+	* AUTHORS: update AUTHORS for version 3.3.
+
+2009-11-17 01:25  mataki
+
+	* bin/pca/pca.c: [no log message]
+
+2009-11-16 22:40  mataki
+
+	* bin/pca/pca.c: [no log message]
+
+2009-11-13 21:58  senzaimin
+
+	* bin/gmm/gmm.c, bin/gmm/_gmm.c, include/SPTK.h: [no log message]
+
+2009-11-02 19:00  tatsuyaito
+
+	* bin/dct/dct.c: nov.2.2009 dct updated
+
+2009-10-28 20:15  senzaimin
+
+	* bin/lspcheck/_lspcheck.c: [no log message]
+
+2009-10-28 20:11  senzaimin
+
+	* bin/lspcheck/lspcheck.c: [no log message]
+
+2009-10-28 17:37  mataki
+
+	* bin/pca/pcap.c: [no log message]
+
+2009-10-28 17:23  mataki
+
+	* bin/pca/pca.c: [no log message]
+
+2009-10-28 00:24  senzaimin
+
+	* bin/mcep/mcep.c: [no log message]
+
+2009-10-14 19:18  mataki
+
+	* bin/pca/pca.c: [no log message]
+
+2009-10-08 14:43  uratec
+
+	* bin/mlsadf/mlsadf.c: Bug fix suggested by Ranniery Maia: Inverse
+	  filter in mlsadf
+
+2009-09-30 16:37  senzaimin
+
+	* bin/rawtowav/Makefile.in: [no log message]
+
+2009-09-30 16:23  senzaimin
+
+	* bin/Makefile.mak: [no log message]
+
+2009-09-30 16:19  senzaimin
+
+	* bin/Makefile.am: [no log message]
+
+2009-09-30 16:13  senzaimin
+
+	* configure.ac: [no log message]
+
+2009-09-30 15:57  mataki
+
+	* bin/pca/pca.c: Principal component analysis
+
+2009-09-30 15:45  mataki
+
+	* bin/pca/pcap.c: [no log message]
+
+2009-09-30 15:44  senzaimin
+
+	* script/Makefile.am: [no log message]
+
+2009-09-30 15:37  senzaimin
+
+	* script/raw2wav.in: [no log message]
+
+2009-09-30 15:30  senzaimin
+
+	* bin/rawtowav/: Makefile.am, Makefile.in: [no log message]
+
+2009-09-30 15:23  senzaimin
+
+	* bin/rawtowav/rawtowav.c: [no log message]
+
+2009-09-29 18:20  mataki
+
+	* bin/pca/pca.c: modified the configuration of the output.
+
+2009-09-11 16:19  tatsuyaito
+
+	* bin/dct/dct.c: Sep.11.2009 dct updated
+
+2009-09-11 16:17  tatsuyaito
+
+	* bin/: lmadf/lmadf.c, glsadf/glsadf.c, mglsadf/mglsadf.c:
+	  Sep.11.2009 lmadf,glsadf,mglsadf -v option  updated
+
+2009-08-21 18:51  mataki
+
+	* bin/pca/: Makefile, Makefile.in, Makefile.am, pca.o: [no log
+	  message]
+
+2009-08-21 15:25  mataki
+
+	* bin/pca/: Makefile.in, Makefile.am: [no log message]
+
+2009-08-21 15:20  mataki
+
+	* bin/pca/Makefile: [no log message]
+
+2009-08-21 15:19  mataki
+
+	* bin/pca/pca.o: object file for pca.c
+
+2009-08-21 15:16  mataki
+
+	* bin/pca/pca.c: PCA : Principal component analysis
+
+2009-04-16 13:55  uratec
+
+	* bin/fftcep/fftcep.c: Fix suggested by Akira Tamamori: Bug fix for
+	  file input in fftcep.c
+
+2008-11-18 08:33  uratec
+
+	* bin/dct/.cvsignore: add dct binary file name into
+	  src/bin/dct/.cvsignore
+
+2008-11-16 23:16  s_sako
+
+	* bin/dct/dct.c: fix the declaration of dct_create_table()
+
+2008-11-14 17:05  s_sako
+
+	* ChangeLog: update for v3.2
+
 2008-11-14 16:18  uratec
 
 	* INSTALL, README: change release date from 11/12 to 11/14.  remove
@@ -130,10 +359,6 @@
 
 	* bin/gmm/: .cvsignore, Makefile.am, gmm.c, gmm.h, gmmp.c: Add gmmp
 	  command, move some definitions to gmm.h.
-
-2008-06-26 17:26  heigazen
-
-	* bin/delta/.deps/.cvsignore: [no log message]
 
 2008-06-26 16:50  heigazen
 

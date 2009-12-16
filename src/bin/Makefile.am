@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.9 2009/12/01 20:57:32 mataki Exp $
+## $Id: Makefile.am,v 1.10 2009/12/16 07:39:28 uratec Exp $
 
 SUBDIRS = acep \
 	acorr \
@@ -46,9 +46,7 @@ SUBDIRS = acep \
 	histogram \
 	ifft \
 	ifft2 \
-	iglsadf \
 	ignorm \
-	imglsadf \
 	impulse \
 	imsvq \
 	interpolate \
