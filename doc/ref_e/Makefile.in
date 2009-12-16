@@ -8,7 +8,7 @@
 #                           Interdisciplinary Graduate School of    #
 #                           Science and Engineering                 #
 #                                                                   #
-#                1996-2008  Nagoya Institute of Technology          #
+#                1996-2009  Nagoya Institute of Technology          #
 #                           Department of Computer Science          #
 #                                                                   #
 # All rights reserved.                                              #
@@ -102,9 +102,7 @@ INC  = cmndref.sty \
 	histogram.tex \
 	ifft.tex \
 	ifft2.tex \
-	iglsadf.tex \
 	ignorm.tex \
-	imglsadf.tex \
 	impulse.tex \
 	imsvq.tex \
 	interpolate.tex \
@@ -148,6 +146,7 @@ INC  = cmndref.sty \
 	rmse.tex \
 	root_pol.tex \
 	sin.tex \
+	smcep.tex \
 	snr.tex \
 	sopr.tex \
 	spec.tex \
@@ -170,33 +169,33 @@ INC  = cmndref.sty \
 	zerodf.tex \
 	ref.tex
 EPSF = fig/bcp.eps \
+	fig/box.eps \
+	fig/circle.eps \
+	fig/clip.eps \
 	fig/dct.eps \
 	fig/df2.eps \
-	fig/fft2.eps \
-	fig/fft2-trans.eps \
 	fig/fft2-comp.eps \
 	fig/fft2-quad.eps \
+	fig/fft2-trans.eps \
+	fig/fft2.eps \
 	fig/fftr2.eps \
+	fig/fig-print1.eps \
+	fig/fig-print2.eps \
 	fig/g0.eps \
 	fig/g1.eps \
 	fig/g2.eps \
-	fig/scale.eps \
-	fig/fig-print1.eps \
-	fig/fig-print2.eps \
-	fig/grid.eps \
-	fig/circle.eps \
-	fig/box.eps \
-	fig/clip.eps \
-	fig/mark.eps \
-	fig/pen-line.eps \
-	fig/join-type.eps \
-	fig/paint.eps \
 	fig/glogsp-on.eps \
 	fig/glogsp-sample.eps \
+	fig/grid.eps \
 	fig/grlogsp-on.eps \
 	fig/ifft.eps \
 	fig/ifft2.eps \
+	fig/join-type.eps \
+	fig/mark.eps \
 	fig/merge.eps \
+	fig/paint.eps \
+	fig/pen-line.eps \
+	fig/scale.eps \
 	fig/sptk_sigproc.eps
 
 
@@ -223,11 +222,11 @@ TARGET = $(PDF)
 #### Command Definitions ###################################
 ############################################################
 
-LATEX   = platex
-MAKEIDX = mendex -f
-DVIPS   = dvips -f
-PSPDF   = ps2pdf
-DVIPDF  = dvipdfmx
+LATEX   = @LATEX@
+MAKEIDX = @MAKEINDEX@
+DVIPS   = @DVIPS@ -f
+PSPDF   = @PS2PDF@
+DVIPDF  = @DVIPDF@
 
 RM    = rm -rf
 TOUCH = touch
