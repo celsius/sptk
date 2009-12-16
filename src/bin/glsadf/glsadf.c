@@ -58,6 +58,7 @@
 *               -n       :  regard input as normalized      [FALSE]     *
 *                           generalized cepstrum                        *
 *               -v       :  inverse filter                  [FALSE]     *
+*               -t       :  transpose filter                [FALSE]     *
 *               -k       :  filtering without gain          [FALSE]     *
 *               -P Pa    :  order of Pade approximation     [4]         *
 *        infile:                                                        *
@@ -71,7 +72,7 @@
 *        note:                                                          *
 *               if c==0, LMA filter is used, P should be 4 or 5         *
 *        require:                                                       *
-*               glsadf(), lmadf()                                       *
+*               glsadf(), lmadf(), iglsadf(), glsadft(), iglsadft()     *
 *                                                                       *
 ************************************************************************/
 
@@ -106,6 +107,7 @@ static char *rcs_id = "$Id$";
 #define IPERIOD 1
 #define NORM FA
 #define INVERSE   FA
+#define TRANSPOSE FA
 #define NGAIN FA
 #define PADEORD 4
 
@@ -130,6 +132,7 @@ void usage (int status)
    fprintf(stderr, "       -n    : regard input as normalized\n");
    fprintf(stderr, "               generalized cepstrum          [%s]\n", BOOL[NORM]);
    fprintf(stderr, "       -v    : inverse filter                [%s]\n", BOOL[INVERSE]);
+   fprintf(stderr, "       -t    : transpose filter              [%s]\n", BOOL[TRANSPOSE]);
    fprintf(stderr, "       -k    : filtering without gain        [%s]\n", BOOL[NGAIN]);
    fprintf(stderr, "       -P P  : order of Pade approximation   [%d]\n", PADEORD);
    fprintf(stderr, "       -h    : print this message\n");
@@ -154,7 +157,7 @@ int main (int argc, char **argv)
 {
    int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, stage=STAGE, i, j, pd=PADEORD;
    FILE *fp=stdin, *fpc=NULL;
-   Boolean norm=NORM, ngain=NGAIN, inverse=INVERSE;
+   Boolean norm=NORM, ngain=NGAIN, transpose=TRANSPOSE, inverse=INVERSE;
    double *c, *inc, *cc, *d, x, gamma;
     
    if ((cmnd = strrchr(argv[0], '/'))==NULL)
@@ -186,6 +189,9 @@ int main (int argc, char **argv)
             break;
          case 'v':
             inverse = 1 - inverse;
+            break;
+         case 't':
+            transpose = 1 - transpose;
             break;
          case 'k':
             ngain = 1 - ngain;
@@ -221,6 +227,13 @@ int main (int argc, char **argv)
       }
    }
     
+   if (inverse) {
+     if (stage==0) {
+       fprintf(stderr, "%s : gamma should not equal to 0 in Inverse GLSA!\n", cmnd);
+       usage(1);
+     }
+   }
+
    c = (stage!=0) ? dgetmem(m+m+m+3+m*stage) 
                   : dgetmem(m+m+m+3+(m+1)*pd*2);
    cc  = c  + m + 1;
@@ -230,25 +243,20 @@ int main (int argc, char **argv)
    if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
    if (stage!=0) {
       if (!norm) gnorm(c, c, m, gamma);
+      c[0] = log(c[0]);
       for (i=1; i<=m; i++)   
          c[i] *= gamma;
-   }
-   if (inverse) {
-      c[0] = 0;
-      for (i=1; i<=m; i++) c[i] *= -1;
    }
 
    for (;;) {
       if (freadf(cc, sizeof(*cc), m+1, fpc) != m+1) return(0);
       if (stage!=0) {  /* GLSA */
-         if(!norm) gnorm(cc, cc, m, gamma);
-         for (i=1; i<=m; i++)
-            cc[i] *= gamma;
+	if(!norm) gnorm(cc, cc, m, gamma); 
+	cc[0] = log(cc[0]);
+	  for (i=1; i<=m; i++)
+	    cc[i] *= gamma;  
       }
-      if (inverse) {
-         cc[0] = 0;
-         for (i=1; i<=m; i++) cc[i] *= -1;
-      }
+
    
       for (i=0; i<=m; i++)
          inc[i] = (cc[i] - c[i])*iprd / fprd;
@@ -256,15 +264,26 @@ int main (int argc, char **argv)
       for (j=fprd, i=(iprd+1)/2; j--;) {
          if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
-         if (stage!=0) {  /* GLSA */
-            if (!ngain) x *= c[0];
-	      x = glsadf(x, c, m, stage, d);
-         }
-         else {  /* LMA */
-            if (!ngain) x *= exp(c[0]);
-            x = lmadf(x, c, m, pd, d);
-         }
-      
+	 if (inverse) {   /* IGLSA */
+	   if (!ngain) x *= exp(c[0]);
+	   if (transpose)
+	     x = iglsadft(x, c, m, stage, d);
+	   else 
+	     x = iglsadf(x, c, m, stage, d);
+	 } else {
+	   if (stage!=0) {  /* GLSA */
+	     if (!ngain) x *= exp(c[0]);
+	     if (transpose) {
+               x = glsadft(x, c, m, stage, d);
+	     } else { 
+	       x = glsadf(x, c, m, stage, d);
+	     }
+	   }
+	   else {  /* LMA */
+	     if (!ngain) x *= exp(c[0]);
+	     x = lmadf(x, c, m, pd, d);
+	   }
+	 }
          fwritef(&x, sizeof(x), 1, stdout);
             
          if (!--i) {

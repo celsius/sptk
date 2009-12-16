@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2008  Nagoya Institute of Technology          %
+%                1996-2009  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -46,7 +46,7 @@
 {filters for speech synthesis}
 
 \begin{synopsis}
-\item [glsadf] [ --m $M$ ] [ --c $C$ ] [ --p $P$ ] [ --i $I$ ] [ --n ] [ --k ] [ --P $Pa$ ]
+\item [glsadf] [ --m $M$ ] [ --c $C$ ] [ --p $P$ ] [ --i $I$ ] [ --v ] [ --t ] [ --n ] [ --k ] [ --P $Pa$ ]
  {\em gcfile}  [ {\em infile} ]
 \end{synopsis}
 
@@ -118,6 +118,8 @@ in figure\ref{fig:glsadflt_GLSA}, where
         \argm{p}{P}{frame period}{100}
         \argm{i}{I}{interpolation period}{1}
         \argm{n}{}{regard input as normalized generalized cepstrum}{FALSE}
+        \argm{v}{}{inverse filter}{FALSE}
+        \argm{t}{}{transpose filter}{FALSE}
         \argm{k}{}{filtering without gain}{FALSE}
         \desc[1ex]{The option below only works if $C==0$.}
         \argm{P}{Pa}{order of the Pad\'e approximation\\
