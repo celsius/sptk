@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -222,8 +222,14 @@ int main (int argc, char **argv)
    if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
    if (! bflag)
       mc2b(c, c, m, a);
+
    if (inverse) {
-      for (i=0; i<=m; i++) c[i] *= -1;
+     if (!ngain) {  
+       for (i=0; i<=m; i++) c[i] *= -1;
+     } else {
+       c[0] = 0;
+       for (i=1; i<=m; i++) c[i] *= -1;
+     }
    }
 
    for (;;) {
@@ -231,7 +237,12 @@ int main (int argc, char **argv)
       if (! bflag)
          mc2b(cc, cc, m, a);
       if (inverse) {
+	if (!ngain) {
          for (i=0; i<=m; i++) cc[i] *= -1;
+	} else {
+	  cc[0] = 0;
+	  for (i=1; i<=m; i++) cc[i] *= -1;
+	}
       }
 
       for (i=0; i<=m; i++)
@@ -241,7 +252,7 @@ int main (int argc, char **argv)
          if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
          if (!ngain) x *= exp(c[0]);
-         x = mlsadf(x, c, m, a, pd, d);
+	 x = mlsadf(x, c, m, a, pd, d);
 
          fwritef(&x, sizeof(x), 1, stdout);
 
