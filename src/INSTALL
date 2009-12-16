@@ -1,34 +1,20 @@
+Installation Instructions
+*************************
 
-****************************************************************
-                          Environment
-****************************************************************
+1. After unpacking the tar.gz file, cd to the SPTK directory.
 
-We expect that all programs can be compiled and can work on most
-of UNIX-type operation systems.  For Windows operation system,
-a makefile for Microsoft Visual C++ is also included.
+2. Run configure script with appropriate options.
 
-Note that some commands need C-shell (/bin/csh) since they are
-implemented by C-shell scripts.
+   % ./configure
 
-****************************************************************
-                          Installation
-****************************************************************
+   For detail, please see.
 
-1) Type
+   % ./configure --help
 
-       % ./configure --help
+3. Run make.
 
-  and read the help messages.
+   % make
 
-2) To build and install all tools, type:
+4. Install library and binary.
 
-       % ./configure --prefix=/usr/local/SPTK
-       % make
-       % make install
-
-The X-window library is not required for compilation of all tools
-except a command 'xgr' since only 'xgr' uses the X-window library.
-
-For Microsoft Visual C++, please use src/Makefile.mak.  Note that
-some of commands of SPTK which use GUI and/or audio I/O are not 
-supported on the Windows operating system.
+   % make install

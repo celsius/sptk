@@ -22,8 +22,8 @@ all: acep.exe acorr.exe agcep.exe amcep.exe \
 	decimate.exe delay.exe delta.exe df2.exe dfs.exe dmp.exe ds.exe echo2.exe \
 	excite.exe extract.exe fd.exe fft.exe fft2.exe fftcep.exe fftr.exe fftr2.exe \
 	frame.exe freqt.exe gc2gc.exe gcep.exe glsadf.exe gmm.exe gnorm.exe \
-	grpdelay.exe histogram.exe ifft.exe ifft2.exe iglsadf.exe \
-	ignorm.exe imglsadf.exe impulse.exe imsvq.exe interpolate.exe ivq.exe \
+	grpdelay.exe histogram.exe ifft.exe ifft2.exe \
+	ignorm.exe impulse.exe imsvq.exe interpolate.exe ivq.exe \
 	lbg.exe levdur.exe linear_intpl.exe lmadf.exe lpc.exe lpc2c.exe lpc2lsp.exe \
 	lpc2par.exe lsp2lpc.exe lspcheck.exe lspdf.exe ltcdf.exe mc2b.exe mcep.exe \
 	merge.exe mgc2mgc.exe mgc2sp.exe mgcep.exe mglsadf.exe minmax.exe mlpg.exe \

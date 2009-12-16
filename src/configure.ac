@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
 AC_INIT(SPTK, 3.2, http://sourceforge.net/projects/sp-tk/)
 AC_CONFIG_AUX_DIR([config])
 AC_COPYRIGHT(Copyright 1984-2007 Tokyo Institute of Technology)
-AC_COPYRIGHT(Copyright 1996-2008 Nagoya Institute of Technology)
+AC_COPYRIGHT(Copyright 1996-2009 Nagoya Institute of Technology)
 AM_INIT_AUTOMAKE(SPTK, 3.2, nostdinc no-installinfo no-installman)
 AC_SUBST(PACKAGE_NAME)
 AC_SUBST(PACKAGE_VERSION)
@@ -193,9 +193,7 @@ AC_CONFIG_FILES([Makefile
                  bin/histogram/Makefile
                  bin/ifft/Makefile
                  bin/ifft2/Makefile
-                 bin/iglsadf/Makefile
                  bin/ignorm/Makefile
-                 bin/imglsadf/Makefile
                  bin/impulse/Makefile
                  bin/imsvq/Makefile
                  bin/interpolate/Makefile

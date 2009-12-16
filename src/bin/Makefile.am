@@ -46,9 +46,7 @@ SUBDIRS = acep \
 	histogram \
 	ifft \
 	ifft2 \
-	iglsadf \
 	ignorm \
-	imglsadf \
 	impulse \
 	imsvq \
 	interpolate \

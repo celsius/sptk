@@ -1,20 +1,14 @@
+Version 3.2:
+ * released under the New and Simplified BSD license.
+ * add 'gmm', 'delta', and 'dct' commands.
+ * Command options are rearranged for improving consistency
+   among related commands, e.g., mgcep, mglsa, etc.
+ * support Windows (except 'xgr').
+ * bug fixes.
 
-****************************************************************
-                           What's new
-****************************************************************
-
-The differences between version 3.1 and 3.2:
-
- - released under the New and Simplified BSD license
- 
- - add 'gmm', 'delta', and 'dct' commands 
-
- - Command options are rearranged for improving consistency
-   among related commands, e.g., mgcep, mglsa, etc
-
- - bug fixes
-
- - support Windows (except 'xgr')
-
-Please see ChangeLog included in the release for details.
-
+Version 3.1:
+ * change from K&R to ANSI C.
+ * add several commands
+ * release a Reference Manual written in English, and abandon
+   Japanese manuals and web pages
+ * bug fixes.
