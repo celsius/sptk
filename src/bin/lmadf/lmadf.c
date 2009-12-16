@@ -146,98 +146,106 @@ void usage (int status)
 
 int main (int argc, char **argv)
 {
-   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, i, j, pd=PADEORD;
-   FILE *fp=stdin, *fpc=NULL;
-   double *c, *inc, *cc, *d, x;
-   Boolean ngain=NGAIN, inverse=INVERSE;
-
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
-      cmnd = argv[0];
-   else
-      cmnd++;
-   while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
-         case 'm':
-            m = atoi(*++argv);
-            --argc;
-            break;
-         case 'p':
-            fprd = atoi(*++argv);
-            --argc;
-            break;
-         case 'i':
-            iprd = atoi(*++argv);
-            --argc;
-            break;
-         case 'P':
-            pd = atoi(*++argv);
-            --argc;
-            break;
-         case 'k':
-            ngain = 1 - ngain;
-            break;
-         case 'v':
-            inverse = 1 - inverse;
-            break;
-         case 'h':
-            usage (0);
-         default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
-         }
+  int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, i, j, pd=PADEORD;
+  FILE *fp=stdin, *fpc=NULL;
+  double *c, *inc, *cc, *d, x;
+  Boolean ngain=NGAIN, inverse=INVERSE;
+  
+  if ((cmnd=strrchr(argv[0], '/'))==NULL)
+    cmnd = argv[0];
+  else
+    cmnd++;
+  while (--argc)
+    if (**++argv=='-') {
+      switch (*(*argv+1)) {
+      case 'm':
+	m = atoi(*++argv);
+	--argc;
+	break;
+      case 'p':
+	fprd = atoi(*++argv);
+	--argc;
+	break;
+      case 'i':
+	iprd = atoi(*++argv);
+	--argc;
+	break;
+      case 'P':
+	pd = atoi(*++argv);
+	--argc;
+	break;
+      case 'k':
+	ngain = 1 - ngain;
+	break;
+      case 'v':
+	inverse = 1 - inverse;
+	break;
+      case 'h':
+	usage (0);
+      default:
+	fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+	usage (1);
       }
-      else if (fpc==NULL)
-         fpc = getfp(*argv, "rb");
-      else
-         fp = getfp(*argv, "rb");
-
-   if ((pd<4)||(pd>5)) {
-      fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
-      return(1);
-   }
-
-   if (fpc==NULL) {
-      fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
-      return(1);
-   }
-
-   c = dgetmem(m+m+m+3+(m+1)*pd*2);
-   cc  = c  + m + 1;
-   inc = cc + m + 1;
-   d   = inc+ m + 1;
-
-   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
-   if (inverse) {
+    }
+    else if (fpc==NULL)
+      fpc = getfp(*argv, "rb");
+    else
+      fp = getfp(*argv, "rb");
+  
+  if ((pd<4)||(pd>5)) {
+    fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
+    return(1);
+  }
+  
+  if (fpc==NULL) {
+    fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
+    return(1);
+  }
+  
+  c = dgetmem(m+m+m+3+(m+1)*pd*2);
+  cc  = c  + m + 1;
+  inc = cc + m + 1;
+  d   = inc+ m + 1;
+  
+  if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
+  if (inverse) {
+    if (!ngain) {
+      for (i=0; i<=m; i++) c[i] *= -1;
+    } else { 
       c[0] = 0;
       for (i=1; i<=m; i++) c[i] *= -1;
-   }
-
-   for (;;) {
+    }
+  }
+  
+    for (;;) {
       if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
       if (inverse) {
-         cc[0] = 0;
-         for (i=1; i<=m; i++) cc[i] *= -1;
+	if (!ngain) {
+	  for (i=0; i<=m; i++) cc[i] *= -1;
+	} else {
+	  cc[0] = 0;
+	  for (i=1; i<=m; i++) cc[i] *= -1;
+	}
       }
       for (i=0; i<=m; i++)
-         inc[i] = (cc[i] - c[i])*iprd / fprd;
-
+	inc[i] = (cc[i] - c[i])*iprd / fprd;
+      
       for (j=fprd, i=(iprd+1)/2; j--;) {
-         if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
-
-         if (!ngain) x *= exp(c[0]);
-	   x = lmadf(x, c, m, pd, d);
-         fwritef(&x, sizeof(x), 1, stdout);
-
-         if (!--i) {
+	  if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
+	  
+	  if (!ngain) x *= exp(c[0]);
+	  x = lmadf(x, c, m, pd, d);
+	  fwritef(&x, sizeof(x), 1, stdout);
+	  
+	  if (!--i) {
             for (i=0; i<=m; i++) c[i] += inc[i];
             i = iprd;
-         }
+	  }
       }
-
+      
       movem(cc, c, sizeof(*cc), m+1);
-   }
-   
-   return(0);
+    }
+    
+    return(0);
 }
 
