@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _mlsadf.c,v 1.11 2008/06/16 05:48:45 heigazen Exp $
+    $Id: _mlsadf.c,v 1.12 2009/12/16 06:39:03 tatsuyaito Exp $
 
     MLSA Digital Filter
 
@@ -153,3 +153,25 @@ double mlsadf (double x, double *b, const int m, const double a, const int pd, d
 
    return(x);
 }
+
+
+static double mlsafirt (double x, double *b, const int m, const double a, double *d)
+{
+  int i;
+  double y=0.0;
+
+  y = (1.0 - a * a) * d[0];
+  
+  d[m] = b[m] * x + a * d[m-1];
+  for (i=m-1; i>1; i--)
+    d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
+  d[1] += a * (d[0] - d[2]);
+
+  for(i=0; i<m; i++)
+    d[i] = d[i+1];
+  
+  return (y);
+}
+
+
+
