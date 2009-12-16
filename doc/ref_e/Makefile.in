@@ -64,6 +64,7 @@ INC  = cmndref.sty \
 	c2acr.tex \
 	c2ir.tex \
 	c2sp.tex \
+	cat2.tex \
 	cdist.tex \
 	clip.tex \
 	da.tex \
