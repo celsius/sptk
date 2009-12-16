@@ -17,3 +17,7 @@ tmp
 .texlipse
 SEEALSO.pl
 *.ps
+*.sh
+Makefile
+configure
+*.log
