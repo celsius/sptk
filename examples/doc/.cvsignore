@@ -5,3 +5,7 @@ examples.dvi
 .texlipse
 examples.ps
 examples_old.pdf
+*.log
+*.aux
+*.toc
+*.sh
