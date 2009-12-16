@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -68,11 +68,10 @@
 #  include <SPTK.h>
 #endif
 
-void clip (double *x, const int l, const double min, const double max, double *y)
+void clip(double *x, const int l, const double min, const double max, double *y)
 {
    int i;
- 
-   for (i=0; i<l; i++)
-      y[i] = (x[i]<min) ? min : ((x[i]>max) ? max : x[i]);
-}
 
+   for (i = 0; i < l; i++)
+      y[i] = (x[i] < min) ? min : ((x[i] > max) ? max : x[i]);
+}

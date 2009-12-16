@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -67,16 +67,16 @@
 #include <stdlib.h>
 #include <math.h>
 
-void c2ir (double *c, const int nc, double *h, const int leng)
+void c2ir(double *c, const int nc, double *h, const int leng)
 {
    int n, k, upl;
    double d;
 
    h[0] = exp(c[0]);
-   for (n=1; n<leng; n++) {
+   for (n = 1; n < leng; n++) {
       d = 0;
-      upl = (n>=nc) ? nc - 1 : n;
-      for (k=1; k<=upl; k++)
+      upl = (n >= nc) ? nc - 1 : n;
+      for (k = 1; k <= upl; k++)
          d += k * c[k] * h[n - k];
       h[n] = d / n;
    }
@@ -84,20 +84,19 @@ void c2ir (double *c, const int nc, double *h, const int leng)
    return;
 }
 
-void ic2ir (double *h, const int leng, double *c, const int nc)
+void ic2ir(double *h, const int leng, double *c, const int nc)
 {
    int n, k, upl;
    double d;
 
    c[0] = log(h[0]);
-   for(n=1; n<nc; n++) {
-      d = (n>=leng) ? 0 : n*h[n];
-      upl = (n>leng) ? n-leng+1 : 1;
-      for (k=upl; k<n; k++)
-         d -= k*c[k] * h[n-k];
+   for (n = 1; n < nc; n++) {
+      d = (n >= leng) ? 0 : n * h[n];
+      upl = (n > leng) ? n - leng + 1 : 1;
+      for (k = upl; k < n; k++)
+         d -= k * c[k] * h[n - k];
       c[n] = d / (n * h[0]);
    }
 
    return;
 }
- 

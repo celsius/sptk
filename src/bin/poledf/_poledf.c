@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -59,27 +59,26 @@
 
 *****************************************************************/
 
-double poledf (double x, double *a, int m, double *d)
+double poledf(double x, double *a, int m, double *d)
 {
-   for (m--; m>0; m--) {
-      x -= a[m+1] * d[m];
-      d[m] = d[m-1];
+   for (m--; m > 0; m--) {
+      x -= a[m + 1] * d[m];
+      d[m] = d[m - 1];
    }
    x -= a[1] * d[0];
    d[0] = x;
 
-   return(x);
+   return (x);
 }
 
-double poledft (double x, double *a, int m, double *d)
+double poledft(double x, double *a, int m, double *d)
 {
    int i;
 
    x -= d[0];
-   for (i=1; i<m; i++)
-      d[i-1] = d[i] + a[i] * x;
-   d[m-1] = a[m] * x;
+   for (i = 1; i < m; i++)
+      d[i - 1] = d[i] + a[i] * x;
+   d[m - 1] = a[m] * x;
 
-   return(x);
+   return (x);
 }
-

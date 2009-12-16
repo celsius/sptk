@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -67,7 +67,8 @@
 *                                                                            *
 *****************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /* Standard C Libraries */
@@ -103,7 +104,7 @@ static char *rcs_id = "$Id$";
 #define HEADERSIZE  0
 #define VERBOSE     FA
 
-char *BOOL_STR[] = {"FALSE", "TRUE"};
+char *BOOL_STR[] = { "FALSE", "TRUE" };
 
 /* Command Name */
 char *cmnd;
@@ -111,93 +112,107 @@ char *cmnd;
 void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - play 16-bit linear PCM data\n\n",cmnd);
+   fprintf(stderr, " %s - play 16-bit linear PCM data\n\n", cmnd);
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] infile1 infile2 ... > stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] infile1 infile2 ... > stdout\n",
+           cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -s s  : sampling frequency (%s kHz) [%d]\n", AVAILABLE_FREQ, DEFAULT_FREQ);
-   fprintf(stderr, "       -g g  : gain (..,-2,-1,0,1,2,..)                    [%d]\n",GAIN);
-   fprintf(stderr, "       -a a  : amplitude gain (0..100)                     [N/A]\n");
+   fprintf(stderr, "       -s s  : sampling frequency (%s kHz) [%d]\n",
+           AVAILABLE_FREQ, DEFAULT_FREQ);
+   fprintf(stderr,
+           "       -g g  : gain (..,-2,-1,0,1,2,..)                    [%d]\n",
+           GAIN);
+   fprintf(stderr,
+           "       -a a  : amplitude gain (0..100)                     [N/A]\n");
 #ifdef SPARC
-   fprintf(stderr, "       -o o  : output port                                 [%c]\n",OUTPORT);
+   fprintf(stderr,
+           "       -o o  : output port                                 [%c]\n",
+           OUTPORT);
    fprintf(stderr, "                  s (speaker)    h (headphone)\n");
-#endif /* SPARC */
-   fprintf(stderr, "       -H H  : header size in byte                         [%d]\n",HEADERSIZE);
-   fprintf(stderr, "       -v    : display filename                            [%s]\n",BOOL_STR[VERBOSE]);
-   fprintf(stderr, "       -w    : byteswap                                    [FALSE]\n");
-   fprintf(stderr, "       +x    : data format                                 [s]\n");
+#endif                          /* SPARC */
+   fprintf(stderr,
+           "       -H H  : header size in byte                         [%d]\n",
+           HEADERSIZE);
+   fprintf(stderr,
+           "       -v    : display filename                            [%s]\n",
+           BOOL_STR[VERBOSE]);
+   fprintf(stderr,
+           "       -w    : byteswap                                    [FALSE]\n");
+   fprintf(stderr,
+           "       +x    : data format                                 [s]\n");
    fprintf(stderr, "                  s (short)  f (float)   d (double)\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data                                                [stdin]\n");
+   fprintf(stderr,
+           "       data                                                [stdin]\n");
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       number of infile < %d\n",MAXFILES);
+   fprintf(stderr, "       number of infile < %d\n", MAXFILES);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
-#endif /* PACKAGE_VERSION */
+#endif                          /* PACKAGE_VERSION */
    fprintf(stderr, "\n");
    exit(status);
 }
 
-static char outport=OUTPORT;
-static short *y=NULL, *xs;
-static int gain=GAIN, is_verbose=VERBOSE;
-static int hdr_size=HEADERSIZE;
-static size_t data_size=sizeof(short);
-static int freq=DEFAULT_FREQ*1000;
+static char outport = OUTPORT;
+static short *y = NULL, *xs;
+static int gain = GAIN, is_verbose = VERBOSE;
+static int hdr_size = HEADERSIZE;
+static size_t data_size = sizeof(short);
+static int freq = DEFAULT_FREQ * 1000;
 static float *xf;
-static double *x, fgain=1.0;
-double ampgain=-1.0;
-int byteswap=0;
+static double *x, fgain = 1.0;
+double ampgain = -1.0;
+int byteswap = 0;
 size_t abuf_size;
 
 #if defined(LINUX) || defined(FreeBSD)
 int org_vol, org_channels, org_precision, org_freq;
-#endif /* LINUX or FreeBSD */
+#endif                          /* LINUX or FreeBSD */
 
 #if defined(SOLARIS) || defined(SUNOS)
 audio_info_t org_data;
-#endif /* SOLARIS or SUNOS */
+#endif                          /* SOLARIS or SUNOS */
 
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
    FILE *fp;
    char *s, *infile[MAXFILES], c;
-   int i, nfiles=0;
- 
-   void direct(FILE *fp);
+   int i, nfiles = 0;
+
+   void direct(FILE * fp);
    void sndinit(void);
    void init_audiodev(int dtype);
    void reset_audiodev(void);
-   
-   if ((s = getenv("DA_FLOAT"))!=NULL)
+
+   if ((s = getenv("DA_FLOAT")) != NULL)
       data_size = sizeof(float);
-   if ((s = getenv("DA_DOUBLE"))!=NULL)
+   if ((s = getenv("DA_DOUBLE")) != NULL)
       data_size = sizeof(double);
-   if ((s = getenv("DA_SMPLFREQ"))!=NULL)
-      freq = (int)(1000*atof(s));
-   if ((s = getenv("DA_GAIN"))!=NULL)
+   if ((s = getenv("DA_SMPLFREQ")) != NULL)
+      freq = (int) (1000 * atof(s));
+   if ((s = getenv("DA_GAIN")) != NULL)
       gain = atoi(s) + INITGAIN;
-   if ((s = getenv("DA_AMPGAIN"))!=NULL)
+   if ((s = getenv("DA_AMPGAIN")) != NULL)
       ampgain = atof(s);
-   if ((s = getenv("DA_PORT"))!=NULL)
+   if ((s = getenv("DA_PORT")) != NULL)
       outport = *s;
-   if ((s = getenv("DA_HDRSIZE"))!=NULL)
+   if ((s = getenv("DA_HDRSIZE")) != NULL)
       hdr_size = atoi(s);
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
    while (--argc)
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
          switch (c) {
          case 's':
-            freq = (int)(1000*atof(*++argv));
+            freq = (int) (1000 * atof(*++argv));
             --argc;
             break;
          case 'g':
@@ -225,11 +240,10 @@ int main (int argc, char *argv[])
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      } 
-      else if (*s=='+') {
+      } else if (*s == '+') {
          c = *++s;
          switch (c) {
          case 's':
@@ -242,28 +256,28 @@ int main (int argc, char *argv[])
             data_size = sizeof(double);
             break;
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n",cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else {
-         if (nfiles<MAXFILES)
+      } else {
+         if (nfiles < MAXFILES)
             infile[nfiles++] = s;
          else {
-            fprintf(stderr, "%s : Number of files exceed %d!\n", cmnd, MAXFILES);
-            return(1);
+            fprintf(stderr, "%s : Number of files exceed %d!\n", cmnd,
+                    MAXFILES);
+            return (1);
          }
       }
 
-   if ((x = (double *)calloc(SIZE, sizeof(double)))==NULL) {
+   if ((x = (double *) calloc(SIZE, sizeof(double))) == NULL) {
       fprintf(stderr, "%s : Cannot allocate memory!\n", cmnd);
-      return(1);
+      return (1);
    }
-   xf = (float *)x;
-   xs = (short *)x;
-   if ((y = (short *)calloc(SIZE*2, sizeof(double)))==NULL) {
+   xf = (float *) x;
+   xs = (short *) x;
+   if ((y = (short *) calloc(SIZE * 2, sizeof(double))) == NULL) {
       fprintf(stderr, "%s : Cannot allocate memory!\n", cmnd);
-      return(1);
+      return (1);
    }
 
    sndinit();
@@ -274,11 +288,10 @@ int main (int argc, char *argv[])
       fgain = 1.0 / fgain;
 
    if (nfiles) {
-      for (i=0; i<nfiles; i++) {
-         if ((fp = fopen(infile[i], "rb"))==NULL) {
+      for (i = 0; i < nfiles; i++) {
+         if ((fp = fopen(infile[i], "rb")) == NULL) {
             fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, infile[i]);
-         }
-         else {
+         } else {
             if (is_verbose) {
                fprintf(stderr, "%s : %s\n", cmnd, infile[i]);
             }
@@ -286,8 +299,8 @@ int main (int argc, char *argv[])
             fclose(fp);
          }
       }
-   }
-   else direct(stdin);
+   } else
+      direct(stdin);
 
 #ifndef WIN32
    fclose(adfp);
@@ -295,84 +308,86 @@ int main (int argc, char *argv[])
 #endif
 
    reset_audiodev();
-   
+
    return 0;
 }
 
-void direct (FILE *fp)
+void direct(FILE * fp)
 {
    int k, nread;
    double d;
    void sndout(int leng);
    int byteswap_vec(void *vec, int size, int blocks);
- 
-   if (hdr_size) fseek(fp, (long)hdr_size, 0);
 
-   while ((nread=freadx(x, data_size, SIZE, fp))) {
-      for (k=0; k<nread; k++) {
-         if (data_size==sizeof(double))
+   if (hdr_size)
+      fseek(fp, (long) hdr_size, 0);
+
+   while ((nread = freadx(x, data_size, SIZE, fp))) {
+      for (k = 0; k < nread; k++) {
+         if (data_size == sizeof(double))
             d = x[k];
-         else if (data_size==sizeof(float))
+         else if (data_size == sizeof(float))
             d = *(xf + k);
          else
             d = *(xs + k);
          y[k] = d * fgain;
       }
-      if (byteswap>0) byteswap_vec(y, sizeof(short), nread);
+      if (byteswap > 0)
+         byteswap_vec(y, sizeof(short), nread);
       sndout(nread);
    }
 }
 
-void sndinit (void)
+void sndinit(void)
 {
    int dtype;
    void init_audiodev(int dtype);
    void change_output_port(unsigned int port);
    void change_play_gain(float volume);
-   
-   switch (freq) { 
+
+   switch (freq) {
    case 8000:
-      dtype =_8000_16BIT_LINEAR;
+      dtype = _8000_16BIT_LINEAR;
       break;
    case 11000:
-      dtype =_11025_16BIT_LINEAR;
+      dtype = _11025_16BIT_LINEAR;
       break;
    case 11025:
-      dtype =_11025_16BIT_LINEAR;
+      dtype = _11025_16BIT_LINEAR;
       break;
    case 16000:
-      dtype =_16000_16BIT_LINEAR;
+      dtype = _16000_16BIT_LINEAR;
       break;
    case 22000:
-      dtype =_22050_16BIT_LINEAR;
+      dtype = _22050_16BIT_LINEAR;
       break;
    case 22050:
-      dtype =_22050_16BIT_LINEAR;
+      dtype = _22050_16BIT_LINEAR;
       break;
    case 32000:
-      dtype =_32000_16BIT_LINEAR;
+      dtype = _32000_16BIT_LINEAR;
       break;
    case 44000:
-      dtype =_44100_16BIT_LINEAR;
+      dtype = _44100_16BIT_LINEAR;
       break;
    case 44100:
-      dtype =_44100_16BIT_LINEAR;
+      dtype = _44100_16BIT_LINEAR;
       break;
    case 48000:
-      dtype =_48000_16BIT_LINEAR;
+      dtype = _48000_16BIT_LINEAR;
       break;
    default:
-      fprintf(stderr,"%s : Unavailable sampling frequency %d!\n", cmnd, freq);
+      fprintf(stderr, "%s : Unavailable sampling frequency %d!\n", cmnd, freq);
       exit(1);
    }
    init_audiodev(dtype);
 
 
-   if (ampgain>=0.0) {
-      if(ampgain>100.0) ampgain = 100.0;
-         change_play_gain(ampgain);
+   if (ampgain >= 0.0) {
+      if (ampgain > 100.0)
+         ampgain = 100.0;
+      change_play_gain(ampgain);
    }
-   
 #ifdef SPARC
    int port;
    if (outport == 's')
@@ -380,10 +395,10 @@ void sndinit (void)
    else if (outport == 'h')
       port = HEADPHONE;
    change_output_port(port | LINE_OUT);
-#endif /* SPARC */
+#endif                          /* SPARC */
 }
 
-void sndout (int leng)
+void sndout(int leng)
 {
 #ifdef WIN32
    win32_audio_play(y, leng);
@@ -395,29 +410,28 @@ void sndout (int leng)
 
 
 
-void init_audiodev (int dtype)
+void init_audiodev(int dtype)
 {
 #if defined(LINUX) || defined(FreeBSD)
    int arg;
-   
+
    if ((adfp = fopen(AUDIO_DEV, "wb")) == NULL) {
-      fprintf( stderr, "%s : Cannot open audio device\n", cmnd);
+      fprintf(stderr, "%s : Cannot open audio device\n", cmnd);
       exit(1);
    }
-   
 #ifdef LINUX
    ADFD = adfp->_fileno;
-#else /* FreeBSD */
+#else                           /* FreeBSD */
    ADFD = adfp->_file;
 #endif
-   ACFD = open( MIXER_DEV, O_RDWR, 0);
+   ACFD = open(MIXER_DEV, O_RDWR, 0);
 
    ioctl(ADFD, SNDCTL_DSP_GETBLKSIZE, &abuf_size);
    ioctl(ADFD, SNDCTL_DSP_SETFMT, &org_precision);
    ioctl(ADFD, SNDCTL_DSP_CHANNELS, &org_channels);
    ioctl(ADFD, SNDCTL_DSP_SPEED, &org_freq);
    ioctl(ACFD, SOUND_MIXER_READ_PCM, &org_vol);
- 
+
    arg = data_type[dtype].precision;
    ioctl(ADFD, SNDCTL_DSP_SETFMT, &arg);
    /* arg = data_type[dtype].channel; */
@@ -425,7 +439,7 @@ void init_audiodev (int dtype)
    ioctl(ADFD, SNDCTL_DSP_CHANNELS, &arg);
    arg = data_type[dtype].sample;
    ioctl(ADFD, SNDCTL_DSP_SPEED, &arg);
-#endif /* LINUX || FreeBSD */
+#endif                          /* LINUX || FreeBSD */
 
 #ifdef SPARC
    audio_info_t data;
@@ -439,25 +453,25 @@ void init_audiodev (int dtype)
    bcopy(&data, &org_data, sizeof(audio_info_t));
 
    data.play.sample_rate = data_type[dtype].sample;
-   data.play.precision   = data_type[dtype].precision;
-   data.play.encoding    = data_type[dtype].encoding;
+   data.play.precision = data_type[dtype].precision;
+   data.play.encoding = data_type[dtype].encoding;
 
-   ioctl(ADFD,AUDIO_SETINFO,&data);
-#endif /* SPARC */
+   ioctl(ADFD, AUDIO_SETINFO, &data);
+#endif                          /* SPARC */
 
 #ifdef WIN32
-   if (WIN32AUDIO_NO_ERROR != win32_audio_open (freq, 16)) {
+   if (WIN32AUDIO_NO_ERROR != win32_audio_open(freq, 16)) {
       fprintf(stderr, "Failed to open win32 audio device\n");
       exit(1);
    }
-#endif /* WIN32 */
+#endif                          /* WIN32 */
 }
 
-void change_output_port (unsigned int port)
+void change_output_port(unsigned int port)
 {
 #ifdef LINUX
- 
-#endif /* LINUX */
+
+#endif                          /* LINUX */
 
 #ifdef SPARC
    audio_info_t data;
@@ -465,50 +479,50 @@ void change_output_port (unsigned int port)
    AUDIO_INITINFO(&data);
    ioctl(ACFD, AUDIO_GETINFO, &data);
 
-   data.play.port=port; 
- 
+   data.play.port = port;
+
    ioctl(ACFD, AUDIO_SETINFO, &data);
-#endif /* SPARC */
+#endif                          /* SPARC */
 
 #ifdef WIN32
 
-#endif /* WIN32 */
+#endif                          /* WIN32 */
 }
 
-void change_play_gain (float volume)
+void change_play_gain(float volume)
 {
    int vol, arg;
 
 #if defined(LINUX) || defined(FreeBSD)
-   vol = (int) ((MAXAMPGAIN*volume)/100);
- 
-   arg = vol | (vol << 8 );
-   ioctl( ACFD, MIXER_WRITE(SOUND_MIXER_PCM), &arg);
-#endif /* LINUX */
+   vol = (int) ((MAXAMPGAIN * volume) / 100);
+
+   arg = vol | (vol << 8);
+   ioctl(ACFD, MIXER_WRITE(SOUND_MIXER_PCM), &arg);
+#endif                          /* LINUX */
 
 #ifdef SPARC
    audio_info_t data;
 
-   vol = (int) ((MAXAMPGAIN*volume)/100);
+   vol = (int) ((MAXAMPGAIN * volume) / 100);
    AUDIO_INITINFO(&data);
    ioctl(ACFD, AUDIO_GETINFO, &data);
 
-   data.play.gain=vol;
+   data.play.gain = vol;
 
    ioctl(ACFD, AUDIO_SETINFO, &data);
-#endif /* SPARC */
+#endif                          /* SPARC */
 
 #ifdef WIN32
-   vol = (int) ((MAXAMPGAIN*volume)/100.0);
-   win32_audio_set_volume (vol);
-#endif /* WIN32 */   
+   vol = (int) ((MAXAMPGAIN * volume) / 100.0);
+   win32_audio_set_volume(vol);
+#endif                          /* WIN32 */
 }
 
-void reset_audiodev (void)
+void reset_audiodev(void)
 {
 #if defined(LINUX) || defined(FreeBSD)
-   ACFD = open( MIXER_DEV, O_RDWR, 0);
-   ADFD = open( AUDIO_DEV, O_RDWR, 0);
+   ACFD = open(MIXER_DEV, O_RDWR, 0);
+   ADFD = open(AUDIO_DEV, O_RDWR, 0);
 
    ioctl(ADFD, SNDCTL_DSP_SETFMT, &org_precision);
    ioctl(ADFD, SNDCTL_DSP_CHANNELS, &org_channels);
@@ -517,35 +531,34 @@ void reset_audiodev (void)
 
    close(ADFD);
    close(ACFD);
-#endif /* LINUX or FreeBSD */
+#endif                          /* LINUX or FreeBSD */
 
 #ifdef SPARC
    ACFD = open(AUDIO_CTLDEV, O_RDWR, 0);
    ioctl(ACFD, AUDIO_SETINFO, &org_data);
    close(ACFD);
-#endif /* SPARC */
+#endif                          /* SPARC */
 
 #ifdef WIN32
-	win32_audio_close();
-#endif /* WINDOWS */
+   win32_audio_close();
+#endif                          /* WINDOWS */
 }
 
-int byteswap_vec (void *vec, int size, int blocks)
+int byteswap_vec(void *vec, int size, int blocks)
 {
    char *q;
    char t;
    int i, j;
 
-   q = (char *)vec;
-   for (i=0; i<blocks; i++) {
-      for (j=0; j<(size/2); j++) {
-         t = *(q+j);
-         *(q+j) = *(q+(size-1-j));
-         *(q+(size-1-j)) = t;
+   q = (char *) vec;
+   for (i = 0; i < blocks; i++) {
+      for (j = 0; j < (size / 2); j++) {
+         t = *(q + j);
+         *(q + j) = *(q + (size - 1 - j));
+         *(q + (size - 1 - j)) = t;
       }
       q += size;
    }
 
-   return i;  /* number of blocks */
+   return i;                    /* number of blocks */
 }
-

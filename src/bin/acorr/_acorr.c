@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -65,14 +65,14 @@
 #  include <SPTK.h>
 #endif
 
-void acorr (double *x, int l, double *r, const int np)
+void acorr(double *x, int l, double *r, const int np)
 {
    double d;
    int k, i;
 
-   for (k=0; k<=np; k++) {
-      for (d=0.0,i=0; i<l-k; i++)
-         d += x[i]*x[i+k];
+   for (k = 0; k <= np; k++) {
+      for (d = 0.0, i = 0; i < l - k; i++)
+         d += x[i] * x[i + k];
       r[k] = d;
    }
 

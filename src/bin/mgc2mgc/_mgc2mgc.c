@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -70,37 +70,36 @@
 #  include <SPTK.h>
 #endif
 
-void mgc2mgc (double *c1, const int m1, const double a1, const double g1, double *c2, const int m2, const double a2, const double g2)
+void mgc2mgc(double *c1, const int m1, const double a1, const double g1,
+             double *c2, const int m2, const double a2, const double g2)
 {
    double a;
-   static double *ca=NULL;
+   static double *ca = NULL;
    static int size_a;
 
-   if (ca==NULL) {
-      ca = dgetmem(m1+1);
+   if (ca == NULL) {
+      ca = dgetmem(m1 + 1);
       size_a = m1;
    }
-   if (m1>size_a) {
+   if (m1 > size_a) {
       free(ca);
-      ca = dgetmem(m1+1);
+      ca = dgetmem(m1 + 1);
       size_a = m1;
    }
 
-   a = (a2 - a1) / (1 - a1*a2);
+   a = (a2 - a1) / (1 - a1 * a2);
 
-   if (a==0) {
-      movem(c1, ca, sizeof(*c1), m1+1);
+   if (a == 0) {
+      movem(c1, ca, sizeof(*c1), m1 + 1);
       gnorm(ca, ca, m1, g1);
       gc2gc(ca, m1, g1, c2, m2, g2);
       ignorm(c2, c2, m2, g2);
-   }
-   else {
+   } else {
       freqt(c1, m1, c2, m2, a);
       gnorm(c2, c2, m2, g1);
       gc2gc(c2, m2, g1, c2, m2, g2);
       ignorm(c2, c2, m2, g2);
    }
-   
+
    return;
 }
-

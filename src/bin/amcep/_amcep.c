@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -74,62 +74,63 @@
 #  include <SPTK.h>
 #endif
 
-double amcep (double x, double *b, const int m, const double a, const double lambda, const double step, const double tau, const int pd, const double eps)
+double amcep(double x, double *b, const int m, const double a,
+             const double lambda, const double step, const double tau,
+             const int pd, const double eps)
 {
    int i;
-   static double *bb=NULL, *d, *ep, *e, xx, gg=1.0;
+   static double *bb = NULL, *d, *ep, *e, xx, gg = 1.0;
    static int size;
    double mu, tx;
-    
-   if (bb==NULL) {
-      bb = dgetmem(3*(m+1)+3*(pd+1)+pd*(m+2));
-      e  = bb + m + 1;
-      ep = e  + m + 1;
-      d  = ep + m + 1;
+
+   if (bb == NULL) {
+      bb = dgetmem(3 * (m + 1) + 3 * (pd + 1) + pd * (m + 2));
+      e = bb + m + 1;
+      ep = e + m + 1;
+      d = ep + m + 1;
       size = m;
    }
-   if (m>size) {
+   if (m > size) {
       free(bb);
-      bb = dgetmem(3*(m+1)+3*(pd+1)+pd*(m+2));
-      e  = bb + m + 1;
-      ep = e  + m + 1;
-      d  = ep + m + 1;
+      bb = dgetmem(3 * (m + 1) + 3 * (pd + 1) + pd * (m + 2));
+      e = bb + m + 1;
+      ep = e + m + 1;
+      d = ep + m + 1;
       size = m;
    }
-	
-   for (i=1; i<=m; i++)
+
+   for (i = 1; i <= m; i++)
       bb[i] = -b[i];
-    
+
    x = mlsadf(x, bb, m, a, pd, d);
    phidf(xx, m, a, e);
    xx = x;
 
    gg = gg * lambda + (1.0 - lambda) * x * x;
-   gg = (gg<eps) ? eps : gg;
+   gg = (gg < eps) ? eps : gg;
    b[0] = 0.5 * log(gg);
 
    mu = step / (double) m / gg;
    tx = 2 * (1.0 - tau) * x;
-    
-   for (i=1; i<=m; i++) {
+
+   for (i = 1; i <= m; i++) {
       ep[i] = tau * ep[i] - tx * e[i];
       b[i] -= mu * ep[i];
    }
-    
-   return(x);
+
+   return (x);
 }
 
-void phidf (const double x, const int m, double a, double *d)
+void phidf(const double x, const int m, double a, double *d)
 {
    int i;
 
-   d[0] = a * d[0] + (1.0 - a*a) * x;    
-   for (i=1; i<m; i++)
-      d[i] += a * (d[i+1] - d[i-1]);
+   d[0] = a * d[0] + (1.0 - a * a) * x;
+   for (i = 1; i < m; i++)
+      d[i] += a * (d[i + 1] - d[i - 1]);
 
-   for (i=m; i>=1; i--) 
-      d[i] = d[i-1];
+   for (i = m; i >= 1; i--)
+      d[i] = d[i - 1];
 
    return;
 }
-

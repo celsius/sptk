@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -71,58 +71,59 @@
 #  include <SPTK.h>
 #endif
 
-int cholesky (double *c, double *a, double *b, const int n, double eps)
+int cholesky(double *c, double *a, double *b, const int n, double eps)
 {
    int i, j, k;
-   static double *d=NULL, *y, *v, *vp;
+   static double *d = NULL, *y, *v, *vp;
    static int size;
 
-   if (d==NULL) {
-      d = dgetmem(n*(n+2));
-      y = d+n;
-      v = y+n;
-      size = n;
-   }
-
-   if (n>size) {
-      free(d);
-      d = dgetmem(n*(n+2));
+   if (d == NULL) {
+      d = dgetmem(n * (n + 2));
       y = d + n;
       v = y + n;
       size = n;
    }
 
-   if (eps < 0.0) eps = 1.0e-6;
-    
-   for (j=0; j<n; j++,c+=n) {
+   if (n > size) {
+      free(d);
+      d = dgetmem(n * (n + 2));
+      y = d + n;
+      v = y + n;
+      size = n;
+   }
+
+   if (eps < 0.0)
+      eps = 1.0e-6;
+
+   for (j = 0; j < n; j++, c += n) {
       d[j] = c[j];
-      vp = v + j*n;
-      for (k=0; k<j; k++)
+      vp = v + j * n;
+      for (k = 0; k < j; k++)
          d[j] -= vp[k] * vp[k] * d[k];
 
-      if (fabs(d[j]) <= eps) return(-1);
+      if (fabs(d[j]) <= eps)
+         return (-1);
 
-      for (i=j+1; i<n; i++) {
-         vp = v + i*n;
+      for (i = j + 1; i < n; i++) {
+         vp = v + i * n;
          vp[j] = c[i];
-         for (k=0; k<j; k++)
-            vp[j] -= vp[k]*v[j*n+k]*d[k];
+         for (k = 0; k < j; k++)
+            vp[j] -= vp[k] * v[j * n + k] * d[k];
          vp[j] /= d[j];
       }
    }
 
-   for (i=0; i<n; i++) {
+   for (i = 0; i < n; i++) {
       y[i] = b[i];
-      vp = v + i*n;
-      for (k=0; k<i; k++)
+      vp = v + i * n;
+      for (k = 0; k < i; k++)
          y[i] -= vp[k] * y[k];
    }
 
-   for (i=n-1; i>=0; i--) {
+   for (i = n - 1; i >= 0; i--) {
       a[i] = y[i] / d[i];
-      for (k=i+1; k<n; k++)
-         a[i] -= v[n*k+i] * a[k];
+      for (k = i + 1; k < n; k++)
+         a[i] -= v[n * k + i] * a[k];
    }
-   return(0);
+   return (0);
 }
-

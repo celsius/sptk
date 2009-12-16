@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -62,18 +62,17 @@
 #  include <SPTK.h>
 #endif
 
-void reverse (double *x, const int l)
+void reverse(double *x, const int l)
 {
-   int i=0;
+   int i = 0;
    double d;
-   
-   while (i<l-i-1) {
+
+   while (i < l - i - 1) {
       d = x[i];
-      x[i]=x[l-i-1];
-      x[l-i-1]=d;
+      x[i] = x[l - i - 1];
+      x[l - i - 1] = d;
       i++;
    }
-   
+
    return;
 }
-

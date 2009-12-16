@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -112,41 +112,50 @@ static char *rcs_id = "$Id$";
 #define INV     FA
 #define CORR    FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - vector statistics calculation\n",cmnd);
+   fprintf(stderr, " %s - vector statistics calculation\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l   : length of vector                    [%d]\n", LENG);
-   fprintf(stderr, "       -n n   : order of vector                     [l-1]\n");
-   fprintf(stderr, "       -t t   : number of vector                    [N/A]\n");
+   fprintf(stderr, "       -l l   : length of vector                    [%d]\n",
+           LENG);
+   fprintf(stderr,
+           "       -n n   : order of vector                     [l-1]\n");
+   fprintf(stderr,
+           "       -t t   : number of vector                    [N/A]\n");
    fprintf(stderr, "       -o o   : output format                       [0]\n");
    fprintf(stderr, "                  0 mean & covariance\n");
    fprintf(stderr, "                  1 mean\n");
    fprintf(stderr, "                  2 covariance\n");
-   fprintf(stderr, "       -d     : diagonal covariance                 [%s]\n", BOOL[DIAGC]);
-   fprintf(stderr, "       -i     : output inverse cov. instead of cov. [%s]\n", BOOL[INV]);
-   fprintf(stderr, "       -r     : output correlation instead of cov.  [%s]\n", BOOL[CORR]);
+   fprintf(stderr, "       -d     : diagonal covariance                 [%s]\n",
+           BOOL[DIAGC]);
+   fprintf(stderr, "       -i     : output inverse cov. instead of cov. [%s]\n",
+           BOOL[INV]);
+   fprintf(stderr, "       -r     : output correlation instead of cov.  [%s]\n",
+           BOOL[CORR]);
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       vectors (%s)                [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       mean(s) and covariance(s) of input vectors (%s)\n", FORMAT);
+   fprintf(stderr, "       mean(s) and covariance(s) of input vectors (%s)\n",
+           FORMAT);
    fprintf(stderr, "  note:\n");
-   fprintf(stderr, "       if '-d' is specified, off-diagonal elements are suppressed.\n");
-   fprintf(stderr, "       '-d' and '-r' are exclusive ('-r' has priority over '-d').\n");
+   fprintf(stderr,
+           "       if '-d' is specified, off-diagonal elements are suppressed.\n");
+   fprintf(stderr,
+           "       '-d' and '-r' are exclusive ('-r' has priority over '-d').\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -154,26 +163,27 @@ void usage (int status)
 }
 
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
-   FILE *fp=stdin;
-   double *x, *mean, **cov=NULL, **invcov=NULL, *var=NULL;
-   int leng=LENG, nv=-1, i, j, k, lp, m, outtype=0;
-   Boolean outmean=OUTMEAN, outcov=OUTCOV, diagc=DIAGC, inv=INV, corr=CORR;
-   
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   FILE *fp = stdin;
+   double *x, *mean, **cov = NULL, **invcov = NULL, *var = NULL;
+   int leng = LENG, nv = -1, i, j, k, lp, m, outtype = 0;
+   Boolean outmean = OUTMEAN, outcov = OUTCOV, diagc = DIAGC, inv = INV, corr =
+       CORR;
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'l':
             leng = atoi(*++argv);
             --argc;
             break;
          case 'n':
-            leng = atoi(*++argv)+1;
+            leng = atoi(*++argv) + 1;
             --argc;
             break;
          case 't':
@@ -194,13 +204,12 @@ int main (int argc,char *argv[])
             corr = 1 - corr;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
    switch (outtype) {
@@ -222,41 +231,40 @@ int main (int argc,char *argv[])
    x = mean + leng;
    if (outcov) {
       if (!diagc) {
-         cov = (double **)getmem(leng, sizeof(*cov));
-         cov[0] = dgetmem(leng*leng);
-         for (i=1; i<leng; i++)
-            cov[i] = cov[i-1] + leng;
-            
+         cov = (double **) getmem(leng, sizeof(*cov));
+         cov[0] = dgetmem(leng * leng);
+         for (i = 1; i < leng; i++)
+            cov[i] = cov[i - 1] + leng;
+
          if (inv) {
-            invcov = (double **)getmem(leng, sizeof(*invcov));
-            invcov[0] = dgetmem(leng*leng);
-            for (i=1; i<leng; i++)
-               invcov[i] = invcov[i-1] + leng;
+            invcov = (double **) getmem(leng, sizeof(*invcov));
+            invcov[0] = dgetmem(leng * leng);
+            for (i = 1; i < leng; i++)
+               invcov[i] = invcov[i - 1] + leng;
          }
-      }
-      else
+      } else
          var = dgetmem(leng);
    }
 
    while (!feof(fp)) {
-      for (i=0; i<leng; i++) {
+      for (i = 0; i < leng; i++) {
          mean[i] = 0.0;
          if (outcov) {
             if (!diagc)
-               for (j=0; j<leng; j++)
+               for (j = 0; j < leng; j++)
                   cov[i][j] = 0.0;
             else
                var[i] = 0.0;
          }
       }
-      for (lp=nv; lp; ) {
-         if (freadf(x, sizeof(*x), leng, fp)!=leng)
+      for (lp = nv; lp;) {
+         if (freadf(x, sizeof(*x), leng, fp) != leng)
             break;
-         for (i=0; i<leng; i++) {
+         for (i = 0; i < leng; i++) {
             mean[i] += x[i];
             if (outcov) {
                if (!diagc)
-                  for (j=i; j<leng; j++)
+                  for (j = i; j < leng; j++)
                      cov[i][j] += x[i] * x[j];
                else
                   var[i] += x[i] * x[i];
@@ -264,71 +272,70 @@ int main (int argc,char *argv[])
          }
          --lp;
       }
-      if (lp==0 || nv==-1) {
-         if (nv>0)
+      if (lp == 0 || nv == -1) {
+         if (nv > 0)
             k = nv;
          else
             k = -lp - 1;
-         for (i=0; i<leng; i++)
+         for (i = 0; i < leng; i++)
             mean[i] /= k;
          if (outcov) {
             if (!diagc)
-               for (i=0; i<leng; i++)
-                  for (j=i; j<leng; j++)
-                     cov[j][i] = cov[i][j] = cov[i][j]/k - mean[i]*mean[j];
+               for (i = 0; i < leng; i++)
+                  for (j = i; j < leng; j++)
+                     cov[j][i] = cov[i][j] = cov[i][j] / k - mean[i] * mean[j];
             else
-               for (i=0; i<leng; i++)
-                  var[i] = var[i]/k - mean[i]*mean[i];
+               for (i = 0; i < leng; i++)
+                  var[i] = var[i] / k - mean[i] * mean[i];
          }
          if (corr) {
-            for (i=0; i<leng; i++)
-               for (j = i+1; j<leng; j++)
-                  cov[j][i] = cov[i][j] = cov[i][j] / sqrt(cov[i][i]*cov[j][j]);
-            for (i=0; i<leng; i++)
+            for (i = 0; i < leng; i++)
+               for (j = i + 1; j < leng; j++)
+                  cov[j][i] = cov[i][j] =
+                      cov[i][j] / sqrt(cov[i][i] * cov[j][j]);
+            for (i = 0; i < leng; i++)
                cov[i][i] = 1.0;
          }
-         
+
          if (outmean)
             fwritef(mean, sizeof(*mean), leng, stdout);
-         
+
          if (outcov) {
             if (!diagc) {
-                if (inv) {
-                   for (i=0; i<leng; i++) {
-                      for (j=i+1; j<leng; j++) {
-                         cov[j][i] /= cov[i][i];
-                         for (m=i+1; m<leng; m++)
-                            cov[j][m] -= cov[i][m] * cov[j][i];
-                      }
-                   }
+               if (inv) {
+                  for (i = 0; i < leng; i++) {
+                     for (j = i + 1; j < leng; j++) {
+                        cov[j][i] /= cov[i][i];
+                        for (m = i + 1; m < leng; m++)
+                           cov[j][m] -= cov[i][m] * cov[j][i];
+                     }
+                  }
 
-                   for (m=0; m<leng; m++) {
-                      for (i=0; i<leng; i++) {
-                         if (i==m)
-                            invcov[i][m] = 1.0;
-                         else
-                            invcov[i][m] = 0.0;
-                      }
-                      for (i=0; i<leng; i++) {
-                         for (j=i+1; j<leng; j++) 
-                            invcov[j][m] -= invcov[i][m] * cov[j][i];
-                      }
-                      for (i=leng-1; i>=0; i--) {
-                         for (j=i+1; j<leng; j++) 
-                            invcov[i][m] -= cov[i][j] * invcov[j][m];
-                         invcov[i][m] /= cov[i][i];
-                      }
-                   }
-                   fwritef(invcov[0], sizeof(*invcov[0]), leng*leng, stdout);
-                }
-                else 
-                   fwritef(cov[0], sizeof(*cov[0]), leng*leng, stdout);
-            }
-            else
+                  for (m = 0; m < leng; m++) {
+                     for (i = 0; i < leng; i++) {
+                        if (i == m)
+                           invcov[i][m] = 1.0;
+                        else
+                           invcov[i][m] = 0.0;
+                     }
+                     for (i = 0; i < leng; i++) {
+                        for (j = i + 1; j < leng; j++)
+                           invcov[j][m] -= invcov[i][m] * cov[j][i];
+                     }
+                     for (i = leng - 1; i >= 0; i--) {
+                        for (j = i + 1; j < leng; j++)
+                           invcov[i][m] -= cov[i][j] * invcov[j][m];
+                        invcov[i][m] /= cov[i][i];
+                     }
+                  }
+                  fwritef(invcov[0], sizeof(*invcov[0]), leng * leng, stdout);
+               } else
+                  fwritef(cov[0], sizeof(*cov[0]), leng * leng, stdout);
+            } else
                fwritef(var, sizeof(*var), leng, stdout);
          }
       }
    }
-   
-   return(0);
+
+   return (0);
 }

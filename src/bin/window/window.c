@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -100,10 +100,10 @@ static char *rcs_id = "$Id$";
 #define NORMFLG  1
 
 /*  Command Name  */
-char* cmnd;
+char *cmnd;
 
 
-int usage (void)
+int usage(void)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - data windowing\n", cmnd);
@@ -131,7 +131,7 @@ int usage (void)
    fprintf(stderr, "       windowed data sequence (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -139,23 +139,23 @@ int usage (void)
 }
 
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
-   FILE *fp=stdin;
+   FILE *fp = stdin;
    char *s, c;
-   int fleng=FLENG, outl=-1, normflg=NORMFLG;
-   Window wintype=WINTYPE;
-   double  *x;
+   int fleng = FLENG, outl = -1, normflg = NORMFLG;
+   Window wintype = WINTYPE;
+   double *x;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
    while (--argc) {
-      if (*(s=*++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if (*++s=='\0' && (c=='n' || c=='l' || c=='w' || c=='L')) {
+         if (*++s == '\0' && (c == 'n' || c == 'l' || c == 'w' || c == 'L')) {
             s = *++argv;
             --argc;
          }
@@ -174,23 +174,21 @@ int main (int argc,char *argv[])
             break;
          case 'h':
          default:
-            usage ();
+            usage();
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
    }
 
-   if (outl<0)
+   if (outl < 0)
       outl = fleng;
 
-   x = dgetmem(fleng>outl ? fleng : outl);
+   x = dgetmem(fleng > outl ? fleng : outl);
 
-   while (freadf(x, sizeof(*x), fleng, fp)==fleng) {
+   while (freadf(x, sizeof(*x), fleng, fp) == fleng) {
       window(wintype, x, fleng, normflg);
       fwritef(x, sizeof(*x), outl, stdout);
    }
 
-   return(0);
+   return (0);
 }
-

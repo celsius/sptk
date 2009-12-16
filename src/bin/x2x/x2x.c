@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -99,209 +99,208 @@ static char *rcs_id = "$Id$";
 #define FORM_INT   "%d"
 #define FORM_FLOAT "%g"
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - data type transformation\n",cmnd);
+   fprintf(stderr, " %s - data type transformation\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       +type1  : input data type                             [f]\n");
-   fprintf(stderr, "       +type2  : output data type                            [type1]\n");
+   fprintf(stderr,
+           "       +type1  : input data type                             [f]\n");
+   fprintf(stderr,
+           "       +type2  : output data type                            [type1]\n");
    fprintf(stderr, "                 c (char)           C (unsigned char)\n");
    fprintf(stderr, "                 s (short)          S (unsigned short)\n");
    fprintf(stderr, "                 i (int)            I (unsigned int)\n");
    fprintf(stderr, "                 l (long)           L (unsigned long)\n");
    fprintf(stderr, "                 f (float)          d (double)\n");
    fprintf(stderr, "                 a (ascii)\n");
-   fprintf(stderr, "       +a a    : column number                               [%d]\n",COL);
-   fprintf(stderr, "       -r      : specify rounding off when a real number\n");
-   fprintf(stderr, "                 is substituted for a integer                [%s]\n",BOOL[ROUND]);
-   fprintf(stderr, "       %%format : specify output format similar to 'printf()', \n");
-   fprintf(stderr, "                 if type2 is ascii.                          [%%g]\n");
+   fprintf(stderr,
+           "       +a a    : column number                               [%d]\n",
+           COL);
+   fprintf(stderr,
+           "       -r      : specify rounding off when a real number\n");
+   fprintf(stderr,
+           "                 is substituted for a integer                [%s]\n",
+           BOOL[ROUND]);
+   fprintf(stderr,
+           "       %%format : specify output format similar to 'printf()', \n");
+   fprintf(stderr,
+           "                 if type2 is ascii.                          [%%g]\n");
    fprintf(stderr, "       -h      : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence                                    [stdin]\n");
+   fprintf(stderr,
+           "       data sequence                                    [stdin]\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       transformed data sequence\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-double r=0.0;
+double r = 0.0;
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   char c1='f', c2='f', *form=FORM_FLOAT;
+   char c1 = 'f', c2 = 'f', *form = FORM_FLOAT;
    double x;
-   size_t size1=0, size2=0;
-   int i=1, col=COL;
-   FILE *fp=stdin;
-   Boolean round=ROUND;
-   void x2x (void *x1, void *x2, char c1, char c2);
+   size_t size1 = 0, size2 = 0;
+   int i = 1, col = COL;
+   FILE *fp = stdin;
+   Boolean round = ROUND;
+   void x2x(void *x1, void *x2, char c1, char c2);
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='+') {
+      if (**++argv == '+') {
          (*argv)++;
-         while (**argv!='\0') {
+         while (**argv != '\0') {
             switch (**argv) {
             case 's':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 's';
                   size1 = sizeof(short);
-               }
-               else {
+               } else {
                   c2 = 's';
                   size2 = sizeof(short);
                }
                break;
             case 'S':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 'S';
                   size1 = sizeof(unsigned short);
-               }
-               else {
+               } else {
                   c2 = 'S';
                   size2 = sizeof(unsigned short);
                }
                break;
             case 'i':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 'i';
                   size1 = sizeof(int);
-               }
-               else {
+               } else {
                   c2 = 'i';
                   size2 = sizeof(int);
                }
                break;
             case 'I':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 'I';
                   size1 = sizeof(unsigned int);
-               }
-               else {
+               } else {
                   c2 = 'I';
                   size2 = sizeof(unsigned int);
                }
                break;
             case 'l':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 'l';
                   size1 = sizeof(long);
-               }
-               else {
+               } else {
                   c2 = 'l';
                   size2 = sizeof(long);
                }
                break;
             case 'L':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 'L';
                   size1 = sizeof(unsigned long);
-               }
-               else {
+               } else {
                   c2 = 'L';
                   size2 = sizeof(unsigned long);
                }
                break;
             case 'f':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 'f';
                   size1 = sizeof(float);
-               }
-               else {
+               } else {
                   c2 = 'f';
                   size2 = sizeof(float);
                }
                break;
             case 'd':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 'd';
                   size1 = sizeof(double);
-               }
-               else {
+               } else {
                   c2 = 'd';
                   size2 = sizeof(double);
                }
                break;
             case 'c':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 'c';
                   size1 = sizeof(char);
-               }
-               else {
+               } else {
                   c2 = 'c';
                   size2 = sizeof(char);
                }
                break;
             case 'C':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 'C';
                   size1 = sizeof(unsigned char);
-               }
-               else {
+               } else {
                   c2 = 'C';
                   size2 = sizeof(unsigned char);
                }
                break;
             case 'a':
-               if (size1==0) {
+               if (size1 == 0) {
                   c1 = 'a';
                   size1 = -1;
-               }
-               else {
+               } else {
                   c2 = 'a';
                   size2 = -1;
-                  if (*(argv+1)!='\0' && isdigit(**(argv+1))) {
+                  if (*(argv + 1) != '\0' && isdigit(**(argv + 1))) {
                      col = atoi(*++argv);
-                     while ( *(*argv+1)!='\0') (*argv)++;
+                     while (*(*argv + 1) != '\0')
+                        (*argv)++;
                      argc--;
                   }
-                  if ( !((c1=='d') || (c1=='f'))) {
-                     form = (char *)malloc( strlen( FORM_INT)+1);
-                     strcpy( form, FORM_INT);
+                  if (!((c1 == 'd') || (c1 == 'f'))) {
+                     form = (char *) malloc(strlen(FORM_INT) + 1);
+                     strcpy(form, FORM_INT);
                   }
                }
                break;
             default:
-               fprintf(stderr, "%s : Invalid option '+%c'!\n", cmnd, *(*argv+1));
-               usage (1);
+               fprintf(stderr, "%s : Invalid option '+%c'!\n", cmnd,
+                       *(*argv + 1));
+               usage(1);
             }
             (*argv)++;
          }
-      }
-      else if (**argv=='-') {
-         switch (*(*argv+1)) {
+      } else if (**argv == '-') {
+         switch (*(*argv + 1)) {
          case 'r':
             round = 1 - round;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '-%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '-%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else if (**argv=='%')
+      } else if (**argv == '%')
          form = *argv;
-      else if (c1=='a')
+      else if (c1 == 'a')
          fp = getfp(*argv, "rt");
       else
          fp = getfp(*argv, "rb");
@@ -309,162 +308,156 @@ int main (int argc, char **argv)
    if (round)
       r = 0.5;
 
-   if (size1==0) {
+   if (size1 == 0) {
       size1 = sizeof(float);
       c1 = 'f';
    }
-   if (size2==0) {
+   if (size2 == 0) {
       size2 = size1;
       c2 = c1;
    }
 
-   if (c1=='a') {
-      if (c2=='a')
-         while (fscanf(fp, "%le", &x)!=EOF) {
+   if (c1 == 'a') {
+      if (c2 == 'a')
+         while (fscanf(fp, "%le", &x) != EOF) {
             printf(form, x);
-            if (i==col) {
+            if (i == col) {
                i = 1;
                printf("\n");
-            }
-            else {
+            } else {
                i++;
                printf("\t");
             }
-         }
-      else
-         while (fscanf(fp, "%le", &x)!=EOF) {
+      } else
+         while (fscanf(fp, "%le", &x) != EOF) {
             x2x(&x, &x, 'd', c2);
             fwritex(&x, size2, 1, stdout);
          }
-   }
-   else {
-      if (c2=='a') {
-         while (freadx(&x, size1, 1, fp)==1) {
+   } else {
+      if (c2 == 'a') {
+         while (freadx(&x, size1, 1, fp) == 1) {
             x2x(&x, &x, c1, 'd');
-            switch ( c1) {
+            switch (c1) {
             case 'd':
-               printf( form, x);
+               printf(form, x);
                break;
             case 'f':
-               printf( form, x);
+               printf(form, x);
                break;
             default:
-               printf( form, (int)x);
+               printf(form, (int) x);
             }
-            if (i==col) {
+            if (i == col) {
                i = 1;
                printf("\n");
-            }
-            else {
+            } else {
                i++;
                printf("\t");
             }
          }
-      }
-      else
-         while (freadx(&x, size1, 1, fp)==1) {
+      } else
+         while (freadx(&x, size1, 1, fp) == 1) {
             x2x(&x, &x, c1, c2);
             fwritex(&x, size2, 1, stdout);
          }
    }
 
-   return(0);
+   return (0);
 }
 
-void x2x (void *x1, void *x2, char c1, char c2)
+void x2x(void *x1, void *x2, char c1, char c2)
 {
-   double x=0.0;
+   double x = 0.0;
 
    switch (c1) {
-   case 's' :
-      x = *(short *)x1;
+   case 's':
+      x = *(short *) x1;
       break;
-   case 'i' :
-      x = *(int *)x1;
+   case 'i':
+      x = *(int *) x1;
       break;
-   case 'l' :
-      x = *(long *)x1;
+   case 'l':
+      x = *(long *) x1;
       break;
-   case 'S' :
-      x = *(unsigned short *)x1;
+   case 'S':
+      x = *(unsigned short *) x1;
       break;
-   case 'I' :
-      x = *(unsigned int *)x1;
+   case 'I':
+      x = *(unsigned int *) x1;
       break;
-   case 'L' :
-      x = *(unsigned long *)x1;
+   case 'L':
+      x = *(unsigned long *) x1;
       break;
-   case 'f' :
-      x = *(float *)x1;
+   case 'f':
+      x = *(float *) x1;
       break;
-   case 'd' :
-      x = *(double *)x1;
+   case 'd':
+      x = *(double *) x1;
       break;
-   case 'c' :
-      x = *(char *)x1;
+   case 'c':
+      x = *(char *) x1;
       break;
-   case 'C' :
-      x = *(unsigned char *)x1;
+   case 'C':
+      x = *(unsigned char *) x1;
       break;
    }
 
    switch (c2) {
-   case 's' :
-      if (x>0)
-         *(short *)x2 = x + r;
+   case 's':
+      if (x > 0)
+         *(short *) x2 = x + r;
       else
-         *(short *)x2 = x - r;
+         *(short *) x2 = x - r;
       break;
-   case 'i' :
-      if (x>0)
-         *(int *)x2 = x + r;
+   case 'i':
+      if (x > 0)
+         *(int *) x2 = x + r;
       else
-         *(int *)x2 = x - r;
+         *(int *) x2 = x - r;
       break;
-   case 'l' :
-      if (x>0)
-         *(long *)x2 = x + r;
+   case 'l':
+      if (x > 0)
+         *(long *) x2 = x + r;
       else
-         *(long *)x2 = x - r;
+         *(long *) x2 = x - r;
       break;
-   case 'S' :
-      if (x>0)
-         *(unsigned short *)x2 = x + r;
+   case 'S':
+      if (x > 0)
+         *(unsigned short *) x2 = x + r;
       else
-         *(unsigned short *)x2 = x - r;
+         *(unsigned short *) x2 = x - r;
       break;
-   case 'I' :
-      if (x>0)
-         *(unsigned int *)x2 = x + r;
+   case 'I':
+      if (x > 0)
+         *(unsigned int *) x2 = x + r;
       else
-         *(unsigned int *)x2 = x - r;
+         *(unsigned int *) x2 = x - r;
       break;
-   case 'L' :
-      if (x>0)
-         *(unsigned long *)x2 = x + r;
+   case 'L':
+      if (x > 0)
+         *(unsigned long *) x2 = x + r;
       else
-         *(unsigned long *)x2 = x - r;
+         *(unsigned long *) x2 = x - r;
       break;
-   case 'f' :
-      *(float *)x2 = x;
+   case 'f':
+      *(float *) x2 = x;
       break;
-   case 'd' :
-      *(double *)x2 = x;
+   case 'd':
+      *(double *) x2 = x;
       break;
-   case 'c' :
-      if (x>0)
-         *(char *)x2 = x + r;
+   case 'c':
+      if (x > 0)
+         *(char *) x2 = x + r;
       else
-         *(char *)x2 = x - r;
+         *(char *) x2 = x - r;
       break;
-   case 'C' :
-      if (x>0)
-         *(unsigned char *)x2 = x + r;
+   case 'C':
+      if (x > 0)
+         *(unsigned char *) x2 = x + r;
       else
-         *(unsigned char *)x2 = x - r;
+         *(unsigned char *) x2 = x - r;
       break;
    }
-   
+
    return;
 }
-

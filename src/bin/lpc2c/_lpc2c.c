@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -66,23 +66,23 @@
 #  include <SPTK.h>
 #endif
 
-void lpc2c (double *a, int m1, double *c, const int m2)
+void lpc2c(double *a, int m1, double *c, const int m2)
 {
    int i, k, upl;
    double d;
 
    c[0] = log(a[0]);
-   c[1] = - a[1];
-   for (k=2; k<=m2; ++k) {
-      upl = (k>m2) ? m2+1 : k;
+   c[1] = -a[1];
+   for (k = 2; k <= m2; ++k) {
+      upl = (k > m2) ? m2 + 1 : k;
 
-      for (d=0.0, i=(k>m1) ? k-m1 : 1; i<upl; i++)
-         d += i * c[i] * a[k-i];
+      for (d = 0.0, i = (k > m1) ? k - m1 : 1; i < upl; i++)
+         d += i * c[i] * a[k - i];
       c[k] = -d / k;
 
-      if (k<=m1) c[k] -= a[k];
+      if (k <= m1)
+         c[k] -= a[k];
    }
-   
+
    return;
 }
-

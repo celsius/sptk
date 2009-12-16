@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -57,17 +57,17 @@
 #  define MAXAMPGAIN 100
 #  define AVAILABLE_FREQ "8,11.025,22.05,44.1"
 #  define DEFAULT_FREQ 11
-#endif /* LINUX or FreeBSD */
+#endif                          /* LINUX or FreeBSD */
 
 #ifdef SUNOS
 #  define SPARC
 #  include <sun/audioio.h>
-#endif /* SUNOS */
+#endif                          /* SUNOS */
 
 #ifdef SOLARIS
 #  define SPARC
 #  include <sys/audioio.h>
-#endif /* SOLARIS */
+#endif                          /* SOLARIS */
 
 #ifdef SPARC
 #  define AUDIO_DEV "/dev/audio"
@@ -75,7 +75,7 @@
 #  define MAXAMPGAIN 255
 #  define AVAILABLE_FREQ "8,11.025,16,22.05,32,44.1,48"
 #  define DEFAULT_FREQ 16
-#endif /* SPARC */
+#endif                          /* SPARC */
 
 #ifdef WIN32
 #  define AVAILABLE_FREQ  "8,11.025,22.05,44.1"
@@ -94,26 +94,26 @@ typedef struct _MENU {
    unsigned int encoding;
 } MENU;
 
-static MENU data_type [] = {
-   { 0, 0,       0, 0},
-   { 1, 8000,    8, U_LAW},
-   { 2, 8000,    8, A_LAW},
-   { 3, 8000,   16, LINEAR},
-   { 4, 9600,   16, LINEAR},
-   { 5, 11025,  16, LINEAR},
-   { 6, 16000,  16, LINEAR},
-   { 7, 18900,  16, LINEAR},
-   { 8, 22050,  16, LINEAR},
-   { 9, 32000,  16, LINEAR},
-   {10, 37800,  16, LINEAR},
-   {11, 44100,  16, LINEAR},
-   {12, 48000,  16, LINEAR}
+static MENU data_type[] = {
+   {0, 0, 0, 0},
+   {1, 8000, 8, U_LAW},
+   {2, 8000, 8, A_LAW},
+   {3, 8000, 16, LINEAR},
+   {4, 9600, 16, LINEAR},
+   {5, 11025, 16, LINEAR},
+   {6, 16000, 16, LINEAR},
+   {7, 18900, 16, LINEAR},
+   {8, 22050, 16, LINEAR},
+   {9, 32000, 16, LINEAR},
+   {10, 37800, 16, LINEAR},
+   {11, 44100, 16, LINEAR},
+   {12, 48000, 16, LINEAR}
 };
 
 #define _8000_8BIT_ULAW     1
 #define _8000_8BIT_ALAW     2
 #define _8000_16BIT_LINEAR  3
-#define _9600_16BIT_LINEAR  4 
+#define _9600_16BIT_LINEAR  4
 #define _11025_16BIT_LINEAR 5
 #define _16000_16BIT_LINEAR 6
 #define _18900_16BIT_LINEAR 7
@@ -132,4 +132,3 @@ FILE *adfp;
 #define HEADPHONE (0x02)
 #define LINE_OUT  (0x04)
 #define MUTE      (0x08)
-

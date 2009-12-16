@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -61,7 +61,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -85,14 +86,14 @@ static char *rcs_id = "$Id$";
 #endif
 
 /*  Default Values  */
-#define MAX 32767 /* 0x7fff */
+#define MAX 32767               /* 0x7fff */
 int l_max = MAX;
 
 /*   Command Name  */
-char* cmnd;
+char *cmnd;
 
 
-void usage (void)
+void usage(void)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - reverse the order of data in each block\n", cmnd);
@@ -109,30 +110,30 @@ void usage (void)
    fprintf(stderr, "       reversed data sequence (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(1);
 }
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
-   int l=-1;
+   int l = -1;
    char *s, c;
    double *x;
    int max;
-   FILE *fp=stdin;
+   FILE *fp = stdin;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
    while (--argc) {
-      if (*(s=*++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if (*++s=='\0') {
+         if (*++s == '\0') {
             s = *++argv;
             --argc;
          }
@@ -144,36 +145,33 @@ int main (int argc,char *argv[])
             l = atoi(s) + 1;
             break;
          case 'h':
-            usage ();
-         default :
-            usage ();
+            usage();
+         default:
+            usage();
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
    }
 
-   if (l>MAX) {
+   if (l > MAX) {
       fprintf(stderr, "%s : -l L should be L <= %d!\n", cmnd, l_max);
-      return(1);
+      return (1);
    }
 
-   max = (l<0) ? MAX : l;
+   max = (l < 0) ? MAX : l;
 
    x = dgetmem(max);
 
-   if (l<0) {
+   if (l < 0) {
       max = freadf(x, sizeof(*x), max, fp);
       reverse(x, max);
       fwritef(x, sizeof(*x), max, stdout);
-   }
-   else {
-      while (freadf(x, sizeof(*x), l, fp)==l) {
+   } else {
+      while (freadf(x, sizeof(*x), l, fp) == l) {
          reverse(x, l);
          fwritef(x, sizeof(*x), l, stdout);
       }
    }
-   
-   return(0);
-}
 
+   return (0);
+}

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -67,32 +67,31 @@
 #  include <SPTK.h>
 #endif
 
-int vq (double *x, double *cb, const int l, const int cbsize)
+int vq(double *x, double *cb, const int l, const int cbsize)
 {
-   int i, index=0;
-   double min=1e23, dist;
+   int i, index = 0;
+   double min = 1e23, dist;
 
-   for (i=0; i<cbsize; i++) {
+   for (i = 0; i < cbsize; i++) {
       dist = edist(x, cb, l);
-      if (dist<min) {
+      if (dist < min) {
          index = i;
          min = dist;
       }
       cb += l;
    }
-   return(index);
+   return (index);
 }
 
-double edist (double *x, double *y, const int m)
+double edist(double *x, double *y, const int m)
 {
    int i;
-   double sub, dist=0.0;
+   double sub, dist = 0.0;
 
-   for (i=0; i<m; i++) {
+   for (i = 0; i < m; i++) {
       sub = x[i] - y[i];
       dist += sub * sub;
    }
-   
-   return(dist / (double)m);
-}
 
+   return (dist / (double) m);
+}

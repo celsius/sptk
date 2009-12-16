@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -98,16 +98,18 @@ static char *rcs_id = "$Id$";
 #define IPERIOD 1
 #define NGAIN FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - all-pole lattice digital filter for speech synthesis\n",cmnd);
+   fprintf(stderr,
+           " %s - all-pole lattice digital filter for speech synthesis\n",
+           cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] kfile [ infile ] > stdout\n", cmnd);
@@ -125,27 +127,27 @@ void usage (int status)
    fprintf(stderr, "       PARCOR (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, i, j;
-   FILE *fp=stdin, *fpc=NULL;
+   int m = ORDER, fprd = FPERIOD, iprd = IPERIOD, i, j;
+   FILE *fp = stdin, *fpc = NULL;
    double *c, *inc, *cc, *d, x;
-   Boolean ngain=NGAIN;
+   Boolean ngain = NGAIN;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -162,51 +164,54 @@ int main (int argc, char **argv)
             ngain = 1 - ngain;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else if (fpc==NULL)
+      } else if (fpc == NULL)
          fpc = getfp(*argv, "rb");
       else
          fp = getfp(*argv, "rb");
 
-   if (fpc==NULL) {
-      fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
-      return(1);
+   if (fpc == NULL) {
+      fprintf(stderr, "%s : Cannot open cepstrum file!\n", cmnd);
+      return (1);
    }
 
-   c = dgetmem(m+m+m+3+m);
-   cc  = c  + m + 1;
+   c = dgetmem(m + m + m + 3 + m);
+   cc = c + m + 1;
    inc = cc + m + 1;
-   d   = inc+ m + 1;
+   d = inc + m + 1;
 
-   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
+   if (freadf(c, sizeof(*c), m + 1, fpc) != m + 1)
+      return (1);
 
    for (;;) {
-      if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
+      if (freadf(cc, sizeof(*cc), m + 1, fpc) != m + 1)
+         return (0);
 
-      for (i=0; i<=m; i++)
-         inc[i] = (cc[i] - c[i])*iprd / fprd;
+      for (i = 0; i <= m; i++)
+         inc[i] = (cc[i] - c[i]) * iprd / fprd;
 
-      for (j=fprd, i=(iprd+1)/2; j--;) {
-         if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
+      for (j = fprd, i = (iprd + 1) / 2; j--;) {
+         if (freadf(&x, sizeof(x), 1, fp) != 1)
+            return (0);
 
-         if (!ngain) x *= c[0];
+         if (!ngain)
+            x *= c[0];
          x = ltcdf(x, c, m, d);
 
          fwritef(&x, sizeof(x), 1, stdout);
 
          if (!--i) {
-            for (i=0; i<=m; i++) c[i] += inc[i];
+            for (i = 0; i <= m; i++)
+               c[i] += inc[i];
             i = iprd;
          }
       }
-      movem(cc, c, sizeof(*cc), m+1);
+      movem(cc, c, sizeof(*cc), m + 1);
    }
-   
-   return(0);
-}
 
+   return (0);
+}

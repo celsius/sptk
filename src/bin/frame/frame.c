@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -103,16 +103,16 @@ static char *rcs_id = "$Id$";
 #define FPERIOD 100
 #define NOCTR FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - extract frame from data sequence\n",cmnd);
+   fprintf(stderr, " %s - extract frame from data sequence\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -138,21 +138,21 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int l=LENG, fprd=FPERIOD, ns, i;
-   size_t size=sizeof(float); 
-   FILE *fp=stdin;
+   int l = LENG, fprd = FPERIOD, ns, i;
+   size_t size = sizeof(float);
+   FILE *fp = stdin;
    Boolean noctr = NOCTR;
    char *x, *xx, *p1, *p2, *p;
    char *s, c;
-    
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (*(s=*++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
          switch (c) {
          case 'l':
@@ -169,11 +169,10 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else if (*s=='+') {
+      } else if (*s == '+') {
          c = *++s;
          switch (c) {
          case 'c':
@@ -195,49 +194,50 @@ int main (int argc, char **argv)
             size = sizeof(double);
             break;
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   x = (char *)dgetmem(size*l);
+   x = (char *) dgetmem(size * l);
 
    if (!noctr) {
-      i = (int)((l + 1) / 2);
-      if (freadx(&x[(int)(l/2)*size], size, i, fp)!=i) 
+      i = (int) ((l + 1) / 2);
+      if (freadx(&x[(int) (l / 2) * size], size, i, fp) != i)
          return 0;
-   }
-   else {
-      if (freadx(x, size, l, fp)!=l)
-      return 0;
+   } else {
+      if (freadx(x, size, l, fp) != l)
+         return 0;
    }
 
    fwritex(x, size, l, stdout);
 
-   if ((ns = (l-fprd))>0) {
+   if ((ns = (l - fprd)) > 0) {
       p = &x[fprd * size];
       for (;;) {
-         p1 = x;  p2 = p;
+         p1 = x;
+         p2 = p;
          i = ns * size;
-         while (i--) *p1++ = *p2++;
-   
-         if (freadx(p1, size, fprd, fp)!=fprd) break;
-            fwritex(x, size, l, stdout);
-      }
-   }
-   else {
-      i = -ns;
-      xx = (char *)dgetmem(i*size);
-      for (;;) {
-         if (freadx(xx, size, i, fp)!=i) break;
+         while (i--)
+            *p1++ = *p2++;
 
-         if (freadx(x, size, l, fp) != l) break;
+         if (freadx(p1, size, fprd, fp) != fprd)
+            break;
+         fwritex(x, size, l, stdout);
+      }
+   } else {
+      i = -ns;
+      xx = (char *) dgetmem(i * size);
+      for (;;) {
+         if (freadx(xx, size, i, fp) != i)
+            break;
+
+         if (freadx(x, size, l, fp) != l)
+            break;
          fwritex(x, size, l, stdout);
       }
    }
-   
+
    return 0;
 }
-

@@ -204,15 +204,7 @@ ifft2.exe : ifft2\ifft2.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
-iglsadf.exe : iglsadf\iglsadf.obj
-	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
-	$(CL) /OUT:$@ $(LIBS) $(@B).obj
-
 ignorm.exe : ignorm\ignorm.obj
-	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
-	$(CL) /OUT:$@ $(LIBS) $(@B).obj
-
-imglsadf.exe : imglsadf\imglsadf.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -96,7 +96,7 @@ static char *rcs_id = "$Id$";
 #include "plot.h"
 
 /*  Required Functions  */
-int drw(FILE *fp);
+int drw(FILE * fp);
 
 /*  Default Values  */
 #define BAR  FA
@@ -120,35 +120,38 @@ int drw(FILE *fp);
 #define H  2.5
 #define SC  1.5
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - draw a graph\n",cmnd);
+   fprintf(stderr, " %s - draw a graph\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -F F     : factor                 [%g]\n",FCT);
-   fprintf(stderr, "       -R R     : rotation angle         [%g]\n",TH);
+   fprintf(stderr, "       -F F     : factor                 [%g]\n", FCT);
+   fprintf(stderr, "       -R R     : rotation angle         [%g]\n", TH);
    fprintf(stderr, "       -W W     : width of figure        [1]\n");
    fprintf(stderr, "       -H H     : height of figure       [1]\n");
-   fprintf(stderr, "       -o xo yo : origin in mm           [%g %g]\n",XO,YO);
-   fprintf(stderr, "       -g g     : draw grid              [%d]\n",GTYPE);
-   fprintf(stderr, "       -m m     : line type              [%d]\n",LTYPE);
-   fprintf(stderr, "       -l l     : line pitch             [%g]\n",LPT);
-   fprintf(stderr, "       -p p     : pen number             [%d]\n",PENNO);
-   fprintf(stderr, "       -j j     : join number            [%d]\n",JOINNO);
-   fprintf(stderr, "       -n n     : number of sample       [%d]\n",NSMPLS);
-   fprintf(stderr, "       -t t     : coordinate type        [%d]\n",CTYPE);
-   fprintf(stderr, "       -y y1 y2 : scaling factor         [%g %g]\n",YMIN,YMAX);
-   fprintf(stderr, "       -z z     : offset for duplication [%g]\n",DZ);
-   fprintf(stderr, "       -b       : bar graph mode         [%s]\n",BOOL[BAR]);
+   fprintf(stderr, "       -o xo yo : origin in mm           [%g %g]\n", XO,
+           YO);
+   fprintf(stderr, "       -g g     : draw grid              [%d]\n", GTYPE);
+   fprintf(stderr, "       -m m     : line type              [%d]\n", LTYPE);
+   fprintf(stderr, "       -l l     : line pitch             [%g]\n", LPT);
+   fprintf(stderr, "       -p p     : pen number             [%d]\n", PENNO);
+   fprintf(stderr, "       -j j     : join number            [%d]\n", JOINNO);
+   fprintf(stderr, "       -n n     : number of sample       [%d]\n", NSMPLS);
+   fprintf(stderr, "       -t t     : coordinate type        [%d]\n", CTYPE);
+   fprintf(stderr, "       -y y1 y2 : scaling factor         [%g %g]\n", YMIN,
+           YMAX);
+   fprintf(stderr, "       -z z     : offset for duplication [%g]\n", DZ);
+   fprintf(stderr, "       -b       : bar graph mode         [%s]\n",
+           BOOL[BAR]);
    fprintf(stderr, "       -h       : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)\n", FORMAT);
@@ -156,38 +159,38 @@ void usage (int status)
    fprintf(stderr, "       plotter command\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s",PACKAGE_VERSION);
-   fprintf(stderr, " CVS Info: %s",rcs_id);
+   fprintf(stderr, " SPTK: version %s", PACKAGE_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
 double fct = FCT, th = TH, lpt = LPT, dz = DZ,
-       scale = 0, xo = XO, yo = YO, xl = XSIZE, yl = YSIZE,
-       ymin = YMIN , ymax = YMAX;
-long   nsmpls = NSMPLS;
-int    is_hold = BAR, is_y = 0;
-int    ltype = LTYPE, gtype = GTYPE, penno = PENNO, joinno = JOINNO, ctype = CTYPE;
-int    lmod[] = { 0, 2, 6, 3, 4};
-double  lpit[] = { 10, 1.6, 10, 3, 5};
+    scale = 0, xo = XO, yo = YO, xl = XSIZE, yl = YSIZE,
+    ymin = YMIN, ymax = YMAX;
+long nsmpls = NSMPLS;
+int is_hold = BAR, is_y = 0;
+int ltype = LTYPE, gtype = GTYPE, penno = PENNO, joinno = JOINNO, ctype = CTYPE;
+int lmod[] = { 0, 2, 6, 3, 4 };
+double lpit[] = { 10, 1.6, 10, 3, 5 };
 
 
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
    FILE *fp = stdin;
    char *s;
    int c;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
    while (--argc) {
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if (c != 'b' && *++s=='\0') {
+         if (c != 'b' && *++s == '\0') {
             s = *++argv;
             --argc;
          }
@@ -234,7 +237,7 @@ int main (int argc, char *argv[])
             yl = atof(s) * YSIZE;
             break;
          case 't':
-            ctype = (atoi(s)<0) ? -1 : 1;
+            ctype = (atoi(s) < 0) ? -1 : 1;
             break;
          case 'y':
             is_y = 1;
@@ -243,17 +246,16 @@ int main (int argc, char *argv[])
             --argc;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            usage (1);
+            usage(1);
             break;
          }
-      }
-      else
-         fp = getfp(*argv,"rb");
+      } else
+         fp = getfp(*argv, "rb");
    }
    plots(0x81);
-   mode(lmod[ltype], (lpt==0) ? lpit[ltype] : lpt);
+   mode(lmod[ltype], (lpt == 0) ? lpit[ltype] : lpt);
    plot(xo, yo, -3);
    rotate(th);
    pen(1);
@@ -266,8 +268,7 @@ int main (int argc, char *argv[])
          plot(-ctype * yl, ctype * xl, 2);
          plot(0.0, ctype * xl, 2);
          plot(0.0, 0.0, 2);
-      }
-      else {
+      } else {
          plot(xl, 0.0, 2);
          plot(xl, yl, 2);
          plot(0.0, yl, 2);
@@ -278,7 +279,7 @@ int main (int argc, char *argv[])
    join(joinno);
    while (!feof(fp)) {
       drw(fp);
-      if (dz!=0.0) {
+      if (dz != 0.0) {
          if (ctype)
             plot(-ctype * dz, 0.0, -3);
          else
@@ -286,79 +287,76 @@ int main (int argc, char *argv[])
       }
    }
    plote();
-   return(0);
+   return (0);
 }
 
-int drw(FILE *fp)
+int drw(FILE * fp)
 {
    int k, nitems;
    char buf[64];
    int n, n2;
-   double dx=0.0, h;
+   double dx = 0.0, h;
    double *p;
    double *x, *y;
 
-   if ((x = calloc(BUF_LNG * 4, sizeof(*x)))==NULL)
-      return(1);
+   if ((x = calloc(BUF_LNG * 4, sizeof(*x))) == NULL)
+      return (1);
    y = x + BUF_LNG * 2;
 
    if (nsmpls)
       dx = xl / (is_hold ? nsmpls : nsmpls - 1);
-   for (n = 0; n==0 || (n<nsmpls && !feof(fp)); ) {
+   for (n = 0; n == 0 || (n < nsmpls && !feof(fp));) {
       if (nsmpls)
-         nitems = (nsmpls - n>BUF_LNG) ? BUF_LNG : nsmpls - n;
+         nitems = (nsmpls - n > BUF_LNG) ? BUF_LNG : nsmpls - n;
       else
          nitems = BUF_LNG;
-      if ((nitems = freadf(y, sizeof(*y), nitems, fp))==0)
+      if ((nitems = freadf(y, sizeof(*y), nitems, fp)) == 0)
          break;
-      if (nsmpls==0) {
+      if (nsmpls == 0) {
          nsmpls = nitems;
          dx = xl / (is_hold ? nitems : nitems - 1);
       }
-      if (scale==0) {
+      if (scale == 0) {
          if (!is_y)
-            for (ymin = ymax = y[0],k = 1; k<nitems; ++k) {
-               if (y[k]<ymin)
+            for (ymin = ymax = y[0], k = 1; k < nitems; ++k) {
+               if (y[k] < ymin)
                   ymin = y[k];
-               else if (y[k]>ymax)
+               else if (y[k] > ymax)
                   ymax = y[k];
             }
-         if (ymax==ymin) {
+         if (ymax == ymin) {
             ymax += 1;
             ymin -= 1;
          }
          scale = yl / (ymax - ymin);
          if (gtype) {
-            h = H * ((xl>XSIZE) ? XSIZE : xl) / XSIZE;
-            sprintf(buf, "0 -x- %ld  %g -y- %g",
-                    nsmpls - 1, ymin, ymax);
-            if (ctype==0)
-               symbol(0.0, - h - 2, buf, h, h, 0.0);
-            else if (ctype>0)
+            h = H * ((xl > XSIZE) ? XSIZE : xl) / XSIZE;
+            sprintf(buf, "0 -x- %ld  %g -y- %g", nsmpls - 1, ymin, ymax);
+            if (ctype == 0)
+               symbol(0.0, -h - 2, buf, h, h, 0.0);
+            else if (ctype > 0)
                symbol(h + 2, 0.0, buf, h, h, 90.0);
             else
                symbol(0.0, h + 2, buf, h, h, 0.0);
          }
          if (ctype) {
-            if (ctype>0)
+            if (ctype > 0)
                bound(-yl, 0.0, 0.0, xl);
             else
                bound(0.0, -xl, yl, 0.0);
             plot(ctype * scale * ymin, 0.0, -3);
-         }
-         else {
+         } else {
             bound(0.0, 0.0, xl, yl);
             plot(0.0, -scale * ymin, -3);
          }
-         if (gtype && ymin<0 && ymax>0) {
+         if (gtype && ymin < 0 && ymax > 0) {
             plot(0.0, 0.0, 3);
-            if (gtype>1) {
+            if (gtype > 1) {
                if (ctype)
                   plot(0.0, ctype * xl, 2);
                else
                   plot(xl, 0.0, 2);
-            }
-            else {
+            } else {
                if (ctype)
                   plot(0.0, ctype * SC * fct, 2);
                else
@@ -366,41 +364,39 @@ int drw(FILE *fp)
             }
          }
       }
-      for (k = 0; k<nitems; ++k) {
+      for (k = 0; k < nitems; ++k) {
          x[k] = n++ * dx;
          y[k] *= scale;
       }
       if (is_hold) {
-         for (k = nitems, p = y + nitems * 2; --k >= 0; ) {
+         for (k = nitems, p = y + nitems * 2; --k >= 0;) {
             *--p = y[k];
             *--p = y[k];
          }
          p = x + nitems * 2;
          *--p = n * dx;
-         for (k = nitems; --k>0; ) {
+         for (k = nitems; --k > 0;) {
             *--p = x[k];
             *--p = x[k];
          }
          n2 = 2 * nitems;
-      }
-      else
+      } else
          n2 = nitems;
 
       if (ctype) {
-         for (k = 0; k<n2; ++k) {
+         for (k = 0; k < n2; ++k) {
             x[k] *= ctype;
             y[k] *= -ctype;
          }
          if (n != nitems)
             plot(y[0], x[0], 2);
-         line(1, y , x, n2);
-      }
-      else {
+         line(1, y, x, n2);
+      } else {
          if (n != nitems)
             plot(x[0], y[0], 2);
-         line(1, x , y, n2);
+         line(1, x, y, n2);
       }
    }
    rstbnd();
-   return(0);
+   return (0);
 }

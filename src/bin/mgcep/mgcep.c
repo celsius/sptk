@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -92,7 +92,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -131,26 +132,32 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage (const int status)
+void usage(const int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - mel-generalized cepstral analysis\n",cmnd);
+   fprintf(stderr, " %s - mel-generalized cepstral analysis\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -a a  : alpha                             [%g]\n", ALPHA);
-   fprintf(stderr, "       -g g  : gamma                             [%g]\n", GAMMA);
+   fprintf(stderr, "       -a a  : alpha                             [%g]\n",
+           ALPHA);
+   fprintf(stderr, "       -g g  : gamma                             [%g]\n",
+           GAMMA);
    fprintf(stderr, "       -c c  : gamma  = -1 / (int) c                 \n");
-   fprintf(stderr, "       -m m  : order of mel-generalized cepstrum [%d]\n", ORDER);
-   fprintf(stderr, "       -l l  : frame length (FFT length)         [%d]\n", FLENG);
-   fprintf(stderr, "       -q q  : input format                      [%d]\n", ITYPE);
+   fprintf(stderr, "       -m m  : order of mel-generalized cepstrum [%d]\n",
+           ORDER);
+   fprintf(stderr, "       -l l  : frame length (FFT length)         [%d]\n",
+           FLENG);
+   fprintf(stderr, "       -q q  : input format                      [%d]\n",
+           ITYPE);
    fprintf(stderr, "                 0 (windowed sequence\n");
    fprintf(stderr, "                 1 (20*log|f(w)|)\n");
    fprintf(stderr, "                 2 (ln|f(w)|)\n");
    fprintf(stderr, "                 3 (|f(w)|)\n");
    fprintf(stderr, "                 4 (|f(w)|)^2\n");
-   fprintf(stderr, "       -o o  : output format                     [%d]\n", OTYPE);
+   fprintf(stderr, "       -o o  : output format                     [%d]\n",
+           OTYPE);
    fprintf(stderr, "                 0 (c~0...c~m)\n");
    fprintf(stderr, "                 1 (b0...bm)\n");
    fprintf(stderr, "                 2 (K~,c~'1...c~'m)\n");
@@ -158,23 +165,29 @@ void usage (const int status)
    fprintf(stderr, "                 4 (K~,g*c~'1...g*c~'m)\n");
    fprintf(stderr, "                 5 (K,g*b'1...g*b'm)\n");
    fprintf(stderr, "     (level 2)\n");
-   fprintf(stderr, "       -i i  : minimum iteration                 [%d]\n", MINITR);
-   fprintf(stderr, "       -j j  : maximum iteration                 [%d]\n", MAXITR);
-   fprintf(stderr, "       -d d  : end condition                     [%g]\n", END);
+   fprintf(stderr, "       -i i  : minimum iteration                 [%d]\n",
+           MINITR);
+   fprintf(stderr, "       -j j  : maximum iteration                 [%d]\n",
+           MAXITR);
+   fprintf(stderr, "       -d d  : end condition                     [%g]\n",
+           END);
    fprintf(stderr, "       -p p  : order of recursions               [l-1]\n");
-   fprintf(stderr, "       -e e  : small value added to periodgram   [%g]\n", EPS);
-   fprintf(stderr, "       -f f  : mimimum value of the determinant  [%g]\n", MINDET);
+   fprintf(stderr, "       -e e  : small value added to periodgram   [%g]\n",
+           EPS);
+   fprintf(stderr, "       -f f  : mimimum value of the determinant  [%g]\n",
+           MINDET);
    fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       windowed sequence or spectrum (%s)     [stdin]\n", FORMAT);
+   fprintf(stderr, "       windowed sequence or spectrum (%s)     [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       mel-generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       value of c must be c>=1\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -182,19 +195,20 @@ void usage (const int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDER, flng=FLENG, ilng=FLENG, itr1=MINITR, itr2=MAXITR, n=-1, flag=0, otype=OTYPE, itype=ITYPE, i;
-   FILE *fp=stdin;
-   double *b, *x, a=ALPHA, g=GAMMA, end=END, e=EPS, f=MINDET;
+   int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, itr2 = MAXITR, n =
+       -1, flag = 0, otype = OTYPE, itype = ITYPE, i;
+   FILE *fp = stdin;
+   double *b, *x, a = ALPHA, g = GAMMA, end = END, e = EPS, f = MINDET;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'a':
             a = atof(*++argv);
             --argc;
@@ -203,12 +217,13 @@ int main (int argc, char **argv)
             g = atof(*++argv);
             --argc;
             break;
-         case 'c':             
-	    g = atoi(*++argv);
-	    --argc; 
-	    if (g < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);          
-	    g = -1.0 / g;    
-            break; 
+         case 'c':
+            g = atoi(*++argv);
+            --argc;
+            if (g < 1)
+               fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);
+            g = -1.0 / g;
+            break;
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -250,42 +265,43 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   if (n==-1)
-      n = flng-1;
-   if (itype==0)
+   if (n == -1)
+      n = flng - 1;
+   if (itype == 0)
       ilng = flng;
    else
-      ilng = flng/2+1;
+      ilng = flng / 2 + 1;
 
-   x = dgetmem(flng+m+m+2);
-   b = x+flng;
+   x = dgetmem(flng + m + m + 2);
+   b = x + flng;
 
-   while (freadf(x, sizeof(*x), ilng, fp)==ilng) {
+   while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
       flag = mgcep(x, flng, b, m, a, g, n, itr1, itr2, end, e, f, itype);
 
-      if (otype==0 || otype==1 || otype==2 || otype==4)
-         ignorm(b, b, m, g);  /* K, b'r --> br  */
+      if (otype == 0 || otype == 1 || otype == 2 || otype == 4)
+         ignorm(b, b, m, g);    /* K, b'r --> br  */
 
-      if (otype==0 || otype==2 || otype==4)
-         if (a!=0.0) b2mc(b, b, m, a);  /* br --> c~r */
+      if (otype == 0 || otype == 2 || otype == 4)
+         if (a != 0.0)
+            b2mc(b, b, m, a);   /* br --> c~r */
 
-      if (otype==2 || otype==4)
-         gnorm(b, b, m, g);  /* c~r --> K~, c~'r */
+      if (otype == 2 || otype == 4)
+         gnorm(b, b, m, g);     /* c~r --> K~, c~'r */
 
-      if (otype==4 || otype==5)
-         for (i=m; i>=1; i--) b[i] *= g;
+      if (otype == 4 || otype == 5)
+         for (i = m; i >= 1; i--)
+            b[i] *= g;
 
-      fwritef(b, sizeof(*b), m+1, stdout);
+      fwritef(b, sizeof(*b), m + 1, stdout);
    }
- 
-   return(0);
+
+   return (0);
 }

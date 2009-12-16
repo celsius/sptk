@@ -58,8 +58,7 @@
 *               input is assumed to be double                           *
 *                                                                       *
 ************************************************************************/
-static char *rcs_id =
-    "$Id$";
+static char *rcs_id = "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -89,7 +88,7 @@ static int size = 256, out = ' ';
 #define SIZE 256
 #define DFTMODE FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
@@ -116,20 +115,19 @@ static double *pWeightImag2 = NULL;
 int usage(void)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s -dct: Discrete Cosine Transformation  \n",
-           cmnd);
+   fprintf(stderr, " %s -dct: Discrete Cosine Transformation  \n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n",
-           cmnd);
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : DCT size             [%d]\n", SIZE);
    fprintf(stderr, "       -I    : use comlex number       [FALSE]\n");
-   fprintf(stderr, "       -d    : without using fft algorithm (use dft) [%s]\n", BOOL[DFTMODE]);
+   fprintf(stderr,
+           "       -d    : without using fft algorithm (use dft) [%s]\n",
+           BOOL[DFTMODE]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (%s)        [stdin]\n",
-           FORMAT);
+   fprintf(stderr, "       data sequence (%s)        [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       DCT sequence (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
@@ -161,13 +159,11 @@ int dft(float *pReal, float *pImag, const int nDFTLength)
       for (n = 0; n < nDFTLength; n++) {
          dTempReal += pTempReal[n] *
              cos(2.0 * PI * n * k / (double) nDFTLength) +
-             pTempImag[n] *
-             sin(2.0 * PI * n * k / (double) nDFTLength);
+             pTempImag[n] * sin(2.0 * PI * n * k / (double) nDFTLength);
          dTempImag +=
              -pTempReal[n] *
              sin(2.0 * PI * n * k / (double) nDFTLength) +
-             pTempImag[n] *
-             cos(2.0 * PI * n * k / (double) nDFTLength);
+             pTempImag[n] * cos(2.0 * PI * n * k / (double) nDFTLength);
       }
       pReal[k] = dTempReal;
       pImag[k] = dTempImag;
@@ -251,8 +247,7 @@ int dct_create_table(const int nSize)
       return (0);
    } else {
       dct_table_size = nSize;
-      dct_workspace =
-          (float *) malloc(sizeof(float) * (dct_table_size * 6));
+      dct_workspace = (float *) malloc(sizeof(float) * (dct_table_size * 6));
       pWeightReal = dct_workspace;
       pWeightImag = dct_workspace + dct_table_size;
       pLocalReal = dct_workspace + (2 * dct_table_size);
@@ -260,11 +255,9 @@ int dct_create_table(const int nSize)
 
       for (k = 0; k < dct_table_size; k++) {
          pWeightReal[k] =
-             cos(k * PI / (2.0 * dct_table_size)) /
-             sqrt(2.0 * dct_table_size);
+             cos(k * PI / (2.0 * dct_table_size)) / sqrt(2.0 * dct_table_size);
          pWeightImag[k] =
-             -sin(k * PI / (2.0 * dct_table_size)) /
-             sqrt(2.0 * dct_table_size);
+             -sin(k * PI / (2.0 * dct_table_size)) / sqrt(2.0 * dct_table_size);
       }
       pWeightReal[0] /= sqrt(2.0);
       pWeightImag[0] /= sqrt(2.0);
@@ -279,23 +272,23 @@ int dct_based_on_fft(float *pReal, float *pImag, const float *pInReal,
 
 
    for (n = 0; n < dct_table_size_fft; n++) {
-     pLocalReal2[n] = (double) pInReal[n];
-     pLocalImag2[n] = (double) pInImag[n];
-     pLocalReal2[dct_table_size_fft + n] = (double) pInReal[dct_table_size_fft - 1 - n];
-     pLocalImag2[dct_table_size_fft + n] = (double) pInImag[dct_table_size_fft - 1 - n];
+      pLocalReal2[n] = (double) pInReal[n];
+      pLocalImag2[n] = (double) pInImag[n];
+      pLocalReal2[dct_table_size_fft + n] =
+          (double) pInReal[dct_table_size_fft - 1 - n];
+      pLocalImag2[dct_table_size_fft + n] =
+          (double) pInImag[dct_table_size_fft - 1 - n];
    }
 
 
-   fft(pLocalReal2, pLocalImag2, dct_table_size_fft * 2); // double input
+   fft(pLocalReal2, pLocalImag2, dct_table_size_fft * 2);       /* double input */
 
 
    for (k = 0; k < dct_table_size_fft; k++) {
-     pReal[k] = (float) 
-          (pLocalReal2[k] * pWeightReal2[k] -
-          pLocalImag2[k] * pWeightImag2[k]);
-     pImag[k] = (float)
-          (pLocalReal2[k] * pWeightImag2[k] +
-          pLocalImag2[k] * pWeightReal2[k]);
+      pReal[k] = (float)
+          (pLocalReal2[k] * pWeightReal2[k] - pLocalImag2[k] * pWeightImag2[k]);
+      pImag[k] = (float)
+          (pLocalReal2[k] * pWeightImag2[k] + pLocalImag2[k] * pWeightReal2[k]);
    }
 
 
@@ -319,11 +312,9 @@ int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal,
 
    for (k = 0; k < dct_table_size; k++) {
       pReal[k] =
-          pLocalReal[k] * pWeightReal[k] -
-          pLocalImag[k] * pWeightImag[k];
+          pLocalReal[k] * pWeightReal[k] - pLocalImag[k] * pWeightImag[k];
       pImag[k] =
-          pLocalReal[k] * pWeightImag[k] +
-          pLocalImag[k] * pWeightReal[k];
+          pLocalReal[k] * pWeightImag[k] + pLocalImag[k] * pWeightReal[k];
    }
 }
 
@@ -334,17 +325,17 @@ int main(int argc, char *argv[])
    char *s, *infile = NULL, c;
    int dct_create_table_fft(const int nSize);
    int dct_based_on_fft(float *pReal, float *pImag, const float *pInReal,
-			const float *pInImag);
+                        const float *pInImag);
    int dft(float *pReal, float *pImag, const int nDFTLength);
    int dct_create_table(const int nSize);
    int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal,
-			const float *pInImag);
+                        const float *pInImag);
 
    float *pReal, *pImag;
    int k, n, i, j, iter;
 
    FILE *getfp();
-   Boolean dftmode=DFTMODE;
+   Boolean dftmode = DFTMODE;
    double *x, *y, *pReal2, *pImag2, *dgetmem();
    int size2;
    float *x2, *y2;
@@ -378,67 +369,69 @@ int main(int argc, char *argv[])
       } else
          infile = s;
    }
-   if (infile) 
-     fp = getfp(infile, "rb");
-   else fp = stdin;
+   if (infile)
+      fp = getfp(infile, "rb");
+   else
+      fp = stdin;
 
    x = dgetmem(size2 = size + size);
    pReal2 = dgetmem(size2 = size + size);
    y = x + size;
    pImag2 = pReal2 + size;
    if ((pReal = (float *) calloc(size2, sizeof(float))) == NULL) {
-     fprintf(stderr, "No memory allocated : pReal\n");
-     exit(1);
+      fprintf(stderr, "No memory allocated : pReal\n");
+      exit(1);
    }
    pImag = pReal + size;
    if ((x2 = (float *) calloc(size2, sizeof(float))) == NULL) {
-     fprintf(stderr, "No memory allocated : x2\n");
-     exit(1);
+      fprintf(stderr, "No memory allocated : x2\n");
+      exit(1);
    }
    y2 = x2 + size;
-   
+
    while (!feof(fp)) {
-     fillz(x, size2, sizeof(double));
-     fillz(y, size, sizeof(double));
-     if (freadf(x, sizeof(*x), size, fp) == 0)
-       break;
-     if(out=='I') {
-       if (freadf(y, sizeof(*y), size, fp) == 0)
-	 break;
-     }
-       
-     for (k = 0; k < size; k++) {
-       x2[k] = (float) x[k];
-       y2[k] = (float) y[k];
-     }
+      fillz(x, size2, sizeof(double));
+      fillz(y, size, sizeof(double));
+      if (freadf(x, sizeof(*x), size, fp) == 0)
+         break;
+      if (out == 'I') {
+         if (freadf(y, sizeof(*y), size, fp) == 0)
+            break;
+      }
+
+      for (k = 0; k < size; k++) {
+         x2[k] = (float) x[k];
+         y2[k] = (float) y[k];
+      }
 
 
-     iter = 0;
-     i = size;
-     while((i /= 2) != 0) {
-       iter++;
-     }
-     j = 1;
-     for(i = 1; i <= iter; i++) {
-       j *= 2;
-     }
-     if (size != j || dftmode) {
-       dct_create_table(size);
-       dct_based_on_dft(pReal, pImag, (const float *) x2, (const float *) y2);
-     } else {
-       dct_create_table_fft(size);
-       dct_based_on_fft(pReal, pImag, (const float *) x2, (const float *) y2);      
-    }
-    
-     fwritef(pReal2, sizeof(*pReal2), size, stdout);
-     if(out=='I')
-       fwritef(pImag2, sizeof(*pReal2), size, stdout);
-     
+      iter = 0;
+      i = size;
+      while ((i /= 2) != 0) {
+         iter++;
+      }
+      j = 1;
+      for (i = 1; i <= iter; i++) {
+         j *= 2;
+      }
+      if (size != j || dftmode) {
+         dct_create_table(size);
+         dct_based_on_dft(pReal, pImag, (const float *) x2, (const float *) y2);
+      } else {
+         dct_create_table_fft(size);
+         dct_based_on_fft(pReal, pImag, (const float *) x2, (const float *) y2);
+      }
+
+      fwritef(pReal2, sizeof(*pReal2), size, stdout);
+      if (out == 'I')
+         fwritef(pImag2, sizeof(*pReal2), size, stdout);
+
 
 
    }
 
-   if (infile) fclose(fp);
+   if (infile)
+      fclose(fp);
 
    return (0);
 }

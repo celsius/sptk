@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -68,7 +68,7 @@
 #  include <SPTK.h>
 #endif
 
-double lspdf_even (double x, double *f, const int m, double *d)
+double lspdf_even(double x, double *f, const int m, double *d)
 {
    double *d1, *d2, *lsp, x1, x2;
    int i;
@@ -78,61 +78,60 @@ double lspdf_even (double x, double *f, const int m, double *d)
    lsp = f + 1;
    x1 = x2 = d[0];
 
-   for (i=0; i<m; i+=2) {
+   for (i = 0; i < m; i += 2) {
       d1[i] -= 2.0 * x1 * cos(lsp[i]);
-      d2[i] -= 2.0 * x2 * cos(lsp[i+1]);
-      d1[i+1] += x1;
-      d2[i+1] += x2;
+      d2[i] -= 2.0 * x2 * cos(lsp[i + 1]);
+      d1[i + 1] += x1;
+      d2[i + 1] += x2;
       x += d1[i] + d2[i];
-      x1 = d1[i+1];
-      x2 = d2[i+1];
+      x1 = d1[i + 1];
+      x2 = d2[i + 1];
    }
 
-   x -= d2[m-1] - d1[m-1];
+   x -= d2[m - 1] - d1[m - 1];
 
-   for (i=m-1; i>0; i--) {
-      d1[i] = d1[i-1];
-      d2[i] = d2[i-1];
+   for (i = m - 1; i > 0; i--) {
+      d1[i] = d1[i - 1];
+      d2[i] = d2[i - 1];
    }
    d1[0] = d2[0] = d[0];
    d[0] = -0.5 * x;
 
-   return(x);
+   return (x);
 }
 
-double lspdf_odd (double x, double *f, const int m, double *d)
+double lspdf_odd(double x, double *f, const int m, double *d)
 {
    int i;
    int mh1, mh2;
    double *d1, *d2, *lsp, x1, x2;
 
-   mh1 = (m+1) / 2;
-   mh2 = (m-1) / 2;
+   mh1 = (m + 1) / 2;
+   mh2 = (m - 1) / 2;
 
    d1 = d + 1;
-   d2 = d1 + (mh1+mh1-1);
+   d2 = d1 + (mh1 + mh1 - 1);
    lsp = f + 1;
    x1 = x2 = d[0];
 
-   for (i=0; i<m-1; i+=2) {
+   for (i = 0; i < m - 1; i += 2) {
       d1[i] -= 2.0 * x1 * cos(lsp[i]);
-      d2[i] -= 2.0 * x2 * cos(lsp[i+1]);
-      d1[i+1] += x1;
-      d2[i+1] += x2;
+      d2[i] -= 2.0 * x2 * cos(lsp[i + 1]);
+      d1[i + 1] += x1;
+      d2[i + 1] += x2;
       x += d1[i] + d2[i];
-      x1 = d1[i+1];
-      x2 = d2[i+1];
+      x1 = d1[i + 1];
+      x2 = d2[i + 1];
    }
    d1[i] -= 2.0 * x1 * cos(lsp[i]);
    x += d1[i] - d2[i];
 
-   for (i=m-1; i>0; i--) {
-      d1[i] = d1[i-1];
-      d2[i] = d2[i-1];
+   for (i = m - 1; i > 0; i--) {
+      d1[i] = d1[i - 1];
+      d2[i] = d2[i - 1];
    }
    d1[0] = d2[0] = d[0];
    d[0] = -0.5 * x;
 
-   return(x);
+   return (x);
 }
-

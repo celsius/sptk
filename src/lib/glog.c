@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -56,16 +56,14 @@
 
 #include <math.h>
 
-double glog (const double r, const double x)
+double glog(const double r, const double x)
 {
    if (r == 0.0) {
-      return( log(x) );
-   }
-   else {
+      return (log(x));
+   } else {
       if (r < 0.0)
-         return( (pow(1/x,-r)-1.0)/r );
+         return ((pow(1 / x, -r) - 1.0) / r);
       else
-         return( (pow(x,r)-1.0)/r );
+         return ((pow(x, r) - 1.0) / r);
    }
 }
-

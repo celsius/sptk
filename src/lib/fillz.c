@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -57,13 +57,12 @@
 
 #include <stdio.h>
 
-void fillz (void *ptr, const size_t size, const int nitem)
+void fillz(void *ptr, const size_t size, const int nitem)
 {
    long n;
    char *p = ptr;
-    
+
    n = size * nitem;
-   while(n--)
+   while (n--)
       *p++ = '\0';
 }
-

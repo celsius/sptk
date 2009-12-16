@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -78,89 +78,98 @@
 #  include <SPTK.h>
 #endif
 
-int gcep (double *xw, const int flng, double *gc, const int m, const double g, const int itr1, const int itr2, 
-          const double d, const double e, const double f, const int itype)
+int gcep(double *xw, const int flng, double *gc, const int m, const double g,
+         const int itr1, const int itr2, const double d, const double e,
+         const double f, const int itype)
 {
-   int i, j, flag=0;
-   double t, s, dd=0.0;
-   static double *x=NULL, *y, *cr, *ci, *rr, *hr, *hi, *er, *ei;
+   int i, j, flag = 0;
+   double t, s, dd = 0.0;
+   static double *x = NULL, *y, *cr, *ci, *rr, *hr, *hi, *er, *ei;
    static int size;
 
-   if (x==NULL) {
-      x = dgetmem(9*flng);
+   if (x == NULL) {
+      x = dgetmem(9 * flng);
       size = flng;
 
-      y =  x  + flng;   cr = y  + flng;
-      ci = cr + flng;   rr = ci + flng;
-      hr = rr + flng;   hi = hr + flng;
-      er = hi + flng;   ei = er + flng;
+      y = x + flng;
+      cr = y + flng;
+      ci = cr + flng;
+      rr = ci + flng;
+      hr = rr + flng;
+      hi = hr + flng;
+      er = hi + flng;
+      ei = er + flng;
    }
-   
-   if (flng>size) {
+
+   if (flng > size) {
       free(x);
-      x = dgetmem(9*flng);
+      x = dgetmem(9 * flng);
       size = flng;
 
-      y =  x  + flng;   cr = y  + flng;
-      ci = cr + flng;   rr = ci + flng;
-      hr = rr + flng;   hi = hr + flng;
-      er = hi + flng;   ei = er + flng;
+      y = x + flng;
+      cr = y + flng;
+      ci = cr + flng;
+      rr = ci + flng;
+      hr = rr + flng;
+      hi = hr + flng;
+      er = hi + flng;
+      ei = er + flng;
    }
 
    movem(xw, x, sizeof(*x), flng);
-    
+
    switch (itype) {
-   case 0:   /* windowed data sequence */
+   case 0:                     /* windowed data sequence */
       fftr(x, y, flng);
-      for (i=0; i<flng; i++) {
-         x[i] = x[i]*x[i] + y[i]*y[i] + e;  /*  periodegram  */
+      for (i = 0; i < flng; i++) {
+         x[i] = x[i] * x[i] + y[i] * y[i] + e;  /*  periodegram  */
       }
       break;
-   case 1:   /* dB */
-      for (i=0; i<=flng/2; i++) {
-         x[i] /= 20.0 / log(10.0);  /* dB -> amplitude spectrum */
-         x[i] = x[i]*x[i]+e;  /* amplitude -> periodgram */
+   case 1:                     /* dB */
+      for (i = 0; i <= flng / 2; i++) {
+         x[i] /= 20.0 / log(10.0);      /* dB -> amplitude spectrum */
+         x[i] = x[i] * x[i] + e;        /* amplitude -> periodgram */
       }
       break;
-   case 2:  /* log */
-      for (i=0; i<=flng/2; i++) {
-         x[i] = exp(x[i]);  /* log -> amplitude spectrum */
-         x[i] = x[i]*x[i]+e;  /* amplitude -> periodgram */
+   case 2:                     /* log */
+      for (i = 0; i <= flng / 2; i++) {
+         x[i] = exp(x[i]);      /* log -> amplitude spectrum */
+         x[i] = x[i] * x[i] + e;        /* amplitude -> periodgram */
       }
       break;
-   case 3:  /* amplitude */
-      for (i=0; i<=flng/2; i++) {
-         x[i] = x[i]*x[i]+e;  /* amplitude -> periodgram */
+   case 3:                     /* amplitude */
+      for (i = 0; i <= flng / 2; i++) {
+         x[i] = x[i] * x[i] + e;        /* amplitude -> periodgram */
       }
       break;
-   case 4:  /* periodgram */
-      for (i=0; i<=flng/2; i++) {
-         x[i] = x[i]+e;
+   case 4:                     /* periodgram */
+      for (i = 0; i <= flng / 2; i++) {
+         x[i] = x[i] + e;
       }
       break;
    default:
-     fprintf(stderr, "mgcep : Input type %d is not supported!\n", itype);
-     exit(1);
+      fprintf(stderr, "mgcep : Input type %d is not supported!\n", itype);
+      exit(1);
    }
-   if (itype>0) {
-      for (i=1; i<flng/2; i++)
-         x[flng-i] = x[i];
+   if (itype > 0) {
+      for (i = 1; i < flng / 2; i++)
+         x[flng - i] = x[i];
    }
-   for (i=0; i<flng; i++)
+   for (i = 0; i < flng; i++)
       cr[i] = log(x[i]);
 
    /*  initial value of generalized cepstrum  */
-   ifftr(cr, y, flng);   /*  x : IFFT[x]  */
+   ifftr(cr, y, flng);          /*  x : IFFT[x]  */
    cr[0] = exp(cr[0] / 2);
-   gc2gc(cr, m, 0.0, gc, m, g);  /*  gc : generalized cepstrum  */
+   gc2gc(cr, m, 0.0, gc, m, g); /*  gc : generalized cepstrum  */
 
    /*  Newton-Raphson method  */
-   for (j=1; j<=itr2; j++) {
+   for (j = 1; j <= itr2; j++) {
       fillz(cr, sizeof(*cr), flng);
       movem(&gc[1], &cr[1], sizeof(*cr), m);
-      fftr(cr, ci, flng);         /*  cr+jci : FFT[gc]  */
-   
-      for (i=0; i<flng; i++) {
+      fftr(cr, ci, flng);       /*  cr+jci : FFT[gc]  */
+
+      for (i = 0; i < flng; i++) {
          t = x[i] / agexp(g, cr[i], ci[i]);
          cr[i] = 1 + g * cr[i];
          ci[i] = g * ci[i];
@@ -171,27 +180,28 @@ int gcep (double *xw, const int flng, double *gc, const int m, const double g, c
          er[i] = cr[i] * t / s;
          ei[i] = ci[i] * t / s;
       }
-   
-      ifftr(rr, y, flng);         /*  rr : r(k)  */
-      ifft(hr, hi, flng);         /*  hr : h(k)  */
-      ifft(er, ei, flng);         /*  er : e(k)  */
-      s = gc[0];            /*  gc[0] : gain  */
-      
-      for (i=1,t=0.0; i<=m; i++)
+
+      ifftr(rr, y, flng);       /*  rr : r(k)  */
+      ifft(hr, hi, flng);       /*  hr : h(k)  */
+      ifft(er, ei, flng);       /*  er : e(k)  */
+      s = gc[0];                /*  gc[0] : gain  */
+
+      for (i = 1, t = 0.0; i <= m; i++)
          t += er[i] * gc[i];
-      
+
       t = er[0] + g * t;
       t = sqrt(fabs(t));
 
-      if (j>=itr1) {
-         if (fabs((t-dd)/t)<d) {
+      if (j >= itr1) {
+         if (fabs((t - dd) / t) < d) {
             flag = 1;
             break;
          }
          dd = t;
       }
 
-      for (i=2; i<=m+m; i++) hr[i] *= 1 + g;
+      for (i = 2; i <= m + m; i++)
+         hr[i] *= 1 + g;
 
       if (theq(rr, &hr[2], &y[1], &er[1], m, f)) {
          fprintf(stderr, "gcep : Error in theq() at %dth iteration!\n", j);
@@ -199,11 +209,13 @@ int gcep (double *xw, const int flng, double *gc, const int m, const double g, c
       }
 
       gc[0] = t;
-      
-      for (i=1; i<=m; i++) gc[i] += y[i];
+
+      for (i = 1; i <= m; i++)
+         gc[i] += y[i];
    }
 
-   if (flag) return(0);
-   else return(-1);
+   if (flag)
+      return (0);
+   else
+      return (-1);
 }
-

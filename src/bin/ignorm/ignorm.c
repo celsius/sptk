@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -66,7 +66,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -97,7 +98,7 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - inverse gain normalization\n", cmnd);
@@ -105,12 +106,15 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of generalized cepstrum   [%d]\n", ORDER);
-   fprintf(stderr, "       -g g  : gamma                           [%g]\n", GAMMA);
+   fprintf(stderr, "       -m m  : order of generalized cepstrum   [%d]\n",
+           ORDER);
+   fprintf(stderr, "       -g g  : gamma                           [%g]\n",
+           GAMMA);
    fprintf(stderr, "       -c c  : gamma  = -1 / (int) c                 \n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       normalized generalized cepstrum (%s) [stdin]\n", FORMAT);
+   fprintf(stderr, "       normalized generalized cepstrum (%s) [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
@@ -124,31 +128,32 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   double g=GAMMA, *c;
-   int m=ORDER;
-   FILE *fp=stdin;
-    
+   double g = GAMMA, *c;
+   int m = ORDER;
+   FILE *fp = stdin;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-    
+
    while (--argc)
       if (**++argv == '-') {
-         switch (*(*argv+1)) {
+         switch (*(*argv + 1)) {
          case 'g':
             g = atof(*++argv);
             --argc;
             break;
-         case 'c':             
-	    g = atoi(*++argv);
-	    --argc; 
-     	    if (g < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);           
-	    g = -1.0 / g;    
-            break;    
+         case 'c':
+            g = atoi(*++argv);
+            --argc;
+            if (g < 1)
+               fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);
+            g = -1.0 / g;
+            break;
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -156,19 +161,18 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else 
+      } else
          fp = getfp(*argv, "rb");
-    
-   c = dgetmem(m+1);
-    
-   while (freadf(c, sizeof(*c), m+1, fp) == m+1) {
+
+   c = dgetmem(m + 1);
+
+   while (freadf(c, sizeof(*c), m + 1, fp) == m + 1) {
       ignorm(c, c, m, g);
-      fwritef(c, sizeof(*c), m+1, stdout);
+      fwritef(c, sizeof(*c), m + 1, stdout);
    }
-   
-   return(0);
+
+   return (0);
 }

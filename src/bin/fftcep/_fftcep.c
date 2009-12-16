@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -68,46 +68,50 @@
 #  include <SPTK.h>
 #endif
 
-void fftcep (double *sp, const int flng, double *c, const int m, int itr, double ac)
+void fftcep(double *sp, const int flng, double *c, const int m, int itr,
+            double ac)
 {
    double temp;
-   static double *x=NULL, *y;
-   int k, size=flng;
+   static double *x = NULL, *y;
+   int k, size = flng;
 
-   if (x==NULL) {
-      x = dgetmem(flng+flng);
+   if (x == NULL) {
+      x = dgetmem(flng + flng);
       y = x + flng;
    }
-   if (flng>size) {
+   if (flng > size) {
       free(x);
-      x = dgetmem(flng+flng);
+      x = dgetmem(flng + flng);
       y = x + flng;
       size = flng;
    }
 
    movem(sp, x, sizeof(*sp), flng);
-    
+
    fftr(x, y, flng);
-   for (k=0; k<flng; k++) x[k] /= flng;
-   for (k=0; k<=m; k++) {
+   for (k = 0; k < flng; k++)
+      x[k] /= flng;
+   for (k = 0; k <= m; k++) {
       c[k] = x[k];
       x[k] = 0;
    }
 
    ac += 1.0;
-   while (--itr>0) {
-      for (k=1; k<=m; k++)  
-         x[flng-k] = x[k];
+   while (--itr > 0) {
+      for (k = 1; k <= m; k++)
+         x[flng - k] = x[k];
 
       fftr(x, y, flng);
 
-      for (k=0; k<flng; k++)
-         if (x[k]<0.0) x[k] = 0.0;
-         else x[k] /= flng;
+      for (k = 0; k < flng; k++)
+         if (x[k] < 0.0)
+            x[k] = 0.0;
+         else
+            x[k] /= flng;
 
       fftr(x, y, flng);
 
-      for (k=0; k<=m; k++) {
+      for (k = 0; k <= m; k++) {
          temp = x[k] * ac;
          c[k] += temp;
          x[k] -= temp;
@@ -115,6 +119,6 @@ void fftcep (double *sp, const int flng, double *c, const int m, int itr, double
    }
    c[0] *= 0.5;
 
-   if (m==flng/2)
+   if (m == flng / 2)
       c[m] *= 0.5;
 }

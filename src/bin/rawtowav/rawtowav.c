@@ -62,85 +62,85 @@
 
 void write_file(long fs, char *rawfile, char *wavfile)
 {
-  FILE *fpi,*fpo;
-  char RIFF[]="RIFF";
-  char WAVE[]="WAVE";
-  char fmt_chunk[]="fmt ";
-  char data_chunk[]="data";
-  long file_size,rawfile_size;
-  long chunk_size=16;
-  long data_speed;
-  short formatID=1;
-  short channel=1;  /* mono:1$B!$(Bstereo:2 */
-  short block_size; /* 16bit, mono => 16bit*1=2byte */
-  short bit; 
-  int c;
+   FILE *fpi, *fpo;
+   char RIFF[] = "RIFF";
+   char WAVE[] = "WAVE";
+   char fmt_chunk[] = "fmt ";
+   char data_chunk[] = "data";
+   long file_size, rawfile_size;
+   long chunk_size = 16;
+   long data_speed;
+   short formatID = 1;
+   short channel = 1;           /* mono:1¡¤stereo:2 */
+   short block_size;            /* 16bit, mono => 16bit*1=2byte */
+   short bit;
+   int c;
 
-  if((fpi=fopen(rawfile,"rb"))==NULL){
-    printf("can't open rawfile");
-    exit(0);
-  }
-  if((fpo=fopen(wavfile,"wb"))==NULL){
-    printf("can't open wavfile");
-    exit(0);
-  }
+   if ((fpi = fopen(rawfile, "rb")) == NULL) {
+      printf("can't open rawfile");
+      exit(0);
+   }
+   if ((fpo = fopen(wavfile, "wb")) == NULL) {
+      printf("can't open wavfile");
+      exit(0);
+   }
 
-  fseek(fpi,0,SEEK_END);
-  rawfile_size=ftell(fpi);
-  file_size=rawfile_size+36;
-  fseek(fpi,0,SEEK_SET);
+   fseek(fpi, 0, SEEK_END);
+   rawfile_size = ftell(fpi);
+   file_size = rawfile_size + 36;
+   fseek(fpi, 0, SEEK_SET);
 
 
-  /* RIFF header */
-  fwrite(RIFF,sizeof(char),4,fpo);
-  /* file size */
-  fwrite(&file_size,sizeof(long),1,fpo);
-  /* WAVE header */
-  fwrite(WAVE,sizeof(char),4,fpo);
-  /* fmt chunk */
-  fwrite(fmt_chunk,sizeof(char),4,fpo);
-  /* chunk size */
-  fwrite(&chunk_size,sizeof(long),1,fpo);
-  /* formatID */
-  fwrite(&formatID,sizeof(short),1,fpo);
-  /* channel (mono:1$B!$(Bstereo:2) */
-  fwrite(&channel,sizeof(short),1,fpo);
-  /* sampling frequency */
-  fwrite(&fs,sizeof(long),1,fpo);
-  /* data speed */
-  data_speed=fs*16/8*formatID;
-  fwrite(&data_speed,sizeof(long),1,fpo);
-  /* block size */
-  block_size=16/8*formatID;
-  fwrite(&block_size,sizeof(short),1,fpo);
-  /* bit number */
-  bit=16;
-  fwrite(&bit,sizeof(short),1,fpo);
-  /* data chunk */
-  fwrite(data_chunk,sizeof(char),4,fpo);
-  /* file size of data */
-  fwrite(&rawfile_size,sizeof(long),1,fpo);
+   /* RIFF header */
+   fwrite(RIFF, sizeof(char), 4, fpo);
+   /* file size */
+   fwrite(&file_size, sizeof(long), 1, fpo);
+   /* WAVE header */
+   fwrite(WAVE, sizeof(char), 4, fpo);
+   /* fmt chunk */
+   fwrite(fmt_chunk, sizeof(char), 4, fpo);
+   /* chunk size */
+   fwrite(&chunk_size, sizeof(long), 1, fpo);
+   /* formatID */
+   fwrite(&formatID, sizeof(short), 1, fpo);
+   /* channel (mono:1¡¤stereo:2) */
+   fwrite(&channel, sizeof(short), 1, fpo);
+   /* sampling frequency */
+   fwrite(&fs, sizeof(long), 1, fpo);
+   /* data speed */
+   data_speed = fs * 16 / 8 * formatID;
+   fwrite(&data_speed, sizeof(long), 1, fpo);
+   /* block size */
+   block_size = 16 / 8 * formatID;
+   fwrite(&block_size, sizeof(short), 1, fpo);
+   /* bit number */
+   bit = 16;
+   fwrite(&bit, sizeof(short), 1, fpo);
+   /* data chunk */
+   fwrite(data_chunk, sizeof(char), 4, fpo);
+   /* file size of data */
+   fwrite(&rawfile_size, sizeof(long), 1, fpo);
 
-  while((c=fgetc(fpi))!=EOF)
-    fputc(c,fpo);
+   while ((c = fgetc(fpi)) != EOF)
+      fputc(c, fpo);
 
-  fclose(fpi);
-  fclose(fpo);
+   fclose(fpi);
+   fclose(fpo);
 }
 
 
-int main(int argc,char **argv)
+int main(int argc, char **argv)
 {
-  
-  if(argc != 4){
-    printf("error : failed to convert raw to wav\n\n");
-    printf("rawtowav : convert raw to wav\n");
-    printf("usage:\n");
-    printf("        rawtowav [ fs(Hz) ] [ infile ] [ outfile ]\n");
-    exit(0);
-  }
 
-  write_file(atol(argv[1]),argv[2],argv[3]);
+   if (argc != 4) {
+      printf("error : failed to convert raw to wav\n\n");
+      printf("rawtowav : convert raw to wav\n");
+      printf("usage:\n");
+      printf("        rawtowav [ fs(Hz) ] [ infile ] [ outfile ]\n");
+      exit(0);
+   }
 
-  return(0);
+   write_file(atol(argv[1]), argv[2], argv[3]);
+
+   return (0);
 }

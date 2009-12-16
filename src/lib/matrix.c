@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -84,33 +84,35 @@
 static double *tmp;
 static int tmpsize = 0;
 
-static void mm (double x[], const int xx, const int xy, double y[], const int yx, const int yy, double a[])
-{	
-   int i,j,k;
-   double *wx,*wy;
-   
-   if (xx==1 && xy==1) {
-      for (i=yx*yy-1; i>=0; i--)
-         a[i] = x[0]*y[i];
+static void mm(double x[], const int xx, const int xy, double y[], const int yx,
+               const int yy, double a[])
+{
+   int i, j, k;
+   double *wx, *wy;
+
+   if (xx == 1 && xy == 1) {
+      for (i = yx * yy - 1; i >= 0; i--)
+         a[i] = x[0] * y[i];
       return;
    }
 
    if (xx != yy) {
-      fprintf(stderr,"Invalid matrix size x= %d*%d,y= %d*%d\n",xx,xy,yx,yy);
+      fprintf(stderr, "Invalid matrix size x= %d*%d,y= %d*%d\n", xx, xy, yx,
+              yy);
       exit(1);
    }
 
    wx = x;
-   for (i=0; i<xy; i++) {
-      for (j=0; j<yx; j++) {
+   for (i = 0; i < xy; i++) {
+      for (j = 0; j < yx; j++) {
          wy = &y[j];
-         *a=0;
-         for (k=0; k<xx; k++) {
-            *a += *wx * *wy ;
+         *a = 0;
+         for (k = 0; k < xx; k++) {
+            *a += *wx * *wy;
             wx++;
             wy += yx;
          }
-         wx -= xx; 
+         wx -= xx;
          a++;
       }
       wx += xx;
@@ -119,58 +121,57 @@ static void mm (double x[], const int xx, const int xy, double y[], const int yx
    return;
 }
 
-void multim (double x[], const int xx, const int xy, double y[], const int yx, const int yy, double a[])
+void multim(double x[], const int xx, const int xy, double y[], const int yx,
+            const int yy, double a[])
 {
    int i;
 
-   if (x==a) {
-      if (((xy>yy) ? xy : yy)*yx>tmpsize) {
+   if (x == a) {
+      if (((xy > yy) ? xy : yy) * yx > tmpsize) {
          if (tmp != NULL)
             free(tmp);
-         tmpsize = ((xy>yy) ? xy : yy)*yx;
-         tmp = (double *)getmem(tmpsize, sizeof(*tmp));
+         tmpsize = ((xy > yy) ? xy : yy) * yx;
+         tmp = (double *) getmem(tmpsize, sizeof(*tmp));
       }
-      mm(x,xx,xy,y,yx,yy,tmp);
-      if (xx==xy)
-         for (i=yx*yy-1; i>=0; i--)
-            a[i] = tmp[i]; 
+      mm(x, xx, xy, y, yx, yy, tmp);
+      if (xx == xy)
+         for (i = yx * yy - 1; i >= 0; i--)
+            a[i] = tmp[i];
       else
-         for (i=xy*yx-1; i>=0 ; i--)
-            a[i] = tmp[i]; 
-   }
-   else {
-      mm(x,xx,xy,y,yx,yy,a);
+         for (i = xy * yx - 1; i >= 0; i--)
+            a[i] = tmp[i];
+   } else {
+      mm(x, xx, xy, y, yx, yy, a);
    }
 
    return;
 }
 
-static void am (double x[], double y[], const int xx, const int yy, double a[])
+static void am(double x[], double y[], const int xx, const int yy, double a[])
 {
-   int i,j;
+   int i, j;
 
-   for (i=0; i<yy; i++)
-      for (j=0; j<xx; j++)
-         a[j+i*xx] = x[j+i*xx] + y[j+i*xx];
+   for (i = 0; i < yy; i++)
+      for (j = 0; j < xx; j++)
+         a[j + i * xx] = x[j + i * xx] + y[j + i * xx];
 }
 
-void addm (double x[], double y[], const int xx, const int yy, double a[])
+void addm(double x[], double y[], const int xx, const int yy, double a[])
 {
    int i;
 
-   if (x==a) {
-      if (xx*yy>tmpsize) { 
-         if (tmp!=NULL)
+   if (x == a) {
+      if (xx * yy > tmpsize) {
+         if (tmp != NULL)
             free(tmp);
          tmpsize = xx * yy;
-         tmp = (double *)getmem(tmpsize, sizeof(*tmp));
+         tmp = (double *) getmem(tmpsize, sizeof(*tmp));
       }
-      am(x,y,xx,yy,tmp);
-      for (i=xx*yy-1; i>=0; i--)
-         a[i] = tmp[i]; 
-   }
-   else {
-      am(x,y,xx,yy,a);
+      am(x, y, xx, yy, tmp);
+      for (i = xx * yy - 1; i >= 0; i--)
+         a[i] = tmp[i];
+   } else {
+      am(x, y, xx, yy, a);
    }
 
    return;

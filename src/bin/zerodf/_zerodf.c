@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -68,64 +68,63 @@
 #  include <SPTK.h>
 #endif
 
-double zerodf (double x, double *b, int m, double *d)
+double zerodf(double x, double *b, int m, double *d)
 {
    double out;
 
-   out = b[0]*x;
+   out = b[0] * x;
 
-   for (m--; m>0; m--) {
-      out += b[m+1] * d[m];
-      d[m] = d[m-1];
+   for (m--; m > 0; m--) {
+      out += b[m + 1] * d[m];
+      d[m] = d[m - 1];
    }
    out += b[1] * d[0];
    d[0] = x;
 
-   return(out);
+   return (out);
 }
 
-double zerodft (double x, double *b, const int m, double *d)
+double zerodft(double x, double *b, const int m, double *d)
 {
    int i;
    double out;
 
-   out = b[0]*x + d[0];
+   out = b[0] * x + d[0];
 
-   for (i=1; i<m; i++)
-      d[i-1] = b[i] * x + d[i];
+   for (i = 1; i < m; i++)
+      d[i - 1] = b[i] * x + d[i];
 
-   d[m-1] = b[m] * x;
+   d[m - 1] = b[m] * x;
 
-   return(out);
+   return (out);
 }
 
-double zerodf1 (double x, double *b, int m, double *d)
+double zerodf1(double x, double *b, int m, double *d)
 {
    double out;
 
    out = x;
-   for (m--; m>0; m--) {
-      out += b[m+1] * d[m];
-      d[m] = d[m-1];
+   for (m--; m > 0; m--) {
+      out += b[m + 1] * d[m];
+      d[m] = d[m - 1];
    }
    out += b[1] * d[0];
    d[0] = x;
 
-   return(out);
+   return (out);
 }
 
-double zerodf1t (double x, double *b, const int m, double *d)
+double zerodf1t(double x, double *b, const int m, double *d)
 {
    int i;
    double out;
 
    out = x + d[0];
 
-   for (i=1; i<m; i++)
-      d[i-1] = b[i] * x + d[i];
+   for (i = 1; i < m; i++)
+      d[i - 1] = b[i] * x + d[i];
 
-   d[m-1] = b[m] * x;
+   d[m - 1] = b[m] * x;
 
-   return(out);
+   return (out);
 }
-

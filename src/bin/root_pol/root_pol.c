@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -69,7 +69,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -101,17 +102,18 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-int usage (void)
+int usage(void)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - Durand-Kerner-Aberth for higher order equation \n", cmnd);
+   fprintf(stderr, " %s - Durand-Kerner-Aberth for higher order equation \n",
+           cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m  : order of equation            [%d]\n",ORDER);
-   fprintf(stderr, "       -n  : number of maximum iteration  [%d]\n",ITER);
-   fprintf(stderr, "       -e  : error margin for roots       [%g]\n",EPS);
+   fprintf(stderr, "       -m  : order of equation            [%d]\n", ORDER);
+   fprintf(stderr, "       -n  : number of maximum iteration  [%d]\n", ITER);
+   fprintf(stderr, "       -e  : error margin for roots       [%g]\n", EPS);
    fprintf(stderr, "       -i  : a[0] = 1                     [FALSE]\n");
    fprintf(stderr, "       -s  : revert the coefficient       [FALSE]\n");
    fprintf(stderr, "       -r  : (magnitude, arg) output      [(Real,Imag)]\n");
@@ -122,7 +124,7 @@ int usage (void)
    fprintf(stderr, "       root of polynomial (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -130,71 +132,71 @@ int usage (void)
 }
 
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
    char *s;
-   int c, k, odr=ORDER, itrat=ITER, form=0, a_zero=0;
-   double *a, *d, eps=EPS;
-   FILE *fp=stdin;
+   int c, k, odr = ORDER, itrat = ITER, form = 0, a_zero = 0;
+   double *a, *d, eps = EPS;
+   FILE *fp = stdin;
    complex *x;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
-   while (--argc>0) {
-      if (*(s = *++argv)=='-') {
+   while (--argc > 0) {
+      if (*(s = *++argv) == '-') {
          c = *++s;
          switch (c) {
-         case 'i' :
+         case 'i':
             a_zero = 1;
             break;
-         case 'r' :
+         case 'r':
             form |= 1;
             break;
-         case 's' :
+         case 's':
             form |= 2;
             break;
-         case 'e' :
-            if (*++s=='\0') {
+         case 'e':
+            if (*++s == '\0') {
                s = *++argv;
                --argc;
             }
             eps = atof(s);
             break;
-         case 'm' :
-            if (*++s=='\0') {
+         case 'm':
+            if (*++s == '\0') {
                s = *++argv;
                --argc;
             }
             odr = atoi(s);
             break;
-         case 'n' :
-            if (*++s=='\0') {
+         case 'n':
+            if (*++s == '\0') {
                s = *++argv;
                --argc;
             }
             itrat = atoi(s);
             break;
-         default  :
-            usage ();
+         default:
+            usage();
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
    }
-         
-   a = dgetmem(odr+1);
-   odr = freadf(a,sizeof(*a),odr,fp)-1;
 
-   d = dgetmem(odr+1);
-   x = cplx_getmem(odr+1);
+   a = dgetmem(odr + 1);
+   odr = freadf(a, sizeof(*a), odr, fp) - 1;
 
-   for (k=0; k<=odr; ++k) d[k] = a[k];
+   d = dgetmem(odr + 1);
+   x = cplx_getmem(odr + 1);
+
+   for (k = 0; k <= odr; ++k)
+      d[k] = a[k];
 
    root_pol(d, odr, x, a_zero, eps, itrat);
    output_root_pol(x, odr, form);
 
-   return(0);
+   return (0);
 }

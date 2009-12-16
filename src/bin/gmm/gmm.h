@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,6 +44,6 @@
 
 /* $Id$ */
 
-#define LZERO  (-1.0E10)  /* ~log(0) */
-#define LSMALL (-0.5E10)  /* log values < LSMALL are set to LZERO */
+#define LZERO  (-1.0E10)        /* ~log(0) */
+#define LSMALL (-0.5E10)        /* log values < LSMALL are set to LZERO */
 #define sq(x)  ((x)*(x))

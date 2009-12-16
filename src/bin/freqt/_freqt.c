@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -67,40 +67,39 @@
 #  include <SPTK.h>
 #endif
 
-void freqt (double *c1, const int m1, double *c2, const int m2, const double a)
+void freqt(double *c1, const int m1, double *c2, const int m2, const double a)
 {
    int i, j;
    double b;
-   static double *d=NULL, *g;
+   static double *d = NULL, *g;
    static int size;
-    
-   if (d==NULL) {
+
+   if (d == NULL) {
       size = m2;
-      d = dgetmem(size+size+2);
+      d = dgetmem(size + size + 2);
       g = d + size + 1;
    }
 
-   if (m2>size) {
+   if (m2 > size) {
       free(d);
       size = m2;
-      d = dgetmem(size+size+2);
+      d = dgetmem(size + size + 2);
       g = d + size + 1;
    }
-    
-   b = 1 - a*a;
-   fillz(g, sizeof(*g), m2+1);
 
-   for (i=-m1; i<=0; i++) {
-      if (0<=m2)
-         g[0] = c1[-i] + a*(d[0] = g[0]);
-      if (1<=m2)
-         g[1] = b*d[0] + a*(d[1] = g[1]);
-      for (j=2; j<=m2; j++)
-         g[j] = d[j-1] + a*((d[j]=g[j]) - g[j-1]);
+   b = 1 - a * a;
+   fillz(g, sizeof(*g), m2 + 1);
+
+   for (i = -m1; i <= 0; i++) {
+      if (0 <= m2)
+         g[0] = c1[-i] + a * (d[0] = g[0]);
+      if (1 <= m2)
+         g[1] = b * d[0] + a * (d[1] = g[1]);
+      for (j = 2; j <= m2; j++)
+         g[j] = d[j - 1] + a * ((d[j] = g[j]) - g[j - 1]);
    }
-    
-   movem(g, c2, sizeof(*g), m2+1);
+
+   movem(g, c2, sizeof(*g), m2 + 1);
 
    return;
 }
-

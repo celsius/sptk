@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -98,26 +98,29 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - solve an autocorrelation normal equation\n",cmnd);
+   fprintf(stderr, " %s - solve an autocorrelation normal equation\n", cmnd);
    fprintf(stderr, "                    using Levinson-Durbin method\n");
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of correlation             [%d]\n", ORDER);
-   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n", MINDET);
+   fprintf(stderr, "       -m m  : order of correlation             [%d]\n",
+           ORDER);
+   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n",
+           MINDET);
    fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       autocorrelation (%s)                  [stdin]\n", FORMAT);
+   fprintf(stderr, "       autocorrelation (%s)                  [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       LP coefficients (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -125,19 +128,19 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int  m=ORDER, flag;
-   FILE *fp=stdin;
-   double *r, *a, f=MINDET;
+   int m = ORDER, flag;
+   FILE *fp = stdin;
+   double *r, *a, f = MINDET;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -147,23 +150,21 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   a = dgetmem(m+m+2);
+   a = dgetmem(m + m + 2);
    r = a + m + 1;
 
-   while (freadf(r, sizeof(*r), m+1, fp)==m+1) {
+   while (freadf(r, sizeof(*r), m + 1, fp) == m + 1) {
       flag = levdur(r, a, m, f);
-      fwritef(a, sizeof(*a), m+1, stdout);
+      fwritef(a, sizeof(*a), m + 1, stdout);
    }
-   
-   return(0);
-}
 
+   return (0);
+}

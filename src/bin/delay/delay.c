@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -90,16 +90,16 @@ static char *rcs_id = "$Id$";
 #define START 0
 #define KEEP FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - delay sequence\n",cmnd);
+   fprintf(stderr, " %s - delay sequence\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -121,21 +121,21 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int  start=START, leng=16384, i;
-   FILE *fp=stdin;
+   int start = START, leng = 16384, i;
+   FILE *fp = stdin;
    double *x;
-   Boolean keep=KEEP;
-   
-   
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   Boolean keep = KEEP;
+
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 's':
             start = atoi(*++argv);
             --argc;
@@ -146,27 +146,28 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else 
+      } else
          fp = getfp(*argv, "rb");
 
-   if (start>leng) {
-      fprintf(stderr, "%s : Start point %d should be %d or less!\n", cmnd, start, leng);
+   if (start > leng) {
+      fprintf(stderr, "%s : Start point %d should be %d or less!\n", cmnd,
+              start, leng);
       exit(1);
    }
-            
+
    x = dgetmem(leng);
-   while ((i = freadf(x+start, sizeof(*x), leng-start, fp))==leng-start) {
-      fwritef(x, sizeof(*x), leng-start, stdout);
-      movem(x+leng-start,x,sizeof(*x),start);
+   while ((i = freadf(x + start, sizeof(*x), leng - start, fp)) == leng - start) {
+      fwritef(x, sizeof(*x), leng - start, stdout);
+      movem(x + leng - start, x, sizeof(*x), start);
    }
-    
-   if (keep) fwritef(x,sizeof(*x),i,stdout);
-   else fwritef(x, sizeof(*x), i+start, stdout);
+
+   if (keep)
+      fwritef(x, sizeof(*x), i, stdout);
+   else
+      fwritef(x, sizeof(*x), i + start, stdout);
 
    exit(0);
 }
-

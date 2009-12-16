@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -69,33 +69,32 @@
 #  include <SPTK.h>
 #endif
 
-double dfs (double x, double *a, int m, double *b, int n, double *buf, int *bufp)
+double dfs(double x, double *a, int m, double *b, int n, double *buf, int *bufp)
 {
-   double y=0.0;
+   double y = 0.0;
    int i, p;
    int max;
 
    n++;
    m++;
 
-   (m<n) ? (max=n) : (max=m);
+   (m < n) ? (max = n) : (max = m);
 
-   x = x*a[0];
-   for (i=1; i<m; i++) {
-      if ((p=*bufp+i)>=max)
+   x = x * a[0];
+   for (i = 1; i < m; i++) {
+      if ((p = *bufp + i) >= max)
          p -= max;
       x -= buf[p] * a[i];
    }
    buf[*bufp] = x;
-   for (i=0; i<n; i++) {
-      if ((p=*bufp+i)>=max)
+   for (i = 0; i < n; i++) {
+      if ((p = *bufp + i) >= max)
          p -= max;
       y += buf[p] * b[i];
    }
 
-   if (--*bufp<0)
+   if (--*bufp < 0)
       *bufp += max;
 
-   return(y);
+   return (y);
 }
-

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -99,18 +99,18 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - file dump\n",cmnd);
+   fprintf(stderr, " %s - file dump\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -a a  : address                     [%d]\n",START);
-   fprintf(stderr, "       -n n  : initial value for numbering [%d]\n",START);
+   fprintf(stderr, "       -a a  : address                     [%d]\n", START);
+   fprintf(stderr, "       -n n  : initial value for numbering [%d]\n", START);
    fprintf(stderr, "       -m m  : modulo for numbering        [EOF]\n");
-   fprintf(stderr, "       -ent  : number of data in each line [%d]\n",ENTRY);
+   fprintf(stderr, "       -ent  : number of data in each line [%d]\n", ENTRY);
    fprintf(stderr, "       +type : data type                   [c]\n");
    fprintf(stderr, "                c (char)      s (short)\n");
    fprintf(stderr, "                i (int)       l (long)\n");
@@ -131,26 +131,26 @@ void usage (int status)
 }
 
 
-long start=START, mod=MODULO;
-int is_int=0, entry=ENTRY, is_char=1, ff=0;
-size_t size=sizeof(char);
-char adrsfmt='d', format[SIZE], form[SIZE];
+long start = START, mod = MODULO;
+int is_int = 0, entry = ENTRY, is_char = 1, ff = 0;
+size_t size = sizeof(char);
+char adrsfmt = 'd', format[SIZE], form[SIZE];
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   FILE *fp=stdin;
+   FILE *fp = stdin;
    char *s, c;
-   void fdump(FILE *fp);
-    
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   void fdump(FILE * fp);
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-   
+
    while (--argc)
-      if (*(s = *++argv)=='-') {
-         if (((c=*++s)>'0') && (c<='9'))
+      if (*(s = *++argv) == '-') {
+         if (((c = *++s) > '0') && (c <= '9'))
             c = 'c';
          switch (c) {
          case 'a':
@@ -169,11 +169,10 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else if (*s=='+') {
+      } else if (*s == '+') {
          c = *++s;
          switch (c) {
          case 'b':
@@ -200,15 +199,13 @@ int main (int argc, char **argv)
             size = sizeof(double);
             break;
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else if (*s=='%') {
-         strcpy(format,s);
+      } else if (*s == '%') {
+         strcpy(format, s);
          ff = 1;
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
    fdump(fp);
@@ -216,7 +213,7 @@ int main (int argc, char **argv)
    return 0;
 }
 
-void fdump (FILE *fp)
+void fdump(FILE * fp)
 {
    char s[18];
    long adrs, i, n;
@@ -228,32 +225,34 @@ void fdump (FILE *fp)
       double d;
    } u;
 
-   if (ff) strcat(format," ");
-    
-   if (entry==0) {
-      if (size==8)
+   if (ff)
+      strcat(format, " ");
+
+   if (entry == 0) {
+      if (size == 8)
          entry = 2;
-      else if (size>1)
+      else if (size > 1)
          entry = 5;
       else if (is_char)
          entry = 16;
       else
          entry = 10;
    }
-    
+
    freadx(&u, size, 1, fp);
-   
-   while(!feof(fp))
-      for (n=adrs=start; (n<mod) && !feof(fp); adrs+=entry*size) {
-         if (adrsfmt=='a')
+
+   while (!feof(fp))
+      for (n = adrs = start; (n < mod) && !feof(fp); adrs += entry * size) {
+         if (adrsfmt == 'a')
             printf("%06lx  ", adrs);
-         else if (adrsfmt=='n')
+         else if (adrsfmt == 'n')
             printf("%7ld  ", n);
 
-         for (i=0; (i<entry) && !feof(fp) && (n<mod); i++,n++) {
+         for (i = 0; (i < entry) && !feof(fp) && (n < mod); i++, n++) {
             switch (size) {
             case 1:
-               s[i] = (((u.b&0x7f)<32) || (u.b==0x7f) || (u.b>=0xe0)) ? '.' : u.b;
+               s[i] = (((u.b & 0x7f) < 32) || (u.b == 0x7f)
+                       || (u.b >= 0xe0)) ? '.' : u.b;
                if (is_char)
                   printf("%02x ", u.b);
                else
@@ -280,13 +279,12 @@ void fdump (FILE *fp)
             }
             freadx(&u, size, 1, fp);
          }
-         if (size==1 && is_char) {
+         if (size == 1 && is_char) {
             s[i] = '\0';
-            while (i++<entry)
+            while (i++ < entry)
                printf("   ");
             printf("|%s|\n", s);
-         }
-         else
+         } else
             printf("\n");
       }
 }

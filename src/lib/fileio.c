@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -69,50 +69,51 @@
 #define LINEBUFSIZE 256
 
 /* freada: read ascii */
-int freada (double *p, const int bl, FILE *fp)
+int freada(double *p, const int bl, FILE * fp)
 {
    int c;
    char buf[LINEBUFSIZE];
 
 #if defined(WIN32)
-   _setmode( _fileno(fp), _O_TEXT );
+   _setmode(_fileno(fp), _O_TEXT);
 #endif
 
    c = 0;
-   while (c<bl) {
-      if (fgets(buf,LINEBUFSIZE,fp)==NULL) break;
+   while (c < bl) {
+      if (fgets(buf, LINEBUFSIZE, fp) == NULL)
+         break;
       p[c] = atof(buf);
       c++;
    }
-   return(c);
+   return (c);
 }
 
 /* fritex: wrapper function for fwrite */
-int fwritex (void *ptr, const size_t size, const int nitems, FILE *fp)
+int fwritex(void *ptr, const size_t size, const int nitems, FILE * fp)
 {
 #if defined(WIN32)
-   _setmode( _fileno(fp), _O_BINARY );
+   _setmode(_fileno(fp), _O_BINARY);
 #endif
-   return(fwrite(ptr, size, nitems, fp));
+   return (fwrite(ptr, size, nitems, fp));
 }
 
 /* freadx: wrapper function for fread */
-int freadx (void *ptr, const size_t size, const int nitems, FILE *fp)
+int freadx(void *ptr, const size_t size, const int nitems, FILE * fp)
 {
 #if defined(WIN32)
-   _setmode( _fileno(fp), _O_BINARY );
+   _setmode(_fileno(fp), _O_BINARY);
 #endif
-   return(fread(ptr, size, nitems, fp));
+   return (fread(ptr, size, nitems, fp));
 }
 
-/* --------------- double I/O compile --------------- */ 
+/* --------------- double I/O compile --------------- */
 #ifndef DOUBLE
 
 static float *f;
 static int items;
 
 /* fwritef : convert double type data to float type and write */
-int fwritef (double *ptr, const size_t size, const int nitems, FILE *fp)
+int fwritef(double *ptr, const size_t size, const int nitems, FILE * fp)
 {
    int i;
    if (items < nitems) {
@@ -121,18 +122,18 @@ int fwritef (double *ptr, const size_t size, const int nitems, FILE *fp)
       items = nitems;
       f = fgetmem(items);
    }
-   for (i=0; i<nitems; i++)
+   for (i = 0; i < nitems; i++)
       f[i] = ptr[i];
 
 #if defined(WIN32)
-   _setmode( _fileno(fp), _O_BINARY );
+   _setmode(_fileno(fp), _O_BINARY);
 #endif
-	
+
    return fwrite(f, sizeof(float), nitems, fp);
 }
 
 /* freadf : read float type data and convert to double type */
-int freadf (double *ptr, const size_t size, const int nitems, FILE *fp)
+int freadf(double *ptr, const size_t size, const int nitems, FILE * fp)
 {
    int i, n;
    if (items < nitems) {
@@ -141,31 +142,30 @@ int freadf (double *ptr, const size_t size, const int nitems, FILE *fp)
       items = nitems;
       f = fgetmem(items);
    }
-
 #if defined(WIN32)
-   _setmode( _fileno(fp), _O_BINARY );
+   _setmode(_fileno(fp), _O_BINARY);
 #endif
 
    n = fread(f, sizeof(float), nitems, fp);
-   for (i=0; i<n; i++)
+   for (i = 0; i < n; i++)
       ptr[i] = f[i];
-   
+
    return n;
 }
 
 /* --------------- float I/O compile --------------- */
-#else  /* DOUBLE */
+#else                           /* DOUBLE */
 
 /* fwritef : write float type data */
-int fwritef (float *ptr, const size_t size, const int nitems, FILE *fp)
+int fwritef(float *ptr, const size_t size, const int nitems, FILE * fp)
 {
-   return(fwritex(ptr, size, nitems, fp));
+   return (fwritex(ptr, size, nitems, fp));
 }
 
 /* freadf : read float type data */
-int freadf (float *ptr, const size_t size, const int nitems, FILE *fp)
+int freadf(float *ptr, const size_t size, const int nitems, FILE * fp)
 {
-   return(freadx(ptr, size, nitems, fp));
+   return (freadx(ptr, size, nitems, fp));
 }
 
-#endif	/* DOUBLE */
+#endif                          /* DOUBLE */

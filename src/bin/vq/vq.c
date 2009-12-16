@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -97,60 +97,62 @@ static char *rcs_id = "$Id$";
 #define CBSIZE 256
 #define QFLAG  FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - vector quantization\n",cmnd);
+   fprintf(stderr, " %s - vector quantization\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] cbfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length of vector        [%d]\n", LENG);
-   fprintf(stderr, "       -n n  : order of vector         [%d]\n", LENG-1);
-   fprintf(stderr, "       -q    : output quantized vector [%s]\n", BOOL[QFLAG]);
+   fprintf(stderr, "       -n n  : order of vector         [%d]\n", LENG - 1);
+   fprintf(stderr, "       -q    : output quantized vector [%s]\n",
+           BOOL[QFLAG]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       vectors (%s)                 [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       index (int) or\n");
-   fprintf(stderr, "       quantized vectors (%s) if -q option is specified\n", FORMAT);
+   fprintf(stderr, "       quantized vectors (%s) if -q option is specified\n",
+           FORMAT);
    fprintf(stderr, "  cbfile:\n");
    fprintf(stderr, "       codebook (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int l=LENG, cbsize=CBSIZE, index;
-   Boolean qflag=QFLAG;
-   FILE *fp=stdin, *fpcb=NULL;
+   int l = LENG, cbsize = CBSIZE, index;
+   Boolean qflag = QFLAG;
+   FILE *fp = stdin, *fpcb = NULL;
    double *x, *qx, *cb;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'l':
             l = atoi(*++argv);
             --argc;
             break;
          case 'n':
-            l = atoi(*++argv)+1;
+            l = atoi(*++argv) + 1;
             --argc;
             break;
          case 's':
@@ -161,46 +163,43 @@ int main (int argc, char **argv)
             qflag = 1 - qflag;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else if (fpcb==NULL)
+      } else if (fpcb == NULL)
          fpcb = getfp(*argv, "rb");
       else
          fp = getfp(*argv, "rb");
 
-   fseek(fpcb,0,2);
+   fseek(fpcb, 0, 2);
 #ifdef DOUBLE
-   cbsize = ftell(fpcb)/sizeof(double)/l;
+   cbsize = ftell(fpcb) / sizeof(double) / l;
 #else
-   cbsize = ftell(fpcb)/sizeof(float)/l;
-#endif  /* DOUBLE */
+   cbsize = ftell(fpcb) / sizeof(float) / l;
+#endif                          /* DOUBLE */
    rewind(fpcb);
 
-   x = dgetmem(l+l+cbsize*l);
+   x = dgetmem(l + l + cbsize * l);
    qx = x + l;
    cb = qx + l;
 
-   if (freadf(cb, sizeof(*cb), cbsize*l, fpcb)!=cbsize*l) {
-      fprintf(stderr,"%s : Codebook size error!\n",cmnd);
-      return(1);
+   if (freadf(cb, sizeof(*cb), cbsize * l, fpcb) != cbsize * l) {
+      fprintf(stderr, "%s : Codebook size error!\n", cmnd);
+      return (1);
    }
 
-   if (! qflag)
-      while (freadf(x, sizeof(*x), l, fp)==l) {
+   if (!qflag)
+      while (freadf(x, sizeof(*x), l, fp) == l) {
          index = vq(x, cb, l, cbsize);
          fwritex(&index, sizeof(index), 1, stdout);
-      }
-   else
-      while (freadf(x, sizeof(*x), l, fp)==l) {
+   } else
+      while (freadf(x, sizeof(*x), l, fp) == l) {
          index = vq(x, cb, l, cbsize);
          ivq(index, cb, l, qx);
          fwritef(qx, sizeof(*qx), l, stdout);
       }
 
-   return(0);
+   return (0);
 }
-

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -61,7 +61,7 @@
         return         : filter output
 
                          Dec.1995 Naohiro Isshiki
-*******************************************************/    
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
@@ -72,12 +72,13 @@
 #  include <SPTK.h>
 #endif
 
-double df2 (const double x, const double sf, const double f0p, const double wbp, const double f0z, const double wbz, 
-            const int fp, const int fz, double *buf, int *bufp)
+double df2(const double x, const double sf, const double f0p, const double wbp,
+           const double f0z, const double wbz, const int fp, const int fz,
+           double *buf, int *bufp)
 {
    double a[3], b[3];
    double p, e;
- 
+
    p = 4 * atan(1.0) / sf;
    e = exp(-p * wbz);
 
@@ -85,24 +86,20 @@ double df2 (const double x, const double sf, const double f0p, const double wbp,
    if (fz) {
       a[1] = -2 * e * cos(2 * p * f0z);
       a[2] = e * e;
-   }
-   else {
+   } else {
       a[1] = 0;
       a[2] = 0;
    }
-  
+
    e = exp(-p * wbp);
    b[0] = 1.0;
    if (fp) {
       b[1] = -2 * e * cos(2 * p * f0p);
       b[2] = e * e;
-   } 
-   else {
+   } else {
       b[1] = 0;
       b[2] = 0;
    }
- 
-   return(dfs(x,b,2,a,2,buf,bufp));
+
+   return (dfs(x, b, 2, a, 2, buf, bufp));
 }
-
-

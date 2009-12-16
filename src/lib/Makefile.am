@@ -46,9 +46,7 @@ nodist_libSPTK_a_SOURCES = $(top_srcdir)/include/SPTK.h \
 		$(top_srcdir)/bin/histogram/_histogram.c \
 		$(top_srcdir)/bin/ifft/_ifft.c \
 		$(top_srcdir)/bin/ifft2/_ifft2.c \
-		$(top_srcdir)/bin/iglsadf/_iglsadf.c \
 		$(top_srcdir)/bin/ignorm/_ignorm.c \
-		$(top_srcdir)/bin/imglsadf/_imglsadf.c \
 		$(top_srcdir)/bin/imsvq/_imsvq.c \
 		$(top_srcdir)/bin/ivq/_ivq.c \
 		$(top_srcdir)/bin/lbg/_lbg.c \

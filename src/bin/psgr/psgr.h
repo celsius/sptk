@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 #include <stdio.h>
 
-struct bbmargin {      /*  Bounding Box Margin  */
+struct bbmargin {               /*  Bounding Box Margin  */
    int top;
    int bottom;
    int left;
@@ -91,7 +91,8 @@ extern int landscape;
 extern int font_no;
 extern int clip_mode;
 
-void epsf_setup(FILE *fp, float shrink, int xoffset, int yoffset, struct bbmargin bbm, int ncopy );
+void epsf_setup(FILE * fp, float shrink, int xoffset, int yoffset,
+                struct bbmargin bbm, int ncopy);
 void epsf_end(void);
-void plot(FILE *fp);
-void dict (void);
+void plot(FILE * fp);
+void dict(void);

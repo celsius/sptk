@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -93,10 +93,10 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - binary file dump\n",cmnd);
+   fprintf(stderr, " %s - binary file dump\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -122,14 +122,14 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int n=-1, i=0, eflag=0, lflag=0;
-   size_t size=sizeof(float);
-   FILE *fp=stdin;
-   char *s, c, cc='f';
-   char format[SIZE],form[SIZE];
-   int ff=0;
+   int n = -1, i = 0, eflag = 0, lflag = 0;
+   size_t size = sizeof(float);
+   FILE *fp = stdin;
+   char *s, c, cc = 'f';
+   char format[SIZE], form[SIZE];
+   int ff = 0;
    union u {
       short s;
       int i;
@@ -138,22 +138,22 @@ int main (int argc, char **argv)
       char c;
       long l;
    } x;
-    
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-   
+
    while (--argc)
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         switch(c) {
+         switch (c) {
          case 'n':
-            n = atoi(*++argv)+1;
+            n = atoi(*++argv) + 1;
             --argc;
             break;
          case 'l':
-            n = atoi(*++argv)-1;
+            n = atoi(*++argv) - 1;
             lflag = 1;
             --argc;
             break;
@@ -163,13 +163,12 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else if (*s=='+') {
+      } else if (*s == '+') {
          c = *++s;
-         switch(c) {
+         switch (c) {
          case 'c':
             cc = 'c';
             size = sizeof(char);
@@ -195,83 +194,81 @@ int main (int argc, char **argv)
             size = sizeof(double);
             break;
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else if (*s=='%') {
-         strcpy(format,s);
+      } else if (*s == '%') {
+         strcpy(format, s);
          ff = 1;
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   for (i=0; ; i++) {
-      if ((n>=0) && (i>=n+lflag))
+   for (i = 0;; i++) {
+      if ((n >= 0) && (i >= n + lflag))
          i = 0;
-      if (freadx(&x.f, size, 1, fp)!=1)
+      if (freadx(&x.f, size, 1, fp) != 1)
          break;
       if (eflag)
-         printf("%d\t0\n", i+lflag);
+         printf("%d\t0\n", i + lflag);
       switch (cc) {
       case 's':
-         strcpy(form,"%d\t%d\n");
+         strcpy(form, "%d\t%d\n");
          if (ff) {
-            strcpy(form,"%d\t");
-            strcat(form,format);
-            strcat(form,"\n");
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
          }
-         printf(form, i+lflag, x.s);
+         printf(form, i + lflag, x.s);
          break;
       case 'i':
-         strcpy(form,"%d\t%d\n");
+         strcpy(form, "%d\t%d\n");
          if (ff) {
-            strcpy(form,"%d\t");
-            strcat(form,format);
-            strcat(form,"\n");
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
          }
-         printf(form, i+lflag, x.i);
+         printf(form, i + lflag, x.i);
          break;
       case 'f':
-         strcpy(form,"%d\t%g\n");
+         strcpy(form, "%d\t%g\n");
          if (ff) {
-            strcpy(form,"%d\t");
-            strcat(form,format);
-            strcat(form,"\n");
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
          }
-         printf(form, i+lflag, x.f);
+         printf(form, i + lflag, x.f);
          break;
       case 'd':
-         strcpy(form,"%d\t%g\n");
+         strcpy(form, "%d\t%g\n");
          if (ff) {
-            strcpy(form,"%d\t");
-            strcat(form,format);
-            strcat(form,"\n");
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
          }
-         printf(form, i+lflag, x.d);
+         printf(form, i + lflag, x.d);
          break;
       case 'c':
-         strcpy(form,"%d\t%d\n");
+         strcpy(form, "%d\t%d\n");
          if (ff) {
-            strcpy(form,"%d\t");
-            strcat(form,format);
-            strcat(form,"\n");
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
          }
-         printf(form, i+lflag, x.c);
+         printf(form, i + lflag, x.c);
          break;
       case 'l':
-         strcpy(form,"%d\t%d\n");
+         strcpy(form, "%d\t%d\n");
          if (ff) {
-            strcpy(form,"%d\t");
-            strcat(form,format);
-            strcat(form,"\n");
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
          }
-         printf(form, i+lflag, x.l);
+         printf(form, i + lflag, x.l);
          break;
       }
       if (eflag)
-         printf("%d\t0\n", i+lflag);
+         printf("%d\t0\n", i + lflag);
    }
-   
+
    return 0;
 }

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -92,9 +92,9 @@ static char *rcs_id = "$Id$";
 #endif
 
 static char *cmnd;
-int size=64, outopt=0, n1=0, n2=0, out=' ';
+int size = 64, outopt = 0, n1 = 0, n2 = 0, out = ' ';
 
-int usage (void)
+int usage(void)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - 2D-FFT for complex sequence\n", cmnd);
@@ -126,26 +126,26 @@ int usage (void)
 }
 
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
    FILE *fp;
-   char *s, *infile=NULL, c;
+   char *s, *infile = NULL, c;
    double *x, *y;
    double *xp, *yp;
-   void trans (double *p);
+   void trans(double *p);
 
    int size2;
    int i, k;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
    while (--argc) {
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if ((c=='l' || c=='m') && (*++s=='\0')) {
+         if ((c == 'l' || c == 'm') && (*++s == '\0')) {
             s = *++argv;
             --argc;
          }
@@ -155,16 +155,14 @@ int main (int argc,char *argv[])
             break;
          case 'm':
             n1 = atoi(s);
-            if (argc==1) {
+            if (argc == 1) {
                n2 = n1;
-            }
-            else {
-               s = *++argv;    
+            } else {
+               s = *++argv;
                argc--;
-               if ((*s>='0') && (*s<='9')) {
+               if ((*s >= '0') && (*s <= '9')) {
                   n2 = atoi(s);
-               } 
-               else {
+               } else {
                   n2 = n1;
                   s = *--argv;
                   argc++;
@@ -174,11 +172,11 @@ int main (int argc,char *argv[])
          case 't':
          case 'c':
          case 'q':
-            if ((c=='t') || (*++s=='t'))
+            if ((c == 't') || (*++s == 't'))
                outopt = 1;
-            if ((c=='c') || (*s=='c'))
+            if ((c == 'c') || (*s == 'c'))
                outopt = 2;
-            if (c=='q')
+            if (c == 'q')
                outopt = -1;
             break;
          case 'a':
@@ -196,18 +194,21 @@ int main (int argc,char *argv[])
          default:
             usage();
          }
-      }
-      else
+      } else
          infile = s;
    }
 
-   if (n1>size) {
-      fprintf(stderr, "%s : Region size %d should be less than the FFT size %d!\n", cmnd, n1, size);
-      return(1);
+   if (n1 > size) {
+      fprintf(stderr,
+              "%s : Region size %d should be less than the FFT size %d!\n",
+              cmnd, n1, size);
+      return (1);
    }
-   if (n2>size) {
-      fprintf(stderr, "%s : Region size %d should be less than the FFT size %d!\n", cmnd, n2, size);
-      return(1);
+   if (n2 > size) {
+      fprintf(stderr,
+              "%s : Region size %d should be less than the FFT size %d!\n",
+              cmnd, n2, size);
+      return (1);
    }
 
    if (infile)
@@ -215,71 +216,70 @@ int main (int argc,char *argv[])
    else
       fp = stdin;
 
- 
+
    size2 = size * size;
 
-   x = dgetmem(2*size2);
+   x = dgetmem(2 * size2);
    y = x + size2;
 
    while (!feof(fp)) {
       if (n1) {
-         for (xp=x,k=n2; --k>=0; xp+=size) {
-            if (freadf(xp, sizeof(*x), n1, fp)!=n1)
-               return(-1);
-            if (n1<size)
-            fillz(xp + n1,sizeof(*x), size - n1);
+         for (xp = x, k = n2; --k >= 0; xp += size) {
+            if (freadf(xp, sizeof(*x), n1, fp) != n1)
+               return (-1);
+            if (n1 < size)
+               fillz(xp + n1, sizeof(*x), size - n1);
          }
-         for (yp=y, k=n2; --k>=0; yp+=size) {
-            if (freadf(yp, sizeof(*y), n1, fp)!=n1)
-               return(-1);
-            if (n1<size)
-               fillz(yp + n1,sizeof(*x), size - n1);
+         for (yp = y, k = n2; --k >= 0; yp += size) {
+            if (freadf(yp, sizeof(*y), n1, fp) != n1)
+               return (-1);
+            if (n1 < size)
+               fillz(yp + n1, sizeof(*x), size - n1);
          }
-      } 
-      else {
-         if ((k = freadf(x, sizeof(*x), 2 * size2, fp))==0)
-         break;
-         n2 = n1 = sqrt((double)k / 2);
-         if (k!=n1*n1*2) {
+      } else {
+         if ((k = freadf(x, sizeof(*x), 2 * size2, fp)) == 0)
+            break;
+         n2 = n1 = sqrt((double) k / 2);
+         if (k != n1 * n1 * 2) {
             fprintf(stderr, "%s : Region of support is not square!\n", cmnd);
-            return(-1);
+            return (-1);
          }
-         if (n1<size) {
-            fillz(yp=y+size*n1, sizeof(*x), size*(size-n1));
-            yp -= (size-n1);
+         if (n1 < size) {
+            fillz(yp = y + size * n1, sizeof(*x), size * (size - n1));
+            yp -= (size - n1);
             xp = x + k;
-            for (k=n1; --k>=0; yp-=(size-n1)) {
-               fillz(yp, sizeof(*x),size - n1);
-               for (i=n1; --i>=0; )
+            for (k = n1; --k >= 0; yp -= (size - n1)) {
+               fillz(yp, sizeof(*x), size - n1);
+               for (i = n1; --i >= 0;)
                   *--yp = *--xp;
             }
-            fillz(yp=x+size*n1, sizeof(*x), size*(size-n1));
-            yp -= (size-n1);
-            for (k=n1; --k>=0; yp-=(size-n1)) {
-               fillz(yp, sizeof(*x),size - n1);
-               for (i=n1; --i>=0; )
+            fillz(yp = x + size * n1, sizeof(*x), size * (size - n1));
+            yp -= (size - n1);
+            for (k = n1; --k >= 0; yp -= (size - n1)) {
+               fillz(yp, sizeof(*x), size - n1);
+               for (i = n1; --i >= 0;)
                   *--yp = *--xp;
             }
          }
       }
-  
+
       fft2(x, y, size);
-   
+
       if (out == 'P')
-         for (k=0; k<size2; k++)
-            x[k] = x[k]*x[k] + y[k]*y[k];
-      else if (out=='A')
-         for (k=0; k<size2; k++)
-            x[k] = sqrt(x[k]*x[k] + y[k]*y[k]);
-      
-      if (out!='I') {
+         for (k = 0; k < size2; k++)
+            x[k] = x[k] * x[k] + y[k] * y[k];
+      else if (out == 'A')
+         for (k = 0; k < size2; k++)
+            x[k] = sqrt(x[k] * x[k] + y[k] * y[k]);
+
+      if (out != 'I') {
          if (outopt)
             trans(x);
          else
             fwritef(x, sizeof(*x), size2, stdout);
       }
-      
-      if ((out==' ') || (out=='I')) {
+
+      if ((out == ' ') || (out == 'I')) {
          if (outopt)
             trans(y);
          else
@@ -288,26 +288,26 @@ int main (int argc,char *argv[])
    }
 
    free(x);
-   
+
    return 0;
 }
 
-void trans (double *p) 
+void trans(double *p)
 {
    int k, sizeh, nout;
    double *q;
 
    sizeh = size / 2;
-   nout = (outopt==1) ? sizeh : sizeh+1;
+   nout = (outopt == 1) ? sizeh : sizeh + 1;
 
-   if (outopt>0)
-      for (q=p+sizeh*size,k=sizeh; --k>=0; q+=size) {
+   if (outopt > 0)
+      for (q = p + sizeh * size, k = sizeh; --k >= 0; q += size) {
          fwritef(q + sizeh, sizeof(*p), sizeh, stdout);
          fwritef(q, sizeof(*p), nout, stdout);
       }
-      
-   for (q=p,k=nout; --k>=0; q+=size) {
-      if (outopt>0)
+
+   for (q = p, k = nout; --k >= 0; q += size) {
+      if (outopt > 0)
          fwritef(q + sizeh, sizeof(*p), sizeh, stdout);
       fwritef(q, sizeof(*p), nout, stdout);
    }

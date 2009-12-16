@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -54,21 +54,21 @@
 /*  Required Functions  */
 
 #define GRKSIZE 62
-static char *grk[]={"Alpha", "Beta", "Gamma", "Delta",
-                    "Epsilon", "Zeta", "Eta", "Theta",
-                    "Iota", "Kappa", "Lambda", "Mu",
-                    "Nu", "Xi", " ", "Pi",
-                    "Rho", "Sigma", "Tau", "Upsilon",
-                    "Phi", "Chi", "Psi", "Omega",
-                    " ", " ", " ", " ", " ", " ", " ", " ",
-                    "alpha", "beta", "gamma", "delta",
-                    "epsilon", "zeta", "eta", "theta",
-                    "iota", "kappa", "lambda", "mu",
-                    "nu", "xi", " ", "pi",
-                    "rho", "sigma", "tau", "upsilon",
-                    "phi", "chi", "psi", "omega",
-                    " ", " ", " ", " ", " ", "infty"
-                   };
+static char *grk[] = { "Alpha", "Beta", "Gamma", "Delta",
+   "Epsilon", "Zeta", "Eta", "Theta",
+   "Iota", "Kappa", "Lambda", "Mu",
+   "Nu", "Xi", " ", "Pi",
+   "Rho", "Sigma", "Tau", "Upsilon",
+   "Phi", "Chi", "Psi", "Omega",
+   " ", " ", " ", " ", " ", " ", " ", " ",
+   "alpha", "beta", "gamma", "delta",
+   "epsilon", "zeta", "eta", "theta",
+   "iota", "kappa", "lambda", "mu",
+   "nu", "xi", " ", "pi",
+   "rho", "sigma", "tau", "upsilon",
+   "phi", "chi", "psi", "omega",
+   " ", " ", " ", " ", " ", "infty"
+};
 static unsigned char sub[SBUFLNG];
 static int nsub;
 
@@ -80,15 +80,14 @@ char *gettxt_fig(char *s)
 
    while (*s && *s != '"')
       ++s;
-   if (*s++=='\0')
-      return(s - 1);
-   for (p = s, nsub = i = 0; *s && (*s != '"' || *(s + 1)=='"'); ++s) {
-      if (*s=='\\') { /* escape sequence */
+   if (*s++ == '\0')
+      return (s - 1);
+   for (p = s, nsub = i = 0; *s && (*s != '"' || *(s + 1) == '"'); ++s) {
+      if (*s == '\\') {         /* escape sequence */
          if ((c = greek(s + 1)) >= 0) {
             s += strlen(grk[c]);
             c += 193;
-         }
-         else {
+         } else {
             switch (c = *++s) {
             case 'b':
                c = 0x08;
@@ -120,30 +119,27 @@ char *gettxt_fig(char *s)
             }
          }
          p[i++] = c;
-      }
-      else if ((c = *s)=='^' || c=='_') {
-         if (*(s + 1)=='{') {
+      } else if ((c = *s) == '^' || c == '_') {
+         if (*(s + 1) == '{') {
             for (*++s = c; *(s + 1) != '}'; p[i++] = ' ') {
                s = script(s, i);
                *s = c;
             }
             ++s;
-         }
-         else {
+         } else {
             s = script(s, i);
             p[i++] = ' ';
          }
-      }
-      else {
-         if (*s=='"')
+      } else {
+         if (*s == '"')
             ++s;
          p[i++] = *s;
       }
    }
    sub[nsub] = p[i] = '\0';
-   while (p + i<s)
+   while (p + i < s)
       p[++i] = ' ';
-   return(p);
+   return (p);
 }
 
 char *script(char *s, int i)
@@ -152,12 +148,11 @@ char *script(char *s, int i)
 
    sub[nsub++] = *s;
    sub[nsub++] = i;
-   if ((c = *++s)=='\\') {
+   if ((c = *++s) == '\\') {
       if ((c = greek(s + 1)) >= 0) {
          s += strlen(grk[c]);
          c += 193;
-      }
-      else {
+      } else {
          switch (c = *++s) {
          case '\\':
          case '{':
@@ -174,28 +169,26 @@ char *script(char *s, int i)
    }
    sub[nsub++] = c;
    sub[nsub++] = '\0';
-   return(s);
+   return (s);
 }
 
 char *getarg(char *s, char *arg)
 {
-   if (s==NULL)
-      return(s);
-   while (*s==' ' || *s=='\t' || *s=='\n')
+   if (s == NULL)
+      return (s);
+   while (*s == ' ' || *s == '\t' || *s == '\n')
       ++s;
-   if (*s=='\0')
-      return(NULL);
-   else if (*s=='"') {
+   if (*s == '\0')
+      return (NULL);
+   else if (*s == '"') {
       gettxt_fig(s);
-      while ((*arg++ = *s++))
-         ;
-   }
-   else {
+      while ((*arg++ = *s++));
+   } else {
       while (*s != ' ' && *s != '\t' && *s != '\n' && *s != '\0')
          *arg++ = *s++;
       *arg = '\0';
    }
-   return(s);
+   return (s);
 }
 
 char *gettyp(char *s, char *t)
@@ -204,43 +197,43 @@ char *gettyp(char *s, char *t)
 
    s = getarg(p = s, t);
    if (isalpha(*t))
-      return(s);
+      return (s);
    else {
       strcpy(t, "lin");
-      return(p);
+      return (p);
    }
 }
 
 char *getname(char *s, char *t)
 {
-   if ((s = getarg(s, t))==NULL)
+   if ((s = getarg(s, t)) == NULL)
       *t = '\0';
-   else if (*t=='"')
+   else if (*t == '"')
       *t++ = '\0';
    else {
       if (!is_number(*t))
          *t = '\0';
       t = gettxt_fig(s);
    }
-   return(t);
+   return (t);
 }
 
 int greek(char *p)
 {
    int n;
 
-   for (n = 0; n<GRKSIZE; ++n)
-      if (strncmp(p, grk[n], strlen(grk[n]))==0)
-         return(n);
-   return(-1);
+   for (n = 0; n < GRKSIZE; ++n)
+      if (strncmp(p, grk[n], strlen(grk[n])) == 0)
+         return (n);
+   return (-1);
 }
 
 double sleng(char *p, double h, double w)
 {
    int len = strlen(p);
-   double ret = (len-1)*w + LADJ*w;
+   double ret = (len - 1) * w + LADJ * w;
 
-   return(ret);
+   return (ret);
 }
 
 void _symbol(double x, double y, char *p, double h, double w, double t)
@@ -250,34 +243,35 @@ void _symbol(double x, double y, char *p, double h, double w, double t)
 
    symbol(x, y, p, h, w, t);
    for (i = 0; sub[i]; i += 4) {
-      dy = (sub[i]=='d' || sub[i]=='_') ? -h * 0.25 : h * 0.7;
+      dy = (sub[i] == 'd' || sub[i] == '_') ? -h * 0.25 : h * 0.7;
       dx = sub[i + 1] * w;
-      symbol(x + rx(dx, dy, t), y + ry(dx, dy, t), sub + i + 2, h * SSIZE, w, t);
+      symbol(x + rx(dx, dy, t), y + ry(dx, dy, t), sub + i + 2, h * SSIZE, w,
+             t);
    }
    sub[0] = 0;
 }
 
-double ysadj (void)
+double ysadj(void)
 {
    int i;
 
    for (i = 0; sub[i]; i += 4)
-      if (sub[i]=='u' || sub[i]=='^')
-         return(1.5);
+      if (sub[i] == 'u' || sub[i] == '^')
+         return (1.5);
 
-   return(0);
+   return (0);
 }
 
 double rx(double x, double y, double t)
 {
    t *= (3.141592653589793 / 180);
-   return(x * cos(t) - y * sin(t));
+   return (x * cos(t) - y * sin(t));
 }
 
 double ry(double x, double y, double t)
 {
    t *= (3.141592653589793 / 180);
-   return(x * sin(t) + y * cos(t));
+   return (x * sin(t) + y * cos(t));
 }
 
 #define PI 3.141592653589793
@@ -288,5 +282,5 @@ double argapf(double x, double a)
    double omg;
 
    omg = PI * x;
-   return(x + 2.0 * atan2(a * sin(omg), 1.0 - a * cos(omg)) / PI);
+   return (x + 2.0 * atan2(a * sin(omg), 1.0 - a * cos(omg)) / PI);
 }

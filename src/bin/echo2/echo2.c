@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -81,15 +81,15 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define NEWLINE TR
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - echo arguments to the standard error\n",cmnd);
+   fprintf(stderr, " %s - echo arguments to the standard error\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ]\n", cmnd);
@@ -105,34 +105,35 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int newline=NEWLINE;
+   int newline = NEWLINE;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc) {
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'n':
             newline = 1 - newline;
             break;
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      } 
-      else {
+      } else {
          fputs(*argv, stderr);
-         if (argc>1) putc(' ', stderr);
+         if (argc > 1)
+            putc(' ', stderr);
       }
    }
 
-   if (newline) putc('\n', stderr);
-    
+   if (newline)
+      putc('\n', stderr);
+
    return 0;
 }

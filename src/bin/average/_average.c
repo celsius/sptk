@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -64,28 +64,28 @@
 #  include <SPTK.h>
 #endif
 
-double average (double *x, const int n)
+double average(double *x, const int n)
 {
    int i;
-   double sum=0.0;
+   double sum = 0.0;
 
-   for (i=0; i<n; i++) sum += x[i];
+   for (i = 0; i < n; i++)
+      sum += x[i];
 
-   return(sum/n);
+   return (sum / n);
 }
 
-void vaverage (double *x, const int l, const int num, double *ave)
+void vaverage(double *x, const int l, const int num, double *ave)
 {
    int i, j;
-    
+
    fillz(ave, sizeof(*ave), l);
-   for (i=0; i<num; i++)
-      for (j=0; j<l; j++)
+   for (i = 0; i < num; i++)
+      for (j = 0; j < l; j++)
          ave[j] += *x++;
 
-   for (j=0; j<l; j++)
+   for (j = 0; j < l; j++)
       ave[j] /= (double) num;
 
    return;
 }
-

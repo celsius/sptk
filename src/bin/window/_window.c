@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -85,18 +85,18 @@
        int     leng : window length
 ************************************************/
 
-static double *blackman (double *w, const int leng)
+static double *blackman(double *w, const int leng)
 {
    int i;
    double arg, x;
    double *p;
 
    arg = M_2PI / (leng - 1);
-   for (p=w, i=0; i<leng; i++)  {
+   for (p = w, i = 0; i < leng; i++) {
       x = arg * i;
-      *p++ = 0.42 - 0.50 * cos(x) + 0.08 * cos(x+x);
+      *p++ = 0.42 - 0.50 * cos(x) + 0.08 * cos(x + x);
    }
-   return(w);
+   return (w);
 }
 
 
@@ -108,17 +108,17 @@ static double *blackman (double *w, const int leng)
        int     leng : window length
 ************************************************/
 
-static double *hamming (double *w, const int leng)
+static double *hamming(double *w, const int leng)
 {
    int i;
    double arg;
    double *p;
 
    arg = M_2PI / (leng - 1);
-   for (p=w, i=0; i<leng; i++)
-      *p++ = 0.54 - 0.46 * cos(i*arg);
+   for (p = w, i = 0; i < leng; i++)
+      *p++ = 0.54 - 0.46 * cos(i * arg);
 
-   return(w);
+   return (w);
 }
 
 
@@ -130,17 +130,17 @@ static double *hamming (double *w, const int leng)
        int     leng : window length
 ************************************************/
 
-static double *hanning (double *w, const int leng)
+static double *hanning(double *w, const int leng)
 {
    int i;
    double arg;
    double *p;
 
    arg = M_2PI / (leng - 1);
-   for (p=w, i=0; i<leng; i++)
+   for (p = w, i = 0; i < leng; i++)
       *p++ = 0.5 * (1 - cos(i * arg));
 
-   return(w);
+   return (w);
 }
 
 
@@ -152,20 +152,20 @@ static double *hanning (double *w, const int leng)
        int     leng : window length
 ************************************************/
 
-static double *bartlett (double *w, const int leng)
+static double *bartlett(double *w, const int leng)
 {
    int k, m;
    double *p, slope;
 
    m = leng / 2;
-   slope = 2.0 / (double)(leng - 1);
+   slope = 2.0 / (double) (leng - 1);
 
-   for (k=0,p=w; k<m; k++)
+   for (k = 0, p = w; k < m; k++)
       *p++ = slope * k;
-   for ( ; k<leng; k++)
+   for (; k < leng; k++)
       *p++ = 2.0 - slope * k;
 
-   return(w);
+   return (w);
 }
 
 
@@ -177,23 +177,23 @@ static double *bartlett (double *w, const int leng)
        int     leng : window length
 ************************************************/
 
-static double *trapezoid (double *w, const int leng)
+static double *trapezoid(double *w, const int leng)
 {
    int k, m1, m2;
    double *p, slope;
 
    m1 = leng / 4;
    m2 = (leng * 3) / 4;
-   slope = 4.0 / (double)(leng - 1);
+   slope = 4.0 / (double) (leng - 1);
 
-   for (k=0,p=w; k<m1; k++)
+   for (k = 0, p = w; k < m1; k++)
       *p++ = slope * k;
-   for ( ; k<m2; k++)
+   for (; k < m2; k++)
       *p++ = 1.0;
-   for ( ; k<leng; k++)
+   for (; k < leng; k++)
       *p++ = 4.0 - slope * k;
 
-   return(w);
+   return (w);
 }
 
 
@@ -205,33 +205,33 @@ static double *trapezoid (double *w, const int leng)
        int     leng : window length
 ************************************************/
 
-static double *rectangular (double *w, const int leng)
+static double *rectangular(double *w, const int leng)
 {
    int k;
    double *p;
 
-   for (k=0,p=w; k<leng; k++)
+   for (k = 0, p = w; k < leng; k++)
       *p++ = 1.0;
 
-   return(w);
+   return (w);
 }
 
-double window (Window type, double *x, const int size, const int nflg)
+double window(Window type, double *x, const int size, const int nflg)
 {
    int i;
    static double g;
-   static double *w=NULL;
-   static Window ptype=(Window)-1;
-   static int psize=-1, pnflg=-1;
+   static double *w = NULL;
+   static Window ptype = (Window) - 1;
+   static int psize = -1, pnflg = -1;
 
-   if ((type!=ptype) || (size!=psize) || (nflg!=pnflg)) {
-      if (size>psize) {
-         if (w!=NULL)
+   if ((type != ptype) || (size != psize) || (nflg != pnflg)) {
+      if (size > psize) {
+         if (w != NULL)
             free(w);
          w = dgetmem(size);
       }
 
-      switch (type)  {
+      switch (type) {
       case BLACKMAN:
          blackman(w, size);
          break;
@@ -251,22 +251,22 @@ double window (Window type, double *x, const int size, const int nflg)
          rectangular(w, size);
          break;
       default:
-         fprintf(stderr, "window : Unknown window type %d!\n", (int)type);
+         fprintf(stderr, "window : Unknown window type %d!\n", (int) type);
          exit(1);
       }
 
       switch (nflg) {
       case 1:
-         for (i=0,g=0.0; i<size; i++)
+         for (i = 0, g = 0.0; i < size; i++)
             g += w[i] * w[i];
          g = sqrt(g);
-         for (i=0; i<size; i++)
+         for (i = 0; i < size; i++)
             w[i] /= g;
          break;
       case 2:
-         for (i=0,g=0.0; i<size; i++)
+         for (i = 0, g = 0.0; i < size; i++)
             g += w[i];
-         for (i=0; i<size; i++)
+         for (i = 0; i < size; i++)
             w[i] /= g;
          break;
       case 0:
@@ -279,9 +279,8 @@ double window (Window type, double *x, const int size, const int nflg)
       pnflg = nflg;
    }
 
-   for (i=0; i<size; i++)
+   for (i = 0; i < size; i++)
       x[i] = x[i] * w[i];
 
-   return(g);
+   return (g);
 }
-

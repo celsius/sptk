@@ -90,7 +90,7 @@ static char *rcs_id = "$Id$";
 /* Command Name */
 char *cmnd;
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - Compute Pricipal Component Score\n", cmnd);
@@ -98,8 +98,10 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] pcafile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l L  : dimentinality of vectors         [%d]\n",LENG);
-   fprintf(stderr, "       -n N  : order of principal component     [%d]\n",PCA_ORDER);
+   fprintf(stderr, "       -l L  : dimentinality of vectors         [%d]\n",
+           LENG);
+   fprintf(stderr, "       -n N  : order of principal component     [%d]\n",
+           PCA_ORDER);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       test data vectors (float)       [stdin]\n");
@@ -116,45 +118,45 @@ void usage (int status)
    exit(status);
 }
 
-double ** malloc_matrix(int row, int col)
+double **malloc_matrix(int row, int col)
 {
-  double **m;
-  double *mtmp;
-  int i, j;
+   double **m;
+   double *mtmp;
+   int i, j;
 
-  if ((mtmp = (double *)malloc(sizeof(double) * row * col)) == NULL) {
-    fprintf(stderr, "Can't malloc in %s\n", cmnd);
-    exit(EXIT_FAILURE);
-  }
-  if ((m = (double **)malloc(sizeof(double *) * row)) == NULL) {
-    fprintf(stderr, "Can't malloc in %s\n", cmnd);
-    exit(EXIT_FAILURE);
-  }
-  for (i = 0; i < row; i++) {
-    m[i] = &(mtmp[i * col]);
-  }
-  
-  return m;
-}  
+   if ((mtmp = (double *) malloc(sizeof(double) * row * col)) == NULL) {
+      fprintf(stderr, "Can't malloc in %s\n", cmnd);
+      exit(EXIT_FAILURE);
+   }
+   if ((m = (double **) malloc(sizeof(double *) * row)) == NULL) {
+      fprintf(stderr, "Can't malloc in %s\n", cmnd);
+      exit(EXIT_FAILURE);
+   }
+   for (i = 0; i < row; i++) {
+      m[i] = &(mtmp[i * col]);
+   }
 
-int main (int argc, char *argv[])
+   return m;
+}
+
+int main(int argc, char *argv[])
 {
    FILE *fp = stdin, *fpca = NULL;
    int i, j, k, n = -1;
-   int leng = LENG , total, order = PCA_ORDER;
+   int leng = LENG, total, order = PCA_ORDER;
    int eigen_num;
    double *mean = NULL;
    double *test_data = NULL;
    double **e_vec = NULL;
-   double *z = NULL; /* principal component score */
-   
+   double *z = NULL;            /* principal component score */
+
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-   
+
    while (--argc) {
-      if ((**++argv) == '-'){
+      if ((**++argv) == '-') {
          switch (*(*argv + 1)) {
          case 'l':
             leng = atoi(*++argv);
@@ -163,73 +165,74 @@ int main (int argc, char *argv[])
          case 'n':
             order = atoi(*++argv);
             --argc;
-            break;	    
-	 case 'h':
+            break;
+         case 'h':
             usage(EXIT_SUCCESS);
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(argv + 1));
             usage(EXIT_FAILURE);
          }
-      }
-      else if (fpca == NULL)
-	fpca = getfp(*argv, "rb");
+      } else if (fpca == NULL)
+         fpca = getfp(*argv, "rb");
       else
-	fp = getfp(*argv, "rb");
-   }
-   
-   if(order > leng){
-     fprintf(stderr, "\n %s (Error) order of pricipal component"
-	     " must be less than dimentionality of vector.\n", cmnd);
-     usage(EXIT_FAILURE);
-   }
-   
-   /* Read eigen vectors and mean vector */
-   if(fpca == NULL){
-     fprintf(stderr, "\n %s (Error) PCA file name required.\n", cmnd);
-     usage(EXIT_FAILURE);
+         fp = getfp(*argv, "rb");
    }
 
-   /* Count number of eigen vectors and mean vector */   
+   if (order > leng) {
+      fprintf(stderr, "\n %s (Error) order of pricipal component"
+              " must be less than dimentionality of vector.\n", cmnd);
+      usage(EXIT_FAILURE);
+   }
+
+   /* Read eigen vectors and mean vector */
+   if (fpca == NULL) {
+      fprintf(stderr, "\n %s (Error) PCA file name required.\n", cmnd);
+      usage(EXIT_FAILURE);
+   }
+
+   /* Count number of eigen vectors and mean vector */
    fseek(fpca, 0L, SEEK_END);
-   eigen_num = (int)(ftell(fpca) / (int)leng / (double)sizeof(float));
+   eigen_num = (int) (ftell(fpca) / (int) leng / (double) sizeof(float));
    rewind(fpca);
 
    e_vec = malloc_matrix(eigen_num, leng);
    mean = dgetmem(leng);
-   
+
    freadf(mean, sizeof(double), leng, fpca);
-   for(i = 0; i < eigen_num - 1; i++)
-     freadf(e_vec[i], sizeof(double), leng, fpca);
-   
+   for (i = 0; i < eigen_num - 1; i++)
+      freadf(e_vec[i], sizeof(double), leng, fpca);
+
    /* Count of test data vectors */
    fseek(fp, 0L, SEEK_END);
-   total = (int)(ftell(fp) / (int)leng / (double)sizeof(float));
+   total = (int) (ftell(fp) / (int) leng / (double) sizeof(float));
    rewind(fp);
-   if(total == 0){
-     fprintf(stderr, "%s: No input data !\n", cmnd);
-     usage(EXIT_FAILURE);
+   if (total == 0) {
+      fprintf(stderr, "%s: No input data !\n", cmnd);
+      usage(EXIT_FAILURE);
    }
-   
-   /* allocate memory for test data*/
+
+   /* allocate memory for test data */
    test_data = dgetmem(leng * total);
    fillz(test_data, leng, sizeof(double));
 
    /* read test data */
    freadf(test_data, sizeof(double), leng * total, fp);
 
-   
+
    /* allocate memory for pricipal component score */
    z = dgetmem(order * total);
    fillz(z, order, sizeof(double));
 
    /* calculate pricipal component score */
-   for(i = 0; i < total; i++) for(j = 0; j < order; j++)
-     for(k = 0; k < leng; k++)
-       z[i * order + j] += e_vec[j][k] * (test_data[i * leng + k] - mean[k]);
+   for (i = 0; i < total; i++)
+      for (j = 0; j < order; j++)
+         for (k = 0; k < leng; k++)
+            z[i * order + j] +=
+                e_vec[j][k] * (test_data[i * leng + k] - mean[k]);
 
    /* output principal component score */
-   for(i = 0; i < total; i++)
-     fwritef(z + i, sizeof(*z), order, stdout);
-      
+   for (i = 0; i < total; i++)
+      fwritef(z + i, sizeof(*z), order, stdout);
+
    return 0;
 }

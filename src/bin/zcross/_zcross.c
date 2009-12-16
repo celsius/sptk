@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -64,24 +64,23 @@
 #  include <SPTK.h>
 #endif
 
-static double sgn (const double x)
+static double sgn(const double x)
 {
-   if (x>=0)
-      return(0.5);
+   if (x >= 0)
+      return (0.5);
    else
-      return(-0.5);
+      return (-0.5);
 }
 
-double zcross (double *x, const int fl, const int n)
+double zcross(double *x, const int fl, const int n)
 {
    int i;
-   double z=0;
+   double z = 0;
 
-   for (i=0; i<fl; i++)
-      z += abs(sgn(x[i+1]) - sgn(x[i]));
+   for (i = 0; i < fl; i++)
+      z += abs(sgn(x[i + 1]) - sgn(x[i]));
    if (n)
       z /= fl;
-      
-   return(z);
-}
 
+   return (z);
+}

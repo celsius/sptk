@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -50,20 +50,22 @@
 #include "config.h"
 
 #ifndef X11R3
-#define SIZE 512  /* buffer size */
+#define SIZE 512                /* buffer size */
 #else
-#define SIZE 2    /* buffer size for X11R3's BUG */
+#define SIZE 2                  /* buffer size for X11R3's BUG */
 #endif
 #define FCW  22
 #define FCH  25
-#define LFCH 50   /* Large font height */
+#define LFCH 50                 /* Large font height */
 
 /*
  *	Color name data
  */
-static char	*c_name[] = { "black",  "black", "blue", 
-                          "red",    "medium sea green",
-                          "violet", "orange", "turquoise" };
+static char *c_name[] = { "black", "black", "blue",
+   "red", "medium sea green",
+   "violet", "orange", "turquoise"
+};
+
 /*
  * Fonts name
  */
@@ -87,25 +89,35 @@ static char *f_name[] = {
 /*
  *	Line width data
  */
-static int l_width[] = {0, 1, 1, 2, 3, 4, 1, 2, 3, 4};
+static int l_width[] = { 0, 1, 1, 2, 3, 4, 1, 2, 3, 4 };
 
 /*
  *	Line style data
  */
-static struct	line_style_info  {
-	char	list[8];
-	int	no;
-}  l_style[] = { { { 1, 1},               2 },  /* Dummy for Solid */
-                 { { 1, 5},               2 },  /* dotted2 */
-                 { { 1, 3},               2 },  /* dotted */
-                 { { 4, 2},               2 },  /* dashed */
-                 { { 7, 3},               2 },	/* long_dashed	*/
-                 { { 1, 1},               2 },	/* Dummy for Solid */
-                 { { 8, 2, 2, 2},         4 },	/* dot_dashed */
-                 { {10, 2, 2, 2},         4 },	/* dot_dashed2	*/
-                 { { 8, 2, 1, 2, 1, 2},   6 },	/* double_dot_dashed */
-                 { { 6, 2, 2, 2, 2, 2},   6 }	/* double_dot_dashed2 */
-               };
+static struct line_style_info {
+   char list[8];
+   int no;
+} l_style[] = { { {
+1, 1}, 2},                      /* Dummy for Solid */
+{ {
+1, 5}, 2},                      /* dotted2 */
+{ {
+1, 3}, 2},                      /* dotted */
+{ {
+4, 2}, 2},                      /* dashed */
+{ {
+7, 3}, 2},                      /* long_dashed  */
+{ {
+1, 1}, 2},                      /* Dummy for Solid */
+{ {
+8, 2, 2, 2}, 4},                /* dot_dashed */
+{ {
+10, 2, 2, 2}, 4},               /* dot_dashed2  */
+{ {
+8, 2, 1, 2, 1, 2}, 6},          /* double_dot_dashed */
+{ {
+6, 2, 2, 2, 2, 2}, 6}           /* double_dot_dashed2 */
+};
 
 /*
  * Mark bitmap data
@@ -130,10 +142,10 @@ static struct	line_style_info  {
 #include "marks/mark14.dat"
 #include "marks/mark15.dat"
 
-static char	*mark_bits[] = {
-   mark0_bits,  mark1_bits,  mark2_bits,  mark3_bits,
-   mark4_bits,  mark5_bits,  mark6_bits,  mark7_bits,
-   mark8_bits,  mark9_bits,  mark10_bits, mark11_bits,
+static char *mark_bits[] = {
+   mark0_bits, mark1_bits, mark2_bits, mark3_bits,
+   mark4_bits, mark5_bits, mark6_bits, mark7_bits,
+   mark8_bits, mark9_bits, mark10_bits, mark11_bits,
    mark12_bits, mark13_bits, mark14_bits, mark15_bits
 };
 
@@ -161,10 +173,10 @@ static char	*mark_bits[] = {
 #include "tills/till15.dat"
 #include "tills/till16.dat"
 
-static char	*till_bits[] = {
-   till0_bits,  till1_bits,  till2_bits,  till3_bits,
-   till4_bits,  till5_bits,  till6_bits,  till7_bits,
-   till8_bits,  till9_bits,  till10_bits, till11_bits,
+static char *till_bits[] = {
+   till0_bits, till1_bits, till2_bits, till3_bits,
+   till4_bits, till5_bits, till6_bits, till7_bits,
+   till8_bits, till9_bits, till10_bits, till11_bits,
    till12_bits, till13_bits, till14_bits, till15_bits,
    till16_bits
 };

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -64,12 +64,12 @@
 #  include <SPTK.h>
 #endif
 
-void b2mc (double *b, double *mc, int m, const double a)
+void b2mc(double *b, double *mc, int m, const double a)
 {
    double d, o;
-    
+
    d = mc[m] = b[m];
-   for (m--; m>=0; m--) {
+   for (m--; m >= 0; m--) {
       o = b[m] + a * d;
       d = b[m];
       mc[m] = o;
@@ -77,4 +77,3 @@ void b2mc (double *b, double *mc, int m, const double a)
 
    return;
 }
-

@@ -76,7 +76,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -111,33 +112,43 @@ static char *rcs_id = "$Id$";
 #define NGAIN FA
 #define PADEORD 4
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - GLSA digital filter for speech synthesis\n",cmnd);
+   fprintf(stderr, " %s - GLSA digital filter for speech synthesis\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] gcfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of generalized cepstrum [%d]\n", ORDER);
-   fprintf(stderr, "       -c c  : gamma = -1 / (int) c          [%d]\n", STAGE);
-   fprintf(stderr, "       -p p  : frame period                  [%d]\n", FPERIOD);
-   fprintf(stderr, "       -i i  : interpolation period          [%d]\n", IPERIOD);
+   fprintf(stderr, "       -m m  : order of generalized cepstrum [%d]\n",
+           ORDER);
+   fprintf(stderr, "       -c c  : gamma = -1 / (int) c          [%d]\n",
+           STAGE);
+   fprintf(stderr, "       -p p  : frame period                  [%d]\n",
+           FPERIOD);
+   fprintf(stderr, "       -i i  : interpolation period          [%d]\n",
+           IPERIOD);
    fprintf(stderr, "       -n    : regard input as normalized\n");
-   fprintf(stderr, "               generalized cepstrum          [%s]\n", BOOL[NORM]);
-   fprintf(stderr, "       -v    : inverse filter                [%s]\n", BOOL[INVERSE]);
-   fprintf(stderr, "       -t    : transpose filter              [%s]\n", BOOL[TRANSPOSE]);
-   fprintf(stderr, "       -k    : filtering without gain        [%s]\n", BOOL[NGAIN]);
-   fprintf(stderr, "       -P P  : order of Pade approximation   [%d]\n", PADEORD);
+   fprintf(stderr, "               generalized cepstrum          [%s]\n",
+           BOOL[NORM]);
+   fprintf(stderr, "       -v    : inverse filter                [%s]\n",
+           BOOL[INVERSE]);
+   fprintf(stderr, "       -t    : transpose filter              [%s]\n",
+           BOOL[TRANSPOSE]);
+   fprintf(stderr, "       -k    : filtering without gain        [%s]\n",
+           BOOL[NGAIN]);
+   fprintf(stderr, "       -P P  : order of Pade approximation   [%d]\n",
+           PADEORD);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       filter input (%s)                  [stdin]\n", FORMAT);
+   fprintf(stderr, "       filter input (%s)                  [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  gcfile:\n");
@@ -153,21 +164,22 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDER, fprd=FPERIOD, iprd=IPERIOD, stage=STAGE, i, j, pd=PADEORD;
-   FILE *fp=stdin, *fpc=NULL;
-   Boolean norm=NORM, ngain=NGAIN, transpose=TRANSPOSE, inverse=INVERSE;
+   int m = ORDER, fprd = FPERIOD, iprd = IPERIOD, stage = STAGE, i, j, pd =
+       PADEORD;
+   FILE *fp = stdin, *fpc = NULL;
+   Boolean norm = NORM, ngain = NGAIN, transpose = TRANSPOSE, inverse = INVERSE;
    double *c, *inc, *cc, *d, x, gamma;
-    
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-   
+
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -203,98 +215,105 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else if (fpc==NULL)
+      } else if (fpc == NULL)
          fpc = getfp(*argv, "rb");
       else
          fp = getfp(*argv, "rb");
 
-   if (fpc==NULL) {
-      fprintf(stderr,"%s : Cannot open cepstrum file!\n",cmnd);
-      return(1);
+   if (fpc == NULL) {
+      fprintf(stderr, "%s : Cannot open cepstrum file!\n", cmnd);
+      return (1);
    }
 
-   if (stage!=0) {  /* GLSA */
-      gamma = -1 / (double)stage;
-   }
-   else {  /* LMA */
-      if ((pd<4)||(pd>5)) {
-         fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
-         return(1);
+   if (stage != 0) {            /* GLSA */
+      gamma = -1 / (double) stage;
+   } else {                     /* LMA */
+      if ((pd < 4) || (pd > 5)) {
+         fprintf(stderr, "%s : Order of Pade approximation should be 4 or 5!\n",
+                 cmnd);
+         return (1);
       }
    }
-    
+
    if (inverse) {
-     if (stage==0) {
-       fprintf(stderr, "%s : gamma should not equal to 0 in Inverse GLSA!\n", cmnd);
-       usage(1);
-     }
+      if (stage == 0) {
+         fprintf(stderr, "%s : gamma should not equal to 0 in Inverse GLSA!\n",
+                 cmnd);
+         usage(1);
+      }
    }
 
-   c = (stage!=0) ? dgetmem(m+m+m+3+m*stage) 
-                  : dgetmem(m+m+m+3+(m+1)*pd*2);
-   cc  = c  + m + 1;
+   c = (stage != 0) ? dgetmem(m + m + m + 3 + m * stage)
+       : dgetmem(m + m + m + 3 + (m + 1) * pd * 2);
+   cc = c + m + 1;
    inc = cc + m + 1;
-   d   = inc+ m + 1;
-    
-   if (freadf(c, sizeof(*c), m+1, fpc)!=m+1) return(1);
-   if (stage!=0) {
-      if (!norm) gnorm(c, c, m, gamma);
+   d = inc + m + 1;
+
+   if (freadf(c, sizeof(*c), m + 1, fpc) != m + 1)
+      return (1);
+   if (stage != 0) {
+      if (!norm)
+         gnorm(c, c, m, gamma);
       c[0] = log(c[0]);
-      for (i=1; i<=m; i++)   
+      for (i = 1; i <= m; i++)
          c[i] *= gamma;
    }
 
    for (;;) {
-      if (freadf(cc, sizeof(*cc), m+1, fpc) != m+1) return(0);
-      if (stage!=0) {  /* GLSA */
-	if(!norm) gnorm(cc, cc, m, gamma); 
-	cc[0] = log(cc[0]);
-	  for (i=1; i<=m; i++)
-	    cc[i] *= gamma;  
+      if (freadf(cc, sizeof(*cc), m + 1, fpc) != m + 1)
+         return (0);
+      if (stage != 0) {         /* GLSA */
+         if (!norm)
+            gnorm(cc, cc, m, gamma);
+         cc[0] = log(cc[0]);
+         for (i = 1; i <= m; i++)
+            cc[i] *= gamma;
       }
 
-   
-      for (i=0; i<=m; i++)
-         inc[i] = (cc[i] - c[i])*iprd / fprd;
 
-      for (j=fprd, i=(iprd+1)/2; j--;) {
-         if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
+      for (i = 0; i <= m; i++)
+         inc[i] = (cc[i] - c[i]) * iprd / fprd;
 
-	 if (inverse) {   /* IGLSA */
-	   if (!ngain) x *= exp(c[0]);
-	   if (transpose)
-	     x = iglsadft(x, c, m, stage, d);
-	   else 
-	     x = iglsadf(x, c, m, stage, d);
-	 } else {
-	   if (stage!=0) {  /* GLSA */
-	     if (!ngain) x *= exp(c[0]);
-	     if (transpose) {
-               x = glsadft(x, c, m, stage, d);
-	     } else { 
-	       x = glsadf(x, c, m, stage, d);
-	     }
-	   }
-	   else {  /* LMA */
-	     if (!ngain) x *= exp(c[0]);
-	     x = lmadf(x, c, m, pd, d);
-	   }
-	 }
+      for (j = fprd, i = (iprd + 1) / 2; j--;) {
+         if (freadf(&x, sizeof(x), 1, fp) != 1)
+            return (0);
+
+         if (inverse) {         /* IGLSA */
+            if (!ngain)
+               x *= exp(c[0]);
+            if (transpose)
+               x = iglsadft(x, c, m, stage, d);
+            else
+               x = iglsadf(x, c, m, stage, d);
+         } else {
+            if (stage != 0) {   /* GLSA */
+               if (!ngain)
+                  x *= exp(c[0]);
+               if (transpose) {
+                  x = glsadft(x, c, m, stage, d);
+               } else {
+                  x = glsadf(x, c, m, stage, d);
+               }
+            } else {            /* LMA */
+               if (!ngain)
+                  x *= exp(c[0]);
+               x = lmadf(x, c, m, pd, d);
+            }
+         }
          fwritef(&x, sizeof(x), 1, stdout);
-            
+
          if (!--i) {
-            for (i=0; i<=m; i++) c[i] += inc[i];
+            for (i = 0; i <= m; i++)
+               c[i] += inc[i];
             i = iprd;
          }
       }
 
-      movem(cc, c, sizeof(*cc), m+1);
+      movem(cc, c, sizeof(*cc), m + 1);
    }
-   
-   return(0);
-}
 
+   return (0);
+}

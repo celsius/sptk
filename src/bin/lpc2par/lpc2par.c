@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -70,7 +70,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -98,35 +99,41 @@ static char *rcs_id = "$Id$";
 #define GAMMA 1.0
 #define STABLE FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - transform LPC to PARCOR\n",cmnd);
+   fprintf(stderr, " %s - transform LPC to PARCOR\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of LPC                  [%d]\n", ORDER);
-   fprintf(stderr, "       -g g  : gamma of generalized cepstrum [%g]\n", GAMMA);
-   fprintf(stderr, "       -c c  : gamma of mel-generalized cepstrum = -1 / (int) c (input) \n");
-   fprintf(stderr, "       -s    : check stable or unstable      [%s]\n", BOOL[STABLE]);
+   fprintf(stderr, "       -m m  : order of LPC                  [%d]\n",
+           ORDER);
+   fprintf(stderr, "       -g g  : gamma of generalized cepstrum [%g]\n",
+           GAMMA);
+   fprintf(stderr,
+           "       -c c  : gamma of mel-generalized cepstrum = -1 / (int) c (input) \n");
+   fprintf(stderr, "       -s    : check stable or unstable      [%s]\n",
+           BOOL[STABLE]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdin\n");
-   fprintf(stderr, "       LP coefficients (%s)               [stdin]\n", FORMAT);
+   fprintf(stderr, "       LP coefficients (%s)               [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       PARCOR (%s) or \n", FORMAT);
-   fprintf(stderr, "       0 <stable>, -1 <unstable> (int) if -s option is specified\n");
+   fprintf(stderr,
+           "       0 <stable>, -1 <unstable> (int) if -s option is specified\n");
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       value of c must be c>=1\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -134,20 +141,20 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDER, stable, i;
-   FILE *fp=stdin;
-   double *k, *a, g=GAMMA;
-   Boolean flags=STABLE;
+   int m = ORDER, stable, i;
+   FILE *fp = stdin;
+   double *k, *a, g = GAMMA;
+   Boolean flags = STABLE;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -156,40 +163,40 @@ int main (int argc, char **argv)
             g = atof(*++argv);
             --argc;
             break;
-         case 'c':             
-	    g = atoi(*++argv);
-	    --argc;         
-	    if (g < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);
-	    g = -1.0 / g;    
-            break;    
+         case 'c':
+            g = atoi(*++argv);
+            --argc;
+            if (g < 1)
+               fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);
+            g = -1.0 / g;
+            break;
          case 's':
             flags = 1 - flags;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   a = dgetmem(m+m+2);
+   a = dgetmem(m + m + 2);
    k = a + m + 1;
 
-   while (freadf(a, sizeof(*a), m+1, fp)==m+1) {
-      if (g!=1.0)
-         for (i=1; i<=m; i++) a[i] *= g;
+   while (freadf(a, sizeof(*a), m + 1, fp) == m + 1) {
+      if (g != 1.0)
+         for (i = 1; i <= m; i++)
+            a[i] *= g;
 
       stable = lpc2par(a, k, m);
 
       if (flags)
          fwritex(&stable, sizeof(stable), 1, stdout);
       else
-         fwritef(k, sizeof(*k), m+1, stdout);
+         fwritef(k, sizeof(*k), m + 1, stdout);
    }
-   
-   return(0);
-}
 
+   return (0);
+}

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -100,16 +100,17 @@ char *cmnd;
 #define ENO   0x7fffffff
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - Swap Bytes\n",cmnd);
+   fprintf(stderr, " %s - Swap Bytes\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -S S   : start address                [%d]\n",START);
-   fprintf(stderr, "       -s s   : start offset number          [%d]\n",SNO);
+   fprintf(stderr, "       -S S   : start address                [%d]\n",
+           START);
+   fprintf(stderr, "       -s s   : start offset number          [%d]\n", SNO);
    fprintf(stderr, "       -E E   : end address                  [EOF]\n");
    fprintf(stderr, "       -e e   : end offset number            [0]\n");
    fprintf(stderr, "       +type  : input and output data format [s]\n");
@@ -122,30 +123,30 @@ void usage (int status)
    fprintf(stderr, "       swapped data sequence\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-static long start=START, _end=END, sno=SNO, eno=ENO;
+static long start = START, _end = END, sno = SNO, eno = ENO;
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
-   FILE *fp=stdin;
+   FILE *fp = stdin;
    char *s;
    int c;
-   size_t iosize=2;
-   void conv (FILE *fp, size_t iosize);
-   
+   size_t iosize = 2;
+   void conv(FILE * fp, size_t iosize);
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (*(s=*++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
          switch (c) {
          case 'S':
@@ -165,13 +166,12 @@ int main (int argc,char *argv[])
             --argc;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else if (*s=='+') {
+      } else if (*s == '+') {
          c = *++s;
          switch (c) {
          case 's':
@@ -187,50 +187,49 @@ int main (int argc,char *argv[])
             iosize = sizeof(double);
             break;
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
    conv(fp, iosize);
-   
-   return(0);
+
+   return (0);
 }
 
-void conv (FILE *fp, size_t iosize)
+void conv(FILE * fp, size_t iosize)
 {
    long adrs, n;
    int i;
    char ibuf[8], obuf[8];
-   int ffseek (FILE *fp, long off);
+   int ffseek(FILE * fp, long off);
 
-   if (ffseek(fp, adrs=start + iosize * sno))
+   if (ffseek(fp, adrs = start + iosize * sno))
       return;
 
-   for (n=sno; (adrs<=_end) && (n<=eno); adrs+=iosize,++n) {
+   for (n = sno; (adrs <= _end) && (n <= eno); adrs += iosize, ++n) {
       freadx(ibuf, iosize, 1, fp);
       if (feof(fp))
          break;
-      for (i=0; i<iosize; ++i)
+      for (i = 0; i < iosize; ++i)
          obuf[i] = ibuf[iosize - 1 - i];
       fwritex(obuf, iosize, 1, stdout);
    }
- 
+
    return;
 }
 
-int ffseek (FILE *fp, long off)
+int ffseek(FILE * fp, long off)
 {
    int n;
 
-   if (fp!=stdin)
+   if (fp != stdin)
       fseek(fp, off, 0);
    else {
-      for (n=off; n; --n)
-         if (getc(fp)==EOF)
-            return(1);
+      for (n = off; n; --n)
+         if (getc(fp) == EOF)
+            return (1);
    }
-   return(0);
+   return (0);
 }

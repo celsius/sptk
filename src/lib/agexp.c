@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -58,20 +58,19 @@
 #include <stdio.h>
 #include <math.h>
 
-double agexp (double r, double x, double y)
+double agexp(double r, double x, double y)
 {
    double w;
 
-   if (r==0.0)
-      return( exp(2*x) );
+   if (r == 0.0)
+      return (exp(2 * x));
    else {
-      x = 1 + r*x;
-      y = r*y;
-      w = x*x + y*y;
+      x = 1 + r * x;
+      y = r * y;
+      w = x * x + y * y;
       if (r < 0.0)
-         return( pow(1/w,-1/r) );
+         return (pow(1 / w, -1 / r));
       else
-         return( pow(w,1/r) );
+         return (pow(w, 1 / r));
    }
 }
-

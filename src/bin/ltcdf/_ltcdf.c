@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -59,15 +59,14 @@
 
 *****************************************************************/
 
-double ltcdf (double x, double *k, int m, double *d)
+double ltcdf(double x, double *k, int m, double *d)
 {
-   x -= k[m] * d[m-1];
-   for (m--; m>=1; m--) {
-      x -= k[m] * d[m-1];
-      d[m] = d[m-1] + k[m] * x;
+   x -= k[m] * d[m - 1];
+   for (m--; m >= 1; m--) {
+      x -= k[m] * d[m - 1];
+      d[m] = d[m - 1] + k[m] * x;
    }
    d[0] = x;
 
-   return(x);
+   return (x);
 }
-

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -68,7 +68,8 @@
 *               if l>0,calculate histogram frame by frame               *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -93,7 +94,7 @@ static char *rcs_id = "$Id$";
 /*  Command Name  */
 char *cmnd;
 
-int usage (int status)
+int usage(int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - histogram\n", cmnd);
@@ -122,26 +123,26 @@ int usage (int status)
    exit(status);
 }
 
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
    char *s, c;
-   double  i=0, j=1, st=0.1;
-   int l=0, k, ii;
-   int flg=0, n=0;
-   double  *h;
-   double  *x, xx;
-   FILE *fp=stdin;
+   double i = 0, j = 1, st = 0.1;
+   int l = 0, k, ii;
+   int flg = 0, n = 0;
+   double *h;
+   double *x, xx;
+   FILE *fp = stdin;
 
- 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-   
+
    while (--argc) {
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if ((c!='n') && (*++s=='\0')) {
+         if ((c != 'n') && (*++s == '\0')) {
             s = *++argv;
             --argc;
          }
@@ -168,35 +169,32 @@ int main (int argc, char *argv[])
             usage(1);
             break;
          }
-      } 
-      else
+      } else
          fp = getfp(*argv, "rb");
    }
- 
-   k = (int)((j - i) / st + 1.0);
-   h = dgetmem(k+2);
+
+   k = (int) ((j - i) / st + 1.0);
+   h = dgetmem(k + 2);
 
    if (l) {
       x = dgetmem(l);
-      while ( freadf(x, sizeof(*x), l, fp)==l) {
+      while (freadf(x, sizeof(*x), l, fp) == l) {
          flg += histogram(x, l, i, j, st, h);
-  
+
          if (n && l)
-         for (ii=0; ii<=k; ii++)
-            h[ii] /= (double)l;
+            for (ii = 0; ii <= k; ii++)
+               h[ii] /= (double) l;
 
          fwritef(h, sizeof(*h), k, stdout);
       }
-   }
-   else {
-      fillz(h, sizeof(*h), k+2);
-      while (freadf(&xx, sizeof(xx), 1, fp)==1) {
-         if ((xx<i) || (xx>j)) {
+   } else {
+      fillz(h, sizeof(*h), k + 2);
+      while (freadf(&xx, sizeof(xx), 1, fp) == 1) {
+         if ((xx < i) || (xx > j)) {
             flg = 1;
-         }
-         else {
-            for (ii=0; ii<=k; ii++) {
-               if (xx<i+(ii+1)*st) {
+         } else {
+            for (ii = 0; ii <= k; ii++) {
+               if (xx < i + (ii + 1) * st) {
                   h[ii]++;
                   break;
                }
@@ -204,13 +202,13 @@ int main (int argc, char *argv[])
             }
          }
       }
- 
+
       if (n && l)
-         for (ii=0; ii<=k; ii++)
-            h[ii] /= (double)l;
- 
+         for (ii = 0; ii <= k; ii++)
+            h[ii] /= (double) l;
+
       fwritef(h, sizeof(*h), k, stdout);
-   } 
- 
+   }
+
    return flg;
 }

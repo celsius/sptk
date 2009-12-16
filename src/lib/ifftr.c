@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -63,19 +63,20 @@
 #  include <SPTK.h>
 #endif
 
-int ifftr (double *x, double *y, const int l)
+int ifftr(double *x, double *y, const int l)
 {
    int i;
    double *xp, *yp;
 
    fftr(x, y, l);
 
-   xp = x; yp = y; 
+   xp = x;
+   yp = y;
    i = l;
    while (i--) {
       *xp++ /= l;
       *yp++ /= -l;
    }
 
-   return(0);
+   return (0);
 }

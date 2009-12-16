@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -118,37 +118,47 @@ static char *rcs_id = "$Id$";
 #define EPS 0.0
 #define MINDET 0.000001
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - generalized cepstral analysis\n",cmnd);
+   fprintf(stderr, " %s - generalized cepstral analysis\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of generalized cepstrum    [%d]\n", ORDER);
-   fprintf(stderr, "       -g g  : gamma                            [%g]\n", GAMMA);
+   fprintf(stderr, "       -m m  : order of generalized cepstrum    [%d]\n",
+           ORDER);
+   fprintf(stderr, "       -g g  : gamma                            [%g]\n",
+           GAMMA);
    fprintf(stderr, "       -c c  : gamma  = -1 / (int) c                 \n");
-   fprintf(stderr, "       -l l  : frame length                     [%d]\n", FLENG);
-   fprintf(stderr, "       -q q  : input format                     [%d]\n", ITYPE);
+   fprintf(stderr, "       -l l  : frame length                     [%d]\n",
+           FLENG);
+   fprintf(stderr, "       -q q  : input format                     [%d]\n",
+           ITYPE);
    fprintf(stderr, "                 0 (windowed sequence\n");
    fprintf(stderr, "                 1 (20*log|f(w)|)\n");
    fprintf(stderr, "                 2 (ln|f(w)|)\n");
    fprintf(stderr, "                 3 (|f(w)|)\n");
    fprintf(stderr, "                 4 (|f(w)|)^2\n");
-   fprintf(stderr, "       -n    : output normalized cepstrum       [%s]\n", BOOL[NORM]);
+   fprintf(stderr, "       -n    : output normalized cepstrum       [%s]\n",
+           BOOL[NORM]);
    fprintf(stderr, "     (level2)\n");
-   fprintf(stderr, "       -i i  : minimum iteration                [%d]\n", MINITR);
-   fprintf(stderr, "       -j j  : maximum iteration                [%d]\n", MAXITR);
-   fprintf(stderr, "       -d d  : end condition                    [%g]\n", END);
-   fprintf(stderr, "       -e e  : small value added to periodgram  [%g]\n", EPS);
-   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n", MINDET);
+   fprintf(stderr, "       -i i  : minimum iteration                [%d]\n",
+           MINITR);
+   fprintf(stderr, "       -j j  : maximum iteration                [%d]\n",
+           MAXITR);
+   fprintf(stderr, "       -d d  : end condition                    [%g]\n",
+           END);
+   fprintf(stderr, "       -e e  : small value added to periodgram  [%g]\n",
+           EPS);
+   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n",
+           MINDET);
    fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -168,18 +178,19 @@ void usage (int status)
 
 int main(int argc, char **argv)
 {
-   int m=ORDER, flng=FLENG, itr1=MINITR, itr2=MAXITR, itype=ITYPE, norm=NORM, flag=0;
-   FILE *fp=stdin;
-   double *gc, *x, g=GAMMA, end=END, e=EPS, f=MINDET;
-    
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   int m = ORDER, flng = FLENG, itr1 = MINITR, itr2 = MAXITR, itype =
+       ITYPE, norm = NORM, flag = 0;
+   FILE *fp = stdin;
+   double *gc, *x, g = GAMMA, end = END, e = EPS, f = MINDET;
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-   
+
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -196,12 +207,13 @@ int main(int argc, char **argv)
             g = atof(*++argv);
             --argc;
             break;
-         case 'c':             
-	    g = atoi(*++argv);
-	    --argc; 
-    	    if (g < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);        
-	    g = -1.0 / g;    
-            break;    
+         case 'c':
+            g = atoi(*++argv);
+            --argc;
+            if (g < 1)
+               fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);
+            g = -1.0 / g;
+            break;
          case 'n':
             norm = 1 - norm;
             break;
@@ -228,22 +240,21 @@ int main(int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else 
+      } else
          fp = getfp(*argv, "rb");
 
-   x = dgetmem(flng+m+1);
+   x = dgetmem(flng + m + 1);
    gc = x + flng;
 
-   while (freadf(x, sizeof(*x), flng, fp)==flng) {
+   while (freadf(x, sizeof(*x), flng, fp) == flng) {
       flag = gcep(x, flng, gc, m, g, itr1, itr2, end, e, f, itype);
-      if(!norm)
+      if (!norm)
          ignorm(gc, gc, m, g);
-      fwritef(gc, sizeof(*gc), m+1, stdout);
+      fwritef(gc, sizeof(*gc), m + 1, stdout);
    }
-    
+
    return 0;
 }

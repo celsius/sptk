@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -53,7 +53,7 @@
 
 #ifdef HAVE_STRING_H
 #  include <string.h>
-#else 
+#else
 #  include <strings.h>
 #  ifndef HAVE_STRRCHR
 #     define strrchr rindex
@@ -64,19 +64,19 @@
 #include "xgr.h"
 
 
-Display  *display;
-Window  main_window;
-int  screen;
-GC  gc, pixmapGC;
+Display *display;
+Window main_window;
+int screen;
+GC gc, pixmapGC;
 unsigned long forepix, backpix, highpix, brdrpix, mouspix;
 
-static XSizeHints  xsh;
+static XSizeHints xsh;
 /* static Atom   property; */
-static Pixmap   pixmap;
-static Cursor   watch_cur;
-static XGCValues  gcval;
-static Font   font;
-static XEvent   ev;
+static Pixmap pixmap;
+static Cursor watch_cur;
+static XGCValues gcval;
+static Font font;
+static XEvent ev;
 static XSetWindowAttributes winatt;
 static XWindowAttributes wa;
 
@@ -95,16 +95,16 @@ extern char *geometry;
 extern char *dpy;
 extern char *cmnd, *windowtitle;
 
-void open_display(char *display_name )
+void open_display(char *display_name)
 {
-   if ((display = XOpenDisplay(display_name))==NULL)  {
+   if ((display = XOpenDisplay(display_name)) == NULL) {
       fprintf(stderr, "%s: Can't open display '%s'\n",
               cmnd, XDisplayName(display_name));
       exit(2);
    }
 }
 
-void init_window(int argc,char *argv[])
+void init_window(int argc, char *argv[])
 {
    unsigned long get_color_pix(char *color_name);
 
@@ -116,30 +116,27 @@ void init_window(int argc,char *argv[])
    memset(&xsh, 0, sizeof(xsh));
 #endif
 
-   if (geometry)  {
+   if (geometry) {
       int bitmask;
 
       bitmask = XGeometry(display, screen, geometry, NULL,
                           bwidth, 1, 1, 1, 1,
-                          &(xsh.x), &(xsh.y),
-                          &(xsh.width), &(xsh.height));
-      if (bitmask & (XValue|YValue))  {
+                          &(xsh.x), &(xsh.y), &(xsh.width), &(xsh.height));
+      if (bitmask & (XValue | YValue)) {
          xsh.flags |= USPosition;
       }
-      if (bitmask & (WidthValue|HeightValue))  {
+      if (bitmask & (WidthValue | HeightValue)) {
          xsh.flags |= USSize;
       }
-   }
-   else  {
+   } else {
       xsh.flags = USPosition | PSize;
-      if (!landscape)  {
-         xsh.width  = XLENG / shrink;
+      if (!landscape) {
+         xsh.width = XLENG / shrink;
          xsh.height = YLENG / shrink;
          xsh.x = X0;
          xsh.y = Y0;
-      }
-      else  {
-         xsh.width  = YLENG / shrink;
+      } else {
+         xsh.width = YLENG / shrink;
          xsh.height = XLENG / shrink;
          xsh.x = X0_LAND;
          xsh.y = Y0;
@@ -150,32 +147,29 @@ void init_window(int argc,char *argv[])
 #ifdef COLOR_BUG
    reverse = 1;
 #endif
-   if (DisplayPlanes(display, screen) >=3 )  {
+   if (DisplayPlanes(display, screen) >= 3) {
       c_flg = 1;
-      if (!reverse)  {
+      if (!reverse) {
          forepix = get_color_pix(fore_color);
          backpix = get_color_pix(back_color);
          highpix = get_color_pix(high_color);
          brdrpix = get_color_pix(brdr_color);
          mouspix = get_color_pix(mous_color);
-      }
-      else  {
+      } else {
          forepix = get_color_pix(back_color);
          backpix = get_color_pix(fore_color);
          highpix = get_color_pix(high_color);
          brdrpix = get_color_pix(brdr_color);
          mouspix = get_color_pix(mous_color);
       }
-   }
-   else  {
-      if (!reverse)  {
+   } else {
+      if (!reverse) {
          forepix = BlackPixel(display, screen);
          highpix = BlackPixel(display, screen);
          backpix = WhitePixel(display, screen);
          brdrpix = BlackPixel(display, screen);
          mouspix = BlackPixel(display, screen);
-      }
-      else  {
+      } else {
          forepix = WhitePixel(display, screen);
          highpix = WhitePixel(display, screen);
          backpix = BlackPixel(display, screen);
@@ -199,15 +193,16 @@ void init_window(int argc,char *argv[])
    /**  Map Window  **/
    XSelectInput(display, main_window, StructureNotifyMask);
    XMapWindow(display, main_window);
-   for (;;)  {
+   for (;;) {
       XNextEvent(display, &ev);
-      if (ev.type==MapNotify)
+      if (ev.type == MapNotify)
          break;
    }
    XSelectInput(display, main_window,
-                ButtonPressMask | PointerMotionMask | KeyPressMask | ExposureMask);
+                ButtonPressMask | PointerMotionMask | KeyPressMask |
+                ExposureMask);
    /*  KeyReleaseMask|ExposureMask|StructureNotifyMask);
-   */
+    */
    /**  Cursor  **/
    watch_cur = XCreateFontCursor(display, XC_watch);
    XDefineCursor(display, main_window, watch_cur);
@@ -225,13 +220,12 @@ void init_window(int argc,char *argv[])
    XSetFont(display, gc, font);
 }
 
-void init_pixmap (void)
+void init_pixmap(void)
 {
-   if (!landscape)  {
+   if (!landscape) {
       pixmap_w = XLENG / shrink;
       pixmap_h = YLENG / shrink;
-   }
-   else  {
+   } else {
       pixmap_w = YLENG / shrink;
       pixmap_h = XLENG / shrink;
    }
@@ -245,40 +239,37 @@ void init_pixmap (void)
    XSetBackground(display, pixmapGC, backpix);
 }
 
-void close_window (void)
+void close_window(void)
 {
    XFreeCursor(display, watch_cur);
    XFreeGC(display, gc);
    XFreeGC(display, pixmapGC);
    XFreePixmap(display, pixmap);
    XDestroyWindow(display, main_window);
-   /**/
-   exit(0);
-   /**/
-   XCloseDisplay(display);  /* this function case an error !! */
+    /**/ exit(0);
+    /**/ XCloseDisplay(display);        /* this function case an error !! */
 }
 
-void main_loop (void)
+void main_loop(void)
 {
    char key;
    int paper_w, paper_h;
    long diff;
 
-   if (!landscape)  {
+   if (!landscape) {
       paper_w = XLENG / shrink;
       paper_h = YLENG / shrink;
-   }
-   else  {
+   } else {
       paper_w = YLENG / shrink;
       paper_h = XLENG / shrink;
    }
    set_all();
    XUndefineCursor(display, main_window);
-   for (;;)  {
+   for (;;) {
       XNextEvent(display, &ev);
-      switch (ev.type)  {
+      switch (ev.type) {
       case Expose:
-         if (ev.xexpose.count==0)
+         if (ev.xexpose.count == 0)
             get_window_size();
          realize_part(ev.xexpose.x, ev.xexpose.y,
                       ev.xexpose.width, ev.xexpose.height,
@@ -286,29 +277,29 @@ void main_loop (void)
          break;
       case MappingNotify:
          /*      XRefreshKeyboardMapping(&ev);
-         */
-         XRefreshKeyboardMapping((XMappingEvent *)&ev);
+          */
+         XRefreshKeyboardMapping((XMappingEvent *) & ev);
          break;
          /*  case ConfigureNotify:
-               get_window_size();
-               shr_w = paper_w / window_w;
-               shr_h = paper_h / window_h;
-               shrink = (shr_w >= shr_h) ? shr_w :shr_h;
-               rewind(stdin);
-               plot();
-               main_loop();
+            get_window_size();
+            shr_w = paper_w / window_w;
+            shr_h = paper_h / window_h;
+            shrink = (shr_w >= shr_h) ? shr_w :shr_h;
+            rewind(stdin);
+            plot();
+            main_loop();
 
-               origin_x += window_x;
-               origin_y += window_y;
-               realize();
-               realize_part(origin_x, origin_y, window_w, window_h,
-              origin_x, origin_y);
-               origin_x = paper_w - xsh.width;
-               origin_y = paper_h - xsh.height;
-               origin_x += xsh.x;
-               origin_y += xsh.y;
-               break;
-         */
+            origin_x += window_x;
+            origin_y += window_y;
+            realize();
+            realize_part(origin_x, origin_y, window_w, window_h,
+            origin_x, origin_y);
+            origin_x = paper_w - xsh.width;
+            origin_y = paper_h - xsh.height;
+            origin_x += xsh.x;
+            origin_y += xsh.y;
+            break;
+          */
       case MotionNotify:
          break;
       case ButtonPress:
@@ -316,60 +307,60 @@ void main_loop (void)
       case KeyPress:
          get_window_size();
          XLookupString(&ev.xkey, &key, 1, NULL, NULL);
-         switch (key)  {
+         switch (key) {
          case 'j':
             diff = paper_h - window_h;
-            if (origin_y >= diff)  {
+            if (origin_y >= diff) {
                beep();
                break;
             }
             origin_y += window_h / 4;
-            if (origin_y>diff)
+            if (origin_y > diff)
                origin_y = diff;
-            if (origin_y<0)
+            if (origin_y < 0)
                origin_y = 0;
             realize();
             continue;
             break;
          case 'k':
-            if (origin_y <= 0)  {
+            if (origin_y <= 0) {
                beep();
                break;
             }
             origin_y -= window_h / 4;
-            if (origin_y<0)
+            if (origin_y < 0)
                origin_y = 0;
             realize();
             continue;
             break;
          case 'l':
             diff = paper_w - window_w;
-            if (origin_x >= diff)  {
+            if (origin_x >= diff) {
                beep();
                break;
             }
             origin_x += window_w / 4;
-            if (origin_x>diff)
+            if (origin_x > diff)
                origin_x = diff;
-            if (origin_x<0)
+            if (origin_x < 0)
                origin_x = 0;
             realize();
             continue;
             break;
          case 'h':
-            if (origin_x <= 0)  {
+            if (origin_x <= 0) {
                beep();
                break;
             }
             origin_x -= window_w / 4;
-            if (origin_x<0)
+            if (origin_x < 0)
                origin_x = 0;
             realize();
             continue;
             break;
          case 'q':
-         case '\003':  /*  control-C  */
-         case '\004':  /*  control-D  */
+         case '\003':          /*  control-C  */
+         case '\004':          /*  control-D  */
             close_window();
             break;
          default:
@@ -383,12 +374,13 @@ void main_loop (void)
    }
 }
 
-void realize (void)
+void realize(void)
 {
    realize_part(origin_x, origin_y, xsh.width, xsh.height, 0, 0);
 }
 
-void realize_part(int src_x,int src_y,int width,int height,int dest_x,int dest_y )
+void realize_part(int src_x, int src_y, int width, int height, int dest_x,
+                  int dest_y)
 {
    XDefineCursor(display, main_window, watch_cur);
    XCopyArea(display, pixmap, main_window, gc,
@@ -396,18 +388,18 @@ void realize_part(int src_x,int src_y,int width,int height,int dest_x,int dest_y
    XUndefineCursor(display, main_window);
 }
 
-void set_all (void)
+void set_all(void)
 {
    XCopyArea(display, main_window, pixmap, pixmapGC,
              0, 0, xsh.width, xsh.height, 0, 0);
 }
 
-void beep (void)
+void beep(void)
 {
    XBell(display, 100);
 }
 
-void get_window_size (void)
+void get_window_size(void)
 {
    XGetWindowAttributes(display, main_window, &wa);
    window_x = wa.x;
@@ -416,10 +408,10 @@ void get_window_size (void)
    window_h = wa.height;
 }
 
-unsigned long get_color_pix(char *color_name )
+unsigned long get_color_pix(char *color_name)
 {
-   Colormap        cmap;
-   XColor          color, exact;
+   Colormap cmap;
+   XColor color, exact;
 
    cmap = DefaultColormap(display, screen);
    XAllocNamedColor(display, cmap, color_name, &color, &exact);

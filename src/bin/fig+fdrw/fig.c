@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -112,30 +112,33 @@ static char *rcs_id = "$Id$";
 #define XL  LENG
 #define YL  LENG
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - plot a graph\n",cmnd);
+   fprintf(stderr, " %s - plot a graph\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -F F     : factor                 [%g]\n",FCT);
-   fprintf(stderr, "       -R R     : rotation angle         [%g]\n",TH);
+   fprintf(stderr, "       -F F     : factor                 [%g]\n", FCT);
+   fprintf(stderr, "       -R R     : rotation angle         [%g]\n", TH);
    fprintf(stderr, "       -W W     : width of figure        [1]\n");
    fprintf(stderr, "       -H H     : height of figure       [1]\n");
-   fprintf(stderr, "       -o xo yo : origin in mm           [%g %g]\n",XO,YO);
-   fprintf(stderr, "       -g g     : draw grid              [%d]\n",TYPE);
-   fprintf(stderr, "       -p p     : pen number             [%d]\n",PENNO);
-   fprintf(stderr, "       -j j     : join number            [%d]\n",JOINNO);
-   fprintf(stderr, "       -s s     : font size              [%d]\n",FNTSIZE+1);
+   fprintf(stderr, "       -o xo yo : origin in mm           [%g %g]\n", XO,
+           YO);
+   fprintf(stderr, "       -g g     : draw grid              [%d]\n", TYPE);
+   fprintf(stderr, "       -p p     : pen number             [%d]\n", PENNO);
+   fprintf(stderr, "       -j j     : join number            [%d]\n", JOINNO);
+   fprintf(stderr, "       -s s     : font size              [%d]\n",
+           FNTSIZE + 1);
    fprintf(stderr, "       -f f     : first opened file      [NULL]\n");
-   fprintf(stderr, "       -t       : transpose x and y axes [%s]\n",BOOL[IS_T]);
+   fprintf(stderr, "       -t       : transpose x and y axes [%s]\n",
+           BOOL[IS_T]);
    fprintf(stderr, "       -h       : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       command\n");
@@ -143,36 +146,36 @@ void usage (int status)
    fprintf(stderr, "       plotter command\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s",PACKAGE_VERSION);
-   fprintf(stderr, " CVS Info: %s",rcs_id);
+   fprintf(stderr, " SPTK: version %s", PACKAGE_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int ltype=0, penno=PENNO, joinno=JOINNO, type=TYPE, is_t=IS_T;
-double xo=XO, yo=YO;
-double xl=XL, yl=YL, x00=0, y00=0;
-double mh=2, mw=2, h=CH_NRML, w=CW_NRML;
-double xclip0=0, yclip0=0, xclip1=0, yclip1=0;
+int ltype = 0, penno = PENNO, joinno = JOINNO, type = TYPE, is_t = IS_T;
+double xo = XO, yo = YO;
+double xl = XL, yl = YL, x00 = 0, y00 = 0;
+double mh = 2, mw = 2, h = CH_NRML, w = CW_NRML;
+double xclip0 = 0, yclip0 = 0, xclip1 = 0, yclip1 = 0;
 
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
    FILE *fp;
-   char *infile[16], *file=NULL;
+   char *infile[16], *file = NULL;
    char *s;
-   double th=TH, fct=FCT;
-   int c, n, nfiles, fntsize=FNTSIZE;
+   double th = TH, fct = FCT;
+   int c, n, nfiles, fntsize = FNTSIZE;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
-   for (nfiles=0; --argc;) {
-      if (*(s=*++argv)=='-') {
+   for (nfiles = 0; --argc;) {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if (*++s=='\0' && c != 't') {
+         if (*++s == '\0' && c != 't') {
             s = *++argv;
             --argc;
          }
@@ -213,28 +216,27 @@ int main (int argc, char *argv[])
             yl = atof(s) * LENG;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            usage (1);
+            usage(1);
          }
-      }
-      else
+      } else
          infile[nfiles++] = *argv;
    }
 
-   if (fntsize<0 || fntsize>3)
+   if (fntsize < 0 || fntsize > 3)
       fntsize = 0;
    if (fntsize & 1)
       h = CH_BIG;
    if (fntsize & 2)
       w = CW_HUGE;
-   if (fntsize==1)
+   if (fntsize == 1)
       w = CW_BIG;
 
    plots(0x81);
    rstbnd();
    font(fntsize);
-   font(0);  /* valid only LBP */
+   font(0);                     /* valid only LBP */
    plot(xo, yo, -3);
    rotate(th);
    pen(1);
@@ -249,7 +251,7 @@ int main (int argc, char *argv[])
    if (type--) {
       plot(0.0, 0.0, -3);
       plot(xl, 0.0, 2);
-      plot(xl,  yl, type ? 2 : 3);
+      plot(xl, yl, type ? 2 : 3);
       plot(0.0, yl, type ? 2 : 3);
       plot(0.0, 0.0, 2);
    }
@@ -261,15 +263,15 @@ int main (int argc, char *argv[])
       graph(fp);
       fclose(fp);
    }
-   if (nfiles==0)
+   if (nfiles == 0)
       graph(stdin);
    else {
-      for (n=0; n<nfiles; ++n) {
+      for (n = 0; n < nfiles; ++n) {
          fp = getfp(infile[n], "rt");
          graph(fp);
          fclose(fp);
       }
    }
    plote();
-   return(0);
+   return (0);
 }

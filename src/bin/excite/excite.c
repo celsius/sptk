@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -95,25 +95,28 @@ static char *rcs_id = "$Id$";
 #define SEED 1
 #define GAUSS FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - generate excitation\n",cmnd);
+   fprintf(stderr, " %s - generate excitation\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -p p  : frame period                  [%d]\n", FPERIOD);
-   fprintf(stderr, "       -i i  : interpolation period          [%d]\n", IPERIOD);
-   fprintf(stderr, "       -n    : gauss/M-sequence for unvoiced [%s]\n", BOOL[GAUSS]);
+   fprintf(stderr, "       -p p  : frame period                  [%d]\n",
+           FPERIOD);
+   fprintf(stderr, "       -i i  : interpolation period          [%d]\n",
+           IPERIOD);
+   fprintf(stderr, "       -n    : gauss/M-sequence for unvoiced [%s]\n",
+           BOOL[GAUSS]);
    fprintf(stderr, "                   default is M-sequence\n");
-   fprintf(stderr, "       -s s  : seed for nrand                [%d]\n",SEED);
+   fprintf(stderr, "       -s s  : seed for nrand                [%d]\n", SEED);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       pitch period (%s)         [stdin]\n", FORMAT);
@@ -129,21 +132,21 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int fprd=FPERIOD, iprd=IPERIOD, i, j, seed=SEED;
-   long next=SEED;
+   int fprd = FPERIOD, iprd = IPERIOD, i, j, seed = SEED;
+   long next = SEED;
    FILE *fp = stdin;
    double x, p1, p2, inc, pc;
-   Boolean gauss=GAUSS;
-    
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   Boolean gauss = GAUSS;
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
       if (**++argv == '-') {
-         switch (*(*argv+1)) {
+         switch (*(*argv + 1)) {
          case 'p':
             fprd = atoi(*++argv);
             --argc;
@@ -162,41 +165,43 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   if (gauss & (seed!=1)) next = srnd((unsigned int)seed);
+   if (gauss & (seed != 1))
+      next = srnd((unsigned int) seed);
 
-   if (freadf(&p1,sizeof(p1),1,fp)!=1) return(1);
+   if (freadf(&p1, sizeof(p1), 1, fp) != 1)
+      return (1);
 
    pc = p1;
-    
+
    for (;;) {
-      if (freadf(&p2, sizeof(p2),1,fp)!=1) return(0);
- 
-      if ((p1!=0.0) && (p2 != 0.0))
+      if (freadf(&p2, sizeof(p2), 1, fp) != 1)
+         return (0);
+
+      if ((p1 != 0.0) && (p2 != 0.0))
          inc = (p2 - p1) * (double) iprd / (double) fprd;
       else {
          inc = 0.0;
          pc = p2;
          p1 = 0.0;
       }
- 
-      for (j=fprd,i=(iprd+1)/2; j--;) {
+
+      for (j = fprd, i = (iprd + 1) / 2; j--;) {
          if (p1 == 0.0) {
-            if (gauss) x = (double)nrandom(&next);
-            else x = mseq();
-         }
-         else {
+            if (gauss)
+               x = (double) nrandom(&next);
+            else
+               x = mseq();
+         } else {
             if ((pc += 1.0) >= p1) {
                x = sqrt(p1);
                pc = pc - p1;
-            }
-            else
+            } else
                x = 0.0;
          }
 
@@ -209,6 +214,6 @@ int main (int argc, char **argv)
       }
       p1 = p2;
    }
-   
+
    return 0;
 }

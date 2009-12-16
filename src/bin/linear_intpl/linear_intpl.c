@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -67,7 +67,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -99,48 +100,55 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - linear interpolation of data\n",cmnd);
+   fprintf(stderr, " %s - linear interpolation of data\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l         : output length               [%d]\n", LENG+1);
-   fprintf(stderr, "       -m m         : number of interpolation     [%d]\n", LENG);
-   fprintf(stderr, "       -x xmin xmax : minimum of x & maximum of x [%g %g]\n",MIN,MAX);
-   fprintf(stderr, "       -i xmin      : minimum of x                [%g]\n",MIN);
-   fprintf(stderr, "       -j xmax      : maximum of x                [%g]\n",MAX);
+   fprintf(stderr, "       -l l         : output length               [%d]\n",
+           LENG + 1);
+   fprintf(stderr, "       -m m         : number of interpolation     [%d]\n",
+           LENG);
+   fprintf(stderr,
+           "       -x xmin xmax : minimum of x & maximum of x [%g %g]\n", MIN,
+           MAX);
+   fprintf(stderr, "       -i xmin      : minimum of x                [%g]\n",
+           MIN);
+   fprintf(stderr, "       -j xmax      : maximum of x                [%g]\n",
+           MAX);
    fprintf(stderr, "       -h           : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (%s)                      [stdin]\n", FORMAT);
+   fprintf(stderr, "       data sequence (%s)                      [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       interpolated data sequence (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int  l=LENG, ii, end;
-   FILE *fp=stdin;
-   double i=MIN, j=MAX, x1, y1, x2, y2, y, x, t;
+   int l = LENG, ii, end;
+   FILE *fp = stdin;
+   double i = MIN, j = MAX, x1, y1, x2, y2, y, x, t;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'l':
-            l = atoi(*++argv)-1;
+            l = atoi(*++argv) - 1;
             --argc;
             break;
          case 'm':
@@ -162,39 +170,43 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
    t = (j - i) / (double) l;
 
    for (;;) {
-      if (freadf(&x2, sizeof(x2), 1, fp)!=1) break;
-      if (freadf(&y2, sizeof(y2), 1, fp)!=1) break;
+      if (freadf(&x2, sizeof(x2), 1, fp) != 1)
+         break;
+      if (freadf(&y2, sizeof(y2), 1, fp) != 1)
+         break;
 
       fwritef(&y2, sizeof(y2), 1, stdout);
 
-      for (end=0,ii=1; end==0; ) {
+      for (end = 0, ii = 1; end == 0;) {
          x1 = x2;
          y1 = y2;
-         if (freadf(&x2, sizeof(x2), 1, fp)!=1) break;
-         if (freadf(&y2, sizeof(y2), 1, fp)!=1) break;
+         if (freadf(&x2, sizeof(x2), 1, fp) != 1)
+            break;
+         if (freadf(&y2, sizeof(y2), 1, fp) != 1)
+            break;
 
-         if (x2==j) end = 1;
+         if (x2 == j)
+            end = 1;
          for (;; ii++) {
             x = i + t * ii;
-            if (x>x2) break;
+            if (x > x2)
+               break;
             y = ((y1 - y2) * x + x1 * y2 - x2 * y1) / (x1 - x2);
             fwritef(&y, sizeof(y), 1, stdout);
          }
       }
    }
-   
-   return(0);
-}
 
+   return (0);
+}

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -72,7 +72,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -103,37 +104,48 @@ static char *rcs_id = "$Id$";
 #define GAIN     1
 #define LOGGAIN  FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - transform LSP to LPC\n",cmnd);
+   fprintf(stderr, " %s - transform LSP to LPC\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ]>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of LPC                                   [%d]\n", ORDER);
-   fprintf(stderr, "       -s s  : sampling frequency                             [%d]\n", SAMPLING);
-   fprintf(stderr, "       -k    : input & output gain                            [TRUE]\n");
-   fprintf(stderr, "       -l    : regard input as log gain and output linear one [%s]\n", BOOL[LOGGAIN]);
-   fprintf(stderr, "       -i i  : input format                                   [%d]\n", ITYPE);
+   fprintf(stderr,
+           "       -m m  : order of LPC                                   [%d]\n",
+           ORDER);
+   fprintf(stderr,
+           "       -s s  : sampling frequency                             [%d]\n",
+           SAMPLING);
+   fprintf(stderr,
+           "       -k    : input & output gain                            [TRUE]\n");
+   fprintf(stderr,
+           "       -l    : regard input as log gain and output linear one [%s]\n",
+           BOOL[LOGGAIN]);
+   fprintf(stderr,
+           "       -i i  : input format                                   [%d]\n",
+           ITYPE);
    fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
    fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
    fprintf(stderr, "                 2 (frequency (kHz))\n");
    fprintf(stderr, "                 3 (frequency (Hz))\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       LSP (%s)                                            [stdin]\n", FORMAT);
+   fprintf(stderr,
+           "       LSP (%s)                                            [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       LP coefficients (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -141,20 +153,20 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDER, sampling=SAMPLING, itype=ITYPE, i, gain=GAIN;
-   FILE *fp=stdin;
+   int m = ORDER, sampling = SAMPLING, itype = ITYPE, i, gain = GAIN;
+   FILE *fp = stdin;
    double *a, *lsp;
-   Boolean loggain=LOGGAIN;
+   Boolean loggain = LOGGAIN;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -174,40 +186,38 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   lsp = dgetmem(m+m+1+gain);
+   lsp = dgetmem(m + m + 1 + gain);
    a = lsp + m + gain;
 
-   while (freadf(lsp, sizeof(*lsp), m+gain, fp)==m+gain) {
-      if (itype==0)
-         for (i=gain; i<m+gain; i++)
+   while (freadf(lsp, sizeof(*lsp), m + gain, fp) == m + gain) {
+      if (itype == 0)
+         for (i = gain; i < m + gain; i++)
             lsp[i] /= PI2;
-      else if (itype==2 || itype ==3)
-         for (i=gain; i<m+gain; i++)
+      else if (itype == 2 || itype == 3)
+         for (i = gain; i < m + gain; i++)
             lsp[i] /= sampling;
 
-      if (itype==3)
-         for (i=gain; i<m+gain; i++)
+      if (itype == 3)
+         for (i = gain; i < m + gain; i++)
             lsp[i] /= 1000;
 
-      lsp2lpc(lsp+gain, a, m);
+      lsp2lpc(lsp + gain, a, m);
 
       if (gain) {
          if (loggain)
             *lsp = exp(*lsp);
          fwritef(lsp, sizeof(*lsp), 1, stdout);
       }
-      fwritef(a+gain, sizeof(*a), m+1-gain, stdout);
+      fwritef(a + gain, sizeof(*a), m + 1 - gain, stdout);
    }
-   
-   return(0);
-}
 
+   return (0);
+}

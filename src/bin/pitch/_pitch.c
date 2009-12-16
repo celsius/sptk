@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -73,51 +73,50 @@
 #  include <SPTK.h>
 #endif
 
-double pitch (double *xw, const int l, const double thresh, const int low, const int high, 
-              const double eps, const int m, const int itr1, const int itr2, const double end)
+double pitch(double *xw, const int l, const double thresh, const int low,
+             const int high, const double eps, const int m, const int itr1,
+             const int itr2, const double end)
 {
-   static double *x=NULL,*y, *c;
-   double voiced,max,p=0.0;
+   static double *x = NULL, *y, *c;
+   double voiced, max, p = 0.0;
    int i;
 
-   if (x==NULL) {
-      x = dgetmem(3*l);
+   if (x == NULL) {
+      x = dgetmem(3 * l);
       y = x + l;
       c = y + l;
    }
 
-   movem(xw,x,sizeof(*x),l);
+   movem(xw, x, sizeof(*x), l);
 
    /* voiced/unvoiced detection */
    uels(x, l, c, m, itr1, itr2, end, eps, 0);
-   fillz(c+m,l-m,sizeof(double));
-   fftr(c,y,l);
+   fillz(c + m, l - m, sizeof(double));
+   fftr(c, y, l);
 
    voiced = 0.0;
-   for (i=4*l/256;i<=17*l/256;i++)
+   for (i = 4 * l / 256; i <= 17 * l / 256; i++)
       voiced += c[i];
    voiced /= 14 * l / 256;
 
    fftr(x, y, l);
-   for (i=0; i<l; i++)
-      x[i] = log(x[i]*x[i] + y[i]*y[i] + eps);
+   for (i = 0; i < l; i++)
+      x[i] = log(x[i] * x[i] + y[i] * y[i] + eps);
 
-   if (voiced>thresh) {
+   if (voiced > thresh) {
       fftr(x, y, l);
-      for (i=0; i<l; i++) {
+      for (i = 0; i < l; i++) {
          x[i] /= l;
          x[i] *= i;
       }
       max = 0.0;
-      for (i=low; i<high; i++)
-         if (max<x[i]) {
-            p = (float)i;
+      for (i = low; i < high; i++)
+         if (max < x[i]) {
+            p = (float) i;
             max = x[i];
          }
-   }
-   else
+   } else
       p = 0.0;
-      
-   return(p);
-}
 
+   return (p);
+}

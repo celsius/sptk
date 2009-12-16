@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -64,13 +64,12 @@
 #  include <SPTK.h>
 #endif
 
-void mc2b (double *mc, double *b, int m, const double a)
+void mc2b(double *mc, double *b, int m, const double a)
 {
    b[m] = mc[m];
 
-   for (m--; m>=0; m--)
-      b[m] = mc[m] - a * b[m+1];
+   for (m--; m >= 0; m--)
+      b[m] = mc[m] - a * b[m + 1];
 
    return;
 }
-

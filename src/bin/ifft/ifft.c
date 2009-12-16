@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -82,13 +82,13 @@ static char *rcs_id = "$Id$";
 #  include <SPTK.h>
 #endif
 
-static int size=256, out=' ';
+static int size = 256, out = ' ';
 
 /*  Command Name  */
 char *cmnd;
 
 
-int usage (void)
+int usage(void)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - inverse FFT for complex sequence\n", cmnd);
@@ -113,21 +113,21 @@ int usage (void)
    exit(1);
 }
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
    FILE *fp;
-   char *s, *infile=NULL, c;
-   int dft(FILE *fp);
- 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   char *s, *infile = NULL, c;
+   int dft(FILE * fp);
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-      
+
    while (--argc) {
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if ((c=='l') && (*++s=='\0')) {
+         if ((c == 'l') && (*++s == '\0')) {
             s = *++argv;
             --argc;
          }
@@ -146,8 +146,7 @@ int main (int argc,char *argv[])
          default:
             usage();
          }
-      }
-      else
+      } else
          infile = s;
    }
 
@@ -155,33 +154,32 @@ int main (int argc,char *argv[])
       fp = getfp(infile, "rb");
       dft(fp);
       fclose(fp);
-   }
-   else
+   } else
       dft(stdin);
-   
+
    return 0;
 }
 
-int dft (FILE *fp)
+int dft(FILE * fp)
 {
    double *x, *y;
    int size2;
 
-   x = dgetmem(size2=size+size);
+   x = dgetmem(size2 = size + size);
 
    y = x + size;
 
    while (!feof(fp)) {
-      if (freadf(x, sizeof(*x), size2, fp)!=size2)
+      if (freadf(x, sizeof(*x), size2, fp) != size2)
          break;
-   
+
       ifft(x, y, size);
 
-      if (out!='I')
+      if (out != 'I')
          fwritef(x, sizeof(*x), size, stdout);
-      if (out!='R')
+      if (out != 'R')
          fwritef(y, sizeof(*y), size, stdout);
    }
-   
-   return(0);
+
+   return (0);
 }

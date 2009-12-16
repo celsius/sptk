@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -57,15 +57,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-FILE *getfp (char *name, char *opt)
+FILE *getfp(char *name, char *opt)
 {
    FILE *fp;
 
-   if ((fp = fopen(name, opt)) == NULL){
+   if ((fp = fopen(name, opt)) == NULL) {
       fprintf(stderr, "Cannot open file %s!\n", name);
       exit(2);
    }
 
-   return(fp);
+   return (fp);
 }
-

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -96,10 +96,10 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - calculation of root mean squared error\n",cmnd);
+   fprintf(stderr, " %s - calculation of root mean squared error\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] file1 [ infile ] > stdout\n", cmnd);
@@ -116,54 +116,52 @@ void usage (int status)
    fprintf(stderr, "      if l>0, calculate rmse frame by frame\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int l=LENG, num=0;
-   FILE *fp=stdin, *fp1=NULL;
-   double *x, *y, x1, y1, sub, z=0.0;
+   int l = LENG, num = 0;
+   FILE *fp = stdin, *fp1 = NULL;
+   double *x, *y, x1, y1, sub, z = 0.0;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'l':
             l = atoi(*++argv);
             --argc;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else if (fp1==NULL)
+      } else if (fp1 == NULL)
          fp1 = getfp(*argv, "rb");
       else
          fp = getfp(*argv, "rb");
 
-   if (l>0) {
-      x = dgetmem(l+l);
+   if (l > 0) {
+      x = dgetmem(l + l);
       y = x + l;
-      while (freadf(x, sizeof(*x), l, fp)==l &&
-             freadf(y, sizeof(*y), l, fp1)== l ) {
+      while (freadf(x, sizeof(*x), l, fp) == l &&
+             freadf(y, sizeof(*y), l, fp1) == l) {
          z = rmse(x, y, l);
          fwritef(&z, sizeof(z), 1, stdout);
       }
-   }
-   else {
-      while (freadf(&x1, sizeof(x1), 1, fp)==1 &&
-             freadf(&y1, sizeof(y1), 1, fp1)== 1) {
+   } else {
+      while (freadf(&x1, sizeof(x1), 1, fp) == 1 &&
+             freadf(&y1, sizeof(y1), 1, fp1) == 1) {
          sub = x1 - y1;
          z += sub * sub;
 
@@ -172,7 +170,6 @@ int main (int argc, char **argv)
       z = sqrt(z /= num);
       fwritef(&z, sizeof(z), 1, stdout);
    }
-   
-   return(0);
-}
 
+   return (0);
+}

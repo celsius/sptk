@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -71,109 +71,106 @@
 
 struct co_ord _org = { 0.0, 0.0 };
 
-void plots (int mode)
+void plots(int mode)
 {
-   if ((mode & 0x80)==0) {
-      asciimode();  /* ASCII mode */
-      ifclear();  /* Interface CLEAR */
-      sleep(1);  /* delay */
-      home();   /* HOME */
+   if ((mode & 0x80) == 0) {
+      asciimode();              /* ASCII mode */
+      ifclear();                /* Interface CLEAR */
+      sleep(1);                 /* delay */
+      home();                   /* HOME */
    }
    term(TRM);
    _org.xo = _org.yo = 0.0;
 }
 
-void plote (void)
+void plote(void)
 {
    return;
 }
 
-int _plnorm (double x)
+int _plnorm(double x)
 {
-   return((int)(10.0 * x + 0.5));
+   return ((int) (10.0 * x + 0.5));
 }
 
-int _cordx (double x)
+int _cordx(double x)
 {
-   return(_plnorm(x + _org.xo));
+   return (_plnorm(x + _org.xo));
 }
 
-int _cordy (double y)
+int _cordy(double y)
 {
-   return(_plnorm(y + _org.yo));
+   return (_plnorm(y + _org.yo));
 }
 
-static short _ltype=0, _lscale=10;
+static short _ltype = 0, _lscale = 10;
 
-void plot (double x, double y, int z)
+void plot(double x, double y, int z)
 {
    int ip;
 
-   if (abs(z)==2)
+   if (abs(z) == 2)
       ip = 0;
-   else if (abs(z)==3)
+   else if (abs(z) == 3)
       ip = 1;
    else {
-      if (z==999)
+      if (z == 999)
          plote();
       return;
    }
    plota(ip, x, y);
-   if (z<0) {
+   if (z < 0) {
       _org.xo += x;
       _org.yo += y;
    }
 }
 
-int plotr (int ip, double x, double y)
+int plotr(int ip, double x, double y)
 {
-   if (ip==1)
+   if (ip == 1)
       rmove(_plnorm(x), _plnorm(y));
-   else if (ip==0 || ip==2) {
-      if (ip==2)
+   else if (ip == 0 || ip == 2) {
+      if (ip == 2)
          _chlnmod(1);
       rdraw(_plnorm(x), _plnorm(y));
-      if (ip==2)
+      if (ip == 2)
          _chlnmod(0);
-   }
-   else
-      return(1);
-   return(0);
+   } else
+      return (1);
+   return (0);
 }
 
-int plota (int ip, double x, double y)
+int plota(int ip, double x, double y)
 {
-   if (ip==1)
+   if (ip == 1)
       move(_cordx(x), _cordy(y));
-   else if (ip==0 || ip==2) {
-      if (ip==2)
+   else if (ip == 0 || ip == 2) {
+      if (ip == 2)
          _chlnmod(1);
       draw(_cordx(x), _cordy(y));
-      if (ip==2)
+      if (ip == 2)
          _chlnmod(0);
-   }
-   else
-      return(1);
-   return(0);
+   } else
+      return (1);
+   return (0);
 }
 
-void mode (int ltype, double lscale)
+void mode(int ltype, double lscale)
 {
-   _ltype  = ltype;
+   _ltype = ltype;
    _lscale = _plnorm(lscale);
 }
 
-void _chlnmod (int lmode)
+void _chlnmod(int lmode)
 {
    if (lmode) {
       line_type(_ltype);
       line_scale(_lscale);
-   }
-   else
+   } else
       line_type(0);
 }
 
-void origin (double x, double y)
+void origin(double x, double y)
 {
    _org.xo = x;
    _org.yo = y;

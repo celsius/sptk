@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -121,20 +121,28 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - mel-cepstral analysis using 2nd order all-pass filter\n",cmnd);
+   fprintf(stderr,
+           " %s - mel-cepstral analysis using 2nd order all-pass filter\n",
+           cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -a a  : all-pass constant                [%g]\n", ALPHA);
-   fprintf(stderr, "       -t t  : emphasized frequency  t*pi(rad)  [%g]\n", THETA);
-   fprintf(stderr, "       -m m  : order of mel cepstrum            [%d]\n", ORDER);
-   fprintf(stderr, "       -l l  : frame length                     [%d]\n", FLENG);
-   fprintf(stderr, "       -L L  : ifft size for making matrices    [%d]\n", FFTSZ);
-   fprintf(stderr, "       -q q  : input format                     [%d]\n", ITYPE);
+   fprintf(stderr, "       -a a  : all-pass constant                [%g]\n",
+           ALPHA);
+   fprintf(stderr, "       -t t  : emphasized frequency  t*pi(rad)  [%g]\n",
+           THETA);
+   fprintf(stderr, "       -m m  : order of mel cepstrum            [%d]\n",
+           ORDER);
+   fprintf(stderr, "       -l l  : frame length                     [%d]\n",
+           FLENG);
+   fprintf(stderr, "       -L L  : ifft size for making matrices    [%d]\n",
+           FFTSZ);
+   fprintf(stderr, "       -q q  : input format                     [%d]\n",
+           ITYPE);
    fprintf(stderr, "                 0 (windowed sequence\n");
    fprintf(stderr, "                 1 (20*log|f(w)|)\n");
    fprintf(stderr, "                 2 (ln|f(w)|)\n");
@@ -142,11 +150,16 @@ void usage (int status)
    fprintf(stderr, "                 4 (|f(w)|)^2\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "     (level 2)\n");
-   fprintf(stderr, "       -i i  : minimum iteration                [%d]\n", MINITR);
-   fprintf(stderr, "       -j j  : maximum iteration                [%d]\n", MAXITR);
-   fprintf(stderr, "       -d d  : end condition                    [%g]\n", END);
-   fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n", EPS);
-   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n", MINDET);
+   fprintf(stderr, "       -i i  : minimum iteration                [%d]\n",
+           MINITR);
+   fprintf(stderr, "       -j j  : maximum iteration                [%d]\n",
+           MAXITR);
+   fprintf(stderr, "       -d d  : end condition                    [%g]\n",
+           END);
+   fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n",
+           EPS);
+   fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n",
+           MINDET);
    fprintf(stderr, "               of the normal matrix\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       windowed sequences (%s)    [stdin]\n", FORMAT);
@@ -154,7 +167,7 @@ void usage (int status)
    fprintf(stderr, "       mel-cepstrum (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -162,19 +175,20 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDER, flng=FLENG, itype=ITYPE, fftsz=FFTSZ, itr1=MINITR, itr2=MAXITR, flag=0;
-   FILE *fp=stdin;
-   double *mc, *x, a=ALPHA, t=THETA, end=END, e=EPS, f=MINDET;
+   int m = ORDER, flng = FLENG, itype = ITYPE, fftsz = FFTSZ, itr1 =
+       MINITR, itr2 = MAXITR, flag = 0;
+   FILE *fp = stdin;
+   double *mc, *x, a = ALPHA, t = THETA, end = END, e = EPS, f = MINDET;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'a':
             a = atof(*++argv);
             --argc;
@@ -220,25 +234,23 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
    t *= M_PI;
 
-   x = dgetmem(flng+m+1);
+   x = dgetmem(flng + m + 1);
    mc = x + flng;
 
-   while (freadf(x, sizeof(*x), flng, fp)==flng) {
+   while (freadf(x, sizeof(*x), flng, fp) == flng) {
       flag = smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, e, f, itype);
-      fwritef(mc, sizeof(*mc), m+1, stdout);
+      fwritef(mc, sizeof(*mc), m + 1, stdout);
    }
-      
-   return(0);
-}
 
+   return (0);
+}

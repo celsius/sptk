@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -100,46 +100,51 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - frequency transformation\n",cmnd);
+   fprintf(stderr, " %s - frequency transformation\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of minimum phase sequence      [%d]\n", ORDERC1);
-   fprintf(stderr, "       -M M  : order of warped sequence             [%d]\n", ORDERC2);
-   fprintf(stderr, "       -a a  : all-pass constant of input sequence  [%g]\n", ALPHA1);
-   fprintf(stderr, "       -A A  : all-pass constant of output sequence [%g]\n", ALPHA2);
+   fprintf(stderr, "       -m m  : order of minimum phase sequence      [%d]\n",
+           ORDERC1);
+   fprintf(stderr, "       -M M  : order of warped sequence             [%d]\n",
+           ORDERC2);
+   fprintf(stderr, "       -a a  : all-pass constant of input sequence  [%g]\n",
+           ALPHA1);
+   fprintf(stderr, "       -A A  : all-pass constant of output sequence [%g]\n",
+           ALPHA2);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       minimum phase sequence (%s)               [stdin]\n", FORMAT);
+   fprintf(stderr, "       minimum phase sequence (%s)               [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       warped sequence (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
-#endif   
+#endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m1=ORDERC1, m2=ORDERC2;
-   FILE *fp=stdin;
-   double *c1, *c2, a1=ALPHA1, a2=ALPHA2, a;
-    
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   int m1 = ORDERC1, m2 = ORDERC2;
+   FILE *fp = stdin;
+   double *c1, *c2, a1 = ALPHA1, a2 = ALPHA2, a;
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-   
+
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m1 = atoi(*++argv);
             --argc;
@@ -159,22 +164,21 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else 
+      } else
          fp = getfp(*argv, "rb");
 
-   c1 = dgetmem(m1+m2+2);
+   c1 = dgetmem(m1 + m2 + 2);
    c2 = c1 + m1 + 1;
 
-   a = (a2 - a1) / (1 - a1*a2);
+   a = (a2 - a1) / (1 - a1 * a2);
 
-   while (freadf(c1, sizeof(*c1), m1+1, fp)==m1+1) {
+   while (freadf(c1, sizeof(*c1), m1 + 1, fp) == m1 + 1) {
       freqt(c1, m1, c2, m2, a);
-      fwritef(c2, sizeof(*c2), m2+1, stdout);
+      fwritef(c2, sizeof(*c2), m2 + 1, stdout);
    }
-   
+
    return 0;
 }
