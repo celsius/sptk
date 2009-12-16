@@ -71,7 +71,7 @@
 *       notice:                                                         *
 *               if c==0, MLSA filter is used, P should be 4 or 5        *
 *       require:                                                        *
-*               mglsadf(), mlsadf()                                     *
+*               mglsadf(), mlsadf(), imglsadf(), mglsadft(), imglsadft()*
 *                                                                       *  
 ************************************************************************/
 
@@ -216,6 +216,13 @@ int main (int argc, char **argv)
       return(1);
    }
 
+   if (inverse) {
+     if (stage==0) {
+       fprintf(stderr, "%s : gamma should not equal to 0 in Inverse MGLSA!\n", cmnd);
+       usage(1);
+     }
+   }
+
    if (stage!=0) {  /* MGLSA */
       gamma = -1 / (double)stage;
    }
@@ -236,25 +243,20 @@ int main (int argc, char **argv)
    mc2b(c, c, m, alpha);
    if (stage!=0) {  /* MGLSA */
       gnorm(c, c, m, gamma);
-      for (i=1; i<=m; i++)
-         c[i] *= gamma;
+      c[0] = log(c[0]);
+     for (i=1; i<=m; i++)
+       c[i] *= gamma;
    }
-   if (inverse) {
-      c[0] = 0;
-      for (i=1; i<=m; i++) c[i] *= -1;
-   }
+
 
    for (;;) {
       if (freadf(cc, sizeof(*cc), m+1, fpc)!=m+1) return(0);
       mc2b(cc, cc, m, alpha);
       if (stage!=0) {
          gnorm(cc, cc, m, gamma);
+	 cc[0] = log(cc[0]);
          for (i=1; i<=m; i++)
             cc[i] *= gamma;
-      }
-      if (inverse) {
-         cc[0] = 0;
-         for (i=1; i<=m; i++) cc[i] *= -1;
       }
 
       for (i=0; i<=m; i++)
@@ -263,17 +265,25 @@ int main (int argc, char **argv)
       for (j=fprd, i=(iprd+1)/2; j--;) {
          if (freadf(&x, sizeof(x), 1, fp)!=1) return(0);
 
-         if (stage!=0) {  /* MGLSA */
-            if (!ngain) x *= c[0];
-            if (transpose)
+
+	 if (inverse) {   /* IMGLSA */
+	   if (!ngain) x *= exp(c[0]);
+	   if(transpose)
+	     x = imglsadft(x, c, m, alpha, stage, d);
+	   else
+	     x = imglsadf(x, c, m, alpha, stage, d);
+	 } else {
+	   if (stage!=0) {  /* MGLSA */
+	     if (!ngain) x *= exp(c[0]);
+	     if (transpose) 
                x = mglsadft(x, c, m, alpha, stage, d);
-            else
-               x = mglsadf(x, c, m, alpha, stage, d);
-         }
-         else {  /* MLSA */
-            if (!ngain) x *= exp(c[0]);
-            x = mlsadf(x, c, m, alpha, pd, d);
-         }
+	     else 
+               x = mglsadf(x, c, m, alpha, stage, d); 
+	   } else {  /* MLSA */
+	     if (!ngain) x *= exp(c[0]);
+	     x = mlsadf(x, c, m, alpha, pd, d);
+	   }
+	 }
 
          fwritef(&x, sizeof(x), 1, stdout);
 
