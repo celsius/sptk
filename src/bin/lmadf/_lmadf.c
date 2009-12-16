@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _lmadf.c,v 1.10 2008/06/16 05:48:45 heigazen Exp $
+    $Id: _lmadf.c,v 1.11 2009/12/16 06:40:40 tatsuyaito Exp $
 
     LMA Digital Filter
 

@@ -46,7 +46,7 @@
 {LMA digital filter for speech synthesis}{filters for speech synthesis}
 
 \begin{synopsis}
-\item [lmadf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --P $Pa$ ] [ --k ] 
+\item [lmadf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --P $Pa$ ] [ --v ] [ --k ] 
       {\em cfile} [ {\em infile} ]
 \end{synopsis}
 
@@ -212,6 +212,7 @@ in table \ref{tbl:lmadflt_pade}
 	\argm{P}{Pa}{order of the Pad\'e approximation\\
                      $Pa$ should be $4$ or $5$}{4}
 	\argm{k}{}{filtering without gain}{FALSE}
+	\argm{v}{}{inverse filter}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
