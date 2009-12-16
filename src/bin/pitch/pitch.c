@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.26 2008/06/16 05:48:36 heigazen Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.27 2009/12/16 13:12:36 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -117,35 +117,45 @@ static char *rcs_id = "$Id: pitch.c,v 1.26 2008/06/16 05:48:36 heigazen Exp $";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - pitch extraction\n",cmnd);
+   fprintf(stderr, " %s - pitch extraction\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -s s  : sampling frequency (kHz)        [%d]\n", FREQ);
-   fprintf(stderr, "       -l l  : frame length                    [%d]\n", ILNG);
-   fprintf(stderr, "       -t t  : voiced/unvoiced threshold       [%.1f]\n", THRESH);
-   fprintf(stderr, "       -L L  : minimum fundamental             [%d]\n", LOW);
+   fprintf(stderr, "       -s s  : sampling frequency (kHz)        [%d]\n",
+           FREQ);
+   fprintf(stderr, "       -l l  : frame length                    [%d]\n",
+           ILNG);
+   fprintf(stderr, "       -t t  : voiced/unvoiced threshold       [%.1f]\n",
+           THRESH);
+   fprintf(stderr, "       -L L  : minimum fundamental             [%d]\n",
+           LOW);
    fprintf(stderr, "               frequency to search for (Hz)\n");
-   fprintf(stderr, "       -H H  : maximum fundamental             [%d]\n", HIGH);
+   fprintf(stderr, "       -H H  : maximum fundamental             [%d]\n",
+           HIGH);
    fprintf(stderr, "               frequency to search for (Hz)\n");
-   fprintf(stderr, "       -e e  : small value for calculate       [%g]\n", EPS);
+   fprintf(stderr, "       -e e  : small value for calculate       [%g]\n",
+           EPS);
    fprintf(stderr, "               log-spectral envelope\n");
    fprintf(stderr, "     (level 2 : for uels cepstral analysis)\n");
-   fprintf(stderr, "       -i i  : minimum number of iteration     [%d]\n", MINITR);
-   fprintf(stderr, "       -j j  : maximum number of iteration     [%d]\n", MAXITR);
-   fprintf(stderr, "       -d d  : end condition                   [%g]\n", END);
+   fprintf(stderr, "       -i i  : minimum number of iteration     [%d]\n",
+           MINITR);
+   fprintf(stderr, "       -j j  : maximum number of iteration     [%d]\n",
+           MAXITR);
+   fprintf(stderr, "       -d d  : end condition                   [%g]\n",
+           END);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       windowed sequence (%s)             [stdin]\n", FORMAT);
+   fprintf(stderr, "       windowed sequence (%s)             [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       pitch (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -153,19 +163,20 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int freq=FREQ, n=ILNG, l, L=LOW , H=HIGH, m, itr1=MINITR, itr2=MAXITR, low, high;
-   double *x, eps=EPS, p, thresh=THRESH, end=END;
-   FILE *fp=stdin;
+   int freq = FREQ, n = ILNG, l, L = LOW, H = HIGH, m, itr1 = MINITR, itr2 =
+       MAXITR, low, high;
+   double *x, eps = EPS, p, thresh = THRESH, end = END;
+   FILE *fp = stdin;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 's':
             freq = atoi(*++argv);
             --argc;
@@ -200,29 +211,28 @@ int main (int argc, char **argv)
             end = atof(*++argv);
             --argc;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
    low = freq * 1000 / H;
    high = freq * 1000 / L;
-   m = (freq * 25)/10;
+   m = (freq * 25) / 10;
    l = 1;
-   while (l<n)l+=l;
+   while (l < n)
+      l += l;
 
    x = dgetmem(l);
 
-   while (freadf(x, sizeof(*x), n, fp)==n) {
-      fillz(x+n,l-n,sizeof(double));
+   while (freadf(x, sizeof(*x), n, fp) == n) {
+      fillz(x + n, l - n, sizeof(double));
       p = pitch(x, l, thresh, low, high, eps, m, itr1, itr2, end);
       fwritef(&p, sizeof(p), 1, stdout);
    }
-   
-   return(0);
-}
 
+   return (0);
+}

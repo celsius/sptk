@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /******************************************************************
 
-    $Id: theq.c,v 1.14 2008/06/16 05:47:54 heigazen Exp $
+    $Id: theq.c,v 1.15 2009/12/16 13:12:39 uratec Exp $
 
     Subroutine for Solving a Toeplitz plus Hankel
     Coefficient Matrix System of Equations  ( T + H ) a = b
@@ -69,7 +69,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-static void mv_mul (double *t, double *x, double *y)
+static void mv_mul(double *t, double *x, double *y)
 {
    t[0] = x[0] * y[0] + x[1] * y[1];
    t[1] = x[2] * y[0] + x[3] * y[1];
@@ -77,7 +77,7 @@ static void mv_mul (double *t, double *x, double *y)
    return;
 }
 
-static void mm_mul (double *t, double *x, double *y)
+static void mm_mul(double *t, double *x, double *y)
 {
    t[0] = x[0] * y[0] + x[1] * y[2];
    t[1] = x[0] * y[1] + x[1] * y[3];
@@ -87,30 +87,31 @@ static void mm_mul (double *t, double *x, double *y)
    return;
 }
 
-static int inverse (double *x, double *y, const double eps)
+static int inverse(double *x, double *y, const double eps)
 {
    double det;
 
-   det = y[0]*y[3] - y[1]*y[2];
+   det = y[0] * y[3] - y[1] * y[2];
 
 #ifdef WIN32
-   if ((fabs(det)<eps) || _isnan(det)) {
+   if ((fabs(det) < eps) || _isnan(det)) {
 #else
-   if ((fabs(det)<eps) || isnan(det)) {
+   if ((fabs(det) < eps) || isnan(det)) {
 #endif
-      fprintf(stderr, "theq() : determinant of the normal matrix is too small!\n");
-      return(-1);
+      fprintf(stderr,
+              "theq() : determinant of the normal matrix is too small!\n");
+      return (-1);
    }
 
-   x[0] =  y[3] / det;
+   x[0] = y[3] / det;
    x[1] = -y[1] / det;
    x[2] = -y[2] / det;
-   x[3] =  y[0] / det;
+   x[3] = y[0] / det;
 
-   return(0);
+   return (0);
 }
 
-static void crstrns (double *x, double *y)
+static void crstrns(double *x, double *y)
 {
    x[0] = y[3];
    x[1] = y[2];
@@ -120,97 +121,110 @@ static void crstrns (double *x, double *y)
    return;
 }
 
-static double **mtrx2 (const int a, const int b)
+static double **mtrx2(const int a, const int b)
 {
    int i;
    double **x;
 
-   if (! (x = (double**)calloc((size_t)a, sizeof(*x)))) {
+   if (!(x = (double **) calloc((size_t) a, sizeof(*x)))) {
       fprintf(stderr, "mtrx2() in theq() : Cannot allocate memory!\n");
       exit(3);
    }
-   for (i=0; i<a; i++)
-      if (! (x[i] = (double*)calloc((size_t)b, sizeof(**x)))) {
+   for (i = 0; i < a; i++)
+      if (!(x[i] = (double *) calloc((size_t) b, sizeof(**x)))) {
          fprintf(stderr, "mtrx2() in theq() : Cannot allocate memory!\n");
-          exit(3);
+         exit(3);
       }
 
-   return(x);
+   return (x);
 }
 
-static int cal_p0 (double **p, double **r, double *b, const int n, const double eps)
+static int cal_p0(double **p, double **r, double *b, const int n,
+                  const double eps)
 {
    double t[4], s[2];
 
-   if (inverse(t,r[0],eps)==-1) return(-1);
+   if (inverse(t, r[0], eps) == -1)
+      return (-1);
    s[0] = b[0];
-   s[1] = b[n-1];
+   s[1] = b[n - 1];
    mv_mul(p[0], t, s);
 
-   return(0);
+   return (0);
 }
 
-static void cal_ex (double *ex, double **r, double **x, const int i)
+static void cal_ex(double *ex, double **r, double **x, const int i)
 {
    int j;
    double t[4], s[4];
 
    s[0] = s[1] = s[2] = s[3] = 0.;
 
-   for (j=0; j<i; j++) {
-      mm_mul(t, r[i-j], x[j]);
-      s[0] += t[0]; s[1] += t[1];
-      s[2] += t[2]; s[3] += t[3];
+   for (j = 0; j < i; j++) {
+      mm_mul(t, r[i - j], x[j]);
+      s[0] += t[0];
+      s[1] += t[1];
+      s[2] += t[2];
+      s[3] += t[3];
    }
 
-   ex[0] = s[0]; ex[1] = s[1];
-   ex[2] = s[2]; ex[3] = s[3];
+   ex[0] = s[0];
+   ex[1] = s[1];
+   ex[2] = s[2];
+   ex[3] = s[3];
 
    return;
 }
 
-static void cal_ep (double *ep, double **r, double **p, const int i)
+static void cal_ep(double *ep, double **r, double **p, const int i)
 {
    int j;
    double t[2], s[2];
 
    s[0] = s[1] = 0.;
 
-   for (j=0; j<i; j++) {
-      mv_mul(t, r[i-j], p[j]);
-      s[0] += t[0]; s[1] += t[1];
+   for (j = 0; j < i; j++) {
+      mv_mul(t, r[i - j], p[j]);
+      s[0] += t[0];
+      s[1] += t[1];
    }
-   ep[0] = s[0]; ep[1] = s[1];
+   ep[0] = s[0];
+   ep[1] = s[1];
 
    return;
 }
 
-static int cal_bx (double *bx, double *vx, double *ex, const double eps)
+static int cal_bx(double *bx, double *vx, double *ex, const double eps)
 {
    double t[4], s[4];
 
    crstrns(t, vx);
-   if(inverse(s, t, eps)==-1) return(-1);
+   if (inverse(s, t, eps) == -1)
+      return (-1);
    mm_mul(bx, s, ex);
 
-   return(0);
+   return (0);
 }
 
-static void cal_x (double **x, double **xx, double *bx, const int i)
+static void cal_x(double **x, double **xx, double *bx, const int i)
 {
    int j;
    double t[4], s[4];
 
-   for (j=1; j<i; j++) {
-      crstrns(t, xx[i-j]);
+   for (j = 1; j < i; j++) {
+      crstrns(t, xx[i - j]);
       mm_mul(s, t, bx);
-      x[j][0] -= s[0]; x[j][1] -= s[1];
-      x[j][2] -= s[2]; x[j][3] -= s[3];
+      x[j][0] -= s[0];
+      x[j][1] -= s[1];
+      x[j][2] -= s[2];
+      x[j][3] -= s[3];
    }
 
-   for (j=1; j<i; j++) {
-      xx[j][0] = x[j][0]; xx[j][1] = x[j][1];
-      xx[j][2] = x[j][2]; xx[j][3] = x[j][3];
+   for (j = 1; j < i; j++) {
+      xx[j][0] = x[j][0];
+      xx[j][1] = x[j][1];
+      xx[j][2] = x[j][2];
+      xx[j][3] = x[j][3];
    }
 
    x[i][0] = xx[i][0] = -bx[0];
@@ -221,40 +235,43 @@ static void cal_x (double **x, double **xx, double *bx, const int i)
    return;
 }
 
-static void cal_vx (double *vx, double *ex, double *bx)
+static void cal_vx(double *vx, double *ex, double *bx)
 {
    double t[4], s[4];
 
    crstrns(t, ex);
    mm_mul(s, t, bx);
-   vx[0] -= s[0]; vx[1] -= s[1];
-   vx[2] -= s[2]; vx[3] -= s[3];
+   vx[0] -= s[0];
+   vx[1] -= s[1];
+   vx[2] -= s[2];
+   vx[3] -= s[3];
 
    return;
 }
 
-static int cal_g (double *g, double *vx, double *b, double *ep, 
-                  const int i, const int n, const double eps)
+static int cal_g(double *g, double *vx, double *b, double *ep,
+                 const int i, const int n, const double eps)
 {
    double t[2], s[4], u[4];
 
    t[0] = b[i] - ep[0];
-   t[1] = b[n-1-i] - ep[1];
+   t[1] = b[n - 1 - i] - ep[1];
    crstrns(s, vx);
 
-   if (inverse(u, s, eps)==-1) return(-1);
+   if (inverse(u, s, eps) == -1)
+      return (-1);
    mv_mul(g, u, t);
 
-   return(0);
+   return (0);
 }
 
-static void cal_p (double **p, double **x, double *g, const int i)
+static void cal_p(double **p, double **x, double *g, const int i)
 {
    double t[4], s[2];
    int j;
 
-   for (j=0; j<i; j++) {
-      crstrns(t, x[i-j]);
+   for (j = 0; j < i; j++) {
+      crstrns(t, x[i - j]);
       mv_mul(s, t, g);
       p[j][0] += s[0];
       p[j][1] += s[1];
@@ -266,47 +283,53 @@ static void cal_p (double **p, double **x, double *g, const int i)
    return;
 }
 
-int theq (double *t, double *h, double *a, double *b, const int n, double eps)
+int theq(double *t, double *h, double *a, double *b, const int n, double eps)
 {
-   static double **r=NULL, **x, **xx, **p;
+   static double **r = NULL, **x, **xx, **p;
    static int size;
    double ex[4], ep[2], vx[4], bx[4], g[2];
    int i;
 
-   if (r==NULL) {
-      r  = mtrx2(n, 4); 
-      x  = mtrx2(n, 4);
+   if (r == NULL) {
+      r = mtrx2(n, 4);
+      x = mtrx2(n, 4);
       xx = mtrx2(n, 4);
-      p  = mtrx2(n, 2);
+      p = mtrx2(n, 2);
       size = n;
    }
-   if (n>size) {
-      for (i=0; i<n; i++) {
-         free((char*)r[i]);  free((char*)x[i]);
-         free((char*)xx[i]); free((char*)p[i]);
+   if (n > size) {
+      for (i = 0; i < n; i++) {
+         free((char *) r[i]);
+         free((char *) x[i]);
+         free((char *) xx[i]);
+         free((char *) p[i]);
       }
-      free((char*)r);  free((char*)x);
-      free((char*)xx); free((char*)p);
+      free((char *) r);
+      free((char *) x);
+      free((char *) xx);
+      free((char *) p);
 
-      r  = mtrx2(n, 4);
-      x  = mtrx2(n, 4);
+      r = mtrx2(n, 4);
+      x = mtrx2(n, 4);
       xx = mtrx2(n, 4);
-      p  = mtrx2(n, 2);
+      p = mtrx2(n, 2);
       size = n;
    }
-	
-   if(eps<0.0) eps = 1.0e-6;
+
+   if (eps < 0.0)
+      eps = 1.0e-6;
 
    /* make r */
-   for (i=0; i<n; i++) {
+   for (i = 0; i < n; i++) {
       r[i][0] = r[i][3] = t[i];
-      r[i][1] = h[n-1+i];
-      r[i][2] = h[n-1-i];
+      r[i][1] = h[n - 1 + i];
+      r[i][2] = h[n - 1 - i];
    }
 
    /* step 1 */
    x[0][0] = x[0][3] = 1.0;
-   if (cal_p0(p, r, b, n, eps)==-1) return(-1);
+   if (cal_p0(p, r, b, n, eps) == -1)
+      return (-1);
 
    vx[0] = r[0][0];
    vx[1] = r[0][1];
@@ -314,19 +337,21 @@ int theq (double *t, double *h, double *a, double *b, const int n, double eps)
    vx[3] = r[0][3];
 
    /* step 2 */
-   for (i=1; i<n; i++) {
+   for (i = 1; i < n; i++) {
       cal_ex(ex, r, x, i);
       cal_ep(ep, r, p, i);
-      if (cal_bx(bx, vx, ex, eps)==-1) return(-1);
-      cal_x (x, xx, bx, i);
+      if (cal_bx(bx, vx, ex, eps) == -1)
+         return (-1);
+      cal_x(x, xx, bx, i);
       cal_vx(vx, ex, bx);
-      if (cal_g(g, vx, b, ep, i, n, eps)==-1) return(-1) ;
+      if (cal_g(g, vx, b, ep, i, n, eps) == -1)
+         return (-1);
       cal_p(p, x, g, i);
    }
-    
-   /* step 3 */
-   for (i=0; i<n; i++) a[i] = p[i][0];
-    
-   return(0);
-}
 
+   /* step 3 */
+   for (i = 0; i < n; i++)
+      a[i] = p[i][0];
+
+   return (0);
+}

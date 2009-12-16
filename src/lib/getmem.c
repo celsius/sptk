@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /********************************************************************
-    $Id: getmem.c,v 1.10 2008/06/16 05:47:54 heigazen Exp $
+    $Id: getmem.c,v 1.11 2009/12/16 13:12:39 uratec Exp $
 
     Memory Allocation Functions
 
@@ -72,43 +72,43 @@
 #define real float
 #endif
 
-char *getmem (const size_t leng, const size_t size)
+char *getmem(const size_t leng, const size_t size)
 {
    char *p = NULL;
 
-   if ((p = (char *)calloc(leng, size)) == NULL){
+   if ((p = (char *) calloc(leng, size)) == NULL) {
       fprintf(stderr, "Cannot allocate memory!\n");
       exit(3);
    }
    return (p);
 }
 
-short *sgetmem (const int leng)
+short *sgetmem(const int leng)
 {
-   return ( (short *)getmem((size_t)leng, sizeof(short)) );
+   return ((short *) getmem((size_t) leng, sizeof(short)));
 }
 
-long *lgetmem (const int leng)
+long *lgetmem(const int leng)
 {
-   return ( (long *)getmem((size_t)leng, sizeof(long)) );
+   return ((long *) getmem((size_t) leng, sizeof(long)));
 }
 
-double *dgetmem (const int leng)
+double *dgetmem(const int leng)
 {
-   return ( (double *)getmem((size_t)leng, sizeof(double)) );
+   return ((double *) getmem((size_t) leng, sizeof(double)));
 }
 
-float *fgetmem (const int leng)
+float *fgetmem(const int leng)
 {
-   return ( (float *)getmem((size_t)leng, sizeof(float)) );
+   return ((float *) getmem((size_t) leng, sizeof(float)));
 }
 
-real *rgetmem (const int leng)
+real *rgetmem(const int leng)
 {
-   return ( (real *)getmem((size_t)leng, sizeof(real)) );
+   return ((real *) getmem((size_t) leng, sizeof(real)));
 }
 
-float **ffgetmem (const int leng)
+float **ffgetmem(const int leng)
 {
-   return ( (float **)getmem((size_t)leng, sizeof(float *)) );
+   return ((float **) getmem((size_t) leng, sizeof(float *)));
 }

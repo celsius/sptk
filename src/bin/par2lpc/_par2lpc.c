@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /***************************************************************
 
-    $Id: _par2lpc.c,v 1.11 2008/06/16 05:48:40 heigazen Exp $
+    $Id: _par2lpc.c,v 1.12 2009/12/16 13:12:36 uratec Exp $
 
     Transformation PARCOR to LPC
 
@@ -64,18 +64,17 @@
 #  include <SPTK.h>
 #endif
 
-void par2lpc (double *k, double *a, const int m)
+void par2lpc(double *k, double *a, const int m)
 {
    int i, n;
 
    a[0] = k[0];
-   for (n=1; n<=m; n++) {
-      for (i=1; i<n; i++)
-         a[i] = k[i] + k[n] * k[n-i];
-      movem(&a[1], &k[1], sizeof(*a), n-1);
+   for (n = 1; n <= m; n++) {
+      for (i = 1; i < n; i++)
+         a[i] = k[i] + k[n] * k[n - i];
+      movem(&a[1], &k[1], sizeof(*a), n - 1);
    }
    a[m] = k[m];
-   
+
    return;
 }
-

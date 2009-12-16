@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -42,11 +42,11 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/* $Id: dict.c,v 1.6 2008/06/16 05:48:34 heigazen Exp $ */
+/* $Id: dict.c,v 1.7 2009/12/16 13:12:37 uratec Exp $ */
 
 #include <stdio.h>
 
-void dict (void)
+void dict(void)
 {
    puts("/BD{bind def}bind def");
    puts("/MT{moveto}BD");
@@ -60,7 +60,7 @@ void dict (void)
    puts("/FnCB{/Courier-Bold}BD");
    puts("/FnCBO{/Courier-BoldOblique}BD");
    puts("/FnS{/Symbol}BD");
-   puts("/SF{");     /*  select font  */
+   puts("/SF{");                /*  select font  */
    puts("  exch findfont exch");
    puts("  dup type /arraytype eq{makefont}{scalefont}ifelse");
    puts("  setfont");
@@ -98,12 +98,12 @@ void dict (void)
 
    /*  fill pattern  */
    /* puts("/PM{32 32 1 [32 0 0 32 0 0]}BD");
-    puts("/P2{<0102040801020408>}def");
-    puts("/P3{<8040201008040201>}def");
-    puts("/P4{<8888888888888888>}def");
-    puts("/P5{<8142241812484281>}def");
-    puts("/P6{<FF000000FF000000>}def");
-    puts("/P7{<FF888888FF888888>}def");
-    puts("/IM{image}BD");
-   */
+      puts("/P2{<0102040801020408>}def");
+      puts("/P3{<8040201008040201>}def");
+      puts("/P4{<8888888888888888>}def");
+      puts("/P5{<8142241812484281>}def");
+      puts("/P6{<FF000000FF000000>}def");
+      puts("/P7{<FF888888FF888888>}def");
+      puts("/IM{image}BD");
+    */
 }

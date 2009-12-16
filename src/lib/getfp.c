@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***************************************************************
-    $Id: getfp.c,v 1.8 2008/06/16 05:47:54 heigazen Exp $
+    $Id: getfp.c,v 1.9 2009/12/16 13:12:39 uratec Exp $
 
     File Open Function
 
@@ -57,15 +57,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-FILE *getfp (char *name, char *opt)
+FILE *getfp(char *name, char *opt)
 {
    FILE *fp;
 
-   if ((fp = fopen(name, opt)) == NULL){
+   if ((fp = fopen(name, opt)) == NULL) {
       fprintf(stderr, "Cannot open file %s!\n", name);
       exit(2);
    }
 
-   return(fp);
+   return (fp);
 }
-

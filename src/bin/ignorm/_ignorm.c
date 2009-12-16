@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /************************************************************************
-  $Id: _ignorm.c,v 1.12 2008/06/16 05:48:41 heigazen Exp $
+  $Id: _ignorm.c,v 1.13 2009/12/16 13:12:32 uratec Exp $
 
   Inverse Gain Normalization
    
@@ -65,21 +65,19 @@
 #  include <SPTK.h>
 #endif
 
-void ignorm (double *c1, double *c2, int m, const double g)
+void ignorm(double *c1, double *c2, int m, const double g)
 {
    double k;
-   
+
    k = pow(c1[0], g);
-   if (g!=0.0) {
-      for ( ; m>=1; m--)
-         c2[m] = k*c1[m];
-      c2[0] = (k-1.0)/g;
-   }
-   else {
+   if (g != 0.0) {
+      for (; m >= 1; m--)
+         c2[m] = k * c1[m];
+      c2[0] = (k - 1.0) / g;
+   } else {
       movem(&c1[1], &c2[1], sizeof(*c1), m);
       c2[0] = log(c1[0]);
    }
-   
+
    return;
 }
-

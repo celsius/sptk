@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _agcep.c,v 1.11 2008/06/16 05:48:35 heigazen Exp $
+    $Id: _agcep.c,v 1.12 2009/12/16 13:12:26 uratec Exp $
 
     Adaptive Generalized Cepstral Analysis
 
@@ -73,47 +73,48 @@
 #  include <SPTK.h>
 #endif
 
-double agcep (double x, double *c, const int m, const int stage, const double lambda, const double step, const double tau, const double eps)
+double agcep(double x, double *c, const int m, const int stage,
+             const double lambda, const double step, const double tau,
+             const double eps)
 {
    int i;
-   static double *eg=NULL, *ep, *d, gg=1.0, ee=1.0, tx;
+   static double *eg = NULL, *ep, *d, gg = 1.0, ee = 1.0, tx;
    static int size;
    double mu, ll;
-    
-   if (eg==NULL) {
-      eg = dgetmem(2*(m+1)+m*stage);
+
+   if (eg == NULL) {
+      eg = dgetmem(2 * (m + 1) + m * stage);
       ep = eg + m + 1;
       d = ep + m + 1;
       size = m;
    }
-   if (m>size) {
+   if (m > size) {
       free(eg);
-      eg = dgetmem(2*(m+1)+m*stage);
+      eg = dgetmem(2 * (m + 1) + m * stage);
       ep = eg + m + 1;
       d = ep + m + 1;
       size = m;
    }
 
    ll = 1.0 - lambda;
-    
-   eg[m] = d[stage*m-1];
+
+   eg[m] = d[stage * m - 1];
    x = iglsadf1(x, c, m, stage, d);
-    
-   movem(d+(stage-1)*m, eg, sizeof(*d), m);
-    
+
+   movem(d + (stage - 1) * m, eg, sizeof(*d), m);
+
    gg = lambda * gg + ll * eg[0] * eg[0];
-   gg = (gg<eps) ? eps : gg;
-   mu = step / (double) m /gg;
+   gg = (gg < eps) ? eps : gg;
+   mu = step / (double) m / gg;
    tx = 2 * (1.0 - tau) * x;
-    
-   for (i=1; i<=m; i++) {
+
+   for (i = 1; i <= m; i++) {
       ep[i] = tau * ep[i] - tx * eg[i];
       c[i] -= mu * ep[i];
    }
-    
+
    ee = lambda * ee + ll * x * x;
    c[0] = sqrt(ee);
 
-   return(x);
+   return (x);
 }
-

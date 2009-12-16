@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /********************************************************
-* $Id: fig.h,v 1.6 2008/06/16 05:48:37 heigazen Exp $   *
+* $Id: fig.h,v 1.7 2009/12/16 13:12:31 uratec Exp $   *
 * NAME :        fig.h - Header for fig                  *
 ********************************************************/
 

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -80,7 +80,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lbg.c,v 1.20 2008/06/16 05:48:37 heigazen Exp $";
+static char *rcs_id = "$Id: lbg.c,v 1.21 2009/12/16 13:12:33 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -118,16 +118,16 @@ static char *rcs_id = "$Id: lbg.c,v 1.20 2008/06/16 05:48:37 heigazen Exp $";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - LBG algorithm for vector quantizer design \n",cmnd);
+   fprintf(stderr, " %s - LBG algorithm for vector quantizer design \n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ ifile ]<stdin>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length of vector          [%d]\n", LENG);
-   fprintf(stderr, "       -n n  : order of vector           [%d]\n", LENG-1);
+   fprintf(stderr, "       -n n  : order of vector           [%d]\n", LENG - 1);
    fprintf(stderr, "       -t t  : number of training vector [N/A]\n");
    fprintf(stderr, "       -s s  : initial codebook size     [%d]\n", ICBSIZE);
    fprintf(stderr, "       -e e  : final codebook size       [%d]\n", ECBSIZE);
@@ -144,10 +144,11 @@ void usage (int status)
    fprintf(stderr, "       index (int)\n");
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       codebook size (s and e) must be power of 2\n");
-   fprintf(stderr, "       -t option can be omitted, when input from redirect\n");
+   fprintf(stderr,
+           "       -t option can be omitted, when input from redirect\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -155,26 +156,27 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int l=LENG, icbsize=ICBSIZE, ecbsize=ECBSIZE, tnum=TNUMBER, ispipe, xsize, csize, i, j, *tindex;
-   FILE *fp=stdin, *fpi=NULL, *fpcb=NULL;
-   double delta=DELTA, minerr=END, *x, *cb, *icb;
+   int l = LENG, icbsize = ICBSIZE, ecbsize = ECBSIZE, tnum =
+       TNUMBER, ispipe, xsize, csize, i, j, *tindex;
+   FILE *fp = stdin, *fpi = NULL, *fpcb = NULL;
+   double delta = DELTA, minerr = END, *x, *cb, *icb;
    double *p;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'l':
             l = atoi(*++argv);
             --argc;
             break;
          case 'n':
-            l = atoi(*++argv)+1;
+            l = atoi(*++argv) + 1;
             --argc;
             break;
          case 't':
@@ -204,26 +206,27 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else
+      } else
          fpi = getfp(*argv, "wb");
 
-   if (tnum==-1) {
-      ispipe = fseek(fp,0L,2);
-      
+   if (tnum == -1) {
+      ispipe = fseek(fp, 0L, 2);
+
 #ifdef DOUBLE
-      tnum = ftell(fp)/l/sizeof(double);
+      tnum = ftell(fp) / l / sizeof(double);
 #else
-      tnum = ftell(fp)/l/sizeof(float);
-#endif /* DOUBLE */
+      tnum = ftell(fp) / l / sizeof(float);
+#endif                          /* DOUBLE */
 
       rewind(fp);
-      if (ispipe==-1) {
-         fprintf(stderr, "%s : -t option must be specified, when input via pipe!\n",cmnd);
-         usage (1);
+      if (ispipe == -1) {
+         fprintf(stderr,
+                 "%s : -t option must be specified, when input via pipe!\n",
+                 cmnd);
+         usage(1);
       }
    }
 
@@ -233,26 +236,25 @@ int main (int argc, char **argv)
    x = dgetmem(xsize);
    cb = dgetmem(csize);
 
-   if (freadf(x, sizeof(*x), xsize, fp)!=xsize) {
-      fprintf(stderr,"%s : Size error of training data!\n",cmnd);
-      return(1);
+   if (freadf(x, sizeof(*x), xsize, fp) != xsize) {
+      fprintf(stderr, "%s : Size error of training data!\n", cmnd);
+      return (1);
    }
 
-   if (icbsize==1) {
-      icb=dgetmem(l);
+   if (icbsize == 1) {
+      icb = dgetmem(l);
       fillz(icb, sizeof(*icb), l);
-      for (i=0,p=x; i<tnum; i++)
-         for (j=0; j<l; j++)
+      for (i = 0, p = x; i < tnum; i++)
+         for (j = 0; j < l; j++)
             icb[j] += *p++;
 
-      for (j=0; j<l; j++)
+      for (j = 0; j < l; j++)
          icb[j] /= (double) tnum;
-   }
-   else {
-      icb=dgetmem(icbsize*l);
-      if (freadf(icb, sizeof(*icb), icbsize*l, fpcb)!=icbsize*l) {
-         fprintf(stderr,"%s : Size error of initial codebook!\n",cmnd);
-         return(1);
+   } else {
+      icb = dgetmem(icbsize * l);
+      if (freadf(icb, sizeof(*icb), icbsize * l, fpcb) != icbsize * l) {
+         fprintf(stderr, "%s : Size error of initial codebook!\n", cmnd);
+         return (1);
       }
    }
 
@@ -260,13 +262,13 @@ int main (int argc, char **argv)
 
    fwritef(cb, sizeof(*cb), csize, stdout);
 
-   if (fpi!=NULL) {
-      tindex = (int *)dgetmem(tnum);
-      for (i=0,p=x; i<tnum; i++,p+=l)
+   if (fpi != NULL) {
+      tindex = (int *) dgetmem(tnum);
+      for (i = 0, p = x; i < tnum; i++, p += l)
          tindex[i] = vq(p, cb, l, ecbsize);
 
       fwritex(tindex, sizeof(*tindex), tnum, fpi);
    }
 
-   return(0);
+   return (0);
 }

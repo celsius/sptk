@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -80,7 +80,8 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: mgc2mgc.c,v 1.21 2008/11/06 15:40:51 tatsuyaito Exp $";
+static char *rcs_id =
+    "$Id: mgc2mgc.c,v 1.22 2009/12/16 13:12:34 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -115,62 +116,89 @@ static char *rcs_id = "$Id: mgc2mgc.c,v 1.21 2008/11/06 15:40:51 tatsuyaito Exp 
 #define MULGFLG1 FA
 #define MULGFLG2 FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - frequency and generalized cepstral transformation\n",cmnd);
+   fprintf(stderr, " %s - frequency and generalized cepstral transformation\n",
+           cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of mel-generalized cepstrum (input)            [%d]\n", ORDER1);
-   fprintf(stderr, "       -a a  : alpha of mel-generalized cepstrum (input)            [%g]\n", ALPHA1);
-   fprintf(stderr, "       -g g  : gamma of mel-generalized cepstrum (input)            [%g]\n", GAMMA1);
-   fprintf(stderr, "       -c c  : gamma of mel-generalized cepstrum = -1 / (int) c (input) \n");
-   fprintf(stderr, "       -n    : regard input as normalized mel-generalized cepstrum  [%s]\n", BOOL[NORMFLG1]);
-   fprintf(stderr, "       -u    : regard input as multiplied by gamma                  [%s]\n", BOOL[MULGFLG1]);
-   fprintf(stderr, "       -M M  : order of mel-generalized cepstrum (output)           [%d]\n", ORDER2);
-   fprintf(stderr, "       -A A  : alpha of mel-generalized cepstrum (output)           [%g]\n", ALPHA2);
-   fprintf(stderr, "       -G G  : gamma of mel-generalized cepstrum (output)           [%g]\n", GAMMA2);
-   fprintf(stderr, "       -C C  : gamma of mel-generalized cepstrum = -1 / (int) C (output)\n");
-   fprintf(stderr, "       -N    : regard output as normalized mel-generalized cepstrum [%s]\n", BOOL[NORMFLG2]);
-   fprintf(stderr, "       -U    : regard output as multiplied by gamma                 [%s]\n", BOOL[MULGFLG2]);
+   fprintf(stderr,
+           "       -m m  : order of mel-generalized cepstrum (input)            [%d]\n",
+           ORDER1);
+   fprintf(stderr,
+           "       -a a  : alpha of mel-generalized cepstrum (input)            [%g]\n",
+           ALPHA1);
+   fprintf(stderr,
+           "       -g g  : gamma of mel-generalized cepstrum (input)            [%g]\n",
+           GAMMA1);
+   fprintf(stderr,
+           "       -c c  : gamma of mel-generalized cepstrum = -1 / (int) c (input) \n");
+   fprintf(stderr,
+           "       -n    : regard input as normalized mel-generalized cepstrum  [%s]\n",
+           BOOL[NORMFLG1]);
+   fprintf(stderr,
+           "       -u    : regard input as multiplied by gamma                  [%s]\n",
+           BOOL[MULGFLG1]);
+   fprintf(stderr,
+           "       -M M  : order of mel-generalized cepstrum (output)           [%d]\n",
+           ORDER2);
+   fprintf(stderr,
+           "       -A A  : alpha of mel-generalized cepstrum (output)           [%g]\n",
+           ALPHA2);
+   fprintf(stderr,
+           "       -G G  : gamma of mel-generalized cepstrum (output)           [%g]\n",
+           GAMMA2);
+   fprintf(stderr,
+           "       -C C  : gamma of mel-generalized cepstrum = -1 / (int) C (output)\n");
+   fprintf(stderr,
+           "       -N    : regard output as normalized mel-generalized cepstrum [%s]\n",
+           BOOL[NORMFLG2]);
+   fprintf(stderr,
+           "       -U    : regard output as multiplied by gamma                 [%s]\n",
+           BOOL[MULGFLG2]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       mel-generalized cepstrum (%s)                   [stdin]\n", FORMAT);
+   fprintf(stderr,
+           "       mel-generalized cepstrum (%s)                   [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
-   fprintf(stderr, "       transformed mel-generalized cepstrum (%s)\n", FORMAT);
+   fprintf(stderr, "       transformed mel-generalized cepstrum (%s)\n",
+           FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "      value of c and C must be c>=1, C>=1 \n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m1=ORDER1, m2=ORDER2, i;
-   double a1=ALPHA1, a2=ALPHA2, g1=GAMMA1, g2=GAMMA2, *c1, *c2;
-   Boolean norm1=NORMFLG1, norm2=NORMFLG2, mulg1=MULGFLG1,mulg2=MULGFLG2;
-   FILE *fp=stdin;
+   int m1 = ORDER1, m2 = ORDER2, i;
+   double a1 = ALPHA1, a2 = ALPHA2, g1 = GAMMA1, g2 = GAMMA2, *c1, *c2;
+   Boolean norm1 = NORMFLG1, norm2 = NORMFLG2, mulg1 = MULGFLG1, mulg2 =
+       MULGFLG2;
+   FILE *fp = stdin;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m1 = atoi(*++argv);
             --argc;
@@ -191,21 +219,23 @@ int main (int argc, char **argv)
             g1 = atof(*++argv);
             --argc;
             break;
-         case 'c':             
-	    g1 = atoi(*++argv);
-	    --argc;            
-            if (g1 < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);
-	    g1 = -1.0 / g1;    
-            break;    
+         case 'c':
+            g1 = atoi(*++argv);
+            --argc;
+            if (g1 < 1)
+               fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);
+            g1 = -1.0 / g1;
+            break;
          case 'G':
             g2 = atof(*++argv);
             --argc;
             break;
-         case 'C':             
-	    g2 = atoi(*++argv);
-	    --argc;            
-            if (g2 < 1) fprintf(stderr, "%s : value of C must be C>=1!\n", cmnd);
-	    g2 = -1.0 / g2;    
+         case 'C':
+            g2 = atoi(*++argv);
+            --argc;
+            if (g2 < 1)
+               fprintf(stderr, "%s : value of C must be C>=1!\n", cmnd);
+            g2 = -1.0 / g2;
             break;
          case 'n':
             norm1 = 1 - norm1;
@@ -222,36 +252,40 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   c1 = dgetmem(m1+m2+2);
+   c1 = dgetmem(m1 + m2 + 2);
    c2 = c1 + m1 + 1;
 
-   while (freadf(c1, sizeof(*c1), m1+1, fp)==m1+1) {
+   while (freadf(c1, sizeof(*c1), m1 + 1, fp) == m1 + 1) {
 
       if (norm1)
          ignorm(c1, c1, m1, g1);
       else if (mulg1) {
-         if (g1==0) {
-            fprintf(stderr, "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n", cmnd);
+         if (g1 == 0) {
+            fprintf(stderr,
+                    "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n",
+                    cmnd);
             usage(1);
          }
          c1[0] = (c1[0] - 1.0) / g1;
       }
 
       if (mulg1) {
-         if (g1==0) {
-            fprintf(stderr, "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n", cmnd);
+         if (g1 == 0) {
+            fprintf(stderr,
+                    "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n",
+                    cmnd);
             usage(1);
          }
-         for (i=m1; i>=1; i--) c1[i] /= g1;
+         for (i = m1; i >= 1; i--)
+            c1[i] /= g1;
       }
-      
+
       mgc2mgc(c1, m1, a1, g1, c2, m2, a2, g2);
 
       if (norm2)
@@ -260,10 +294,11 @@ int main (int argc, char **argv)
          c1[0] = c1[0] * g2 + 1.0;
 
       if (mulg2)
-         for (i=m2; i>=1; i--) c2[i] *= g2;
+         for (i = m2; i >= 1; i--)
+            c2[i] *= g2;
 
-      fwritef(c2, sizeof(*c2), m2+1, stdout);
+      fwritef(c2, sizeof(*c2), m2 + 1, stdout);
    }
-   
-   return(0);
+
+   return (0);
 }

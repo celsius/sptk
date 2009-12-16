@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /********************************************************
- $Id: _fftr.c,v 1.11 2008/06/16 05:48:33 heigazen Exp $                     
+ $Id: _fftr.c,v 1.12 2009/12/16 13:12:30 uratec Exp $                     
  
  NAME:                     
         fftr - Fast Fourier Transform for Double sequence      
@@ -69,7 +69,7 @@
 extern double *_sintbl;
 extern int maxfftsize;
 
-int fftr (double *x, double *y, const int m)
+int fftr(double *x, double *y, const int m)
 {
    int i, j;
    double *xp, *yp, *xq;
@@ -77,41 +77,41 @@ int fftr (double *x, double *y, const int m)
    int mv2, n, tblsize;
    double xt, yt, *sinp, *cosp;
    double arg;
-   
+
    mv2 = m / 2;
 
    /* separate even and odd  */
    xq = xp = x;
    yp = y;
-   for (i=mv2; --i>=0; ) {
+   for (i = mv2; --i >= 0;) {
       *xp++ = *xq++;
       *yp++ = *xq++;
    }
 
-   if (fft(x, y, mv2)==-1)        /* m / 2 point fft */
-      return(-1);
+   if (fft(x, y, mv2) == -1)    /* m / 2 point fft */
+      return (-1);
 
 
    /***********************
    * SIN table generation *
    ***********************/
 
-   if ((_sintbl==0) || (maxfftsize<m)) {
-      tblsize=m-m/4+1;
-      arg=PI/m*2;
-      if (_sintbl!=0)
+   if ((_sintbl == 0) || (maxfftsize < m)) {
+      tblsize = m - m / 4 + 1;
+      arg = PI / m * 2;
+      if (_sintbl != 0)
          free(_sintbl);
       _sintbl = sinp = dgetmem(tblsize);
       *sinp++ = 0;
-      for (j=1; j<tblsize; j++)
-         *sinp++ = sin( arg * (double)j);
-      _sintbl[m/2] = 0;
+      for (j = 1; j < tblsize; j++)
+         *sinp++ = sin(arg * (double) j);
+      _sintbl[m / 2] = 0;
       maxfftsize = m;
    }
 
    n = maxfftsize / m;
    sinp = _sintbl;
-   cosp = _sintbl + maxfftsize/4;
+   cosp = _sintbl + maxfftsize / 4;
 
    xp = x;
    yp = y;
@@ -120,8 +120,8 @@ int fftr (double *x, double *y, const int m)
    *(xp + mv2) = *xp - *yp;
    *xp = *xp + *yp;
    *(yp + mv2) = *yp = 0;
-   
-   for (i=mv2,j=mv2-2; --i ; j-=2) {
+
+   for (i = mv2, j = mv2 - 2; --i; j -= 2) {
       ++xp;
       ++yp;
       sinp += n;
@@ -136,12 +136,11 @@ int fftr (double *x, double *y, const int m)
    yp = y + 1;
    xq = x + m;
    yq = y + m;
-   
-   for (i=mv2; --i; ) {
-      *xp++ =   *(--xq); 
+
+   for (i = mv2; --i;) {
+      *xp++ = *(--xq);
       *yp++ = -(*(--yq));
    }
-   
-   return(0);
-}
 
+   return (0);
+}

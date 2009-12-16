@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: merge.c,v 1.19 2008/06/16 05:48:34 heigazen Exp $";
+static char *rcs_id = "$Id: merge.c,v 1.20 2009/12/16 13:12:34 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -100,26 +100,27 @@ static char *rcs_id = "$Id: merge.c,v 1.19 2008/06/16 05:48:34 heigazen Exp $";
 #define LENG2 10
 #define WRITE FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - data merge\n",cmnd);
+   fprintf(stderr, " %s - data merge\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] file1 [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -s s  : insert point                [%d]\n",START);
-   fprintf(stderr, "       -l l  : frame length of input data  [%d]\n",LENG1);
+   fprintf(stderr, "       -s s  : insert point                [%d]\n", START);
+   fprintf(stderr, "       -l l  : frame length of input data  [%d]\n", LENG1);
    fprintf(stderr, "       -n n  : order of input data         [l-1]\n");
-   fprintf(stderr, "       -L L  : frame length of insert data [%d]\n",LENG2);
+   fprintf(stderr, "       -L L  : frame length of insert data [%d]\n", LENG2);
    fprintf(stderr, "       -N N  : order of insert data        [L-1]\n");
-   fprintf(stderr, "       -o    : over write mode             [%s]\n",BOOL[WRITE]);
+   fprintf(stderr, "       -o    : over write mode             [%s]\n",
+           BOOL[WRITE]);
    fprintf(stderr, "       +type : data type                   [f]\n");
    fprintf(stderr, "                c (char)      s (short)\n");
    fprintf(stderr, "                i (int)       l (long)\n");
@@ -131,28 +132,28 @@ void usage (int status)
    fprintf(stderr, "       merged data sequence\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   FILE *fp2=NULL, *fp1=stdin;
-   int start=START, leng1=LENG1, leng2=LENG2, i, j, flag=1;
-   size_t size=sizeof(float);
-   Boolean write=WRITE;
+   FILE *fp2 = NULL, *fp1 = stdin;
+   int start = START, leng1 = LENG1, leng2 = LENG2, i, j, flag = 1;
+   size_t size = sizeof(float);
+   Boolean write = WRITE;
    char *y, c, *s;
    double x;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (*(s=*++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
          switch (c) {
          case 's':
@@ -164,7 +165,7 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'n':
-            leng1 = atoi(*++argv)+1;
+            leng1 = atoi(*++argv) + 1;
             --argc;
             break;
          case 'L':
@@ -172,20 +173,19 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'N':
-            leng2 = atoi(*++argv)+1;
+            leng2 = atoi(*++argv) + 1;
             --argc;
             break;
          case 'o':
             write = 1 - write;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else if (*s=='+') {
+      } else if (*s == '+') {
          c = *++s;
          switch (c) {
          case 'c':
@@ -207,44 +207,43 @@ int main (int argc, char **argv)
             size = sizeof(double);
             break;
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else if (fp2==NULL)
+      } else if (fp2 == NULL)
          fp2 = getfp(*argv, "rb");
       else
          fp1 = getfp(*argv, "rb");
 
-   y = (char *)dgetmem(leng2 * size);
+   y = (char *) dgetmem(leng2 * size);
 
-   for (; ;) {
-      for (j=start,i=leng1; j-- && i--;) {
-         if (freadx(&x, size, 1, fp1)!=1)
+   for (;;) {
+      for (j = start, i = leng1; j-- && i--;) {
+         if (freadx(&x, size, 1, fp1) != 1)
             break;
          fwritex(&x, size, 1, stdout);
       }
-      for (j=leng2; j--;)
+      for (j = leng2; j--;)
          if (write) {
-            if (freadx(&x, size, 1, fp1)!=1)
+            if (freadx(&x, size, 1, fp1) != 1)
                break;
             i--;
          }
-      if (freadx(y, size, leng2, fp2)!=leng2)
+      if (freadx(y, size, leng2, fp2) != leng2)
          if (!flag)
             break;
 
       fwritex(y, size, leng2, stdout);
       flag = 0;
-      for (; i-->0;) {
-         if (freadx(&x, size, 1, fp1)!=1)
+      for (; i-- > 0;) {
+         if (freadx(&x, size, 1, fp1) != 1)
             break;
          fwritex(&x, size, 1, stdout);
       }
    }
-   
+
    if (feof(fp1) && feof(fp2))
-      return(0);
+      return (0);
    else
-      return(1);
+      return (1);
 }

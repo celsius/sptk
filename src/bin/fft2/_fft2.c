@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /********************************************************
-$Id: _fft2.c,v 1.11 2008/06/16 05:48:34 heigazen Exp $
+$Id: _fft2.c,v 1.12 2009/12/16 13:12:30 uratec Exp $
 
 *   fft2 : two dimensional fast Fourier transform       *
 *                            for complex sequence       *
@@ -71,48 +71,52 @@ $Id: _fft2.c,v 1.11 2008/06/16 05:48:34 heigazen Exp $
 #  include <SPTK.h>
 #endif
 
-int fft2 (double x[], double y[], const int n)
+int fft2(double x[], double y[], const int n)
 {
    double *xq, *yq;
-   static double *xb=NULL, *yb;
+   static double *xb = NULL, *yb;
    double *xp, *yp;
    int i, j;
    static int size_f;
-   
-   if (xb==NULL) {
+
+   if (xb == NULL) {
       size_f = 2 * n;
       xb = dgetmem(size_f);
       yb = xb + n;
    }
-   if (2*n>size_f) {
+   if (2 * n > size_f) {
       free(xb);
       size_f = 2 * n;
       xb = dgetmem(size_f);
       yb = xb + n;
    }
- 
-   for (i=0; i<n; i++) {
-      xp = xb; xq = x + i;
-      yp = yb; yq = y + i;
-      for (j=n; --j>=0; xq+=n, yq+=n) {
+
+   for (i = 0; i < n; i++) {
+      xp = xb;
+      xq = x + i;
+      yp = yb;
+      yq = y + i;
+      for (j = n; --j >= 0; xq += n, yq += n) {
          *xp++ = *xq;
          *yp++ = *yq;
       }
-  
-      if (fft(xb,yb,n)<0)
-         return(-1);
 
-      xp = xb; xq = x + i;
-      yp = yb; yq = y + i;
-      for (j=n; --j>=0; xq+=n,yq+=n) {
+      if (fft(xb, yb, n) < 0)
+         return (-1);
+
+      xp = xb;
+      xq = x + i;
+      yp = yb;
+      yq = y + i;
+      for (j = n; --j >= 0; xq += n, yq += n) {
          *xq = *xp++;
          *yq = *yp++;
       }
    }
 
-   for (i=n,xp=x,yp=y; --i>=0; xp+=n,yp+=n) {
-      if (fft(xp, yp, n)<0)
-         return(-1);
+   for (i = n, xp = x, yp = y; --i >= 0; xp += n, yp += n) {
+      if (fft(xp, yp, n) < 0)
+         return (-1);
    }
 
    return 0;

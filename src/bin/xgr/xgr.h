@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,13 +43,13 @@
 /* ----------------------------------------------------------------- */
 
 /*
- * $Id: xgr.h,v 1.8 2008/06/16 05:48:33 heigazen Exp $
+ * $Id: xgr.h,v 1.9 2009/12/16 13:12:39 uratec Exp $
  *  Headder for xgr
  */
 
 
 /*  for SUN  */
-   
+
 #define DEFAULT_SHRINK   (254.0/75.0)
 #define X0      558             /*  max -> 530   */
 #define Y0      1               /*  max -> 23   */
@@ -61,30 +61,31 @@
 #define Y0      1
 
 #elif   DGAV
-#define DEFAULT_SHRINK   3.0   /*  max -> 2.9  */
-#define X0      610            /*  max -> 590  */
+#define DEFAULT_SHRINK   3.0    /*  max -> 2.9  */
+#define X0      610             /*  max -> 590  */
 #define Y0      1
 #endif
 
-#define XLENG   1995           /*  A4 Width  [x0.1 mm](1950,max=2095)  */
-#define YLENG   2870           /*  A4 Height [x0.1 mm](2850,max=2970)  */
+#define XLENG   1995            /*  A4 Width  [x0.1 mm](1950,max=2095)  */
+#define YLENG   2870            /*  A4 Height [x0.1 mm](2850,max=2970)  */
 #define XLENG_LAND   2870
 #define YLENG_LAND   1995
 
-typedef struct cord  {
-        int   x;
-        int   y;
+typedef struct cord {
+   int x;
+   int y;
 } Cord;
 
-void open_display(char *display_name );
-void init_window(int argc,char *argv[]);
+void open_display(char *display_name);
+void init_window(int argc, char *argv[]);
 void init_pixmap(void);
 void close_window(void);
 void main_loop(void);
 void realize(void);
-void realize_part(int src_x,int src_y,int width,int height,int dest_x,int dest_y );
+void realize_part(int src_x, int src_y, int width, int height, int dest_x,
+                  int dest_y);
 void set_all(void);
 void beep(void);
 void get_window_size(void);
-unsigned long   get_color_pix(char *color_name );
+unsigned long get_color_pix(char *color_name);
 void plot(void);

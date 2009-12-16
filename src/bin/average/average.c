@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -66,7 +66,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: average.c,v 1.20 2008/06/16 05:48:33 heigazen Exp $";
+static char *rcs_id =
+    "$Id: average.c,v 1.21 2009/12/16 13:12:26 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -99,7 +100,7 @@ char *cmnd;
 void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - calculation of average \n",cmnd);
+   fprintf(stderr, " %s - calculation of average \n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -115,52 +116,50 @@ void usage(int status)
    fprintf(stderr, "       if l > 0, calculate average frame by frame\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int l=LENG, num=0;
-   FILE *fp=stdin;
-   double *x, xx, ave=0.0;
-    
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   int l = LENG, num = 0;
+   FILE *fp = stdin;
+   double *x, xx, ave = 0.0;
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'l':
             l = atoi(*++argv);
             --argc;
             break;
          case 'n':
-            l = atoi(*++argv)+1;
+            l = atoi(*++argv) + 1;
             --argc;
             break;
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else 
+      } else
          fp = getfp(*argv, "rb");
 
-   if (l>0) {
+   if (l > 0) {
       x = dgetmem(l);
-      while (freadf(x, sizeof(*x), l, fp)==l) {
+      while (freadf(x, sizeof(*x), l, fp) == l) {
          ave = average(x, l);
          fwritef(&ave, sizeof(ave), 1, stdout);
       }
-   }
-   else {
+   } else {
       while (freadf(&xx, sizeof(xx), 1, fp) == 1) {
          ave += xx;
          num++;
@@ -168,5 +167,5 @@ int main (int argc, char **argv)
       ave /= num;
       fwritef(&ave, sizeof(ave), 1, stdout);
    }
-   return(0);
+   return (0);
 }

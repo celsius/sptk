@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -64,7 +64,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: extract.c,v 1.18 2008/06/16 05:48:46 heigazen Exp $";
+static char *rcs_id =
+    "$Id: extract.c,v 1.19 2009/12/16 13:12:29 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -96,10 +97,10 @@ static char *rcs_id = "$Id: extract.c,v 1.18 2008/06/16 05:48:46 heigazen Exp $"
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - extract vector \n",cmnd);
+   fprintf(stderr, " %s - extract vector \n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] ifile [ infile ] > stdout\n", cmnd);
@@ -123,19 +124,19 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int l=LENG, index=INDEX, size=SIZE, i;
-   FILE *fp=stdin, *fpi=NULL;
+   int l = LENG, index = INDEX, size = SIZE, i;
+   FILE *fp = stdin, *fpi = NULL;
    double *x;
-    
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'l':
             l = atoi(*++argv);
             --argc;
@@ -151,19 +152,19 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else if (fpi == NULL)
+      } else if (fpi == NULL)
          fpi = getfp(*argv, "rb");
       else
          fp = getfp(*argv, "rb");
 
    x = dgetmem(l);
 
-   while (freadf(x, sizeof(*x), l, fp)==l && freadx(&i, sizeof(i), 1, fpi)==1)
-      if (i==index)
+   while (freadf(x, sizeof(*x), l, fp) == l
+          && freadx(&i, sizeof(i), 1, fpi) == 1)
+      if (i == index)
          fwritef(x, sizeof(*x), l, stdout);
 
    return 0;

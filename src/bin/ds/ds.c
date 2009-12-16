@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -75,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ds.c,v 1.19 2008/06/16 05:48:35 heigazen Exp $";
+static char *rcs_id = "$Id: ds.c,v 1.20 2009/12/16 13:12:28 uratec Exp $";
 
 /* Standard C Libraries  */
 #include <stdio.h>
@@ -123,24 +123,25 @@ static char *rcs_id = "$Id: ds.c,v 1.19 2008/06/16 05:48:35 heigazen Exp $";
 #define mod(x) ((x) & (RBSIZE -1))
 
 static char *cmnd, *coef, *coef1;
-static int start=-1, intrate, decrate, type=STYPE;
+static int start = -1, intrate, decrate, type = STYPE;
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - sampling rate conversion (down sampling)\n",cmnd);
+   fprintf(stderr, " %s - sampling rate conversion (down sampling)\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -s s  : conversion type              [%d]\n",STYPE);
+   fprintf(stderr, "       -s s  : conversion type              [%d]\n", STYPE);
    fprintf(stderr, "                21  down sampling by 2:1\n");
    fprintf(stderr, "                32  down sampling by 3:2\n");
    fprintf(stderr, "                43  down sampling by 4:3\n");
    fprintf(stderr, "                52  down sampling by 5:2\n");
    fprintf(stderr, "                54  down sampling by 5:4\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (%s)                [stdin]\n", FORMAT);
+   fprintf(stderr, "       data sequence (%s)                [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       converted data sequence (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
@@ -161,19 +162,19 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
-   FILE *fp=stdin;
-   void decimate(FILE *fp);
+   FILE *fp = stdin;
+   void decimate(FILE * fp);
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
-   while(--argc)
-      if (*(*++argv)=='-') {
-         switch (*(*argv+1)) {
+   while (--argc)
+      if (*(*++argv) == '-') {
+         switch (*(*argv + 1)) {
          case 's':
             type = atoi(*++argv);
             --argc;
@@ -181,12 +182,11 @@ int main (int argc,char *argv[])
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else
-         fp  = getfp(*argv, "rb");
+      } else
+         fp = getfp(*argv, "rb");
 
    switch (type) {
    case 21:
@@ -212,8 +212,9 @@ int main (int argc,char *argv[])
       intrate = INTRATE5;
       break;
    default:
-      fprintf(stderr, "%s : Given dec/int rate %d is not supported!\n",cmnd,type);
-      return(1);
+      fprintf(stderr, "%s : Given dec/int rate %d is not supported!\n", cmnd,
+              type);
+      return (1);
    }
    decimate(fp);
    fclose(fp);
@@ -221,11 +222,11 @@ int main (int argc,char *argv[])
    return 0;
 }
 
-void decimate (FILE *fp)
+void decimate(FILE * fp)
 {
    int is_cont, i, k, nread, count, nwr, delay;
    double x[SIZE], y[SIZE];
- 
+
    void firin(double in);
    void firin0(void);
    double firout(int os);
@@ -233,26 +234,27 @@ void decimate (FILE *fp)
 
    firinit();
    delay = start;
-   for (count=is_cont=1; is_cont; ) {
-      if ((nread = freadf(x, sizeof(*x), SIZE, fp))==0) {
+   for (count = is_cont = 1; is_cont;) {
+      if ((nread = freadf(x, sizeof(*x), SIZE, fp)) == 0) {
          is_cont = 0;
          nread = (decrate * start) / intrate;
-         if (type==54) nread /= 2;
-         for (k=0; k<nread; k++)
+         if (type == 54)
+            nread /= 2;
+         for (k = 0; k < nread; k++)
             x[k] = 0;
       }
-      for (nwr=k=0; k<nread; k++) {
+      for (nwr = k = 0; k < nread; k++) {
          firin(x[k]);
-         for (i=0; i<intrate; i++) {
+         for (i = 0; i < intrate; i++) {
             if (--count == 0) {
                y[nwr++] = firout(i);
                count = decrate;
             }
          }
-         if (type==54) {
+         if (type == 54) {
             firin0();
-            for (i=0; i<intrate; i++) {
-               if (--count==0) {
+            for (i = 0; i < intrate; i++) {
+               if (--count == 0) {
                   y[nwr++] = firout(i);
                   count = decrate;
                }
@@ -260,20 +262,18 @@ void decimate (FILE *fp)
          }
       }
       if (delay) {
-         if (nwr>delay) {
+         if (nwr > delay) {
             nwr -= delay;
-            if (fwritef(y + delay, sizeof(*y), nwr, stdout)!=nwr) {
+            if (fwritef(y + delay, sizeof(*y), nwr, stdout) != nwr) {
                fprintf(stderr, "%s : File write error!\n", cmnd);
                exit(1);
             }
             delay = 0;
-         }
-         else {
+         } else {
             delay -= nwr;
          }
-      }
-      else {
-         if (fwritef(y, sizeof(*y), nwr, stdout)!=nwr) {
+      } else {
+         if (fwritef(y, sizeof(*y), nwr, stdout) != nwr) {
             fprintf(stderr, "%s : File write error!\n", cmnd);
             exit(1);
          }
@@ -281,13 +281,13 @@ void decimate (FILE *fp)
    }
 }
 
-static double rb[RBSIZE], rb2[RBSIZE], hdn[RBSIZE+1], hup[RBSIZE+1];
-static int flengdn=-1, flengup=-1, indx=0, indx2=0;
+static double rb[RBSIZE], rb2[RBSIZE], hdn[RBSIZE + 1], hup[RBSIZE + 1];
+static int flengdn = -1, flengup = -1, indx = 0, indx2 = 0;
 
-void firin (double in)
+void firin(double in)
 {
    double out;
-   int k,l;
+   int k, l;
 
    indx = mod(indx - 1);
 
@@ -295,7 +295,7 @@ void firin (double in)
    case 52:
       rb2[indx] = in;
       out = 0;
-      for (k=0,l=indx; k<=flengup; k++, l=mod(l+1))
+      for (k = 0, l = indx; k <= flengup; k++, l = mod(l + 1))
          out += rb2[l] * hup[k];
       rb[indx] = out;
       break;
@@ -303,7 +303,7 @@ void firin (double in)
       indx2 = mod(indx2 - 1);
       rb2[indx2] = 2 * in;
       out = 0;
-      for (k=0,l=indx2; k<=flengup; k+=intrate,l=mod(l+1))
+      for (k = 0, l = indx2; k <= flengup; k += intrate, l = mod(l + 1))
          out += rb2[l] * hup[k];
       rb[indx] = out;
       break;
@@ -312,52 +312,51 @@ void firin (double in)
    }
 }
 
-void firin0 (void)
+void firin0(void)
 {
    double out;
    int k, l;
 
    out = 0;
-   for (k=1,l=indx2; k<=flengup; k+=intrate,l=mod(l+1))
+   for (k = 1, l = indx2; k <= flengup; k += intrate, l = mod(l + 1))
       out += rb2[l] * hup[k];
 
    indx = mod(indx - 1);
    rb[indx] = out;
 }
 
-double firout (int os)
+double firout(int os)
 {
    double out;
    int k, l;
 
    out = 0;
-   for (k=os,l=indx; k<=flengdn; k+=intrate,l=mod(l+1))
+   for (k = os, l = indx; k <= flengdn; k += intrate, l = mod(l + 1))
       out += rb[l] * hdn[k];
 
-   return(out);
+   return (out);
 }
 
-void firinit (void)
+void firinit(void)
 {
    FILE *fp;
 
    fp = getfp(coef, "rt");
    flengdn = freada(hdn, RBSIZE + 1, fp);
    fclose(fp);
-   if (--flengdn<0) {
+   if (--flengdn < 0) {
       fprintf(stderr, "%s : Cannot read filter coefficients!\n", cmnd);
       exit(1);
    }
-   if (type==52 || type==54) {
+   if (type == 52 || type == 54) {
       fp = getfp(coef1, "rt");
-      flengup = freada(hup, RBSIZE +1, fp);
+      flengup = freada(hup, RBSIZE + 1, fp);
       fclose(fp);
-      if (--flengup<0) {
-         fprintf(stderr, "%s : Cannot read filter coefficients!\n",cmnd);
+      if (--flengup < 0) {
+         fprintf(stderr, "%s : Cannot read filter coefficients!\n", cmnd);
          exit(1);
       }
       start = (((flengup / 2) * intrate) + (flengdn / 2)) / decrate;
-   }
-   else
+   } else
       start = flengdn / (2 * decrate);
 }

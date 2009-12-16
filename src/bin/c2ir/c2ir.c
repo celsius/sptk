@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id="$Id: c2ir.c,v 1.21 2008/06/16 05:48:46 heigazen Exp $";
+static char *rcs_id = "$Id: c2ir.c,v 1.22 2009/12/16 13:12:27 uratec Exp $";
 
 
 /* Standard C Libraries */
@@ -92,7 +92,7 @@ static char *rcs_id="$Id: c2ir.c,v 1.21 2008/06/16 05:48:46 heigazen Exp $";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - cepstrum to minimum phase impulse response\n", cmnd);
@@ -101,17 +101,19 @@ void usage (int status)
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of cepstrum            [%d]\n", ORDER);
-   fprintf(stderr, "       -M M  : order of impulse response    [%d]\n", LENG-1);
+   fprintf(stderr, "       -M M  : order of impulse response    [%d]\n",
+           LENG - 1);
    fprintf(stderr, "       -L L  : length of impulse response   [%d]\n", LENG);
    fprintf(stderr, "       -i    : input minimum phase sequence [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       cepstrum (%s)                     [stdin]\n", FORMAT);
+   fprintf(stderr, "       cepstrum (%s)                     [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       impulse response (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -119,23 +121,23 @@ void usage (int status)
 }
 
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
    FILE *fp;
    double *buf, *x;
-   char *s, *infile=NULL, c;
+   char *s, *infile = NULL, c;
    int nr;
-   int leng=LENG, nc=ORDER+1, is_i=0;
+   int leng = LENG, nc = ORDER + 1, is_i = 0;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-   
+
    while (--argc) {
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if (c!='i' && *++s=='\0') {
+         if (c != 'i' && *++s == '\0') {
             s = *++argv;
             --argc;
          }
@@ -153,38 +155,35 @@ int main (int argc,char *argv[])
             leng = atoi(s);
             break;
          case 'h':
-            usage(0);            
+            usage(0);
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, c);
             usage(1);
          }
-      }
-      else
+      } else
          infile = s;
    }
-   
+
    if (infile) {
-      fp = getfp(infile,"rb");
-   }
-   else
-      fp=stdin;
+      fp = getfp(infile, "rb");
+   } else
+      fp = stdin;
 
    nr = leng + nc;
    buf = dgetmem(nr);
    nr = (is_i) ? leng : nc;
 
-   while (freadf(buf,sizeof(*buf),nr,fp)==nr) {
+   while (freadf(buf, sizeof(*buf), nr, fp) == nr) {
       if (!is_i) {
          x = buf + nc;
-         c2ir(buf,nc,x,leng);
+         c2ir(buf, nc, x, leng);
          fwritef(x, sizeof(*x), leng, stdout);
-      } 
-      else {
+      } else {
          x = buf + leng;
-         ic2ir(buf,leng,x,nc);
+         ic2ir(buf, leng, x, nc);
          fwritef(x, sizeof(*x), nc, stdout);
       }
    }
-   
-   return(0);
+
+   return (0);
 }

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -62,7 +62,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fft.c,v 1.21 2008/06/16 05:48:36 heigazen Exp $";
+static char *rcs_id = "$Id: fft.c,v 1.22 2009/12/16 13:12:30 uratec Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -92,7 +92,7 @@ static char *rcs_id = "$Id: fft.c,v 1.21 2008/06/16 05:48:36 heigazen Exp $";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - FFT for complex sequence\n", cmnd);
@@ -121,22 +121,22 @@ void usage (int status)
 }
 
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
    FILE *fp;
-   char *s, *infile=NULL, c;
-   int size=SIZE, nd=-1, out=' ';
-   int dft (FILE *fp, const int size, const int nd, const int out);
-   
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   char *s, *infile = NULL, c;
+   int size = SIZE, nd = -1, out = ' ';
+   int dft(FILE * fp, const int size, const int nd, const int out);
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
    while (--argc) {
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         switch(c) {
+         switch (c) {
          case 'l':
             size = atoi(*++argv);
             argc--;
@@ -158,56 +158,57 @@ int main (int argc,char *argv[])
          case 'h':
             usage(0);
          default:
-            fprintf(stderr,"%s : Invalid option '%c'!\n", cmnd, c);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, c);
             usage(1);
          }
-      }
-      else
+      } else
          infile = s;
    }
 
-   if (nd==-1) nd = size; 
-   if (nd>size) {
-      fprintf(stderr, "%s : Order of sequence %d should be less than the FFT size %d!\n", cmnd, nd, size);
-      return(1);
+   if (nd == -1)
+      nd = size;
+   if (nd > size) {
+      fprintf(stderr,
+              "%s : Order of sequence %d should be less than the FFT size %d!\n",
+              cmnd, nd, size);
+      return (1);
    }
    if (infile) {
       fp = getfp(infile, "rb");
-      dft(fp,size,nd,out);
+      dft(fp, size, nd, out);
       fclose(fp);
-   }
-   else
-      dft(stdin,size,nd,out);
-   
+   } else
+      dft(stdin, size, nd, out);
+
    return 0;
 }
 
-int dft (FILE *fp, const int size, const int nd, const int out)
+int dft(FILE * fp, const int size, const int nd, const int out)
 {
    double *x, *y;
-   int k ,size2;
+   int k, size2;
 
-   x = dgetmem(size2=size+size);
+   x = dgetmem(size2 = size + size);
    y = x + size;
 
    while (!feof(fp)) {
       fillz(x, size2, sizeof(double));
-      if (freadf(x, sizeof(*x), nd, fp)==0)
+      if (freadf(x, sizeof(*x), nd, fp) == 0)
          break;
-      if (freadf(y, sizeof(*y), nd, fp)==0)
+      if (freadf(y, sizeof(*y), nd, fp) == 0)
          break;
       fft(x, y, size);
-      if (out=='P')
-         for (k=0; k<size; k++)
+      if (out == 'P')
+         for (k = 0; k < size; k++)
             x[k] = x[k] * x[k] + y[k] * y[k];
-      else if (out=='A')
-         for (k=0; k<size; k++)
-            x[k] = sqrt(x[k]*x[k] + y[k]*y[k]);
-      if (out!='I')
+      else if (out == 'A')
+         for (k = 0; k < size; k++)
+            x[k] = sqrt(x[k] * x[k] + y[k] * y[k]);
+      if (out != 'I')
          fwritef(x, sizeof(*x), size, stdout);
-      if (out==' ' || out=='I')
+      if (out == ' ' || out == 'I')
          fwritef(y, sizeof(*y), size, stdout);
    }
-   
-   return(0);
+
+   return (0);
 }

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -63,7 +63,7 @@
 *               M, N <= 2047                                              *
 **************************************************************************/
 
-static char *rcs_id = "$Id: dfs.c,v 1.19 2008/06/16 05:48:35 heigazen Exp $";
+static char *rcs_id = "$Id: dfs.c,v 1.20 2009/12/16 13:12:28 uratec Exp $";
 
 
 /* Standard C Libraries */
@@ -94,25 +94,31 @@ static char *rcs_id = "$Id: dfs.c,v 1.19 2008/06/16 05:48:35 heigazen Exp $";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - digital filter in standard form\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout \n", cmnd);
-   fprintf(stderr, "  options:\n");           
-   fprintf(stderr, "       -a K  a1...aM : denominator coefficients      [N/A]\n");
-   fprintf(stderr, "       -b b0 b1...bN : numerator coefficients        [N/A]\n");
-   fprintf(stderr, "       -p pfile      : denominator coefficients file [NULL]\n");
-   fprintf(stderr, "       -z zfile      : numerator coefficients file   [NULL]\n");
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr,
+           "       -a K  a1...aM : denominator coefficients      [N/A]\n");
+   fprintf(stderr,
+           "       -b b0 b1...bN : numerator coefficients        [N/A]\n");
+   fprintf(stderr,
+           "       -p pfile      : denominator coefficients file [NULL]\n");
+   fprintf(stderr,
+           "       -z zfile      : numerator coefficients file   [NULL]\n");
    fprintf(stderr, "       -h            : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       filter input (%s)                          [stdin]\n", FORMAT); 
+   fprintf(stderr,
+           "       filter input (%s)                          [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       M,N <= %d \n",SIZE-1);
+   fprintf(stderr, "       M,N <= %d \n", SIZE - 1);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -122,27 +128,27 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
    int i;
    static double a[SIZE], b[SIZE];
    static double d[SIZE];
    int bufp = 0;
-   int na=-1, nb=-1;
+   int na = -1, nb = -1;
    double x;
-   char *file_z="", *file_p="";
+   char *file_z = "", *file_p = "";
    FILE *fp_z, *fp_p;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-')
-         switch (*(*argv+1)) {
+      if (**++argv == '-')
+         switch (*(*argv + 1)) {
          case 'a':
             i = 0;
-            while ( (argc-1) && !isalpha(*(*(argv+1)+1)) ) {
+            while ((argc - 1) && !isalpha(*(*(argv + 1) + 1))) {
                a[i++] = atof(*++argv);
                argc--;
                na++;
@@ -150,7 +156,7 @@ int main (int argc, char *argv[])
             break;
          case 'b':
             i = 0;
-            while ( (argc-1) && !isalpha(*(*(argv+1)+1)) ) {
+            while ((argc - 1) && !isalpha(*(*(argv + 1) + 1))) {
                b[i++] = atof(*++argv);
                argc--;
                nb++;
@@ -162,41 +168,40 @@ int main (int argc, char *argv[])
             break;
          case 'p':
             argc--;
-            file_p = *++argv; 
+            file_p = *++argv;
             break;
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
-         }
-      else {
+      } else {
          fprintf(stderr, "%s : Invalid option!\n", cmnd);
          usage(1);
       }
 
-   if (*file_z!='\0') {
+   if (*file_z != '\0') {
       fp_z = getfp(file_z, "rb");
       nb = freadf(b, sizeof(*b), SIZE, fp_z) - 1;
    }
-   if (*file_p!='\0') {
+   if (*file_p != '\0') {
       fp_p = getfp(file_p, "rb");
       na = freadf(a, sizeof(*a), SIZE, fp_p) - 1;
    }
 
-   if (na==-1) {
+   if (na == -1) {
       na = 0;
       a[0] = 1.0;
    }
-   if (nb==-1) {
+   if (nb == -1) {
       nb = 0;
       b[0] = 1.0;
    }
 
-   while (freadf(&x, sizeof(x), 1, stdin)==1) {
+   while (freadf(&x, sizeof(x), 1, stdin) == 1) {
       x = dfs(x, a, na, b, nb, d, &bufp);
       fwritef(&x, sizeof(x), 1, stdout);
    }
-   
+
    return 0;
 }

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _levdur.c,v 1.15 2008/06/16 05:48:40 heigazen Exp $
+    $Id: _levdur.c,v 1.16 2009/12/16 13:12:33 uratec Exp $
 
     Solve an Autocorrelation Normal Equation
     Using Levinson-Durbin Method
@@ -72,55 +72,61 @@
 #  include <SPTK.h>
 #endif
 
-int levdur (double *r, double *a, const int m, double eps)
+int levdur(double *r, double *a, const int m, double eps)
 {
-   int l, k, flag=0;
+   int l, k, flag = 0;
    double rmd, mue;
-   static double *c=NULL;
+   static double *c = NULL;
    static int size;
 
-   if (c==NULL) {
-      c = dgetmem(m+1);
+   if (c == NULL) {
+      c = dgetmem(m + 1);
       size = m;
    }
 
-   if (m>size) {
+   if (m > size) {
       free(c);
-      c = dgetmem(m+1);
+      c = dgetmem(m + 1);
       size = m;
    }
 
-   if (eps<0.0) eps = 1.0e-6;
-   rmd=r[0];
+   if (eps < 0.0)
+      eps = 1.0e-6;
+   rmd = r[0];
 #ifdef WIN32
-   if ( (((rmd<0.0)?-rmd:rmd)<=eps) || _isnan(rmd) ) return(-1);
+   if ((((rmd < 0.0) ? -rmd : rmd) <= eps) || _isnan(rmd))
+      return (-1);
 #else
-   if ( (((rmd<0.0)?-rmd:rmd)<=eps) || isnan(rmd) ) return(-1);
+   if ((((rmd < 0.0) ? -rmd : rmd) <= eps) || isnan(rmd))
+      return (-1);
 #endif
    a[0] = 0.0;
 
-   for (l=1; l<=m; l++) {
+   for (l = 1; l <= m; l++) {
       mue = -r[l];
-      for (k=1; k<l; k++)
+      for (k = 1; k < l; k++)
          mue -= c[k] * r[l - k];
       mue = mue / rmd;
 
-      for (k=1; k<l; k++)
+      for (k = 1; k < l; k++)
          a[k] = c[k] + mue * c[l - k];
       a[l] = mue;
 
       rmd = (1.0 - mue * mue) * rmd;
 #ifdef WIN32
-      if ( (((rmd<0.0)?-rmd:rmd)<=eps) || _isnan(rmd) ) return(-1);
+      if ((((rmd < 0.0) ? -rmd : rmd) <= eps) || _isnan(rmd))
+         return (-1);
 #else
-      if ( (((rmd<0.0)?-rmd:rmd)<=eps) || isnan(rmd) ) return(-1);
+      if ((((rmd < 0.0) ? -rmd : rmd) <= eps) || isnan(rmd))
+         return (-1);
 #endif
-      if (((mue<0.0) ? -mue : mue) >= 1.0) flag = -2;
+      if (((mue < 0.0) ? -mue : mue) >= 1.0)
+         flag = -2;
 
-      for (k=0; k<=l; k++) c[k] = a[k];
+      for (k = 0; k <= l; k++)
+         c[k] = a[k];
    }
    a[0] = sqrt(rmd);
-   
-   return(flag);
-}
 
+   return (flag);
+}

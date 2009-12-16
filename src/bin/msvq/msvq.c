@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -73,7 +73,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: msvq.c,v 1.18 2008/06/16 05:48:36 heigazen Exp $";
+static char *rcs_id = "$Id: msvq.c,v 1.19 2009/12/16 13:12:35 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -101,70 +101,72 @@ static char *rcs_id = "$Id: msvq.c,v 1.18 2008/06/16 05:48:36 heigazen Exp $";
 #define LENG  26
 #define QFLAG FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - multi stage vector quantization\n",cmnd);
+   fprintf(stderr, " %s - multi stage vector quantization\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] < stdin > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l   : length of vector        [%d]\n", LENG);
-   fprintf(stderr, "       -n n   : order of vector         [%d]\n", LENG-1);
+   fprintf(stderr, "       -n n   : order of vector         [%d]\n", LENG - 1);
    fprintf(stderr, "       -s s f : codebook                [N/A N/A]\n");
    fprintf(stderr, "                s: codebook size\n");
    fprintf(stderr, "                f: codebook file\n");
-   fprintf(stderr, "       -q     : output quantized vector [%s]\n",BOOL[QFLAG]);
+   fprintf(stderr, "       -q     : output quantized vector [%s]\n",
+           BOOL[QFLAG]);
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  stdin:\n");
    fprintf(stderr, "       vectors (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       index (int) or\n");
-   fprintf(stderr, "       quantized vectors (%s) if -q option is specified\n", FORMAT);
+   fprintf(stderr, "       quantized vectors (%s) if -q option is specified\n",
+           FORMAT);
    fprintf(stderr, "  cbfile:\n");
    fprintf(stderr, "       codebook (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       -s option are specified number of stages\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int l=LENG, *cbsize, *index, stage=0, ss=0, num, i;
+   int l = LENG, *cbsize, *index, stage = 0, ss = 0, num, i;
    char **cbfile;
-   FILE *fp=stdin, *fpcb;
-   double *cb=NULL, *x, *qx, *p;
-   Boolean qflag=QFLAG;
+   FILE *fp = stdin, *fpcb;
+   double *cb = NULL, *x, *qx, *p;
+   Boolean qflag = QFLAG;
 
-   cbsize = (int *)calloc(argc/2, sizeof(*cbsize));
-   index = (int *)calloc(argc/2, sizeof(*index));
-   cbfile = (char **)calloc(argc/2, sizeof(**cbfile));
+   cbsize = (int *) calloc(argc / 2, sizeof(*cbsize));
+   index = (int *) calloc(argc / 2, sizeof(*index));
+   cbfile = (char **) calloc(argc / 2, sizeof(**cbfile));
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'l':
             l = atoi(*++argv);
             --argc;
             break;
          case 'n':
-            l = atoi(*++argv)+1;
+            l = atoi(*++argv) + 1;
             --argc;
             break;
          case 's':
@@ -176,45 +178,42 @@ int main (int argc, char **argv)
             qflag = 1 - qflag;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
-         fp = getfp(*argv,"rb");
+      } else
+         fp = getfp(*argv, "rb");
 
-   for (i=0,num=0; i<stage; i++)
+   for (i = 0, num = 0; i < stage; i++)
       num += cbsize[i];
    cb = dgetmem(num * l);
    p = cb;
 
-   for (i=0; i<stage; i++) {
+   for (i = 0; i < stage; i++) {
       fpcb = getfp(cbfile[i], "rb");
-      if (freadf(p, sizeof(*p), cbsize[i]*l, fpcb)!=cbsize[i]*l) {
-         fprintf(stderr,"%s : Codebook size error of %d stage!\n",cmnd, ss);
-         return(1);
+      if (freadf(p, sizeof(*p), cbsize[i] * l, fpcb) != cbsize[i] * l) {
+         fprintf(stderr, "%s : Codebook size error of %d stage!\n", cmnd, ss);
+         return (1);
       }
       p += cbsize[i] * l;
    }
 
-   x = dgetmem(l+l);
+   x = dgetmem(l + l);
    qx = x + l;
 
 
    if (!qflag)
-      while (freadf(x, sizeof(*x), l, fp)==l) {
+      while (freadf(x, sizeof(*x), l, fp) == l) {
          msvq(x, cb, l, cbsize, stage, index);
          fwritex(index, sizeof(*index), stage, stdout);
-      }
-   else
-      while (freadf(x, sizeof(*x), l, fp)==l) {
+   } else
+      while (freadf(x, sizeof(*x), l, fp) == l) {
          msvq(x, cb, l, cbsize, stage, index);
          imsvq(index, cb, l, cbsize, stage, qx);
          fwritef(qx, sizeof(*qx), l, stdout);
       }
-      
-   return(0);
-}
 
+   return (0);
+}

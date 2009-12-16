@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _acep.c,v 1.11 2008/06/16 05:48:45 heigazen Exp $
+    $Id: _acep.c,v 1.12 2009/12/16 13:12:25 uratec Exp $
 
     Adaptive Cepstral Analysis
 
@@ -72,50 +72,51 @@
 #  include <SPTK.h>
 #endif
 
-double acep (double x, double *c, const int m, const double lambda, const double step, const double tau, const int pd, const double eps)
+double acep(double x, double *c, const int m, const double lambda,
+            const double step, const double tau, const int pd, const double eps)
 {
    int i;
-   static double *cc=NULL, *e, *ep, *d, gg=1.0;
+   static double *cc = NULL, *e, *ep, *d, gg = 1.0;
    static int size;
    double mu, tx;
-    
-   if (cc==NULL) {
-      cc = dgetmem(m+m+m+3+(m+1)*pd*2);
-      e  = cc + m + 1;
+
+   if (cc == NULL) {
+      cc = dgetmem(m + m + m + 3 + (m + 1) * pd * 2);
+      e = cc + m + 1;
       ep = e + m + 1;
-      d  = ep + m + 1;
-      size = m;
-   }
-   
-   if (m>size) {
-      free(cc);
-      cc = dgetmem(m+m+m+3+(m+1)*pd*2);
-      e  = cc + m + 1;
-      ep = e + m + 1;
-      d  = ep + m + 1;
+      d = ep + m + 1;
       size = m;
    }
 
-   for (i=1; i<=m; i++)
+   if (m > size) {
+      free(cc);
+      cc = dgetmem(m + m + m + 3 + (m + 1) * pd * 2);
+      e = cc + m + 1;
+      ep = e + m + 1;
+      d = ep + m + 1;
+      size = m;
+   }
+
+   for (i = 1; i <= m; i++)
       cc[i] = -c[i];
-    
+
    x = lmadf(x, cc, m, pd, d);
 
-   for (i=m; i>=1; i--)
-      e[i] = e[i-1];
+   for (i = m; i >= 1; i--)
+      e[i] = e[i - 1];
    e[0] = x;
-    
+
    gg = gg * lambda + (1.0 - lambda) * e[0] * e[0];
    c[0] = 0.5 * log(gg);
-    
-   gg = ( gg < eps )? eps : gg;
+
+   gg = (gg < eps) ? eps : gg;
    mu = step / (double) m / gg;
    tx = 2 * (1.0 - tau) * x;
-    
-   for (i=1; i<=m; i++) {
+
+   for (i = 1; i <= m; i++) {
       ep[i] = tau * ep[i] - tx * e[i];
       c[i] -= mu * ep[i];
    }
-    
-   return(x);
+
+   return (x);
 }

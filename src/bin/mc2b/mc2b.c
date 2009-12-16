@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -95,10 +95,10 @@ static char *rcs_id = "$Id:";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - transform mel cepstrum \n",cmnd);
+   fprintf(stderr, " %s - transform mel cepstrum \n", cmnd);
    fprintf(stderr, "          to MLSA digital filter coefficients\n");
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
@@ -113,26 +113,26 @@ void usage (int status)
    fprintf(stderr, "       MLSA filter coefficients (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDER, m1;
-   FILE *fp=stdin;
-   double a=ALPHA, *x;
+   int m = ORDER, m1;
+   FILE *fp = stdin;
+   double a = ALPHA, *x;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'a':
             a = atof(*++argv);
             --argc;
@@ -142,24 +142,22 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
    m1 = m + 1;
 
    x = dgetmem(m1);
 
-   while (freadf(x, sizeof(*x), m1, fp)==m1) {
+   while (freadf(x, sizeof(*x), m1, fp) == m1) {
       mc2b(x, x, m, a);
       fwritef(x, sizeof(*x), m1, stdout);
    }
-   
-   return(0);
-}
 
+   return (0);
+}

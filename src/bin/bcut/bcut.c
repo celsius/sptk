@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: bcut.c,v 1.18 2008/06/16 05:48:35 heigazen Exp $";
+static char *rcs_id = "$Id: bcut.c,v 1.19 2009/12/16 13:12:26 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -104,17 +104,17 @@ static char *rcs_id = "$Id: bcut.c,v 1.18 2008/06/16 05:48:35 heigazen Exp $";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - binary file cut\n",cmnd);
+   fprintf(stderr, " %s - binary file cut\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -s s  : start number [%d]\n",START);
+   fprintf(stderr, "       -s s  : start number [%d]\n", START);
    fprintf(stderr, "       -e e  : end number   [EOF]\n");
-   fprintf(stderr, "       -l l  : block length [%d]\n",LENG);
+   fprintf(stderr, "       -l l  : block length [%d]\n", LENG);
    fprintf(stderr, "       -n n  : block order  [l-1]\n");
    fprintf(stderr, "       +type : data type    [f]\n");
    fprintf(stderr, "                c (char)      s (short)\n");
@@ -130,30 +130,30 @@ void usage (int status)
    fprintf(stderr, "       latter argument is adopted.\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   size_t size=sizeof(float);
-   int n=LENG;
-   long start=START, end=END, ptr;
-   FILE *fp=stdin;
+   size_t size = sizeof(float);
+   int n = LENG;
+   long start = START, end = END, ptr;
+   FILE *fp = stdin;
    char *s, c;
    double x;
-        
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         switch(c) {
+         switch (c) {
          case 's':
             start = atol(*++argv);
             --argc;
@@ -167,19 +167,18 @@ int main (int argc, char **argv)
             --argc;
             break;
          case 'n':
-            n = atol(*++argv)+1;
+            n = atol(*++argv) + 1;
             --argc;
             break;
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else if (*s=='+') {
+      } else if (*s == '+') {
          c = *++s;
-         switch(c) {
+         switch (c) {
          case 'c':
             size = sizeof(char);
             break;
@@ -199,23 +198,23 @@ int main (int argc, char **argv)
             size = sizeof(double);
             break;
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
-      
+
    ptr = start * n;
-   while(ptr--)
-      if (freadx(&x, size, 1, fp) != 1) return(0);
-    
+   while (ptr--)
+      if (freadx(&x, size, 1, fp) != 1)
+         return (0);
+
    ptr = (end - start + 1) * n;
-   while (end==-1 || ptr--) {
-      if (freadx(&x, size, 1, fp)!=1)
+   while (end == -1 || ptr--) {
+      if (freadx(&x, size, 1, fp) != 1)
          break;
       fwritex(&x, size, 1, stdout);
    }
 
-   return(0);
+   return (0);
 }

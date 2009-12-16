@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /************************************************************************
 
-  $Id: _reverse.c,v 1.9 2008/06/16 05:48:44 heigazen Exp $
+  $Id: _reverse.c,v 1.10 2009/12/16 13:12:37 uratec Exp $
 
   Reverse the order of data in sequence
       reverse(real* p, int l)
@@ -62,18 +62,17 @@
 #  include <SPTK.h>
 #endif
 
-void reverse (double *x, const int l)
+void reverse(double *x, const int l)
 {
-   int i=0;
+   int i = 0;
    double d;
-   
-   while (i<l-i-1) {
+
+   while (i < l - i - 1) {
       d = x[i];
-      x[i]=x[l-i-1];
-      x[l-i-1]=d;
+      x[i] = x[l - i - 1];
+      x[l - i - 1] = d;
       i++;
    }
-   
+
    return;
 }
-

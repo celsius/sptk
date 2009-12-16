@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: c2sp.c,v 1.19 2008/06/16 05:48:40 heigazen Exp $";
+static char *rcs_id = "$Id: c2sp.c,v 1.20 2009/12/16 13:12:27 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -104,16 +104,16 @@ static char *rcs_id = "$Id: c2sp.c,v 1.19 2008/06/16 05:48:40 heigazen Exp $";
 #define PHASE FA
 #define OTYPE 0
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - transform cepstrum to spectrum\n",cmnd);
+   fprintf(stderr, " %s - transform cepstrum to spectrum\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -136,7 +136,7 @@ void usage (int status)
    fprintf(stderr, "       spectrum (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -144,20 +144,20 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int leng=LENG, m=ORDER, start=0, end=0, otype=OTYPE, i, no;
-   FILE *fp=stdin;
-   char phase=PHASE;
+   int leng = LENG, m = ORDER, start = 0, end = 0, otype = OTYPE, i, no;
+   FILE *fp = stdin;
+   char phase = PHASE;
    double logk, *x, *y, *c;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -184,58 +184,59 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else 
+      } else
          fp = getfp(*argv, "rb");
 
-   if (end==0) end = m;
-    
-   x = dgetmem(leng*2);
+   if (end == 0)
+      end = m;
+
+   x = dgetmem(leng * 2);
    y = x + leng;
-   c = dgetmem(m+1);
+   c = dgetmem(m + 1);
 
    no = leng / 2 + 1;
    logk = 20.0 / log(10.0);
-    
-   while (freadf(c, sizeof(*c), m+1, fp) == m+1) {
+
+   while (freadf(c, sizeof(*c), m + 1, fp) == m + 1) {
       fillz(c, sizeof(*c), start);
-      for (i=end+1; i<=m; i++)  c[i] = 0.0;
+      for (i = end + 1; i <= m; i++)
+         c[i] = 0.0;
 
       c2sp(c, m, x, y, leng);
 
       if (phase)
          switch (otype) {
-         case 1 :
-            for (i=no; i--;) x[i] = y[i];
+         case 1:
+            for (i = no; i--;)
+               x[i] = y[i];
             break;
-         case 2 :
-            for (i=no; i--;)
+         case 2:
+            for (i = no; i--;)
                x[i] = y[i] * 180 / PI;
             break;
-         default :      
-            for (i=no; i--;)
+         default:
+            for (i = no; i--;)
                x[i] = y[i] / PI;
             break;
-         }
-      else
+      } else
          switch (otype) {
-         case 1 :
+         case 1:
             break;
-         case 2 :
-            for (i=no; i--;)
+         case 2:
+            for (i = no; i--;)
                x[i] = exp(x[i]);
             break;
-         default :
-            for (i=no; i--;)
+         default:
+            for (i = no; i--;)
                x[i] *= logk;
             break;
          }
 
       fwritef(x, sizeof(*x), no, stdout);
    }
-   
-   return(0);
+
+   return (0);
 }

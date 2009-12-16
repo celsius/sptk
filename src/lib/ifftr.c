@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***************************************************************
-    $Id: ifftr.c,v 1.8 2008/06/16 05:47:54 heigazen Exp $
+    $Id: ifftr.c,v 1.9 2009/12/16 13:12:39 uratec Exp $
 
     Inverse Fast Fourier Transform for Real Sequence
 
@@ -63,19 +63,20 @@
 #  include <SPTK.h>
 #endif
 
-int ifftr (double *x, double *y, const int l)
+int ifftr(double *x, double *y, const int l)
 {
    int i;
    double *xp, *yp;
 
    fftr(x, y, l);
 
-   xp = x; yp = y; 
+   xp = x;
+   yp = y;
    i = l;
    while (i--) {
       *xp++ /= l;
       *yp++ /= -l;
    }
 
-   return(0);
+   return (0);
 }

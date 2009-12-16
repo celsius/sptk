@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /*******************************************************************
-  $Id: _phase.c,v 1.10 2008/06/16 05:48:34 heigazen Exp $
+  $Id: _phase.c,v 1.11 2009/12/16 13:12:36 uratec Exp $
   comupte phase of digital filter or real seaquence
      phase(p, mp, z, mz, ph, flng)
 
@@ -68,11 +68,12 @@
 #  include <SPTK.h>
 #endif
 
-void phase (double *p, const int mp, double *z, const int mz, double *ph, const int flng, const int unlap)
+void phase(double *p, const int mp, double *z, const int mz, double *ph,
+           const int flng, const int unlap)
 {
    static double *x;
-   static int fsize=0;
-   double  *y, *xx, *yy,*py;
+   static int fsize = 0;
+   double *y, *xx, *yy, *py;
    int no, i, offset;
    double pi;
 
@@ -80,8 +81,8 @@ void phase (double *p, const int mp, double *z, const int mz, double *ph, const 
 
    no = flng / 2 + 1;
 
-   if (flng>fsize) {
-      if (x!=NULL)
+   if (flng > fsize) {
+      if (x != NULL)
          free(x);
       fsize = flng;
       x = dgetmem(4 * flng + no);
@@ -93,13 +94,13 @@ void phase (double *p, const int mp, double *z, const int mz, double *ph, const 
 
    fillz(x, sizeof(*x), flng);
    fillz(xx, sizeof(*xx), flng);
-   movem(z, x, mz+1, sizeof(*z));
-   movem(p, xx, mp+1, sizeof(*p));
+   movem(z, x, mz + 1, sizeof(*z));
+   movem(p, xx, mp + 1, sizeof(*p));
 
    fftr(x, y, flng);
    xx[0] = 1;
    fftr(xx, yy, flng);
-   for (i = 0; i<no; i++) {
+   for (i = 0; i < no; i++) {
       ph[i] = x[i] * xx[i] + y[i] * yy[i];
       py[i] = y[i] * xx[i] - x[i] * yy[i];
    }
@@ -107,17 +108,16 @@ void phase (double *p, const int mp, double *z, const int mz, double *ph, const 
    i = 0;
    ph[i] = atan2(py[i], ph[i]) / pi;
    i++;
-   for (; i<no; i++) {
+   for (; i < no; i++) {
       ph[i] = atan2(py[i], ph[i]) / pi;
       if (unlap) {
-         if (ph[i - 1] - ph[i] - offset>1)
+         if (ph[i - 1] - ph[i] - offset > 1)
             offset += 2;
-         else if (ph[i] + offset - ph[i - 1]>1)
+         else if (ph[i] + offset - ph[i - 1] > 1)
             offset -= 2;
          ph[i] += offset;
       }
    }
-   
+
    return;
 }
-

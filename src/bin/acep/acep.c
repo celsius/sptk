@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: acep.c,v 1.20 2008/06/16 05:48:45 heigazen Exp $";
+static char *rcs_id = "$Id: acep.c,v 1.21 2009/12/16 13:12:26 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -109,16 +109,16 @@ static char *rcs_id = "$Id: acep.c,v 1.20 2008/06/16 05:48:45 heigazen Exp $";
 #define TAU 0.9
 #define EPS 0.0
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (const int status)
+void usage(const int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - adaptive cepstral analysis\n",cmnd);
+   fprintf(stderr, " %s - adaptive cepstral analysis\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ pefile ] < stdin > stdout\n", cmnd);
@@ -128,9 +128,11 @@ void usage (const int status)
    fprintf(stderr, "       -t t  : momentum constant           [%g]\n", TAU);
    fprintf(stderr, "       -k k  : step size                   [%g]\n", STEP);
    fprintf(stderr, "       -p p  : output period of cepstrum   [%d]\n", PERIOD);
-   fprintf(stderr, "       -s    : output smoothed cepstrum    [%s]\n", BOOL[AVEFLAG]);
+   fprintf(stderr, "       -s    : output smoothed cepstrum    [%s]\n",
+           BOOL[AVEFLAG]);
    fprintf(stderr, "       -e e  : minimum value for epsilon   [%g]\n", EPS);
-   fprintf(stderr, "       -P P  : order of Pade approximation [%d]\n", PADEORD);
+   fprintf(stderr, "       -P P  : order of Pade approximation [%d]\n",
+           PADEORD);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdin:\n");
    fprintf(stderr, "       data sequence (%s)\n", FORMAT);
@@ -141,32 +143,31 @@ void usage (const int status)
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       P = 4 or 5\n");
 #ifdef PACKAGE_VERSION
-   fprintf(stderr, "\n");    
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
-#endif       
+#endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDER, period=PERIOD, i, j, pd=PADEORD;
-   FILE *fp=stdin, *fpe=NULL;
-   Boolean aveflag=AVEFLAG;
-   double lambda=LAMBDA, step=STEP, tau=TAU, eps=EPS,
-          *c, *e, *ep, *cc, *d, *avec, 
-          x, ll, gg, tt, mu, ttx;
+   int m = ORDER, period = PERIOD, i, j, pd = PADEORD;
+   FILE *fp = stdin, *fpe = NULL;
+   Boolean aveflag = AVEFLAG;
+   double lambda = LAMBDA, step = STEP, tau = TAU, eps = EPS,
+       *c, *e, *ep, *cc, *d, *avec, x, ll, gg, tt, mu, ttx;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
    while (--argc)
       if (**++argv == '-') {
-         switch (*(*argv+1)) {
+         switch (*(*argv + 1)) {
          case 'l':
             lambda = atof(*++argv);
             --argc;
@@ -201,39 +202,39 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else 
+      } else
          fpe = getfp(*argv, "wb");
 
-   if ((pd < 4)||(pd > 5)) {
-      fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
-      return(1);
+   if ((pd < 4) || (pd > 5)) {
+      fprintf(stderr, "%s : Order of Pade approximation should be 4 or 5!\n",
+              cmnd);
+      return (1);
    }
 
-   c  = dgetmem(5*(m+1)+(m+1)*pd*2);
-   cc = c  + m + 1;
-   e  = cc + m + 1;
-   ep = e  + m + 1;
+   c = dgetmem(5 * (m + 1) + (m + 1) * pd * 2);
+   cc = c + m + 1;
+   e = cc + m + 1;
+   ep = e + m + 1;
    avec = ep + m + 1;
    d = avec + m + 1;
 
-   j  = period;
+   j = period;
    ll = 1.0 - lambda;
    gg = 1.0;
-   step /= (double)m;
+   step /= (double) m;
    tt = 2 * (1.0 - tau);
-    
+
    while (freadf(&x, sizeof(x), 1, fp) == 1) {
-      for (i=1; i<=m; i++)
+      for (i = 1; i <= m; i++)
          cc[i] = -c[i];
 
       x = lmadf(x, cc, m, pd, d);
 
-      for (i=m; i>=1; i--)
-         e[i] = e[i-1];
+      for (i = m; i >= 1; i--)
+         e[i] = e[i - 1];
       e[0] = x;
 
       gg = gg * lambda + ll * e[0] * e[0];
@@ -241,31 +242,30 @@ int main (int argc, char **argv)
 
       gg = (gg < eps) ? eps : gg;
       mu = step / gg;
-      ttx = tt * e[0]; 
-   
-      for (i=1; i<=m; i++) {
+      ttx = tt * e[0];
+
+      for (i = 1; i <= m; i++) {
          ep[i] = tau * ep[i] - ttx * e[i];
          c[i] -= mu * ep[i];
       }
 
       if (aveflag)
-         for (i=0; i<=m; i++)
+         for (i = 0; i <= m; i++)
             avec[i] += c[i];
 
       if (fpe != NULL)
          fwritef(&x, sizeof(x), 1, fpe);
 
-      if (--j==0) {
+      if (--j == 0) {
          j = period;
          if (aveflag) {
-            for (i=0; i<=m; i++)
+            for (i = 0; i <= m; i++)
                avec[i] /= period;
-            fwritef(avec, sizeof(*avec), m+1, stdout);
-            fillz(avec, sizeof(*avec), m+1);
-         }
-         else
-            fwritef(c, sizeof(*c), m+1, stdout);
+            fwritef(avec, sizeof(*avec), m + 1, stdout);
+            fillz(avec, sizeof(*avec), m + 1);
+         } else
+            fwritef(c, sizeof(*c), m + 1, stdout);
       }
    }
-   return(0);
+   return (0);
 }

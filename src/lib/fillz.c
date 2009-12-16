@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /********************************************************
-    $Id: fillz.c,v 1.7 2008/06/16 05:47:54 heigazen Exp $
+    $Id: fillz.c,v 1.8 2009/12/16 13:12:39 uratec Exp $
 
     Fill Data with Zero
 
@@ -57,13 +57,12 @@
 
 #include <stdio.h>
 
-void fillz (void *ptr, const size_t size, const int nitem)
+void fillz(void *ptr, const size_t size, const int nitem)
 {
    long n;
    char *p = ptr;
-    
+
    n = size * nitem;
-   while(n--)
+   while (n--)
       *p++ = '\0';
 }
-

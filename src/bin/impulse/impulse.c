@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -61,7 +61,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: impulse.c,v 1.16 2008/06/16 05:48:34 heigazen Exp $";
+static char *rcs_id =
+    "$Id: impulse.c,v 1.17 2009/12/16 13:12:32 uratec Exp $";
 
 
 /*  Standard C Libralies  */
@@ -90,16 +91,16 @@ static char *rcs_id = "$Id: impulse.c,v 1.16 2008/06/16 05:48:34 heigazen Exp $"
 /*  Command Name  */
 char *cmnd;
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - generate impulse sequence\n",cmnd);
+   fprintf(stderr, " %s - generate impulse sequence\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length             [%d]\n", LENG);
-   fprintf(stderr, "       -n n  : order              [%d]\n", LENG-1);
+   fprintf(stderr, "       -n n  : order              [%d]\n", LENG - 1);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       impulse sequence (%s)\n", FORMAT);
@@ -114,43 +115,45 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int  l=LENG, i;
-   double x=1.0, y=0.0;
+   int l = LENG, i;
+   double x = 1.0, y = 0.0;
 
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'l':
             l = atoi(*++argv);
             --argc;
             break;
          case 'n':
-            l = atoi(*++argv)+1;
+            l = atoi(*++argv) + 1;
             --argc;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
       }
 
-   if (l==0) return(0);
-   else fwritef(&x, sizeof(x), 1, stdout);
+   if (l == 0)
+      return (0);
+   else
+      fwritef(&x, sizeof(x), 1, stdout);
 
-   for (i=0;; i++) {
-      if (i==l-1) break;
+   for (i = 0;; i++) {
+      if (i == l - 1)
+         break;
       fwritef(&y, sizeof(y), 1, stdout);
    }
 
-   return(0);
+   return (0);
 }
-

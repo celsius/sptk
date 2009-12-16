@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -65,7 +65,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: vopr.c,v 1.20 2008/06/16 05:48:38 heigazen Exp $";
+static char *rcs_id = "$Id: vopr.c,v 1.21 2009/12/16 13:12:38 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -94,23 +94,26 @@ static char *rcs_id = "$Id: vopr.c,v 1.20 2008/06/16 05:48:38 heigazen Exp $";
 #define LENG 1
 #define INV  FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - execute vector operations\n",cmnd);
+   fprintf(stderr, " %s - execute vector operations\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] [ file1 ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] [ file1 ] [ infile ] > stdout\n",
+           cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l   : length of vector                [%d]\n",LENG);
+   fprintf(stderr, "       -l l   : length of vector                [%d]\n",
+           LENG);
    fprintf(stderr, "       -n n   : order of vector                 [l-1]\n");
-   fprintf(stderr, "       -i     : specified file contains a and b [%s]\n",BOOL[INV]);
+   fprintf(stderr, "       -i     : specified file contains a and b [%s]\n",
+           BOOL[INV]);
    fprintf(stderr, "       -a     : addition       (a + b)          [FALSE]\n");
    fprintf(stderr, "       -s     : subtraction    (a - b)          [FALSE]\n");
    fprintf(stderr, "       -m     : multiplication (a * b)          [FALSE]\n");
@@ -118,7 +121,8 @@ void usage (int status)
    fprintf(stderr, "       -ATAN2 : atan2          atan2(b,a)       [FALSE]\n");
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data vectors (%s)                     [stdin]\n", FORMAT);
+   fprintf(stderr, "       data vectors (%s)                     [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  file1:\n");
    fprintf(stderr, "       data vectors (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
@@ -128,7 +132,7 @@ void usage (int status)
    fprintf(stderr, "       latter argument is adopted.\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -136,24 +140,24 @@ void usage (int status)
 }
 
 
-int opr=' ', leng=LENG;
-Boolean inv=INV;
+int opr = ' ', leng = LENG;
+Boolean inv = INV;
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int nfiles=0;
+   int nfiles = 0;
    FILE *fp1, *fp2;
    char *s, c, *infile[4];
-   int vopr(FILE *fp1,FILE *fp2);
-   
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   int vopr(FILE * fp1, FILE * fp2);
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc) {
-      if (*(s=*++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if (*++s=='\0' && (c=='l' || c=='n')) {
+         if (*++s == '\0' && (c == 'l' || c == 'n')) {
             s = *++argv;
             --argc;
          }
@@ -162,7 +166,7 @@ int main (int argc, char **argv)
             leng = atoi(s);
             break;
          case 'n':
-            leng = atoi(s)+1;
+            leng = atoi(s) + 1;
             break;
          case 'i':
             inv = 1 - inv;
@@ -175,36 +179,34 @@ int main (int argc, char **argv)
             opr = c;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          infile[nfiles++] = s;
    }
 
-   if (nfiles==0)
+   if (nfiles == 0)
       vopr(stdin, stdin);
    else {
       fp1 = getfp(infile[0], "rb");
-      if (nfiles==1) {
+      if (nfiles == 1) {
          if (inv)
             vopr(fp1, fp1);
          else
             vopr(stdin, fp1);
-      }
-      else {
+      } else {
          fp2 = getfp(infile[1], "rb");
          vopr(fp1, fp2);
       }
    }
 
-   return(0);
+   return (0);
 }
 
-int vopr (FILE *fp1, FILE *fp2)
+int vopr(FILE * fp1, FILE * fp2)
 {
    double *a, *b;
    int k;
@@ -212,35 +214,35 @@ int vopr (FILE *fp1, FILE *fp2)
    a = dgetmem(leng + leng);
    b = a + leng;
 
-   if (fp1!=fp2 && leng>1) {
-      if (freadf(b, sizeof(*b), leng, fp2)!=leng)
-         return(1);
+   if (fp1 != fp2 && leng > 1) {
+      if (freadf(b, sizeof(*b), leng, fp2) != leng)
+         return (1);
    }
-   while (freadf(a, sizeof(*a), leng, fp1)==leng) {
-      if (fp1==fp2 || leng==1) {
-         if (freadf(b, sizeof(*b), leng, fp2)!=leng)
-            return(1);
+   while (freadf(a, sizeof(*a), leng, fp1) == leng) {
+      if (fp1 == fp2 || leng == 1) {
+         if (freadf(b, sizeof(*b), leng, fp2) != leng)
+            return (1);
       }
 
       switch (opr) {
       case 'a':
-         for (k=0; k<leng; ++k)
+         for (k = 0; k < leng; ++k)
             a[k] += b[k];
          break;
       case 's':
-         for (k=0; k<leng; ++k)
+         for (k = 0; k < leng; ++k)
             a[k] -= b[k];
          break;
       case 'm':
-         for (k=0; k<leng; ++k)
+         for (k = 0; k < leng; ++k)
             a[k] *= b[k];
          break;
       case 'd':
-         for (k=0; k<leng; ++k)
+         for (k = 0; k < leng; ++k)
             a[k] /= b[k];
          break;
       case 'A':
-         for (k=0; k<leng; ++k)
+         for (k = 0; k < leng; ++k)
             a[k] = atan2(b[k], a[k]);
          break;
       default:
@@ -249,6 +251,5 @@ int vopr (FILE *fp1, FILE *fp2)
 
       fwritef(a, sizeof(*a), leng, stdout);
    }
-   return(0);
+   return (0);
 }
-

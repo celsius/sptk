@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /****************************************************************
-    $Id: mseq.c,v 1.6 2008/06/16 05:47:54 heigazen Exp $
+    $Id: mseq.c,v 1.7 2009/12/16 13:12:39 uratec Exp $
 
     M-Sequence Generator using X**31 + X**28 + 1
 
@@ -59,7 +59,7 @@
 #define	B31_  0x7fffffff
 #define	Z     0x00000000
 
-int mseq (void)
+int mseq(void)
 {
    static int x = 0x55555555;
    int x0, x28;
@@ -81,6 +81,5 @@ int mseq (void)
    else
       x |= B31;
 
-   return(x0);
+   return (x0);
 }
-

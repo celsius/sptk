@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -63,7 +63,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: clip.c,v 1.17 2008/06/16 05:48:33 heigazen Exp $";
+static char *rcs_id = "$Id: clip.c,v 1.18 2009/12/16 13:12:27 uratec Exp $";
 
 
 /* Standard C Libraries */
@@ -96,7 +96,7 @@ static char *rcs_id = "$Id: clip.c,v 1.17 2008/06/16 05:48:33 heigazen Exp $";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - data clipping\n", cmnd);
@@ -104,12 +104,16 @@ void usage (int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ option ] [ infile ] > outfile\n", cmnd);
    fprintf(stderr, "  option:\n");
-   fprintf(stderr, "       -y    ymin ymax : lower bound & upper bound [-1.0 1.0]\n");
-   fprintf(stderr, "       -ymin ymin      : lower bound (ymax = inf)  [N/A]\n");
-   fprintf(stderr, "       -ymax ymax      : upper bound (ymin = -inf) [N/A]\n");
+   fprintf(stderr,
+           "       -y    ymin ymax : lower bound & upper bound [-1.0 1.0]\n");
+   fprintf(stderr,
+           "       -ymin ymin      : lower bound (ymax = inf)  [N/A]\n");
+   fprintf(stderr,
+           "       -ymax ymax      : upper bound (ymin = -inf) [N/A]\n");
    fprintf(stderr, "       -h              : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data sequence (%s)                       [stdin]\n", FORMAT);
+   fprintf(stderr, "       data sequence (%s)                       [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       clipped data sequence (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
@@ -121,24 +125,24 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
-   FILE *fp=stdin;
+   FILE *fp = stdin;
    int size;
-   double ymin=YMIN, ymax=YMAX;
+   double ymin = YMIN, ymax = YMAX;
    double *x, *y;
 
-   if ((cmnd = strrchr(argv[0],'/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
+      if (**++argv == '-') {
          argc--;
-         switch (*(*argv+1)) {
+         switch (*(*argv + 1)) {
          case 'y':
-            if ((*(*argv+2))=='m') {
-               switch (*(*argv+3)) {
+            if ((*(*argv + 2)) == 'm') {
+               switch (*(*argv + 3)) {
                case 'i':
                   ymin = atof(*++argv);
                   ymax = FLT_MAX;
@@ -148,8 +152,7 @@ int main (int argc, char *argv[])
                   ymin = FLT_MIN;
                   break;
                }
-            }
-            else {
+            } else {
                ymin = atof(*++argv);
                argc--;
                ymax = atof(*++argv);
@@ -159,17 +162,16 @@ int main (int argc, char *argv[])
          default:
             usage(1);
          }
-      } 
-      else 
+      } else
          fp = getfp(*argv, "rb");
 
-   x = dgetmem(2*256);
+   x = dgetmem(2 * 256);
    y = x + 256;
 
-   while ((size = freadf(x, sizeof(*x), 256, fp))!=0) {
-      clip (x, size, ymin, ymax, y);
+   while ((size = freadf(x, sizeof(*x), 256, fp)) != 0) {
+      clip(x, size, ymin, ymax, y);
       fwritef(y, sizeof(*y), size, stdout);
    }
-   
+
    return 0;
 }

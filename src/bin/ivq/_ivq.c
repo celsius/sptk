@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _ivq.c,v 1.11 2008/06/16 05:48:40 heigazen Exp $
+    $Id: _ivq.c,v 1.12 2009/12/16 13:12:32 uratec Exp $
 
     Decoder of Vector Quantization
 
@@ -65,10 +65,9 @@
 #  include <SPTK.h>
 #endif
 
-void ivq (const int index, double *cb, const int l, double *x)
+void ivq(const int index, double *cb, const int l, double *x)
 {
-   movem((cb+index*l), x, sizeof(*cb), l);
+   movem((cb + index * l), x, sizeof(*cb), l);
 
    return;
 }
-

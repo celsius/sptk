@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _gmm.c,v 1.3 2009/12/16 11:30:23 senzaimin Exp $
+    $Id: _gmm.c,v 1.4 2009/12/16 13:12:32 uratec Exp $
 
     GMM output prob calculation functions
 
@@ -61,57 +61,57 @@
 
 #include "gmm.h"
 
-double cal_gconst (double *var, const int D)
+double cal_gconst(double *var, const int D)
 {
    int d;
    double gconst;
 
    gconst = D * log(M_2PI);
-   for (d=0; d<D; d++)
+   for (d = 0; d < D; d++)
       gconst += log(var[d]);
-   
-   return(gconst);
+
+   return (gconst);
 }
 
-void fillz_gmm (GMM *gmm, const int M, const int L)
+void fillz_gmm(GMM * gmm, const int M, const int L)
 {
    int m, l, ll;
 
-   for (m=0; m<M; m++) {
+   for (m = 0; m < M; m++) {
       gmm->weight[m] = 0.;
-    
-      for (l=0; l<L; l++)
+
+      for (l = 0; l < L; l++)
          gmm->gauss[m].mean[l] = 0.;
-    
-      for (l=0; l<L; l++)
+
+      for (l = 0; l < L; l++)
          gmm->gauss[m].var[l] = 0.;
    }
-   
+
    return;
 }
 
-double log_wgd (GMM *gmm, const int m, double *dat, const int L)
+double log_wgd(GMM * gmm, const int m, double *dat, const int L)
 {
    int l;
    double sum, diff, lwgd;
 
    sum = gmm->gauss[m].gconst;
 
-   for (l=0; l<L; l++) {
+   for (l = 0; l < L; l++) {
       diff = dat[l] - gmm->gauss[m].mean[l];
       sum += sq(diff) / gmm->gauss[m].var[l];
    }
 
-   lwgd = log(gmm->weight[m]) - 0.5 * sum;    
+   lwgd = log(gmm->weight[m]) - 0.5 * sum;
 
-   return(lwgd);
+   return (lwgd);
 }
 
-double log_add (double logx, double logy)
+double log_add(double logx, double logy)
 {
    double swap, diff, minLogExp, z;
 
-   if  (logx < logy) {
+   if (logx < logy) {
       swap = logx;
       logx = logy;
       logy = swap;
@@ -121,22 +121,22 @@ double log_add (double logx, double logy)
    minLogExp = -log(-LZERO);
 
    if (diff < minLogExp)
-      return((logx<LSMALL) ? LZERO : logx);
+      return ((logx < LSMALL) ? LZERO : logx);
    else {
       z = exp(diff);
-      return(logx + log(1.0+z));
+      return (logx + log(1.0 + z));
    }
 }
 
-double log_outp (GMM *gmm, double *dat, const int M, const int L)
+double log_outp(GMM * gmm, double *dat, const int M, const int L)
 {
    int m;
    double logwgd, logb;
 
-   for (m=0,logb=LZERO; m<M; m++) {
+   for (m = 0, logb = LZERO; m < M; m++) {
       logwgd = log_wgd(gmm, m, dat, L);
-      logb   = log_add(logb, logwgd);
+      logb = log_add(logb, logwgd);
    }
-   
-   return(logb);
+
+   return (logb);
 }

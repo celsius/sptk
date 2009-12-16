@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -55,7 +55,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: cat2.c,v 1.17 2008/06/16 05:48:35 heigazen Exp $";
+static char *rcs_id = "$Id: cat2.c,v 1.18 2009/12/16 13:12:27 uratec Exp $";
 
 
 /*  Standard C Libraries **/
@@ -81,10 +81,11 @@ static char *rcs_id = "$Id: cat2.c,v 1.17 2008/06/16 05:48:35 heigazen Exp $";
 /*  Command Name  */
 char *cmnd;
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - concatenate and display files to the standard error\n",cmnd);
+   fprintf(stderr,
+           " %s - concatenate and display files to the standard error\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile1 ] [ infile2 ] ...\n", cmnd);
@@ -103,47 +104,48 @@ void usage (int status)
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int linenum=0;
-   int stdinmode=0;
+   int linenum = 0;
+   int stdinmode = 0;
    char buf[512];
    FILE *fp;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-   
+
    while (--argc) {
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'n':
             linenum = 1;
             break;
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else {
+      } else {
          stdinmode = -1;
          fp = getfp(*argv, "rt");
-         while(fgets(buf, 512, fp)!=0) {
-            if (linenum>0) fprintf(stderr, "%6d  ", linenum++);
+         while (fgets(buf, 512, fp) != 0) {
+            if (linenum > 0)
+               fprintf(stderr, "%6d  ", linenum++);
             fputs(buf, stderr);
          }
       }
    }
 
-   if (stdinmode==0) {
-      while (fgets( buf, 512, stdin)!=0) {
-         if (linenum>0) fprintf( stderr, "%6d  ", linenum++);
+   if (stdinmode == 0) {
+      while (fgets(buf, 512, stdin) != 0) {
+         if (linenum > 0)
+            fprintf(stderr, "%6d  ", linenum++);
          fputs(buf, stderr);
       }
    }
-   
+
    return 0;
 }

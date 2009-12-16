@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _lpc.c,v 1.12 2008/06/16 05:48:35 heigazen Exp $
+    $Id: _lpc.c,v 1.13 2009/12/16 13:12:33 uratec Exp $
 
     LPC Analysis Using Levinson-Durbin method
 
@@ -72,25 +72,24 @@
 #  include <SPTK.h>
 #endif
 
-int lpc (double *x, const int flng, double *a, const int m, const double f)
+int lpc(double *x, const int flng, double *a, const int m, const double f)
 {
    int flag;
-   static double *r=NULL;
+   static double *r = NULL;
    static int size;
 
-   if (r==NULL) {
-      r = dgetmem(m+1);
+   if (r == NULL) {
+      r = dgetmem(m + 1);
       size = m;
    }
-   if (m>size) {
+   if (m > size) {
       free(r);
-      r = dgetmem(m+1);
+      r = dgetmem(m + 1);
       size = m;
    }
 
    acorr(x, flng, r, m);
    flag = levdur(r, a, m, f);
 
-   return(flag);
+   return (flag);
 }
-

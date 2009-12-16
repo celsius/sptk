@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -80,7 +80,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgc2sp.c,v 1.23 2008/11/06 15:40:51 tatsuyaito Exp $";
+static char *rcs_id =
+    "$Id: mgc2sp.c,v 1.24 2009/12/16 13:12:34 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -114,29 +115,38 @@ static char *rcs_id = "$Id: mgc2sp.c,v 1.23 2008/11/06 15:40:51 tatsuyaito Exp $
 #define PHASE  FA
 #define MULG  FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - transform mel-generalized cepstrum to spectrum\n",cmnd);
+   fprintf(stderr, " %s - transform mel-generalized cepstrum to spectrum\n",
+           cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -a a  : alpha                               [%g]\n", ALPHA);
-   fprintf(stderr, "       -g g  : gamma                               [%g]\n", GAMMA);
+   fprintf(stderr, "       -a a  : alpha                               [%g]\n",
+           ALPHA);
+   fprintf(stderr, "       -g g  : gamma                               [%g]\n",
+           GAMMA);
    fprintf(stderr, "       -c c  : gamma  = -1 / (int) c                 \n");
-   fprintf(stderr, "       -m m  : order of mel-generalized cepstrum   [%d]\n", ORDER);
-   fprintf(stderr, "       -n    : regard input as normalized cepstrum [%s]\n", BOOL[NORM]);
-   fprintf(stderr, "       -u    : regard input as multiplied by gamma [%s]\n", BOOL[MULG]);
-   fprintf(stderr, "       -l l  : FFT length                          [%d]\n", LENG);
-   fprintf(stderr, "       -p    : output phase                        [%s]\n", BOOL[PHASE]);
-   fprintf(stderr, "       -o o  : output format                       [%d]\n", OTYPE);
+   fprintf(stderr, "       -m m  : order of mel-generalized cepstrum   [%d]\n",
+           ORDER);
+   fprintf(stderr, "       -n    : regard input as normalized cepstrum [%s]\n",
+           BOOL[NORM]);
+   fprintf(stderr, "       -u    : regard input as multiplied by gamma [%s]\n",
+           BOOL[MULG]);
+   fprintf(stderr, "       -l l  : FFT length                          [%d]\n",
+           LENG);
+   fprintf(stderr, "       -p    : output phase                        [%s]\n",
+           BOOL[PHASE]);
+   fprintf(stderr, "       -o o  : output format                       [%d]\n",
+           OTYPE);
    fprintf(stderr, "                 0 (20*log|H(z)|)\n");
    fprintf(stderr, "                 1 (ln|H(z)|)\n");
    fprintf(stderr, "                 2 (|H(z)|)\n");
@@ -146,34 +156,35 @@ void usage (int status)
    fprintf(stderr, "                 2 (arg|H(z)|*180/pi [deg])\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       mel-generalized cepstrum (%s)            [stdin]\n", FORMAT);
+   fprintf(stderr, "       mel-generalized cepstrum (%s)            [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       spectrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       value of c must be c>=1\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDER, l=LENG, otype=OTYPE, no, i;
-   double alpha=ALPHA, gamma=GAMMA, *c, *x, *y, logk;
-   Boolean norm=NORM, phase=PHASE, mulg=MULG;
-   FILE *fp=stdin;
+   int m = ORDER, l = LENG, otype = OTYPE, no, i;
+   double alpha = ALPHA, gamma = GAMMA, *c, *x, *y, logk;
+   Boolean norm = NORM, phase = PHASE, mulg = MULG;
+   FILE *fp = stdin;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -186,12 +197,13 @@ int main (int argc, char **argv)
             gamma = atof(*++argv);
             --argc;
             break;
-         case 'c':             
-	    gamma = atoi(*++argv);
-	    --argc;     
- 	    if (gamma < 1) fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);        
-	    gamma = -1.0 / gamma;    
-            break; 
+         case 'c':
+            gamma = atoi(*++argv);
+            --argc;
+            if (gamma < 1)
+               fprintf(stderr, "%s : value of c must be c>=1!\n", cmnd);
+            gamma = -1.0 / gamma;
+            break;
          case 'n':
             norm = 1 - norm;
             break;
@@ -212,37 +224,40 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   x = dgetmem(l+l+m+1);
+   x = dgetmem(l + l + m + 1);
    y = x + l;
    c = y + l;
 
    no = l / 2 + 1;
    logk = 20.0 / log(10.0);
 
-   while (freadf(c, sizeof(*c), m+1, fp)==m+1) {
+   while (freadf(c, sizeof(*c), m + 1, fp) == m + 1) {
       if (norm)
          ignorm(c, c, m, gamma);
       else if (mulg) {
-         if (gamma==0) {
-            fprintf(stderr, "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n", cmnd);
+         if (gamma == 0) {
+            fprintf(stderr,
+                    "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n",
+                    cmnd);
             usage(1);
          }
          c[0] = (c[0] - 1.0) / gamma;
       }
 
       if (mulg) {
-         if (gamma==0) {
-            fprintf(stderr, "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n", cmnd);
+         if (gamma == 0) {
+            fprintf(stderr,
+                    "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n",
+                    cmnd);
             usage(1);
          }
-         for (i=m;i>0;i--)
+         for (i = m; i > 0; i--)
             c[i] /= gamma;
       }
 
@@ -250,27 +265,27 @@ int main (int argc, char **argv)
 
       if (phase)
          switch (otype) {
-         case 1 :
-            for (i=no; i--;) x[i] = y[i];
+         case 1:
+            for (i = no; i--;)
+               x[i] = y[i];
             break;
-         case 2 :
-            for (i=no; i--;)
+         case 2:
+            for (i = no; i--;)
                x[i] = y[i] * 180 / PI;
             break;
-         default :
-            for (i=no; i--;)
+         default:
+            for (i = no; i--;)
                x[i] = y[i] / PI;
             break;
-         }
-      else
+      } else
          switch (otype) {
-         case 1 :
+         case 1:
             break;
-         case 2 :
-            for (i=no; i--;)
+         case 2:
+            for (i = no; i--;)
                x[i] = exp(x[i]);
             break;
-         default :
+         default:
             for (i = no; i--;)
                x[i] *= logk;
             break;
@@ -278,6 +293,6 @@ int main (int argc, char **argv)
 
       fwritef(x, sizeof(*x), no, stdout);
    }
-   
-   return(0);
+
+   return (0);
 }

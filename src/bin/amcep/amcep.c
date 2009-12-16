@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: amcep.c,v 1.21 2008/06/16 05:48:44 heigazen Exp $";
+static char *rcs_id = "$Id: amcep.c,v 1.22 2009/12/16 13:12:26 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -110,29 +110,35 @@ static char *rcs_id = "$Id: amcep.c,v 1.21 2008/06/16 05:48:44 heigazen Exp $";
 #define EPS 0.0
 #define PADEORDER 4
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
-char*cmnd;
+char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - adaptive mel cepstral analysis\n",cmnd);
+   fprintf(stderr, " %s - adaptive mel cepstral analysis\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ pefile ] < stdin > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of mel cepstrum         [%d]\n", ORDER);
-   fprintf(stderr, "       -a a  : all-pass constant             [%g]\n", ALPHA);
-   fprintf(stderr, "       -l l  : leakage factor                [%g]\n", LAMBDA);
+   fprintf(stderr, "       -m m  : order of mel cepstrum         [%d]\n",
+           ORDER);
+   fprintf(stderr, "       -a a  : all-pass constant             [%g]\n",
+           ALPHA);
+   fprintf(stderr, "       -l l  : leakage factor                [%g]\n",
+           LAMBDA);
    fprintf(stderr, "       -t t  : momentum constant             [%g]\n", TAU);
    fprintf(stderr, "       -k k  : step size                     [%g]\n", STEP);
-   fprintf(stderr, "       -p p  : output period of mel cepstrum [%d]\n", PERIOD);
-   fprintf(stderr, "       -s    : output smoothed mel cepstrum  [%s]\n", BOOL[AVEFLAG]);
+   fprintf(stderr, "       -p p  : output period of mel cepstrum [%d]\n",
+           PERIOD);
+   fprintf(stderr, "       -s    : output smoothed mel cepstrum  [%s]\n",
+           BOOL[AVEFLAG]);
    fprintf(stderr, "       -e e  : minimum value for epsilon     [%g]\n", EPS);
-   fprintf(stderr, "       -P P  : order of Pade approximation   [%d]\n", PADEORDER);
+   fprintf(stderr, "       -P P  : order of Pade approximation   [%d]\n",
+           PADEORDER);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdin:\n");
    fprintf(stderr, "       data sequence (%s)\n", FORMAT);
@@ -144,7 +150,7 @@ void usage (int status)
    fprintf(stderr, "       P = 4 or 5\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -152,22 +158,21 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDER, period=PERIOD, pd=PADEORDER, i, j;
-   FILE *fp=stdin, *fpe=NULL;
-   Boolean aveflag=AVEFLAG;
-   double alpha=ALPHA, lambda=LAMBDA, tau=TAU, step=STEP, eps=EPS,
-          *mc, *b, *ep, *e, *bb, *d, *avemc, 
-          x, xx, ll, tt, gg, mu, ttx;
+   int m = ORDER, period = PERIOD, pd = PADEORDER, i, j;
+   FILE *fp = stdin, *fpe = NULL;
+   Boolean aveflag = AVEFLAG;
+   double alpha = ALPHA, lambda = LAMBDA, tau = TAU, step = STEP, eps = EPS,
+       *mc, *b, *ep, *e, *bb, *d, *avemc, x, xx, ll, tt, gg, mu, ttx;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
       if (**++argv == '-') {
-         switch (*(*argv+1)) {
+         switch (*(*argv + 1)) {
          case 'a':
             alpha = atof(*++argv);
             --argc;
@@ -206,35 +211,35 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-         usage(1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else 
+      } else
          fpe = getfp(*argv, "wb");
 
-   if ((pd<4) || (pd>5)) {
-      fprintf(stderr,"%s : Order of Pade approximation should be 4 or 5!\n",cmnd);
-      return(1);
+   if ((pd < 4) || (pd > 5)) {
+      fprintf(stderr, "%s : Order of Pade approximation should be 4 or 5!\n",
+              cmnd);
+      return (1);
    }
 
-   mc = dgetmem(6*(m+1)+3*(pd+1)+pd*(m+2));
-   b  = mc + m + 1;
-   bb = b  + m + 1;
-   e  = bb + m + 1;
-   ep = e  + m + 1;
+   mc = dgetmem(6 * (m + 1) + 3 * (pd + 1) + pd * (m + 2));
+   b = mc + m + 1;
+   bb = b + m + 1;
+   e = bb + m + 1;
+   ep = e + m + 1;
    avemc = ep + m + 1;
-   d = avemc  + m + 1;
+   d = avemc + m + 1;
 
-   j  = period;
+   j = period;
    ll = 1.0 - lambda;
    gg = 1.0;
    tt = 2 * (1.0 - tau);
    step /= (double) m;
    xx = 0.0;
-    
+
    while (freadf(&x, sizeof(x), 1, fp) == 1) {
-      for (i=1; i<=m; i++) 
+      for (i = 1; i <= m; i++)
          bb[i] = -b[i];
 
       x = mlsadf(x, bb, m, alpha, pd, d);
@@ -242,13 +247,13 @@ int main (int argc, char **argv)
       xx = x;
 
       gg = gg * lambda + ll * x * x;
-      gg = (gg<eps) ? eps : gg;
+      gg = (gg < eps) ? eps : gg;
       b[0] = 0.5 * log(gg);
 
       mu = step / gg;
       ttx = tt * x;
 
-      for (i=1; i<=m; i++) {
+      for (i = 1; i <= m; i++) {
          ep[i] = tau * ep[i] - ttx * e[i];
          b[i] -= mu * ep[i];
       }
@@ -256,7 +261,7 @@ int main (int argc, char **argv)
       b2mc(b, mc, m, alpha);
 
       if (aveflag)
-         for (i=0; i<=m; i++)
+         for (i = 0; i <= m; i++)
             avemc[i] += mc[i];
 
       if (fpe != NULL)
@@ -265,15 +270,13 @@ int main (int argc, char **argv)
       if (--j == 0) {
          j = period;
          if (aveflag) {
-            for (i=0; i<=m; i++)
+            for (i = 0; i <= m; i++)
                avemc[i] /= period;
-            fwritef(avemc, sizeof(*avemc), m+1, stdout);
-            fillz(avemc, sizeof(*avemc), m+1);
-         }
-         else
-            fwritef(mc, sizeof(*mc), m+1, stdout);
+            fwritef(avemc, sizeof(*avemc), m + 1, stdout);
+            fillz(avemc, sizeof(*avemc), m + 1);
+         } else
+            fwritef(mc, sizeof(*mc), m + 1, stdout);
       }
    }
-   return(0);
+   return (0);
 }
-

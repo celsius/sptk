@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /************************************************************************
-    $Id: _ulaw.c,v 1.10 2008/06/16 05:48:37 heigazen Exp $
+    $Id: _ulaw.c,v 1.11 2009/12/16 13:12:38 uratec Exp $
 
     u-law coder
 
@@ -79,19 +79,18 @@
 #define abs(x) ((x>=0) ? (x) : (-(x)))
 #define sign(x) ((x>=0) ? 1 : (-1))
 
-double ulaw_c (const double x, const double max, const double mu)
+double ulaw_c(const double x, const double max, const double mu)
 {
    double y;
 
-   y = sign(x) * max * log(1 + mu*abs(x)/max) / log(1 + mu);
-   return(y);
+   y = sign(x) * max * log(1 + mu * abs(x) / max) / log(1 + mu);
+   return (y);
 }
 
-double ulaw_d (const double x, const double max, const double mu)
+double ulaw_d(const double x, const double max, const double mu)
 {
    double y;
 
-   y = sign(x) * max * (pow(1+mu, abs(x)/max) -1) / mu;
-   return(y);
+   y = sign(x) * max * (pow(1 + mu, abs(x) / max) - 1) / mu;
+   return (y);
 }
-

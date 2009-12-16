@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _c2acr.c,v 1.10 2008/06/16 05:48:44 heigazen Exp $
+    $Id: _c2acr.c,v 1.11 2009/12/16 13:12:26 uratec Exp $
 
     Transformation Cepstrum to Autocorrelation
 
@@ -71,34 +71,33 @@
 void c2acr(double *c, const int m1, double *r, const int m2, const int flng)
 {
    int i;
-   static double *x=NULL, *y;
+   static double *x = NULL, *y;
    static int size;
-    
-   if (x==NULL) {
-      x = dgetmem(flng+flng);
+
+   if (x == NULL) {
+      x = dgetmem(flng + flng);
       y = x + flng;
       size = flng;
    }
    if (flng > size) {
       free(x);
-      x = dgetmem(flng+flng);
+      x = dgetmem(flng + flng);
       y = x + flng;
       size = flng;
    }
 
-   movem(c, x, sizeof(*c), m1+1);
-   fillz(&x[m1+1], sizeof(*x), flng-m1-1);
+   movem(c, x, sizeof(*c), m1 + 1);
+   fillz(&x[m1 + 1], sizeof(*x), flng - m1 - 1);
 
    fftr(x, y, flng);
 
-   for (i=0; i<flng; i++)
+   for (i = 0; i < flng; i++)
       x[i] = exp(2.0 * x[i]);
-    
+
    fftr(x, y, flng);
 
-   for (i=0; i<=m2; i++) 
+   for (i = 0; i <= m2; i++)
       r[i] = x[i] / flng;
 
    return;
 }
-

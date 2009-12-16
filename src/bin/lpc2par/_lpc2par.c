@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /***************************************************************
 
-    $Id: _lpc2par.c,v 1.10 2008/06/16 05:48:40 heigazen Exp $
+    $Id: _lpc2par.c,v 1.11 2009/12/16 13:12:33 uratec Exp $
 
     Transformation LPC to PARCOR
 
@@ -68,40 +68,40 @@
 #  include <SPTK.h>
 #endif
 
-int lpc2par (double *a, double *k, const int m)
+int lpc2par(double *a, double *k, const int m)
 {
-   int i, n, flg=0;
+   int i, n, flg = 0;
    double s;
-   static double *kk=NULL, *aa;
+   static double *kk = NULL, *aa;
    static int size;
 
-   if (kk==NULL) {
-      kk = dgetmem(m+m+2);
+   if (kk == NULL) {
+      kk = dgetmem(m + m + 2);
       aa = kk + m + 1;
       size = m;
    }
 
-   if (m>size) {
+   if (m > size) {
       free(kk);
-      kk = dgetmem(m+m+2);
+      kk = dgetmem(m + m + 2);
       aa = kk + m + 1;
       size = m;
    }
 
-   movem(a, aa, sizeof(*aa), m+1);
+   movem(a, aa, sizeof(*aa), m + 1);
 
    kk[0] = aa[0];
-   for (n=m; n>=1; n--) {
+   for (n = m; n >= 1; n--) {
       movem(&aa[1], &kk[1], sizeof(*aa), n);
 
-      if (kk[n]>=1.0 || kk[n]<=-1.0) flg = -1;
+      if (kk[n] >= 1.0 || kk[n] <= -1.0)
+         flg = -1;
 
       s = 1.0 - kk[n] * kk[n];
-      for (i=1; i<n; i++)
-         aa[i] = (kk[i] - kk[n] * kk[n-i]) / s;
+      for (i = 1; i < n; i++)
+         aa[i] = (kk[i] - kk[n] * kk[n - i]) / s;
    }
-   movem(kk, k, sizeof(*kk), m+1);
-   
-   return(flg);
-}
+   movem(kk, k, sizeof(*kk), m + 1);
 
+   return (flg);
+}

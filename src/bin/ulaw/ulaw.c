@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -67,7 +67,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ulaw.c,v 1.18 2008/06/16 05:48:37 heigazen Exp $";
+static char *rcs_id = "$Id: ulaw.c,v 1.19 2009/12/16 13:12:38 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -96,16 +96,16 @@ static char *rcs_id = "$Id: ulaw.c,v 1.18 2008/06/16 05:48:37 heigazen Exp $";
 #define CODER    TR
 #define DECODER  FA
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - u-law PCM\n",cmnd);
+   fprintf(stderr, " %s - u-law PCM\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -121,26 +121,26 @@ void usage (int status)
    fprintf(stderr, "       compressed sequence (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
    double x, y, max = MAXVALUE, mu = MU, atof();
    Boolean decoder = DECODER;
    FILE *fp = stdin;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'v':
             max = atof(*++argv);
             --argc;
@@ -156,25 +156,23 @@ int main (int argc, char **argv)
             decoder = TR;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-            usage (1);
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   if (! decoder)
-      while (freadf(&x, sizeof(x), 1, fp)==1) {
+   if (!decoder)
+      while (freadf(&x, sizeof(x), 1, fp) == 1) {
          y = ulaw_c(x, max, mu);
          fwritef(&y, sizeof(y), 1, stdout);
-      }
-   else
-      while (freadf(&x, sizeof(x), 1, fp)==1) {
+   } else
+      while (freadf(&x, sizeof(x), 1, fp) == 1) {
          y = ulaw_d(x, max, mu);
          fwritef(&y, sizeof(y), 1, stdout);
       }
 
-   return(0);
+   return (0);
 }

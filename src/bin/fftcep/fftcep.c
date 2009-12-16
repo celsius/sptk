@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -71,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftcep.c,v 1.23 2009/04/16 04:55:34 uratec Exp $";
+static char *rcs_id = "$Id: fftcep.c,v 1.24 2009/12/16 13:12:30 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -109,7 +109,7 @@ char *cmnd;
 void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - FFT cepstral analysis\n",cmnd);
+   fprintf(stderr, " %s - FFT cepstral analysis\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -138,17 +138,17 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int  m=ORDER, l=FLNG, itr=MAXITR, i;
-   double ac=ACCELERATION, eps=EPS, *x, *y, *c;
-   FILE *fp=stdin;
+   int m = ORDER, l = FLNG, itr = MAXITR, i;
+   double ac = ACCELERATION, eps = EPS, *x, *y, *c;
+   FILE *fp = stdin;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -172,25 +172,25 @@ int main(int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else
+      } else
          fp = getfp(*argv, "rb");
 
-   x = dgetmem(l+l+m+1);
-   y = x + l; c = y + l;
+   x = dgetmem(l + l + m + 1);
+   y = x + l;
+   c = y + l;
 
-   while (freadf(x, sizeof(*x), l, fp)==l) {
+   while (freadf(x, sizeof(*x), l, fp) == l) {
       fftr(x, y, l);
 
-      for (i=0; i<l; i++)
-         x[i] = log(x[i]*x[i] + y[i]*y[i] + eps);
+      for (i = 0; i < l; i++)
+         x[i] = log(x[i] * x[i] + y[i] * y[i] + eps);
 
       fftcep(x, l, c, m, itr, ac);
 
-      fwritef(c, sizeof(*c), m+1, stdout);
+      fwritef(c, sizeof(*c), m + 1, stdout);
    }
 
    return 0;

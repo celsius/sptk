@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***************************************************************
-    $Id: _mc2b.c,v 1.9 2008/06/16 05:48:38 heigazen Exp $
+    $Id: _mc2b.c,v 1.10 2009/12/16 13:12:34 uratec Exp $
 
     Transform Mel Cepstrum to MLSA Digital Filter Coefficients
 
@@ -64,13 +64,12 @@
 #  include <SPTK.h>
 #endif
 
-void mc2b (double *mc, double *b, int m, const double a)
+void mc2b(double *mc, double *b, int m, const double a)
 {
    b[m] = mc[m];
 
-   for (m--; m>=0; m--)
-      b[m] = mc[m] - a * b[m+1];
+   for (m--; m >= 0; m--)
+      b[m] = mc[m] - a * b[m + 1];
 
    return;
 }
-

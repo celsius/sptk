@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _imsvq.c,v 1.11 2008/06/16 05:48:40 heigazen Exp $
+    $Id: _imsvq.c,v 1.12 2009/12/16 13:12:32 uratec Exp $
 
     Decoder of Multi Stage Vector Quantization
 
@@ -68,17 +68,18 @@
 #  include <SPTK.h>
 #endif
 
-void imsvq (int *index, double *cb, const int l, int *cbsize, const int stage, double *x)
+void imsvq(int *index, double *cb, const int l, int *cbsize, const int stage,
+           double *x)
 {
-   int   i, j;
-   static double *xx=NULL;
+   int i, j;
+   static double *xx = NULL;
    static int size;
 
-   if (xx==NULL) {
+   if (xx == NULL) {
       xx = dgetmem(l);
       size = l;
    }
-   if (size>l) {
+   if (size > l) {
       free(xx);
       xx = dgetmem(l);
       size = l;
@@ -86,10 +87,10 @@ void imsvq (int *index, double *cb, const int l, int *cbsize, const int stage, d
 
    fillz(x, sizeof(*x), l);
 
-   for (i=0; i<stage; i++) {
+   for (i = 0; i < stage; i++) {
       ivq(index[i], cb, l, xx);
 
-      for (j=0; j<l; j++)
+      for (j = 0; j < l; j++)
          x[j] += xx[j];
 
       cb += cbsize[i] * l;
@@ -97,4 +98,3 @@ void imsvq (int *index, double *cb, const int l, int *cbsize, const int stage, d
 
    return;
 }
-

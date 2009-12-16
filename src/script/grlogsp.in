@@ -9,7 +9,7 @@
 #                           Interdisciplinary Graduate School of    #
 #                           Science and Engineering                 #
 #                                                                   #
-#                1996-2008  Nagoya Institute of Technology          #
+#                1996-2009  Nagoya Institute of Technology          #
 #                           Department of Computer Science          #
 #                                                                   #
 # All rights reserved.                                              #
@@ -56,7 +56,7 @@
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: grlogsp.in,v 1.10 2008/06/16 05:47:55 heigazen Exp $'
+set cvsid   = '$Id: grlogsp.in,v 1.11 2009/12/16 13:12:39 uratec Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t

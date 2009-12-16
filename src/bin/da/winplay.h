@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -50,9 +50,9 @@
 *                                                                       *
 *    notice: just for PCM, MONO                                         *
 *                                                                       *
-*************************************************************************/  
+*************************************************************************/
 
-/* $Id: winplay.h,v 1.2 2008/06/16 05:48:46 heigazen Exp $ */
+/* $Id: winplay.h,v 1.3 2009/12/16 13:12:27 uratec Exp $ */
 
 #ifndef __WINPLAY_H__
 #define __WINPLAY_H__
@@ -73,7 +73,7 @@ extern "C" {
             WIN32AUDIO_FAILED    failed to open device
             WIN32AUDIO_NO_ERROR  ok
 */
-int win32_audio_open (int sr, int sb);
+   int win32_audio_open(int sr, int sb);
 
 /*
    play audio data
@@ -84,7 +84,7 @@ int win32_audio_open (int sr, int sb);
             WIN32AUDIO_FAILED    failed to open device
             WIN32AUDIO_NO_ERROR  ok
 */
-int win32_audio_play (short *buffer, int buffer_len); 
+   int win32_audio_play(short *buffer, int buffer_len);
 
 /*
    set volume
@@ -92,18 +92,17 @@ int win32_audio_play (short *buffer, int buffer_len);
    @param [in] vol input volume value (0 ~ 65535)
    @return none
 */
-void win32_audio_set_volume (int vol);
+   void win32_audio_set_volume(int vol);
 
 /*
    close audio device
    
    @param none
    @return none
-*/   
-void win32_audio_close (void);
+*/
+   void win32_audio_close(void);
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* __WINPLAY_H__ */
+#endif                          /* __WINPLAY_H__ */

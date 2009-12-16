@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _glsadf.c,v 1.10 2009/12/16 05:15:57 tatsuyaito Exp $
+    $Id: _glsadf.c,v 1.11 2009/12/16 13:12:32 uratec Exp $
 
     GLSA Digital Filter
 
@@ -80,145 +80,146 @@
 #  include <SPTK.h>
 #endif
 
-// no option
+/* no option */
 
-static double gpoledf (double x, double *c, int m, const double g, double *d)
+static double gpoledf(double x, double *c, int m, const double g, double *d)
 {
-   double y=0.0;
+   double y = 0.0;
 
-   for (m--; m>0; m--) {
-      y -= c[m+1] * d[m];
-      d[m] = d[m-1];
+   for (m--; m > 0; m--) {
+      y -= c[m + 1] * d[m];
+      d[m] = d[m - 1];
    }
    y -= c[1] * d[0];
    y *= g;
    d[0] = (x += y);
 
-   return(x);
+   return (x);
 }
 
-double glsadf (double x, double *c, const int m, const int n, double *d)
+double glsadf(double x, double *c, const int m, const int n, double *d)
 {
    int i;
-        
-     for (i=0; i<n; i++)
-      x = poledf(x, c, m, &d[m*i]);
 
-   return(x);
+   for (i = 0; i < n; i++)
+      x = poledf(x, c, m, &d[m * i]);
+
+   return (x);
 }
 
-double glsadf1 (double x, double *c, const int m, const int n, double *d)
+double glsadf1(double x, double *c, const int m, const int n, double *d)
 {
    int i;
    double gamma;
 
-   gamma = -1 / (double)n;
-    
-   for (i=0; i<n; i++)
-      x = gpoledf(x, c, m, gamma, &d[m*i]);
-    
-   return(x);
+   gamma = -1 / (double) n;
+
+   for (i = 0; i < n; i++)
+      x = gpoledf(x, c, m, gamma, &d[m * i]);
+
+   return (x);
 }
 
-// inverse option 
+/* inverse option */
 
-static double gzerodf (double x, double *c, int m, const double g, double *d)
+static double gzerodf(double x, double *c, int m, const double g, double *d)
 {
-   double   y = 0.0;
+   double y = 0.0;
 
-   for (m--; m>0; m--) {
-      y += c[m+1] * d[m];
-      d[m] = d[m-1];
+   for (m--; m > 0; m--) {
+      y += c[m + 1] * d[m];
+      d[m] = d[m - 1];
    }
    y += c[1] * d[0];
    d[0] = x;
 
    x += y * g;
 
-   return(x);
+   return (x);
 }
 
-double iglsadf (double x, double *c, const int m, const int n, double *d)
+double iglsadf(double x, double *c, const int m, const int n, double *d)
 {
    int i;
-        
-   for (i=0; i<n; i++)
-      x = zerodf1(x, c, m, &d[m*i]);
 
-   return(x);
+   for (i = 0; i < n; i++)
+      x = zerodf1(x, c, m, &d[m * i]);
+
+   return (x);
 }
 
-double iglsadf1 (double x, double *c, const int m, const int n, double *d)
+double iglsadf1(double x, double *c, const int m, const int n, double *d)
 {
    int i;
    double gamma;
 
-   gamma = -1/(double)n;
-    
-   for (i=0; i<n; i++)
-      x = gzerodf(x, c, m, gamma, &d[m*i]);
-    
-   return(x);
+   gamma = -1 / (double) n;
+
+   for (i = 0; i < n; i++)
+      x = gzerodf(x, c, m, gamma, &d[m * i]);
+
+   return (x);
 }
 
-// transpose option
+/* transpose option */
 
-static double glsadfft (double x, double *c, const int m, double *d)
+static double glsadfft(double x, double *c, const int m, double *d)
 {
    int i;
 
    x -= d[0];
    d[m] = c[m] * x;
-   for (i=m-1; i>=1; i--)
+   for (i = m - 1; i >= 1; i--)
       d[i] += c[i] * x;
 
-   for (i=0; i<m; i++)
-      d[i] = d[i+1];
+   for (i = 0; i < m; i++)
+      d[i] = d[i + 1];
 
    return (x);
 }
 
-double glsadft (double x, double *c, const int m, const int n, double *d)
+double glsadft(double x, double *c, const int m, const int n, double *d)
 {
    int i;
 
-   for (i=0; i<n; i++)
-       x = glsadfft(x, c, m, &d[(m+1)*i]);
-   return(x);
+   for (i = 0; i < n; i++)
+      x = glsadfft(x, c, m, &d[(m + 1) * i]);
+   return (x);
 }
 
-static double glsadff1t (double x, double *c, const int m,  const double g, double *d)
+static double glsadff1t(double x, double *c, const int m, const double g,
+                        double *d)
 {
    int i;
 
    x -= d[0] * g;
 
    d[m] = c[m] * x;
-   for (i=m-1; i>=1; i--)
+   for (i = m - 1; i >= 1; i--)
       d[i] += c[i] * x;
 
-   for (i=0; i<m; i++)
-      d[i] = d[i+1];
+   for (i = 0; i < m; i++)
+      d[i] = d[i + 1];
 
    return (x);
 }
 
-double glsadf1t (double x, double *c, const int m, const int n, double *d)
+double glsadf1t(double x, double *c, const int m, const int n, double *d)
 {
    int i;
    double gamma;
 
-   gamma = -1 / (double)n;
-    
-   for (i=0; i<n; i++)
-      x = glsadff1t(x, c, m, gamma, &d[(m+1)*i]);
-    
-   return(x);
+   gamma = -1 / (double) n;
+
+   for (i = 0; i < n; i++)
+      x = glsadff1t(x, c, m, gamma, &d[(m + 1) * i]);
+
+   return (x);
 }
 
-// inverse and transpose
+/* inverse and transpose */
 
-static double iglsadfft (double x, double *c, const int m, double *d)
+static double iglsadfft(double x, double *c, const int m, double *d)
 {
    int i;
    double y;
@@ -226,26 +227,27 @@ static double iglsadfft (double x, double *c, const int m, double *d)
    y = x + d[0];
 
    d[m] = c[m] * x;
-   for (i=m-1; i>=1; i--)
+   for (i = m - 1; i >= 1; i--)
       d[i] += c[i] * x;
 
-   for(i=0; i<m; i++)
-      d[i] = d[i+1];
+   for (i = 0; i < m; i++)
+      d[i] = d[i + 1];
 
    return (y);
 }
 
-double iglsadft (double x, double *c, const int m, const int n, double *d)
+double iglsadft(double x, double *c, const int m, const int n, double *d)
 {
    int i;
-    
-   for (i=0; i<n; i++)
-      x = iglsadfft(x, c, m, &d[i*(m+1)]);
-    
-   return(x);
+
+   for (i = 0; i < n; i++)
+      x = iglsadfft(x, c, m, &d[i * (m + 1)]);
+
+   return (x);
 }
 
-static double iglsadff1t (double x, double *c, const int m, const double g, double *d)
+static double iglsadff1t(double x, double *c, const int m, const double g,
+                         double *d)
 {
    int i;
    double y;
@@ -253,27 +255,24 @@ static double iglsadff1t (double x, double *c, const int m, const double g, doub
    y = x + g * d[0];
 
    d[m] = c[m] * x;
-   for (i=m-1; i>=1; i--)
+   for (i = m - 1; i >= 1; i--)
       d[i] += c[i] * x;
 
-   for (i=0; i<m; i++)
-      d[i] = c[i+1];
+   for (i = 0; i < m; i++)
+      d[i] = c[i + 1];
 
    return (y);
 }
 
-double iglsadf1t (double x, double *c, const int m, const int n, double *d)
+double iglsadf1t(double x, double *c, const int m, const int n, double *d)
 {
    int i;
    double g;
 
-   g = -1.0 / (double)n;
-    
-   for (i=0; i<n; i++)
-      x = iglsadff1t(x, c, m, g, &d[i*(m+1)]);
-    
-   return(x);
+   g = -1.0 / (double) n;
+
+   for (i = 0; i < n; i++)
+      x = iglsadff1t(x, c, m, g, &d[i * (m + 1)]);
+
+   return (x);
 }
-
-
-

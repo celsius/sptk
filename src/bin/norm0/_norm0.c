@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***************************************************************
-    $Id: _norm0.c,v 1.9 2008/06/16 05:48:38 heigazen Exp $
+    $Id: _norm0.c,v 1.10 2009/12/16 13:12:35 uratec Exp $
 
     Normalize coefficients
 
@@ -63,11 +63,11 @@
 #  include <SPTK.h>
 #endif
 
-void norm0 (double *x, double *y, int m)
+void norm0(double *x, double *y, int m)
 {
    y[0] = 1 / x[0];
-   for (; m>=1; m--)
+   for (; m >= 1; m--)
       y[m] = x[m] * y[0];
-      
+
    return;
 }

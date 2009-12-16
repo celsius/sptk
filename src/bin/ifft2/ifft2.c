@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -65,7 +65,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft2.c,v 1.18 2008/06/16 05:48:44 heigazen Exp $";
+static char *rcs_id = "$Id: ifft2.c,v 1.19 2009/12/16 13:12:32 uratec Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -87,7 +87,7 @@ static char *rcs_id = "$Id: ifft2.c,v 1.18 2008/06/16 05:48:44 heigazen Exp $";
 #  include <SPTK.h>
 #endif
 
-static int size=64, outopt=0, out=' ', is_fftr=0;
+static int size = 64, outopt = 0, out = ' ', is_fftr = 0;
 
 /*  Command Name  */
 static char *cmnd;
@@ -123,21 +123,21 @@ int usage(void)
 }
 
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
    FILE *fp;
-   char *s, *infile=NULL, c;
-   int dft (FILE *fp);
- 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   char *s, *infile = NULL, c;
+   int dft(FILE * fp);
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
-   cmnd++;
-   
+      cmnd++;
+
    while (--argc) {
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if ((c == 'l') && (*++s=='\0')) {
+         if ((c == 'l') && (*++s == '\0')) {
             s = *++argv;
             --argc;
          }
@@ -148,11 +148,11 @@ int main (int argc,char *argv[])
          case 't':
          case 'c':
          case 'q':
-            if ((c=='t') || (*++s=='t'))
+            if ((c == 't') || (*++s == 't'))
                outopt = 1;
-            if ((c=='c') || (*s=='c'))
+            if ((c == 'c') || (*s == 'c'))
                outopt = 2;
-            if (c=='q')
+            if (c == 'q')
                outopt = -1;
             break;
          case 'i':
@@ -166,63 +166,61 @@ int main (int argc,char *argv[])
          default:
             usage();
          }
-      } 
-      else if ((*s=='+') && (*(s+1)=='r'))
+      } else if ((*s == '+') && (*(s + 1) == 'r'))
          is_fftr = 1 - is_fftr;
       else
          infile = s;
    }
- 
+
    if (infile) {
       fp = getfp(infile, "rb");
       dft(fp);
       fclose(fp);
-   } 
-   else
+   } else
       dft(stdin);
-   
-   return(0);
+
+   return (0);
 }
 
-int dft (FILE *fp)
+int dft(FILE * fp)
 {
    double *x, *y;
    int size2, nread;
    void trans(double *p);
-   
+
    size2 = size * size;
-   
-   x = dgetmem(2*size2);
+
+   x = dgetmem(2 * size2);
    y = x + size2;
    nread = (is_fftr) ? size2 : 2 * size2;
-   
+
    while (!feof(fp)) {
-      if (freadf(x, sizeof(*x), nread, fp)!=nread)
+      if (freadf(x, sizeof(*x), nread, fp) != nread)
          break;
       if (is_fftr)
-         fillz(y,sizeof(*y), size2 * (sizeof(double) / sizeof(long)));
-   
+         fillz(y, sizeof(*y), size2 * (sizeof(double) / sizeof(long)));
+
       ifft2(x, y, size);
-   
-      if (out!='I') {
+
+      if (out != 'I') {
          if (outopt)
             trans(x);
          else
             fwritef(x, sizeof(*x), size2, stdout);
       }
-      if (out!='R') {
-         if(outopt)
+      if (out != 'R') {
+         if (outopt)
             trans(y);
          else
             fwritef(y, sizeof(*y), size2, stdout);
       }
    }
-   
+
    free(x);
-   return(0);
+   return (0);
 }
 
-void trans (double *p)
+void trans(double *p)
 {
    int k, sizeh, nout;
    double *q;
@@ -230,14 +228,14 @@ void trans (double *p)
    sizeh = size / 2;
    nout = (outopt == 1) ? sizeh : sizeh + 1;
 
-   if (outopt>0)
-      for (q=p+sizeh*size,k=sizeh; --k>=0; q+=size) {
+   if (outopt > 0)
+      for (q = p + sizeh * size, k = sizeh; --k >= 0; q += size) {
          fwritef(q + sizeh, sizeof(*p), sizeh, stdout);
          fwritef(q, sizeof(*p), nout, stdout);
       }
- 
-   for (q=p,k=nout; --k>=0; q+=size) {
-      if (outopt>0)
+
+   for (q = p, k = nout; --k >= 0; q += size) {
+      if (outopt > 0)
          fwritef(q + sizeh, sizeof(*p), sizeh, stdout);
       fwritef(q, sizeof(*p), nout, stdout);
    }

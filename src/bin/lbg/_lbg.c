@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /************************************************************************
 
-    $Id: _lbg.c,v 1.12 2008/06/16 05:48:37 heigazen Exp $
+    $Id: _lbg.c,v 1.13 2009/12/16 13:12:33 uratec Exp $
 
     LBG Algorithm for Vector Qauntizer Design
 
@@ -75,50 +75,51 @@
 #define abs(x) ( (x<0) ? (-(x)) : (x) )
 
 
-void lbg (double *x, const int l, const int tnum, double *icb, int icbsize, double *cb, const int ecbsize, const double delta, const double end)
+void lbg(double *x, const int l, const int tnum, double *icb, int icbsize,
+         double *cb, const int ecbsize, const double delta, const double end)
 {
    int i, j, k, maxindex;
    static int *cntcb, *tindex, size, sizex, sizecb;
    double d0, d1, dl, err;
-   static double *rnd=NULL, *cb1;
+   static double *rnd = NULL, *cb1;
    double *p, *q, *r;
 
-   if (rnd==NULL) {
+   if (rnd == NULL) {
       rnd = dgetmem(l);
-      cb1 = dgetmem(ecbsize*l);
-      tindex = (int *)dgetmem(tnum);
-      cntcb  = (int *)dgetmem(ecbsize);
+      cb1 = dgetmem(ecbsize * l);
+      tindex = (int *) dgetmem(tnum);
+      cntcb = (int *) dgetmem(ecbsize);
       size = l;
       sizex = tnum;
       sizecb = ecbsize;
    }
-   if (l>size) {
+   if (l > size) {
       free(rnd);
       free(cb1);
       rnd = dgetmem(l);
-      cb1 = dgetmem(ecbsize*l);
+      cb1 = dgetmem(ecbsize * l);
       size = l;
    }
-   if (tnum>sizex) {
+   if (tnum > sizex) {
       free(tindex);
-      tindex = (int *)dgetmem(tnum);
+      tindex = (int *) dgetmem(tnum);
       sizex = tnum;
    }
-   if (sizecb>ecbsize) {
+   if (sizecb > ecbsize) {
       free(cb1);
       free(cntcb);
-      cb1 = dgetmem(ecbsize*l);
-      cntcb = (int *)dgetmem(ecbsize);
+      cb1 = dgetmem(ecbsize * l);
+      cntcb = (int *) dgetmem(ecbsize);
    }
 
-   movem(icb, cb, sizeof(*icb), icbsize*l);
+   movem(icb, cb, sizeof(*icb), icbsize * l);
 
-   for ( ; icbsize*2 <= ecbsize; ) {
+   for (; icbsize * 2 <= ecbsize;) {
       q = cb;
-      r = cb + icbsize*l;   /* splitting */
-      for (i=0; i<icbsize; i++) {
+      r = cb + icbsize * l;     /* splitting */
+      for (i = 0; i < icbsize; i++) {
          nrand(rnd, l, i);
-         for (j=0; j<l; j++) {
+         for (j = 0; j < l; j++) {
             dl = delta * rnd[j];
             *r = *q - dl;
             r++;
@@ -129,11 +130,11 @@ void lbg (double *x, const int l, const int tnum, double *icb, int icbsize, doub
       icbsize *= 2;
 
       d0 = MAXVALUE;
-      for ( ;; ) {
-         fillz((double *)cntcb, sizeof(*cntcb), icbsize);
+      for (;;) {
+         fillz((double *) cntcb, sizeof(*cntcb), icbsize);
          d1 = 0.0;
          p = x;
-         for (i=0; i<tnum; i++,p+=l) {
+         for (i = 0; i < tnum; i++, p += l) {
             tindex[i] = vq(p, cb, l, icbsize);
             cntcb[tindex[i]]++;
 
@@ -145,21 +146,23 @@ void lbg (double *x, const int l, const int tnum, double *icb, int icbsize, doub
          d1 /= tnum;
          err = abs((d0 - d1) / d1);
 
-         if (err<end)  break; /* check distortion */
+         if (err < end)
+            break;              /* check distortion */
 
 
          d0 = d1;
-         fillz(cb1, sizeof(*cb), icbsize*l);
+         fillz(cb1, sizeof(*cb), icbsize * l);
 
-         p = x;    /* get new centroid */
-         for (i=0; i<tnum; i++) {
+         p = x;                 /* get new centroid */
+         for (i = 0; i < tnum; i++) {
             q = cb1 + tindex[i] * l;
-            for (j=0; j<l; j++) *q++ += *p++;
+            for (j = 0; j < l; j++)
+               *q++ += *p++;
          }
 
          k = maxindex = 0;
-         for (i=0; i<icbsize; i++)
-            if (cntcb[i]>k) {
+         for (i = 0; i < icbsize; i++)
+            if (cntcb[i] > k) {
                k = cntcb[i];
                maxindex = i;
             }
@@ -167,20 +170,20 @@ void lbg (double *x, const int l, const int tnum, double *icb, int icbsize, doub
 
          q = cb;
          r = cb1;
-         for (i=0; i<icbsize; i++,r+=l,q+=l)
-            if (cntcb[i]>0)
-               for (j=0; j<l; j++)
+         for (i = 0; i < icbsize; i++, r += l, q += l)
+            if (cntcb[i] > 0)
+               for (j = 0; j < l; j++)
                   q[j] = r[j] / (double) cntcb[i];
             else {
                nrand(rnd, l, i);
                p = cb + maxindex * l;
-               for (j=0; j<l; j++)
+               for (j = 0; j < l; j++)
                   q[j] = p[j] + delta * rnd[j];
             }
       }
-      if (icbsize==ecbsize) break;
+      if (icbsize == ecbsize)
+         break;
    }
-   
+
    return;
 }
-

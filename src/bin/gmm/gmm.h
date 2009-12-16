@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -42,8 +42,8 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/* $Id: gmm.h,v 1.1 2008/06/30 09:34:46 heigazen Exp $ */
+/* $Id: gmm.h,v 1.2 2009/12/16 13:12:32 uratec Exp $ */
 
-#define LZERO  (-1.0E10)  /* ~log(0) */
-#define LSMALL (-0.5E10)  /* log values < LSMALL are set to LZERO */
+#define LZERO  (-1.0E10)        /* ~log(0) */
+#define LSMALL (-0.5E10)        /* log values < LSMALL are set to LZERO */
 #define sq(x)  ((x)*(x))

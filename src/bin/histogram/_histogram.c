@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***************************************************************
-  $Id: _histogram.c,v 1.13 2008/06/16 05:48:33 heigazen Exp $
+  $Id: _histogram.c,v 1.14 2009/12/16 13:12:32 uratec Exp $
    histogram
       histogram(x, size, min, max, step, h);
       Naohiro Isshiki      Feb. 1996
@@ -57,29 +57,28 @@
 #  include <SPTK.h>
 #endif
 
-int histogram (double *x, const int size, const double min, const double max, const double step, double *h)
+int histogram(double *x, const int size, const double min, const double max,
+              const double step, double *h)
 {
-   int k, ii, flg=0;
+   int k, ii, flg = 0;
    int jj;
 
-   k = (int)((max - min) / step + 1.0);
+   k = (int) ((max - min) / step + 1.0);
 
    fillz(h, sizeof(*h), k);
 
-   for (ii=0; ii<size; ii++) {
-      if ((x[ii]<min) || (x[ii]>max)) {
+   for (ii = 0; ii < size; ii++) {
+      if ((x[ii] < min) || (x[ii] > max)) {
          flg = 1;
-      }
-      else { 
-         for (jj=0; jj<k; jj++) {
-            if (x[ii] < min + (jj+1) * step) {
-               h[jj]+=1.0;
+      } else {
+         for (jj = 0; jj < k; jj++) {
+            if (x[ii] < min + (jj + 1) * step) {
+               h[jj] += 1.0;
                break;
             }
          }
       }
    }
-   
-   return(flg);
-}
 
+   return (flg);
+}

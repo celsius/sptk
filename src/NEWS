@@ -1,3 +1,14 @@
+Version 3.3:
+ * add 'pca', 'pcap', and 'raw2wav' commands.
+ * add FFT switch to 'dct' command.
+ * add transpose filter to 'glsadf' command.
+ * add inverse filter to 'glsadf', 'lmsadf', and 'mglsadf' commands.
+ * add flooring value for GMM weight to 'gmm' command.
+ * add option to extend the distance between two consecutive LSPs to
+   'lspcheck' command.
+ * remove 'iglsadf' and 'imglsadf' commands.
+ * bug fixes.
+
 Version 3.2:
  * released under the New and Simplified BSD license.
  * add 'gmm', 'delta', and 'dct' commands.

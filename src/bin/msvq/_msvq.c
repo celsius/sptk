@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _msvq.c,v 1.10 2008/06/16 05:48:36 heigazen Exp $
+    $Id: _msvq.c,v 1.11 2009/12/16 13:12:35 uratec Exp $
 
     Multi Stage Vector Quantization
 
@@ -68,18 +68,19 @@
 #  include <SPTK.h>
 #endif
 
-void msvq (double *x, double *cb, const int l, int *cbsize, const int stage, int *index)
+void msvq(double *x, double *cb, const int l, int *cbsize, const int stage,
+          int *index)
 {
    int i, j;
    double *p;
-   static double *xx=NULL;
+   static double *xx = NULL;
    static int size;
 
-   if (xx==NULL) {
+   if (xx == NULL) {
       xx = dgetmem(l);
       size = l;
    }
-   if (size>l) {
+   if (size > l) {
       free(xx);
       xx = dgetmem(l);
       size = l;
@@ -87,14 +88,13 @@ void msvq (double *x, double *cb, const int l, int *cbsize, const int stage, int
 
    movem(x, xx, sizeof(*x), l);
 
-   for (i=0; i<stage; i++) {
+   for (i = 0; i < stage; i++) {
       index[i] = vq(xx, cb, l, cbsize[i]);
 
       p = cb + index[i] * l;
-      for (j=0; j<l; j++)
+      for (j = 0; j < l; j++)
          xx[j] -= p[j];
 
       cb += cbsize[i] * l;
    }
 }
-

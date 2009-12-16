@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _mlsadf.c,v 1.12 2009/12/16 06:39:03 tatsuyaito Exp $
+    $Id: _mlsadf.c,v 1.13 2009/12/16 13:12:35 uratec Exp $
 
     MLSA Digital Filter
 
@@ -69,46 +69,49 @@
 #  include <SPTK.h>
 #endif
 
-static double pade[] = {1.0,
-                        1.0, 0.0,
-                        1.0, 0.0,       0.0,
-                        1.0, 0.0,       0.0,       0.0,
-                        1.0, 0.4999273, 0.1067005, 0.01170221, 0.0005656279,
-                        1.0, 0.4999391, 0.1107098, 0.01369984, 0.0009564853, 0.00003041721
-                       };
+static double pade[] = { 1.0,
+   1.0, 0.0,
+   1.0, 0.0, 0.0,
+   1.0, 0.0, 0.0, 0.0,
+   1.0, 0.4999273, 0.1067005, 0.01170221, 0.0005656279,
+   1.0, 0.4999391, 0.1107098, 0.01369984, 0.0009564853, 0.00003041721
+};
 
 double *ppade;
 
-static double mlsafir (double x, double *b, const int m, const double a, double *d)
+static double mlsafir(double x, double *b, const int m, const double a,
+                      double *d)
 {
    double y = 0.0, aa;
    int i;
 
-   aa = 1 - a*a;
+   aa = 1 - a * a;
 
    d[0] = x;
-   d[1] = aa*d[0] + a*d[1];
+   d[1] = aa * d[0] + a * d[1];
 
-   for (i=2; i<=m; i++) {
-      d[i] = d[i] + a*(d[i+1]-d[i-1]);
-      y += d[i]*b[i];
+   for (i = 2; i <= m; i++) {
+      d[i] = d[i] + a * (d[i + 1] - d[i - 1]);
+      y += d[i] * b[i];
    }
 
-   for (i=m+1; i>1; i--) d[i] = d[i-1];
+   for (i = m + 1; i > 1; i--)
+      d[i] = d[i - 1];
 
    return (y);
 }
 
-static double mlsadf1 (double x, double *b, const int m, const double a, const int pd, double *d)
+static double mlsadf1(double x, double *b, const int m, const double a,
+                      const int pd, double *d)
 {
    double v, out = 0.0, *pt, aa;
    int i;
 
-   aa = 1 - a*a;
-   pt = &d[pd+1];
+   aa = 1 - a * a;
+   pt = &d[pd + 1];
 
-   for (i=pd; i>=1; i--) {
-      d[i] = aa*pt[i-1] + a*d[i];
+   for (i = pd; i >= 1; i--) {
+      d[i] = aa * pt[i - 1] + a * d[i];
       pt[i] = d[i] * b[1];
       v = pt[i] * ppade[i];
 
@@ -119,59 +122,59 @@ static double mlsadf1 (double x, double *b, const int m, const double a, const i
    pt[0] = x;
    out += x;
 
-   return(out);
+   return (out);
 }
 
-static double mlsadf2 (double x, double *b, const int m, const double a, const int pd, double *d)
+static double mlsadf2(double x, double *b, const int m, const double a,
+                      const int pd, double *d)
 {
    double v, out = 0.0, *pt, aa;
    int i;
 
-   aa = 1 - a*a;
-   pt = &d[pd * (m+2)];
+   aa = 1 - a * a;
+   pt = &d[pd * (m + 2)];
 
-   for (i=pd; i>=1; i--) {
-      pt[i] = mlsafir(pt[i-1], b, m, a, &d[(i-1)*(m+2)]);
+   for (i = pd; i >= 1; i--) {
+      pt[i] = mlsafir(pt[i - 1], b, m, a, &d[(i - 1) * (m + 2)]);
       v = pt[i] * ppade[i];
 
-      x  += (1&i) ? v : -v;
+      x += (1 & i) ? v : -v;
       out += v;
    }
 
    pt[0] = x;
-   out  += x;
+   out += x;
 
-   return(out);
+   return (out);
 }
 
-double mlsadf (double x, double *b, const int m, const double a, const int pd, double *d)
+double mlsadf(double x, double *b, const int m, const double a, const int pd,
+              double *d)
 {
-   ppade = &pade[pd*(pd+1) / 2];
+   ppade = &pade[pd * (pd + 1) / 2];
 
    x = mlsadf1(x, b, m, a, pd, d);
-   x = mlsadf2(x, b, m, a, pd, &d[2*(pd+1)]);
+   x = mlsadf2(x, b, m, a, pd, &d[2 * (pd + 1)]);
 
-   return(x);
+   return (x);
 }
 
 
-static double mlsafirt (double x, double *b, const int m, const double a, double *d)
+static double mlsafirt(double x, double *b, const int m, const double a,
+                       double *d)
 {
-  int i;
-  double y=0.0;
+   int i;
+   double y = 0.0;
 
-  y = (1.0 - a * a) * d[0];
-  
-  d[m] = b[m] * x + a * d[m-1];
-  for (i=m-1; i>1; i--)
-    d[i] += b[i] * x + a * (d[i-1] - d[i+1]);
-  d[1] += a * (d[0] - d[2]);
+   y = (1.0 - a * a) * d[0];
 
-  for(i=0; i<m; i++)
-    d[i] = d[i+1];
-  
-  return (y);
+   d[m] = b[m] * x + a * d[m - 1];
+   for (i = m - 1; i > 1; i--)
+      d[i] += b[i] * x + a * (d[i - 1] - d[i + 1]);
+   d[1] += a * (d[0] - d[2]);
+
+   for (i = 0; i < m; i++)
+      d[i] = d[i + 1];
+
+   return (y);
 }
-
-
-

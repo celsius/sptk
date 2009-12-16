@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***************************************************************
-    $Id: _gc2gc.c,v 1.11 2008/06/16 05:48:34 heigazen Exp $
+    $Id: _gc2gc.c,v 1.12 2009/12/16 13:12:31 uratec Exp $
 
     Generalized Cepstral Transformation   
 
@@ -67,42 +67,42 @@
 #  include <SPTK.h>
 #endif
 
-void gc2gc (double *c1, const int m1, const double g1, double *c2, const int m2, const double g2)
+void gc2gc(double *c1, const int m1, const double g1, double *c2, const int m2,
+           const double g2)
 {
    int i, min, k, mk;
    double ss1, ss2, cc;
-   static double *ca=NULL;
+   static double *ca = NULL;
    static int size;
 
-   if (ca==NULL) {
-      ca = dgetmem(m1+1);
+   if (ca == NULL) {
+      ca = dgetmem(m1 + 1);
       size = m1;
    }
-   if (m1>size) {
+   if (m1 > size) {
       free(ca);
-      ca = dgetmem(m1+1);
+      ca = dgetmem(m1 + 1);
       size = m1;
    }
 
-   movem(c1, ca, sizeof(*c1), m1+1);
+   movem(c1, ca, sizeof(*c1), m1 + 1);
 
    c2[0] = ca[0];
-   for (i=1; i<=m2; i++) {
+   for (i = 1; i <= m2; i++) {
       ss1 = ss2 = 0.0;
-      min = (m1<i) ? m1 : i-1;
-      for (k=1; k<=min; k++) {
+      min = (m1 < i) ? m1 : i - 1;
+      for (k = 1; k <= min; k++) {
          mk = i - k;
          cc = ca[k] * c2[mk];
          ss2 += k * cc;
          ss1 += mk * cc;
       }
 
-      if (i<=m1)
-         c2[i] = ca[i] + (g2*ss2 - g1*ss1)/i;
+      if (i <= m1)
+         c2[i] = ca[i] + (g2 * ss2 - g1 * ss1) / i;
       else
-         c2[i] = (g2*ss2 - g1*ss1)/i;
+         c2[i] = (g2 * ss2 - g1 * ss1) / i;
    }
 
    return;
 }
-

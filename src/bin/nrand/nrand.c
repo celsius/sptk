@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -64,7 +64,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nrand.c,v 1.17 2008/06/16 05:48:39 heigazen Exp $";
+static char *rcs_id = "$Id: nrand.c,v 1.18 2009/12/16 13:12:36 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -99,7 +99,7 @@ static char *rcs_id = "$Id: nrand.c,v 1.17 2008/06/16 05:48:39 heigazen Exp $";
 char *cmnd;
 
 
-void usage (void)
+void usage(void)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - generate normal distributed random value\n", cmnd);
@@ -107,11 +107,11 @@ void usage (void)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l  : output length      [%d]\n",LENG);
-   fprintf(stderr, "       -s s  : seed for nrand     [%d]\n",SEED);
-   fprintf(stderr, "       -m m  : mean               [%g]\n",MEAN);
-   fprintf(stderr, "       -v v  : variance           [%g]\n",VAR);
-   fprintf(stderr, "       -d d  : standard deviation [%g]\n",SDEV);
+   fprintf(stderr, "       -l l  : output length      [%d]\n", LENG);
+   fprintf(stderr, "       -s s  : seed for nrand     [%d]\n", SEED);
+   fprintf(stderr, "       -m m  : mean               [%g]\n", MEAN);
+   fprintf(stderr, "       -v v  : variance           [%g]\n", VAR);
+   fprintf(stderr, "       -d d  : standard deviation [%g]\n", SDEV);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       random values (%s)\n", FORMAT);
@@ -119,7 +119,7 @@ void usage (void)
    fprintf(stderr, "       if l<0, generate infinite sequence\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -127,26 +127,26 @@ void usage (void)
 }
 
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
    char *str, flg;
-   int leng=LENG, seed=SEED,  i;
-   long next=SEED;
-   double p,mean=MEAN,sdev=SDEV;
+   int leng = LENG, seed = SEED, i;
+   long next = SEED;
+   double p, mean = MEAN, sdev = SDEV;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
-   while (--argc)  {
-      if (*(str=*++argv)=='-')  {
+   while (--argc) {
+      if (*(str = *++argv) == '-') {
          flg = *++str;
-         if (*++str=='\0')  {
+         if (*++str == '\0') {
             str = *++argv;
             argc--;
          }
-         switch (flg)  {
+         switch (flg) {
          case 'l':
             leng = atoi(str);
             break;
@@ -164,23 +164,24 @@ int main (int argc,char *argv[])
             sdev = atof(str);
             break;
          case 'h':
-         default :
-            usage ();
+         default:
+            usage();
          }
-      }
-      else usage ();
+      } else
+         usage();
    }
 
-   if (seed!=1) next = srnd((unsigned int)seed);
+   if (seed != 1)
+      next = srnd((unsigned int) seed);
 
-   for (i=0;; i++) {
-      p = (double)nrandom(&next);
-      p = mean + sdev*p;
+   for (i = 0;; i++) {
+      p = (double) nrandom(&next);
+      p = mean + sdev * p;
       fwritef(&p, sizeof(p), 1, stdout);
 
-      if (i==leng-1) break;
+      if (i == leng - 1)
+         break;
    }
-   
-   return(0);
-}
 
+   return (0);
+}

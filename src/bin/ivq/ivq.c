@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -63,7 +63,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ivq.c,v 1.17 2008/06/16 05:48:40 heigazen Exp $";
+static char *rcs_id = "$Id: ivq.c,v 1.18 2009/12/16 13:12:33 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -94,16 +94,16 @@ static char *rcs_id = "$Id: ivq.c,v 1.17 2008/06/16 05:48:40 heigazen Exp $";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - decoder of vector quantization \n",cmnd);
+   fprintf(stderr, " %s - decoder of vector quantization \n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] cbfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : length of vector   [%d]\n", LENG);
-   fprintf(stderr, "       -n n  : order of vector    [%d]\n", LENG-1);
+   fprintf(stderr, "       -n n  : order of vector    [%d]\n", LENG - 1);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       index (int)                [stdin]\n");
@@ -113,7 +113,7 @@ void usage (int status)
    fprintf(stderr, "       codebook (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -121,19 +121,19 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int  l=LENG, cbsize=CBSIZE, index;
-   FILE *fp=stdin, *fpcb=NULL;
+   int l = LENG, cbsize = CBSIZE, index;
+   FILE *fp = stdin, *fpcb = NULL;
    double *x, *cb;
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'l':
             l = atoi(*++argv);
             --argc;
@@ -149,36 +149,34 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else if (fpcb==NULL)
+      } else if (fpcb == NULL)
          fpcb = getfp(*argv, "rb");
       else
          fp = getfp(*argv, "rb");
 
-   fseek(fpcb,0,2);
+   fseek(fpcb, 0, 2);
 #ifdef DOUBLE
-   cbsize = ftell(fpcb)/sizeof(double)/l;
-#else 
-   cbsize = ftell(fpcb)/sizeof(float)/l;
-#endif /* DOUBLE */
+   cbsize = ftell(fpcb) / sizeof(double) / l;
+#else
+   cbsize = ftell(fpcb) / sizeof(float) / l;
+#endif                          /* DOUBLE */
    rewind(fpcb);
 
-   x = dgetmem(l+cbsize*l);
+   x = dgetmem(l + cbsize * l);
    cb = x + l;
 
-   if (freadf(cb, sizeof(*cb), cbsize*l, fpcb)!=cbsize*l) {
-      fprintf(stderr,"%s : Codebook size error!\n",cmnd);
-      return(1);
+   if (freadf(cb, sizeof(*cb), cbsize * l, fpcb) != cbsize * l) {
+      fprintf(stderr, "%s : Codebook size error!\n", cmnd);
+      return (1);
    }
 
-   while (freadx(&index, sizeof(index), 1, fp)==1) {
+   while (freadx(&index, sizeof(index), 1, fp) == 1) {
       ivq(index, cb, l, x);
       fwritef(x, sizeof(*x), l, stdout);
    }
-   
-   return(0);
-}
 
+   return (0);
+}

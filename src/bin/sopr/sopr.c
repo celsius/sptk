@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -83,7 +83,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.21 2008/06/16 05:48:36 heigazen Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.22 2009/12/16 13:12:38 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -115,10 +115,10 @@ char *cmnd;
 /* Default Value  */
 #define MEMSIZE  10
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - execute scalar operations\n",cmnd);
+   fprintf(stderr, " %s - execute scalar operations\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -154,7 +154,7 @@ void usage (int status)
    fprintf(stderr, "       data sequence after operations (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -170,24 +170,24 @@ int nopr = 0;
 
 static double mem[MEMSIZE];
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
    FILE *fp;
    char *s, c;
-   char *infile=NULL;
-   int sopr (FILE *fp);
+   char *infile = NULL;
+   int sopr(FILE * fp);
 
-   if ((cmnd=strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
-   optbl = (struct operation *)calloc(sizeof(struct operation),argc);
+   optbl = (struct operation *) calloc(sizeof(struct operation), argc);
 
-   for (; --argc ;) {
-      if (*(s=*++argv)=='-') {
+   for (; --argc;) {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if (islower(c) && *++s=='\0') {
+         if (islower(c) && *++s == '\0') {
             s = *++argv;
             --argc;
          }
@@ -198,28 +198,27 @@ int main (int argc,char *argv[])
          case 's':
          case 'r':
          case 'w':
-            if (strncmp("dB", s, 2)==0)
+            if (strncmp("dB", s, 2) == 0)
                optbl[nopr].d = 20 / log(10.0);
-            else if (strncmp("pi", s, 2)==0)
+            else if (strncmp("pi", s, 2) == 0)
                optbl[nopr].d = PI;
-            else if (strncmp("ln", s, 2)==0)
-               optbl[nopr].d = log(atof(s+2));
-            else if (strncmp("exp", s, 3)==0)
-               optbl[nopr].d = exp(atof(s+3));
-            else if (strncmp("sqrt", s, 4)==0)
-               optbl[nopr].d = sqrt(atof(s+4));
-            else if (*s=='m') {
-               optbl[nopr].d = atoi(s+1);
-               if (c=='a')
+            else if (strncmp("ln", s, 2) == 0)
+               optbl[nopr].d = log(atof(s + 2));
+            else if (strncmp("exp", s, 3) == 0)
+               optbl[nopr].d = exp(atof(s + 3));
+            else if (strncmp("sqrt", s, 4) == 0)
+               optbl[nopr].d = sqrt(atof(s + 4));
+            else if (*s == 'm') {
+               optbl[nopr].d = atoi(s + 1);
+               if (c == 'a')
                   c = '+';
-               else if (c=='d')
+               else if (c == 'd')
                   c = '/';
-               else if (c=='m')
+               else if (c == 'm')
                   c = '*';
-               else if (c=='s')
+               else if (c == 's')
                   c = '-';
-            }
-            else
+            } else
                optbl[nopr].d = atof(s);
          case 'A':
          case 'C':
@@ -232,42 +231,41 @@ int main (int argc,char *argv[])
          case 'S':
          case 'T':
          case 'U':
-            if ((c=='A') || (c=='C') || (c=='L') ||
-                  (c=='P') || (c=='S'))
+            if ((c == 'A') || (c == 'C') || (c == 'L') ||
+                (c == 'P') || (c == 'S'))
                strncpy(optbl[nopr].op, s, 4);
             else
                optbl[nopr].op[0] = c;
             ++nopr;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, c);
-            usage (1);
+            usage(1);
          }
-      }
-      else
+      } else
          infile = s;
    }
 
    if (infile) {
       fp = getfp(infile, "rb");
       sopr(fp);
-   }
-   else
+   } else
       sopr(stdin);
 
-   return(0);
+   return (0);
 }
 
-int sopr (FILE *fp)
+int sopr(FILE * fp)
 {
    double x, y;
    int k, i;
 
-   while (freadf(&x, sizeof(x), 1, fp)==1) {
-      for (k=0; k<MEMSIZE; ++k) mem[k] = 0;
-      for (k=0; k<nopr; ++k) {
+   while (freadf(&x, sizeof(x), 1, fp) == 1) {
+      for (k = 0; k < MEMSIZE; ++k)
+         mem[k] = 0;
+      for (k = 0; k < nopr; ++k) {
          y = optbl[k].d;
          switch (optbl[k].op[0]) {
          case 'r':
@@ -301,25 +299,24 @@ int sopr (FILE *fp)
             x /= y;
             break;
          case 'A':
-            if (optbl[k].op[1]=='T')
+            if (optbl[k].op[1] == 'T')
                x = atan(x);
-            else
-               if (x<0) x = -x;
+            else if (x < 0)
+               x = -x;
             break;
          case 'C':
-            if (optbl[k].op[1]=='L') {
-               if (x<0)
+            if (optbl[k].op[1] == 'L') {
+               if (x < 0)
                   x = 0;
-            }
-            else
+            } else
                x = cos(x);
             break;
          case 'I':
             x = 1 / x;
             break;
          case 'P':
-            if (optbl[k].op[1]=='O')
-               x = pow(10.0,x);
+            if (optbl[k].op[1] == 'O')
+               x = pow(10.0, x);
             else
                x *= x;
             break;
@@ -327,7 +324,7 @@ int sopr (FILE *fp)
             x = sqrt(x);
             break;
          case 'S':
-            if (optbl[k].op[1]=='Q')
+            if (optbl[k].op[1] == 'Q')
                x = sqrt(x);
             else
                x = sin(x);
@@ -336,13 +333,13 @@ int sopr (FILE *fp)
             x = exp(x);
             break;
          case 'L':
-            if (optbl[k].op[3]=='1')
+            if (optbl[k].op[3] == '1')
                x = log10(x);
             else
                x = log(x);
             break;
          case 'F':
-            if (x<0)
+            if (x < 0)
                i = x - 0.5;
             else
                i = x + 0.5;
@@ -352,7 +349,7 @@ int sopr (FILE *fp)
             x = tan(x);
             break;
          case 'U':
-            if (x<0)
+            if (x < 0)
                x = 0;
             else
                x = 1;
@@ -362,5 +359,5 @@ int sopr (FILE *fp)
       }
       fwritef(&x, sizeof(x), 1, stdout);
    }
-   return(0);
+   return (0);
 }

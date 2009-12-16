@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***************************************************************
-    $Id: _rmse.c,v 1.11 2008/06/16 05:48:39 heigazen Exp $
+    $Id: _rmse.c,v 1.12 2009/12/16 13:12:37 uratec Exp $
 
     Calculation of Root Mean Squared Error
 
@@ -66,17 +66,16 @@
 #  include <SPTK.h>
 #endif
 
-double rmse (double *x, double *y, const int n)
+double rmse(double *x, double *y, const int n)
 {
    int i;
    double sub, sum;
 
    sum = 0.0;
-   for (i=0; i<n; i++) {
+   for (i = 0; i < n; i++) {
       sub = x[i] - y[i];
       sum += sub * sub;
    }
 
-   return(sqrt(sum/n));
+   return (sqrt(sum / n));
 }
-

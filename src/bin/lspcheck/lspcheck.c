@@ -74,7 +74,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lspcheck.c,v 1.20 2009/10/28 11:11:35 senzaimin Exp $";
+static char *rcs_id =
+    "$Id: lspcheck.c,v 1.21 2009/12/16 13:12:34 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -106,155 +107,157 @@ static char *rcs_id = "$Id: lspcheck.c,v 1.20 2009/10/28 11:11:35 senzaimin Exp 
 #define GAIN  TR
 #define ALPHA 0.0001
 
-char *BOOL[] = {"FALSE", "TRUE"};
+char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
-  fprintf(stderr, "\n");
-  fprintf(stderr, " %s - check stability and rearrange LSP\n",cmnd);
-  fprintf(stderr, "\n");
-  fprintf(stderr, "  usage:\n");
-  fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
-  fprintf(stderr, "  options:\n");
-  fprintf(stderr, "       -m m  : order of LPC        [%d]\n", ORDER);
-  fprintf(stderr, "       -s s  : sampling frequency  [%d]\n", SAMPLING);
-  fprintf(stderr, "       -k    : input & output gain [%s]\n", BOOL[GAIN]);
-  fprintf(stderr, "       -i i  : input format        [%d]\n", ITYPE);
-  fprintf(stderr, "       -o o  : output format       [i]\n");
-  fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
-  fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
-  fprintf(stderr, "                 2 (frequency (kHz))\n");
-  fprintf(stderr, "                 3 (frequency (Hz))\n");
-  fprintf(stderr, "       -r r  : rearrange LSP       [%s]\n", BOOL[ARRANGE]);
-  fprintf(stderr, "               check the distance between two consecutive LSPs\n");
-  fprintf(stderr, "               and extend the distance (if it is smaller than [r]*pi/m)\n");
-  fprintf(stderr, "               s.t. (0 < [r] < 1)\n");
-  fprintf(stderr, "       -h    : print this message\n");
-  fprintf(stderr, "  infile:\n");
-  fprintf(stderr, "       LSP (%s)                 [stdin]\n", FORMAT);
-  fprintf(stderr, "  stdout:\n");
-  fprintf(stderr, "       frame number of irregular LSP or\n");
-  fprintf(stderr, "       rearranged LSP (%s) if -r option is specified\n", FORMAT);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " %s - check stability and rearrange LSP\n", cmnd);
+   fprintf(stderr, "\n");
+   fprintf(stderr, "  usage:\n");
+   fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -m m  : order of LPC        [%d]\n", ORDER);
+   fprintf(stderr, "       -s s  : sampling frequency  [%d]\n", SAMPLING);
+   fprintf(stderr, "       -k    : input & output gain [%s]\n", BOOL[GAIN]);
+   fprintf(stderr, "       -i i  : input format        [%d]\n", ITYPE);
+   fprintf(stderr, "       -o o  : output format       [i]\n");
+   fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
+   fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
+   fprintf(stderr, "                 2 (frequency (kHz))\n");
+   fprintf(stderr, "                 3 (frequency (Hz))\n");
+   fprintf(stderr, "       -r r  : rearrange LSP       [%s]\n", BOOL[ARRANGE]);
+   fprintf(stderr,
+           "               check the distance between two consecutive LSPs\n");
+   fprintf(stderr,
+           "               and extend the distance (if it is smaller than [r]*pi/m)\n");
+   fprintf(stderr, "               s.t. (0 < [r] < 1)\n");
+   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "  infile:\n");
+   fprintf(stderr, "       LSP (%s)                 [stdin]\n", FORMAT);
+   fprintf(stderr, "  stdout:\n");
+   fprintf(stderr, "       frame number of irregular LSP or\n");
+   fprintf(stderr, "       rearranged LSP (%s) if -r option is specified\n",
+           FORMAT);
 #ifdef PACKAGE_VERSION
-  fprintf(stderr, "\n");
-  fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
-  fprintf(stderr, " CVS Info: %s", rcs_id);
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
-  fprintf(stderr, "\n");
-  exit(status);
+   fprintf(stderr, "\n");
+   exit(status);
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-  int m=ORDER, sampling=SAMPLING, itype=ITYPE, otype=OTYPE, i, num;
-  Boolean arrange=ARRANGE, gain=GAIN;
-  FILE *fp=stdin;
-  double *lsp, *lsp1, alpha=ALPHA;
+   int m = ORDER, sampling = SAMPLING, itype = ITYPE, otype = OTYPE, i, num;
+   Boolean arrange = ARRANGE, gain = GAIN;
+   FILE *fp = stdin;
+   double *lsp, *lsp1, alpha = ALPHA;
 
 
-  if ((cmnd=strrchr(argv[0], '/'))==NULL)
-    cmnd = argv[0];
-  else
-    cmnd++;
-  while (--argc)
-    if (**++argv=='-') {
-      switch (*(*argv+1)) {
-      case 'm':
-	m = atoi(*++argv);
-	--argc;
-	break;
-      case 's':
-	sampling = atoi(*++argv);
-	--argc;
-	break;
-      case 'i':
-	itype = atoi(*++argv);
-	--argc;
-	break;
-      case 'o':
-	otype = atoi(*++argv);
-	--argc;
-	break;
-      case 'r':
-	alpha = atof(*++argv);
-	if (alpha <= 0 || alpha >= 1){
-	  fprintf(stderr, "%s : Invalid option 'r'!\n", cmnd);
-	  usage (0);
-	}
-	--argc;
-	arrange = 1 - arrange;
-	break;
-      case 'k':
-	gain = 1 - gain;
-	break;
-      case 'h':
-	usage (0);
-      default:
-	fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
-	usage (1);
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
+      cmnd = argv[0];
+   else
+      cmnd++;
+   while (--argc)
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
+         case 'm':
+            m = atoi(*++argv);
+            --argc;
+            break;
+         case 's':
+            sampling = atoi(*++argv);
+            --argc;
+            break;
+         case 'i':
+            itype = atoi(*++argv);
+            --argc;
+            break;
+         case 'o':
+            otype = atoi(*++argv);
+            --argc;
+            break;
+         case 'r':
+            alpha = atof(*++argv);
+            if (alpha <= 0 || alpha >= 1) {
+               fprintf(stderr, "%s : Invalid option 'r'!\n", cmnd);
+               usage(0);
+            }
+            --argc;
+            arrange = 1 - arrange;
+            break;
+         case 'k':
+            gain = 1 - gain;
+            break;
+         case 'h':
+            usage(0);
+         default:
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            usage(1);
+         }
+      } else {
+         fp = getfp(*argv, "rb");
       }
-    }
-    else{
-      fp = getfp(*argv, "rb");
-    }
-  if (otype<0)
-    otype = itype;
+   if (otype < 0)
+      otype = itype;
 
-  lsp = dgetmem(m+m+gain);
-  lsp1 = lsp + m + gain;
+   lsp = dgetmem(m + m + gain);
+   lsp1 = lsp + m + gain;
 
 
-  num = 0;
+   num = 0;
 
 
-  while (freadf(lsp, sizeof(*lsp), m+gain, fp)==m+gain) {
-    if (itype==0)
-      for (i=gain; i<m+gain; i++)
-	lsp1[i] = lsp[i] / PI2;
-    else if (itype==1)
-      for (i=gain; i<m+gain; i++)
-	lsp1[i] = lsp[i];
-    else if (itype==2 || itype ==3)
-      for (i=gain; i<m+gain; i++)
-	lsp1[i] = lsp[i] / sampling;
+   while (freadf(lsp, sizeof(*lsp), m + gain, fp) == m + gain) {
+      if (itype == 0)
+         for (i = gain; i < m + gain; i++)
+            lsp1[i] = lsp[i] / PI2;
+      else if (itype == 1)
+         for (i = gain; i < m + gain; i++)
+            lsp1[i] = lsp[i];
+      else if (itype == 2 || itype == 3)
+         for (i = gain; i < m + gain; i++)
+            lsp1[i] = lsp[i] / sampling;
 
-    if (itype==3)
-      for (i=gain; i<m+gain; i++)
-	lsp1[i] = lsp[i] / 1000;
+      if (itype == 3)
+         for (i = gain; i < m + gain; i++)
+            lsp1[i] = lsp[i] / 1000;
 
-    if (lspcheck(lsp1+gain, m)==-1){
-      if (!arrange){
-	fprintf(stderr, "[ unstable frame number : %d ]\n",num);
-	for (i=0; i<m+gain; i++)
-	  fprintf(stderr, "%f\n",lsp[i]);
-	fprintf(stderr, "\n");
+      if (lspcheck(lsp1 + gain, m) == -1) {
+         if (!arrange) {
+            fprintf(stderr, "[ unstable frame number : %d ]\n", num);
+            for (i = 0; i < m + gain; i++)
+               fprintf(stderr, "%f\n", lsp[i]);
+            fprintf(stderr, "\n");
+         }
       }
-    }
-    if(arrange)
-      lsparrange(lsp1+gain, m, alpha, itype, sampling);
+      if (arrange)
+         lsparrange(lsp1 + gain, m, alpha, itype, sampling);
 
-    if (otype==0)
-      for (i=gain; i<m+gain; i++)
-	lsp1[i] *= PI2;
-    else if (otype==2 || otype==3)
-      for (i=gain; i<m+gain; i++)
-	lsp1[i] *= sampling;
+      if (otype == 0)
+         for (i = gain; i < m + gain; i++)
+            lsp1[i] *= PI2;
+      else if (otype == 2 || otype == 3)
+         for (i = gain; i < m + gain; i++)
+            lsp1[i] *= sampling;
 
-    if (otype==3)
-      for (i=gain; i<m+gain; i++)
-	lsp1[i] *= 1000;
+      if (otype == 3)
+         for (i = gain; i < m + gain; i++)
+            lsp1[i] *= 1000;
 
-    if(gain==1)
-      lsp1[0]=lsp[0];
+      if (gain == 1)
+         lsp1[0] = lsp[0];
 
-    fwritef(lsp1, sizeof(*lsp1), m+gain, stdout);
-    num++;
-  }
-  putchar('\n');   
-  return(0);
+      fwritef(lsp1, sizeof(*lsp1), m + gain, stdout);
+      num++;
+   }
+   putchar('\n');
+   return (0);
 }

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -61,7 +61,8 @@
 *       Note that double precision FFT is used.                         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.20 2008/06/16 05:48:38 heigazen Exp $";
+static char *rcs_id =
+    "$Id: grpdelay.c,v 1.21 2009/12/16 13:12:32 uratec Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -91,7 +92,7 @@ static char *rcs_id = "$Id: grpdelay.c,v 1.20 2008/06/16 05:48:38 heigazen Exp $
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
    fprintf(stderr, " %s - group delay of digital filter\n", cmnd);
@@ -117,22 +118,22 @@ void usage (int status)
 }
 
 
-int main (int argc,char *argv[])
+int main(int argc, char *argv[])
 {
    FILE *fp;
-   char *s, *infile=NULL,c;
-   int size=SIZE, nd=-1, is_arma=AMRA;
-   double *x,*d;   
+   char *s, *infile = NULL, c;
+   int size = SIZE, nd = -1, is_arma = AMRA;
+   double *x, *d;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-      
+
    while (--argc) {
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if ((c!='a') && (*++s=='\0')) {
+         if ((c != 'a') && (*++s == '\0')) {
             s = *++argv;
             --argc;
          }
@@ -152,33 +153,33 @@ int main (int argc,char *argv[])
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, c);
             break;
          }
-      }
-      else
+      } else
          infile = s;
    }
 
-   if (nd==-1) nd = size;
-   if (nd>size) {
-      fprintf(stderr, "%s : Order of sequence %d should be less than the FFT size %d!\n", cmnd, nd, size);
-      return(1);
+   if (nd == -1)
+      nd = size;
+   if (nd > size) {
+      fprintf(stderr,
+              "%s : Order of sequence %d should be less than the FFT size %d!\n",
+              cmnd, nd, size);
+      return (1);
    }
-   
+
    if (infile) {
       fp = getfp(infile, "rb");
-   }
-   else
+   } else
       fp = stdin;
 
-   x =dgetmem(2 * size);
+   x = dgetmem(2 * size);
    d = x + size;
    while (!feof(fp)) {
       fillz(x, size, sizeof(*x));
-      if (freadf(x, sizeof(*x), nd, fp)!=nd)
+      if (freadf(x, sizeof(*x), nd, fp) != nd)
          break;
-      grpdelay(x,d,size,is_arma);
-      fwritef(d, sizeof(*x), size/2 + 1, stdout);
+      grpdelay(x, d, size, is_arma);
+      fwritef(d, sizeof(*x), size / 2 + 1, stdout);
    }
-   
+
    return 0;
 }
-

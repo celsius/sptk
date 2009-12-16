@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /*****************************************************************
-*  $Id: _ifft.c,v 1.14 2008/06/16 05:48:33 heigazen Exp $         *
+*  $Id: _ifft.c,v 1.15 2009/12/16 13:12:32 uratec Exp $         *
 *  NAME:                                                         *
 *      ifft - Inverse Fast Fourier Transform                     *   
 *  SYNOPSIS:                                                     *
@@ -62,18 +62,17 @@
 #  include <SPTK.h>
 #endif
 
-int ifft (double *x, double *y, const int m)
+int ifft(double *x, double *y, const int m)
 {
    int i;
 
-   if (fft(y, x, m)==-1)
-      return(-1);
+   if (fft(y, x, m) == -1)
+      return (-1);
 
-   for (i=m; --i>=0; ++x, ++y) {
-      *x /= m; 
+   for (i = m; --i >= 0; ++x, ++y) {
+      *x /= m;
       *y /= m;
    }
 
-   return(0);
+   return (0);
 }
-

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /****************************************************************
-  $Id: _nrand.c,v 1.10 2008/06/16 05:48:39 heigazen Exp $
+  $Id: _nrand.c,v 1.11 2009/12/16 13:12:36 uratec Exp $
 
     Generate Normal Distributed Random Value
         nrand(p, leng, seed)
@@ -66,53 +66,51 @@
 #define RAND_MAX 32767
 
 
-static double rnd (unsigned long *next)
+static double rnd(unsigned long *next)
 {
    double r;
 
    *next = *next * 1103515245L + 12345;
    r = (*next / 65536L) % 32768L;
 
-   return(r/RAND_MAX);
+   return (r / RAND_MAX);
 }
 
-int nrand (double *p, const int leng, const int seed)
+int nrand(double *p, const int leng, const int seed)
 {
    int i;
    unsigned long next;
 
-   if (seed!=1)
-      next = srnd((unsigned int)seed);
-   for (i=0; i<leng; i++)
-      p[i] = (double)nrandom(&next);
+   if (seed != 1)
+      next = srnd((unsigned int) seed);
+   for (i = 0; i < leng; i++)
+      p[i] = (double) nrandom(&next);
 
-   return(0);
+   return (0);
 }
 
-double nrandom (unsigned long *next)
+double nrandom(unsigned long *next)
 {
-   static int sw=0;
+   static int sw = 0;
    static double r1, r2, s;
 
-   if (sw==0)  {
+   if (sw == 0) {
       sw = 1;
-      do  {
+      do {
          r1 = 2 * rnd(next) - 1;
          r2 = 2 * rnd(next) - 1;
          s = r1 * r1 + r2 * r2;
       }
-      while (s>1 || s==0);
+      while (s > 1 || s == 0);
       s = sqrt(-2 * log(s) / s);
-      return (r1*s);
-   }
-   else  {
+      return (r1 * s);
+   } else {
       sw = 0;
-      return(r2*s);
+      return (r2 * s);
    }
 }
 
-unsigned long srnd (const unsigned int seed)
+unsigned long srnd(const unsigned int seed)
 {
-   return(seed);
+   return (seed);
 }
-

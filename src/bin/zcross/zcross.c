@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -58,7 +58,7 @@
 *               input is assumed to be real                             *
 ************************************************************************/
 
-static char *rcs_id = "$Id: zcross.c,v 1.21 2008/06/16 05:48:46 heigazen Exp $";
+static char *rcs_id = "$Id: zcross.c,v 1.22 2009/12/16 13:12:39 uratec Exp $";
 
 
 /* Standard C Libraries */
@@ -88,7 +88,7 @@ static char *rcs_id = "$Id: zcross.c,v 1.21 2008/06/16 05:48:46 heigazen Exp $";
 /* Command Name  */
 char *cmnd;
 
-void usage (status)
+void usage(status)
 int status;
 {
    fprintf(stderr, "\n");
@@ -97,7 +97,7 @@ int status;
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l  : frame length               [%d]\n",FLENG);
+   fprintf(stderr, "       -l l  : frame length               [%d]\n", FLENG);
    fprintf(stderr, "       -n    : normalized by frame length [FALSE]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -106,14 +106,14 @@ int status;
    fprintf(stderr, "       zero cross rate (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);
 }
 
-int main (int argc,char **argv)
+int main(int argc, char **argv)
 {
 
    FILE *fp = stdin;
@@ -123,15 +123,15 @@ int main (int argc,char **argv)
    double z;
    Boolean norm = NORM;
 
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
 
    while (--argc) {
-      if (*(s = *++argv)=='-') {
+      if (*(s = *++argv) == '-') {
          c = *++s;
-         if (c!='n' && *++s=='\0') {
+         if (c != 'n' && *++s == '\0') {
             s = *++argv;
             --argc;
          }
@@ -143,23 +143,22 @@ int main (int argc,char **argv)
             norm = 1 - norm;
             break;
          case 'h':
-            usage (0);
+            usage(0);
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, c);
-            usage (1);
+            usage(1);
             break;
          }
-      }
-      else
+      } else
          infile = s;
    }
    if (infile)
-      fp = getfp(infile,"rb");
+      fp = getfp(infile, "rb");
 
    x = dgetmem(flng);
-   while (freadf(x, sizeof(*x), flng, fp)==flng) {
+   while (freadf(x, sizeof(*x), flng, fp) == flng) {
       z = zcross(x, flng, norm);
       fwritef(&z, sizeof(z), 1, stdout);
    }
-   return(0);
+   return (0);
 }

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2008  Nagoya Institute of Technology          */
+/*                1996-2009  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: c2acr.c,v 1.21 2008/06/16 05:48:44 heigazen Exp $";
+static char *rcs_id = "$Id: c2acr.c,v 1.22 2009/12/16 13:12:26 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -98,10 +98,10 @@ static char *rcs_id = "$Id: c2acr.c,v 1.21 2008/06/16 05:48:44 heigazen Exp $";
 char *cmnd;
 
 
-void usage (int status)
+void usage(int status)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - transform cepstrum to autocorrelation\n",cmnd);
+   fprintf(stderr, " %s - transform cepstrum to autocorrelation\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
@@ -116,7 +116,7 @@ void usage (int status)
    fprintf(stderr, "       autocorrelation (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
-   fprintf(stderr, " SPTK: version %s\n",PACKAGE_VERSION);
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
    fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
@@ -124,19 +124,19 @@ void usage (int status)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-   int m=ORDERC, n=ORDERR, l=FLENG;
+   int m = ORDERC, n = ORDERR, l = FLENG;
    FILE *fp = stdin;
    double *c, *r;
-    
-   if ((cmnd = strrchr(argv[0], '/'))==NULL)
+
+   if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
    while (--argc)
-      if (**++argv=='-') {
-         switch (*(*argv+1)) {
+      if (**++argv == '-') {
+         switch (*(*argv + 1)) {
          case 'm':
             m = atoi(*++argv);
             --argc;
@@ -152,20 +152,19 @@ int main (int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv+1));
+            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      }
-      else 
+      } else
          fp = getfp(*argv, "rb");
 
-   c = dgetmem(m+n+2);
+   c = dgetmem(m + n + 2);
    r = c + m + 1;
 
-   while (freadf(c, sizeof(*c), m+1, fp)==m+1) {
+   while (freadf(c, sizeof(*c), m + 1, fp) == m + 1) {
       c2acr(c, m, r, n, l);
-      fwritef(r, sizeof(*r), n+1, stdout);
+      fwritef(r, sizeof(*r), n + 1, stdout);
    }
-   
-   return(0);
+
+   return (0);
 }

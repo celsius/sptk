@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _lspcheck.c,v 1.9 2009/10/28 11:15:21 senzaimin Exp $
+    $Id: _lspcheck.c,v 1.10 2009/12/16 13:12:34 uratec Exp $
 
     Check order of LSP
 
@@ -69,26 +69,26 @@
 #define MIN (1.0E-15)
 #define TH 100
 
-int lspcheck (double *lsp, const int ord)
+int lspcheck(double *lsp, const int ord)
 {
    int i;
 
-   if ((lsp[0]<=0.0) || (lsp[0]>=0.5))
-      return(-1);
+   if ((lsp[0] <= 0.0) || (lsp[0] >= 0.5))
+      return (-1);
 
-   for (i=1; i<ord; i++) {
-      if (lsp[i]<=lsp[i-1])
-         return(-1);
-      if ((lsp[i]<=0.0) || (lsp[i]>=0.5))
-         return(-1);
+   for (i = 1; i < ord; i++) {
+      if (lsp[i] <= lsp[i - 1])
+         return (-1);
+      if ((lsp[i] <= 0.0) || (lsp[i] >= 0.5))
+         return (-1);
    }
-   
-   return(0);
+
+   return (0);
 }
 
 /****************************************************************
 
-    $Id: _lspcheck.c,v 1.9 2009/10/28 11:15:21 senzaimin Exp $
+    $Id: _lspcheck.c,v 1.10 2009/12/16 13:12:34 uratec Exp $
 
     Rearrangement of LSP
 
@@ -102,70 +102,73 @@ int lspcheck (double *lsp, const int ord)
 
 *****************************************************************/
 
-void lsparrange (double *lsp, const int ord, double alpha, int itype, int sampling)
+void lsparrange(double *lsp, const int ord, double alpha, int itype,
+                int sampling)
 {
-  int i, count=0, flag;
-  double tmp;
-  double min=alpha*PI/ord;
+   int i, count = 0, flag;
+   double tmp;
+   double min = alpha * PI / ord;
 
 
-  if (itype==0)
-    min /= PI2;
-  else if (itype==2 || itype==3)
-    min /= sampling;
-  if (itype==3)
-    min /= 1000;
+   if (itype == 0)
+      min /= PI2;
+   else if (itype == 2 || itype == 3)
+      min /= sampling;
+   if (itype == 3)
+      min /= 1000;
 
 
 
-  /* check out of range */
-  for (i=0; i<ord; i++) {
-    if (lsp[i]<0.0)
-      lsp[i] = -lsp[i];
-    if (lsp[i]>0.5)
-      lsp[i] = 1.0 - lsp[i];
-  }
-  
-  /* check unmonotonic */
-  for (;;) {
-    flag = 0;
-    for (i=1; i<ord; i++)
-      if (lsp[i]<lsp[i-1]) {
-	tmp = lsp[i];
-	lsp[i] = lsp[i-1];
-	lsp[i-1] = tmp;
-	flag = 1;
-      }
-    if (!flag) break;
-  }
+   /* check out of range */
+   for (i = 0; i < ord; i++) {
+      if (lsp[i] < 0.0)
+         lsp[i] = -lsp[i];
+      if (lsp[i] > 0.5)
+         lsp[i] = 1.0 - lsp[i];
+   }
 
-
-  /* check distance between two consecutive LSPs */
-  for (;;) {
-    if (count++ >= TH)
-      break;
-    flag = 0;
-    for (i=1;i<ord;i++) {
-      tmp = lsp[i] - lsp[i-1];
-      if (min - tmp > MIN) {
-	lsp[i-1] -= (min - tmp) / 2;
-	lsp[i] += (min - tmp) / 2;
-	flag = 1;
-      }
-    }
-    if (lsp[0]<(min/2.0)) {
-      tmp = (lsp[ord-1] - (min / 2.0)) / (lsp[ord-1] - lsp[0]);
-      for (i=0;i<ord-1;i++)
-	lsp[i] = lsp[i] * tmp + lsp[ord-1] * (1 - tmp);
-      flag = 1;
-    }
-    if (lsp[ord-1] + (min / 2.0) > 0.5) {
-      tmp = (0.5 - (min / 2.0) - lsp[0]) / (lsp[ord-1] - lsp[0]);
+   /* check unmonotonic */
+   for (;;) {
+      flag = 0;
       for (i = 1; i < ord; i++)
-	lsp[i] = lsp[i] * tmp + lsp[0] * (1 - tmp);
-      flag = 1;
-    }
-    if (!flag) break;
-  }
-  return;
+         if (lsp[i] < lsp[i - 1]) {
+            tmp = lsp[i];
+            lsp[i] = lsp[i - 1];
+            lsp[i - 1] = tmp;
+            flag = 1;
+         }
+      if (!flag)
+         break;
+   }
+
+
+   /* check distance between two consecutive LSPs */
+   for (;;) {
+      if (count++ >= TH)
+         break;
+      flag = 0;
+      for (i = 1; i < ord; i++) {
+         tmp = lsp[i] - lsp[i - 1];
+         if (min - tmp > MIN) {
+            lsp[i - 1] -= (min - tmp) / 2;
+            lsp[i] += (min - tmp) / 2;
+            flag = 1;
+         }
+      }
+      if (lsp[0] < (min / 2.0)) {
+         tmp = (lsp[ord - 1] - (min / 2.0)) / (lsp[ord - 1] - lsp[0]);
+         for (i = 0; i < ord - 1; i++)
+            lsp[i] = lsp[i] * tmp + lsp[ord - 1] * (1 - tmp);
+         flag = 1;
+      }
+      if (lsp[ord - 1] + (min / 2.0) > 0.5) {
+         tmp = (0.5 - (min / 2.0) - lsp[0]) / (lsp[ord - 1] - lsp[0]);
+         for (i = 1; i < ord; i++)
+            lsp[i] = lsp[i] * tmp + lsp[0] * (1 - tmp);
+         flag = 1;
+      }
+      if (!flag)
+         break;
+   }
+   return;
 }
