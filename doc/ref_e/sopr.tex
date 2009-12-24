@@ -45,10 +45,10 @@
 \name{sopr}{execute scalar operations}{number operation}
 
 \begin{synopsis}
-\item[sopr]   [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [ --ABS ] [ --INV ]
-\item[\ ~~~~]  [ --P ] [ --R ] [ --SQRT ] [ --LN ] [ --LOG10 ] [ --EXP ] [ --POW10 ] 
-\item[\ ~~~~] [ --FIX ] [ --UNIT ] [ --CLIP ] [ --SIN ] [ --COS ] [ --TAN ] 
-\item[\ ~~~~] [ --ATAN ] [ --r m$n$ ] [ --w m$n$ ] [ {\em infile} ]
+\item[sopr] [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [ --ABS ] [ --INV ]
+\item[\ ~~~~] [ --P ] [ --R ] [ --SQRT ] [ --LN ] [ --LOG2 ] [ --LOG10 ] [ --EXP ]
+\item[\ ~~~~] [ --POW2 ] [ --POW10 ] [ --FIX ] [ --UNIT ] [ --CLIP ] [ --SIN ]
+\item[\ ~~~~] [ --COS ] [ --TAN ] [ --ATAN ] [ --r m$n$ ] [ --w m$n$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -79,8 +79,10 @@ and is performed in the given order.
 	\argm{R}{}{square root $y=\sqrt{x}$}{FALSE}
 	\argm{SQRT}{}{square root $y=\sqrt{x}$}{FALSE}
 	\argm{LN}{}{logarithm $y=\log{x}$}{FALSE}
+	\argm{LOG2}{}{logarithm $y=\log_{2}{x}$}{FALSE}
 	\argm{LOG10}{}{logarithm $y=\log_{10}{x}$}{FALSE}
 	\argm{EXP}{}{exponential $y=\exp{x}$}{FALSE}
+	\argm{POW2}{}{power of 2 $y=2^x$}{FALSE}
 	\argm{POW10}{}{power of 10 $y=10^x$}{FALSE}
 	\argm{FIX}{}{round $(int)x$}{FALSE}
 	\argm{UNIT}{}{unit step $u(x)$}{FALSE}
