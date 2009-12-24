@@ -61,8 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id =
-    "$Id$";
+static char *rcs_id = "$Id$";
 
 
 /*  Standard C Libralies  */

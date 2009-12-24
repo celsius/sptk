@@ -61,8 +61,7 @@
 *       Note that double precision FFT is used.                         *
 ************************************************************************/
 
-static char *rcs_id =
-    "$Id$";
+static char *rcs_id = "$Id$";
 
 /* Standard C Libraries */
 #include <stdio.h>

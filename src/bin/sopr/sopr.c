@@ -62,8 +62,10 @@
 *               -R       :  root              (sqrt(in))                *
 *               -SQRT    :  root              (sqrt(in))                *
 *               -LN      :  logarithm         (log(in))                 *
+*               -LOG2    :  logarithm         (log2(in))                *
 *               -LOG10   :  logarithm         (log10(in))               *
 *               -EXP     :  exponential       (exp(in))                 *
+*               -POW2    :  power of 2        (2^(in))                  *
 *               -POW10   :  power of 10       (10^(in))                 *
 *               -FIX     :  round             ((int)in)                 *
 *               -UNIT    :  unit step         (u(in))                   *
@@ -133,8 +135,10 @@ void usage(int status)
    fprintf(stderr, "       -R     : root                (sqrt(in))\n");
    fprintf(stderr, "       -SQRT  : root                (sqrt(in))\n");
    fprintf(stderr, "       -LN    : logarithm           (log(in))\n");
+   fprintf(stderr, "       -LOG2  : logarithm           (log2(in))\n");
    fprintf(stderr, "       -LOG10 : logarithm           (log10(in))\n");
    fprintf(stderr, "       -EXP   : exponential         (exp(in))\n");
+   fprintf(stderr, "       -POW2  : power of 2          (2^(in))\n");
    fprintf(stderr, "       -POW10 : power of 10         (10^(in))\n");
    fprintf(stderr, "       -FIX   : round               ((int)in)\n");
    fprintf(stderr, "       -UNIT  : unit step           (u(in))\n");
@@ -161,6 +165,7 @@ void usage(int status)
    exit(status);
 }
 
+double log2(double);
 
 struct operation {
    char op[4];
@@ -315,8 +320,10 @@ int sopr(FILE * fp)
             x = 1 / x;
             break;
          case 'P':
-            if (optbl[k].op[1] == 'O')
+            if (optbl[k].op[1] == 'O' && optbl[k].op[3] == '1')
                x = pow(10.0, x);
+            else if (optbl[k].op[1] == 'O' && optbl[k].op[3] == '2')
+               x = pow(2.0, x);
             else
                x *= x;
             break;
@@ -335,6 +342,8 @@ int sopr(FILE * fp)
          case 'L':
             if (optbl[k].op[3] == '1')
                x = log10(x);
+            else if (optbl[k].op[3] == '2')
+               x = log2(x);
             else
                x = log(x);
             break;
