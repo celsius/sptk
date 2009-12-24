@@ -69,8 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id =
-    "$Id: root_pol.c,v 1.20 2009/12/16 13:12:37 uratec Exp $";
+static char *rcs_id = "$Id: root_pol.c,v 1.21 2009/12/24 18:22:08 uratec Exp $";
 
 
 /*  Standard C Libraries  */

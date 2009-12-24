@@ -4,6 +4,7 @@ Version 3.3:
  * add transpose filter to 'glsadf' command.
  * add inverse filter to 'glsadf', 'lmsadf', and 'mglsadf' commands.
  * add flooring value for GMM weight to 'gmm' command.
+ * add LOG2 and POW2 option to 'sopr' command.
  * add option to extend the distance between two consecutive LSPs to
    'lspcheck' command.
  * remove 'iglsadf' and 'imglsadf' commands.
