@@ -48,6 +48,10 @@
 
 onintr clean
 
+set path    = ( @binpath@ $path )
+set sptkver = '@sptk_version@'
+set cvsid   = '$Id$'
+
 
 set cmnd	= $0
 set cmnd	= $cmnd:t
@@ -159,6 +163,9 @@ usage:
 	echo2 '       However, once a destination directory is specified,'
 	echo2 '       all wav files are stored in that directory.'
 	echo2 ''
+        echo2 " SPTK: version $sptkver"
+        echo2 " CVS Info: $cvsid"
+        echo2 ''
 exit $exit_status
 
 main:
