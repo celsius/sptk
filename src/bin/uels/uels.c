@@ -76,7 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: uels.c,v 1.21 2009/12/16 13:12:38 uratec Exp $";
+static char *rcs_id = "$Id: uels.c,v 1.22 2010/03/08 01:50:23 senzaimin Exp $";
 
 
 /*  Standard C Libraries  */
@@ -126,7 +126,7 @@ void usage(int status)
            FLENG);
    fprintf(stderr, "       -q q  : input format                     [%d]\n",
            ITYPE);
-   fprintf(stderr, "                 0 (windowed sequence\n");
+   fprintf(stderr, "                 0 (windowed sequence)\n");
    fprintf(stderr, "                 1 (20*log|f(w)|)\n");
    fprintf(stderr, "                 2 (ln|f(w)|)\n");
    fprintf(stderr, "                 3 (|f(w)|)\n");
@@ -157,7 +157,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, flng = FLENG, itype = ITYPE, itr1 = MINITR, itr2 =
+   int m = ORDER, flng = FLENG, ilng = FLENG, itype = ITYPE, itr1 = MINITR, itr2 =
        MAXITR, flag = 0;
    FILE *fp = stdin;
    double *c, *x, end = END, e = EPS;
@@ -206,6 +206,7 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
+   /*
    x = dgetmem(flng + m + 1);
    c = x + flng;
 
@@ -213,6 +214,21 @@ int main(int argc, char **argv)
       flag = uels(x, flng, c, m, itr1, itr2, end, e, itype);
       fwritef(c, sizeof(*c), m + 1, stdout);
    }
+   */
+
+   if (itype == 0)
+      ilng = flng;
+   else
+      ilng = flng / 2 + 1;
+
+   x = dgetmem(flng + m + 1);
+   c = x + flng;
+
+   while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
+      flag = uels(x, flng, c, m, itr1, itr2, end, e, itype);
+      fwritef(c, sizeof(*c), m + 1, stdout);
+   }
+
 
    return (0);
 }
