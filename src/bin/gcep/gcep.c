@@ -141,7 +141,7 @@ void usage(int status)
            FLENG);
    fprintf(stderr, "       -q q  : input format                     [%d]\n",
            ITYPE);
-   fprintf(stderr, "                 0 (windowed sequence\n");
+   fprintf(stderr, "                 0 (windowed sequence)\n");
    fprintf(stderr, "                 1 (20*log|f(w)|)\n");
    fprintf(stderr, "                 2 (ln|f(w)|)\n");
    fprintf(stderr, "                 3 (|f(w)|)\n");
@@ -178,7 +178,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, flng = FLENG, itr1 = MINITR, itr2 = MAXITR, itype =
+   int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, itr2 = MAXITR, itype =
        ITYPE, norm = NORM, flag = 0;
    FILE *fp = stdin;
    double *gc, *x, g = GAMMA, end = END, e = EPS, f = MINDET;
@@ -246,10 +246,22 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
+   /* 
    x = dgetmem(flng + m + 1);
    gc = x + flng;
 
    while (freadf(x, sizeof(*x), flng, fp) == flng) {
+   */
+
+   if (itype == 0)
+      ilng = flng;
+   else
+      ilng = flng / 2 + 1;
+
+   x = dgetmem(flng + m + 1);
+   gc = x + flng;
+
+   while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
       flag = gcep(x, flng, gc, m, g, itr1, itr2, end, e, f, itype);
       if (!norm)
          ignorm(gc, gc, m, g);
