@@ -95,7 +95,8 @@ which was sampled at 16 kHz in short int format, is converted to
 an 44.1 kHz sampling rate:
 \begin{quote}
 \verb!x2x +sf data.16 | us -s 23F | us -s 23S | us -s 57 | \! \\
-\verb!us -c /usr/local/SPTK/lib/lpfcoef.5to7 -u 7 -d 8 | x2x +fs > data.44! \\[5mm]
+\verb!us -c /usr/local/SPTK/lib/lpfcoef.5to7 -u 7 -d 8 | \! \\
+\verb!x2x +fs > data.44! \\ [5mm]
 Note:~~
 $\displaystyle\frac{44100}{16000} = 
 	\frac{3\times3\times7\times7\times100}{2\times2\times5\times8\times100}$
