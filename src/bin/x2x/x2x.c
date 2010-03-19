@@ -42,34 +42,36 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/************************************************************************
-*                                                                       *
-*    Data Type Transformation                                           *
-*                                                                       *
-*                                 1985.12 K.Tokuda                      *
-*                                 1996.5  K.Koishida                    *
-*                                                                       *
-*       usage:                                                          *
-*               x2x [options] [infile] > stdout                         *
-*       options:                                                        *
-*               +type1   :  input data type                   [f]       *
-*               +type2   :  output data type                  [type1]   *
-*                           c (char)           C (unsigned char)        *
-*                           s (short)          S (unsigned short)       *
-*                           i (int)            I (unsigned int)         *
-*                           l (long)           L (unsigned long)        *
-*                           f (float)          d (double)               *
-*                           a (ascii)                                   *
-*               +a a     :  column number                     [1]       *
-*               -r       :  specify rounding off when a real number     *
-*                           is substituted for a integer      [FALSE]   *
-*               %format  :  specify output format similar to  [%g]      *
-*                           "printf()".                                 *
-*                           if type2 is ascii.                          *
-*                                                                       *
-************************************************************************/
+/*************************************************************************
+*                                                                        *
+*    Data Type Transformation                                            *
+*                                                                        *
+*                                 1985.12 K.Tokuda                       *
+*                                 1996.5  K.Koishida                     *
+*                                 2010.3  A.Tamamori                     *
+*                                                                        *
+*       usage:                                                           *
+*               x2x [options] [infile] > stdout                          *
+*       options:                                                         *
+*               +type1   :  input data type                   [f]        *
+*               +type2   :  output data type                  [type1]    *
+*                           c (char)           C  (unsigned char)        *
+*                           s (short)          S  (unsigned short)       *
+*                           i (int)            I  (unsigned int)         *
+*                           i3 (int, 3byte)    I3 (unsigned int, 3byte)  *
+*                           l (long)           L  (unsigned long)        *
+*                           f (float)          d  (double)               *
+*                           a (ascii)                                    *
+*               +a a     :  column number                     [1]        *
+*               -r       :  specify rounding off when a real number      *
+*                           is substituted for a integer      [FALSE]    *
+*               %format  :  specify output format similar to  [%g]       *
+*                           "printf()".                                  *
+*                           if type2 is ascii.                           *
+*                                                                        *
+*************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.22 2009/12/16 13:12:38 uratec Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.23 2010/03/19 03:27:10 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -117,12 +119,13 @@ void usage(int status)
            "       +type1  : input data type                             [f]\n");
    fprintf(stderr,
            "       +type2  : output data type                            [type1]\n");
-   fprintf(stderr, "                 c (char)           C (unsigned char)\n");
-   fprintf(stderr, "                 s (short)          S (unsigned short)\n");
-   fprintf(stderr, "                 i (int)            I (unsigned int)\n");
-   fprintf(stderr, "                 l (long)           L (unsigned long)\n");
-   fprintf(stderr, "                 f (float)          d (double)\n");
-   fprintf(stderr, "                 a (ascii)\n");
+   fprintf(stderr, "                 c  (char)           C  (unsigned char)\n");
+   fprintf(stderr, "                 s  (short)          S  (unsigned short)\n");
+   fprintf(stderr, "                 i  (int)            I  (unsigned int)\n");
+   fprintf(stderr, "                 i3 (int, 3byte)     I3 (unsigned int, 3byte)\n");   
+   fprintf(stderr, "                 l  (long)           L  (unsigned long)\n");
+   fprintf(stderr, "                 f  (float)          d  (double)\n");
+   fprintf(stderr, "                 a  (ascii)\n");
    fprintf(stderr,
            "       +a a    : column number                               [%d]\n",
            COL);
@@ -151,11 +154,24 @@ void usage(int status)
 }
 
 double r = 0.0;
+union typex {
+   char c;
+   short s;
+   long l;
+   int i;
+   float f;
+   double d;
+} fillx;
+
+double fl = 0.0;
 
 int main(int argc, char **argv)
 {
    char c1 = 'f', c2 = 'f', *form = FORM_FLOAT;
-   double x;
+   double x = 0.0;
+   int y = 0;
+   char z = 0;
+   char *buf;
    size_t size1 = 0, size2 = 0;
    int i = 1, col = COL;
    FILE *fp = stdin;
@@ -190,22 +206,48 @@ int main(int argc, char **argv)
                }
                break;
             case 'i':
-               if (size1 == 0) {
+	      if (*(*argv+1) == '3'){ //3byte
+		if (size1 == 0) {
+		  c1 = 't';
+		  size1 = 3;
+		}
+		else {
+		  c2 = 't';
+		  size2 = 3;
+		}
+		(*argv)++;
+	      }
+	      else{
+		if (size1 == 0) {
                   c1 = 'i';
                   size1 = sizeof(int);
-               } else {
+		} else {
                   c2 = 'i';
                   size2 = sizeof(int);
-               }
-               break;
+		}
+	      }
+	      break;
             case 'I':
-               if (size1 == 0) {
+	      if (*(*argv+1) == '3'){//3byte      
+		if (size1 == 0) {
+		  c1 = 'T';
+		  size1 = 3;
+		}
+		else {
+		  c2 = 'T';
+		  size2 = 3;
+		}
+		(*argv)++;
+	      }
+	      else {
+		if(size1 == 0){
                   c1 = 'I';
                   size1 = sizeof(unsigned int);
-               } else {
+		} else {
                   c2 = 'I';
                   size2 = sizeof(unsigned int);
-               }
+		}
+	      }
                break;
             case 'l':
                if (size1 == 0) {
@@ -307,7 +349,7 @@ int main(int argc, char **argv)
 
    if (round)
       r = 0.5;
-
+   
    if (size1 == 0) {
       size1 = sizeof(float);
       c1 = 'f';
@@ -328,11 +370,13 @@ int main(int argc, char **argv)
                i++;
                printf("\t");
             }
-      } else
-         while (fscanf(fp, "%le", &x) != EOF) {
-            x2x(&x, &x, 'd', c2);
-            fwritex(&x, size2, 1, stdout);
-         }
+	 }
+      else{
+	while (fscanf(fp, "%le", &x) != EOF) {
+	  x2x(&x, &x, 'd', c2);	    
+	  fwritex(&x, size2, 1, stdout);
+	}
+      }
    } else {
       if (c2 == 'a') {
          while (freadx(&x, size1, 1, fp) == 1) {
@@ -355,11 +399,13 @@ int main(int argc, char **argv)
                printf("\t");
             }
          }
-      } else
-         while (freadx(&x, size1, 1, fp) == 1) {
-            x2x(&x, &x, c1, c2);
-            fwritex(&x, size2, 1, stdout);
-         }
+      }
+      else {
+	while (freadx(&x, size1, 1, fp) == 1) {
+	  x2x(&x, &x, c1, c2);
+	  fwritex(&x, size2, 1, stdout);
+	}
+      }
    }
 
    return (0);
@@ -368,7 +414,8 @@ int main(int argc, char **argv)
 void x2x(void *x1, void *x2, char c1, char c2)
 {
    double x = 0.0;
-
+   int y = 0;
+   
    switch (c1) {
    case 's':
       x = *(short *) x1;
@@ -400,6 +447,14 @@ void x2x(void *x1, void *x2, char c1, char c2)
    case 'C':
       x = *(unsigned char *) x1;
       break;
+   case 't': //3byte, signed
+     y = *(int *) x1 & 0x00FFFFFF;
+     if(y >> 23 == 1) y = y | 0xFF000000; //negative
+     x = y;
+     break;
+   case 'T': //3byte, unsigned
+     x = *(unsigned int *) x1 & 0x00FFFFFF;
+     break;
    }
 
    switch (c2) {
@@ -457,6 +512,18 @@ void x2x(void *x1, void *x2, char c1, char c2)
       else
          *(unsigned char *) x2 = x - r;
       break;
+   case 't':
+      if (x > 0)
+	*(int *) x2 = x + r;
+      else
+	*(int *) x2 = x - r;
+      break;            
+   case 'T':
+      if (x > 0)
+	*(unsigned int *) x2 = x + r;
+      else
+	*(unsigned int *) x2 = x - r;
+      break;      
    }
 
    return;
