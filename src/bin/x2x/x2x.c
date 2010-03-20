@@ -71,7 +71,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.23 2010/03/19 03:27:10 mataki Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.24 2010/03/20 02:40:59 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -154,24 +154,11 @@ void usage(int status)
 }
 
 double r = 0.0;
-union typex {
-   char c;
-   short s;
-   long l;
-   int i;
-   float f;
-   double d;
-} fillx;
-
-double fl = 0.0;
 
 int main(int argc, char **argv)
 {
    char c1 = 'f', c2 = 'f', *form = FORM_FLOAT;
-   double x = 0.0;
-   int y = 0;
-   char z = 0;
-   char *buf;
+   double x;
    size_t size1 = 0, size2 = 0;
    int i = 1, col = COL;
    FILE *fp = stdin;
@@ -206,46 +193,44 @@ int main(int argc, char **argv)
                }
                break;
             case 'i':
-	      if (*(*argv+1) == '3'){ //3byte
+	      if (*(*argv+1) == '3'){
 		if (size1 == 0) {
-		  c1 = 't';
-		  size1 = 3;
-		}
-		else {
-		  c2 = 't';
-		  size2 = 3;
+		   c1 = 't';
+		   size1 = 3;
+		} else {
+		   c2 = 't';
+		   size2 = 3;
 		}
 		(*argv)++;
 	      }
 	      else{
 		if (size1 == 0) {
-                  c1 = 'i';
-                  size1 = sizeof(int);
+                   c1 = 'i';
+                   size1 = sizeof(int);
 		} else {
-                  c2 = 'i';
-                  size2 = sizeof(int);
+                   c2 = 'i';
+                   size2 = sizeof(int);
 		}
 	      }
 	      break;
             case 'I':
-	      if (*(*argv+1) == '3'){//3byte      
+	      if (*(*argv+1) == '3'){
 		if (size1 == 0) {
-		  c1 = 'T';
-		  size1 = 3;
-		}
-		else {
-		  c2 = 'T';
-		  size2 = 3;
+		   c1 = 'T';
+		   size1 = 3;
+		} else {
+		   c2 = 'T';
+		   size2 = 3;
 		}
 		(*argv)++;
 	      }
 	      else {
 		if(size1 == 0){
-                  c1 = 'I';
-                  size1 = sizeof(unsigned int);
+                   c1 = 'I';
+                   size1 = sizeof(unsigned int);
 		} else {
-                  c2 = 'I';
-                  size2 = sizeof(unsigned int);
+                   c2 = 'I';
+                   size2 = sizeof(unsigned int);
 		}
 	      }
                break;
@@ -349,7 +334,7 @@ int main(int argc, char **argv)
 
    if (round)
       r = 0.5;
-   
+
    if (size1 == 0) {
       size1 = sizeof(float);
       c1 = 'f';
@@ -370,13 +355,11 @@ int main(int argc, char **argv)
                i++;
                printf("\t");
             }
-	 }
-      else{
-	while (fscanf(fp, "%le", &x) != EOF) {
-	  x2x(&x, &x, 'd', c2);	    
-	  fwritex(&x, size2, 1, stdout);
-	}
-      }
+      } else
+         while (fscanf(fp, "%le", &x) != EOF) {
+            x2x(&x, &x, 'd', c2);
+            fwritex(&x, size2, 1, stdout);
+         }
    } else {
       if (c2 == 'a') {
          while (freadx(&x, size1, 1, fp) == 1) {
@@ -399,13 +382,11 @@ int main(int argc, char **argv)
                printf("\t");
             }
          }
-      }
-      else {
-	while (freadx(&x, size1, 1, fp) == 1) {
-	  x2x(&x, &x, c1, c2);
-	  fwritex(&x, size2, 1, stdout);
-	}
-      }
+      } else
+         while (freadx(&x, size1, 1, fp) == 1) {
+            x2x(&x, &x, c1, c2);
+            fwritex(&x, size2, 1, stdout);
+         }
    }
 
    return (0);
@@ -447,12 +428,12 @@ void x2x(void *x1, void *x2, char c1, char c2)
    case 'C':
       x = *(unsigned char *) x1;
       break;
-   case 't': //3byte, signed
+   case 't': /* 3byte, signed */
      y = *(int *) x1 & 0x00FFFFFF;
-     if(y >> 23 == 1) y = y | 0xFF000000; //negative
+     if(y >> 23 == 1) y = y | 0xFF000000;
      x = y;
      break;
-   case 'T': //3byte, unsigned
+   case 'T': /* 3byte, unsigned */
      x = *(unsigned int *) x1 & 0x00FFFFFF;
      break;
    }
