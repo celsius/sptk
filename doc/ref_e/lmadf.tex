@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2009  Nagoya Institute of Technology          %
+%                1996-2010  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -46,7 +46,7 @@
 {LMA digital filter for speech synthesis}{filters for speech synthesis}
 
 \begin{synopsis}
-\item [lmadf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --P $Pa$ ] [ --v ] [ --k ] 
+\item [lmadf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --P $Pa$ ] [ --v ] [ --t ] [ --k ] 
       {\em cfile} [ {\em infile} ]
 \end{synopsis}
 
@@ -213,6 +213,7 @@ in table \ref{tbl:lmadflt_pade}
                      $Pa$ should be $4$ or $5$}{4}
 	\argm{k}{}{filtering without gain}{FALSE}
 	\argm{v}{}{inverse filter}{FALSE}
+	\argm{v}{}{transpose filter}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
