@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 ##
 ## $Id$
-bin_SCRIPTS = bell.sh glogsp.sh grlogsp.sh gwave.sh raw2wav.sh
-EXTRA_DIST = bell.in glogsp.in grlogsp.in gwave.in raw2wav.in
+bin_SCRIPTS = bell.sh glogsp.sh grlogsp.sh gwave.sh raw2wav.sh wav2raw.sh
+EXTRA_DIST = bell.in glogsp.in grlogsp.in gwave.in raw2wav.in wav2raw.in
 
 CLEANFILES = $(bin_SCRIPTS)
 
