@@ -8,7 +8,7 @@
 #                           Interdisciplinary Graduate School of    #
 #                           Science and Engineering                 #
 #                                                                   #
-#                1996-2009  Nagoya Institute of Technology          #
+#                1996-2010  Nagoya Institute of Technology          #
 #                           Department of Computer Science          #
 #                                                                   #
 # All rights reserved.                                              #
@@ -163,6 +163,7 @@ INC  = cmndref.sty \
 	vq.tex \
 	vstat.tex \
 	vsum.tex \
+	wav2raw.tex \
 	window.tex \
 	x2x.tex \
 	xgr.tex \
