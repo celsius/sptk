@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -178,8 +178,8 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, itr2 = MAXITR, itype =
-       ITYPE, norm = NORM, flag = 0;
+   int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, itr2 =
+       MAXITR, itype = ITYPE, norm = NORM, flag = 0;
    FILE *fp = stdin;
    double *gc, *x, g = GAMMA, end = END, e = EPS, f = MINDET;
 
@@ -245,13 +245,6 @@ int main(int argc, char **argv)
          }
       } else
          fp = getfp(*argv, "rb");
-
-   /* 
-   x = dgetmem(flng + m + 1);
-   gc = x + flng;
-
-   while (freadf(x, sizeof(*x), flng, fp) == flng) {
-   */
 
    if (itype == 0)
       ilng = flng;

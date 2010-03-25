@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -120,9 +120,11 @@ void usage(int status)
    fprintf(stderr,
            "       +type2  : output data type                            [type1]\n");
    fprintf(stderr, "                 c  (char)           C  (unsigned char)\n");
-   fprintf(stderr, "                 s  (short)          S  (unsigned short)\n");
+   fprintf(stderr,
+           "                 s  (short)          S  (unsigned short)\n");
    fprintf(stderr, "                 i  (int)            I  (unsigned int)\n");
-   fprintf(stderr, "                 i3 (int, 3byte)     I3 (unsigned int, 3byte)\n");   
+   fprintf(stderr,
+           "                 i3 (int, 3byte)     I3 (unsigned int, 3byte)\n");
    fprintf(stderr, "                 l  (long)           L  (unsigned long)\n");
    fprintf(stderr, "                 f  (float)          d  (double)\n");
    fprintf(stderr, "                 a  (ascii)\n");
@@ -193,46 +195,44 @@ int main(int argc, char **argv)
                }
                break;
             case 'i':
-	      if (*(*argv+1) == '3'){
-		if (size1 == 0) {
-		   c1 = 't';
-		   size1 = 3;
-		} else {
-		   c2 = 't';
-		   size2 = 3;
-		}
-		(*argv)++;
-	      }
-	      else{
-		if (size1 == 0) {
-                   c1 = 'i';
-                   size1 = sizeof(int);
-		} else {
-                   c2 = 'i';
-                   size2 = sizeof(int);
-		}
-	      }
-	      break;
+               if (*(*argv + 1) == '3') {
+                  if (size1 == 0) {
+                     c1 = 't';
+                     size1 = 3;
+                  } else {
+                     c2 = 't';
+                     size2 = 3;
+                  }
+                  (*argv)++;
+               } else {
+                  if (size1 == 0) {
+                     c1 = 'i';
+                     size1 = sizeof(int);
+                  } else {
+                     c2 = 'i';
+                     size2 = sizeof(int);
+                  }
+               }
+               break;
             case 'I':
-	      if (*(*argv+1) == '3'){
-		if (size1 == 0) {
-		   c1 = 'T';
-		   size1 = 3;
-		} else {
-		   c2 = 'T';
-		   size2 = 3;
-		}
-		(*argv)++;
-	      }
-	      else {
-		if(size1 == 0){
-                   c1 = 'I';
-                   size1 = sizeof(unsigned int);
-		} else {
-                   c2 = 'I';
-                   size2 = sizeof(unsigned int);
-		}
-	      }
+               if (*(*argv + 1) == '3') {
+                  if (size1 == 0) {
+                     c1 = 'T';
+                     size1 = 3;
+                  } else {
+                     c2 = 'T';
+                     size2 = 3;
+                  }
+                  (*argv)++;
+               } else {
+                  if (size1 == 0) {
+                     c1 = 'I';
+                     size1 = sizeof(unsigned int);
+                  } else {
+                     c2 = 'I';
+                     size2 = sizeof(unsigned int);
+                  }
+               }
                break;
             case 'l':
                if (size1 == 0) {
@@ -396,7 +396,7 @@ void x2x(void *x1, void *x2, char c1, char c2)
 {
    double x = 0.0;
    int y = 0;
-   
+
    switch (c1) {
    case 's':
       x = *(short *) x1;
@@ -428,14 +428,15 @@ void x2x(void *x1, void *x2, char c1, char c2)
    case 'C':
       x = *(unsigned char *) x1;
       break;
-   case 't': /* 3byte, signed */
-     y = *(int *) x1 & 0x00FFFFFF;
-     if(y >> 23 == 1) y = y | 0xFF000000;
-     x = y;
-     break;
-   case 'T': /* 3byte, unsigned */
-     x = *(unsigned int *) x1 & 0x00FFFFFF;
-     break;
+   case 't':                   /* 3byte, signed */
+      y = *(int *) x1 & 0x00FFFFFF;
+      if (y >> 23 == 1)
+         y = y | 0xFF000000;
+      x = y;
+      break;
+   case 'T':                   /* 3byte, unsigned */
+      x = *(unsigned int *) x1 & 0x00FFFFFF;
+      break;
    }
 
    switch (c2) {
@@ -495,16 +496,16 @@ void x2x(void *x1, void *x2, char c1, char c2)
       break;
    case 't':
       if (x > 0)
-	*(int *) x2 = x + r;
+         *(int *) x2 = x + r;
       else
-	*(int *) x2 = x - r;
-      break;            
+         *(int *) x2 = x - r;
+      break;
    case 'T':
       if (x > 0)
-	*(unsigned int *) x2 = x + r;
+         *(unsigned int *) x2 = x + r;
       else
-	*(unsigned int *) x2 = x - r;
-      break;      
+         *(unsigned int *) x2 = x - r;
+      break;
    }
 
    return;
