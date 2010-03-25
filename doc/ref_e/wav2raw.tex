@@ -42,10 +42,10 @@
 % POSSIBILITY OF SUCH DAMAGE.                                       %
 % ----------------------------------------------------------------- %
 \hypertarget{wav2raw}{}
-\name{wav2raw}{wav(RIFF) to raw}{data operation}
+\name{wav2raw}{wav (RIFF) to raw}{data operation}
 
 \begin{synopsis}
-\item[wav2raw] [ --swab ] [ --d $D$ ] [ --n ] [ --N ] [ {\em infile} ]
+\item[wav2raw] [ --swab ] [ --d $D$ ] [ --n ] [ --N ] [ {\em +type} ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -57,15 +57,28 @@
 	\argm{swab}{}{change ``Endian''}{FALSE}
 	\argm{d}{D}{destination directory}{N/A}
 	\argm{n}{}{normalization with the maximum value\\
-if max $>$= 32767}{FALSE}
-	\argm{N}{}{normalization with the maximum value}{FALSE} 
+                   according to bit/sample of the wav file \\
+                   if max $>$= 255 (8bit), 32767 (16bit), \\
+                   8388067 (24bit) or 2147483647 (32bit)}{FALSE}
+	\argm{N}{}{normalization with the maximum value}{FALSE}
+	\argp{type}{output data type\\ 
+		\begin{tabular}{llcll} \\[-1ex]
+			c & char (1 byte) & \quad &
+			s & short (2 bytes) \\
+			i3 & int (3 bytes) & \quad &
+			i & int (4 bytes) \\
+			f & float (4 bytes) & \quad &
+			d & double (8 bytes) \\
+			a & ascii & \quad & & \\
+		 \end{tabular}}{f}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The following example shows wav file format
-read from {\em data.wav} is converted to raw file format
+ The following example shows the wav file format
+ read from {\em data.wav} is converted to the raw file format
  and normalized with the maximum value,
-and output is {\em data.raw} in the same directory as data.wav
+ and the output is {\em data.raw}
+ in the same directory as {\em data.wav}
  unless {\em -d} option is given. :
 \begin{quote}
   \verb!wav2raw -N data.wav!
