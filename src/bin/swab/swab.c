@@ -177,6 +177,12 @@ int main(int argc, char *argv[])
          case 's':
             iosize = sizeof(short);
             break;
+         case 'i':
+            if (*(s + 1) == '3')
+               iosize = 3;
+            else
+               iosize = sizeof(int);
+            break;            
          case 'l':
             iosize = sizeof(long);
             break;
