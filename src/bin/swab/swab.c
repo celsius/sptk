@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -48,6 +48,7 @@
 *                                                                       *
 *                                   1996    T.Kobayashi                 *
 *                                   1997.3  G.Hirabayashi               *
+*                                   2010.3  A.Tamamori                  *
 *                                                                       *
 *     usage:                                                            *
 *             swab [ options ] [ infile ] > stdout                      *
@@ -57,7 +58,8 @@
 *             -E E     :  end address                  [EOF]            *
 *             -e e     :  end offset number            [0]              *
 *             +type    :  input and output data type   [s]              *
-*                          s (short)    l (long)                        *
+*                          s (short)    i3 (int, 3byte)                 *
+*                          i (int)      l (long)                        *
 *                          f (float)    d (double)                      *
 *     infile:                                                           *
 *             data sequence                            [stdin]          * 
@@ -114,7 +116,8 @@ void usage(int status)
    fprintf(stderr, "       -E E   : end address                  [EOF]\n");
    fprintf(stderr, "       -e e   : end offset number            [0]\n");
    fprintf(stderr, "       +type  : input and output data format [s]\n");
-   fprintf(stderr, "                 s (short)     l (long)\n");
+   fprintf(stderr, "                 s (short)     i3 (int, 3byte)\n");
+   fprintf(stderr, "                 i (int)       l (long)\n");
    fprintf(stderr, "                 f (float)     d (double)\n");
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
