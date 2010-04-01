@@ -295,7 +295,7 @@ int main(int argc, char **argv)
                } else {
                   c2 = 'a';
                   size2 = -1;
-                  if (*(*argv + 1) != '\0'){
+                  if (*(*argv + 1) != '\0') {
                      if (sscanf(*argv + 1, "%d", &col) == 0)
                         col = COL;
                      while (*(*argv + 1) != '\0')

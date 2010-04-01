@@ -9,7 +9,7 @@
 #                           Interdisciplinary Graduate School of    #
 #                           Science and Engineering                 #
 #                                                                   #
-#                1996-2009  Nagoya Institute of Technology          #
+#                1996-2010  Nagoya Institute of Technology          #
 #                           Department of Computer Science          #
 #                                                                   #
 # All rights reserved.                                              #
@@ -86,6 +86,9 @@ while ($i < $#argv)
 	case +i:
 		set type = i
 		breaksw
+	case +i3:
+		set type = i3
+		breaksw
 	case +f:
 		set type = f
 		breaksw
@@ -143,8 +146,9 @@ usage:
 	echo2 '       -N            : normalization                   '
         echo2 '                       with the maximum value       [FALSE]'
 	echo2 '       +type         : input data type              [f]'
-	echo2 '                        s (short)  i (int)             '
-	echo2 '                        f (float)  d (double)          '
+	echo2 '                        s (short)  i3 (int, 3byte)     '
+	echo2 '                        i (int)    f  (float)          '
+	echo2 '                        d (double)                     '
 	echo2 '       -h            : print this message'
 	echo2 '  infile(s):'
 	echo2 '       waveform                                     [N/A]'

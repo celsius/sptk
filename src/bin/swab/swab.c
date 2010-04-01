@@ -185,7 +185,7 @@ int main(int argc, char *argv[])
                iosize = 3;
             else
                iosize = sizeof(int);
-            break;            
+            break;
          case 'l':
             iosize = sizeof(long);
             break;
