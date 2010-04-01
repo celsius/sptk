@@ -49,7 +49,7 @@ onintr clean
 
 set path    = ( @binpath $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: wav2raw.in,v 1.3 2010/03/25 12:40:41 mataki Exp $'
+set cvsid   = '$Id: wav2raw.in,v 1.4 2010/04/01 12:27:46 uratec Exp $'
 
 
 set cmnd	= $0
@@ -141,14 +141,14 @@ usage:
         echo2 '       -d d          : destination directory                     [N/A]'
         echo2 '       -n            : normalization with the maximum value'
         echo2 '                       according to bit/sample of the wav file'
-        echo2 '                       if max >= 255 (8bit), 32767 (16bit), '
+        echo2 '                       if max >= 255 (8bit), 32767 (16bit),'
         echo2 '                       8388067 (24bit) or 2147483647 (32bit)     [FALSE]'
         echo2 '       -N            : normalization with the maximum value      [FALSE]'
 	echo2 '       +type         : output data type                          [s]'
-	echo2 '                        c (char)         s (short)'
+	echo2 '                        c  (char)        s (short)'
 	echo2 '                        i3 (int, 3byte)  i (int)'
-	echo2 '                        f (float)        d (double)'
-	echo2 '                        a (ascii)        '
+	echo2 '                        f  (float)       d (double)'
+	echo2 '                        a  (ascii)'
 	echo2 '       -h            : print this message'
 	echo2 '  infile(s):'
 	echo2 '       rawfile                                                   [N/A]'

@@ -71,7 +71,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.26 2010/04/01 04:41:31 mataki Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.27 2010/04/01 12:27:46 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -295,7 +295,7 @@ int main(int argc, char **argv)
                } else {
                   c2 = 'a';
                   size2 = -1;
-                  if (*(*argv + 1) != '\0'){
+                  if (*(*argv + 1) != '\0') {
                      if (sscanf(*argv + 1, "%d", &col) == 0)
                         col = COL;
                      while (*(*argv + 1) != '\0')

@@ -68,7 +68,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: swab.c,v 1.20 2010/03/30 06:14:02 mataki Exp $";
+static char *rcs_id = "$Id: swab.c,v 1.21 2010/04/01 12:27:46 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -185,7 +185,7 @@ int main(int argc, char *argv[])
                iosize = 3;
             else
                iosize = sizeof(int);
-            break;            
+            break;
          case 'l':
             iosize = sizeof(long);
             break;

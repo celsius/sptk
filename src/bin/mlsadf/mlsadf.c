@@ -76,8 +76,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id =
-    "$Id: mlsadf.c,v 1.28 2010/03/25 13:03:26 uratec Exp $";
+static char *rcs_id = "$Id: mlsadf.c,v 1.29 2010/04/01 12:27:46 uratec Exp $";
 
 
 /*  Standard C Libraries  */
