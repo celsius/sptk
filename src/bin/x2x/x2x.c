@@ -62,7 +62,7 @@
 *                           l (long)           L  (unsigned long)        *
 *                           f (float)          d  (double)               *
 *                           a (ascii)                                    *
-*               +a a     :  column number                     [1]        *
+*               +aN      :  specify the column number N       [1]        *
 *               -r       :  specify rounding off when a real number      *
 *                           is substituted for a integer      [FALSE]    *
 *               %format  :  specify output format similar to  [%g]       *
@@ -129,7 +129,7 @@ void usage(int status)
    fprintf(stderr, "                 f  (float)          d  (double)\n");
    fprintf(stderr, "                 a  (ascii)\n");
    fprintf(stderr,
-           "       +a a    : column number                               [%d]\n",
+           "       +aN     : specify the column number N                 [%d]\n",
            COL);
    fprintf(stderr,
            "       -r      : specify rounding off when a real number\n");
@@ -295,11 +295,11 @@ int main(int argc, char **argv)
                } else {
                   c2 = 'a';
                   size2 = -1;
-                  if (*(argv + 1) != '\0' && isdigit(**(argv + 1))) {
-                     col = atoi(*++argv);
+                  if (*(*argv + 1) != '\0'){
+                     if (sscanf(*argv + 1, "%d", &col) == 0)
+                        col = COL;
                      while (*(*argv + 1) != '\0')
                         (*argv)++;
-                     argc--;
                   }
                   if (!((c1 == 'd') || (c1 == 'f'))) {
                      form = (char *) malloc(strlen(FORM_INT) + 1);
