@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2009  Nagoya Institute of Technology          %
+%                1996-2010  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -45,7 +45,7 @@
 \name{x2x}{data type transformation}{data operation}
 
 \begin{synopsis}
-\item[x2x] [ +$type1$ ] [ +$type2$ ] [ $\%format$ ] [ +$a$ A ] [ --r ]
+\item[x2x] [ +$type1$ ] [ +$type2$ ] [ $\%format$ ] [ +a{\em $N$} ] [ --r ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -80,7 +80,7 @@ as described below.
                 if $t_2$ is not assigned then no operation is
                 undertaken, and the output file is equal to the input
                 file.}{type1}
-	\argp{{\bf a} \qquad A}{column number}{1}
+	\argp{{\bf a}N}{specify the column number $N$}{1}
 	\argm{r}{}{specify rounding off when a real number
                  is substituted for a integer}{FALSE}
 	\argh{format}{}{specify output format similar to 'printf()', 
@@ -119,7 +119,7 @@ If for the same data in the example above
 the number of column is assigned:
 column
 \begin{quote}
-  \verb!x2x +fa 3 < data.f!
+  \verb!x2x +fa3 < data.f!
 \end{quote}
 the output is
 \begin{quote}
