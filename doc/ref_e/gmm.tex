@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2009  Nagoya Institute of Technology          %
+%                1996-2008  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -46,7 +46,7 @@
 
 \begin{synopsis}
 \item [gmm] [ --l $L$ ] [ --m $M$ ] [ --t $T$ ] [ --a $A$ ] [ --b $B$ ]
-        [ --e $E$ ] [ --v $V$ ] [ --w $W$ ]
+        [ --e $E$ ] [ --v $V$ ] [ --w $W$ ] [ --f ]
 \item [\ ~~~~] [ {\em infile} ]
 \end{synopsis}
 
@@ -152,6 +152,7 @@ E)$.
  \argm{e}{E}{end condition for EM iteration}{0.00001}
  \argm{v}{V}{flooring value for variances}{0.001}
  \argm{w}{W}{flooring value for weights (1/M)*W}{0.001}
+ \argm{f}{}{full covariance}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -160,6 +161,10 @@ from training vectors {\em data.f} in float format, and GMM parameters
 are written to {\em gmm.f}.
 \begin{quote}
 \verb! gmm -m 8 data.f > gmm.f!
+\end{quote}
+If you want to model GMM with full covariance, add -f option. 
+\begin{quote}
+\verb! gmm -m 8 -f data.f > gmm.f! 
 \end{quote}
 \end{qsection}
 
