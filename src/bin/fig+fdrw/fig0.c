@@ -59,7 +59,7 @@
 
 extern int ltype, type, is_t;
 extern double xo, yo, xl, yl, x00, y00, mh, mw, h, w;
-extern double xclip0, yclip0, xclip1, yclip1;
+extern double xclip0, yclip0, xclip1, yclip1, fct;
 
 static int lmod[] = { 0, 2, 6, 3, 4 }, ptyp = 1;
 static int is_xlog = 0, is_ylog = 0;
@@ -79,6 +79,9 @@ void graph(FILE * fp)
    double x, y, lpt, th, dt, lscale, rad;
    int is_grid, old_lbl = 0;
    char xory;
+
+   h *= fct;
+   w *= fct;
 
    for (n = 0; (s = fgets(buf, BUFLNG, fp));) {
       s = getarg(s, arg);
@@ -116,7 +119,7 @@ void graph(FILE * fp)
          is_grid = *(arg + 6);
          if (type < 0 || (ya != ymin && ya != ymax)) {
             plot(0.0, yap, 3);
-            plot(xl, yap, 2);
+	    plot(xl, yap, 2);
          }
          ys = yap - h - MSCALE;
          while ((s = getarg(s, p = arg)) != NULL) {
