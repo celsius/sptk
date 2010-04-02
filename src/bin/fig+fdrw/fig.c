@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fig.c,v 1.21 2009/12/16 13:12:31 uratec Exp $";
+static char *rcs_id = "$Id: fig.c,v 1.22 2010/04/02 05:41:02 senzaimin Exp $";
 
 
 /*  Standard C Libraries  */
@@ -158,13 +158,14 @@ double xo = XO, yo = YO;
 double xl = XL, yl = YL, x00 = 0, y00 = 0;
 double mh = 2, mw = 2, h = CH_NRML, w = CW_NRML;
 double xclip0 = 0, yclip0 = 0, xclip1 = 0, yclip1 = 0;
+double fct = FCT;
 
 int main(int argc, char *argv[])
 {
    FILE *fp;
    char *infile[16], *file = NULL;
    char *s;
-   double th = TH, fct = FCT;
+   double th = TH;
    int c, n, nfiles, fntsize = FNTSIZE;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
