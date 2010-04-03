@@ -49,7 +49,7 @@
 *                                     1990.11 T.Kobayashi               *
 *                                     1996.5  K.Koishida                *
 *                                     2000.5  T.Kobayashi               *
-*                                     2010.3  A.Tamamori                *
+*                                     2010.4  A.Tamamori                *
 *       usage:                                                          *
 *               sopr [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
