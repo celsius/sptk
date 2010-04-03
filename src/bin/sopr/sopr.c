@@ -49,7 +49,7 @@
 *                                     1990.11 T.Kobayashi               *
 *                                     1996.5  K.Koishida                *
 *                                     2000.5  T.Kobayashi               *
-*                                     2010.3  A.Tamamori                *
+*                                     2010.4  A.Tamamori                *
 *       usage:                                                          *
 *               sopr [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
@@ -86,7 +86,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.24 2010/04/03 04:36:23 mataki Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.25 2010/04/03 04:50:24 mataki Exp $";
 
 
 /*  Standard C Libraries  */
