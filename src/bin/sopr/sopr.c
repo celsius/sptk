@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -49,6 +49,7 @@
 *                                     1990.11 T.Kobayashi               *
 *                                     1996.5  K.Koishida                *
 *                                     2000.5  T.Kobayashi               *
+*                                     2010.3  A.Tamamori                *
 *       usage:                                                          *
 *               sopr [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
@@ -165,7 +166,7 @@ void usage(int status)
    exit(status);
 }
 
-double log2(double);
+#define LOG2(x) (log(x)/log(2))
 
 struct operation {
    char op[4];
@@ -343,7 +344,7 @@ int sopr(FILE * fp)
             if (optbl[k].op[3] == '1')
                x = log10(x);
             else if (optbl[k].op[3] == '2')
-               x = log2(x);
+               x = LOG2(x);
             else
                x = log(x);
             break;
