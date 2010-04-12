@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fdrw.c,v 1.23 2010/04/02 05:42:33 senzaimin Exp $";
+static char *rcs_id = "$Id: fdrw.c,v 1.24 2010/04/12 09:25:56 uratec Exp $";
 
 
 /*  Standard C Libraries  */
@@ -333,7 +333,7 @@ int drw(FILE * fp)
             h = H * ((xl > XSIZE) ? XSIZE : xl) / XSIZE;
             sprintf(buf, "0 -x- %ld  %g -y- %g", nsmpls - 1, ymin, ymax);
 
-	    h *= fct;
+            h *= fct;
 
             if (ctype == 0)
                symbol(0.0, -h - 2, buf, h, h, 0.0);
