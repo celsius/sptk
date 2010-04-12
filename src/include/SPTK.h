@@ -185,12 +185,12 @@ double glsadft(double x, double *c, const int m, const int n, double *d);
 double glsadf1t(double x, double *c, const int m, const int n, double *d);
 double cal_gconst(double *var, const int D);
 double cal_gconstf(double **var, const int D);
-void fillz_gmm(GMM *gmm, const int M, const int L);
-void fillz_gmmf(GMM *gmm, const int M, const int L);
-double log_wgd(GMM *gmm, const int m, double *dat, const int L);
-double log_wgdf(GMM *gmm, const int m, double *dat, const int L);
+void fillz_gmm(GMM * gmm, const int M, const int L);
+void fillz_gmmf(GMM * gmm, const int M, const int L);
+double log_wgd(GMM * gmm, const int m, double *dat, const int L);
+double log_wgdf(GMM * gmm, const int m, double *dat, const int L);
 double log_add(double logx, double logy);
-double log_outp(GMM *gmm, double *dat, const int M, const int L);
+double log_outp(GMM * gmm, double *dat, const int M, const int L);
 void gnorm(double *c1, double *c2, int m, const double g);
 void grpdelay(double *x, double *gd, const int size, const int is_arma);
 int histogram(double *x, const int size, const double min, const double max,

@@ -333,7 +333,7 @@ int drw(FILE * fp)
             h = H * ((xl > XSIZE) ? XSIZE : xl) / XSIZE;
             sprintf(buf, "0 -x- %ld  %g -y- %g", nsmpls - 1, ymin, ymax);
 
-	    h *= fct;
+            h *= fct;
 
             if (ctype == 0)
                symbol(0.0, -h - 2, buf, h, h, 0.0);

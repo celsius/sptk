@@ -119,7 +119,7 @@ void graph(FILE * fp)
          is_grid = *(arg + 6);
          if (type < 0 || (ya != ymin && ya != ymax)) {
             plot(0.0, yap, 3);
-	    plot(xl, yap, 2);
+            plot(xl, yap, 2);
          }
          ys = yap - h - MSCALE;
          while ((s = getarg(s, p = arg)) != NULL) {
