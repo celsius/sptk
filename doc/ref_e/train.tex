@@ -56,10 +56,10 @@ Output data is in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{frame length}{256}
-	\argm{p}{P}{frame period\\
-                    if $P=0$ then a sequence with values
-                    $\pm 1$ is generated.}{0}
+	\argm{l}{L}{sequence length}{256}
+	\argm{p}{P}{frame period ($P \geq 1.0$)\\
+                    if $P=0.0$ then a sequence with values
+                    $\pm 1$ is generated.}{0.0}
 	\argm{n}{N}{type of normalization\\
                     When $x(n)$ is impulse sequence\\
 			\begin{tabular}{ll}\\ [-1ex]
