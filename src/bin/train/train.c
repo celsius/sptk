@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -48,23 +48,24 @@
 *                                                                       *
 *                                            1989.6  K.Tokuda           *
 *                                            1996.4  K.Koishida         *
+*                                            2010.4  T.Sawada           *
 *                                                                       *
 *       usage:                                                          *
 *               train [options] > stdout                                *
 *       options:                                                        *
-*               -l l     :  frame length                [256]           *
-*               -p p     :  frame period                [0]             *
+*               -l l     :  sequence length             [256]           *
+*               -p p     :  frame period                [0.0]           *
 *               -n n     :  type of normalization       [1]             *
 *                             0 none                                    *
 *                             1 normalize by power                      *
 *                             2 normalize by magnitude                  *
 *       stdout:                                                         *
-*               p>0 pulse sequence with pitch p                         *
-*               p = 0 M-sequence                                        *
+*               p >= 1.0 pulse sequence with pitch p                    *
+*               p =  0.0 M-sequence                                     *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: train.c,v 1.19 2009/12/16 13:12:38 uratec Exp $";
+static char *rcs_id = "$Id: train.c,v 1.20 2010/04/23 09:31:47 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -90,7 +91,7 @@ static char *rcs_id = "$Id: train.c,v 1.19 2009/12/16 13:12:38 uratec Exp $";
 
 /*  Default Values  */
 #define LENG   256
-#define PERIOD   0
+#define PERIOD   0.0
 #define NORMAL  1
 
 /*  Command Name  */
@@ -105,8 +106,8 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l  : frame length          [%d]\n", LENG);
-   fprintf(stderr, "       -p p  : frame period          [%d]\n", PERIOD);
+   fprintf(stderr, "       -l l  : sequence length       [%d]\n", LENG);
+   fprintf(stderr, "       -p p  : frame period          [%.1lf]\n", PERIOD);
    fprintf(stderr, "       -n n  : type of normalization [%d]\n", NORMAL);
    fprintf(stderr, "                 0 none\n");
    fprintf(stderr, "                 1 normalize by power\n");
@@ -126,8 +127,8 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int l = LENG, period = PERIOD, i, normal = NORMAL;
-   double zero, pulse;
+   int l = LENG, normal = NORMAL;
+   double zero, pulse, period = PERIOD, i;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -141,7 +142,7 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'p':
-            period = atoi(*++argv);
+            period = atof(*++argv);
             --argc;
             break;
          case 'n':
@@ -161,27 +162,32 @@ int main(int argc, char **argv)
       pulse = 1;
       break;
    case 1:
-      pulse = sqrt((double) period);
+      pulse = sqrt(period);
       break;
    case 2:
       pulse = period;
       break;
    }
    zero = 0.0;
-   i = 1;
-
-   if (period)
-      while (l--)
-         if (--i)
-            fwritef(&zero, sizeof(zero), 1, stdout);
-         else {
-            i = period;
-            fwritef(&pulse, sizeof(pulse), 1, stdout);
-   } else
-      while (l--) {
-         pulse = mseq();
+   i = 0.5;
+   
+   if (period >= 1.0)
+     while (l--)
+       if (--i >= 0.0)
+         fwritef(&zero, sizeof(zero), 1, stdout);
+       else {
+         i += period;
          fwritef(&pulse, sizeof(pulse), 1, stdout);
-      }
-
+       }
+   else if (period != 0.0) {
+     fprintf(stderr, "-p : frame period must be 0.0 or more than 1.0!\n");
+     usage(1);
+   }
+   else
+     while (l--) {
+       pulse = mseq();
+       fwritef(&pulse, sizeof(pulse), 1, stdout);
+     }
+   
    return (0);
 }
