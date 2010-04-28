@@ -693,11 +693,14 @@ void update_P(PStream * pst, int d)
 void update_c(PStream * pst, int d)
 {
    int j, m, u;
-   double *mean, x;
+   double *mean, *ivar, x;
 
+   ivar = pst->sm.ivseq[pst->sm.t&pst->sm.mask] + (pst->order+1)*d;
    mean = pst->sm.mseq[pst->sm.t & pst->sm.mask] + (pst->order + 1) * d;
    for (m = 0; m <= pst->order; m++) {
       x = mean[m];
+      if (pst->iType==2) 
+         x *= finv(ivar[m]);      
       for (j = pst->dw.width[d][WLEFT]; j <= pst->dw.width[d][WRIGHT]; j++)
          x -= pst->dw.coef[d][j] * pst->sm.c[(pst->sm.t + j) & pst->sm.mask][m];
       for (u = -pst->range; u <= pst->dw.maxw[WRIGHT]; u++)
