@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2009  Nagoya Institute of Technology          %
+%                1996-2010  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -129,6 +129,7 @@ the difference between the numerator and denominator phases}.
 			$O=0$ & ~~~$20\times\log |X_k|$ & $k=0,1,\dots,L/2$\\
 			$O=1$ & ~~~$\ln |X_k|$ & $k=0,1,\dots,L/2$\\
 			$O=2$ & ~~~$|X_k|$ & $k=0,1,\dots,L/2$\\
+			$O=3$ & ~~~$|X_k|^{2}$ & $k=0,1,\dots,L/2$\\             
 			\end{tabular} \\\hspace*{\fill}}{0}
 	\desc{The contents of {\em pfile} and {\em zfile}
                         should be in a similar form to that used in
@@ -148,7 +149,7 @@ through digital filter and Blackman window,
 then the log spectrum magnitude is evaluated and plotted
 on the screen:
 \begin{quote}
-  \verb!train -t 50 | dfs -a 1 0.9 | window | spec | fdrw | xgr !
+  \verb!train -p 50 | dfs -a 1 0.9 | window | spec | fdrw | xgr !
 \end{quote}
 \par
 This example evaluates the frequency response of
