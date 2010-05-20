@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -47,6 +47,7 @@
 *    Transform Mel-Generalize Cepstrum to Spectrum                      *
 *                                                                       *
 *                                       1996.4  K.Koishida              *
+*                                       2010.5  A.Tamamori              *
 *                                                                       *
 *       usage:                                                          *
 *               mgc2sp [ options ] [ infile ] > stdout                  *
@@ -59,14 +60,15 @@
 *               -u       :  regard input as multiplied by gamma [FALSE] *
 *               -l  l    :  FFT length                          [256]   *
 *               -p       :  output phase                        [FALSE] *
+*               -o  o    :  output format (see stdout)          [0]     *
 *                               0 (20 * log|H(z)|)                      *
 *                               1 (ln|H(z)|)                            *
 *                               2 (|H(z)|)                              *
+*                               3 (|H(z)|^2)                            *
 *                           -p option is specified                      *
 *                               0 (arg|H(z)| / pi       [pi rad])       *
 *                               1 (arg|H(z)|            [rad])          *
 *                               2 (arg|H(z)| * 180 / pi [deg])          *
-*               -o  o    :  output format (see stdout)          [0]     *
 *      infile:                                                          *
 *               mel-generalized cepstrum                                *
 *                       , c(0), c(1), ..., c(m),                        *
@@ -80,7 +82,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: mgc2sp.c,v 1.25 2009/12/24 18:22:08 uratec Exp $";
+static char *rcs_id = "$Id: mgc2sp.c,v 1.26 2010/05/20 08:15:50 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -149,6 +151,7 @@ void usage(int status)
    fprintf(stderr, "                 0 (20*log|H(z)|)\n");
    fprintf(stderr, "                 1 (ln|H(z)|)\n");
    fprintf(stderr, "                 2 (|H(z)|)\n");
+   fprintf(stderr, "                 3 (|H(z)|^2)\n");   
    fprintf(stderr, "             -p option is specified\n");
    fprintf(stderr, "                 0 (arg|H(z)|/pi     [pi rad])\n");
    fprintf(stderr, "                 1 (arg|H(z)|        [rad])\n");
@@ -284,6 +287,10 @@ int main(int argc, char **argv)
             for (i = no; i--;)
                x[i] = exp(x[i]);
             break;
+         case 3:
+            for (i = no; i--;)
+               x[i] = exp(2 * x[i]);
+            break;            
          default:
             for (i = no; i--;)
                x[i] *= logk;
