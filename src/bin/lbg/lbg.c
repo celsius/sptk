@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -47,6 +47,7 @@
 *     LBG Algorithm for Vector Quantizer Design                         *
 *                                                                       *
 *                                             1996. 4  K.Koishida       *
+*                                             2010. 6  A.Tamamori       *
 *                                                                       *
 *        usage:                                                         *
 *                lbg [ options ] [ indexfile ] < stdin > stdout         *
@@ -57,6 +58,8 @@
 *                -s s      :  initial codebook size      [1]            *
 *                -e e      :  final codebook size        [256]          *
 *                -f f      :  initial codebook filename  [NULL]         *
+*                -m m      :  minimum num. of training   [NULL]         *
+*                             vectors for each cell      [1]            *
 *                (level 2)                                              *
 *                -d d   :  end condition                 [0.0001]       * 
 *                -r r   :  splitting factor              [0.0001]       *
@@ -80,7 +83,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: lbg.c,v 1.21 2009/12/16 13:12:33 uratec Exp $";
+static char *rcs_id = "$Id: lbg.c,v 1.22 2010/06/21 04:49:53 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -110,6 +113,7 @@ static char *rcs_id = "$Id: lbg.c,v 1.21 2009/12/16 13:12:33 uratec Exp $";
 #define ECBSIZE 256
 #define DELTA 0.0001
 #define END 0.0001
+#define MINTRAIN 1
 
 #define MAXVALUE 1e23
 #define abs(x)  ( (x<0) ? (-(x)) : (x) )
@@ -132,6 +136,8 @@ void usage(int status)
    fprintf(stderr, "       -s s  : initial codebook size     [%d]\n", ICBSIZE);
    fprintf(stderr, "       -e e  : final codebook size       [%d]\n", ECBSIZE);
    fprintf(stderr, "       -f f  : initial codebook filename [NULL]\n");
+   fprintf(stderr, "       -m m  : minimum num. of training\n");
+   fprintf(stderr, "               vectors for each cell      [%d]\n", MINTRAIN);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "     (level 2)\n");
    fprintf(stderr, "       -d d  : end condition             [%g]\n", END);
@@ -159,7 +165,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int l = LENG, icbsize = ICBSIZE, ecbsize = ECBSIZE, tnum =
-       TNUMBER, ispipe, xsize, csize, i, j, *tindex;
+       TNUMBER, ispipe, xsize, csize, i, j, *tindex, mintnum = MINTRAIN;
    FILE *fp = stdin, *fpi = NULL, *fpcb = NULL;
    double delta = DELTA, minerr = END, *x, *cb, *icb;
    double *p;
@@ -203,6 +209,10 @@ int main(int argc, char **argv)
             fpcb = getfp(*++argv, "rb");
             --argc;
             break;
+         case 'm':
+             mintnum = atoi(*++argv);
+             --argc;
+             break;
          case 'h':
             usage(0);
          default:
@@ -258,7 +268,7 @@ int main(int argc, char **argv)
       }
    }
 
-   lbg(x, l, tnum, icb, icbsize, cb, ecbsize, delta, minerr);
+   lbg(x, l, tnum, icb, icbsize, cb, ecbsize, mintnum, delta, minerr);
 
    fwritef(cb, sizeof(*cb), csize, stdout);
 
