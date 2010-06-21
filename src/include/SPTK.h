@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***********************************************************
-   $Id: SPTK.h,v 1.28 2010/04/12 09:25:56 uratec Exp $ 
+   $Id: SPTK.h,v 1.29 2010/06/21 05:06:11 mataki Exp $ 
    
    Speech Signal Processing Toolkit
    SPTK.h
@@ -213,8 +213,8 @@ double imglsadf1t(double x, double *b, const int m, const double a, const int n,
 void imsvq(int *index, double *cb, const int l, int *cbsize, const int stage,
            double *x);
 void ivq(const int index, double *cb, const int l, double *x);
-void lbg(double *x, const int l, const int tnum, double *icb, int icbsize,
-         double *cb, const int ecbsize, const double delta, const double end);
+void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, double *cb,
+         const int ecbsize, const int mintnum, const double delta, const double end);
 int levdur(double *r, double *a, const int m, double eps);
 double lmadf(double x, double *c, const int m, const int pd, double *d);
 double lmadft(double x, double *c, const int m, const int pd, double *d);
