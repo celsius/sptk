@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -42,13 +42,13 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/************************************************************************
+/****************************************************************************
 
-    $Id: _lbg.c,v 1.13 2009/12/16 13:12:33 uratec Exp $
+    $Id: _lbg.c,v 1.14 2010/06/21 04:52:17 mataki Exp $
 
     LBG Algorithm for Vector Qauntizer Design
 
-       void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, delta, end)
+       void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, mintnum, delta, end)
 
        double *x      :   training vector
        double l       :   length of vector
@@ -57,10 +57,11 @@
        int    icbsize :   initial codebook size
        double *cb     :   final codebook
        int    ecbsize :   final codebook size
+       int    mintnum :   minimum num. of training vectors for each cell
        double delta   :   splitting factor
        double end     :   end condition
 
-************************************************************************/
+*****************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -75,8 +76,8 @@
 #define abs(x) ( (x<0) ? (-(x)) : (x) )
 
 
-void lbg(double *x, const int l, const int tnum, double *icb, int icbsize,
-         double *cb, const int ecbsize, const double delta, const double end)
+void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, double *cb,
+         const int ecbsize, const int mintnum, const double delta, const double end)
 {
    int i, j, k, maxindex;
    static int *cntcb, *tindex, size, sizex, sizecb;
@@ -171,7 +172,7 @@ void lbg(double *x, const int l, const int tnum, double *icb, int icbsize,
          q = cb;
          r = cb1;
          for (i = 0; i < icbsize; i++, r += l, q += l)
-            if (cntcb[i] > 0)
+            if (cntcb[i] >= mintnum)
                for (j = 0; j < l; j++)
                   q[j] = r[j] / (double) cntcb[i];
             else {
