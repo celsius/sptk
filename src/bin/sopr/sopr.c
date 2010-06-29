@@ -49,7 +49,7 @@
 *                                     1990.11 T.Kobayashi               *
 *                                     1996.5  K.Koishida                *
 *                                     2000.5  T.Kobayashi               *
-*                                     2010.4  A.Tamamori                *
+*                                     2010.6  A.Tamamori                *
 *       usage:                                                          *
 *               sopr [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
@@ -57,6 +57,8 @@
 *               -s s     :  subtraction       (in - s)                  *
 *               -m m     :  multiplication    (in * m)                  *
 *               -d d     :  division          (in / d)                  *
+*               -f f     :  flooring          (in < f -> f)             *
+*               -c c     :  ceiling           (in > f -> f)             *
 *               -ABS     :  absolute          (abs(in))                 *
 *               -INV     :  inverse           (1 / in)                  *
 *               -P       :  square            (in * in)                 *
@@ -86,7 +88,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.25 2010/04/03 04:50:24 mataki Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.26 2010/06/29 04:17:44 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -130,6 +132,8 @@ void usage(int status)
    fprintf(stderr, "       -s s   : subtraction         (in - s)\n");
    fprintf(stderr, "       -m m   : multiplication      (in * m)\n");
    fprintf(stderr, "       -d d   : division            (in / d)\n");
+   fprintf(stderr, "       -f f   : flooring            (f if in < f)\n");
+   fprintf(stderr, "       -c c   : ceiling             (c if in > c)\n");
    fprintf(stderr, "       -ABS   : absolute            (abs(in))\n");
    fprintf(stderr, "       -INV   : inverse             (1 / in)\n");
    fprintf(stderr, "       -P     : square              (in * in)\n");
@@ -199,7 +203,9 @@ int main(int argc, char *argv[])
          }
          switch (c) {
          case 'a':
+         case 'c':
          case 'd':
+         case 'f':
          case 'm':
          case 's':
          case 'r':
@@ -303,6 +309,12 @@ int sopr(FILE * fp)
             break;
          case 'd':
             x /= y;
+            break;
+         case 'f':
+            x = (x<y) ? y : x;
+            break;
+         case 'c':
+            x = (x>y) ? y : x;
             break;
          case 'A':
             if (optbl[k].op[1] == 'T')
