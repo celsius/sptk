@@ -46,8 +46,8 @@
 
 \begin{synopsis}
 \item [lbg] [ --l $L$ ] [ --n $N$ ] [ --t $T$ ] [ --s $S$ ] [ --e $E$ ]
-        [ --f $F$ ] [ --m $M$ ] [ --d $D$ ] [ --r $R$ ] 
-\item [\ ~~~~] [ {\em indexfile} ] $<$ {\em infile}
+        [ --f $F$ ] [ --m $M$ ] [ --S $sfile$ ] 
+\item [\ ~~~~] [ --k $K$ ] [ --d $D$ ] [ --r $R$ ] [ {\em indexfile} ] $<$ {\em infile}
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -96,7 +96,7 @@ After that the mean Euclidean distance $D_k$ is evaluated
 from every training vector and the corresponding code vector.
 If the following condition 
 \begin{displaymath}
-|\frac{D_{k-1}-D_{k}}{D_{k}}| < D
+\left|\frac{D_{k-1}-D_{k}}{D_{k}}\right| < D
 \end{displaymath}
 is valid then go to {\bf step.4}.
 If it is not valid then go to {\bf step.3}.
@@ -106,12 +106,14 @@ Centroids are evaluated from the results obtained in {\bf step.2}.
 The codebook $\bC_{2S}$ is updated.
 Also, if a cell has training vectors less than $M$, then the corresponding
 code vector is erased from codebook,
-and a new code vector is generated from the code vector
-which corresponds to the cell with more training vectors 
-$\bc_{2S}(j)$, as follows.
+and a new code vector is generated from the code vector;
+1) which corresponds to the cell with more training vectors
+$\bc_{2S}(j)$ as follows.
 \begin{displaymath}
 \bc_{2S}(i)=\bc_{2S}(j) + R \cdot \bm{\mathrm{rnd}}
 \end{displaymath}
+2) which is the parent of the code vector. Update method is the same as 1).
+\\the type of split can be specified by -k option.
 After that, we assigned $k=k+1$ and go back {\bf step.2}.
 
 \item[\bf step.4~~~]
@@ -123,12 +125,20 @@ If it is not then we make $S$ = $2S$ and go back {\bf step.1}.
 
 \begin{options}
         \argm{l}{L}{length of vector}{26}
-        \argm{n}{N}{order of vector}{L-1}
+        \argm{n}{N}{order of vector}{L$-$1}
         \argm{t}{T}{number of training vector}{N/A}
         \argm{s}{S}{initial codebook size}{1}
         \argm{e}{E}{final codebook size}{256}
         \argm{f}{F}{initial codebook filename}{NULL}
         \argm{m}{M}{minimum number of training vectors for each cell}{1}
+        \argm{S}{sfile}{sequence of seed given to each centroid}{NULL}
+        \argm{k}{K}{type of split when the number of training
+                    vectors for the cell is less than $M$ \\
+                    \begin{tabular}{ll} \\[-1ex]
+                      $k=1$ & split the centroid with most training vectors\\
+                      $k=2$ & split the parent centroid\\
+                    \end{tabular}\\\hspace*{\fill}
+                   }{1}
         \desc[1ex]{Usually, the options below do not need to be assigned.}
         \argm{d}{D}{end condition}{0.0001}
         \argm{r}{R}{splitting factor}{0.0001}
