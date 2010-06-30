@@ -42,13 +42,13 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/****************************************************************************
+/**********************************************************************************************
 
     $Id$
 
     LBG Algorithm for Vector Qauntizer Design
 
-       void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, mintnum, delta, end)
+       void lbg(x, l, tnum, icb, icbsize, cb, ecbsize, mintnum, seed, split, delta, end)
 
        double *x      :   training vector
        double l       :   length of vector
@@ -58,10 +58,12 @@
        double *cb     :   final codebook
        int    ecbsize :   final codebook size
        int    mintnum :   minimum num. of training vectors for each cell
+       int    *seed   :   set of seed for normalized random vector in splitting codebook vector
+       int    split   :   type of split if the number of train vector is less than mintnum
        double delta   :   splitting factor
        double end     :   end condition
 
-*****************************************************************************/
+***********************************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,17 +79,19 @@
 
 
 void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, double *cb,
-         const int ecbsize, const int mintnum, const double delta, const double end)
+         const int ecbsize, const int mintnum, const int *seed, const int split,
+         const double delta, const double end)
 {
    int i, j, k, maxindex;
    static int *cntcb, *tindex, size, sizex, sizecb;
    double d0, d1, dl, err;
-   static double *rnd = NULL, *cb1;
+   static double *rnd = NULL, *cb1, *cbbackup;
    double *p, *q, *r;
 
    if (rnd == NULL) {
       rnd = dgetmem(l);
       cb1 = dgetmem(ecbsize * l);
+      cbbackup = dgetmem(ecbsize * l);
       tindex = (int *) dgetmem(tnum);
       cntcb = (int *) dgetmem(ecbsize);
       size = l;
@@ -99,6 +103,7 @@ void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, doubl
       free(cb1);
       rnd = dgetmem(l);
       cb1 = dgetmem(ecbsize * l);
+      cbbackup = dgetmem(ecbsize * l);
       size = l;
    }
    if (tnum > sizex) {
@@ -110,16 +115,22 @@ void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, doubl
       free(cb1);
       free(cntcb);
       cb1 = dgetmem(ecbsize * l);
+      cbbackup = dgetmem(ecbsize * l);
       cntcb = (int *) dgetmem(ecbsize);
    }
 
    movem(icb, cb, sizeof(*icb), icbsize * l);
 
    for (; icbsize * 2 <= ecbsize;) {
+      /* backup of centroids */
+      for (i = 0; i < icbsize; i++)
+         for (j = 0; j < l; j++)
+            cbbackup[i * l + j] = cb[i * l + j];
+
       q = cb;
       r = cb + icbsize * l;     /* splitting */
       for (i = 0; i < icbsize; i++) {
-         nrand(rnd, l, i);
+         nrand(rnd, l, seed[i]);
          for (j = 0; j < l; j++) {
             dl = delta * rnd[j];
             *r = *q - dl;
@@ -175,11 +186,19 @@ void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, doubl
             if (cntcb[i] >= mintnum)
                for (j = 0; j < l; j++)
                   q[j] = r[j] / (double) cntcb[i];
-            else {
-               nrand(rnd, l, i);
+            else if (split == 1) {
+               nrand(rnd, l, seed[i]);
                p = cb + maxindex * l;
                for (j = 0; j < l; j++)
                   q[j] = p[j] + delta * rnd[j];
+            } else if (split == 2) {
+               nrand(rnd, l, seed[i]);
+               if (i < icbsize / 2)
+                  for (j = 0; j < l; j++)
+                     q[j] = cbbackup[i * l + j] + delta * rnd[j];
+               else
+                  for (j = 0; j < l; j++)
+                     q[j] = cbbackup[(i - icbsize / 2) * l + j] + delta * rnd[j];
             }
       }
       if (icbsize == ecbsize)
