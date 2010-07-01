@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -53,7 +53,7 @@
 *      Ver. 0.99  '93.8                                 *
 ********************************************************/
 
-static char *rcs_id = "$Id: psgr.c,v 1.16 2009/12/16 13:12:37 uratec Exp $";
+static char *rcs_id = "$Id: psgr.c,v 1.17 2010/07/01 05:08:32 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -81,14 +81,21 @@ static char *rcs_id = "$Id: psgr.c,v 1.16 2009/12/16 13:12:37 uratec Exp $";
 char *BOOL[] = { "FALSE", "TRUE" };
 
 
-#define MaxPaperTypes 6         /*  Paper Media  */
+#define MaxPaperTypes 13         /*  Paper Media  */
 
 struct page_media paper[] = {
    {"Letter", 612, 792},
+   {"A0", 2378, 3362},
+   {"A1", 1682, 2378},
+   {"A2", 1190, 1682},
    {"A3", 842, 1190},
    {"A4", 842, 842},
 /* {"A4",      595,  842}, */
    {"A5", 420, 595},
+   {"B0", 2917, 4124},
+   {"B1", 2063, 2917},
+   {"B2", 1459, 2063},
+   {"B3", 1032, 1459},
    {"B4", 729, 1032},
    {"B5", 516, 729},
 };
@@ -237,7 +244,7 @@ int main(int argc, char *argv[])
          filename = str;
    }
    for (i = 0; i < MaxPaperTypes; i++) {
-      if (strcmp(media, paper[i].size)) {
+      if (strcmp(media, paper[i].size) == 0) {
          paper_num = i;
          break;
       }
@@ -251,7 +258,7 @@ int main(int argc, char *argv[])
    }
    xleng *= SCALE;
    yleng *= SCALE;
-
+/*    fprintf(stderr, "pape.size=%s\nmedia=%s\npaper.width=%d\naper.height=%d\n",paper[i].size,media,paper[paper_num].width,paper[paper_num].height); */
    orientation = orientations[landscape];
 
    if (filename != NULL) {
