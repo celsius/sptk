@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -214,8 +214,9 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
       case 'P':
          n = getstrlength(fp);
          if (!rotate) {
-            x += n * cw * mag;
+            x += n * cw * mag; 
             *xmax = plot_max(x, *xmax, plot_xmax);
+            y -= ch * mag;
             *ymin = plot_min(y, *ymin, plot_ymin);
          } else {
             y += n * cw * mag;
@@ -267,8 +268,8 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
       *ymin = norm((x + loffset - bbm.left) * unit_length + MIN_OFFSET);
       *ymax = norm((y + loffset + bbm.right) * unit_length + MAX_OFFSET);
    }
-   /* fprintf(stderr, "%d %d %d %d\n", *xmin, *ymin, *xmax, *ymax);
-    */
+ /*   fprintf(stderr, "%d %d %d %d\n", *xmin, *ymin, *xmax, *ymax); 
+  */
    rewind(fp);
 
    return;
