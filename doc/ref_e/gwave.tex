@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2009  Nagoya Institute of Technology          %
+%                1996-2010  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -45,7 +45,7 @@
 \name{gwave}{draw a waveform}{plotting graphs}
 
 \begin{synopsis}
-\item[gwave] [ --s $S$ ] [ --e $E$ ] [ --n $N$ ] [ --i $I$ ] [ --y $ymax$ ]
+\item[gwave] [ --F $F$] [ --s $S$ ] [ --e $E$ ] [ --n $N$ ] [ --i $I$ ] [ --y $ymax$ ]
                [ --y2 $ymin$ ] [ --p $P$ ] 
 \item[\ ~~~~~~~~] [ +{\em type} ]  [ {\em infile} ]
 
@@ -62,6 +62,7 @@ that uses the \hyperlink{fig}{fig} and \hyperlink{fdrw}{fdrw} commands.
 \end{qsection}
 
 \begin{options}
+        \argm{F}{F}{factor}{1}
         \argm{s}{S}{start point}{0}
         \argm{e}{E}{end point}{EOF}
         \argm{n}{N}{data number of one screen\\

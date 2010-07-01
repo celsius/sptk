@@ -9,7 +9,7 @@
 #                           Interdisciplinary Graduate School of    #
 #                           Science and Engineering                 #
 #                                                                   #
-#                1996-2008  Nagoya Institute of Technology          #
+#                1996-2010  Nagoya Institute of Technology          #
 #                           Department of Computer Science          #
 #                                                                   #
 # All rights reserved.                                              #
@@ -49,6 +49,7 @@
 #   Draw a Waveform                                                     #
 #                                                                       #
 #                                               1997.1  K.Koishida      #
+#                                               2010.6  T.Sawada        #
 #                                                                       #
 #########################################################################
 
@@ -56,7 +57,7 @@ onintr clean
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: gwave.in,v 1.10 2008/06/16 05:47:55 heigazen Exp $'
+set cvsid   = '$Id: gwave.in,v 1.11 2010/07/01 05:27:34 sawada11 Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -68,6 +69,7 @@ set file
 @ numdata   = 2000
 set ymax    = 2000
 set pen     = 1
+set F       = 1
 set type    = f
 
 set flagy2      = 0
@@ -111,6 +113,10 @@ while ($i < $#argv)
                 @ i++
                 set pen = $argv[$i]
                 breaksw
+        case -F:
+                @ i++
+                set F   = $argv[$i]
+                breaksw
         case +s:
                 set type = s
                 breaksw
@@ -151,6 +157,7 @@ usage:
         echo2 '  usage:'
         echo2 "       $cmnd [ options ] [ infile ] > stdout"
         echo2 '  options:'
+        echo2 '       -F  F         : factor                       [1]'
         echo2 '       -s  s         : start point                  [0]'
         echo2 '       -e  e         : end point                    [EOF]'
         echo2 '       -n  n         : data number of one screen    [N/A]'
@@ -194,7 +201,7 @@ if ( ! $flagnumdata ) then
 endif
 
 if ( ! $flagy ) then
-        set val = (`x2x +${type}@io_symbol@ < $file | minmax | x2x +@io_symbol@s | x2x +sa`)
+        set val = (`x2x +${type}f < $file | minmax | x2x +fs | x2x +sa`)
 
         if ( $val[1] < 0 ) then
                 @ val[1] *= -1
@@ -213,13 +220,17 @@ if ( ! $flagy2 ) then
         set ymin = -$ymax
 endif
 
-set width  = 1.7
+set width  = 1.7 
 set height = 0.4
 
 @ n1  = $numdata - 1
 @ end = $start + $n1
-@ ox  = 20
-@ oy  = 225
+
+set ox  = `echo "20 * $F" | bc -l`
+set oy  = `echo "225 * $F" | bc -l`
+if (`echo "$oy >= 1000" |bc -l`) then
+set oy  = 1000
+endif
 @ xs  = $start
 @ xe  = $xs + $n1
 
@@ -239,27 +250,25 @@ while ( $numscreen > 0 )
                 @ i++
         end
 
-        fig -o $ox $oy -W $width -H $height -p $pen << EOF
+        fig -o $ox $oy -W $width -H $height -p $pen -F $F<< EOF
                 x      $xs $xe
                 y      $ymin $ymax
                 xscale $xscale
                 yscale $ymin $ymax
 EOF
-
-        x2x +${type}@io_symbol@ $file |\
-        bcut +@io_symbol@ -s $start -e $end |\
+        x2x +${type}f $file |\
+        bcut +f -s $start -e $end |\
         fdrw -o $ox $oy -W $width -H $height -p $pen -g 0 \
-             -y $ymin $ymax -n $numdata
+             -y $ymin $ymax -n $numdata -F $F
 
         @ numscreen--
-        @ oy    -= 50
-        @ xs    += $numdata
-        @ xe    += $numdata
-        @ start += $numdata
-        @ end   += $numdata
+        set oy  =  `echo "$oy - 50 * $F" | bc -l`
+        @ xs    += $numdata 
+        @ xe    += $numdata 
+        @ start += $numdata 
+        @ end   += $numdata 
 
 end
-
 clean:
 /bin/rm -f /tmp/$$
 

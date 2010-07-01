@@ -9,7 +9,7 @@
 #                           Interdisciplinary Graduate School of    #
 #                           Science and Engineering                 #
 #                                                                   #
-#                1996-2009  Nagoya Institute of Technology          #
+#                1996-2010  Nagoya Institute of Technology          #
 #                           Department of Computer Science          #
 #                                                                   #
 # All rights reserved.                                              #
@@ -50,18 +50,20 @@
 #                                                                       #
 #                                               1988.5  K.Tokuda        #
 #                                               1996.6  K.Koishida      #
+#                                               2010.6  T.Sawada        #
 #                                                                       #
 #########################################################################
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: glogsp.in,v 1.11 2009/12/16 13:12:39 uratec Exp $'
+set cvsid   = '$Id: glogsp.in,v 1.12 2010/07/01 05:26:54 sawada11 Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
 
 set h    = 0.6
 set w    = 0.6
+set F    = 1
 @ on     = 1
 @ x      = 1
 @ ymin   = 0
@@ -100,6 +102,10 @@ set on_y = (205 205 120 120 35 35)
 while ($i < $#argv)
         @ i++
         switch ($argv[$i])
+        case -F:
+                @ i++
+                set F = $argv[$i]
+                breaksw
         case -f:
                 @ i++
                 set f = $argv[$i]
@@ -188,6 +194,7 @@ usage:
         echo2 '  usage:'
         echo2 "       $cmnd [ options ] [ infile ] > stdout"
         echo2 '  options:'
+        echo2 '       -F  F         : factor                       [1]    '
         echo2 '       -O  O         : origin of graph              [1]    '
 if ( $help ) then
         echo2 '                        1 ( 40, 205) <mm> '
@@ -229,7 +236,7 @@ if ( $help ) then
         echo2 '       -f  file      : additional data file for fig [NULL]'
 endif
         echo2 '  infile:'
-        echo2 "       log spectrum (@io_format@)                         [stdin]"
+        echo2 "       log spectrum (float)                         [stdin]"
         echo2 '  stdout:'
         echo2 '       XY-plotter command'
         echo2 ''
@@ -244,6 +251,14 @@ if (! $?xo) then
         @ yo = $on_y[$on]
 endif
 
+set xo = `echo "$xo + 60 * ($F - 1)"| bc -l`
+set yo = `echo "$yo - 60 * ($F - 1)"| bc -l`
+if($xo <= 0) then
+set xo = 1
+endif
+if($yo <= 0) then
+set yo = 1
+endif
 @ yy[1] = $ymin
 @ yy[2] = $ymax
 
@@ -256,15 +271,29 @@ while (($ys[$i] + $yscale) <= $ymax)
   @ i++
 end
 
+@ lhi = $l / 2 + 1
+@ s = $s * $lhi
+if ($?v) then
+        set ee = ""
+else
+        @ e = $s + $lhi - 1
+        set ee = "-e $e"
+endif
+
+bcut +f -s $s $ee $file |\
+fdrw -W $w -H $h -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -F $F
+
+
+
 if ($?c) then
         # echo "$c"
         @ yoc = $yo - 8
-        fig -W $w -H $h -o $xo $yoc -g 0 << EOF
+        fig -W $w -H $h -o $xo $yoc -g 0 -F $F<< EOF
         xname "$c"
 EOF
 endif
 
-fig -W $w -H $h -o $xo $yo -g $g << EOF
+fig -W $w -H $h -o $xo $yo -g $g -F $F<< EOF
         x $xx[$x]
         y $yy
         xscale $xs[$x]
@@ -280,18 +309,5 @@ fig -W $w -H $h -o $xo $yo -g $g << EOF
 EOF
 
 if ($?f) then
-        fig $f -W $w -H $h -o $xo $yo -g 0
+        fig $f -W $w -H $h -o $xo $yo -g 0 -F $F
 endif
-
-@ lhi = $l / 2 + 1
-@ s = $s * $lhi
-if ($?v) then
-        set ee = ""
-else
-        @ e = $s + $lhi - 1
-        set ee = "-e $e"
-endif
-
-bcut +@io_symbol@ -s $s $ee $file |\
-fdrw -W $w -H $h -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln
-
