@@ -128,7 +128,7 @@ int mcep(double *xw, const int flng, double *mc, const int m, const double a,
       break;
    case 1:                     /* dB */
       for (i = 0; i <= flng / 2; i++) {
-         x[i] /= 20.0 / log(10.0);      /* dB -> amplitude spectrum */
+         x[i] exp((x[i] / 20.0) * log(10.0));      /* dB -> amplitude spectrum */
          x[i] = x[i] * x[i] + e;        /* amplitude -> periodgram */
       }
       break;
