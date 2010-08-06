@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _mcep.c,v 1.21 2010/08/06 10:29:09 mataki Exp $
+    $Id: _mcep.c,v 1.22 2010/08/06 10:31:23 mataki Exp $
 
     Mel-Cepstral Analysis
 
@@ -128,7 +128,7 @@ int mcep(double *xw, const int flng, double *mc, const int m, const double a,
       break;
    case 1:                     /* dB */
       for (i = 0; i <= flng / 2; i++) {
-         x[i] exp((x[i] / 20.0) * log(10.0));      /* dB -> amplitude spectrum */
+         x[i] = exp((x[i] / 20.0) * log(10.0));      /* dB -> amplitude spectrum */
          x[i] = x[i] * x[i] + e;        /* amplitude -> periodgram */
       }
       break;
