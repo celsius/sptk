@@ -29,7 +29,7 @@ all: acep.exe acorr.exe agcep.exe amcep.exe \
 	merge.exe mgc2mgc.exe mgc2sp.exe mgcep.exe mglsadf.exe minmax.exe mlpg.exe \
 	mlsadf.exe msvq.exe nan.exe norm0.exe nrand.exe pca.exe pcap.exe par2lpc.exe phase.exe pitch.exe \
 	poledf.exe psgr.exe \
-	ramp.exe reverse.exe rmse.exe root_pol.exe sin.exe smcep.exe snr.exe \
+	ramp.exe rawtowav.exe reverse.exe rmse.exe root_pol.exe sin.exe smcep.exe snr.exe \
 	sopr.exe spec.exe step.exe swab.exe train.exe uels.exe ulaw.exe \
 	us.exe vopr.exe vq.exe vstat.exe vsum.exe window.exe x2x.exe \
 	zcross.exe zerodf.exe 
@@ -359,6 +359,10 @@ psgr.exe : psgr\psgr.obj psgr\dict.obj psgr\plot.obj psgr\eps.obj
 	$(CL) /OUT:$@ $(LIBS) psgr.obj dict.obj plot.obj eps.obj
 
 ramp.exe : ramp\ramp.obj
+	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
+	$(CL) /OUT:$@ $(LIBS) $(@B).obj
+
+rawtowav.exe : rawtowav\rawtowav.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
