@@ -57,9 +57,7 @@ MODULES = ..\bin\acep\_acep.obj \
 		..\bin\histogram\_histogram.obj \
 		..\bin\ifft\_ifft.obj \
 		..\bin\ifft2\_ifft2.obj \
-		..\bin\iglsadf\_iglsadf.obj \
 		..\bin\ignorm\_ignorm.obj \
-		..\bin\imglsadf\_imglsadf.obj \
 		..\bin\imsvq\_imsvq.obj \
 		..\bin\ivq\_ivq.obj \
 		..\bin\lbg\_lbg.obj \
