@@ -18,10 +18,10 @@ LIBS	=  /NOLOGO /SUBSYSTEM:CONSOLE /MACHINE:X86 $(SPTKLIB) $(SYSLIB)
        
 all: acep.exe acorr.exe agcep.exe amcep.exe \
 	average.exe b2mc.exe bcp.exe bcut.exe c2acr.exe \
-	c2ir.exe c2sp.exe cat2.exe cdist.exe clip.exe da.exe \
+	c2ir.exe c2sp.exe cat2.exe cdist.exe clip.exe da.exe dct.exe\
 	decimate.exe delay.exe delta.exe df2.exe dfs.exe dmp.exe ds.exe echo2.exe \
 	excite.exe extract.exe fd.exe fft.exe fft2.exe fftcep.exe fftr.exe fftr2.exe \
-	frame.exe freqt.exe gc2gc.exe gcep.exe glsadf.exe gmm.exe gnorm.exe \
+	frame.exe freqt.exe gc2gc.exe gcep.exe glsadf.exe gmm.exe gmmp.exe gnorm.exe \
 	grpdelay.exe histogram.exe ifft.exe ifft2.exe \
 	ignorm.exe impulse.exe imsvq.exe interpolate.exe ivq.exe \
 	lbg.exe levdur.exe linear_intpl.exe lmadf.exe lpc.exe lpc2c.exe lpc2lsp.exe \
@@ -96,6 +96,10 @@ da.exe : da\dawrite.obj da\winplay.obj
 	$(CC) $(CFLAGS) /c da\winplay.c
 	$(CL) /OUT:$@ $(LIBS) winmm.lib dawrite.obj winplay.obj
 
+dct.exe : dct\dct.obj
+	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
+	$(CL) /OUT:$@ $(LIBS) $(@B).obj
+    
 decimate.exe : decimate\decimate.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
@@ -182,6 +186,10 @@ glsadf.exe : glsadf\glsadf.obj
 
 gmm.exe : gmm\gmm.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
+	$(CL) /OUT:$@ $(LIBS) $(@B).obj
+
+gmmp.exe : gmm\gmmp.obj
+	$(CC) $(CFLAGS) /c gmm\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
 gnorm.exe : gnorm\gnorm.obj
