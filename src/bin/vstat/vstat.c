@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -47,16 +47,20 @@
 *    Vector Statistics Calculation                                      *
 *                                                                       *
 *                                      1998.12 T.Masuko                 *
+*                                      2010.8  A.Tamamori               *
 *       usage:                                                          *
 *               vstat [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
 *               -l l     :  length of vector                   [1]      *
-*               -n n     :  order of vector                    [1-1]    *
+*               -n n     :  order of vector                    [l-1]    *
 *               -t t     :  number of vector                   [all]    *
 *               -o o     :  output format                      [0]      *
 *                             0 mean & covariance                       *
 *                             1 mean                                    *
 *                             2 covariance                              *
+*                             3 mean and upper / lower bound of         *
+*                               confidence interval via t-dist.         *
+*               -c c     :  conf. level of conf. interval      [0.95]   *
 *               -d       :  diagonal covariance                [FALSE]  *
 *               -i       :  output inverse cov. instead of cov.[FALSE]  * 
 *               -r       :  output correlation instead of cov. [FALSE]  *
@@ -70,6 +74,9 @@
 *                      U(11), ..., m(1L),                               *
 *                      ...............,                                 *
 *                      U(L1), ..., m(LL), ...                           *
+*              upper/lower bound of confidence interval                 *
+*                      upper(1), ..., upper(L),                         *
+*                      lower(1), ..., lower(L)                          *
 *       note:                                                           *
 *              if '-d' is specified,                                    *
 *              off-diagonal elements are suppressed.                    *
@@ -108,6 +115,8 @@ static char *rcs_id = "$Id$";
 #define LENG    1
 #define OUTMEAN TR
 #define OUTCOV  TR
+#define OUTCONF FA
+#define CONFLEV 0.9500E2
 #define DIAGC   FA
 #define INV     FA
 #define CORR    FA
@@ -136,6 +145,10 @@ void usage(int status)
    fprintf(stderr, "                  0 mean & covariance\n");
    fprintf(stderr, "                  1 mean\n");
    fprintf(stderr, "                  2 covariance\n");
+   fprintf(stderr, "                  3 mean and upper / lower bound of\n");
+   fprintf(stderr, "                    confidence interval via t-dist.\n");
+   fprintf(stderr, "       -c c   : conf. level of conf. interval (%)   [%g]\n",
+           CONFLEV);
    fprintf(stderr, "       -d     : diagonal covariance                 [%s]\n",
            BOOL[DIAGC]);
    fprintf(stderr, "       -i     : output inverse cov. instead of cov. [%s]\n",
@@ -166,10 +179,11 @@ void usage(int status)
 int main(int argc, char *argv[])
 {
    FILE *fp = stdin;
-   double *x, *mean, **cov = NULL, **invcov = NULL, *var = NULL;
+   double *x, *mean, **cov = NULL, **invcov = NULL, *var = NULL,
+       conf = CONFLEV, *upper, *lower, t, err;
    int leng = LENG, nv = -1, i, j, k, lp, m, outtype = 0;
-   Boolean outmean = OUTMEAN, outcov = OUTCOV, diagc = DIAGC, inv = INV, corr =
-       CORR;
+   Boolean outmean = OUTMEAN, outcov = OUTCOV, outconf = OUTCONF,
+      diagc = DIAGC, inv = INV, corr = CORR;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -194,6 +208,10 @@ int main(int argc, char *argv[])
             outtype = atoi(*++argv);
             --argc;
             break;
+         case 'c':
+            conf = atof(*++argv);
+            --argc;
+            break;
          case 'd':
             diagc = 1 - diagc;
             break;
@@ -212,12 +230,20 @@ int main(int argc, char *argv[])
       } else
          fp = getfp(*argv, "rb");
 
+   if (conf < 0 || conf > 100) {
+       fprintf(stderr,
+               "%s : Confidence level must be greater than 0 and less than 1.0!\n", cmnd);
+   }
    switch (outtype) {
    case 1:
       outcov = FA;
       break;
    case 2:
       outmean = FA;
+      break;
+   case 3:
+      outcov = FA;
+      outconf = TR;
       break;
    }
    if (diagc && corr)
@@ -245,6 +271,11 @@ int main(int argc, char *argv[])
       } else
          var = dgetmem(leng);
    }
+   if (outconf) {
+      var = dgetmem(leng);
+      upper = dgetmem(leng);
+      lower = dgetmem(leng);
+   }
 
    while (!feof(fp)) {
       for (i = 0; i < leng; i++) {
@@ -255,6 +286,9 @@ int main(int argc, char *argv[])
                   cov[i][j] = 0.0;
             else
                var[i] = 0.0;
+         }
+         if (outconf) {
+            var[i] = 0.0;
          }
       }
       for (lp = nv; lp;) {
@@ -268,6 +302,9 @@ int main(int argc, char *argv[])
                      cov[i][j] += x[i] * x[j];
                else
                   var[i] += x[i] * x[i];
+            }
+            if (outconf) {
+               var[i] += x[i] * x[i];
             }
          }
          --lp;
@@ -287,6 +324,17 @@ int main(int argc, char *argv[])
             else
                for (i = 0; i < leng; i++)
                   var[i] = var[i] / k - mean[i] * mean[i];
+         }
+         if (outconf) {
+            for (i = 0; i < leng; i++){
+               var[i] = (var[i] - k * mean[i] * mean[i]) / (k - 1);
+            }
+            t = t_percent(conf / 100, k - 1);
+            for (i = 0; i < leng; i++) {
+               err = t * sqrt(var[i] / k);
+               upper[i] = mean[i] + err;
+               lower[i] = mean[i] - err;
+            }
          }
          if (corr) {
             for (i = 0; i < leng; i++)
@@ -333,6 +381,10 @@ int main(int argc, char *argv[])
                   fwritef(cov[0], sizeof(*cov[0]), leng * leng, stdout);
             } else
                fwritef(var, sizeof(*var), leng, stdout);
+         }
+         if (outconf) {
+            fwritef(upper, sizeof(*upper), leng, stdout);
+            fwritef(lower, sizeof(*lower), leng, stdout);
          }
       }
    }

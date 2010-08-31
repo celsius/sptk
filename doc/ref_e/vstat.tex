@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2009  Nagoya Institute of Technology          %
+%                1996-2010  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -45,7 +45,7 @@
 \name{vstat}{vector statistics calculation}{data processing}
 
 \begin{synopsis}
-\item[vstat] [ --l $L$ ] [ --n $N$ ] [ --t $T$ ] [ --d ] [ --o $O$] [ {\em infile} ]
+\item[vstat] [ --l $L$ ] [ --n $N$ ] [ --t $T$ ] [ --c $C$ ] [ --d ] [ --o $O$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -85,6 +85,31 @@ If the --d option is given,
 the length $L$ diagonal of the covariance matrix is output 
 instead of the entire $L\times L$ matrix.
 
+If the --o 3 option is specified, {\em vstat} also calculates the confidence
+interval of the mean via Student's t-distribution for each dimension.
+That is, for each dimension, the confidence interval can be estimated
+at the confidence level $\alpha$ (\%) with satisfying the following condition;
+ \begin{displaymath}
+  t(\alpha, \phi) \geq
+  \left| \frac{\mu(i) -m(i)}{\sqrt{\hat{\sigma(i)}^{2} / L} }\right|
+  ,   \;\;\;\; i = 1,  2, \dots, L
+ \end{displaymath}
+where $t(\alpha, \phi)$ is the upper $0.5(100 - \alpha)$th percentile
+of the t-distribution with the  $\phi$ degrees of freedom,
+$m(i)$ is the population mean, $\hat{\sigma(i)^{2}}$ is the unbiassed variance.
+The confidence level $\alpha$ can be specified by --c option.
+The upper / lower bound $u(i)$ and $l(i)$ can be written as
+ \begin{displaymath}
+  u(i) = \mu(i) + t(\alpha, L - 1) \sqrt{\frac{\hat{\sigma(i)}^{2}}{L}},
+ \end{displaymath}
+ \begin{displaymath}
+  l(i) = \mu(i) - t(\alpha, L - 1) \sqrt{\frac{\hat{\sigma(i)}^{2}}{L}}.
+ \end{displaymath}
+The order of the output is as follows.
+ \begin{displaymath}
+  \overbrace{\mu(1),\dots,\mu(L)}^L, \; \overbrace{u(1),\dots,u(L)}^L,
+    \;\overbrace{l(1),\dots,l(L)}^L
+ \end{displaymath}
 Input and output data are in float format.
 \end{qsection}
 
@@ -96,8 +121,11 @@ Input and output data are in float format.
 		\begin{tabular}{ll} \\[-1ex]
                         $O=0$ & mean \& covariance\\
                         $O=1$ & mean\\
-                        $O=2$ & covariance\\[1ex]
+                        $O=2$ & covariance\\
+                        $O=3$ & mean \& upper / lower bound of confidence interval\\
+                                &via Student's t-distribution\\[1ex]
                 \end{tabular}\\\hspace*{\fill}}{0}
+	\argm{c}{C}{confidence level of confidence interval (\%)}{95.00}
 	\argm{d}{}{diagonal covariance}{FALSE}
 	\argm{i}{}{output inverse covariance instead of covariance}{FALSE}
 	\argm{r}{}{output correlation instead of covariance}{FALSE}
