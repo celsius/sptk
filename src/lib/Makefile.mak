@@ -93,6 +93,7 @@ MODULES = ..\bin\acep\_acep.obj \
 		..\bin\uels\_uels.obj \
 		..\bin\ulaw\_ulaw.obj \
 		..\bin\vq\_vq.obj \
+		..\bin\vstat\_vstat.obj \
 		..\bin\window\_window.obj \
 		..\bin\zcross\_zcross.obj \
 		..\bin\zerodf\_zerodf.obj	      
