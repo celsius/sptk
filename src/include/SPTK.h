@@ -214,7 +214,8 @@ void imsvq(int *index, double *cb, const int l, int *cbsize, const int stage,
            double *x);
 void ivq(const int index, double *cb, const int l, double *x);
 void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, double *cb,
-         const int ecbsize, const int mintnum, const double delta, const double end);
+         const int ecbsize, const int iter, const int mintnum, const int seed, const int centup,
+         const double delta, const double end);
 int levdur(double *r, double *a, const int m, double eps);
 double lmadf(double x, double *c, const int m, const int pd, double *d);
 double lmadft(double x, double *c, const int m, const int pd, double *d);
@@ -262,6 +263,7 @@ double mlsadft(double x, double *b, const int m, const double a, const int pd,
 void msvq(double *x, double *cb, const int l, int *cbsize, const int stage,
           int *index);
 void norm0(double *x, double *y, int m);
+double norm_percent(const double alpha);
 int nrand(double *p, const int leng, const int seed);
 double nrandom(unsigned long *next);
 unsigned long srnd(const unsigned int seed);
@@ -282,6 +284,8 @@ complex *cplx_getmem(const int leng);
 int smcep(double *xw, const int flng, double *mc, const int m, const int fftsz,
           const double a, const double t, const int itr1, const int itr2,
           const double dd, const double e, const double f, const int itype);
+double t_lower(const double t, const int df);
+double t_percent(const double p, const int df);
 int uels(double *xw, const int flng, double *c, const int m, const int itr1,
          const int itr2, const double dd, const double e, const int itype);
 double ulaw_c(const double x, const double max, const double mu);
