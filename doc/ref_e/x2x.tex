@@ -83,6 +83,16 @@ as described below.
 	\argp{{\bf a}N}{specify the column number $N$}{1}
 	\argm{r}{}{specify rounding off when a real number
                  is substituted for a integer}{FALSE}
+	\argm{o}{}{clip by minimum and maximum of output type
+                 if input data is over the range of output
+                 type}{FALSE}
+	\argm{w}{W}{type of warning  \\
+                    when input data is over the range of output type\\
+			\begin{tabular}{ll}\\ [-1ex]
+			 0 & no-warning message\\
+			 1 & output warning message\\
+			 2 & interrupt execute with warning message\\
+			 \end{tabular}\\\hspace*{\fill}}{0}
 	\argh{format}{}{specify output format similar to 'printf()', 
                         if $type2$ is ASCII.}{$\%g$}
 \end{options}
