@@ -48,6 +48,7 @@
  *                                                                       *
  *                                       2000.7   C. Miyajima            *
  *                                       2010.4   A. Saito               *
+ *                                       2010.9   A. Tamamori            *
  *                                                                       *
  *       usage:                                                          *
  *               gmm [options] [infile] > stdout                         *
@@ -55,6 +56,7 @@
  *               -l l  :  length of vector                    [26]       *
  *               -m m  :  number of Gaussian components       [16]       *
  *               -t t  :  number of training vectors          [EOF]      *
+ *               -s s  :  seed of random var. for LBG algo.   [1]        *
  *               -a a  :  minimum number of EM iterations     [0]        *
  *               -b b  :  maximum number of EM iterations     [20]       *
  *               -e e  :  convergence factor                  [0.00001]  *
@@ -100,6 +102,7 @@ static char *rcs_id = "$Id$";
 #define DEF_L       26
 #define DEF_M       16
 #define DEF_T       -1
+#define DEF_S       1
 #define DEF_IMIN    0
 #define DEF_IMAX    20
 #define DEF_E       0.00001
@@ -111,6 +114,10 @@ static char *rcs_id = "$Id$";
 #define MAXVALUE    1.0e10
 #define FULL        0
 
+/* Default values for lbg */
+#define ITER 1000
+#define CENTUP 1
+#define MINTRAIN 1
 
 char *BOOL[] = { "FALSE", "TRUE" };
 
@@ -130,6 +137,8 @@ void usage(int status)
    fprintf(stderr, "       -m m  : number of Gaussian components      [%d]\n",
            DEF_M);
    fprintf(stderr, "       -t t  : number of training vectors         [N/A]\n");
+   fprintf(stderr, "       -s s  : seed of random var. for LBG algo.  [%d]\n",
+           DEF_S);
    fprintf(stderr, "       -a a  : minimum number of EM iterations    [%d]\n",
            DEF_IMIN);
    fprintf(stderr, "       -b b  : maximum number of EM iterations    [%d]\n",
@@ -178,7 +187,7 @@ int main(int argc, char **argv)
    double E = DEF_E, V = DEF_V, W = DEF_W,
        *dat, *pd, *cb, *icb, *logwgd, logb, *sum, *sum_m, **sum_v, diff, sum_w,
        ave_logp0, ave_logp1, change = MAXVALUE, tmp1, tmp2;
-   int ispipe, l, ll, L = DEF_L, m, M = DEF_M, N, t, T = DEF_T, full = FULL,
+   int ispipe, l, ll, L = DEF_L, m, M = DEF_M, N, t, T = DEF_T, S = DEF_S, full = FULL,
        n1, i, j, Imin = DEF_IMIN, Imax = DEF_IMAX, *tindex, *cntcb;
 
 
@@ -204,6 +213,10 @@ int main(int argc, char **argv)
             break;
          case 't':
             T = atoi(*++argv);
+            --argc;
+            break;
+         case 's':
+            S = atoi(*++argv);
             --argc;
             break;
          case 'a':
@@ -317,7 +330,7 @@ int main(int argc, char **argv)
    /* Initialization of GMM parameters */
    /* LBG */
    vaverage(dat, L, T, icb);
-   lbg(dat, L, T, icb, 1, cb, N, DELTA, END);
+   lbg(dat, L, T, icb, 1, cb, N, ITER, MINTRAIN, S, CENTUP, DELTA, END);
 
    for (t = 0, pd = dat; t < T; t++, pd += L) {
       tindex[t] = vq(pd, cb, L, M);
