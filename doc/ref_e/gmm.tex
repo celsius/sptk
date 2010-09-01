@@ -45,7 +45,7 @@
 \name{gmm}{GMM parameter estimation}{model training}
 
 \begin{synopsis}
-\item [gmm] [ --l $L$ ] [ --m $M$ ] [ --t $T$ ] [ --a $A$ ] [ --b $B$ ]
+\item [gmm] [ --l $L$ ] [ --m $M$ ] [ --t $T$ ] [ --s $S$ ] [ --a $A$ ] [ --b $B$ ]
         [ --e $E$ ] [ --v $V$ ] [ --w $W$ ] [ --f ]
 \item [\ ~~~~] [ {\em infile} ]
 \end{synopsis}
@@ -147,6 +147,7 @@ E)$.
  \argm{l}{L}{length of vector}{26}
  \argm{m}{M}{number of Gaussian components}{16}
  \argm{t}{T}{number of training vectors}{N/A}
+ \argm{s}{S}{seed of random variable for LBG algorithm}{1}
  \argm{a}{A}{minimum number of EM iterations}{0}
  \argm{b}{B}{maximum number of EM iterations (A$\leq$ B)}{20}
  \argm{e}{E}{end condition for EM iteration}{0.00001}
