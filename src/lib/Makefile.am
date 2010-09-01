@@ -82,7 +82,6 @@ nodist_libSPTK_a_SOURCES = $(top_srcdir)/include/SPTK.h \
 		$(top_srcdir)/bin/uels/_uels.c \
 		$(top_srcdir)/bin/ulaw/_ulaw.c \
 		$(top_srcdir)/bin/vq/_vq.c \
-		$(top_srcdir)/bin/vstat/_vstat.c \
 		$(top_srcdir)/bin/window/_window.c \
 		$(top_srcdir)/bin/zcross/_zcross.c \
 		$(top_srcdir)/bin/zerodf/_zerodf.c
