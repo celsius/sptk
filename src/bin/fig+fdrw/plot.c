@@ -46,7 +46,8 @@
 /****************************************************************
 *         XY-Plotter Library                                    * 
 *                                                               *
-*                                        1985  T. Kobayashi     *
+*                                        1985    T. Kobayashi   *
+*                                        2010.9  A. Tamamori    *
 *                                                               *
 *         Calling sequence :                                    *
 *                 plopen(mode);                                 *
@@ -66,7 +67,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <unistd.h>
+#if defined(WIN32)
+#  include <windows.h>
+#  define sleep(x) Sleep(x)
+#else
+#  include <unistd.h>
+#endif
 #include "plot.h"
 
 struct co_ord _org = { 0.0, 0.0 };
