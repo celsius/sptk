@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _gmm.c,v 1.6 2010/04/12 09:25:56 uratec Exp $
+    $Id: _gmm.c,v 1.7 2010/10/06 10:20:35 mataki Exp $
 
     GMM output prob calculation functions
 
@@ -69,7 +69,7 @@ double cal_det(double **var, const int D)
 
    tri = (double **) malloc(sizeof(double *) * D);
    for (l = 0; l < D; l++)
-      tri[l] = (double *) malloc(sizeof(double) * D);
+      tri[l] = dgetmem(D);
 
    for (i = 0; i < D; i++)
       for (j = 0; j < D; j++)
@@ -156,8 +156,8 @@ void cal_inv(double **cov, double **inv, const int L)
    S_inv = (double **) malloc(sizeof(double *) * L);
 
    for (i = 0; i < L; i++) {
-      S[i] = (double *) malloc(sizeof(double) * L);
-      S_inv[i] = (double *) malloc(sizeof(double) * L);
+      S[i] = dgetmem(L);
+      S_inv[i] = dgetmem(L);
    }
 
    for (i = 0; i < L; i++) {

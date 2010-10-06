@@ -67,7 +67,7 @@
 *                                                                            *
 *****************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.25 2009/12/24 18:22:07 uratec Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.26 2010/10/06 10:20:35 mataki Exp $";
 
 
 /* Standard C Libraries */
@@ -444,7 +444,7 @@ void init_audiodev(int dtype)
    audio_info_t data;
 
    ACFD = open(AUDIO_CTLDEV, O_RDWR, 0);
-   adfp = fopen(AUDIO_DEV, "wb");
+   adfp = getfp(AUDIO_DEV, "wb");
    ADFD = adfp->_file;
 
    AUDIO_INITINFO(&data);

@@ -58,7 +58,7 @@
 *               input is assumed to be double                           *
 *                                                                       *
 ************************************************************************/
-static char *rcs_id = "$Id: dct.c,v 1.11 2009/12/16 13:12:27 uratec Exp $";
+static char *rcs_id = "$Id: dct.c,v 1.12 2010/10/06 10:20:35 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -147,8 +147,8 @@ int dft(float *pReal, float *pImag, const int nDFTLength)
    int k, n;
    double dTempReal, dTempImag;
 
-   pTempReal = (float *) malloc(sizeof(float) * nDFTLength);
-   pTempImag = (float *) malloc(sizeof(float) * nDFTLength);
+   pTempReal = fgetmem(nDFTLength);
+   pTempImag = fgetmem(nDFTLength);
 
    memcpy(pTempReal, pReal, sizeof(float) * nDFTLength);
    memcpy(pTempImag, pImag, sizeof(float) * nDFTLength);
@@ -201,8 +201,7 @@ int dct_create_table_fft(const int nSize)
       return (0);
    } else {
       dct_table_size_fft = nSize;
-      dct_workspace2 =
-          (double *) malloc(sizeof(double) * (dct_table_size_fft * 6));
+      dct_workspace2 = dgetmem(dct_table_size_fft * 6);
       pWeightReal2 = dct_workspace2;
       pWeightImag2 = dct_workspace2 + dct_table_size_fft;
       pLocalReal2 = dct_workspace2 + (2 * dct_table_size_fft);
@@ -247,7 +246,7 @@ int dct_create_table(const int nSize)
       return (0);
    } else {
       dct_table_size = nSize;
-      dct_workspace = (float *) malloc(sizeof(float) * (dct_table_size * 6));
+      dct_workspace = fgetmem(dct_table_size * 6);
       pWeightReal = dct_workspace;
       pWeightImag = dct_workspace + dct_table_size;
       pLocalReal = dct_workspace + (2 * dct_table_size);
