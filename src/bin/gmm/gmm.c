@@ -289,8 +289,8 @@ int main(int argc, char **argv)
          gmm.gauss[m].cov = (double **) malloc(sizeof(double *) * L);
          gmm.gauss[m].inv = (double **) malloc(sizeof(double *) * L);
          for (l = 0; l < L; l++) {
-            gmm.gauss[m].cov[l] = (double *) malloc(sizeof(double) * L);
-            gmm.gauss[m].inv[l] = (double *) malloc(sizeof(double) * L);
+            gmm.gauss[m].cov[l] = dgetmem(L);
+            gmm.gauss[m].inv[l] = dgetmem(L);
          }
       }
    }
@@ -299,7 +299,7 @@ int main(int argc, char **argv)
       floor.gauss = (Gauss *) getmem(1, sizeof(Gauss));
       floor.gauss[0].cov = (double **) malloc(sizeof(double *) * L);
       for (l = 0; l < L; l++)
-         floor.gauss[0].cov[l] = (double *) malloc(sizeof(double) * L);
+         floor.gauss[0].cov[l] = dgetmem(L);
       sum_m = dgetmem(L);
       sum_v = (double **) malloc(sizeof(double *) * L);
    }
@@ -315,8 +315,8 @@ int main(int argc, char **argv)
          tgmm.gauss[m].cov = (double **) malloc(sizeof(double *) * L);
          tgmm.gauss[m].inv = (double **) malloc(sizeof(double *) * L);
          for (l = 0; l < L; l++) {
-            tgmm.gauss[m].cov[l] = (double *) malloc(sizeof(double) * L);
-            tgmm.gauss[m].inv[l] = (double *) malloc(sizeof(double) * L);
+            tgmm.gauss[m].cov[l] = dgetmem(L);
+            tgmm.gauss[m].inv[l] = dgetmem(L);
          }
       }
    }

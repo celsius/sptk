@@ -444,7 +444,7 @@ void init_audiodev(int dtype)
    audio_info_t data;
 
    ACFD = open(AUDIO_CTLDEV, O_RDWR, 0);
-   adfp = fopen(AUDIO_DEV, "wb");
+   adfp = getfp(AUDIO_DEV, "wb");
    ADFD = adfp->_file;
 
    AUDIO_INITINFO(&data);

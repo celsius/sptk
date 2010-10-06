@@ -268,7 +268,7 @@ int main(int argc, char **argv)
                }
                coeflen += 1;
                coef = pst.dw.fn[pst.dw.num] =
-                   (char *) calloc(coeflen, sizeof(char));
+                   getmem(coeflen, sizeof(char));
                for (j = 0; j < i; j++) {
                   sprintf(coef, " %s", *argv);
                   coef += strlen(*argv) + 1;

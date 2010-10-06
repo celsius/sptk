@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
                   dw_coeflen += strlen(argv[i]) + 1;
                }
                dw_coeflen += 1;
-               coef = dw_fn[dw_num] = (char *) calloc(dw_coeflen, sizeof(char));
+               coef = dw_fn[dw_num] = getmem(dw_coeflen, sizeof(char));
                for (j = 0; j < i; j++) {
                   sprintf(coef, " %s", *argv);
                   coef += strlen(*argv) + 1;
