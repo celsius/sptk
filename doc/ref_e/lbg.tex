@@ -170,11 +170,14 @@ If it is not then we make $S$ = $2S$ and go back {\bf step.1}.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the following example, a codebook of size 256 is generated from
-the 25-th order training vector {\em data.f} in float format,
-and the output is written to {\em cbfile}.
+In the following example, a codebook of size 1024 is generated from
+the 39-th order training vector {\em data.f} in float format.
+It is also specified that the iteration of centroid update is at most 100
+ times, each centroid contains at least 2 training vectors and the
+ random vectors for the centroid update are generated with seed 5.
+The output is written to {\em cbfile}.
 \begin{quote}
-\verb! lbg < data.f > cbfile!
+\verb! lbg -n 39 -e 1024 -i 100 -m 10 -S 5 < data.f > cbfile!
 \end{quote}
 \end{qsection}
 
