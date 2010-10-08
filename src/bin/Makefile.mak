@@ -20,8 +20,8 @@ all: acep.exe acorr.exe agcep.exe amcep.exe \
 	average.exe b2mc.exe bcp.exe bcut.exe c2acr.exe \
 	c2ir.exe c2sp.exe cat2.exe cdist.exe clip.exe da.exe dct.exe\
 	decimate.exe delay.exe delta.exe df2.exe dfs.exe dmp.exe ds.exe echo2.exe \
-	excite.exe extract.exe fd.exe fft.exe fft2.exe fftcep.exe fftr.exe fftr2.exe \
-	frame.exe freqt.exe gc2gc.exe gcep.exe glsadf.exe gmm.exe gmmp.exe gnorm.exe \
+	excite.exe extract.exe fd.exe fdrw.exe fft.exe fft2.exe fftcep.exe fftr.exe fftr2.exe \
+	fig.exe frame.exe freqt.exe gc2gc.exe gcep.exe glsadf.exe gmm.exe gmmp.exe gnorm.exe \
 	grpdelay.exe histogram.exe ifft.exe ifft2.exe \
 	ignorm.exe impulse.exe imsvq.exe interpolate.exe ivq.exe \
 	lbg.exe levdur.exe linear_intpl.exe lmadf.exe lpc.exe lpc2c.exe lpc2lsp.exe \
@@ -144,6 +144,12 @@ fd.exe : fd\fd.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
+fdrw.exe : fig+fdrw\fdrw.obj fig+fdrw\plot.obj fig+fdrw\plsub.obj
+	$(CC) $(CFLAGS) /c fig+fdrw\fig.c
+	$(CC) $(CFLAGS) /c fig+fdrw\plot.c
+	$(CC) $(CFLAGS) /c fig+fdrw\plsub.c
+	$(CL) /OUT:$@ $(LIBS) fdrw.obj plot.obj plsub.obj
+
 fft.exe : fft\fft.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
@@ -163,6 +169,15 @@ fftr.exe : fftr\fftr.obj
 fftr2.exe : fftr2\fftr2.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
+
+fig.exe : fig+fdrw\fig.obj fig+fdrw\fig0.obj fig+fdrw\fig1.obj \
+	fig+fdrw\plot.obj fig+fdrw\plsub.obj
+	$(CC) $(CFLAGS) /c fig+fdrw\fig.c
+	$(CC) $(CFLAGS) /c fig+fdrw\fig0.c
+	$(CC) $(CFLAGS) /c fig+fdrw\fig1.c
+	$(CC) $(CFLAGS) /c fig+fdrw\plot.c
+	$(CC) $(CFLAGS) /c fig+fdrw\plsub.c
+	$(CL) /OUT:$@ $(LIBS) fig.obj fig0.obj fig1.obj plot.obj plsub.obj
 
 frame.exe : frame\frame.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
