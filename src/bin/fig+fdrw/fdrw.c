@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fdrw.c,v 1.24 2010/04/12 09:25:56 uratec Exp $";
+static char *rcs_id = "$Id: fdrw.c,v 1.25 2010/10/12 10:08:18 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -111,6 +111,8 @@ int drw(FILE * fp);
 #define JOINNO 1
 #define NSMPLS  0
 #define DZ  0.0
+#define WF  1.0
+#define HF  1.0
 #define XSIZE  100.0
 #define YSIZE  100.0
 #define CTYPE  0
@@ -168,7 +170,7 @@ void usage(int status)
 
 double fct = FCT, th = TH, lpt = LPT, dz = DZ,
     scale = 0, xo = XO, yo = YO, xl = XSIZE, yl = YSIZE,
-    ymin = YMIN, ymax = YMAX;
+  ymin = YMIN, ymax = YMAX, wf = WF, hf = HF;
 long nsmpls = NSMPLS;
 int is_hold = BAR, is_y = 0;
 int ltype = LTYPE, gtype = GTYPE, penno = PENNO, joinno = JOINNO, ctype = CTYPE;
@@ -231,9 +233,11 @@ int main(int argc, char *argv[])
             dz = atof(s);
             break;
          case 'W':
+	    wf = atof(s);
             xl = atof(s) * XSIZE;
             break;
          case 'H':
+	    hf = atof(s);
             yl = atof(s) * YSIZE;
             break;
          case 't':
@@ -400,6 +404,6 @@ int drw(FILE * fp)
          line(1, x, y, n2);
       }
    }
-   rstbnd();
+   rstbnd(wf,hf,fct);
    return (0);
 }

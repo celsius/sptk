@@ -182,3 +182,9 @@ void origin(double x, double y)
    _org.yo = y;
    plot(0., 0., 3);
 }
+
+void org(double x, double y)
+{
+  _org.xo = x;
+  _org.yo = y;
+}

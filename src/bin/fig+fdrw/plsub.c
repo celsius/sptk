@@ -95,10 +95,10 @@ void bound(double xl, double yl, double xh, double yh)
    wup_left(_cordx(xh), _cordy(yh));
 }
 
-void rstbnd(void)
+void rstbnd(double w, double h, double F)
 {
    wlo_right(0, 0);
-   wup_left(4000, 2850);
+   wup_left((int) ((4000 * w + _org.xo * 10.0) * F), (int) ((2850 * h + _org.yo * 10.0) * F));
 }
 
 int hatch(int ip, double *ax, double *ay, int n, double d, double t)

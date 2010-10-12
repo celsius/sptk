@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /****************************************************************
-* $Id: plot.h,v 1.12 2009/12/16 13:12:31 uratec Exp $          *  
+* $Id: plot.h,v 1.13 2010/10/12 10:09:53 sawada11 Exp $          *  
 * HEADER for XY-PLOTTER library                                 *
 *                                                               *
 *    Following commands are valid for the xy plotter FP5301     *
@@ -120,7 +120,7 @@ void rotate(double th);
 void factor(double fx, double fy);
 int offset(double x, double y);
 void bound(double xl, double yl, double xh, double yh);
-void rstbnd();
+void rstbnd(double w, double h, double fct);
 int hatch(int ip, double *ax, double *ay, int n, double d, double t);
 int pen(int pen);
 int join(int join);
@@ -145,10 +145,11 @@ int plota(int ip, double x, double y);
 void mode(int ltype, double lscale);
 void _chlnmod(int lmode);
 void origin(double x, double y);
+void org(double x, double y);
 void graph(FILE * fp);
-void draw_fig0(double x[], double y[], int n);
-int flush(double x[], double y[], int n);
-void polyg(double x[], double y[], int n);
+void draw_fig0(double x[], double y[], int n, double w, double h, double fct);
+int flush(double x[], double y[], int n, double w, double h, double fct);
+void polyg(double x[], double y[], int n, double w, double h, double fct);
 int is_in(double x, double y);
 void swap(double *x, double *y);
 char *gettxt_fig(char *s);

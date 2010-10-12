@@ -59,7 +59,7 @@
 
 extern int ltype, type, is_t;
 extern double xo, yo, xl, yl, x00, y00, mh, mw, h, w;
-extern double xclip0, yclip0, xclip1, yclip1, fct;
+extern double xclip0, yclip0, xclip1, yclip1, wf, hf, fct;
 
 static int lmod[] = { 0, 2, 6, 3, 4 }, ptyp = 1;
 static int is_xlog = 0, is_ylog = 0;
@@ -180,7 +180,7 @@ void graph(FILE * fp)
             }
          }
       } else if (strcmp(arg + 1, "grid") == 0) {
-         draw_fig0(xbuf, ybuf, n);
+	draw_fig0(xbuf, ybuf, n, wf, hf, fct);
          if ((!is_t && (*arg == 'x')) || (is_t && (*arg == 'y'))) {
             ybuf[0] = 0;
             ybuf[1] = yl;
@@ -190,7 +190,7 @@ void graph(FILE * fp)
                   x = log10(x);
                xbuf[0] = xbuf[1]
                    = (x - xmin) * xfct;
-               draw_fig0(xbuf, ybuf, 2);
+               draw_fig0(xbuf, ybuf, 2, wf, hf, fct);
             }
          } else {
             xbuf[0] = 0;
@@ -201,7 +201,7 @@ void graph(FILE * fp)
                   y = log10(y);
                ybuf[0] = ybuf[1]
                    = (y - ymin) * yfct;
-               draw_fig0(xbuf, ybuf, 2);
+               draw_fig0(xbuf, ybuf, 2, wf, hf, fct);
             }
          }
          n = 0;
@@ -258,13 +258,13 @@ void graph(FILE * fp)
          }
          _symbol(x, y, s, h, w, th);
       } else if (strcmp(arg, "eod") == 0 || strcmp(arg, "EOD") == 0) {
-         draw_fig0(xbuf, ybuf, n);
+	draw_fig0(xbuf, ybuf, n, wf, hf, fct);
          n = 0;
       } else if (strcmp(arg, "pen") == 0) {
-         n = flush(xbuf, ybuf, n);
+	 n = flush(xbuf, ybuf, n, wf, hf, fct);
          pen(atoi(s));
       } else if (strcmp(arg, "join") == 0) {
-         n = flush(xbuf, ybuf, n);
+	 n = flush(xbuf, ybuf, n, wf, hf, fct);
          join(atoi(s));
       } else if (strcmp(arg, "csize") == 0) {
          if (sscanf(s, "%lf %lf", &h, &w) != 2)
@@ -273,7 +273,7 @@ void graph(FILE * fp)
          if (sscanf(s, "%lf %lf", &mh, &mw) != 2)
             mw = mh;
       } else if (strcmp(arg, "line") == 0) {
-         n = flush(xbuf, ybuf, n);
+	 n = flush(xbuf, ybuf, n, wf, hf, fct);
          if (sscanf(s, "%d %lf", &ltype, &lpt) != 2) {
             if (ltype > 0)
                lpt = lpit[ltype - 1];
@@ -292,7 +292,7 @@ void graph(FILE * fp)
       } else if (strcmp(arg, "paint") == 0) {
          sscanf(s, "%d %lf %lf", &ptyp, &dhat, &that);
       } else if (strcmp(arg, "clip") == 0) {
-         draw_fig0(xbuf, ybuf, n);
+	 draw_fig0(xbuf, ybuf, n, wf, hf, fct);
          for (n = 0; (s = getarg(s, arg)) != NULL; ++n) {
             x = xt(atof(arg));
             if ((s = getarg(s, arg)) == NULL)
@@ -315,7 +315,7 @@ void graph(FILE * fp)
          }
          n = 0;
       } else if (strcmp(arg, "box") == 0) {
-         draw_fig0(xbuf, ybuf, n);
+	 draw_fig0(xbuf, ybuf, n, wf, hf, fct);
          for (n = 0; (s = getarg(s, arg)) != NULL; ++n) {
             x = xt(atof(arg));
             if ((s = getarg(s, arg)) == NULL)
@@ -332,7 +332,7 @@ void graph(FILE * fp)
             xbuf[3] = xbuf[0];
             n = 4;
          }
-         polyg(xbuf, ybuf, n);
+         polyg(xbuf, ybuf, n, wf, hf, fct);
          n = 0;
       } else {
          x = xt(atof(arg));
@@ -361,7 +361,7 @@ void graph(FILE * fp)
                }
             }
             if (c > 0)
-               n = flush(xbuf, ybuf, n);
+	      n = flush(xbuf, ybuf, n, wf, hf, fct);
             if ((c > 0 || old_lbl > 0) && n) {
                dt = atan2(y - ybuf[0], x - xbuf[0]);
                if (old_lbl > 0) {
@@ -372,7 +372,7 @@ void graph(FILE * fp)
                   xbuf[1] -= MADJ * mh * cos(dt);
                   ybuf[1] -= MADJ * mh * sin(dt);
                }
-               draw_fig0(xbuf, ybuf, 2);
+               draw_fig0(xbuf, ybuf, 2, wf, hf, fct);
                xbuf[0] = x;
                ybuf[0] = y;
                n = 0;
@@ -380,25 +380,25 @@ void graph(FILE * fp)
             old_lbl = c;
          }
          if (++n >= BUFLNG)
-            n = flush(xbuf, ybuf, n);
+	   n = flush(xbuf, ybuf, n, wf, hf, fct);
       }
    }
-   draw_fig0(xbuf, ybuf, n);
+   draw_fig0(xbuf, ybuf, n, wf, hf, fct);
 }
 
-void draw_fig0(double x[], double y[], int n)
+void draw_fig0(double x[], double y[], int n, double w, double h, double fct)
 {
    if (n && ltype >= 0) {
       bound(xclip0, yclip0, xclip1, yclip1);
       line(1, x, y, n);
-      rstbnd();
+      rstbnd(w, h, fct);
    }
 }
 
-int flush(double x[], double y[], int n)
+int flush(double x[], double y[], int n, double w, double h, double fct)
 {
    if (n > 1) {
-      draw_fig0(x, y, n);
+      draw_fig0(x, y, n, w, h, fct);
       x[0] = x[n - 1];
       y[0] = y[n - 1];
       return (1);
@@ -406,11 +406,11 @@ int flush(double x[], double y[], int n)
       return (n);
 }
 
-void polyg(double x[], double y[], int n)
+void polyg(double x[], double y[], int n, double w, double h, double fct)
 {
    bound(xclip0, yclip0, xclip1, yclip1);
    hatch(ptyp, x, y, n, dhat, that);
-   rstbnd();
+   rstbnd(w, h, fct);
 }
 
 int is_in(double x, double y)
