@@ -57,7 +57,7 @@ onintr clean
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: gwave.in,v 1.11 2010/07/01 05:27:34 sawada11 Exp $'
+set cvsid   = '$Id: gwave.in,v 1.12 2010/10/12 10:16:30 sawada11 Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -228,9 +228,7 @@ set height = 0.4
 
 set ox  = `echo "20 * $F" | bc -l`
 set oy  = `echo "225 * $F" | bc -l`
-if (`echo "$oy >= 1000" |bc -l`) then
-set oy  = 1000
-endif
+
 @ xs  = $start
 @ xe  = $xs + $n1
 

@@ -56,7 +56,7 @@
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: glogsp.in,v 1.12 2010/07/01 05:26:54 sawada11 Exp $'
+set cvsid   = '$Id: glogsp.in,v 1.13 2010/10/12 10:16:02 sawada11 Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -251,14 +251,9 @@ if (! $?xo) then
         @ yo = $on_y[$on]
 endif
 
-set xo = `echo "$xo + 60 * ($F - 1)"| bc -l`
-set yo = `echo "$yo - 60 * ($F - 1)"| bc -l`
-if($xo <= 0) then
-set xo = 1
-endif
-if($yo <= 0) then
-set yo = 1
-endif
+set xo = `echo "$xo * $F"| bc -l`
+set yo = `echo "$yo * $F"| bc -l`
+
 @ yy[1] = $ymin
 @ yy[2] = $ymax
 
