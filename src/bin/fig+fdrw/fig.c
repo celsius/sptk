@@ -111,7 +111,8 @@ static char *rcs_id = "$Id$";
 #define JOINNO 0
 #define XL  LENG
 #define YL  LENG
-
+#define WF  1.0
+#define HF  1.0
 char *BOOL[] = { "FALSE", "TRUE" };
 
 /*  Command Name  */
@@ -159,6 +160,7 @@ double xl = XL, yl = YL, x00 = 0, y00 = 0;
 double mh = 2, mw = 2, h = CH_NRML, w = CW_NRML;
 double xclip0 = 0, yclip0 = 0, xclip1 = 0, yclip1 = 0;
 double fct = FCT;
+double wf = WF, hf = HF;
 
 int main(int argc, char *argv[])
 {
@@ -211,9 +213,11 @@ int main(int argc, char *argv[])
             joinno = atoi(s);
             break;
          case 'W':
+	    wf = atof(s);
             xl = atof(s) * LENG;
             break;
          case 'H':
+	    hf = atof(s);
             yl = atof(s) * LENG;
             break;
          case 'h':
@@ -235,7 +239,9 @@ int main(int argc, char *argv[])
       w = CW_BIG;
 
    plots(0x81);
-   rstbnd();
+   org(xo,yo);
+   rstbnd(wf, hf, fct);
+   org(0.0,0.0);
    font(fntsize);
    font(0);                     /* valid only LBP */
    plot(xo, yo, -3);
