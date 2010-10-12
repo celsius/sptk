@@ -72,8 +72,11 @@ as described below.
                         I & unsigned int (4 bytes) \\
                         l & long (4 bytes) & \quad &
                         L & unsigned long (4 bytes) \\
+                        le & long long (8 bytes) & \quad &
+                        LE & unsigned long long (8 bytes) \\
                         f & float (4 bytes) & \quad &
                         d & double (8 bytes) \\
+                        de & long double (12 bytes) & \quad &
                         a & ASCII \\ [1ex] 
                 \end{tabular} \\
                 data type is converted from $t_1(type_1)$ to $t_2(type_2)$.
@@ -83,16 +86,10 @@ as described below.
 	\argp{{\bf a}N}{specify the column number $N$}{1}
 	\argm{r}{}{specify rounding off when a real number
                  is substituted for a integer}{FALSE}
-	\argm{o}{}{clip by minimum and maximum of output type
-                 if input data is over the range of output
-                 type}{FALSE}
-	\argm{w}{W}{type of warning  \\
-                    when input data is over the range of output type\\
-			\begin{tabular}{ll}\\ [-1ex]
-			 0 & no-warning message\\
-			 1 & output warning message\\
-			 2 & interrupt execute with warning message\\
-			 \end{tabular}\\\hspace*{\fill}}{0}
+	\argm{o}{}{clip by minimum and maximum of output data type
+                 if input data is over the range of output data
+                 type. if -o option is not given, process is aborted
+                 in the above case.}{FALSE}
 	\argh{format}{}{specify output format similar to 'printf()', 
                         if $type2$ is ASCII.}{$\%g$}
 \end{options}
