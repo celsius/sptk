@@ -251,14 +251,9 @@ if (! $?xo) then
         @ yo = $on_y[$on]
 endif
 
-set xo = `echo "$xo + 60 * ($F - 1)"| bc -l`
-set yo = `echo "$yo - 60 * ($F - 1)"| bc -l`
-if($xo <= 0) then
-set xo = 1
-endif
-if($yo <= 0) then
-set yo = 1
-endif
+set xo = `echo "$xo * $F"| bc -l`
+set yo = `echo "$yo * $F"| bc -l`
+
 @ yy[1] = $ymin
 @ yy[2] = $ymax
 

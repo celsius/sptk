@@ -64,7 +64,7 @@ set cmnd = $cmnd:t
 
 set h    = 1.5
 set w    = 0.25
-set z    = 0
+set z    = 1
 set F    = 1
 @ xo     = 95
 @ yo     = 30
@@ -386,10 +386,8 @@ endif
 
 @ lhi = $l / 2 + 1
 @ s = $s * $lhi
+set z = `echo "$z * $F" | bc -l`
 
-if ($z == 0) then
-        set z = `echo "1 * ${F}" | bc -l`
-        endif
 if ($?n) then
         @ e = $s + $n * $lhi - 1
         set ee = "-e $e"
