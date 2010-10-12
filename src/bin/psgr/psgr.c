@@ -137,7 +137,7 @@ void usage(int status)
    fprintf(stderr, "       -x x  : x offset <mm>        [%d]\n", XOFFSET);
    fprintf(stderr, "       -y y  : y offset <mm>        [%d]\n", YOFFSET);
    fprintf(stderr, "       -p p  : paper                [%s]\n", MEDIA);
-   fprintf(stderr, "               (Letter,A3,A4,A5,B4,B5)\n");
+   fprintf(stderr, "               (Letter,A0,A1,A2,A3,A4,A5,B0,B1,B2,B3,B4,B5)\n");
    fprintf(stderr, "       -l    : landscape            [%s]\n",
            BOOL[LANDSCAPE]);
    fprintf(stderr, "       -r r  : resolution           [%d dpi]\n",
@@ -165,7 +165,7 @@ void usage(int status)
 char *progname, *filename = NULL, *title = NULL;
 char *media = MEDIA, *orientation = ORIENTATION;
 
-int paper_num = PAPERNUM, xleng = XLENG, yleng = 842, resolution = RESOLUTION;
+int paper_num = PAPERNUM, xleng = XLENG, yleng = YLENG, resolution = RESOLUTION;
 int font_no = FONTNO, psmode = PSMODE, landscape = LANDSCAPE, clip_mode =
     CLIPMODE;
 
@@ -258,7 +258,6 @@ int main(int argc, char *argv[])
    }
    xleng *= SCALE;
    yleng *= SCALE;
-/*    fprintf(stderr, "pape.size=%s\nmedia=%s\npaper.width=%d\naper.height=%d\n",paper[i].size,media,paper[paper_num].width,paper[paper_num].height); */
    orientation = orientations[landscape];
 
    if (filename != NULL) {

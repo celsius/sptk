@@ -161,6 +161,8 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
 {
    char c;
    int n, x, y;
+   int temp_xmin,temp_ymin,temp_xmax,temp_ymax;
+   int temp_plot_xmin, temp_plot_ymin, temp_plot_xmax, temp_plot_ymax;
    int plot_xmin, plot_ymin, plot_xmax, plot_ymax;
    double unit_length;
    int rotate = 0;
@@ -169,35 +171,36 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
 
    *xmin = *ymin = 9999;
    *xmax = *ymax = 0;
-
-   plot_xmin = plot_ymin = 0;
-   plot_xmax = 4000;
-   plot_ymax = 2850;
+   temp_xmin = temp_ymin = 9999;
+   temp_xmax = temp_ymax = 0;
+   plot_xmin = xleng;
+   plot_ymin = yleng;
+   plot_xmax = plot_ymax = 0;
 
    while ((c = getc(fp)) != (char) EOF) {
       switch (c) {
       case 'M':
          fscanf(fp, "%d %d", &x, &y);
-         *xmin = plot_min(x, *xmin, plot_xmin);
-         *xmax = plot_max(x, *xmax, plot_xmax);
-         *ymin = plot_min(y, *ymin, plot_ymin);
-         *ymax = plot_max(y, *ymax, plot_ymax);
+	 temp_xmin = (temp_xmin < x ? temp_xmin : x);
+	 temp_ymin = (temp_ymin < y ? temp_ymin : y);
+	 temp_xmax = (temp_xmax > x ? temp_xmax : x);
+	 temp_ymax = (temp_ymax > y ? temp_ymax : y);
          break;
       case 'D':
          while (getd(fp, &x, &y)) {
-            *xmin = plot_min(x, *xmin, plot_xmin);
-            *xmax = plot_max(x, *xmax, plot_xmax);
-            *ymin = plot_min(y, *ymin, plot_ymin);
-            *ymax = plot_max(y, *ymax, plot_ymax);
+	    temp_xmin = (temp_xmin < x ? temp_xmin : x);
+	    temp_ymin = (temp_ymin < y ? temp_ymin : y);
+	    temp_xmax = (temp_xmax > x ? temp_xmax : x);
+	    temp_ymax = (temp_ymax > y ? temp_ymax : y);
          }
          break;
       case '%':
          fscanf(fp, "%d %d %d", &n, &x, &y);
          while (getd(fp, &x, &y)) {
-            *xmin = plot_min(x, *xmin, plot_xmin);
-            *xmax = plot_max(x, *xmax, plot_xmax);
-            *ymin = plot_min(y, *ymin, plot_ymin);
-            *ymax = plot_max(y, *ymax, plot_ymax);
+	    temp_xmin = (temp_xmin < x ? temp_xmin : x);
+	    temp_ymin = (temp_ymin < y ? temp_ymin : y);
+	    temp_xmax = (temp_xmax > x ? temp_xmax : x);
+	    temp_ymax = (temp_ymax > y ? temp_ymax : y);
          }
          break;
       case 'S':
@@ -215,26 +218,34 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
          n = getstrlength(fp);
          if (!rotate) {
             x += n * cw * mag; 
-            *xmax = plot_max(x, *xmax, plot_xmax);
+  	    temp_xmax = (temp_xmax > x ? temp_xmax : x);
             y -= ch * mag;
-            *ymin = plot_min(y, *ymin, plot_ymin);
+	    temp_ymin = (temp_ymin < y ? temp_ymin : y);
          } else {
             y += n * cw * mag;
-            *ymax = plot_max(y, *ymax, plot_ymax);
+	    temp_ymax = (temp_ymax > y ? temp_ymax : y);
             x -= ch * mag;
-            *xmin = plot_min(x, *xmin, plot_xmin);
+	    temp_xmin = (temp_xmin < x ? temp_xmin : x);
          }
          rotate = 0;
          break;
       case '\\':
-         fscanf(fp, "%d %d", &plot_xmin, &plot_ymin);
+         fscanf(fp, "%d %d", &temp_plot_xmin, &temp_plot_xmin);
+	 if (plot_xmin > temp_plot_xmin)
+	    plot_xmin = temp_plot_xmin;
+	 if (plot_ymin > temp_plot_ymin)
+	    plot_ymin = temp_plot_ymin;
          if (plot_xmin < 0)
             plot_xmin = 0;
          if (plot_ymin < 0)
             plot_ymin = 0;
          break;
       case 'Z':
-         fscanf(fp, "%d %d", &plot_xmax, &plot_ymax);
+         fscanf(fp, "%d %d", &temp_plot_xmax, &temp_plot_ymax);
+	 if (plot_xmax < temp_plot_xmax)
+	    plot_xmax = temp_plot_xmax;
+	 if (plot_ymax < temp_plot_ymax)
+	    plot_ymax = temp_plot_ymax;
          if (plot_xmax > xleng)
             plot_xmax = xleng;
          if (plot_ymax > yleng)
@@ -245,10 +256,13 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
       }
    }
 
+   *xmin = plot_min(temp_xmin, *xmin, plot_xmin);
+   *xmax = plot_max(temp_xmax, *xmax, plot_xmax);
+   *ymin = plot_min(temp_ymin, *ymin, plot_ymin);
+   *ymax = plot_max(temp_ymax, *ymax, plot_ymax);
+
    unit_length = shrink * PU_PT;
 
-   /* fprintf(stderr, "%d %d %d %d\n", *xmin, *ymin, *xmax, *ymax);
-    */
    if (!landscape) {
       *xmin = norm((*xmin + xoffset - bbm.left) * unit_length + MIN_OFFSET);
       *ymin = norm((*ymin + yoffset - bbm.bottom) * unit_length + MIN_OFFSET);
@@ -268,8 +282,6 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
       *ymin = norm((x + loffset - bbm.left) * unit_length + MIN_OFFSET);
       *ymax = norm((y + loffset + bbm.right) * unit_length + MAX_OFFSET);
    }
- /*   fprintf(stderr, "%d %d %d %d\n", *xmin, *ymin, *xmax, *ymax); 
-  */
    rewind(fp);
 
    return;
