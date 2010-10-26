@@ -377,15 +377,9 @@ int main(int argc, char *argv[])
    pReal2 = dgetmem(size2 = size + size);
    y = x + size;
    pImag2 = pReal2 + size;
-   if ((pReal = (float *) calloc(size2, sizeof(float))) == NULL) {
-      fprintf(stderr, "No memory allocated : pReal\n");
-      exit(1);
-   }
+   pReal = fgetmem(size2);
    pImag = pReal + size;
-   if ((x2 = (float *) calloc(size2, sizeof(float))) == NULL) {
-      fprintf(stderr, "No memory allocated : x2\n");
-      exit(1);
-   }
+   x2 = fgetmem(size2);
    y2 = x2 + size;
 
    while (!feof(fp)) {

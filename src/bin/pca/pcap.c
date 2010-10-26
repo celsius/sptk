@@ -124,10 +124,7 @@ double **malloc_matrix(int row, int col)
    double *mtmp;
    int i, j;
 
-   if ((mtmp = (double *) malloc(sizeof(double) * row * col)) == NULL) {
-      fprintf(stderr, "Can't malloc in %s\n", cmnd);
-      exit(EXIT_FAILURE);
-   }
+   mtmp = dgetmem(row * col);
    if ((m = (double **) malloc(sizeof(double *) * row)) == NULL) {
       fprintf(stderr, "Can't malloc in %s\n", cmnd);
       exit(EXIT_FAILURE);

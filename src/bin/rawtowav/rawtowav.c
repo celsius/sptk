@@ -76,14 +76,8 @@ void write_file(long fs, char *rawfile, char *wavfile)
    short bit;
    int c;
 
-   if ((fpi = fopen(rawfile, "rb")) == NULL) {
-      printf("can't open rawfile");
-      exit(0);
-   }
-   if ((fpo = fopen(wavfile, "wb")) == NULL) {
-      printf("can't open wavfile");
-      exit(0);
-   }
+   fpi = getfp(rawfile, "rb");
+   fpo = getfp(wavfile, "wb");
 
    fseek(fpi, 0, SEEK_END);
    rawfile_size = ftell(fpi);

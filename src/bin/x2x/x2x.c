@@ -365,11 +365,11 @@ int main(int argc, char **argv)
                   }
                   switch (c1) {
                   case 'U':
-		     form = (char *) malloc(strlen(FORM_ULLONG) + 1);
+                     form = getmem((strlen(FORM_ULLONG) + 1), sizeof(char));
                      strcpy(form, FORM_ULLONG);
                      break;
                   case 'u':
-		     form = (char *) malloc(strlen(FORM_LLONG) + 1);
+                     form = getmem((strlen(FORM_LLONG) + 1), sizeof(char));
                      strcpy(form, FORM_LLONG);
                      break;
                   case 'S':
@@ -377,7 +377,7 @@ int main(int argc, char **argv)
                   case 'L':
                   case 'C':
                   case 'T':
-		     form = (char *) malloc(strlen(FORM_ULONG) + 1);
+                     form = getmem((strlen(FORM_ULONG) + 1), sizeof(char));
                      strcpy(form, FORM_ULONG);
                      break;
                   case 's':
@@ -385,11 +385,11 @@ int main(int argc, char **argv)
                   case 'l':
                   case 'c':
                   case 't':
-		     form = (char *) malloc(strlen(FORM_LONG) + 1);
+                     form = getmem((strlen(FORM_LONG) + 1), sizeof(char));
                      strcpy(form, FORM_LONG);
                      break;
                   default :
- 		     form = (char *) malloc(strlen(FORM_LDBL) + 1);
+                     form = getmem((strlen(FORM_LDBL) + 1), sizeof(char));
                      strcpy(form, FORM_LDBL);
 		  }
                }
