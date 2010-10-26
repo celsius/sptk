@@ -67,7 +67,7 @@
 *                                                                            *
 *****************************************************************************/
 
-static char *rcs_id = "$Id: dawrite.c,v 1.26 2010/10/06 10:20:35 mataki Exp $";
+static char *rcs_id = "$Id: dawrite.c,v 1.27 2010/10/26 09:00:41 mataki Exp $";
 
 
 /* Standard C Libraries */
@@ -268,16 +268,10 @@ int main(int argc, char *argv[])
          }
       }
 
-   if ((x = (double *) calloc(SIZE, sizeof(double))) == NULL) {
-      fprintf(stderr, "%s : Cannot allocate memory!\n", cmnd);
-      return (1);
-   }
+   x = dgetmem(SIZE);
    xf = (float *) x;
    xs = (short *) x;
-   if ((y = (short *) calloc(SIZE * 2, sizeof(double))) == NULL) {
-      fprintf(stderr, "%s : Cannot allocate memory!\n", cmnd);
-      return (1);
-   }
+   y = sgetmem(2 * SIZE);
 
    sndinit();
    i = (gain < 0) ? -gain : gain;
@@ -288,15 +282,12 @@ int main(int argc, char *argv[])
 
    if (nfiles) {
       for (i = 0; i < nfiles; i++) {
-         if ((fp = fopen(infile[i], "rb")) == NULL) {
-            fprintf(stderr, "%s : Cannot open file %s!\n", cmnd, infile[i]);
-         } else {
-            if (is_verbose) {
-               fprintf(stderr, "%s : %s\n", cmnd, infile[i]);
-            }
-            direct(fp);
-            fclose(fp);
+         fp = getfp(infile[i], "rb");
+         if (is_verbose) {
+            fprintf(stderr, "%s : %s\n", cmnd, infile[i]);
          }
+         direct(fp);
+         fclose(fp);
       }
    } else
       direct(stdin);
@@ -414,10 +405,7 @@ void init_audiodev(int dtype)
 #if defined(LINUX) || defined(FreeBSD)
    int arg;
 
-   if ((adfp = fopen(AUDIO_DEV, "wb")) == NULL) {
-      fprintf(stderr, "%s : Cannot open audio device\n", cmnd);
-      exit(1);
-   }
+   adfp = getfp(AUDIO_DEV, "wb");
 #ifdef LINUX
    ADFD = adfp->_fileno;
 #else                           /* FreeBSD */

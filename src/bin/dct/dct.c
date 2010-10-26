@@ -58,7 +58,7 @@
 *               input is assumed to be double                           *
 *                                                                       *
 ************************************************************************/
-static char *rcs_id = "$Id: dct.c,v 1.12 2010/10/06 10:20:35 mataki Exp $";
+static char *rcs_id = "$Id: dct.c,v 1.13 2010/10/26 09:00:42 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -377,15 +377,9 @@ int main(int argc, char *argv[])
    pReal2 = dgetmem(size2 = size + size);
    y = x + size;
    pImag2 = pReal2 + size;
-   if ((pReal = (float *) calloc(size2, sizeof(float))) == NULL) {
-      fprintf(stderr, "No memory allocated : pReal\n");
-      exit(1);
-   }
+   pReal = fgetmem(size2);
    pImag = pReal + size;
-   if ((x2 = (float *) calloc(size2, sizeof(float))) == NULL) {
-      fprintf(stderr, "No memory allocated : x2\n");
-      exit(1);
-   }
+   x2 = fgetmem(size2);
    y2 = x2 + size;
 
    while (!feof(fp)) {

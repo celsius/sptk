@@ -83,7 +83,7 @@
 *                                                                                *
 *********************************************************************************/
 
-static char *rcs_id = "$Id: pca.c,v 1.11 2009/12/16 13:12:36 uratec Exp $";
+static char *rcs_id = "$Id: pca.c,v 1.12 2010/10/26 09:00:42 mataki Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -163,10 +163,7 @@ double **malloc_matrix(int n)
    double *mtmp;
    int i, j;
 
-   if ((mtmp = (double *) malloc(sizeof(double) * n * n)) == NULL) {
-      fprintf(stderr, "Can't malloc in %s\n", cmnd);
-      exit(EXIT_FAILURE);
-   }
+   mtmp = dgetmem(n * n);
    if ((m = (double **) malloc(sizeof(double *) * n)) == NULL) {
       fprintf(stderr, "Can't malloc in %s\n", cmnd);
       exit(EXIT_FAILURE);
