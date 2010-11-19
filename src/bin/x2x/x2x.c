@@ -671,7 +671,7 @@ void x2x(void *x1, void *x2, char c1, char c2, int clip)
         }
         break;
       case 'u':
-        if (xul > LONG_MAX || xd > LONG_MAX || xd < LONG_MIN) {
+        if (xul > LLONG_MAX || xd > LLONG_MAX || xd < LLONG_MIN) {
            fprintf(stderr, "%s : error: input data is over the range of type 'long long'!\n", cmnd);
            exit(1);
         }
@@ -695,7 +695,7 @@ void x2x(void *x1, void *x2, char c1, char c2, int clip)
         }
         break;
       case 'U':
-        if (xl < 0 || xd > ULONG_MAX || xd < 0.0) {
+        if (xl < 0 || xd > ULLONG_MAX || xd < 0.0) {
            fprintf(stderr, "%s : error: input data is over the range of type 'unsigned long long'!\n", cmnd);
            exit(1);
         }
