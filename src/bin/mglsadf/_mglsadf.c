@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _mglsadf.c,v 1.13 2009/12/16 13:12:34 uratec Exp $
+    $Id: _mglsadf.c,v 1.14 2010/11/24 11:11:20 mataki Exp $
 
     MGLSA Digital Filter
 
@@ -108,12 +108,7 @@ double mglsadf(double x, double *b, const int m, const double a, const int n,
                double *d)
 {
    int i;
-   fprintf(stderr, "n=%d\n", n);
-   fprintf(stderr, "m=%d\n", m);
-   fprintf(stderr, "a=%f\n", a);
-   fprintf(stderr, "x=%f\n", x);
-   fprintf(stderr, "b=%f\n", b);
-   fprintf(stderr, "d=%f\n", d);
+
    for (i = 0; i < n; i++)
       x = mglsadff(x, b, m, a, &d[i * (m + 1)]);
 
@@ -179,12 +174,6 @@ double mglsadft(double x, double *b, const int m, const double a, const int n,
 {
    int i;
 
-   fprintf(stderr, "n=%d\n", n);
-   fprintf(stderr, "m=%d\n", m);
-   fprintf(stderr, "a=%f\n", a);
-   fprintf(stderr, "x=%f\n", x);
-   fprintf(stderr, "b=%f\n", b);
-   fprintf(stderr, "d=%f\n", d);
    for (i = 0; i < n; i++)
       x = mglsadfft(x, b, m, a, &d[i * (m + 1)]);
 
