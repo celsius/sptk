@@ -75,7 +75,7 @@
 *                                                                       *  
 ************************************************************************/
 
-static char *rcs_id = "$Id: mglsadf.c,v 1.27 2009/12/24 18:22:08 uratec Exp $";
+static char *rcs_id = "$Id: mglsadf.c,v 1.28 2010/11/24 09:27:07 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -282,7 +282,7 @@ int main(int argc, char **argv)
 
          if (inverse) {         /* IMGLSA */
             if (!ngain)
-               x *= exp(c[0]);
+               x /= exp(c[0]);
             if (transpose)
                x = imglsadft(x, c, m, alpha, stage, d);
             else
