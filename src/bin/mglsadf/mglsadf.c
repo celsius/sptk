@@ -282,7 +282,7 @@ int main(int argc, char **argv)
 
          if (inverse) {         /* IMGLSA */
             if (!ngain)
-               x *= exp(c[0]);
+               x /= exp(c[0]);
             if (transpose)
                x = imglsadft(x, c, m, alpha, stage, d);
             else
