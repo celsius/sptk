@@ -47,9 +47,9 @@
 
 onintr clean
 
-set path    = ( @binpath $path )
+set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: wav2raw.in,v 1.4 2010/04/01 12:27:46 uratec Exp $'
+set cvsid   = '$Id: wav2raw.in,v 1.5 2010/11/29 07:38:03 mataki Exp $'
 
 
 set cmnd	= $0
