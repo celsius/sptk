@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /********************************************************************
-    $Id: fileio.c,v 1.13 2009/12/16 13:12:39 uratec Exp $
+    $Id: fileio.c,v 1.14 2010/12/05 13:04:30 mataki Exp $
 
     File I/O Functions
 
@@ -107,7 +107,21 @@ int freadx(void *ptr, const size_t size, const int nitems, FILE * fp)
 }
 
 /* --------------- double I/O compile --------------- */
-#ifndef DOUBLE
+#ifdef DOUBLE
+/* fwritef : write double type data */
+int fwritef(double *ptr, const size_t size, const int nitems, FILE * fp)
+{
+   return (fwritex(ptr, size, nitems, fp));
+}
+
+/* freadf : read double type data */
+int freadf(double *ptr, const size_t size, const int nitems, FILE * fp)
+{
+   return (freadx(ptr, size, nitems, fp));
+}
+
+/* --------------- float I/O compile --------------- */
+#else                           /* DOUBLE */
 
 static float *f;
 static int items;
@@ -152,20 +166,4 @@ int freadf(double *ptr, const size_t size, const int nitems, FILE * fp)
 
    return n;
 }
-
-/* --------------- float I/O compile --------------- */
-#else                           /* DOUBLE */
-
-/* fwritef : write float type data */
-int fwritef(float *ptr, const size_t size, const int nitems, FILE * fp)
-{
-   return (fwritex(ptr, size, nitems, fp));
-}
-
-/* freadf : read float type data */
-int freadf(float *ptr, const size_t size, const int nitems, FILE * fp)
-{
-   return (freadx(ptr, size, nitems, fp));
-}
-
 #endif                          /* DOUBLE */
