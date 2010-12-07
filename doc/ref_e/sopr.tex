@@ -48,7 +48,9 @@
 \item[sopr] [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [ --ABS ] [ --INV ]
 \item[\ ~~~~] [ --P ] [ --R ] [ --SQRT ] [ --LN ] [ --LOG2 ] [ --LOG10 ] [ --EXP ]
 \item[\ ~~~~] [ --POW2 ] [ --POW10 ] [ --FIX ] [ --UNIT ] [ --CLIP ] [ --SIN ]
-\item[\ ~~~~] [ --COS ] [ --TAN ] [ --ATAN ] [ --r m$n$ ] [ --w m$n$ ] [ {\em infile} ]
+\item[\ ~~~~] [ --COS ] [ --TAN ] [ --ATAN ] [--magic $magic$]
+  [--MAGIC $MAGIC$]
+\item[\ ~~~~] [ --r m$n$ ] [ --w m$n$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -91,6 +93,10 @@ and is performed in the given order.
 	\argm{COS}{}{cos $y=\cos(x)$}{FALSE}
 	\argm{TAN}{}{tan $y=\tan(x)$}{FALSE}
 	\argm{ATAN}{}{atan $y=\atan(x)$}{FALSE}
+
+	\argm{magic}{magic}{remove magic number}{FALSE}
+	\argm{MAGIC}{MAGIC}{replace magic number by $MAGIC$ \\
+                            if -magic option is not given, return error}{FALSE}
 
         \argm{r}{\mbox{m}n}{read from memory register m$n$ $(n=0..9)$}{}
         \argm{w}{\mbox{m}n}{write from memory register m$n$ $(n=0..9)$}{}
