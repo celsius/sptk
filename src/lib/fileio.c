@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /********************************************************************
-    $Id: fileio.c,v 1.14 2010/12/05 13:04:30 mataki Exp $
+    $Id: fileio.c,v 1.15 2010/12/09 04:47:00 mataki Exp $
 
     File I/O Functions
 
@@ -120,8 +120,8 @@ int freadf(double *ptr, const size_t size, const int nitems, FILE * fp)
    return (freadx(ptr, size, nitems, fp));
 }
 
-/* --------------- float I/O compile --------------- */
 #else                           /* DOUBLE */
+/* --------------- float I/O compile --------------- */
 
 static float *f;
 static int items;
