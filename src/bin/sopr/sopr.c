@@ -143,6 +143,17 @@ void usage(int status)
            "       -f f         : flooring             (f if in < f)\n");
    fprintf(stderr,
            "       -c c         : ceiling              (c if in > c)\n");
+   fprintf(stderr, "       -magic magic : remove magic number  \n");
+   fprintf(stderr, "       -MAGIC MAGIC : replace magic number by MAGIC\n");
+   fprintf(stderr, "                      if -magic option is not given,\n");
+   fprintf(stderr, "                      return error\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr, "       if the argument of the above operation option is `dB'\n");
+   fprintf(stderr, "       then the value 20/log_e(10) is assigned. Also if 'pi' or\n");
+   fprintf(stderr, "       `ln(x)',`exp(x)',`sqrt(x)' such as `ln2',`exp10',`sqrt30' \n");
+   fprintf(stderr, "       is written after the operation option, then its value\n");
+   fprintf(stderr, "       will be used\n");
+   fprintf(stderr, "\n");
    fprintf(stderr, "       -ABS         : absolute             (abs(in))\n");
    fprintf(stderr, "       -INV         : inverse              (1 / in)\n");
    fprintf(stderr, "       -P           : square               (in * in)\n");
@@ -161,11 +172,6 @@ void usage(int status)
    fprintf(stderr, "       -COS         : cos                  (cos(in))\n");
    fprintf(stderr, "       -TAN         : tan                  (tan(in))\n");
    fprintf(stderr, "       -ATAN        : atan                 (atan(in))\n");
-   fprintf(stderr, "\n");
-   fprintf(stderr, "       -magic magic : remove magic number  \n");
-   fprintf(stderr, "       -MAGIC MAGIC : replace magic number by MAGIC\n");
-   fprintf(stderr, "                      if -magic option is not given,\n");
-   fprintf(stderr, "                      return error\n");
    fprintf(stderr, "\n");
    fprintf(stderr, "       -r mn        : read from memory register n\n");
    fprintf(stderr, "       -w mn        : write to memory register n\n");
@@ -189,11 +195,12 @@ void usage(int status)
 struct operation {
    char op[4];
    double d;
-   double rep;
    Boolean magic;
    Boolean ifrep;
 } *optbl;
 int nopr = 0;
+int mopr = 0;
+int ropr = 0;
 
 static double mem[MEMSIZE];
 
@@ -228,28 +235,24 @@ int main(int argc, char *argv[])
          case 's':
          case 'r':
          case 'w':
+         case 'M':
             if ((c == 'm') && strncmp("agic", s, 4) == 0) {
-               strncpy(optbl[nopr].op, s, 4);
                optbl[nopr].magic = 1 - MAGIC;
+               mopr = nopr;
                s = *++argv;
-               for (i = 1; *(argv + i) != NULL; i++) {
-                  if (strncmp("-MAGIC", *(argv + i), 6) == 0) {
-                     m = *(argv + i + 1);
-                     optbl[nopr].ifrep = 1 - REP;
-                     if (strncmp("dB", m, 2) == 0)
-                        optbl[nopr].rep = 20 / log(10.0);
-                     else if (strncmp("pi", m, 2) == 0)
-                        optbl[nopr].rep = PI;
-                     else if (strncmp("ln", m, 2) == 0)
-                        optbl[nopr].rep = log(atof(m + 2));
-                     else if (strncmp("exp", m, 3) == 0)
-                        optbl[nopr].rep = exp(atof(m + 3));
-                     else if (strncmp("sqrt", m, 4) == 0)
-                        optbl[nopr].rep = sqrt(atof(m + 4));
-                     else
-                        optbl[nopr].rep = atof(m);
-                  }
+               --argc;
+            }
+            if (c == 'M') {
+               if (!optbl[mopr].magic) {
+                  fprintf(stderr,
+                          "%s : Cannnot find -magic option befor -MAGIC option!\n",
+                          cmnd);
+                  usage(1);
+               } else {
+                  optbl[mopr].ifrep = 1 - REP;
+                  ropr = nopr;
                }
+               s = *++argv;
                --argc;
             }
             if (strncmp("dB", s, 2) == 0)
@@ -280,7 +283,6 @@ int main(int argc, char *argv[])
          case 'F':
          case 'I':
          case 'L':
-         case 'M':
          case 'P':
          case 'R':
          case 'S':
@@ -291,19 +293,6 @@ int main(int argc, char *argv[])
                strncpy(optbl[nopr].op, s, 4);
             else
                optbl[nopr].op[0] = c;
-            if ((c == 'M')) {
-               for (i = 0; i < nopr; i++)
-                  if (optbl[i].magic)
-                     count++;
-               if (count <= 0) {
-                  fprintf(stderr,
-                          "%s : Cannnot find -magic option befor -MAGIC option!\n",
-                          cmnd);
-                  usage(1);
-               }
-               *++argv;
-               --argc;
-            }
             ++nopr;
             break;
          case 'h':
@@ -315,7 +304,6 @@ int main(int argc, char *argv[])
       } else
          infile = s;
    }
-
    if (infile) {
       fp = getfp(infile, "rb");
       sopr(fp);
@@ -365,7 +353,7 @@ int sopr(FILE * fp)
             if (optbl[k].magic) {
                if (x == y)
                   if (optbl[k].ifrep)
-                     x = optbl[k].rep;
+                     x = optbl[ropr].d;
                   else
                      ig_mg = 1 - MAGIC;
             } else
