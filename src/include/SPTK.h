@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***********************************************************
-   $Id: SPTK.h,v 1.32 2010/12/05 13:04:29 mataki Exp $ 
+   $Id: SPTK.h,v 1.33 2010/12/10 10:44:24 mataki Exp $ 
    
    Speech Signal Processing Toolkit
    SPTK.h
@@ -208,9 +208,10 @@ double imglsadf1t(double x, double *b, const int m, const double a, const int n,
 void imsvq(int *index, double *cb, const int l, int *cbsize, const int stage,
            double *x);
 void ivq(const int index, double *cb, const int l, double *x);
-void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, double *cb,
-         const int ecbsize, const int iter, const int mintnum, const int seed, const int centup,
-         const double delta, const double end);
+void lbg(double *x, const int l, const int tnum, double *icb, int icbsize,
+         double *cb, const int ecbsize, const int iter, const int mintnum,
+         const int seed, const int centup, const double delta,
+         const double end);
 int levdur(double *r, double *a, const int m, double eps);
 double lmadf(double x, double *c, const int m, const int pd, double *d);
 double lmadft(double x, double *c, const int m, const int pd, double *d);

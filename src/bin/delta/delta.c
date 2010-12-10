@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -65,7 +65,7 @@
 *                                                                                       *
 ****************************************************************************************/
 
-static char *rcs_id = "$Id: delta.c,v 1.4 2010/10/06 10:20:35 mataki Exp $";
+static char *rcs_id = "$Id: delta.c,v 1.5 2010/12/10 10:44:20 mataki Exp $";
 
 
 /*  Standard C Libralies  */

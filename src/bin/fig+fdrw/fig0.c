@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -180,7 +180,7 @@ void graph(FILE * fp)
             }
          }
       } else if (strcmp(arg + 1, "grid") == 0) {
-	draw_fig0(xbuf, ybuf, n, wf, hf, fct);
+         draw_fig0(xbuf, ybuf, n, wf, hf, fct);
          if ((!is_t && (*arg == 'x')) || (is_t && (*arg == 'y'))) {
             ybuf[0] = 0;
             ybuf[1] = yl;
@@ -258,13 +258,13 @@ void graph(FILE * fp)
          }
          _symbol(x, y, s, h, w, th);
       } else if (strcmp(arg, "eod") == 0 || strcmp(arg, "EOD") == 0) {
-	draw_fig0(xbuf, ybuf, n, wf, hf, fct);
+         draw_fig0(xbuf, ybuf, n, wf, hf, fct);
          n = 0;
       } else if (strcmp(arg, "pen") == 0) {
-	 n = flush(xbuf, ybuf, n, wf, hf, fct);
+         n = flush(xbuf, ybuf, n, wf, hf, fct);
          pen(atoi(s));
       } else if (strcmp(arg, "join") == 0) {
-	 n = flush(xbuf, ybuf, n, wf, hf, fct);
+         n = flush(xbuf, ybuf, n, wf, hf, fct);
          join(atoi(s));
       } else if (strcmp(arg, "csize") == 0) {
          if (sscanf(s, "%lf %lf", &h, &w) != 2)
@@ -273,7 +273,7 @@ void graph(FILE * fp)
          if (sscanf(s, "%lf %lf", &mh, &mw) != 2)
             mw = mh;
       } else if (strcmp(arg, "line") == 0) {
-	 n = flush(xbuf, ybuf, n, wf, hf, fct);
+         n = flush(xbuf, ybuf, n, wf, hf, fct);
          if (sscanf(s, "%d %lf", &ltype, &lpt) != 2) {
             if (ltype > 0)
                lpt = lpit[ltype - 1];
@@ -292,7 +292,7 @@ void graph(FILE * fp)
       } else if (strcmp(arg, "paint") == 0) {
          sscanf(s, "%d %lf %lf", &ptyp, &dhat, &that);
       } else if (strcmp(arg, "clip") == 0) {
-	 draw_fig0(xbuf, ybuf, n, wf, hf, fct);
+         draw_fig0(xbuf, ybuf, n, wf, hf, fct);
          for (n = 0; (s = getarg(s, arg)) != NULL; ++n) {
             x = xt(atof(arg));
             if ((s = getarg(s, arg)) == NULL)
@@ -315,7 +315,7 @@ void graph(FILE * fp)
          }
          n = 0;
       } else if (strcmp(arg, "box") == 0) {
-	 draw_fig0(xbuf, ybuf, n, wf, hf, fct);
+         draw_fig0(xbuf, ybuf, n, wf, hf, fct);
          for (n = 0; (s = getarg(s, arg)) != NULL; ++n) {
             x = xt(atof(arg));
             if ((s = getarg(s, arg)) == NULL)
@@ -361,7 +361,7 @@ void graph(FILE * fp)
                }
             }
             if (c > 0)
-	      n = flush(xbuf, ybuf, n, wf, hf, fct);
+               n = flush(xbuf, ybuf, n, wf, hf, fct);
             if ((c > 0 || old_lbl > 0) && n) {
                dt = atan2(y - ybuf[0], x - xbuf[0]);
                if (old_lbl > 0) {
@@ -380,7 +380,7 @@ void graph(FILE * fp)
             old_lbl = c;
          }
          if (++n >= BUFLNG)
-	   n = flush(xbuf, ybuf, n, wf, hf, fct);
+            n = flush(xbuf, ybuf, n, wf, hf, fct);
       }
    }
    draw_fig0(xbuf, ybuf, n, wf, hf, fct);

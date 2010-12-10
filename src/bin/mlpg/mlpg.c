@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -72,7 +72,7 @@
 *                                                                                       *
 ****************************************************************************************/
 
-static char *rcs_id = "$Id: mlpg.c,v 1.29 2010/10/06 10:20:36 mataki Exp $";
+static char *rcs_id = "$Id: mlpg.c,v 1.30 2010/12/10 10:44:23 mataki Exp $";
 
 
 /* Standard C Libraries */
@@ -267,8 +267,7 @@ int main(int argc, char **argv)
                   coeflen += strlen(argv[i]) + 1;
                }
                coeflen += 1;
-               coef = pst.dw.fn[pst.dw.num] =
-                   getmem(coeflen, sizeof(char));
+               coef = pst.dw.fn[pst.dw.num] = getmem(coeflen, sizeof(char));
                for (j = 0; j < i; j++) {
                   sprintf(coef, " %s", *argv);
                   coef += strlen(*argv) + 1;
@@ -695,12 +694,12 @@ void update_c(PStream * pst, int d)
    int j, m, u;
    double *mean, *ivar, x;
 
-   ivar = pst->sm.ivseq[pst->sm.t&pst->sm.mask] + (pst->order+1)*d;
+   ivar = pst->sm.ivseq[pst->sm.t & pst->sm.mask] + (pst->order + 1) * d;
    mean = pst->sm.mseq[pst->sm.t & pst->sm.mask] + (pst->order + 1) * d;
    for (m = 0; m <= pst->order; m++) {
       x = mean[m];
-      if (pst->iType==2) 
-         x *= finv(ivar[m]);      
+      if (pst->iType == 2)
+         x *= finv(ivar[m]);
       for (j = pst->dw.width[d][WLEFT]; j <= pst->dw.width[d][WRIGHT]; j++)
          x -= pst->dw.coef[d][j] * pst->sm.c[(pst->sm.t + j) & pst->sm.mask][m];
       for (u = -pst->range; u <= pst->dw.maxw[WRIGHT]; u++)

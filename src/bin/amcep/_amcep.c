@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _amcep.c,v 1.13 2009/12/16 13:12:26 uratec Exp $
+    $Id: _amcep.c,v 1.14 2010/12/10 10:44:20 mataki Exp $
 
     Adaptive Mel Cepstral Analysis
 

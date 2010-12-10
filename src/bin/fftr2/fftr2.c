@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -66,7 +66,7 @@
 *                input is assumed to be double                          *
 ************************************************************************/
 
-static char *rcs_id = "$Id: fftr2.c,v 1.22 2009/12/16 13:12:30 uratec Exp $";
+static char *rcs_id = "$Id: fftr2.c,v 1.23 2010/12/10 10:44:21 mataki Exp $";
 
 
 /*  Standard C Libraries  */

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: poledf.c,v 1.19 2009/12/16 13:12:37 uratec Exp $";
+static char *rcs_id = "$Id: poledf.c,v 1.20 2010/12/10 10:44:23 mataki Exp $";
 
 
 /*  Standard C Libralies  */

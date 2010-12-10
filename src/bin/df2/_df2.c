@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /******************************************************
- $Id: _df2.c,v 1.11 2009/12/16 13:12:28 uratec Exp $
+ $Id: _df2.c,v 1.12 2010/12/10 10:44:20 mataki Exp $
     2nd order standard form digital filter
         double df2(x,sf,f0p,wbp,f0z,wbz,fp,fz,buf,bufp)
 

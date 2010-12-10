@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /****************************************************************
-    $Id: cholesky.c,v 1.9 2009/12/16 13:12:39 uratec Exp $
+    $Id: cholesky.c,v 1.10 2010/12/10 10:44:24 mataki Exp $
 
     Solve Linear Set of Equations
 		       Using Cholesky Decomposition 

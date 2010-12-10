@@ -76,7 +76,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.31 2010/11/19 08:00:15 sawada11 Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.32 2010/12/10 10:44:24 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -145,7 +145,8 @@ void usage(int status)
    fprintf(stderr,
            "                 i3 (int, 3byte)     I3 (unsigned int, 3byte)\n");
    fprintf(stderr, "                 l  (long)           L  (unsigned long)\n");
-   fprintf(stderr, "                 le (long long)      LE (unsigned long long)\n");
+   fprintf(stderr,
+           "                 le (long long)      LE (unsigned long long)\n");
    fprintf(stderr, "                 f  (float)          d  (double)\n");
    fprintf(stderr, "                 de (long double)    a  (ascii)\n");
    fprintf(stderr,
@@ -156,14 +157,14 @@ void usage(int status)
    fprintf(stderr,
            "                 is substituted for a integer                [%s]\n",
            BOOL[ROUND]);
-   fprintf(stderr, 
+   fprintf(stderr,
            "       -o      : clip by minimum and maximum of output data            \n");
    fprintf(stderr,
-           "                 type if input data is over the range of               \n"); 
+           "                 type if input data is over the range of               \n");
    fprintf(stderr,
-           "                 output data type. if -o option is not given,          \n"); 
+           "                 output data type. if -o option is not given,          \n");
    fprintf(stderr,
-           "                 process is aborted in the above case        [%s]\n",  
+           "                 process is aborted in the above case        [%s]\n",
            BOOL[CLIP]);
    fprintf(stderr,
            "       %%format : specify output format similar to 'printf()', \n");
@@ -388,10 +389,10 @@ int main(int argc, char **argv)
                      form = getmem((strlen(FORM_LONG) + 1), sizeof(char));
                      strcpy(form, FORM_LONG);
                      break;
-                  default :
+                  default:
                      form = getmem((strlen(FORM_LDBL) + 1), sizeof(char));
                      strcpy(form, FORM_LDBL);
-		  }
+                  }
                }
                break;
             default:
@@ -407,7 +408,7 @@ int main(int argc, char **argv)
             round = 1 - round;
             break;
          case 'o':
-	    clip = 1 - clip;
+            clip = 1 - clip;
             break;
          case 'h':
             usage(0);
@@ -445,15 +446,15 @@ int main(int argc, char **argv)
                i++;
                printf("\t");
             }
-	 } else
+      } else
          while (fscanf(fp, "%Le", &x) != EOF) {
-	   x2x(&x, &x, 'v', c2,clip);
+            x2x(&x, &x, 'v', c2, clip);
             fwritex(&x, size2, 1, stdout);
          }
    } else {
       if (c2 == 'a') {
          while (freadx(&x, size1, 1, fp) == 1) {
-	   x2x(&x, &x, c1, 'v',clip);
+            x2x(&x, &x, c1, 'v', clip);
             switch (c1) {
             case 'v':
             case 'd':
@@ -461,20 +462,20 @@ int main(int argc, char **argv)
                printf(form, x);
                break;
             case 'U':
-	       printf(form, (unsigned long long) x);
-              break;
+               printf(form, (unsigned long long) x);
+               break;
             case 'u':
-	       printf(form, (long long) x);
+               printf(form, (long long) x);
                break;
             case 'S':
             case 'I':
             case 'L':
             case 'C':
             case 'T':
-	       printf(form, (unsigned long) x);
+               printf(form, (unsigned long) x);
                break;
             default:
-	       printf(form, (long) x);
+               printf(form, (long) x);
             }
             if (i == col) {
                i = 1;
@@ -486,7 +487,7 @@ int main(int argc, char **argv)
          }
       } else
          while (freadx(&x, size1, 1, fp) == 1) {
-	   x2x(&x, &x, c1, c2,clip);
+            x2x(&x, &x, c1, c2, clip);
             fwritex(&x, size2, 1, stdout);
          }
    }
@@ -554,376 +555,493 @@ void x2x(void *x1, void *x2, char c1, char c2, int clip)
    if (clip) {
       switch (c2) {
       case 's':
-        if (xl > SHRT_MAX || xl < SHRT_MIN || xul > SHRT_MAX || xd > SHRT_MAX || xd < SHRT_MIN)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'short'!\n", cmnd);
-        xl = ((xl < SHRT_MIN) ? SHRT_MIN : ((xl > SHRT_MAX) ? SHRT_MAX : xl));
-        xul = ((xul > SHRT_MAX) ? SHRT_MAX : xl);
-        xd = ((xd < SHRT_MIN) ? SHRT_MIN : ((xd > SHRT_MAX) ? SHRT_MAX : xd));
-        break;
+         if (xl > SHRT_MAX || xl < SHRT_MIN || xul > SHRT_MAX || xd > SHRT_MAX
+             || xd < SHRT_MIN)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'short'!\n",
+                    cmnd);
+         xl = ((xl < SHRT_MIN) ? SHRT_MIN : ((xl > SHRT_MAX) ? SHRT_MAX : xl));
+         xul = ((xul > SHRT_MAX) ? SHRT_MAX : xl);
+         xd = ((xd < SHRT_MIN) ? SHRT_MIN : ((xd > SHRT_MAX) ? SHRT_MAX : xd));
+         break;
       case 'i':
-        if (xl > INT_MAX || xl < INT_MIN || xul > INT_MAX || xd > INT_MAX || xd < INT_MIN)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'int'!\n", cmnd);
-        xl = ((xl < INT_MIN) ? INT_MIN : ((xl > INT_MAX) ? INT_MAX : xl));
-        xul = ((xul > INT_MAX) ? INT_MAX : xl);
-        xd = ((xd < INT_MIN) ? INT_MIN : ((xd > INT_MAX) ? INT_MAX : xd));
-        break;
+         if (xl > INT_MAX || xl < INT_MIN || xul > INT_MAX || xd > INT_MAX
+             || xd < INT_MIN)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'int'!\n",
+                    cmnd);
+         xl = ((xl < INT_MIN) ? INT_MIN : ((xl > INT_MAX) ? INT_MAX : xl));
+         xul = ((xul > INT_MAX) ? INT_MAX : xl);
+         xd = ((xd < INT_MIN) ? INT_MIN : ((xd > INT_MAX) ? INT_MAX : xd));
+         break;
       case 'l':
-        if (xl > LONG_MAX || xl < LONG_MIN || xul > LONG_MAX || xd > LONG_MAX || xd < LONG_MIN)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'long'!\n", cmnd);
-        xl = ((xl < LONG_MIN) ? LONG_MIN : ((xl > LONG_MAX) ? LONG_MAX : xl));
-        xul = ((xul > LONG_MAX) ? LONG_MAX : xl);
-        xd = ((xd < LONG_MIN) ? LONG_MIN : ((xd > LONG_MAX) ? LONG_MAX : xd));
-        break;
+         if (xl > LONG_MAX || xl < LONG_MIN || xul > LONG_MAX || xd > LONG_MAX
+             || xd < LONG_MIN)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'long'!\n",
+                    cmnd);
+         xl = ((xl < LONG_MIN) ? LONG_MIN : ((xl > LONG_MAX) ? LONG_MAX : xl));
+         xul = ((xul > LONG_MAX) ? LONG_MAX : xl);
+         xd = ((xd < LONG_MIN) ? LONG_MIN : ((xd > LONG_MAX) ? LONG_MAX : xd));
+         break;
       case 'u':
-        if (xul > LLONG_MAX || xd > LLONG_MAX || xd < LLONG_MIN)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'long long'!\n", cmnd);
-        xul = ((xul > LLONG_MAX) ? LLONG_MAX : xul);
-        xd = ((xd < LLONG_MIN) ? LLONG_MIN : ((xd > LLONG_MAX) ? LLONG_MAX : xd));
-        break;
+         if (xul > LLONG_MAX || xd > LLONG_MAX || xd < LLONG_MIN)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'long long'!\n",
+                    cmnd);
+         xul = ((xul > LLONG_MAX) ? LLONG_MAX : xul);
+         xd = ((xd <
+                LLONG_MIN) ? LLONG_MIN : ((xd > LLONG_MAX) ? LLONG_MAX : xd));
+         break;
       case 'S':
-        if (xl > USHRT_MAX || xl < 0 || xul > USHRT_MAX || xd > USHRT_MAX || xd < 0.0)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'unsigned short'!\n", cmnd);
-        xl = ((xl < 0) ? 0 : ((xl > USHRT_MAX) ? USHRT_MAX : xl));
-        xul = ((xul > USHRT_MAX) ? USHRT_MAX : xl);
-        xd = ((xd < 0.0) ? 0.0 : ((xd > USHRT_MAX) ? USHRT_MAX : xd));
-        break;
+         if (xl > USHRT_MAX || xl < 0 || xul > USHRT_MAX || xd > USHRT_MAX
+             || xd < 0.0)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'unsigned short'!\n",
+                    cmnd);
+         xl = ((xl < 0) ? 0 : ((xl > USHRT_MAX) ? USHRT_MAX : xl));
+         xul = ((xul > USHRT_MAX) ? USHRT_MAX : xl);
+         xd = ((xd < 0.0) ? 0.0 : ((xd > USHRT_MAX) ? USHRT_MAX : xd));
+         break;
       case 'I':
-        if (xl > UINT_MAX || xl < 0 || xul > UINT_MAX || xd > UINT_MAX || xd < 0.0)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'unsigned int'!\n", cmnd);
-        xl = ((xl < 0) ? 0 : ((xl > UINT_MAX) ? UINT_MAX : xl));
-        xul = ((xul > UINT_MAX) ? UINT_MAX : xl);
-        xd = ((xd < 0.0) ? 0.0 : ((xd > UINT_MAX) ? UINT_MAX : xd));
-        break;
+         if (xl > UINT_MAX || xl < 0 || xul > UINT_MAX || xd > UINT_MAX
+             || xd < 0.0)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'unsigned int'!\n",
+                    cmnd);
+         xl = ((xl < 0) ? 0 : ((xl > UINT_MAX) ? UINT_MAX : xl));
+         xul = ((xul > UINT_MAX) ? UINT_MAX : xl);
+         xd = ((xd < 0.0) ? 0.0 : ((xd > UINT_MAX) ? UINT_MAX : xd));
+         break;
       case 'L':
-        if (xl > ULONG_MAX || xl < 0 || xul > ULONG_MAX || xd > ULONG_MAX || xd < 0.0)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'unsigned long'!\n", cmnd);
-        xl = ((xl < 0) ? 0 : ((xl > ULONG_MAX) ? ULONG_MAX : xl));
-        xul = ((xul > ULONG_MAX) ? ULONG_MAX : xl);
-        xd = ((xd < 0.0) ? 0.0 : ((xd > ULONG_MAX) ? ULONG_MAX : xd));
-        break;
+         if (xl > ULONG_MAX || xl < 0 || xul > ULONG_MAX || xd > ULONG_MAX
+             || xd < 0.0)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'unsigned long'!\n",
+                    cmnd);
+         xl = ((xl < 0) ? 0 : ((xl > ULONG_MAX) ? ULONG_MAX : xl));
+         xul = ((xul > ULONG_MAX) ? ULONG_MAX : xl);
+         xd = ((xd < 0.0) ? 0.0 : ((xd > ULONG_MAX) ? ULONG_MAX : xd));
+         break;
       case 'U':
-        if (xl < 0 || xd > ULLONG_MAX || xd < 0.0)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'unsigned long long'!\n", cmnd);
-        xl = ((xl < 0) ? 0 : xl);
-        xd = ((xd < 0.0) ? 0.0 : ((xd > ULLONG_MAX) ? ULLONG_MAX : xd));
-        break;
+         if (xl < 0 || xd > ULLONG_MAX || xd < 0.0)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'unsigned long long'!\n",
+                    cmnd);
+         xl = ((xl < 0) ? 0 : xl);
+         xd = ((xd < 0.0) ? 0.0 : ((xd > ULLONG_MAX) ? ULLONG_MAX : xd));
+         break;
       case 'f':
-        if (xd > FLT_MAX || xd < (FLT_MAX * (-1)))
-           fprintf(stderr, "%s : warning: input data is over the range of type 'float'!\n", cmnd);
-        xd = ((xd < (FLT_MAX * (-1))) ? (FLT_MAX * (-1)) : ((xd > FLT_MAX) ? FLT_MAX : xd));
-        break;
+         if (xd > FLT_MAX || xd < (FLT_MAX * (-1)))
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'float'!\n",
+                    cmnd);
+         xd = ((xd <
+                (FLT_MAX * (-1))) ? (FLT_MAX * (-1)) : ((xd >
+                                                         FLT_MAX) ? FLT_MAX :
+                                                        xd));
+         break;
       case 'd':
-        if (xd > DBL_MAX || xd < (DBL_MAX * (-1)))
-           fprintf(stderr, "%s : warning: input data is over the range of type 'double'!\n", cmnd);
-        xd = ((xd < (DBL_MAX * (-1))) ? (DBL_MAX * (-1)) : ((xd > DBL_MAX) ? DBL_MAX : xd));
-        break;
+         if (xd > DBL_MAX || xd < (DBL_MAX * (-1)))
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'double'!\n",
+                    cmnd);
+         xd = ((xd <
+                (DBL_MAX * (-1))) ? (DBL_MAX * (-1)) : ((xd >
+                                                         DBL_MAX) ? DBL_MAX :
+                                                        xd));
+         break;
       case 'v':
-        if (xd > LDBL_MAX || xd < (LDBL_MAX * (-1)))
-           fprintf(stderr, "%s : warning: input data is over the range of type 'long double'!\n", cmnd);
-        break;
+         if (xd > LDBL_MAX || xd < (LDBL_MAX * (-1)))
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'long double'!\n",
+                    cmnd);
+         break;
       case 'c':
-        if (xl > CHAR_MAX || xl < CHAR_MIN || xul > CHAR_MAX || xd > CHAR_MAX || xd < CHAR_MIN)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'char'!\n", cmnd);
-        xl = ((xl < CHAR_MIN) ? CHAR_MIN : ((xl > CHAR_MAX) ? CHAR_MAX : xl));
-        xul = ((xul > CHAR_MAX) ? CHAR_MAX : xl);
-        xd = ((xd < CHAR_MIN) ? CHAR_MIN : ((xd > CHAR_MAX) ? CHAR_MAX : xd));
-        break;
+         if (xl > CHAR_MAX || xl < CHAR_MIN || xul > CHAR_MAX || xd > CHAR_MAX
+             || xd < CHAR_MIN)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'char'!\n",
+                    cmnd);
+         xl = ((xl < CHAR_MIN) ? CHAR_MIN : ((xl > CHAR_MAX) ? CHAR_MAX : xl));
+         xul = ((xul > CHAR_MAX) ? CHAR_MAX : xl);
+         xd = ((xd < CHAR_MIN) ? CHAR_MIN : ((xd > CHAR_MAX) ? CHAR_MAX : xd));
+         break;
       case 'C':
-        if (xl > UCHAR_MAX || xl < 0.0 || xul > UCHAR_MAX || xd > UCHAR_MAX || xd < 0.0)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'unsigned char'!\n", cmnd);
-        xl = ((xl < 0) ? 0 : ((xl > UCHAR_MAX) ? UCHAR_MAX : xl));
-        xul = ((xul > UCHAR_MAX) ? UCHAR_MAX : xl);
-        xd = ((xd < 0.0) ? 0.0 : ((xd > UCHAR_MAX) ? UCHAR_MAX : xd));
-        break;
+         if (xl > UCHAR_MAX || xl < 0.0 || xul > UCHAR_MAX || xd > UCHAR_MAX
+             || xd < 0.0)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'unsigned char'!\n",
+                    cmnd);
+         xl = ((xl < 0) ? 0 : ((xl > UCHAR_MAX) ? UCHAR_MAX : xl));
+         xul = ((xul > UCHAR_MAX) ? UCHAR_MAX : xl);
+         xd = ((xd < 0.0) ? 0.0 : ((xd > UCHAR_MAX) ? UCHAR_MAX : xd));
+         break;
       case 't':
-        if (xl > INT3_MAX || xl < INT3_MIN || xul > INT3_MAX || xd > INT3_MAX || xd < INT3_MIN)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'int(3byte)'!\n", cmnd);
-        xl = ((xl < INT3_MIN) ? INT3_MIN : ((xl > INT3_MAX) ? INT3_MAX : xl));
-        xul = ((xul > INT3_MAX) ? INT3_MAX : xl);
-        xd = ((xd < INT3_MIN) ? INT3_MIN : ((xd > INT3_MAX) ? INT3_MAX : xd));
-        break;
+         if (xl > INT3_MAX || xl < INT3_MIN || xul > INT3_MAX || xd > INT3_MAX
+             || xd < INT3_MIN)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'int(3byte)'!\n",
+                    cmnd);
+         xl = ((xl < INT3_MIN) ? INT3_MIN : ((xl > INT3_MAX) ? INT3_MAX : xl));
+         xul = ((xul > INT3_MAX) ? INT3_MAX : xl);
+         xd = ((xd < INT3_MIN) ? INT3_MIN : ((xd > INT3_MAX) ? INT3_MAX : xd));
+         break;
       case 'T':
-        if (xl > UINT3_MAX || xl < 0 || xul > UINT3_MAX || xd > UINT3_MAX || xd < 0.0)
-           fprintf(stderr, "%s : warning: input data is over the range of type 'unsigned int(3byte)'!\n", cmnd);
-        xl = ((xl < 0) ? 0 : ((xl > UINT3_MAX) ? UINT3_MAX : xl));
-        xul = ((xul > UINT3_MAX) ? UINT3_MAX : xl);
-        xd = ((xd < 0.0) ? 0.0 : ((xd > UINT3_MAX) ? UINT3_MAX : xd));
-        break;
+         if (xl > UINT3_MAX || xl < 0 || xul > UINT3_MAX || xd > UINT3_MAX
+             || xd < 0.0)
+            fprintf(stderr,
+                    "%s : warning: input data is over the range of type 'unsigned int(3byte)'!\n",
+                    cmnd);
+         xl = ((xl < 0) ? 0 : ((xl > UINT3_MAX) ? UINT3_MAX : xl));
+         xul = ((xul > UINT3_MAX) ? UINT3_MAX : xl);
+         xd = ((xd < 0.0) ? 0.0 : ((xd > UINT3_MAX) ? UINT3_MAX : xd));
+         break;
       }
-   }else {
-     switch (c2) {
+   } else {
+      switch (c2) {
       case 's':
-        if (xl > SHRT_MAX || xl < SHRT_MIN || xul > SHRT_MAX || xd > SHRT_MAX || xd < SHRT_MIN) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'short'!\n", cmnd);
-           exit(1);
-	}
-        break;
+         if (xl > SHRT_MAX || xl < SHRT_MIN || xul > SHRT_MAX || xd > SHRT_MAX
+             || xd < SHRT_MIN) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'short'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'i':
-        if (xl > INT_MAX || xl < INT_MIN || xul > INT_MAX || xd > INT_MAX || xd < INT_MIN) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'int'!\n", cmnd);
-	   exit(1);
-        }
-        break;
+         if (xl > INT_MAX || xl < INT_MIN || xul > INT_MAX || xd > INT_MAX
+             || xd < INT_MIN) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'int'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'l':
-        if (xl > LONG_MAX || xl < LONG_MIN || xul > LONG_MAX || xd > LONG_MAX || xd < LONG_MIN) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'long'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xl > LONG_MAX || xl < LONG_MIN || xul > LONG_MAX || xd > LONG_MAX
+             || xd < LONG_MIN) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'long'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'u':
-        if (xul > LLONG_MAX || xd > LLONG_MAX || xd < LLONG_MIN) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'long long'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xul > LLONG_MAX || xd > LLONG_MAX || xd < LLONG_MIN) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'long long'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'S':
-        if (xl > USHRT_MAX || xl < 0 || xul > USHRT_MAX || xd > USHRT_MAX || xd < 0.0) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'unsigned short'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xl > USHRT_MAX || xl < 0 || xul > USHRT_MAX || xd > USHRT_MAX
+             || xd < 0.0) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'unsigned short'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'I':
-        if (xl > UINT_MAX || xl < 0 || xul > UINT_MAX || xd > UINT_MAX || xd < 0.0) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'unsigned int'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xl > UINT_MAX || xl < 0 || xul > UINT_MAX || xd > UINT_MAX
+             || xd < 0.0) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'unsigned int'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'L':
-        if (xl > ULONG_MAX || xl < 0 || xul > ULONG_MAX || xd > ULONG_MAX || xd < 0.0) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'unsigned long'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xl > ULONG_MAX || xl < 0 || xul > ULONG_MAX || xd > ULONG_MAX
+             || xd < 0.0) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'unsigned long'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'U':
-        if (xl < 0 || xd > ULLONG_MAX || xd < 0.0) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'unsigned long long'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xl < 0 || xd > ULLONG_MAX || xd < 0.0) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'unsigned long long'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'f':
-        if (xd > FLT_MAX || xd < (FLT_MAX * (-1))) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'float'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xd > FLT_MAX || xd < (FLT_MAX * (-1))) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'float'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'd':
-        if (xd > DBL_MAX || xd < (DBL_MAX * (-1))) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'double'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xd > DBL_MAX || xd < (DBL_MAX * (-1))) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'double'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'v':
-        if (xd > LDBL_MAX || xd < (LDBL_MAX * (-1))) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'long double'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xd > LDBL_MAX || xd < (LDBL_MAX * (-1))) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'long double'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'c':
-        if (xl > CHAR_MAX || xl < CHAR_MIN || xul > CHAR_MAX || xd > CHAR_MAX || xd < CHAR_MIN) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'char'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xl > CHAR_MAX || xl < CHAR_MIN || xul > CHAR_MAX || xd > CHAR_MAX
+             || xd < CHAR_MIN) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'char'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'C':
-        if (xl > UCHAR_MAX || xl < 0.0 || xul > UCHAR_MAX || xd > UCHAR_MAX || xd < 0.0) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'unsigned char'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xl > UCHAR_MAX || xl < 0.0 || xul > UCHAR_MAX || xd > UCHAR_MAX
+             || xd < 0.0) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'unsigned char'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 't':
-        if (xl > INT3_MAX || xl < INT3_MIN || xul > INT3_MAX || xd > INT3_MAX || xd < INT3_MIN) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'int(3byte)'!\n", cmnd);
-           exit(1);
-        }
-        break;
+         if (xl > INT3_MAX || xl < INT3_MIN || xul > INT3_MAX || xd > INT3_MAX
+             || xd < INT3_MIN) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'int(3byte)'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
       case 'T':
-        if (xl > UINT3_MAX || xl < 0|| xul > UINT3_MAX || xd > UINT3_MAX || xd < 0.0) {
-           fprintf(stderr, "%s : error: input data is over the range of type 'unsigned int(3byte)'!\n", cmnd);
-           exit(1);
-        }
-        break;
-     }
+         if (xl > UINT3_MAX || xl < 0 || xul > UINT3_MAX || xd > UINT3_MAX
+             || xd < 0.0) {
+            fprintf(stderr,
+                    "%s : error: input data is over the range of type 'unsigned int(3byte)'!\n",
+                    cmnd);
+            exit(1);
+         }
+         break;
+      }
    }
 
    switch (c2) {
    case 's':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(short *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(short *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(short *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(short *) x2 = xul;
       else {
-        if (xd > 0)
-          *(short *) x2 = xd + r;
-        else
-          *(short *) x2 = xd - r;   
+         if (xd > 0)
+            *(short *) x2 = xd + r;
+         else
+            *(short *) x2 = xd - r;
       }
       break;
    case 'i':
-     if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(int *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(int *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(int *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(int *) x2 = xul;
       else {
-        if (xd > 0)
-          *(int *) x2 = xd + r; 
-        else
-          *(int *) x2 = xd - r;   
+         if (xd > 0)
+            *(int *) x2 = xd + r;
+         else
+            *(int *) x2 = xd - r;
       }
       break;
    case 'l':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(long *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(long *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(long *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(long *) x2 = xul;
       else {
-        if (xd > 0)
-          *(long *) x2 = xd + r; 
-        else
-          *(long *) x2 = xd - r;   
+         if (xd > 0)
+            *(long *) x2 = xd + r;
+         else
+            *(long *) x2 = xd - r;
       }
       break;
    case 'u':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(long long *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(long long *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(long long *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(long long *) x2 = xul;
       else {
-        if (xd > 0)
-          *(long long *) x2 = xd + r; 
-        else
-          *(long long *) x2 = xd - r;   
+         if (xd > 0)
+            *(long long *) x2 = xd + r;
+         else
+            *(long long *) x2 = xd - r;
       }
       break;
    case 'S':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(unsigned short *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(unsigned short *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(unsigned short *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(unsigned short *) x2 = xul;
       else {
-        if (xd > 0)
-          *(unsigned short *) x2 = xd + r; 
-        else
-          *(unsigned short *) x2 = xd - r;   
+         if (xd > 0)
+            *(unsigned short *) x2 = xd + r;
+         else
+            *(unsigned short *) x2 = xd - r;
       }
       break;
    case 'I':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(unsigned int *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(unsigned int *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(unsigned int *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(unsigned int *) x2 = xul;
       else {
-        if (xd > 0)
-          *(unsigned int *) x2 = xd + r; 
-        else
-          *(unsigned int *) x2 = xd - r;   
+         if (xd > 0)
+            *(unsigned int *) x2 = xd + r;
+         else
+            *(unsigned int *) x2 = xd - r;
       }
       break;
    case 'L':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(unsigned long *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(unsigned long *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(unsigned long *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(unsigned long *) x2 = xul;
       else {
-        if (xd > 0)
-          *(unsigned long *) x2 = xd + r; 
-        else
-          *(unsigned long *) x2 = xd - r;   
+         if (xd > 0)
+            *(unsigned long *) x2 = xd + r;
+         else
+            *(unsigned long *) x2 = xd - r;
       }
       break;
    case 'U':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(unsigned long long *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(unsigned long long *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(unsigned long long *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(unsigned long long *) x2 = xul;
       else {
-        if (xd > 0)
-          *(unsigned long long *) x2 = xd + r; 
-        else
-          *(unsigned long long *) x2 = xd - r; 
+         if (xd > 0)
+            *(unsigned long long *) x2 = xd + r;
+         else
+            *(unsigned long long *) x2 = xd - r;
       }
       break;
    case 'f':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(float *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(float *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(float *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(float *) x2 = xul;
       else {
-        if (xd > 0)
-          *(float *) x2 = xd; 
-        else
-          *(float *) x2 = xd;   
+         if (xd > 0)
+            *(float *) x2 = xd;
+         else
+            *(float *) x2 = xd;
       }
       break;
    case 'd':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(double *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(double *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(double *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(double *) x2 = xul;
       else {
-        if (xd > 0)
-          *(double *) x2 = xd; 
-        else
-          *(double *) x2 = xd;   
+         if (xd > 0)
+            *(double *) x2 = xd;
+         else
+            *(double *) x2 = xd;
       }
       break;
    case 'v':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-	*(long double *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(long double *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(long double *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(long double *) x2 = xul;
       else {
-        if (xd > 0)
-          *(long double *) x2 = xd; 
-        else
-          *(long double *) x2 = xd;   
+         if (xd > 0)
+            *(long double *) x2 = xd;
+         else
+            *(long double *) x2 = xd;
       }
       break;
    case 'c':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(char *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(char *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(char *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(char *) x2 = xul;
       else {
-        if (xd > 0)
-          *(char *) x2 = xd + r; 
-        else
-          *(char *) x2 = xd - r;   
+         if (xd > 0)
+            *(char *) x2 = xd + r;
+         else
+            *(char *) x2 = xd - r;
       }
       break;
    case 'C':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(unsigned char *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(unsigned char *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(unsigned char *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(unsigned char *) x2 = xul;
       else {
-        if (xd > 0)
-          *(unsigned char *) x2 = xd + r; 
-        else
-          *(unsigned char *) x2 = xd - r;   
+         if (xd > 0)
+            *(unsigned char *) x2 = xd + r;
+         else
+            *(unsigned char *) x2 = xd - r;
       }
       break;
    case 't':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(int *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(int *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(int *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(int *) x2 = xul;
       else {
-        if (xd > 0)
-          *(int *) x2 = xd + r; 
-        else
-          *(int *) x2 = xd - r;   
+         if (xd > 0)
+            *(int *) x2 = xd + r;
+         else
+            *(int *) x2 = xd - r;
       }
       break;
    case 'T':
-      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c' || c1 == 't')
-        *(unsigned int *) x2 = xl;
-      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C' || c1 == 'T')
-        *(unsigned int *) x2 = xul;
+      if (c1 == 's' || c1 == 'i' || c1 == 'l' || c1 == 'u' || c1 == 'c'
+          || c1 == 't')
+         *(unsigned int *) x2 = xl;
+      else if (c1 == 'S' || c1 == 'I' || c1 == 'L' || c1 == 'U' || c1 == 'C'
+               || c1 == 'T')
+         *(unsigned int *) x2 = xul;
       else {
-        if (xd > 0)
-          *(unsigned int *) x2 = xd + r; 
-        else
-          *(unsigned int *) x2 = xd - r;   
+         if (xd > 0)
+            *(unsigned int *) x2 = xd + r;
+         else
+            *(unsigned int *) x2 = xd - r;
       }
       break;
    }

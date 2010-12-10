@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -73,7 +73,7 @@
  *                                                                       *
  ************************************************************************/
 
-static char *rcs_id = "$Id: gmm.c,v 1.10 2010/10/06 10:20:35 mataki Exp $";
+static char *rcs_id = "$Id: gmm.c,v 1.11 2010/12/10 10:44:21 mataki Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -187,8 +187,9 @@ int main(int argc, char **argv)
    double E = DEF_E, V = DEF_V, W = DEF_W,
        *dat, *pd, *cb, *icb, *logwgd, logb, *sum, *sum_m, **sum_v, diff, sum_w,
        ave_logp0, ave_logp1, change = MAXVALUE, tmp1, tmp2;
-   int ispipe, l, ll, L = DEF_L, m, M = DEF_M, N, t, T = DEF_T, S = DEF_S, full = FULL,
-       n1, i, j, Imin = DEF_IMIN, Imax = DEF_IMAX, *tindex, *cntcb;
+   int ispipe, l, ll, L = DEF_L, m, M = DEF_M, N, t, T = DEF_T, S =
+       DEF_S, full = FULL, n1, i, j, Imin = DEF_IMIN, Imax =
+       DEF_IMAX, *tindex, *cntcb;
 
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***************************************************************
-    $Id: agexp.c,v 1.7 2009/12/16 13:12:39 uratec Exp $
+    $Id: agexp.c,v 1.8 2010/12/10 10:44:24 mataki Exp $
 
     Magnitude Squared Generalized Exponential Function	
 

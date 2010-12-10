@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /*******************************************************************
-  $Id: _phase.c,v 1.11 2009/12/16 13:12:36 uratec Exp $
+  $Id: _phase.c,v 1.12 2010/12/10 10:44:23 mataki Exp $
   comupte phase of digital filter or real seaquence
      phase(p, mp, z, mz, ph, flng)
 

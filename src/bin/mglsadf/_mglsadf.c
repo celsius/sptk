@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _mglsadf.c,v 1.14 2010/11/24 11:11:20 mataki Exp $
+    $Id: _mglsadf.c,v 1.15 2010/12/10 10:44:23 mataki Exp $
 
     MGLSA Digital Filter
 

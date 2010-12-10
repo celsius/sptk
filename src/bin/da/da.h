@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -42,7 +42,7 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/* $Id: da.h,v 1.13 2009/12/16 13:12:27 uratec Exp $ */
+/* $Id: da.h,v 1.14 2010/12/10 10:44:20 mataki Exp $ */
 
 #include <stdio.h>
 #include <fcntl.h>

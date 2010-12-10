@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 
 /********************************************************
-* $Id: plot.c,v 1.16 2009/12/16 13:12:37 uratec Exp $  *
+* $Id: plot.c,v 1.17 2010/12/10 10:44:23 mataki Exp $  *
 *       Interpret X-Y Plotter Commands                  *
 ********************************************************/
 

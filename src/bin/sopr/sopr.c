@@ -93,7 +93,7 @@
 *                                                                              *
 *******************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.28 2010/12/10 08:22:31 sawada11 Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.29 2010/12/10 10:44:24 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -148,10 +148,14 @@ void usage(int status)
    fprintf(stderr, "                      if -magic option is not given,\n");
    fprintf(stderr, "                      return error\n");
    fprintf(stderr, "\n");
-   fprintf(stderr, "       if the argument of the above operation option is `dB'\n");
-   fprintf(stderr, "       then the value 20/log_e(10) is assigned. Also if 'pi' or\n");
-   fprintf(stderr, "       `ln(x)',`exp(x)',`sqrt(x)' such as `ln2',`exp10',`sqrt30' \n");
-   fprintf(stderr, "       is written after the operation option, then its value\n");
+   fprintf(stderr,
+           "       if the argument of the above operation option is `dB'\n");
+   fprintf(stderr,
+           "       then the value 20/log_e(10) is assigned. Also if 'pi' or\n");
+   fprintf(stderr,
+           "       `ln(x)',`exp(x)',`sqrt(x)' such as `ln2',`exp10',`sqrt30' \n");
+   fprintf(stderr,
+           "       is written after the operation option, then its value\n");
    fprintf(stderr, "       will be used\n");
    fprintf(stderr, "\n");
    fprintf(stderr, "       -ABS         : absolute             (abs(in))\n");

@@ -53,7 +53,7 @@
 *      Ver. 0.99  '93.8                                 *
 ********************************************************/
 
-static char *rcs_id = "$Id: psgr.c,v 1.18 2010/10/12 10:04:28 sawada11 Exp $";
+static char *rcs_id = "$Id: psgr.c,v 1.19 2010/12/10 10:44:23 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -81,7 +81,7 @@ static char *rcs_id = "$Id: psgr.c,v 1.18 2010/10/12 10:04:28 sawada11 Exp $";
 char *BOOL[] = { "FALSE", "TRUE" };
 
 
-#define MaxPaperTypes 13         /*  Paper Media  */
+#define MaxPaperTypes 13        /*  Paper Media  */
 
 struct page_media paper[] = {
    {"Letter", 612, 792},
@@ -137,7 +137,8 @@ void usage(int status)
    fprintf(stderr, "       -x x  : x offset <mm>        [%d]\n", XOFFSET);
    fprintf(stderr, "       -y y  : y offset <mm>        [%d]\n", YOFFSET);
    fprintf(stderr, "       -p p  : paper                [%s]\n", MEDIA);
-   fprintf(stderr, "               (Letter,A0,A1,A2,A3,A4,A5,B0,B1,B2,B3,B4,B5)\n");
+   fprintf(stderr,
+           "               (Letter,A0,A1,A2,A3,A4,A5,B0,B1,B2,B3,B4,B5)\n");
    fprintf(stderr, "       -l    : landscape            [%s]\n",
            BOOL[LANDSCAPE]);
    fprintf(stderr, "       -r r  : resolution           [%d dpi]\n",
