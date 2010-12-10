@@ -2,14 +2,13 @@ Version 3.4:
  * add magic and MAGIC option to delete and substitute magic number to 'sopr' command.
  * add flooring and clipping option to 'sopr' command.
  * add clipping switch to 'x2x' command.
- * add i3, I3, le, LE, and de option to 'x2x' command, to specify 3 byte int, 3 byte unsigned int,
-   long long int, unsigned long long int, and long double, respectively.
+ * add i3, I3, le, LE, and de option to 'x2x' command.
  * add new paper size (A0, A1, A2, B0, B1, B2, B3) to 'psgr' command.
  * add option for scaling factor to 'fig', 'fdrw', 'glogsp', 'grlogsp', and 'gwave' command.
  * add option to select type of exception procedure to 'lbg' command.
  * add option to specify random seed for centroid update to 'lbg' command.
- * add option to specify min. num of training vectors for each cell to 'lbg' command.
- * add option to specify max. num. of iteration for centroid update to 'lbg' command.
+ * add option to specify minimum number of training vectors for each cell to 'lbg' command.
+ * add option to specify maximum number of iteration for centroid update to 'lbg' command.
  * add output format for confidence interval via t-dist. to 'vstat' command.
  * add output format for squared format to 'spec' and 'mgc2sp' command.
  * add floating-point support of frame period to 'train' command.
