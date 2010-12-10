@@ -8,7 +8,7 @@
 #                           Interdisciplinary Graduate School of    #
 #                           Science and Engineering                 #
 #                                                                   #
-#                1996-2009  Nagoya Institute of Technology          #
+#                1996-2010  Nagoya Institute of Technology          #
 #                           Department of Computer Science          #
 #                                                                   #
 # All rights reserved.                                              #
@@ -45,9 +45,9 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT(SPTK-Reference-Manual, 3.2, http://sourceforge.net/projects/sp-tk/)
+AC_INIT(SPTK-Reference-Manual, 3.4, http://sourceforge.net/projects/sp-tk/)
 AC_COPYRIGHT(Copyright 1984-2007 Tokyo Institute of Technology)
-AC_COPYRIGHT(Copyright 1996-2008 Nagoya Institute of Technology)
+AC_COPYRIGHT(Copyright 1996-2010 Nagoya Institute of Technology)
 
 # Checks for programs.
 AC_PATH_PROGS([LATEX], [latex], [:], [/usr/bin:$PATH])
