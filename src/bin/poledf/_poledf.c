@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _poledf.c,v 1.9 2009/12/16 13:12:37 uratec Exp $
+    $Id: _poledf.c,v 1.10 2010/12/10 17:28:01 uratec Exp $
 
     All Pole Digital Filter
 
