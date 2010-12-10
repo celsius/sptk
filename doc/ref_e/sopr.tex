@@ -45,12 +45,11 @@
 \name{sopr}{execute scalar operations}{number operation}
 
 \begin{synopsis}
-\item[sopr] [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [ --ABS ] [ --INV ]
-\item[\ ~~~~] [ --P ] [ --R ] [ --SQRT ] [ --LN ] [ --LOG2 ] [ --LOG10 ] [ --EXP ]
-\item[\ ~~~~] [ --POW2 ] [ --POW10 ] [ --FIX ] [ --UNIT ] [ --CLIP ] [ --SIN ]
-\item[\ ~~~~] [ --COS ] [ --TAN ] [ --ATAN ] [--magic $magic$]
-  [--MAGIC $MAGIC$]
-\item[\ ~~~~] [ --r m$n$ ] [ --w m$n$ ] [ {\em infile} ]
+\item[sopr] [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [--f $F$]
+  [--c C] [ --magic $magic$ ]
+\item[\ ~~~~] [ --MAGIC $MAGIC$ ] [ --ABS ] [ --INV ] [ --P ] [ --R ] [ --SQRT ] [ --LN ]
+\item[\ ~~~~] [ --LOG2 ] [ --LOG10 ] [ --EXP ] [ --POW2 ] [ --POW10 ] [ --FIX ] [ --UNIT ]
+\item[\ ~~~~] [ --CLIP ] [ --SIN ] [ --COS ] [ --TAN ] [ --ATAN ] [ --r m$n$ ] [ --w m$n$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -67,7 +66,12 @@ and is performed in the given order.
 	\argm{s}{S}{subtraction $y=x-S$}{FALSE}
 	\argm{m}{M}{multiplication $y=x\ast M$}{FALSE}
 	\argm{d}{D}{division $y=x/D$}{FALSE}
-	\desc[1ex]{If the argument of the operation option is
+	\argm{f}{F}{flooring $y=F$ if $x < F$}{FALSE}
+	\argm{c}{C}{ceiling $y=C$ if $x > C$}{FALSE}
+	\argm{magic}{magic}{remove magic number}{FALSE}
+	\argm{MAGIC}{MAGIC}{replace magic number by $MAGIC$ \\
+                            if -magic option is not given, return error}{FALSE}
+	\desc[1ex]{If the argument of the above operation option is
                 ``{\em dB}'' then the value $20/\log_e10$
                 is assigned.
 		Also similarly, if ``{\em pi}'' is written after
@@ -93,11 +97,6 @@ and is performed in the given order.
 	\argm{COS}{}{cos $y=\cos(x)$}{FALSE}
 	\argm{TAN}{}{tan $y=\tan(x)$}{FALSE}
 	\argm{ATAN}{}{atan $y=\atan(x)$}{FALSE}
-
-	\argm{magic}{magic}{remove magic number}{FALSE}
-	\argm{MAGIC}{MAGIC}{replace magic number by $MAGIC$ \\
-                            if -magic option is not given, return error}{FALSE}
-
         \argm{r}{\mbox{m}n}{read from memory register m$n$ $(n=0..9)$}{}
         \argm{w}{\mbox{m}n}{write from memory register m$n$ $(n=0..9)$}{}
 \end{options}
