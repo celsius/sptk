@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -213,11 +213,11 @@ int main(int argc, char *argv[])
             joinno = atoi(s);
             break;
          case 'W':
-	    wf = atof(s);
+            wf = atof(s);
             xl = atof(s) * LENG;
             break;
          case 'H':
-	    hf = atof(s);
+            hf = atof(s);
             yl = atof(s) * LENG;
             break;
          case 'h':
@@ -239,9 +239,9 @@ int main(int argc, char *argv[])
       w = CW_BIG;
 
    plots(0x81);
-   org(xo,yo);
+   org(xo, yo);
    rstbnd(wf, hf, fct);
-   org(0.0,0.0);
+   org(0.0, 0.0);
    font(fntsize);
    font(0);                     /* valid only LBP */
    plot(xo, yo, -3);

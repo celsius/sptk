@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -185,6 +185,6 @@ void origin(double x, double y)
 
 void org(double x, double y)
 {
-  _org.xo = x;
-  _org.yo = y;
+   _org.xo = x;
+   _org.yo = y;
 }

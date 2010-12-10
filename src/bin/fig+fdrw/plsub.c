@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -98,7 +98,8 @@ void bound(double xl, double yl, double xh, double yh)
 void rstbnd(double w, double h, double F)
 {
    wlo_right(0, 0);
-   wup_left((int) ((4000 * w + _org.xo * 10.0) * F), (int) ((2850 * h + _org.yo * 10.0) * F));
+   wup_left((int) ((4000 * w + _org.xo * 10.0) * F),
+            (int) ((2850 * h + _org.yo * 10.0) * F));
 }
 
 int hatch(int ip, double *ax, double *ay, int n, double d, double t)

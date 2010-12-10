@@ -170,24 +170,22 @@ int main(int argc, char **argv)
    }
    zero = 0.0;
    i = 0.5;
-   
+
    if (period >= 1.0)
-     while (l--)
-       if (--i >= 0.0)
-         fwritef(&zero, sizeof(zero), 1, stdout);
-       else {
-         i += period;
+      while (l--)
+         if (--i >= 0.0)
+            fwritef(&zero, sizeof(zero), 1, stdout);
+         else {
+            i += period;
+            fwritef(&pulse, sizeof(pulse), 1, stdout);
+   } else if (period != 0.0) {
+      fprintf(stderr, "-p : frame period must be 0.0 or more than 1.0!\n");
+      usage(1);
+   } else
+      while (l--) {
+         pulse = mseq();
          fwritef(&pulse, sizeof(pulse), 1, stdout);
-       }
-   else if (period != 0.0) {
-     fprintf(stderr, "-p : frame period must be 0.0 or more than 1.0!\n");
-     usage(1);
-   }
-   else
-     while (l--) {
-       pulse = mseq();
-       fwritef(&pulse, sizeof(pulse), 1, stdout);
-     }
-   
+      }
+
    return (0);
 }

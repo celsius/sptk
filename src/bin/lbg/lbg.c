@@ -146,19 +146,40 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ ifile ]<stdin>stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l      : length of vector                                     [%d]\n", LENG);
-   fprintf(stderr, "       -n n      : order of vector                                      [%d]\n", LENG - 1);
-   fprintf(stderr, "       -t t      : number of training vector                            [N/A]\n");
-   fprintf(stderr, "       -s s      : initial codebook size                                [%d]\n", ICBSIZE);
-   fprintf(stderr, "       -e e      : final codebook size                                  [%d]\n", ECBSIZE);
-   fprintf(stderr, "       -f f      : initial codebook filename                            [NULL]\n");
-   fprintf(stderr, "       -i i      : maximum number of iteration for centroid update      [%d]\n", ITER);
-   fprintf(stderr, "       -m m      : minimum number of training vectors for each cell     [%d]\n", MINTRAIN);
-   fprintf(stderr, "       -S S      : seed for each centroid                               [%d]\n", SEED);
-   fprintf(stderr, "       -c c      : type of exception procedure for centorid update      [%d]\n", CENTUP);
-   fprintf(stderr, "                   c = 1 : split the centroid with most training vector\n");
-   fprintf(stderr, "                   c = 2 : split the vector which internally divide \n");
-   fprintf(stderr, "                           the two centroids sharing the same parent\n");
+   fprintf(stderr,
+           "       -l l      : length of vector                                     [%d]\n",
+           LENG);
+   fprintf(stderr,
+           "       -n n      : order of vector                                      [%d]\n",
+           LENG - 1);
+   fprintf(stderr,
+           "       -t t      : number of training vector                            [N/A]\n");
+   fprintf(stderr,
+           "       -s s      : initial codebook size                                [%d]\n",
+           ICBSIZE);
+   fprintf(stderr,
+           "       -e e      : final codebook size                                  [%d]\n",
+           ECBSIZE);
+   fprintf(stderr,
+           "       -f f      : initial codebook filename                            [NULL]\n");
+   fprintf(stderr,
+           "       -i i      : maximum number of iteration for centroid update      [%d]\n",
+           ITER);
+   fprintf(stderr,
+           "       -m m      : minimum number of training vectors for each cell     [%d]\n",
+           MINTRAIN);
+   fprintf(stderr,
+           "       -S S      : seed for each centroid                               [%d]\n",
+           SEED);
+   fprintf(stderr,
+           "       -c c      : type of exception procedure for centorid update      [%d]\n",
+           CENTUP);
+   fprintf(stderr,
+           "                   c = 1 : split the centroid with most training vector\n");
+   fprintf(stderr,
+           "                   c = 2 : split the vector which internally divide \n");
+   fprintf(stderr,
+           "                           the two centroids sharing the same parent\n");
    fprintf(stderr, "                           centroids\n");
    fprintf(stderr, "       -h        : print this message\n");
    fprintf(stderr, "     (level 2)\n");
@@ -186,8 +207,9 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int l = LENG, icbsize = ICBSIZE, ecbsize = ECBSIZE, iter = ITER, tnum = TNUMBER, seed = SEED,
-      ispipe, xsize, csize, i, j, *tindex, mintnum = MINTRAIN, centup = CENTUP;
+   int l = LENG, icbsize = ICBSIZE, ecbsize = ECBSIZE, iter = ITER, tnum =
+       TNUMBER, seed = SEED, ispipe, xsize, csize, i, j, *tindex, mintnum =
+       MINTRAIN, centup = CENTUP;
    FILE *fp = stdin, *fpi = NULL, *fpcb = NULL;
    double delta = DELTA, minerr = END, *x, *cb, *icb;
    double *p;
@@ -232,21 +254,21 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'm':
-             mintnum = atoi(*++argv);
-             --argc;
-             break;
+            mintnum = atoi(*++argv);
+            --argc;
+            break;
          case 'S':
-             seed = atoi(*++argv);
-             --argc;
-             break;
+            seed = atoi(*++argv);
+            --argc;
+            break;
          case 'c':
-             centup = atoi(*++argv);
-             --argc;
-             break;
+            centup = atoi(*++argv);
+            --argc;
+            break;
          case 'i':
-             iter = atoi(*++argv);
-             --argc;
-             break;
+            iter = atoi(*++argv);
+            --argc;
+            break;
          case 'h':
             usage(0);
          default:
@@ -295,8 +317,9 @@ int main(int argc, char **argv)
          icb[j] /= (double) tnum;
    } else {
       icb = dgetmem(icbsize * l);
-      if (fpcb == NULL){
-         fprintf(stderr, "%s : initial codebook filename must be specified!\n",cmnd);
+      if (fpcb == NULL) {
+         fprintf(stderr, "%s : initial codebook filename must be specified!\n",
+                 cmnd);
          return (1);
       }
       if (freadf(icb, sizeof(*icb), icbsize * l, fpcb) != icbsize * l) {
@@ -305,7 +328,8 @@ int main(int argc, char **argv)
       }
    }
 
-   lbg(x, l, tnum, icb, icbsize, cb, ecbsize, iter, mintnum, seed, centup, delta, minerr);
+   lbg(x, l, tnum, icb, icbsize, cb, ecbsize, iter, mintnum, seed, centup,
+       delta, minerr);
 
    fwritef(cb, sizeof(*cb), csize, stdout);
 

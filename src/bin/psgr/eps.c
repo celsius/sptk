@@ -161,7 +161,7 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
 {
    char c;
    int n, x, y;
-   int temp_xmin,temp_ymin,temp_xmax,temp_ymax;
+   int temp_xmin, temp_ymin, temp_xmax, temp_ymax;
    int temp_plot_xmin, temp_plot_ymin, temp_plot_xmax, temp_plot_ymax;
    int plot_xmin, plot_ymin, plot_xmax, plot_ymax;
    double unit_length;
@@ -181,26 +181,26 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
       switch (c) {
       case 'M':
          fscanf(fp, "%d %d", &x, &y);
-	 temp_xmin = (temp_xmin < x ? temp_xmin : x);
-	 temp_ymin = (temp_ymin < y ? temp_ymin : y);
-	 temp_xmax = (temp_xmax > x ? temp_xmax : x);
-	 temp_ymax = (temp_ymax > y ? temp_ymax : y);
+         temp_xmin = (temp_xmin < x ? temp_xmin : x);
+         temp_ymin = (temp_ymin < y ? temp_ymin : y);
+         temp_xmax = (temp_xmax > x ? temp_xmax : x);
+         temp_ymax = (temp_ymax > y ? temp_ymax : y);
          break;
       case 'D':
          while (getd(fp, &x, &y)) {
-	    temp_xmin = (temp_xmin < x ? temp_xmin : x);
-	    temp_ymin = (temp_ymin < y ? temp_ymin : y);
-	    temp_xmax = (temp_xmax > x ? temp_xmax : x);
-	    temp_ymax = (temp_ymax > y ? temp_ymax : y);
+            temp_xmin = (temp_xmin < x ? temp_xmin : x);
+            temp_ymin = (temp_ymin < y ? temp_ymin : y);
+            temp_xmax = (temp_xmax > x ? temp_xmax : x);
+            temp_ymax = (temp_ymax > y ? temp_ymax : y);
          }
          break;
       case '%':
          fscanf(fp, "%d %d %d", &n, &x, &y);
          while (getd(fp, &x, &y)) {
-	    temp_xmin = (temp_xmin < x ? temp_xmin : x);
-	    temp_ymin = (temp_ymin < y ? temp_ymin : y);
-	    temp_xmax = (temp_xmax > x ? temp_xmax : x);
-	    temp_ymax = (temp_ymax > y ? temp_ymax : y);
+            temp_xmin = (temp_xmin < x ? temp_xmin : x);
+            temp_ymin = (temp_ymin < y ? temp_ymin : y);
+            temp_xmax = (temp_xmax > x ? temp_xmax : x);
+            temp_ymax = (temp_ymax > y ? temp_ymax : y);
          }
          break;
       case 'S':
@@ -217,24 +217,24 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
       case 'P':
          n = getstrlength(fp);
          if (!rotate) {
-            x += n * cw * mag; 
-  	    temp_xmax = (temp_xmax > x ? temp_xmax : x);
+            x += n * cw * mag;
+            temp_xmax = (temp_xmax > x ? temp_xmax : x);
             y -= ch * mag;
-	    temp_ymin = (temp_ymin < y ? temp_ymin : y);
+            temp_ymin = (temp_ymin < y ? temp_ymin : y);
          } else {
             y += n * cw * mag;
-	    temp_ymax = (temp_ymax > y ? temp_ymax : y);
+            temp_ymax = (temp_ymax > y ? temp_ymax : y);
             x -= ch * mag;
-	    temp_xmin = (temp_xmin < x ? temp_xmin : x);
+            temp_xmin = (temp_xmin < x ? temp_xmin : x);
          }
          rotate = 0;
          break;
       case '\\':
          fscanf(fp, "%d %d", &temp_plot_xmin, &temp_plot_xmin);
-	 if (plot_xmin > temp_plot_xmin)
-	    plot_xmin = temp_plot_xmin;
-	 if (plot_ymin > temp_plot_ymin)
-	    plot_ymin = temp_plot_ymin;
+         if (plot_xmin > temp_plot_xmin)
+            plot_xmin = temp_plot_xmin;
+         if (plot_ymin > temp_plot_ymin)
+            plot_ymin = temp_plot_ymin;
          if (plot_xmin < 0)
             plot_xmin = 0;
          if (plot_ymin < 0)
@@ -242,10 +242,10 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
          break;
       case 'Z':
          fscanf(fp, "%d %d", &temp_plot_xmax, &temp_plot_ymax);
-	 if (plot_xmax < temp_plot_xmax)
-	    plot_xmax = temp_plot_xmax;
-	 if (plot_ymax < temp_plot_ymax)
-	    plot_ymax = temp_plot_ymax;
+         if (plot_xmax < temp_plot_xmax)
+            plot_xmax = temp_plot_xmax;
+         if (plot_ymax < temp_plot_ymax)
+            plot_ymax = temp_plot_ymax;
          if (plot_xmax > xleng)
             plot_xmax = xleng;
          if (plot_ymax > yleng)

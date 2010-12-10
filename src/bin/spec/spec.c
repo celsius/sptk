@@ -131,7 +131,7 @@ void usage(int status)
    fprintf(stderr, "                 0 (20 * log|H(z)|)\n");
    fprintf(stderr, "                 1 (ln|H(z)|)\n");
    fprintf(stderr, "                 2 (|H(z)|)\n");
-   fprintf(stderr, "                 3 (|H(z)|^2)\n");   
+   fprintf(stderr, "                 3 (|H(z)|^2)\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       real sequences (%s)                    [stdin]\n",
@@ -259,7 +259,7 @@ int main(int argc, char **argv)
          for (i = 0; i < no; i++)
             x[i] = mag[i];
          fwritef(x, sizeof(*x), no, stdout);
-         break;         
+         break;
       default:
          for (i = 0; i < no; i++)
             x[i] = 10 * log10(mag[i] + eps);

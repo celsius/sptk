@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2009  Nagoya Institute of Technology          */
+/*                1996-2010  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -170,7 +170,7 @@ void usage(int status)
 
 double fct = FCT, th = TH, lpt = LPT, dz = DZ,
     scale = 0, xo = XO, yo = YO, xl = XSIZE, yl = YSIZE,
-  ymin = YMIN, ymax = YMAX, wf = WF, hf = HF;
+    ymin = YMIN, ymax = YMAX, wf = WF, hf = HF;
 long nsmpls = NSMPLS;
 int is_hold = BAR, is_y = 0;
 int ltype = LTYPE, gtype = GTYPE, penno = PENNO, joinno = JOINNO, ctype = CTYPE;
@@ -233,11 +233,11 @@ int main(int argc, char *argv[])
             dz = atof(s);
             break;
          case 'W':
-	    wf = atof(s);
+            wf = atof(s);
             xl = atof(s) * XSIZE;
             break;
          case 'H':
-	    hf = atof(s);
+            hf = atof(s);
             yl = atof(s) * YSIZE;
             break;
          case 't':
@@ -404,6 +404,6 @@ int drw(FILE * fp)
          line(1, x, y, n2);
       }
    }
-   rstbnd(wf,hf,fct);
+   rstbnd(wf, hf, fct);
    return (0);
 }

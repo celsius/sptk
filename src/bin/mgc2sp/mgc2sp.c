@@ -151,7 +151,7 @@ void usage(int status)
    fprintf(stderr, "                 0 (20*log|H(z)|)\n");
    fprintf(stderr, "                 1 (ln|H(z)|)\n");
    fprintf(stderr, "                 2 (|H(z)|)\n");
-   fprintf(stderr, "                 3 (|H(z)|^2)\n");   
+   fprintf(stderr, "                 3 (|H(z)|^2)\n");
    fprintf(stderr, "             -p option is specified\n");
    fprintf(stderr, "                 0 (arg|H(z)|/pi     [pi rad])\n");
    fprintf(stderr, "                 1 (arg|H(z)|        [rad])\n");
@@ -290,7 +290,7 @@ int main(int argc, char **argv)
          case 3:
             for (i = no; i--;)
                x[i] = exp(2 * x[i]);
-            break;            
+            break;
          default:
             for (i = no; i--;)
                x[i] *= logk;

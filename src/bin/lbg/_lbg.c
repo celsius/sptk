@@ -79,9 +79,9 @@
 #define SEED 1
 #define abs(x) ( (x<0) ? (-(x)) : (x) )
 
-void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, double *cb,
-         const int ecbsize, const int iter, const int mintnum, const int seed, const int centup,
-         const double delta, const double end)
+void lbg(double *x, const int l, const int tnum, double *icb, int icbsize,
+         double *cb, const int ecbsize, const int iter, const int mintnum,
+         const int seed, const int centup, const double delta, const double end)
 {
    int i, j, k, it, maxindex, tnum1, tnum2;
    static int *cntcb, *tindex, size, sizex, sizecb;
@@ -118,7 +118,7 @@ void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, doubl
    movem(icb, cb, sizeof(*icb), icbsize * l);
 
    if (seed != 1)
-       next = srnd((unsigned int) seed);
+      next = srnd((unsigned int) seed);
 
    for (; icbsize * 2 <= ecbsize;) {
       q = cb;
@@ -180,35 +180,34 @@ void lbg(double *x, const int l, const int tnum, double *icb, int icbsize, doubl
                   q[j] = r[j] / (double) cntcb[i];
             else {
                if (centup == 1) {
-                   p = cb + maxindex * l;
-                   for (j = 0; j < l; j++){
-                      rand = nrandom(&next);
-                      q[j] = p[j] + delta * rand;
-                      p[j] = p[j] - delta * rand;
-                   }
+                  p = cb + maxindex * l;
+                  for (j = 0; j < l; j++) {
+                     rand = nrandom(&next);
+                     q[j] = p[j] + delta * rand;
+                     p[j] = p[j] - delta * rand;
+                  }
                } else if (centup == 2) {
-                    if (i < icbsize / 2) {
-                       p = q + icbsize / 2 * l;
-                       tnum1 = cntcb[i];
-                       tnum2 = cntcb[i + icbsize /2];
-                       for (j = 0; j < l; j++) {
-                          tmp = (tnum2 * q[j] + tnum1 * p[j]) / (tnum1 + tnum2);
-                          rand = nrandom(&next);
-                          q[j] = tmp + delta * rand;
-                          p[j] = tmp - delta * rand;
-                       }
-                    }
-                    else {
-                       p = q - icbsize / 2 * l;
-                       tnum1 = cntcb[i];
-                       tnum2 = cntcb[i - icbsize /2];
-                       for (j = 0; j < l; j++) {
-                          tmp = (tnum2 * q[j] + tnum1 * p[j]) / (tnum1 + tnum2);
-                          rand = nrandom(&next);
-                          q[j] = tmp + delta * rand;
-                          p[j] = tmp - delta * rand;
-                       }
-                    }
+                  if (i < icbsize / 2) {
+                     p = q + icbsize / 2 * l;
+                     tnum1 = cntcb[i];
+                     tnum2 = cntcb[i + icbsize / 2];
+                     for (j = 0; j < l; j++) {
+                        tmp = (tnum2 * q[j] + tnum1 * p[j]) / (tnum1 + tnum2);
+                        rand = nrandom(&next);
+                        q[j] = tmp + delta * rand;
+                        p[j] = tmp - delta * rand;
+                     }
+                  } else {
+                     p = q - icbsize / 2 * l;
+                     tnum1 = cntcb[i];
+                     tnum2 = cntcb[i - icbsize / 2];
+                     for (j = 0; j < l; j++) {
+                        tmp = (tnum2 * q[j] + tnum1 * p[j]) / (tnum1 + tnum2);
+                        rand = nrandom(&next);
+                        q[j] = tmp + delta * rand;
+                        p[j] = tmp - delta * rand;
+                     }
+                  }
                }
             }
       }
