@@ -1,8 +1,3 @@
-# Makefile for VC++ 2005 nmake tool
-#
-#            2007.10  Jong-Jin Kim
-# 
-
 CC		= cl
 CL		= link
 CPU		= win32
@@ -22,7 +17,6 @@ SPTKLIB	= ..\lib\SPTK.lib
 SYSLIB	= kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib
 LIBS	=  /NOLOGO /SUBSYSTEM:CONSOLE /MACHINE:X86 $(SPTKLIB) $(SYSLIB)
 
-       
 all: acep.exe acorr.exe agcep.exe amcep.exe \
 	average.exe b2mc.exe bcp.exe bcut.exe c2acr.exe \
 	c2ir.exe c2sp.exe cat2.exe cdist.exe clip.exe da.exe dct.exe\
@@ -40,7 +34,6 @@ all: acep.exe acorr.exe agcep.exe amcep.exe \
 	sopr.exe spec.exe step.exe swab.exe train.exe uels.exe ulaw.exe \
 	us.exe vopr.exe vq.exe vstat.exe vsum.exe window.exe x2x.exe \
 	zcross.exe zerodf.exe 
-
 
 acep.exe : acep\acep.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
@@ -491,4 +484,3 @@ zerodf.exe : zerodf\zerodf.obj
 clean:	
 	del *.exe
 	del *.obj
-
