@@ -13,8 +13,8 @@
 
 <div class=head>
  Speech Signal Processing Toolkit (SPTK)<br>
- Version 3.3<br>
- December 25, 2009
+ Version 3.4<br>
+ December 25, 2010
 </div>
 <h2>README</h2>
 <hr>
