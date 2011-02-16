@@ -136,7 +136,7 @@ INC  = cmndref.sty \
 	nrand.tex \
 	par2lpc.tex \
 	pca.tex \
-	pcap.tex \
+	pcas.tex \
 	phase.tex \
 	pitch.tex \
 	poledf.tex \
