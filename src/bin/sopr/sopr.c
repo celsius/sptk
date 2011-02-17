@@ -80,9 +80,11 @@
 *               -ATAN        :  atan                 (atan(in))                *
 *                                                                              *
 *               -magic magic :  remove magic number                            *
-*               -MAGIC MAGIC :  replace magic number by MAGIIC                 *
+*               -MAGIC MAGIC :  replace magic number by MAGIC                  *
 *                               if -magic option is not given,                 *
 *                               return error                                   *
+*                               if -magic or -MAGIC option                     *
+*                               is given multiple times, return error          *
 *               -r mn    :  read from memory register n                        *
 *               -w mn    :  write to memory register n                         *
 *                                                                              *
@@ -93,7 +95,7 @@
 *                                                                              *
 *******************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.29 2010/12/10 10:44:24 mataki Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.30 2011/02/17 12:39:19 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -147,11 +149,14 @@ void usage(int status)
    fprintf(stderr, "       -MAGIC MAGIC : replace magic number by MAGIC\n");
    fprintf(stderr, "                      if -magic option is not given,\n");
    fprintf(stderr, "                      return error\n");
+   fprintf(stderr, "       if -magic or -MAGIC option is given multiple times,\n");
+   fprintf(stderr, "       return error\n");
    fprintf(stderr, "\n");
    fprintf(stderr,
-           "       if the argument of the above operation option is `dB'\n");
+           "       if the argument of the above operation option is `dB', `cent'\n");
    fprintf(stderr,
-           "       then the value 20/log_e(10) is assigned. Also if 'pi' or\n");
+           "       or `octave', then the value 20/log_e(10), 1200/log_e(2)\n");
+   fprintf(stderr, "       or 1/log_e(2) is assigned, respectively. Also if `pi' or\n");
    fprintf(stderr,
            "       `ln(x)',`exp(x)',`sqrt(x)' such as `ln2',`exp10',`sqrt30' \n");
    fprintf(stderr,
@@ -210,11 +215,11 @@ static double mem[MEMSIZE];
 
 int main(int argc, char *argv[])
 {
-   int i, count = 0;
+   int i, count = 0, magic_count = 0, MAGIC_COUNT = 0;
    FILE *fp;
    char *s, *m, c;
    char *infile = NULL;
-   int sopr(FILE * fp);
+   int sopr(FILE *);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -241,26 +246,44 @@ int main(int argc, char *argv[])
          case 'w':
          case 'M':
             if ((c == 'm') && strncmp("agic", s, 4) == 0) {
+               if (magic_count > 0) {
+                  fprintf(stderr,
+                          "%s : Cannot specify -magic option multiple times!\n",
+                          cmnd);
+                  usage(1);
+               }
                optbl[nopr].magic = 1 - MAGIC;
                mopr = nopr;
+               magic_count++;
                s = *++argv;
                --argc;
             }
             if (c == 'M') {
+               if (MAGIC_COUNT > 0) {
+                  fprintf(stderr,
+                          "%s : Cannot specify -MAGIC option multiple times!\n",
+                          cmnd);
+                  usage(1);
+               }
                if (!optbl[mopr].magic) {
                   fprintf(stderr,
-                          "%s : Cannnot find -magic option befor -MAGIC option!\n",
+                          "%s : Cannot find -magic option befor -MAGIC option!\n",
                           cmnd);
                   usage(1);
                } else {
-                  optbl[mopr].ifrep = 1 - REP;
-                  ropr = nopr;
+                  optbl[nopr].magic = 1 - MAGIC;
+                  optbl[nopr].ifrep = 1 - REP;
+                  MAGIC_COUNT++;
+                  s = *++argv;
+                  --argc;
                }
-               s = *++argv;
-               --argc;
             }
             if (strncmp("dB", s, 2) == 0)
                optbl[nopr].d = 20 / log(10.0);
+            else if (strncmp("cent", s, 4) == 0)
+               optbl[nopr].d = 1200 / log(2.0);
+            else if (strncmp("octave", s, 6) == 0)
+               optbl[nopr].d = 1.0 / log(2.0);
             else if (strncmp("pi", s, 2) == 0)
                optbl[nopr].d = PI;
             else if (strncmp("ln", s, 2) == 0)
@@ -321,125 +344,129 @@ int sopr(FILE * fp)
 {
    double x, y;
    int k, i;
-   Boolean ig_mg = MAGIC;
+   Boolean skipflg = FA;
 
    while (freadf(&x, sizeof(x), 1, fp) == 1) {
       for (k = 0; k < MEMSIZE; ++k)
          mem[k] = 0;
       for (k = 0; k < nopr; ++k) {
          y = optbl[k].d;
-         switch (optbl[k].op[0]) {
-         case 'r':
-            x = mem[(int) y];
-            break;
-         case 'w':
-            mem[(int) y] = x;
-            break;
-         case '+':
-            x += mem[(int) y];
-            break;
-         case '-':
-            x -= mem[(int) y];
-            break;
-         case '*':
-            x *= mem[(int) y];
-            break;
-         case '/':
-            x /= mem[(int) y];
-            break;
-         case 'a':
-            x += y;
-            break;
-         case 's':
-            x -= y;
-            break;
-         case 'm':
-            if (optbl[k].magic) {
-               if (x == y)
-                  if (optbl[k].ifrep)
-                     x = optbl[ropr].d;
-                  else
-                     ig_mg = 1 - MAGIC;
-            } else
+         if (optbl[k].magic) {  /* -magic or -MAGIC */
+            if (optbl[k].ifrep) {       /* -MAGIC */
+               if (x == optbl[mopr].d) {        /* still remains magic number */
+                  x = y;        /* substitute by new magic number */
+                  skipflg = FA;
+               }
+            } else if (x == y) {        /* -magic */
+               skipflg = TR;
+            }
+         } else if (skipflg == FA) {
+            switch (optbl[k].op[0]) {
+            case 'r':
+               x = mem[(int) y];
+               break;
+            case 'w':
+               mem[(int) y] = x;
+               break;
+            case '+':
+               x += mem[(int) y];
+               break;
+            case '-':
+               x -= mem[(int) y];
+               break;
+            case '*':
+               x *= mem[(int) y];
+               break;
+            case '/':
+               x /= mem[(int) y];
+               break;
+            case 'a':
+               x += y;
+               break;
+            case 's':
+               x -= y;
+               break;
+            case 'm':
                x *= y;
-            break;
-         case 'd':
-            x /= y;
-            break;
-         case 'f':
-            x = (x < y) ? y : x;
-            break;
-         case 'c':
-            x = (x > y) ? y : x;
-            break;
-         case 'A':
-            if (optbl[k].op[1] == 'T')
-               x = atan(x);
-            else if (x < 0)
-               x = -x;
-            break;
-         case 'C':
-            if (optbl[k].op[1] == 'L') {
+               break;
+            case 'd':
+               x /= y;
+               break;
+            case 'f':
+               x = (x < y) ? y : x;
+               break;
+            case 'c':
+               x = (x > y) ? y : x;
+               break;
+            case 'A':
+               if (optbl[k].op[1] == 'T')
+                  x = atan(x);
+               else if (x < 0)
+                  x = -x;
+               break;
+            case 'C':
+               if (optbl[k].op[1] == 'L') {
+                  if (x < 0)
+                     x = 0;
+               } else
+                  x = cos(x);
+               break;
+            case 'I':
+               x = 1 / x;
+               break;
+            case 'P':
+               if (optbl[k].op[1] == 'O' && optbl[k].op[3] == '1')
+                  x = pow(10.0, x);
+               else if (optbl[k].op[1] == 'O' && optbl[k].op[3] == '2')
+                  x = pow(2.0, x);
+               else
+                  x *= x;
+               break;
+            case 'R':
+               x = sqrt(x);
+               break;
+            case 'S':
+               if (optbl[k].op[1] == 'Q')
+                  x = sqrt(x);
+               else
+                  x = sin(x);
+               break;
+            case 'E':
+               x = exp(x);
+               break;
+            case 'L':
+               if (optbl[k].op[3] == '1')
+                  x = log10(x);
+               else if (optbl[k].op[3] == '2')
+                  x = LOG2(x);
+               else
+                  x = log(x);
+               break;
+            case 'F':
+               if (x < 0)
+                  i = x - 0.5;
+               else
+                  i = x + 0.5;
+               x = i;
+               break;
+            case 'T':
+               x = tan(x);
+               break;
+            case 'U':
                if (x < 0)
                   x = 0;
-            } else
-               x = cos(x);
-            break;
-         case 'I':
-            x = 1 / x;
-            break;
-         case 'P':
-            if (optbl[k].op[1] == 'O' && optbl[k].op[3] == '1')
-               x = pow(10.0, x);
-            else if (optbl[k].op[1] == 'O' && optbl[k].op[3] == '2')
-               x = pow(2.0, x);
-            else
-               x *= x;
-            break;
-         case 'R':
-            x = sqrt(x);
-            break;
-         case 'S':
-            if (optbl[k].op[1] == 'Q')
-               x = sqrt(x);
-            else
-               x = sin(x);
-            break;
-         case 'E':
-            x = exp(x);
-            break;
-         case 'L':
-            if (optbl[k].op[3] == '1')
-               x = log10(x);
-            else if (optbl[k].op[3] == '2')
-               x = LOG2(x);
-            else
-               x = log(x);
-            break;
-         case 'F':
-            if (x < 0)
-               i = x - 0.5;
-            else
-               i = x + 0.5;
-            x = i;
-            break;
-         case 'T':
-            x = tan(x);
-            break;
-         case 'U':
-            if (x < 0)
-               x = 0;
-            else
-               x = 1;
-         case 'M':
+               else
+                  x = 1;
+            case 'M':
 
-         default:
-            break;
+            default:
+               break;
+            }
          }
       }
-      if (!ig_mg)
+      if (skipflg == FA)
          fwritef(&x, sizeof(x), 1, stdout);
-      ig_mg = MAGIC;
+      skipflg = FA;
    }
    return (0);
 }
