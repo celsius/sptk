@@ -76,7 +76,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.32 2010/12/10 10:44:24 mataki Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.33 2011/02/17 12:46:32 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -189,7 +189,7 @@ double r = 0.0;
 
 int main(int argc, char **argv)
 {
-   char c1 = 'f', c2 = 'f', *form = FORM_LDBL;
+   char c1 = 'f', c2 = 'f', *form;
    long double x;
    size_t size1 = 0, size2 = 0;
    int i = 1, col = COL;

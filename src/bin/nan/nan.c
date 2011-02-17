@@ -56,7 +56,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nan.c,v 1.26 2010/12/10 10:44:23 mataki Exp $";
+static char *rcs_id = "$Id: nan.c,v 1.27 2011/02/17 12:46:32 mataki Exp $";
 
 
 /* Standard C Libraries */
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 {
    FILE *fp;
    char *s, *infile = NULL, c;
-   void nan_tmp(FILE * fp);
+   void nan_tmp(FILE *);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];

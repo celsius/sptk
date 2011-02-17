@@ -69,7 +69,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: minmax.c,v 1.22 2010/12/10 10:44:23 mataki Exp $";
+static char *rcs_id = "$Id: minmax.c,v 1.23 2011/02/17 12:46:32 mataki Exp $";
 
 
 /* Standard C Libraries */
@@ -401,5 +401,7 @@ int minmax(FILE * fp, int dim, int nbest, Boolean outnum)
          fwritef(max, sizeof(*max), nbest, stdout);
       }
    }
+   free(nmaxpos);
+   free(nminpos);
    return (0);
 }

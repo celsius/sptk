@@ -58,7 +58,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: ifft.c,v 1.21 2010/12/10 10:44:22 mataki Exp $";
+static char *rcs_id = "$Id: ifft.c,v 1.22 2011/02/17 12:46:32 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 {
    FILE *fp;
    char *s, *infile = NULL, c;
-   int dft(FILE * fp);
+   int dft(FILE *);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
