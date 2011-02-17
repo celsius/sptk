@@ -189,7 +189,7 @@ double r = 0.0;
 
 int main(int argc, char **argv)
 {
-   char c1 = 'f', c2 = 'f', *form = FORM_LDBL;
+   char c1 = 'f', c2 = 'f', *form;
    long double x;
    size_t size1 = 0, size2 = 0;
    int i = 1, col = COL;

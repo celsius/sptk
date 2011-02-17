@@ -181,7 +181,7 @@ int main(int argc, char *argv[])
    char *s, *infile[MAXFILES], c;
    int i, nfiles = 0;
 
-   void direct(FILE * fp);
+   void direct(FILE *);
    void sndinit(void);
    void init_audiodev(int dtype);
    void reset_audiodev(void);

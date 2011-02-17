@@ -401,5 +401,7 @@ int minmax(FILE * fp, int dim, int nbest, Boolean outnum)
          fwritef(max, sizeof(*max), nbest, stdout);
       }
    }
+   free(nmaxpos);
+   free(nminpos);
    return (0);
 }
