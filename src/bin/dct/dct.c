@@ -415,6 +415,11 @@ int main(int argc, char *argv[])
          dct_based_on_fft(pReal, pImag, (const float *) x2, (const float *) y2);
       }
 
+      for (k = 0; k < size; k++) {
+         pReal2[k] = (double) pReal[k];
+         pImag2[k] = (double) pImag[k];
+      }
+
       fwritef(pReal2, sizeof(*pReal2), size, stdout);
       if (out == 'I')
          fwritef(pImag2, sizeof(*pReal2), size, stdout);
