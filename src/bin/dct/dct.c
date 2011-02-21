@@ -58,7 +58,7 @@
 *               input is assumed to be double                           *
 *                                                                       *
 ************************************************************************/
-static char *rcs_id = "$Id: dct.c,v 1.14 2010/12/10 10:44:20 mataki Exp $";
+static char *rcs_id = "$Id: dct.c,v 1.15 2011/02/21 07:38:59 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -413,6 +413,11 @@ int main(int argc, char *argv[])
       } else {
          dct_create_table_fft(size);
          dct_based_on_fft(pReal, pImag, (const float *) x2, (const float *) y2);
+      }
+
+      for (k = 0; k < size; k++) {
+         pReal2[k] = (double) pReal[k];
+         pImag2[k] = (double) pImag[k];
       }
 
       fwritef(pReal2, sizeof(*pReal2), size, stdout);
