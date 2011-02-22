@@ -138,17 +138,29 @@ void usage(int status)
            "       +type1  : input data type                             [f]\n");
    fprintf(stderr,
            "       +type2  : output data type                            [type1]\n");
-   fprintf(stderr, "                 c  (char)           C  (unsigned char)\n");
+   fprintf(stderr, 
+           "                 c  (char, %dbyte)         C  (unsigned char, %dbyte)\n",
+           sizeof(char), sizeof(unsigned char));
    fprintf(stderr,
-           "                 s  (short)          S  (unsigned short)\n");
-   fprintf(stderr, "                 i  (int)            I  (unsigned int)\n");
+           "                 s  (short, %dbyte)        S  (unsigned short, %dbyte)\n",
+           sizeof(short), sizeof(unsigned short));
+   fprintf(stderr, 
+           "                 i  (int, %dbyte)          I  (unsigned int, %dbyte)\n",
+           sizeof(int), sizeof(unsigned int));
    fprintf(stderr,
-           "                 i3 (int, 3byte)     I3 (unsigned int, 3byte)\n");
-   fprintf(stderr, "                 l  (long)           L  (unsigned long)\n");
+           "                 i3 (int, 3byte)          I3 (unsigned int, 3byte)\n");
+   fprintf(stderr, 
+           "                 l  (long, %dbyte)         L  (unsigned long, %dbyte)\n",
+           sizeof(long), sizeof(unsigned long));
    fprintf(stderr,
-           "                 le (long long)      LE (unsigned long long)\n");
-   fprintf(stderr, "                 f  (float)          d  (double)\n");
-   fprintf(stderr, "                 de (long double)    a  (ascii)\n");
+           "                 le (long long, %dbyte)    LE (unsigned long long, %dbyte)\n",
+           sizeof(long long), sizeof(unsigned long long));
+   fprintf(stderr, 
+           "                 f  (float, %dbyte)        d  (double, %dbyte)\n",
+           sizeof(float), sizeof(double));
+   fprintf(stderr, 
+           "                 de (long double, %dbyte) a  (ascii)\n",
+           sizeof(long double));
    fprintf(stderr,
            "       +aN     : specify the column number N                 [%d]\n",
            COL);
