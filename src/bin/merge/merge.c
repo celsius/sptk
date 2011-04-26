@@ -59,10 +59,14 @@
 *               -N N     :  order of insert data                [L-1]   *
 *               -o       :  over write mode                     [FALSE] *
 *               +type    :  data type                           [f]     *
-*                          c (char)     s (short)                       *
-*                          i (int)      l (long)                        *
-*                          f (float)    d (double)                      *
-*                                                                       *
+*                           c (char)           C  (unsigned char)       *
+*                           s (short)          S  (unsigned short)      *
+*                           i (int)            I  (unsigned int)        *
+*                           i3 (int, 3byte)    I3 (unsigned int, 3byte) *
+*                           l (long)           L  (unsigned long)       *
+*                           le (long long)     LE (unsigned long long)  *
+*                           f (float)          d  (double)              *
+*                           de (long double)                            *
 *       file1:  inserted data   , x(0), x(1), ..., x(l-1)               *
 *       file2:  input data      , y(0), y(1), ..., y(n-1)               *
 *       stdout:                                                         *
@@ -122,9 +126,29 @@ void usage(int status)
    fprintf(stderr, "       -o    : over write mode             [%s]\n",
            BOOL[WRITE]);
    fprintf(stderr, "       +type : data type                   [f]\n");
-   fprintf(stderr, "                c (char)      s (short)\n");
-   fprintf(stderr, "                i (int)       l (long)\n");
-   fprintf(stderr, "                f (float)     d (double)\n");
+   fprintf(stderr, 
+           "                c  (char, %dbyte)         C  (unsigned char, %dbyte)\n",
+           sizeof(char), sizeof(unsigned char));
+   fprintf(stderr,
+           "                s  (short, %dbyte)        S  (unsigned short, %dbyte)\n",
+           sizeof(short), sizeof(unsigned short));
+   fprintf(stderr,
+           "                i3 (int, 3byte)          I3 (unsigned int, 3byte)\n");
+   fprintf(stderr,
+           "                i  (int, %dbyte)          I  (unsigned int, %dbyte)\n",
+           sizeof(int), sizeof(unsigned int));
+   fprintf(stderr,
+           "                l  (long, %dbyte)         L  (unsigned long, %dbyte)\n",
+           sizeof(long), sizeof(unsigned long));
+   fprintf(stderr,
+           "                le (long long, %dbyte)    LE (unsigned long long, %dbyte)\n",
+           sizeof(long long), sizeof(unsigned long long));
+   fprintf(stderr,
+           "                f  (float, %dbyte)        d  (double, %dbyte)\n",
+           sizeof(float), sizeof(double));
+   fprintf(stderr,
+           "                de (long double, %dbyte)\n",
+           sizeof(long double));
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence                       [stdin]\n");
@@ -146,7 +170,7 @@ int main(int argc, char **argv)
    size_t size = sizeof(float);
    Boolean write = WRITE;
    char *y, c, *s;
-   double x;
+   long double x;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -194,17 +218,54 @@ int main(int argc, char **argv)
          case 's':
             size = sizeof(short);
             break;
-         case 'l':
-            size = sizeof(long);
-            break;
          case 'i':
-            size = sizeof(int);
+            if (*(s + 1) == '3') {
+                size = 3;
+                (*argv)++;
+            } else {
+                size = sizeof(int);
+            }
+            break;
+         case 'l':
+            if (*(s + 1) == 'e') {
+                size = sizeof(long long);
+                (*argv)++;
+            } else {
+                size = sizeof(long);
+            }
+            break;
+         case 'C':
+            size = sizeof(unsigned char);
+            break;
+         case 'S':
+            size = sizeof(unsigned short);
+            break;
+         case 'I':
+            if (*(s + 1) == '3') {
+                size = 3;
+                (*argv)++;
+            } else {
+                size = sizeof(unsigned int);
+            }
+            break;
+         case 'L':
+            if (*(s + 1) == 'E') {
+                size = sizeof(unsigned long long);
+                (*argv)++;
+            } else {
+                size = sizeof(unsigned long);
+            }
             break;
          case 'f':
             size = sizeof(float);
             break;
          case 'd':
-            size = sizeof(double);
+            if (*(s + 1) == 'e') {
+                size = sizeof(long double);
+                (*argv)++;
+            } else {
+                size = sizeof(double);
+            }
             break;
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));

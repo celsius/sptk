@@ -67,7 +67,10 @@ set directory
 @ normalization	= 0
 @ normalization_all = 0
 @ frequency   = 16000
-set type	= f
+set type1	= s
+set type2	= $type1
+set input = 0
+set bit = 16
 
 @ i = 0
 while ($i < $#argv)
@@ -80,21 +83,141 @@ while ($i < $#argv)
 		@ i++
 		set frequency = $argv[$i]
 		breaksw
-	case +s:
-		set type = s
-		breaksw
-	case +i:
-		set type = i
-		breaksw
-	case +i3:
-		set type = i3
-		breaksw
-	case +f:
-		set type = f
-		breaksw
-	case +d:
-		set type = d
-		breaksw
+    case +c:
+        if ($input) then
+            set type2 = c
+            set bit = 8
+        else
+            set type1 = c
+            set input = 1
+        endif
+        breaksw
+    case +s:
+        if ($input) then
+            set type2 = s
+            set bit = 16
+        else
+            set type1 = s
+            set input = 1
+        endif
+        breaksw
+    case +i3:
+        if ($input) then
+            set type2 = i3
+            set bit = 24
+        else
+            set type1 = i3
+            set input = 1
+        endif
+        breaksw
+    case +i:
+        if ($input) then
+            set type2 = i
+            set bit = 32
+        else
+            set type1 = i
+            set input = 1
+        endif
+        breaksw
+    case +l:
+        if ($input) then
+            set type2 = l
+            set bit = 32
+        else
+            set type1 = l
+            set input = 1
+        endif
+        breaksw
+    case +le:
+        if ($input) then
+            set type2 = le
+            set bit = 64
+        else
+            set type1 = le
+            set input = 1
+        endif
+        breaksw
+    case +C:
+        if ($input) then
+            set type2 = C
+            set bit = 8
+        else
+            set type1 = C
+            set input = 1
+        endif
+        breaksw
+    case +S:
+        if ($input) then
+            set type2 = S
+            set bit = 16
+        else
+            set type1 = S
+            set input = 1
+        endif
+        breaksw
+    case +I3
+        if ($input) then
+            set type2 = I3
+            set bit = 24
+        else
+            set type1 = I3
+            set input = 1
+        endif
+        breaksw
+    case +I:
+        if ($input) then
+            set type2 = I
+            set bit = 32
+        else
+            set type1 = I
+            set input = 1
+        endif
+        breaksw
+    case +L:
+        if ($input) then
+            set type2 = L
+            set bit = 32
+        else
+            set type1 = L
+            set input = 1
+        endif
+        breaksw
+    case +LE:
+        if ($input) then
+            set type2 = LE
+            set bit = 64
+        else
+            set type1 = LE
+            set input = 1
+        endif
+        breaksw
+    case +f:
+        if ($input) then
+            set type2 = f
+            set bit = 32
+        else
+            set type1 = f
+            set input = 1
+        endif
+        breaksw
+    case +d:
+        if ($input) then
+            set type2 = d
+            set bit = 64
+        else
+            set type1 = d
+            set input = 1
+        endif
+        breaksw
+    case +de:
+        if ($input) then
+            set type2 = de
+            set bit = 96
+        else
+            set type1 = de
+            set input = 1
+        endif
+        breaksw
 	case -d:
 		@ i++
 		set directory = $argv[$i]
@@ -145,10 +268,16 @@ usage:
         echo2 '                       if max >= 32767              [FALSE]'
 	echo2 '       -N            : normalization                   '
         echo2 '                       with the maximum value       [FALSE]'
-	echo2 '       +type         : input data type              [f]'
-	echo2 '                        s (short)  i3 (int, 3byte)     '
-	echo2 '                        i (int)    f  (float)          '
-	echo2 '                        d (double)                     '
+	echo2 '       +type1         : input data type               [s]'
+	echo2 '       +type2         : output data type              [type1]'
+        echo2 '                        c  (char)         C  (unsigned char) '
+        echo2 '                        s  (short)        S  (unsigned short)'
+        echo2 '                        i3 (int, 3byte)   I3 (unsigned int, 3byte)'
+        echo2 '                        i  (int)          I  (unsigned int)'
+        echo2 '                        l  (long)         L  (unsigned long)'
+        echo2 '                        le (long long)    LE (unsigned long long)'
+        echo2 '                        f  (float)        d  (double)'
+        echo2 '                        de (long double)'
 	echo2 '       -h            : print this message'
 	echo2 '  infile(s):'
 	echo2 '       waveform                                     [N/A]'
@@ -177,24 +306,24 @@ main:
 foreach f ($file)
    if ( $normalization ) then
       if ( $swab ) then
-         swab +$type < $f |\
-         x2x +{$type}f > /tmp/{$f:t}.$$.tmp
+         swab +$type1 < $f |\
+         x2x +{$type1}f > /tmp/{$f:t}.$$.tmp
       else
-         x2x +{$type}f < $f > /tmp/{$f:t}.$$.tmp
+         x2x +{$type1}f < $f > /tmp/{$f:t}.$$.tmp
       endif
       set max = `minmax < /tmp/{$f:t}.$$.tmp | sopr -ABS | minmax | bcut -s 1 | x2x +fa %.100f`
       if ( $normalization_all || `echo "$max < 0" | bc -l` ) then
          sopr -m 32767 -d $max < /tmp/{$f:t}.$$.tmp |\
-         x2x +fs > /tmp/{$f:t}.$$.raw
+         x2x +f{$type2} > /tmp/{$f:t}.$$.raw
       else
-         x2x +fs < /tmp/{$f:t}.$$.tmp > /tmp/{$f:t}.$$.raw
+         x2x +f{$type2} < /tmp/{$f:t}.$$.tmp > /tmp/{$f:t}.$$.raw
       endif
    else
       if ( $swab ) then
-         swab +$type < $f |\
-         x2x +{$type}s > /tmp/{$f:t}.$$.raw
+         swab +$type1 < $f |\
+         x2x +{$type1}{$type2} > /tmp/{$f:t}.$$.raw
       else
-         x2x +{$type}s < $f > /tmp/{$f:t}.$$.raw
+         x2x +{$type1}{$type2} < $f > /tmp/{$f:t}.$$.raw
       endif
    endif
 
@@ -212,7 +341,7 @@ foreach f ($file)
       endif
    endif
 
-   rawtowav $frequency /tmp/{$f:t}.$$.raw  $outfile
+   rawtowav $frequency $bit /tmp/{$f:t}.$$.raw  $outfile
 
    /bin/rm -f /tmp/{$f:t}.$$.raw
 end

@@ -54,9 +54,14 @@
 *               -n n     :  block order  (0,...,n)           [EOD]      *
 *               -l l     :  block length (1,...,l)           [EOD]      *
 *               +type    :  data type                        [f]        *
-*                               c (char)     s (short)                  *
-*                               i (int)      l (long)                   *
-*                               f (float)    d (double)                 *
+*                           c (char)           C  (unsigned char)       *
+*                           s (short)          S  (unsigned short)      *
+*                           i (int)            I  (unsigned int)        *
+*                           i3 (int, 3byte)    I3 (unsigned int, 3byte) *
+*                           l (long)           L  (unsigned long)       *
+*                           le (long long)     LE (unsigned long long)  *
+*                           f (float)          d  (double)              *
+*                           de (long double)                            *
 *               %form    :  print format(printf style)       [N/A]      *
 *                                                                       *
 ************************************************************************/
@@ -104,9 +109,29 @@ void usage(int status)
    fprintf(stderr, "       -n n  : block order   (0,...,n)      [EOD]\n");
    fprintf(stderr, "       -l l  : block length  (1,...,l)      [EOD]\n");
    fprintf(stderr, "       +type : data type                    [f]\n");
-   fprintf(stderr, "                c (char)      s (short)\n");
-   fprintf(stderr, "                i (int)       l (long)\n");
-   fprintf(stderr, "                f (float)     d (double)\n");
+   fprintf(stderr, 
+           "                c  (char, %dbyte)         C  (unsigned char, %dbyte)\n",
+           sizeof(char), sizeof(unsigned char));
+   fprintf(stderr,
+           "                s  (short, %dbyte)        S  (unsigned short, %dbyte)\n",
+           sizeof(short), sizeof(unsigned short));
+   fprintf(stderr,
+           "                i3 (int, 3byte)          I3 (unsigned int, 3byte)\n");
+   fprintf(stderr,
+           "                i  (int, %dbyte)          I  (unsigned int, %dbyte)\n",
+           sizeof(int), sizeof(unsigned int));
+   fprintf(stderr,
+           "                l  (long, %dbyte)         L  (unsigned long, %dbyte)\n",
+           sizeof(long), sizeof(unsigned long));
+   fprintf(stderr,
+           "                le (long long, %dbyte)    LE (unsigned long long, %dbyte)\n",
+           sizeof(long long), sizeof(unsigned long long));
+   fprintf(stderr,
+           "                f  (float, %dbyte)        d  (double, %dbyte)\n",
+           sizeof(float), sizeof(double));
+   fprintf(stderr,
+           "                de (long double, %dbyte)\n",
+           sizeof(long double));
    fprintf(stderr, "       %%form : print format(printf style)   [N/A]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -124,19 +149,29 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int n = -1, i = 0, eflag = 0, lflag = 0;
+   int n = -1, i = 0, eflag = 0, lflag = 0, y;
    size_t size = sizeof(float);
    FILE *fp = stdin;
    char *s, c, cc = 'f';
    char format[SIZE], form[SIZE];
    int ff = 0;
+   Boolean int3flg = FA, uint3flg = FA;
    union u {
+      char c;
       short s;
       int i;
+      int i3;
+      long l;
+      long long le;
+      unsigned char C;
+      unsigned short S;
+      unsigned int I;
+      unsigned int I3;
+      unsigned long L;
+      unsigned long long LE;
       float f;
       double d;
-      char c;
-      long l;
+      long double de;
    } x;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -177,21 +212,69 @@ int main(int argc, char **argv)
             cc = 's';
             size = sizeof(short);
             break;
-         case 'l':
-            cc = 'l';
-            size = sizeof(long);
-            break;
          case 'i':
-            cc = 'i';
-            size = sizeof(int);
+            if (*(s + 1) == '3') {
+                size = 3;
+                int3flg = TR;
+                cc = 't';
+                (*argv)++;
+            } else {
+                size = sizeof(int);
+                cc = 'i';
+            }
+            break;
+         case 'l':
+            if (*(s + 1) == 'e') {
+                size = sizeof(long long);
+                cc = 'u';
+                (*argv)++;
+            } else {
+                size = sizeof(long);
+                cc = 'l';
+            }
+            break;
+         case 'C':
+            size = sizeof(unsigned char);
+            cc = 'C';
+            break;
+         case 'S':
+            size = sizeof(unsigned short);
+            cc = 'S';
+            break;
+         case 'I':
+            if (*(s + 1) == '3') {
+                size = 3;
+                uint3flg = TR;
+                cc = 'T';
+                (*argv)++;
+            } else {
+                size = sizeof(unsigned int);
+                cc = 'I';
+            }
+            break;
+         case 'L':
+            if (*(s + 1) == 'E') {
+                size = sizeof(unsigned long long);
+                cc = 'U';
+                (*argv)++;
+            } else {
+                size = sizeof(unsigned long);
+                cc = 'L';
+            }
             break;
          case 'f':
-            cc = 'f';
             size = sizeof(float);
+            cc = 'f';
             break;
          case 'd':
-            cc = 'd';
-            size = sizeof(double);
+            if (*(s + 1) == 'e') {
+                size = sizeof(long double);
+                cc = 'v';
+                (*argv)++;
+            } else {
+                size = sizeof(double);
+                cc = 'd';
+            }
             break;
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
@@ -211,6 +294,15 @@ int main(int argc, char **argv)
       if (eflag)
          printf("%d\t0\n", i + lflag);
       switch (cc) {
+      case 'c':
+         strcpy(form, "%d\t%d\n");
+         if (ff) {
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
+         }
+         printf(form, i + lflag, x.c);
+         break;
       case 's':
          strcpy(form, "%d\t%d\n");
          if (ff) {
@@ -220,6 +312,18 @@ int main(int argc, char **argv)
          }
          printf(form, i + lflag, x.s);
          break;
+      case 't':
+         strcpy(form, "%d\t%d\n");
+         if (ff) {
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
+         }
+         y = x.i3 & 0x00FFFFFF;
+         if (y >> 23 == 1)
+            y = y | 0xFF000000;
+         printf(form, i + lflag, y);
+         break;
       case 'i':
          strcpy(form, "%d\t%d\n");
          if (ff) {
@@ -228,6 +332,79 @@ int main(int argc, char **argv)
             strcat(form, "\n");
          }
          printf(form, i + lflag, x.i);
+         break;
+      case 'l':
+         strcpy(form, "%d\t%d\n");
+         if (ff) {
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
+         }
+         printf(form, i + lflag, x.l);
+         break;
+      case 'u':
+         strcpy(form, "%d\t%lld\n");
+         if (ff) {
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
+         }
+         printf(form, i + lflag, x.le);
+         break;
+      case 'C':
+         strcpy(form, "%d\t%u\n");
+         if (ff) {
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
+         }
+         printf(form, i + lflag, x.C);
+         break;
+      case 'S':
+         strcpy(form, "%d\t%u\n");
+         if (ff) {
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
+         }
+         printf(form, i + lflag, x.S);
+         break;
+      case 'I':
+         strcpy(form, "%d\t%u\n");
+         if (ff) {
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
+         }
+         printf(form, i + lflag, x.I);
+         break;
+      case 'T':
+         strcpy(form, "%d\t%u\n");
+         if (ff) {
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
+         }
+         y = x.I3 & 0x00FFFFFF;
+         printf(form, i + lflag, y);
+         break;
+      case 'L':
+         strcpy(form, "%d\t%u\n");
+         if (ff) {
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
+         }
+         printf(form, i + lflag, x.L);
+         break;
+      case 'U':
+         strcpy(form, "%d\t%llu\n");
+         if (ff) {
+            strcpy(form, "%d\t");
+            strcat(form, format);
+            strcat(form, "\n");
+         }
+         printf(form, i + lflag, x.LE);
          break;
       case 'f':
          strcpy(form, "%d\t%g\n");
@@ -247,23 +424,14 @@ int main(int argc, char **argv)
          }
          printf(form, i + lflag, x.d);
          break;
-      case 'c':
-         strcpy(form, "%d\t%d\n");
+      case 'v':
+         strcpy(form, "%d\t%Lg\n");
          if (ff) {
             strcpy(form, "%d\t");
             strcat(form, format);
             strcat(form, "\n");
          }
-         printf(form, i + lflag, x.c);
-         break;
-      case 'l':
-         strcpy(form, "%d\t%d\n");
-         if (ff) {
-            strcpy(form, "%d\t");
-            strcat(form, format);
-            strcat(form, "\n");
-         }
-         printf(form, i + lflag, x.l);
+         printf(form, i + lflag, x.de);
          break;
       }
       if (eflag)

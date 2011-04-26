@@ -117,17 +117,50 @@ while ($i < $#argv)
                 @ i++
                 set F   = $argv[$i]
                 breaksw
+        case +c:
+                set type = c
+                breaksw
         case +s:
                 set type = s
                 breaksw
+        case +i3:
+                set type = i3
+                breaksw
         case +i:
                 set type = i
+                breaksw
+        case +l:
+                set type = l
+                breaksw
+        case +le:
+                set type = le
+                breaksw
+        case +C:
+                set type = C
+                breaksw
+        case +S:
+                set type = S
+                breaksw
+        case +I:
+                set type = I
+                breaksw
+        case +I3:
+                set type = I3
+                breaksw
+        case +L:
+                set type = L
+                breaksw
+        case +LE:
+                set type = LE
                 breaksw
         case +f:
                 set type = f
                 breaksw
         case +d:
                 set type = d
+                breaksw
+        case +de:
+                set type = de
                 breaksw
         case -h:
                 set exit_status = 0
@@ -166,8 +199,14 @@ usage:
         echo2 '       -y2 ymin      : minimum amplitude            [-ymax]'
         echo2 '       -p  p         : pen number                   [1]'
         echo2 '       +type         : input data type              [f]'
-        echo2 '                        s (short)  i (int)             '
-        echo2 '                        f (float)  d (double)          '
+        echo2 '                        c  (char)         C  (unsigned char) '
+        echo2 '                        s  (short)        S  (unsigned short)'
+        echo2 '                        i3 (int, 3byte)   I3 (unsigned int, 3byte)'
+        echo2 '                        i  (int)          I  (unsigned int)'
+        echo2 '                        l  (long)         L  (unsigned long)'
+        echo2 '                        le (long long)    LE (unsigned long) '
+        echo2 '                        f  (float)        d  (double)'
+        echo2 '                        de (long double)'
         echo2 '       -h            : print this message'
         echo2 '  infile:'
         echo2 '       waveform                                     [stdin]'

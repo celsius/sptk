@@ -57,9 +57,14 @@
 *               -m m     :  modulo for numbering                [EOF]   *
 *               -ent     :  number of data in each line         [0]     *
 *               +type    :  data type                           [c]     *
-*                               c (char)     s (short)                  *
-*                               i (int)      l (long)                   *
-*                               f (float)    d (double)                 *
+*                           c (char)           C  (unsigned char)       *
+*                           s (short)          S  (unsigned short)      *
+*                           i (int)            I  (unsigned int)        *
+*                           i3 (int, 3byte)    I3 (unsigned int, 3byte) *
+*                           l (long)           L  (unsigned long)       *
+*                           le (long long)     LE (unsigned long long)  *
+*                           f (float)          d  (double)              *
+*                           de (long double)                            *
 *               %form    :  print format(printf style)          [N/A]   *
 *                                                                       *
 ************************************************************************/
@@ -112,9 +117,29 @@ void usage(int status)
    fprintf(stderr, "       -m m  : modulo for numbering        [EOF]\n");
    fprintf(stderr, "       -ent  : number of data in each line [%d]\n", ENTRY);
    fprintf(stderr, "       +type : data type                   [c]\n");
-   fprintf(stderr, "                c (char)      s (short)\n");
-   fprintf(stderr, "                i (int)       l (long)\n");
-   fprintf(stderr, "                f (float)     d (double)\n");
+   fprintf(stderr,
+           "                c  (char, %dbyte)         C  (unsigned char, %dbyte)\n",
+           sizeof(char), sizeof(unsigned char));
+   fprintf(stderr,
+           "                s  (short, %dbyte)        S  (unsigned short, %dbyte)\n",
+           sizeof(short), sizeof(unsigned short));
+   fprintf(stderr,
+           "                i3 (int, 3byte)          I3 (unsigned int, 3byte)\n");
+   fprintf(stderr,
+           "                i  (int, %dbyte)          I  (unsigned int, %dbyte)\n",
+           sizeof(int), sizeof(unsigned int));
+   fprintf(stderr,
+           "                l  (long, %dbyte)         L  (unsigned long, %dbyte)\n",
+           sizeof(long), sizeof(unsigned long));
+   fprintf(stderr,
+           "                le (long long, %dbyte)    LE (unsigned long long, %dbyte)\n",
+           sizeof(long long), sizeof(unsigned long long));
+   fprintf(stderr,
+           "                f  (float, %dbyte)        d  (double, %dbyte)\n",
+           sizeof(float), sizeof(double));
+   fprintf(stderr,
+           "                de (long double, %dbyte)\n",
+           sizeof(long double));
    fprintf(stderr, "       %%form : print format(printf style) [N/A]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -134,8 +159,7 @@ void usage(int status)
 long start = START, mod = MODULO;
 int is_int = 0, entry = ENTRY, is_char = 1, ff = 0;
 size_t size = sizeof(char);
-char adrsfmt = 'd', format[SIZE], form[SIZE];
-
+char adrsfmt = 'd', format[SIZE], form[SIZE], type = 'f';
 
 int main(int argc, char **argv)
 {
@@ -173,7 +197,7 @@ int main(int argc, char **argv)
             usage(1);
          }
       } else if (*s == '+') {
-         c = *++s;
+         c = type = *++s;
          switch (c) {
          case 'b':
             is_char = 0;
@@ -184,19 +208,59 @@ int main(int argc, char **argv)
          case 's':
             size = sizeof(short);
             break;
-         case 'l':
-            size = sizeof(long);
-            is_int = 1;
-            break;
          case 'i':
-            size = sizeof(int);
-            is_int = 1;
+            if (*(s + 1) == '3') {
+                size = 3;
+                type = 't';
+                (*argv)++;
+            } else {
+                size = sizeof(int);
+            }
+            break;
+         case 'l':
+            if (*(s + 1) == 'e') {
+                size = sizeof(long long);
+                type = 'u';
+                (*argv)++;
+            } else {
+                size = sizeof(long);
+            }
+            break;
+         case 'C':
+            size = sizeof(unsigned char);
+            break;
+         case 'S':
+            size = sizeof(unsigned short);
+            break;
+         case 'I':
+            if (*(s + 1) == '3') {
+                size = 3;
+                type = 'T';
+                (*argv)++;
+            } else {
+                size = sizeof(unsigned int);
+            }
+            break;
+         case 'L':
+            if (*(s + 1) == 'E') {
+                size = sizeof(unsigned long long);
+                type = 'U';
+                (*argv)++;
+            } else {
+                size = sizeof(unsigned long);
+            }
             break;
          case 'f':
             size = sizeof(float);
             break;
          case 'd':
-            size = sizeof(double);
+            if (*(s + 1) == 'e') {
+                size = sizeof(long double);
+                type = 'v';
+                (*argv)++;
+            } else {
+                size = sizeof(double);
+            }
             break;
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
@@ -220,10 +284,21 @@ void fdump(FILE * fp)
    union {
       unsigned char b;
       short w;
+      int i;
+      int i3;
       long l;
+      long long le;
+      unsigned char C;
+      unsigned short S;
+      unsigned int I3;
+      unsigned int I;
+      unsigned long L;
+      unsigned long long LE;
       float f;
       double d;
+      long double de;
    } u;
+   int y;
 
    if (ff)
       strcat(format, " ");
@@ -249,8 +324,8 @@ void fdump(FILE * fp)
             printf("%7ld  ", n);
 
          for (i = 0; (i < entry) && !feof(fp) && (n < mod); i++, n++) {
-            switch (size) {
-            case 1:
+            switch (type) {
+            case 'c':
                s[i] = (((u.b & 0x7f) < 32) || (u.b == 0x7f)
                        || (u.b >= 0xe0)) ? '.' : u.b;
                if (is_char)
@@ -258,22 +333,90 @@ void fdump(FILE * fp)
                else
                   printf("%5d", u.b);
                break;
-            case 2:
+            case 's':
                printf("%7d", u.w);
                break;
-            case 4:
-               if (is_int)
-                  printf("%ld", u.l);
-               else if (ff)
+            case 't':
+               y = u.i3 & 0x00FFFFFF;
+               if (y >> 23 == 1)
+                  y = y | 0xFF000000;
+               if (ff)
+                  printf(format, y);
+               else
+                  printf("%9d", y);
+               break;
+            case 'i':
+               if (ff)
+                  printf(format, u.i);
+               else
+                  printf("%12d", u.i);
+               break;
+            case 'l':
+               if (ff)
+                  printf(format, u.l);
+               else
+                  printf("%12ld", u.l);
+               break;
+            case 'u':
+               if (ff)
+                  printf(format, u.le);
+               else
+                  printf("%17lld", u.le);
+               break;
+            case 'C':
+               if (ff)
+                  printf(format, u.C);
+               else
+                  printf("%5u", u.C);
+            case 'S':
+               if (ff)
+                  printf(format, u.S);
+               else
+                  printf("%7u", u.S);
+               break;
+            case 'T':
+               y = u.I3 & 0x00FFFFFF;
+               if (ff)
+                  printf(format, y);
+               else
+                  printf("%9u", y);
+               break;
+            case 'I':
+               if (ff)
+                  printf(format, u.I);
+               else
+                  printf("%12u", u.I);
+               break;
+            case 'L':
+               if (ff)
+                  printf(format, u.L);
+               else
+                  printf("%12lu", u.L);
+               break;
+            case 'U':
+               if (ff)
+                  printf(format, u.LE);
+               else
+                  printf("%17llu", u.LE);
+               break;
+            case 'f':
+               if (ff)
                   printf(format, u.f);
                else
                   printf("%14.6e", u.f);
                break;
-            case 8:
+            case 'd':
                if (ff)
                   printf(format, u.d);
                else
                   printf("%24.15e", u.d);
+               break;
+            case 'v':
+               if (ff)
+                  printf(format, u.de);
+               else
+                  printf("%24.15Le", u.de);
+               break;
             default:
                break;
             }

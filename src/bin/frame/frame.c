@@ -55,11 +55,6 @@
 *               -l l     :  frame length                [256]           *
 *               -p p     :  frame period                [100]           *
 *               -n       :  no center start point       [FALSE]         *
-*               +type    :  data type                   [f]             *
-*                               c (char)     s (short)                  *
-*                               i (int)      l (long)                   *
-*                               f (float)    d (double)                 *
-*                                                                       *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ...,                                  *
@@ -120,10 +115,6 @@ void usage(int status)
    fprintf(stderr, "       -l l  : frame length          [%d]\n", LENG);
    fprintf(stderr, "       -p p  : frame period          [%d]\n", FPERIOD);
    fprintf(stderr, "       -n    : no center start point [%s]\n", BOOL[NOCTR]);
-   fprintf(stderr, "       +type : data type             [f]\n");
-   fprintf(stderr, "                c (char)      s (short)\n");
-   fprintf(stderr, "                i (int)       l (long)\n");
-   fprintf(stderr, "                f (float)     d (double)\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence                 [stdin]\n");
@@ -168,31 +159,6 @@ int main(int argc, char **argv)
             break;
          case 'h':
             usage(0);
-         default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
-            usage(1);
-         }
-      } else if (*s == '+') {
-         c = *++s;
-         switch (c) {
-         case 'c':
-            size = sizeof(char);
-            break;
-         case 's':
-            size = sizeof(short);
-            break;
-         case 'l':
-            size = sizeof(long);
-            break;
-         case 'i':
-            size = sizeof(int);
-            break;
-         case 'f':
-            size = sizeof(float);
-            break;
-         case 'd':
-            size = sizeof(double);
-            break;
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);

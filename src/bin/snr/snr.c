@@ -53,19 +53,17 @@
 *               snr [ options ] file1 [ infile ] > stdout               *
 *       options:                                                        *
 *               -l l     :  frame length                         [256]  *
-*               +ab      :  input data type (a: file1, b: file2) [sf]   *
-*                               s (short)  f (float)  d (double)        *
 *               -o o     :  output type                          [0]    *
 *                             0 SNR and SNRseg           (ascii)        *
-*                             1 SNR and SNRseg in detail (ascii)        * 
+*                             1 SNR and SNRseg in detail (ascii)        *
 *                             2 SNR                      (float)        *
 *                             3 SNRseg                   (float)        *
 *      infile:                                                          *
 *               data sequence                                           *
-*                       , x(0), x(1), ...,                              * 
+*                       , x(0), x(1), ...,                              *
 *                       , y(0), y(1), ...,                              *
 *      stdout:                                                          *
-*               SNR,  SNRseg                                            *      
+*               SNR,  SNRseg                                            *
 ************************************************************************/
 
 static char *rcs_id = "$Id$";
@@ -101,13 +99,9 @@ static char *rcs_id = "$Id$";
 char *cmnd;
 
 #ifdef DOUBLE
-char FORMAT1 = 'd';
-char *FORMAT2 = "double";
-char *FORMAT3 = "sd";
+char *FORMAT1 = "double";
 #else
-char FORMAT1 = 'f';
-char *FORMAT2 = "float";
-char *FORMAT3 = "sf";
+char *FORMAT1 = "float";
 #endif                          /* DOUBLE */
 
 void usage(int status)
@@ -120,9 +114,6 @@ void usage(int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "      -l l  : frame length                         [%d]\n",
            LENG);
-   fprintf(stderr, "      +ab   : input data type (a: file1, b: file2) [%s]\n",
-           FORMAT3);
-   fprintf(stderr, "                s (short)  %c (%s)\n", FORMAT1, FORMAT2);
    fprintf(stderr, "      -o o  : output type                          [%d]\n",
            OTYPE);
    fprintf(stderr, "                0 SNR and SNRseg           (ascii)\n");
@@ -132,7 +123,7 @@ void usage(int status)
    fprintf(stderr, "      -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "      data sequence (%s)                        [stdin]\n",
-           FORMAT2);
+           FORMAT1);
    fprintf(stderr, "  file1:\n");
    fprintf(stderr, "      data sequence\n");
    fprintf(stderr, "  stdout:\n");
@@ -152,8 +143,7 @@ int main(int argc, char **argv)
        OTYPE, count, countold, countseg, xn, yn, size, i;
    FILE *fp2 = stdin, *fp1 = NULL;
    double *x, *y, snr, snrseg, pw1, pw2, pw1snr, pw2snr, sub;
-   short *xs, *ys;
-   char *s, c, c1, c2;
+   char *s, c;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -177,29 +167,6 @@ int main(int argc, char **argv)
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      } else if (*s == '+') {
-         c1 = *++s;
-         c2 = *++s;
-         switch (c1) {
-         case 'd':
-         case 'f':
-            f1w = 0;
-            if (c2 == 's')
-               f2w = 1;
-            else
-               f2w = 0;
-            break;
-         case 's':
-            f1w = 1;
-            if (c2 == 's')
-               f2w = 1;
-            else
-               f2w = 0;
-            break;
-         default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
-            usage(1);
-         }
       } else if (fp1 == NULL)
          fp1 = getfp(*argv, "rb");
       else
@@ -207,8 +174,6 @@ int main(int argc, char **argv)
 
    x = dgetmem(l + l);
    y = x + l;
-   xs = sgetmem(l + l);
-   ys = xs + l;
 
    pw1 = pw2 = snrseg = 0.0;
    count = countold = countseg = 0;
@@ -217,21 +182,8 @@ int main(int argc, char **argv)
       printf("\n");
 
    while (!feof(fp1) && !feof(fp2)) {
-      if (f1w == 0)
-         xn = freadf(x, sizeof(*x), l, fp1);
-      else {
-         xn = freadx(xs, sizeof(*xs), l, fp1);
-         for (i = 0; i < xn; i++)
-            x[i] = (double) xs[i];
-      }
-      if (f2w == 0)
-         yn = freadf(y, sizeof(*y), l, fp2);
-      else {
-         yn = freadx(ys, sizeof(*ys), l, fp2);
-         for (i = 0; i < yn; i++)
-            y[i] = (double) ys[i];
-      }
-
+      xn = freadf(x, sizeof(*x), l, fp1);
+      yn = freadf(y, sizeof(*y), l, fp2);
       size = (xn > yn) ? yn : xn;
       pw1snr = pw2snr = 0.0;
 

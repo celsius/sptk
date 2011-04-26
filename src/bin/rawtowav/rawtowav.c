@@ -58,9 +58,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+#if defined(WIN32)
+#  include "SPTK.h"
+#else
+#  include <SPTK.h>
+#endif
 
-
-void write_file(long fs, char *rawfile, char *wavfile)
+void write_file(long fs, char BIT, char *rawfile, char *wavfile)
 {
    FILE *fpi, *fpo;
    char RIFF[] = "RIFF";
@@ -68,7 +72,7 @@ void write_file(long fs, char *rawfile, char *wavfile)
    char fmt_chunk[] = "fmt ";
    char data_chunk[] = "data";
    long file_size, rawfile_size;
-   long chunk_size = 16;
+   long chunk_size = BIT;
    long data_speed;
    short formatID = 1;
    short channel = 1;           /* mono:1¡¤stereo:2 */
@@ -102,13 +106,13 @@ void write_file(long fs, char *rawfile, char *wavfile)
    /* sampling frequency */
    fwritex(&fs, sizeof(long), 1, fpo);
    /* data speed */
-   data_speed = fs * 16 / 8 * formatID;
+   data_speed = fs * BIT / 8 * formatID;
    fwritex(&data_speed, sizeof(long), 1, fpo);
    /* block size */
-   block_size = 16 / 8 * formatID;
+   block_size = BIT / 8 * formatID;
    fwritex(&block_size, sizeof(short), 1, fpo);
    /* bit number */
-   bit = 16;
+   bit = BIT;
    fwritex(&bit, sizeof(short), 1, fpo);
    /* data chunk */
    fwritex(data_chunk, sizeof(char), 4, fpo);
@@ -126,7 +130,7 @@ void write_file(long fs, char *rawfile, char *wavfile)
 int main(int argc, char **argv)
 {
 
-   if (argc != 4) {
+   if (argc != 5) {
       printf("error : failed to convert raw to wav\n\n");
       printf("rawtowav : convert raw to wav\n");
       printf("usage:\n");
@@ -134,7 +138,7 @@ int main(int argc, char **argv)
       exit(0);
    }
 
-   write_file(atol(argv[1]), argv[2], argv[3]);
+   write_file(atol(argv[1]), (char) atoi(argv[2]), argv[3], argv[4]);
 
    return (0);
 }

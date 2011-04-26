@@ -58,9 +58,14 @@
 *             -E E     :  end address                  [EOF]            *
 *             -e e     :  end offset number            [0]              *
 *             +type    :  input and output data type   [s]              *
-*                          s (short)    i3 (int, 3byte)                 *
-*                          i (int)      l (long)                        *
-*                          f (float)    d (double)                      *
+*                           c (char)           C  (unsigned char)       *
+*                           s (short)          S  (unsigned short)      *
+*                           i (int)            I  (unsigned int)        *
+*                           i3 (int, 3byte)    I3 (unsigned int, 3byte) *
+*                           l (long)           L  (unsigned long)       *
+*                           le (long long)     LE (unsigned long long)  *
+*                           f (float)          d  (double)              *
+*                           de (long double)                            *
 *     infile:                                                           *
 *             data sequence                            [stdin]          * 
 *     stdout:                                                           *
@@ -100,7 +105,9 @@ char *cmnd;
 #define SNO   0
 #define END   0x7fffffff
 #define ENO   0x7fffffff
-
+#define BUFSIZE 12
+#define SIGNED_INT3 FA
+#define UNSIGNED_INT3 FA
 
 void usage(int status)
 {
@@ -116,9 +123,26 @@ void usage(int status)
    fprintf(stderr, "       -E E   : end address                  [EOF]\n");
    fprintf(stderr, "       -e e   : end offset number            [0]\n");
    fprintf(stderr, "       +type  : input and output data format [s]\n");
-   fprintf(stderr, "                 s (short)     i3 (int, 3byte)\n");
-   fprintf(stderr, "                 i (int)       l (long)\n");
-   fprintf(stderr, "                 f (float)     d (double)\n");
+   fprintf(stderr,
+           "                s  (short, %dbyte)        S  (unsigned short, %dbyte)\n",
+           sizeof(short), sizeof(unsigned short));
+   fprintf(stderr,
+           "                i3 (int, 3byte)          I3 (unsigned int, 3byte)\n");
+   fprintf(stderr,
+           "                i  (int, %dbyte)          I  (unsigned int, %dbyte)\n",
+           sizeof(int), sizeof(unsigned int));
+   fprintf(stderr,
+           "                l  (long, %dbyte)         L  (unsigned long, %dbyte)\n",
+           sizeof(long), sizeof(unsigned long));
+   fprintf(stderr,
+           "                le (long long, %dbyte)    LE (unsigned long long, %dbyte)\n",
+           sizeof(long long), sizeof(unsigned long long));
+   fprintf(stderr,
+           "                f  (float, %dbyte)        d  (double, %dbyte)\n",
+           sizeof(float), sizeof(double));
+   fprintf(stderr,
+           "                de (long double, %dbyte)\n",
+           sizeof(long double));
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence                [stdin]\n");
@@ -140,9 +164,9 @@ int main(int argc, char *argv[])
    FILE *fp = stdin;
    char *s;
    int c;
-   size_t iosize = 2;
+   size_t iosize = sizeof(short);
    void conv(FILE * fp, size_t iosize);
-
+   Boolean int3flg = SIGNED_INT3, uint3flg = UNSIGNED_INT3;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -187,13 +211,34 @@ int main(int argc, char *argv[])
                iosize = sizeof(int);
             break;
          case 'l':
-            iosize = sizeof(long);
+            if (*(s + 1) == 'e')
+               iosize = sizeof(long long);
+            else
+               iosize = sizeof(long);
+            break;
+         case 'S':
+            iosize = sizeof(unsigned short);
+            break;
+         case 'I':
+            if (*(s + 1) == '3')
+               iosize = 3;
+            else
+               iosize = sizeof(unsigned int);
+            break;
+         case 'L':
+            if (*(s + 1) == 'E')
+               iosize = sizeof(unsigned long long);
+            else
+               iosize = sizeof(unsigned long);
             break;
          case 'f':
             iosize = sizeof(float);
             break;
          case 'd':
-            iosize = sizeof(double);
+            if (*(s + 1) == 'e')
+               iosize = sizeof(long double);
+            else
+               iosize = sizeof(double);
             break;
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
@@ -211,7 +256,7 @@ void conv(FILE * fp, size_t iosize)
 {
    long adrs, n;
    int i;
-   char ibuf[8], obuf[8];
+   char ibuf[BUFSIZE], obuf[BUFSIZE];
    int ffseek(FILE * fp, long off);
 
    if (ffseek(fp, adrs = start + iosize * sno))

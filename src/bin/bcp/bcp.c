@@ -167,16 +167,25 @@ void usage(int status)
 
 int sno = START, eno = END, dsno = DSTART, size = sizeof(float), nitems =
     ITEM, dnitems = DITEM;
-double fl = FILL;
+long double fl = FILL;
 char type = 'f';
 
 union typex {
    char c;
    short s;
-   long l;
    int i;
+   int i3;
+   long l;
+   long long le;
+   unsigned char C;
+   unsigned short S;
+   unsigned int I;
+   unsigned int I3;
+   unsigned long L;
+   unsigned long long LE;
    float f;
    double d;
+   long double de;
 } fillx;
 
 int main(int argc, char **argv)
@@ -242,7 +251,6 @@ int main(int argc, char **argv)
          }
       } else if (*s == '+') {
          type = *++s;
-
          switch (type) {
          case 'a':
             size = 0;
@@ -253,17 +261,59 @@ int main(int argc, char **argv)
          case 's':
             size = sizeof(short);
             break;
-         case 'l':
-            size = sizeof(long);
-            break;
          case 'i':
-            size = sizeof(int);
+            if (*(s + 1) == '3') {
+                size = 3;
+                type = 't';
+                (*argv)++;
+            } else {
+                size = sizeof(int);
+            }
+            break;
+         case 'l':
+            if (*(s + 1) == 'e') {
+                size = sizeof(long long);
+                type = 'u';
+                (*argv)++;
+            } else {
+                size = sizeof(long);
+            }
+            break;
+         case 'C':
+            size = sizeof(unsigned char);
+            break;
+         case 'S':
+            size = sizeof(unsigned short);
+            break;
+         case 'I':
+            if (*(s + 1) == '3') {
+                size = 3;
+                type = 'T';
+                (*argv)++;
+            } else {
+                size = sizeof(unsigned int);
+            }
+            break;
+         case 'L':
+            if (*(s + 1) == 'E') {
+                size = sizeof(unsigned long long);
+                type = 'U';
+                (*argv)++;
+            } else {
+                size = sizeof(unsigned long);
+            }
             break;
          case 'f':
             size = sizeof(float);
             break;
          case 'd':
-            size = sizeof(double);
+            if (*(s + 1) == 'e') {
+                size = sizeof(long double);
+                type = 'v';
+                (*argv)++;
+            } else {
+                size = sizeof(double);
+            }
             break;
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
@@ -301,17 +351,44 @@ void bcp(FILE * fp)
    case 's':
       fillx.s = (short) fl;
       break;
+   case 'i':
+      fillx.i = (int) fl;
+      break;
+   case 't':
+      fillx.i3 = (int) fl;
+      break;
    case 'l':
       fillx.l = (long) fl;
       break;
-   case 'i':
-      fillx.i = (int) fl;
+   case 'u':
+      fillx.le = (long long) fl;
+      break;
+   case 'C':
+      fillx.c = (unsigned char) fl;
+      break;
+   case 'S':
+      fillx.s = (unsigned short) fl;
+      break;
+   case 'I':
+      fillx.i = (unsigned int) fl;
+      break;
+   case 'T':
+      fillx.I3 = (unsigned int) fl;
+      break;
+   case 'L':
+      fillx.l = (unsigned long) fl;
+      break;
+   case 'U':
+      fillx.le = (unsigned long long) fl;
       break;
    case 'f':
       fillx.f = (float) fl;
       break;
    case 'd':
       fillx.d = (double) fl;
+      break;
+   case 'v':
+      fillx.de = (long double) fl;
       break;
    case 'a':
       break;
