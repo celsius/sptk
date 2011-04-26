@@ -44,6 +44,7 @@ SUBDIRS = acep \
 	gnorm \
 	grpdelay \
 	histogram \
+	idct \
 	ifft \
 	ifft2 \
 	ignorm \
