@@ -191,6 +191,7 @@ AC_CONFIG_FILES([Makefile
                  bin/gnorm/Makefile
                  bin/grpdelay/Makefile
                  bin/histogram/Makefile
+                 bin/idct/Makefile
                  bin/ifft/Makefile
                  bin/ifft2/Makefile
                  bin/ignorm/Makefile
