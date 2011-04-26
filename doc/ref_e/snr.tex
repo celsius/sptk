@@ -45,7 +45,7 @@
 \name{snr}{evaluate SNR and segmental SNR}{data processing}
 
 \begin{synopsis}
-\item [snr] [ --l $L$ ] [ +$t_1 t_2$ ] [ --o $O$ ] {\em file1} [ {\em infile} ] 
+\item [snr] [ --l $L$ ] [ --o $O$ ] {\em file1} [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -54,7 +54,6 @@ and the $\mathrm{SNR}_{\mathrm{seg}}$ (segmental SNR)
 between corresponding $L$-length frames
 of {\em file1} and {\em infile} (or standard input), 
 sending the result to standard output.
-The input format is specified by the + option.
 The output format is specified by the --o option.
 
 The SNR and $\mathrm{SNR}_{\mathrm{seg}}$ can be calculated
@@ -81,12 +80,6 @@ subjective measure then the SNR.
 \newpage
 \begin{options}
         \argm{l}{L}{frame length}{256}
-        \argp{t_1 t_2}{$t_1$ and $t_2$ are represented data formats
-                      of {\em file1} and {\em infile} respectively\\
-                \begin{tabular}{llcll} \\[-1ex]
-                        s & short (2 bytes) & \quad &
-                        f & float (4 bytes) \\
-                \end{tabular}\\\hspace*{\fill}}{sf}
         \argm{o}{O}{output data format\\
                         \begin{tabular}{ll} \\[-1ex]
                           0 & SNR and SNRseg\\
@@ -101,11 +94,11 @@ subjective measure then the SNR.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The following command reads the input files {\em data.s} in short format
-and {\em data.f} in float format, evaluates the SNR and
+The following command reads the input files {\em data.f1}
+and {\em data.f2}, evaluates the SNR and
 segmental SNR, and sends the results to the standard output:
 \begin{quote}
- \verb!snr +sf data.s data.f!
+ \verb!snr data.f1 data.f2!
 \end{quote} 
 \end{qsection}
 

@@ -46,8 +46,8 @@
 44.1 kHz}{sampling rate transformation}
  
 \begin{synopsis}
-\item [uscd] [ --s $S$ $S$] [ +{\em type} ] [ {\em infile} ] [ {\em outfile} ]
-\item [uscd] [ --s $S$ $S$] [ +{\em type} ] {\em infile1} $\dots$ [ {\em infileN}] {\em outdir} 
+\item [uscd] [ --s $S$ $S$] [ {\em infile} ] [ {\em outfile} ]
+\item [uscd] [ --s $S$ $S$] {\em infile1} $\dots$ [ {\em infileN}] {\em outdir} 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -63,14 +63,6 @@ but with suffixes reflecting the new sample rate.
 \end{qsection}
 
 \begin{options}
-%	\argm{s}{S1~S2}{input/output sampling frequency\\
-%		\begin{tabular}{lll} \\[-1ex]
-%			S1 & $8|10|12|16$ & sampling rate of input data\\
-%			S2 & $11.025|22.05|44.1$ & sampling rate of output data
-%		\end{tabular}
-%                where the assignment the following sampling rates 11.025, 
-%                22.05, 44.1kHz can be done by 11, 22, 44, respectively.}
-%                {$10~11.025$}
 	\argm{s}{S1}{input sampling frequency $8|10|12|16$}{10}
 	\argm{S}{S2}{output sampling frequency  $11.025|22.05|44.1$\\
 		$S2$ can be abbreviated as 11, 22, or 44. \\
@@ -78,20 +70,14 @@ but with suffixes reflecting the new sample rate.
 		the suffix for the output files is 
 		either ``.11'', ``.22'', or ``.44.''}
 		{11.025}
-	\argp{t}{input and output data format\\
-		\begin{tabular}{ll} \\[-1ex]
-			s & short (2 bytes) \\
-			f & float (4 bytes) \\
-			d & double (8 bytes)
-		\end{tabular}\\}{f}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the example below, speech data sampled at 16 kHz in short format
+In the example below, speech data sampled at 16 kHz
 is read from {\em data.16}, up sampling to 22.05 kHz is undertaken,
 and the results are written to {data.22}:
 \begin{quote}
-\verb!uscd +s -s 16 22.05 < data.16 > data.22!
+\verb!uscd -s 16 22.05 < data.16 > data.22!
 \end{quote}
 \end{qsection}
 

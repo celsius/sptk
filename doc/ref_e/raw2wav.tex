@@ -60,13 +60,24 @@
 	\argm{n}{}{normalization with the maximum value\\
 if max $>$= 32767}{FALSE}
 	\argm{N}{}{normalization}{FALSE}
-	\argp{t}{input data type\\ 
+	\argp{type1}{input data type}{s}
+	\argp{type2}{output data type\\ 
 		\begin{tabular}{llcll} \\[-1ex]
-			s & short (2 bytes) & \quad &
-			i & int (4 bytes) \\
-			f & float (4 bytes) & \quad &
-			d & double (8 bytes) \\
-		\end{tabular}}{f}
+         c & char (1 byte) & \quad &
+         C & unsigned char (1 byte) \\
+         s & short (2 bytes) & \quad &
+                     S & unsigned short (2 bytes) \\
+         i3 & int (3 bytes) & \quad &
+                     I3 & unsigned int (3 bytes) \\
+         i & int (4 bytes) & \quad &
+                     I & unsigned int (4 bytes) \\
+         l & long (4 bytes) & \quad &
+                     L & unsigned long (4 bytes) \\
+         le & long long (8 bytes) & \quad &
+                     LE & unsigned long long (8 bytes) \\
+         f & float (4 bytes) & \quad &
+                     d & double (8 bytes) \\
+		\end{tabular}}{s}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
