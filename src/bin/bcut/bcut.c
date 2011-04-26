@@ -57,9 +57,14 @@
 *               -l l     :  block length                        [1]     *
 *               -n n     :  block order                         [l-1]   *
 *               +type    :  data type                           [f]     *
-*                               c (char)     s (short)                  *
-*                               i (int)      l (long)                   *
-*                               f (float)    d (double)                 *
+*                           c (char)           C  (unsigned char)       *
+*                           s (short)          S  (unsigned short)      *
+*                           i (int)            I  (unsigned int)        *
+*                           i3 (int, 3byte)    I3 (unsigned int, 3byte) *
+*                           l (long)           L  (unsigned long)       *
+*                           le (long long)     LE (unsigned long long)  *
+*                           f (float)          d  (double)              *
+*                           de (long double)                            *
 *       infile:                                                         *
 *               data sequence                                   [stdin] *
 *       stdout:                                                         *
@@ -70,7 +75,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: bcut.c,v 1.20 2010/12/10 10:44:20 mataki Exp $";
+static char *rcs_id = "$Id: bcut.c,v 1.21 2011/04/26 13:41:11 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -99,6 +104,8 @@ static char *rcs_id = "$Id: bcut.c,v 1.20 2010/12/10 10:44:20 mataki Exp $";
 #define END -1
 #define LENG 1
 
+#define SIGNED_INT3 FA
+#define UNSIGNED_INT3 FA
 
 /*  Command Name  */
 char *cmnd;
@@ -117,9 +124,29 @@ void usage(int status)
    fprintf(stderr, "       -l l  : block length [%d]\n", LENG);
    fprintf(stderr, "       -n n  : block order  [l-1]\n");
    fprintf(stderr, "       +type : data type    [f]\n");
-   fprintf(stderr, "                c (char)      s (short)\n");
-   fprintf(stderr, "                i (int)       l (long)\n");
-   fprintf(stderr, "                f (float)     d (double)\n");
+   fprintf(stderr,
+           "                c  (char, %dbyte)         C  (unsigned char, %dbyte)\n",
+           sizeof(char), sizeof(unsigned char));
+   fprintf(stderr,
+           "                s  (short, %dbyte)        S  (unsigned short, %dbyte)\n",
+           sizeof(short), sizeof(unsigned short));
+   fprintf(stderr,
+           "                i3 (int, 3byte)          I3 (unsigned int, 3byte)\n");
+   fprintf(stderr,
+           "                i  (int, %dbyte)          I  (unsigned int, %dbyte)\n",
+           sizeof(int), sizeof(unsigned int));
+   fprintf(stderr,
+           "                l  (long, %dbyte)         L  (unsigned long, %dbyte)\n",
+           sizeof(long), sizeof(unsigned long));
+   fprintf(stderr,
+           "                le (long long, %dbyte)    LE (unsigned long long, %dbyte)\n",
+           sizeof(long long), sizeof(unsigned long long));
+   fprintf(stderr,
+           "                f  (float, %dbyte)        d  (double, %dbyte)\n",
+           sizeof(float), sizeof(double));
+   fprintf(stderr,
+           "                de (long double, %dbyte)\n",
+           sizeof(long double));
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence        [stdin]\n");
@@ -141,10 +168,16 @@ int main(int argc, char **argv)
 {
    size_t size = sizeof(float);
    int n = LENG;
-   long start = START, end = END, ptr;
+   long long start = START, end = END, ptr;
    FILE *fp = stdin;
    char *s, c;
-   double x;
+   Boolean int3flg = SIGNED_INT3, uint3flg = UNSIGNED_INT3;
+   long int y = 0;
+   long long xl = 0;
+   unsigned long long xul = 0;
+   long double xd = 0.0;
+   long double x;
+   char *tmp;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -185,17 +218,56 @@ int main(int argc, char **argv)
          case 's':
             size = sizeof(short);
             break;
-         case 'l':
-            size = sizeof(long);
-            break;
          case 'i':
-            size = sizeof(int);
+            if (*(s + 1) == '3') {
+                size = 3;
+                int3flg = TR;
+                (*argv)++;
+            } else {
+                size = sizeof(int);
+            }
+            break;
+         case 'l':
+            if (*(s + 1) == 'e') {
+                size = sizeof(long long);
+                (*argv)++;
+            } else {
+                size = sizeof(long);
+            }
+            break;
+         case 'C':
+            size = sizeof(unsigned char);
+            break;
+         case 'S':
+            size = sizeof(unsigned short);
+            break;
+         case 'I':
+            if (*(s + 1) == '3') {
+                size = 3;
+                uint3flg = TR;
+                (*argv)++;
+            } else {
+                size = sizeof(unsigned int);
+            }
+            break;
+         case 'L':
+            if (*(s + 1) == 'E') {
+                size = sizeof(unsigned long long);
+                (*argv)++;
+            } else {
+                size = sizeof(unsigned long);
+            }
             break;
          case 'f':
             size = sizeof(float);
             break;
          case 'd':
-            size = sizeof(double);
+            if (*(s + 1) == 'e') {
+                size = sizeof(long double);
+                (*argv)++;
+            } else {
+                size = sizeof(double);
+            }
             break;
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
@@ -212,8 +284,14 @@ int main(int argc, char **argv)
    ptr = (end - start + 1) * n;
    while (end == -1 || ptr--) {
       if (freadx(&x, size, 1, fp) != 1)
-         break;
-      fwritex(&x, size, 1, stdout);
+          break;
+      if (int3flg == TR || uint3flg  == TR) {
+          y = *(int *) &x & 0x00FFFFFF;
+          if (int3flg == TR && y >> 23 == 1)
+              y = y | 0xFF000000;
+          fwritex(&y, size, 1, stdout);
+      } else
+          fwritex(&x, size, 1, stdout);
    }
 
    return (0);

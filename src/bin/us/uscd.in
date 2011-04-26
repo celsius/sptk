@@ -56,7 +56,7 @@
 set path    = ( @binpath@ $path )
 set libpath = '@libpath@'
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: uscd.in,v 1.9 2010/12/10 10:44:24 mataki Exp $'
+set cvsid   = '$Id: uscd.in,v 1.10 2011/04/26 13:41:11 mataki Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -77,14 +77,6 @@ set stdinput = 1
 while($i < $#argv)
         @ i++
         switch($argv[$i])
-        case +@io_symbol@:
-                set itype = '+@io_symbol@@io_symbol@'
-                set otype = '+@io_symbol@@io_symbol@'
-                breaksw
-        case +s:
-                set itype = '+s@io_symbol@'
-                set otype = '+@io_symbol@s'
-                breaksw
         case -s:
                 @ i++
                 set iext = $argv[$i]
@@ -219,8 +211,6 @@ cat2 <<EOF
        -s s     : input sampling frequency (8, 10, 12, 16 kHz) [10]
        -S s     : output sampling frequency 
                                       (11.025, 22.05, 44.1kHz) [11.025]
-       +x       : input and output data format                 [@io_symbol@]
-                     s (short)   @io_symbol@ (@io_format@)
        -h       : print this message
   infile:
        data sequence                                           [stdin]

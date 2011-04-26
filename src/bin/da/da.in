@@ -55,7 +55,7 @@
 set path        = ( @binpath@ $path )
 set libpath     = '@libpath@'
 set sptkver     = '@sptk_version@'
-set cvsid       = '$Id: da.in,v 1.9 2010/12/10 10:44:20 mataki Exp $'
+set cvsid       = '$Id: da.in,v 1.10 2011/04/26 13:41:11 mataki Exp $'
 
 set cmnd        = $0
 set cmnd        = $cmnd:t
@@ -108,11 +108,50 @@ while ($i < $#argv)
         case -w:
                 set byteswap = 1
                 breaksw
+        case +c:
+                set ftype = c
+                breaksw
         case +s:
                 set ftype = s
                 breaksw
-        case +@io_symbol@:
-                set ftype = @io_symbol@
+        case +i3:
+                set ftype = i3
+                breaksw
+        case +i:
+                set ftype = i
+                breaksw
+        case +l:
+                set ftype = l
+                breaksw
+        case +le:
+                set ftype = le
+                breaksw
+        case +C:
+                set ftype = C
+                breaksw
+        case +S:
+                set ftype = S
+                breaksw
+        case +I3:
+                set ftype = I3
+                breaksw
+        case +I:
+                set ftype = I
+                breaksw
+        case +L:
+                set ftype = L
+                breaksw
+        case +LE:
+                set ftype = LE
+                breaksw
+        case +f:
+                set ftype = f
+                breaksw
+        case +d:
+                set ftype = d
+                breaksw
+        case +de:
+                set ftype = de
                 breaksw
         case -h:
                 set exit_status = 0
@@ -123,21 +162,115 @@ while ($i < $#argv)
                 breaksw
         endsw
 end
-   
-if ( $ftype == "@io_symbol@" ) then
-        if ( $byteswap > 0 ) then
-                alias fileconvert 'swab +@io_symbol@ \!^'
+
+switch ($ftype)
+    case c
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +c \!^ | x2x +c@io_symbol@'
         else
-                alias fileconvert 'cat \!^'
+                alias fileconvert 'x2x +c@io_symbol@ \!^'
         endif
-else
+    breaksw
+    case s
         if( $byteswap > 0 ) then
                 alias fileconvert 'swab +s \!^ | x2x +s@io_symbol@'
         else
                 alias fileconvert 'x2x +s@io_symbol@ \!^'
         endif
-endif
-
+    breaksw
+    case i3
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +i3 \!^ | x2x +i3@io_symbol@'
+        else
+                alias fileconvert 'x2x +i3@io_symbol@ \!^'
+        endif
+    breaksw
+    case i
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +i \!^ | x2x +i@io_symbol@'
+        else
+                alias fileconvert 'x2x +i@io_symbol@ \!^'
+        endif
+    breaksw
+    case l
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +l \!^ | x2x +l@io_symbol@'
+        else
+                alias fileconvert 'x2x +l@io_symbol@ \!^'
+        endif
+    breaksw
+    case le
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +le \!^ | x2x +le@io_symbol@'
+        else
+                alias fileconvert 'x2x +le@io_symbol@ \!^'
+        endif
+    breaksw
+    case C
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +C \!^ | x2x +C@io_symbol@'
+        else
+                alias fileconvert 'x2x +C@io_symbol@ \!^'
+        endif
+    breaksw
+    case S
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +S \!^ | x2x +S@io_symbol@'
+         else
+                alias fileconvert 'x2x +S@io_symbol@ \!^'
+        endif
+    breaksw
+    case I3
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +I3 \!^ | x2x +I3@io_symbol@'
+        else
+                alias fileconvert 'x2x +I3@io_symbol@ \!^'
+        endif
+    breaksw
+    case I
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +I \!^ | x2x +I@io_symbol@'
+        else
+                alias fileconvert 'x2x +I@io_symbol@ \!^'
+        endif
+    breaksw
+    case L
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +L \!^ | x2x +L@io_symbol@'
+        else
+                alias fileconvert 'x2x +L@io_symbol@ \!^'
+        endif
+    breaksw
+    case LE
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +LE \!^ | x2x +LE@io_symbol@'
+        else
+                alias fileconvert 'x2x +LE@io_symbol@ \!^'
+        endif
+    breaksw
+    case @io_symbol@
+        if ( $byteswap > 0 ) then
+                alias fileconvert 'swab +@io_symbol@ \!^'
+        else
+                alias fileconvert 'cat \!^'
+        endif
+    breaksw
+    case d
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +d \!^ | x2x +d@io_symbol@'
+        else
+                alias fileconvert 'x2x +d@io_symbol@ \!^'
+        endif
+    breaksw
+    case de
+        if( $byteswap > 0 ) then
+                alias fileconvert 'swab +de \!^ | x2x +de@io_symbol@'
+        else
+                alias fileconvert 'x2x +de@io_symbol@ \!^'
+        endif
+    breaksw
+endsw
+   
 switch ($arch)
         case sun4*:
                 goto cnvt48
@@ -174,7 +307,14 @@ switch($arch)
        -v    : display filename                                   [FALSE]
        -w    : execute byte swap                                  [FALSE]
        +x    : data format                                        [s]
-                  s (short)   @io_symbol@ (@io_format@)
+                  c (char)          C  (unsigned char)
+                  s (short)         S  (unsigned short)
+                  i3 (int, 3byte)   I3 (unsigned int, 3byte)
+                  i (int)           I  (unsigned int)
+                  l (long)          L (unsigned long)
+                  le (long long)    LE (unsigned long long)
+                  +@io_symbol@ (@io_format@)         d (double)
+                  de (long double)
        -h    : print this message
   infile:
        data sequence                                              [stdin]
@@ -198,7 +338,14 @@ EOF
        -v    : display filename                                  [FALSE]
        -w    : execute byte swap                                 [FALSE]
        +x    : data format                                       [s]
-                  s (short)   @io_symbol@ (@io_format@)
+                  c (char)          C  (unsigned char)
+                  s (short)         S  (unsigned short)
+                  i3 (int, 3byte)   I3 (unsigned int, 3byte)
+                  i (int)           I  (unsigned int)
+                  l (long)          L (unsigned long)
+                  le (long long)    LE (unsigned long long)
+                  +@io_symbol@ (@io_format@)         d (double)
+                  de (long double)
        -h    : print this message
   infile:
        data sequence                                             [stdin]
