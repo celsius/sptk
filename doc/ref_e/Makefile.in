@@ -68,7 +68,6 @@ INC  = cmndref.sty \
 	cdist.tex \
 	clip.tex \
 	da.tex \
-	dawrite.tex \
 	dct.tex \
 	decimate.tex \
 	delay.tex \
@@ -101,6 +100,7 @@ INC  = cmndref.sty \
 	grpdelay.tex \
 	gwave.tex \
 	histogram.tex \
+	idct.tex \
 	ifft.tex \
 	ifft2.tex \
 	ignorm.tex \
@@ -142,7 +142,6 @@ INC  = cmndref.sty \
 	poledf.tex \
 	psgr.tex \
 	ramp.tex \
-	raw2wav.tex \
 	reverse.tex \
 	rmse.tex \
 	root_pol.tex \
@@ -190,6 +189,7 @@ EPSF = fig/bcp.eps \
 	fig/glogsp-sample.eps \
 	fig/grid.eps \
 	fig/grlogsp-on.eps \
+	fig/idct.eps
 	fig/ifft.eps \
 	fig/ifft2.eps \
 	fig/join-type.eps \

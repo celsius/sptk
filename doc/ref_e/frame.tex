@@ -45,7 +45,7 @@
 \name{frame}{extract frame from data sequence}{signal processing,speech analysis and synthesis}
 
 \begin{synopsis}
- \item [frame] [ --l $L$ ] [ --n ] [ --p $P$ ] [ +{\em type} ] [ {\em infile} ]
+ \item [frame] [ --l $L$ ] [ --n ] [ --p $P$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -71,25 +71,16 @@ $x(2P-L/2)$&$,$&$x(2P-L/2+1)$&$,$&$\ldots$&$,$&$x(2P)$&$,$&$\ldots$&$,$&$x(2P+L/
 	\argm{n}{}{This option is used when instead of having x(0) is
                    center point in the first frame we want to make x(0)
                    as the first point of the first frame}{FALSE}
-	\argp{t}{data type\\ 
-		\begin{tabular}{llcll} \\[-1ex]
-			c & char (1 byte) & \quad &
-			s & short (2 bytes) \\
-			i & int (4 bytes) & \quad &
-			l & long (4 bytes) \\
-			f & float (4 bytes) & \quad &
-			d & double (8 bytes) 
-		\end{tabular}\\\hspace*{\fill}}{f}
 \end{options}
 
 
 \begin{qsection}{EXAMPLE}
-In the example below, data in float format is read from {\em data.f} file,
+In the example below, data is read from {\em data.f} file,
 frames of period 80 are applied, a Blackman window is passed, and
 a linear prediction analysis is undertaken. The output is written in
 {\em data.lpc} file:
 \begin{quote}
- \verb!frame +f -p 80 < data.f | window | lpc > data.lpc!
+ \verb!frame -p 80 < data.f | window | lpc > data.lpc!
 \end{quote} 
 \end{qsection}
 

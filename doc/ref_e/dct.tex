@@ -45,22 +45,31 @@
 \name{dct}{DCT-II}{signal processing}
 
 \begin{synopsis}
-\item[dct] [ --l $L$ ] [ --\{ I \} ] [ --\{ d \} ] [ {\em infile} ] 
+\item[dct] [ --l $L$ ] [ --I ] [ --d ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em dct} calculates the Discrete Cosine Transformation II (DCT-II) 
-of input data from {\em infile} (or standard input), 
+{\em dct} calculates the Discrete Cosine Transformation II (DCT-II)
+of input data from {\em infile} (or standard input),
 sending the results to standard output.
 The input and output data is in float format, arranged as follows.
 \begin{center}
  \leavevmode
- \includegraphics{fig/dct.eps} 
+ \includegraphics{fig/dct.eps}
 \end{center}
 The Discrete Cosine Transformation II is
 \begin{displaymath}
- X_{k} = \sum_{l=0}^{L-1}x_{l}\cos\left\{\frac{\pi}{L}\left( l+\frac{1}{2}\right)k\right\}
+ X_{k} =  \sqrt{\frac{2}{L}}c_{k}\sum_{l=0}^{L-1}
+x_{l}\cos\left\{\frac{\pi}{L} k \left( l + \frac{1}{2} \right) \right\},
+\;\;\; l = 0, 1, \cdots, L
 \end{displaymath}
+ where
+ \begin{displaymath}
+  c_{k}= \begin{cases}
+         \;\;1 & ( 1 \le k \le L - 1 ) \\
+         \;\; 1 / \sqrt{2} & (k = 0)
+         \end{cases}
+ \end{displaymath}
 \par
 \end{qsection}
 
@@ -81,5 +90,6 @@ and the output is written to {\em data.dct}:
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
-\hyperlink{fft}{fft}
+\hyperlink{fft}{fft},
+\hyperlink{idct}{idct}
 \end{qsection}

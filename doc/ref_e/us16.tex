@@ -46,8 +46,8 @@
 {sampling rate transformation}
 
 \begin{synopsis}
-\item [us16] [ --s $S$ ] [ +{\em type} ] [ {\em infile} ] [ {\em outfile} ]
-\item [us16] [ --s $S$ ] [ +{\em type} ] {\em infile1} $\dots$ [ {\em infileN}] {\em outdir} 
+\item [us16] [ --s $S$ ] [ {\em infile} ] [ {\em outfile} ]
+\item [us16] [ --s $S$ ] {\em infile1} $\dots$ [ {\em infileN}] {\em outdir} 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -63,20 +63,14 @@ but the suffixes are changed to ``.16''.
 
 \begin{options}
 	\argm{s}{S}{input sampling frequency 10|12 kHz}{$10$}
-	\argp{t}{input and output data format\\
-		\begin{tabular}{ll} \\[-1ex]
-			s & short (2 bytes) \\
-			f & float (4 bytes) \\
-			d & double (8 bytes)
-		\end{tabular}\\}{f}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the example below, speech data sampled at 10 kHz in short format
+In the example below, speech data sampled at 10 kHz
 is read from {\em data.10}, up sampling to 16 kHz is undertaken,
 and the results are written to {data.16}:
 \begin{quote}
-\verb!us16 +s -s 10 < data.10 > data.16!
+\verb!us16 -s 10 < data.10 > data.16!
 \end{quote}
 \end{qsection}
 

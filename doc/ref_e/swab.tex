@@ -68,12 +68,18 @@ The +$type$ option specifies the input and output data formats.
 	\argm{e}{E_2}{end offset number}{0}
 	\argp{type}{Input and output data format\\
 		\begin{tabular}{llcll} \\[-1ex]
-			s & short (2 bytes) & \quad &
-			i3 & int (3 bytes) \\
-			i & int (4 bytes) & \quad &
-			l & long (4 bytes) \\         
-			f & float (4 bytes) & \quad &
-			d & double (8 bytes) \\
+         s & short (2 bytes) & \quad &
+                     S & unsigned short (2 bytes) \\
+         i3 & int (3 bytes) & \quad &
+                     I3 & unsigned int (3 bytes) \\
+         i & int (4 bytes) & \quad &
+                     I & unsigned int (4 bytes) \\
+         l & long (4 bytes) & \quad &
+                     L & unsigned long (4 bytes) \\
+         le & long long (8 bytes) & \quad &
+                     LE & unsigned long long (8 bytes) \\
+         f & float (4 bytes) & \quad &
+                     d & double (8 bytes) \\
 		\end{tabular}\\\hspace*{\fill}}{s}
 \end{options}
 

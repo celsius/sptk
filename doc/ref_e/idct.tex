@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2010  Nagoya Institute of Technology          %
+%                1996-2011  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -41,61 +41,56 @@
 % OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
 % POSSIBILITY OF SUCH DAMAGE.                                       %
 % ----------------------------------------------------------------- %
-\hypertarget{fd}{}
-\name{fd}{file dump}{data operation}
+\hypertarget{idct}{}
+\name{idct}{Inverse DCT-II}{signal processing}
 
 \begin{synopsis}
- \item [fd] [ --a $A$ ] [ --n $N$ ] [ --m $M$ ] [ --{\em ent} ] 
-	    [ +{\em type} ] [ $\%${\em form} ] [ {\em infile} ]
+ \item[idct] [ --l $L$ ] [ --c ] [ --d ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em fd} converts data from {\em infile} (or standard input) 
-to human-readable multi-column format, 
-sending the result to standard output.
+{\em idct} calculates the Inverse Discrete Cosine Transformation II (IDCT-II)
+of input data from {\em infile} (or standard input),
+sending the results to standard output.
+The input and output data is in float format, arranged as follows.
+\begin{center}
+ \leavevmode
+ \includegraphics{fig/idct.eps}
+\end{center}
+The Inverse Discrete Cosine Transformation II is
+\begin{displaymath}
+ x_{l} = \sqrt{\frac{2}{L}}c_{l}\sum_{k=0}^{L-1}
+ X_{k}
+ \cos\left\{\frac{\pi}{L} \left( k + \frac{1}{2} \right) l\right\},
+\;\;\; l = 0, 1, \cdots, L
+\end{displaymath}
+where
+ \begin{displaymath}
+c_{l}= \begin{cases}
+         \;\;1 & ( 1 \le l \le L - 1 ) \\
+         \;\; 1 / \sqrt{2} & (l = 0)
+        \end{cases}
+ \end{displaymath}
+\par
 \end{qsection}
 
 \begin{options}
-	\argm{a}{A}{address}{0}
-	\argm{n}{N}{initial value for numbering}{0}
-	\argm{m}{M}{modulo for numbering}{EOF}
-	\argm{{\em ent}}{}{number of data in each line}{0}
-	\argp{t}{data type\\
-		\begin{tabular}{llcll} \\[-1ex]
-         c & char (1 byte) & \quad &
-         C & unsigned char (1 byte) \\
-         s & short (2 bytes) & \quad &
-                     S & unsigned short (2 bytes) \\
-         i3 & int (3 bytes) & \quad &
-                     I3 & unsigned int (3 bytes) \\
-         i & int (4 bytes) & \quad &
-                     I & unsigned int (4 bytes) \\
-         l & long (4 bytes) & \quad &
-                     L & unsigned long (4 bytes) \\
-         le & long long (8 bytes) & \quad &
-                     LE & unsigned long long (8 bytes) \\
-         f & float (4 bytes) & \quad &
-                     d & double (8 bytes) \\
-		\end{tabular}\\\hspace*{\fill}}{c}
-        \argh{form}{}{print format(printf style)}{N/A}
+        \argm{l}{L}{IDCT size}{256}
+        \argm{c}{}{use complex number}{FALSE}
+        \argm{d}{}{don't use FFT algorithm}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
- This example displays the speech data in ``sample.wav'' with
- the corresponding addresses:
+In this example, the IDCT is evaluated from a complex-valued data file
+{\em data.f} in float format
+(real part: 256 points, imaginary part: 256 points),
+and the output is written to {\em data.idct}:
 \begin{quote}
- \verb!fd +c -a 0 sample.wav!
+  \verb!idct data.f -l 256 -c > data.idct!
 \end{quote}
- Results:\\
-\verb!000000  52 49 46 46 9a 15 00 00 57 41 56 45 66 6d 74 20 |RIFF....WAVEfmt |!\\
-\verb!000010  10 00 00 00 01 00 01 00 40 1f 00 00 40 1f 00 00 |........@...@...|!\\
-\verb!000020  01 00 08 00 64 61 74 61 76 15 00 00 8a 8a 8f 99 |....datav.......|!
-
-\begin{center}
- $\vdots$\\
-\end{center}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
-\hyperlink{dmp}{dmp}
+ \hyperlink{fft}{fft},
+ \hyperlink{dct}{dct}
 \end{qsection}
