@@ -1,9 +1,9 @@
 Version 3.4.1:
  * add 'idct' command.
- * remove all input/output except float from 'frame', 'snr', 'us16', and 'uscd' command.
+ * remove all input/output data type except float from 'frame', 'snr', 'us16', and 'uscd' command.
  * add input/output data type to many commands.
- * fix help message of 'x2x' command to show byte number for all data type.
- * change command name 'pcap' into 'pcas' command.
+ * show number of byte for all input/output data type in 'x2x' command.
+ * rename 'pcap' command to 'pcas' command.
  * add new constant (octave and cent) to 'sopr' command.
  * bug fixes.
 
