@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -138,8 +138,7 @@ void usage(int status)
            "                f  (float, %dbyte)        d  (double, %dbyte)\n",
            sizeof(float), sizeof(double));
    fprintf(stderr,
-           "                de (long double, %dbyte)\n",
-           sizeof(long double));
+           "                de (long double, %dbyte)\n", sizeof(long double));
    fprintf(stderr, "       %%form : print format(printf style) [N/A]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -210,20 +209,20 @@ int main(int argc, char **argv)
             break;
          case 'i':
             if (*(s + 1) == '3') {
-                size = 3;
-                type = 't';
-                (*argv)++;
+               size = 3;
+               type = 't';
+               (*argv)++;
             } else {
-                size = sizeof(int);
+               size = sizeof(int);
             }
             break;
          case 'l':
             if (*(s + 1) == 'e') {
-                size = sizeof(long long);
-                type = 'u';
-                (*argv)++;
+               size = sizeof(long long);
+               type = 'u';
+               (*argv)++;
             } else {
-                size = sizeof(long);
+               size = sizeof(long);
             }
             break;
          case 'C':
@@ -234,20 +233,20 @@ int main(int argc, char **argv)
             break;
          case 'I':
             if (*(s + 1) == '3') {
-                size = 3;
-                type = 'T';
-                (*argv)++;
+               size = 3;
+               type = 'T';
+               (*argv)++;
             } else {
-                size = sizeof(unsigned int);
+               size = sizeof(unsigned int);
             }
             break;
          case 'L':
             if (*(s + 1) == 'E') {
-                size = sizeof(unsigned long long);
-                type = 'U';
-                (*argv)++;
+               size = sizeof(unsigned long long);
+               type = 'U';
+               (*argv)++;
             } else {
-                size = sizeof(unsigned long);
+               size = sizeof(unsigned long);
             }
             break;
          case 'f':
@@ -255,11 +254,11 @@ int main(int argc, char **argv)
             break;
          case 'd':
             if (*(s + 1) == 'e') {
-                size = sizeof(long double);
-                type = 'v';
-                (*argv)++;
+               size = sizeof(long double);
+               type = 'v';
+               (*argv)++;
             } else {
-                size = sizeof(double);
+               size = sizeof(double);
             }
             break;
          default:

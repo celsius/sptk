@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -244,6 +244,7 @@ double imglsadf(double x, double *b, const int m, const double a, const int n,
 
    return (x);
 }
+
 static double imglsadff1(double x, double *b, const int m, const double a,
                          const double g, double *d)
 {

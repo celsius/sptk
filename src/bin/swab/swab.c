@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -141,8 +141,7 @@ void usage(int status)
            "                f  (float, %dbyte)        d  (double, %dbyte)\n",
            sizeof(float), sizeof(double));
    fprintf(stderr,
-           "                de (long double, %dbyte)\n",
-           sizeof(long double));
+           "                de (long double, %dbyte)\n", sizeof(long double));
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence                [stdin]\n");

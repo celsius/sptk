@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -145,8 +145,7 @@ void usage(int status)
            "                f  (float, %dbyte)        d  (double, %dbyte)\n",
            sizeof(float), sizeof(double));
    fprintf(stderr,
-           "                de (long double, %dbyte)\n",
-           sizeof(long double));
+           "                de (long double, %dbyte)\n", sizeof(long double));
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence        [stdin]\n");
@@ -220,19 +219,19 @@ int main(int argc, char **argv)
             break;
          case 'i':
             if (*(s + 1) == '3') {
-                size = 3;
-                int3flg = TR;
-                (*argv)++;
+               size = 3;
+               int3flg = TR;
+               (*argv)++;
             } else {
-                size = sizeof(int);
+               size = sizeof(int);
             }
             break;
          case 'l':
             if (*(s + 1) == 'e') {
-                size = sizeof(long long);
-                (*argv)++;
+               size = sizeof(long long);
+               (*argv)++;
             } else {
-                size = sizeof(long);
+               size = sizeof(long);
             }
             break;
          case 'C':
@@ -243,19 +242,19 @@ int main(int argc, char **argv)
             break;
          case 'I':
             if (*(s + 1) == '3') {
-                size = 3;
-                uint3flg = TR;
-                (*argv)++;
+               size = 3;
+               uint3flg = TR;
+               (*argv)++;
             } else {
-                size = sizeof(unsigned int);
+               size = sizeof(unsigned int);
             }
             break;
          case 'L':
             if (*(s + 1) == 'E') {
-                size = sizeof(unsigned long long);
-                (*argv)++;
+               size = sizeof(unsigned long long);
+               (*argv)++;
             } else {
-                size = sizeof(unsigned long);
+               size = sizeof(unsigned long);
             }
             break;
          case 'f':
@@ -263,10 +262,10 @@ int main(int argc, char **argv)
             break;
          case 'd':
             if (*(s + 1) == 'e') {
-                size = sizeof(long double);
-                (*argv)++;
+               size = sizeof(long double);
+               (*argv)++;
             } else {
-                size = sizeof(double);
+               size = sizeof(double);
             }
             break;
          default:
@@ -284,14 +283,14 @@ int main(int argc, char **argv)
    ptr = (end - start + 1) * n;
    while (end == -1 || ptr--) {
       if (freadx(&x, size, 1, fp) != 1)
-          break;
-      if (int3flg == TR || uint3flg  == TR) {
-          y = *(int *) &x & 0x00FFFFFF;
-          if (int3flg == TR && y >> 23 == 1)
-              y = y | 0xFF000000;
-          fwritex(&y, size, 1, stdout);
+         break;
+      if (int3flg == TR || uint3flg == TR) {
+         y = *(int *) &x & 0x00FFFFFF;
+         if (int3flg == TR && y >> 23 == 1)
+            y = y | 0xFF000000;
+         fwritex(&y, size, 1, stdout);
       } else
-          fwritex(&x, size, 1, stdout);
+         fwritex(&x, size, 1, stdout);
    }
 
    return (0);

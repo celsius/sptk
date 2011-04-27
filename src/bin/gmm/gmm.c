@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -486,8 +486,9 @@ int main(int argc, char **argv)
                   for (j = 0; j <= l; j++) {
                      tgmm.gauss[m].cov[l][j] +=
                          tmp1 * (pd[l] - gmm.gauss[m].mean[l]) * (pd[j] -
-                                                                  gmm.gauss[m].
-                                                                  mean[j]);
+                                                                  gmm.
+                                                                  gauss[m].mean
+                                                                  [j]);
                   }
                }
             }

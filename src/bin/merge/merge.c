@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -126,7 +126,7 @@ void usage(int status)
    fprintf(stderr, "       -o    : over write mode             [%s]\n",
            BOOL[WRITE]);
    fprintf(stderr, "       +type : data type                   [f]\n");
-   fprintf(stderr, 
+   fprintf(stderr,
            "                c  (char, %dbyte)         C  (unsigned char, %dbyte)\n",
            sizeof(char), sizeof(unsigned char));
    fprintf(stderr,
@@ -147,8 +147,7 @@ void usage(int status)
            "                f  (float, %dbyte)        d  (double, %dbyte)\n",
            sizeof(float), sizeof(double));
    fprintf(stderr,
-           "                de (long double, %dbyte)\n",
-           sizeof(long double));
+           "                de (long double, %dbyte)\n", sizeof(long double));
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence                       [stdin]\n");
@@ -220,18 +219,18 @@ int main(int argc, char **argv)
             break;
          case 'i':
             if (*(s + 1) == '3') {
-                size = 3;
-                (*argv)++;
+               size = 3;
+               (*argv)++;
             } else {
-                size = sizeof(int);
+               size = sizeof(int);
             }
             break;
          case 'l':
             if (*(s + 1) == 'e') {
-                size = sizeof(long long);
-                (*argv)++;
+               size = sizeof(long long);
+               (*argv)++;
             } else {
-                size = sizeof(long);
+               size = sizeof(long);
             }
             break;
          case 'C':
@@ -242,18 +241,18 @@ int main(int argc, char **argv)
             break;
          case 'I':
             if (*(s + 1) == '3') {
-                size = 3;
-                (*argv)++;
+               size = 3;
+               (*argv)++;
             } else {
-                size = sizeof(unsigned int);
+               size = sizeof(unsigned int);
             }
             break;
          case 'L':
             if (*(s + 1) == 'E') {
-                size = sizeof(unsigned long long);
-                (*argv)++;
+               size = sizeof(unsigned long long);
+               (*argv)++;
             } else {
-                size = sizeof(unsigned long);
+               size = sizeof(unsigned long);
             }
             break;
          case 'f':
@@ -261,10 +260,10 @@ int main(int argc, char **argv)
             break;
          case 'd':
             if (*(s + 1) == 'e') {
-                size = sizeof(long double);
-                (*argv)++;
+               size = sizeof(long double);
+               (*argv)++;
             } else {
-                size = sizeof(double);
+               size = sizeof(double);
             }
             break;
          default:

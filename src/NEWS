@@ -1,3 +1,12 @@
+Version 3.4.1:
+ * add 'idct' command.
+ * remove all input/output except float from 'frame', 'snr', 'us16', and 'uscd' command.
+ * add input/output data type to many commands.
+ * fix help message of 'x2x' command to show byte number for all data type.
+ * change command name 'pcap' into 'pcas' command.
+ * add new constant (octave and cent) to 'sopr' command.
+ * bug fixes.
+
 Version 3.4:
  * add magic and MAGIC option to delete and substitute magic number to 'sopr' command.
  * add flooring and clipping option to 'sopr' command.
