@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -66,7 +66,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: dmp.c,v 1.22 2011/04/26 13:41:11 mataki Exp $";
+static char *rcs_id = "$Id: dmp.c,v 1.23 2011/04/27 13:46:39 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -109,7 +109,7 @@ void usage(int status)
    fprintf(stderr, "       -n n  : block order   (0,...,n)      [EOD]\n");
    fprintf(stderr, "       -l l  : block length  (1,...,l)      [EOD]\n");
    fprintf(stderr, "       +type : data type                    [f]\n");
-   fprintf(stderr, 
+   fprintf(stderr,
            "                c  (char, %dbyte)         C  (unsigned char, %dbyte)\n",
            sizeof(char), sizeof(unsigned char));
    fprintf(stderr,
@@ -130,8 +130,7 @@ void usage(int status)
            "                f  (float, %dbyte)        d  (double, %dbyte)\n",
            sizeof(float), sizeof(double));
    fprintf(stderr,
-           "                de (long double, %dbyte)\n",
-           sizeof(long double));
+           "                de (long double, %dbyte)\n", sizeof(long double));
    fprintf(stderr, "       %%form : print format(printf style)   [N/A]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -214,23 +213,23 @@ int main(int argc, char **argv)
             break;
          case 'i':
             if (*(s + 1) == '3') {
-                size = 3;
-                int3flg = TR;
-                cc = 't';
-                (*argv)++;
+               size = 3;
+               int3flg = TR;
+               cc = 't';
+               (*argv)++;
             } else {
-                size = sizeof(int);
-                cc = 'i';
+               size = sizeof(int);
+               cc = 'i';
             }
             break;
          case 'l':
             if (*(s + 1) == 'e') {
-                size = sizeof(long long);
-                cc = 'u';
-                (*argv)++;
+               size = sizeof(long long);
+               cc = 'u';
+               (*argv)++;
             } else {
-                size = sizeof(long);
-                cc = 'l';
+               size = sizeof(long);
+               cc = 'l';
             }
             break;
          case 'C':
@@ -243,23 +242,23 @@ int main(int argc, char **argv)
             break;
          case 'I':
             if (*(s + 1) == '3') {
-                size = 3;
-                uint3flg = TR;
-                cc = 'T';
-                (*argv)++;
+               size = 3;
+               uint3flg = TR;
+               cc = 'T';
+               (*argv)++;
             } else {
-                size = sizeof(unsigned int);
-                cc = 'I';
+               size = sizeof(unsigned int);
+               cc = 'I';
             }
             break;
          case 'L':
             if (*(s + 1) == 'E') {
-                size = sizeof(unsigned long long);
-                cc = 'U';
-                (*argv)++;
+               size = sizeof(unsigned long long);
+               cc = 'U';
+               (*argv)++;
             } else {
-                size = sizeof(unsigned long);
-                cc = 'L';
+               size = sizeof(unsigned long);
+               cc = 'L';
             }
             break;
          case 'f':
@@ -268,12 +267,12 @@ int main(int argc, char **argv)
             break;
          case 'd':
             if (*(s + 1) == 'e') {
-                size = sizeof(long double);
-                cc = 'v';
-                (*argv)++;
+               size = sizeof(long double);
+               cc = 'v';
+               (*argv)++;
             } else {
-                size = sizeof(double);
-                cc = 'd';
+               size = sizeof(double);
+               cc = 'd';
             }
             break;
          default:

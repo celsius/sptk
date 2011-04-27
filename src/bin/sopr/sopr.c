@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -95,7 +95,7 @@
 *                                                                              *
 *******************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.30 2011/02/17 12:39:19 mataki Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.31 2011/04/27 13:46:43 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -149,14 +149,16 @@ void usage(int status)
    fprintf(stderr, "       -MAGIC MAGIC : replace magic number by MAGIC\n");
    fprintf(stderr, "                      if -magic option is not given,\n");
    fprintf(stderr, "                      return error\n");
-   fprintf(stderr, "       if -magic or -MAGIC option is given multiple times,\n");
+   fprintf(stderr,
+           "       if -magic or -MAGIC option is given multiple times,\n");
    fprintf(stderr, "       return error\n");
    fprintf(stderr, "\n");
    fprintf(stderr,
            "       if the argument of the above operation option is `dB', `cent'\n");
    fprintf(stderr,
            "       or `octave', then the value 20/log_e(10), 1200/log_e(2)\n");
-   fprintf(stderr, "       or 1/log_e(2) is assigned, respectively. Also if `pi' or\n");
+   fprintf(stderr,
+           "       or 1/log_e(2) is assigned, respectively. Also if `pi' or\n");
    fprintf(stderr,
            "       `ln(x)',`exp(x)',`sqrt(x)' such as `ln2',`exp10',`sqrt30' \n");
    fprintf(stderr,

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /******************************************************************
- $Id: _c2ir.c,v 1.11 2010/12/10 17:28:01 uratec Exp $
+ $Id: _c2ir.c,v 1.12 2011/04/27 13:46:38 mataki Exp $
 
         cepstrum to impulse response
                 c2ir(c,nc,h,leng)

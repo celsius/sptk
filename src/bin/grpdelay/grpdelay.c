@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -61,7 +61,7 @@
 *       Note that double precision FFT is used.                         *
 ************************************************************************/
 
-static char *rcs_id = "$Id: grpdelay.c,v 1.23 2010/12/10 10:44:21 mataki Exp $";
+static char *rcs_id = "$Id: grpdelay.c,v 1.24 2011/04/27 13:46:40 mataki Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>

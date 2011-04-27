@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _mglsadf.c,v 1.15 2010/12/10 10:44:23 mataki Exp $
+    $Id: _mglsadf.c,v 1.16 2011/04/27 13:46:42 mataki Exp $
 
     MGLSA Digital Filter
 
@@ -244,6 +244,7 @@ double imglsadf(double x, double *b, const int m, const double a, const int n,
 
    return (x);
 }
+
 static double imglsadff1(double x, double *b, const int m, const double a,
                          const double g, double *d)
 {

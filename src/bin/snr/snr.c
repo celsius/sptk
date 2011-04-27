@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -66,7 +66,7 @@
 *               SNR,  SNRseg                                            *
 ************************************************************************/
 
-static char *rcs_id = "$Id: snr.c,v 1.23 2011/04/26 13:41:11 mataki Exp $";
+static char *rcs_id = "$Id: snr.c,v 1.24 2011/04/27 13:46:43 mataki Exp $";
 
 
 /*  Standard C Libraries  */

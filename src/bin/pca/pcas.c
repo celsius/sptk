@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -62,7 +62,7 @@
 *                                                                          *
 ****************************************************************************/
 
-static char *rcs_id = "$Id: pcas.c,v 1.1 2011/02/16 09:20:57 mataki Exp $";
+static char *rcs_id = "$Id: pcas.c,v 1.2 2011/04/27 13:46:42 mataki Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>

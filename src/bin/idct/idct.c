@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: idct.c,v 1.1 2011/04/26 11:58:30 mataki Exp $";
+static char *rcs_id = "$Id: idct.c,v 1.2 2011/04/27 13:46:40 mataki Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -95,28 +95,27 @@ char *BOOL[] = { "FALSE", "TRUE" };
 char *cmnd;
 
 /* workspace */
-static int     dct_table_size     = 0;
-static double *dct_workspace      = NULL;
-static double *pLocalReal         = NULL;
-static double *pLocalImag         = NULL;
-static double *pWeightReal        = NULL;
-static double *pWeightImag        = NULL;
+static int dct_table_size = 0;
+static double *dct_workspace = NULL;
+static double *pLocalReal = NULL;
+static double *pLocalImag = NULL;
+static double *pWeightReal = NULL;
+static double *pWeightImag = NULL;
 
 Boolean dftmode = DFTMODE;
-int     size    = SIZE;
+int size = SIZE;
 
 int usage(void)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr,
-           " %s - Inverse Discrete Cosine Transformation\n",
-           cmnd);
+   fprintf(stderr, " %s - Inverse Discrete Cosine Transformation\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr,
-           "       -l l  : IDCT size                              [%d]\n", SIZE);
+           "       -l l  : IDCT size                              [%d]\n",
+           SIZE);
    fprintf(stderr,
            "       -c    : use comlex number                      [FALSE]\n");
    fprintf(stderr,
@@ -139,7 +138,7 @@ int usage(void)
 
 int dft(double *pReal, double *pImag, const int nDFTLength)
 {
-   int     k, n;
+   int k, n;
    double *pTempReal, *pTempImag, TempReal, TempImag;
 
    pTempReal = dgetmem(nDFTLength);
@@ -152,12 +151,10 @@ int dft(double *pReal, double *pImag, const int nDFTLength)
       TempReal = 0;
       TempImag = 0;
       for (n = 0; n < nDFTLength; n++) {
-         TempReal +=
-            pTempReal[n] * cos(2.0 * PI * n * k / (double) nDFTLength)
-            + pTempImag[n] * sin(2.0 * PI * n * k / (double) nDFTLength);
-         TempImag +=
-            -pTempReal[n] * sin(2.0 * PI * n * k / (double) nDFTLength)
-            + pTempImag[n] * cos(2.0 * PI * n * k / (double) nDFTLength);
+         TempReal += pTempReal[n] * cos(2.0 * PI * n * k / (double) nDFTLength)
+             + pTempImag[n] * sin(2.0 * PI * n * k / (double) nDFTLength);
+         TempImag += -pTempReal[n] * sin(2.0 * PI * n * k / (double) nDFTLength)
+             + pTempImag[n] * cos(2.0 * PI * n * k / (double) nDFTLength);
       }
       pReal[k] = TempReal;
       pImag[k] = TempImag;
@@ -179,8 +176,8 @@ int idct_create_table(const int nSize)
          free(dct_workspace);
          dct_workspace = NULL;
       }
-      pLocalReal  = NULL;
-      pLocalImag  = NULL;
+      pLocalReal = NULL;
+      pLocalImag = NULL;
       pWeightReal = NULL;
       pWeightImag = NULL;
    }
@@ -192,10 +189,10 @@ int idct_create_table(const int nSize)
    } else {
       dct_table_size = nSize;
       dct_workspace = dgetmem(dct_table_size * 8);
-      pWeightReal   = dct_workspace;
-      pWeightImag   = dct_workspace + 2 * dct_table_size;
-      pLocalReal    = dct_workspace + (4 * dct_table_size);
-      pLocalImag    = dct_workspace + (6 * dct_table_size);
+      pWeightReal = dct_workspace;
+      pWeightImag = dct_workspace + 2 * dct_table_size;
+      pLocalReal = dct_workspace + (4 * dct_table_size);
+      pLocalImag = dct_workspace + (6 * dct_table_size);
 
       for (k = 0; k < 2 * dct_table_size; k++) {
          pWeightReal[k] = cos(k * PI / (2.0 * dct_table_size))
@@ -211,26 +208,26 @@ int idct_create_table(const int nSize)
 int idct(double *pReal, double *pImag,
          const double *pInReal, const double *pInImag, int PowerOf2)
 {
-   int    k, n;
+   int k, n;
    double rtemp, itemp;
 
    for (n = 1; n < dct_table_size; n++) {
-      pLocalReal[n]                  = pInReal[n];
-      pLocalImag[n]                  = pInImag[n];
+      pLocalReal[n] = pInReal[n];
+      pLocalImag[n] = pInImag[n];
       pLocalReal[dct_table_size + n] = -pInReal[dct_table_size - n];
       pLocalImag[dct_table_size + n] = -pInImag[dct_table_size - n];
    }
-   pLocalReal[0]              = pInReal[0];
-   pLocalImag[0]              = pInImag[0];
+   pLocalReal[0] = pInReal[0];
+   pLocalImag[0] = pInImag[0];
    pLocalReal[dct_table_size] = 0.0;
    pLocalImag[dct_table_size] = 0.0;
 
    /* 1/2 sample shift in the temporal domain */
    for (k = 0; k < 2 * dct_table_size; k++) {
-       rtemp         = pLocalReal[k];
-       itemp         = pLocalImag[k];
-       pLocalReal[k] = rtemp * pWeightReal[k] - itemp * pWeightImag[k];
-       pLocalImag[k] = rtemp * pWeightImag[k] + itemp * pWeightReal[k];
+      rtemp = pLocalReal[k];
+      itemp = pLocalImag[k];
+      pLocalReal[k] = rtemp * pWeightReal[k] - itemp * pWeightImag[k];
+      pLocalImag[k] = rtemp * pWeightImag[k] + itemp * pWeightReal[k];
    }
 
    if (size != PowerOf2 | dftmode) {
@@ -247,11 +244,11 @@ int idct(double *pReal, double *pImag,
 
 int main(int argc, char *argv[])
 {
-   char    *s, *infile = NULL, c;
-   int      i, j, k, n, iter, size2;
-   double  *x, *y, *pReal, *pImag;
-   FILE    *fp;
-   Boolean  comp = COMPLEX;
+   char *s, *infile = NULL, c;
+   int i, j, k, n, iter, size2;
+   double *x, *y, *pReal, *pImag;
+   FILE *fp;
+   Boolean comp = COMPLEX;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL) {
       cmnd = argv[0];
@@ -267,13 +264,13 @@ int main(int argc, char *argv[])
             --argc;
          }
          switch (c) {
-         case 'l':          /* IDCT size */
+         case 'l':             /* IDCT size */
             size = atoi(s);
             break;
-         case 'c':          /* use complex number */
+         case 'c':             /* use complex number */
             comp = 1 - COMPLEX;
             break;
-         case 'd':          /* IDCT without FFT (DFT) */
+         case 'd':             /* IDCT without FFT (DFT) */
             dftmode = 1 - dftmode;
             break;
          case 'h':
@@ -291,10 +288,10 @@ int main(int argc, char *argv[])
    }
 
    /* memory allocation */
-   x      = dgetmem(size2 = size + size);
-   y      = x + size;
-   pReal  = dgetmem(size2);
-   pImag  = pReal + size;
+   x = dgetmem(size2 = size + size);
+   y = x + size;
+   pReal = dgetmem(size2);
+   pImag = pReal + size;
 
    while (!feof(fp)) {
       fillz(x, size2, sizeof(*x));

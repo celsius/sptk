@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -42,7 +42,7 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/* $Id: gmm.h,v 1.3 2010/12/10 10:44:21 mataki Exp $ */
+/* $Id: gmm.h,v 1.4 2011/04/27 13:46:40 mataki Exp $ */
 
 #define LZERO  (-1.0E10)        /* ~log(0) */
 #define LSMALL (-0.5E10)        /* log values < LSMALL are set to LZERO */

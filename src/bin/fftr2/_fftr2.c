@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /********************************************************
-* $Id: _fftr2.c,v 1.13 2010/12/10 10:44:21 mataki Exp $*
+* $Id: _fftr2.c,v 1.14 2011/04/27 13:46:39 mataki Exp $*
 *       fftr2 : two dimensional fast Fourier transform  *
 *                       for real sequence               *
 *                                                       *

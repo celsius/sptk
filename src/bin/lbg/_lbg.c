@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -44,7 +44,7 @@
 
 /**********************************************************************************************
 
-    $Id: _lbg.c,v 1.17 2010/12/10 10:44:22 mataki Exp $
+    $Id: _lbg.c,v 1.18 2011/04/27 13:46:40 mataki Exp $
 
     LBG Algorithm for Vector Quantizer Design
 

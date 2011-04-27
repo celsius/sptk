@@ -1,3 +1,64 @@
+2011-04-26 22:41  mataki
+
+	* bin/bcp/bcp.c, bin/bcut/bcut.c, bin/da/da.in, bin/dmp/dmp.c,
+	  bin/fd/fd.c, bin/frame/frame.c, bin/merge/merge.c,
+	  bin/rawtowav/rawtowav.c, bin/snr/snr.c, bin/swab/swab.c,
+	  bin/us/us16.in, bin/us/uscd.in, script/gwave.in,
+	  script/raw2wav.in, script/wav2raw.in: fix input/output data type
+
+2011-04-26 21:05  mataki
+
+	* configure.ac, bin/Makefile.am, bin/Makefile.mak: add idct
+	  command.
+
+2011-04-26 20:58  mataki
+
+	* bin/idct/: .cvsignore, Makefile.am, idct.c: add idct command.
+
+2011-02-22 15:42  sawada11
+
+	* bin/x2x/x2x.c: modify help message
+
+2011-02-21 16:38  sawada11
+
+	* bin/: dct/dct.c, delta/delta.c: Bug fixing
+
+2011-02-17 21:46  mataki
+
+	* bin/: da/dawrite.c, ifft/ifft.c, ifft2/ifft2.c, minmax/minmax.c,
+	  nan/nan.c, x2x/x2x.c: Fix a bug suggested by Heiga Zen of Toshiba
+	  Research Europe Ltd.	Cambridge Research Laboratory.
+
+2011-02-17 21:39  mataki
+
+	* bin/sopr/sopr.c: modify the behavior when specifying -magic and
+	  -MAGIC option and the new two constants, cent and octave are
+	  added.
+
+2011-02-16 18:45  mataki
+
+	* bin/Makefile.mak: substitute pcas.c for pcap.c
+
+2011-02-16 18:20  mataki
+
+	* bin/pca/pcas.c: substitute pcas.c for pcap.c
+
+2011-02-16 18:17  mataki
+
+	* bin/pca/: Makefile.am, pcap.c: remove pcap.c for pcas.c
+
+2010-12-14 10:16  uratec
+
+	* AUTHORS, README: Add 'Akira Tamamori' to AUTHORS and README.
+	  Update configure for building reference.
+
+2010-12-11 02:28  uratec
+
+	* ChangeLog, NEWS, bin/b2mc/_b2mc.c, bin/c2acr/_c2acr.c,
+	  bin/c2ir/_c2ir.c, bin/mc2b/_mc2b.c, bin/poledf/_poledf.c,
+	  bin/ulaw/_ulaw.c, lib/Makefile.lib.in: Remove old file
+	  (Makefile.lib.in)
+
 2010-12-11 01:53  uratec
 
 	* Makefile.mak, bin/Makefile.mak, lib/Makefile.mak: Fix

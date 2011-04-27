@@ -1,11 +1,11 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
-AC_INIT(SPTK, 3.4, http://sourceforge.net/projects/sp-tk/)
+AC_INIT(SPTK, 3.4.1, http://sourceforge.net/projects/sp-tk/)
 AC_CONFIG_AUX_DIR([config])
 AC_COPYRIGHT(Copyright 1984-2007 Tokyo Institute of Technology)
-AC_COPYRIGHT(Copyright 1996-2010 Nagoya Institute of Technology)
-AM_INIT_AUTOMAKE(SPTK, 3.4, nostdinc no-installinfo no-installman)
+AC_COPYRIGHT(Copyright 1996-2011 Nagoya Institute of Technology)
+AM_INIT_AUTOMAKE(SPTK, 3.4.1, nostdinc no-installinfo no-installman)
 AC_SUBST(PACKAGE_NAME)
 AC_SUBST(PACKAGE_VERSION)
 

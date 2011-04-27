@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2010  Nagoya Institute of Technology          */
+/*                1996-2011  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -62,8 +62,10 @@ extern double xo, yo, xl, yl, x00, y00, mh, mw, h, w;
 extern double xclip0, yclip0, xclip1, yclip1, wf, hf, fct;
 
 static int lmod[] = { 0, 2, 6, 3, 4 }, ptyp = 1;
+
 static int is_xlog = 0, is_ylog = 0;
 static double lpit[] = { 10.0, 1.6, 10.0, 3.0, 5.0 };
+
 static double dhat = 1.0, that = 45.0;
 static double xfct = 1.0, yfct = 1.0;
 static char label[BUFLNG / 2] = "";
