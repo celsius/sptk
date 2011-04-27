@@ -9,7 +9,7 @@
 #                           Interdisciplinary Graduate School of    #
 #                           Science and Engineering                 #
 #                                                                   #
-#                1996-2010  Nagoya Institute of Technology          #
+#                1996-2011  Nagoya Institute of Technology          #
 #                           Department of Computer Science          #
 #                                                                   #
 # All rights reserved.                                              #
@@ -49,7 +49,7 @@ onintr clean
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: wav2raw.in,v 1.6 2011/04/26 13:44:08 mataki Exp $'
+set cvsid   = '$Id: wav2raw.in,v 1.7 2011/04/27 16:24:14 mataki Exp $'
 
 
 set cmnd	= $0
