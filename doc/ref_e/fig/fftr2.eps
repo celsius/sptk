@@ -1,16 +1,21 @@
-%!
-%%BoundingBox: 14 573 423 796
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 62 507 462 774
 %%Title: fftr2
-%%CreationDate: Sun Nov 12 13:50:36 1995
-%%Creator: Tgif-2.16J-p12 by William Chia-Wei Cheng (william@cs.UCLA.edu)
+%%CreationDate: Thu Apr 28 16:00:31 2011
+%%Creator: Tgif-4.1.45-QPL written by William Chia-Wei Cheng (bill.cheng@acm.org)
+%%ProducedBy: (unknown)
+%%Pages: 1
+%%DocumentFonts: (atend)
+%%EndComments
+%%BeginProlog
 
-/tgifdict 37 dict def
+/tgifdict 86 dict def
 tgifdict begin
 
 /tgifarrowtipdict 8 dict def
 tgifarrowtipdict /mtrx matrix put
 
-/tgifarrowtip
+/TGAT % tgifarrowtip
  { tgifarrowtipdict begin
       /dy exch def
       /dx exch def
@@ -28,94 +33,35 @@ tgifarrowtipdict /mtrx matrix put
    end
  } def
 
-/tgifsetuserscreendict 22 dict def
-tgifsetuserscreendict begin
-   /tempctm matrix def
-   /temprot matrix def
-   /tempscale matrix def
+/tgifpatdict 10 dict def
 
-   /concatprocs
-    { /proc2 exch cvlit def
-      /proc1 exch cvlit def
-      /newproc proc1 length proc2 length add array def
-      newproc 0 proc1 putinterval
-      newproc proc1 length proc2 putinterval
-      newproc cvx
-    } def
-   /resmatrix matrix def
-   /findresolution
-    { 72 0 resmatrix defaultmatrix dtransform
-      /yres exch def /xres exch def
-      xres dup mul yres dup mul add sqrt
-    } def
-end
-
-/tgifsetuserscreen
- { tgifsetuserscreendict begin
-      /spotfunction exch def
-      /screenangle exch def
-      /cellsize exch def
-
-      /m tempctm currentmatrix def
-      /rm screenangle temprot rotate def
-      /sm cellsize dup tempscale scale def
-
-      sm rm m m concatmatrix m concatmatrix pop
-
-      1 0 m dtransform /y1 exch def /x1 exch def
-
-      /veclength x1 dup mul y1 dup mul add sqrt def
-      /frequency findresolution veclength div def
-
-      /newscreenangle y1 x1 atan def
-
-      m 2 get m 1 get mul m 0 get m 3 get mul sub 0 gt
-
-      {{neg} /spotfunction load concatprocs
-         /spotfunction exch def
-      } if
-
-      frequency newscreenangle /spotfunction load setscreen
-   end
+/tgifpatbyte
+ { currentdict /retstr get exch
+   pat i cellsz mod get put
  } def
 
-/tgifsetpatterndict 18 dict def
-tgifsetpatterndict begin
-   /bitison
-    { /ybit exch def /xbit exch def
-      /bytevalue bstring ybit bwidth mul xbit 8 idiv add get def
-
-      /mask 1 7 xbit 8 mod sub bitshift def
-      bytevalue mask and 0 ne
-    } def
-end
-
-/tgifbitpatternspotfunction
- { tgifsetpatterndict begin
-      /y exch def /x exch def
-
-      /xindex x 1 add 2 div bpside mul cvi def
-      /yindex y 1 add 2 div bpside mul cvi def
-
-      xindex yindex bitison
-       { /onbits onbits 1 add def 1 }
-       { /offbits offbits 1 add def 0 }
-       ifelse
-   end
+/tgifpatproc
+ { 0 1 widthlim {tgifpatbyte} for retstr
+   /i i 1 add def
  } def
 
-/tgifsetpattern
- { tgifsetpatterndict begin
+/TGPF % tgifpatfill
+ { tgifpatdict begin
+      /h exch def
+      /w exch def
+      /lty exch def
+      /ltx exch def
       /cellsz exch def
-      /angle exch def
-      /bwidth exch def
-      /bpside exch def
-      /bstring exch def
+      /pat exch def
 
-      /onbits 0 def /offbits 0 def
-      cellsz angle /tgifbitpatternspotfunction load tgifsetuserscreen
-      {} settransfer
-      offbits offbits onbits add div setgray
+      /widthlim w cellsz div cvi 1 sub def
+      /retstr widthlim 1 add string def
+      /i 0 def
+
+      tgiforigctm setmatrix
+      ltx lty translate
+      w h true [1 0 0 1 0 0] {tgifpatproc} imagemask
+      ltx neg lty neg translate
    end
  } def
 
@@ -149,1061 +95,1435 @@ end
 /pat30 <fefdfbf7efdfbf7f> def
 /pat31 <7cf8f1e3c78f1f3e> def
 
+/TGMAX
+ { exch dup 3 1 roll exch dup 3 1 roll gt { pop } { exch pop } ifelse
+ } def
+/TGMIN
+ { exch dup 3 1 roll exch dup 3 1 roll lt { pop } { exch pop } ifelse
+ } def
+/TGSW { stringwidth pop } def
+
+/bd { bind def } bind def
+
+/GS { gsave } bd
+/GR { grestore } bd
+/NP { newpath } bd
+/CP { closepath } bd
+/CHP { charpath } bd
+/CT { curveto } bd
+/L { lineto } bd
+/RL { rlineto } bd
+/M { moveto } bd
+/RM { rmoveto } bd
+/S { stroke } bd
+/F { fill } bd
+/TR { translate } bd
+/RO { rotate } bd
+/SC { scale } bd
+/MU { mul } bd
+/DI { div } bd
+/DU { dup } bd
+/NE { neg } bd
+/AD { add } bd
+/SU { sub } bd
+/PO { pop } bd
+/EX { exch } bd
+/CO { concat } bd
+/CL { clip } bd
+/EC { eoclip } bd
+/EF { eofill } bd
+/IM { image } bd
+/IMM { imagemask } bd
+/ARY { array } bd
+/SG { setgray } bd
+/RG { setrgbcolor } bd
+/SD { setdash } bd
+/W { setlinewidth } bd
+/SM { setmiterlimit } bd
+/SLC { setlinecap } bd
+/SLJ { setlinejoin } bd
+/SH { show } bd
+/FF { findfont } bd
+/MS { makefont setfont } bd
+/AR { arcto 4 {pop} repeat } bd
+/CURP { currentpoint } bd
+/FLAT { flattenpath strokepath clip newpath } bd
+/TGSM { tgiforigctm setmatrix } def
+/TGRM { savematrix setmatrix } def
+
 end
 
-%%PageBoundingBox: 14 573 423 796
+%%EndProlog
+%%Page: 1 1
+
+%%PageBoundingBox: 62 507 462 774
 tgifdict begin
 /tgifsavedpage save def
 
-1 setmiterlimit
-1 setlinewidth
+1 SM
+1 W
 
-0 setgray
+0 SG
 
-72 0 mul 72 11.70 mul translate
-72 128 div 100 mul 100 div dup neg scale
+72 0 MU 72 11.602 MU TR
+72 128 DI 100.000 MU 100 DI DU NE SC
 
-gsave
+GS
 
-% BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      150 125 moveto 250 125 lineto 250 150 lineto 150 150 lineto
-   closepath fill
-grestore
-gsave
-   1.415 setmiterlimit
-   newpath
-      150 125 moveto 250 125 lineto 250 150 lineto 150 150 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
+/tgiforigctm matrix currentmatrix def
 
 % BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      250 125 moveto 350 125 lineto 350 150 lineto 250 150 lineto
-   closepath fill
-grestore
-gsave
-   1.415 setmiterlimit
-   newpath
-      250 125 moveto 350 125 lineto 350 150 lineto 250 150 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
+0 SG
+GS
+   NP 255 150 M 575 150 L 575 175 L 255 175 L CP 1 SG F
+   0 SG
+   NP 255 150 M 575 150 L 575 175 L 255 175 L CP EC NP
+   pat4 8 248 144 336 40 TGPF
+GR
+GS
+   10 SM
+   GS
+      NP 255 150 M 575 150 L 575 175 L 255 175 L CP
+      S
+   GR
+GR
+
+% POLY/OPEN-SPLINE
+0 SG
+GS
+   NP
+      359 150 M
+      359 175 L
+   TGSM
+   1 W
+   S
+GR
+
+% POLY/OPEN-SPLINE
+0 SG
+GS
+   NP
+      255 145 M
+      255 115 L
+   TGSM
+   1 W
+   S
+GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      140 160 M
+      GS
+            0 SG
+            /Times-BoldItalic FF [24 0 0 -24 0 0] MS
+            (Input) SH
+      GR
+   GR
 
 % BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      350 125 moveto 450 125 lineto 450 150 lineto 350 150 lineto
-   closepath fill
-grestore
-gsave
-   1.415 setmiterlimit
-   newpath
-      350 125 moveto 450 125 lineto 450 150 lineto 350 150 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
+0 SG
+GS
+   NP 250 525 M 820 525 L 820 550 L 250 550 L CP 1 SG F
+   0 SG
+   NP 250 525 M 820 525 L 820 550 L 250 550 L CP EC NP
+   pat4 8 248 520 576 32 TGPF
+GR
+GS
+   10 SM
+   GS
+      NP 250 525 M 820 525 L 820 550 L 250 550 L CP
+      S
+   GR
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      150 95 moveto
-      150 120 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      535 525 M
+      535 550 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      250 95 moveto
-      250 120 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      390 525 M
+      390 550 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      350 95 moveto
-      350 120 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      675 525 M
+      675 550 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      450 95 moveto
-      450 120 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      535 520 M
+      535 475 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      150 105 moveto
-      0 100 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 100 atan dup cos 8 mul 250 exch sub
-      exch sin 8 mul 105 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      150 105 8 3 -100 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      250 105 8 3 100 0 tgifarrowtip
-   closepath fill
-grestore
+0 SG
+GS
+   NP
+      820 520 M
+      820 475 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      250 105 moveto
-      0 100 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 100 atan dup cos 8 mul 350 exch sub
-      exch sin 8 mul 105 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      250 105 8 3 -100 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      350 105 8 3 100 0 tgifarrowtip
-   closepath fill
-grestore
-
-% POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      350 105 moveto
-      0 100 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 100 atan dup cos 8 mul 450 exch sub
-      exch sin 8 mul 105 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      350 105 8 3 -100 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      450 105 8 3 100 0 tgifarrowtip
-   closepath fill
-grestore
+0 SG
+GS
+   NP
+      250 520 M
+      250 475 L
+   TGSM
+   1 W
+   S
+GR
 
 % TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      175 99 moveto (n1) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-BoldItalic findfont [24 0 0 -24 0 0] makefont setfont
-   gsave
-      65 137 moveto (Input) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-BoldItalic findfont [24 0 0 -24 0 0] makefont setfont
-   gsave
-      35 237 moveto (After read) show
-   grestore
+NP
+0 SG
+   GS
+      1 W
+      115 510 M
+      GS
+            0 SG
+            /Times-BoldItalic FF [24 0 0 -24 0 0] MS
+            (After FFT) SH
+      GR
+      0 28 RM
+      GS
+            0 SG
+            /Times-BoldItalic FF [24 0 0 -24 0 0] MS
+            (  \(Output\)) SH
+      GR
+   GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      200 180 moveto
-      200 225 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      255 135 M
+      0 104 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 104 atan DU cos 8.000 MU 359 exch SU
+      exch sin 8.000 MU 135 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      255 135 8.000 3.000 -104 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      255 135 8.000 3.000 -104 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      359 135 8.000 3.000 104 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      359 135 8.000 3.000 104 0 TGAT
+   CP F
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      200 190 moveto
-      0 150 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 150 atan dup cos 8 mul 350 exch sub
-      exch sin 8 mul 190 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      200 190 8 3 -150 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      350 190 8 3 150 0 tgifarrowtip
-   closepath fill
-grestore
+0 SG
+GS
+   NP
+      359 135 M
+      0 113 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 113 atan DU cos 8.000 MU 472 exch SU
+      exch sin 8.000 MU 135 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      359 135 8.000 3.000 -113 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      359 135 8.000 3.000 -113 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      472 135 8.000 3.000 113 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      472 135 8.000 3.000 113 0 TGAT
+   CP F
+GR
+
+% POLY/OPEN-SPLINE
+0 SG
+GS
+   NP
+      472 135 M
+      0 105 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 105 atan DU cos 8.000 MU 577 exch SU
+      exch sin 8.000 MU 135 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      472 135 8.000 3.000 -105 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      472 135 8.000 3.000 -105 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      577 135 8.000 3.000 105 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      577 135 8.000 3.000 105 0 TGAT
+   CP F
+GR
+
+% POLY/OPEN-SPLINE
+0 SG
+GS
+   NP
+      250 500 M
+      0 140 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 140 atan DU cos 8.000 MU 390 exch SU
+      exch sin 8.000 MU 500 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      250 500 8.000 3.000 -140 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      250 500 8.000 3.000 -140 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      390 500 8.000 3.000 140 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      390 500 8.000 3.000 140 0 TGAT
+   CP F
+GR
+
+% POLY/OPEN-SPLINE
+0 SG
+GS
+   NP
+      390 500 M
+      0 145 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 145 atan DU cos 8.000 MU 535 exch SU
+      exch sin 8.000 MU 500 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      390 500 8.000 3.000 -145 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      390 500 8.000 3.000 -145 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      535 500 8.000 3.000 145 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      535 500 8.000 3.000 145 0 TGAT
+   CP F
+GR
+
+% POLY/OPEN-SPLINE
+0 SG
+GS
+   [4 4] 0 SD
+   NP
+      390 485 M
+      390 520 L
+   TGSM
+   1 W
+   S
+   [] 0 SD
+GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      270 490 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% POLY/OPEN-SPLINE
+0 SG
+GS
+   NP
+      535 500 M
+      0 140 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 140 atan DU cos 8.000 MU 675 exch SU
+      exch sin 8.000 MU 500 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      535 500 8.000 3.000 -140 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      535 500 8.000 3.000 -140 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      675 500 8.000 3.000 140 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      675 500 8.000 3.000 140 0 TGAT
+   CP F
+GR
+
+% POLY/OPEN-SPLINE
+0 SG
+GS
+   NP
+      675 500 M
+      0 145 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 145 atan DU cos 8.000 MU 820 exch SU
+      exch sin 8.000 MU 500 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      675 500 8.000 3.000 -145 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      675 500 8.000 3.000 -145 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      820 500 8.000 3.000 145 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      820 500 8.000 3.000 145 0 TGAT
+   CP F
+GR
+
+% POLY/OPEN-SPLINE
+0 SG
+GS
+   [4 4] 0 SD
+   NP
+      675 485 M
+      675 520 L
+   TGSM
+   1 W
+   S
+   [] 0 SD
+GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      290 575 M
+      GS
+            0 SG
+            /Times-Italic FF [18 0 0 -18 0 0] MS
+            (Real part) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      575 575 M
+      GS
+            0 SG
+            /Times-Italic FF [18 0 0 -18 0 0] MS
+            (Real part) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      435 575 M
+      GS
+            0 SG
+            /Times-Italic FF [18 0 0 -18 0 0] MS
+            (Im. part) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      715 575 M
+      GS
+            0 SG
+            /Times-Italic FF [18 0 0 -18 0 0] MS
+            (Im. part) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      315 490 M
+      GS
+            0 SG
+            /Ryumin-Light-EUC-H FF dup /WMode known {dup /WMode get 1 eq {[0 1 -1 0 0 0.3] makefont} if} if
+[12 0 0 -12 0 0] MS
+            (\241\337) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      330 490 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      415 490 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      460 490 M
+      GS
+            0 SG
+            /Ryumin-Light-EUC-H FF dup /WMode known {dup /WMode get 1 eq {[0 1 -1 0 0 0.3] makefont} if} if
+[12 0 0 -12 0 0] MS
+            (\241\337) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      475 490 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      555 490 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      600 490 M
+      GS
+            0 SG
+            /Ryumin-Light-EUC-H FF dup /WMode known {dup /WMode get 1 eq {[0 1 -1 0 0 0.3] makefont} if} if
+[12 0 0 -12 0 0] MS
+            (\241\337) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      615 490 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      700 490 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      745 490 M
+      GS
+            0 SG
+            /Ryumin-Light-EUC-H FF dup /WMode known {dup /WMode get 1 eq {[0 1 -1 0 0 0.3] makefont} if} if
+[12 0 0 -12 0 0] MS
+            (\241\337) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      760 490 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      275 125 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (n1) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      300 125 M
+      GS
+            0 SG
+            /Ryumin-Light-EUC-H FF dup /WMode known {dup /WMode get 1 eq {[0 1 -1 0 0 0.3] makefont} if} if
+[12 0 0 -12 0 0] MS
+            (\241\337) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      315 125 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (n2) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      385 125 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (n1) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      410 125 M
+      GS
+            0 SG
+            /Ryumin-Light-EUC-H FF dup /WMode known {dup /WMode get 1 eq {[0 1 -1 0 0 0.3] makefont} if} if
+[12 0 0 -12 0 0] MS
+            (\241\337) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      425 125 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (n2) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      490 125 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (n1) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      515 125 M
+      GS
+            0 SG
+            /Ryumin-Light-EUC-H FF dup /WMode known {dup /WMode get 1 eq {[0 1 -1 0 0 0.3] makefont} if} if
+[12 0 0 -12 0 0] MS
+            (\241\337) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      530 125 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (n2) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      375 215 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      540 215 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      445 295 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (000) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      445 330 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (000) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      445 365 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (000) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      445 400 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (000) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      615 295 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (000) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      615 330 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (000) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      615 365 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (000) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      615 400 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (000) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      325 430 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (00000000000000) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      495 430 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (00000000000000) SH
+      GR
+   GR
 
 % BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      200 225 moveto 300 225 lineto 300 250 lineto 200 250 lineto
-   closepath fill
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      310 244 moveto (000) show
-   grestore
+0 SG
+GS
+   NP 481 270 M 609 270 L 609 410 L 481 410 L CP 1 SG F
+   0 SG
+   NP 481 270 M 609 270 L 609 410 L 481 410 L CP EC NP
+   pat4 8 472 264 144 152 TGPF
+GR
 
 % BOX
-0 setgray
-gsave
-   1.415 setmiterlimit
-   newpath
-      200 225 moveto 350 225 lineto 350 250 lineto 200 250 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      260 184 moveto (size) show
-   grestore
+0 SG
+GS
+   NP 311 270 M 439 270 L 439 410 L 311 410 L CP 1 SG F
+   0 SG
+   NP 311 270 M 439 270 L 439 410 L 311 410 L CP EC NP
+   pat4 8 304 264 144 152 TGPF
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      150 395 moveto
-      150 420 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      311 305 M
+      650 305 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      150 405 moveto
-      0 150 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 150 atan dup cos 8 mul 300 exch sub
-      exch sin 8 mul 405 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      150 405 8 3 -150 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      300 405 8 3 150 0 tgifarrowtip
-   closepath fill
-grestore
-
-% BOX
-0 setgray
-gsave
-   pat20 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      150 425 moveto 300 425 lineto 300 450 lineto 150 450 lineto
-   closepath fill
-grestore
-gsave
-   1.415 setmiterlimit
-   newpath
-      150 425 moveto 300 425 lineto 300 450 lineto 150 450 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
+0 SG
+GS
+   NP
+      311 340 M
+      650 340 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   [4 4] 0 setdash
-   newpath
-      300 395 moveto
-      300 420 lineto
-   stroke
-   [] 0 setdash
-grestore
+0 SG
+GS
+   NP
+      311 375 M
+      650 375 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      300 405 moveto
-      0 150 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 150 atan dup cos 8 mul 450 exch sub
-      exch sin 8 mul 405 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      300 405 8 3 -150 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      450 405 8 3 150 0 tgifarrowtip
-   closepath fill
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      230 399 moveto (size) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   pat20 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      300 425 moveto 450 425 lineto 450 450 lineto 300 450 lineto
-   closepath fill
-grestore
-gsave
-   1.415 setmiterlimit
-   newpath
-      300 425 moveto 450 425 lineto 450 450 lineto 300 450 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
-
-% TEXT
-0 setgray
-/Times-BoldItalic findfont [24 0 0 -24 0 0] makefont setfont
-   gsave
-      30 417 moveto (After FFT) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-BoldItalic findfont [24 0 0 -24 0 0] makefont setfont
-   gsave
-      35 447 moveto (\(Output\)) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-Italic findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      190 470 moveto (Real part) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-Italic findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      350 470 moveto (Im. part) show
-   grestore
+0 SG
+GS
+   NP
+      291 410 M
+      650 410 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      750 395 moveto
-      750 420 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      255 270 M
+      650 270 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      450 405 moveto
-      0 150 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 150 atan dup cos 8 mul 600 exch sub
-      exch sin 8 mul 405 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      450 405 8 3 -150 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      600 405 8 3 150 0 tgifarrowtip
-   closepath fill
-grestore
-
-% BOX
-0 setgray
-gsave
-   pat20 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      450 425 moveto 600 425 lineto 600 450 lineto 450 450 lineto
-   closepath fill
-grestore
-gsave
-   1.415 setmiterlimit
-   newpath
-      450 425 moveto 600 425 lineto 600 450 lineto 450 450 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
+0 SG
+GS
+   NP
+      255 440 M
+      650 440 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   [4 4] 0 setdash
-   newpath
-      600 395 moveto
-      600 420 lineto
-   stroke
-   [] 0 setdash
-grestore
+0 SG
+GS
+   NP
+      650 215 M
+      650 440 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      600 405 moveto
-      0 150 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 150 atan dup cos 8 mul 750 exch sub
-      exch sin 8 mul 405 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      600 405 8 3 -150 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      750 405 8 3 150 0 tgifarrowtip
-   closepath fill
-grestore
-
-% BOX
-0 setgray
-gsave
-   pat20 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      600 425 moveto 750 425 lineto 750 450 lineto 600 450 lineto
-   closepath fill
-grestore
-gsave
-   1.415 setmiterlimit
-   newpath
-      600 425 moveto 750 425 lineto 750 450 lineto 600 450 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
-
-% TEXT
-0 setgray
-/Times-Italic findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      490 470 moveto (Real part) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-Italic findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      650 470 moveto (Im. part) show
-   grestore
+0 SG
+GS
+   NP
+      481 210 M
+      481 440 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      450 395 moveto
-      450 420 lineto
-   stroke
-grestore
-
-% BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      200 250 moveto 300 250 lineto 300 275 lineto 200 275 lineto
-   closepath fill
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      310 269 moveto (000) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   1.415 setmiterlimit
-   newpath
-      200 250 moveto 350 250 lineto 350 275 lineto 200 275 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
-
-% BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      200 275 moveto 300 275 lineto 300 300 lineto 200 300 lineto
-   closepath fill
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      310 294 moveto (000) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   1.415 setmiterlimit
-   newpath
-      200 275 moveto 350 275 lineto 350 300 lineto 200 300 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
-
-% BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      200 300 moveto 300 300 lineto 300 325 lineto 200 325 lineto
-   closepath fill
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      310 319 moveto (000) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   1.415 setmiterlimit
-   newpath
-      200 300 moveto 350 300 lineto 350 325 lineto 200 325 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
+0 SG
+GS
+   NP
+      311 210 M
+      311 440 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      200 225 moveto
-      155 225 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      311 225 M
+      0 172 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 172 atan DU cos 8.000 MU 483 exch SU
+      exch sin 8.000 MU 225 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      311 225 8.000 3.000 -172 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      311 225 8.000 3.000 -172 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      483 225 8.000 3.000 172 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      483 225 8.000 3.000 172 0 TGAT
+   CP F
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      200 325 moveto
-      185 325 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      481 225 M
+      0 171 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 171 atan DU cos 8.000 MU 652 exch SU
+      exch sin 8.000 MU 225 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      481 225 8.000 3.000 -171 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      481 225 8.000 3.000 -171 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      652 225 8.000 3.000 171 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      652 225 8.000 3.000 171 0 TGAT
+   CP F
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      190 225 moveto
-      100 0 atan dup cos 8 mul exch sin 8 mul rmoveto
-      100 0 atan dup cos 8 mul 190 exch sub
-      exch sin 8 mul 325 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      190 225 8 3 0 -100 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      190 325 8 3 0 100 tgifarrowtip
-   closepath fill
-grestore
+0 SG
+GS
+   NP
+      300 270 M
+      140 0 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      140 0 atan DU cos 8.000 MU 300 exch SU
+      exch sin 8.000 MU 410 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      300 270 8.000 3.000 0 -140 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      300 270 8.000 3.000 0 -140 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      300 410 8.000 3.000 0 140 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      300 410 8.000 3.000 0 140 TGAT
+   CP F
+GR
 
 % TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      165 279 moveto (n2) show
-   grestore
+NP
+0 SG
+   GS
+      1 W
+      275 345 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (n2) SH
+      GR
+   GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      300 200 moveto
-      300 225 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      435 270 M
+      435 240 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      200 205 moveto
-      0 100 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 100 atan dup cos 8 mul 300 exch sub
-      exch sin 8 mul 205 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      200 205 8 3 -100 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      300 205 8 3 100 0 tgifarrowtip
-   closepath fill
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      235 219 moveto (n1) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   1.415 setmiterlimit
-   newpath
-      200 325 moveto 350 325 lineto 350 350 lineto 200 350 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      205 344 moveto (00000000000000) show
-   grestore
+0 SG
+GS
+   NP
+      605 270 M
+      605 240 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      200 350 moveto
-      155 350 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      481 245 M
+      0 126 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 126 atan DU cos 8.000 MU 607 exch SU
+      exch sin 8.000 MU 245 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      481 245 8.000 3.000 -126 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      481 245 8.000 3.000 -126 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      607 245 8.000 3.000 126 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      607 245 8.000 3.000 126 0 TGAT
+   CP F
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      160 225 moveto
-      125 0 atan dup cos 8 mul exch sin 8 mul rmoveto
-      125 0 atan dup cos 8 mul 160 exch sub
-      exch sin 8 mul 350 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      160 225 8 3 0 -125 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      160 350 8 3 0 125 tgifarrowtip
-   closepath fill
-grestore
+0 SG
+GS
+   NP
+      311 245 M
+      0 126 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      0 126 atan DU cos 8.000 MU 437 exch SU
+      exch sin 8.000 MU 245 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      311 245 8.000 3.000 -126 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      311 245 8.000 3.000 -126 0 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      437 245 8.000 3.000 126 0 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      437 245 8.000 3.000 126 0 TGAT
+   CP F
+GR
 
 % TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      115 309 moveto (size) show
-   grestore
+NP
+0 SG
+   GS
+      1 W
+      530 260 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (n1) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      355 260 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (n1) SH
+      GR
+   GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      350 225 moveto
-      350 180 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      265 270 M
+      170 0 atan DU cos 8.000 MU exch sin 8.000 MU RM
+      170 0 atan DU cos 8.000 MU 265 exch SU
+      exch sin 8.000 MU 440 exch SU L
+   TGSM
+   1 W
+   S
+GR
+GS
+   TGSM
+   NP
+      265 270 8.000 3.000 0 -170 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      265 270 8.000 3.000 0 -170 TGAT
+   CP F
+GR
+GS
+   TGSM
+   NP
+      265 440 8.000 3.000 0 170 TGAT
+   1 SG CP F
+   0 SG
+   NP
+      265 440 8.000 3.000 0 170 TGAT
+   CP F
+GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      220 365 M
+      GS
+            0 SG
+            /Courier-Oblique FF [17 0 0 -17 0 0] MS
+            (size) SH
+      GR
+   GR
+
+% TEXT
+NP
+0 SG
+   GS
+      1 W
+      120 270 M
+      GS
+            0 SG
+            /Times-BoldItalic FF [24 0 0 -24 0 0] MS
+            (After read) SH
+      GR
+   GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      350 180 moveto
-      350 225 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      360 145 M
+      360 115 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      350 190 moveto
-      0 150 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 150 atan dup cos 8 mul 500 exch sub
-      exch sin 8 mul 190 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      350 190 8 3 -150 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      500 190 8 3 150 0 tgifarrowtip
-   closepath fill
-grestore
-
-% BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      350 225 moveto 450 225 lineto 450 250 lineto 350 250 lineto
-   closepath fill
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      460 244 moveto (000) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   1.415 setmiterlimit
-   newpath
-      350 225 moveto 500 225 lineto 500 250 lineto 350 250 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      410 184 moveto (size) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      350 250 moveto 450 250 lineto 450 275 lineto 350 275 lineto
-   closepath fill
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      460 269 moveto (000) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   1.415 setmiterlimit
-   newpath
-      350 250 moveto 500 250 lineto 500 275 lineto 350 275 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
-
-% BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      350 275 moveto 450 275 lineto 450 300 lineto 350 300 lineto
-   closepath fill
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      460 294 moveto (000) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   1.415 setmiterlimit
-   newpath
-      350 275 moveto 500 275 lineto 500 300 lineto 350 300 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
-
-% BOX
-0 setgray
-gsave
-   pat12 8 1 0 72 300 32 div div tgifsetpattern
-   newpath
-      350 300 moveto 450 300 lineto 450 325 lineto 350 325 lineto
-   closepath fill
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      460 319 moveto (000) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   1.415 setmiterlimit
-   newpath
-      350 300 moveto 500 300 lineto 500 325 lineto 350 325 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
+0 SG
+GS
+   NP
+      470 145 M
+      470 115 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      450 200 moveto
-      450 225 lineto
-   stroke
-grestore
+0 SG
+GS
+   NP
+      469 150 M
+      469 175 L
+   TGSM
+   1 W
+   S
+GR
 
 % POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      350 205 moveto
-      0 100 atan dup cos 8 mul exch sin 8 mul rmoveto
-      0 100 atan dup cos 8 mul 450 exch sub
-      exch sin 8 mul 205 exch sub lineto
-   stroke
-grestore
-gsave
-   newpath
-      350 205 8 3 -100 0 tgifarrowtip
-   closepath fill
-grestore
-gsave
-   newpath
-      450 205 8 3 100 0 tgifarrowtip
-   closepath fill
-grestore
+0 SG
+GS
+   NP
+      575 145 M
+      575 115 L
+   TGSM
+   1 W
+   S
+GR
 
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      385 219 moveto (n1) show
-   grestore
-
-% BOX
-0 setgray
-gsave
-   1.415 setmiterlimit
-   newpath
-      350 325 moveto 500 325 lineto 500 350 lineto 350 350 lineto
-   closepath stroke
-   1 setmiterlimit
-grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      355 344 moveto (00000000000000) show
-   grestore
-
-% POLY/OPEN-SPLINE
-0 setgray
-gsave
-   newpath
-      500 225 moveto
-      500 180 lineto
-   stroke
-grestore
-
-% TEXT
-0 setgray
-/Times-Bold findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      200 101 moveto (x) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      210 99 moveto (n2) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      270 99 moveto (n1) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-Bold findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      295 101 moveto (x) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      305 99 moveto (n2) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      365 99 moveto (n1) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-Bold findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      390 101 moveto (x) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      400 99 moveto (n2) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      175 399 moveto (size) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-Bold findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      220 401 moveto (x) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      380 399 moveto (size) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      325 399 moveto (size) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-Bold findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      370 401 moveto (x) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      530 399 moveto (size) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      475 399 moveto (size) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-Bold findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      520 401 moveto (x) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      680 399 moveto (size) show
-   grestore
-
-% TEXT
-0 setgray
-/Courier-Oblique findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      625 399 moveto (size) show
-   grestore
-
-% TEXT
-0 setgray
-/Times-Bold findfont [17 0 0 -17 0 0] makefont setfont
-   gsave
-      670 401 moveto (x) show
-   grestore
-
-grestore
+GR
 tgifsavedpage restore
 end
-%MatchingCreationDate: Sun Nov 12 13:50:36 1995
+showpage
+
+%%Trailer
+%MatchingCreationDate: Thu Apr 28 16:00:31 2011
+%%DocumentFonts: Ryumin-Light-EUC-H
+%%+ Times-Italic
+%%+ Courier-Oblique
+%%+ Times-BoldItalic
+%%EOF
