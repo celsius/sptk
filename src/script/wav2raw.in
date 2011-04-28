@@ -67,6 +67,10 @@ set normalization	= 0
 set normalization_all = 0
 set OutputType = s
 
+set data_position
+set READfmt = 0
+set ENTERdatachunk = 0
+
 @ i = 0
 while ($i < $#argv)
 	@ i++
@@ -260,10 +264,6 @@ foreach f ($file)
 
             @ Current = $Current + 2
             @ tmp = $Current + 1
-            if( $FormatID != 1) then
-                set ExSize = `bcut +c -s $Current -e $tmp $f | x2x +Sa`
-                @ Current = $Current + 2 + $ExSize
-            endif
 
             set READfmt = 1 # enable to read "data" chunk
             if ( $ENTERdatachunk == 0) then
