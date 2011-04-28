@@ -1,3 +1,12 @@
+2011-04-28 08:24  uratec
+
+	* NEWS, README: Modify indent of text.
+
+2011-04-28 01:24  mataki
+
+	* ChangeLog, NEWS, README, script/wav2raw.in: fix documents for
+	  SPTK 3.4.1
+
 2011-04-27 22:46  mataki
 
 	* COPYING, ChangeLog, NEWS, README, configure.ac, bin/acep/_acep.c,
