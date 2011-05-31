@@ -137,6 +137,12 @@ The following example gives the same results:
   \verb!sopr data.f -LOG2 -m 1200 | dmp +f!
 \end{quote}
 \par
+The following example replace the number 0 by 1.0. Until
+given -MAGIC option, skip any operations at the magic number.
+\begin{quote}
+  \verb!sopr data.f -magic 0 -m 4.0 -INV -MAGIC 1.0 | dmp +f!
+\end{quote}
+\par
 If we want to evaluate the following equation,
 \[
 y = (1 + 3x + 4x^2) / (1 + 2x + 5x^2) 

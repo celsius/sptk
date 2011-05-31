@@ -143,6 +143,12 @@ for every group of 3 frames and sent to {\em data.av}:
 \begin{quote}
   \verb!vstat -l 15 -t 3 -o 1 data.f > data.av!
 \end{quote}
+
+The outpit file {\em data.stat} contains the mean and upper / lower
+bound of confidence interval (90\%) via Student's t-distribution.
+\begin{quote}
+  \verb!vstat -C 90.0 -o 3 data.f > data.stat!
+\end{quote}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
