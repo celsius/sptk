@@ -56,7 +56,7 @@
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: glogsp.in,v 1.14 2011/04/27 13:46:44 mataki Exp $'
+set cvsid   = '$Id: glogsp.in,v 1.15 2011/05/31 04:46:03 sawada11 Exp $'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -281,8 +281,7 @@ fdrw -W $w -H $h -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -F $F
 
 
 if ($?c) then
-        # echo "$c"
-        @ yoc = $yo - 8
+        set yoc = `echo "$yo - 8 * $F" | bc -l`
         fig -W $w -H $h -o $xo $yoc -g 0 -F $F<< EOF
         xname "$c"
 EOF
