@@ -53,7 +53,7 @@
 *      Ver. 0.99  '93.8                                 *
 ********************************************************/
 
-static char *rcs_id = "$Id: psgr.c,v 1.20 2011/04/27 13:46:43 mataki Exp $";
+static char *rcs_id = "$Id: psgr.c,v 1.21 2011/05/31 04:40:09 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -81,9 +81,10 @@ static char *rcs_id = "$Id: psgr.c,v 1.20 2011/04/27 13:46:43 mataki Exp $";
 char *BOOL[] = { "FALSE", "TRUE" };
 
 
-#define MaxPaperTypes 13        /*  Paper Media  */
+#define MaxPaperTypes 14        /*  Paper Media  */
 
 struct page_media paper[] = {
+   {"FALSE", 9999, 9999},
    {"Letter", 612, 792},
    {"A0", 2378, 3362},
    {"A1", 1682, 2378},
@@ -107,7 +108,7 @@ char *orientations[] = {        /*  Orientation  */
 
 
 /* Default Values */
-#define MEDIA       "A4"
+#define MEDIA       "FALSE"
 #define ORIENTATION "Portrait"
 #define PSMODE      FA
 #define PAPERNUM    2
@@ -257,8 +258,9 @@ int main(int argc, char *argv[])
       xleng = paper[paper_num].height;
       yleng = paper[paper_num].width;
    }
-   xleng *= SCALE;
-   yleng *= SCALE;
+   xleng = xleng * (double) SCALE / shrink;
+   yleng = yleng * (double) SCALE / shrink;
+ 
    orientation = orientations[landscape];
 
    if (filename != NULL) {
