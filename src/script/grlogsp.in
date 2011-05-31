@@ -111,7 +111,7 @@ set xs = ( "0 0.25 0.5" \
 set xx = ("0 0.5" "0 3.14" "" "0 4" "0 5" "0 6" "" "0 8" "" "0 10")
 set xl = (0.5 3.14 "" 4 5 6 "" 8 "" 10)
 
-set on_x = (25 60 95 130 165)
+set on_x = (25 60 95 130 165 200 235 270 305 340)
 
 @ i = 0
 while ($i < $#argv)
@@ -250,12 +250,18 @@ usage:
         echo2 '       -F   F         : factor                       [1]    '
         echo2 '       -t             : transpose x and y axes       [FALSE]'
         echo2 '       -O   O         : origin of graph              [6]    '
+        echo2 '                       (if O is more than 6, drawing area is over A4 range)'
 if ( $help ) then
-        echo2 '                         1 ( 25, yo) <mm>   +-----------+'
-        echo2 '                         2 ( 60, yo) <mm>   |           |'
-        echo2 '                         3 ( 95, yo) <mm>   |           |'
-        echo2 '                         4 (130, yo) <mm>   | 1 2 3 4 5 |'
-        echo2 '                         5 (165, yo) <mm>   +-----------+'
+        echo2 '                         1 ( 25, yo) <mm>   +----------------------+'
+        echo2 '                         2 ( 60, yo) <mm>   |                      |'
+        echo2 '                         3 ( 95, yo) <mm>   |                      |'
+        echo2 '                         4 (130, yo) <mm>   | 1 2 3 4 5 6 7 8 9 10 |'
+        echo2 '                         5 (165, yo) <mm>   +----------------------+'
+        echo2 '                         6 (200, yo) <mm>  '
+        echo2 '                         7 (235, yo) <mm>  '
+        echo2 '                         8 (270, yo) <mm>  '
+        echo2 '                         9 (305, yo) <mm>  '
+        echo2 '                        10 (340, yo) <mm>  '
         echo2 '                         (yo+100,x) <mm> if -t is specified'
 endif
         echo2 '       -x   x         : x scale                      [1]'
@@ -316,17 +322,17 @@ endif
 
 set xo  = `echo "$xo * $F" | bc -l`
 set yo  = `echo "$yo * $F" | bc -l`
-
+set cs  = `echo "$cs * $F" | bc -l`
 @ yy[1] = $ymin
 @ yy[2] = $yy[1] + $yscale * 10
 
 set ww = $w
 if( $trans ) then
         set T = "-t"
-        @ xxo = $xo
-        @ xo = $yo
-        @ yo = $xxo
-        @ yo = $yo + 100
+        set xxo = $xo
+        set xo = $yo
+        set yo = $xxo
+        set yo = `echo "$yo + 100" | bc -l`
         set w = $h
         set h = -$ww
 else
@@ -336,11 +342,11 @@ endif
 
 if ($?ccc) then
         if ($trans ) then
-                @ xoc = $xo + $cyyy - 5
-                @ yoc = $yo
+                set xoc = `echo "$xo + ($cyyy - 5) * $F" | bc -l`
+                set yoc = $yo
         else
-                @ xoc = $xo
-                @ yoc = $yo + $cyyy 
+                set xoc = $xo
+                set yoc = `echo "$yo + $cyyy * $F" | bc -l`
         endif
         fig $T -W $w -H $h -o $xoc $yoc -g 0 -F $F << EOF
                 csize $cs
@@ -349,11 +355,11 @@ EOF
 endif
 if ($?cc) then
         if ($trans ) then
-                @ xoc = $xo + $cyy - 5
-                @ yoc = $yo
+                set xoc = `echo "$xo + ($cyy - 5) * $F" | bc -l`
+                set yoc = $yo
         else
-                @ xoc = $xo
-                @ yoc = $yo + $cyy 
+                set xoc = $xo
+                set yoc = `echo "$yo + $cyy * $F" | bc -l`
         endif
         fig $T -W $w -H $h -o $xoc $yoc -g 0 -F $F << EOF
                 csize $cs
@@ -362,11 +368,11 @@ EOF
 endif
 if ($?c) then
         if ($trans ) then
-                @ xoc = $xo + $cy - 5
-                @ yoc = $yo
+                set xoc = `echo "$xo + ($cy - 5) * $F" | bc -l`
+                set yoc = $yo
         else
-                @ xoc = $xo
-                @ yoc = $yo + $cy 
+                set xoc = $xo
+                set yoc = `echo "$yo + $cy * $F" | bc -l`
         endif
         fig $T -W $w -H $h -o $xoc $yoc -g 0 -F $F << EOF
                 csize $cs
