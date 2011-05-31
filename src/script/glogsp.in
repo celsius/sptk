@@ -281,8 +281,7 @@ fdrw -W $w -H $h -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -F $F
 
 
 if ($?c) then
-        # echo "$c"
-        @ yoc = $yo - 8
+        set yoc = `echo "$yo - 8 * $F" | bc -l`
         fig -W $w -H $h -o $xo $yoc -g 0 -F $F<< EOF
         xname "$c"
 EOF
