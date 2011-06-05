@@ -230,7 +230,7 @@ int idct(double *pReal, double *pImag,
       pLocalImag[k] = rtemp * pWeightImag[k] + itemp * pWeightReal[k];
    }
 
-   if (size != PowerOf2 | dftmode) {
+   if (size != PowerOf2 || dftmode) {
       dft(pLocalReal, pLocalImag, dct_table_size * 2);
    } else {
       fft(pLocalReal, pLocalImag, dct_table_size * 2);
