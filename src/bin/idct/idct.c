@@ -61,7 +61,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: idct.c,v 1.2 2011/04/27 13:46:40 mataki Exp $";
+static char *rcs_id = "$Id: idct.c,v 1.3 2011/06/05 14:35:05 mataki Exp $";
 
 /*  Standard C Libraries  */
 #include <stdio.h>
@@ -230,7 +230,7 @@ int idct(double *pReal, double *pImag,
       pLocalImag[k] = rtemp * pWeightImag[k] + itemp * pWeightReal[k];
    }
 
-   if (size != PowerOf2 | dftmode) {
+   if (size != PowerOf2 || dftmode) {
       dft(pLocalReal, pLocalImag, dct_table_size * 2);
    } else {
       fft(pLocalReal, pLocalImag, dct_table_size * 2);
