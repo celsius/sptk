@@ -66,7 +66,7 @@ set swab		= 0
 set normalization	= 0
 set normalization_all = 0
 set OutputType = s
-
+set OutMaxVal = 32767
 set data_position
 set READfmt = 0
 set ENTERdatachunk = 0
@@ -80,48 +80,51 @@ while ($i < $#argv)
 		breaksw
     case +c:
         set OutputType = c
+        set OutMaxVal = 127
         breaksw
 	case +s:
 		set OutputType = s
+        set OutMaxVal = 32767
 		breaksw
     case +i3:
         set OutputType = i3
+        set OutMaxVal = 8388067
         breaksw
 	case +i:
 		set OutputType = i
+        set OutMaxVal = 2147483647
 		breaksw
 	case +l:
 		set OutputType = l
-		breaksw
-	case +le:
-		set OutputType = le
+        set OutMaxVal = 2147483647
 		breaksw
 	case +C:
 		set OutputType = C
+        set OutMaxVal = 255
 		breaksw
 	case +S:
 		set OutputType = S
+        set OutMaxVal = 65535
 		breaksw
 	case +I3:
 		set OutputType = I3
+        set OutMaxVal = 16776135
 		breaksw
 	case +I:
 		set OutputType = I
+        set OutMaxVal = 4294967296
 		breaksw
 	case +L:
 		set OutputType = L
-		breaksw
-	case +LE:
-		set OutputType = LE
+        set OutMaxVal = 4294967296
 		breaksw
 	case +f:
 		set OutputType = f
+        set OutMaxVal = 1
 		breaksw
 	case +d:
 		set OutputType = d
-		breaksw
-	case +de:
-		set OutputType = de
+        set OutMaxVal = 1
 		breaksw
 	case +a:
 		set OutputType = a
@@ -173,8 +176,7 @@ usage:
         echo2 '       -n            : normalization with the maximum value'
         echo2 '                       according to bit/sample of the wav file'
         echo2 '                       if max >= 255 (8bit), 32767 (16bit),'
-        echo2 '                       8388067 (24bit), 2147483647 (32bit),'
-        echo2 '                       or 9223372036854775807 (64bit)'
+        echo2 '                       8388067 (24bit), 2147483647 (32bit).'
         echo2 '       -N            : normalization with the maximum value      [FALSE]'
         echo2 '       +type         : output data type                          [s]'
         echo2 '                        c  (char)         C  (unsigned char) '
@@ -182,9 +184,8 @@ usage:
         echo2 '                        i3 (int, 3byte)   I3 (unsigned int, 3byte)'
         echo2 '                        i  (int)          I  (unsigned int)'
         echo2 '                        l  (long)         L  (unsigned long)'
-        echo2 '                        le (long long)    LE (unsigned long) '
         echo2 '                        f  (float)        d  (double)'
-        echo2 '                        de (long double)  a  (ascii)'
+        echo2 '                        a  (ascii)'
         echo2 '       -h            : print this message'
         echo2 '  infile(s):'
         echo2 '       rawfile                                                   [N/A]'
@@ -211,18 +212,18 @@ exit $exit_status
 main:
 
 foreach f ($file)
-   set tmp = `bcut +c -s 4 -e 7 $f | x2x +Ia`
-   @ FileSize = $tmp + 8
+    set tmp = `bcut +c -s 4 -e 7 $f | x2x +Ia`
+    @ FileSize = $tmp + 8
 
-   @ Current = 12
-   @ Rest = $FileSize
-   while( $Rest > 0 )
+    @ Current = 12
+    @ Rest = $FileSize
+    while( $Rest > 0 )
         #Read the chunk ID (4byte)
         set i = 0; set tmp = $Current; set ChunkID
         while( $i < 4 )
-             set tmp2 = `bcut +c -s $tmp -e $tmp $f | x2x +Ca`
-             set ChunkID = ${ChunkID}`printf "%X" $tmp2`
-             @ i++; @ tmp++
+            set tmp2 = `bcut +c -s $tmp -e $tmp $f | x2x +Ca`
+            set ChunkID = ${ChunkID}`printf "%X" $tmp2`
+            @ i++; @ tmp++
         end
         @ Current = $Current + 4
 
@@ -253,91 +254,128 @@ foreach f ($file)
                 set MaxVal = 8388067
                 breaksw
             case 32:
-                set InputType = i
-                set MaxVal = 2147483647
-                breaksw
-            case 64:
-                set InputType = le
-                set MaxVal = 9223372036854775807
+                if ( $FormatID == 1 ) then # PCM
+                    set InputType = i
+                    set MaxVal = 2147483647
+                else if ( $FormatID == 3 ) then # IEEE float
+                    set InputType = f
+                    set MaxVal = 1
+                else
+                    echo2 "Format id $FormatID is not acceptable!"
+                    exit
+                endif
                 breaksw
             endsw
 
             @ Current = $Current + 2
-            @ tmp = $Current + 1
 
             set READfmt = 1 # enable to read "data" chunk
             if ( $ENTERdatachunk == 0) then
                 breaksw
             else
-                # if chunk "data" hasn't been read
+                # if "data" chunk has been read
                 @ Current = $data_position
                 # immediately read "data" chunk. no need to use 'breaksw'.
             endif
 
         case 64617461: #The chunk ID is "data" (ASCII code, hexadecimal number)
-             if ( $READfmt == 0 ) then
-                  set ENTERdatachunk = 1
-                  set data_position = $Current
-                  breaksw
-             endif
-             @ tmp = $Current + $ChunkSize
-             if ( $normalization ) then
-                  if ( $swab ) then
-                       bcut +c -s $Current -e $tmp $f | swab +$InputType |\
-                       x2x +${InputType}f > /tmp/{$f:t}.$$.tmp
-                  else
-                       bcut +c -s $Current -e $tmp $f |\
-                       x2x +${InputType}f > /tmp/{$f:t}.$$.tmp
-                  endif
+            if ( $READfmt == 0 ) then
+                set ENTERdatachunk = 1
+                set data_position = $Current
+                breaksw
+            endif
+            @ tmp = $Current + $ChunkSize
+            if ( $normalization ) then
+                if ( $FormatID == 3) then
+                    if ( $swab ) then
+                        bcut +c -s $Current -e $tmp $f | swab |\
+                        sopr -m ${OutMaxVal} > /tmp/{$f:t}.$$.tmp
+                    else
+                        bcut +c -s $Current -e $tmp $f |\
+                        sopr -m ${OutMaxVal} > /tmp/{$f:t}.$$.tmp
+                    endif
 
-                  set max = `minmax < /tmp/{$f:t}.$$.tmp | sopr -ABS |\
-                        minmax | bcut -s 1 | x2x +fa %.100f`
+                    set max = `minmax < /tmp/{$f:t}.$$.tmp | sopr -ABS |\
+                               minmax | bcut -s 1 | x2x +fa %.100f`
 
-                  if ( $normalization_all || `echo "$max < 0" | bc -l` ) then
-                       sopr -m $MaxVal -d $max < /tmp/{$f:t}.$$.tmp |\
-                       x2x +f$OutputType > /tmp/{$f:t}.$$.raw
-                  else
-                       x2x +f$OutputType < /tmp/{$f:t}.$$.tmp > /tmp/{$f:t}.$$.raw
-                  endif
+                    if ( $normalization_all || `echo "$max < 0" | bc -l` ) then
+                        sopr -m $MaxVal -d $max < /tmp/{$f:t}.$$.tmp |\
+                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                    else
+                        x2x -r +f${OutputType} < /tmp/{$f:t}.$$.tmp |\
+                            > /tmp/{$f:t}.$$.raw
+                    endif
+                else
+                    if ( $swab ) then
+                        bcut +c -s $Current -e $tmp $f | swab +$InputType |\
+                        x2x +${InputType}f > /tmp/{$f:t}.$$.tmp
+                    else
+                        bcut +c -s $Current -e $tmp $f |\
+                        x2x +${InputType}f > /tmp/{$f:t}.$$.tmp
+                    endif
 
-                  /bin/rm -f /tmp/{$f:t}.$$.tmp
-             else #No normalization
-                  if ( $swab ) then
-                       bcut +c -s $Current -e $tmp $f | swab +$InputType |\
-                       x2x +${InputType}${OutputType} > /tmp/{$f:t}.$$.raw
-                  else
-                       bcut +c -s $Current -e $tmp $f |\
-                       x2x +${InputType}${OutputType} > /tmp/{$f:t}.$$.raw
-                  endif
-             endif
+                    set max = `minmax < /tmp/{$f:t}.$$.tmp | sopr -ABS |\
+                               minmax | bcut -s 1 | x2x +fa %.100f`
 
-             if ( $f:e == "wav" ) then
-                  if ( $flagdirectory ) then
-                       set outfile = $directory/$f:t:r.raw
-                  else
-                       set outfile = $f:r.raw
-                  endif
-             else
-                  if ( $flagdirectory ) then
-                       set outfile = $directory/$f:t.raw
-                  else
-                       set outfile = $f.raw
-                  endif
-             endif
+                    if ( $normalization_all || `echo "$max < 0" | bc -l` ) then
+                        sopr -m $MaxVal -d $max < /tmp/{$f:t}.$$.tmp |\
+                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                    else
+                        x2x -r +f${OutputType} < /tmp/{$f:t}.$$.tmp |\
+                            > /tmp/{$f:t}.$$.raw
+                    endif
+                endif
 
-             /bin/mv /tmp/{$f:t}.$$.raw $outfile
-             @ Current = $Current + $ChunkSize
+                /bin/rm -f /tmp/{$f:t}.$$.tmp
+            else #No normalization
+                if ( $FormatID == 3) then
+                    if ( $swab ) then
+                        bcut +c -s $Current -e $tmp $f | swab |\
+                        sopr -m ${OutMaxVal} |\
+                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                     else
+                        bcut +c -s $Current -e $tmp $f |\
+                        sopr -m ${OutMaxVal} |\
+                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                     endif
+                else
+                    if ( $swab ) then
+                        bcut +c -s $Current -e $tmp $f | swab +$InputType |\
+                        x2x -r +${InputType}${OutputType} > /tmp/{$f:t}.$$.raw
+                    else
+                        bcut +c -s $Current -e $tmp $f |\
+                        x2x -r +${InputType}${OutputType} > /tmp/{$f:t}.$$.raw
+                    endif
+                endif
+            endif
 
-             breaksw
+            if ( $f:e == "wav" ) then
+                if ( $flagdirectory ) then
+                    set outfile = $directory/$f:t:r.raw
+                else
+                    set outfile = $f:r.raw
+                endif
+            else
+                if ( $flagdirectory ) then
+                    set outfile = $directory/$f:t.raw
+                else
+                    set outfile = $f.raw
+                endif
+            endif
+
+            /bin/mv /tmp/{$f:t}.$$.raw $outfile
+            @ Current = $Current + $ChunkSize
+
+            breaksw
        
         default:
-             @ Current = $Current + $ChunkSize
-             breaksw
+            @ Current = $Current + $ChunkSize
+            breaksw
 
         endsw # end of switch($ChunkID)
 
         @ Rest = $FileSize - $Current
-   end
+    end
 end
 
 clean:
