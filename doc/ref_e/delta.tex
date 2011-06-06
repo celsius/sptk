@@ -47,7 +47,10 @@
 \begin{synopsis}
 	\item [delta] [ --m $M$ ] [ --l $L$ ] [ --t $T$ ] 
 		[ --d ($fn$ $|$ $d_0$ [$d_1$ $\dots$]) ]
-		[ --r $N_R$ $W_1$ [$W_2$] ]  [ {\em infile} ] 
+		[ --r $N_R$ $W_1$ [$W_2$] ]
+ \item [\ ~~~~~~~]
+ [ --R $N_R$ ${W_F}_{1}$ ${W_B}_{1}$ [${W_F}_{2}$ ${W_B}_{2}$]]
+ [ --M $magic$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -67,7 +70,7 @@ obtained from the static feature vector as follows.
 	= \sum_{\tau=-L^{(n)}}^{L^{(n)}} w^{(n)}(\tau)\bx_{t+\tau}
  \end{displaymath}
 where $n$ is the order of dynamic feature vector, for
-example, when we evaluate $\Delta^2$ parameter, n=2.
+example, when we evaluate $\Delta^2$ parameter, $n=2$.
 \end{qsection}
 
 \begin{options}
@@ -94,7 +97,7 @@ example, when we evaluate $\Delta^2$ parameter, n=2.
                 When the order of the dynamic feature vector is higher
                 then one, then the sets of coefficients can be input
                 one after the other as shown on the last example below.
-		this option can not be used with the --r option.}{N/A}
+		This option can not be used with the --r option or --R option.}{N/A}
 	\argm{r}{N_R~W_1~[W_2]}{
 		This option is used when $N_R$-th order dynamic parameters
                 are used and the weighting coefficients $w^{(n)}(\tau)$
@@ -104,9 +107,9 @@ example, when we evaluate $\Delta^2$ parameter, n=2.
                 widths of the first and second order regression
                 coefficients, respectively.
 		The first order regression coefficients for
-                $\Delta\bc_t$ at frame $t$ are evaluated as follows.
+                $\Delta\bx_t$ at frame $t$ are evaluated as follows.
 	 \begin{displaymath}
-		\Delta\bc_t
+		\Delta\bx_t
 		= \frac{\sum_{\tau=-W_1}^{W_1}\tau \bc_{t+\tau}}%
 			{\sum_{\tau=-W_1}^{W_1}\tau^2}
 	 \end{displaymath}
@@ -116,17 +119,33 @@ example, when we evaluate $\Delta^2$ parameter, n=2.
 		$a_0 = \sum_{\tau=-W_2}^{W_2} 1$
                 and 
 	 \begin{displaymath}
-		\Delta^2\bc_t
-		= \frac{\sum_{\tau=-W_2}^{W_2}
-				(a_0\tau^2 - a_1) \bc_{t+\tau}}
-			{2(a_2a_0-a_1^2)}
+		\Delta^2\bx_t
+		= \frac{2\sum_{\tau=-W_2}^{W_2}
+				(a_0\tau^2 - a_1) \bx_{t+\tau}}
+			{a_2a_0-a_1^2}
 	 \end{displaymath}
-		this option can not be used with the --d option.}{N/A}
+ This option can not be used with the --d option or --R option.}{N/A}
+ \argm{R}{N_R~{W_F}_1~{W_B}_1[{W_F}_2~{W_B}_2]}{
+ Likewise --r option, $N_{R}$-th order dynamic feature parameters can be obtained
+ and weighting coefficients are evaluated by regression. $N_{R}$ can be made equal
+ to 1 or 2. The variables $W_{Fi}$ and $W_{Bi}$ represent the width of the
+ $i$-th order regression
+ coefficients of forward and backward direction, respectively.
+ Combining --M option, the regression coefficients can be evaluated skipping the magic
+ number from the input.
+ This option can not be used with the --d option or --r option.
+ }{N/A}
+ \argm{M}{magic}{
+ The magic number $magic$ can be skipped from the input during the calculation of
+ the dynamic features. This option is valid
+ only when --R option is specified simultaneously.
+ }{N/A}
+
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 In the example below, the first and second order dynamic features are calculated from 15-dimensional
-coefficient vectors from {\em data.f} using windows whose width are 1, and the resultant 
+coefficient vectors from {\em data.static} using windows whose width are 1, and the resultant
 static and dynamic features are sent to {\em data.delta}:
  \begin{quote}
 	\verb!delta -m 15 -r 2 1 1 data.static > data.delta!
@@ -134,11 +153,17 @@ static and dynamic features are sent to {\em data.delta}:
 	or
  \begin{quote}
 	\verb!echo "-0.5 0 0.5" | x2x +af > delta! \\
-	\verb!echo "0.25 -0.5 0.25" | x2x +af > accel! \\
-	\verb!delta -m 15 -d delta -d accel data.pdf > data.par!
+	\verb!echo "1.0 -2.0 1.0" | x2x +af > accel! \\
+	\verb!delta -m 15 -d delta -d accel data.static > data.delta!
+ \end{quote}
+ If we want to obtain the first and second order dynamic features from {\em data.f0} of scalar
+ sequence using windows whose width are 2 and want to skip the magic number
+ -1.0E15 during the calculation, we can use the following:
+ \begin{quote}
+	\verb!delta -l 1 -R 2 2 2 2 2 -M -1.0E15 data.f0 > data.delta!
  \end{quote}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
-\hyperlink{average}{mlpg}
+\hyperlink{mlpg}{mlpg}
 \end{qsection}
