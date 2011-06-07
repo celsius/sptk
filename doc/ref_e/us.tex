@@ -72,6 +72,13 @@ If you want to specify filter coefficients,
 {\bf --c} should also be given.
 
 Filter coefficients are in ASCII format.
+
+ If we want to up-sample from 10 or 12 to 16kHz, we can use
+ \hyperlink{us16}{\em us16} command.
+ Also, if we want to up/down-sample to 8, 10, 12, or 16
+ to 11.025, 22.05 or 44.1kHz, \hyperlink{uscd}{\em uscd} command
+ makes it possible.
+ Moreover, we can down-sample with \hyperlink{ds}{\em ds} command.
 \end{qsection}
 
 \begin{options}
@@ -107,6 +114,8 @@ $\displaystyle\frac{44100}{16000} =
 %none
 %\end{qsection}
 
-%\begin{qsection}{SEE ALSO}
-%none
-%\end{qsection}
+\begin{qsection}{SEE ALSO}
+ \hyperlink{ds}{ds},
+ \hyperlink{uscd}{uscd},
+ \hyperlink{us16}{us16}
+\end{qsection}
