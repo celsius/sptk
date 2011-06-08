@@ -95,7 +95,6 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define  LENG  25
 #define  T     -1
-#define MAGIC_NUM 0
 #define MAGIC_FLAG FA
 
 char *BOOL[] = { "FALSE", "TRUE" };
@@ -103,6 +102,9 @@ char *BOOL[] = { "FALSE", "TRUE" };
 /*  Command Name  */
 char *cmnd;
 
+/* magic number */
+Boolean MAGIC = MAGIC_FLAG;
+double magic;
 
 /*  Other Definitions  */
 #ifdef DOUBLE
@@ -207,6 +209,17 @@ void GetCoefficient(double *input, double *outp, int dw_num,
    }
 
    for (d = 0; d < dw_num - 1; d++) {
+      if (MAGIC == TR) {
+         for (t = 0; t < TOTAL; t++) {
+            for (l = 0; l < length; l++) {
+               if (d == 0) {
+                  outp[dw_num * length * t + length + l] = magic;
+               } else if (d == 1) {
+                  outp[dw_num * length * t + length * 2 + l] = magic;
+               }
+            }
+         }
+      }
       for (t = 0; t < total; t++) {
          T0 = T1 = T2 = T3 = T4 = 0.0;
          for (i = -win_size_backward[d]; i <= win_size_forward[d]; i++) {
@@ -261,10 +274,11 @@ void GetCoefficient(double *input, double *outp, int dw_num,
             SOLVE(3, Matrix, b);
 
             if (d == 0) {
-               outp[dw_num * length * t + l] = input[length * position[t] + l];
-               outp[dw_num * length * t + length + l] = b[1];
+               outp[dw_num * length * position[t] + l] =
+                   input[length * position[t] + l];
+               outp[dw_num * length * position[t] + length + l] = b[1];
             } else if (d == 1) {
-               outp[dw_num * length * t + length * 2 + l] = 2 * b[2];
+               outp[dw_num * length * position[t] + length * 2 + l] = 2 * b[2];
             }
          }
       }
@@ -275,12 +289,11 @@ int main(int argc, char *argv[])
 {
    FILE *fp = stdin, *fpc;
    char *coef = NULL;
-   double *x = NULL, *dx = NULL, **dw_coef = NULL, magic = MAGIC_NUM;
+   double *x = NULL, *dx = NULL, **dw_coef = NULL;
    int i, j, l, d, t, tj, ispipe, fsize, leng = LENG, total = T;
    int dw_num = 1, **dw_width = NULL, dw_calccoef = -1, dw_coeflen = 1,
        dw_leng = 1;
    char **dw_fn = (char **) calloc(sizeof(char *), argc);
-   Boolean MAGIC = MAGIC_FLAG;
    int win_pos, win_size_forward[2], win_size_backward[2];
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -545,22 +558,22 @@ int main(int argc, char *argv[])
 
       /* skip magic number */
       if (MAGIC == TR) {
-          for (t = 0, win_pos = 0; t < total; t++) {
-              for (l = 0; l < leng; l++) {
-                  if (x[leng * t + l] == magic) {
-                      break;
-                  }
-              }
-              if (l == leng) {
-                  position[win_pos] = t;      /* non-magic number */
-                  win_pos++;
-              }
-          }
+         for (t = 0, win_pos = 0; t < total; t++) {
+            for (l = 0; l < leng; l++) {
+               if (x[leng * t + l] == magic) {
+                  break;
+               }
+            }
+            if (l == leng) {
+               position[win_pos] = t;   /* non-magic number */
+               win_pos++;
+            }
+         }
       } else {
-          for (t = 0; t < total; t++) {
-              position[t] = t;
-          }
-          win_pos = total;
+         for (t = 0; t < total; t++) {
+            position[t] = t;
+         }
+         win_pos = total;
       }
 
       /* calculate delta and delta-delta */
@@ -568,7 +581,7 @@ int main(int argc, char *argv[])
                      win_size_forward, win_size_backward);
 
       /* output static, delta, delta-delta */
-      fwritef(dx, sizeof(*dx), dw_num * win_pos * leng, stdout);
+      fwritef(dx, sizeof(*dx), dw_num * total * leng, stdout);
    }
 
    return (0);
