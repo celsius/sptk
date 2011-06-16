@@ -61,10 +61,14 @@
 *               -e e     :  end number                          [EOF]   *
 *               -f f     :  fill into empty block               [0.0]   *
 *               +type    :  data type                           [f]     *
-*                               c (char)     s (short)                  *
-*                               i (int)      l (long)                   *
-*                               f (float)    d (double)                 *
-*                               a (ascii)                               *
+*                           c (char)           C  (unsigned char)       *
+*                           s (short)          S  (unsigned short)      *
+*                           i (int)            I  (unsigned int)        *
+*                           i3 (int, 3byte)    I3 (unsigned int, 3byte) *
+*                           l (long)           L  (unsigned long)       *
+*                           le (long long)     LE (unsigned long long)  *
+*                           f (float)          d  (double)              *
+*                           de (long double)   a  (ascii)               *
 *       infile:                                                         *   
 *               data sequence                                   [stdin] *
 *       stdout:                                                         *
@@ -142,10 +146,31 @@ void usage(int status)
            FILL);
    fprintf(stderr,
            "       +type : data type                              [f]\n");
-   fprintf(stderr, "                c (char)      s (short)\n");
-   fprintf(stderr, "                i (int)       l (long)\n");
-   fprintf(stderr, "                f (float)     d (double)\n");
-   fprintf(stderr, "                a (ascii)\n");
+   fprintf(stderr,
+           "                c  (char, %dbyte)         C  (unsigned char, %dbyte)\n",
+           sizeof(char), sizeof(unsigned char));
+   fprintf(stderr,
+           "                s  (short, %dbyte)        S  (unsigned short, %dbyte)\n",
+           sizeof(short), sizeof(unsigned short));
+   fprintf(stderr,
+           "                i3 (int, 3byte)          I3 (unsigned int, 3byte)\n");
+   fprintf(stderr,
+           "                i  (int, %dbyte)          I  (unsigned int, %dbyte)\n",
+           sizeof(int), sizeof(unsigned int));
+   fprintf(stderr,
+           "                l  (long, %dbyte)         L  (unsigned long, %dbyte)\n",
+           sizeof(long), sizeof(unsigned long));
+   fprintf(stderr,
+           "                le (long long, %dbyte)    LE (unsigned long long, %dbyte)\n",
+           sizeof(long long), sizeof(unsigned long long));
+   fprintf(stderr,
+           "                f  (float, %dbyte)        d  (double, %dbyte)\n",
+           sizeof(float), sizeof(double));
+   fprintf(stderr,
+           "                de (long double, %dbyte)\n",
+           sizeof(long double));
+   fprintf(stderr,
+           "                a (ascii)\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,
