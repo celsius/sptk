@@ -76,7 +76,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.35 2011/04/27 13:46:44 mataki Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.36 2011/07/28 08:59:21 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -204,7 +204,7 @@ int main(int argc, char **argv)
    char c1 = 'f', c2 = 'f', *form;
    long double x;
    size_t size1 = 0, size2 = 0;
-   int i = 1, col = COL;
+   int i = 1, col = COL, n;
    FILE *fp = stdin;
    Boolean round = ROUND, clip = CLIP;
    void x2x(void *x1, void *x2, char c1, char c2, int clip);
@@ -449,19 +449,27 @@ int main(int argc, char **argv)
 
    if (c1 == 'a') {
       if (c2 == 'a')
-         while (fscanf(fp, "%Le", &x) != EOF) {
-            printf(form, x);
-            if (i == col) {
-               i = 1;
-               printf("\n");
+         while ((n = fscanf(fp, "%Le", &x)) != EOF) {
+            if (n == 1) {
+               printf(form, x);
+               if (i == col) {
+                  i = 1;
+                  printf("\n");
+               } else {
+                  i++;
+                  printf("\t");
+               }
             } else {
-               i++;
-               printf("\t");
+               fgetc(fp);
             }
       } else
-         while (fscanf(fp, "%Le", &x) != EOF) {
-            x2x(&x, &x, 'v', c2, clip);
-            fwritex(&x, size2, 1, stdout);
+         while ((n = fscanf(fp, "%Le", &x)) != EOF) {
+            if (n == 1) {
+               x2x(&x, &x, 'v', c2, clip);
+               fwritex(&x, size2, 1, stdout);
+            } else {
+               fgetc(fp);
+            }
          }
    } else {
       if (c2 == 'a') {
