@@ -76,7 +76,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: x2x.c,v 1.36 2011/07/28 08:59:21 mataki Exp $";
+static char *rcs_id = "$Id: x2x.c,v 1.37 2011/07/28 09:22:58 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -460,7 +460,10 @@ int main(int argc, char **argv)
                   printf("\t");
                }
             } else {
-               fgetc(fp);
+               fprintf(stderr,
+                       "%s : error : Invalid non-numerical data is input !\n",
+                       cmnd);
+               usage(1);
             }
       } else
          while ((n = fscanf(fp, "%Le", &x)) != EOF) {
@@ -468,7 +471,10 @@ int main(int argc, char **argv)
                x2x(&x, &x, 'v', c2, clip);
                fwritex(&x, size2, 1, stdout);
             } else {
-               fgetc(fp);
+               fprintf(stderr,
+                       "%s : error : Invalid non-numerical data is input !\n",
+                       cmnd);
+               usage(1);
             }
          }
    } else {
