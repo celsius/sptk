@@ -80,7 +80,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: mgc2mgc.c,v 1.26 2011/08/10 05:10:02 mataki Exp $";
+static char *rcs_id = "$Id: mgc2mgc.c,v 1.27 2011/08/10 06:12:06 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -260,16 +260,18 @@ int main(int argc, char **argv)
    c1 = dgetmem(m1 + m2 + 2);
    c2 = c1 + m1 + 1;
 
+   if (mulg1 && g1 == 0) {
+      fprintf(stderr,
+              "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n",
+              cmnd);
+      usage(1);
+   }
+
    while (freadf(c1, sizeof(*c1), m1 + 1, fp) == m1 + 1) {
 
       if (norm1)
          ignorm(c1, c1, m1, g1);
-      else if (mulg1 && g1 == 0) {
-          fprintf(stderr,
-                  "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n",
-                  cmnd);
-          usage(1);
-      } else if (mulg1 && g1 != 0) {
+      else if (mulg1) {
          c1[0] = (c1[0] - 1.0) / g1;
          for (i = m1; i >= 1; i--)
             c1[i] /= g1;
