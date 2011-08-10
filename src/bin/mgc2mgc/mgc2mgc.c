@@ -264,23 +264,13 @@ int main(int argc, char **argv)
 
       if (norm1)
          ignorm(c1, c1, m1, g1);
-      else if (mulg1) {
-         if (g1 == 0) {
-            fprintf(stderr,
-                    "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n",
-                    cmnd);
-            usage(1);
-         }
+      else if (mulg1 && g1 == 0) {
+          fprintf(stderr,
+                  "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n",
+                  cmnd);
+          usage(1);
+      } else if (mulg1 && g1 != 0) {
          c1[0] = (c1[0] - 1.0) / g1;
-      }
-
-      if (mulg1) {
-         if (g1 == 0) {
-            fprintf(stderr,
-                    "%s : gamma for input mgc coefficients should not equal to 0 if you specify -u option!\n",
-                    cmnd);
-            usage(1);
-         }
          for (i = m1; i >= 1; i--)
             c1[i] /= g1;
       }
