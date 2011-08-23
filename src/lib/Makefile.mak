@@ -74,6 +74,7 @@ MODULES = ..\bin\acep\_acep.obj \
 	..\bin\ltcdf\_ltcdf.obj \
 	..\bin\mc2b\_mc2b.obj \
 	..\bin\mcep\_mcep.obj \
+	..\bin\mfcc\_mfcc.obj \
 	..\bin\mgc2mgc\_mgc2mgc.obj \
 	..\bin\mgc2sp\_mgc2sp.obj \
 	..\bin\mgcep\_mgcep.obj \
