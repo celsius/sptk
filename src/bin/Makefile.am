@@ -67,6 +67,7 @@ SUBDIRS = acep \
 	mc2b \
 	mcep \
 	merge \
+	mfcc \
 	mgc2mgc \
 	mgc2sp \
 	mgcep \

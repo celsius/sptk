@@ -214,6 +214,7 @@ AC_CONFIG_FILES([Makefile
                  bin/mc2b/Makefile
                  bin/mcep/Makefile
                  bin/merge/Makefile
+                 bin/mfcc/Makefile
                  bin/mgc2mgc/Makefile
                  bin/mgc2sp/Makefile
                  bin/mgcep/Makefile

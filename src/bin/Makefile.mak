@@ -27,7 +27,7 @@ all: acep.exe acorr.exe agcep.exe amcep.exe \
 	ignorm.exe impulse.exe imsvq.exe interpolate.exe ivq.exe \
 	lbg.exe levdur.exe linear_intpl.exe lmadf.exe lpc.exe lpc2c.exe lpc2lsp.exe \
 	lpc2par.exe lsp2lpc.exe lspcheck.exe lspdf.exe ltcdf.exe mc2b.exe mcep.exe \
-	merge.exe mgc2mgc.exe mgc2sp.exe mgcep.exe mglsadf.exe minmax.exe mlpg.exe \
+	merge.exe mfcc.exe mgc2mgc.exe mgc2sp.exe mgcep.exe mglsadf.exe minmax.exe mlpg.exe \
 	mlsadf.exe msvq.exe nan.exe norm0.exe nrand.exe pca.exe pcas.exe par2lpc.exe phase.exe pitch.exe \
 	poledf.exe psgr.exe \
 	ramp.exe rawtowav.exe reverse.exe rmse.exe root_pol.exe sin.exe smcep.exe snr.exe \
@@ -308,6 +308,10 @@ mcep.exe : mcep\mcep.obj
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
 merge.exe : merge\merge.obj
+	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
+	$(CL) /OUT:$@ $(LIBS) $(@B).obj
+
+mfcc.exe : mfcc\mfcc.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
