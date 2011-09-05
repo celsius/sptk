@@ -456,7 +456,7 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha, c
       fb = sp + flng;
       dc = fb + n + 1;
    }
-   if (flng > size) {
+   else {
       free(x);
       x = dgetmem(wlng + wlng + flng + flng + n + 1 + m + 1);
       px = x + wlng;
