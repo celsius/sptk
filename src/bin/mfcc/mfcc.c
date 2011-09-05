@@ -51,7 +51,7 @@
 *       usage:                                                           *
 *               mfcc [ options ] [ infile ] > stdout                     *
 *       options:                                                         *
-*               -a  a    :  pre-emphasis coefficient             [0.0]   *
+*               -a  a    :  pre-emphasis coefficient             [0.97]  *
 *               -c  c    :  liftering coefficient                [0]     *
 *               -e  e    :  epsilon                              [0.0]   *
 *               -l  l    :  frame length of input                [256]   *
@@ -79,7 +79,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: mfcc.c,v 1.1 2011/08/23 08:52:21 sawada11 Exp $";
+static char *rcs_id = "$Id: mfcc.c,v 1.2 2011/09/05 01:27:10 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -112,7 +112,7 @@ static char *rcs_id = "$Id: mfcc.c,v 1.1 2011/08/23 08:52:21 sawada11 Exp $";
 #define CZERO FA
 #define ENERGY  FA
 #define SAMPLEFREQ 16000.0
-#define ALPHA 0.0
+#define ALPHA 0.97
 #define LIFT 22
 #define WTYPE 0
 
@@ -133,7 +133,7 @@ void usage(int status)
    fprintf(stderr, "       -a a  : pre-emphasis coefficient              [%g]\n", 
            ALPHA);
    fprintf(stderr, "       -c c  : liftering coefficient                 [%g]\n", 
-           ALPHA);
+           LIFT);
    fprintf(stderr, "       -e e  : small value for calculating log()     [%g]\n",
            EPS);
    fprintf(stderr, "       -f f  : sampling frequency                    [%g]\n", 
