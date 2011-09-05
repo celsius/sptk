@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _mfcc.c,v 1.1 2011/08/23 08:51:55 sawada11 Exp $
+    $Id: _mfcc.c,v 1.2 2011/09/05 01:28:30 sawada11 Exp $
 
     Mel-Frequency Cepstral Analysis
 
@@ -456,7 +456,7 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha, c
       fb = sp + flng;
       dc = fb + n + 1;
    }
-   if (flng > size) {
+   else {
       free(x);
       x = dgetmem(wlng + wlng + flng + flng + n + 1 + m + 1);
       px = x + wlng;
