@@ -95,7 +95,7 @@
 *                                                                              *
 *******************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.31 2011/04/27 13:46:43 mataki Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.32 2011/10/03 05:14:22 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -235,8 +235,15 @@ int main(int argc, char *argv[])
          c = *++s;
          if (islower(c) && *++s == '\0') {
             s = *++argv;
+            if (s == NULL) {
+                fprintf(stderr,
+                        "%s : numerical argument is also needed !\n",
+                        cmnd);
+                usage(1);
+            }
             --argc;
          }
+
          switch (c) {
          case 'a':
          case 'c':
@@ -258,6 +265,12 @@ int main(int argc, char *argv[])
                mopr = nopr;
                magic_count++;
                s = *++argv;
+               if (s == NULL || *s == '-') { /* No magic number or next option */
+                  fprintf(stderr,
+                          "%s : -magic option need magic number !\n",
+                          cmnd);
+                  usage(1);
+               }
                --argc;
             }
             if (c == 'M') {
@@ -277,6 +290,12 @@ int main(int argc, char *argv[])
                   optbl[nopr].ifrep = 1 - REP;
                   MAGIC_COUNT++;
                   s = *++argv;
+                  if (s == NULL || *s == '-') { /* No magic number or next option */
+                      fprintf(stderr,
+                              "%s : -MAGIC option need magic number !\n",
+                              cmnd);
+                      usage(1);
+                  }
                   --argc;
                }
             }
@@ -295,6 +314,13 @@ int main(int argc, char *argv[])
             else if (strncmp("sqrt", s, 4) == 0)
                optbl[nopr].d = sqrt(atof(s + 4));
             else if (*s == 'm') {
+               s = *(argv + 1);
+               if (s == NULL) {
+                   fprintf(stderr,
+                           "%s : next operation must be specified !\n",
+                           cmnd);
+                   usage(1);
+               }
                optbl[nopr].d = atoi(s + 1);
                if (c == 'a')
                   c = '+';
