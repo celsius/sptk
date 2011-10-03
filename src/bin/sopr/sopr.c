@@ -265,7 +265,7 @@ int main(int argc, char *argv[])
                mopr = nopr;
                magic_count++;
                s = *++argv;
-               if (s == NULL || *s == '-') { /* No magic number or next option */
+               if (s == NULL) { /* No magic number */
                   fprintf(stderr,
                           "%s : -magic option need magic number !\n",
                           cmnd);
@@ -290,7 +290,7 @@ int main(int argc, char *argv[])
                   optbl[nopr].ifrep = 1 - REP;
                   MAGIC_COUNT++;
                   s = *++argv;
-                  if (s == NULL || *s == '-') { /* No magic number or next option */
+                  if (s == NULL) { /* No magic number */
                       fprintf(stderr,
                               "%s : -MAGIC option need magic number !\n",
                               cmnd);
