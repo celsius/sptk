@@ -95,7 +95,7 @@
 *                                                                              *
 *******************************************************************************/
 
-static char *rcs_id = "$Id: sopr.c,v 1.32 2011/10/03 05:14:22 mataki Exp $";
+static char *rcs_id = "$Id: sopr.c,v 1.33 2011/10/03 08:50:01 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -265,7 +265,7 @@ int main(int argc, char *argv[])
                mopr = nopr;
                magic_count++;
                s = *++argv;
-               if (s == NULL || *s == '-') { /* No magic number or next option */
+               if (s == NULL) { /* No magic number */
                   fprintf(stderr,
                           "%s : -magic option need magic number !\n",
                           cmnd);
@@ -290,7 +290,7 @@ int main(int argc, char *argv[])
                   optbl[nopr].ifrep = 1 - REP;
                   MAGIC_COUNT++;
                   s = *++argv;
-                  if (s == NULL || *s == '-') { /* No magic number or next option */
+                  if (s == NULL) { /* No magic number */
                       fprintf(stderr,
                               "%s : -MAGIC option need magic number !\n",
                               cmnd);
