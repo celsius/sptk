@@ -275,6 +275,11 @@ int main(int argc, char **argv)
       else
          fp1 = getfp(*argv, "rb");
 
+   if (fp2 == NULL) {
+       fprintf(stderr, "%s : Inserted data must be specified !\n", cmnd);
+       usage(1);
+   }
+
    y = (char *) dgetmem(leng2 * size);
 
    for (;;) {
