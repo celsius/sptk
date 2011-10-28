@@ -75,7 +75,9 @@ justify ourselves to our various sponsors. We also strongly encourage you to
  * refer to the use of SPTK in any publications that use this software
  * report bugs, where possible with bug fixes, that are found
 
-See "COPYING" in the same directory for details.
+See also "COPYING" files in following directories for details.
+ ./
+ ./bin/pitch/snack
 
 *******************************************************************************
                                  Installation
