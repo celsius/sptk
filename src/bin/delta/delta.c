@@ -53,7 +53,6 @@
 *               -m M                   : order of vector                              [24]   *
 *               -l L                   : length of vector                             [m+1]  *
 *               -d fn                  : filename of delta coefficients               [N/A]  *
-*               -t t                   : number of input vectors                      [EOF]  *
 *               -d coef [coef...]      : delta coefficients                           [N/A]  *
 *               -r n w1 [w2]           : number and width of regression coefficients  [N/A]  *
 *               -R n Wf1 Wb1 [Wf2 Wb2] : number and width of regression coefficients  [N/A]  *
@@ -113,6 +112,10 @@ typedef double real;
 typedef float real;
 #endif
 
+typedef struct _float_list {
+   float f;
+   struct _float_list *next;
+} float_list;
 
 void usage(int status)
 {
@@ -160,7 +163,7 @@ void usage(int status)
 }
 
 /* LU decomposition */
-void LU(int n, double **A)
+static void LU(int n, double **A)
 {
    int i, j, k;
    double q;
@@ -177,7 +180,7 @@ void LU(int n, double **A)
 }
 
 /* solve linear equation Ax = b via LU decomposition */
-void SOLVE(int n, double **A, double *b)
+static void SOLVE(int n, double **A, double *b)
 {
    int i, j;
 
@@ -195,8 +198,8 @@ void SOLVE(int n, double **A, double *b)
    }
 }
 
-/* calculate regression polynomial coefficients */
-void GetCoefficient(double *input, double *outp, int dw_num,
+/* calculate regression quadratic polynomial coefficients */
+void GetCoefficient(double *input, double *output, int dw_num,
                     int *position, int TOTAL, int total, int length,
                     int *win_size_forward, int *win_size_backward)
 {
@@ -204,6 +207,8 @@ void GetCoefficient(double *input, double *outp, int dw_num,
    double T0, T1, T2, T3, T4, b[3];
    double **Matrix = (double **) malloc(sizeof(double *) * 3);
    double *tmpMat = dgetmem(3 * 3);
+   Boolean boundary_begin = FA, boundary_end = FA;
+
    for (i = 0, j = 0; i < 3; i++, j += 3) {
       Matrix[i] = tmpMat + j;
    }
@@ -213,19 +218,24 @@ void GetCoefficient(double *input, double *outp, int dw_num,
          for (t = 0; t < TOTAL; t++) {
             for (l = 0; l < length; l++) {
                if (d == 0) {
-                  outp[dw_num * length * t + length + l] = magic;
+                  output[dw_num * length * t + length + l] = magic;
                } else if (d == 1) {
-                  outp[dw_num * length * t + length * 2 + l] = magic;
+                  output[dw_num * length * t + length * 2 + l] = magic;
                }
             }
          }
       }
       for (t = 0; t < total; t++) {
          T0 = T1 = T2 = T3 = T4 = 0.0;
+         boundary_begin = boundary_end = FA;
          for (i = -win_size_backward[d]; i <= win_size_forward[d]; i++) {
             index = t + i;
-            if (index < 0 || index >= total) {
-               width = i;
+            if (index < 0) {
+               boundary_begin = TR;
+               width = (int) (-1.0E30); /* point at infinity */
+            } else if (index >= total) {
+               boundary_end = TR;
+               width = (int) (1.0E30);  /* point at infinity */
             } else {
                width = position[index] - position[t];
             }
@@ -244,41 +254,56 @@ void GetCoefficient(double *input, double *outp, int dw_num,
          Matrix[2][0] = T2;
          Matrix[2][1] = T3;
          Matrix[2][2] = T4;
-
          LU(3, Matrix);         /* LU decomposition */
-
          for (l = 0; l < length; l++) {
             b[0] = 0.0;
             b[1] = 0.0;
             b[2] = 0.0;
             for (i = -win_size_backward[d]; i <= win_size_forward[d]; i++) {
-               index = t + i;
-               if (index < 0 || index >= total) {
-                  width = i;
+               int tmp;
+               if (t + i < 0) {
+                  tmp = position[0];
+                  width = position[0] - position[t];
+               } else if (t + i > total) {
+                  tmp = position[total - 1];
+                  width = position[total - 1] - position[t];
                } else {
-                  width = position[index] - position[t];
+                  tmp = position[t + i];
+                  width = position[t + i] - position[t];
                }
-               int tmp = position[t] + width;
-               int pos = length * tmp + l;
-               if (tmp >= TOTAL) {
-                  pos = length * (TOTAL - 1) + l;
-               } else if (tmp < 0) {
-                  pos = l;
-               }
-               b[0] += input[pos];
-               b[1] += width * input[pos];
-               b[2] += pow(width, 2) * input[pos];
+               b[0] += input[length * (tmp) + l];
+               b[1] += width * input[length * (tmp) + l];
+               b[2] += pow(width, 2) * input[length * (tmp) + l];
             }
-
-            /* solve linear equation via LU decomposition */
-            SOLVE(3, Matrix, b);
-
+            SOLVE(3, Matrix, b);        /* solve linear equation */
             if (d == 0) {
-               outp[dw_num * length * position[t] + l] =
+               /* output static */
+               output[dw_num * length * position[t] + l] =
                    input[length * position[t] + l];
-               outp[dw_num * length * position[t] + length + l] = b[1];
+               /* output delta */
+               if (boundary_begin == TR && win_size_backward[d] == 1) {
+                  output[dw_num * length * position[t] + length + l]
+                      = (input[length * position[t + 1] + l]
+                         - input[length * position[t] + l])
+                      / (position[t + 1] - position[t]);
+               } else if (boundary_end == TR && win_size_forward[d] == 1) {
+                  output[dw_num * length * position[t] + length + l]
+                      = (input[length * position[t] + l]
+                         - input[length * position[t - 1] + l])
+                      / (position[t] - position[t - 1]);
+               } else {
+                  output[dw_num * length * position[t] + length + l] = b[1];
+               }
             } else if (d == 1) {
-               outp[dw_num * length * position[t] + length * 2 + l] = 2 * b[2];
+               /* output delta-delta */
+               if (boundary_begin == TR && win_size_backward[d] == 1) {
+                  output[dw_num * length * position[t] + length * 2 + l] = 0.0;
+               } else if (boundary_end == TR && win_size_forward[d] == 1) {
+                  output[dw_num * length * position[t] + length * 2 + l] = 0.0;
+               } else {
+                  output[dw_num * length * position[t] + length * 2 + l] =
+                      2 * b[2];
+               }
             }
          }
       }
@@ -289,12 +314,13 @@ int main(int argc, char *argv[])
 {
    FILE *fp = stdin, *fpc;
    char *coef = NULL;
-   double *x = NULL, *dx = NULL, **dw_coef = NULL;
+   double *x = NULL, *dx = NULL, **dw_coef = NULL, *y = NULL;
    int i, j, l, d, t, tj, ispipe, fsize, leng = LENG, total = T;
    int dw_num = 1, **dw_width = NULL, dw_calccoef = -1, dw_coeflen = 1,
        dw_leng = 1;
    char **dw_fn = (char **) calloc(sizeof(char *), argc);
-   int win_pos, win_size_forward[2], win_size_backward[2];
+   int non_magic_num, win_size_forward[2], win_size_backward[2];
+   float_list *top, *cur, *prev, *tmpf;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -378,10 +404,6 @@ int main(int argc, char *argv[])
             leng = atoi(*++argv);
             --argc;
             break;
-         case 't':
-            total = atoi(*++argv);
-            --argc;
-            break;
          case 'R':
             if (dw_calccoef == 0 || dw_calccoef == 1) {
                fprintf(stderr,
@@ -429,20 +451,6 @@ int main(int argc, char *argv[])
          }
       } else
          fp = getfp(*argv, "rb");
-   }
-
-   /* -- Count number of input vectors -- */
-   if (total == -1) {
-      ispipe = fseek(fp, 0L, 2);
-      total = (int) (ftell(fp) / (double) leng / (double) sizeof(float));
-      rewind(fp);
-
-      if (ispipe == -1) {       /* input vectors is from standard input via pipe */
-         fprintf(stderr,
-                 "\n %s (Error) -t option must be specified for the standard input via pipe.\n",
-                 cmnd);
-         usage(1);
-      }
    }
 
    /* parse window files */
@@ -525,13 +533,26 @@ int main(int argc, char *argv[])
       }
    }
 
-   /* allocate memory for input/output vectors */
+   /* -- Count number of input vectors and read -- */
+   x = dgetmem(1);
+   top = prev = (float_list *) malloc(sizeof(float_list));
+   total = 0;
+   prev->next = NULL;
+   while (freadf(x, sizeof(*x), 1, fp) == 1) {
+      cur = (float_list *) malloc(sizeof(float_list));
+      cur->f = (float) x[0];
+      total++;
+      prev->next = cur;
+      cur->next = NULL;
+      prev = cur;
+   }
+   free(x);
    x = dgetmem(leng * total);
    dx = dgetmem(dw_num * leng * total);
    fillz(dx, sizeof(*x), dw_num * leng * total);
-
-   /* read input vectors */
-   freadf(x, sizeof(*x), total * leng, fp);
+   for (i = 0, tmpf = top->next; tmpf != NULL; i++, tmpf = tmpf->next) {
+      x[i] = tmpf->f;
+   }
 
    if (dw_calccoef == 0 || dw_calccoef == 1) {
       /* calculate delta and delta-delta */
@@ -558,26 +579,27 @@ int main(int argc, char *argv[])
 
       /* skip magic number */
       if (MAGIC == TR) {
-         for (t = 0, win_pos = 0; t < total; t++) {
+         for (t = 0, non_magic_num = 0; t < total; t++) {
             for (l = 0; l < leng; l++) {
                if (x[leng * t + l] == magic) {
                   break;
                }
             }
             if (l == leng) {
-               position[win_pos] = t;   /* non-magic number */
-               win_pos++;
+               /* remember position of non-magic number */
+               position[non_magic_num] = t;
+               non_magic_num++;
             }
          }
       } else {
          for (t = 0; t < total; t++) {
             position[t] = t;
          }
-         win_pos = total;
+         non_magic_num = total;
       }
 
       /* calculate delta and delta-delta */
-      GetCoefficient(x, dx, dw_num, position, total, win_pos, leng,
+      GetCoefficient(x, dx, dw_num, position, total, non_magic_num, leng,
                      win_size_forward, win_size_backward);
 
       /* output static, delta, delta-delta */
