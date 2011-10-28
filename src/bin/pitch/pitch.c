@@ -54,8 +54,7 @@
 *               pitch [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
 *               -s  s     :  sampling frequency (Hz)       [16000]      *
-*               -l  l     :  frame length                  [640]        *
-*               -l  l     :  frame shift                   [80]         *
+*               -p  p     :  frame shift                   [80]         *
 *               -L  L     :  minimum fundamental frequency [60]         *
 *                            to search for (Hz)                         *
 *               -H  H     :  maximum fundamental frequency [240]        *
@@ -72,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.30 2011/10/27 13:19:02 mataki Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.31 2011/10/28 09:52:22 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -99,7 +98,6 @@ static char *rcs_id = "$Id: pitch.c,v 1.30 2011/10/27 13:19:02 mataki Exp $";
 /*  Default Values  */
 #define LOW    60
 #define HIGH   240
-#define FRAME_LENGTH 640
 #define FRAME_SHIFT 80
 #define SAMPLE_FREQ 16000
 #define OTYPE 0
@@ -122,9 +120,7 @@ void usage(int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -s s  : sampling frequency (Hz)         [%d]\n",
            SAMPLE_FREQ);
-   fprintf(stderr, "       -l l  : frame length                    [%d]\n",
-           FRAME_LENGTH);
-   fprintf(stderr, "       -p P  : frame shift                     [%d]\n",
+   fprintf(stderr, "       -p p  : frame shift                     [%d]\n",
            FRAME_SHIFT);
    fprintf(stderr, "       -L L  : minimum fundamental             [%d]\n",
            LOW);
@@ -155,8 +151,8 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int i, j, length, frame_length = FRAME_LENGTH,
-       frame_shift = FRAME_SHIFT, sample_freq = SAMPLE_FREQ,
+   int i, j, length, frame_shift = FRAME_SHIFT,
+       sample_freq = SAMPLE_FREQ,
        L = LOW, H = HIGH, otype = OTYPE;
    double *x;
    FILE *fp = stdin;
@@ -174,10 +170,6 @@ int main(int argc, char **argv)
          switch (*(*argv + 1)) {
          case 's':
             sample_freq = atoi(*++argv);
-            --argc;
-            break;
-         case 'l':
-            frame_length = atoi(*++argv);
             --argc;
             break;
          case 'p':
