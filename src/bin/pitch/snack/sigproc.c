@@ -59,6 +59,8 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
+static char *rcs_id = "$Id: sigproc.c,v 1.2 2011/10/31 09:33:49 mataki Exp $";
+
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>

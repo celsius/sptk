@@ -58,6 +58,7 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
+static char *rcs_id = "$Id: jkGetF0.c,v 1.3 2011/10/31 09:33:49 mataki Exp $";
 
 #if 0
 #include "snack.h"
