@@ -59,6 +59,8 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
+static char *rcs_id = "$Id$";
+
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>

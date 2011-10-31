@@ -58,6 +58,7 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
+static char *rcs_id = "$Id$";
 
 #if 0
 #include "snack.h"
