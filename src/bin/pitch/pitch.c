@@ -71,7 +71,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.31 2011/10/28 09:52:22 mataki Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.32 2011/10/31 09:24:02 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -101,6 +101,7 @@ static char *rcs_id = "$Id: pitch.c,v 1.31 2011/10/28 09:52:22 mataki Exp $";
 #define FRAME_SHIFT 80
 #define SAMPLE_FREQ 16000
 #define OTYPE 0
+#define STR_LEN 255
 
 /*  Command Name  */
 char *cmnd;
@@ -157,9 +158,10 @@ int main(int argc, char **argv)
    double *x;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;
-   void cGet_f0(float_list *flist, float sample_freq,
-                int length, int frame_shift,
-                int minF0, int maxF0, int otype);
+   char * message = (char *) malloc(sizeof(char) * STR_LEN);
+   char * cGet_f0(float_list *flist, float sample_freq,
+                  int length, int frame_shift,
+                  int minF0, int maxF0, int otype);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -210,7 +212,11 @@ int main(int argc, char **argv)
       cur->next = NULL;
       prev = cur;
    }
-   cGet_f0(top->next, sample_freq, length, frame_shift, L, H, otype);
+   message = cGet_f0(top->next, sample_freq, length, frame_shift, L, H, otype);
+   if (message != NULL) {
+       fprintf(stderr, "%s : %s\n", cmnd, message);
+       usage(1);
+   }
 
    return (0);
 }
