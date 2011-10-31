@@ -83,8 +83,8 @@ int	    debug_level = 0;
 
 void free_dp_f0();
 #if 0
-static int check_f0_params();
 #else
+static int check_f0_params();
 typedef struct _float_list {
     float f;
     struct _float_list *next;
@@ -310,18 +310,25 @@ Get_f0(Sound *sound, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[])
   return TCL_OK;
 }
 
+#endif
 
 /*
  * Some consistency checks on parameter values.
  * Return a positive integer if any errors detected, 0 if none.
  */
 
+#if 0
 static int
 check_f0_params(Tcl_Interp *interp, F0_params *par, double sample_freq)
+#else
+static int
+check_f0_params(F0_params *par, double sample_freq)
+#endif /* 0 */
 {
   int	  error = 0;
   double  dstep;
 
+#if 0
   if((par->cand_thresh < 0.01) || (par->cand_thresh > 0.99)) {
     Tcl_AppendResult(interp,
 	  "ERROR: cand_thresh parameter must be between [0.01, 0.99].",NULL);
@@ -336,28 +343,40 @@ check_f0_params(Tcl_Interp *interp, F0_params *par, double sample_freq)
 	    "ERROR: n_cands parameter must be between [3,100].",NULL); 
     error++;
   }
+#endif /* 0 */
   if((par->max_f0 <= par->min_f0) || (par->max_f0 >= (sample_freq/2.0)) ||
      (par->min_f0 < (sample_freq/10000.0))){
+#if 0
     Tcl_AppendResult(interp,
 	    "ERROR: min(max)_f0 parameter inconsistent with sampling frequency.",NULL); 
+#else
+    fprintf(stderr, "ERROR: min(max)_f0 parameter inconsistent with sampling frequency.\n");
+#endif /* 0 */
     error++;
   }
   dstep = ((double)((int)(0.5 + (sample_freq * par->frame_step))))/sample_freq;
   if(dstep != par->frame_step) {
+#if 0
     if(debug_level)
       Tcl_AppendResult(interp,
 	      "Frame step set to exactly match signal sample rate.",NULL);
+#endif /* 0 */
     par->frame_step = (float) dstep;
   }
   if((par->frame_step > 0.1) || (par->frame_step < (1.0/sample_freq))){
+#if 0
     Tcl_AppendResult(interp,
 	    "ERROR: frame_step parameter must be between [1/sampling rate, 0.1].",NULL); 
+#else
+    fprintf(stderr, "ERROR: frame_step parameter must be between [1/sampling rate, 0.1].\n");
+#endif /* 0 */
     error++;
   }
 
   return(error);
 }
 
+#if 0
 static void get_cand(), peak(), do_ffir();
 static int lc_lin_fir(), downsamp();
 #endif /* 0 */
@@ -1820,8 +1839,8 @@ int
 cGet_f0(Sound *sound, Tcl_Interp *interp, float **outlist, int *length)
 {
 #else
-void cGet_f0(float_list *input, float sample_freq, int length, int frame_shift,
-             int minF0, int maxF0, int otype)
+const char *cGet_f0(float_list *input, float sample_freq, int length,
+                    int frame_shift, int minF0, int maxF0, int otype)
 {
 #endif
   float *fdata;
@@ -1841,10 +1860,10 @@ void cGet_f0(float_list *input, float sample_freq, int length, int frame_shift,
   int count = 0;
   int startpos = 0, endpos = -1;
 #else
-  float *tmp, *unvoiced, *buf, meanf0;
+  float *tmp, *unvoiced, *buf;
   int count = 0;
   int startpos = 0, endpos = -1;
-  long max, num_voiced;
+  long max;
   float_list *tmpf;
 #endif /* 0 */
 
@@ -1934,15 +1953,20 @@ void cGet_f0(float_list *input, float sample_freq, int length, int frame_shift,
         par->frame_step = (float) (framestep / sf);
     start_time = 0.0f;
 
-  total_samps = endpos - startpos + 1;
+    if (check_f0_params(par, sf)) {
+       return "invalid/inconsistent parameters -- exiting.";
+    }
 
-  if (total_samps < ((par->frame_step * 2.0) + par->wind_dur) * sf) {
-      fprintf(stderr,"input range too small for analysis by get_f0.");
-  }
+    total_samps = endpos - startpos + 1;
 
-  if (init_dp_f0(sf, par, &buff_size, &sdstep) != 0) {
-      fprintf(stderr, "problem in init_dp_f0().");
-  }
+    if (total_samps < ((par->frame_step * 2.0) + par->wind_dur) * sf) {
+        return "input range too small for analysis by get_f0.";
+    }
+
+    if (init_dp_f0(sf, par, &buff_size, &sdstep)
+        || buff_size > INT_MAX || sdstep > INT_MAX) {
+        return "problem in init_dp_f0().";
+    }
 #endif /* 0 */
 
   if (buff_size > total_samps)
@@ -1983,6 +2007,7 @@ void cGet_f0(float_list *input, float sample_freq, int length, int frame_shift,
         }
         if (dp_f0(fdata, (int) actsize, (int) sdstep, sf, par,
                   &f0p, &vuvp, &rms_speech, &acpkp, &vecsize, done)) {
+            return "problem in dp_f0().";
         }
 
         for (i = vecsize - 1; i >= 0; i--) {
@@ -2030,8 +2055,6 @@ void cGet_f0(float_list *input, float sample_freq, int length, int frame_shift,
 
   return TCL_OK;
 #else
-  meanf0 = 0.0;
-  num_voiced = 0;
   for (i = 0; i < count; i++) {
       switch (otype) {
       case 1:                   /* f0 */
@@ -2060,6 +2083,6 @@ void cGet_f0(float_list *input, float sample_freq, int length, int frame_shift,
 
   free_dp_f0();
 
-  return ;
+  return NULL;
 #endif /* 0 */
 }
