@@ -1,0 +1,181 @@
+% ----------------------------------------------------------------- %
+%             The Speech Signal Processing Toolkit (SPTK)           %
+%             developed by SPTK Working Group                       %
+%             http://sp-tk.sourceforge.net/                         %
+% ----------------------------------------------------------------- %
+%                                                                   %
+%  Copyright (c) 1984-2007  Tokyo Institute of Technology           %
+%                           Interdisciplinary Graduate School of    %
+%                           Science and Engineering                 %
+%                                                                   %
+%                1996-2011  Nagoya Institute of Technology          %
+%                           Department of Computer Science          %
+%                                                                   %
+% All rights reserved.                                              %
+%                                                                   %
+% Redistribution and use in source and binary forms, with or        %
+% without modification, are permitted provided that the following   %
+% conditions are met:                                               %
+%                                                                   %
+% - Redistributions of source code must retain the above copyright  %
+%   notice, this list of conditions and the following disclaimer.   %
+% - Redistributions in binary form must reproduce the above         %
+%   copyright notice, this list of conditions and the following     %
+%   disclaimer in the documentation and/or other materials provided %
+%   with the distribution.                                          %
+% - Neither the name of the SPTK working group nor the names of its %
+%   contributors may be used to endorse or promote products derived %
+%   from this software without specific prior written permission.   %
+%                                                                   %
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            %
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       %
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          %
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          %
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS %
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          %
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   %
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     %
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON %
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   %
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    %
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
+% POSSIBILITY OF SUCH DAMAGE.                                       %
+% ----------------------------------------------------------------- %
+\hypertarget{mfcc}{}
+\name{mfcc}{mel-frequency cepstral analysis}{speech analysis}
+
+\begin{synopsis}
+\item[mfcc] [ --a $A$ ] [ --e $E$ ] [ --l $L_1$ ] [ --L $L_2$ ] [ --f $F$ ] [ --m $M$ ]
+\item[\ ~~~][ --n $N$ ] [ --f $F$ ] [ --w $W$] [ --d ] [ -- E ] [ --0 ][ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em mfcc} uses mel-frequency cepstral analysis to calculate 
+mel-frequency cepstrum from  $L_1$-length framed data from {\em infile} (or
+standard input), sending the result to standard output.Since {\em
+  mfcc} can apply a window function to input data in the function, it is
+not necessary to use windowed data as input. The input time domain 
+sequence of length $L_1$ is of the form:
+\begin{displaymath}
+  x(0),x(1),\dots,x(L_1-1)
+\end{displaymath}
+Also, note that the input and output data are in float format, and
+that the output data cannot be used for speech synthesis through
+the MLSA filter.
+\end{qsection}
+
+\begin{options}
+	\argm{a}{A}{preemphasise coefficient}{0.97}
+	\argm{c}{C}{liftering coefficient}{22}
+	\argm{e}{E}{small value for calculating log()}{0.0}
+	\argm{l}{L_1}{frame length of input}{256}
+	\argm{L}{L_2}{frame length for fft. default value $2^n$
+          satisfies $L_1 \leq 2^n$ }{$2^n$}
+	\argm{m}{M}{order of mfcc}{12}
+	\argm{n}{N}{order of channnel for mel-filter bank}{20}
+	\argm{f}{F}{sampling rate}{16000}
+	\argm{w}{W}{type of window\\
+			\begin{tabular}{ll}\\ [-1ex]
+			 0 & Hamming \\
+			 1 & Do not use a window function\\
+			\end{tabular}\\\hspace*{\fill}}{0}
+	\argm{d}{}{use dft (without using fft) for dct}{FALSE}
+	\argm{E}{}{output energy}{FALSE}
+	\argm{0}{}{output $0$'th static coefficient}{FALSE}
+        \desc{if the -E or -0 option is given, energy $E$ or $0$'th
+          static coefficient $C0$ is outputted as follows.
+        \begin{displaymath}
+          mc(0),mc(1),\dots,mc(m-1),E (C0)
+        \end{displaymath}
+          Also, if both -E and -0 option are given, the output is as folows.
+        \begin{displaymath}
+          mc(0),mc(1),\dots,mc(m-1),C0,E 
+        \end{displaymath}
+}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+In the example below, speech data in float format is read from
+{\em data.f}. 
+Here, we specify tge frame length, frame shift and sampling rate as
+40ms, 10ms and 16kHz, respectivelly. The 12 order mel-frequency
+cepstral coefficients, together with the energy component, are
+outputted to {\em data.mfc}.
+\begin{quote}
+  \verb!frame +f -l 640 -p 160  data.f |\                        ! \\
+  \verb!mfcc -l 640 -m 12 -f 16000 -E > data.mfc                  ! \\
+\end{quote}
+
+Also, in case we want to calculate the coefficients the same way as in
+HTK, following the conditions:
+\begin{quote}
+  \verb!SOURCEFORMAT = NOHEAD! \\
+  \verb!SOURCEKIND = WAVEFORM ! \\
+  \verb!SOURCERATE = 625      # Sampling rate (1 / 16000 * 10^7)!\\
+  \verb!TARGETKIND = MFCC_D_A_E ! \\
+  \verb!TARGETRATE = 100000   # Frame shift (ns)! \\
+  \verb!WINDOWSIZE = 400000   # Frame length (ns)! \\
+  \verb!DELTAWINDOW = 1       # Delta widndow size! \\
+  \verb!ACCWINDOW = 1         # Accelaration widndow size! \\
+  \verb!ENORMALISE = FALSE ! \\
+\end{quote}
+We have to use the following command in SPTK. Below, because of the difference of the
+calcuration method of regression coefficients between SPTK and HTK,
+differencial coefficients are specified directly using -d option in
+{\em delta} command. 
+\begin{quote}
+  \verb!frame +f -l 640 -p 160  data.f |\                        ! \\
+  \verb!mfcc -l 640 -m 12 -f 16000 -E > data.mfc                  ! \\
+  \verb!delta -m 12 -d -0.5 0 0.5 |\ ! \\
+  \verb!-d 0.25 0 -0.5 0 0.25 data.mfc > data.mfc.diff! \\
+\end{quote}
+Here, because of the difference in the calculation method of
+regression coefficients between SPTK and HTK, differencial
+coefficients are specified directly using the --d option in {\em
+  delta} dommand.
+The correspondence between the option of SPTK's command option and the
+HTK's configuration for extracting mel-frequency cepstrum is shown in Table
+\ref{tbl:mfcc_config}. Please, refer to the HTKBook for more
+information on extracting mel-frequency cepstrum with HTK.
+
+\setcounter{table}{1}
+\begin{table}
+        \caption{Configuration for extracting MFCC}
+        \label{tbl:mfcc_config}
+        \setlength{\arrayrulewidth}{0.5pt}
+        \renewcommand{\arraystretch}{1.2}
+        \begin{center}
+        \begin{tabular}{|c||c|c|} \hline
+        Settings                          & SPTK  & HTK \\ \hline\hline
+        pre-emphasis coefficient             & -a (at {\em mfcc} command)& PREEMCOEF \\ \hline
+        liftering coefficient                & -c (at {\em mfcc} command) & CEPLIFTER \\ \hline
+        small value for calculating log()    & -e (at {\em mfcc} command)& N/A \\ \hline
+        sampling rate                        & -f (at {\em mfcc} command)& SOURCERATE \\ \hline
+        frame shift                          & -p (at {\em frame} command) & TARGETRATE \\ \hline
+        frame length of input                & -l (at {\em frame} command) & WINDOWSIZE \\ 
+                                             & -l (at {\em mfcc} command)&  \\ \hline
+        frame length for fft                 & -L (at {\em mfcc} command)& N/A \\
+                                             &    & (automatically calculated) \\ \hline
+        order of cepstrum                    & -m (at {\em mfcc} command)& NUMCEPS \\ \hline
+        order of channel for mel-filter bank & -n (at {\em mfcc} command)& NUMCHANS \\ \hline
+        use hamming window                   & -w (at {\em mfcc} command)& USEHAMMING \\ \hline
+        use dft                              & -d (at {\em mfcc} command)& N/A \\ \hline
+        output energy                        & -E (at {\em mfcc} command)& TARGETKIND \\ \hline
+        output $0$'th static coefficient     & -0 (at {\em mfcc} command)& TARGETKIND \\ \hline 
+        delta window size                    & -r (at {\em delta} command)& DELTAWINDOW \\ \hline
+        acceleration window size             & -r (at {\em delta} command)& ACCWINDOW \\ \hline
+        Normalize log energy                 & N/A & ENORMALISE \\  
+        \hline
+        \end{tabular}
+        \end{center}
+\label{tbl:mfcc_config}
+\end{table}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+\hyperlink{frame}{frame},
+\hyperlink{gcep}{gcep},
+\hyperlink{mcep}{mcep},
+\hyperlink{mgcep}{mgcep},
+\hyperlink{spec}{spec}
+\end{qsection}
