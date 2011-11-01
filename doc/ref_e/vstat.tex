@@ -54,9 +54,9 @@ from {\em infile} (or standard input),
 sending the result to standard output.
 
 For each group of $T$ input vectors of length $L$, 
-{\em vstat} calculates the length $L$ mean vector 
+{\em vstat} calculates the mean vector of length $L$ 
 and the $L\times L$ covariance matrix. 
-That is, if the input data is
+In other words, if the input data is given by:
 \begin{displaymath}
 \overbrace{
   \overbrace{x_1(1),\dots,x_1(L)}^{L},
@@ -72,7 +72,7 @@ then the output will be
     \overbrace{\sigma(L1),\dots,\sigma(LL)}^L
   }^{L\times L}, \dots
 \end{displaymath}
-evaluation of $\bmu$, $\bSigma$ is undertaken by
+and the evaluation of $\bmu$, $\bSigma$ will be undertaken by
 \begin{displaymath}
   \bmu = \frac{1}{N}\sum_{k=1}^{N} \bx
 \end{displaymath}
@@ -82,22 +82,22 @@ evaluation of $\bmu$, $\bSigma$ is undertaken by
 	- \bmu \bmu'
 \end{displaymath}
 If the --d option is given, 
-the length $L$ diagonal of the covariance matrix is output 
+the length $L$ diagonal of the covariance matrix is outputted 
 instead of the entire $L\times L$ matrix.
 
 If the --o 3 option is specified, {\em vstat} also calculates the confidence
-interval of the mean via Student's t-distribution for each dimension.
-That is, for each dimension, the confidence interval can be estimated
-at the confidence level $\alpha$ (\%) with satisfying the following condition;
+interval of the mean via Student's t-distribution for each dimension,
+i.e. for each dimension, the confidence interval can be estimated
+at the confidence level $\alpha$ (\%) satisfying the following condition:
  \begin{displaymath}
   t(\alpha, \phi) \geq
   \left| \frac{\mu(i) -m(i)}{\sqrt{\hat{\sigma(i)}^{2} / L} }\right|
   ,   \;\;\;\; i = 1,  2, \dots, L
  \end{displaymath}
 where $t(\alpha, \phi)$ is the upper $0.5(100 - \alpha)$th percentile
-of the t-distribution with the  $\phi$ degrees of freedom,
-$m(i)$ is the population mean, $\hat{\sigma(i)^{2}}$ is the unbiassed variance.
-The confidence level $\alpha$ can be specified by --c option.
+of the t-distribution with $\phi$ degrees of freedom,
+$m(i)$ is the population mean, $\hat{\sigma(i)^{2}}$ is the unbiased variance.
+The confidence level $\alpha$ can be specified by the --c option.
 The upper / lower bound $u(i)$ and $l(i)$ can be written as
  \begin{displaymath}
   u(i) = \mu(i) + t(\alpha, L - 1) \sqrt{\frac{\hat{\sigma(i)}^{2}}{L}},
@@ -110,7 +110,7 @@ The order of the output is as follows.
   \overbrace{\mu(1),\dots,\mu(L)}^L, \; \overbrace{u(1),\dots,u(L)}^L,
     \;\overbrace{l(1),\dots,l(L)}^L
  \end{displaymath}
-Input and output data are in float format.
+Also, input and output data are in float format.
 \end{qsection}
 
 \begin{options}
@@ -144,8 +144,8 @@ for every group of 3 frames and sent to {\em data.av}:
   \verb!vstat -l 15 -t 3 -o 1 data.f > data.av!
 \end{quote}
 
-The outpit file {\em data.stat} contains the mean and upper / lower
-bound of confidence interval (90\%) via Student's t-distribution.
+The output file {\em data.stat} contains the mean and upper / lower
+bound of the confidence interval (90\%) calculated via Student's t-distribution.
 \begin{quote}
   \verb!vstat -C 90.0 -o 3 data.f > data.stat!
 \end{quote}
