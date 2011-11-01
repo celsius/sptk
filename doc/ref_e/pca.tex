@@ -51,12 +51,12 @@
 
 \begin{qsection}{DESCRIPTION}
  {\em pca} carries out principal component analysis
- from {\em infile} (or standard input) with jacobi method,
- sending the result to standard output.
+ from {\em infile} (or standard input) using the jacobi method,
+ and sends the result to standard output.
  {\em pca} can also calculate contribution ratio with the eigen values.
 
  In {\em infile},
- the input training data set consists of $L$-dimension vectors:
+ the input training data set consists of $L$-dimension vectors of the form:
  \[
  \Vec{x}(0), \Vec{x}(1), \Vec{x}(2), \Vec{x}(3), \cdots \;\;\;
  where\;\;\Vec{x}(i) = (x_{i}(1), x_{i}(2), \cdots, x_{i}(L))
@@ -66,7 +66,7 @@ Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
- \argm{l}{L}{dimentionality of vector}{3}
+ \argm{l}{L}{dimention of vector}{3}
  \argm{n}{N}{number of output principal components}{2}
  \argm{i}{I}{limit of iteration on jacobi method}{10000}
  \argm{e}{e}{threshold of convergence on jacobi method}{0.000001}
@@ -84,8 +84,8 @@ Input and output data are in float format.
 \begin{quote}
   \verb!pca data.f -n 2 -l 3 -v -V eigen.dat > pca.dat!
 \end{quote} 
-In the {\em pca.dat}, the mean vector is in the front of
-eigen vectors.
+Note that in the {\em pca.dat}, the mean vector is written in front of
+the eigen vectors.
 In the {\em eigen.dat}, 
 the eigen values and their contribution ratio are bound per
 the same principal component and ordered according to the
