@@ -76,8 +76,8 @@ and is performed in the given order.
 	\desc[1ex]{If the argument of the above operation option is
                ``{\em dB}'', ``{\em cent}'' or ``{\em octave}''
                then the value $20/\log_e10$, $1200/\log_e2$ or
-              $1/\log_e2$ is assigned respectively.
-		Also similarly, if ``{\em pi}'' is written after
+              $1/\log_e2$ is assigned, respectively.
+		Similarly, if ``{\em pi}'' is written after
                 the operation option, then its value will be used.
                 Actuary expression such as ``{\em ln2}'',
                 ``{\em exp10}'', ``{\em sqrt30}'' can also be
@@ -112,7 +112,7 @@ and then 1 is added ($1,3,5,\ldots$):
   \verb!ramp | sopr -m 2 -a 1 | dmp +f!
 \end{quote}
 \par
-The output file {\em data.avrg} contains the average taken from
+The output file {\em data.avrg} contains the mean taken from
 data in files {\em data.f1} and {\em data.f2} read in float format:
 \begin{quote}
   \verb!vopr -a data.f1 data.f2 | sopr -d 2 > data.avrg!
@@ -128,7 +128,7 @@ The following example gives the same results:
   \verb!sopr data.f -LOG10 -m 20 | dmp +f!
 \end{quote}
 \par
-Also, the results in cent is written to the output:
+Also, the results in cent are written to the output:
 \begin{quote}
   \verb!sopr data.f -LN -m cent | dmp +f!
 \end{quote}
@@ -154,7 +154,7 @@ then memory registers can be used as follows.
 \end{quote}
 In the example above, m0 and m1 are memory registers.
 Registers from m0 to m9 can be used.
-The --w option is used to write into memory register,
+The --w option is used to write into a memory register,
 while the --r option is used to read from a register.
 \end{qsection}
 
