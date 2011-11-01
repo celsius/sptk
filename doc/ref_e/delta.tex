@@ -54,23 +54,23 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-	{\em delta} calculates dynamic features features from {\em infile} (or standard
-	input), sending the result (static and dynamic features) to standard output. 
-	The input and output formats are
+	{\em delta} calculates dynamic features from {\em infile} (or standard
+	input), sending the result (static and dynamic features) to
+        the standard output. Input and output are as the form:
     \begin{align}
 	\mathrm{input}  & \dots, x_t(0), \dots, x_t(M), \dots \notag \\
 	\mathrm{output} & \dots, x_t(0), \dots, x_t(M), \Delta^{(1)} x_t(0), \dots, \Delta^{(1)} x_t(M), \dots,
 	\Delta^{(n)} x_t(0), \dots, \Delta^{(n)} x_t(M), \dots \notag
  \end{align}
-Input and output data are in float format.
+Also, input and output data are in float format.
 The dynamic feature vector $\Delta^{(n)}\bx_t$ is
 obtained from the static feature vector as follows.
  \begin{displaymath}
 	\Delta^{(n)}\bx_t 
 	= \sum_{\tau=-L^{(n)}}^{L^{(n)}} w^{(n)}(\tau)\bx_{t+\tau}
  \end{displaymath}
-where $n$ is the order of dynamic feature vector, for
-example, when we evaluate $\Delta^2$ parameter, $n=2$.
+where $n$ is the order of the dynamic feature vector. For
+example, when we evaluate the $\Delta^2$ parameter, $n=2$.
 \end{qsection}
 
 \begin{options}
@@ -79,10 +79,10 @@ example, when we evaluate $\Delta^2$ parameter, $n=2$.
 	\argm{d}{(fn~|~d_0~[d_1~\dots])}{$fn$ is 
                 the file name of the parameters $w^{(n)}(\tau)$
                	used when evaluating the dynamic feature vector.
-                It is assume that the number of coefficients
-                to the left and to the right have the same length,
-                if this is not true than zeros are added to the
-                short side.
+                It is assumed that the number of coefficients
+                to the left and to the right are the same then,
+                if this is not true, zeros are added to the
+                shortest side.
                 For example, if the coefficients are
 	 \begin{displaymath}
 		w(-1), w(0), w(1), w(2), w(3)
@@ -93,10 +93,10 @@ example, when we evaluate $\Delta^2$ parameter, $n=2$.
 	 \end{displaymath}
 		Instead of entering the filename $fn$,
                 the coefficients(which compose the file $fn$)
-                can be directly input in the command line.
+                can be directly input in command line.
                 When the order of the dynamic feature vector is higher
-                then one, then the sets of coefficients can be input
-                one after the other as shown on the last example below.
+                than one, then the sets of coefficients can be input
+                one after the other as shown by the example below.
 		This option can not be used with the --r option or --R option.}{N/A}
 	\argm{r}{N_R~W_1~[W_2]}{
 		This option is used when $N_R$-th order dynamic parameters
@@ -126,26 +126,27 @@ example, when we evaluate $\Delta^2$ parameter, $n=2$.
 	 \end{displaymath}
  This option can not be used with the --d option or --R option.}{N/A}
  \argm{R}{N_R~{W_F}_1~{W_B}_1[{W_F}_2~{W_B}_2]}{
- Likewise --r option, $N_{R}$-th order dynamic feature parameters can be obtained
- and weighting coefficients are evaluated by regression. $N_{R}$ can be made equal
+Similarly to the --r option, by using this option, we can obtain
+$N_{R}$-th order dynamic feature parameters  and the weighting coefficients are evaluated by regression. $N_{R}$ can be made equal
  to 1 or 2. The variables $W_{Fi}$ and $W_{Bi}$ represent the width of the
  $i$-th order regression
- coefficients of forward and backward direction, respectively.
+ coefficients in the forward and backward direction, respectively.
  Combining --M option, the regression coefficients can be evaluated skipping the magic
  number from the input.
- This option can not be used with the --d option or --r option.
+ This option can not be used with the --d or --r options.
  }{N/A}
  \argm{M}{magic}{
  The magic number $magic$ can be skipped from the input during the calculation of
  the dynamic features. This option is valid
- only when --R option is specified simultaneously.
+ only when --R option is also specified.
  }{N/A}
 
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 In the example below, the first and second order dynamic features are calculated from 15-dimensional
-coefficient vectors from {\em data.static} using windows whose width are 1, and the resultant
+coefficient vectors from {\em data.static} using windows whose width
+are 1. The resultant
 static and dynamic features are sent to {\em data.delta}:
  \begin{quote}
 	\verb!delta -m 15 -r 2 1 1 data.static > data.delta!
@@ -157,8 +158,8 @@ static and dynamic features are sent to {\em data.delta}:
 	\verb!delta -m 15 -d delta -d accel data.static > data.delta!
  \end{quote}
  If we want to obtain the first and second order dynamic features from {\em data.f0} of scalar
- sequence using windows whose width are 2 and want to skip the magic number
- -1.0E15 during the calculation, we can use the following:
+ sequence using windows whose width are 2 and also to skip the magic number
+ -1.0E15 during the calculation, we can use the following command:
  \begin{quote}
 	\verb!delta -l 1 -R 2 2 2 2 2 -M -1.0E15 data.f0 > data.delta!
  \end{quote}
