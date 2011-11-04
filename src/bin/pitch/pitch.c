@@ -49,12 +49,19 @@
 *                                      1998.7  M.Tamura                 *
 *                                      2000.3  T.Tanaka                 *
 *                                      2011.10 A.Tamamori               *
+*                                      2011.11 T.Sawada                 *
 *                                                                       *
 *       usage:                                                          *
 *               pitch [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
+*               -a  a     :  algorithm used for pitch      [0]          *
+*                            estimation                                 *
+*                              0 (snack)                                *
+*                              1 (swipe)                                *
 *               -s  s     :  sampling frequency (Hz)       [16000]      *
 *               -p  p     :  frame shift                   [80]         *
+*               -t  t     :  voiced/unvoiced threshold     [0.3]        *
+*                            (used only for swipe algorithm)            *
 *               -L  L     :  minimum fundamental frequency [60]         *
 *                            to search for (Hz)                         *
 *               -H  H     :  maximum fundamental frequency [240]        *
@@ -71,7 +78,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.32 2011/10/31 09:24:02 mataki Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.33 2011/11/04 05:05:51 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -100,9 +107,10 @@ static char *rcs_id = "$Id: pitch.c,v 1.32 2011/10/31 09:24:02 mataki Exp $";
 #define HIGH   240
 #define FRAME_SHIFT 80
 #define SAMPLE_FREQ 16000
+#define ATYPE 0
 #define OTYPE 0
 #define STR_LEN 255
-
+#define THRESH 0.3
 /*  Command Name  */
 char *cmnd;
 
@@ -119,10 +127,18 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -a a  : algorithm used for pitch        [%d]\n",
+           ATYPE);
+   fprintf(stderr, "               estimation\n");
+   fprintf(stderr, "                 0 (snack)\n");
+   fprintf(stderr, "                 1 (swipe)\n");
    fprintf(stderr, "       -s s  : sampling frequency (Hz)         [%d]\n",
            SAMPLE_FREQ);
    fprintf(stderr, "       -p p  : frame shift                     [%d]\n",
            FRAME_SHIFT);
+   fprintf(stderr, "       -t t  : voiced/unvoiced threshold       [%g]\n",
+           THRESH);
+   fprintf(stderr, "               (used only for swipe algorithm)\n");
    fprintf(stderr, "       -L L  : minimum fundamental             [%d]\n",
            LOW);
    fprintf(stderr, "               frequency to search for (Hz)\n");
@@ -154,8 +170,8 @@ int main(int argc, char **argv)
 {
    int i, j, length, frame_shift = FRAME_SHIFT,
        sample_freq = SAMPLE_FREQ,
-       L = LOW, H = HIGH, otype = OTYPE;
-   double *x;
+     L = LOW, H = HIGH, atype = ATYPE, otype = OTYPE;
+   double *x, thresh = THRESH, timestep;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;
    char * message = (char *) malloc(sizeof(char) * STR_LEN);
@@ -170,12 +186,20 @@ int main(int argc, char **argv)
    while (--argc)
       if (**++argv == '-') {
          switch (*(*argv + 1)) {
+         case 'a':
+            atype = atoi(*++argv);
+            --argc;
+            break;
          case 's':
-            sample_freq = atoi(*++argv);
+            frame_shift = atoi(*++argv);
             --argc;
             break;
          case 'p':
             frame_shift = atoi(*++argv);
+            --argc;
+            break;
+         case 't':
+            thresh = atof(*++argv);
             --argc;
             break;
          case 'L':
@@ -212,11 +236,16 @@ int main(int argc, char **argv)
       cur->next = NULL;
       prev = cur;
    }
-   message = cGet_f0(top->next, sample_freq, length, frame_shift, L, H, otype);
-   if (message != NULL) {
-       fprintf(stderr, "%s : %s\n", cmnd, message);
-       usage(1);
-   }
 
+   if (atype == 0) {
+      message = cGet_f0(top->next, sample_freq, length, frame_shift, L, H, otype);
+      if (message != NULL) {
+          fprintf(stderr, "%s : %s\n", cmnd, message);
+          usage(1);
+      }
+   } else {
+      timestep = (double) frame_shift / (double) sample_freq;
+      swipe(top->next, length, (double) L, (double) H, thresh, timestep, (double) sample_freq, otype);
+   }
    return (0);
 }
