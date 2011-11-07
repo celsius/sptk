@@ -78,7 +78,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.33 2011/11/04 05:05:51 sawada11 Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.34 2011/11/07 01:43:39 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -191,7 +191,7 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 's':
-            frame_shift = atoi(*++argv);
+            sample_freq = atoi(*++argv);
             --argc;
             break;
          case 'p':
