@@ -191,7 +191,7 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 's':
-            frame_shift = atoi(*++argv);
+            sample_freq = atoi(*++argv);
             --argc;
             break;
          case 'p':
