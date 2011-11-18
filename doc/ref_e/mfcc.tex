@@ -67,7 +67,9 @@ the MLSA filter.
 \begin{options}
 	\argm{a}{A}{preemphasise coefficient}{0.97}
 	\argm{c}{C}{liftering coefficient}{22}
-	\argm{e}{E}{small value for calculating log()}{0.0}
+	\argm{e}{E}{flooring value for calculating $\log(x)$ in filterbank
+        analysis \\
+        if $x < E$ then rerurn $x = E$}{1.0}
 	\argm{l}{L_1}{frame length of input}{256}
 	\argm{L}{L_2}{frame length for fft. default value $2^n$
           satisfies $L_1 \leq 2^n$ }{$2^n$}
