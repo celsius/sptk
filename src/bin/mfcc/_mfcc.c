@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _mfcc.c,v 1.2 2011/09/05 01:28:30 sawada11 Exp $
+    $Id: _mfcc.c,v 1.3 2011/11/18 06:53:23 sawada11 Exp $
 
     Mel-Frequency Cepstral Analysis
 
@@ -78,7 +78,7 @@
 #endif
 
 #define MEL 1127.01048
-
+#define EZERO (-1.0E10)
 
 
 /* workspace for dct*/
@@ -110,14 +110,14 @@ double Sample2Mel(int sample, int num, double fs)
   return Freq2Mel(freq);
 }
 
-double CalcEnergy(double *x, const int leng)
+double CalcEnergy(double *x, const double eps, const int leng)
 {
    int k;
    double energy = 0.0;
    for (k = 0; k < leng; k++)
       energy += x[k] * x[k];
 
-   return log(energy);
+   return ((energy <= 0) ? EZERO : log(energy));
 }
 
 void Hamming(double *x, const int leng)
@@ -372,8 +372,11 @@ void fbank(double *x, double *fb, const double eps, const double fs, const int l
    free(noMel);
    free(countMel);
 
-   for (k = 1; k <= n; k++)
-      fb[k] = log(fb[k] + eps);
+   for (k = 1; k <= n; k++) {
+      if (fb[k] < eps)
+	 fb[k] = eps;
+      fb[k] = log(fb[k]);
+   }
 }
 
 
@@ -469,7 +472,7 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha, c
 
    movem(in, x, sizeof(*in), wlng);
    /* calculate energy */
-   energy = CalcEnergy(x, wlng);
+   energy = CalcEnergy(x, eps, wlng);
    preEmphasise(x, px, alpha, wlng);
    /* apply hamming window*/
    if (usehamming)
@@ -480,7 +483,7 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha, c
    fbank(sp, fb, eps, sampleFreq, flng, n);
    /* calculate 0'th coefficient*/
    for (k = 1;k <= n; k++)
-     c0 += fb[k];
+      c0 += fb[k];
    c0 *= sqrt(2.0 / (double) n);
    dct(fb,dc,n, m, dftmode);
    /* liftering */

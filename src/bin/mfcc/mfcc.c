@@ -53,7 +53,9 @@
 *       options:                                                         *
 *               -a  a    :  pre-emphasis coefficient             [0.97]  *
 *               -c  c    :  liftering coefficient                [0]     *
-*               -e  e    :  epsilon                              [0.0]   *
+*               -e  e    :  flooring value for culculating log(x)[1.0]   *
+*                           in filterbank analysis                       *
+*                           if x < e then x = e                          *
 *               -l  l    :  frame length of input                [256]   *
 *               -L  L    :  frame length of window               [256]   * 
 *               -m  m    :  order of cepstrum                    [13]    *
@@ -79,7 +81,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: mfcc.c,v 1.2 2011/09/05 01:27:10 sawada11 Exp $";
+static char *rcs_id = "$Id: mfcc.c,v 1.3 2011/11/18 06:53:23 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -105,7 +107,7 @@ static char *rcs_id = "$Id: mfcc.c,v 1.2 2011/09/05 01:27:10 sawada11 Exp $";
 /*  Default Values  */
 #define ORDER 12
 #define WLNG 256
-#define EPS 0.0
+#define EPS 1.0
 #define CHANNEL 20
 #define USEHAMMING FA
 #define DFTMODE FA
@@ -132,10 +134,12 @@ void usage(int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -a a  : pre-emphasis coefficient              [%g]\n", 
            ALPHA);
-   fprintf(stderr, "       -c c  : liftering coefficient                 [%g]\n", 
+   fprintf(stderr, "       -c c  : liftering coefficient                 [%d]\n", 
            LIFT);
-   fprintf(stderr, "       -e e  : small value for calculating log()     [%g]\n",
+   fprintf(stderr, "       -e e  : flooring value for calculating log(x) [%g]\n",
            EPS);
+   fprintf(stderr, "               in filterbank analysis\n");
+   fprintf(stderr, "               if x < e, then x = e\n");
    fprintf(stderr, "       -f f  : sampling frequency                    [%g]\n", 
            SAMPLEFREQ);
    fprintf(stderr, "       -l l  : frame length of input                 [%d]\n", 
@@ -224,6 +228,7 @@ int main(int argc, char **argv)
             break;
          case 'w':
             wtype = atoi(*++argv);
+            --argc;
             break;
          case 'd':
             dftmode = 1 - dftmode;
