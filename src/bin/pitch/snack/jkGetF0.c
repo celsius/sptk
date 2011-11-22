@@ -43,6 +43,7 @@
 /*   contributors may be used to endorse or promote products derived */
 /*   from this software without specific prior written permission.   */
 /*                                                                   */
+
 /* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            */
 /* CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       */
 /* INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          */
@@ -58,7 +59,7 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-static char *rcs_id = "$Id: jkGetF0.c,v 1.3 2011/10/31 09:33:49 mataki Exp $";
+static char *rcs_id = "$Id: jkGetF0.c,v 1.4 2011/11/22 13:32:08 mataki Exp $";
 
 #if 0
 #include "snack.h"
@@ -998,13 +999,13 @@ init_dp_f0(freq, par, buffsize, sdstep)
       windstat = (Windstat *) ckalloc( wReuse * sizeof(Windstat));
       /*      spsassert(windstat, "windstat ckalloc failed");*/
 #else
-    rms_speech = (float *) fgetmem(output_buf_size);
-    f0p = (float *) fgetmem(output_buf_size);
-    vuvp = (float *) fgetmem(output_buf_size);
-    acpkp = (float *) fgetmem(output_buf_size);
+    rms_speech = (float *) malloc(sizeof(float) * output_buf_size);
+    f0p = (float *) malloc(sizeof(float) * output_buf_size);
+    vuvp = (float *) malloc(sizeof(float) * output_buf_size);
+    acpkp = (float *) malloc(sizeof(float) * output_buf_size);
 
     /* Allocate space for peak location and amplitude scratch arrays. */
-    peaks = (float *) fgetmem(maxpeaks);
+    peaks = (float *) malloc(sizeof(float) * maxpeaks);
     locs = (int *) malloc(sizeof(int) * maxpeaks);
 
     /* Initialise the retrieval/saving scheme of window statistic measures */
