@@ -998,13 +998,13 @@ init_dp_f0(freq, par, buffsize, sdstep)
       windstat = (Windstat *) ckalloc( wReuse * sizeof(Windstat));
       /*      spsassert(windstat, "windstat ckalloc failed");*/
 #else
-    rms_speech = (float *) malloc(sizeof(float) * output_buf_size);
-    f0p = (float *) malloc(sizeof(float) * output_buf_size);
-    vuvp = (float *) malloc(sizeof(float) * output_buf_size);
-    acpkp = (float *) malloc(sizeof(float) * output_buf_size);
+    rms_speech = (float *) fgetmem(output_buf_size);
+    f0p = (float *) fgetmem(output_buf_size);
+    vuvp = (float *) fgetmem(output_buf_size);
+    acpkp = (float *) fgetmem(output_buf_size);
 
     /* Allocate space for peak location and amplitude scratch arrays. */
-    peaks = (float *) malloc(sizeof(float) * maxpeaks);
+    peaks = (float *) fgetmem(maxpeaks);
     locs = (int *) malloc(sizeof(int) * maxpeaks);
 
     /* Initialise the retrieval/saving scheme of window statistic measures */
