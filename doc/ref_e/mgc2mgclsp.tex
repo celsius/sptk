@@ -1,0 +1,120 @@
+% ----------------------------------------------------------------- %
+%             The Speech Signal Processing Toolkit (SPTK)           %
+%             developed by SPTK Working Group                       %
+%             http://sp-tk.sourceforge.net/                         %
+% ----------------------------------------------------------------- %
+%                                                                   %
+%  Copyright (c) 1984-2007  Tokyo Institute of Technology           %
+%                           Interdisciplinary Graduate School of    %
+%                           Science and Engineering                 %
+%                                                                   %
+%                1996-2011  Nagoya Institute of Technology          %
+%                           Department of Computer Science          %
+%                                                                   %
+% All rights reserved.                                              %
+%                                                                   %
+% Redistribution and use in source and binary forms, with or        %
+% without modification, are permitted provided that the following   %
+% conditions are met:                                               %
+%                                                                   %
+% - Redistributions of source code must retain the above copyright  %
+%   notice, this list of conditions and the following disclaimer.   %
+% - Redistributions in binary form must reproduce the above         %
+%   copyright notice, this list of conditions and the following     %
+%   disclaimer in the documentation and/or other materials provided %
+%   with the distribution.                                          %
+% - Neither the name of the SPTK working group nor the names of its %
+%   contributors may be used to endorse or promote products derived %
+%   from this software without specific prior written permission.   %
+%                                                                   %
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            %
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       %
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          %
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          %
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS %
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          %
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   %
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     %
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON %
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   %
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    %
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
+% POSSIBILITY OF SUCH DAMAGE.                                       %
+% ----------------------------------------------------------------- %
+\hypertarget{mgc2mgclsp}{}
+\name{mgc2mgclsp}{transform MGC to MGC-LSP}{speech parameter transformation}
+
+\begin{synopsis}
+\item [mgc2mgclsp] [ --a $A$] [ --g $G$][ --m $M$ ] [ --o $O$] [ --s
+  $S$ ] [ -- k] [ --l]
+\item[\ ~~~~~~~~~~~~~~~~~~~~] [ {\em infile} ] 
+
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em mgc2mgc} transforms mel-generalized cepstral coefficients
+$c_{\alpha,\gamma}(0), \dots, c_{\alpha,\gamma}(M)$
+from {\em infile} (or standard input) 
+into line spectral paor coefficoents (MGC-LSP) $K, l(1), \dots, l(M)$
+sending the result to standard output.
+
+$\alpha$ characterizes the frequency-warping transform,
+while $\gamma$ characterizes the generalized log magnitude transform
+and $K$ is gain.
+
+Also, {\em mgc2mgclsp} does not
+check stability of MGC-LSP. It is necessarry to use {\em lspcheck} command
+for getting MGC-LSP checked stability.
+
+% {\em mgc2mgclsp} calculates line spectral pair coefficients 
+% from $M$-th order mel-generalized cepstrum coefficients (MGC-LSP) 
+% from {\em infile} (or standard input),
+% sending the result to standard output. Also, {\em mgc2mgclsp} does not
+% check stability of MGC-LSP. It is necessarry to use {\em lspcheck} command
+% for getting MGC-LSP checked stability.
+
+\end{qsection}
+
+\begin{options}
+	\argm{a}{A}{alpha of mel-generalized cepstrum}{0.35}
+        \argm{g}{G_1}{gamma of mel-generalized cepstrum \\
+                        $\gamma = G$}{-1}
+        \argm{c}{C_1}{gamma of mel-generalized cepstrum (input)\\
+                        $\gamma =-1 / $(int)$ C$\\
+                        $C$ must be $C \geq 1$}{}
+	\argm{m}{M}{order of mel-generalized cepstrum}{25}
+        \argm{o}{O}{output format \\
+                \begin{tabular}{ll} \\[-1ex]
+                        $0$ & normalized frequency $(0 \dots \pi)$ \\
+                        $1$ & normalized frequency $(0 \dots 0.5)$ \\
+                        $2$ & frequency (kHz) \\
+                        $3$ & frequency (Hz)  \\
+                \end{tabular}\\\hspace*{\fill}}{0}
+	\argm{s}{S}{sampling frequency (kHz)}{10}
+        \argm{k}{}{do not output gain}{FALSE}
+        \argm{l}{}{output log gain instead of linear gain}{FALSE}
+
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+In the following example, speech data is read in float format from
+{\em data.f}, analyzed with $\alpha = 0.35, \gamma = -1$
+and the MGC-LSP coefficients are evaluated and written to {\em data.mgclsp}:
+\begin{quote}
+\verb!frame +f < data.f | window | mgcep -a 0.35 -g -1 |\!\\
+\verb!mgc2mgclsp -a 0.35 -g -1 > data.mgclsp!
+\end{quote}
+If we want MGC-LSP checked stability:
+\begin{quote}
+\verb!frame +f < data.f | window | mgcep -a 0.35 -g -1 |\!\\
+\verb!mgc2mgclsp -a 0.35 -g -1 | lspcheck -r 0.01 > data.mgclsp |\! \\
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+\hyperlink{lpc}{lpc},
+\hyperlink{lsp2lpc}{lsp2lpc},
+\hyperlink{lspcheck}{lspcheck},
+\hyperlink{mgc2mgc}{mgc2mgc},
+\hyperlink{mgcep}{mgcep}
+\end{qsection}
