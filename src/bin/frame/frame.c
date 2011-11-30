@@ -103,6 +103,10 @@ char *BOOL[] = { "FALSE", "TRUE" };
 /*  Command Name  */
 char *cmnd;
 
+typedef struct _float_list {
+   float f;
+   struct _float_list *next;
+} float_list;
 
 void usage(int status)
 {
@@ -131,12 +135,12 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int l = LENG, fprd = FPERIOD, ns, i;
-   size_t size = sizeof(float);
+   int l = LENG, fprd = FPERIOD, i, j, length, left = 0, current = 0;
    FILE *fp = stdin;
    Boolean noctr = NOCTR;
-   char *x, *xx, *p1, *p2, *p;
+   double *x, *in, *buf;
    char *s, c;
+   float_list *top, *cur, *prev, *tmpf;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -166,43 +170,37 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
-   x = (char *) dgetmem(size * l);
 
-   if (!noctr) {
-      i = (int) ((l + 1) / 2);
-      if (freadx(&x[(int) (l / 2) * size], size, i, fp) != i)
-         return 0;
-   } else {
-      if (freadx(x, size, l, fp) != l)
-         return 0;
+   in = dgetmem(1);
+   top = prev = (float_list *) malloc(sizeof(float_list));
+   length = 0;
+   prev->next = NULL;
+   while (freadf(in, sizeof(*x), 1, fp) == 1) {
+      cur = (float_list *) malloc(sizeof(float_list));
+      cur->f = (float) in[0];
+      length++;
+      prev->next = cur;
+      cur->next = NULL;
+      prev = cur;
    }
+   tmpf = top->next;
+   buf = dgetmem(length);
+   for (i = 0; tmpf != NULL; i++, tmpf = tmpf->next)
+      buf[i] = tmpf->f;
 
-   fwritex(x, size, l, stdout);
+   x = dgetmem(l);
 
-   if ((ns = (l - fprd)) > 0) {
-      p = &x[fprd * size];
-      for (;;) {
-         p1 = x;
-         p2 = p;
-         i = ns * size;
-         while (i--)
-            *p1++ = *p2++;
+   if (!noctr)
+      left = - l / 2;
 
-         if (freadx(p1, size, fprd, fp) != fprd)
-            break;
-         fwritex(x, size, l, stdout);
+   for(;current < length; current += fprd, left += fprd) {
+      for (i = 0, j = left; j <= left + l - 1; j++, i++) {
+         if (j < 0 || j > (length - 1))
+            x[i] = 0.0;
+         else
+            x[i] = buf[j];
       }
-   } else {
-      i = -ns;
-      xx = (char *) dgetmem(i * size);
-      for (;;) {
-         if (freadx(xx, size, i, fp) != i)
-            break;
-
-         if (freadx(x, size, l, fp) != l)
-            break;
-         fwritex(x, size, l, stdout);
-      }
+      fwritef(x, sizeof(*x), l, stdout);
    }
 
    return 0;
