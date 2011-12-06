@@ -1841,7 +1841,7 @@ cGet_f0(Sound *sound, Tcl_Interp *interp, float **outlist, int *length)
 {
 #else
 const char *cGet_f0(float_list *input, float sample_freq, int length,
-                    int frame_shift, int minF0, int maxF0, int otype)
+                    int frame_shift, int minF0, int maxF0, int fnum, int otype)
 {
 #endif
   float *fdata;
@@ -2056,7 +2056,7 @@ const char *cGet_f0(float_list *input, float sample_freq, int length,
 
   return TCL_OK;
 #else
-  for (i = 0; i < count; i++) {
+  for (i = 0; i < fnum; i++) {
       switch (otype) {
       case 1:                   /* f0 */
           fwrite(tmp + i, sizeof(float), 1, stdout);
