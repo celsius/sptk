@@ -78,7 +78,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.34 2011/11/07 01:43:39 sawada11 Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.35 2011/12/06 09:29:36 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -111,6 +111,15 @@ static char *rcs_id = "$Id: pitch.c,v 1.34 2011/11/07 01:43:39 sawada11 Exp $";
 #define OTYPE 0
 #define STR_LEN 255
 #define THRESH 0.3
+#define NOISEMASK 50.0
+#define SEED 1
+#define RND_MAX 32767
+#define FSP 10.0
+#define ALPHA 0.00275
+#define BETA_1 9600.0
+#define BETA_2 168.0
+#define BETA_3 96000.0
+
 /*  Command Name  */
 char *cmnd;
 
@@ -118,6 +127,37 @@ typedef struct _float_list {
    float f;
    struct _float_list *next;
 } float_list;
+
+static double rnd(unsigned long *next)
+{
+   double r;
+
+   *next = *next * 1103515245L + 12345;
+   r = (*next / 65536L) % 32768L;
+
+   return (r / RND_MAX);
+}
+
+double nrandom(unsigned long *next)
+{
+   static int sw = 0;
+   static double r1, r2, se;
+
+   if (sw == 0) {
+      sw = 1;
+      do {
+         r1 = 2 * rnd(next) - 1;
+         r2 = 2 * rnd(next) - 1;
+         se = r1 * r1 + r2 * r2;
+      }
+      while (se > 1 || se == 0);
+      se = sqrt(-2 * log(se) / se);
+      return (r1 * se);
+   } else {
+      sw = 0;
+      return (r2 * se);
+   }
+}
 
 void usage(int status)
 {
@@ -170,14 +210,15 @@ int main(int argc, char **argv)
 {
    int i, j, length, frame_shift = FRAME_SHIFT,
        sample_freq = SAMPLE_FREQ,
-     L = LOW, H = HIGH, atype = ATYPE, otype = OTYPE;
-   double *x, thresh = THRESH, timestep;
+     L = LOW, H = HIGH, atype = ATYPE, otype = OTYPE, alpha, beta, fnum;
+   long next = SEED;
+   double *x, thresh = THRESH, timestep, p, fsp;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;
    char * message = (char *) malloc(sizeof(char) * STR_LEN);
    char * cGet_f0(float_list *flist, float sample_freq,
                   int length, int frame_shift,
-                  int minF0, int maxF0, int otype);
+                  int minF0, int maxF0, int fnum, int otype);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -224,21 +265,43 @@ int main(int argc, char **argv)
          fp = getfp(*argv, "rb");
       }
 
+
    x = dgetmem(1);
    top = prev = (float_list *) malloc(sizeof(float_list));
    length = 0;
    prev->next = NULL;
    while (freadf(x, sizeof(*x), 1, fp) == 1) {
+      p = (double) nrandom(&next);
       cur = (float_list *) malloc(sizeof(float_list));
-      cur->f = (float) x[0];
+      if (atype == 0)
+         cur->f = (float) x[0] + (float) (p * NOISEMASK);
+      else 
+         cur->f = (float) x[0];
       length++;
       prev->next = cur;
       cur->next = NULL;
       prev = cur;
    }
+   if (atype == 0) {
+     fnum = (int) (ceil((double) length / (double) frame_shift));
+     fsp = (double) sample_freq * (FSP / (double) frame_shift);
+     alpha = (int) (ALPHA * fsp + 0.5);
+     beta = (int) ((BETA_1 / (double) L - BETA_2) * fsp / BETA_3 + 0.5);
+     if (beta < 0)
+        beta = 0;
+     for (i = 0; i < (alpha + beta + 3) * frame_shift; i++) {
+        p = (double) nrandom(&next);
+        cur = (float_list *) malloc(sizeof(float_list));
+        cur->f = (float) (p * NOISEMASK);
+        length++;
+        prev->next = cur;
+        cur->next = NULL;
+        prev = cur;
+     }
+   }
 
    if (atype == 0) {
-      message = cGet_f0(top->next, sample_freq, length, frame_shift, L, H, otype);
+      message = cGet_f0(top->next, sample_freq, length, frame_shift, L, H, fnum, otype);
       if (message != NULL) {
           fprintf(stderr, "%s : %s\n", cmnd, message);
           usage(1);
