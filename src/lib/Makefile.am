@@ -74,7 +74,6 @@ nodist_libSPTK_a_SOURCES = $(top_srcdir)/include/SPTK.h \
 		$(top_srcdir)/bin/nrand/_nrand.c \
 		$(top_srcdir)/bin/par2lpc/_par2lpc.c \
 		$(top_srcdir)/bin/phase/_phase.c \
-		$(top_srcdir)/bin/pitch/_pitch.c \
 		$(top_srcdir)/bin/poledf/_poledf.c \
 		$(top_srcdir)/bin/reverse/_reverse.c \
 		$(top_srcdir)/bin/rmse/_rmse.c \
