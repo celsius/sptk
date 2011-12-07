@@ -1,0 +1,160 @@
+% ----------------------------------------------------------------- %
+%             The Speech Signal Processing Toolkit (SPTK)           %
+%             developed by SPTK Working Group                       %
+%             http://sp-tk.sourceforge.net/                         %
+% ----------------------------------------------------------------- %
+%                                                                   %
+%  Copyright (c) 1984-2007  Tokyo Institute of Technology           %
+%                           Interdisciplinary Graduate School of    %
+%                           Science and Engineering                 %
+%                                                                   %
+%                1996-2011  Nagoya Institute of Technology          %
+%                           Department of Computer Science          %
+%                                                                   %
+% All rights reserved.                                              %
+%                                                                   %
+% Redistribution and use in source and binary forms, with or        %
+% without modification, are permitted provided that the following   %
+% conditions are met:                                               %
+%                                                                   %
+% - Redistributions of source code must retain the above copyright  %
+%   notice, this list of conditions and the following disclaimer.   %
+% - Redistributions in binary form must reproduce the above         %
+%   copyright notice, this list of conditions and the following     %
+%   disclaimer in the documentation and/or other materials provided %
+%   with the distribution.                                          %
+% - Neither the name of the SPTK working group nor the names of its %
+%   contributors may be used to endorse or promote products derived %
+%   from this software without specific prior written permission.   %
+%                                                                   %
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            %
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       %
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          %
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          %
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS %
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          %
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   %
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     %
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON %
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   %
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    %
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
+% POSSIBILITY OF SUCH DAMAGE.                                       %
+% ----------------------------------------------------------------- %
+\hypertarget{dtw}{}
+\name{dtw}{dynamic time warping}{dynamic time warping}
+\begin{synopsis}
+\item[dtw] [ --m $M$ ]  [ --l $L$ ]  [ --r $R$ ]  [ --t $T$ ]
+           [ --n $N$ ]  [ --p $P$ ]
+ \item [\ ~~~~~~~] [ --s $Scorefile$ ]  [ --v $Vitfile$ ]
+ {\em tempfile} [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em dtw} carries out dynamic time warping between
+ the reference data from {\em infile} (or standard input)
+ and the template data from {\em tempfile},
+ and sends the result to standard output.
+ The result is the concatenated sequences
+ of the reference and the template data
+ along with the Viterbi path.
+ If --s option is specified,
+ the score calculated by dynamic time warping,
+ that is, the distance between the reference data and the template data
+ is output and sent to {\em Scorefile}.
+ If --v option is specified,
+ the concatenated frame number sequences
+ along the Viterbi path
+ is output and sent to {\em Vitfile}.
+
+ For example, suppose that the reference and the template data are
+ \begin{align}
+  \mathrm{reference} :\;\; & x(0), x(1), \dots, x(T_x - 1), \dots, x(T_x), \notag \\
+  \mathrm{template}  :\;\; & y(0), y(1), \dots, y(T_y - 1), \dots, y(T_y), \notag
+ \end{align}
+ where $T_x$ and $T_y$ are the length of the reference and template data,
+ respectively,
+ and the following Viterbi sequences
+ \begin{align}
+  \mathrm{reference} :\;\; & x(\phi_x(0)), x(\phi_x(1)), \dots, x(\phi_x(T_x - 1)),
+  \dots, x(\phi_{x}(T_x)), \notag \\
+  \mathrm{template}  :\;\; & y(\phi_y(0)), y(\phi_y(1)), \dots,
+  y(\phi_y(T_y - 1)), \dots, y(\phi_y(T_y)), \notag
+ \end{align}
+ are obtained, where $\phi_x(\cdot)$ and $\phi_x(\cdot)$ are the function which
+ maps the frame number of reference/template data
+ into the corresponding Viterbi frame number, respectively.
+ In addition, the relation $\phi_x(T_x)=\phi_y(T_y)$ holds.
+ Then, the following sequence
+ \begin{align}
+  x(\phi_x(0)), y(\phi_y(0)),
+  x(\phi_x(1)), y(\phi_y(1)),
+  \dots, x(\phi_{x}(T_x)), \dots, y(\phi_y(T_y)) \notag
+ \end{align}
+ are sent to the standard output.
+ If --v option is specified, the following sequence
+ \begin{align}
+  \phi_x(0), \phi_y(0),
+  \phi_x(1), \phi_y(1),
+  \dots, \phi_{x}(T_x), \dots, \phi_y(T_y) \notag
+ \end{align}
+ are sent to the {\em Vitfile}.
+
+ Both input and output files are in float format. However,
+ the {\em Vitfile} which contains the Viterbi frame number
+ sequences is in int format.
+\end{qsection}
+\begin{options}
+ \argm{m}{M}{order of vector}{0}
+ \argm{l}{L}{dimention of vector}{M+1}
+ \argm{r}{R}{number of reference input vectors}{N/A}
+ \argm{t}{T}{number of template input vectors}{N/A}
+ \argm{n}{N}{type of norm used for calculation of local distance\\
+ \begin{tabular}{ll} \\[-1ex]
+  $N=1$ & ~~~$L_{1}$-norm\\
+  $N=2$ & ~~~$L_{2}$-norm\\
+ \end{tabular}\\\hspace*{\fill}}{2}
+ \argm{p}{P}{local path constraint\\
+ candidates of constraint are shown in figure \ref{fig:dtw_cand}.}{5}
+ \argm{s}{Scorefile}{output score of the dynamic time warping
+ to ${Scorefile}$. }{FALSE}
+ \argm{v}{Vitfile}{output frame number sequence along the Viterbi
+ path to ${Vitfile}$.}{FALSE}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+ In the example below, a dynamic time warping between the scalar
+ sequence from {\em data.ref} and
+ the sequence from {\em data.temp} is carried out and
+ the concatenated sequence are written to {\em data.out}.
+\begin{quote}
+ \verb!dtw -l 1 data.temp < data.ref > data.out!
+\end{quote}
+\end{qsection}
+
+\begin{figure}[htbp]
+ \begin{center}
+  \begin{tabular}{cccc} \\[-1ex]
+   &\includegraphics[height=2cm]{fig/path1.eps}
+   &\includegraphics[height=2cm]{fig/path2.eps}
+   &\includegraphics[height=2cm]{fig/path3.eps}\\
+   &$P=1$&$P=2$&$P=3$\\
+   &&&\\
+   &\includegraphics[height=3cm]{fig/path4.eps}
+       &\includegraphics[height=3cm]{fig/path5.eps}
+   &\includegraphics[height=3cm]{fig/path6.eps}\\
+   &$P=4$&$P=5$&$P=6$\\
+   &&&\\
+   &\includegraphics[height=3cm]{fig/path7.eps}
+       &&\\
+   &$P=7$&&\\
+  \end{tabular}
+ \end{center}
+ \caption{candidates of local path constraint}
+ \label{fig:dtw_cand}
+\end{figure}
+
+\begin{qsection}{SEE ALSO}
+\hyperlink{vc}{vc}
+\end{qsection}
+
