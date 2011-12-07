@@ -43,7 +43,7 @@
 /* ----------------------------------------------------------------- */
 
 /***********************************************************
-   $Id: SPTK.h,v 1.35 2011/08/23 08:53:44 sawada11 Exp $ 
+   $Id: SPTK.h,v 1.36 2011/12/07 12:28:33 uratec Exp $ 
    
    Speech Signal Processing Toolkit
    SPTK.h
@@ -268,9 +268,6 @@ unsigned long srnd(const unsigned int seed);
 void par2lpc(double *k, double *a, const int m);
 void phase(double *p, const int mp, double *z, const int mz, double *ph,
            const int flng, const int unlap);
-double pitch(double *xw, const int l, const double thresh, const int low,
-             const int high, const double eps, const int m, const int itr1,
-             const int itr2, const double end);
 double poledf(double x, double *a, int m, double *d);
 double poledft(double x, double *a, int m, double *d);
 void reverse(double *x, const int l);
