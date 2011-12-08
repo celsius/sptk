@@ -60,7 +60,7 @@
 *               -L  L    :  frame length of window               [256]   * 
 *               -m  m    :  order of cepstrum                    [13]    *
 *               -n  n    :  order of channel for mel-filter bank [26]    *
-*               -F  F    :  sampling frequency                   [16000] *
+*               -F  F    :  sampling frequency (kHz)             [16.0]  *
 *               -d       :  without using fft algorithm          [FALSE] *
 *               -w       :  use hamming window                   [FALSE] *
 *               -E       :  use power                            [FALSE] *
@@ -113,7 +113,7 @@ static char *rcs_id = "$Id$";
 #define DFTMODE FA
 #define CZERO FA
 #define ENERGY  FA
-#define SAMPLEFREQ 16000.0
+#define SAMPLEFREQ 16.0
 #define ALPHA 0.97
 #define LIFT 22
 #define WTYPE 0
@@ -132,38 +132,49 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -a a  : pre-emphasis coefficient              [%g]\n", 
+   fprintf(stderr,
+           "       -a a  : pre-emphasis coefficient              [%g]\n",
            ALPHA);
-   fprintf(stderr, "       -c c  : liftering coefficient                 [%d]\n", 
-           LIFT);
-   fprintf(stderr, "       -e e  : flooring value for calculating log(x) [%g]\n",
-           EPS);
+   fprintf(stderr,
+           "       -c c  : liftering coefficient                 [%d]\n", LIFT);
+   fprintf(stderr,
+           "       -e e  : flooring value for calculating log(x) [%g]\n", EPS);
    fprintf(stderr, "               in filterbank analysis\n");
    fprintf(stderr, "               if x < e, then x = e\n");
-   fprintf(stderr, "       -f f  : sampling frequency                    [%g]\n", 
+   fprintf(stderr,
+           "       -f f  : sampling frequency (kHz)              [%.1f]\n",
            SAMPLEFREQ);
-   fprintf(stderr, "       -l l  : frame length of input                 [%d]\n", 
-           WLNG);
-   fprintf(stderr, "       -L L  : frame length for fft                  [2^n]\n");
+   fprintf(stderr,
+           "       -l l  : frame length of input                 [%d]\n", WLNG);
+   fprintf(stderr,
+           "       -L L  : frame length for fft                  [2^n]\n");
    fprintf(stderr, "               default value 2^n satisfies l <= 2^n\n");
-   fprintf(stderr, "       -m m  : order of cepstrum                     [%d]\n", 
+   fprintf(stderr,
+           "       -m m  : order of cepstrum                     [%d]\n",
            ORDER);
-   fprintf(stderr, "       -n n  : order of channel for mel-filter bank  [%d]\n", 
+   fprintf(stderr,
+           "       -n n  : order of channel for mel-filter bank  [%d]\n",
            CHANNEL);
-   fprintf(stderr, "       -w w  : type of window                        [%d]\n",
+   fprintf(stderr,
+           "       -w w  : type of window                        [%d]\n",
            WTYPE);
    fprintf(stderr, "                  0 (hamming)\n");
    fprintf(stderr, "                  1 (do not use a window function)\n");
-   fprintf(stderr, "       -d    : without using fft algorithm (use dft) [%s]\n",
+   fprintf(stderr,
+           "       -d    : without using fft algorithm (use dft) [%s]\n",
            BOOL[DFTMODE]);
-   fprintf(stderr, "       -E    : output energy                         [%s]\n",
+   fprintf(stderr,
+           "       -E    : output energy                         [%s]\n",
            BOOL[ENERGY]);
-   fprintf(stderr, "       -0    : output 0'th static coefficient        [%s]\n",
+   fprintf(stderr,
+           "       -0    : output 0'th static coefficient        [%s]\n",
            BOOL[CZERO]);
    fprintf(stderr, "\n");
    fprintf(stderr, "       if -E or -0 option is given, the value is output\n");
-   fprintf(stderr, "       after the MFCC. Also, if both -E and -0 option are\n");
-   fprintf(stderr, "       given, 0'th static coefficient C0 is output before energy E.\n");
+   fprintf(stderr,
+           "       after the MFCC. Also, if both -E and -0 option are\n");
+   fprintf(stderr,
+           "       given, 0'th static coefficient C0 is output before energy E.\n");
    fprintf(stderr, "\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -182,7 +193,8 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, l = WLNG, L = -1, n = CHANNEL, lift = LIFT, wtype = WTYPE, num = 0;
+   int m = ORDER, l = WLNG, L = -1, n = CHANNEL, lift = LIFT, wtype =
+       WTYPE, num = 0;
    double eps = EPS, fs = SAMPLEFREQ, alpha = ALPHA, *x, *mc;
    FILE *fp = stdin;
    Boolean dftmode = DFTMODE, czero = CZERO, usehamming = USEHAMMING;
@@ -249,8 +261,11 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
+   fs *= 1000;                  /* kHz -> Hz */
+
    if (L < 0)
-      for (L = 2; L <= l; L *= 2) {}
+      for (L = 2; L <= l; L *= 2) {
+      }
    if (wtype == 0)
       usehamming = 1 - usehamming;
 
@@ -258,7 +273,7 @@ int main(int argc, char **argv)
    mc = x + l;
 
    while (freadf(x, sizeof(*x), l, fp) == l) {
-     mfcc(x, mc, fs, alpha, eps, l, L, m + 1, n, lift, dftmode, usehamming);
+      mfcc(x, mc, fs, alpha, eps, l, L, m + 1, n, lift, dftmode, usehamming);
       if (!czero)
          mc[m] = mc[m + 1];
       fwritef(mc, sizeof(*mc), m + num, stdout);
