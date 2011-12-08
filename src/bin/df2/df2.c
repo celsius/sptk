@@ -52,7 +52,7 @@
 *       usage:                                                          *
 *               df2 [ options ] [ infile ] > stdout                     *
 *       options:                                                        *
-*               -f f     :  sampling frequency(Hz)        [10000]       *
+*               -f f     :  sampling frequency(kHz)       [10.0]        *
 *               -p f b   :  center frequency f(Hz)                      *
 *                            and band width b(Hz) of pole [N/A]         *
 *               -z f b   :  center frequency f(Hz)                      *
@@ -62,7 +62,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: df2.c,v 1.22 2011/04/27 13:46:38 mataki Exp $";
+static char *rcs_id = "$Id: df2.c,v 1.23 2011/12/08 08:43:04 mataki Exp $";
 
 /* Standard C Libraries */
 #include <stdio.h>
@@ -86,7 +86,7 @@ static char *rcs_id = "$Id: df2.c,v 1.22 2011/04/27 13:46:38 mataki Exp $";
 #endif
 
 /* Default Values */
-#define SAMPLEF 10000
+#define SAMPLEF 10.0
 #define SIZE 2048
 
 /* Command Name */
@@ -101,7 +101,7 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout \n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -f f   : sampling frequency(Hz)         [%d]\n",
+   fprintf(stderr, "       -f f   : sampling frequency (kHz)       [%.1f]\n",
            SAMPLEF);
    fprintf(stderr, "       -p f b : center frequency f(Hz)\n");
    fprintf(stderr, "                 and band width b(Hz) of pole  [N/A]\n");
@@ -164,6 +164,8 @@ int main(int argc, char *argv[])
          }
       } else
          fpp = getfp(*argv, "rb");
+
+   sf *= 1000;                  /* kHz -> Hz */
 
    n = (fp > fz) ? fp : fz;
    for (i = 0; i < n; i++) {
