@@ -55,15 +55,15 @@
         {\em agcep} uses adaptive generalized cepstral analysis
         \cite{ref:agcep-IEICEtaikai90s}
         to calculate cepstral coefficients $c_\gamma(m)$ 
-        from unframed float data from standard input,
-        sending the result to standard output. 
-        If {\em pefile} is given, 
-        {\em agcep} writes the prediction error to that file.
+        from unframed float data in the standard input,
+        and sends the result to standard output. 
+        In the case {\em pefile} is given, 
+        {\em agcep} writes the prediction error to this file.
 
-        The format for input and output data is float.
+        Both input and output files are in float format.
 
-        The algorithm to calculate recursively the
-        adaptive generalized cepstral coefficients is 
+        The algorithm which recursively calculates the
+        adaptive generalized cepstral coefficients is shown below.
  %
 \begin{align}
   \bc_\gamma^{(n+1)} &= \bc_\gamma^{(n)} 
@@ -83,19 +83,19 @@
 where
 $\bc_\gamma = [c_\gamma(1),\ldots,c_\gamma(M)]^\top$,
 $\be_\gamma = [e_\gamma(n-1),\ldots,e_\gamma(n-M)]^\top$.
-The signal $e_\gamma(n)$ is obtained passing the input signal
+The signal $e_\gamma(n)$ is obtained by passing the input signal
  $x(n)$ through the filter $(1+\gamma F(z))^{-\frac{1}{\gamma}-1}$,
 where 
 \begin{displaymath}
 F(z) = \sum_{m=1}^{M}c_\gamma(m)z^{-m}.
 \end{displaymath}
 \par
-In the case $\gamma = -1/n$ , where $n$ is a natural number,
-the adaptive generalized cepstral analysis system is shown in 
+In the case where $\gamma = -1/n$ and $n$ is a natural number,
+the adaptive generalized cepstral analysis system is as shown in
 Figure \ref{fig:agcep_block}.
 In the case $n=1$, the adaptive generalized cepstral
 analysis is equivalent to the LMS linear predictor.
-In the case $n \rightarrow \infty$,
+Also, when $n \rightarrow \infty$,
 the adaptive generalized cepstral
 analysis is equivalent to the 
 adaptive cepstral analysis.
@@ -179,9 +179,9 @@ adaptive cepstral analysis.
 
 \begin{qsection}{EXAMPLE}
         In this example, the speech data is in the file {\em data.f}
-        in float format, the cepstral coefficients are written to
+        in float format and the prediction error can be found in {\em data.er}.
+        The cepstral coefficients are written to
         the file {\em data.agcep},
-        and the prediction error can be found in {\em data.er}.
 \begin{quote}
  \verb!agcep -m 15 data.er < data.f > data.agcep!
 \end{quote} 

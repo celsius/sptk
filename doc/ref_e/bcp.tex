@@ -53,20 +53,20 @@
 \begin{qsection}{DESCRIPTION}
 	{\em bcp} copies data blocks from {\em infile} (or standard input) 
 	to standard output, 
-	reformatting them according to command line options as shown below.
+	and reformats them according to the command line options given.
 
 	If the input format is ASCII, 
 	the basic input unit is a sequence of letters
 	and the output block is partitioned with carriage returns.
 \end{qsection}
 
+\begin{figure}[h]
 \begin{center}
 \leavevmode
-\begin{figure}[h]
 \includegraphics{fig/bcp.eps}
 \caption{Example of the bcp command}
-\end{figure}
 \end{center}
+\end{figure}
 
 \begin{options}
 	\argm{l}{l}{number of items contained 1 block}{512}
@@ -98,9 +98,9 @@
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-Assume that data of the input file {\em data.f}
-{a(0), a(1), a(2), ... , a(20)} is recursively written in float format.\\
-If it is desired to copy the array {a(1), a(2), ... , a(10)}, 
+Assume that {a(0), a(1), a(2), ... , a(20)}
+ is contained in the input file {\em data.f}, written in float format.
+If one wants to copy the array {a(1), a(2), ... , a(10)},
 the following command can be used.
 \begin{quote}
 \verb!bcp +f -l 21 -s 1 -e 10 data.f > data.bcp!

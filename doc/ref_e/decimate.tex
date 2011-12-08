@@ -58,7 +58,7 @@ If the input data is
 \begin{displaymath}
  x(0), x(1), x(2), \dots
 \end{displaymath}
-then the output data is
+then the output data is given by:
 \begin{displaymath}
  x(S), x(S+P), x(S+2P), x(S+3P),\dots
 \end{displaymath}
@@ -73,8 +73,8 @@ Input and output data are in float format.
 
 \begin{qsection}{EXAMPLE}
 This example decimates input data from {\em data.f} file with interval 2,
-interpolates 0 with interval 2, and then outputs it to {\em
-data.di} file:
+interpolates 0 with interval 2, and then outputs the results to
+the file {\em data.di}:
 \begin{quote}
   \verb!decimate -p 2  < data.f | interpolate -p 2 > data.di!
 \end{quote}

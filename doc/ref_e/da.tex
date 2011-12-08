@@ -57,7 +57,7 @@ If the system does not support the specified sampling frequency,
 This command can be used under
 Linux (i386), FreeBSD (i386 newpcm driver), SunOS 4.1.x, SunOS 5.x (SPARC).
  
-It is possible to change environment setting through following options
+It is possible to change the environment settings through the following options
 
 \begin{tabular}{ll}
 %% DA\_SAMPFREQ & sampling frequency\\
@@ -101,13 +101,13 @@ DA\_FLOAT & set the input data to float\\
 \begin{qsection}{EXAMPLE}
 In the following example, the speech data file {\em data.s}
 is played on the headphone.
-The sampling frequency is 8 kHz, and data is in short format.
+The sampling frequency is 8 kHz, and the input data is in short format.
 \begin{quote}
 \verb! da +s -s 8 -o h data.s!
 \end{quote}
 \end{qsection}
 
 \begin{qsection}{BUGS}
-In the Linux operating system, the output port can not be assigned.
+In Linux operating systems, the output port can not be assigned.
 \end{qsection}
 

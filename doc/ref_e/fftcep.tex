@@ -51,18 +51,17 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em fftcep} uses FFT cepstral analysis to calculate the cepstrum 
-from windowed framed input data from {\em infile} (or standard input), 
+from windowed framed input data in {\em infile} (or standard input), 
 sending the result to standard output.
-The windowed input time domain sequence of length $L$ is
+The windowed input time domain sequence of length $L$ is of the form:
 \begin{displaymath}
   x(0),x(1),\dots,x(L-1)
 \end{displaymath}
 \par
 Input and output data are in float format.
 \par
-Assignment of the number of iterations $J$ and
-the acceleration factor $K$, allows the use of the improved cepstral
-analysis method \cite{ref:icep-IECE}.
+Also, the improved cepstral analysis method \cite{ref:icep-IECE} may be used if the
+number of iterations $J$ and the acceleration factor $K$ are given.
 \end{qsection}
 
 \begin{options}

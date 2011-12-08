@@ -51,8 +51,8 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em c2ir} calculates the minimum phase impulse response 
-from minimum phase cepstral coefficients 
-from {\em infile} (or standard input), 
+from the minimum phase cepstral coefficients 
+in the {\em infile} (or standard input), 
 sending the result to standard output.
 For example, if the input sequence is
 \begin{displaymath}
@@ -65,11 +65,11 @@ then the impulse response is calculated as
  \;\; h(n)=\displaystyle \sum_{k=1}^{M_1} \frac{k}{n} c(k)h(n-k) & n \geq 1
  \end{cases}
 \end{displaymath}
-and the output will contain
+and the output will be given by
 \begin{displaymath}
    h(0),h(1),h(2),\dots,h(L -1)
 \end{displaymath}
-The format of input and output format is float.
+Both input and output files are in float format.
 \end{qsection}
 
 \begin{options}

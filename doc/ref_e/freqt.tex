@@ -51,7 +51,7 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em freqt} converts an $M_1$-th order minimum phase sequence 
+{\em freqt} converts a $M_1$-th order minimum phase sequence 
 from {\em infile} (or standard input) 
 into a frequency-transformed $M_2$-th order sequence,
 sending the result to standard output.
@@ -60,7 +60,7 @@ Given the input sequence
 \begin{displaymath}
 c_{\alpha_1}(0), c_{\alpha_1}(1), \dots, c_{\alpha_1}(M_1)
 \end{displaymath}
-the frequency transform is
+the frequency transform is given by:
 \begin{displaymath}
    \alpha = (\alpha_1 - \alpha_2) / (1 - \alpha_1 \alpha_2)
 \end{displaymath}
@@ -77,7 +77,7 @@ c_{\alpha_2}^{(i)}(m) &=
          \end{cases} \notag \\
 & \qquad\qquad\qquad\qquad\qquad\qquad i = -M_1,\dots,-1,0 
 \end{align}
-The $M_2$-th order frequency transformed output sequence is
+And the $M_2$-th order frequency transformed output sequence is of the form:
 \begin{displaymath}
 c_{\alpha_2}^{(0)}(0), c_{\alpha_2}^{(0)}(1), \dots, c_{\alpha_2}^{(0)}(M_2)
 \end{displaymath}

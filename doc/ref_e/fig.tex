@@ -59,7 +59,7 @@ but includes some labeling functions.
 The output can be printed directly on a printer 
 that supports the FP5301 protocol, 
 displayed on an X11 display with the \hyperlink{xgr}{xgr} command, 
-or converted to PostScript with the \hyperlink{psgr}{psgr} command.
+or converted to PostScript format with the \hyperlink{psgr}{psgr} command.
 \end{qsection}
 
 \begin{options}
@@ -85,15 +85,14 @@ or converted to PostScript with the \hyperlink{psgr}{psgr} command.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-Data in {\em data.fig} file is plotted in an X terminal in the
-example below:
+In the example below, data in {\em data.fig} file is plotted in an X terminal:
 \vspace{-3mm}
 \begin{quote}
  \verb!fig data.fig |xgr!
 \end{quote}
 \vspace{-3mm}
-In this example, data in {\em data.fig} file is written in postscript,
-and seen with ghostview:
+In this example, data in {\em data.fig} file is converted to postscript format
+and visualized with ghostview:
 \vspace{-3mm}
 \begin{quote}
  \verb!fig data.fig | psgr | ghostview -!
@@ -121,9 +120,9 @@ y [mel $\alpha$]~ $ymin$ ~$ymax$ [$ya$]\\
 \end{minipage}
 \begin{minipage}[t]{9cm}
 Assigns $x$ and $y$ scalings.
-Marks can be assigned in $x$ and $y$ axes through $xa$ and $ya$.
-If no assigned of $xa$ and $ya$ is done,
-then $xa = xmin$ and $ya = ymin$.
+Marks can be specified in $x$ and $y$ axes through $xa$ and $ya$.
+If no setting of $xa$ and $ya$ is done,
+then $xa$ is set to $xmin$ and $ya$ to $ymin$.
 If the optional ``mel $\alpha$'', where $\alpha$ must be
 a number (for example, mel 0.35), is used,
 then labeling is undertaken as a frequency transformation of
@@ -135,12 +134,12 @@ xscale ~$x_1$ $x_2$ $x_3$ $\dots$\\
 yscale ~$y_1$ $y_2$ $y_3$ $\dots$
 \end{minipage}
 \begin{minipage}[t]{9cm}
-Assigns the points $x_1, x_2,x_3,\dots$
+Assigns values to the points $x_1, x_2,x_3,\dots$
 and $y_1,y_2,y_3,\dots$ in $x$ and $y$ axes.
 These points can be assigned with numbers or marks,
-Also, when a mixture of not-a-number $+$ number (for example, '2,*3.14)
-is needed, the following function should be used:
-
+Also, when one wants to specify points which consist of numeric and non-numeric
+characters all together (like in '2,*.3.14), then the following function should
+be used:
 \begin{tabular}{cl}
 s & draws marks with half size.\\
 $\backslash$& only writes number.\\
@@ -168,10 +167,10 @@ yname ~''$text$''\\
 \end{minipage}
 \begin{minipage}[t]{9cm}
 Labels $x$ and $y$ axes.
-$text$ should be inside quote.
-Inside $text$, \TeX commands can be used.
-Also, characters such as those that can be obtained
-with \TeX can be written with this command.
+$text$ should appear between the quotes.
+Within $text$, \TeX commands can be used.
+Also, characters, such as those that can be obtained
+with \TeX, can be written with this command.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
@@ -179,8 +178,8 @@ with \TeX can be written with this command.
  printc ~x ~y ~''$text$'' [$th$]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-This command writes $text$ in the assigned position (x ~y).
-The option $th$ assigned the rotation degree.
+This command writes $text$ in the position (x ~y) assigned.
+The option $th$ sets the rotation degree.
 
 \begin{tabular}{cc}
 \includegraphics{fig/fig-print1.eps}&  
@@ -194,20 +193,20 @@ title ~x ~y ~''$text$'' [$th$]\\
 titlec ~x ~y ~''$text$'' [$th$]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-This command is same as print(c).
-However, the basic unit is expressed in absolute value mm.
-The reference point is on the bottom-left.
+This command does the same as print(c).
+However, the basic unit is expressed in the mm, evaluated as absolute value.
+The reference point is on the bottom-left side.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
 csize ~h [w]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-This command assigns in mm the character width and height,
+This command sets the character width and height (in mm),
 to be used in the following commands:\\
 x/yscale, x/yname, print/c, title/c\\
 When the value of $w$ is omitted, $w$ is made equal to $h$.
-The default values for the option --{\bf s} follows:
+The default values for the option --{\bf s} are as follows:
 \begin{tabular}{ccc}
 
 --{\bf s} &w &h  \\ \hline
@@ -241,8 +240,8 @@ Please refer to the \hyperlink{join-type}{appendix}.
 line ~$ltype$ [$lpt$]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-This command assigns the type $ltype$ of the line which will connect
-data as well as the $lpt$ pace. $lpt$ is on mm unit.
+This command sets the type $ltype$ of the line which will connect
+data as well as the $lpt$ pace. $lpt$ is in mm.
 When $ltype$=0: no line is used to connect coordinate points.
 1:~solid~~2:~dotted~~3:~dot and dash~~4:~broken~~5:~dash
 Please refer to the \hyperlink{pen-line}{appendix}.\\
@@ -254,7 +253,7 @@ xgrid ~$x_1$ ~$x_2$ ~$\dots$\\
 ygrid ~$y_1$ ~$y_2$ ~$\dots$
 \end{minipage}
 \begin{minipage}[t]{9cm}
-This command makes grids in the positions $x_1$ $x_2$ $\dots$,
+This command causes grids to be drawn in the positions $x_1$ $x_2$ $\dots$,
 $y_1$ $y_2$ $\dots$.\\
 (Example)\\
 \begin{minipage}[t]{4.3cm}
@@ -280,20 +279,20 @@ mark ~$label$ [$th$]
 \end{minipage}
 \begin{minipage}[t]{9cm}
 This command draws a mark in the assigned coordinate position.
-The option $th$ assigns angle(degree) that the string will be draw.
-If $label$ is assigned $\backslash 0$, the mark is released.
-The way to write marks and special characters can be seen
-at the $label$ section of data explanation.
+The option $th$ specifies the angle(degree) in which the string will be draw.
+If $label$ is assigned with $\backslash 0$, the mark is released.
+A detailed explanation on writing marks and special characters to graphs is
+ provided at the label section.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
-hight ~$h$ [$w$]\\
+height ~$h$ [$w$]\\
 italic ~$th$
 \end{minipage}
 \begin{minipage}[t]{9cm}
-This command defines the size of the label through its
-height $h$(mm) and width $w$(mm) whenever it is assigned
-and allows for writing a label in italic.
+The height command defines the size of the label through its
+height $h$(mm) and width $w$(mm).
+The labels may also be written in italic by using the italic command.
 \end{minipage}\\
 
 \begin{minipage}[t]{5.5cm}
@@ -303,12 +302,12 @@ ycircle ~x ~y ~$r_1$ ~$r_2$ ~$\dots$
 
 \end{minipage}
 \begin{minipage}[t]{9cm}
-This command writes a circle with radius $r_1$ ~$r_2$ ~$\dots$
-with center on the coordinate ($x$,~$y$).
-Also, the unit for the radius $r_x$ in the circle command is mm,
-for the xcircle command is the scale of the $x$ axis and
-for the ycircle command is the scale of the $y$ axis,
-as can be seen in the figure below.\\
+These commands write circles with radius $r_1$ ~$r_2$ ~$\dots$
+and center on the coordinate ($x$,~$y$).
+Also, the radius $r_x$ is given in mm.
+As for the xcircle and ycircle commands,
+the units considered for the radius are the scales of the $x$ axis and
+ $y$ axis, respectively, as shown in the figure below.
 (Example)\\
 \begin{minipage}[t]{4.3cm}
  \includegraphics[width=4cm]{fig/circle.eps}
@@ -336,11 +335,12 @@ paint ~$type$
 This command draws a rectangle with paint $type$
 connecting ($x_0$ $y_0$) and ($x_1$ $y_1$) through a solid line.
 The line which connects ($x_0$ $y_0$) and ($x_1$ $y_1$) forms
-a diagonal of the rectangle.
+the diagonal of the rectangle.
 Also, if $x_2$ $y_2$ $\dots$ are assigned, a polygon is draw connecting
-($x_0$ $y_0$),($x_1$ $y_1$),($x_2$ $y_2$),$\dots$.
-In this case, Please do not use paint $type$ different from 1.
-The default of paint is 1.\\
+the points ($x_0$ $y_0$),($x_1$ $y_1$),($x_2$ $y_2$),$\dots$.
+In this case, Please do not set the paint $type$
+ to any value different from the default.
+The default value is 1.\\
 
 (Example)\\
 \begin{minipage}[t]{4.3cm}
@@ -370,7 +370,7 @@ clip ~$x_0$ $y_0$ $x_1$ ~$y_1$
 This command allows for drawing only inside the box defined by
 ($x_0$ $y_0$), ($x_1$ $y_1$).
 When the coordinates ($x_0$ $y_0$), ($x_1$ $y_1$) are omitted,
-then the clip command is released.\\
+then the clip command is skipped.\\
 
 (Example)\\
 \begin{minipage}[t]{4.3cm}
@@ -398,8 +398,8 @@ box  2 2 8 8 8 2 4 7
 \# any comment
 \end{minipage}
 \begin{minipage}[t]{9cm}
-This is used for comment lines.
-Whatever is written after this symbol
+This is used for writing comment lines.
+Whatever is written after the symbol $\#$
 is ignored by the fig command.
 \end{minipage}\\
 \end{qsection}
@@ -409,13 +409,14 @@ is ignored by the fig command.
  x ~y [$label$~ [$th$]]
 \end{minipage}
 \begin{minipage}[t]{9cm}
-The coordinates (x ~y) are scaled by the values assigned in the
-command lines.
-If a string is written on $label$, then it will be written
+The coordinates (x ~y) are scaled by the values specified in the
+command line.
+If a string is written to $label$, then it will be written
 in the (x ~y) position.
-No empty character (e.g., space character) should be left in $label$.
-When $label$ is assigned in mark command,
-$label$ replacement will take place only for this coordinate.
+There should be no empty characters (e.g., space) in the beginning of the label
+setting.
+When $label$ is given in the mark command,
+the $label$ replacement will take place only for this coordinate.
 The option $th$ assigns the angle.\\
 If $\backslash n$, where $0 \leq n \leq 15$, is assigned to $label$,
 the corresponding mark is draw (refer to the \hyperlink{lmark}{appendix} for the types of
@@ -459,8 +460,8 @@ The following types of pen and line can be defined:}\\
 \leavevmode
 \includegraphics{fig/pen-line.eps} \\
 
-(Attention)~~ The types of output generate through the pen command
-depends on the printer (Please try printing this page).
+ps:~~ The types of output generated by the pen command
+depend on the printer (Please try printing this page).
 \newpage
 [When output is obtained through the command \hyperlink{xgr}{xgr}]\\
 \hypertarget{pen-color}{}
@@ -484,7 +485,7 @@ The following types of joins can be defined:}\\
 \vspace{5mm}
 {\large \hspace{-1.5ex}$\bullet$ paint type:}\\
 \includegraphics{fig/paint.eps}\\
-(Attention)~~~From $1 \sim 3$ only a frame is draw,
+ps:~~~From $1 \sim 3$ only a frame is draw,
 and for $-9$ and $-19$ the center is white and no frame is draw.
 
 \end{qsection}

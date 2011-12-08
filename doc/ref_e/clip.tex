@@ -50,7 +50,7 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em clip} clips the data from {\em infile} (or standard input) 
-to minimum and maximum values specified on the command line, 
+between the minimum and maximum values specified on the command line, 
 sending the result to standard output.
 
 Input and output data are in float format.
@@ -64,8 +64,8 @@ Input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-Suppose that the data of the file {\em data.f} is in float format
-with the following values,
+Suppose that the data in {\em data.f} is in float format
+and presents the following values,
 \begin{displaymath}
  1.0, 2.0, 3.0, 4.0, 5.0, 6.0
 \end{displaymath}
@@ -73,7 +73,7 @@ If we type the command
 \begin{quote}
  \verb!clip -y 2.5 5.5 < data.f > data.clip!
 \end{quote}
-the output {\em data.clip} will contain the values below.
+then the output {\em data.clip} will contain the following values.
 \begin{displaymath}
  2.5, 2.5, 3.0, 4.0, 5.0, 5.5
 \end{displaymath}

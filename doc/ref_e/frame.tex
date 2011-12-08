@@ -52,8 +52,9 @@
 {\em frame} converts a sequence of input data 
 from {\em infile} (or standard input) 
 to a series of possibly-overlapping frames with period $P$ and length $L$, 
-sending the result to standard output.
-If the input data is $x(0),x(1),\ldots,x(T)$, then the output data is
+and sends the result to standard output.
+If the input data is $x(0),x(1),\ldots,x(T)$, then the output data
+ will be given by :
 \begin{center}
 \begin{tabular}{ccccccccccc}
 $0$&$,$&$0$&$,$&$\ldots$&$,$&$x(0)$&$,$&$\ldots$&$,$&$x(L/2)$\\
@@ -68,16 +69,16 @@ $x(2P-L/2)$&$,$&$x(2P-L/2+1)$&$,$&$\ldots$&$,$&$x(2P)$&$,$&$\ldots$&$,$&$x(2P+L/
 \begin{options}
 	\argm{l}{L}{frame length}{256}
 	\argm{p}{P}{frame period}{100}
-	\argm{n}{}{This option is used when instead of having x(0) is
-                   center point in the first frame we want to make x(0)
+	\argm{n}{}{This option is used when, instead of having x(0) as the
+                   center point in the first frame, one want to make x(0)
                    as the first point of the first frame}{FALSE}
 \end{options}
 
 
 \begin{qsection}{EXAMPLE}
 In the example below, data is read from {\em data.f} file,
-frames of period 80 are applied, a Blackman window is passed, and
-a linear prediction analysis is undertaken. The output is written in
+The frame period is of 80 and Blackman window is used. Also,
+linear prediction analysis is applied. The output is written in
 {\em data.lpc} file:
 \begin{quote}
  \verb!frame -p 80 < data.f | window | lpc > data.lpc!

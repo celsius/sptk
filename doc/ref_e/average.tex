@@ -61,9 +61,9 @@ the output is calculated as follows:
 \begin{displaymath}
 \frac{x(0)+x(1)+\ldots+x(L-1)}{L}
 \end{displaymath}
-If $L=0$ then average of whole input data is calculated.
+If $L=0$, then the whole input data is used to calculate the average.
 \par
-Input and output data are in float format.
+Both input and output files are in float format.
 \end{qsection}
 
 \begin{options}
@@ -73,7 +73,7 @@ Input and output data are in float format.
 
 \begin{qsection}{EXAMPLE}
 The output file {\em data.av} contains the mean taken from the whole data in
-{\em data.f} read in float format.
+{\em data.f}, in float format.
 \begin{quote}
  \verb!average < data.f > data.av!
 \end{quote} 

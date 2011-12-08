@@ -51,22 +51,22 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em c2acr} calculates $M_2$-th order autocorrelation coefficients 
-from $M_1$-th order cepstral coefficients from {\em infile} (or standard input),
+from $M_1$-th order cepstral coefficients in the {\em infile} (or standard input),
  writing the result to standard output.
-Give cepstral coefficients
+Given the cepstral coefficients
 \begin{displaymath}
 c(0), c(1), \ldots, c(M_1)
 \end{displaymath}
-the corresponding autocorrelation coefficients are
+the corresponding autocorrelation coefficients are given by
 \begin{displaymath}
 r(0), r(1), \ldots, r(M_2)
 \end{displaymath}
 
-The format of input and output format is float.
+Both input and output files are in float format.
 
 The power spectrum is calculated from the logarithm spectrum,
 which is obtained from the Fourier transform of the $M_1$-th
-order cepstral analysis.
+order cepstral coefficients.
 The autocorrelation coefficients are obtained through the inverse
 Fourier transform of the power spectrum.
 \end{qsection}
@@ -78,10 +78,10 @@ Fourier transform of the power spectrum.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The output file {\em data.lpc} contains the 15-th order linear prediction
-coefficients calculated from the autocorrelation coefficients,
-which were obtained from the 30-th order cepstral coefficients
-file {\em data.cep}:
+In the following example,
+the 15-th order linear prediction coefficients are calculated from
+the 30-th order cepstral coefficients in {\em data.cep}
+and the result is sent to the {\em data.lpc}.
 \begin{quote}
   \verb!c2acr -m 30 -M 15 < data.cep | levdur -m 15 > data.lpc!
 \end{quote}
