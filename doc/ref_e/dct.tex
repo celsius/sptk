@@ -49,15 +49,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em dct} calculates the Discrete Cosine Transformation II (DCT-II)
-of input data from {\em infile} (or standard input),
+{\em dct} calculates the Discrete Cosine Transform II (DCT-II)
+of the input data in the {\em infile} (or standard input),
 sending the results to standard output.
-The input and output data is in float format, arranged as follows.
+The input and output data are both in float format, and arranged as follows.
 \begin{center}
  \leavevmode
  \includegraphics{fig/dct.eps}
 \end{center}
-The Discrete Cosine Transformation II is
+The Discrete Cosine Transform II can be written as:
 \begin{displaymath}
  X_{k} =  \sqrt{\frac{2}{L}}c_{k}\sum_{l=0}^{L-1}
 x_{l}\cos\left\{\frac{\pi}{L} k \left( l + \frac{1}{2} \right) \right\},

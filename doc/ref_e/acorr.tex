@@ -58,7 +58,7 @@ Namely, the input data is given by
 \[ r(k)=\sum_{m=0}^{L-1-k}x(m)x(m+k), \qquad k=0,1,\dots,M, \]
  and the output is the following autocorrelation function sequence,
 \[ r(0),r(1),\dots,r(M) \]
- The format for input and output is float.
+ Both input and output files are in float format.
 \end{qsection}
 
 \begin{options}
@@ -68,9 +68,9 @@ Namely, the input data is given by
 
 \begin{qsection}{EXAMPLE}
 In the example below, the input file {\em data.f} is in float format.
-The frame length is 256, the frame period 100, every frame is
-passed through a Blackman window, and the autocorrelation function sequence
-is found in {\em data.acorr}.
+Here, the frame length and period are of 256 and 100, respectively.
+Also, every frame is passed through a Blackman window and the
+autocorrelation function sequence is sent to {\em data.acorr}.
 \begin{center}
  \verb!frame +f -l 256 -p 100 < data.f | window | acorr -m 10 > data.acorr!
 \end{center}

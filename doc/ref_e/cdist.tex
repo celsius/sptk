@@ -52,18 +52,18 @@
 \begin{qsection}{DESCRIPTION}
 {\em cdist} calculates the cepstral distance 
 between the cepstral coefficients 
-in {\em infile} (or standard input) and {\em cfile}, 
+in {\em infile} (or standard input) and the ones in {\em cfile},
 sending the result to standard output.
 For example, if the cepstral coefficients of the {\em infile} at
 frame $t$ are 
 \begin{displaymath}
    c_{1,t}(0), c_{1,t}(1), c_{1,t}(2), \dots, c_{1,t}(M)
 \end{displaymath}
-and the cepstral coefficients of the {\em cfile} at frame $t$ are
+and the cepstral coefficients in {\em cfile} at frame $t$ are
 \begin{displaymath}
    c_{2,t}(0), c_{2,t}(1), c_{2,t}(2), \dots, c_{2,t}(M)
 \end{displaymath}
-then the squared cepstrum distance for every frame is
+then the squared cepstrum distance for every frame is given by
 \begin{displaymath}
    d(t)=\sum_{k=1}^{M} (c_{1,t}(k)-c_{2,t}(k))^2
 \end{displaymath}
@@ -72,8 +72,8 @@ and the total cepstral distance between both files is
    d=\frac{1}{T} \sum_{t=0}^{T} d(t)
 \end{displaymath}
 
-If the number of frames in {\em infile} or {\em cfile} is less
-then $T$, then evaluation is undertaken for the smallest number of frames.
+If the number of frames in the two files is different, then {\em cdist}
+will consider the smallest number for the evaluation.
 \end{qsection}
 
 \begin{options}

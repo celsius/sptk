@@ -59,7 +59,7 @@ sending the result to standard output.
 Input and output data are in float format.
 
 The regressive equation for the generalized cepstral coefficients 
-follows.
+is as follows.
 \begin{displaymath}
   c_{\gamma_2}(m) = c_{\gamma_1}(m) + \sum_{k=1}^{m-1}\frac{k}{m}
                       (\gamma_2 c_{\gamma_1}(k)c_{\gamma_2}(m-k)
@@ -68,11 +68,11 @@ follows.
 \end{displaymath}
 For the above equation, in case $\gamma_1=-1, \gamma_2=0$,
 then LPC cepstral coefficients are obtained from the LPC coefficients,
-in case $\gamma_1=0, \gamma_2=1$, minimum phase impulse response is
-obtained from cepstral coefficients.
+in case $\gamma_1=0, \gamma_2=1$, a minimum phase impulse response is
+obtained from the cepstral coefficients.
 
 If the coefficients $c_\gamma(m)$ have not been normalized,
-then the input and output have following form.
+then the input and output will be represented by
 \begin{displaymath}
 1+\gamma c_\gamma(0), \gamma c_\gamma(1), \dots, \gamma c_\gamma(M)
 \end{displaymath}

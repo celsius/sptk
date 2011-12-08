@@ -54,15 +54,15 @@
 \begin{qsection}{DESCRIPTION}
 	{\em amcep} uses adaptive mel-cepstral analysis 
 	to calculate mel-cepstral coefficients $c_{\alpha}(m)$ 
-	from unframed float data from standard input, 
+	from unframed float data in the standard input, 
 	sending the result to standard output. 
-	If {\em pefile} is given, 
-	{\em amcep} writes the prediction error to that file.
+	In the case {\em pefile} is given, 
+	{\em amcep} writes the prediction error to this file.
 
-	The format for input and output data is float.
+	Both input and output files are in float format.
 
-	The algorithm to calculate recursively the
-        adaptive mel-cepstral coefficients $b(m)$ is 
+	The algorithm which recursively calculates the
+        adaptive mel-cepstral coefficients $b(m)$ is shown below
 \begin{align}
   \bc^{(n+1)} &= \bb^{(n)} - \mu^{(n)} \hat{\nabla} \varepsilon_{\tau}^{(n)} \notag \\
   \hat{\nabla} \varepsilon_0^{(n)} &= -2 e(n) \be^{(n)}_{\Phi} \qquad ( \tau = 0 )\notag\\
@@ -185,12 +185,12 @@ in Figure \ref{fig:mcep_Phi}, passing $e(n)$ through the filter
  ${\Phi}_m(z)$.
 \par
 The coefficients $b(m)$ are equivalent to the coefficients of
-the MLSA filter. The mel-cepstral coefficients $c_{\alpha}(m)$
+the MLSA filter, and the mel-cepstral coefficients $c_{\alpha}(m)$
 can be obtained from $b(m)$ through a linear transformation
 (refer to \hyperlink{b2mc}{b2mc} and \hyperlink{mc2b}{mc2b}).
 
-In Figure \ref{fig:mcep_block}, the adaptive mel-cepstral 
-analysis system is shown.
+Thus, the adaptive mel-cepstral
+analysis system is shown in figure \ref{fig:mcep_block}.
 
 The filter $1/D(z)$ is realized by a MLSA filter.
 

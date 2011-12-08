@@ -57,7 +57,7 @@ to calculate normalized cepstral coefficients $c_\gamma'(m)$
 from $L$-length framed windowed input data 
 from {\em infile} (or standard input), 
 sending the result to standard output.
-The windowed input sequence of length $L$ is
+The windowed input sequence of length $L$ is of the form:
 \begin{displaymath}
   x(0),x(1),\dots,x(L-1)
 \end{displaymath}
@@ -68,7 +68,7 @@ In the generalized cepstral analysis,
 the speech spectrum is estimated by the $M$-th order generalized
 cepstrum $c_\gamma(m)$ or by normalized generalized cepstrum 
 $c_\gamma'(m)$ using the log spectrum through the unbiased estimation
-method.
+method showed below.
 \begin{align}
 H(z) &= s_\gamma^{-1}\left(
         \sum_{m=0}^{M} c_\gamma(m)z^{-m} \right) \notag \\
@@ -81,10 +81,9 @@ H(z) &= s_\gamma^{-1}\left(
                 & \gamma=0
         \end{cases}\notag
 \end{align}
-To find the minimum value of cost function,
-if $\gamma=-1$ then the linear prediction method is used,
-while if $\gamma$ is different from $-1$, then
-Newton--Raphson method applied.
+In order to find the minimum value of the cost function,
+the linear prediction method is used for $\gamma = -1$.
+Otherwise, the Newton--Raphson method is applied.
 \end{qsection}
 
 \begin{options}
@@ -109,17 +108,18 @@ Newton--Raphson method applied.
         \argm{j}{J}{maximum iteration}{30}
         \argm{d}{D}{Newton-Raphson method end condition.
                     The default value is $D=0.001$.
-                    In this case the end point is achieved when
+                    In this case, the end point is achieved when
                     the evaluation rate of $\varepsilon^{(i)}$ is
-                    $0.001$, that is when its value changes less then $0.1\%$.}{0.001}
+                    $0.001$, that is, when its value changes
+                    in a rate smaller than $0.1\%$.}{0.001}
         \argm{e}{E}{small value added to periodgram}{0}
         \argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The following example read speech data in float format from {\em data.f}
-file, undertakes the 15-th order generalized cepstral analysis,
-and writes the results in {\em data.gcep}:
+In the following example, speech data is read in float format from {\em data.f}
+file, and a 15-th order generalized cepstral analysis is applied.
+The results are written to {\em data.gcep}:
 \begin{quote}
  \verb!frame +f < data.f | window | gcep -m 15 > data.gcep!
 \end{quote} 
