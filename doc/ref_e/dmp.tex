@@ -50,9 +50,9 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em dmp} converts data from {\em infile} (or standard input) 
-to human readable form, 
-one sample per line with line numbers, 
-sending the result to standard output.
+to a human readable form, 
+(one sample per line, with line numbers) 
+and sends the result to standard output.
 \end{qsection}
 
 \begin{options}
@@ -81,8 +81,7 @@ sending the result to standard output.
 
 \begin{qsection}{EXAMPLE}
 In this example, data is read from the input file
-{\em data.f} in float format, and the enumerated data is sent
-to the screen:
+{\em data.f} in float format, and the enumerated data is shown on the screen:
 \begin{quote}
  \verb!dmp +f data.f!
 \end{quote}
@@ -102,11 +101,12 @@ then the following output will be displayed on the screen:
   \verb!6       7!
 \end{quote}
 \par
-In case we want to assign a block length:
+In case one wants to assign a block length the following command can
+be used.
 \begin{quote}
  \verb!dmp +f -n 2 data.f!
 \end{quote}
-Then the output would be
+And the output will be given by:
 \begin{quote}
   \verb!0       1! \\
   \verb!1       2! \\
@@ -116,20 +116,19 @@ Then the output would be
   \verb!2       6! \\
   \verb!0       7!
 \end{quote}
+Some other examples are provided bellow:
 \par
-If we want to print on the screen the unit impulse response of a digital
-filter:
+Print the unit impulse response of a digital filter on the screen:
 \begin{quote}
   \verb!impulse | dfs -a 1 0.9 | dmp +f!
 \end{quote}
 \par
-If we want to print a sine wave then we can use the \%e option of
-{\em printf} as follows:
+Print a sine wave using the \%e option of {\em printf}:
 \begin{quote}
   \verb!sin -p 30 | dmp +f %e!
 \end{quote}
 \par
-If we want to represent the sine wave with three decimal points:
+Print the same sine wave represented by three decimal points:
 \begin{quote}
   \verb!sin -p 30 | dmp +f %.3e!
 \end{quote}

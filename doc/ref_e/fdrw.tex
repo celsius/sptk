@@ -55,8 +55,8 @@
 \begin{qsection}{DESCRIPTION}
 {\em fdrw} converts float data from {\em infile} (or standard input) 
 to a plot formatted according to the FP5301 protocol, 
-sending the result to standard output.
-Various options let you control the details of the plot layout.
+and sends the result to standard output.
+One can control the details of the plot layout by setting the options bellow:
 \end{qsection}
 
 \begin{options}
@@ -82,16 +82,17 @@ Various options let you control the details of the plot layout.
                     two graphs in the $y$ axis is given by $Z$.}{0}
 	\argm{b}{}{bar graph mode}{FALSE}
 	\desc[1ex]{The $x$ axis scaling is automatically done so that
-                every point in the input file is plotted in equal interval
+                every point in the input file is plotted in equally
+                spaced  interrals
                 for the assigned width.
-                When {\bf --n} option is omitted and the number of
+                When the {\bf --n} option is omitted and the number of
                 input samples is below 5000, then the block size is made
                 equal to the number of samples.
                 When the number of samples is above 5000,
                 then the block size is made equal to 5000.}
 	\desc{When the {\bf --y} option is omitted,
-		the input data minimum value is made equal to $ymin$
-                and the maximum value is made equal to $ymax$.}
+		the input data minimum value is set to $ymin$
+                and the maximum value is set to $ymax$.}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -102,8 +103,8 @@ drawn on the X window environment:
 \end{quote}
 The graph width is 10cm and its height is 3cm.
 \par
-The next example draws on the X window environment the magnitude of
-the frequency response of a digital filter:
+The next example draws the magnitude of
+the frequency response of a digital filter on the X window environment:
 \begin{quote}
   \verb!impulse | dfs -a 1 0.8 0.5 | spec | fdrw -y -60 40 | xgr!
 \end{quote}
@@ -120,8 +121,8 @@ The running spectrum can be draw on the X window environment by:
  \verb!fdrw -W 0.4 -H 0.2 -g 0 -n 129 -y -30 30 -z 3 |\ !\\
  \verb!xgr !
 \end{quote}
-The command {\em psgr} prints the output in a laser printer in the
-same way that it is printed on the screen.
+The command {\em psgr} prints the output to a laser printer in the
+same manner as it is printed on the screen.
 Since the {\em fdrw} command includes a sequence of commands
 for a plotter machine (FP5301 protocol) in the output file,
 its output can be directly sent to a printer.

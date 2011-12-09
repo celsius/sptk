@@ -53,8 +53,8 @@
 {\em fft} uses the Fast Fourier Transform (FFT) algorithm 
 to calculate the Discrete Fourier Transform (DFT) 
 of complex-valued input data from {\em infile} (or standard input), 
-sending the result to standard output. 
-The input and output data is in float format, arranged as follows.
+and sends the result to standard output. 
+The input and output data is in float format, and arranged as follows.
 \[
  \begin{array}{lll}
 \mbox{Input sequence} & \overbrace{\framebox[4.5cm]{real part}}^{M+1} &
@@ -85,7 +85,7 @@ The input and output data is in float format, arranged as follows.
 \begin{qsection}{EXAMPLE}
 This example reads a sequence of complex numbers in float format from
 {\em data.f} file (real part with 256 points and imaginary part with
-256 points), evaluates its DFT and outputs it to {\em data.dft} file:
+256 points), evaluates its DFT and outputs it to the {\em data.dft} file:
 \begin{quote}
   \verb!fft data.f -l 256 -A > data.dft!
 \end{quote}
