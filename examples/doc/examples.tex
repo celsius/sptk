@@ -180,22 +180,21 @@ gwave +s | xgr
 
 \section{Pitch Extraction from Speech Waveform}
 
-\subsection{A (very simple) pitch extractor}
+\subsection{A pitch extractor}
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)\\
+  data.short: speech data included in this example (short integer, 16 kHz sampling)
 \item[Conditions:]
-  frame length: 640 points (40 ms)\\
   frame period: 80 points (5 ms)\\
-  window: Blackman window
+  minimum fundamental frequency for search: 80 Hz\\
+  maximum fundamental frequency for search: 165 Hz
 \item[Note:]
   Options should be adjusted for each speech data.
 \end{description}
 
 \begin{verbatim}
-x2x +sf data.short | frame +f -l 640 -p 80 |\
-window -l 640 | pitch -s 16 -l 640 -t 6.0 -L 80 -H 165 > data.pitch
+x2x +sf data.short | pitch -a 1 -s 16000 -p 80 -L 80 -H 165 > data.pitch
 \end{verbatim}
 
 \subsection{Plotting the extracted pitch contour}
@@ -234,7 +233,7 @@ fdrw -y 0 250 -W 1.5 -H 0.4 < data.pitch | xgr
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 -L 512 |\
+x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 -L 512 |\
 mcep -l 512 -m 20 -a 0.42 > data.mcep
 \end{verbatim}
 
@@ -279,7 +278,7 @@ mgc2sp -m 20 -a 0.42 -g 0 -l 512 | grlogsp -l 512 -x 8 -t | xgr
 \end{description}
 
 \begin{verbatim}
-( x2x +sf < data.short | frame +f -l 400 -p 80 | \
+( x2x +sf < data.short | frame -l 400 -p 80 | \
 bcut +f -l 400 -s 65 -e 65 |\
 window -l 400 -L 512 | spec -l 512 |\
 glogsp -l 512 -x 8 -p 2 ;\
@@ -335,7 +334,7 @@ da +f -s 16 data.mcep.syn
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 |\
+x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 |\
 lpc -l 400 -m 20 > data.lpc
 \end{verbatim}
 
@@ -375,7 +374,7 @@ grlogsp -l 512 -x 8 | xgr
 \end{description}
 
 \begin{verbatim}
-( x2x +sf < data.short | frame +f -l 400 -p 80 | \
+( x2x +sf < data.short | frame -l 400 -p 80 | \
 bcut +f -l 400 -s 65 -e 65 |\
 window -l 400 -L 512 | spec -l 512 |\
 glogsp -l 512 -x 8 -p 2 ;\
@@ -510,7 +509,7 @@ da +f -s 16 data.lsp.syn
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 -L 512 |\
+x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 -L 512 |\
 mgcep -m 20 -a 0.42 -c 2 -l 512 > data.mgcep
 \end{verbatim}
 
@@ -549,7 +548,7 @@ mgc2sp -m 20 -a 0.42 -c 2 -l 512 | grlogsp -l 512 -x 8 | xgr
 \end{description}
 
 \begin{verbatim}
-( x2x +sf < data.short | frame +f -l 400 -p 80 | \
+( x2x +sf < data.short | frame -l 400 -p 80 | \
 bcut +f -l 400 -s 65 -e 65 |\
 window -l 400 -L 512 | spec -l 512 |\
 glogsp -l 512 -x 8 -p 2 ;\
@@ -727,7 +726,7 @@ da +f -s 16 data.mcep.vq.syn
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 |\
+x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 |\
 lpc -l 400 -m 12 | lpc2c -m 12 -M 12 > data.lpc.cep
 \end{verbatim}
 
@@ -746,7 +745,7 @@ lpc -l 400 -m 12 | lpc2c -m 12 -M 12 > data.lpc.cep
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 |\
+x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 |\
 lpc -l 400 -m 12 |\
 lpc2c -m 12 -M 256 |\
 freqt -m 256 -a 0 -M 12 -A 0.42 > data.lpc.mcep
@@ -755,7 +754,7 @@ freqt -m 256 -a 0 -M 12 -A 0.42 > data.lpc.mcep
 or
 
 \begin{verbatim}
-x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 |\
+x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 |\
 lpc -l 400 -m 12 |\
 mgc2mgc -m 12 -a 0 -g -1 -n -u -M 12 -A 0.42 -G 0 > data.lpc.mcep
 \end{verbatim}
@@ -776,7 +775,7 @@ mgc2mgc -m 12 -a 0 -g -1 -n -u -M 12 -A 0.42 -G 0 > data.lpc.mcep
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 -L 512 |\
+x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 -L 512 |\
 mcep -l 512 -m 12 -a 0.42 > data.mcep.mcep
 \end{verbatim}
 
@@ -796,7 +795,7 @@ mcep -l 512 -m 12 -a 0.42 > data.mcep.mcep
 \end{description}
 
 \begin{verbatim}
-x2x +sf < data.short | frame +f -l 400 -p 80 | window -l 400 -L 512 |\
+x2x +sf < data.short | frame -l 400 -p 80 | window -l 400 -L 512 |\
 mgcep -m 12 -a 0.42 -c 2 -l 512 |\
 mgc2mgc -m 12 -a 0.42 -c 2 -M 12 -A 0.42 -G 0 > data.mgcep.mcep
 \end{verbatim}
