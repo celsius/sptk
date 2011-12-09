@@ -49,15 +49,15 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em idct} calculates the Inverse Discrete Cosine Transformation II (IDCT-II)
-of input data from {\em infile} (or standard input),
+{\em idct} calculates the Inverse Discrete Cosine Transform II (IDCT-II)
+of input data in {\em infile} (or standard input),
 sending the results to standard output.
 The input and output data is in float format, arranged as follows.
 \begin{center}
  \leavevmode
  \includegraphics{fig/idct.eps}
 \end{center}
-The Inverse Discrete Cosine Transformation II is
+The Inverse Discrete Cosine Transformation II is given by
 \begin{displaymath}
  x_{l} = \sqrt{\frac{2}{L}}c_{l}\sum_{k=0}^{L-1}
  X_{k}
