@@ -70,7 +70,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: frame.c,v 1.22 2011/11/30 04:21:50 sawada11 Exp $";
+static char *rcs_id = "$Id: frame.c,v 1.23 2011/12/09 06:39:00 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -103,10 +103,6 @@ char *BOOL[] = { "FALSE", "TRUE" };
 /*  Command Name  */
 char *cmnd;
 
-typedef struct _float_list {
-   float f;
-   struct _float_list *next;
-} float_list;
 
 void usage(int status)
 {
@@ -135,12 +131,11 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int l = LENG, fprd = FPERIOD, i, j, length, left = 0, current = 0;
+   int l = LENG, fprd = FPERIOD, ns, i, rnum, ts, cs;
    FILE *fp = stdin;
    Boolean noctr = NOCTR;
-   double *x, *in, *buf;
+   double *x, *xx, *p1, *p2, *p;
    char *s, c;
-   float_list *top, *cur, *prev, *tmpf;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -170,38 +165,60 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
-
-   in = dgetmem(1);
-   top = prev = (float_list *) malloc(sizeof(float_list));
-   length = 0;
-   prev->next = NULL;
-   while (freadf(in, sizeof(*x), 1, fp) == 1) {
-      cur = (float_list *) malloc(sizeof(float_list));
-      cur->f = (float) in[0];
-      length++;
-      prev->next = cur;
-      cur->next = NULL;
-      prev = cur;
-   }
-   tmpf = top->next;
-   buf = dgetmem(length);
-   for (i = 0; tmpf != NULL; i++, tmpf = tmpf->next)
-      buf[i] = tmpf->f;
-
    x = dgetmem(l);
+   if (!noctr) {
+      i = (int) ((l + 1) / 2);
+      rnum = freadf(&x[(int) (l / 2)], sizeof(*x), i, fp);
+   } else 
+      rnum = freadf(x, sizeof(*x), l, fp);
+   if (rnum == 0)
+      return 0;
+   cs = rnum;
+   fwritef(x, sizeof(*x), l, stdout);
 
-   if (!noctr)
-      left = - l / 2;
-
-   for(;current < length; current += fprd, left += fprd) {
-      for (i = 0, j = left; j <= left + l - 1; j++, i++) {
-         if (j < 0 || j > (length - 1))
-            x[i] = 0.0;
-         else
-            x[i] = buf[j];
+   if ((ns = (l - fprd)) > 0) {
+      p = &x[fprd];
+      for (;;) {
+         p1 = x;
+         p2 = p;
+         i = ns;
+         while (i--) {
+            *p1++ = *p2++;
+         }
+         rnum = freadf(p1, sizeof(*p1), fprd, fp);
+         if (rnum < fprd) {
+            ts = fprd - rnum;
+            cs -= ts;
+            while(rnum--)
+               p1++;
+            while(ts--)
+               *p1++ = 0.0;
+         }
+         if (cs <= 0)
+            break;
+         fwritef(x, sizeof(*x), l, stdout);
       }
-      fwritef(x, sizeof(*x), l, stdout);
+   } else {
+      i = -ns;
+      xx = dgetmem(i);
+      for (;;) {
+         if (freadf(xx, sizeof(*xx), i, fp) != i)
+            break;
+         rnum = freadf(x, sizeof(*x), l, fp);
+         if (rnum < l) {
+            if (rnum == 0)
+               break;
+            ts = l - rnum;
+            p1 = x;
+            while(rnum--)
+               p1++;
+            while(ts--)
+               *p1++ = 0.0;
+         }
+         fwritef(x, sizeof(*x), l, stdout);
+      }
    }
 
    return 0;
 }
+
