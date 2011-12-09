@@ -55,9 +55,9 @@
 \newcommand{\bigzerou}{\smash{\lower1.3ex\hbox{\bggg 0}}}
 
 \begin{qsection}{DESCRIPTION}
-{\em gmm} uses expectation maximization (EM) algorithm to estimate
+{\em gmm} uses the expectation maximization (EM) algorithm to estimate
 Gaussian mixture model (GMM) parameters with diagonal covariance
-matrices from a sequence of vectors from {\em infile} (or standard
+matrices, from a sequence of vectors in the {\em infile} (or standard
 input), sending the result to standard output.
 
 The input sequence $\bX$ consists of $T$ float vectors $\bx$, each of
@@ -83,8 +83,8 @@ where
  \sum_{m=0}^{M-1}w(m)=1.
 \end{displaymath}
 
-GMM parameter set $\lambda$ is initialized with an LBG algorithm, then
-the following EM steps are used iteratively to obtain new parameter set
+The GMM parameter set $\lambda$ is initialized by an LBG algorithm and
+the following EM steps are used iteratively to obtain the new parameter set
 $\hat{\lambda}$:
 \begin{align}
    \hat{w}(m) & = \frac{1}{T}
@@ -97,14 +97,14 @@ $\hat{\lambda}$:
   {\sum_{t=0}^{T-1}p(m\mid\bx(t),\lambda)}
  - \hat{\mu}_m^2(l),\notag
 \end{align}
-where $p(m\mid\bx(t),\lambda)$ is a posterior probability of being in
-the $m$-th component at time $t$:
+where $p(m\mid\bx(t),\lambda)$ is the posterior probability of being in
+the $m$-th component at time $t$ and is given by:
 \begin{displaymath}
  p(m\mid\bx(t),\lambda)
  = \frac{w(m){\cal N}(\bx(t)\mid \bmu(m),\bv(m))}
  {\sum_{k=0}^{M-1}w(k){\cal N}(\bx(t)\mid \bmu(k),\bv(k))},
 \end{displaymath}
- and
+ where
 \begin{align}
  {\cal N}(\bx(t)\mid\bmu(m),\bv(m))%
  &=\frac{1}{(2\pi)^{L/2}\,|\Sigma(m)|^{1/2}}%
@@ -117,7 +117,7 @@ the $m$-th component at time $t$:
  \frac{\left(x_t(l)-\mu_m(l)\right)^2}%
  {\sigma_m^2(l)}\right\}},\notag
 \end{align}
-where $\Sigma(m)$ is a diagonal matrix with diagonal elements
+and $\Sigma(m)$ is a diagonal matrix with diagonal elements
  $\bv(m)$:
 \begin{displaymath}
  \Sigma(m)=\left[
@@ -129,7 +129,7 @@ where $\Sigma(m)$ is a diagonal matrix with diagonal elements
  \end{array}\right].\notag
 \end{displaymath}
 
-Average log-probability for training data $X$
+Also, the Average log-likelihood for training data $X$
 \begin{displaymath}
   \log P(\bX)
  =\frac{1}{T}\sum_{t=0}^{T-1}
@@ -163,7 +163,8 @@ are written to {\em gmm.f}.
 \begin{quote}
 \verb! gmm -m 8 data.f > gmm.f!
 \end{quote}
-If you want to model GMM with full covariance, add -f option. 
+If one wants to model GMMs with full covariances,
+ one can use the -f option.
 \begin{quote}
 \verb! gmm -m 8 -f data.f > gmm.f! 
 \end{quote}

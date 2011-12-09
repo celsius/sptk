@@ -44,45 +44,45 @@
 \hypertarget{dtw}{}
 \name{dtw}{dynamic time warping}{dynamic time warping}
 \begin{synopsis}
-\item[dtw] [ --m $M$ ]  [ --l $L$ ]  [ --r $R$ ]  [ --t $T$ ]
+\item[dtw] [ --m $M$ ]  [ --l $L$ ]  [ --t $T$ ]  [ --r $R$ ]
            [ --n $N$ ]  [ --p $P$ ]
  \item [\ ~~~~~~~] [ --s $Scorefile$ ]  [ --v $Vitfile$ ]
- {\em tempfile} [ {\em infile} ]
+ {\em reffile} [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
  {\em dtw} carries out dynamic time warping between
- the reference data from {\em infile} (or standard input)
- and the template data from {\em tempfile},
+ the test data from {\em infile} (or standard input)
+ and the reference data from {\em reffile},
  and sends the result to standard output.
  The result is the concatenated sequences
- of the reference and the template data
+ of the test and the reference data
  along with the Viterbi path.
  If --s option is specified,
  the score calculated by dynamic time warping,
- that is, the distance between the reference data and the template data
+ that is, the distance between the test data and the reference data
  is output and sent to {\em Scorefile}.
  If --v option is specified,
  the concatenated frame number sequences
  along the Viterbi path
  is output and sent to {\em Vitfile}.
 
- For example, suppose that the reference and the template data are
+ For example, suppose that the test and the reference data are
  \begin{align}
-  \mathrm{reference} :\;\; & x(0), x(1), \dots, x(T_x - 1), \dots, x(T_x), \notag \\
-  \mathrm{template}  :\;\; & y(0), y(1), \dots, y(T_y - 1), \dots, y(T_y), \notag
+  \mathrm{test} :\;\; & x(0), x(1), \dots, x(T_x - 1), \dots, x(T_x), \notag \\
+  \mathrm{reference}  :\;\; & y(0), y(1), \dots, y(T_y - 1), \dots, y(T_y), \notag
  \end{align}
- where $T_x$ and $T_y$ are the length of the reference and template data,
+ where $T_x$ and $T_y$ are the length of the test and reference data,
  respectively,
  and the following Viterbi sequences
  \begin{align}
-  \mathrm{reference} :\;\; & x(\phi_x(0)), x(\phi_x(1)), \dots, x(\phi_x(T_x - 1)),
+  \mathrm{test} :\;\; & x(\phi_x(0)), x(\phi_x(1)), \dots, x(\phi_x(T_x - 1)),
   \dots, x(\phi_{x}(T_x)), \notag \\
-  \mathrm{template}  :\;\; & y(\phi_y(0)), y(\phi_y(1)), \dots,
+  \mathrm{reference}  :\;\; & y(\phi_y(0)), y(\phi_y(1)), \dots,
   y(\phi_y(T_y - 1)), \dots, y(\phi_y(T_y)), \notag
  \end{align}
  are obtained, where $\phi_x(\cdot)$ and $\phi_x(\cdot)$ are the function which
- maps the frame number of reference/template data
+ maps the frame number of test/reference data
  into the corresponding Viterbi frame number, respectively.
  In addition, the relation $\phi_x(T_x)=\phi_y(T_y)$ holds.
  Then, the following sequence
@@ -107,8 +107,8 @@
 \begin{options}
  \argm{m}{M}{order of vector}{0}
  \argm{l}{L}{dimention of vector}{M+1}
+ \argm{t}{T}{number of test input vectors}{N/A}
  \argm{r}{R}{number of reference input vectors}{N/A}
- \argm{t}{T}{number of template input vectors}{N/A}
  \argm{n}{N}{type of norm used for calculation of local distance\\
  \begin{tabular}{ll} \\[-1ex]
   $N=1$ & ~~~$L_{1}$-norm\\
@@ -124,11 +124,11 @@
 
 \begin{qsection}{EXAMPLE}
  In the example below, a dynamic time warping between the scalar
- sequence from {\em data.ref} and
- the sequence from {\em data.temp} is carried out and
+ sequence from {\em data.test} and
+ the sequence from {\em data.ref} is carried out and
  the concatenated sequence are written to {\em data.out}.
 \begin{quote}
- \verb!dtw -l 1 data.temp < data.ref > data.out!
+ \verb!dtw -l 1 data.ref < data.test > data.out!
 \end{quote}
 \end{qsection}
 
