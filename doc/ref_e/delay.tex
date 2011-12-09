@@ -49,14 +49,14 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em delay} delays the data from {\em infile} (or standard input) 
+{\em delay} delays the data in {\em infile} (or standard input) 
 by inserting a specified number of zero samples at the beginning, 
-sending the result to standard output.
+and sends the result to standard output.
  For example, if we want to delay the following data
 \begin{displaymath}
    x(0), x(1), \ldots , x(T)
 \end{displaymath}
-as
+as in
 \begin{displaymath}
    \underbrace{0, \dots , 0}_{S}, x(0), x(1), \dots , x(T).
 \end{displaymath}
@@ -65,7 +65,7 @@ We only need to set the ``--s'' option to $S$
    \underbrace{0, \dots , 0}_{S}, x(0), x(1), \dots , x(T-S).
 \end{displaymath}
 \par
-The format of input and output is float.
+Both input and output files are in float format.
 \end{qsection}
 
 \begin{options}
@@ -82,7 +82,7 @@ and we use the command below
 \begin{quote}
  \verb!delay -s 3 < data.f > data.delay!
 \end{quote}
-then the output file {\em data.delay} is 
+then the output file {\em data.delay} will be 
 \begin{displaymath}
  0.0, 0.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
 \end{displaymath}
@@ -91,7 +91,7 @@ we can use the following command,
 \begin{quote}
 \verb!delay -s 3 -f < data.f > data.delay!
 \end{quote}
-and the output {\em data.delay} is
+and the output {\em data.delay} will be
 \begin{displaymath}
  0.0, 0.0, 0.0, 1.0, 2.0, 3.0
 \end{displaymath}

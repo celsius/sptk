@@ -51,9 +51,10 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em ds} down-samples data from {\em infile} (or standard input), 
-sending the result to standard output.
+and sends the result to standard output.
 
-The format of input and output data is float.
+Both input and output files are in float format.
+
 The following filter coefficients can be used.
 
 \begin{tabular}{ll} \\[-1ex]
@@ -71,18 +72,17 @@ Filter coefficients are in ASCII format.
 \begin{options}
 	\argm{s}{S}{conversion type\\
 		\begin{tabular}{ll} \\[-1ex]
-			$S=21$ & down sampling by $2:1$ \\
-			$S=32$ & down sampling by $3:2$ \\
-			$S=43$ & down sampling by $4:3$ \\
-			$S=52$ & down sampling by $5:2$ \\
-			$S=54$ & down sampling by $5:4$
+			$S=21$ & downsampling by $2:1$ \\
+			$S=32$ & downsampling by $3:2$ \\
+			$S=43$ & downsampling by $4:3$ \\
+			$S=52$ & downsampling by $5:2$ \\
+			$S=54$ & downsampling by $5:4$
 		\end{tabular}\\\hspace*{\fill}}{21}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 In this example, the speech data in the input file {\em data.16},
-which was sampled at 16 kHz in float format, is converted to
-an 8 kHz sampling rate:
+which was sampled at 16 kHz in float format, is downsampled to 8 kHz:
 \begin{quote}
 \verb! ds data.16 > data.8 !
 \end{quote}

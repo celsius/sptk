@@ -54,7 +54,7 @@
 {\em fft2} uses the 2-dimensional Fast Fourier Transform (FFT) algorithm 
 to calculate the 2-dimensional Discrete Fourier Transform (DFT) 
 of complex-valued input data from {\em infile} (or standard input), 
-sending the result to standard output. 
+and sends the result to standard output. 
 The input and output data is in float format, arranged as follows.
 \begin{center}
 \leavevmode
@@ -66,23 +66,23 @@ The input and output data is in float format, arranged as follows.
 	\argm{l}{L}{FFT size  power of 2}{64}
 	\argm{m}{M_1 \; M_2}{order of sequence ($M_1\times M_2$).
 			If file size $k$ is smaller than $64^2\times 2$
-			and $\sqrt{k\div 2}$ is integer value, $M_1=M_2=\sqrt{k\div 2}$. 
-			Otherwise output error message to standard error output 
-			and then terminate.}{$64 , M_1$}
+			and $\sqrt{k\div 2}$ is an integer value, $M_1=M_2=\sqrt{k\div 2}$. 
+			Otherwise, an output error message is sent to
+                        standard error output and the command is terminated.}{$64 , M_1$}
 	\argm{t}{}{Output results in transposed form.
 		\begin{center}
 		\leavevmode
 		\includegraphics{fig/fft2-trans.eps}
 		\end{center}~}{FALSE}
 	\argm{c}{}{When results are transposed, 1 boundary data is copied from the
-	opposite side, and then output $(L+1)\times (L+1)$ data.
+	opposite side, and then $(L+1)\times (L+1)$ data is outputted.
 		\begin{center}	
 		\leavevmode
 		\includegraphics{fig/fft2-comp.eps}
 		\end{center}~}{FALSE}
 	\argm{q}{}{Output first $1/4$ data of FFT results only.
 		   As in the above c option, boundary data is compensated and 
-		   $(\frac{L}{2}+1)\times(\frac{L}{2}+1)$ data are output.
+		   $(\frac{L}{2}+1)\times(\frac{L}{2}+1)$ data is outputted.
 		\begin{center}
 		\leavevmode
 		\includegraphics{fig/fft2-quad.eps}
