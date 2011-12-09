@@ -25,6 +25,7 @@ SUBDIRS = acep \
 	dfs \
 	dmp \
 	ds \
+	dtw \
 	echo2 \
 	excite \
 	extract \

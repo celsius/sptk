@@ -20,7 +20,7 @@ LIBS	=  /NOLOGO /SUBSYSTEM:CONSOLE /MACHINE:X86 $(SPTKLIB) $(SYSLIB)
 all: acep.exe acorr.exe agcep.exe amcep.exe \
 	average.exe b2mc.exe bcp.exe bcut.exe c2acr.exe \
 	c2ir.exe c2sp.exe cat2.exe cdist.exe clip.exe da.exe dct.exe\
-	decimate.exe delay.exe delta.exe df2.exe dfs.exe dmp.exe ds.exe echo2.exe \
+	decimate.exe delay.exe delta.exe df2.exe dfs.exe dmp.exe ds.exe dtw.exe echo2.exe \
 	excite.exe extract.exe fd.exe fdrw.exe fft.exe fft2.exe fftcep.exe fftr.exe fftr2.exe \
 	fig.exe frame.exe freqt.exe gc2gc.exe gcep.exe glsadf.exe gmm.exe gmmp.exe gnorm.exe \
 	grpdelay.exe histogram.exe idct.exe ifft.exe ifft2.exe \
@@ -125,6 +125,10 @@ dmp.exe : dmp\dmp.obj
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
 ds.exe : ds\ds.obj
+	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
+	$(CL) /OUT:$@ $(LIBS) $(@B).obj
+
+dtw.exe : dtw\dtw.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 

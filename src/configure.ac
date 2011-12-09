@@ -172,6 +172,7 @@ AC_CONFIG_FILES([Makefile
                  bin/dfs/Makefile
                  bin/dmp/Makefile
                  bin/ds/Makefile
+                 bin/dtw/Makefile
                  bin/echo2/Makefile
                  bin/excite/Makefile
                  bin/extract/Makefile
