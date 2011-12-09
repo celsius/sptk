@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.12 2011/08/23 08:55:16 sawada11 Exp $
+## $Id: Makefile.am,v 1.13 2011/12/09 11:38:24 mataki Exp $
 
 SUBDIRS = acep \
 	acorr \
@@ -25,6 +25,7 @@ SUBDIRS = acep \
 	dfs \
 	dmp \
 	ds \
+	dtw \
 	echo2 \
 	excite \
 	extract \
