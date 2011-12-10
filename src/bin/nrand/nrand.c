@@ -64,7 +64,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: nrand.c,v 1.20 2011/04/27 13:46:42 mataki Exp $";
+static char *rcs_id = "$Id: nrand.c,v 1.21 2011/12/10 04:08:55 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
 {
    char *str, flg;
    int leng = LENG, seed = SEED, i;
-   long next = SEED;
+   unsigned long next = SEED;
    double p, mean = MEAN, sdev = SDEV;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)

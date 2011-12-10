@@ -78,7 +78,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.35 2011/12/06 09:29:36 sawada11 Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.36 2011/12/10 04:08:55 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -211,7 +211,7 @@ int main(int argc, char **argv)
    int i, j, length, frame_shift = FRAME_SHIFT,
        sample_freq = SAMPLE_FREQ,
      L = LOW, H = HIGH, atype = ATYPE, otype = OTYPE, alpha, beta, fnum;
-   long next = SEED;
+   unsigned long next = SEED;
    double *x, thresh = THRESH, timestep, p, fsp;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;

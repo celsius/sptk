@@ -70,7 +70,7 @@ static char *grk[] = { "Alpha", "Beta", "Gamma", "Delta",
    " ", " ", " ", " ", " ", "infty"
 };
 
-static unsigned char sub[SBUFLNG];
+static char sub[SBUFLNG];
 static int nsub;
 
 char *gettxt_fig(char *s)

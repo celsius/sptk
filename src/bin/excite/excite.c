@@ -65,7 +65,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: excite.c,v 1.21 2011/04/27 13:46:39 mataki Exp $";
+static char *rcs_id = "$Id: excite.c,v 1.22 2011/12/10 04:08:54 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -135,7 +135,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int fprd = FPERIOD, iprd = IPERIOD, i, j, seed = SEED;
-   long next = SEED;
+   unsigned long next = SEED;
    FILE *fp = stdin;
    double x, p1, p2, inc, pc;
    Boolean gauss = GAUSS;
