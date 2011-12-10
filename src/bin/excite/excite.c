@@ -135,7 +135,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int fprd = FPERIOD, iprd = IPERIOD, i, j, seed = SEED;
-   long next = SEED;
+   unsigned long next = SEED;
    FILE *fp = stdin;
    double x, p1, p2, inc, pc;
    Boolean gauss = GAUSS;

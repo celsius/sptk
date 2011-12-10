@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
 {
    char *str, flg;
    int leng = LENG, seed = SEED, i;
-   long next = SEED;
+   unsigned long next = SEED;
    double p, mean = MEAN, sdev = SDEV;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)

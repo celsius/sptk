@@ -211,7 +211,7 @@ int main(int argc, char **argv)
    int i, j, length, frame_shift = FRAME_SHIFT,
        sample_freq = SAMPLE_FREQ,
      L = LOW, H = HIGH, atype = ATYPE, otype = OTYPE, alpha, beta, fnum;
-   long next = SEED;
+   unsigned long next = SEED;
    double *x, thresh = THRESH, timestep, p, fsp;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;
