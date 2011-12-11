@@ -66,7 +66,7 @@ obtained from the autocorrelation matrix.
 Input and output data are in float format.
 \par
 The linear prediction coefficients are the set of coefficients
-$K, a(1), \dots, a(M)$ of the all-pole digital filter
+$K, a(1), \dots, a(M)$ of an all-pole digital filter
 \begin{displaymath}
 H(z) = \frac{K}{\displaystyle{1+\sum_{i=1}^{M}a(k)z^{-i}}}.
 \end{displaymath}
@@ -95,7 +95,7 @@ through the autocorrelation method,
 \end{pmatrix}
 \end{displaymath}
 The Durbin iterative and efficient algorithm is used
-in the following taking advantage of the Toeplitz characteristic
+to solve the system above. It takes advantage of the Toeplitz characteristic
 of the autocorrelation matrix:
 \begin{align}
 E^{(0)}    &= r(0) \notag \\
@@ -106,7 +106,7 @@ a^{(i)}(j) &=  a^{(i-1)}(j) + k(i) a^{(i-1)}(i-j),
 		\qquad 1\leq j \leq i-1\\
 E^{(i)}    &= (1-k^2(i)) E^{(i-1)} \label{eqn:lev_dur_E}
 \end{align}
-Also, for $i=1,2,\ldots,M$, equations (\ref{eqn:lev_dur_k}) to
+Also, for $i=1,2,\ldots,M$, equations (\ref{eqn:lev_dur_k}) and
  (\ref{eqn:lev_dur_E}) are applied recursively,
 and the gain $K$ is calculated as follows.
 \begin{displaymath}

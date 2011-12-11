@@ -49,20 +49,18 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em interpolate} supplements a sequence of input data
-from {\em infile} (or standard input)
-by 0 or input data with interval $P$ and start number $S$,
-sending the result to standard output.
+This function interpolates data points into the input data, with
+interval $P$ and start number $S$, and sends the result to standart
+output. The results are as follows:
 
-If the input data is
 \begin{displaymath}
  x(0), x(1), x(2), \dots
 \end{displaymath}
-then the output data is
+then the output data will be
 \begin{displaymath}
 \underbrace{0, 0, \dots, 0}_{S-1},\underbrace{x(0), 0, 0, \dots, 0}_{P},\underbrace{x(1), 0, 0, \dots, 0}_{P},x(2), \dots
 \end{displaymath}
-If the --d option is given, the output data is
+If the --d option is given, the output data will be
 \begin{displaymath}
 \underbrace{0, 0, \dots, 0}_{S-1},\underbrace{x(0), x(0), x(0), \dots, x(0)}_{P},\underbrace{x(1), x(1), x(1), \dots, x(1)}_{P},x(2), \dots
 \end{displaymath}

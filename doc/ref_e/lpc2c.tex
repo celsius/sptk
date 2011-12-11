@@ -72,7 +72,7 @@ And the sequence of cepstral coefficients
 \begin{displaymath}
    c(0), c(1), \dots, c(M)
 \end{displaymath}
-is output.
+is given as output.
 Input and output data are in float format.
 \end{qsection}
 
@@ -85,7 +85,7 @@ Input and output data are in float format.
 In the example below, a 10-th order LPC analysis is undertaken after
 passing the speech data {\em data.f} in float format through a window,
 15-th order LPC cepstral coefficients are calculated,
-and the result is written in {\em data.cep}.
+and the result is written to {\em data.cep}.
 \begin{quote}
  \verb!frame +f < data.f | window | lpc -m 10 |\!\\
  \verb!lpc2c -m 10 -M 15 > data.cep!
