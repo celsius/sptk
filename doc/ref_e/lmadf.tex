@@ -52,9 +52,9 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em lmadf} derives a Log Magnitude Approximation filter 
-from cepstral coefficients $c(0),c(1),\ldots,c(M)$ in {\em cfile} 
+from the cepstral coefficients $c(0),c(1),\ldots,c(M)$ in {\em cfile} 
 and uses it to filter an excitation sequence 
-from {\em infile} (or standard input) to synthesize speech data, 
+from {\em infile} (or standard input) in order to synthesize speech data, 
 sending the result to standard output.
 
 Input and output data are in float format.
@@ -65,8 +65,7 @@ coefficients $c(m)$ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^{M} c(m) z^{-m}
 \end{displaymath}
-If we remove from the transfer function $H(z)$ the gain
-$K=\exp c(0)$, then we obtain the following transfer function
+If we remove the gain $K = \exp c(0)$ from the transfer function $H(z)$, then we obtain the following transfer function
 \begin{displaymath}
 D(z) = \exp \sum_{m=1}^{M} c(m) z^{-m},
 \end{displaymath}
@@ -74,8 +73,8 @@ which can be realized using the basic FIR filter
 \begin{displaymath}
 F(z) = \sum_{m=1}^{M} c(m) z^{-m}
 \end{displaymath}
-as shown in figure \ref{fig:lmadflt_LMA}(a).
-Also, as can be seen from figure \ref{fig:lmadflt_LMA}(b),
+as shown in Figure \ref{fig:lmadflt_LMA}(a).
+Also, as it can be seen in Figure \ref{fig:lmadflt_LMA}(b),
 the basic filter $F(z)$ can be decomposed as follows
 \begin{displaymath}
 F(z) = F_1(z) + F_2(z)

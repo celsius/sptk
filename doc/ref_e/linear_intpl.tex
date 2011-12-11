@@ -51,8 +51,9 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em linear\_intpl} reads a 2-dimensional input data sequence
-from {\em infile} (or standard input) and outputs $y$-axis values
-when $x$-axis are linearly interpolated by equally-spaced $L-1$ points.
+from {\em infile} (or standard input) in which the $x$-axis values are
+linearly interpolated by equally-spaced $L-1$ points, and outputs the
+$y$-axis values.
 
 If the input data is
 \begin{displaymath}
@@ -63,7 +64,7 @@ If the input data is
 	x_K, y_K \\
 	\end{matrix}
 \end{displaymath}
-then the output data is
+then the output data will be
 \begin{displaymath}
 y_0, y_1, \dots, y_{L-1}
 \end{displaymath}
@@ -71,7 +72,8 @@ y_0, y_1, \dots, y_{L-1}
 \par
 Input and output data are in float format.
 \par
-This command can interpolate data sequence whose $x$-axis is not equally-spaced,
+This command can also interpolate data sequence in wchich the $x$-axis
+values are not equally-spaced,
 such as digital filter characteristics.
 
 \end{qsection}
@@ -101,7 +103,7 @@ this example linearly interpolates input data and outputs it to {\em data.intpl}
 \begin{quote}
  \verb!linear_intpl -m 10 -x 0 5 < data.f > data.intpl!
 \end{quote}
-The result becomes
+And the result is given by:
 \begin{displaymath}
 2, 2, 2, 2, 2, 1, 0, 0.25, 0.5, 0.75, 1
 \end{displaymath}

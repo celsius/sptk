@@ -56,11 +56,11 @@ from $M$-th order linear prediction (LPC) coefficients
 from {\em infile} (or standard input),
 sending the result to standard output.
 
-The gain $K$ is included in the LPC input vectors
+Although the gain $K$ is included in the LPC input vectors as follows
 \begin{displaymath}
   K, a(1), \dots, a(M)
 \end{displaymath}
-but $K$ is not used in the calculation of the LSP coefficients.
+$K$ is not used in the calculation of the LSP coefficients.
 
 The $M$-th order polynomial linear prediction equation $A(z)$ is
 \begin{displaymath}
@@ -76,37 +76,33 @@ Also, the initial conditions are set as follows,
   A_0(z) &= 1 \notag \\
   B_0(z) &= z^{-1}.
 \end{align}
-When we are given the linear prediction polynomial equation
-of $M$-th order $A_M(z)$, and when the evaluation of $A_{M+1}(z)$
-is obtained with the value of $k(M+1)$ equal to $1$ or $-1$, 
+When the linear prediction polynomial equation
+of $M$-th order $A_M(z)$ are given, and the evaluation of $A_{M+1}(z)$
+is obtained with the value of $k(M+1)$ set to $1$ or $-1$, then
 $P(z)$ and $Q(z)$ are defined as follow.
 \begin{align}
   P(z) &= A_M(z) - B_M(z) \notag \\
   Q(z) &= A_M(z) + B_M(z) \notag
 \end{align}
-Making $k(M+1)$ equal to $\pm 1$ is means that,
-with respect PARCOR coefficients,
+Making $k(M+1)$ equal to $\pm 1$ means that,
+regarding PARCOR coefficients,
 the boundary condition for the glottis of the fixed vocal tract model
 satisfies a perfect reflection characteristic.
-Also, $A_M(z)$ can be expressed as
+Also, $A_M(z)$ can be written as
 \begin{displaymath}
   A_M(z) =  \frac{P(z) + Q(z)}{2}.
 \end{displaymath}
-When we express $A_M(z)$ in this way,
-$A_M(z)$ is stable.
-That is for the roots of $A_M(z)=0$ to be all inside
-the unit circle a necessary and sufficient condition is given
-in the following.
+Also, to make sure the roots of $A_M(z)=0$ will all be inside
+the unit circle, i.e. to make sure $A_M(z)$ is stable, the following
+conditions must be met.
 \begin{itemize}
 \item All of the roots of $P(z)=0$ and $Q(z)=0$ are on the unit circle
       line.
 \item the roots of $P(z)=0$ and $Q(z)=0$ should be above the unit
       circle line and intercalate.
 \end{itemize}
-In other words, if  the roots of $P(z)=0$ and $Q(z)=0$ satisfy the
-above condition, then $A_M(z)$ is stable.
 \par
-If we assume that $M$ is a even number, then
+If we assume that $M$ is an even number, then
 $P(z)$ and $Q(z)$ can be factorized as follows.
 \begin{align}
   P(z) &= ( 1 - z^{-1} ) \prod_{i=2,4,\dots,M}
@@ -114,11 +110,12 @@ $P(z)$ and $Q(z)$ can be factorized as follows.
   Q(z) &= ( 1 + z^{-1} ) \prod_{i=1,3,\dots,M-1}
           ( 1 - 2 z^{-1} \cos \omega_i + z^{-2} ) \notag
 \end{align}
-Also, the values of $\omega_i$ satisfy the following ordering condition.
+Also, the values of $\omega_i$ will satisfy the following ordering condition.
 \begin{displaymath}
   0 < \omega_1 < \omega_2 < \dots < \omega_{M-1} < \omega_M < \pi
 \end{displaymath}
-In the case, $M$ is odd number solution can be found in a similar way.
+If $M$ is an odd number, a solution can be found in a similar way.
+
 The coefficients $\omega_i$ obtained through factorization are called
 LSP coefficients.
 \end{qsection}
