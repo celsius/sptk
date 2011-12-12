@@ -83,7 +83,7 @@
 *                                                                                *
 *********************************************************************************/
 
-static char *rcs_id = "$Id: pca.c,v 1.14 2011/04/27 13:46:42 mataki Exp $";
+static char *rcs_id = "$Id: pca.c,v 1.15 2011/12/12 12:51:28 mataki Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -355,7 +355,7 @@ int main(int argc, char *argv[])
          case 'h':
             usage(EXIT_SUCCESS);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(argv + 1));
+            fprintf(stderr, "%s : Invalid option '%s'!\n", cmnd, *argv);
             usage(EXIT_FAILURE);
          }
       } else
