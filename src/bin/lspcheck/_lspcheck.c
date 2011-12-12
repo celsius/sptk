@@ -44,7 +44,7 @@
 
 /****************************************************************
 
-    $Id: _lspcheck.c,v 1.12 2011/04/27 13:46:41 mataki Exp $
+    $Id: _lspcheck.c,v 1.13 2011/12/12 04:47:10 sawada11 Exp $
 
     Check order of LSP
 
@@ -88,7 +88,7 @@ int lspcheck(double *lsp, const int ord)
 
 /****************************************************************
 
-    $Id: _lspcheck.c,v 1.12 2011/04/27 13:46:41 mataki Exp $
+    $Id: _lspcheck.c,v 1.13 2011/12/12 04:47:10 sawada11 Exp $
 
     Rearrangement of LSP
 
@@ -103,7 +103,7 @@ int lspcheck(double *lsp, const int ord)
 *****************************************************************/
 
 void lsparrange(double *lsp, const int ord, double alpha, int itype,
-                int sampling)
+                double sampling)
 {
    int i, count = 0, flag;
    double tmp;

@@ -80,7 +80,7 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: lpc2lsp.c,v 1.27 2011/04/27 13:46:41 mataki Exp $";
+static char *rcs_id = "$Id: lpc2lsp.c,v 1.28 2011/12/12 04:48:14 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -106,7 +106,7 @@ static char *rcs_id = "$Id: lpc2lsp.c,v 1.27 2011/04/27 13:46:41 mataki Exp $";
 
 /*  Default Values  */
 #define ORDER    25
-#define SAMPLING 10
+#define SAMPLING 10.0
 #define OTYPE    0
 #define SPNUM    128
 #define MAXITR   4
@@ -132,7 +132,7 @@ void usage(int status)
            "       -m m  : order of LPC                            [%d]\n",
            ORDER);
    fprintf(stderr,
-           "       -s s  : sampling frequency                      [%d]\n",
+           "       -s s  : sampling frequency                      [%g]\n",
            SAMPLING);
    fprintf(stderr,
            "       -k    : output gain                             [%s]\n",
@@ -175,9 +175,9 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, otype = OTYPE, sampling = SAMPLING, n = SPNUM, p = MAXITR, i;
+   int m = ORDER, otype = OTYPE, n = SPNUM, p = MAXITR, i;
    FILE *fp = stdin;
-   double *a, *lsp, end = END;
+   double *a, *lsp, end = END, sampling = SAMPLING;
    Boolean gain = GAIN, loggain = LOGGAIN;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -192,7 +192,7 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 's':
-            sampling = atoi(*++argv);
+            sampling = atof(*++argv);
             --argc;
             break;
          case 'o':
