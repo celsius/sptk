@@ -103,7 +103,7 @@ int lspcheck(double *lsp, const int ord)
 *****************************************************************/
 
 void lsparrange(double *lsp, const int ord, double alpha, int itype,
-                int sampling)
+                double sampling)
 {
    int i, count = 0, flag;
    double tmp;

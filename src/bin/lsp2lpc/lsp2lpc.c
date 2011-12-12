@@ -99,7 +99,7 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define ORDER    25
 #define ITYPE    0
-#define SAMPLING 10
+#define SAMPLING 10.0
 #define GAIN     1
 #define LOGGAIN  FA
 
@@ -121,7 +121,7 @@ void usage(int status)
            "       -m m  : order of LPC                                   [%d]\n",
            ORDER);
    fprintf(stderr,
-           "       -s s  : sampling frequency                             [%d]\n",
+           "       -s s  : sampling frequency                             [%g]\n",
            SAMPLING);
    fprintf(stderr,
            "       -k    : input & output gain                            [TRUE]\n");
@@ -154,9 +154,9 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, sampling = SAMPLING, itype = ITYPE, i, gain = GAIN;
+   int m = ORDER, itype = ITYPE, i, gain = GAIN;
    FILE *fp = stdin;
-   double *a, *lsp;
+   double *a, *lsp, sampling = SAMPLING;
    Boolean loggain = LOGGAIN;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -171,7 +171,7 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 's':
-            sampling = atoi(*++argv);
+            sampling = atof(*++argv);
             --argc;
             break;
          case 'k':

@@ -101,7 +101,7 @@ static char *rcs_id = "$Id$";
 #define ORDER  25
 #define ITYPE  0
 #define OTYPE  -1
-#define SAMPLING 10
+#define SAMPLING 10.0
 #define ARRANGE  FA
 #define GAIN  TR
 #define ALPHA 0.0001
@@ -121,7 +121,7 @@ void usage(int status)
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -m m  : order of LPC        [%d]\n", ORDER);
-   fprintf(stderr, "       -s s  : sampling frequency  [%d]\n", SAMPLING);
+   fprintf(stderr, "       -s s  : sampling frequency  [%g]\n", SAMPLING);
    fprintf(stderr, "       -k    : input & output gain [%s]\n", BOOL[GAIN]);
    fprintf(stderr, "       -i i  : input format        [%d]\n", ITYPE);
    fprintf(stderr, "       -o o  : output format       [i]\n");
@@ -154,10 +154,10 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, sampling = SAMPLING, itype = ITYPE, otype = OTYPE, i, num;
+   int m = ORDER, itype = ITYPE, otype = OTYPE, i, num;
    Boolean arrange = ARRANGE, gain = GAIN;
    FILE *fp = stdin;
-   double *lsp, *lsp1, alpha = ALPHA;
+   double *lsp, *lsp1, alpha = ALPHA, sampling = SAMPLING;
 
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -172,7 +172,7 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 's':
-            sampling = atoi(*++argv);
+            sampling = atof(*++argv);
             --argc;
             break;
          case 'i':
