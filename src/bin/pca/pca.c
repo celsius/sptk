@@ -355,7 +355,7 @@ int main(int argc, char *argv[])
          case 'h':
             usage(EXIT_SUCCESS);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(argv + 1));
+            fprintf(stderr, "%s : Invalid option '%s'!\n", cmnd, *argv);
             usage(EXIT_FAILURE);
          }
       } else
