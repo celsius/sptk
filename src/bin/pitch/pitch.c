@@ -58,7 +58,7 @@
 *                            estimation                                 *
 *                              0 (snack)                                *
 *                              1 (swipe)                                *
-*               -s  s     :  sampling frequency (Hz)       [16000]      *
+*               -s  s     :  sampling frequency (Hz)       [16]         *
 *               -p  p     :  frame shift                   [80]         *
 *               -t  t     :  voiced/unvoiced threshold     [0.3]        *
 *                            (used only for swipe algorithm)            *
@@ -78,7 +78,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.36 2011/12/10 04:08:55 mataki Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.37 2011/12/12 04:49:37 sawada11 Exp $";
 
 
 /*  Standard C Libraries  */
@@ -103,10 +103,10 @@ static char *rcs_id = "$Id: pitch.c,v 1.36 2011/12/10 04:08:55 mataki Exp $";
 #endif
 
 /*  Default Values  */
-#define LOW    60
-#define HIGH   240
+#define LOW    60.0
+#define HIGH   240.0
 #define FRAME_SHIFT 80
-#define SAMPLE_FREQ 16000
+#define SAMPLE_FREQ 16.0
 #define ATYPE 0
 #define OTYPE 0
 #define STR_LEN 255
@@ -172,17 +172,17 @@ void usage(int status)
    fprintf(stderr, "               estimation\n");
    fprintf(stderr, "                 0 (snack)\n");
    fprintf(stderr, "                 1 (swipe)\n");
-   fprintf(stderr, "       -s s  : sampling frequency (Hz)         [%d]\n",
+   fprintf(stderr, "       -s s  : sampling frequency (kHz)         [%g]\n",
            SAMPLE_FREQ);
    fprintf(stderr, "       -p p  : frame shift                     [%d]\n",
            FRAME_SHIFT);
    fprintf(stderr, "       -t t  : voiced/unvoiced threshold       [%g]\n",
            THRESH);
    fprintf(stderr, "               (used only for swipe algorithm)\n");
-   fprintf(stderr, "       -L L  : minimum fundamental             [%d]\n",
+   fprintf(stderr, "       -L L  : minimum fundamental             [%g]\n",
            LOW);
    fprintf(stderr, "               frequency to search for (Hz)\n");
-   fprintf(stderr, "       -H H  : maximum fundamental             [%d]\n",
+   fprintf(stderr, "       -H H  : maximum fundamental             [%g]\n",
            HIGH);
    fprintf(stderr, "               frequency to search for (Hz)\n");
    fprintf(stderr, "       -o o  : output format                   [%d]\n",
@@ -209,10 +209,9 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int i, j, length, frame_shift = FRAME_SHIFT,
-       sample_freq = SAMPLE_FREQ,
-     L = LOW, H = HIGH, atype = ATYPE, otype = OTYPE, alpha, beta, fnum;
+     atype = ATYPE, otype = OTYPE, alpha, beta, fnum;
    unsigned long next = SEED;
-   double *x, thresh = THRESH, timestep, p, fsp;
+   double *x, thresh = THRESH, timestep, p, fsp, sample_freq = SAMPLE_FREQ, L = LOW, H = HIGH;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;
    char * message = (char *) malloc(sizeof(char) * STR_LEN);
@@ -232,7 +231,7 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 's':
-            sample_freq = atoi(*++argv);
+            sample_freq = atof(*++argv);
             --argc;
             break;
          case 'p':
@@ -244,11 +243,11 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'L':
-            L = atoi(*++argv);
+            L = atof(*++argv);
             --argc;
             break;
          case 'H':
-            H = atoi(*++argv);
+            H = atof(*++argv);
             --argc;
             break;
          case 'o':
@@ -264,7 +263,7 @@ int main(int argc, char **argv)
       } else {
          fp = getfp(*argv, "rb");
       }
-
+   sample_freq *= 1000.0;
 
    x = dgetmem(1);
    top = prev = (float_list *) malloc(sizeof(float_list));
@@ -284,9 +283,9 @@ int main(int argc, char **argv)
    }
    if (atype == 0) {
      fnum = (int) (ceil((double) length / (double) frame_shift));
-     fsp = (double) sample_freq * (FSP / (double) frame_shift);
+     fsp = sample_freq * (FSP / (double) frame_shift);
      alpha = (int) (ALPHA * fsp + 0.5);
-     beta = (int) ((BETA_1 / (double) L - BETA_2) * fsp / BETA_3 + 0.5);
+     beta = (int) ((BETA_1 / L - BETA_2) * fsp / BETA_3 + 0.5);
      if (beta < 0)
         beta = 0;
      for (i = 0; i < (alpha + beta + 3) * frame_shift; i++) {
@@ -301,14 +300,14 @@ int main(int argc, char **argv)
    }
 
    if (atype == 0) {
-      message = cGet_f0(top->next, sample_freq, length, frame_shift, L, H, fnum, otype);
+      message = cGet_f0(top->next, (float) sample_freq, length, frame_shift, (int) L, (int) H, fnum, otype);
       if (message != NULL) {
           fprintf(stderr, "%s : %s\n", cmnd, message);
           usage(1);
       }
    } else {
-      timestep = (double) frame_shift / (double) sample_freq;
-      swipe(top->next, length, (double) L, (double) H, thresh, timestep, (double) sample_freq, otype);
+      timestep = (double) frame_shift / sample_freq;
+      swipe(top->next, length, L, H, thresh, timestep, sample_freq, otype);
    }
    return (0);
 }
