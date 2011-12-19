@@ -45,7 +45,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT(SPTK-Reference-Manual, 3.4.1, http://sourceforge.net/projects/sp-tk/)
+AC_INIT(SPTK-Reference-Manual, 3.5, http://sourceforge.net/projects/sp-tk/)
 AC_COPYRIGHT(Copyright 1984-2007 Tokyo Institute of Technology)
 AC_COPYRIGHT(Copyright 1996-2011 Nagoya Institute of Technology)
 
