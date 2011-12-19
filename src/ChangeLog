@@ -1,3 +1,263 @@
+2011-12-19 15:00  mataki
+
+	* NEWS, README, configure.ac, bin/bcp/bcp.c, bin/delta/delta.c,
+	  bin/dtw/dtw.c, bin/frame/frame.c, bin/lpc2lsp/lpc2lsp.c,
+	  bin/lsp2lpc/lsp2lpc.c, bin/lspcheck/lspcheck.c,
+	  bin/merge/merge.c, bin/mfcc/_mfcc.c, bin/pitch/pitch.c,
+	  bin/psgr/psgr.c, bin/sopr/sopr.c, include/SPTK.h,
+	  script/wav2raw.in: Update all documents to SPTK-3.5.	Unify
+	  linefeed code of all source code into <LF>.  Fix all indent in
+	  all source code by using 'indent -kr -nut -i 3 -l 80' command.
+
+2011-12-12 21:51  mataki
+
+	* bin/pca/: pca.c, pcas.c: fix bug for fprintf, suggested by
+	  Junichi Yamagishi, University of Edinburgh.
+
+2011-12-12 13:49  sawada11
+
+	* bin/pitch/pitch.c: Modify -s option (Hz -> kHz, int -> float)
+
+2011-12-12 13:47  sawada11
+
+	* bin/: lspcheck/lspcheck.c, lspcheck/_lspcheck.c,
+	  lsp2lpc/lsp2lpc.c, lpc2lsp/lpc2lsp.c: Change sample frequency
+	  data type (int -> float)
+
+2011-12-10 13:08  mataki
+
+	* bin/: excite/excite.c, fig+fdrw/fig1.c, nrand/nrand.c,
+	  pitch/pitch.c: bug fix.
+
+2011-12-09 20:38  mataki
+
+	* configure.ac, bin/Makefile.am, bin/Makefile.mak,
+	  bin/dtw/.cvsignore, bin/dtw/Makefile.am, bin/dtw/dtw.c: add dtw
+	  command.
+
+2011-12-09 15:39  sawada11
+
+	* bin/frame/frame.c: Fix bug
+
+2011-12-08 17:43  mataki
+
+	* bin/: mfcc/mfcc.c, df2/df2.c: Change unit for sampling frequency:
+	  Hz -> kHz.
+
+2011-12-07 21:28  uratec
+
+	* include/SPTK.h, lib/Makefile.am: remove an old source.
+
+2011-12-07 19:21  uratec
+
+	* bin/pitch/_pitch.c: remove an old source.
+
+2011-12-07 18:22  mataki
+
+	* bin/psgr/eps.c: add '#include <string.h>' for function 'strcpy'.
+
+2011-12-06 18:29  sawada11
+
+	* bin/pitch/: pitch.c, snack/jkGetF0.c: Correspond to the lack of
+	  the number of frame in snack
+
+2011-11-30 13:21  sawada11
+
+	* bin/frame/frame.c: Fix bug
+
+2011-11-29 19:23  sawada11
+
+	* script/Makefile.am: add mgc2mgclsp and mgclsp2mgc command
+
+2011-11-29 19:08  sawada11
+
+	* script/mgclsp2mgc.in: add mgclsp2mgc command
+
+2011-11-29 19:07  sawada11
+
+	* script/mgc2mgclsp.in: add mgc2mgclsp command
+
+2011-11-28 21:21  mataki
+
+	* bin/pitch/swipe/swipe.h: Remove swipe.h. This file is not needed.
+
+2011-11-28 19:01  mataki
+
+	* bin/pitch/swipe/: COPYING, swipe.c, swipe.h, vector.c, vector.h:
+	  Update version of swipe: ver1.4.
+
+2011-11-23 13:20  mataki
+
+	* bin/pitch/snack/jkGetF0.c: Fix the code; from malloc to fgetmem
+
+2011-11-22 22:37  mataki
+
+	* bin/pitch/snack/jkGetF0.c: delete irregular new line in the SPTK
+	  license.
+
+2011-11-22 22:32  mataki
+
+	* bin/pitch/snack/jkGetF0.c: Fix the problem for inplict
+	  declaration functions.
+
+2011-11-18 15:53  sawada11
+
+	* bin/mfcc/: .cvsignore, _mfcc.c, mfcc.c: add .cvsignore file in
+	  mfcc
+
+2011-11-07 10:43  sawada11
+
+	* bin/pitch/pitch.c: Fix bug
+
+2011-11-04 14:05  sawada11
+
+	* bin/pitch/: Makefile.am, pitch.c: add SWIPE algorithm for pitch
+	  estimation in pitch command
+
+2011-11-04 14:02  sawada11
+
+	* bin/pitch/swipe/COPYING: add COPYING for SWIPE algorithm (pitch
+	  command)
+
+2011-11-04 14:00  sawada11
+
+	* bin/pitch/swipe/: swipe.c, vector.c, vector.h: add SWIPE
+	  algorithm for pitch estimation in pitch command
+
+2011-10-31 18:33  mataki
+
+	* bin/pitch/snack/: jkGetF0.c, jkGetF0.h, sigproc.c: Add RCS ID.
+
+2011-10-31 18:24  mataki
+
+	* bin/pitch/: pitch.c, snack/jkGetF0.c: Modify jkGetF0.c to check
+	  input parameters and to output error messages according to the
+	  original of jkGetF0.c
+
+2011-10-30 13:11  mataki
+
+	* bin/delta/delta.c: bug fix for input from stdin.
+
+2011-10-28 18:52  mataki
+
+	* bin/pitch/pitch.c: Remove -l option for specifying frame length.
+
+2011-10-28 18:46  mataki
+
+	* bin/pitch/snack/COPYING: Modify COPYING for snack.
+
+2011-10-28 18:40  uratec
+
+	* README: Modify readme for copyright of snack.
+
+2011-10-28 18:38  mataki
+
+	* bin/delta/delta.c: Bug fix for calculation of regression
+	  coefficients (-R option) and Fix the know problem to read input
+	  from stdin. -t option is removed.
+
+2011-10-27 22:19  mataki
+
+	* bin/pitch/: Makefile.am, pitch.c, snack/COPYING, snack/jkGetF0.c,
+	  snack/jkGetF0.h, snack/sigproc.c: Integrate getf0 into pitch
+	  command.
+
+2011-10-26 12:34  mataki
+
+	* bin/merge/merge.c: fix a bug when insert file name is not
+	  specified.
+
+2011-10-03 17:50  mataki
+
+	* bin/sopr/sopr.c: Fix a small bug for -magic option.
+
+2011-10-03 14:14  mataki
+
+	* bin/sopr/sopr.c: Fix a bug suggested by Keiichiro Oura, Nagoya
+	  Institute of Technology.
+
+2011-09-09 18:42  mataki
+
+	* bin/pca/.cvsignore: Change command name : from pcap to pcas.
+
+2011-09-05 10:28  sawada11
+
+	* bin/mfcc/_mfcc.c: Bug fixed
+
+2011-09-05 10:27  sawada11
+
+	* bin/mfcc/mfcc.c: modify -a option (default value:0.0 -> 0.97)
+
+2011-08-23 17:54  sawada11
+
+	* configure.ac, bin/Makefile.am, bin/Makefile.mak: add mfcc
+	  function
+
+2011-08-23 17:51  sawada11
+
+	* bin/mfcc/Makefile.am, bin/mfcc/_mfcc.c, bin/mfcc/mfcc.c,
+	  include/SPTK.h, lib/Makefile.am, lib/Makefile.mak: add mfcc
+	  function
+
+2011-08-10 15:12  mataki
+
+	* bin/mgc2mgc/mgc2mgc.c: remove redundant fprintf.
+
+2011-08-10 14:10  mataki
+
+	* bin/mgc2mgc/mgc2mgc.c: remove redundant fprintf.
+
+2011-07-28 18:22  mataki
+
+	* bin/x2x/x2x.c: bug fix to avoid infinite loop when non-numerical
+	  character is input (+type1=a)
+
+2011-07-28 17:59  mataki
+
+	* bin/x2x/x2x.c: bug fix to skip non-numerical character for input
+	  when type1=a (ascii) is specified.
+
+2011-06-16 15:19  mataki
+
+	* bin/bcp/bcp.c: Fix help message.
+
+2011-06-08 11:39  mataki
+
+	* bin/delta/delta.c: Bug fix to output magic number
+
+2011-06-06 21:01  mataki
+
+	* script/wav2raw.in: Fixed code to deal with IEEE float format.
+
+2011-06-06 14:11  mataki
+
+	* bin/delta/delta.c: Add -R and -M option to skip the magic number
+	  during the delta calculation.
+
+2011-06-05 23:35  mataki
+
+	* bin/idct/idct.c: fix a bug.
+
+2011-05-31 13:46  sawada11
+
+	* script/glogsp.in: Bug fixing for -c option
+
+2011-05-31 13:40  sawada11
+
+	* bin/psgr/psgr.c: modified -p option (default: A4 -> FALSE)
+
+2011-05-31 13:34  sawada11
+
+	* script/grlogsp.in: add running spectrum position (-O option)
+
+2011-04-28 21:43  mataki
+
+	* script/wav2raw.in: bug fixed.
+
+2011-04-28 16:53  mataki
+
+	* ChangeLog: Update ChangeLog for SPTK-3.4.1
+
 2011-04-28 08:24  uratec
 
 	* NEWS, README: Modify indent of text.
