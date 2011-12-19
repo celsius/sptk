@@ -80,7 +80,8 @@
 *                                                                        *
 *************************************************************************/
 
-static char *rcs_id = "$Id: lpc2lsp.c,v 1.28 2011/12/12 04:48:14 sawada11 Exp $";
+static char *rcs_id =
+    "$Id: lpc2lsp.c,v 1.29 2011/12/19 06:00:34 mataki Exp $";
 
 
 /*  Standard C Libraries  */

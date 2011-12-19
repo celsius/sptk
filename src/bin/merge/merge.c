@@ -74,7 +74,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: merge.c,v 1.24 2011/10/26 03:34:49 mataki Exp $";
+static char *rcs_id = "$Id: merge.c,v 1.25 2011/12/19 06:00:34 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -276,8 +276,8 @@ int main(int argc, char **argv)
          fp1 = getfp(*argv, "rb");
 
    if (fp2 == NULL) {
-       fprintf(stderr, "%s : Inserted data must be specified !\n", cmnd);
-       usage(1);
+      fprintf(stderr, "%s : Inserted data must be specified !\n", cmnd);
+      usage(1);
    }
 
    y = (char *) dgetmem(leng2 * size);

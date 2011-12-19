@@ -53,7 +53,7 @@
 *      Ver. 0.99  '93.8                                 *
 ********************************************************/
 
-static char *rcs_id = "$Id: psgr.c,v 1.21 2011/05/31 04:40:09 sawada11 Exp $";
+static char *rcs_id = "$Id: psgr.c,v 1.22 2011/12/19 06:00:35 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -260,7 +260,7 @@ int main(int argc, char *argv[])
    }
    xleng = xleng * (double) SCALE / shrink;
    yleng = yleng * (double) SCALE / shrink;
- 
+
    orientation = orientations[landscape];
 
    if (filename != NULL) {

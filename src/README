@@ -1,6 +1,6 @@
 ===============================================================================
-             Speech Signal Processing Toolkit (SPTK) version 3.4.1
-                            release April 28, 2011
+             Speech Signal Processing Toolkit (SPTK) version 3.5
+                           release December 25, 2011
 
 
 The Speech Signal Processing Toolkit (SPTK) is a suite of speech signal
@@ -78,6 +78,7 @@ justify ourselves to our various sponsors. We also strongly encourage you to
 See also "COPYING" files in following directories for details.
  ./
  ./bin/pitch/snack
+ ./bin/pitch/swipe
 
 *******************************************************************************
                                  Installation

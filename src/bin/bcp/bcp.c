@@ -79,7 +79,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: bcp.c,v 1.22 2011/06/16 06:19:17 mataki Exp $";
+static char *rcs_id = "$Id: bcp.c,v 1.23 2011/12/19 06:00:34 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -167,10 +167,8 @@ void usage(int status)
            "                f  (float, %dbyte)        d  (double, %dbyte)\n",
            sizeof(float), sizeof(double));
    fprintf(stderr,
-           "                de (long double, %dbyte)\n",
-           sizeof(long double));
-   fprintf(stderr,
-           "                a (ascii)\n");
+           "                de (long double, %dbyte)\n", sizeof(long double));
+   fprintf(stderr, "                a (ascii)\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,

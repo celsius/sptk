@@ -66,7 +66,7 @@
 *                                                                                            *
 **********************************************************************************************/
 
-static char *rcs_id = "$Id: delta.c,v 1.11 2011/10/30 04:11:53 mataki Exp $";
+static char *rcs_id = "$Id: delta.c,v 1.12 2011/12/19 06:00:34 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -543,7 +543,7 @@ int main(int argc, char *argv[])
       cur = (float_list *) malloc(sizeof(float_list));
       cur->f = (float *) malloc(sizeof(float) * leng);
       for (i = 0; i < leng; i++) {
-          cur->f[i] = (float) x[i];
+         cur->f[i] = (float) x[i];
       }
       total++;
       prev->next = cur;
@@ -555,9 +555,9 @@ int main(int argc, char *argv[])
    dx = dgetmem(dw_num * leng * total);
    fillz(dx, sizeof(*x), dw_num * leng * total);
    for (i = 0, tmpf = top->next; tmpf != NULL; i++, tmpf = tmpf->next) {
-       for (j = 0; j < leng; j++) {
-           x[i * leng + j] = tmpf->f[j];
-       }
+      for (j = 0; j < leng; j++) {
+         x[i * leng + j] = tmpf->f[j];
+      }
    }
 
    if (dw_calccoef == 0 || dw_calccoef == 1) {

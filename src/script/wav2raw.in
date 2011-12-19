@@ -49,7 +49,7 @@ onintr clean
 
 set path    = ( @binpath@ $path )
 set sptkver = '@sptk_version@'
-set cvsid   = '$Id: wav2raw.in,v 1.9 2011/06/06 12:01:54 mataki Exp $'
+set cvsid   = '$Id: wav2raw.in,v 1.10 2011/12/19 06:00:35 mataki Exp $'
 
 
 set cmnd	= $0
@@ -192,8 +192,8 @@ usage:
         echo2 '  output:'
         echo2 "       $cmnd removes RIFF header(s) from input wav file(s)."
         echo2 '                                                         '
-        echo2 '       The outfile has an extention ".wav", e.g.,'
-        echo2 '          sample.m15 ---> sample.m15.wav'
+        echo2 '       The outfile has an extention ".raw", e.g.,'
+        echo2 '          sample.m15 ---> sample.m15.raw'
         echo2 '                                                         '
         echo2 '       If the infile has an extention ".wav",'
         echo2 '       the extention is converted into ".raw", e.g.,'
