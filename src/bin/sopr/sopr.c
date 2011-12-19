@@ -236,10 +236,9 @@ int main(int argc, char *argv[])
          if (islower(c) && *++s == '\0') {
             s = *++argv;
             if (s == NULL) {
-                fprintf(stderr,
-                        "%s : numerical argument is also needed !\n",
-                        cmnd);
-                usage(1);
+               fprintf(stderr,
+                       "%s : numerical argument is also needed !\n", cmnd);
+               usage(1);
             }
             --argc;
          }
@@ -267,8 +266,7 @@ int main(int argc, char *argv[])
                s = *++argv;
                if (s == NULL) { /* No magic number */
                   fprintf(stderr,
-                          "%s : -magic option need magic number !\n",
-                          cmnd);
+                          "%s : -magic option need magic number !\n", cmnd);
                   usage(1);
                }
                --argc;
@@ -290,11 +288,10 @@ int main(int argc, char *argv[])
                   optbl[nopr].ifrep = 1 - REP;
                   MAGIC_COUNT++;
                   s = *++argv;
-                  if (s == NULL) { /* No magic number */
-                      fprintf(stderr,
-                              "%s : -MAGIC option need magic number !\n",
-                              cmnd);
-                      usage(1);
+                  if (s == NULL) {      /* No magic number */
+                     fprintf(stderr,
+                             "%s : -MAGIC option need magic number !\n", cmnd);
+                     usage(1);
                   }
                   --argc;
                }
@@ -316,10 +313,9 @@ int main(int argc, char *argv[])
             else if (*s == 'm') {
                s = *(argv + 1);
                if (s == NULL) {
-                   fprintf(stderr,
-                           "%s : next operation must be specified !\n",
-                           cmnd);
-                   usage(1);
+                  fprintf(stderr,
+                          "%s : next operation must be specified !\n", cmnd);
+                  usage(1);
                }
                optbl[nopr].d = atoi(s + 1);
                if (c == 'a')

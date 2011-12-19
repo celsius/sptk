@@ -169,7 +169,7 @@ int main(int argc, char **argv)
    if (!noctr) {
       i = (int) ((l + 1) / 2);
       rnum = freadf(&x[(int) (l / 2)], sizeof(*x), i, fp);
-   } else 
+   } else
       rnum = freadf(x, sizeof(*x), l, fp);
    if (rnum == 0)
       return 0;
@@ -189,9 +189,9 @@ int main(int argc, char **argv)
          if (rnum < fprd) {
             ts = fprd - rnum;
             cs -= ts;
-            while(rnum--)
+            while (rnum--)
                p1++;
-            while(ts--)
+            while (ts--)
                *p1++ = 0.0;
          }
          if (cs <= 0)
@@ -210,9 +210,9 @@ int main(int argc, char **argv)
                break;
             ts = l - rnum;
             p1 = x;
-            while(rnum--)
+            while (rnum--)
                p1++;
-            while(ts--)
+            while (ts--)
                *p1++ = 0.0;
          }
          fwritef(x, sizeof(*x), l, stdout);
@@ -221,4 +221,3 @@ int main(int argc, char **argv)
 
    return 0;
 }
-

@@ -192,8 +192,7 @@ void usage(int status)
    fprintf(stderr, "                 2 (log(f0))\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       waveform (%s)             \n",
-           FORMAT);
+   fprintf(stderr, "       waveform (%s)             \n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       pitch, f0 or log(f0) (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
@@ -209,15 +208,16 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int i, j, length, frame_shift = FRAME_SHIFT,
-     atype = ATYPE, otype = OTYPE, alpha, beta, fnum;
+       atype = ATYPE, otype = OTYPE, alpha, beta, fnum;
    unsigned long next = SEED;
-   double *x, thresh = THRESH, timestep, p, fsp, sample_freq = SAMPLE_FREQ, L = LOW, H = HIGH;
+   double *x, thresh = THRESH, timestep, p, fsp, sample_freq = SAMPLE_FREQ, L =
+       LOW, H = HIGH;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;
-   char * message = (char *) malloc(sizeof(char) * STR_LEN);
-   char * cGet_f0(float_list *flist, float sample_freq,
-                  int length, int frame_shift,
-                  int minF0, int maxF0, int fnum, int otype);
+   char *message = (char *) malloc(sizeof(char) * STR_LEN);
+   char *cGet_f0(float_list * flist, float sample_freq,
+                 int length, int frame_shift,
+                 int minF0, int maxF0, int fnum, int otype);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -274,7 +274,7 @@ int main(int argc, char **argv)
       cur = (float_list *) malloc(sizeof(float_list));
       if (atype == 0)
          cur->f = (float) x[0] + (float) (p * NOISEMASK);
-      else 
+      else
          cur->f = (float) x[0];
       length++;
       prev->next = cur;
@@ -282,28 +282,30 @@ int main(int argc, char **argv)
       prev = cur;
    }
    if (atype == 0) {
-     fnum = (int) (ceil((double) length / (double) frame_shift));
-     fsp = sample_freq * (FSP / (double) frame_shift);
-     alpha = (int) (ALPHA * fsp + 0.5);
-     beta = (int) ((BETA_1 / L - BETA_2) * fsp / BETA_3 + 0.5);
-     if (beta < 0)
-        beta = 0;
-     for (i = 0; i < (alpha + beta + 3) * frame_shift; i++) {
-        p = (double) nrandom(&next);
-        cur = (float_list *) malloc(sizeof(float_list));
-        cur->f = (float) (p * NOISEMASK);
-        length++;
-        prev->next = cur;
-        cur->next = NULL;
-        prev = cur;
-     }
+      fnum = (int) (ceil((double) length / (double) frame_shift));
+      fsp = sample_freq * (FSP / (double) frame_shift);
+      alpha = (int) (ALPHA * fsp + 0.5);
+      beta = (int) ((BETA_1 / L - BETA_2) * fsp / BETA_3 + 0.5);
+      if (beta < 0)
+         beta = 0;
+      for (i = 0; i < (alpha + beta + 3) * frame_shift; i++) {
+         p = (double) nrandom(&next);
+         cur = (float_list *) malloc(sizeof(float_list));
+         cur->f = (float) (p * NOISEMASK);
+         length++;
+         prev->next = cur;
+         cur->next = NULL;
+         prev = cur;
+      }
    }
 
    if (atype == 0) {
-      message = cGet_f0(top->next, (float) sample_freq, length, frame_shift, (int) L, (int) H, fnum, otype);
+      message =
+          cGet_f0(top->next, (float) sample_freq, length, frame_shift, (int) L,
+                  (int) H, fnum, otype);
       if (message != NULL) {
-          fprintf(stderr, "%s : %s\n", cmnd, message);
-          usage(1);
+         fprintf(stderr, "%s : %s\n", cmnd, message);
+         usage(1);
       }
    } else {
       timestep = (double) frame_shift / sample_freq;

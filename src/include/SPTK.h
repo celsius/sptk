@@ -232,9 +232,10 @@ void mc2b(double *mc, double *b, int m, const double a);
 int mcep(double *xw, const int flng, double *mc, const int m, const double a,
          const int itr1, const int itr2, const double dd, const double e,
          const double f, const int itype);
-void mfcc(double *in, double *mc, const double sampleFreq, const double alpha, const double eps, 
-          const int wlng, const int flng, const int m, const int n, const int ceplift, 
-          const Boolean dftmode, const Boolean usehamming);
+void mfcc(double *in, double *mc, const double sampleFreq, const double alpha,
+          const double eps, const int wlng, const int flng, const int m,
+          const int n, const int ceplift, const Boolean dftmode,
+          const Boolean usehamming);
 void frqtr(double *c1, int m1, double *c2, int m2, const double a);
 void mgc2mgc(double *c1, const int m1, const double a1, const double g1,
              double *c2, const int m2, const double a2, const double g2);

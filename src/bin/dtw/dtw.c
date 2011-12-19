@@ -611,7 +611,7 @@ void RecursiveCalc_TYPE_I(DTW_Table * table)
          }
       }
    }
-   table->cell[Tx - 1][Ty - 1].global /= (Tx + Ty);
+   table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
 void RecursiveCalc_TYPE_II(DTW_Table * table)
@@ -631,26 +631,26 @@ void RecursiveCalc_TYPE_II(DTW_Table * table)
       for (j = 1; j < Ty; j++) {
          local = table->cell[i][j].local;
          min = table->cell[i - 1][j].global
-            + table->weight.val[0] * local;
+         +table->weight.val[0] * local;
          table->cell[i][j].backptr[0] = i - 1;
          table->cell[i][j].backptr[1] = j;
          if (min >= table->cell[i - 1][j - 1].global
              +table->weight.val[1] * local) {
             min = table->cell[i - 1][j - 1].global
-               + table->weight.val[1] * local;
+            +table->weight.val[1] * local;
             table->cell[i][j].backptr[0] = i - 1;
             table->cell[i][j].backptr[1] = j - 1;
          } else if (min >= table->cell[i][j - 1].global
                     +table->weight.val[2] * local) {
             min = table->cell[i][j - 1].global
-               + table->weight.val[2] * local;
+            +table->weight.val[2] * local;
             table->cell[i][j].backptr[0] = i;
             table->cell[i][j].backptr[1] = j - 1;
          }
          table->cell[i][j].global = min;
       }
    }
-   table->cell[Tx - 1][Ty - 1].global /= (Tx + Ty);
+   table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
 void RecursiveCalc_TYPE_III(DTW_Table * table)
@@ -698,7 +698,7 @@ void RecursiveCalc_TYPE_III(DTW_Table * table)
          }
       }
    }
-   table->cell[Tx - 1][Ty - 1].global /= (Tx + Ty);
+   table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
 void RecursiveCalc_TYPE_IV(DTW_Table * table)
@@ -806,7 +806,7 @@ void RecursiveCalc_TYPE_IV(DTW_Table * table)
          }
       }
    }
-   table->cell[Tx - 1][Ty - 1].global /= (Tx + Ty);
+   table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
 void RecursiveCalc_TYPE_V(DTW_Table * table)
@@ -910,7 +910,7 @@ void RecursiveCalc_TYPE_V(DTW_Table * table)
          }
       }
    }
-   table->cell[Tx - 1][Ty - 1].global /= (Tx + Ty);
+   table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
 void RecursiveCalc_TYPE_VI(DTW_Table * table)
@@ -1004,7 +1004,7 @@ void RecursiveCalc_TYPE_VI(DTW_Table * table)
          }
       }
    }
-   table->cell[Tx - 1][Ty - 1].global /= (Tx + Ty);
+   table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
 void RecursiveCalc_TYPE_VII(DTW_Table * table)
@@ -1165,7 +1165,7 @@ void RecursiveCalc_TYPE_VII(DTW_Table * table)
          }
       }
    }
-   table->cell[Tx - 1][Ty - 1].global /= (Tx + Ty);
+   table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
 void RecursiveCalc(DTW_Table * table)
@@ -1243,13 +1243,13 @@ static double *Concat(DTW_Table * table)
    for (i = 0; i < size; i++) {
       for (j = 0; j < table->data[0].dim; j++) {
          concat[dim * i + j]
-            = table->data[0].input[table->data[0].viterbi[i]
-                                   * table->data[0].dim + j];
+             = table->data[0].input[table->data[0].viterbi[i]
+                                    * table->data[0].dim + j];
       }
       for (j = 0; j < table->data[1].dim; j++) {
          concat[dim * i + table->data[0].dim + j]
-            = table->data[1].input[table->data[1].viterbi[i]
-                                   * table->data[1].dim + j];
+             = table->data[1].input[table->data[1].viterbi[i]
+                                    * table->data[1].dim + j];
       }
    }
 
@@ -1308,7 +1308,8 @@ void usage(int status)
    fprintf(stderr, " %s - Dynamic Time Warping\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
-   fprintf(stderr, "       %s [ options ] tempfile [ infile ] > stdout\n", cmnd);
+   fprintf(stderr, "       %s [ options ] tempfile [ infile ] > stdout\n",
+           cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr,
            "       -m M      : order of vector                      [%d]\n", 0);
@@ -1319,32 +1320,27 @@ void usage(int status)
    fprintf(stderr,
            "       -r R      : number of reference vectors          [N/A]\n");
    fprintf(stderr,
-           "       -n N      : type of norm use for calculation     [%d]\n", L2);
-   fprintf(stderr,
-           "                   of local distance\n");
-   fprintf(stderr,
-           "                      N = 1 : L1-norm\n");
-   fprintf(stderr,
-           "                      N = 2 : L2-norm\n");
+           "       -n N      : type of norm use for calculation     [%d]\n",
+           L2);
+   fprintf(stderr, "                   of local distance\n");
+   fprintf(stderr, "                      N = 1 : L1-norm\n");
+   fprintf(stderr, "                      N = 2 : L2-norm\n");
    fprintf(stderr,
            "       -p P      : local path constraint                [%d]\n", V);
    fprintf(stderr,
            "       -s sfile  : output score of dynamic time warping [FALSE]\n");
-   fprintf(stderr,
-           "                   to sfile \n");
+   fprintf(stderr, "                   to sfile \n");
    fprintf(stderr,
            "       -v vfile  : output frame number sequence         [FALSE]\n");
-   fprintf(stderr,
-           "                   along the Viterbi path\n");
+   fprintf(stderr, "                   along the Viterbi path\n");
    fprintf(stderr, "       -h        : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,
-           "       reference data sequence (%s)                  [stdin]\n"
-           , FORMAT);
+           "       reference data sequence (%s)                  [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       concatenated test/reference data\n");
-   fprintf(stderr,
-           "       along the Viterbi path (%s)\n", FORMAT);
+   fprintf(stderr, "       along the Viterbi path (%s)\n", FORMAT);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);

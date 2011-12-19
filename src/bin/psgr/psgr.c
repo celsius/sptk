@@ -260,7 +260,7 @@ int main(int argc, char *argv[])
    }
    xleng = xleng * (double) SCALE / shrink;
    yleng = yleng * (double) SCALE / shrink;
- 
+
    orientation = orientations[landscape];
 
    if (filename != NULL) {

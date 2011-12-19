@@ -167,10 +167,8 @@ void usage(int status)
            "                f  (float, %dbyte)        d  (double, %dbyte)\n",
            sizeof(float), sizeof(double));
    fprintf(stderr,
-           "                de (long double, %dbyte)\n",
-           sizeof(long double));
-   fprintf(stderr,
-           "                a (ascii)\n");
+           "                de (long double, %dbyte)\n", sizeof(long double));
+   fprintf(stderr, "                a (ascii)\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,

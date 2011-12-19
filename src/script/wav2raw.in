@@ -192,8 +192,8 @@ usage:
         echo2 '  output:'
         echo2 "       $cmnd removes RIFF header(s) from input wav file(s)."
         echo2 '                                                         '
-        echo2 '       The outfile has an extention ".wav", e.g.,'
-        echo2 '          sample.m15 ---> sample.m15.wav'
+        echo2 '       The outfile has an extention ".raw", e.g.,'
+        echo2 '          sample.m15 ---> sample.m15.raw'
         echo2 '                                                         '
         echo2 '       If the infile has an extention ".wav",'
         echo2 '       the extention is converted into ".raw", e.g.,'

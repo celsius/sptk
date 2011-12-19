@@ -99,15 +99,15 @@ static double *pWeightImag2 = NULL;
 
 double Freq2Mel(double freq)
 {
-  return MEL * log(freq / 700.0 + 1.0);
+   return MEL * log(freq / 700.0 + 1.0);
 }
 
 double Sample2Mel(int sample, int num, double fs)
 {
-  double freq;
-  freq = (double) (sample + 1) /(double) (num) * (fs / 2.0);
+   double freq;
+   freq = (double) (sample + 1) / (double) (num) * (fs / 2.0);
 
-  return Freq2Mel(freq);
+   return Freq2Mel(freq);
 }
 
 double CalcEnergy(double *x, const double eps, const int leng)
@@ -122,12 +122,12 @@ double CalcEnergy(double *x, const double eps, const int leng)
 
 void Hamming(double *x, const int leng)
 {
-  int k;
-  double arg;
+   int k;
+   double arg;
 
-  arg = M_2PI / (leng - 1);
-  for(k = 0; k < leng; k++)
-    x[k] *= (0.54 - 0.46 * cos(k * arg));
+   arg = M_2PI / (leng - 1);
+   for (k = 0; k < leng; k++)
+      x[k] *= (0.54 - 0.46 * cos(k * arg));
 }
 
 int dft(float *pReal, float *pImag, const int nDFTLength)
@@ -311,7 +311,7 @@ void preEmphasise(double *x, double *y, const double alpha, const int leng)
 {
    int k;
    y[0] = x[0] * (1.0 - alpha);
-   for (k = 1; k < leng;k++)
+   for (k = 1; k < leng; k++)
       y[k] = x[k] - x[k - 1] * alpha;
 }
 
@@ -333,9 +333,10 @@ void spec(double *x, double *sp, const int leng)
    free(y);
 }
 
-void fbank(double *x, double *fb, const double eps, const double fs, const int leng, const int n)
+void fbank(double *x, double *fb, const double eps, const double fs,
+           const int leng, const int n)
 {
-   int i, k, l, fnum,no, startNum,chanNum = 0;
+   int i, k, l, fnum, no, startNum, chanNum = 0;
    int *noMel;
    double *w, *countMel;
    double maxMel, startFreq, endFreq, kMel;
@@ -348,14 +349,14 @@ void fbank(double *x, double *fb, const double eps, const double fs, const int l
 
    for (k = 0; k <= n; k++)
       countMel[k] = (double) (k + 1) / (double) (n + 1) * maxMel;
-   for (k = 1; k <  no; k++) {
+   for (k = 1; k < no; k++) {
       kMel = Sample2Mel(k - 1, no, fs);
-      while(countMel[chanNum] < kMel && chanNum <= n)
+      while (countMel[chanNum] < kMel && chanNum <= n)
          chanNum++;
       noMel[k] = chanNum;
    }
 
-   for (k = 1; k <  no; k++) {
+   for (k = 1; k < no; k++) {
       chanNum = noMel[k];
       kMel = Sample2Mel(k - 1, no, fs);
       w[k] = (countMel[chanNum] - kMel) / (countMel[0]);
@@ -367,20 +368,21 @@ void fbank(double *x, double *fb, const double eps, const double fs, const int l
          fb[fnum] += x[k] * w[k];
       if (fnum <= n)
          fb[fnum + 1] += (1 - w[k]) * x[k];
-   } 
+   }
 
    free(noMel);
    free(countMel);
 
    for (k = 1; k <= n; k++) {
       if (fb[k] < eps)
-	 fb[k] = eps;
+         fb[k] = eps;
       fb[k] = log(fb[k]);
    }
 }
 
 
-void dct(double *in, double *d, const int size, const int m, const Boolean dftmode)
+void dct(double *in, double *d, const int size, const int m,
+         const Boolean dftmode)
 {
    char *s, c;
    int dct_create_table_fft(const int nSize);
@@ -411,26 +413,26 @@ void dct(double *in, double *d, const int size, const int m, const Boolean dftmo
       y2[k] = (float) y[k];
    }
 
-      iter = 0;
-      i = size;
-      while ((i /= 2) != 0) {
-         iter++;
-      }
-      j = 1;
-      for (i = 1; i <= iter; i++) {
-         j *= 2;
-      }
-      if (size != j || dftmode) {
-         dct_create_table(size);
-         dct_based_on_dft(pReal, pImag, (const float *) x2, (const float *) y2);
-      } else {
-         dct_create_table_fft(size);
-         dct_based_on_fft(pReal, pImag, (const float *) x2, (const float *) y2);
-      }
+   iter = 0;
+   i = size;
+   while ((i /= 2) != 0) {
+      iter++;
+   }
+   j = 1;
+   for (i = 1; i <= iter; i++) {
+      j *= 2;
+   }
+   if (size != j || dftmode) {
+      dct_create_table(size);
+      dct_based_on_dft(pReal, pImag, (const float *) x2, (const float *) y2);
+   } else {
+      dct_create_table_fft(size);
+      dct_based_on_fft(pReal, pImag, (const float *) x2, (const float *) y2);
+   }
 
-       for (k = 0; k < m; k++) {
-         d[k] = (double) pReal[k];
-      }
+   for (k = 0; k < m; k++) {
+      d[k] = (double) pReal[k];
+   }
 }
 
 void CepLifter(double *x, double *y, const int m, const int leng)
@@ -443,9 +445,10 @@ void CepLifter(double *x, double *y, const int m, const int leng)
    }
 }
 
-void mfcc(double *in, double *mc, const double sampleFreq, const double alpha, const double eps, 
-          const int wlng, const int flng, const int m, const int n, const int ceplift, 
-          const Boolean dftmode, const Boolean usehamming)
+void mfcc(double *in, double *mc, const double sampleFreq, const double alpha,
+          const double eps, const int wlng, const int flng, const int m,
+          const int n, const int ceplift, const Boolean dftmode,
+          const Boolean usehamming)
 {
    static double *x = NULL, *px, *wx, *sp, *fb, *dc;
    double energy = 0.0, c0 = 0.0;
@@ -458,8 +461,7 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha, c
       sp = wx + flng;
       fb = sp + flng;
       dc = fb + n + 1;
-   }
-   else {
+   } else {
       free(x);
       x = dgetmem(wlng + wlng + flng + flng + n + 1 + m + 1);
       px = x + wlng;
@@ -474,26 +476,26 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha, c
    /* calculate energy */
    energy = CalcEnergy(x, eps, wlng);
    preEmphasise(x, px, alpha, wlng);
-   /* apply hamming window*/
+   /* apply hamming window */
    if (usehamming)
-      Hamming(px,wlng);
-   for (k = 0; k < wlng; k++) 
+      Hamming(px, wlng);
+   for (k = 0; k < wlng; k++)
       wx[k] = px[k];
-   spec(wx,sp,flng);
+   spec(wx, sp, flng);
    fbank(sp, fb, eps, sampleFreq, flng, n);
-   /* calculate 0'th coefficient*/
-   for (k = 1;k <= n; k++)
+   /* calculate 0'th coefficient */
+   for (k = 1; k <= n; k++)
       c0 += fb[k];
    c0 *= sqrt(2.0 / (double) n);
-   dct(fb,dc,n, m, dftmode);
+   dct(fb, dc, n, m, dftmode);
    /* liftering */
-   if (ceplift >0)
+   if (ceplift > 0)
       CepLifter(dc, mc, m, ceplift);
    else
       movem(dc, mc, sizeof(*dc), m);
 
-   for (k = 0;k < m - 1; k++)
-     mc[k] = mc[k + 1];
+   for (k = 0; k < m - 1; k++)
+      mc[k] = mc[k + 1];
    mc[m - 1] = c0;
    mc[m] = energy;
 
