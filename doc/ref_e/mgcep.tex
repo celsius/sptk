@@ -183,17 +183,17 @@ from {\em data.f} and analyzed with $\gamma=0$, $\alpha=0$
 (which correspond to UELS method for log spectrum estimation)
 and the resulting cepstral coefficients are written {\em data.cep}:
 \begin{quote}
-  \verb!frame +f < data.f | window | mgcep > data.cep !
+  \verb!frame < data.f | window | mgcep > data.cep !
 \end{quote}
 
 In the same way if we want mel-cepstral coefficients:
 \begin{quote}
- \verb!frame +f < data.f | window | mgcep -a 0.35 > data.mcep !
+ \verb!frame < data.f | window | mgcep -a 0.35 > data.mcep !
 \end{quote}
 
 If we want linear prediction coefficients:
 \begin{quote}
-  \verb!frame +f < data.f | window | mgcep -g -1 -o 5 > data.lpc !
+  \verb!frame < data.f | window | mgcep -g -1 -o 5 > data.lpc !
 \end{quote}
 In this case the linear prediction coefficients are written
 in the following representation.
@@ -207,7 +207,7 @@ from {\em data.f}, and analyzed with $\gamma=0$, $\alpha=0$
 (which correspond to UELS method for log spectrum estimation)
 and the resulting cepstral coefficients are written {\em data.cep}:
 \begin{quote}
-  \verb!frame +f < data.f | window | \! \\
+  \verb!frame < data.f | window | \! \\
   \verb!fftr -A -H | mgcep -q 3 > data.cep!
 \end{quote}
 

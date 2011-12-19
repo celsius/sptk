@@ -104,7 +104,7 @@ Here, we specify tge frame length, frame shift and sampling rate as
 cepstral coefficients, together with the energy component, are
 outputted to {\em data.mfc}.
 \begin{quote}
-  \verb!frame +f -l 640 -p 160  data.f |\                        ! \\
+  \verb!frame -l 640 -p 160  data.f |\                        ! \\
   \verb!mfcc -l 640 -m 12 -f 16000 -E > data.mfc                  ! \\
 \end{quote}
 
@@ -126,7 +126,7 @@ calcuration method of regression coefficients between SPTK and HTK,
 differencial coefficients are specified directly using -d option in
 {\em delta} command. 
 \begin{quote}
-  \verb!frame +f -l 640 -p 160  data.f |\                        ! \\
+  \verb!frame -l 640 -p 160  data.f |\                        ! \\
   \verb!mfcc -l 640 -m 12 -f 16000 -E > data.mfc                  ! \\
   \verb!delta -m 12 -d -0.5 0 0.5 |\ ! \\
   \verb!-d 0.25 0 -0.5 0 0.25 data.mfc > data.mfc.diff! \\
