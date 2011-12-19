@@ -69,13 +69,13 @@ the MLSA filter.
 	\argm{c}{C}{liftering coefficient}{22}
 	\argm{e}{E}{flooring value for calculating $\log(x)$ in filterbank
         analysis \\
-        if $x < E$ then rerurn $x = E$}{1.0}
+        if $x < E$ then return $x = E$}{1.0}
 	\argm{l}{L_1}{frame length of input}{256}
 	\argm{L}{L_2}{frame length for fft. default value $2^n$
           satisfies $L_1 \leq 2^n$ }{$2^n$}
 	\argm{m}{M}{order of mfcc}{12}
-	\argm{n}{N}{order of channnel for mel-filter bank}{20}
-	\argm{f}{F}{sampling rate}{16000}
+	\argm{n}{N}{order of channel for mel-filter bank}{20}
+	\argm{f}{F}{sampling frequency (kHz)}{16.0}
 	\argm{w}{W}{type of window\\
 			\begin{tabular}{ll}\\ [-1ex]
 			 0 & Hamming \\
@@ -89,7 +89,7 @@ the MLSA filter.
         \begin{displaymath}
           mc(0),mc(1),\dots,mc(m-1),E (C0)
         \end{displaymath}
-          Also, if both -E and -0 option are given, the output is as folows.
+          Also, if both -E and -0 option are given, the output is as follows.
         \begin{displaymath}
           mc(0),mc(1),\dots,mc(m-1),C0,E 
         \end{displaymath}
@@ -99,13 +99,13 @@ the MLSA filter.
 \begin{qsection}{EXAMPLE}
 In the example below, speech data in float format is read from
 {\em data.f}. 
-Here, we specify tge frame length, frame shift and sampling rate as
+Here, we specify the frame length, frame shift and sampling frequency as
 40ms, 10ms and 16kHz, respectivelly. The 12 order mel-frequency
 cepstral coefficients, together with the energy component, are
 outputted to {\em data.mfc}.
 \begin{quote}
   \verb!frame -l 640 -p 160  data.f |\                        ! \\
-  \verb!mfcc -l 640 -m 12 -f 16000 -E > data.mfc                  ! \\
+  \verb!mfcc -l 640 -m 12 -f 16 -E > data.mfc                  ! \\
 \end{quote}
 
 Also, in case we want to calculate the coefficients the same way as in
@@ -127,7 +127,7 @@ differencial coefficients are specified directly using -d option in
 {\em delta} command. 
 \begin{quote}
   \verb!frame -l 640 -p 160  data.f |\                        ! \\
-  \verb!mfcc -l 640 -m 12 -f 16000 -E > data.mfc                  ! \\
+  \verb!mfcc -l 640 -m 12 -f 16 -E > data.mfc                  ! \\
   \verb!delta -m 12 -d -0.5 0 0.5 |\ ! \\
   \verb!-d 0.25 0 -0.5 0 0.25 data.mfc > data.mfc.diff! \\
 \end{quote}

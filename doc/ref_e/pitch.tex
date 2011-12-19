@@ -45,67 +45,52 @@
 \name{pitch}{pitch extraction}{signal processing,speech analysis and synthesis}
 
 \begin{synopsis}
-\item[pitch] [ --s $S$ ] [ --l $L$ ] [ --t $T$ ]
- [ --L $Lo$ ] [ --H $Hi$ ] [ --e $E$ ]
-\item[\ ~~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ {\em infile} ] 
+ \item[pitch] [ --a $A$ ] [ --s $S$ ] [ --p $P$ ] [ --t $T$ ]
+ [ --L $Lo$ ] [ --H $Hi$ ] [ --o $O$ ][ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em pitch} uses the cepstrum method to calculate the pitch period values
-corresponding to frames of input data of length $L$ 
-from {\em infile} (or standard input), 
-sending the result to standard output. 
-For unvoiced frames, the output value is 0.0. 
-For voiced frames, the output value is proportional to the pitch period.
+{\em pitch} extracts the pitch values from {\em infile} (or standard input),
+sending the result to standard output.
+The RAPT \cite{ref:pitch-RAPT} and SWIPE \cite{ref:pitch-SWIPE}
+ algorithm are adopted for pitch extraction.
+They can be specified by --a option.
+The output format (pitch, F0 or log(F0)) can be specified by --o option.
 
-Input and output data are in float format.
-
-To discriminate between voiced and unvoiced sounds,
-the unbiased estimation of log spectrum method is applied
-to evaluate $(S/10 \times 25)$-th order cepstrum.
-Then from these coefficients, the magnitude of log spectrum
-$\hat{g}_i(\Omega_k)$ is evaluated.
-Finally the mean value $v_i$ for every band is calculated.
-\begin{displaymath}
-v_i = \frac{1}{14 n}\sum_{k = 4 n}^{17 n}\hat{g}_i(\Omega_k),\qquad (\Omega_k = \frac{2 \pi k}{N},n = N /256)
-\end{displaymath}
-
-Here the FFT size $N$ is square number greater then $L$.
-
-If the speech sound is voiced $(v_i > T)$,
-then the FFT cepstral coefficients $c(m)$ are transformed
-into $c(m) \times m$,
-and the peak frequency between $Lo$ (Hz) and $Hi$ (Hz)
-is the pitch.
-If the speech sound is unvoiced $(v_i < T)$
-then $0$ is output.
+Both input and output files are in float format.
 
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S}{sampling frequency (kHz)}{10}
-	\argm{l}{L}{frame length}{400}
-	\argm{t}{T}{voiced/unvoiced threshold}{6.0}
-	\argm{L}{Lo}{minimum fundamental
-                     frequency to search for (Hz)}{60}
-	\argm{H}{Hi}{minimum fundamental
-                     frequency to search for (Hz)}{240}
-	\argm{e}{E}{small value for calculate
-                    log-spectral envelope}{0.0}
-        \desc[1ex]{Usually, the options below do not need to be assigned.}
-	\argm{i}{I}{minimum number of iteration}{2}
-	\argm{j}{J}{maximum number of iteration}{30}
-	\argm{d}{D}{end condition}{0.1}
+ \argm{a}{A}{algorithm used for extraction of pitch\\
+ \begin{tabular}{ll} \\[-1ex]
+  $A=0$ & ~~~RAPT\\
+  $A=1$ & ~~~SWIPE\\
+ \end{tabular}\\\hspace*{\fill}}{0}
+ \argm{s}{S}{sampling frequency (kHz)}{16.0}
+ \argm{p}{P}{frame shift}{80}
+ \argm{t}{T}{voiced/unvoiced threshold (used only for SWIPE algorithm)}{0.3}
+ \argm{L}{Lo}{minimum fundamental frequency to search for (Hz)}{60.0}
+ \argm{H}{Hi}{maximum fundamental frequency to search for (Hz)}{240.0}
+ \argm{o}{O}{output format\\
+ \begin{tabular}{ll} \\[-1ex]
+  $O=0$ & ~~~pitch\\
+  $O=1$ & ~~~F0\\
+  $O=2$ & ~~~log(F0)\\
+ \end{tabular}\\\hspace*{\fill}}{0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-Speech data with sampling rate 10kHz is read in float format
-from {\em data.f}, the pitch is evaluated, and
-the output is written to {\em data.pitch}:
-\begin{quote}
-  \verb!frame -l 400 < data.f | window -l 400 |\ !\\
-  \verb!pitch -l 400 > data.pitch!
-\end{quote}
+ In the example below, speech data with 16kHz sampling frequency
+ is read in float format from {\em data.f} and
+ the pitch data is extracted via SWIPE algorithm
+ under the condition that the frame shift is 80 point and
+ the minimum and maximum fundamental frequency are
+ 80 and 165 Hz, respectively.
+ Then, the output is written to {\em data.pitch}:
+ \begin{quote}
+  \verb!pitch -a 1 -s 16 -p 80 -L 80 -H 165 data.f > data.pitch!
+ \end{quote}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
