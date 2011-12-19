@@ -172,7 +172,7 @@ void usage(int status)
    fprintf(stderr, "               estimation\n");
    fprintf(stderr, "                 0 (snack)\n");
    fprintf(stderr, "                 1 (swipe)\n");
-   fprintf(stderr, "       -s s  : sampling frequency (kHz)         [%g]\n",
+   fprintf(stderr, "       -s s  : sampling frequency (kHz)        [%g]\n",
            SAMPLE_FREQ);
    fprintf(stderr, "       -p p  : frame shift                     [%d]\n",
            FRAME_SHIFT);

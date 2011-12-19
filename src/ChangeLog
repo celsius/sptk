@@ -1,3 +1,7 @@
+2011-12-19 15:14  mataki
+
+	* ChangeLog: update ChangeLog for SPTK-3.5.
+
 2011-12-19 15:00  mataki
 
 	* NEWS, README, configure.ac, bin/bcp/bcp.c, bin/delta/delta.c,
