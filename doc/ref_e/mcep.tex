@@ -108,10 +108,10 @@ when evaluating mel-cepstral coefficients.
 Speech data is read in float format from {\em data.f} and 
 analyzed, and mel-cepstral coefficients are written to {\em data.mcep}:
 \begin{quote}
- \verb!frame +f < data.f | window | mcep > data.mcep !
+ \verb!frame < data.f | window | mcep > data.mcep !
 \end{quote}
 \begin{quote}
- \verb!frame +f < data.f | window | fftr -A -H | mcep -q 3 > data.mcep !
+ \verb!frame < data.f | window | fftr -A -H | mcep -q 3 > data.mcep !
 \end{quote}
 \end{qsection}
 

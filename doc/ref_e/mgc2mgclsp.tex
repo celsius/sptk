@@ -101,12 +101,12 @@ In the following example, speech data is read in float format from
 {\em data.f}, analyzed with $\alpha = 0.35, \gamma = -1$
 and the MGC-LSP coefficients are evaluated and written to {\em data.mgclsp}:
 \begin{quote}
-\verb!frame +f < data.f | window | mgcep -a 0.35 -g -1 |\!\\
+\verb!frame < data.f | window | mgcep -a 0.35 -g -1 |\!\\
 \verb!mgc2mgclsp -a 0.35 -g -1 > data.mgclsp!
 \end{quote}
 If we want MGC-LSP checked stability:
 \begin{quote}
-\verb!frame +f < data.f | window | mgcep -a 0.35 -g -1 |\!\\
+\verb!frame < data.f | window | mgcep -a 0.35 -g -1 |\!\\
 \verb!mgc2mgclsp -a 0.35 -g -1 | lspcheck -r 0.01 > data.mgclsp |\! \\
 \end{quote}
 \end{qsection}
