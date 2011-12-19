@@ -78,7 +78,7 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id: pitch.c,v 1.38 2011/12/19 06:00:35 mataki Exp $";
+static char *rcs_id = "$Id: pitch.c,v 1.39 2011/12/19 12:47:27 mataki Exp $";
 
 
 /*  Standard C Libraries  */
@@ -172,7 +172,7 @@ void usage(int status)
    fprintf(stderr, "               estimation\n");
    fprintf(stderr, "                 0 (snack)\n");
    fprintf(stderr, "                 1 (swipe)\n");
-   fprintf(stderr, "       -s s  : sampling frequency (kHz)         [%g]\n",
+   fprintf(stderr, "       -s s  : sampling frequency (kHz)        [%g]\n",
            SAMPLE_FREQ);
    fprintf(stderr, "       -p p  : frame shift                     [%d]\n",
            FRAME_SHIFT);

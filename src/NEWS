@@ -2,7 +2,7 @@ Version 3.5:
  * add 'dtw' command.
  * add 'mfcc' command.
  * add 'mgc2mgclsp' and 'mgclsp2mgc' command.
- * add two pitch extraction method, 'GetF0' and 'SWIPE' to 'pitch' command.
+ * add two pitch extraction algorithm, 'RAPT' and 'SWIPE' to 'pitch' command.
  * add -R and -M option to 'delta' command, to skip the magic number during the calculation.
  * unify data type for sampling frequency into float in kHz.
  * fix options of 'psgr' and 'grlogsp' command to draw more large graph.
