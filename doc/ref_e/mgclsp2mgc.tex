@@ -45,9 +45,8 @@
 \name{mgclsp2mgc}{transform MGC-LSP to MGC}{speech parameter transformation}
 
 \begin{synopsis}
-\item [mgclsp2mgc] [ --a $A$] [ --g $G$][ --m $M$ ] [ --i $I$] [ --s
-  $S$ ] [ --l] [ {\em infile} ] 
-
+\item [mgclsp2mgc] [ --a $A$ ] [ --g $G$ ] [ --m $M$ ] [ --i $I$ ]
+ [ --s $S$ ] [ --l] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -61,8 +60,8 @@ $\alpha$ characterizes the frequency-warping transform,
 while $\gamma$ characterizes the generalized log magnitude transform
 and $K$ is gain.
 
-Also, {\em mgclsp2mgc} does notcheck stability of MGC-LSP. It is
-necessarry to use {\em lspcheck} commandfor getting mel-generalized
+Also, {\em mgclsp2mgc} does not check stability of MGC-LSP. It is
+necessary to use {\em lspcheck} commandfor getting mel-generalized
 cepstrum coefficients from MGC-LSP checked stability.
 
 % {\em mgclsp2mgc} calculates mel-generalized cepstrum coefficients from
@@ -101,9 +100,10 @@ mel-generalized cepstrum coefficients are evaluated and written to {\em
 \begin{quote}
 \verb!mgclsp2mgc -a 0.35 -g -1 data.mgclsp > data.mgc!
 \end{quote}
-If we want to use MGC-LSP checked stability:
+Also, MGC-LSP stability can be checked in the following:
 \begin{quote}
-\verb!lspcheck -r 0.01 data.mgclsp | mgclsp2mgc -a 0.35 -g -1 > data.mgc!
+\verb!lspcheck -r 0.01 data.mgclsp | \ ! \\
+\verb!mgclsp2mgc -a 0.35 -g -1 > data.mgc!
 \end{quote}
 \end{qsection}
 
