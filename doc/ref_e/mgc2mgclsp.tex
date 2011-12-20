@@ -45,17 +45,15 @@
 \name{mgc2mgclsp}{transform MGC to MGC-LSP}{speech parameter transformation}
 
 \begin{synopsis}
-\item [mgc2mgclsp] [ --a $A$] [ --g $G$][ --m $M$ ] [ --o $O$] [ --s
-  $S$ ] [ -- k] [ --l]
-\item[\ ~~~~~~~~~~~~~~~~~~~~] [ {\em infile} ] 
-
+\item [mgc2mgclsp] [ --a $A$] [ --g $G$ ] [ --m $M$ ] [ --o $O$ ]
+ [ --s $S$ ] [ --k ] [ --l ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
 {\em mgc2mgc} transforms mel-generalized cepstral coefficients
 $c_{\alpha,\gamma}(0), \dots, c_{\alpha,\gamma}(M)$
 from {\em infile} (or standard input) 
-into line spectral paor coefficoents (MGC-LSP) $K, l(1), \dots, l(M)$
+into line spectral pair coefficients (MGC-LSP) $K, l(1), \dots, l(M)$
 sending the result to standard output.
 
 $\alpha$ characterizes the frequency-warping transform,
@@ -63,7 +61,7 @@ while $\gamma$ characterizes the generalized log magnitude transform
 and $K$ is gain.
 
 Also, {\em mgc2mgclsp} does not
-check stability of MGC-LSP. It is necessarry to use {\em lspcheck} command
+check stability of MGC-LSP. It is necessary to use {\em lspcheck} command
 for getting MGC-LSP checked stability.
 
 % {\em mgc2mgclsp} calculates line spectral pair coefficients 
@@ -104,10 +102,10 @@ and the MGC-LSP coefficients are evaluated and written to {\em data.mgclsp}:
 \verb!frame < data.f | window | mgcep -a 0.35 -g -1 |\!\\
 \verb!mgc2mgclsp -a 0.35 -g -1 > data.mgclsp!
 \end{quote}
-If we want MGC-LSP checked stability:
+Also, MGC-LSP stability can be checked in the following:
 \begin{quote}
 \verb!frame < data.f | window | mgcep -a 0.35 -g -1 |\!\\
-\verb!mgc2mgclsp -a 0.35 -g -1 | lspcheck -r 0.01 > data.mgclsp |\! \\
+\verb!mgc2mgclsp -a 0.35 -g -1 | lspcheck -r 0.01 > data.mgclsp !
 \end{quote}
 \end{qsection}
 
