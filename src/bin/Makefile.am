@@ -112,5 +112,4 @@ SUBDIRS = acep \
 	zcross \
 	zerodf
 
-EXTRA_DIST = pitch/snack/COPYING pitch/snack/jkGetF0.h \
-	pitch/swipe/COPYING pitch/swipe/vector.h
+EXTRA_DIST = pitch/snack/COPYING pitch/swipe/COPYING
