@@ -1,3 +1,8 @@
+2011-12-19 21:47  mataki
+
+	* ChangeLog, NEWS, bin/pitch/pitch.c: Fix NEWS and pitch.c for
+	  layout of help message.
+
 2011-12-19 15:14  mataki
 
 	* ChangeLog: update ChangeLog for SPTK-3.5.
