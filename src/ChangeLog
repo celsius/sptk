@@ -1,3 +1,8 @@
+2011-12-20 11:33  mataki
+
+	* ChangeLog, bin/Makefile.am: include COPYING and header file for
+	  pitch command in the distribution.
+
 2011-12-19 21:47  mataki
 
 	* ChangeLog, NEWS, bin/pitch/pitch.c: Fix NEWS and pitch.c for

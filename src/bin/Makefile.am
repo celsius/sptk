@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ##
-## $Id: Makefile.am,v 1.14 2011/12/20 02:33:30 mataki Exp $
+## $Id: Makefile.am,v 1.15 2011/12/20 02:45:12 mataki Exp $
 
 SUBDIRS = acep \
 	acorr \
@@ -112,5 +112,4 @@ SUBDIRS = acep \
 	zcross \
 	zerodf
 
-EXTRA_DIST = pitch/snack/COPYING pitch/snack/jkGetF0.h \
-	pitch/swipe/COPYING pitch/swipe/vector.h
+EXTRA_DIST = pitch/snack/COPYING pitch/swipe/COPYING
