@@ -1,5 +1,5 @@
 ===============================================================================
-             Speech Signal Processing Toolkit (SPTK) version 3.5
+              Speech Signal Processing Toolkit (SPTK) version 3.5
                            release December 25, 2011
 
 
@@ -12,7 +12,7 @@ Institute of Technology (see "AUTHORS" in the same directory).
                                     Copying
 *******************************************************************************
 
-The SPTK is released under the New and Simplified BSD license (see
+The SPTK is released under the Modified BSD license (see
 http://www.opensource.org/). Using and distributing this software is free
 (without restriction including without limitation the rights to use, copy,
 modify, merge, publish, distribute, sublicense, and/or sell copies of this
@@ -76,6 +76,7 @@ justify ourselves to our various sponsors. We also strongly encourage you to
  * report bugs, where possible with bug fixes, that are found
 
 See also "COPYING" files in following directories for details.
+
  ./
  ./bin/pitch/snack
  ./bin/pitch/swipe
