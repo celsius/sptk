@@ -29,7 +29,7 @@ if( file_exists( $readme)){
    echo '</pre>';
 
    echo '<hr><address>Last modified ';
-   echo date( "M d, Y", filemtime( $readme));
+   echo date( "M d, Y", filemtime($readme));
    echo '</address>';
 }
 ?>
