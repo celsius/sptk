@@ -13,8 +13,8 @@
 
 <div class=head>
  Speech Signal Processing Toolkit (SPTK)<br>
- Version 3.4.1<br>
- April 28, 2011
+ Version 3.5<br>
+ December 25, 2011
 </div>
 <h2>README</h2>
 <hr>
@@ -28,7 +28,7 @@ if( file_exists( $readme)){
       echo htmlentities( $line);
    echo '</pre>';
 
-   echo '<hr><address>Last modified';
+   echo '<hr><address>Last modified ';
    echo date( "M d, Y", filemtime( $readme));
    echo '</address>';
 }
