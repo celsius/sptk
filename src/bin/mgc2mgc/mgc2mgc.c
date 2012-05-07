@@ -271,11 +271,12 @@ int main(int argc, char **argv)
 
       if (norm1)
          ignorm(c1, c1, m1, g1);
-      else if (mulg1) {
+      else if (mulg1)
          c1[0] = (c1[0] - 1.0) / g1;
+
+      if (mulg1)
          for (i = m1; i >= 1; i--)
             c1[i] /= g1;
-      }
 
       mgc2mgc(c1, m1, a1, g1, c2, m2, a2, g2);
 
