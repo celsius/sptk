@@ -151,12 +151,3 @@ typedef struct frame_rec{
 } Frame;
 
 extern   Frame *alloc_frame();
-#if 0
-#else
-int init_dp_f0(), dp_f0();
-void free_dp_f0();
-static Stat *get_stationarity();
-static void get_cand(), do_ffir(), peak();
-static int downsamp(), lc_lin_fir();
-
-#endif /* 0 */

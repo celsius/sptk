@@ -58,7 +58,11 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-static char *rcs_id = "$Id$";
+/****************************************************************
+
+    $Id$
+
+*****************************************************************/
 
 #if 0
 #include "snack.h"
@@ -377,10 +381,8 @@ check_f0_params(F0_params *par, double sample_freq)
   return(error);
 }
 
-#if 0
 static void get_cand(), peak(), do_ffir();
 static int lc_lin_fir(), downsamp();
-#endif /* 0 */
 
 /* ----------------------------------------------------------------------- */
 void get_fast_cands(fdata, fdsdata, ind, step, size, dec, start, nlags, engref, maxloc, maxval, cp, peaks, locs, ncand, par)
@@ -869,7 +871,10 @@ init_dp_f0(freq, par, buffsize, sdstep)
   int nframes;
   int i;
   int stat_wsize, agap, ind, downpatch;
-
+#if 0
+#else
+  float *fgetmem(const int leng);
+#endif
 /*
  * reassigning some constants 
  */
@@ -1031,9 +1036,7 @@ init_dp_f0(freq, par, buffsize, sdstep)
   return(0);
 }
 
-#if 0
 static Stat *get_stationarity();
-#endif
 
 /*--------------------------------------------------------------------*/
 int
@@ -1840,8 +1843,8 @@ int
 cGet_f0(Sound *sound, Tcl_Interp *interp, float **outlist, int *length)
 {
 #else
-const char *cGet_f0(float_list *input, float sample_freq, int length,
-                    int frame_shift, int minF0, int maxF0, int fnum, int otype)
+void cGet_f0(float_list *input, float sample_freq, int length,
+             int frame_shift, int minF0, int maxF0, int fnum, int otype)
 {
 #endif
   float *fdata;
@@ -1865,7 +1868,11 @@ const char *cGet_f0(float_list *input, float sample_freq, int length,
   int count = 0;
   int startpos = 0, endpos = -1;
   long max;
-  float_list *tmpf;
+  float_list *tmpf, *cur = NULL, *prev = NULL;
+  void usage(int status);
+  double p, fsp, alpha, beta;
+  unsigned long next = 1;
+  double nrandom(unsigned long *next);
 #endif /* 0 */
 
 #if 0
@@ -1876,6 +1883,30 @@ const char *cGet_f0(float_list *input, float sample_freq, int length,
 
   par = (F0_params *) ckalloc(sizeof(F0_params));
 #else
+
+  for (i = 0, tmpf = input; tmpf != NULL; i++, tmpf = tmpf->next) {
+      p = (double) nrandom(&next);
+      tmpf->f += (float) (p * 50.0);
+      prev = tmpf;
+  }
+
+  fnum = (int) (ceil((double) length / (double) frame_shift));
+  fsp = sample_freq * (10.0 / (double) frame_shift);
+  alpha = (int) (0.00275 * fsp + 0.5);
+  beta = (int) ((9600.0 / minF0 - 168.0) * fsp / 96000.0 + 0.5);
+  if (beta < 0) {
+     beta = 0;
+  }
+  for (i = 0; i < (alpha + beta + 3) * frame_shift; i++) {
+      p = (double) nrandom(&next);
+      cur = (float_list *) malloc(sizeof(float_list));
+      cur->f = (float) (p * 50.0);
+      length++;
+      prev->next = cur;
+      cur->next = NULL;
+      prev = cur;
+  }
+
   par = (F0_params *) malloc(sizeof(F0_params));
   buf = (float *) malloc(sizeof(float) * length);
   tmp = (float *) malloc(sizeof(float)
@@ -1955,18 +1986,33 @@ const char *cGet_f0(float_list *input, float sample_freq, int length,
     start_time = 0.0f;
 
     if (check_f0_params(par, sf)) {
+#endif /* 0 */
+#if 0
        return "invalid/inconsistent parameters -- exiting.";
+#else
+       fprintf(stderr, "invalid/inconsistent parameters -- exiting.\n");
+       usage(1);
+#endif
     }
 
     total_samps = endpos - startpos + 1;
 
     if (total_samps < ((par->frame_step * 2.0) + par->wind_dur) * sf) {
+#if 0
         return "input range too small for analysis by get_f0.";
+#else
+       fprintf(stderr, "input range too small for analysis by get_f0.\n");
+       usage(1);
+#endif
     }
 
     if (init_dp_f0(sf, par, &buff_size, &sdstep)
         || buff_size > INT_MAX || sdstep > INT_MAX) {
+#if 0
         return "problem in init_dp_f0().";
+#else
+       fprintf(stderr, "problem in init_dp_f0().\n");
+       usage(1);
     }
 #endif /* 0 */
 
@@ -2008,7 +2054,13 @@ const char *cGet_f0(float_list *input, float sample_freq, int length,
         }
         if (dp_f0(fdata, (int) actsize, (int) sdstep, sf, par,
                   &f0p, &vuvp, &rms_speech, &acpkp, &vecsize, done)) {
+#endif
+#if 0
             return "problem in dp_f0().";
+#else
+            fprintf(stderr, "problem in dp_f0().\n");
+            usage(1);
+#endif /* 0 */
         }
 
         for (i = vecsize - 1; i >= 0; i--) {
@@ -2016,7 +2068,6 @@ const char *cGet_f0(float_list *input, float sample_freq, int length,
             unvoiced[count] = vuvp[i];
             count++;
         }
-#endif /* 0 */
 
 
     if (done) break;
@@ -2084,6 +2135,5 @@ const char *cGet_f0(float_list *input, float sample_freq, int length,
 
   free_dp_f0();
 
-  return NULL;
 #endif /* 0 */
 }

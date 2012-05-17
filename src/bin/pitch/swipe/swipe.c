@@ -461,7 +461,7 @@ vector pitch(matrix S, vector pc, double st) {
 #if 0
 vector swipe(int fid, double min, double max, double st, double dt) {
 #else
-  void swipe(float_list *input, int length, double min, double max, double st, double dt, double samplerate, int otype) {
+  void swipe(float_list *input, int length, double min, double max, double st, int frame_shift, double samplerate, int otype) {
 #endif
     int i; 
     double td = 0.;
@@ -470,7 +470,7 @@ vector swipe(int fid, double min, double max, double st, double dt) {
     SNDFILE* source = sf_open_fd(fid, SFM_READ, &info, TRUE);
     if (source == NULL || info.sections < 1) return(makev(0)); 
 #else
-    double tmp;
+    double tmp, dt = (double) frame_shift / samplerate;
     float_list *tmpf;
     vector x = makev(length);
     for (i = 0, tmpf = input; tmpf != NULL; i++, tmpf = tmpf->next) 

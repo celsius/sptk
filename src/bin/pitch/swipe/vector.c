@@ -65,7 +65,11 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-static char *rcs_id = "$Id$";
+/****************************************************************
+
+    $Id$
+
+*****************************************************************/
 
 #include <math.h>
 #include <stdio.h>
@@ -538,7 +542,11 @@ static void SOLVE(int n, double **A, double *b)
 
 static void dgels(int n, vector Ap, vector bp)
 {
+#if 0
   int i, j;
+#else 
+  int i;
+#endif
   double x1 = 0.0, x2 = 0.0, x3 = 0.0, x4 = 0.0, x1y1 = 0.0, x2y1 = 0.0, y1 = 0.0;
   matrix a = makem(n, n);
   for(i = 0; i < n; i++) {
@@ -572,8 +580,11 @@ static void dgels(int n, vector Ap, vector bp)
 // polynomial fitting with CLAPACK: solves poly(A, m) * X = B
 vector polyfit(vector A, vector B, int order) { 
     int i;                                      
+#if 0
     int j;
     int info;
+#else 
+#endif
     order++; // I find it intuitive this way...
 #if 0
     double* Ap = malloc(sizeof(double) * order * A.x); 
