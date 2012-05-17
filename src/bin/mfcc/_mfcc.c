@@ -97,20 +97,20 @@ static double *pWeightReal2 = NULL;
 static double *pWeightImag2 = NULL;
 
 
-double Freq2Mel(double freq)
+double freq_mel(double freq)
 {
    return MEL * log(freq / 700.0 + 1.0);
 }
 
-double Sample2Mel(int sample, int num, double fs)
+double sample_mel(int sample, int num, double fs)
 {
    double freq;
    freq = (double) (sample + 1) / (double) (num) * (fs / 2.0);
 
-   return Freq2Mel(freq);
+   return freq_mel(freq);
 }
 
-double CalcEnergy(double *x, const double eps, const int leng)
+double cal_energy(double *x, const double eps, const int leng)
 {
    int k;
    double energy = 0.0;
@@ -120,7 +120,7 @@ double CalcEnergy(double *x, const double eps, const int leng)
    return ((energy <= 0) ? EZERO : log(energy));
 }
 
-void Hamming(double *x, const int leng)
+void hamming(double *x, const int leng)
 {
    int k;
    double arg;
@@ -161,6 +161,8 @@ int dft(float *pReal, float *pImag, const int nDFTLength)
    }
    free(pTempReal);
    free(pTempImag);
+
+   return (0);
 }
 
 /* nSize <= 0 : release resources  */
@@ -168,7 +170,7 @@ int dft(float *pReal, float *pImag, const int nDFTLength)
 
 int dct_create_table_fft(const int nSize)
 {
-   register int k, n;
+   register int k;
 
    if (nSize == dct_table_size_fft) {
       /* no needs to resize workspace. */
@@ -209,11 +211,12 @@ int dct_create_table_fft(const int nSize)
       pWeightImag2[0] /= sqrt(2.0);
    }
 
+   return(0);
 }
 
 int dct_create_table(const int nSize)
 {
-   register int k, n;
+   register int k;
 
    if (nSize == dct_table_size) {
       /* no needs to resize workspace. */
@@ -252,6 +255,7 @@ int dct_create_table(const int nSize)
       pWeightImag[0] /= sqrt(2.0);
    }
 
+   return (0);
 }
 
 int dct_based_on_fft(float *pReal, float *pImag, const float *pInReal,
@@ -280,7 +284,7 @@ int dct_based_on_fft(float *pReal, float *pImag, const float *pInReal,
           (pLocalReal2[k] * pWeightImag2[k] + pLocalImag2[k] * pWeightReal2[k]);
    }
 
-
+   return (0);
 }
 
 
@@ -305,9 +309,11 @@ int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal,
       pImag[k] =
           pLocalReal[k] * pWeightImag[k] + pLocalImag[k] * pWeightReal[k];
    }
+
+   return (0);
 }
 
-void preEmphasise(double *x, double *y, const double alpha, const int leng)
+void pre_emph(double *x, double *y, const double alpha, const int leng)
 {
    int k;
    y[0] = x[0] * (1.0 - alpha);
@@ -336,21 +342,21 @@ void spec(double *x, double *sp, const int leng)
 void fbank(double *x, double *fb, const double eps, const double fs,
            const int leng, const int n)
 {
-   int i, k, l, fnum, no, startNum, chanNum = 0;
+   int k, fnum, no, chanNum = 0;
    int *noMel;
    double *w, *countMel;
-   double maxMel, startFreq, endFreq, kMel;
+   double maxMel, kMel;
 
    no = leng / 2;
    noMel = (int *) getmem((size_t) no, sizeof(int));
    countMel = dgetmem(n + 1 + no);
    w = countMel + n + 1;
-   maxMel = Freq2Mel(fs / 2.0);
+   maxMel = freq_mel(fs / 2.0);
 
    for (k = 0; k <= n; k++)
       countMel[k] = (double) (k + 1) / (double) (n + 1) * maxMel;
    for (k = 1; k < no; k++) {
-      kMel = Sample2Mel(k - 1, no, fs);
+      kMel = sample_mel(k - 1, no, fs);
       while (countMel[chanNum] < kMel && chanNum <= n)
          chanNum++;
       noMel[k] = chanNum;
@@ -358,7 +364,7 @@ void fbank(double *x, double *fb, const double eps, const double fs,
 
    for (k = 1; k < no; k++) {
       chanNum = noMel[k];
-      kMel = Sample2Mel(k - 1, no, fs);
+      kMel = sample_mel(k - 1, no, fs);
       w[k] = (countMel[chanNum] - kMel) / (countMel[0]);
    }
 
@@ -384,7 +390,6 @@ void fbank(double *x, double *fb, const double eps, const double fs,
 void dct(double *in, double *d, const int size, const int m,
          const Boolean dftmode)
 {
-   char *s, c;
    int dct_create_table_fft(const int nSize);
    int dct_based_on_fft(float *pReal, float *pImag, const float *pInReal,
                         const float *pInImag);
@@ -394,7 +399,7 @@ void dct(double *in, double *d, const int size, const int m,
                         const float *pInImag);
 
    float *pReal, *pImag;
-   int k, n, i, j, iter;
+   int k, i, j, iter;
 
    double *x, *y, *dgetmem();
    int size2;
@@ -435,7 +440,7 @@ void dct(double *in, double *d, const int size, const int m,
    }
 }
 
-void CepLifter(double *x, double *y, const int m, const int leng)
+void lifter(double *x, double *y, const int m, const int leng)
 {
    int k;
    double theta;
@@ -474,11 +479,11 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha,
 
    movem(in, x, sizeof(*in), wlng);
    /* calculate energy */
-   energy = CalcEnergy(x, eps, wlng);
-   preEmphasise(x, px, alpha, wlng);
+   energy = cal_energy(x, eps, wlng);
+   pre_emph(x, px, alpha, wlng);
    /* apply hamming window */
    if (usehamming)
-      Hamming(px, wlng);
+      hamming(px, wlng);
    for (k = 0; k < wlng; k++)
       wx[k] = px[k];
    spec(wx, sp, flng);
@@ -490,7 +495,7 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha,
    dct(fb, dc, n, m, dftmode);
    /* liftering */
    if (ceplift > 0)
-      CepLifter(dc, mc, m, ceplift);
+      lifter(dc, mc, m, ceplift);
    else
       movem(dc, mc, sizeof(*dc), m);
 
