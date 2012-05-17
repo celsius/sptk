@@ -122,6 +122,11 @@ void usage(int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr,
            "       log-probabilities or average log-probability (float)\n");
+#ifdef PACKAGE_VERSION
+   fprintf(stderr, "\n");
+   fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
+   fprintf(stderr, " CVS Info: %s", rcs_id);
+#endif
    fprintf(stderr, "\n");
    exit(status);
 }
@@ -130,8 +135,8 @@ int main(int argc, char **argv)
 {
    FILE *fp = stdin, *fgmm = NULL;
    GMM gmm;
-   double *dat, logwgd, *logp, ave_logp;
-   int m, l, t, M = DEF_M, L = DEF_L, T;
+   double logp, ave_logp, *x;
+   int m, t, M = DEF_M, L = DEF_L, T;
    Boolean aflag = DEF_A;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -191,39 +196,30 @@ int main(int argc, char **argv)
    for (m = 0; m < M; m++)
       gmm.gauss[m].gconst = cal_gconst(gmm.gauss[m].var, L);
 
+   /* Calculate and output log-probability */
+   T = 0;
+   ave_logp = 0.0;
+   x = dgetmem(L);
+   while (freadf(x, sizeof(*x), L, fp) == L) {
+      if (!aflag) {
+         logp = log_outp(&gmm, x, M, L);
+         fwritef(&logp, sizeof(double), 1, stdout);
+      } else {
+         ave_logp += log_outp(&gmm, x, M, L);
+         T++;
+      }
+   }
+   fclose(fp);
 
-   /* Read data */
-   fseek(fp, 0, 2);
-   T = (int) ((double) ftell(fp)
-              / (double) sizeof(float) / (double) L);
-   rewind(fp);
-
-   if (!T) {
-      fprintf(stderr, "%s: No input data !\n", cmnd);
+   if (T == 0) {
+      fprintf(stderr, "%s: No input data!\n", cmnd);
       usage(1);
    }
 
-   dat = dgetmem(T * L);
-   logp = dgetmem(T);
-
-   freadf(dat, sizeof(double), T * L, fp);
-   fclose(fp);
-
-
-   /* Calculation of log-probability */
-   for (t = 0, ave_logp = 0.0; t < T; t++, dat += L) {
-      logp[t] = log_outp(&gmm, dat, M, L);
-      ave_logp += logp[t];
-   }
-   ave_logp /= (double) T;
-
-
-   /* Output log-probability */
-
-   if (aflag)
+   if (aflag) {
+      ave_logp /= (double) T;
       fwritef(&ave_logp, sizeof(double), 1, stdout);
-   else
-      fwritef(logp, sizeof(double), T, stdout);
+   }
 
    return (0);
 }

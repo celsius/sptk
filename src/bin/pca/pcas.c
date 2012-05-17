@@ -139,7 +139,7 @@ double **malloc_matrix(int row, int col)
 int main(int argc, char *argv[])
 {
    FILE *fp = stdin, *fpca = NULL;
-   int i, j, k, n = -1;
+   int i, j, n = -1;
    int leng = LENG, total, order = PCA_ORDER;
    int eigen_num;
    double *mean = NULL;
@@ -188,6 +188,14 @@ int main(int argc, char *argv[])
    }
 
    /* Count number of eigen vectors and mean vector */
+   fseek(fp, 0L, SEEK_END);
+   total = (int) (ftell(fp) / (int) leng / (double) sizeof(float));
+   rewind(fp);
+   if (total == 0) {
+      fprintf(stderr, "%s: No input data !\n", cmnd);
+      usage(EXIT_FAILURE);
+   }
+
    fseek(fpca, 0L, SEEK_END);
    eigen_num = (int) (ftell(fpca) / (int) leng / (double) sizeof(float));
    rewind(fpca);
@@ -199,37 +207,28 @@ int main(int argc, char *argv[])
    for (i = 0; i < eigen_num - 1; i++)
       freadf(e_vec[i], sizeof(double), leng, fpca);
 
-   /* Count of test data vectors */
-   fseek(fp, 0L, SEEK_END);
-   total = (int) (ftell(fp) / (int) leng / (double) sizeof(float));
-   rewind(fp);
+   total = 0;
+   test_data = dgetmem(leng);
+   z = dgetmem(order);
+   while (freadf(test_data, sizeof(*test_data), leng, fp) == leng) {
+       fillz(z, order, sizeof(double));
+
+       /* calculate pricipal component score */
+       for (i = 0; i < order; i++) {
+           for (j = 0; j < leng; j++) {
+               z[i] += e_vec[i][j] * (test_data[j] - mean[j]);
+           }
+       }
+
+       /* output principal component score */
+       fwritef(z, sizeof(*z), order, stdout);
+
+       total++;
+   }
    if (total == 0) {
       fprintf(stderr, "%s: No input data !\n", cmnd);
       usage(EXIT_FAILURE);
    }
 
-   /* allocate memory for test data */
-   test_data = dgetmem(leng * total);
-   fillz(test_data, leng, sizeof(double));
-
-   /* read test data */
-   freadf(test_data, sizeof(double), leng * total, fp);
-
-
-   /* allocate memory for pricipal component score */
-   z = dgetmem(order * total);
-   fillz(z, order, sizeof(double));
-
-   /* calculate pricipal component score */
-   for (i = 0; i < total; i++)
-      for (j = 0; j < order; j++)
-         for (k = 0; k < leng; k++)
-            z[i * order + j] +=
-                e_vec[j][k] * (test_data[i * leng + k] - mean[k]);
-
-   /* output principal component score */
-   for (i = 0; i < total; i++)
-      fwritef(z + i, sizeof(*z), order, stdout);
-
-   return 0;
+   return (0);
 }
