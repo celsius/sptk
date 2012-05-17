@@ -139,7 +139,7 @@ double **malloc_matrix(int row, int col)
 int main(int argc, char *argv[])
 {
    FILE *fp = stdin, *fpca = NULL;
-   int i, j, n = -1;
+   int i, j;
    int leng = LENG, total, order = PCA_ORDER;
    int eigen_num;
    double *mean = NULL;

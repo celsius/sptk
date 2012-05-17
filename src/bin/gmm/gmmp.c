@@ -136,7 +136,7 @@ int main(int argc, char **argv)
    FILE *fp = stdin, *fgmm = NULL;
    GMM gmm;
    double logp, ave_logp, *x;
-   int m, t, M = DEF_M, L = DEF_L, T;
+   int m, M = DEF_M, L = DEF_L, T;
    Boolean aflag = DEF_A;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
