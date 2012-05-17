@@ -52,7 +52,7 @@
 \begin{qsection}{DESCRIPTION}
 {\em pitch} extracts the pitch values from {\em infile} (or standard input),
 sending the result to standard output.
-The RAPT \cite{ref:pitch-RAPT} and SWIPE \cite{ref:pitch-SWIPE}
+The RAPT \cite{ref:pitch-RAPT} and SWIPE'
  algorithm are adopted for pitch extraction.
 They can be specified by --a option.
 The output format (pitch, F0 or log(F0)) can be specified by --o option.
@@ -65,11 +65,11 @@ Both input and output files are in float format.
  \argm{a}{A}{algorithm used for extraction of pitch\\
  \begin{tabular}{ll} \\[-1ex]
   $A=0$ & ~~~RAPT\\
-  $A=1$ & ~~~SWIPE\\
+  $A=1$ & ~~~SWIPE'\\
  \end{tabular}\\\hspace*{\fill}}{0}
  \argm{s}{S}{sampling frequency (kHz)}{16.0}
  \argm{p}{P}{frame shift}{80}
- \argm{t}{T}{voiced/unvoiced threshold (used only for SWIPE algorithm)}{0.3}
+ \argm{t}{T}{voiced/unvoiced threshold (used only for SWIPE' algorithm)}{0.3}
  \argm{L}{Lo}{minimum fundamental frequency to search for (Hz)}{60.0}
  \argm{H}{Hi}{maximum fundamental frequency to search for (Hz)}{240.0}
  \argm{o}{O}{output format\\
@@ -82,7 +82,7 @@ Both input and output files are in float format.
 
 \begin{qsection}{EXAMPLE}
  In the example below, speech data in float format
- is read from {\em data.f} and the pitch data is extracted via SWIPE algorithm
+ is read from {\em data.f} and the pitch data is extracted via SWIPE' algorithm
  under the condition that sampling frequency is 16kHz,
  the frame shift is 80 point,
  and the minimum and maximum fundamental frequency are
