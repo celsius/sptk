@@ -485,7 +485,7 @@ int main(int argc, char **argv)
             case 'v':
             case 'd':
             case 'f':
-               printf(form, x);
+               printf(form, (float) x);
                break;
             case 'U':
                printf(form, (unsigned long long) x);
