@@ -122,7 +122,7 @@ double **malloc_matrix(int row, int col)
 {
    double **m;
    double *mtmp;
-   int i, j;
+   int i;
 
    mtmp = dgetmem(row * col);
    if ((m = (double **) malloc(sizeof(double *) * row)) == NULL) {
