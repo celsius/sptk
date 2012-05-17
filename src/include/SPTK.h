@@ -127,6 +127,7 @@ char *getmem(const size_t leng, const size_t size);
 double gexp(const double r, const double x);
 double glog(const double r, const double x);
 int ifftr(double *x, double *y, const int l);
+double invert(double **mat, double **inv, const int n);
 void multim(double x[], const int xx, const int xy, double y[], const int yx,
             const int yy, double a[]);
 void addm(double x[], double y[], const int xx, const int yy, double a[]);

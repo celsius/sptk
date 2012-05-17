@@ -162,55 +162,21 @@ void usage(int status)
    exit(status);
 }
 
-/* LU decomposition */
-static void LU(int n, double **A)
-{
-   int i, j, k;
-   double q;
-
-   for (k = 0; k < n - 1; k++) {
-      for (i = k + 1; i < n; i++) {
-         q = A[i][k] / A[k][k];
-         for (j = k + 1; j < n; j++) {
-            A[i][j] -= q * A[k][j];
-         }
-         A[i][k] = q;
-      }
-   }
-}
-
-/* solve linear equation Ax = b via LU decomposition */
-static void SOLVE(int n, double **A, double *b)
-{
-   int i, j;
-
-   for (i = 0; i < n; i++) {
-      for (j = 0; j < i; j++) {
-         b[i] -= A[i][j] * b[j];
-      }
-   }
-
-   for (i = n - 1; i >= 0; i--) {
-      for (j = i + 1; j < n; j++) {
-         b[i] -= A[i][j] * b[j];
-      }
-      b[i] /= A[i][i];
-   }
-}
-
 /* calculate regression quadratic polynomial coefficients */
-void GetCoefficient(double *input, double *output, int dw_num,
+void get_coef(double *input, double *output, int dw_num,
                     int *position, int TOTAL, int total, int length,
                     int *win_size_forward, int *win_size_backward)
 {
    int i, j, l, t, d, index, width;
-   double T0, T1, T2, T3, T4, b[3];
-   double **Matrix = (double **) malloc(sizeof(double *) * 3);
-   double *tmpMat = dgetmem(3 * 3);
+   double T0, T1, T2, T3, T4, b[3], b0, b1, b2;
+   double **Matrix = (double **) malloc(sizeof(double *) * 3),
+       **Inverse = (double **) malloc(sizeof(double) * 3);
+   double *tmpMat = dgetmem(3 * 3), *tmpInv = dgetmem(3 * 3);
    Boolean boundary_begin = FA, boundary_end = FA;
 
    for (i = 0, j = 0; i < 3; i++, j += 3) {
       Matrix[i] = tmpMat + j;
+      Inverse[i] = tmpInv + j;
    }
 
    for (d = 0; d < dw_num - 1; d++) {
@@ -254,7 +220,7 @@ void GetCoefficient(double *input, double *output, int dw_num,
          Matrix[2][0] = T2;
          Matrix[2][1] = T3;
          Matrix[2][2] = T4;
-         LU(3, Matrix);         /* LU decomposition */
+         invert(Matrix, Inverse, 3);
          for (l = 0; l < length; l++) {
             b[0] = 0.0;
             b[1] = 0.0;
@@ -275,7 +241,14 @@ void GetCoefficient(double *input, double *output, int dw_num,
                b[1] += width * input[length * (tmp) + l];
                b[2] += pow(width, 2) * input[length * (tmp) + l];
             }
-            SOLVE(3, Matrix, b);        /* solve linear equation */
+            for (i = 0, b0 = 0.0, b1 = 0.0, b2 = 0.0; i < 3; i++) {
+               b0 += Inverse[0][i] * b[i];
+               b1 += Inverse[1][i] * b[i];
+               b2 += Inverse[2][i] * b[i];
+            }
+            b[0] = b0;
+            b[1] = b1;
+            b[2] = b2;
             if (d == 0) {
                /* output static */
                output[dw_num * length * position[t] + l] =
@@ -314,8 +287,8 @@ int main(int argc, char *argv[])
 {
    FILE *fp = stdin, *fpc;
    char *coef = NULL;
-   double *x = NULL, *dx = NULL, **dw_coef = NULL, *y = NULL;
-   int i, j, l, d, t, tj, ispipe, fsize, leng = LENG, total = T;
+   double *x = NULL, *dx = NULL, **dw_coef = NULL;
+   int i, j, l, d, t, tj, fsize, leng = LENG, total = T;
    int dw_num = 1, **dw_width = NULL, dw_calccoef = -1, dw_coeflen = 1,
        dw_leng = 1;
    char **dw_fn = (char **) calloc(sizeof(char *), argc);
@@ -605,8 +578,8 @@ int main(int argc, char *argv[])
       }
 
       /* calculate delta and delta-delta */
-      GetCoefficient(x, dx, dw_num, position, total, non_magic_num, leng,
-                     win_size_forward, win_size_backward);
+      get_coef(x, dx, dw_num, position, total, non_magic_num, leng,
+               win_size_forward, win_size_backward);
 
       /* output static, delta, delta-delta */
       fwritef(dx, sizeof(*dx), dw_num * total * leng, stdout);

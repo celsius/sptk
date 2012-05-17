@@ -12,6 +12,7 @@ libSPTK_a_SOURCES = agexp.c \
 	      gexp.c \
 	      glog.c \
 	      ifftr.c \
+	      invert.c \
 	      matrix.c \
 	      movem.c \
 	      mseq.c \
