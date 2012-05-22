@@ -47,7 +47,7 @@
 \begin{synopsis}
 \item [gmm] [ --l $L$ ] [ --m $M$ ] [ --t $T$ ] [ --s $S$ ] [ --a $A$ ] [ --b $B$ ]
         [ --e $E$ ] [ --v $V$ ] [ --w $W$ ] [ --f ]
-\item [\ ~~~~] [ {\em infile} ]
+\item [\ ~~~~]  [ --g $gmmfile$ ] [ {\em infile} ]
 \end{synopsis}
 
 \newfont{\bggg}{cmr10 scaled\magstep3}
@@ -154,6 +154,7 @@ E)$.
  \argm{v}{V}{flooring value for variances}{0.001}
  \argm{w}{W}{flooring value for weights (1/M)*W}{0.001}
  \argm{f}{}{full covariance}{FALSE}
+ \argm{g}{fn}{GMM initial parameter file}{N/A}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -168,6 +169,12 @@ If one wants to model GMMs with full covariances,
 \begin{quote}
 \verb! gmm -m 8 -f data.f > gmm.f! 
 \end{quote}
+If one wants to specify GMM initial parameter or resume GMM training,
+ one can use the -g option specifying GMM initial parameter file {\em gmm.init}.
+\begin{quote}
+\verb! gmm -m 8 -f data.f -g gmm.init > gmm.f! 
+\end{quote}
+
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
