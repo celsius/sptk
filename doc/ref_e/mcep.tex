@@ -65,20 +65,22 @@ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^M c_{\alpha}(m) \tilde{z}^{-m} 
 \end{displaymath}
-For this command ``mcep'', it is applied a cost function
-based on the unbiased estimation log spectrum method.
+% For this command ``mcep'', it is applied a cost function
+% based on the unbiased estimation log spectrum method.
+The command ``mcep'' applies a cost function based on
+ the unbiased log spectrum estimation method.
 The variable $\tilde{z}^{-1}$ can be expressed as the following
 first order all-pass function
 \begin{displaymath}
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}.
 \end{displaymath}
 The phase characteristic is given by the variable $\alpha$.
-For a sampling rate 16 kHz, $\alpha$ is made equal to $0.42$.
-For a sampling rate 10 kHz, $\alpha$ is made equal to $0.35$.
-For a sampling rate 8 kHz, $\alpha$ is made equal to $0.31$.
+For a sampling rate of 16 kHz, $\alpha$ is set to $0.42$.
+For a sampling rate 10 kHz, $\alpha$ is set to $0.35$.
+For a sampling rate 8 kHz, $\alpha$ is set to $0.31$.
 By making these choices for $\alpha$,
-the mel-scale becomes the good approximation to human
-sensitivity to the loudness speech sound.
+the mel-scale becomes a good approximation to the human
+sensitivity to the loudness of speech.
 
 The Newton-Raphson method is used to minimize the cost function
 when evaluating mel-cepstral coefficients.
@@ -105,8 +107,9 @@ when evaluating mel-cepstral coefficients.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-Speech data is read in float format from {\em data.f} and 
-analyzed, and mel-cepstral coefficients are written to {\em data.mcep}:
+In the example below,
+speech data is read in float format from {\em data.f} and 
+analyzed. Then, mel-cepstral coefficients are written to {\em data.mcep}:
 \begin{quote}
  \verb!frame < data.f | window | mcep > data.mcep !
 \end{quote}

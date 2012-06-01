@@ -65,7 +65,7 @@ while $\gamma$ characterizes the generalized log magnitude transform.
 
 Input and output data are in float format.
 
-Firstly, a frequency transformation ($\alpha_1 \rightarrow \alpha_2$)
+First, a frequency transformation ($\alpha_1 \rightarrow \alpha_2$)
 is undertaken in the input mel-generalized cepstral
 coefficients $c_{\alpha_1,\gamma_1}(m)$,
 and $c_{\alpha_2,\gamma_1}(m)$ is calculated as follows.
@@ -106,7 +106,7 @@ c_{\alpha_2,\gamma_2}'(m) &=
           &\hspace{70mm} m = 1, 2, \dots, M_2 \notag
 \end{align}
 
-Finally, the gain is inverse normalized and $c_{\alpha_2,\gamma_2}(m)$
+Finally, the gain is inversely normalized and $c_{\alpha_2,\gamma_2}(m)$
 is calculated.
 \begin{align}
 c_{\alpha_2,\gamma_2}(0) &= 
@@ -154,7 +154,7 @@ K_\alpha,\gamma c_{\alpha,\gamma}'(1),\dots, \gamma c_{\alpha,\gamma}'(M).
 
 \begin{qsection}{EXAMPLE}
 In the example below, 12-th order LPC coefficients are read in
-float format from {\em data.lpc}, 30-th order mel-cepstral
+float format from {\em data.lpc}, and 30-th order mel-cepstral
 coefficients are calculated and written to {\em data.mcep}:
 \begin{quote}
  \verb!mgc2mgc -m 12 -a 0 -g -1 -M 30 -A 0.31 -G 0!\\

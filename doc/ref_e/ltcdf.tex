@@ -54,10 +54,10 @@
 {\em lsp2df} derives an all-pole lattice digital filter 
 from PARCOR coefficients in {\em rcfile} 
 and uses it to filter an excitation sequence
-from {\em infile} (or standard input) to synthesize speech data, 
+from {\em infile} (or standard input) and synthesize speech data, 
 sending the result to standard output.
 
-Input and output data are in float format.
+Both input and output files are in float format.
 \end{qsection}
 
 \begin{options}
@@ -68,9 +68,9 @@ Input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the example below, excitation is generated from
-pitch information given in {\em data.pitch} in float format,
-this excitation is passed through the lattice filter
+In the example below, excitation is generated from the
+pitch information given in {\em data.pitch} in float format.
+This excitation is passed through the lattice filter
 constructed from the LPC file {\em data.rc},
 and the synthesized speech is written to {\em data.syn}:
 \begin{quote}

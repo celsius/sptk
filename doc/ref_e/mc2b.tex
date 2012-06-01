@@ -55,18 +55,18 @@ from mel-cepstral coefficients $c_\alpha(m)$
 from {\em infile} (or standard input), 
 sending the result to standard output.
 
-Input and output data are in float format.
+Both input and output files are in float format.
 
-The equations are used for this transformation follows.
+The coefficients are given as follows:
 \begin{displaymath}
 b(m) = \begin{cases}
 	  \;\; c_\alpha(M), & m=M \\
 	  \;\; c_\alpha(m) - \alpha b(m+1), & 0 \leq m < M \\
 	\end{cases}
 \end{displaymath}
-These coefficients $b(m)$ can be directory used in the
+These coefficients $b(m)$ can be directly used in the
 implementation of a MLSA filter.
-This transformation is the inverse transformation undertaken
+{\em mc2b} implements the inverse transformation undertaken
 by the command \hyperlink{b2mc}{b2mc}.
 \end{qsection}
 
@@ -76,10 +76,10 @@ by the command \hyperlink{b2mc}{b2mc}.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-Speech data is read in float format from {\em data.f},
+In the example below, speech data is read in float format from {\em data.f},
 a 12-th order mel-cepstral analysis is undertaken,
 these mel-cepstral coefficients are transformed into
-MLSA filter coefficients, and these coefficients $b(m)$
+MLSA filter coefficients, and then the coefficients $b(m)$
 are written to {\em data.b}:
 \begin{quote}
  \verb!frame < data.f | window | mcep -m 12 |\ !\\
