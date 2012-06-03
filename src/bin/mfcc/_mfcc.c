@@ -483,7 +483,7 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha,
    pre_emph(x, px, alpha, wlng);
    /* apply hamming window */
    if (usehamming)
-      window(HAMMING, px, sizeof(*px), wlng);
+      window(HAMMING, px, wlng, 0);
    for (k = 0; k < wlng; k++)
       wx[k] = px[k];
    spec(wx, sp, flng);
