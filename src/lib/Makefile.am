@@ -1,3 +1,4 @@
+
 ## Process this file with automake to produce Makefile.in
 ##
 ## $Id$
@@ -17,7 +18,8 @@ libSPTK_a_SOURCES = agexp.c \
 	      movem.c \
 	      mseq.c \
 	      theq.c \
-	      toeplitz.c
+	      toeplitz.c \
+	      window.c
 
 nodist_libSPTK_a_SOURCES = $(top_srcdir)/include/SPTK.h \
 		$(top_srcdir)/bin/acep/_acep.c \
@@ -83,6 +85,5 @@ nodist_libSPTK_a_SOURCES = $(top_srcdir)/include/SPTK.h \
 		$(top_srcdir)/bin/uels/_uels.c \
 		$(top_srcdir)/bin/ulaw/_ulaw.c \
 		$(top_srcdir)/bin/vq/_vq.c \
-		$(top_srcdir)/bin/window/_window.c \
 		$(top_srcdir)/bin/zcross/_zcross.c \
 		$(top_srcdir)/bin/zerodf/_zerodf.c
