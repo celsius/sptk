@@ -158,7 +158,8 @@ int main(int argc, char **argv)
    Boolean arrange = ARRANGE, gain = GAIN;
    FILE *fp = stdin;
    double *lsp, *lsp1, alpha = ALPHA, sampling = SAMPLING;
-
+   void lsparrange(double *lsp, const int ord, double alpha, int itype,
+                   double sampling);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
