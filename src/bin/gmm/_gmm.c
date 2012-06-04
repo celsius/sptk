@@ -62,6 +62,8 @@
 
 #include "gmm.h"
 
+int choleski(double **cov, double **S, const int L);
+
 double cal_det(double **var, const int D)
 {
    int i, j, l;
@@ -97,7 +99,6 @@ double cal_gconst(double *var, const int D)
 
 double cal_gconstf(double **var, const int D)
 {
-   int d;
    double gconst, tmp;
 
    tmp = cal_det(var, D);
