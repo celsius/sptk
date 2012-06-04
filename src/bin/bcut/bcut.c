@@ -172,11 +172,7 @@ int main(int argc, char **argv)
    char *s, c;
    Boolean int3flg = SIGNED_INT3, uint3flg = UNSIGNED_INT3;
    long int y = 0;
-   long long xl = 0;
-   unsigned long long xul = 0;
-   long double xd = 0.0;
    long double x;
-   char *tmp;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
