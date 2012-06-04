@@ -161,7 +161,7 @@ double **malloc_matrix(int n)
 {
    double **m;
    double *mtmp;
-   int i, j;
+   int i;
 
    mtmp = dgetmem(n * n);
    if ((m = (double **) malloc(sizeof(double *) * n)) == NULL) {
