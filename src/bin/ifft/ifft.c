@@ -115,9 +115,10 @@ int usage(void)
 
 int main(int argc, char *argv[])
 {
-   FILE *fp;
+   FILE *fp;      
    char *s, *infile = NULL, c;
-   int dft(FILE *);
+   int size2;
+   double *x, *y;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -150,23 +151,13 @@ int main(int argc, char *argv[])
          infile = s;
    }
 
+   fp = stdin;
+
    if (infile) {
-      fp = getfp(infile, "rb");
-      dft(fp);
-      fclose(fp);
-   } else
-      dft(stdin);
-
-   return 0;
-}
-
-int dft(FILE * fp)
-{
-   double *x, *y;
-   int size2;
+      fp = getfp(infile, "rb");      
+   }
 
    x = dgetmem(size2 = size + size);
-
    y = x + size;
 
    while (!feof(fp)) {
@@ -181,5 +172,9 @@ int dft(FILE * fp)
          fwritef(y, sizeof(*y), size, stdout);
    }
 
-   return (0);
+      if (infile){
+        fclose(fp);
+      }   
+    
+      return (0);
 }

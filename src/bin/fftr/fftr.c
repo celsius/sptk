@@ -129,10 +129,9 @@ int main(int argc, char *argv[])
 {
    FILE *fp;
    char *s, *infile = NULL, c;
-   int size = SIZE, nout = 0, nd = -1, out = ' ';
-   int dft(FILE * fp, const int size, const int nd, const int out,
-           const int nout);
-
+   int size = SIZE, nout = 0, k, nd = -1, out = ' ';
+   double *x, *y;
+   
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
@@ -184,21 +183,13 @@ int main(int argc, char *argv[])
    }
 
    nout = (nout) ? size / 2 + 1 : size;
+
+   fp = stdin;   
+
    if (infile) {
       fp = getfp(infile, "rb");
-      dft(fp, size, nd, out, nout);
-      fclose(fp);
-   } else
-      dft(stdin, size, nd, out, nout);
-
-   return 0;
-}
-
-int dft(FILE * fp, const int size, const int nd, const int out, const int nout)
-{
-   double *x, *y;
-   int k;
-
+   }
+      
    x = dgetmem(size + size);
    y = x + size;
 
@@ -218,5 +209,10 @@ int dft(FILE * fp, const int size, const int nd, const int out, const int nout)
       if (out == ' ' || out == 'I')
          fwritef(y, sizeof(*y), nout, stdout);
    }
-   return (0);
+
+      if (infile){
+        fclose(fp);
+      }
+
+      return (0);
 }

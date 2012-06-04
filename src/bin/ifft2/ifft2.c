@@ -127,7 +127,9 @@ int main(int argc, char *argv[])
 {
    FILE *fp;
    char *s, *infile = NULL, c;
-   int dft(FILE *);
+   int size2, nread;
+   double *x, *y;
+   void trans(double *p);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -172,22 +174,13 @@ int main(int argc, char *argv[])
          infile = s;
    }
 
-   if (infile) {
+    fp = stdin;
+
+    if (infile) {
       fp = getfp(infile, "rb");
-      dft(fp);
-      fclose(fp);
-   } else
-      dft(stdin);
-
-   return (0);
-}
-
-int dft(FILE * fp)
-{
-   double *x, *y;
-   int size2, nread;
-   void trans(double *p);
-
+    }
+    
+   
    size2 = size * size;
 
    x = dgetmem(2 * size2);
@@ -217,6 +210,12 @@ int dft(FILE * fp)
    }
 
    free(x);
+
+
+    if (infile) {
+      fclose(fp);
+    }
+
    return (0);
 }
 
