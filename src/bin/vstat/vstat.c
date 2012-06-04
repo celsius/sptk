@@ -147,7 +147,7 @@ void usage(int status)
    fprintf(stderr, "                  2 covariance\n");
    fprintf(stderr, "                  3 mean and upper / lower bound of\n");
    fprintf(stderr, "                    confidence interval via t-dist.\n");
-   fprintf(stderr, "       -c c   : conf. level of conf. interval (%)   [%g]\n",
+   fprintf(stderr, "       -c c   : conf. level of conf. interval (%%)   [%g]\n",
            CONFLEV);
    fprintf(stderr, "       -d     : diagonal covariance                 [%s]\n",
            BOOL[DIAGC]);
