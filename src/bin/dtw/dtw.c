@@ -143,43 +143,43 @@ typedef struct _float_list {
    struct _float_list *next;
 } float_list;
 
-static int ROUND(double dat);
-void InitDTW(DTW_Table * table, int leng,
+static int round_up(double dat);
+void init_dtw(DTW_Table * table, int leng,
              double *input, double *input2,
              int total1, int total2, enum PATH path);
-double *DTW(DTW_Table * table, enum Norm norm_type);
-void CalcLocalCost(DTW_Table * table, enum Norm norm_type);
-void CheckEnabledRegion(DTW_Table * table);
-void CheckEnabledRegion_TYPE_I(DTW_Table * table);
-void CheckEnabledRegion_TYPE_II(DTW_Table * table);
-void CheckEnabledRegion_TYPE_III(DTW_Table * table);
-void CheckEnabledRegion_TYPE_IV(DTW_Table * table);
-void CheckEnabledRegion_TYPE_V(DTW_Table * table);
-void CheckEnabledRegion_TYPE_VI(DTW_Table * table);
-void CheckEnabledRegion_TYPE_VII(DTW_Table * table);
-void RecursiveCalc(DTW_Table * table);
-void RecursiveCalc_TYPE_I(DTW_Table * table);
-void RecursiveCalc_TYPE_II(DTW_Table * table);
-void RecursiveCalc_TYPE_III(DTW_Table * table);
-void RecursiveCalc_TYPE_IV(DTW_Table * table);
-void RecursiveCalc_TYPE_V(DTW_Table * table);
-void RecursiveCalc_TYPE_VI(DTW_Table * table);
-void RecursiveCalc_TYPE_VII(DTW_Table * table);
-static void BackTrace(DTW_Table * table);
-static double *Concat(DTW_Table * table);
+double *dtw(DTW_Table * table, enum Norm norm_type);
+void calc_local_cost(DTW_Table * table, enum Norm norm_type);
+void check_enabled_region(DTW_Table * table);
+void check_enabled_region_type_1(DTW_Table * table);
+void check_enabled_region_type_2(DTW_Table * table);
+void check_enabled_region_type_3(DTW_Table * table);
+void check_enabled_region_type_4(DTW_Table * table);
+void check_enabled_region_type_5(DTW_Table * table);
+void check_enabled_region_type_6(DTW_Table * table);
+void check_enabled_region_type_7(DTW_Table * table);
+void recursive_calc(DTW_Table * table);
+void recursive_calc_type_1(DTW_Table * table);
+void recursive_calc_type_2(DTW_Table * table);
+void recursive_calc_type_3(DTW_Table * table);
+void recursive_calc_type_4(DTW_Table * table);
+void recursive_calc_type_5(DTW_Table * table);
+void recursive_calc_type_6(DTW_Table * table);
+void recursive_calc_type_7(DTW_Table * table);
+static void back_trace(DTW_Table * table);
+static double *concat(DTW_Table * table);
 
-static int ROUND(double dat)
+static int round_up(double dat)
 {
    return (int) (dat + 0.5);
 }
 
-void InitDTW(DTW_Table * table, int leng,
+void init_dtw(DTW_Table * table, int leng,
              double *input1, double *input2,
              int total1, int total2, enum PATH path)
 {
 
    DTW_Cell *tmpcell = NULL;
-   int i, j, k, tmp;
+   int i, j, k;
    int size[2] = { total1, total2 };
    void usage(int status);
 
@@ -188,13 +188,13 @@ void InitDTW(DTW_Table * table, int leng,
 
    table->cell = (DTW_Cell **) malloc(sizeof(DTW_Cell *) * size[0]);
    if (table->cell == NULL) {
-      fprintf(stderr, "ERROR: Can't allocate memory at InitDTW() !\n");
+      fprintf(stderr, "ERROR: Can't allocate memory at init_dtw() !\n");
       fflush(stderr);
       usage(EXIT_FAILURE);
    }
    tmpcell = (DTW_Cell *) malloc(sizeof(DTW_Cell) * size[0] * size[1]);
    if (tmpcell == NULL) {
-      fprintf(stderr, "ERROR: Can't allocate memory at InitDTW() !\n");
+      fprintf(stderr, "ERROR: Can't allocate memory at init_dtw() !\n");
       fflush(stderr);
       usage(EXIT_FAILURE);
    }
@@ -212,7 +212,7 @@ void InitDTW(DTW_Table * table, int leng,
       table->data[i].viterbi =
           (int *) malloc(sizeof(int) * (size[0] + size[1]));
       if (table->data[i].viterbi == NULL) {
-         fprintf(stderr, "ERROR: Can't allocate memory at InitDTW() !\n");
+         fprintf(stderr, "ERROR: Can't allocate memory at init_dtw() !\n");
          fflush(stderr);
          usage(EXIT_FAILURE);
       }
@@ -271,30 +271,20 @@ void InitDTW(DTW_Table * table, int leng,
    }
 }
 
-double *DTW(DTW_Table * table, enum Norm norm_type)
+double *dtw(DTW_Table * table, enum Norm norm_type)
 {
-   CheckEnabledRegion(table);
+   check_enabled_region(table);
 
-   CalcLocalCost(table, norm_type);
+   calc_local_cost(table, norm_type);
 
-   RecursiveCalc(table);
+   recursive_calc(table);
 
-   BackTrace(table);
+   back_trace(table);
 
-   return (Concat(table));
+   return (concat(table));
 }
 
-void CheckEnabledRegion_TYPE_I(DTW_Table * table)
-{
-   int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
-   for (j = 0; j < Ty; j++) {
-      for (i = 0; i < Tx; i++) {
-         table->cell[i][j].is_region = PATH_OK;
-      }
-   }
-}
-
-void CheckEnabledRegion_TYPE_II(DTW_Table * table)
+void check_enabled_region_type_1(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    for (j = 0; j < Ty; j++) {
@@ -304,7 +294,17 @@ void CheckEnabledRegion_TYPE_II(DTW_Table * table)
    }
 }
 
-void CheckEnabledRegion_TYPE_III(DTW_Table * table)
+void check_enabled_region_type_2(DTW_Table * table)
+{
+   int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
+   for (j = 0; j < Ty; j++) {
+      for (i = 0; i < Tx; i++) {
+         table->cell[i][j].is_region = PATH_OK;
+      }
+   }
+}
+
+void check_enabled_region_type_3(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
 
@@ -332,7 +332,7 @@ void CheckEnabledRegion_TYPE_III(DTW_Table * table)
    }
 }
 
-void CheckEnabledRegion_TYPE_IV(DTW_Table * table)
+void check_enabled_region_type_4(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
 
@@ -356,10 +356,10 @@ void CheckEnabledRegion_TYPE_IV(DTW_Table * table)
    }
 
    for (j = 2; j < Ty; j++) {
-      for (i = 0; i < ROUND((double) j / 2); i++) {
+      for (i = 0; i < round_up((double) j / 2); i++) {
          table->cell[i][j].is_region = PATH_NG;
       }
-      for (; i < Tx - Ty / 2 + ROUND((double) j / 2); i++) {
+      for (; i < Tx - Ty / 2 + round_up((double) j / 2); i++) {
          table->cell[i][j].is_region = PATH_OK;
       }
       for (; i < Tx; i++) {
@@ -369,7 +369,7 @@ void CheckEnabledRegion_TYPE_IV(DTW_Table * table)
    table->cell[Tx - 1][Ty - 1].is_region = PATH_OK;
 }
 
-void CheckEnabledRegion_TYPE_V(DTW_Table * table)
+void check_enabled_region_type_5(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
 
@@ -413,7 +413,7 @@ void CheckEnabledRegion_TYPE_V(DTW_Table * table)
    }
 }
 
-void CheckEnabledRegion_TYPE_VI(DTW_Table * table)
+void check_enabled_region_type_6(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
 
@@ -457,7 +457,7 @@ void CheckEnabledRegion_TYPE_VI(DTW_Table * table)
    }
 }
 
-void CheckEnabledRegion_TYPE_VII(DTW_Table * table)
+void check_enabled_region_type_7(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
 
@@ -501,36 +501,36 @@ void CheckEnabledRegion_TYPE_VII(DTW_Table * table)
    }
 }
 
-void CheckEnabledRegion(DTW_Table * table)
+void check_enabled_region(DTW_Table * table)
 {
    switch (table->path) {
    case I:                     /* horizontal and vertical */
-      CheckEnabledRegion_TYPE_I(table);
+      check_enabled_region_type_1(table);
       break;
    case II:                    /* horizontal, oblique and vertical */
-      CheckEnabledRegion_TYPE_II(table);
+      check_enabled_region_type_2(table);
       break;
    case III:                   /* horizontal and oblique */
-      CheckEnabledRegion_TYPE_III(table);
+      check_enabled_region_type_3(table);
       break;
    case IV:                    /* horizontal, oblique1, oblique2 */
-      CheckEnabledRegion_TYPE_IV(table);
+      check_enabled_region_type_4(table);
       break;
    case V:                     /* default */
-      CheckEnabledRegion_TYPE_V(table);
+      check_enabled_region_type_5(table);
       break;
    case VI:
-      CheckEnabledRegion_TYPE_VI(table);
+      check_enabled_region_type_6(table);
       break;
    case VII:
-      CheckEnabledRegion_TYPE_VII(table);
+      check_enabled_region_type_7(table);
       break;
    default:
       break;
    }
 }
 
-void CalcLocalCost(DTW_Table * table, enum Norm norm_type)
+void calc_local_cost(DTW_Table * table, enum Norm norm_type)
 {
    int i, j, d, D = table->data[0].dim;
    double sum;
@@ -578,9 +578,9 @@ void CalcLocalCost(DTW_Table * table, enum Norm norm_type)
    }
 }
 
-void RecursiveCalc_TYPE_I(DTW_Table * table)
+void recursive_calc_type_1(DTW_Table * table)
 {
-   int i, j, k, Tx = table->data[0].total, Ty = table->data[1].total;
+   int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    double local;
 
    for (i = 1; i < Tx; i++) {
@@ -614,9 +614,9 @@ void RecursiveCalc_TYPE_I(DTW_Table * table)
    table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void RecursiveCalc_TYPE_II(DTW_Table * table)
+void recursive_calc_type_2(DTW_Table * table)
 {
-   int i, j, k, Tx = table->data[0].total, Ty = table->data[1].total;
+   int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    double local, min;
 
    for (i = 1; i < Tx; i++) {
@@ -653,9 +653,9 @@ void RecursiveCalc_TYPE_II(DTW_Table * table)
    table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void RecursiveCalc_TYPE_III(DTW_Table * table)
+void recursive_calc_type_3(DTW_Table * table)
 {
-   int i, j, k, Tx = table->data[0].total, Ty = table->data[1].total;
+   int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    double local, min = 0.0;
 
    for (i = 1; i < Tx; i++) {
@@ -701,9 +701,9 @@ void RecursiveCalc_TYPE_III(DTW_Table * table)
    table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void RecursiveCalc_TYPE_IV(DTW_Table * table)
+void recursive_calc_type_4(DTW_Table * table)
 {
-   int i, j, k, Tx = table->data[0].total, Ty = table->data[1].total;
+   int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    double local, min = 0.0;
 
    for (i = 1; i < Tx; i++) {   /* horizontal */
@@ -809,10 +809,10 @@ void RecursiveCalc_TYPE_IV(DTW_Table * table)
    table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void RecursiveCalc_TYPE_V(DTW_Table * table)
+void recursive_calc_type_5(DTW_Table * table)
 {
-   int i, j, k, Tx = table->data[0].total, Ty = table->data[1].total;
-   double local, min = 0.0;
+   int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
+   double min = 0.0;
 
    table->cell[1][1].global = table->cell[0][0].global
        +table->weight.val[2] * table->cell[1][1].local;
@@ -913,10 +913,10 @@ void RecursiveCalc_TYPE_V(DTW_Table * table)
    table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void RecursiveCalc_TYPE_VI(DTW_Table * table)
+void recursive_calc_type_6(DTW_Table * table)
 {
-   int i, j, k, Tx = table->data[0].total, Ty = table->data[1].total;
-   double local, min = 0.0;
+   int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
+   double min = 0.0;
 
    table->cell[2][1].global = table->cell[0][0].global
        +table->weight.val[0] * table->cell[2][1].local;
@@ -1007,10 +1007,10 @@ void RecursiveCalc_TYPE_VI(DTW_Table * table)
    table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void RecursiveCalc_TYPE_VII(DTW_Table * table)
+void recursive_calc_type_7(DTW_Table * table)
 {
-   int i, j, k, Tx = table->data[0].total, Ty = table->data[1].total;
-   double local, min = 0.0;
+   int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
+   double min = 0.0;
 
    table->cell[1][1].global = table->cell[0][0].global
        +table->weight.val[0] * table->cell[1][1].local;
@@ -1168,43 +1168,40 @@ void RecursiveCalc_TYPE_VII(DTW_Table * table)
    table->cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void RecursiveCalc(DTW_Table * table)
+void recursive_calc(DTW_Table * table)
 {
-   int i, j, k, Tx = table->data[0].total, Ty = table->data[1].total;
-   double local, min = 0.0;
-
    table->cell[0][0].global = table->cell[0][0].local;
    table->cell[0][0].backptr[0] = -1;
    table->cell[0][0].backptr[1] = -1;
 
    switch (table->path) {
    case I:
-      RecursiveCalc_TYPE_I(table);
+      recursive_calc_type_1(table);
       break;
    case II:
-      RecursiveCalc_TYPE_II(table);
+      recursive_calc_type_2(table);
       break;
    case III:
-      RecursiveCalc_TYPE_III(table);
+      recursive_calc_type_3(table);
       break;
    case IV:
-      RecursiveCalc_TYPE_IV(table);
+      recursive_calc_type_4(table);
       break;
    case V:
-      RecursiveCalc_TYPE_V(table);
+      recursive_calc_type_5(table);
       break;
    case VI:
-      RecursiveCalc_TYPE_VI(table);
+      recursive_calc_type_6(table);
       break;
    case VII:
-      RecursiveCalc_TYPE_VII(table);
+      recursive_calc_type_7(table);
       break;
    default:
       break;
    }
 }
 
-static void BackTrace(DTW_Table * table)
+static void back_trace(DTW_Table * table)
 {
    int i, j, k,
        Tx = table->data[0].total, Ty = table->data[1].total, *tmp1, *tmp2;
@@ -1232,7 +1229,7 @@ static void BackTrace(DTW_Table * table)
 }
 
 /* Concatenate two input along to Viterbi path */
-static double *Concat(DTW_Table * table)
+static double *concat(DTW_Table * table)
 {
    double *concat;
    int i, j, size = table->vit_leng,
@@ -1352,9 +1349,9 @@ void usage(int status)
 
 int main(int argc, char *argv[])
 {
-   char *infile = NULL, *infile2 = NULL, *Scorefile = NULL, *Viterbifile = NULL;
-   int i, j, d, leng = LENG, total1, total2, tmp, length1 = 0, length2 = 0;
-   double *x = NULL, *y = NULL, *z = NULL, *input = NULL;
+   char *infile2 = NULL, *Scorefile = NULL, *Viterbifile = NULL;
+   int i, leng = LENG, total1, total2, length1 = 0, length2 = 0;
+   double *x = NULL, *y = NULL, *z = NULL;
    enum Norm norm_type = L2;
    enum PATH path = V;
    FILE *fp = stdin, *fp2 = NULL, *fpScore = NULL, *fpViterbi = NULL;
@@ -1460,11 +1457,11 @@ int main(int argc, char *argv[])
    }
 
    /* Initialize */
-   InitDTW(&table, leng, x, y, total1, total2, path);
+   init_dtw(&table, leng, x, y, total1, total2, path);
 
    /* Dynamic Time Warping */
    /* Output vectors are concatenated two input vectors along the Viterbi path */
-   z = DTW(&table, norm_type);
+   z = dtw(&table, norm_type);
    fwritef(z, sizeof(*z), table.vit_leng * 2 * leng, stdout);
 
    if (outscore == TR) {
