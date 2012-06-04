@@ -164,8 +164,8 @@ typedef struct _PStream {
 } PStream;
 
 /*  Required Functions  */
-void InitPStream(PStream * pst);
-void InitDWin(PStream * pst);
+void init_pstream(PStream * pst);
+void init_dwin(PStream * pst);
 double *dcalloc(int x, int xoff);
 double **ddcalloc(int x, int y, int xoff, int yoff);
 double ***dddcalloc(int x, int y, int z, int xoff, int yoff, int zoff);
@@ -235,7 +235,7 @@ int main(int argc, char **argv)
    int coeflen;
    PStream pst;
    int i, j;
-   void InitPStream(PStream *);
+   void init_pstream(PStream *);
    double *mlpg(PStream *);
 
    pst.order = ORDER;
@@ -345,7 +345,7 @@ int main(int argc, char **argv)
          pdffp = getfp(*argv, "rb");
    }
 
-   InitPStream(&pst);
+   init_pstream(&pst);
 
    delay = pst.range + pst.dw.maxw[WRIGHT];
    nframe = 0;
@@ -378,16 +378,16 @@ int main(int argc, char **argv)
    return (0);
 }
 
-void InitPStream(PStream * pst)
+void init_pstream(PStream * pst)
 {
-   void InitDWin(PStream *);
+   void init_dwin(PStream *);
    double *dcalloc(int, int);
    double **ddcalloc(int, int, int, int);
    double ***dddcalloc(int, int, int, int, int, int);
    int half, full;
    int i, m;
 
-   InitDWin(pst);
+   init_dwin(pst);
 
    half = pst->range * 2;
    full = pst->range * 4 + 1;
@@ -429,12 +429,12 @@ void InitPStream(PStream * pst)
 }
 
 
-void InitDWin(PStream * pst)
+void init_dwin(PStream * pst)
 {
    double *dcalloc(int, int);
    int i, j;
    int fsize, leng;
-   double x, a0, a1, a2;
+   double a0, a1, a2;
    FILE *fp;
 
    /* memory allocation */
