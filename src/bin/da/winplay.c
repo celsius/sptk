@@ -44,6 +44,8 @@
 
 /************************************************************************
 *                                                                       *
+*    $Id$";            *
+*                                                                       *
 *    Simple APIs for playing audio data in windows                      *
 *                                                                       *
 *                                            2007.10  Jong-Jin Kim      *
@@ -51,8 +53,6 @@
 *    notice: just for PCM, MONO                                         *
 *                                                                       *
 *************************************************************************/
-
-static char *rcs_id = "$Id$";
 
 #ifdef WIN32
 
