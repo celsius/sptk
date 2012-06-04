@@ -139,7 +139,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int l = LENG, f1w = 1, f2w = 0, otype =
+   int l = LENG, otype =
        OTYPE, count, countold, countseg, xn, yn, size, i;
    FILE *fp2 = stdin, *fp1 = NULL;
    double *x, *y, snr, snrseg, pw1, pw2, pw1snr, pw2snr, sub;

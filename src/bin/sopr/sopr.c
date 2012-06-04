@@ -217,9 +217,9 @@ static double mem[MEMSIZE];
 
 int main(int argc, char *argv[])
 {
-   int i, count = 0, magic_count = 0, MAGIC_COUNT = 0;
+   int magic_count = 0, MAGIC_COUNT = 0;
    FILE *fp;
-   char *s, *m, c;
+   char *s, c;
    char *infile = NULL;
    int sopr(FILE *);
 

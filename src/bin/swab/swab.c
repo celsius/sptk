@@ -165,7 +165,6 @@ int main(int argc, char *argv[])
    int c;
    size_t iosize = sizeof(short);
    void conv(FILE * fp, size_t iosize);
-   Boolean int3flg = SIGNED_INT3, uint3flg = UNSIGNED_INT3;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
