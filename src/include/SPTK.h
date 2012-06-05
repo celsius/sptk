@@ -173,8 +173,8 @@ void freqt(double *c1, const int m1, double *c2, const int m2, const double a);
 void gc2gc(double *c1, const int m1, const double g1, double *c2, const int m2,
            const double g2);
 int gcep(double *xw, const int flng, double *gc, const int m, const double g,
-         const int itr1, const int itr2, const double d, const double e,
-         const double f, const int itype);
+         const int itr1, const int itr2, const double d, const int etype,
+         const double e, const double f, const int itype);
 double glsadf(double x, double *c, const int m, const int n, double *d);
 double glsadf1(double x, double *c, const int m, const int n, double *d);
 double glsadft(double x, double *c, const int m, const int n, double *d);
@@ -231,8 +231,8 @@ double lspdf_odd(double x, double *f, const int m, double *d);
 double ltcdf(double x, double *k, int m, double *d);
 void mc2b(double *mc, double *b, int m, const double a);
 int mcep(double *xw, const int flng, double *mc, const int m, const double a,
-         const int itr1, const int itr2, const double dd, const double e,
-         const double f, const int itype);
+         const int itr1, const int itr2, const double dd, const int etype,
+         const double e, const double f, const int itype);
 void mfcc(double *in, double *mc, const double sampleFreq, const double alpha,
           const double eps, const int wlng, const int flng, const int m,
           const int n, const int ceplift, const Boolean dftmode,
@@ -244,7 +244,7 @@ void mgc2sp(double *mgc, const int m, const double a, const double g, double *x,
             double *y, const int flng);
 int mgcep(double *xw, int flng, double *b, const int m, const double a,
           const double g, const int n, const int itr1, const int itr2,
-          const double dd, const double e, const double f, const int itype);
+          const double dd, const int etype, const double e, const double f, const int itype);
 double newton(double *x, const int flng, double *c, const int m, const double a,
               const double g, const int n, const int j, const double f);
 double mglsadf(double x, double *b, const int m, const double a, const int n,
@@ -280,9 +280,9 @@ void root_pol(double *a, const int odr, complex * x, const int a_zero,
 complex *cplx_getmem(const int leng);
 int smcep(double *xw, const int flng, double *mc, const int m, const int fftsz,
           const double a, const double t, const int itr1, const int itr2,
-          const double dd, const double e, const double f, const int itype);
+          const double dd, const int etype, const double e, const double f, const int itype);
 int uels(double *xw, const int flng, double *c, const int m, const int itr1,
-         const int itr2, const double dd, const double e, const int itype);
+         const int itr2, const double dd, const int etype, const double e, const int itype);
 double ulaw_c(const double x, const double max, const double mu);
 double ulaw_d(const double x, const double max, const double mu);
 int vq(double *x, double *cb, const int l, const int cbsize);
