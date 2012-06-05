@@ -642,7 +642,7 @@ int smcep(double *xw, const int flng, double *mc, const int m, const int fftsz,
       }
       break;
    default:
-      fprintf(stderr, "mgcep : Input type %d is not supported!\n", itype);
+      fprintf(stderr, "smcep : Input type %d is not supported!\n", itype);
       exit(1);
    }
    if (itype > 0) {
