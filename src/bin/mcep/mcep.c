@@ -66,6 +66,7 @@
 *               -j j     :  maximum iteration               [30]        *
 *               -d d     :  end condition                   [0.001]     *
 *               -e e     :  small value added to periodgram [0]         *
+*               -E E     :  floor in db calculated per frame[FALSE]     *
 *               -f f     :  minimum value of the determinant            *
 *                           of the normal matrix            [0.000001]  *
 *       infile:                                                         *
@@ -76,6 +77,9 @@
 *       stdout:                                                         *
 *               mel cepstrum                                            *
 *                       , c~(0), c~(1), ..., c~(M),                     *
+*       notice:                                                         *
+*               value of e must be e>=0                                 *
+*               value of E must be E<0                                  *
 *       require:                                                        *
 *               mcep()                                                  *
 *                                                                       *
@@ -109,6 +113,7 @@ static char *rcs_id = "$Id$";
 #define ORDER 25
 #define FLENG 256
 #define ITYPE 0
+#define ETYPE 0
 #define MINITR 2
 #define MAXITR 30
 #define END 0.001
@@ -150,6 +155,7 @@ void usage(int status)
            END);
    fprintf(stderr, "       -e e  : small value added to periodgram  [%g]\n",
            EPS);
+   fprintf(stderr, "       -E E  : floor in db calculated per frame [FALSE]\n");  
    fprintf(stderr, "       -f f  : minimum value of the determinant [%g]\n",
            MINDET);
    fprintf(stderr, "               of the normal matrix\n");
@@ -158,6 +164,9 @@ void usage(int status)
            FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       mel-cepstrum (%s)\n", FORMAT);
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "       value of e must be e>=0\n");
+   fprintf(stderr, "       value of E must be E<0\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -171,7 +180,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, itr2 =
-       MAXITR, itype = ITYPE, flag = 0;
+     MAXITR, itype = ITYPE, etype = ETYPE, flag = 0;
    FILE *fp = stdin;
    double *mc, *x, a = ALPHA, end = END, e = EPS, f = MINDET;
 
@@ -211,6 +220,12 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'e':
+            etype = 1;
+            e = atof(*++argv);
+            --argc;
+            break;
+         case 'E':
+            etype = 2;
             e = atof(*++argv);
             --argc;
             break;
@@ -234,9 +249,9 @@ int main(int argc, char **argv)
 
    x = dgetmem(flng + m + 1);
    mc = x + flng;
-
+ 
    while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
-      flag = mcep(x, flng, mc, m, a, itr1, itr2, end, e, f, itype);
+         flag = mcep(x, flng, mc, m, a, itr1, itr2, end, etype, e, f, itype);
       fwritef(mc, sizeof(*mc), m + 1, stdout);
    }
 
