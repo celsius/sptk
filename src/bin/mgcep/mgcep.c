@@ -76,6 +76,7 @@
 *                -d d     :  end condition                     [0.001]  *
 *                -p p     :  order of recursions               [l-1]    *
 *                -e e     :  small value added to periodgram   [0]      *
+*                -E E     :  floor in db calculated per frame  [FALSE]  *
 *                -f f     :  mimimum value of the determinant           *
 *                            of the normal matrix            [0.000001] *
 *       infile:                                                         *
@@ -87,6 +88,8 @@
 *                mel-generalized cepstrum (float)                       *
 *       notice:                                                         *
 *                value of c must be c>=1                                *
+*                value of e must be e>=0                                *
+*                value of E must be E<0                                 *
 *       require:                                                        *
 *                mgcep()                                                *
 *                                                                       *
@@ -121,6 +124,7 @@ static char *rcs_id = "$Id$";
 #define FLENG  256
 #define OTYPE  0
 #define ITYPE  0
+#define ETYPE 0
 #define MINITR 2
 #define MAXITR 30
 #define END    0.001
@@ -173,6 +177,7 @@ void usage(const int status)
    fprintf(stderr, "       -p p  : order of recursions               [l-1]\n");
    fprintf(stderr, "       -e e  : small value added to periodgram   [%g]\n",
            EPS);
+   fprintf(stderr, "       -E E  : floor in db calculated per frame  [FALSE]\n");
    fprintf(stderr, "       -f f  : mimimum value of the determinant  [%g]\n",
            MINDET);
    fprintf(stderr, "               of the normal matrix\n");
@@ -184,6 +189,8 @@ void usage(const int status)
    fprintf(stderr, "       mel-generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       value of c must be c>=1\n");
+   fprintf(stderr, "       value of e must be e>=0\n");
+   fprintf(stderr, "       value of E must be E<0\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -196,8 +203,8 @@ void usage(const int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, itr2 = MAXITR, n =
-       -1, flag = 0, otype = OTYPE, itype = ITYPE, i;
+   int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, itr2 = MAXITR, n = -1,
+       flag = 0, otype = OTYPE, itype = ITYPE, etype = ETYPE, i;
    FILE *fp = stdin;
    double *b, *x, a = ALPHA, g = GAMMA, end = END, e = EPS, f = MINDET;
 
@@ -256,9 +263,15 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'e':
+            etype = 1;
             e = atof(*++argv);
             --argc;
             break;
+         case 'E':
+            etype = 2;
+            e = atof(*++argv);
+            --argc;          
+             break;
          case 'f':
             f = atof(*++argv);
             --argc;
@@ -283,7 +296,8 @@ int main(int argc, char **argv)
    b = x + flng;
 
    while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
-      flag = mgcep(x, flng, b, m, a, g, n, itr1, itr2, end, e, f, itype);
+      
+      flag = mgcep(x, flng, b, m, a, g, n, itr1, itr2, end, etype, e, f, itype);
 
       if (otype == 0 || otype == 1 || otype == 2 || otype == 4)
          ignorm(b, b, m, g);    /* K, b'r --> br  */
