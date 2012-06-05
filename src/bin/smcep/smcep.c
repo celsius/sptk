@@ -67,6 +67,7 @@
 *               -j j     :  maximum iteration                [30]       *
 *               -d d     :  end condition                    [0.001]    *
 *               -e e     :  initial value for log-periodgram [0]        *
+*               -E E     :  floor in db calculated per frame [FALSE]    *
 *               -f f     :  mimimum value of the determinant            *
 *                           of the normal matrix            [0.000001]  *  
 *      infile:                                                          *
@@ -75,6 +76,9 @@
 *      stdout:                                                          *
 *              mel cepstrum                                             *
 *                      , c~(0), c~(1), ..., c~(M),                      *
+*      notice:                                                          *
+*              value of e must be e>=0                                  *
+*              value of E must be E<0                                   *
 *      require:                                                         *
 *              smcep()                                                  *
 *                                                                       *
@@ -111,6 +115,7 @@ static char *rcs_id = "$Id$";
 #define FLENG  256
 #define FFTSZ  256 * 4
 #define ITYPE  0
+#define ETYPE  0
 #define MINITR 2
 #define MAXITR 30
 #define END    0.001
@@ -158,6 +163,7 @@ void usage(int status)
            END);
    fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n",
            EPS);
+   fprintf(stderr, "       -E E  : floor in db calculated per frame [FALSE]\n");  
    fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n",
            MINDET);
    fprintf(stderr, "               of the normal matrix\n");
@@ -165,6 +171,9 @@ void usage(int status)
    fprintf(stderr, "       windowed sequences (%s)    [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       mel-cepstrum (%s)\n", FORMAT);
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "       value of e must be e>=0\n");
+   fprintf(stderr, "       value of E must be E<0\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -177,8 +186,8 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, flng = FLENG, itype = ITYPE, fftsz = FFTSZ, itr1 =
-       MINITR, itr2 = MAXITR, flag = 0;
+   int m = ORDER, flng = FLENG, ilng = FLENG, itype = ITYPE, etype = ETYPE,
+       fftsz =  FFTSZ, itr1 = MINITR, itr2 = MAXITR, flag = 0;
    FILE *fp = stdin;
    double *mc, *x, a = ALPHA, t = THETA, end = END, e = EPS, f = MINDET;
 
@@ -226,9 +235,15 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'e':
+            etype = 1;
             e = atof(*++argv);
             --argc;
             break;
+         case 'E':
+            etype = 2;
+            e = atof(*++argv);
+            --argc;
+             break;
          case 'f':
             f = atof(*++argv);
             --argc;
@@ -244,11 +259,18 @@ int main(int argc, char **argv)
 
    t *= M_PI;
 
+   if (itype == 0)
+     ilng = flng;
+   else
+     ilng = flng / 2 + 1;
+
    x = dgetmem(flng + m + 1);
    mc = x + flng;
 
-   while (freadf(x, sizeof(*x), flng, fp) == flng) {
-      flag = smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, e, f, itype);
+   while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
+
+        flag = smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, etype, e, f, itype);
+
       fwritef(mc, sizeof(*mc), m + 1, stdout);
    }
 

@@ -48,7 +48,8 @@
 
     Mel-Cepstral Analysis (2nd order all-pass filter)
 
-        int smcep(xw, flng, mc, m, fftsz, a, t, itr1, itr2, dd, e, itype);
+        int smcep(xw, flng, mc, m, fftsz, a, t, itr1, itr2, dd, 
+                  etype, e, f, itype);
 
         double   *xw   : input sequence
         int      flng  : frame length
@@ -59,7 +60,11 @@
         int      itr1  : minimum number of iteration
         int      itr2  : maximum number of iteration
         double   dd    : end condition
+        int      etype :    0 -> don't use "e"
+                            1 -> e is initial value for log-periodgram
+                            2 -> e is floor periodgram in db
         double   e     : initial value for log-periodgram
+                         or floor periodgram in db 
         double   f     : mimimum value of the determinant 
                          of the normal matrix
         int      itype : input data type
@@ -552,13 +557,29 @@ static void frqtr2(double *c1, int m1, double *c2, int m2, int fftsz, double a,
 
 int smcep(double *xw, const int flng, double *mc, const int m, const int fftsz,
           const double a, const double t, const int itr1, const int itr2,
-          const double dd, const double e, const double f, const int itype)
+          const double dd, const int etype, const double e, const double f, 
+          const int itype)
 {
    int i, j;
    int flag = 0, f2, m2;
-   double u, s;
+   double u, s, eps = 0.0, min, max;
    static double *x = NULL, *y, *c, *d, *al, *b;
    static int size_x, size_d;
+
+    if ( etype == 1 && e < 0.0 ){
+       fprintf(stderr, "smcep : value of e must be e>=0!\n");
+       exit(1);
+    }
+ 
+    if ( etype == 2 && e >= 0.0 ){
+       fprintf(stderr, "smcep : value of E must be E<0!\n");
+       exit(1);
+    }
+ 
+    if ( etype == 1 ){
+       eps = e;   
+    }   
+
 
    if (x == NULL) {
       x = dgetmem(3 * flng);
@@ -595,29 +616,29 @@ int smcep(double *xw, const int flng, double *mc, const int m, const int fftsz,
    case 0:                     /* windowed data sequence */
       fftr(x, y, flng);
       for (i = 0; i < flng; i++) {
-         x[i] = x[i] * x[i] + y[i] * y[i] + e;  /*  periodegram  */
+         x[i] = x[i] * x[i] + y[i] * y[i] + eps;  /*  periodegram  */
       }
       break;
    case 1:                     /* dB */
       for (i = 0; i <= flng / 2; i++) {
-         x[i] /= 20.0 / log(10.0);      /* dB -> amplitude spectrum */
-         x[i] = x[i] * x[i] + e;        /* amplitude -> periodgram */
+         x[i] = exp((x[i] / 20.0) * log(10.0)); /* dB -> amplitude spectrum */
+         x[i] = x[i] * x[i] + eps;        /* amplitude -> periodgram */
       }
       break;
    case 2:                     /* log */
       for (i = 0; i <= flng / 2; i++) {
          x[i] = exp(x[i]);      /* log -> amplitude spectrum */
-         x[i] = x[i] * x[i] + e;        /* amplitude -> periodgram */
+         x[i] = x[i] * x[i] + eps;        /* amplitude -> periodgram */
       }
       break;
    case 3:                     /* amplitude */
       for (i = 0; i <= flng / 2; i++) {
-         x[i] = x[i] * x[i] + e;        /* amplitude -> periodgram */
+         x[i] = x[i] * x[i] + eps;        /* amplitude -> periodgram */
       }
       break;
    case 4:                     /* periodgram */
       for (i = 0; i <= flng / 2; i++) {
-         x[i] = x[i] + e;
+         x[i] = x[i] + eps;
       }
       break;
    default:
@@ -628,6 +649,22 @@ int smcep(double *xw, const int flng, double *mc, const int m, const int fftsz,
       for (i = 1; i < flng / 2; i++)
          x[flng - i] = x[i];
    }
+
+   if ( etype == 2 && e < 0.0) {
+      max = x[0];
+      for (i = 1; i < flng; i++) {
+         if (max < x[i])
+            max = x[i];
+      }
+      max = sqrt(max);
+      min = max * pow(10.0, e / 20.0);        /* floor is 20*log10(min/max) */
+      min = min * min;
+      for (i = 0; i < flng; i++) {
+         if (x[i] < min)
+            x[i] = min;
+      }
+   }
+
    for (i = 0; i < flng; i++)
       c[i] = log(x[i]);
 
