@@ -110,6 +110,7 @@ static char *rcs_id = "$Id$";
 #define FORM_ULONG  "%u"
 #define FORM_LLONG  "%lld"
 #define FORM_ULLONG "%llu"
+#define FORM_FLOAT  "%f"
 #define FORM_LDBL   "%Lg"
 #define INT3_MAX   8388607
 #define INT3_MIN   (-8388608)
@@ -401,6 +402,11 @@ int main(int argc, char **argv)
                      form = getmem((strlen(FORM_LONG) + 1), sizeof(char));
                      strcpy(form, FORM_LONG);
                      break;
+                  case 'f':
+                  case 'd':
+                     form = getmem((strlen(FORM_FLOAT) + 1), sizeof(char));
+                     strcpy(form, FORM_FLOAT);
+                     break;
                   default:
                      form = getmem((strlen(FORM_LDBL) + 1), sizeof(char));
                      strcpy(form, FORM_LDBL);
@@ -483,7 +489,11 @@ int main(int argc, char **argv)
             x2x(&x, &x, c1, 'v', clip);
             switch (c1) {
             case 'v':
+               printf(form, (long double) x);
+               break;
             case 'd':
+               printf(form, (double) x);
+               break;
             case 'f':
                printf(form, (float) x);
                break;
