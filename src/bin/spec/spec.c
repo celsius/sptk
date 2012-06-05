@@ -59,6 +59,7 @@
 *               -z z     :  MA coefficients filename          [NULL]    *
 *               -p p     :  AR coefficients filename          [NULL]    *
 *               -e e     :  small value for calculating log() [0]       *
+*               -E E     :  floor in db calculated per frame  [FALSE]   *
 *               -o o     :  output format                     [0]       *
 *                             0 (20 * log|H(z)|)                        *
 *                             1 (ln|H(z)|)                              *
@@ -70,6 +71,9 @@
 *       stdout:                                                         *
 *               spectrum                                                *
 *                       , s(0), s(1), ..., s(L/2),                      *
+*       notice:                                                         *
+*               value of e must be e>=0                                 *
+*               value of E must be E<0                                  *
 *                                                                       *
 ************************************************************************/
 
@@ -101,6 +105,7 @@ static char *rcs_id = "$Id$";
 #define LENG    256
 #define ORDERMA 0
 #define ORDERAR 0
+#define ETYPE   0
 #define EPS     0.0
 #define OTYPE   0
 
@@ -126,6 +131,7 @@ void usage(int status)
    fprintf(stderr, "       -p p  : AR coefficients filename          [NULL]\n");
    fprintf(stderr, "       -e e  : small value for calculating log() [%g]\n",
            EPS);
+   fprintf(stderr, "       -E E  : floor in db calculated per frame  [FALSE]\n");  
    fprintf(stderr, "       -o o  : output format                     [%d]\n",
            OTYPE);
    fprintf(stderr, "                 0 (20 * log|H(z)|)\n");
@@ -138,6 +144,9 @@ void usage(int status)
            FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       spectrum (%s)\n", FORMAT);
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "       value of e must be e>=0\n");
+   fprintf(stderr, "       value of E must be E<0\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -149,10 +158,10 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int leng = LENG, otype = OTYPE, orderma = ORDERMA, orderar = ORDERAR, no, i;
+   int leng = LENG, otype = OTYPE, etype = ETYPE, orderma = ORDERMA, orderar = ORDERAR, no, i;
    char *filema = "", *filear = "";
    FILE *fp = stdin, *fpma = NULL, *fpar = NULL;
-   double eps = EPS, k, *x, *y, *mag;
+   double eps = EPS, eps2, k, *x, *y, *mag;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -182,8 +191,14 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'e':
+            etype = 1;
             eps = atof(*++argv);
             --argc;
+            break;
+         case 'E':
+            etype = 2;
+            eps2 = atof(*++argv);
+            --argc;          
             break;
          case 'o':
             otype = atoi(*++argv);
@@ -198,6 +213,16 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
+    if ( etype == 1 && eps < 0.0 ){
+       fprintf(stderr, "scep : value of e must be e>=0!\n");
+       exit(1);
+    }
+ 
+    if ( etype == 2 && eps2 >= 0.0 ){
+       fprintf(stderr, "scep : value of E must be E<0!\n");
+       exit(1);
+    }
+ 
    no = leng / 2 + 1;
 
    x = dgetmem(leng + leng + no);
@@ -244,10 +269,32 @@ int main(int argc, char **argv)
             mag[i] *= k / (x[i] * x[i] + y[i] * y[i]);
       }
 
+      if (otype == 0 || otype == 1) {
+         double max, min;
+         if ( etype == 1 && eps >= 0.0 ) {
+             for (i = 0; i < no; i++) {
+                 mag[i] = mag[i] + eps;
+             }
+         } else if( etype == 2 && eps2 < 0 ){
+            max = mag[0];
+            for (i = 1; i < no; i++) {
+               if (max < mag[i])
+                  max = mag[i];
+            }
+            max = sqrt(max);
+            min = max * pow(10.0, eps2 / 20.0);        /* floor is 20*log10(min/max) */
+            min = min * min;
+            for (i = 0; i < no; i++) {
+               if (mag[i] < min)
+                  mag[i] = min;
+            }              
+         }
+      } 
+
       switch (otype) {
       case 1:
          for (i = 0; i < no; i++)
-            x[i] = 0.5 * log(mag[i] + eps);
+            x[i] = 0.5 * log(mag[i]);
          fwritef(x, sizeof(*x), no, stdout);
          break;
       case 2:
@@ -262,7 +309,7 @@ int main(int argc, char **argv)
          break;
       default:
          for (i = 0; i < no; i++)
-            x[i] = 10 * log10(mag[i] + eps);
+            x[i] = 10 * log10(mag[i]);
          fwritef(x, sizeof(*x), no, stdout);
          break;
       }
