@@ -65,12 +65,16 @@
 *               -j j     :  maximum iteration               [30]        *
 *               -d d     :  end condition                   [0.001]     *
 *               -e e     :  small value added to periodgram [0]         *
+*               -E E     :  floor in db calculated per frame[FALSE]     *
 *       infile:                                                         *
 *               data sequence                                           *
 *                       , x(0), x(1), ..., x(L-1),                      *
 *       stdout:                                                         *
 *               cepstrum                                                *
 *                       , c~(0), c~(1), ..., c~(M),                     *
+*       notice:                                                         *
+*               value of e must be e>=0                                 *
+*               value of E must be E<0                                  *
 *       require:                                                        *
 *               uels()                                                  *
 *                                                                       *
@@ -103,10 +107,12 @@ static char *rcs_id = "$Id$";
 #define ORDER  25
 #define FLENG  256
 #define ITYPE  0
+#define ETYPE  0
 #define MINITR 2
 #define MAXITR 30
 #define END    0.001
 #define EPS    0.0
+
 
 /*  Command Name  */
 char *cmnd;
@@ -120,9 +126,9 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of cepstrum               [%d]\n",
+   fprintf(stderr, "       -m m  : order of cepstrum                [%d]\n",
            ORDER);
-   fprintf(stderr, "       -l l  : frame length                    [%d]\n",
+   fprintf(stderr, "       -l l  : frame length                     [%d]\n",
            FLENG);
    fprintf(stderr, "       -q q  : input format                     [%d]\n",
            ITYPE);
@@ -132,20 +138,24 @@ void usage(int status)
    fprintf(stderr, "                 3 (|f(w)|)\n");
    fprintf(stderr, "                 4 (|f(w)|)^2\n");
    fprintf(stderr, "     (level 2)\n");
-   fprintf(stderr, "       -i i  : minimum iteration               [%d]\n",
+   fprintf(stderr, "       -i i  : minimum iteration                [%d]\n",
            MINITR);
-   fprintf(stderr, "       -j j  : maximum iteration               [%d]\n",
+   fprintf(stderr, "       -j j  : maximum iteration                [%d]\n",
            MAXITR);
-   fprintf(stderr, "       -d d  : end condition                   [%g]\n",
+   fprintf(stderr, "       -d d  : end condition                    [%g]\n",
            END);
-   fprintf(stderr, "       -e e  : small value added to periodgram [%g]\n",
+   fprintf(stderr, "       -e e  : small value added to periodgram  [%g]\n",
            EPS);
+   fprintf(stderr, "       -E E  : floor in db calculated per frame [FALSE]\n");  
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       windowed sequence (%s)               [stdin]\n",
+   fprintf(stderr, "       windowed sequence (%s)                [stdin]\n",
            FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       cepstrum (%s)\n", FORMAT);
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "       value of e must be e>=0\n");
+   fprintf(stderr, "       value of E must be E<0\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -157,8 +167,8 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, flng = FLENG, ilng = FLENG, itype = ITYPE, itr1 =
-       MINITR, itr2 = MAXITR, flag = 0;
+   int m = ORDER, flng = FLENG, ilng = FLENG, itype = ITYPE,
+     etype = ETYPE, itr1 = MINITR, itr2 = MAXITR, flag = 0;
    FILE *fp = stdin;
    double *c, *x, end = END, e = EPS;
 
@@ -194,9 +204,15 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'e':
+            etype = 1;
             e = atof(*++argv);
             --argc;
             break;
+         case 'E':
+            etype = 2;
+            e = atof(*++argv);
+            --argc;          
+             break;
          case 'h':
             usage(0);
          default:
@@ -215,7 +231,9 @@ int main(int argc, char **argv)
    c = x + flng;
 
    while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
-      flag = uels(x, flng, c, m, itr1, itr2, end, e, itype);
+    
+      flag = uels(x, flng, c, m, itr1, itr2, end, etype, e, itype);
+    
       fwritef(c, sizeof(*c), m + 1, stdout);
    }
 
