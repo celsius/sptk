@@ -277,7 +277,7 @@ static void _line(FILE * fp)
    _flush();
 }
 
-static void intstyle(int type)
+/*static void intstyle(int type)
 {
    int is_frame = 1, style = 2;
 
@@ -298,9 +298,9 @@ static void intstyle(int type)
       if ((style = type + 10) == 0)
          style = 1;
    }
-}
+   }*/
 
-static void polyg(FILE * fp, int type)
+/*static void polyg(FILE * fp, int type)
 {
    int n;
    int d, angle;
@@ -316,7 +316,7 @@ static void polyg(FILE * fp, int type)
    polylines(xb + 1, yb + 1, n);
 
    return;
-}
+   }*/
 
 static void hatching(FILE * fp, int type)
 {
