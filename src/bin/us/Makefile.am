@@ -5,9 +5,10 @@ INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = us
 bin_SCRIPTS = us16.sh uscd.sh
 us_SOURCES = us.c 
-us_LDADD = $(top_srcdir)/lib/libSPTK.a
+us_LDADD = $(top_builddir)/lib/libSPTK.a
 
-lpcoefdir = $(DESTDIR)$(libdir)
+#lpcoefdir = $(DESTDIR)$(libdir)
+lpcoefdir = $(datarootdir)
 us_CPPFLAGS = -DLIB=\"$(lpcoefdir)\"
 
 dist_lpcoef_DATA = lpfcoef.2to3f \

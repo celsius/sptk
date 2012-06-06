@@ -4,4 +4,4 @@
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = train
 train_SOURCES = train.c 
-train_LDADD = $(top_srcdir)/lib/libSPTK.a
+train_LDADD = $(top_builddir)/lib/libSPTK.a

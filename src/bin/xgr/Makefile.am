@@ -48,4 +48,4 @@ xgr_SOURCES = config.h \
 
 xgr_CFLAGS = $(X_CFLAGS)
 xgr_LDFLAGS = $(X_LIBS)
-xgr_LDADD = $(top_srcdir)/lib/libSPTK.a -lX11
+xgr_LDADD = $(top_builddir)/lib/libSPTK.a -lX11

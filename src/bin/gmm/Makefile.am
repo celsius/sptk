@@ -4,6 +4,6 @@
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = gmm gmmp
 gmm_SOURCES = _gmm.c gmm.c gmm.h
-gmm_LDADD = $(top_srcdir)/lib/libSPTK.a
+gmm_LDADD = $(top_builddir)/lib/libSPTK.a
 gmmp_SOURCES = _gmm.c gmmp.c gmm.h
-gmmp_LDADD = $(top_srcdir)/lib/libSPTK.a
+gmmp_LDADD = $(top_builddir)/lib/libSPTK.a

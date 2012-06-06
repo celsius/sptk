@@ -4,4 +4,4 @@
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = snr
 snr_SOURCES = snr.c 
-snr_LDADD = $(top_srcdir)/lib/libSPTK.a
+snr_LDADD = $(top_builddir)/lib/libSPTK.a

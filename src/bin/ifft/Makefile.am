@@ -4,4 +4,4 @@
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = ifft
 ifft_SOURCES = _ifft.c ifft.c 
-ifft_LDADD = $(top_srcdir)/lib/libSPTK.a
+ifft_LDADD = $(top_builddir)/lib/libSPTK.a

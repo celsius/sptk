@@ -4,4 +4,4 @@
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = gnorm
 gnorm_SOURCES = _gnorm.c gnorm.c 
-gnorm_LDADD = $(top_srcdir)/lib/libSPTK.a
+gnorm_LDADD = $(top_builddir)/lib/libSPTK.a

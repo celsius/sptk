@@ -4,4 +4,4 @@
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = bcp
 bcp_SOURCES = bcp.c 
-bcp_LDADD = $(top_srcdir)/lib/libSPTK.a
+bcp_LDADD = $(top_builddir)/lib/libSPTK.a

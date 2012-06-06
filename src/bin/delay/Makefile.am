@@ -4,4 +4,4 @@
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = delay
 delay_SOURCES = delay.c 
-delay_LDADD = $(top_srcdir)/lib/libSPTK.a
+delay_LDADD = $(top_builddir)/lib/libSPTK.a

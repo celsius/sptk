@@ -6,7 +6,7 @@ INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = dawrite
 bin_SCRIPTS = da.sh
 dawrite_SOURCES = da.h dawrite.c winplay.c winplay.h
-dawrite_LDADD = $(top_srcdir)/lib/libSPTK.a
+dawrite_LDADD = $(top_builddir)/lib/libSPTK.a
 endif
 
 EXTRA_DIST = da.in

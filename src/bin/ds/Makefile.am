@@ -6,7 +6,7 @@ lpcoefdir = $(DESTDIR)$(libdir)
 
 bin_PROGRAMS = ds
 ds_SOURCES = ds.c 
-ds_LDADD = $(top_srcdir)/lib/libSPTK.a
+ds_LDADD = $(top_builddir)/lib/libSPTK.a
 ds_CPPFLAGS = -DLIB=\"$(lpcoefdir)\"
 
 dist_lpcoef_DATA = lpfcoef.2to1 \

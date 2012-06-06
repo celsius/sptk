@@ -4,4 +4,4 @@
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = lspcheck
 lspcheck_SOURCES = _lspcheck.c lspcheck.c 
-lspcheck_LDADD = $(top_srcdir)/lib/libSPTK.a
+lspcheck_LDADD = $(top_builddir)/lib/libSPTK.a

@@ -4,4 +4,4 @@
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = spec
 spec_SOURCES = spec.c 
-spec_LDADD = $(top_srcdir)/lib/libSPTK.a
+spec_LDADD = $(top_builddir)/lib/libSPTK.a

@@ -4,4 +4,4 @@
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = lspdf
 lspdf_SOURCES = _lspdf.c lspdf.c 
-lspdf_LDADD = $(top_srcdir)/lib/libSPTK.a
+lspdf_LDADD = $(top_builddir)/lib/libSPTK.a
