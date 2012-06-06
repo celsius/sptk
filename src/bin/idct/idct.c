@@ -136,7 +136,7 @@ int usage(void)
    exit(1);
 }
 
-int dft(double *pReal, double *pImag, const int nDFTLength)
+static int dft(double *pReal, double *pImag, const int nDFTLength)
 {
    int k, n;
    double *pTempReal, *pTempImag, TempReal, TempImag;
@@ -161,11 +161,13 @@ int dft(double *pReal, double *pImag, const int nDFTLength)
    }
    free(pTempReal);
    free(pTempImag);
+
+   return (0);
 }
 
 int idct_create_table(const int nSize)
 {
-   int k, n;
+   int k;
 
    if (nSize == dct_table_size) {
       /* no need to resize workspace */
@@ -203,6 +205,8 @@ int idct_create_table(const int nSize)
       pWeightReal[0] *= sqrt(2.0);
       pWeightImag[0] *= sqrt(2.0);
    }
+  
+   return (0);
 }
 
 int idct(double *pReal, double *pImag,
@@ -240,12 +244,14 @@ int idct(double *pReal, double *pImag,
       pReal[k] = pLocalReal[k];
       pImag[k] = pLocalImag[k];
    }
+
+   return (0);
 }
 
 int main(int argc, char *argv[])
 {
    char *s, *infile = NULL, c;
-   int i, j, k, n, iter, size2;
+   int i, j, iter, size2;
    double *x, *y, *pReal, *pImag;
    FILE *fp;
    Boolean comp = COMPLEX;
