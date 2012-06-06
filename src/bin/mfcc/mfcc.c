@@ -273,6 +273,7 @@ int main(int argc, char **argv)
    mc = x + l;
 
    while (freadf(x, sizeof(*x), l, fp) == l) {
+      
       mfcc(x, mc, fs, alpha, eps, l, L, m + 1, n, lift, dftmode, usehamming);
       if (!czero)
          mc[m] = mc[m + 1];
