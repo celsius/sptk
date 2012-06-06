@@ -70,6 +70,10 @@ set OutMaxVal = 32767
 set data_position
 set READfmt = 0
 set ENTERdatachunk = 0
+set left = 0
+set right = 0
+set decimate_start = 0
+set Channels = 1
 
 @ i = 0
 while ($i < $#argv)
@@ -146,6 +150,24 @@ while ($i < $#argv)
 		set normalization = 1
 		set normalization_all = 1
 		breaksw
+	case -L:
+		if ( $right == 1 ) then
+			echo2 "${cmnd}: Can't convert left and right sounds at the same time\!"
+			set exit_status = 1
+			goto usage
+		endif
+		set left = 1
+		set decimate_start = 0
+		breaksw 
+	case -R:
+		if ( $left == 1 ) then
+			echo2 "${cmnd}: Can't convert left and right sounds at the same time\!"
+			set exit_status = 1
+			goto usage
+		endif
+		set right = 1
+		set decimate_start = 1
+		breaksw
 	case -h:
 		set exit_status = 0
 		goto usage
@@ -178,6 +200,8 @@ usage:
         echo2 '                       if max >= 255 (8bit), 32767 (16bit),'
         echo2 '                       8388067 (24bit), 2147483647 (32bit).'
         echo2 '       -N            : normalization with the maximum value      [FALSE]'
+        echo2 '       -L            : convert left sound from stereo wav file   [FALSE]'
+        echo2 '       -R            : convert right sound from stereo wav file  [FALSE]'
         echo2 '       +type         : output data type                          [s]'
         echo2 '                        c  (char)         C  (unsigned char) '
         echo2 '                        s  (short)        S  (unsigned short)'
@@ -236,30 +260,30 @@ foreach f ($file)
         case 666D7420: #The chunk ID is "fmt " (ASCII code, hexadecimal number)
             @ tmp = $Current + 1
             set FormatID = `bcut +c -s $Current -e $tmp $f | x2x +Sa`
+            @ Current = $Current + 2
+            
+            #Read the channels (2byte)
+            @ tmp = $Current + 1
+            set Channels = `bcut +c -s $Current -e $tmp $f | x2x +Sa`
 
-            @ Current = $Current + 14
+            @ Current = $Current + 12
             @ tmp = $Current + 1
             set BitPerSample = `bcut +c -s $Current -e $tmp $f | x2x +Sa`
             switch( $BitPerSample )
             case  8:
                 set InputType = c
-                set MaxVal = 255
                 breaksw
             case 16:
                 set InputType = s
-                set MaxVal = 32767
                 breaksw
             case 24:
                 set InputType = i3
-                set MaxVal = 8388067
                 breaksw
             case 32:
                 if ( $FormatID == 1 ) then # PCM
                     set InputType = i
-                    set MaxVal = 2147483647
                 else if ( $FormatID == 3 ) then # IEEE float
                     set InputType = f
-                    set MaxVal = 1
                 else
                     echo2 "Format id $FormatID is not acceptable!"
                     exit
@@ -288,40 +312,60 @@ foreach f ($file)
             if ( $normalization ) then
                 if ( $FormatID == 3) then
                     if ( $swab ) then
+                       if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
+                        bcut +c -s $Current -e $tmp $f | swab | decimate -p 2 -s $decimate_start |\
+                        sopr -m ${OutMaxVal} > /tmp/{$f:t}.$$.tmp
+                       else 
                         bcut +c -s $Current -e $tmp $f | swab |\
                         sopr -m ${OutMaxVal} > /tmp/{$f:t}.$$.tmp
-                    else
+                       endif
+                    else 
+                       if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
+                        bcut +c -s $Current -e $tmp $f | decimate -p 2 -s $decimate_start |\
+                        sopr -m ${OutMaxVal} > /tmp/{$f:t}.$$.tmp
+                       else
                         bcut +c -s $Current -e $tmp $f |\
                         sopr -m ${OutMaxVal} > /tmp/{$f:t}.$$.tmp
+                       endif
                     endif
 
                     set max = `minmax < /tmp/{$f:t}.$$.tmp | sopr -ABS |\
                                minmax | bcut -s 1 | x2x +fa %.100f`
 
-                    if ( $normalization_all || `echo "$max < 0" | bc -l` ) then
-                        sopr -m $MaxVal -d $max < /tmp/{$f:t}.$$.tmp |\
+                    if ( $normalization_all || `echo "$max > ${OutMaxVal}" | bc -l` ) then
+                        sopr -m ${OutMaxVal} -d $max < /tmp/{$f:t}.$$.tmp |\
                         x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
                     else
-                        x2x -r +f${OutputType} < /tmp/{$f:t}.$$.tmp |\
+                        x2x -r +f${OutputType} < /tmp/{$f:t}.$$.tmp \
                             > /tmp/{$f:t}.$$.raw
                     endif
-                else
+                else #FormatID is not 3
                     if ( $swab ) then
+                      if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
+                        bcut +c -s $Current -e $tmp $f | swab +$InputType |\
+                        x2x +${InputType}f | decimate -p 2 -s $decimate_start > /tmp/{$f:t}.$$.tmp
+                      else
                         bcut +c -s $Current -e $tmp $f | swab +$InputType |\
                         x2x +${InputType}f > /tmp/{$f:t}.$$.tmp
+                      endif
                     else
+                      if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
+                        bcut +c -s $Current -e $tmp $f |\
+                        x2x +${InputType}f | decimate -p 2 -s $decimate_start > /tmp/{$f:t}.$$.tmp
+                      else
                         bcut +c -s $Current -e $tmp $f |\
                         x2x +${InputType}f > /tmp/{$f:t}.$$.tmp
+                      endif
                     endif
 
                     set max = `minmax < /tmp/{$f:t}.$$.tmp | sopr -ABS |\
                                minmax | bcut -s 1 | x2x +fa %.100f`
 
-                    if ( $normalization_all || `echo "$max < 0" | bc -l` ) then
-                        sopr -m $MaxVal -d $max < /tmp/{$f:t}.$$.tmp |\
+                    if ( $normalization_all || `echo "$max > ${OutMaxVal}" | bc -l` ) then
+                        sopr -m ${OutMaxVal} -d $max < /tmp/{$f:t}.$$.tmp |\
                         x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
                     else
-                        x2x -r +f${OutputType} < /tmp/{$f:t}.$$.tmp |\
+                        x2x -r +f${OutputType} < /tmp/{$f:t}.$$.tmp \
                             > /tmp/{$f:t}.$$.raw
                     endif
                 endif
@@ -330,21 +374,43 @@ foreach f ($file)
             else #No normalization
                 if ( $FormatID == 3) then
                     if ( $swab ) then
+                      if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
+                        bcut +c -s $Current -e $tmp $f | swab | decimate -p 2 -s $decimate_start |\
+                        sopr -m ${OutMaxVal} |\
+                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                      else
                         bcut +c -s $Current -e $tmp $f | swab |\
                         sopr -m ${OutMaxVal} |\
                         x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
-                     else
+                      endif
+                    else
+                      if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
+                        bcut +c -s $Current -e $tmp $f | decimate -p 2 -s $decimate_start |\
+                        sopr -m ${OutMaxVal} |\
+                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                      else
                         bcut +c -s $Current -e $tmp $f |\
                         sopr -m ${OutMaxVal} |\
                         x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
-                     endif
-                else
+                      endif                    
+                    endif
+                else #FormatID is not 3
                     if ( $swab ) then
+                      if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
+                        bcut +c -s $Current -e $tmp $f | swab +$InputType | x2x +${InputType}f |\
+                        decimate -p 2 -s $decimate_start | x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                      else
                         bcut +c -s $Current -e $tmp $f | swab +$InputType |\
                         x2x -r +${InputType}${OutputType} > /tmp/{$f:t}.$$.raw
+                      endif
                     else
+                      if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
+                        bcut +c -s $Current -e $tmp $f | x2x +${InputType}f |\
+                        decimate -p 2 -s $decimate_start | x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                      else
                         bcut +c -s $Current -e $tmp $f |\
                         x2x -r +${InputType}${OutputType} > /tmp/{$f:t}.$$.raw
+                      endif
                     endif
                 endif
             endif
@@ -373,10 +439,9 @@ foreach f ($file)
             breaksw
 
         endsw # end of switch($ChunkID)
-
         @ Rest = $FileSize - $Current
-    end
-end
+    end # end of while( $Rest > 0 )
+end # end of foreach f ($file)
 
 clean:
 /bin/rm -f /tmp/{$f:t}.$$.raw /tmp/{$f:t}.$$.tmp
