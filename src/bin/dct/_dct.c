@@ -247,3 +247,55 @@ int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal,  const fl
    return (0);
 }
 
+void dct (double *in, double *out, const int size, const int m,
+          const Boolean dftmode, const Boolean compmode)
+{
+    int k, i, j, iter;
+    float *pReal, *pImag;
+    double *x, *y;
+    int size2;
+    float *x2, *y2;
+
+    x = dgetmem(size2 = size + size);
+    y = x + size;
+    pReal = fgetmem(size2 = size + size);
+    pImag = pReal + size;
+    x2 = fgetmem(size2);
+    y2 = x2 + size;
+
+        for (k = 0; k < size; k++) {
+           x[k] = in[k];
+           y[k] = in[k+size];
+           x2[k] = (float) x[k];
+           y2[k] = (float) y[k];
+        }
+
+    iter = 0;
+    i = size;
+    while ((i /= 2) != 0) {
+         iter++;
+      }
+      j = 1;
+      for (i = 1; i <= iter; i++) {
+         j *= 2;
+      }
+      if (size != j || dftmode) {
+         dct_create_table(size);
+         dct_based_on_dft(pReal, pImag, (const float *) x2, (const float *) y2);
+      } else {
+         dct_create_table_fft(size);
+         dct_based_on_fft(pReal, pImag, (const float *) x2, (const float *) y2);
+      }
+
+      for (k = 0; k < m; k++) {
+         out[k] = (double) pReal[k];
+           if (compmode == TR) {
+             out[k + size] = (double) pImag[k];
+         }
+      }
+
+       free(x);
+       free(x2);
+       free(pReal);
+}
+
