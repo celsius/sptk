@@ -7,8 +7,7 @@ bin_SCRIPTS = us16.sh uscd.sh
 us_SOURCES = us.c 
 us_LDADD = $(top_builddir)/lib/libSPTK.a
 
-#lpcoefdir = $(DESTDIR)$(libdir)
-lpcoefdir = $(datarootdir)
+lpcoefdir = $(DESTDIR)$(libdir)
 us_CPPFLAGS = -DLIB=\"$(lpcoefdir)\"
 
 dist_lpcoef_DATA = lpfcoef.2to3f \
