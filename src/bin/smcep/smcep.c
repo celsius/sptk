@@ -67,7 +67,7 @@
 *               -j j     :  maximum iteration                [30]       *
 *               -d d     :  end condition                    [0.001]    *
 *               -e e     :  initial value for log-periodgram [0]        *
-*               -E E     :  floor in db calculated per frame [FALSE]    *
+*               -E E     :  floor in db calculated per frame [N/A]      *
 *               -f f     :  mimimum value of the determinant            *
 *                           of the normal matrix            [0.000001]  *  
 *      infile:                                                          *
@@ -163,7 +163,7 @@ void usage(int status)
            END);
    fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n",
            EPS);
-   fprintf(stderr, "       -E E  : floor in db calculated per frame [FALSE]\n");  
+   fprintf(stderr, "       -E E  : floor in db calculated per frame [N/A]\n");  
    fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n",
            MINDET);
    fprintf(stderr, "               of the normal matrix\n");

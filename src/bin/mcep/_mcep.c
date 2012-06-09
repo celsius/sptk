@@ -58,7 +58,7 @@
         int      itr1  : minimum number of iteration
         int      itr2  : maximum number of iteration
         double   dd    : end condition
-        int      etype :    0 -> don't use "e"
+        int      etype :    0 -> e is not used
                             1 -> e is initial value for log-periodgram
                             2 -> e is floor periodgram in db
         double   e     : initial value for log-periodgram

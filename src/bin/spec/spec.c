@@ -59,7 +59,7 @@
 *               -z z     :  MA coefficients filename          [NULL]    *
 *               -p p     :  AR coefficients filename          [NULL]    *
 *               -e e     :  small value for calculating log() [0]       *
-*               -E E     :  floor in db calculated per frame  [FALSE]   *
+*               -E E     :  floor in db calculated per frame  [N/A]     *
 *               -o o     :  output format                     [0]       *
 *                             0 (20 * log|H(z)|)                        *
 *                             1 (ln|H(z)|)                              *
@@ -131,7 +131,7 @@ void usage(int status)
    fprintf(stderr, "       -p p  : AR coefficients filename          [NULL]\n");
    fprintf(stderr, "       -e e  : small value for calculating log() [%g]\n",
            EPS);
-   fprintf(stderr, "       -E E  : floor in db calculated per frame  [FALSE]\n");  
+   fprintf(stderr, "       -E E  : floor in db calculated per frame  [N/A]\n");  
    fprintf(stderr, "       -o o  : output format                     [%d]\n",
            OTYPE);
    fprintf(stderr, "                 0 (20 * log|H(z)|)\n");
