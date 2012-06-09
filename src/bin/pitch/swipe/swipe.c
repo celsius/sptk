@@ -65,7 +65,11 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-static char *rcs_id = "$Id$";
+/****************************************************************
+
+    $Id$
+
+*****************************************************************/
 
 #define VNUM    1.4 // Current version
 
@@ -143,6 +147,13 @@ typedef struct _float_list {
     struct _float_list *next;
 } float_list;
 #endif
+
+#if 0
+#else
+int fftr(double *x, double *y, const int m);
+int fwritef(double *ptr, const size_t size, const int nitems, FILE * fp);
+#endif
+
 #if 0
 // A helper function for loudness() for individual fft slices
 void La(matrix L, vector f, vector fERBs, fftw_plan plan, 
@@ -470,7 +481,7 @@ vector swipe(int fid, double min, double max, double st, double dt) {
     SNDFILE* source = sf_open_fd(fid, SFM_READ, &info, TRUE);
     if (source == NULL || info.sections < 1) return(makev(0)); 
 #else
-    double tmp, dt = (double) frame_shift / samplerate;
+    double dt = (double) frame_shift / samplerate;
     float_list *tmpf;
     vector x = makev(length);
     for (i = 0, tmpf = input; tmpf != NULL; i++, tmpf = tmpf->next) 

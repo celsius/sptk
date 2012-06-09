@@ -83,6 +83,14 @@
     #define NAN     sqrt(-1.)
 #endif
 
+// polynomial fitting
+#if 0
+#else
+static void  LU(int, double **);
+static void  SOLVE(int, double **, double *);
+static void  dgels(int, vector, vector);
+#endif
+
 // create a vector of size xSz
 vector makev(int xSz) {
     vector nw_vector;

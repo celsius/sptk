@@ -140,12 +140,5 @@ intvector                          primes(int);
 vector                             spline(vector, vector);
 double                             splinv(vector, vector, vector, double, int);
 
-// polynomial fitting
-#if 0
-#else
-static void                        LU(int, double **);
-static void                        SOLVE(int, double **, double *);
-static void                        dgels(int, vector, vector);
-#endif
 vector                             polyfit(vector, vector, int);
 double                             polyval(vector, double);
