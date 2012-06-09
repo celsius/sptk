@@ -158,12 +158,15 @@ void ic2ir(double *h, const int leng, double *c, const int nc);
 void c2sp(double *c, const int m, double *x, double *y, const int l);
 void clip(double *x, const int l, const double min, const double max,
           double *y);
+int dft(double *pReal, double *pImag, const int nDFTLength);
 void dct (double *in, double *out, const int size, const int m,
           const Boolean dftmode, const Boolean compmode);
 int dct_create_table_fft(const int nSize);
 int dct_create_table(const int nSize);
-int dct_based_on_fft(float *pReal, float *pImag, const float *pInReal, const float *pInImag);
-int dct_based_on_dft(float *pReal, float *pImag, const float *pInReal, const float *pInImag);
+int dct_based_on_fft(double *pReal, double *pImag, const double *pInReal,
+                     const double *pInImag);
+int dct_based_on_dft(double *pReal, double *pImag, const double *pInReal,
+                     const double *pInImag);
 double df2(const double x, const double sf, const double f0p, const double wbp,
            const double f0z, const double wbz, const int fp, const int fz,
            double *buf, int *bufp);
