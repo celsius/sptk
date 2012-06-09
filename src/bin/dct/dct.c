@@ -96,10 +96,6 @@ char *cmnd;
 
 #include <memory.h>
 
- int dft(float *pReal, float *pImag, const int nDFTLength);
-void dct (double *in, double *out, const int size, const int m,
-          const Boolean dftmode, const Boolean compmode);
-
 int usage(void)
 {
    fprintf(stderr, "\n");
@@ -110,8 +106,7 @@ int usage(void)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : DCT size             [%d]\n", SIZE);
    fprintf(stderr, "       -I    : use comlex number       [FALSE]\n");
-   fprintf(stderr,
-           "       -d    : without using fft algorithm (use dft) [%s]\n",
+   fprintf(stderr, "       -d    : without using fft algorithm (use dft) [%s]\n",
            BOOL[DFTMODE]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
