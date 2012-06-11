@@ -704,7 +704,7 @@ void recursive_calc_type_3(DTW_Table * table)
 void recursive_calc_type_4(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
-   double local, min = 0.0;
+   double local = 0.0, min = 0.0;
 
    for (i = 1; i < Tx; i++) {   /* horizontal */
       if (table->cell[i][0].is_region == PATH_OK) {

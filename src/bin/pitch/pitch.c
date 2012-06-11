@@ -177,7 +177,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int length, frame_shift = FRAME_SHIFT,
-       atype = ATYPE, otype = OTYPE, fnum;
+       atype = ATYPE, otype = OTYPE, fnum = 0;
    double *x, thresh = THRESH, sample_freq = SAMPLE_FREQ, L = LOW, H = HIGH;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;
