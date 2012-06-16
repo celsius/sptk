@@ -63,7 +63,7 @@ Input and output data are in float format.
 
 The transfer function $H(z)$ related to the synthesis filter
 is obtained from the $M$-th order mel-generalized cepstral coefficients
-$c_{\alpha, \gamma}(m)$ as follows.
+$c_{\alpha, \gamma}(m)$ as expressed below:
 \begin{align}
 H(z) &= s_\gamma^{-1} \left( 
            \sum_{m=0}^M c_{\alpha, \gamma}(m) \tilde{z}^{-m} \right) \\
@@ -98,14 +98,14 @@ K    &= s_\gamma^{-1}(b_\gamma(0)) \notag \\
 D(z) &= s_\gamma^{-1} \left( \sum_{m=1}^M b_\gamma(m) {\it\Phi}_m(z) \right) \notag 
 \end{align}
 Also, the coefficients $b'_\gamma(m)$ are obtained from
-the coefficients $c_{\alpha, \gamma}(m)$ by normalizing
-(refer to \hyperlink{gnorm}{gnorm}), and applying linear transformation
+the coefficients $c_{\alpha, \gamma}(m)$ by applying normalization
+(refer to \hyperlink{gnorm}{gnorm}), and a linear transformation
 (refer to \hyperlink{mc2b}{mc2b} and \hyperlink{b2mc}{b2mc}).
-Here we are considering only cases where power parameter
-is $\gamma=-1/C$ ($C$:natural number).
-In this case the filter $D(z)$ is realized as shown in figure 
+Here we consider only cases where the power parameter
+is represented by $\gamma=-1/C$, where $C$ is a natural number.
+In this case the filter $D(z)$ is constructed as shown in figure 
 \ref{fig:mglsadflt_MGLSA}(b),
-where each filter of the $C$ level cascaded filter is realized as shown in
+where each filter of the $C$ level cascaded filter is constructed as shown in
 figure \ref{fig:mglsadflt_MGLSA}(a), 
 and can be expressed as
 \begin{displaymath}
@@ -317,10 +317,10 @@ and can be expressed as
 In the following example,
 the excitation is constructed from pitch data
 read in float format from {\em data.pitch},
-passed through an MGLSA filter 
+and passed through an MGLSA filter 
 built from the mel-generalized cepstrum in
-{\em data.mgcep},
-and the synthesized speech is written to {\em data.syn}:
+{\em data.mgcep}.
+The synthesized speech is then written to {\em data.syn}:
 \begin{quote}
  \verb!excite < data.pitch | mglsadf data.mgcep > data.syn!
 \end{quote} 

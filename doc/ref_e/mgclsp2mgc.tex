@@ -50,27 +50,26 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em mgclsp2mgc} transforms mel-generalized cepstrum coefficients from
-line spectral pair coefficients $c_{\alpha,\gamma}(0), \dots,
-c_{\alpha,\gamma}(M)$ from $M$-th order mel-generalized
-cepstrum coefficients (MGC-LSP) $K, l(1), \dots, l(M)$ from {\em
-  infile} (or standard input),sending the result to standard output. 
+{\em mgclsp2mgc} transforms
+$M$-th order line spectral pair coefficients (MGC-LSPs)
+ \begin{displaymath}
+  K, l(1), \ldots, l(M)
+ \end{displaymath}
+ read from {\em infile} (or standard input)
+into mel-generalized cepstrum coefficients
+ \begin{displaymath}
+ c_{\alpha,\gamma}(0), \dots, c_{\alpha,\gamma}(M),a
+ \end{displaymath}
+sending the result to standard output.
 
 $\alpha$ characterizes the frequency-warping transform,
-while $\gamma$ characterizes the generalized log magnitude transform
-and $K$ is gain.
+ while $\gamma$ characterizes the generalized log magnitude transform
+and $K$ represents the gain.
 
-Also, {\em mgclsp2mgc} does not check stability of MGC-LSP. It is
-necessary to use {\em lspcheck} commandfor getting mel-generalized
-cepstrum coefficients from MGC-LSP checked stability.
-
-% {\em mgclsp2mgc} calculates mel-generalized cepstrum coefficients from
-% line spectral pair coefficients from $M$-th order mel-generalized
-% cepstrum coefficients (MGC-LSP) from {\em infile} (or standard input),
-% sending the result to standard output. Also, {\em mgclsp2mgc} does not
-% check stability of MGC-LSP. It is necessarry to use {\em lspcheck} command
-% for getting mel-generalized cepstrum coefficients from MGC-LSP checked
-% stability.
+Also, {\em mgclsp2mgc} does not check the stability of MGC-LSPs.
+ If it is necessary to use the {\em lspcheck} command
+for checking the stability of the input MGC-LSPs and then
+ generating the mel-generalized cepstrum coefficients.
 \end{qsection}
 
 \begin{options}
@@ -93,14 +92,14 @@ cepstrum coefficients from MGC-LSP checked stability.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the following example, MGC-LSP is read in float format from {\em
-  data.mgclsp} analyzed with $\alpha = 0.35, \gamma = -1$, and the
-mel-generalized cepstrum coefficients are evaluated and written to {\em
-  data.mgc}:
+ In the following example, MGC-LSP is read in float format from
+ {\em data.mgclsp}, and analyzed with $\alpha = 0.35, \gamma = -1$. The
+ mel-generalized cepstrum coefficients are evaluated and written
+ to {\em data.mgc}:
 \begin{quote}
 \verb!mgclsp2mgc -a 0.35 -g -1 data.mgclsp > data.mgc!
 \end{quote}
-Also, MGC-LSP stability can be checked in the following:
+Also, stability of MGC-LSP's can be checked using the following command:
 \begin{quote}
 \verb!lspcheck -r 0.01 data.mgclsp | \ ! \\
 \verb!mgclsp2mgc -a 0.35 -g -1 > data.mgc!

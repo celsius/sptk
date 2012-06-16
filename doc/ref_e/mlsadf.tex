@@ -56,13 +56,13 @@
 from mel-cepstral coefficients 
 $c_\alpha(0),c_\alpha(1),\ldots,c_\alpha(M)$ in {\em mcfile} 
 and uses it to filter an excitation sequence 
-from {\em infile} (or standard input) to synthesize speech data, 
+from {\em infile} (or standard input) and synthesize speech data,
 sending the result to standard output.
 
 Input and output data are in float format.
 
 The exponential transfer function $H(z)$ related to the MLSA synthesis filter
-is obtained from the $M$ order mel-cepstral coefficients
+is obtained from the $M$-th order mel-cepstral coefficients
 $c_\alpha(m)$ as follows.
 \begin{displaymath}
 H(z) = \exp \sum_{m=0}^M c_\alpha(m) \tilde{z}^{-m}
@@ -72,8 +72,8 @@ where
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}.
 \end{displaymath}
 The highly accurate approximation method of the above transfer function
-is explained in the follow.
-Firstly, the transfer function $H(z)$ is rewritten as 
+is explained below.
+First, the transfer function $H(z)$ is expressed as
 \begin{align}
 H(z) &= \exp \sum_{m=0}^M b(m) {\it\Phi}_m(z) \notag \\
      &= K \cdot D(z)\notag
@@ -92,7 +92,7 @@ and
 K    &= \exp b(0) \notag \\
 D(z) &= \exp \sum_{m=1}^M b(m) {\it\Phi}_m(z)  \notag
 \end{align}
-Also, the coefficients $b(m)$ can be obtained
+Therefore, the coefficients $b(m)$ can be obtained
 through a linear transformation of $c_\alpha(m)$
 (refer to \hyperlink{mc2b}{mc2b} and \hyperlink{b2mc}{b2mc}).
 \setcounter{figure}{0}
@@ -320,7 +320,7 @@ through a linear transformation of $c_\alpha(m)$
 \end{figure}
 
 \par
-The filter $D(z)$ can be realized as shown in
+The filter $D(z)$ can be constructed as shown in
 figure \ref{fig:mlsadflt_MLSA}(b), where basic
 filter (figure \ref{fig:mlsadflt_MLSA}(a)) is
 the following IIR filter.

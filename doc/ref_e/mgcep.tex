@@ -61,8 +61,8 @@ sending the result to standard output.
 There are several different output formats,
 controlled by the --o option.
 
-When input signal has length $L$,
-then the time sequence is given by
+Considering an  input signal of length $L$ ,
+ the time sequence is presented by
 \begin{displaymath}
   x(0),x(1),\dots,x(L-1)
 \end{displaymath}
@@ -72,7 +72,7 @@ Input and output data are in float format.
 In the mel-generalized cepstral analysis, the spectrum of the speech signal
 is modeled by $M$-th order mel-generalized cepstral
 coefficients $c_{\alpha, \gamma}(m)$
-as follows.
+as expressed below:
 \begin{align}
 H(z) &= s_\gamma^{-1}\left(
         \sum_{m=0}^M c_{\alpha, \gamma}(m)z^{-m} \right) \notag \\
@@ -83,19 +83,20 @@ H(z) &= s_\gamma^{-1}\left(
                 & \gamma=0
         \end{cases} \notag
 \end{align}
-For this command ``mgcep'', it is applied a cost function
-based on the unbiased estimation log spectrum method.
+For this command ``mgcep'',
+a cost function
+based on the unbiased estimation log spectrum method is applied.
 The variable $\tilde{z}^{-1}$ can be expressed as the following
 first order all-pass function
 \begin{displaymath}
 \tilde{z}^{-1} = \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}
 \end{displaymath}
-The phase characteristic is given by the variable $\alpha$.
+ The phase characteristic is represented by the variable $\alpha$.
 For a sampling rate 10kHz, $\alpha$ is made equal to $0.35$.
 For a sampling rate 8kHz, $\alpha$ is made equal to $0.31$.
-By making these choices for $\alpha$,
-the mel-scale becomes the good approximation to human
-sensitivity to the loudness speech sound.
+By setting $\alpha$ to these values,
+the mel-scale becomes a good approximation to the human
+sensitivity to the loudness of speech.
 
 The Newton-Raphson method is used to minimize the cost function
 when evaluating mel-cepstral coefficients.
@@ -173,12 +174,12 @@ and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
         \argm{j}{J}{maximum iteration of Newton-Raphson method}{30}
         \argm{d}{D}{end condition of Newton-Raphson method}{0.001}
         \argm{p}{P}{order of recursions}{$L-1$}
-        \argm{e}{E}{small value added to periodgram}{0} 
+        \argm{e}{E}{small value added to periodogram}{0} 
         \argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
  
 \begin{qsection}{EXAMPLE}
-In the following speech data in float format is read
+In the following example, speech data is read in float format
 from {\em data.f} and analyzed with $\gamma=0$, $\alpha=0$
 (which correspond to UELS method for log spectrum estimation)
 and the resulting cepstral coefficients are written {\em data.cep}:
@@ -186,26 +187,25 @@ and the resulting cepstral coefficients are written {\em data.cep}:
   \verb!frame < data.f | window | mgcep > data.cep !
 \end{quote}
 
-In the same way if we want mel-cepstral coefficients:
+In a similar way, mel-cepstral coefficients can be obtained by
 \begin{quote}
  \verb!frame < data.f | window | mgcep -a 0.35 > data.mcep !
 \end{quote}
 
-If we want linear prediction coefficients:
+And linear prediction coefficients can be obtained by
 \begin{quote}
   \verb!frame < data.f | window | mgcep -g -1 -o 5 > data.lpc !
 \end{quote}
-In this case the linear prediction coefficients are written
-in the following representation.
+In this case, the linear prediction coefficients are represented as
 \begin{displaymath}
   K, a(1), a(2), \dots, a(M)
 \end{displaymath}
 \end{qsection}
 
-In the following, speech data in float format is read
+In the following example, speech data in float format is read
 from {\em data.f}, and analyzed with $\gamma=0$, $\alpha=0$
-(which correspond to UELS method for log spectrum estimation)
-and the resulting cepstral coefficients are written {\em data.cep}:
+(which correspond to UELS method for log spectrum estimation).
+The resulting cepstral coefficients are written to {\em data.cep}:
 \begin{quote}
   \verb!frame < data.f | window | \! \\
   \verb!fftr -A -H | mgcep -q 3 > data.cep!

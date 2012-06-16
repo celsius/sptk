@@ -43,7 +43,7 @@
 % ----------------------------------------------------------------- %
 \hypertarget{mlpg}{}
 \name[ref:synHMM-EUROSPEECH95]{mlpg}%
-{obtain parameter sequence from PDF sequence}{parameter generation}
+{obtains parameter sequence from PDF sequence}{parameter generation}
 
 \begin{synopsis}
 	\item [mlpg] [ --l $L$ ] [ --m $M$ ] 
@@ -56,7 +56,7 @@
 	{\em mlpg} calculates the maximum likelihood parameters 
 	from the means and diagonal covariances of Gaussian distributions 
 	from {\em infile} (or standard input),
-	sending the result to standard output.
+	and sends the result to standard output.
 	The input format is
  \begin{align}
 	& \dots, \mu_t(0), \dots, \mu_t(M),
@@ -78,8 +78,8 @@
 	\bc_t = [c_t(0), c_t(1), \dots, c_t(M)]^\top
  \end{displaymath}
 	and the dynamic feature vector 
-	\ $\Delta^{(1)}\bc_t, \dots, \Delta^{(N)}\bc_t$,
-	that is,
+	\ $\Delta^{(1)}\bc_t, \dots, \Delta^{(N)}\bc_t$
+	. Thus, the speech parameter vector can be expressed as:
  \begin{displaymath}
 	\bo_t = [\bc_t', \Delta^{(1)}\bc_t', \dots, \Delta^{(N)}\bc_t']^\top.
  \end{displaymath}
@@ -89,9 +89,9 @@
 	\Delta^{(n)}\bc_t 
 	= \sum_{\tau=-L^{(n)}}^{L^{(n)}} w^{(n)}(\tau)\bc_{t+\tau}
  \end{displaymath}
-        where $n$ is the order of dynamic feature vector, for
-        example, when we evaluate $\Delta^2$ parameter, n=2.
-        The mlpg command reads probability density functions
+ where $n$ represents the order of dynamic feature vector.
+ (e.g. $n =2$ for $\Delta^{2}$)
+ The mlpg command reads the probability density functions
 	sequence
 \begin{displaymath}
 	\left((\bmu_1, \bSigma_1), (\bmu_2, \bSigma_2), \dots, (\bmu_T, \bSigma_T)
@@ -108,11 +108,9 @@ where
 		\notag
  \end{align}
 	and evaluates the maximum likelihood parameter sequence
-	\ $(\bo_1, \bo_2, \dots, \bo_T)$,
-	\ and sends the static feature vector sequence $\bc_t$,
-        that is
-	\ $(\bc_1, \bc_2, \dots, \bc_T)$,
-	to the output.
+	\ $(\bo_1, \bo_2, \dots, \bo_T)$.
+	\ The output is the static feature vector sequence
+	\  $\bc_t = (\bc_1, \bc_2, \dots, \bc_T)$.
 	In the example above,
 	$\bmu^{(0)}, \bSigma^{(0)}$ represent the static feature vector
         mean and covariance matrix, respectively,
@@ -126,9 +124,9 @@ where
 	\argm{d}{(fn~|~d_0~[d_1~\dots])}{$fn$ is 
                 the file name of the parameters $w^{(n)}(\tau)$
                	used when evaluating the dynamic feature vector.
-                It is assume that the number of coefficients
-                to the left and to the right have the same length,
-                if this is not true than zeros are added to the
+                It is assumed that the number of coefficients
+                to the left and to the right have the same length.
+                If this is not true, then zeros are added to the
                 short side.
                 For example, if the coefficients are
 	 \begin{displaymath}
@@ -142,14 +140,14 @@ where
                 the coefficients(which compose the file $fn$)
                 can be directly input in the command line.
                 When the order of the dynamic feature vector is higher
-                then one, then the sets of coefficients can be input
+                than one, the sets of coefficients can be input
                 one after the other as shown on the last example below.
-		this option can not be used with the --r option.}{N/A}
+		This option cannot be used with the --r option.}{N/A}
 	\argm{r}{N_R~W_1~[W_2]}{
 		This option is used when $N_R$-th order dynamic parameters
                 are used and the weighting coefficients $w^{(n)}(\tau)$
                 are evaluated by regression.
-                $N_R$ can be made equal to 1 or 2.
+                $N_R$ can be set to 1 or 2.
 		The variables $W_1$ and $W_2$ represent the
                 widths of the first and second order regression
                 coefficients, respectively.
@@ -171,7 +169,7 @@ where
 				(a_0\tau^2 - a_1) \bc_{t+\tau}}
 			{2(a_2a_0-a_1^2)}
 	 \end{displaymath}
-		this option can not be used with the --d option.}{N/A}
+		This option can not be used with the --d option.}{N/A}
 	\argm{i}{I}{type of input PDFs\\
 	 \begin{displaymath}
              \begin{matrix}
@@ -189,7 +187,7 @@ where
         the number of parameters is 15, the width of
         the window for first or second order dynamic feature
         evaluation is 1, and the parameter sequence is
-        evaluated from the probability density function.
+        evaluated from the probability density function:
  \begin{quote}
 	\verb!mlpg -m 15 -r 2 1 1 data.pdf > data.par!
  \end{quote}

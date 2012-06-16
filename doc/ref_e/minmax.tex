@@ -58,12 +58,12 @@ If the frame length $L$ is 1,
 each input number is considered to be both
 the minimum and maximum value for its length-1 frame.
 
-The input format is float. 
+The input format is float by default.
 If the --d option is not given, 
-the output format is float, 
+the output format will also be float,
 consisting of the minimum and maximum values.
-If the --d option is give, 
-the output format is ASCII, 
+If the --d option is given,
+the output format will be ASCII,
 showing the positions within the frame 
 where the minimum and maximum values occurred, as follows:
 \begin{displaymath}
@@ -80,19 +80,19 @@ value:position_0,position_1,\dots
 
 \begin{qsection}{EXAMPLE}
 If, for example, the input data in {\em data.f} in float format
-is as follows
+is given as
 \[1,1,2,3,4,5,6,7,8,9,9,10\],
 then the output of the following command
 \begin{quote}
  \verb!minmax data.f -l 6 > data.m!
 \end{quote}
-is written to {\em data.m} as follows.
+is written to {\em data.m} as
 \[1,5,6,10\]
-Also if the following command is applied
+Also, if the following command is applied
 \begin{quote}
  \verb!minmax -n 2 -d data.f!
 \end{quote}
-then the result is 
+then the result will be
 \begin{quote}
  \verb!1:0!\\
  \verb!2:2!\\
