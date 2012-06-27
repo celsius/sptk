@@ -80,9 +80,21 @@ double cal_det(double **var, const int D)
    if (choleski(var, tri, D)) {
       for (l = 0; l < D; l++)
          ldet += log(tri[l][l]);
+
+      for (l = 0; l < D; l++) {
+          free(tri[l]);
+      }
+      free(tri);
+
       return (2.0 * ldet);
-   } else
+   } else {
+      for (l = 0; l < D; l++) {
+          free(tri[l]);
+      }
+      free(tri);
+
       return 0;
+   }
 }
 
 double cal_gconst(double *var, const int D)
@@ -182,6 +194,13 @@ void cal_inv(double **cov, double **inv, const int L)
             for (k = j; k < L; k++)
                inv[i][j] = inv[i][j] + S_inv[k][i] * S_inv[k][j];
       }
+
+   for (i = 0; i < L; i++) {
+      free(S[i]);
+      free(S_inv[i]);
+   }
+   free(S);
+   free(S_inv);
 }
 
 void fillz_gmm(GMM * gmm, const int M, const int L)
@@ -251,6 +270,7 @@ double log_wgdf(GMM * gmm, const int m, double *dat, const int L)
       sum += tmp * diff[l];
    }
    lwgd = log(gmm->weight[m]) - 0.5 * sum;
+   free(diff);
    return (lwgd);
 }
 
