@@ -57,7 +57,7 @@
 *                -t t      :  number of training vector         [N/A]         *
 *                -s s      :  initial codebook size             [1]           *
 *                -e e      :  final codebook size               [256]         *
-*                -f f      :  initial codebook filename         [NULL]        *
+*                -F F      :  initial codebook filename         [NULL]        *
 *                -i i      :  maximum number of iteration       [1000]        *
 *                -m m      :  minimum num. of training          [NULL]        *
 *                             vectors for each cell             [1]           *
@@ -161,7 +161,7 @@ void usage(int status)
            "       -e e      : final codebook size                                  [%d]\n",
            ECBSIZE);
    fprintf(stderr,
-           "       -f f      : initial codebook filename                            [NULL]\n");
+           "       -F F      : initial codebook filename                            [NULL]\n");
    fprintf(stderr,
            "       -i i      : maximum number of iteration for centroid update      [%d]\n",
            ITER);
@@ -249,7 +249,7 @@ int main(int argc, char **argv)
             delta = atof(*++argv);
             --argc;
             break;
-         case 'f':
+         case 'F':
             fpcb = getfp(*++argv, "rb");
             --argc;
             break;

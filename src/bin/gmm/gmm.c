@@ -63,7 +63,7 @@
  *               -v v  :  floor value of variances            [0.001]    *
  *               -w w  :  floor value of weights (1/m)*w      [0.001]    *
  *               -f    :  full covariance                     [FALSE]    *
- *               -g fn :  gmm initial parameter file          [FALSE]    *
+ *               -F fn :  gmm initial parameter file          [FALSE]    *
  *       infile:                                                         *
  *               training data sequence                       [stdin]    *
  *       stdout:                                                         *
@@ -152,7 +152,7 @@ void usage(int status)
            DEF_W);
    fprintf(stderr, "       -f    : full covariance                    [%s]\n",
            BOOL[FULL]);
-   fprintf(stderr, "       -g fn : GMM initial parameter file         [N/A]\n");
+   fprintf(stderr, "       -F fn : GMM initial parameter file         [N/A]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,
@@ -174,7 +174,7 @@ void usage(int status)
    fprintf(stderr,
            "         log-likelihood for training data at each iteration.\n");
    fprintf(stderr,
-           "       -g option specifies a GMM initial parameter file in which\n");
+           "       -F option specifies a GMM initial parameter file in which\n");
    fprintf(stderr,
            "         weight, mean, and variance parameters must be aligned\n");
    fprintf(stderr,
@@ -251,7 +251,7 @@ int main(int argc, char **argv)
          case 'f':
             full = 1 - full;
             break;
-         case 'g':
+         case 'F':
             fgmm = getfp(*++argv, "rb");
             --argc;
             break;
