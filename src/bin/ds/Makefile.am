@@ -2,7 +2,7 @@
 ##
 ## $Id$
 INCLUDES = -I$(top_srcdir)/include
-lpcoefdir = $(DESTDIR)$(libdir)
+lpcoefdir = $(datarootdir)/SPTK
 
 bin_PROGRAMS = ds
 ds_SOURCES = ds.c 

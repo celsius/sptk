@@ -7,7 +7,7 @@ bin_SCRIPTS = us16.sh uscd.sh
 us_SOURCES = us.c 
 us_LDADD = $(top_builddir)/lib/libSPTK.a
 
-lpcoefdir = $(DESTDIR)$(libdir)
+lpcoefdir = $(datarootdir)/SPTK
 us_CPPFLAGS = -DLIB=\"$(lpcoefdir)\"
 
 dist_lpcoef_DATA = lpfcoef.2to3f \
@@ -24,7 +24,7 @@ IO_SYMBOL = @IO_SYMBOL@
 IO_FORMAT = @IO_FORMAT@
 
 replace_path  = sed -e 's,@binpath@,$(DESTDIR)$(bindir),g' \
-	       -e 's,@libpath@,$(DESTDIR)$(libdir),g'  \
+	       -e 's,@libpath@,$(datarootdir)/SPTK,g'  \
 	       -e 's,@sptk_version@,$(PACKAGE_VERSION),g'  \
 	       -e 's,@cshpath@,$(CSH),' \
 	       -e 's,@io_symbol@,$(IO_SYMBOL),g' \
