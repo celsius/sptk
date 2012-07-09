@@ -55,8 +55,8 @@
 *                -l L  : dimentionality of input/output vectors      [3]         *
 *                -t t  : number of input vectors                     [EOF]       *
 *                -n N  : number of output principal componets        [2]         *
-*                -i I  : number of iteration of jacobi method        [10000]     *
-*                -e e  : threshold of convergence of jacobi method   [0.000001]  *
+*                -i I  : number of iteration of Jacobi method        [10000]     *
+*                -e e  : threshold of convergence of Jacobi method   [0.000001]  *
 *                -v    : output eigenvectors and mean vector         [FALSE]     *
 *                -V fn : output eigenvalues and contribution ratio               *
 *                        (output filename = fn)                      [NULL]      *
@@ -132,10 +132,10 @@ void usage(int status)
            "       -n N  : dimentionality of output vectors              [%d]\n",
            PRICOMP_ORDER);
    fprintf(stderr,
-           "       -i I  : iteration of jacobi method                    [%d]\n",
+           "       -i I  : iteration of Jacobi method                    [%d]\n",
            ITEMAX);
    fprintf(stderr,
-           "       -e e  : threshold of convergence of jacobi method     [%f]\n",
+           "       -e e  : threshold of convergence of Jacobi method     [%f]\n",
            EPS);
    fprintf(stderr,
            "       -v    : output eigen vectors and mean vector          [FALSE]\n");

@@ -98,7 +98,7 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] pcafile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l L  : dimentinality of vectors         [%d]\n",
+   fprintf(stderr, "       -l L  : dimensionality of vectors        [%d]\n",
            LENG);
    fprintf(stderr, "       -n N  : order of principal component     [%d]\n",
            PCA_ORDER);
