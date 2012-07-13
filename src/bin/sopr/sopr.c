@@ -235,7 +235,7 @@ int main(int argc, char *argv[])
          c = *++s;
          if (islower(c) && *++s == '\0') {
             s = *++argv;
-            if (s == NULL) {
+            if ((s == NULL) && (c != 'h' )) {
                fprintf(stderr,
                        "%s : numerical argument is also needed !\n", cmnd);
                usage(1);

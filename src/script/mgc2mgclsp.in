@@ -101,6 +101,10 @@ while ($i < $#argv)
 		@ i++
 		set s = $argv[$i]
 		breaksw
+	case -h:
+                set exit_status = 0
+		goto usage
+		breaksw
         default:
                 set file = $argv[$i]
                 if ( ! -f $file ) then
