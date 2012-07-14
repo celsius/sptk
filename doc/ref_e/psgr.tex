@@ -76,8 +76,8 @@ sending the result to standard output.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-This example sends to a printer a figure file {\em data.fig}
-written through the fig command:
+This example/command creates the figure file {\em data.fig}
+ and sends it to a printer.
 \begin{quote}
  \verb!fig data.fig | psgr | lpr!
 \end{quote}
@@ -85,15 +85,13 @@ written through the fig command:
 
 \begin{qsection}{BUGS}
 \begin{itemize}
-\item There is possibility that a part of the Y axis label
-is not properly output. In this case the user can 
-change the margin to solve this problem.
-
-\item In the case that the size of the figure is modified,
-and included in a \TeX file, there is possibility that
-it dose not appear correctly.
-To solve this problem, please use \TeX options for including 
-pictures and corresponding sizes.
+\item It may happen that a part of the Y axis label
+      is not properly output.
+      This problem can be solved by altering the margins.
+\item When the size of the figure is modified,
+      and included in a \TeX file, it may not be displayed correctly.
+      To solve this problem, please use \TeX options for including
+      pictures and adjusting sizes.
 \end{itemize}
 \end{qsection}
 

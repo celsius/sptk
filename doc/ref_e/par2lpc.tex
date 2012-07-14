@@ -64,9 +64,9 @@ and the LPC output format is
 
 Input and output data are in float format.
 
-The transformation of PARCOR coefficients into 
-linear prediction coefficients is undertaken 
-by a part of Durbin algorithm as follows.
+The Durbin algorithm is used for the transformation
+of PARCOR coefficients into
+linear prediction coefficients as follows;
 \begin{align} 
 a^{(m)}(m) &= k(m) \notag \\
 a^{(m)}(i) &= a^{(m-1)}(i) + k(m) a^{(m-1)}(m-i), \qquad 1\leq i \leq m \notag

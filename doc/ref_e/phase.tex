@@ -52,7 +52,7 @@
 \begin{qsection}{DESCRIPTION}
 {\em phase} calculates the phase of the spectrum of a real sequence 
 from {\em infile} (or standard input), 
-sending the result to standard output.
+and sends the result to standard output.
 Assume that the input sequence is
 \begin{displaymath}
   x(0), x(1), \dots, x(L-1)
@@ -85,57 +85,56 @@ then the phase of the corresponding filter related to
 the assigned coefficients is calculated
 \footnote{
 In this case the phase is not evaluated from the filter
-impulse response, the phase is evaluated from
+impulse response, but from
 the difference between the numerator and denominator phases}.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{frame length power of 2}{256}
-	\argm{p}{pfile}{numerator coefficients file\\
-			The {\em pfile} should follow this structure in
-                        float format:\\
-			\hspace*{2ex}$K, a(1), \dots, a(M)$\\[-1ex]}{NULL}
-	\argm{z}{zfile}{denominator coefficients file\\
-			The {\em zfile} should follow this structure in
-                        float format:\\
-			\hspace*{2ex}$b(0), b(1), \dots, b(N)$\\
-			The contents of {\em pfile} and {\em zfile}
-                        should be in a similar form to that used in
-                        command {\em dfs}.
-			When only the {\bf --p} option is assigned
-                        then the denominator is made equal to 1.
-                        When only the {\bf --z} option is assigned
-                        then the numerator and the gain $K$ are made
-                        equal to 1.
-                        If neither {\bf --p} nor {\bf --z} are
-                        assigned, data is read from the standard input.}{NULL}
-	\argm{m}{M}{order of denominator polynomial\\
-			In the case where the number of input data
-                        values is less then $M+1$, then $M$ is made
-                        equal to the number of input data values $-1$.
-                        If the input data should not be analyzed in blocks of
-                        size $M+1$, then it is not necessary to assign
-                        a value to $M$.}{$L-1$}
-	\argm{n}{N}{order of numerator polynomial\\
-                        Similarly to the --m option,
-			in the case where the number of input data
-                        values is less then $N+1$, then $N$ is made
-                        equal to the number of input data values $-1$.
-                        If the input data should not be analyzed in blocks of
-                        size $N+1$, then it is not necessary to assign
-                        a value to $N$.}{$L-1$}
-	\argm{u}{}{unlapping}{TRUE}
+    \argm{l}{L}{frame length power of 2}{256}
+    \argm{p}{pfile}{numerator coefficients file\\
+            The {\em pfile} should follow this structure in
+            float format:\\
+            \hspace*{2ex}$K, a(1), \dots, a(M)$\\[-1ex]}{NULL}
+    \argm{z}{zfile}{denominator coefficients file\\
+            The {\em zfile} should follow this structure in
+            float format:\\
+            \hspace*{2ex}$b(0), b(1), \dots, b(N)$\\
+            The contents of {\em pfile} and {\em zfile}
+            should be in a similar form to that used in
+            the {\em dfs} command.
+            When only the {\bf --p} option is assigned
+            then the denominator is made equal to 1.
+            When only the {\bf --z} option is assigned,
+            the numerator and the gain $K$ are both set to 1.
+            If neither {\bf --p} nor {\bf --z} are
+            assigned, data is read from the standard input.}{NULL}
+    \argm{m}{M}{order of polynomial denominator\\
+            If the number of input data
+            values is less $M+1$, then $M$ is set to the number
+            of input data values $-1$.
+            On the other hand, There is no need to assign a values to
+            $M$ if one doesn't want the data to be analyzed is
+            blocks of $M+1$ size.}{$L-1$}
+    \argm{n}{N}{order of polynomial numerator\\
+            Likewise the --m option,
+            if the number of input data
+            values is less then $N+1$, then $N$ is set
+            to the number of input data values $-1$.
+            On the other hand, There is no need to assign a values to
+            $N$ if one doesn't want the data to be analyzed is
+            blocks of $N+1$ size.}{$L-1$}
+    \argm{u}{}{unwrapping}{TRUE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 In the example below, the phase characteristic of a digital filter
 with coefficients assigned by the files {\em data.p, data.z} 
-in float format is displayed:
+in float format can be displayed by:
 \begin{quote}
   \verb!phase -p data.p -z data.z | fdrw | xgr !
 \end{quote}
 If the filter defined by {\em data.p}, {\em data.z} is stable
-then the following command gives rise to a similar result:
+then the following command will give a similar result:
 \begin{quote}
   \verb!impulse | dfs -p data.p -z data.z | phase | fdrw | xgr !
 \end{quote}
@@ -149,9 +148,9 @@ then the following command gives rise to a similar result:
 \end{qsection}
 
 \begin{qsection}{BUGS}
-When the sample interval between FFT points is large
+If the sample interval between FFT points is large
 (the value assigned by the --l option is small),
-when the phase characteristic includes steep angles
-(when zeros and/or poles are close to the unit circle in the $z$
- domain), then sometimes phase is not properly drawn in continuous form.
+or if the phase characteristic includes steep angles
+(i.e. zeros and/or poles are close to the unit circle in the $z$
+ domain), it might happen that the phase is not properly drawn in continuous form.
 \end{qsection}

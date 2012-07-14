@@ -50,8 +50,8 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- {\em pca} carries out principal component analysis
- from {\em infile} (or standard input) using the jacobi method,
+ {\em pca} applies principal component analysis
+ in the data from {\em infile} (or standard input) using the Jacobi method,
  and sends the result to standard output.
  {\em pca} can also calculate contribution ratio with the eigen values.
 
@@ -59,35 +59,35 @@
  the input training data set consists of $L$-dimension vectors of the form:
  \[
  \Vec{x}(0), \Vec{x}(1), \Vec{x}(2), \Vec{x}(3), \cdots \;\;\;
- where\;\;\Vec{x}(i) = (x_{i}(1), x_{i}(2), \cdots, x_{i}(L))
+ \mathrm{where}\;\;\Vec{x}(i) = (x_{i}(1), x_{i}(2), \cdots, x_{i}(L))
  \]
 
 Input and output data are in float format. 
 \end{qsection}
 
 \begin{options}
- \argm{l}{L}{dimention of vector}{3}
+ \argm{l}{L}{dimension of vector}{3}
  \argm{n}{N}{number of output principal components}{2}
- \argm{i}{I}{limit of iteration on jacobi method}{10000}
- \argm{e}{e}{threshold of convergence on jacobi method}{0.000001}
- \argm{v}{}{output eigen vectors and mean vector of the training data}{FALSE}
- \argm{V}{fn}{output eigen values and contribution rate (output filename = fn)}{FALSE}
+ \argm{i}{I}{limit of iterations of the Jacobi method}{10000}
+ \argm{e}{e}{threshold of convergence of the Jacobi method}{0.000001}
+ \argm{v}{}{output eigenvectors and mean vector of the training data}{FALSE}
+ \argm{V}{fn}{output eigenvalues and contribution rate (output filename = fn)}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
  In the example below,
- the eigen vectors and the eigen values are
+ the eigenvectors and the eigenvalues are
  calculated  from {\em data.f}
- which contains three-dimentional training vectors.
- The mean vectors and eigen vectors are sent to
- {\em pca.dat}, and the eigen values are sent to {\em eigen.dat}.
+ which contains three-dimensional training vectors.
+ The mean vectors and eigenvectors are sent to
+ {\em pca.dat}, and the eigenvalues are sent to {\em eigen.dat}.
 \begin{quote}
   \verb!pca data.f -n 2 -l 3 -v -V eigen.dat > pca.dat!
 \end{quote} 
 Note that in the {\em pca.dat}, the mean vector is written in front of
-the eigen vectors.
+the eigenvectors.
 In the {\em eigen.dat}, 
-the eigen values and their contribution ratio are bound per
+the eigenvalues and their contribution ratio are bound by
 the same principal component and ordered according to the
 magnitude of the eigen values.
 \end{qsection} 

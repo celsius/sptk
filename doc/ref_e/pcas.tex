@@ -50,11 +50,11 @@
 
 \begin{qsection}{DESCRIPTION}
  {\em pcas} calculates principal component scores
- from {\em infile} (or standard input) ,
- sending the result to standard output.
+ from the data in {\em infile} (or standard input) ,
+ and sends the result to standard output.
 
  The input data set must be composed of an $L$-dimension,
- mean vector $\Vec{m}$ and eigen vectors $\Vec{e}(i)$ as in:
+ mean vector $\Vec{m}$ and eigenvectors $\Vec{e}(i)$ as in:
 \[
  \Vec{m}, \Vec{e}(0), \Vec{e}(1), \Vec{e}(2), \cdots
  \]
@@ -67,8 +67,8 @@ Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
- \argm{l}{L}{dimentionality of vector}{3}
- \argm{n}{N}{number principal components for output}{2}
+ \argm{l}{L}{dimensionality of vector}{3}
+ \argm{n}{N}{output number of principal components}{2}
 \end{options}
 
 
@@ -76,12 +76,11 @@ Input and output data are in float format.
  In the example below,
  the principal component scores are calculated
  from {\em test.dat} and sent to {\em score.dat}. Here, {\em pca.dat}
- is a file that contains the mean and eigen vectors.
+ is a file that contains the mean and eigenvectors.
 \begin{quote}
   \verb!pcas pca.dat -l 3 -n 2 < test.dat > score.dat!
 \end{quote} 
-In {\em pca.dat}, the mean vector must be written in front of the
-eigen vectors.
+In {\em pca.dat}, the mean vector must be written before the eigenvectors.
 \end{qsection} 
 \begin{qsection}{SEE ALSO}
  \hyperlink{pca}{pca}

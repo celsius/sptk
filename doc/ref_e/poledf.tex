@@ -77,10 +77,10 @@ H(z) = \frac{K}{\displaystyle 1+\sum_{m=1}^M a(m) z^{-m}}
 
 \begin{qsection}{EXAMPLE}
 In the example below, the excitation is generated
-from pitch information read from {\em data.pitch} in
-float format, then it is passed through the standard form synthesis
+from the pitch information read from {\em data.pitch} in
+float format. It is then passed through the standard form synthesis
 filter built from the linear prediction coefficients file
-{\em data.lpc}, and synthesized speech is output to
+{\em data.lpc}, and the synthesized speech is output to
 {\em data.syn}:
 \begin{quote}
   \verb!excite < data.pitch | poledf data.lpc > data.syn!

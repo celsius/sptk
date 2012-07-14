@@ -63,13 +63,13 @@ the generated sequence is,
 \underbrace{S, S+T, S+2T,  \dots, E}_{(E-S)/T}
 \end{displaymath}
 \par
-If the --l option, --e option and --n option are used
-in the same time, then only the last option are taken into account.
+If the --l , --e and --n options are used
+at the same time, only the last option is taken into account.
 \end{qsection}
 
 \begin{options}
 	\argm{l}{L}{length of ramp sequence\\
-                    In the case $L \le 0$ then ramp values will be
+                    If $L \le 0$ ramp values will be
                     generated indefinitely.}{256}
 	\argm{n}{N}{order of ramp sequence}{L-1}
 	\argm{s}{S}{start value}{0}
@@ -78,7 +78,7 @@ in the same time, then only the last option are taken into account.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The Following example output the sequence 
+The command below outputs the following sequence:
 \begin{displaymath}
   y(n)=\exp(-n)
 \end{displaymath}

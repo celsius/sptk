@@ -50,26 +50,26 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em sin} generates a discrete sin wave sequence 
-of period $P$, length $L$ and magnitude $M$, 
+of period $P$, length $L$ and magnitude $M$ of the form, 
 \begin{displaymath}
   x(n) = M \cdot \sin \left( \frac{2\pi}{P} \cdot n \right), 
 \end{displaymath}
-sending the result to standard output.
+and sends the result to standard output.
 
-Output data is in float format.
+Both input and output data are in float format.
 \end{qsection}
 
 \begin{options}
 	\argm{l}{L}{length\\
-                        In the case $L \le 0$ then sin values will be
+                        If $L \le 0$, sin values will be
                         generated indefinitely.}{256}
 	\argm{p}{P}{period}{10.0}
 	\argm{m}{M}{magnitude}{1.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The following example passes sin wave sequence through
-Blackman window and displays the results in the screen:
+In the following example, a sin wave sequence is parsed through
+a Blackman window and the results are displayed the results on the screen:
 \begin{quote}
 \verb!sin -p 12.3 | window | fdrw | xgr!
 \end{quote}

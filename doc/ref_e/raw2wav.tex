@@ -54,7 +54,7 @@
 \end{qsection}
 
 \begin{options}
-	\argm{swab}{}{change ``Endian''}{FALSE}
+	\argm{swab}{}{change endian}{FALSE}
 	\argm{s}{S}{sampling frequency}{16000}
 	\argm{d}{D}{destination directory}{N/A}
 	\argm{n}{}{normalization with the maximum value\\
@@ -81,10 +81,12 @@ if max $>$= 32767}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The following example shows raw file format (fs:8kHz) 
-read from {\em data.raw} is converted to wav file format,
-and output is {\em data.wav} in the same directory as data.raw
- unless {\em -d} option is given. :
+In the following command, the file {\em file.raw},
+ in raw format is converted to the wav format file {\em data.wav}
+ and saved to the same directory of the input file.
+ Here, the --s option specifies the sampling frequency of the input file.
+ One can also specify a different directory for the output file
+ by using the --d option.
 \begin{quote}
   \verb!raw2wav -s 8000 data.raw!
 \end{quote}

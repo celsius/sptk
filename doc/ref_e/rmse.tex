@@ -53,7 +53,7 @@
 from {\em infile} (or standard input) and {\em file1}, 
 sending the results to standard output.
 
-From given two files, $L$-length time series 
+If two files are given, the $L$-length time series 
 \begin{displaymath}
   \underbrace{x_1(0),x_1(1),\dots,x_1(L-1)},\underbrace{x_2(0),x_2(1),\dots}
 \end{displaymath}
@@ -62,7 +62,8 @@ and
   \underbrace{y_1(0),y_1(1),\dots,y_1(L-1)},\underbrace{y_2(0),y_2(1),\dots}
 \end{displaymath}
 are read,
-and then RMSE of these two series are calculated and output
+and the RMSE of these two series are calculated and output.
+ The RMSE is given by:
 \begin{displaymath}
 \mathrm{RMSE}_j = \sqrt{\sum_{m=0}^{L-1} (x_j(m)-y_j(m))^2/L}
 \end{displaymath}
@@ -77,7 +78,7 @@ Input and output data are in float format.
 
 \begin{qsection}{EXAMPLE}
 This example calculates the RMSE of input data files {\em data.f1} and {\em
-data.f2}, and output its maximum and minimum values:
+data.f2}, and outputs its maximum and minimum values:
 \begin{quote}
  \verb!rmse -l 26 data.f1 data.f2 | minmax | dmp +f!
 \end{quote}

@@ -52,17 +52,18 @@
 \begin{qsection}{DESCRIPTION}
 {\em root\_pol} finds root values of a polynomial equation
 from {\em infile} (or standard input), 
-sending the result to standard output.
+and sends the result to standard output.
 
-For given input file, read coefficients
+For a given input file, the coefficients
 \begin{displaymath}
   a_0, a_1, \dots, a_n
 \end{displaymath}
-of an $n$-th order polynomial equation
+of an $n$-th order polynomial equation of the form:
 \begin{displaymath}
-  P(x) = a_0x^n + a_1x^{n-1} + \dots + a_{n-1}x + a_n
+  P(x) = a_0x^n + a_1x^{n-1} + \dots + a_{n-1}x + a_n,
 \end{displaymath}
-calculate root values by Durand-Kerner-Aberth method.
+are first read from the file and then the roots of the polynomial
+ are calculated by the  Durand-Kerner-Aberth method.
 \par
 If roots of $P(x)$ are $z_i$, 
 the result is sent to standard output 
@@ -98,8 +99,9 @@ Both input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-This example calculates roots of a polynomial equation from file {\em data.z}
-and output its results in polar form:
+The following command calculates roots of the polynomial equation
+ specified in the file {\em data.z}.
+The results are output in polar form:
 \begin{quote}
  \verb!root_pol -r < data.z | x2x +a 2!
 \end{quote}
