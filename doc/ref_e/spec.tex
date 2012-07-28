@@ -53,7 +53,7 @@
 \begin{qsection}{DESCRIPTION}
 {\em spec} computes the log spectrum magnitude of framed windowed input data 
 from {\em infile} (or standard input), 
-sending the result to standard output.
+and sends the result to standard output.
 
 Alternatively, given the poles (--p {\em pfile} option) 
 and zeroes (--z {\em zfile} option) of a digital filter, 
@@ -61,7 +61,7 @@ and zeroes (--z {\em zfile} option) of a digital filter,
 
 The output format is specified by the --y option.
 
-If the input sequence is
+If the input sequence is given by
 \begin{displaymath}
   x(0), x(1), \dots, x(L-1)
 \end{displaymath}
@@ -80,15 +80,14 @@ and the FFT algorithm is used to evaluate
 	\end{array}
     \right., \qquad k=0,1,\dots,L-1 \notag
 \end{align}
-then if the {\bf --y} option is applied, then
-output is
+then if the {\bf --y} option is applied, the output will be
 \begin{displaymath}
   Y_k=20\,\log_{10}\,|X_k|,\qquad k=0,1,\dots,L/2
 \end{displaymath}
 The output data corresponds to angular frequencies varying from $0\sim \pi$.
 Input and output data are in float format.
 \par
-If the {\bf --p, --z} options are assigned
+If the {\bf --p} and {\bf --z} options are assigned
 then the phase of the corresponding filter related to
 the assigned coefficients is calculated
 \footnote{
@@ -104,23 +103,23 @@ the difference between the numerator and denominator phases}.
 			In the case where the number of input data
                         values is less then $M+1$, then $M$ is made
                         equal to the number of input data values $-1$.
-                        If the input data should not be analyzed in blocks of
-                        size $M+1$, then it is not necessary to assign
-                        a value to $M$.}{0}
+                        You don't need to assign a value to $M$
+                        in case there is no need to for the data to be analyzed
+                        in blocks of size $M+1$.}{0}
 	\argm{n}{N}{order of AR part\\
                         Similarly to the --m option,
 			in the case where the number of input data
                         values is less then $N+1$, then $N$ is made
                         equal to the number of input data values $-1$.
-                        If the input data should not be analyzed in blocks of
-                        size $N+1$, then it is not necessary to assign
-                        a value to $N$.}{0}
+                        You don't need to assign a value to $N$
+                        in case there is no need to for the data to be analyzed
+                        in blocks of size $N+1$.}{0}
 	\argm{z}{zfile}{MA coefficients filename\\
-			The {\em zfile} should follow this structure in
+			The {\em zfile} should contain the following structure in
                         float format:\\
 			\hspace*{2ex}$b(0), b(1), \dots, b(N)$\\[-1ex]}{NULL}
 	\argm{p}{pfile}{AR coefficients filename\\
-			The {\em pfile} should follow this structure in
+			The {\em pfile} should contain the following structure in
                         float format:\\
 			\hspace*{2ex}$K, a(1), \dots, a(M)$\\[-1ex]}{NULL}
 	\argm{e}{E}{small value for calculating $\log()$}{0.0}
@@ -133,33 +132,32 @@ the difference between the numerator and denominator phases}.
 			\end{tabular} \\\hspace*{\fill}}{0}
 	\desc{The contents of {\em pfile} and {\em zfile}
                         should be in a similar form to that used in
-                        command {\em dfs}.
-			When only the {\bf --p} option is assigned
-                        then the denominator is made equal to 1.
-                        When only the {\bf --z} option is assigned
-                        then the numerator and the gain $K$ are made
-                        equal to 1.
+                        the {\em dfs} command.
+			When only the {\bf --p} option is assigned,
+                        the denominator is set to 1.
+                        When only the {\bf --z} option is assigned,
+                        the numerator and the gain $K$ are set to 1.
                         If neither {\bf --p} nor {\bf --z} are
                         assigned, data is read from the standard input.}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 In the example below, a pulse train excitation is passed
-through digital filter and Blackman window,
-then the log spectrum magnitude is evaluated and plotted
+through digital filter and Blackman window.
+The log spectrum magnitude is, thus, evaluated and plotted
 on the screen:
 \begin{quote}
   \verb!train -p 50 | dfs -a 1 0.9 | window | spec | fdrw | xgr !
 \end{quote}
 \par
 This example evaluates the frequency response of
-digital filter with coefficients assigned by {\em data.p, data.z}
+a digital filter with coefficients specified in {\em data.p and data.z}
 in float format:
 \begin{quote}
   \verb!spec -p data.p -z data.z | fdrw | xgr !
 \end{quote}
-A similar results can be obtained with the following command
-when filter is stable:
+A similar result can be obtained with the following command,
+ for a stable filter:
 \begin{quote}
   \verb!impulse | dfs -p data.p -z data.z | spec | fdrw | xgr !
 \end{quote}

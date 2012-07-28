@@ -50,23 +50,23 @@
 
 \begin{qsection}{DESCRIPTION}
 {\em ulaw} converts data between 8-bit $\mu$-law and 16-bit linear formats.
-The input data is {\rm infile} (or standard input), 
+The input data is {\rm infile} (or standard input),
 and the output is sent to standard output.
 
 If the input is $x(n)$, the output is $y(n)$,
-the largest value of input data is $V$, compression coefficients is $U$,
-then the compression is made through the following equation.
+the largest value of input data is $V$, the compression coefficients vector is $U$,
+then the compression will be performed using made through the following equation.
 \begin{displaymath}
 y(n) = sgn(x(n)) V \frac{\log(1 + U \frac{|x(n)|}{V} )}{\log(1+U)}
 \end{displaymath}
-And decompression is
+Likewise, the decompression can be performed by applying the following:
 \begin{displaymath}
 y(n) = sgn(x(n)) V \frac{(1+u)^{|x(n)|/V} - 1}{U}
 \end{displaymath}
 \end{qsection}
 
 \begin{options}
-	\argm{v}{V}{maximum of input}{32768}
+	\argm{v}{V}{maximum value of input}{32768}
 	\argm{u}{U}{compression ratio}{256}
 	\argm{c}{}{coder mode}{TRUE}
 	\argm{d}{}{decoder mode}{FALSE}
@@ -74,7 +74,7 @@ y(n) = sgn(x(n)) V \frac{(1+u)^{|x(n)|/V} - 1}{U}
 
 \begin{qsection}{EXAMPLE}
 In the following, 16-bit data read from {\em data.s}
-is compressed to 8-bit ulaw format, and written to {\em data.ulaw}
+is compressed to 8-bit ulaw format, and output to {\em data.ulaw}
 \begin{quote}
   \verb!x2x +sf data.s | ulaw | sopr -d 256 | x2x +fc -r > data.ulaw!
 \end{quote}

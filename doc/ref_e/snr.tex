@@ -56,8 +56,8 @@ of {\em file1} and {\em infile} (or standard input),
 sending the result to standard output.
 The output format is specified by the --o option.
 
-The SNR and $\mathrm{SNR}_{\mathrm{seg}}$ can be calculated
-through the following equation.
+The SNR and $\mathrm{SNR}_{\mathrm{seg}}$ are calculated
+through the following equations.
 \begin{displaymath}
 \mathrm{SNR} = 10~\log \frac{\displaystyle\sum_{n} \left\{ x(n) \right\}^{2}}
 {\displaystyle\sum_{n} \left\{ e(n) \right\}^{2}} \quad \mathrm{[dB]}
@@ -70,11 +70,9 @@ where
 \begin{displaymath}
 e(n) = x_1(n) - x_2(n)
 \end{displaymath}
-The number of frame is represented by $N_i$.
-The segmental SNR has the characteristic that
-for signals with small amplitude such as consonant sounds
-it gives rise to a better
-subjective measure then the SNR.
+The number of frames is represented by $N_i$.
+For signals with small amplitudes, such as consonant sounds,
+the segmental SNR represents a better subjective measure than the SNR.
 \end{qsection}
 
 \newpage
@@ -88,9 +86,9 @@ subjective measure then the SNR.
                           3 & SNRseg
                         \end{tabular}\\\hspace*{\fill}\\
                         if 0 or 1 are assigned\\
-                        then output data is written in ASCII format.\\
+                        the output data is written in ASCII format.\\
                         if 2 or 3 are assigned\\
-                        then output data is written in float format}{0}
+                        the output data is written in float format}{0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

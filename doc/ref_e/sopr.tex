@@ -73,13 +73,13 @@ and is performed in the given order.
                             if -magic option is not given, return error.\\
                         if -magic or -MAGIC option is given multiple
                         times, also return error.}{FALSE}
-	\desc[1ex]{If the argument of the above operation option is
+	\desc[1ex]{If the argument of the above operation option given is
                ``{\em dB}'', ``{\em cent}'' or ``{\em octave}''
-               then the value $20/\log_e10$, $1200/\log_e2$ or
-              $1/\log_e2$ is assigned, respectively.
-		Similarly, if ``{\em pi}'' is written after
+               then the values $20/\log_e10$, $1200/\log_e2$ or
+              $1/\log_e2$ are assigned, respectively.
+		Likewise, if ``{\em pi}'' is written after
                 the operation option, then its value will be used.
-                Actuary expression such as ``{\em ln2}'',
+                Expression such as ``{\em ln2}'',
                 ``{\em exp10}'', ``{\em sqrt30}'' can also be
                 used as arguments.}
 	\argm[1ex]{ABS}{}{absolute $y=|x|$}{FALSE}
@@ -118,27 +118,27 @@ data in files {\em data.f1} and {\em data.f2} read in float format:
   \verb!vopr -a data.f1 data.f2 | sopr -d 2 > data.avrg!
 \end{quote}
 \par
-Data is read in float format from {\em data.f},
-and the results in dB is written to the output:
+In the following examples,
+data is read in float format from {\em data.f},
+and the results in dB are written to the output file:
 \begin{quote}
   \verb!sopr data.f -LN -m dB | dmp +f!
 \end{quote}
-The following example gives the same results:
 \begin{quote}
   \verb!sopr data.f -LOG10 -m 20 | dmp +f!
 \end{quote}
 \par
-Also, the results in cent are written to the output:
+In the following, the results in cent are written to the output file:
 \begin{quote}
   \verb!sopr data.f -LN -m cent | dmp +f!
 \end{quote}
-The following example gives the same results:
 \begin{quote}
   \verb!sopr data.f -LOG2 -m 1200 | dmp +f!
 \end{quote}
 \par
-The following example replace the number 0 by 1.0. Until
-given -MAGIC option, skip any operations at the magic number.
+The following example replace the number 0 by 1.0.
+While the -Magic option is not given,
+skip any operations at the magic number.
 \begin{quote}
   \verb!sopr data.f -magic 0 -m 4.0 -INV -MAGIC 1.0 | dmp +f!
 \end{quote}

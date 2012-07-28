@@ -51,17 +51,17 @@
 \begin{qsection}{DESCRIPTION}
 {\em train} generates a normalized pulse train sequence 
 or a sequence with values $\pm 1$, 
-sending the result to standard output.
+and sends the result to standard output.
 Output data is in float format.
 \end{qsection}
 
 \begin{options}
 	\argm{l}{L}{sequence length}{256}
 	\argm{p}{P}{frame period ($P \geq 1.0$)\\
-                    if $P=0.0$ then a sequence with values
+                    if $P=0.0$ a sequence with values
                     $\pm 1$ is generated.}{0.0}
 	\argm{n}{N}{type of normalization\\
-                    When $x(n)$ is impulse sequence\\
+                    If $x(n)$ is the impulse sequence, then:\\
 			\begin{tabular}{ll}\\ [-1ex]
 			 0 & no-normalization\\
 			 1 & normalization as 
@@ -74,7 +74,7 @@ Output data is in float format.
 \begin{qsection}{EXAMPLE}
 The following example displays the spectrum of
 the signal obtained from passing a train pulse sequence through
-digital filter:
+a digital filter:
 \begin{quote}
 \verb!train | dfs -b 1 0.9 | window | spec | fdrw | xgr!
 \end{quote}

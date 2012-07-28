@@ -53,7 +53,7 @@
 {\em swab} changes the byte order 
 (from big-endian to little-endian or vice versa) 
 of the input data from {\em infile} (or standard input), 
-sending the result to standard output.
+and sends the result to standard output.
 
 The range of input data that is changed can be restricted 
 with the --S, --E or --s, --e options.
@@ -84,7 +84,7 @@ The +$type$ option specifies the input and output data formats.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the example below the byte order of the file {\em data.f} in
+In the example below, the byte order of the file {\em data.f} in
 float format is changed and written to {\em data.swab}:
 \begin{quote}
  \verb!swab +f data.f > data.swab!

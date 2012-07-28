@@ -60,14 +60,14 @@ The output is in float format, as follows.
 
 \begin{options}
 	\argm{l}{L}{length\\
-                        In the case $L \le 0$ then values will be
+                        In the case where $L \le 0$, step values will be
                         generated indefinitely.}{256}
 	\argm{n}{N}{order}{255}
 	\argm{v}{V}{step value}{1.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the following example, the unit step sequence passed through
+In the following example, the unit step sequence is passed through
 a digital filter and sent to the standard output:
 \begin{quote}
 \verb!step | dfs -a 1 -0.8 | dmp +f!

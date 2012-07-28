@@ -57,39 +57,38 @@ The format of input and output data is float.
 The following filter coefficients can be used.
 
 \begin{tabular}{ll} \\[-1ex]
-	$S=23F$ & \$SPTK/lib/lpfcoef.2to3f \\
-	$S=23S$ & \$SPTK/lib/lpfcoef.2to3s \\
-	$S=34$ & \$SPTK/lib/lpfcoef.3to4 \\
-	$S=45$ & \$SPTK/lib/lpfcoef.4to5 \\
-	$S=57$ & \$SPTK/lib/lpfcoef.5to7 \\
-	$S=58$ & \$SPTK/lib/lpfcoef.5to8 \\
+	$S=23F$ & \$SPTK/share/lpfcoef.2to3f \\
+	$S=23S$ & \$SPTK/share/lpfcoef.2to3s \\
+	$S=34$ & \$SPTK/share/lpfcoef.3to4 \\
+	$S=45$ & \$SPTK/share/lpfcoef.4to5 \\
+	$S=57$ & \$SPTK/share/lpfcoef.5to7 \\
+	$S=58$ & \$SPTK/share/lpfcoef.5to8 \\
         &(\$SPTK is the directory where toolkit was installed.)
 \end{tabular}
 
 The ratio between up-sampling and down-sampling can be modified by
-{\bf --u, --d} options.
-If you want to specify filter coefficients, 
-{\bf --c} should also be given.
+the {\bf --u} and {\bf --d} options respectively.
+If you want to specify filter coefficients,
+{\bf --c} should also be specified.
 
 Filter coefficients are in ASCII format.
 
- If we want to up-sample from 10 or 12 to 16kHz, we can use
- \hyperlink{us16}{\em us16} command.
- Also, if we want to up/down-sample to 8, 10, 12, or 16
- to 11.025, 22.05 or 44.1kHz, \hyperlink{uscd}{\em uscd} command
- makes it possible.
- Moreover, we can down-sample with \hyperlink{ds}{\em ds} command.
+ For up-sampling from 10 or 12 to 16kHz,
+ the \hyperlink{us16}{\em us16} command can be used.
+ For up/down-sampling between 8, 10, 12 or and 11.025, 22.05 or 44.1 kHz,
+ the \hyperlink{uscd}{\em uscd} command can be used.
+ The \hyperlink{ds}{\em ds} command may also be used for down-sampling.
 \end{qsection}
 
 \begin{options}
 	\argm{s}{S}{conversion type\\
 		\begin{tabular}{ll} \\[-1ex]
-			$S=23F$ & up sampling by $2 : 3$\\
-			$S=23S$ & up sampling by $2 : 3$\\
-			$S=34$ & up sampling by $3 : 4$\\
-			$S=45$ & up sampling by $4 : 5$\\
-			$S=57$ & up sampling by $5 : 7$\\
-			$S=58$ & up sampling by $5 : 8$
+			$S=23F$ & up-sampling by $2 : 3$\\
+			$S=23S$ & up-sampling by $2 : 3$\\
+			$S=34$ & up-sampling by $3 : 4$\\
+			$S=45$ & up-sampling by $4 : 5$\\
+			$S=57$ & up-sampling by $5 : 7$\\
+			$S=58$ & up-sampling by $5 : 8$
 		\end{tabular}\\}{58}
 	\argm{c}{\mbox{\em file}}{filename of low pass filter coefficients}{Default}
 	\argm{u}{U}{up-sampling ratio}{N/A}
