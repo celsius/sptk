@@ -42,7 +42,7 @@
 % POSSIBILITY OF SUCH DAMAGE.                                       %
 % ----------------------------------------------------------------- %
 \hypertarget{us16}{}
-\name{us16}{up-sampling from 10 or 12 kHz to 16 kHz}%
+\name{us16}{up-sampling from 10 or 12 kHz to 16 kHz}
 {sampling rate transformation}
 
 \begin{synopsis}
@@ -51,14 +51,14 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em us16} up-samples data from 10 kHz or 12 kHz to 16 kHz. 
-If {\em infile} and {\em outfile} arguments are not given, 
-standard input and standard output are used. 
-If several input files are given, 
-the last argument is taken to be a directory name 
-and multiple output files are created in that directory, 
-with names similar to the input file names 
-but the suffixes are changed to ``.16''.
+{\em us16} upsamples data from 10 kHz or 12 kHz to 16 kHz.
+If the arguments {\em infile} and {\em outfile} are not given,
+standard input and standard output are used.
+If several input files are given,
+the last argument is considered as a directory name
+and multiple output files are created in that directory,
+with names similar to the input file names
+but with file extensions changed to ``.16''.
 \end{qsection}
 
 \begin{options}
@@ -67,7 +67,7 @@ but the suffixes are changed to ``.16''.
 
 \begin{qsection}{EXAMPLE}
 In the example below, speech data sampled at 10 kHz
-is read from {\em data.10}, up sampling to 16 kHz is undertaken,
+is read from {\em data.10}, upsampled to 16 kHz,
 and the results are written to {data.16}:
 \begin{quote}
 \verb!us16 -s 10 < data.10 > data.16!

@@ -59,7 +59,7 @@ as described below.
 \begin{options}
 	\argp{type1}{input data type}{f}
 	\argp{type2}{output data type\\
-	both options $type1, type2$ can be assigned,
+	both options $type1, type2$ can be assigned.
         one of the options below.\\
                 \begin{tabular}{llcll} \\[-1ex]
                         c & char (1 byte) & \quad &
@@ -81,33 +81,33 @@ as described below.
                 \end{tabular} \\
                 data type is converted from $t_1(type_1)$ to $t_2(type_2)$.
                 if $t_2$ is not assigned then no operation is
-                undertaken, and the output file is equal to the input
+                performed, and the output file is equal to the input
                 file.}{type1}
 	\argp{{\bf a}N}{specify the column number $N$}{1}
 	\argm{r}{}{specify rounding off when a real number
-                 is substituted for a integer}{FALSE}
+                 is substituted for an integer}{FALSE}
 	\argm{o}{}{clip by minimum and maximum of output data type
                  if input data is over the range of output data
-                 type. if -o option is not given, process is aborted
-                 in the above case.}{FALSE}
+                 type. if the -o option is not given, when the data type lengths
+ are different, the process will be aborted.}{FALSE}
 	\argh{format}{}{specify output format similar to 'printf()', 
                         if $type2$ is ASCII.}{$\%g$}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 The following example converts data in ASCII format
-read from {\em data.asc}, converts to float format,
+read from {\em data.asc} into float format,
 and writes the output to {\em data.f}:
 \begin{quote}
   \verb!x2x +af < data.asc > data.f!
 \end{quote}
 \par
-This example reads data in float format from {\em data.f}
-converts to ASCII format, and sends the output to the screen:
+This example reads data in float format from {\em data.f},
+converts it to ASCII format, and sends the output to the screen:
 \begin{quote}
   \verb!x2x +fa < data.f!
 \end{quote}
-For example, if contents of {\em data.f} in float format are
+For example, if the contents of {\em data.f} in float format are
 \begin{displaymath}
   1, 2, 3, 4, 5, 6, 7
 \end{displaymath}
@@ -122,13 +122,12 @@ then the following output is printed to the screen.
   \verb!7!
 \end{quote}
 \par
-If for the same data in the example above
-the number of column is assigned:
-column
+If for the same data in the example above,
+the number of columns is assigned:
 \begin{quote}
   \verb!x2x +fa3 < data.f!
 \end{quote}
-the output is
+the output will be:
 \begin{quote}
   \verb!1       2        3! \\
   \verb!4       5        6! \\

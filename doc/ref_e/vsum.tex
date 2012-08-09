@@ -64,7 +64,7 @@ then the output is
 \begin{displaymath}
   \overbrace{s(1),\dots,s(L)}^{L},\dots
 \end{displaymath}
-where $s(n)$ is
+,where $s(n)$ can be written as
 \begin{displaymath}
   s(n)=\sum_{k=1}^{N} a_k(n)
 \end{displaymath}
@@ -78,7 +78,7 @@ Input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The output file {\em data.sum} contains the summation for
+The output file {\em data.sum} contains the summation of
 the whole data in file {\em data.f} read in float format:
 \begin{quote}
   \verb!vsum data.f > data.sum!
@@ -91,7 +91,7 @@ evaluated and written to {\em data.n}:
 \end{quote}
 \par
 In the next example, 15-th order coefficients vectors are read
-from {\em data.f}, the average for every 3 frame is evaluated,
+from {\em data.f}, the average for every 3 frames is evaluated,
 and output to {\em data.av}:
 \begin{quote}
   \verb!vsum -l 15 -n 3 data.f | sopr -d 3 > data.av!

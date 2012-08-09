@@ -81,9 +81,9 @@ Input and output data are in float format.
 	\argm{n}{N}{type of normalization\\
 			\begin{tabular}{ll}\\ [-1ex]
 			 0 & no normalization\\
-			 1 & normalization such as
+			 1 & normalization as
                              $\displaystyle \sum_{n=0}^{L-1} w^2(n) = 1$\\
-			 2 & normalization such as
+			 2 & normalization as
                              $\displaystyle \sum_{n=0}^{L-1} w(n) = 1$\\
 			 \end{tabular}\\\hspace*{\fill}}{1}
 	\argm{w}{W}{type of window\\
@@ -105,9 +105,9 @@ with period 20 after windowing it with a Blackman window:
 \end{quote}
 \par
 This example passes the excitation generated through a train pulse
-by a digital filter, applies to it a Blackman windowing function,
+by a digital filter, applies a Blackman windowing function to it,
 evaluates the log magnitude spectrum through 512 points FFT,
-and plots the results in the screen:
+and plots the results on the screen:
 \begin{quote}
 \verb!train -p 50 | dfs -a 1 0.9 | window -l 50 -L 512 |\! \\
 \verb!spec -l 512 | fdrw | xgr!

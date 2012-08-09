@@ -54,17 +54,17 @@
 {\em uscd} converts the sample rate from one of 8, 10, 12, or 16 kHz 
 to one of 11.025, 22.04, or 44.1 kHz.
 If {\em infile} and {\em outfile} arguments are not given, 
-standard input and standard output are used.
-If the last argument names a directory, 
+standard input and output are used.
+If the last argument given names a directory, 
 each of the preceding argument files is re-sampled. 
 The results are stored in multiple files in that directory, 
 with base names the same as the input file base names, 
-but with suffixes reflecting the new sample rate.
+but with extensions indicating the new sample rate.
 \end{qsection}
 
 \begin{options}
-	\argm{s}{S1}{input sampling frequency $8|10|12|16$}{10}
-	\argm{S}{S2}{output sampling frequency  $11.025|22.05|44.1$\\
+	\argm{s}{S1}{input sampling frequency (one of 8, 10, 12 or 16)}{10}
+	\argm{S}{S2}{output sampling frequency (one of 11.025, 22.05, or 44.1)\\
 		$S2$ can be abbreviated as 11, 22, or 44. \\
 		If the last command line argument is a directory name, 
 		the suffix for the output files is 
@@ -74,7 +74,7 @@ but with suffixes reflecting the new sample rate.
 
 \begin{qsection}{EXAMPLE}
 In the example below, speech data sampled at 16 kHz
-is read from {\em data.16}, up sampling to 22.05 kHz is undertaken,
+is read from {\em data.16}, upsampled to 22.05 kHz,
 and the results are written to {data.22}:
 \begin{quote}
 \verb!uscd -s 16 22.05 < data.16 > data.22!

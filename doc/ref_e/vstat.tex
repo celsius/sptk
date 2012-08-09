@@ -56,7 +56,7 @@ sending the result to standard output.
 For each group of $T$ input vectors of length $L$, 
 {\em vstat} calculates the mean vector of length $L$ 
 and the $L\times L$ covariance matrix. 
-In other words, if the input data is given by:
+In other words, if the input data is:
 \begin{displaymath}
 \overbrace{
   \overbrace{x_1(1),\dots,x_1(L)}^{L},
@@ -64,7 +64,7 @@ In other words, if the input data is given by:
   \overbrace{x_N(1),\dots,x_N(L)}^{L}
 }^{T \times L},\dots
 \end{displaymath}
-then the output will be 
+then the output will be given by:
 \begin{displaymath}
   \overbrace{\mu(1),\dots,\mu(L)}^L, 
   \overbrace{
@@ -72,7 +72,7 @@ then the output will be
     \overbrace{\sigma(L1),\dots,\sigma(LL)}^L
   }^{L\times L}, \dots
 \end{displaymath}
-and the evaluation of $\bmu$, $\bSigma$ will be undertaken by
+and the values of $\bmu$, $\bSigma$ can be obtained through the following:
 \begin{displaymath}
   \bmu = \frac{1}{N}\sum_{k=1}^{N} \bx
 \end{displaymath}
@@ -94,11 +94,11 @@ at the confidence level $\alpha$ (\%) satisfying the following condition:
   \left| \frac{\mu(i) -m(i)}{\sqrt{\hat{\sigma(i)}^{2} / L} }\right|
   ,   \;\;\;\; i = 1,  2, \dots, L
  \end{displaymath}
-where $t(\alpha, \phi)$ is the upper $0.5(100 - \alpha)$th percentile
+where $t(\alpha, \phi)$ is the upper $0.5(100 - \alpha)$-th percentile
 of the t-distribution with $\phi$ degrees of freedom,
 $m(i)$ is the population mean, $\hat{\sigma(i)^{2}}$ is the unbiased variance.
 The confidence level $\alpha$ can be specified by the --c option.
-The upper / lower bound $u(i)$ and $l(i)$ can be written as
+The upper and lower bounds $u(i)$ and $l(i)$ can be written as
  \begin{displaymath}
   u(i) = \mu(i) + t(\alpha, L - 1) \sqrt{\frac{\hat{\sigma(i)}^{2}}{L}},
  \end{displaymath}

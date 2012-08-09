@@ -61,8 +61,8 @@ which responds to a limited set of user interactions:
 \begin{itemize}
 \item Changing the window size truncates or expands the area 
 	in which the graph is displayed, 
-	but the graph stays the same size; 
-	it is not rescaled to fit the new window size.
+	but the graph remains the same size (i.e.
+	it is not rescaled to fit the new window size).
 \item If the graph is larger than the window, 
 	the position within the window can be changed with 
 	``vi'' cursor movement commands:
@@ -92,7 +92,7 @@ which responds to a limited set of user interactions:
 \end{options}
 \begin{qsection}{EXAMPLE}
 The following example uses \hyperlink{fdrw}{fdrw} to draw a graph based on data read
-from {\em data.f}, and sends the output in a X-Window environment:
+from {\em data.f}, and sends the output to a X-Window environment:
 \begin{quote}
  \verb!fdrw < data.f | xgr!
 \end{quote}
@@ -102,12 +102,12 @@ from {\em data.f}, and sends the output in a X-Window environment:
 \item If the display server does not contain backing store function,
 then the hidden part of virtual screen is erased.
 
-\item To lessen the waiting time to display graphs,
-a image of virtual screen is copied to the memory.
+\item To reduce the waiting time to display graphs,
+an image of virtual screen is copied to the memory.
 If the size assigned by the --g option is too small
-or if during the time the graph is being plotted an another window
-is put above the virtual screen, then a part of virtual screen
-will be erased.
+or if during the time the graph is being plotted another window
+is put above the virtual screen, a part of the virtual screen
+needs to be erased.
 The --s option is suggested whenever the size of
 the virtual screen should be reduced.
 \end{itemize}

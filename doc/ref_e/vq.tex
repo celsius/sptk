@@ -56,7 +56,7 @@ sending either codebook indexes or quantized vectors to standard output.
 
 For each length $L$ input vector
 \begin{displaymath}
-  x(0),x(1),\dots,x(L-1)
+  x(0),x(1),\dots,x(L-1),
 \end{displaymath}
 {\em vq} finds the codebook vector $\bc_i$ 
 that minimizes the Euclidean distance
@@ -69,7 +69,7 @@ If the --q option is given,
 the output is the code vector $[c_i(0), c_i(1), \cdots, c_i(L-1)]$ 
 in float format.
 If the --q option is not given, 
-the output is codebook index $i$ in int format.
+the output is the codebook index $i$ in int format.
 \end{qsection}
 
 \begin{options}

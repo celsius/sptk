@@ -50,7 +50,7 @@
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-This command undertakes vector operations in input files.
+This command performs vector operations in input files.
 In other words
 \begin{description}
 \itemb{\em file1}
@@ -68,10 +68,10 @@ Input and output data are in float format.
 The undertaken action depends on the number of assigned files
 as well as the vector lengths as exemplified in the following.
 \par
-If two files are assigned (when only one file is assigned
-then it is assumes that it corresponds to {\em infile}) then
-depending on the values of vector sizes, the following actions
-are undertaken.
+If two files are assigned (when only one file is assigned,
+it is assumed that it corresponds to {\em infile}) then,
+depending on the vector sizes, the following actions
+are taken.
 \begin{description}
 \item{when $L=1$}~\\
 \begin{tabular}{l|c|c|c|c|c} \cline{2-6}
@@ -104,16 +104,15 @@ One data from one file corresponds to one data on the other file.
                         & {$y_{41}$,\dots} \\ \cline{2-5}
 \end{tabular}
 \par
-In this case the operation vector is read only once
-{\em infile}, and the operations recursively undertaken
-in vectors from {\em file1}.
+In this case, the operation vector is read only once from
+{\em infile}, and the operations are recursively performed.
 \end{description}
 \par
 When the information related to {\bf a} and {\bf b} is contained
 in a single file,
-(that is, if only one file is assigned,
+(if only one file is assigned,
 or if no file assignment is made),
-then the --i option should be used
+the --i option should be used
 and the action does not depend on the vector length.
 \begin{description}
 \item{when $L\geq 1$}~\\
@@ -140,7 +139,7 @@ Input vectors are read from a single file.
 \begin{options}
         \argm{l}{L}{length of vector}{1}
         \argm{n}{N}{order of vector}{L-1}
-        \argm{i}{}{when only a file is specified, 
+        \argm{i}{}{when a single file file is specified,
                    the file contains a and b.}{FALSE}
         \argm{a}{}{addition $y_i=a_i+b_i$}{FALSE}
         \argm{s}{}{subtraction $y_i=a_i-b_i$}{FALSE}
@@ -162,9 +161,8 @@ a window with length 256 and coefficients given from
 \begin{quote}
   \verb!sin -p 30 -l 1000 | vopr data.w -l 256 -m | fdrw | xgr!
 \end{quote}
-The above example can be undertaken in similar way
-through the example below if the contents of {\em data.w} corresponds
-to Blackman window:
+Similar results as from the above example can be obtained using the following:
+ Here, it is considered that the contents of {\em data.w} correspond to a Blackman window:
 \begin{quote}
   \verb!sin -p 30 -l 1000 | window | fdrw | xgr!
 \end{quote}
