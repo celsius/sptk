@@ -176,7 +176,7 @@ int idct_create_table(const int nSize)
       pWeightReal[0] *= sqrt(2.0);
       pWeightImag[0] *= sqrt(2.0);
    }
-  
+
    return (0);
 }
 

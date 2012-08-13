@@ -145,8 +145,8 @@ typedef struct _float_list {
 
 static int round_up(double dat);
 void init_dtw(DTW_Table * table, int leng,
-             double *input, double *input2,
-             int total1, int total2, enum PATH path);
+              double *input, double *input2,
+              int total1, int total2, enum PATH path);
 double *dtw(DTW_Table * table, enum Norm norm_type);
 void calc_local_cost(DTW_Table * table, enum Norm norm_type);
 void check_enabled_region(DTW_Table * table);
@@ -174,8 +174,8 @@ static int round_up(double dat)
 }
 
 void init_dtw(DTW_Table * table, int leng,
-             double *input1, double *input2,
-             int total1, int total2, enum PATH path)
+              double *input1, double *input2,
+              int total1, int total2, enum PATH path)
 {
 
    DTW_Cell *tmpcell = NULL;

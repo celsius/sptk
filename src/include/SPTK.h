@@ -159,8 +159,8 @@ void c2sp(double *c, const int m, double *x, double *y, const int l);
 void clip(double *x, const int l, const double min, const double max,
           double *y);
 int dft(double *pReal, double *pImag, const int nDFTLength);
-void dct (double *in, double *out, const int size, const int m,
-          const Boolean dftmode, const Boolean compmode);
+void dct(double *in, double *out, const int size, const int m,
+         const Boolean dftmode, const Boolean compmode);
 int dct_create_table_fft(const int nSize);
 int dct_create_table(const int nSize);
 int dct_based_on_fft(double *pReal, double *pImag, const double *pInReal,
@@ -253,7 +253,8 @@ void mgc2sp(double *mgc, const int m, const double a, const double g, double *x,
             double *y, const int flng);
 int mgcep(double *xw, int flng, double *b, const int m, const double a,
           const double g, const int n, const int itr1, const int itr2,
-          const double dd, const int etype, const double e, const double f, const int itype);
+          const double dd, const int etype, const double e, const double f,
+          const int itype);
 double newton(double *x, const int flng, double *c, const int m, const double a,
               const double g, const int n, const int j, const double f);
 double mglsadf(double x, double *b, const int m, const double a, const int n,
@@ -289,9 +290,11 @@ void root_pol(double *a, const int odr, complex * x, const int a_zero,
 complex *cplx_getmem(const int leng);
 int smcep(double *xw, const int flng, double *mc, const int m, const int fftsz,
           const double a, const double t, const int itr1, const int itr2,
-          const double dd, const int etype, const double e, const double f, const int itype);
+          const double dd, const int etype, const double e, const double f,
+          const int itype);
 int uels(double *xw, const int flng, double *c, const int m, const int itr1,
-         const int itr2, const double dd, const int etype, const double e, const int itype);
+         const int itr2, const double dd, const int etype, const double e,
+         const int itype);
 double ulaw_c(const double x, const double max, const double mu);
 double ulaw_d(const double x, const double max, const double mu);
 int vq(double *x, double *cb, const int l, const int cbsize);

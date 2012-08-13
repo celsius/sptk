@@ -184,7 +184,7 @@ int main(int argc, char **argv)
    char *cGet_f0(float_list * flist, float sample_freq,
                  int length, int frame_shift,
                  int minF0, int maxF0, int fnum, int otype);
-   void swipe(float_list *input, int length, double min, double max,
+   void swipe(float_list * input, int length, double min, double max,
               double st, int frame_shift, double samplerate, int otype);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)

@@ -77,4 +77,3 @@ static char *f_name[] = {
    "-adobe-symbol-medium-r-normal-*-*-140-*-*-p-*-adobe-fontspecific",
    "-adobe-symbol-medium-r-normal-*-*-160-*-*-p-*-adobe-fontspecific"
 };
-

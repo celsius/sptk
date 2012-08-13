@@ -163,7 +163,7 @@ void usage(int status)
            END);
    fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n",
            EPS);
-   fprintf(stderr, "       -E E  : floor in db calculated per frame [N/A]\n");  
+   fprintf(stderr, "       -E E  : floor in db calculated per frame [N/A]\n");
    fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n",
            MINDET);
    fprintf(stderr, "               of the normal matrix\n");
@@ -187,7 +187,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int m = ORDER, flng = FLENG, ilng = FLENG, itype = ITYPE, etype = ETYPE,
-       fftsz =  FFTSZ, itr1 = MINITR, itr2 = MAXITR, flag = 0;
+       fftsz = FFTSZ, itr1 = MINITR, itr2 = MAXITR, flag = 0;
    FILE *fp = stdin;
    double *mc, *x, a = ALPHA, t = THETA, end = END, e = EPS, f = MINDET;
 
@@ -243,7 +243,7 @@ int main(int argc, char **argv)
             etype = 2;
             e = atof(*++argv);
             --argc;
-             break;
+            break;
          case 'f':
             f = atof(*++argv);
             --argc;
@@ -260,16 +260,18 @@ int main(int argc, char **argv)
    t *= M_PI;
 
    if (itype == 0)
-     ilng = flng;
+      ilng = flng;
    else
-     ilng = flng / 2 + 1;
+      ilng = flng / 2 + 1;
 
    x = dgetmem(flng + m + 1);
    mc = x + flng;
 
    while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
 
-        flag = smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, etype, e, f, itype);
+      flag =
+          smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, etype, e, f,
+                itype);
 
       fwritef(mc, sizeof(*mc), m + 1, stdout);
    }

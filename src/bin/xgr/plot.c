@@ -291,31 +291,31 @@ static void polyline(XPoint * points, int frame, int fill, int n)
 #define POINTS 1024
 
  /*static void dplot(int density, short x, short y, short w, short h)
-{
-   int n;
-   int n_max, n_plot, flg[POINTS];
-   int p;
-   XPoint pos[POINTS];
+    {
+    int n;
+    int n_max, n_plot, flg[POINTS];
+    int p;
+    XPoint pos[POINTS];
 
-   n_max = ++w * ++h;
-   n_plot = (density * n_max) / LEVEL;
+    n_max = ++w * ++h;
+    n_plot = (density * n_max) / LEVEL;
 
-#if defined(HAVE_MEMSET)
-   memset(flg, 0, sizeof(*flg) * POINTS);
-#elif defined(HAVE_BZERO)
-   bzero((char *) flg, sizeof(*flg) * POINTS);
-#endif
+    #if defined(HAVE_MEMSET)
+    memset(flg, 0, sizeof(*flg) * POINTS);
+    #elif defined(HAVE_BZERO)
+    bzero((char *) flg, sizeof(*flg) * POINTS);
+    #endif
 
-   for (n = 0; n < n_plot; n++) {
-      p = (int) (n_max * (double) rand() / (double) INT_MAX);
-      if (flg[p] == 0) {
-         flg[p] = 1;
-         pos[n].x = x + (short) p % w;
-         pos[n].y = y - (short) p / w;
-      }
-   }
-   XDrawPoints(display, main_window, gc, pos, n_plot, CoordModeOrigin);
-   }*/
+    for (n = 0; n < n_plot; n++) {
+    p = (int) (n_max * (double) rand() / (double) INT_MAX);
+    if (flg[p] == 0) {
+    flg[p] = 1;
+    pos[n].x = x + (short) p % w;
+    pos[n].y = y - (short) p / w;
+    }
+    }
+    XDrawPoints(display, main_window, gc, pos, n_plot, CoordModeOrigin);
+    } */
 
 static void hatching(int type)
 {

@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
    char *s, *infile = NULL, c;
    int size = SIZE, nout = 0, k, nd = -1, out = ' ';
    double *x, *y;
-   
+
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
@@ -184,17 +184,17 @@ int main(int argc, char *argv[])
 
    nout = (nout) ? size / 2 + 1 : size;
 
-   fp = stdin;   
+   fp = stdin;
 
    if (infile) {
       fp = getfp(infile, "rb");
    }
-      
+
    x = dgetmem(size + size);
    y = x + size;
 
    while (!feof(fp)) {
-      fillz(x, size, sizeof(double));
+      fillz(x, size, sizeof(*x));
       if (freadf(x, sizeof(*x), nd, fp) == 0)
          break;
       fftr(x, y, size);
@@ -210,9 +210,9 @@ int main(int argc, char *argv[])
          fwritef(y, sizeof(*y), nout, stdout);
    }
 
-      if (infile){
-        fclose(fp);
-      }
+   if (infile) {
+      fclose(fp);
+   }
 
-      return (0);
+   return (0);
 }

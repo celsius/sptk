@@ -92,19 +92,19 @@ int mcep(double *xw, const int flng, double *mc, const int m, const double a,
    static double *x = NULL, *y, *c, *d, *al, *b;
    static int size_x, size_d;
 
-   if ( etype == 1 && e < 0.0 ){
+   if (etype == 1 && e < 0.0) {
       fprintf(stderr, "mcep : value of e must be e>=0!\n");
       exit(1);
    }
 
-   if ( etype == 2 && e >= 0.0 ){
+   if (etype == 2 && e >= 0.0) {
       fprintf(stderr, "mcep : value of E must be E<0!\n");
       exit(1);
    }
 
-   if ( etype == 1 ){
+   if (etype == 1) {
       eps = e;
-   }   
+   }
 
    if (x == NULL) {
       x = dgetmem(3 * flng);
@@ -141,24 +141,24 @@ int mcep(double *xw, const int flng, double *mc, const int m, const double a,
    case 0:                     /* windowed data sequence */
       fftr(x, y, flng);
       for (i = 0; i < flng; i++) {
-         x[i] = x[i] * x[i] + y[i] * y[i] + eps;  /*  periodegram  */
+         x[i] = x[i] * x[i] + y[i] * y[i] + eps;        /*  periodegram  */
       }
       break;
    case 1:                     /* dB */
       for (i = 0; i <= flng / 2; i++) {
          x[i] = exp((x[i] / 20.0) * log(10.0)); /* dB -> amplitude spectrum */
-         x[i] = x[i] * x[i] + eps;        /* amplitude -> periodgram */
+         x[i] = x[i] * x[i] + eps;      /* amplitude -> periodgram */
       }
       break;
    case 2:                     /* log */
       for (i = 0; i <= flng / 2; i++) {
          x[i] = exp(x[i]);      /* log -> amplitude spectrum */
-         x[i] = x[i] * x[i] + eps;        /* amplitude -> periodgram */
+         x[i] = x[i] * x[i] + eps;      /* amplitude -> periodgram */
       }
       break;
    case 3:                     /* amplitude */
       for (i = 0; i <= flng / 2; i++) {
-         x[i] = x[i] * x[i] + eps;        /* amplitude -> periodgram */
+         x[i] = x[i] * x[i] + eps;      /* amplitude -> periodgram */
       }
       break;
    case 4:                     /* periodgram */
@@ -175,14 +175,14 @@ int mcep(double *xw, const int flng, double *mc, const int m, const double a,
          x[flng - i] = x[i];
    }
 
-   if ( etype == 2 && e < 0.0 ) {
+   if (etype == 2 && e < 0.0) {
       max = x[0];
       for (i = 1; i < flng; i++) {
          if (max < x[i])
             max = x[i];
       }
       max = sqrt(max);
-      min = max * pow(10.0, e / 20.0);        /* floor is 20*log10(min/max) */
+      min = max * pow(10.0, e / 20.0);  /* floor is 20*log10(min/max) */
       min = min * min;
       for (i = 0; i < flng; i++) {
          if (x[i] < min)

@@ -67,104 +67,104 @@
 #  include <SPTK.h>
 #endif
 
-double invert (double **mat, double **inv, const int n)
+double invert(double **mat, double **inv, const int n)
 {
-    int i, j, k, *swap, ii, ik;
-    double **copy_mat, *tmpmat, d, u, det, *work;
+   int i, j, k, *swap, ii, ik;
+   double **copy_mat, *tmpmat, d, u, det, *work;
 
-    copy_mat = (double **) malloc(sizeof(double *) * n);
-    tmpmat = dgetmem(n * n);
+   copy_mat = (double **) malloc(sizeof(double *) * n);
+   tmpmat = dgetmem(n * n);
 
-    for (i = 0, j = 0; i < n; i++, j += n) {
-        copy_mat[i] = tmpmat + j;
-    }
-    for (i = 0; i < n; i++) {
-        for (k = 0; k < n; k++) {
-            copy_mat[i][k] = mat[i][k];
-        }
-    }
+   for (i = 0, j = 0; i < n; i++, j += n) {
+      copy_mat[i] = tmpmat + j;
+   }
+   for (i = 0; i < n; i++) {
+      for (k = 0; k < n; k++) {
+         copy_mat[i][k] = mat[i][k];
+      }
+   }
 
-    swap = (int *) malloc(sizeof(int) * n);
-    work = dgetmem(n);
+   swap = (int *) malloc(sizeof(int) * n);
+   work = dgetmem(n);
 
-    for (k = 0; k < n; k++) {
-        swap[k] = k;
-        u = 0.0;
-        for (j = 0; j < n; j++) {
-            d = fabs(copy_mat[k][j]);
-            if (d > u) {
-                u = d;
-            }
-        }
-        if (u == 0.0) {
-            fprintf(stderr, "Can't calculate inverse matrix!\n");
-            exit(1);
-        }
-        work[k] = 1.0 / u;
-    }
+   for (k = 0; k < n; k++) {
+      swap[k] = k;
+      u = 0.0;
+      for (j = 0; j < n; j++) {
+         d = fabs(copy_mat[k][j]);
+         if (d > u) {
+            u = d;
+         }
+      }
+      if (u == 0.0) {
+         fprintf(stderr, "Can't calculate inverse matrix!\n");
+         exit(1);
+      }
+      work[k] = 1.0 / u;
+   }
 
-    det = 1;
-    for (k = 0; k < n; k++) {
-        u = -1;
-        for (i = k; i < n; i++) {
+   det = 1;
+   for (k = 0; k < n; k++) {
+      u = -1;
+      for (i = k; i < n; i++) {
+         ii = swap[i];
+         d = fabs(copy_mat[ii][k]) * work[ii];
+         if (d > u) {
+            u = d;
+            j = i;
+         }
+      }
+
+      ik = swap[j];
+      if (j != k) {
+         swap[j] = swap[k];
+         swap[k] = ik;
+         det = -det;
+      }
+
+      u = copy_mat[ik][k];
+      det *= u;
+      if (u == 0.0) {
+         fprintf(stderr, "Can't calculate inverse matrix!\n");
+         exit(1);
+      }
+      for (i = k + 1; i < n; i++) {
+         ii = swap[i];
+         d = (copy_mat[ii][k] /= u);
+         for (j = k + 1; j < n; j++) {
+            copy_mat[ii][j] -= d * copy_mat[ik][j];
+         }
+      }
+   }
+
+   if (det != 0.0) {
+      for (k = 0; k < n; k++) {
+         for (i = 0; i < n; i++) {
             ii = swap[i];
-            d = fabs(copy_mat[ii][k]) * work[ii];
-            if (d > u) {
-                u = d;
-                j = i;
+            d = (ii == k);
+            for (j = 0; j < i; j++) {
+               d -= copy_mat[ii][j] * inv[j][k];
             }
-        }
-
-        ik = swap[j];
-        if (j != k) {
-            swap[j] = swap[k];
-            swap[k] = ik;
-            det = -det;
-        }
-
-        u = copy_mat[ik][k];
-        det *= u;
-        if (u == 0.0) {
-            fprintf(stderr, "Can't calculate inverse matrix!\n");
-            exit(1);
-        }
-        for (i = k + 1; i < n; i++) {
+            inv[i][k] = d;
+         }
+         for (i = n - 1; i >= 0; i--) {
+            d = inv[i][k];
             ii = swap[i];
-            d = (copy_mat[ii][k] /= u);
-            for (j = k + 1; j < n; j++) {
-                copy_mat[ii][j] -= d * copy_mat[ik][j];
+            for (j = i + 1; j < n; j++) {
+               d -= copy_mat[ii][j] * inv[j][k];
             }
-        }
-    }
+            inv[i][k] = d / copy_mat[ii][i];
+         }
+      }
+   } else {
+      fprintf(stderr, "Can't calculate inverse matrix!\n");
+      exit(1);
+   }
 
-    if (det != 0.0) {
-        for (k = 0; k < n; k++) {
-            for (i = 0; i < n; i++) {
-                ii = swap[i];
-                d = (ii == k);
-                for (j = 0; j < i; j++) {
-                    d -= copy_mat[ii][j] * inv[j][k];
-                }
-                inv[i][k] = d;
-            }
-            for (i = n - 1; i >= 0; i--) {
-                d = inv[i][k];
-                ii = swap[i];
-                for (j = i + 1; j < n; j++) {
-                    d -= copy_mat[ii][j] * inv[j][k];
-                }
-                inv[i][k] = d / copy_mat[ii][i];
-            }
-        }
-    } else {
-        fprintf(stderr, "Can't calculate inverse matrix!\n");
-        exit(1);
-    }
+   free(copy_mat[0]);
+   free(copy_mat);
+   free(swap);
+   free(work);
 
-    free(copy_mat[0]);
-    free(copy_mat);
-    free(swap);
-    free(work);
-
-    return (det);
+   return (det);
 }

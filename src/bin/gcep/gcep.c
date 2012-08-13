@@ -161,7 +161,7 @@ void usage(int status)
            END);
    fprintf(stderr, "       -e e  : small value added to periodgram  [%g]\n",
            EPS);
-   fprintf(stderr, "       -E E  : floor in db calculated per frame [N/A]\n");  
+   fprintf(stderr, "       -E E  : floor in db calculated per frame [N/A]\n");
    fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n",
            MINDET);
    fprintf(stderr, "               of the normal matrix\n");
@@ -186,7 +186,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, 
+   int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR,
        itr2 = MAXITR, itype = ITYPE, etype = ETYPE, norm = NORM, flag = 0;
    FILE *fp = stdin;
    double *gc, *x, g = GAMMA, end = END, e = EPS, f = MINDET;
@@ -245,8 +245,8 @@ int main(int argc, char **argv)
          case 'E':
             etype = 2;
             e = atof(*++argv);
-            --argc;          
-             break;
+            --argc;
+            break;
          case 'f':
             f = atof(*++argv);
             --argc;
@@ -269,9 +269,9 @@ int main(int argc, char **argv)
    gc = x + flng;
 
    while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
- 
+
       flag = gcep(x, flng, gc, m, g, itr1, itr2, end, etype, e, f, itype);
- 
+
       if (!norm)
          ignorm(gc, gc, m, g);
       fwritef(gc, sizeof(*gc), m + 1, stdout);

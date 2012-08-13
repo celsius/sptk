@@ -177,8 +177,7 @@ void usage(int status)
            "       -F option specifies a GMM initial parameter file in which\n");
    fprintf(stderr,
            "         weight, mean, and variance parameters must be aligned\n");
-   fprintf(stderr,
-           "         in the same order as output.\n");
+   fprintf(stderr, "         in the same order as output.\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -457,7 +456,7 @@ int main(int argc, char **argv)
                   gmm.gauss[m].cov[l][i] /= (double) cntcb[m];
                }
       }
-   } /* end of initialization */
+   }                            /* end of initialization */
 
    /* EM training of GMM parameters */
    for (i = 0; (i <= Imax) && ((i <= Imin) || (fabs(change) > E)); i++) {

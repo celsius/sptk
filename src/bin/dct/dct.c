@@ -106,7 +106,8 @@ int usage(void)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -l l  : DCT size             [%d]\n", SIZE);
    fprintf(stderr, "       -I    : use comlex number       [FALSE]\n");
-   fprintf(stderr, "       -d    : without using fft algorithm (use dft) [%s]\n",
+   fprintf(stderr,
+           "       -d    : without using fft algorithm (use dft) [%s]\n",
            BOOL[DFTMODE]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -125,14 +126,14 @@ int usage(void)
 int main(int argc, char *argv[])
 {
    FILE *fp;
-   char *s, *infile = NULL, c;  
+   char *s, *infile = NULL, c;
 
    FILE *getfp();
    Boolean dftmode = DFTMODE;
    Boolean compmode = COMPMODE;
    double *x, *y, *pReal2, *pImag2, *dgetmem();
    int size2;
-  
+
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -183,13 +184,13 @@ int main(int argc, char *argv[])
          if (freadf(y, sizeof(*y), size, fp) == 0)
             break;
       }
-  
+
       dct(x, pReal2, size, size, dftmode, compmode);
 
       fwritef(pReal2, sizeof(*pReal2), size, stdout);
       if (out == 'I')
          fwritef(pImag2, sizeof(*pReal2), size, stdout);
-}
+   }
 
    if (infile)
       fclose(fp);

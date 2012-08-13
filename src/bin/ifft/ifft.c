@@ -115,7 +115,7 @@ int usage(void)
 
 int main(int argc, char *argv[])
 {
-   FILE *fp;      
+   FILE *fp;
    char *s, *infile = NULL, c;
    int size2;
    double *x, *y;
@@ -154,7 +154,7 @@ int main(int argc, char *argv[])
    fp = stdin;
 
    if (infile) {
-      fp = getfp(infile, "rb");      
+      fp = getfp(infile, "rb");
    }
 
    x = dgetmem(size2 = size + size);
@@ -172,9 +172,9 @@ int main(int argc, char *argv[])
          fwritef(y, sizeof(*y), size, stdout);
    }
 
-      if (infile){
-        fclose(fp);
-      }   
-    
-      return (0);
+   if (infile) {
+      fclose(fp);
+   }
+
+   return (0);
 }

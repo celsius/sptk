@@ -164,8 +164,8 @@ void usage(int status)
 
 /* calculate regression quadratic polynomial coefficients */
 void get_coef(double *input, double *output, int dw_num,
-                    int *position, int TOTAL, int total, int length,
-                    int *win_size_forward, int *win_size_backward)
+              int *position, int TOTAL, int total, int length,
+              int *win_size_forward, int *win_size_backward)
 {
    int i, j, l, t, d, index, width;
    double T0, T1, T2, T3, T4, b[3], b0, b1, b2;

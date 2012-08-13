@@ -131,7 +131,7 @@ void usage(int status)
    fprintf(stderr, "       -p p  : AR coefficients filename          [NULL]\n");
    fprintf(stderr, "       -e e  : small value for calculating log() [%g]\n",
            EPS);
-   fprintf(stderr, "       -E E  : floor in db calculated per frame  [N/A]\n");  
+   fprintf(stderr, "       -E E  : floor in db calculated per frame  [N/A]\n");
    fprintf(stderr, "       -o o  : output format                     [%d]\n",
            OTYPE);
    fprintf(stderr, "                 0 (20 * log|H(z)|)\n");
@@ -158,7 +158,8 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int leng = LENG, otype = OTYPE, etype = ETYPE, orderma = ORDERMA, orderar = ORDERAR, no, i;
+   int leng = LENG, otype = OTYPE, etype = ETYPE, orderma = ORDERMA, orderar =
+       ORDERAR, no, i;
    char *filema = "", *filear = "";
    FILE *fp = stdin, *fpma = NULL, *fpar = NULL;
    double eps = EPS, eps2, k, *x, *y, *mag;
@@ -198,7 +199,7 @@ int main(int argc, char **argv)
          case 'E':
             etype = 2;
             eps2 = atof(*++argv);
-            --argc;          
+            --argc;
             break;
          case 'o':
             otype = atoi(*++argv);
@@ -213,16 +214,16 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
-    if ( etype == 1 && eps < 0.0 ){
-       fprintf(stderr, "scep : value of e must be e>=0!\n");
-       exit(1);
-    }
- 
-    if ( etype == 2 && eps2 >= 0.0 ){
-       fprintf(stderr, "scep : value of E must be E<0!\n");
-       exit(1);
-    }
- 
+   if (etype == 1 && eps < 0.0) {
+      fprintf(stderr, "scep : value of e must be e>=0!\n");
+      exit(1);
+   }
+
+   if (etype == 2 && eps2 >= 0.0) {
+      fprintf(stderr, "scep : value of E must be E<0!\n");
+      exit(1);
+   }
+
    no = leng / 2 + 1;
 
    x = dgetmem(leng + leng + no);
@@ -271,25 +272,25 @@ int main(int argc, char **argv)
 
       if (otype == 0 || otype == 1) {
          double max, min;
-         if ( etype == 1 && eps >= 0.0 ) {
-             for (i = 0; i < no; i++) {
-                 mag[i] = mag[i] + eps;
-             }
-         } else if( etype == 2 && eps2 < 0 ){
+         if (etype == 1 && eps >= 0.0) {
+            for (i = 0; i < no; i++) {
+               mag[i] = mag[i] + eps;
+            }
+         } else if (etype == 2 && eps2 < 0) {
             max = mag[0];
             for (i = 1; i < no; i++) {
                if (max < mag[i])
                   max = mag[i];
             }
             max = sqrt(max);
-            min = max * pow(10.0, eps2 / 20.0);        /* floor is 20*log10(min/max) */
+            min = max * pow(10.0, eps2 / 20.0); /* floor is 20*log10(min/max) */
             min = min * min;
             for (i = 0; i < no; i++) {
                if (mag[i] < min)
                   mag[i] = min;
-            }              
+            }
          }
-      } 
+      }
 
       switch (otype) {
       case 1:

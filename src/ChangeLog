@@ -1,3 +1,13 @@
+2011-12-21 00:27  uratec
+
+	* AUTHORS, README, bin/lpc2lsp/lpc2lsp.c, bin/lsp2lpc/lsp2lpc.c,
+	  bin/lspcheck/lspcheck.c: Modify documents.
+
+2011-12-20 11:45  mataki
+
+	* ChangeLog, bin/Makefile.am, bin/pitch/Makefile.am: Include
+	  COPYING and header file for pitch command in the distribution.
+
 2011-12-20 11:33  mataki
 
 	* ChangeLog, bin/Makefile.am: include COPYING and header file for

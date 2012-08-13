@@ -95,7 +95,7 @@ int dft(double *pReal, double *pImag, const int nDFTLength)
    }
    free(pTempReal);
    free(pTempImag);
-  
+
    return (0);
 }
 
@@ -141,7 +141,7 @@ int dct_create_table_fft(const int nSize)
       pWeightReal2[0] /= sqrt(2.0);
       pWeightImag2[0] /= sqrt(2.0);
    }
-   
+
    return (0);
 }
 
@@ -216,7 +216,8 @@ int dct_based_on_fft(double *pReal, double *pImag, const double *pInReal,
    return (0);
 }
 
-int dct_based_on_dft(double *pReal, double *pImag, const double *pInReal,  const double *pInImag)
+int dct_based_on_dft(double *pReal, double *pImag, const double *pInReal,
+                     const double *pInImag)
 {
    register int n, k;
 
@@ -227,7 +228,7 @@ int dct_based_on_dft(double *pReal, double *pImag, const double *pInReal,  const
       pLocalImag[dct_table_size + n] = pInImag[dct_table_size - 1 - n];
    }
 
-     dft(pLocalReal, pLocalImag, dct_table_size * 2);
+   dft(pLocalReal, pLocalImag, dct_table_size * 2);
 
    for (k = 0; k < dct_table_size; k++) {
       pReal[k] =
@@ -239,54 +240,53 @@ int dct_based_on_dft(double *pReal, double *pImag, const double *pInReal,  const
    return (0);
 }
 
-void dct (double *in, double *out, const int size, const int m,
-          const Boolean dftmode, const Boolean compmode)
+void dct(double *in, double *out, const int size, const int m,
+         const Boolean dftmode, const Boolean compmode)
 {
-    int k, i, j, iter;
-    double *pReal, *pImag;
-    double *x, *y;
-    double *x2, *y2;
+   int k, i, j, iter;
+   double *pReal, *pImag;
+   double *x, *y;
+   double *x2, *y2;
 
-    x = dgetmem(2 * size);
-    y = x + size;
-    pReal = dgetmem(2 * size);
-    pImag = pReal + size;
-    x2 = dgetmem(2 * size);
-    y2 = x2 + size;
+   x = dgetmem(2 * size);
+   y = x + size;
+   pReal = dgetmem(2 * size);
+   pImag = pReal + size;
+   x2 = dgetmem(2 * size);
+   y2 = x2 + size;
 
-        for (k = 0; k < size; k++) {
-           x[k] = in[k];
-           y[k] = in[k+size];
-           x2[k] = x[k];
-           y2[k] = y[k];
-        }
+   for (k = 0; k < size; k++) {
+      x[k] = in[k];
+      y[k] = in[k + size];
+      x2[k] = x[k];
+      y2[k] = y[k];
+   }
 
-    iter = 0;
-    i = size;
-    while ((i /= 2) != 0) {
-         iter++;
+   iter = 0;
+   i = size;
+   while ((i /= 2) != 0) {
+      iter++;
+   }
+   j = 1;
+   for (i = 1; i <= iter; i++) {
+      j *= 2;
+   }
+   if (size != j || dftmode) {
+      dct_create_table(size);
+      dct_based_on_dft(pReal, pImag, x2, y2);
+   } else {
+      dct_create_table_fft(size);
+      dct_based_on_fft(pReal, pImag, x2, y2);
+   }
+
+   for (k = 0; k < m; k++) {
+      out[k] = pReal[k];
+      if (compmode == TR) {
+         out[k + size] = pImag[k];
       }
-      j = 1;
-      for (i = 1; i <= iter; i++) {
-         j *= 2;
-      }
-      if (size != j || dftmode) {
-         dct_create_table(size);
-         dct_based_on_dft(pReal, pImag, x2, y2);
-      } else {
-         dct_create_table_fft(size);
-         dct_based_on_fft(pReal, pImag, x2, y2);
-      }
+   }
 
-      for (k = 0; k < m; k++) {
-         out[k] = pReal[k];
-           if (compmode == TR) {
-             out[k + size] = pImag[k];
-         }
-      }
-
-       free(x);
-       free(x2);
-       free(pReal);
+   free(x);
+   free(x2);
+   free(pReal);
 }
-

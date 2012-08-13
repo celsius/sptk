@@ -82,14 +82,14 @@ double cal_det(double **var, const int D)
          ldet += log(tri[l][l]);
 
       for (l = 0; l < D; l++) {
-          free(tri[l]);
+         free(tri[l]);
       }
       free(tri);
 
       return (2.0 * ldet);
    } else {
       for (l = 0; l < D; l++) {
-          free(tri[l]);
+         free(tri[l]);
       }
       free(tri);
 

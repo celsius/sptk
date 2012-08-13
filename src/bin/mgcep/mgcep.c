@@ -203,8 +203,8 @@ void usage(const int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, itr2 = MAXITR, n = -1,
-       flag = 0, otype = OTYPE, itype = ITYPE, etype = ETYPE, i;
+   int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, itr2 = MAXITR, n =
+       -1, flag = 0, otype = OTYPE, itype = ITYPE, etype = ETYPE, i;
    FILE *fp = stdin;
    double *b, *x, a = ALPHA, g = GAMMA, end = END, e = EPS, f = MINDET;
 
@@ -270,8 +270,8 @@ int main(int argc, char **argv)
          case 'E':
             etype = 2;
             e = atof(*++argv);
-            --argc;          
-             break;
+            --argc;
+            break;
          case 'f':
             f = atof(*++argv);
             --argc;
@@ -296,7 +296,7 @@ int main(int argc, char **argv)
    b = x + flng;
 
    while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
-      
+
       flag = mgcep(x, flng, b, m, a, g, n, itr1, itr2, end, etype, e, f, itype);
 
       if (otype == 0 || otype == 1 || otype == 2 || otype == 4)

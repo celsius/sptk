@@ -174,13 +174,13 @@ int main(int argc, char *argv[])
          infile = s;
    }
 
-    fp = stdin;
+   fp = stdin;
 
-    if (infile) {
+   if (infile) {
       fp = getfp(infile, "rb");
-    }
-    
-   
+   }
+
+
    size2 = size * size;
 
    x = dgetmem(2 * size2);
@@ -212,9 +212,9 @@ int main(int argc, char *argv[])
    free(x);
 
 
-    if (infile) {
+   if (infile) {
       fclose(fp);
-    }
+   }
 
    return (0);
 }
