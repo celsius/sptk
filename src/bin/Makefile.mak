@@ -23,7 +23,7 @@ all: acep.exe acorr.exe agcep.exe amcep.exe \
 	decimate.exe delay.exe delta.exe df2.exe dfs.exe dmp.exe ds.exe dtw.exe echo2.exe \
 	excite.exe extract.exe fd.exe fdrw.exe fft.exe fft2.exe fftcep.exe fftr.exe fftr2.exe \
 	fig.exe frame.exe freqt.exe gc2gc.exe gcep.exe glsadf.exe gmm.exe gmmp.exe gnorm.exe \
-	grpdelay.exe histogram.exe idct.exe ifft.exe ifft2.exe \
+	grpdelay.exe histogram.exe idct.exe ifft.exe ifft2.exe ifftr.exe \
 	ignorm.exe impulse.exe imsvq.exe interpolate.exe ivq.exe \
 	lbg.exe levdur.exe linear_intpl.exe lmadf.exe lpc.exe lpc2c.exe lpc2lsp.exe \
 	lpc2par.exe lsp2lpc.exe lspcheck.exe lspdf.exe ltcdf.exe mc2b.exe mcep.exe \
@@ -232,6 +232,10 @@ ifft.exe : ifft\ifft.obj
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
 ifft2.exe : ifft2\ifft2.obj
+	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
+	$(CL) /OUT:$@ $(LIBS) $(@B).obj
+
+ifftr.exe : ifftr\ifftr.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 

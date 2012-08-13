@@ -24,7 +24,6 @@ CORES = agexp.obj \
 	getmem.obj \
 	gexp.obj \
 	glog.obj \
-	ifftr.obj \
 	matrix.obj \
 	movem.obj \
 	mseq.obj \
@@ -58,6 +57,7 @@ MODULES = ..\bin\acep\_acep.obj \
 	..\bin\histogram\_histogram.obj \
 	..\bin\ifft\_ifft.obj \
 	..\bin\ifft2\_ifft2.obj \
+	..\bin\ifftr\_ifftr.obj \
 	..\bin\ignorm\_ignorm.obj \
 	..\bin\imsvq\_imsvq.obj \
 	..\bin\ivq\_ivq.obj \

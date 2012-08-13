@@ -12,7 +12,6 @@ libSPTK_a_SOURCES = agexp.c \
 	      getmem.c \
 	      gexp.c \
 	      glog.c \
-	      ifftr.c \
 	      invert.c \
 	      matrix.c \
 	      movem.c \
@@ -48,6 +47,7 @@ nodist_libSPTK_a_SOURCES = $(top_srcdir)/include/SPTK.h \
 		$(top_srcdir)/bin/grpdelay/_grpdelay.c \
 		$(top_srcdir)/bin/histogram/_histogram.c \
 		$(top_srcdir)/bin/ifft/_ifft.c \
+		$(top_srcdir)/bin/ifftr/_ifftr.c \
 		$(top_srcdir)/bin/ifft2/_ifft2.c \
 		$(top_srcdir)/bin/ignorm/_ignorm.c \
 		$(top_srcdir)/bin/imsvq/_imsvq.c \

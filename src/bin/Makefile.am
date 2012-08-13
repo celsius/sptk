@@ -47,6 +47,7 @@ SUBDIRS = acep \
 	histogram \
 	idct \
 	ifft \
+	ifftr \
 	ifft2 \
 	ignorm \
 	impulse \

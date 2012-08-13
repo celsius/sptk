@@ -194,6 +194,7 @@ AC_CONFIG_FILES([Makefile
                  bin/histogram/Makefile
                  bin/idct/Makefile
                  bin/ifft/Makefile
+                 bin/ifftr/Makefile
                  bin/ifft2/Makefile
                  bin/ignorm/Makefile
                  bin/impulse/Makefile
