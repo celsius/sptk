@@ -124,24 +124,24 @@ void usage(int status)
    fprintf(stderr, "       -e e   : end offset number            [0]\n");
    fprintf(stderr, "       +type  : input and output data format [s]\n");
    fprintf(stderr,
-           "                s  (short, %dbyte)        S  (unsigned short, %dbyte)\n",
-           sizeof(short), sizeof(unsigned short));
+           "                s  (short, %ldbyte)        S  (unsigned short, %ldbyte)\n",
+           (unsigned long)sizeof(short), (unsigned long)sizeof(unsigned short));
    fprintf(stderr,
            "                i3 (int, 3byte)          I3 (unsigned int, 3byte)\n");
    fprintf(stderr,
-           "                i  (int, %dbyte)          I  (unsigned int, %dbyte)\n",
-           sizeof(int), sizeof(unsigned int));
+           "                i  (int, %ldbyte)          I  (unsigned int, %ldbyte)\n",
+           (unsigned long)sizeof(int), (unsigned long)sizeof(unsigned int));
    fprintf(stderr,
-           "                l  (long, %dbyte)         L  (unsigned long, %dbyte)\n",
-           sizeof(long), sizeof(unsigned long));
+           "                l  (long, %ldbyte)         L  (unsigned long, %ldbyte)\n",
+           (unsigned long)sizeof(long), (unsigned long)sizeof(unsigned long));
    fprintf(stderr,
-           "                le (long long, %dbyte)    LE (unsigned long long, %dbyte)\n",
-           sizeof(long long), sizeof(unsigned long long));
+           "                le (long long, %ldbyte)    LE (unsigned long long, %ldbyte)\n",
+           (unsigned long)sizeof(long long), (unsigned long)sizeof(unsigned long long));
    fprintf(stderr,
-           "                f  (float, %dbyte)        d  (double, %dbyte)\n",
-           sizeof(float), sizeof(double));
+           "                f  (float, %ldbyte)        d  (double, %ldbyte)\n",
+           (unsigned long)sizeof(float), (unsigned long)sizeof(double));
    fprintf(stderr,
-           "                de (long double, %dbyte)\n", sizeof(long double));
+           "                de (long double, %ldbyte)\n", (unsigned long)sizeof(long double));
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence                [stdin]\n");
