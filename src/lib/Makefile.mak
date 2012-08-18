@@ -40,6 +40,7 @@ MODULES = ..\bin\acep\_acep.obj \
 	..\bin\c2ir\_c2ir.obj \
 	..\bin\c2sp\_c2sp.obj \
 	..\bin\clip\_clip.obj \
+        ..\bin\dct\_dct.obj \
 	..\bin\df2\_df2.obj \
 	..\bin\dfs\_dfs.obj \
 	..\bin\fft\_fft.obj \
