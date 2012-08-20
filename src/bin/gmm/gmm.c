@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -55,7 +55,6 @@
  *       options:                                                        *
  *               -l l  :  length of vector                    [26]       *
  *               -m m  :  number of Gaussian components       [16]       *
- *               -t t  :  number of training vectors          [EOF]      *
  *               -s s  :  seed of random var. for LBG algo.   [1]        *
  *               -a a  :  minimum number of EM iterations     [0]        *
  *               -b b  :  maximum number of EM iterations     [20]       *
@@ -68,9 +67,6 @@
  *               training data sequence                       [stdin]    *
  *       stdout:                                                         *
  *               GMM parameters                                          *
- *       notice:                                                         *
- *               -t option can be omitted, when input by its file name   *
- *                or from redirect                                       *
  *                                                                       *
  ************************************************************************/
 
@@ -125,6 +121,11 @@ char *BOOL[] = { "FALSE", "TRUE" };
 /*  Command Name  */
 char *cmnd;
 
+typedef struct _float_list {
+   float *f;
+   struct _float_list *next;
+} float_list;
+
 void usage(int status)
 {
    fprintf(stderr, "\n");
@@ -137,7 +138,6 @@ void usage(int status)
            DEF_L);
    fprintf(stderr, "       -m m  : number of Gaussian components      [%d]\n",
            DEF_M);
-   fprintf(stderr, "       -t t  : number of training vectors         [N/A]\n");
    fprintf(stderr, "       -s s  : seed of random var. for LBG algo.  [%d]\n",
            DEF_S);
    fprintf(stderr, "       -a a  : minimum number of EM iterations    [%d]\n",
@@ -166,10 +166,6 @@ void usage(int status)
            "            mean_vec-2, variance_vec-2, ..., mean_vec-m, variance_vec-m\n");
    fprintf(stderr, "  notice:\n");
    fprintf(stderr,
-           "       -t option can be omitted when training data is given by\n");
-   fprintf(stderr,
-           "         its file name or by file redirection with symbol \"<\".\n");
-   fprintf(stderr,
            "       -e option specifies a threshold for the change of average\n");
    fprintf(stderr,
            "         log-likelihood for training data at each iteration.\n");
@@ -194,10 +190,11 @@ int main(int argc, char **argv)
    double E = DEF_E, V = DEF_V, W = DEF_W,
        *dat, *pd, *cb, *icb, *logwgd, logb, *sum, *sum_m, **sum_v, diff, sum_w,
        ave_logp0, ave_logp1, change = MAXVALUE, tmp1, tmp2;
-   int ispipe, l, L = DEF_L, m, M = DEF_M, N, t, T = DEF_T, S =
+   int l, L = DEF_L, m, M = DEF_M, N, t, T = DEF_T, S =
        DEF_S, full = FULL, n1, i, j, Imin = DEF_IMIN, Imax =
        DEF_IMAX, *tindex, *cntcb;
    void cal_inv(double **cov, double **inv, const int L);
+   float_list *top, *cur, *prev, *tmpf, *tmpff;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -217,10 +214,6 @@ int main(int argc, char **argv)
             break;
          case 'm':
             M = atoi(*++argv);
-            --argc;
-            break;
-         case 't':
-            T = atoi(*++argv);
             --argc;
             break;
          case 's':
@@ -261,24 +254,34 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
-
-   /* -- Count number of training vectors -- */
-   if (T == -1) {
-      ispipe = fseek(fp, 0L, SEEK_END);
-      T = (int) (ftell(fp) / (double) L / (double) sizeof(float));
-      rewind(fp);
-
-      if (ispipe == -1) {       /* training data is from standard input via pipe */
-         fprintf(stderr,
-                 "\n %s (Error) -t option must be specified for the standard input via pipe.\n",
-                 cmnd);
-         usage(1);
+   /* -- Count number of input vectors and read -- */
+   dat = dgetmem(L);
+   top = prev = (float_list *) malloc(sizeof(float_list));
+   top->f = fgetmem(L);
+   T = 0;
+   prev->next = NULL;
+   while (freadf(dat, sizeof(*dat), L, fp) == L) {
+      cur = (float_list *) malloc(sizeof(float_list));
+      cur->f = fgetmem(L);
+      for (i = 0; i < L; i++) {
+         cur->f[i] = (float) dat[i];
       }
+      T++;
+      prev->next = cur;
+      cur->next = NULL;
+      prev = cur;
    }
-
-   /* Memory allocation */
-   /* Training data */
-   dat = dgetmem(T * L);
+   free(dat);
+   dat = dgetmem(L * T);
+   for (i = 0, tmpf = top->next; tmpf != NULL; i++, tmpf = tmpff) {
+      for (j = 0; j < L; j++) {
+         dat[i * L + j] = tmpf->f[j];
+      }
+      tmpff = tmpf->next;
+      free(tmpf->f);
+      free(tmpf);
+   }
+   free(top);
 
    /* GMM */
    gmm.weight = dgetmem(M);
@@ -326,9 +329,6 @@ int main(int argc, char **argv)
 
    logwgd = dgetmem(M);
    sum = dgetmem(M);
-
-   /*  Read training data */
-   freadf(dat, sizeof(*dat), T * L, fp);
 
    /* Initialization of GMM parameters */
    if (fgmm != NULL) {

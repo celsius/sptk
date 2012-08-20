@@ -181,21 +181,12 @@ int main(int argc, char *argv[])
       usage(EXIT_FAILURE);
    }
 
-   /* Read eigen vectors and mean vector */
    if (fpca == NULL) {
       fprintf(stderr, "\n %s (Error) PCA file name required.\n", cmnd);
       usage(EXIT_FAILURE);
    }
 
-   /* Count number of eigen vectors and mean vector */
-   fseek(fp, 0L, SEEK_END);
-   total = (int) (ftell(fp) / (int) leng / (double) sizeof(float));
-   rewind(fp);
-   if (total == 0) {
-      fprintf(stderr, "%s: No input data !\n", cmnd);
-      usage(EXIT_FAILURE);
-   }
-
+   /* Read eigen vectors and mean vector */
    fseek(fpca, 0L, SEEK_END);
    eigen_num = (int) (ftell(fpca) / (int) leng / (double) sizeof(float));
    rewind(fpca);
@@ -203,15 +194,15 @@ int main(int argc, char *argv[])
    e_vec = malloc_matrix(eigen_num, leng);
    mean = dgetmem(leng);
 
-   freadf(mean, sizeof(double), leng, fpca);
+   freadf(mean, sizeof(*mean), leng, fpca);
    for (i = 0; i < eigen_num - 1; i++)
-      freadf(e_vec[i], sizeof(double), leng, fpca);
+      freadf(e_vec[i], sizeof(*(e_vec[i])), leng, fpca);
 
    total = 0;
    test_data = dgetmem(leng);
    z = dgetmem(order);
    while (freadf(test_data, sizeof(*test_data), leng, fp) == leng) {
-      fillz(z, order, sizeof(double));
+      fillz(z, order, sizeof(*z));
 
       /* calculate pricipal component score */
       for (i = 0; i < order; i++) {
