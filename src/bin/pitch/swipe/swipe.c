@@ -472,7 +472,7 @@ vector pitch(matrix S, vector pc, double st) {
 #if 0
 vector swipe(int fid, double min, double max, double st, double dt) {
 #else
-  void swipe(float_list *input, int length, double min, double max, double st, int frame_shift, double samplerate, int otype) {
+  void swipe(float_list *input, int length, double samplerate, int frame_shift, double min, double max, double st, int otype) {
 #endif
     int i; 
     double td = 0.;

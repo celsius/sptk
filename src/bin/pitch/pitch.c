@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -182,18 +182,17 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int length, frame_shift = FRAME_SHIFT,
-       atype = ATYPE, otype = OTYPE, fnum = 0;
-   float thresh_rapt = THRESH_RAPT;
-   double *x, thresh_swipe = THRESH_SWIPE, sample_freq = SAMPLE_FREQ, L =
-       LOW, H = HIGH;
+   int length, frame_shift = FRAME_SHIFT, atype = ATYPE, otype = OTYPE;
+   double *x, thresh_rapt = THRESH_RAPT, thresh_swipe =
+       THRESH_SWIPE, sample_freq = SAMPLE_FREQ, L = LOW, H = HIGH;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;
-   char *cGet_f0(float_list * flist, float sample_freq,
-                 int length, int frame_shift,
-                 int minF0, int maxF0, int fnum, int otype, float voice_bias);
-   void swipe(float_list * input, int length, double min, double max,
-              double st, int frame_shift, double samplerate, int otype);
+   void rapt(float_list * flist, int length, double sample_freq,
+             int frame_shift, double min, double max, double threshold,
+             int otype);
+   void swipe(float_list * input, int length, double sample_freq,
+              int frame_shift, double min, double max, double threshold,
+              int otype);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -259,10 +258,10 @@ int main(int argc, char **argv)
    }
 
    if (atype == 0) {
-      cGet_f0(top->next, (float) sample_freq, length, frame_shift, (int) L,
-              (int) H, fnum, otype, thresh_rapt);
+      rapt(top->next, length, sample_freq, frame_shift, L, H, thresh_rapt,
+           otype);
    } else {
-      swipe(top->next, length, L, H, thresh_swipe, frame_shift, sample_freq,
+      swipe(top->next, length, sample_freq, frame_shift, L, H, thresh_swipe,
             otype);
    }
 

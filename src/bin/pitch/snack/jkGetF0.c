@@ -1843,10 +1843,9 @@ int
 cGet_f0(Sound *sound, Tcl_Interp *interp, float **outlist, int *length)
 {
 #else
-void cGet_f0(float_list *input, float sample_freq, int length,
-             int frame_shift, int minF0, int maxF0, int fnum, int otype,
-             float voice_bias)
+void rapt(float_list *input, int length, double sample_freq, int frame_shift, double minF0, double maxF0, double voice_bias, int otype)
 {
+  int fnum = 0;
 #endif
   float *fdata;
   int done;
@@ -1942,9 +1941,7 @@ void cGet_f0(float_list *input, float sample_freq, int length,
   par->mean_f0_weight = 0.0f;  /* unused */
   par->conditioning = 0;       /* unused */
 #if 1
-  if (voice_bias > 0.0) {
-     par->voice_bias  = voice_bias;
-  }
+  par->voice_bias = voice_bias; /* overwrite U/V threshold for pitch command */
 #endif
 
 #if 0
