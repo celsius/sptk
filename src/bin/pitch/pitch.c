@@ -56,12 +56,14 @@
 *       options:                                                        *
 *               -a  a     :  algorithm used for pitch      [0]          *
 *                            estimation                                 *
-*                              0 (snack)                                *
+*                              0 (RAPT)                                 *
 *                              1 (SWIPE')                               *
 *               -s  s     :  sampling frequency (Hz)       [16]         *
 *               -p  p     :  frame shift                   [80]         *
+*               -T  T     :  voiced/unvoiced threshold     [0.0]        *
+*                            (used only for RAPT algorithm)             *
 *               -t  t     :  voiced/unvoiced threshold     [0.3]        *
-*                            (used only for swipe algorithm)            *
+*                            (used only for SWIPE' algorithm)           *
 *               -L  L     :  minimum fundamental frequency [60]         *
 *                            to search for (Hz)                         *
 *               -H  H     :  maximum fundamental frequency [240]        *
@@ -110,7 +112,8 @@ static char *rcs_id = "$Id$";
 #define ATYPE 0
 #define OTYPE 0
 #define STR_LEN 255
-#define THRESH 0.3
+#define THRESH_RAPT 0.0
+#define THRESH_SWIPE 0.3
 #define NOISEMASK 50.0
 #define SEED 1
 #define RND_MAX 32767
@@ -139,15 +142,18 @@ void usage(int status)
    fprintf(stderr, "       -a a  : algorithm used for pitch        [%d]\n",
            ATYPE);
    fprintf(stderr, "               estimation\n");
-   fprintf(stderr, "                 0 (snack)\n");
+   fprintf(stderr, "                 0 (RAPT)\n");
    fprintf(stderr, "                 1 (SWIPE')\n");
-   fprintf(stderr, "       -s s  : sampling frequency (kHz)        [%g]\n",
+   fprintf(stderr, "       -s s  : sampling frequency (kHz)        [%.1f]\n",
            SAMPLE_FREQ);
    fprintf(stderr, "       -p p  : frame shift                     [%d]\n",
            FRAME_SHIFT);
+   fprintf(stderr, "       -T T  : voiced/unvoiced threshold       [%.1f]\n",
+           THRESH_RAPT);
+   fprintf(stderr, "               (used only for RAPT algorithm)\n");
    fprintf(stderr, "       -t t  : voiced/unvoiced threshold       [%g]\n",
-           THRESH);
-   fprintf(stderr, "               (used only for swipe algorithm)\n");
+           THRESH_SWIPE);
+   fprintf(stderr, "               (used only for SWIPE' algorithm)\n");
    fprintf(stderr, "       -L L  : minimum fundamental             [%g]\n",
            LOW);
    fprintf(stderr, "               frequency to search for (Hz)\n");
@@ -178,12 +184,14 @@ int main(int argc, char **argv)
 {
    int length, frame_shift = FRAME_SHIFT,
        atype = ATYPE, otype = OTYPE, fnum = 0;
-   double *x, thresh = THRESH, sample_freq = SAMPLE_FREQ, L = LOW, H = HIGH;
+   float thresh_rapt = THRESH_RAPT;
+   double *x, thresh_swipe = THRESH_SWIPE, sample_freq = SAMPLE_FREQ, L =
+       LOW, H = HIGH;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;
    char *cGet_f0(float_list * flist, float sample_freq,
                  int length, int frame_shift,
-                 int minF0, int maxF0, int fnum, int otype);
+                 int minF0, int maxF0, int fnum, int otype, float voice_bias);
    void swipe(float_list * input, int length, double min, double max,
               double st, int frame_shift, double samplerate, int otype);
 
@@ -206,8 +214,12 @@ int main(int argc, char **argv)
             frame_shift = atoi(*++argv);
             --argc;
             break;
+         case 'T':
+            thresh_rapt = atof(*++argv);
+            --argc;
+            break;
          case 't':
-            thresh = atof(*++argv);
+            thresh_swipe = atof(*++argv);
             --argc;
             break;
          case 'L':
@@ -248,9 +260,10 @@ int main(int argc, char **argv)
 
    if (atype == 0) {
       cGet_f0(top->next, (float) sample_freq, length, frame_shift, (int) L,
-              (int) H, fnum, otype);
+              (int) H, fnum, otype, thresh_rapt);
    } else {
-      swipe(top->next, length, L, H, thresh, frame_shift, sample_freq, otype);
+      swipe(top->next, length, L, H, thresh_swipe, frame_shift, sample_freq,
+            otype);
    }
 
    return (0);
