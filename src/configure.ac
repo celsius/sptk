@@ -247,6 +247,7 @@ AC_CONFIG_FILES([Makefile
                  bin/step/Makefile
                  bin/swab/Makefile
                  bin/train/Makefile
+                 bin/transpose/Makefile
                  bin/uels/Makefile
                  bin/ulaw/Makefile
                  bin/us/Makefile

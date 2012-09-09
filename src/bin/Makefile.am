@@ -100,6 +100,7 @@ SUBDIRS = acep \
 	step \
 	swab \
 	train \
+	transpose \
 	uels \
 	ulaw \
 	us \

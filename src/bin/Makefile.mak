@@ -31,7 +31,7 @@ all: acep.exe acorr.exe agcep.exe amcep.exe \
 	mlsadf.exe msvq.exe nan.exe norm0.exe nrand.exe pca.exe pcas.exe par2lpc.exe phase.exe pitch.exe \
 	poledf.exe psgr.exe \
 	ramp.exe rawtowav.exe reverse.exe rmse.exe root_pol.exe sin.exe smcep.exe snr.exe \
-	sopr.exe spec.exe step.exe swab.exe train.exe uels.exe ulaw.exe \
+	sopr.exe spec.exe step.exe swab.exe train.exe transpose.exe uels.exe ulaw.exe \
 	us.exe vopr.exe vq.exe vstat.exe vsum.exe window.exe x2x.exe \
 	zcross.exe zerodf.exe 
 
@@ -446,6 +446,10 @@ swab.exe : swab\swab.obj
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
 train.exe : train\train.obj
+	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
+	$(CL) /OUT:$@ $(LIBS) $(@B).obj
+
+transpose.exe : transpose\transpose.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
