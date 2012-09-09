@@ -140,27 +140,27 @@ void usage(int status)
    fprintf(stderr,
            "       +type2  : output data type                            [type1]\n");
    fprintf(stderr,
-           "                 c  (char, %ldbyte)         C  (unsigned char, %ldbyte)\n",
+           "                 c  (char, %lubyte)         C  (unsigned char, %lubyte)\n",
            (unsigned long)sizeof(char), (unsigned long)sizeof(unsigned char));
    fprintf(stderr,
-           "                 s  (short, %ldbyte)        S  (unsigned short, %ldbyte)\n",
+           "                 s  (short, %lubyte)        S  (unsigned short, %lubyte)\n",
            (unsigned long)sizeof(short), (unsigned long)sizeof(unsigned short));
    fprintf(stderr,
-           "                 i  (int, %ldbyte)          I  (unsigned int, %ldbyte)\n",
+           "                 i  (int, %lubyte)          I  (unsigned int, %lubyte)\n",
            (unsigned long)sizeof(int), (unsigned long)sizeof(unsigned int));
    fprintf(stderr,
            "                 i3 (int, 3byte)          I3 (unsigned int, 3byte)\n");
    fprintf(stderr,
-           "                 l  (long, %ldbyte)         L  (unsigned long, %ldbyte)\n",
+           "                 l  (long, %lubyte)         L  (unsigned long, %lubyte)\n",
            (unsigned long)sizeof(long), (unsigned long)sizeof(unsigned long));
    fprintf(stderr,
-           "                 le (long long, %ldbyte)    LE (unsigned long long, %ldbyte)\n",
+           "                 le (long long, %lubyte)    LE (unsigned long long, %lubyte)\n",
            (unsigned long)sizeof(long long), (unsigned long)sizeof(unsigned long long));
    fprintf(stderr,
-           "                 f  (float, %ldbyte)        d  (double, %ldbyte)\n",
+           "                 f  (float, %lubyte)        d  (double, %lubyte)\n",
            (unsigned long)sizeof(float), (unsigned long)sizeof(double));
    fprintf(stderr,
-           "                 de (long double, %ldbyte) a  (ascii)\n",
+           "                 de (long double, %lubyte) a  (ascii)\n",
            (unsigned long)sizeof(long double));
    fprintf(stderr,
            "       +aN     : specify the column number N                 [%d]\n",
