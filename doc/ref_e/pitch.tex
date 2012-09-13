@@ -45,7 +45,7 @@
 \name{pitch}{pitch extraction}{signal processing,speech analysis and synthesis}
 
 \begin{synopsis}
- \item[pitch] [ --a $A$ ] [ --s $S$ ] [ --p $P$ ] [ --t $T$ ]
+ \item[pitch] [ --a $A$ ] [ --s $S$ ] [ --p $P$ ] [ --T $T$ ] [ --t $t$ ]
  [ --L $Lo$ ] [ --H $Hi$ ] [ --o $O$ ][ {\em infile} ]
 \end{synopsis}
 
@@ -69,7 +69,8 @@ Both input and output files are in float format.
  \end{tabular}\\\hspace*{\fill}}{0}
  \argm{s}{S}{sampling frequency (kHz)}{16.0}
  \argm{p}{P}{frame shift}{80}
- \argm{t}{T}{voiced/unvoiced threshold (used only for SWIPE' algorithm)}{0.3}
+ \argm{T}{T}{voiced/unvoiced threshold (used only for RAPT algorithm)}{0.0}
+ \argm{t}{t}{voiced/unvoiced threshold (used only for SWIPE' algorithm)}{0.3}
  \argm{L}{Lo}{minimum fundamental frequency to search for (Hz)}{60.0}
  \argm{H}{Hi}{maximum fundamental frequency to search for (Hz)}{240.0}
  \argm{o}{O}{output format\\
