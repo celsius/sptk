@@ -76,6 +76,7 @@ SUBDIRS = acep \
 	mglsadf \
 	minmax \
 	mlpg \
+	mlsacheck \
 	mlsadf \
 	msvq \
 	nan \

@@ -1,0 +1,164 @@
+% ----------------------------------------------------------------- %
+%             The Speech Signal Processing Toolkit (SPTK)           %
+%             developed by SPTK Working Group                       %
+%             http://sp-tk.sourceforge.net/                         %
+% ----------------------------------------------------------------- %
+%                                                                   %
+%  Copyright (c) 1984-2007  Tokyo Institute of Technology           %
+%                           Interdisciplinary Graduate School of    %
+%                           Science and Engineering                 %
+%                                                                   %
+%                1996-2012  Nagoya Institute of Technology          %
+%                           Department of Computer Science          %
+%                                                                   %
+% All rights reserved.                                              %
+%                                                                   %
+% Redistribution and use in source and binary forms, with or        %
+% without modification, are permitted provided that the following   %
+% conditions are met:                                               %
+%                                                                   %
+% - Redistributions of source code must retain the above copyright  %
+%   notice, this list of conditions and the following disclaimer.   %
+% - Redistributions in binary form must reproduce the above         %
+%   copyright notice, this list of conditions and the following     %
+%   disclaimer in the documentation and/or other materials provided %
+%   with the distribution.                                          %
+% - Neither the name of the SPTK working group nor the names of its %
+%   contributors may be used to endorse or promote products derived %
+%   from this software without specific prior written permission.   %
+%                                                                   %
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            %
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       %
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          %
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          %
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS %
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          %
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   %
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     %
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON %
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   %
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    %
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
+% POSSIBILITY OF SUCH DAMAGE.                                       %
+% ----------------------------------------------------------------- %
+\hypertarget{mlsacheck}{}
+\name{mlsacheck}%
+{check stability of MLSA filter}{filters for speech synthesis}
+
+\begin{synopsis}
+\item [mlsacheck] [ --m $M$ ] [ --a $A$ ] [ --r ] [ --R ]
+ [--P $Pa$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+ {\em mlsacheck} tests the stability of
+ the Mel Log Spectral Approximation (MLSA) digital filter
+ of the mel-cepstrum coefficients in {\em infile} (or standard input),
+ sending the result to standard output.
+
+ Both input and output are in float format.
+
+ As described in \hyperlink{mlsadf}{mlsadf},
+ the transfer function $H(z)$ is expressed as
+\begin{align}
+H(z) &= \exp \sum_{m=0}^M b(m) {\it\Phi}_m(z) \notag \\
+     &= K \cdot D(z)\notag
+\end{align}
+where
+\begin{displaymath}
+{\it\Phi}_m(z) = \begin{cases}
+	  \;\;1, & m=0 \\ \;\;\displaystyle
+	  \frac{\displaystyle (1-\alpha^2)z^{-1}}
+	    {\displaystyle 1-\alpha z^{-1}}
+	    \tilde{z}^{-(m-1)},& m\geq 1
+	\end{cases}
+\end{displaymath}
+and
+\begin{align}
+\tilde{z}^{-1} &= \frac{z^{-1}-\alpha}{1-\alpha z^{-1}}, \notag \\
+K    &= \exp b(0) \notag, \\
+D(z) &= \exp \sum_{m=1}^M b(m) {\it\Phi}_m(z).  \notag
+\end{align}
+To construct the exponential transfer function $H(z)$,
+ Pad\'e approximation is used to approximate complex exponential function
+ $\exp\:w$
+ by a following rational function:
+  \begin{displaymath}
+   \exp\:w \simeq  R_L(w) = \frac{1+\sum_{l=1}^{L}A_{L,l}w^{l}}{1+\sum_{l=1}^{L}A_{L,l}(-w)^{l}}
+  \end{displaymath}
+ Then $D(z)$ is approximated by
+  \begin{displaymath}
+   D(z) = \exp(F(z)) \simeq R_{L}(F(z))
+  \end{displaymath}
+ where
+  \begin{displaymath}
+   F(z) = \sum_{m=0}^{M}b(m)\tilde{z}^{-m}.
+  \end{displaymath}
+
+ The stability of the MLSA synthesis filter
+ is related to the accuracy of the approximation.
+ When \begin{math} |F(e^{j\omega})| < r = 4.5 \end{math} and
+ \begin{math} L = 4 \end{math}
+ for \begin{math} R_{L}(w)\end{math},
+ the log approximation error does not exceed 0.24 dB.
+ The corresponding synthesis filter
+ \begin{math} R_{L}(F(z))\simeq \exp(F(z))=D(z)\end{math}
+ is stable when \begin{math} |F(e^{j\omega})| < r_{max} = 6.2 \end{math}.
+ Also, the log approximation error does not exceed 0.2735 dB
+ when \begin{math} L = 5 \end{math} and
+ \begin{math}r = 6.0 \end{math}.
+ The corresponding synthesis filter is stable
+ when \begin{math}r_{max} = 7.65 \end{math}.
+
+ In spite of whether specifying --c option or not,
+ {\em mlsacheck} tests the stability and sends an ASCII report of unstable frames and
+ their coefficients to standard error.
+ With specifying --c option,
+ {\em mlsacheck} modifies the filter coefficients
+ if unstable frame is found.
+ With specifying --r option,
+ the stable condition can be selected:
+ When '--r 0', {\em mlsacheck} keeps the log approximation
+ not exceeding 0.24 dB ($Pa=4$) or 0.2735 dB ($Pa=5$),
+ where $Pa$ is the order of Pad\'e approximation.
+ When '--r 1', {\em mlsacheck} keeps the MLSA filter stable
+ although the accuracy of log approximation is lost.
+\end{qsection}
+
+\begin{options}
+ \argm{m}{M}{order of mel-cepstrum}{25}
+ \argm{a}{A}{all-pass constant $\alpha$}{0.35}
+ \argm{l}{L}{FFT length}{256}
+ \argm{c}{}{modify MLSA filter coefficients of unstable frames}{N/A}
+ \argm{r}{R}{stable condition for MLSA filter\\
+            \begin{tabular}{ll} \\[-1ex]
+             $R=0$ & keeping log approximation error not exceeding\\
+             & 0.24 dB ($Pa = 4$) or 0.2735 dB ($Pa = 5$) \\
+             $R=1$ & keeping MLSA filter stable\\
+            \end{tabular}\\
+            \hspace*{\fill}}{0}
+ \argm{P}{Pa}{order of the Pad\'e approximation\\
+                     $Pa$ should be $4$ or $5$}{4}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+In the following example,
+25-th order mel-cepstrum coefficients are
+read from {\em data.mcep} in float format,
+then the stability of MLSA filter is checked,
+ and the results are written to {\em data.mlsachk}.
+\begin{quote}
+ \verb! mlsacheck -m 25 -c data.mcep > data.mlsachk !
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+\hyperlink{mcep}{mcep},
+\hyperlink{amcep}{amcep},
+\hyperlink{poledf}{poledf},
+\hyperlink{zerodf}{zerodf},
+\hyperlink{ltcdf}{ltcdf},
+\hyperlink{lmadf}{lmadf},
+\hyperlink{glsadf}{glsadf},
+\hyperlink{mglsadf}{mglsadf}
+\end{qsection}

@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2011  Nagoya Institute of Technology          %
+%                1996-2012  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -55,10 +55,12 @@ corresponding to the line spectral pair (LSP) coefficients
 from {\em infile} (or standard input), 
 sending the result to standard output.
 
-By default, the output is an ASCII report of the unstable frames.
-However, if the --r option is given, 
-the output is frames of coefficients 
+By default, the output is the same as the input.
+When the --c option is given,
+the output is LSP coefficients
 that have been rearranged so the filter is stable.
+If an frame is unstable, an ASCII report of the number of the frame
+ and corresponding LSP coefficients is sent to standard error.
 \end{qsection}
 
 \begin{options}
@@ -73,10 +75,11 @@ that have been rearranged so the filter is stable.
 			$2$ & frequency (kHz) \\
 			$3$ & frequency (Hz)  \\
 		\end{tabular}\\\hspace*{\fill}}{$I$}
-	\argm{r}{R}{rearrange LSP\\
+	\argm{c}{}{rearrange LSP\\
 check the distance between two consecutive LSPs\\
-and extend the distance (if it is smaller than $R\times \pi/M$)\\
-$s.t.\hspace{0.5cm} 0 < R < 1$}{FALSE}
+and extend the distance (if it is smaller than $R\times \pi/M$)}{N/A}
+	\argm{r}{R}{threthold of rearrangement of LSP\\
+    $s.t.\hspace{0.5cm} 0 \leq R \leq 1$}{0.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

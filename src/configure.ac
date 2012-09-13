@@ -223,6 +223,7 @@ AC_CONFIG_FILES([Makefile
                  bin/mglsadf/Makefile
                  bin/minmax/Makefile
                  bin/mlpg/Makefile
+                 bin/mlsacheck/Makefile
                  bin/mlsadf/Makefile
                  bin/msvq/Makefile
                  bin/nan/Makefile

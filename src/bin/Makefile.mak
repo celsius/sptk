@@ -28,8 +28,8 @@ all: acep.exe acorr.exe agcep.exe amcep.exe \
 	lbg.exe levdur.exe linear_intpl.exe lmadf.exe lpc.exe lpc2c.exe lpc2lsp.exe \
 	lpc2par.exe lsp2lpc.exe lspcheck.exe lspdf.exe ltcdf.exe mc2b.exe mcep.exe \
 	merge.exe mfcc.exe mgc2mgc.exe mgc2sp.exe mgcep.exe mglsadf.exe minmax.exe mlpg.exe \
-	mlsadf.exe msvq.exe nan.exe norm0.exe nrand.exe pca.exe pcas.exe par2lpc.exe phase.exe pitch.exe \
-	poledf.exe psgr.exe \
+	mlsacheck.exe mlsadf.exe msvq.exe nan.exe norm0.exe nrand.exe pca.exe pcas.exe \
+	par2lpc.exe phase.exe pitch.exe poledf.exe psgr.exe \
 	ramp.exe rawtowav.exe reverse.exe rmse.exe root_pol.exe sin.exe smcep.exe snr.exe \
 	sopr.exe spec.exe step.exe swab.exe train.exe transpose.exe uels.exe ulaw.exe \
 	us.exe vopr.exe vq.exe vstat.exe vsum.exe window.exe x2x.exe \
@@ -344,6 +344,10 @@ minmax.exe : minmax\minmax.obj
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
 mlpg.exe : mlpg\mlpg.obj
+	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
+	$(CL) /OUT:$@ $(LIBS) $(@B).obj
+
+mlsacheck.exe : mlsacheck\mlsacheck.obj
 	$(CC) $(CFLAGS) /c $(@B)\$(@B).c
 	$(CL) /OUT:$@ $(LIBS) $(@B).obj
 
