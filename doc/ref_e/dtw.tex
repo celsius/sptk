@@ -52,34 +52,34 @@
 
 \begin{qsection}{DESCRIPTION}
  {\em dtw} carries out dynamic time warping between
- the test data from {\em infile} (or standard input)
- and the reference data from {\em reffile},
+ the test data vectors from {\em infile} (or standard input)
+ and the reference data vectors from {\em reffile},
  and sends the result to standard output.
- The result is the concatenated sequences
- of the test and the reference data
+ The result is the concatenated sequence
+ of the test and the reference data vectors
  along with the Viterbi path.
  If --s option is specified,
  the score calculated by dynamic time warping,
  that is, the distance between the test data and the reference data
  is output and sent to {\em Scorefile}.
  If --v option is specified,
- the concatenated frame number sequences
+ the concatenated frame number sequence
  along the Viterbi path
  is output and sent to {\em Vitfile}.
 
- For example, suppose that the test and the reference data are
+ For example, suppose that the test and the reference data vectors are
  \begin{align}
-  \mathrm{test} :\;\; & x(0), x(1), \dots, x(T_x - 1), \dots, x(T_x), \notag \\
-  \mathrm{reference}  :\;\; & y(0), y(1), \dots, y(T_y - 1), \dots, y(T_y), \notag
+  \mathrm{test} :\;\; & \bx(0), \bx(1), \dots, \bx(T_x - 1), \bx(T_x), \notag \\
+  \mathrm{reference}  :\;\; & \by(0), \by(1), \dots, \by(T_y - 1), \by(T_y), \notag
  \end{align}
- where $T_x$ and $T_y$ are the length of the test and reference data,
- respectively,
+ where $T_x$ and $T_y$ are the length of the test and reference data vectors,
+ respectively,p
  and the following Viterbi sequences
  \begin{align}
-  \mathrm{test} :\;\; & x(\phi_x(0)), x(\phi_x(1)), \dots, x(\phi_x(T_x - 1)),
-  \dots, x(\phi_{x}(T_x)), \notag \\
-  \mathrm{reference}  :\;\; & y(\phi_y(0)), y(\phi_y(1)), \dots,
-  y(\phi_y(T_y - 1)), \dots, y(\phi_y(T_y)), \notag
+  \mathrm{test} :\;\; & \bx(\phi_x(0)), \bx(\phi_x(1)), \dots, \bx(\phi_x(T_x - 1)),
+  \bx(\phi_{x}(T_x)), \notag \\
+  \mathrm{reference}  :\;\; & \by(\phi_y(0)), \by(\phi_y(1)), \dots,
+  \by(\phi_y(T_y - 1)), \by(\phi_y(T_y)), \notag
  \end{align}
  are obtained, where $\phi_x(\cdot)$ and $\phi_x(\cdot)$ are the function which
  maps the frame number of test/reference data
@@ -87,29 +87,29 @@
  In addition, the relation $\phi_x(T_x)=\phi_y(T_y)$ holds.
  Then, the following sequence
  \begin{align}
-  x(\phi_x(0)), y(\phi_y(0)),
-  x(\phi_x(1)), y(\phi_y(1)),
-  \dots, x(\phi_{x}(T_x)), \dots, y(\phi_y(T_y)) \notag
+  \bx(\phi_x(0)), \by(\phi_y(0)),
+  \bx(\phi_x(1)), \by(\phi_y(1)),
+  \dots, \bx(\phi_{x}(T_x)), \by(\phi_y(T_y)) \notag
  \end{align}
  are sent to the standard output.
  If --v option is specified, the following sequence
  \begin{align}
   \phi_x(0), \phi_y(0),
   \phi_x(1), \phi_y(1),
-  \dots, \phi_{x}(T_x), \dots, \phi_y(T_y) \notag
+  \dots, \phi_{x}(T_x), \phi_y(T_y) \notag
  \end{align}
  are sent to the {\em Vitfile}.
 
  Both input and output files are in float format. However,
  the {\em Vitfile} which contains the Viterbi frame number
- sequences is in int format.
+ sequence is in int format.
 \end{qsection}
 \begin{options}
  \argm{m}{M}{order of vector}{0}
  \argm{l}{L}{dimention of vector}{M+1}
- \argm{t}{T}{number of test input vectors}{N/A}
- \argm{r}{R}{number of reference input vectors}{N/A}
- \argm{n}{N}{type of norm used for calculation of local distance\\
+ \argm{t}{T}{number of test vectors}{N/A}
+ \argm{r}{R}{number of reference vectors}{N/A}
+ \argm{n}{N}{type of norm used for calculation of local cost\\
  \begin{tabular}{ll} \\[-1ex]
   $N=1$ & ~~~$L_{1}$-norm\\
   $N=2$ & ~~~$L_{2}$-norm\\
