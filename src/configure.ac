@@ -247,6 +247,7 @@ AC_CONFIG_FILES([Makefile
                  bin/spec/Makefile
                  bin/step/Makefile
                  bin/swab/Makefile
+                 bin/symmetrize/Makefile
                  bin/train/Makefile
                  bin/transpose/Makefile
                  bin/uels/Makefile
