@@ -53,8 +53,10 @@
 *       options:                                                        *
 *               -a a     :  all-pass constant                [0.35]     *
 *               -t t     :  emphasized frequency t*pi(rad)   [0]        *
+*               -T T     :  emphasized frequency(kHz)        [0]        *
 *               -m m     :  order of mel cepstrum            [25]       *
 *               -l l     :  frame length                     [256]      *
+*               -F F     :  sampling frequency(kHz)          [10.0]     *
 *               -L L     :  ifft size for making matrices    [1024]     *
 *               -q q     :  Input format                     [0]        *
 *                             0 (windowed data sequence)                *
@@ -79,6 +81,8 @@
 *      notice:                                                          *
 *              value of e must be e>=0                                  *
 *              value of E must be E<0                                   *
+*              option T is used with option F                           *
+*              value of T must be T <= F/2                              *
 *      require:                                                         *
 *              smcep()                                                  *
 *                                                                       *
@@ -109,18 +113,20 @@ static char *rcs_id = "$Id$";
 #endif
 
 /*  Default Values  */
-#define ALPHA  0.35
-#define THETA  0.00
-#define ORDER  25
-#define FLENG  256
-#define FFTSZ  256 * 4
-#define ITYPE  0
-#define ETYPE  0
-#define MINITR 2
-#define MAXITR 30
-#define END    0.001
-#define EPS    0.0
-#define MINDET 0.000001
+#define ALPHA   0.35
+#define THETA   0.00
+#define ORDER   25
+#define FLENG   256
+#define FFTSZ   256 * 4
+#define ITYPE   0
+#define ETYPE   0
+#define MINITR  2
+#define MAXITR  30
+#define END     0.001
+#define EPS     0.0
+#define MINDET  0.000001
+#define SAMPLEF 10.0
+#define EMPHKHZ   0.00
 
 /*  Command Name  */
 char *cmnd;
@@ -140,10 +146,14 @@ void usage(int status)
            ALPHA);
    fprintf(stderr, "       -t t  : emphasized frequency  t*pi(rad)  [%g]\n",
            THETA);
+   fprintf(stderr, "       -T T  : emphasized frequency (kHz)       [%g]\n",
+           EMPHKHZ);
    fprintf(stderr, "       -m m  : order of mel cepstrum            [%d]\n",
            ORDER);
    fprintf(stderr, "       -l l  : frame length                     [%d]\n",
            FLENG);
+   fprintf(stderr, "       -F F  : sampling frequency (kHz)         [%g]\n",
+           SAMPLEF);
    fprintf(stderr, "       -L L  : ifft size for making matrices    [%d]\n",
            FFTSZ);
    fprintf(stderr, "       -q q  : input format                     [%d]\n",
@@ -163,7 +173,7 @@ void usage(int status)
            END);
    fprintf(stderr, "       -e e  : initial value for log-periodgram [%g]\n",
            EPS);
-   fprintf(stderr, "       -E E  : floor in db calculated per frame [N/A]\n");
+   fprintf(stderr, "       -E E  : floor in db calculated per frame [N/A]\n");  
    fprintf(stderr, "       -f f  : mimimum value of the determinant [%g]\n",
            MINDET);
    fprintf(stderr, "               of the normal matrix\n");
@@ -174,6 +184,8 @@ void usage(int status)
    fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       value of e must be e>=0\n");
    fprintf(stderr, "       value of E must be E<0\n");
+   fprintf(stderr, "       option T is used with option F\n");
+   fprintf(stderr, "       value of T must be T <= F/2\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -187,9 +199,9 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int m = ORDER, flng = FLENG, ilng = FLENG, itype = ITYPE, etype = ETYPE,
-       fftsz = FFTSZ, itr1 = MINITR, itr2 = MAXITR, flag = 0;
+       fftsz =  FFTSZ, itr1 = MINITR, itr2 = MAXITR, flag = 0;
    FILE *fp = stdin;
-   double *mc, *x, a = ALPHA, t = THETA, end = END, e = EPS, f = MINDET;
+   double *mc, *x, a = ALPHA, t = THETA, end = END, e = EPS, f = MINDET, F = SAMPLEF, T = EMPHKHZ;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -206,12 +218,20 @@ int main(int argc, char **argv)
             t = atof(*++argv);
             --argc;
             break;
+         case 'T':
+            T = atof(*++argv);
+            --argc;
+            break;
          case 'm':
             m = atoi(*++argv);
             --argc;
             break;
          case 'l':
             flng = atoi(*++argv);
+            --argc;
+            break;
+         case 'F':
+            F = atof(*++argv);
             --argc;
             break;
          case 'L':
@@ -243,7 +263,7 @@ int main(int argc, char **argv)
             etype = 2;
             e = atof(*++argv);
             --argc;
-            break;
+             break;
          case 'f':
             f = atof(*++argv);
             --argc;
@@ -251,18 +271,28 @@ int main(int argc, char **argv)
          case 'h':
             usage(0);
          default:
-            fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
+            fprintf(stderr, "%s : invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
       } else
          fp = getfp(*argv, "rb");
+   
+   if (T != 0.00 && t != 0.00){
+     fprintf(stderr, "%s : option t and T can't be used at the same time!\n",cmnd);
+     usage(1);
+   }else if (T >(F/2)){
+     fprintf(stderr, "%s : value of T must be T <= F/2 !\n",cmnd);
+     usage(1);
+   }else if (T > 0.00){
+     t = (T/(F/2));
+   }
 
    t *= M_PI;
 
    if (itype == 0)
-      ilng = flng;
+     ilng = flng;
    else
-      ilng = flng / 2 + 1;
+     ilng = flng / 2 + 1;
 
    x = dgetmem(flng + m + 1);
    mc = x + flng;
