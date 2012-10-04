@@ -211,11 +211,6 @@ int main(int argc, char **argv)
    }
    fclose(fp);
 
-   if (T == 0) {
-      fprintf(stderr, "%s: No input data!\n", cmnd);
-      usage(1);
-   }
-
    if (aflag) {
       ave_logp /= (double) T;
       fwritef(&ave_logp, sizeof(double), 1, stdout);
