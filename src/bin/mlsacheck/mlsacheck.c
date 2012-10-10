@@ -161,7 +161,7 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
                double a, double R1, double R2,
                Boolean modify_filter, int stable_condition)
 {
-   int i;
+   int i, j;
    double K, r, *x, *y, *mag;
 
    x = dgetmem(fftlen);
@@ -193,8 +193,8 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
       if (mag[i] > R1 || mag[i] > R2) { /* unstable */
          /* output ascii report */
          fprintf(stderr, "[ unstable frame number : %d ]\n", frame);
-         for (i = 0; i < m + 1; i++) {
-            fprintf(stderr, "%f\n", mcep[i]);
+         for (j = 0; j < m + 1; j++) {
+            fprintf(stderr, "%f\n", mcep[j]);
          }
          fprintf(stderr, "\n");
 
