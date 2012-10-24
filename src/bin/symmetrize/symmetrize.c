@@ -66,7 +66,8 @@
 *                                                                                    *
 **************************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -105,10 +106,14 @@ void usage(void)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l L  : FFT(DFT) size            [%d]\n",
-           FLENG);
-   fprintf(stderr, "       -o o  : output format            [%d]\n",
-           OTYPE);
+   fprintf(stderr, "       -l L  : FFT(DFT) size            [%d]\n", FLENG);
+   fprintf(stderr, "       -o o  : output format            [%d]\n", OTYPE);
+   fprintf(stderr,
+           "               0 x(0), x(1),     ..., x(L/2-1), x(L/2-2), ..., x(2), x(1)\n");
+   fprintf(stderr,
+           "               1 x(L/2-1), x(L/2-2), ..., x(1), x(0), x(1), ..., x(L/2-1)\n");
+   fprintf(stderr,
+           "               2 x(L/2-1)/2, x(L/2-2), ..., x(1), x(0), x(1), ..., x(L/2-1)/2\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
@@ -161,63 +166,64 @@ int main(int argc, char *argv[])
          fp = getfp(*argv, "rb");
    }
 
-   if (L % 2 != 0){
-      fprintf(stderr, "%s : value of L must be even number!\n",cmnd);
+   if (L % 2 != 0) {
+      fprintf(stderr, "%s : value of L must be even number!\n", cmnd);
       usage();
    }
-   
+
    L /= 2;
    buf = fgetmem(L);
 
-   if ((o != 0) && (o != 1) && (o != 2)){
-      fprintf(stderr, "%s : invalid output type %d\n",cmnd, o);
+   if ((o != 0) && (o != 1) && (o != 2)) {
+      fprintf(stderr, "%s : invalid output type %d\n", cmnd, o);
       usage();
    }
-   if (L <= 1){
-      fprintf(stderr, "%s : value of L must be L>=4!\n",cmnd);
+   if (L <= 1) {
+      fprintf(stderr, "%s : value of L must be L>=4!\n", cmnd);
       usage();
    }
-   if (fread(buf, sizeof(float), L, fp) < L){
-      fprintf(stderr, "%s : the length of input data is smaller than defined!\n",cmnd);
-      usage ();
-   } 
+   if (fread(buf, sizeof(float), L, fp) < L) {
+      fprintf(stderr,
+              "%s : the length of input data is smaller than defined!\n", cmnd);
+      usage();
+   }
 
    rewind(fp);
 
-      while (fread(buf, sizeof(float), L, fp) == L) {
-         
-       if(o == 0){
-                if (L <= 2){
-                   fprintf(stderr, "%s : value of L must be L>=6! (if o==0)\n",cmnd);
-                   usage();
-                 }
-                 for(i=0;i<L;i++){
-                   fwrite(&buf[i], sizeof(float), 1, stdout);
-                 }
-                 for(i=L-2;i>0;i--){
-                   fwrite(&buf[i], sizeof(float), 1, stdout);
-                 }
-        } else if(o == 1){
-                 for(i=L-1;i>0;i--){                    
-                   fwrite(&buf[i], sizeof(float), 1, stdout);
-                 }  
-                 for(i=0;i<L;i++){                    
-                   fwrite(&buf[i], sizeof(float), 1, stdout);
-                 }  
-        } else if(o == 2){
-                 tmp=buf[L-1]/2;
-                   fwrite(&tmp, sizeof(float), 1, stdout);
-                 for(i=L-2;i>0;i--){
-                   fwrite(&buf[i], sizeof(float), 1, stdout);
-                  }
-                 for(i=0;i<L-1;i++){
-                   fwrite(&buf[i], sizeof(float), 1, stdout);
-                  }
-                   fwrite(&tmp, sizeof(float), 1, stdout);
-        }
-    }
-    
-    free(buf);
-    fclose(fp);
-    return (0);
+   while (fread(buf, sizeof(float), L, fp) == L) {
+
+      if (o == 0) {
+         if (L <= 2) {
+            fprintf(stderr, "%s : value of L must be L>=6! (if o==0)\n", cmnd);
+            usage();
+         }
+         for (i = 0; i < L; i++) {
+            fwrite(&buf[i], sizeof(float), 1, stdout);
+         }
+         for (i = L - 2; i > 0; i--) {
+            fwrite(&buf[i], sizeof(float), 1, stdout);
+         }
+      } else if (o == 1) {
+         for (i = L - 1; i > 0; i--) {
+            fwrite(&buf[i], sizeof(float), 1, stdout);
+         }
+         for (i = 0; i < L; i++) {
+            fwrite(&buf[i], sizeof(float), 1, stdout);
+         }
+      } else if (o == 2) {
+         tmp = buf[L - 1] / 2;
+         fwrite(&tmp, sizeof(float), 1, stdout);
+         for (i = L - 2; i > 0; i--) {
+            fwrite(&buf[i], sizeof(float), 1, stdout);
+         }
+         for (i = 0; i < L - 1; i++) {
+            fwrite(&buf[i], sizeof(float), 1, stdout);
+         }
+         fwrite(&tmp, sizeof(float), 1, stdout);
+      }
+   }
+
+   free(buf);
+   fclose(fp);
+   return (0);
 }
