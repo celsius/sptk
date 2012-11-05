@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -85,12 +85,15 @@ static char *rcs_id = "$Id$";
 #endif
 
 /*  Default Values  */
-#define MAX 32767               /* 0x7fff */
-int l_max = MAX;
+#define BLOCK 1
 
 /*   Command Name  */
 char *cmnd;
 
+typedef struct _float_list {
+   float *f;
+   struct _float_list *next;
+} float_list;
 
 void usage(void)
 {
@@ -118,11 +121,11 @@ void usage(void)
 
 int main(int argc, char *argv[])
 {
-   int l = -1;
    char *s, c;
+   int l = -1, length, block_size, i, j;
    double *x;
-   int max;
    FILE *fp = stdin;
+   float_list *top, *cur, *prev, *tmpf;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -152,23 +155,42 @@ int main(int argc, char *argv[])
          fp = getfp(*argv, "rb");
    }
 
-   if (l > MAX) {
-      fprintf(stderr, "%s : -l L should be L <= %d!\n", cmnd, l_max);
-      return (1);
+   block_size = (l < 0) ? BLOCK : l;
+
+   x = dgetmem(block_size);
+   top = prev = (float_list *) malloc(sizeof(float_list));
+   length = 0;
+   prev->next = NULL;
+   while (freadf(x, sizeof(*x), block_size, fp) == block_size) {
+      cur = (float_list *) malloc(sizeof(float_list));
+      cur->f = fgetmem(block_size);
+      for (i = 0; i < block_size; i++) {
+         cur->f[i] = (float) x[i];
+      }
+      length++;
+      prev->next = cur;
+      cur->next = NULL;
+      prev = cur;
    }
-
-   max = (l < 0) ? MAX : l;
-
-   x = dgetmem(max);
+   free(x);
 
    if (l < 0) {
-      max = freadf(x, sizeof(*x), max, fp);
-      reverse(x, max);
-      fwritef(x, sizeof(*x), max, stdout);
+      x = dgetmem(length * block_size);
+      for (i = 0, tmpf = top->next; tmpf != NULL; i++, tmpf = tmpf->next) {
+         for (j = 0; j < block_size; j++) {
+            x[i * block_size + j] = tmpf->f[j];
+         }
+      }
+      reverse(x, length * block_size);
+      fwritef(x, sizeof(*x), length * block_size, stdout);
    } else {
-      while (freadf(x, sizeof(*x), l, fp) == l) {
-         reverse(x, l);
-         fwritef(x, sizeof(*x), l, stdout);
+      x = dgetmem(block_size);
+      for (tmpf = top->next; tmpf != NULL; tmpf = tmpf->next) {
+         for (j = 0; j < block_size; j++) {
+            x[j] = tmpf->f[j];
+         }
+         reverse(x, block_size);
+         fwritef(x, sizeof(*x), block_size, stdout);
       }
    }
 
