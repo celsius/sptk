@@ -55,7 +55,7 @@
 *               -a a     :  all-pass constant                   [0.35]  *
 *               -l L     :  FFT length                          [256]   *
 *               -c       :  modify MLSA filter coef.            [N/A]   *
-*               -r R     :  stable condition for MLSA filter    [N/A]   *
+*               -r R     :  stable condition for MLSA filter    [0]     *
 *               -P P     :  order of Pade approximation         [4]     *
 *       infile:                                                         *
 *               mel cepstral coefficients                               *
@@ -114,16 +114,18 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of mel-cepstrum                 [%d]\n",
+   fprintf(stderr,
+           "       -m m  : order of mel-cepstrum                 [%d]\n",
            ORDER);
-   fprintf(stderr, "       -a a  : all-pass constant                     [%g]\n",
+   fprintf(stderr,
+           "       -a a  : all-pass constant                     [%g]\n",
            ALPHA);
-   fprintf(stderr, "       -l L  : FFT length                            [%d]\n",
+   fprintf(stderr,
+           "       -l L  : FFT length                            [%d]\n",
            FFTLENGTH);
    fprintf(stderr,
            "       -c    : modify MLSA filter coefficients of    [N/A]\n");
-   fprintf(stderr,
-           "               unstable frames \n");
+   fprintf(stderr, "               unstable frames \n");
    fprintf(stderr,
            "       -r R  : stable condion for MLSA filter        [%d]\n",
            STABLE1);
@@ -134,7 +136,8 @@ void usage(int status)
    fprintf(stderr, "                     not exceeding 0.24 dB (P=4)\n");
    fprintf(stderr, "                     or 0.2735 dB (P=5) \n");
    fprintf(stderr, "                 1 : keeping MLSA filter is stable\n");
-   fprintf(stderr, "       -P P  : order of Pade approximation           [%d]\n",
+   fprintf(stderr,
+           "       -P P  : order of Pade approximation           [%d]\n",
            PADEORDER);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -161,8 +164,9 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
                double a, double R1, double R2,
                Boolean modify_filter, int stable_condition)
 {
-   int i, j;
+   int i;
    double K, r, *x, *y, *mag;
+   Boolean ascii_report = FA;
 
    x = dgetmem(fftlen);
    y = dgetmem(fftlen);
@@ -191,14 +195,8 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
       mag[i] = sqrt(mag[i]);
 
       if (mag[i] > R1 || mag[i] > R2) { /* unstable */
-         /* output ascii report */
-         fprintf(stderr, "[ unstable frame number : %d ]\n", frame);
-         for (j = 0; j < m + 1; j++) {
-            fprintf(stderr, "%f\n", mcep[j]);
-         }
-         fprintf(stderr, "\n");
-
-         if (modify_filter == TR) {   /* -c option */
+         ascii_report = TR;
+         if (modify_filter == TR) {     /* -c option */
             switch (stable_condition) { /* -r option */
             case STABLE1:
                if (mag[i] > R1) {
@@ -232,13 +230,21 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
    free(x);
    free(y);
    free(mag);
-}
 
+   /* output ascii report */
+   if (ascii_report == TR) {
+      fprintf(stderr, "[ unstable frame number : %d ]\n", frame);
+      for (i = 0; i < m + 1; i++) {
+         fprintf(stderr, "%f\n", mcep[i]);
+      }
+      fprintf(stderr, "\n");
+   }
+}
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, pd = PADEORDER, fftlen = FFTLENGTH, stable_condition = -1,
-       frame = 0;
+   int m = ORDER, pd = PADEORDER, fftlen = FFTLENGTH, stable_condition =
+       STABLE1, frame = 0;
    double *mcep, a = ALPHA, R1, R2;
    Boolean modify_filter = FA;
    FILE *fp = stdin;
@@ -310,12 +316,11 @@ int main(int argc, char **argv)
       fprintf(stderr, "%s : Order of Pade approximation should be 4 or 5!\n",
               cmnd);
       usage(1);
-      break;
    }
 
    mcep = dgetmem(m + 1);
 
-   /* check stability of MLFA filter and output */
+   /* check stability of MLSA filter and output */
    while (freadf(mcep, sizeof(*mcep), m + 1, fp) == m + 1) {
       mlsacheck(mcep, m, fftlen, frame, a, R1, R2,
                 modify_filter, stable_condition);
