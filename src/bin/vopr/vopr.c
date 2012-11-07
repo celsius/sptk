@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -54,14 +54,26 @@
 *               -l l     :  length of vector                [1]         *
 *               -n n     :  order of vector                 [l-1]       *
 *               -i       :  specified file contains a and b [FALSE]     *
-*               -a       :  addition       (a + b)          [FALSE]     * 
-*               -s       :  subtraction    (a - b)          [FALSE]     *
-*               -m       :  multiplication (a * b)          [FALSE]     *
-*               -d       :  division       (a / b)          [FALSE]     *
-*               -ATAN2   :  atan2          atan2(b,a)       [FALSE]     *
+*               -a       :  addition        (a + b)         [FALSE]     *
+*               -s       :  subtraction     (a - b)         [FALSE]     *
+*               -m       :  multiplication  (a * b)         [FALSE]     *
+*               -d       :  division        (a / b)         [FALSE]     *
+*               -ATAN2   :  atan2           atan2(b,a)      [FALSE]     *
+*               -AM      :  arithmetic mean ((a + b) / 2)   [FALSE]     *
+*               -GM      :  geometric mean  (sqrt(a * b))   [FALSE]     *
+*               -c       :  choose smaller value            [FALSE]     *
+*               -f       :  choose bigger value             [FALSE]     *
+*               -gt      :  decide 'greater than'           [FALSE]     *
+*               -ge      :  decide 'greater than or equal'  [FALSE]     *
+*               -lt      :  decide 'less than'              [FALSE]     *
+*               -le      :  decide 'less than or equal'     [FALSE]     *
+*               -eq      :  decide 'equal to'               [FALSE]     *
+*               -ne      :  decide 'not equal to'           [FALSE]     *
 *        notice:                                                        *
 *               When both -l and -n are specified,                      *
 *               latter argument is adopted.                             *
+*               When -gt, -ge, -le, -lt, -eq or -ne is specified,       *
+*               return value is 1.0 (true) or 0.0 (false).              *
 *                                                                       *
 ************************************************************************/
 
@@ -109,19 +121,48 @@ void usage(int status)
    fprintf(stderr, "       %s [ options ] [ file1 ] [ infile ] > stdout\n",
            cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l   : length of vector                [%d]\n",
+   fprintf(stderr,
+           "       -l l  : length of vector                              [%d]\n",
            LENG);
-   fprintf(stderr, "       -n n   : order of vector                 [l-1]\n");
-   fprintf(stderr, "       -i     : specified file contains a and b [%s]\n",
+   fprintf(stderr,
+           "       -n n  : order of vector                               [l-1]\n");
+   fprintf(stderr,
+           "       -i    : specified file contains a and b               [%s]\n",
            BOOL[INV]);
-   fprintf(stderr, "       -a     : addition       (a + b)          [FALSE]\n");
-   fprintf(stderr, "       -s     : subtraction    (a - b)          [FALSE]\n");
-   fprintf(stderr, "       -m     : multiplication (a * b)          [FALSE]\n");
-   fprintf(stderr, "       -d     : division       (a / b)          [FALSE]\n");
-   fprintf(stderr, "       -ATAN2 : atan2          atan2(b,a)       [FALSE]\n");
-   fprintf(stderr, "       -h     : print this message\n");
+   fprintf(stderr,
+           "       -a    : addition                       (a + b)        [FALSE]\n");
+   fprintf(stderr,
+           "       -s    : subtraction                    (a - b)        [FALSE]\n");
+   fprintf(stderr,
+           "       -m    : multiplication                 (a * b)        [FALSE]\n");
+   fprintf(stderr,
+           "       -d    : division                       (a / b)        [FALSE]\n");
+   fprintf(stderr,
+           "       -ATAN : atan2                          atan(b, a)     [FALSE]\n");
+   fprintf(stderr,
+           "       -AM   : arithmetic mean                ((a + b) / 2)  [FALSE]\n");
+   fprintf(stderr,
+           "       -GM   : geometric  mean                (sqrt(a * b))  [FALSE]\n");
+   fprintf(stderr,
+           "       -c    : choose smaller value                          [FALSE]\n");
+   fprintf(stderr,
+           "       -f    : choose bigger value                           [FALSE]\n");
+   fprintf(stderr,
+           "       -gt   : decide 'greater than'          (a > b)        [FALSE]\n");
+   fprintf(stderr,
+           "       -ge   : decide 'greater than or equal' (a >= b)       [FALSE]\n");
+   fprintf(stderr,
+           "       -lt   : decide 'less than'             (a < b)        [FALSE]\n");
+   fprintf(stderr,
+           "       -le   : decide 'less than or equal'    (a <= b)       [FALSE]\n");
+   fprintf(stderr,
+           "       -eq   : decide 'equal to'              (a == b)       [FALSE]\n");
+   fprintf(stderr,
+           "       -ne   : decide 'not equal to'          (a != b)       [FALSE]\n");
+   fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       data vectors (%s)                     [stdin]\n",
+   fprintf(stderr,
+           "       data vectors (%s)                             [stdin]\n",
            FORMAT);
    fprintf(stderr, "  file1:\n");
    fprintf(stderr, "       data vectors (%s)\n", FORMAT);
@@ -130,6 +171,11 @@ void usage(int status)
    fprintf(stderr, "  note:\n");
    fprintf(stderr, "       When both -l and -n are specified,\n");
    fprintf(stderr, "       latter argument is adopted.\n");
+   fprintf(stderr, "\n");
+   fprintf(stderr,
+           "       When -gt, -ge, -le, -lt, -eq or -ne is specified,\n");
+   fprintf(stderr, "       return value is 1.0 (true) or 0.0 (false).\n");
+
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -163,10 +209,20 @@ int main(int argc, char **argv)
          }
          switch (c) {
          case 'l':
-            leng = atoi(s);
+            if ((c == 'l') && strncmp("e", s, 1) == 0) {
+               opr = 'r';
+            } else if ((c == 'l') && strncmp("t", s, 1) == 0) {
+               opr = 'R';
+            } else {
+               leng = atoi(s);
+            }
             break;
          case 'n':
-            leng = atoi(s) + 1;
+            if ((c == 'n') && strncmp("e", s, 1) == 0) {
+               opr = 'E';
+            } else {
+               leng = atoi(s) + 1;
+            }
             break;
          case 'i':
             inv = 1 - inv;
@@ -176,7 +232,21 @@ int main(int argc, char **argv)
          case 'm':
          case 's':
          case 'A':
+         case 'c':
+         case 'f':
+         case 'g':
+         case 'G':
+         case 'e':
             opr = c;
+            if ((c == 'A') && strncmp("M", s, 1) == 0) {
+               opr = 'p';
+            } else if ((c == 'G') && strncmp("M", s, 1) == 0) {
+               opr = 'P';
+            } else if ((c == 'g') && strncmp("e", s, 1) == 0) {
+               opr = 'q';
+            } else if ((c == 'g') && strncmp("t", s, 1) == 0) {
+               opr = 'Q';
+            }
             break;
          case 'h':
             usage(0);
@@ -244,6 +314,88 @@ int vopr(FILE * fp1, FILE * fp2)
       case 'A':
          for (k = 0; k < leng; ++k)
             a[k] = atan2(b[k], a[k]);
+         break;
+      case 'c':                /* take smaller one */
+         for (k = 0; k < leng; ++k) {
+            if (a[k] > b[k]) {
+               a[k] = b[k];
+            }
+         }
+         break;
+      case 'f':                /* take bigger one */
+         for (k = 0; k < leng; ++k) {
+            if (a[k] < b[k]) {
+               a[k] = b[k];
+            }
+         }
+         break;
+      case 'p':                /* arithmetic mean */
+         for (k = 0; k < leng; ++k)
+            a[k] = (a[k] + b[k]) / 2;
+         break;
+      case 'P':                /* geometric mean */
+         for (k = 0; k < leng; ++k) {
+            double tmp = a[k] * b[k];
+            if (tmp < 0.0) {
+               fprintf(stderr, "%s : Can't calculate geometric mean !\n", cmnd);
+               usage(1);
+            }
+            a[k] = sqrt(tmp);
+         }
+         break;
+      case 'q':                /* greater than or equal */
+         for (k = 0; k < leng; ++k) {
+            if (a[k] >= b[k]) {
+               a[k] = 1.0;
+            } else {
+               a[k] = 0.0;
+            }
+         }
+         break;
+      case 'Q':                /* greater than */
+         for (k = 0; k < leng; ++k) {
+            if (a[k] > b[k]) {
+               a[k] = 1.0;
+            } else {
+               a[k] = 0.0;
+            }
+         }
+         break;
+      case 'r':                /* less than or equal */
+         for (k = 0; k < leng; ++k) {
+            if (a[k] <= b[k]) {
+               a[k] = 1.0;
+            } else {
+               a[k] = 0.0;
+            }
+         }
+         break;
+      case 'R':                /* less than */
+         for (k = 0; k < leng; ++k) {
+            if (a[k] < b[k]) {
+               a[k] = 1.0;
+            } else {
+               a[k] = 0.0;
+            }
+         }
+         break;
+      case 'e':                /* equal to */
+         for (k = 0; k < leng; ++k) {
+            if (a[k] == b[k]) {
+               a[k] = 1.0;
+            } else {
+               a[k] = 0.0;
+            }
+         }
+         break;
+      case 'E':                /* not equal to */
+         for (k = 0; k < leng; ++k) {
+            if (a[k] != b[k]) {
+               a[k] = 1.0;
+            } else {
+               a[k] = 0.0;
+            }
+         }
          break;
       default:
          break;
