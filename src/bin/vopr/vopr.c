@@ -42,40 +42,40 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/************************************************************************
-*                                                                       *
-*    Execute Vector Operations                                          *
-*                                                                       *
-*                                               1988.6  T.Kobayashi     *
-*                                               1996.5  K.Koishida      *
-*       usage:                                                          *
-*               vopr [ options ] [ [ file1 ] [ infile ]  > stdout       *
-*       options:                                                        *
-*               -l l     :  length of vector                [1]         *
-*               -n n     :  order of vector                 [l-1]       *
-*               -i       :  specified file contains a and b [FALSE]     *
-*               -a       :  addition        (a + b)         [FALSE]     *
-*               -s       :  subtraction     (a - b)         [FALSE]     *
-*               -m       :  multiplication  (a * b)         [FALSE]     *
-*               -d       :  division        (a / b)         [FALSE]     *
-*               -ATAN2   :  atan2           atan2(b,a)      [FALSE]     *
-*               -AM      :  arithmetic mean ((a + b) / 2)   [FALSE]     *
-*               -GM      :  geometric mean  (sqrt(a * b))   [FALSE]     *
-*               -c       :  choose smaller value            [FALSE]     *
-*               -f       :  choose bigger value             [FALSE]     *
-*               -gt      :  decide 'greater than'           [FALSE]     *
-*               -ge      :  decide 'greater than or equal'  [FALSE]     *
-*               -lt      :  decide 'less than'              [FALSE]     *
-*               -le      :  decide 'less than or equal'     [FALSE]     *
-*               -eq      :  decide 'equal to'               [FALSE]     *
-*               -ne      :  decide 'not equal to'           [FALSE]     *
-*        notice:                                                        *
-*               When both -l and -n are specified,                      *
-*               latter argument is adopted.                             *
-*               When -gt, -ge, -le, -lt, -eq or -ne is specified,       *
-*               return value is 1.0 (true) or 0.0 (false).              *
-*                                                                       *
-************************************************************************/
+/**************************************************************************
+*                                                                         *
+*    Execute Vector Operations                                            *
+*                                                                         *
+*                                               1988.6  T.Kobayashi       *
+*                                               1996.5  K.Koishida        *
+*       usage:                                                            *
+*               vopr [ options ] [ [ file1 ] [ infile ]  > stdout         *
+*       options:                                                          *
+*               -l l     :  length of vector                [1]           *
+*               -n n     :  order of vector                 [l-1]         *
+*               -i       :  specified file contains a and b [FALSE]       *
+*               -a       :  addition        (a + b)         [FALSE]       *
+*               -s       :  subtraction     (a - b)         [FALSE]       *
+*               -m       :  multiplication  (a * b)         [FALSE]       *
+*               -d       :  division        (a / b)         [FALSE]       *
+*               -ATAN2   :  atan2           atan2(b,a)      [FALSE]       *
+*               -AM      :  arithmetic mean ((a + b) / 2)   [FALSE]       *
+*               -GM      :  geometric mean  (sqrt(a * b))   [FALSE]       *
+*               -c       :  choose smaller value            [FALSE]       *
+*               -f       :  choose larger value             [FALSE]       *
+*               -gt      :  decide 'greater than'           [FALSE]       *
+*               -ge      :  decide 'greater than or equal'  [FALSE]       *
+*               -lt      :  decide 'less than'              [FALSE]       *
+*               -le      :  decide 'less than or equal'     [FALSE]       *
+*               -eq      :  decide 'equal to'               [FALSE]       *
+*               -ne      :  decide 'not equal to'           [FALSE]       *
+*        notice:                                                          *
+*               When both -l and -n are specified,                        *
+*               latter argument is adopted.                               *
+*               When -gt, -ge, -le, -lt, -eq or -ne is specified,         *
+*               each element of output vec. is 1.0 (true) or 0.0 (false). *
+*                                                                         *
+***************************************************************************/
 
 static char *rcs_id = "$Id$";
 
@@ -146,7 +146,7 @@ void usage(int status)
    fprintf(stderr,
            "       -c    : choose smaller value                          [FALSE]\n");
    fprintf(stderr,
-           "       -f    : choose bigger value                           [FALSE]\n");
+           "       -f    : choose larger value                           [FALSE]\n");
    fprintf(stderr,
            "       -gt   : decide 'greater than'          (a > b)        [FALSE]\n");
    fprintf(stderr,
@@ -162,7 +162,7 @@ void usage(int status)
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,
-           "       data vectors (%s)                             [stdin]\n",
+           "       data vectors (%s)                                  [stdin]\n",
            FORMAT);
    fprintf(stderr, "  file1:\n");
    fprintf(stderr, "       data vectors (%s)\n", FORMAT);
@@ -174,7 +174,8 @@ void usage(int status)
    fprintf(stderr, "\n");
    fprintf(stderr,
            "       When -gt, -ge, -le, -lt, -eq or -ne is specified,\n");
-   fprintf(stderr, "       return value is 1.0 (true) or 0.0 (false).\n");
+   fprintf(stderr,
+           "       each element of output vectors is 1.0 (true) or 0.0 (false).\n");
 
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
@@ -315,14 +316,14 @@ int vopr(FILE * fp1, FILE * fp2)
          for (k = 0; k < leng; ++k)
             a[k] = atan2(b[k], a[k]);
          break;
-      case 'c':                /* take smaller one */
+      case 'c':                /* choose smaller one */
          for (k = 0; k < leng; ++k) {
             if (a[k] > b[k]) {
                a[k] = b[k];
             }
          }
          break;
-      case 'f':                /* take bigger one */
+      case 'f':                /* choose larger one */
          for (k = 0; k < leng; ++k) {
             if (a[k] < b[k]) {
                a[k] = b[k];
