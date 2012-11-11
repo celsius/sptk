@@ -48,6 +48,7 @@
 *                                                                       *
 *                                      1998.12 T.Masuko                 *
 *                                      2010.8  A.Tamamori               *
+*                                      2012.11 T.Okada                  *
 *       usage:                                                          *
 *               vstat [ options ] [ infile ] > stdout                   *
 *       options:                                                        *
@@ -60,9 +61,10 @@
 *                             2 covariance                              *
 *                             3 mean and upper / lower bound of         *
 *                               confidence interval via t-dist.         *
+*                             4 median                                  *
 *               -c c     :  conf. level of conf. interval      [0.95]   *
 *               -d       :  diagonal covariance                [FALSE]  *
-*               -i       :  output inverse cov. instead of cov.[FALSE]  * 
+*               -i       :  output inverse cov. instead of cov.[FALSE]  *
 *               -r       :  output correlation instead of cov. [FALSE]  *
 *       infile:                                                         *
 *              data sequence                                            *
@@ -116,6 +118,7 @@ static char *rcs_id = "$Id$";
 #define OUTMEAN TR
 #define OUTCOV  TR
 #define OUTCONF FA
+#define OUTMED  FA
 #define CONFLEV 0.9500E2
 #define DIAGC   FA
 #define INV     FA
@@ -147,6 +150,7 @@ void usage(int status)
    fprintf(stderr, "                  2 covariance\n");
    fprintf(stderr, "                  3 mean and upper / lower bound of\n");
    fprintf(stderr, "                    confidence interval via t-dist.\n");
+   fprintf(stderr, "                  4 median\n");
    fprintf(stderr,
            "       -c c   : conf. level of conf. interval (%%)   [%g]\n",
            CONFLEV);
@@ -262,14 +266,49 @@ double t_percent(const double p, const int df)
    return (x);
 }
 
+void quicksort(double *x, int left, int right)
+{
+   int i, j;
+   int pivot;
+   int tmp;
+
+   i = left;
+   j = right;
+
+   pivot = x[(left + right) / 2];
+
+   while (1) {
+
+      while (x[i] < pivot)
+         i++;
+
+      while (pivot < x[j])
+         j--;
+      if (i >= j)
+         break;
+
+      tmp = x[i];
+      x[i] = x[j];
+      x[j] = tmp;
+
+      i++;
+      j--;
+   }
+
+   if (left < i - 1)
+      quicksort(x, left, i - 1);
+   if (j + 1 < right)
+      quicksort(x, j + 1, right);
+}
+
 int main(int argc, char *argv[])
 {
    FILE *fp = stdin;
-   double *x, *mean, **cov = NULL, **invcov = NULL, *var = NULL,
+   double *x, *mean, *med, **mtmp, **cov = NULL, **invcov = NULL, *var = NULL,
        conf = CONFLEV, *upper, *lower, t, err;
-   int leng = LENG, nv = -1, i, j, k, lp, m, outtype = 0;
+   int leng = LENG, nv = -1, i, j, k, lp, m, outtype = 0, count = 0;
    Boolean outmean = OUTMEAN, outcov = OUTCOV, outconf = OUTCONF,
-       diagc = DIAGC, inv = INV, corr = CORR;
+       outmed = OUTMED, diagc = DIAGC, inv = INV, corr = CORR;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -332,6 +371,11 @@ int main(int argc, char *argv[])
       outcov = FA;
       outconf = TR;
       break;
+   case 4:
+      outcov = FA;
+      outmean = FA;
+      outmed = TR;
+      break;
    }
    if (diagc && corr)
       diagc = FA;
@@ -341,6 +385,7 @@ int main(int argc, char *argv[])
       corr = FA;
 
    mean = dgetmem(leng + leng);
+
    x = mean + leng;
    if (outcov) {
       if (!diagc) {
@@ -364,9 +409,40 @@ int main(int argc, char *argv[])
       lower = dgetmem(leng);
    }
 
+   if (outmed) {
+      if (nv == -1) {
+         while (!feof(fp)) {
+            for (lp = nv; lp;) {
+               if (freadf(x, sizeof(*x), leng, fp) != leng)
+                  break;
+               --lp;
+            }
+         }
+         k = -lp - 1;
+         rewind(fp);
+      } else {
+         while (!feof(fp)) {
+            if (freadf(x, sizeof(*x), leng, fp) != leng)
+               break;
+            ++count;
+         }
+         count = count / nv;
+         k = nv;
+         rewind(fp);
+      }
+
+      mtmp = (double **) getmem(leng, sizeof(*mtmp));
+      mtmp[0] = dgetmem(leng * k);
+      for (i = 1; i < leng; i++)
+         mtmp[i] = mtmp[i - 1] + k;
+
+      med = dgetmem(leng);
+   }
+
    while (!feof(fp)) {
       for (i = 0; i < leng; i++) {
-         mean[i] = 0.0;
+         if (!outmed)
+            mean[i] = 0.0;
          if (outcov) {
             if (!diagc)
                for (j = 0; j < leng; j++)
@@ -377,104 +453,141 @@ int main(int argc, char *argv[])
          if (outconf) {
             var[i] = 0.0;
          }
+         if (outmed) {
+            for (j = 0; j < k; j++) {
+               mtmp[i][j] = 0.0;
+            }
+            med[i] = 0.0;
+         }
       }
-      for (lp = nv; lp;) {
-         if (freadf(x, sizeof(*x), leng, fp) != leng)
-            break;
-         for (i = 0; i < leng; i++) {
-            mean[i] += x[i];
+
+      if (outmed) {
+         for (j = 0; j < k; j++) {
+            if (freadf(x, sizeof(*x), leng, fp) != leng)
+               break;
+            for (i = 0; i < leng; i++) {
+               mtmp[i][j] = x[i];
+            }
+            if (j == k - 1) {
+               count--;
+               if (count <= 0) {
+                  while (!feof(fp)) {
+                     freadf(x, sizeof(*x), leng, fp);
+                  }
+               }
+            }
+         }
+      } else {
+
+         for (lp = nv; lp;) {
+            if (freadf(x, sizeof(*x), leng, fp) != leng)
+               break;
+            for (i = 0; i < leng; i++) {
+               mean[i] += x[i];
+               if (outcov) {
+                  if (!diagc)
+                     for (j = i; j < leng; j++)
+                        cov[i][j] += x[i] * x[j];
+                  else
+                     var[i] += x[i] * x[i];
+               }
+               if (outconf) {
+                  var[i] += x[i] * x[i];
+               }
+            }
+            --lp;
+         }
+      }
+
+      if (!outmed) {
+         if (lp == 0 || nv == -1) {
+            if (nv > 0)
+               k = nv;
+            else
+               k = -lp - 1;
+            for (i = 0; i < leng; i++)
+               mean[i] /= k;
             if (outcov) {
                if (!diagc)
-                  for (j = i; j < leng; j++)
-                     cov[i][j] += x[i] * x[j];
+                  for (i = 0; i < leng; i++)
+                     for (j = i; j < leng; j++)
+                        cov[j][i] = cov[i][j] =
+                            cov[i][j] / k - mean[i] * mean[j];
                else
-                  var[i] += x[i] * x[i];
+                  for (i = 0; i < leng; i++)
+                     var[i] = var[i] / k - mean[i] * mean[i];
             }
             if (outconf) {
-               var[i] += x[i] * x[i];
+               for (i = 0; i < leng; i++) {
+                  var[i] = (var[i] - k * mean[i] * mean[i]) / (k - 1);
+               }
+               t = t_percent(conf / 100, k - 1);
+               for (i = 0; i < leng; i++) {
+                  err = t * sqrt(var[i] / k);
+                  upper[i] = mean[i] + err;
+                  lower[i] = mean[i] - err;
+               }
             }
-         }
-         --lp;
-      }
-      if (lp == 0 || nv == -1) {
-         if (nv > 0)
-            k = nv;
-         else
-            k = -lp - 1;
-         for (i = 0; i < leng; i++)
-            mean[i] /= k;
-         if (outcov) {
-            if (!diagc)
+
+            if (corr) {
                for (i = 0; i < leng; i++)
-                  for (j = i; j < leng; j++)
-                     cov[j][i] = cov[i][j] = cov[i][j] / k - mean[i] * mean[j];
-            else
+                  for (j = i + 1; j < leng; j++)
+                     cov[j][i] = cov[i][j] =
+                         cov[i][j] / sqrt(cov[i][i] * cov[j][j]);
                for (i = 0; i < leng; i++)
-                  var[i] = var[i] / k - mean[i] * mean[i];
-         }
-         if (outconf) {
-            for (i = 0; i < leng; i++) {
-               var[i] = (var[i] - k * mean[i] * mean[i]) / (k - 1);
+                  cov[i][i] = 1.0;
             }
-            t = t_percent(conf / 100, k - 1);
-            for (i = 0; i < leng; i++) {
-               err = t * sqrt(var[i] / k);
-               upper[i] = mean[i] + err;
-               lower[i] = mean[i] - err;
-            }
-         }
-         if (corr) {
-            for (i = 0; i < leng; i++)
-               for (j = i + 1; j < leng; j++)
-                  cov[j][i] = cov[i][j] =
-                      cov[i][j] / sqrt(cov[i][i] * cov[j][j]);
-            for (i = 0; i < leng; i++)
-               cov[i][i] = 1.0;
-         }
 
-         if (outmean)
-            fwritef(mean, sizeof(*mean), leng, stdout);
+            if (outmean)
+               fwritef(mean, sizeof(*mean), leng, stdout);
 
-         if (outcov) {
-            if (!diagc) {
-               if (inv) {
-                  for (i = 0; i < leng; i++) {
-                     for (j = i + 1; j < leng; j++) {
-                        cov[j][i] /= cov[i][i];
-                        for (m = i + 1; m < leng; m++)
-                           cov[j][m] -= cov[i][m] * cov[j][i];
-                     }
-                  }
-
-                  for (m = 0; m < leng; m++) {
+            if (outcov) {
+               if (!diagc) {
+                  if (inv) {
                      for (i = 0; i < leng; i++) {
-                        if (i == m)
-                           invcov[i][m] = 1.0;
-                        else
-                           invcov[i][m] = 0.0;
+                        for (j = i + 1; j < leng; j++) {
+                           cov[j][i] /= cov[i][i];
+                           for (m = i + 1; m < leng; m++)
+                              cov[j][m] -= cov[i][m] * cov[j][i];
+                        }
                      }
-                     for (i = 0; i < leng; i++) {
-                        for (j = i + 1; j < leng; j++)
-                           invcov[j][m] -= invcov[i][m] * cov[j][i];
+
+                     for (m = 0; m < leng; m++) {
+                        for (i = 0; i < leng; i++) {
+                           if (i == m)
+                              invcov[i][m] = 1.0;
+                           else
+                              invcov[i][m] = 0.0;
+                        }
+                        for (i = 0; i < leng; i++) {
+                           for (j = i + 1; j < leng; j++)
+                              invcov[j][m] -= invcov[i][m] * cov[j][i];
+                        }
+                        for (i = leng - 1; i >= 0; i--) {
+                           for (j = i + 1; j < leng; j++)
+                              invcov[i][m] -= cov[i][j] * invcov[j][m];
+                           invcov[i][m] /= cov[i][i];
+                        }
                      }
-                     for (i = leng - 1; i >= 0; i--) {
-                        for (j = i + 1; j < leng; j++)
-                           invcov[i][m] -= cov[i][j] * invcov[j][m];
-                        invcov[i][m] /= cov[i][i];
-                     }
-                  }
-                  fwritef(invcov[0], sizeof(*invcov[0]), leng * leng, stdout);
+                     fwritef(invcov[0], sizeof(*invcov[0]), leng * leng,
+                             stdout);
+                  } else
+                     fwritef(cov[0], sizeof(*cov[0]), leng * leng, stdout);
                } else
-                  fwritef(cov[0], sizeof(*cov[0]), leng * leng, stdout);
-            } else
-               fwritef(var, sizeof(*var), leng, stdout);
+                  fwritef(var, sizeof(*var), leng, stdout);
+            }
+            if (outconf) {
+               fwritef(upper, sizeof(*upper), leng, stdout);
+               fwritef(lower, sizeof(*lower), leng, stdout);
+            }
          }
-         if (outconf) {
-            fwritef(upper, sizeof(*upper), leng, stdout);
-            fwritef(lower, sizeof(*lower), leng, stdout);
+      } else {
+         for (i = 0; i < leng; i++) {
+            quicksort(mtmp[i], 0, k - 1);
+            med[i] = mtmp[i][k / 2];
          }
+         fwritef(med, sizeof(*med), leng, stdout);
       }
    }
-
    return (0);
 }
