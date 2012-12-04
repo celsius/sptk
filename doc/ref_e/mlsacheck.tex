@@ -105,19 +105,19 @@ To construct the exponential transfer function $H(z)$,
  \begin{math} R_{L}(F(z))\simeq \exp(F(z))=D(z)\end{math}
  is stable when \begin{math} |F(e^{j\omega})| < r_{max} = 6.2 \end{math}.
  Also, the log approximation error does not exceed 0.2735 dB
- when \begin{math} L = 5 \end{math} and
- \begin{math}r = 6.0 \end{math}.
+ when \begin{math} r = 6.0 \end{math} and
+ \begin{math}L = 5 \end{math}.
  The corresponding synthesis filter is stable
  when \begin{math}r_{max} = 7.65 \end{math}.
 
  In spite of whether specifying --c option or not,
  {\em mlsacheck} tests the stability and sends an ASCII report of unstable frames and
- their coefficients to standard error.
- With specifying --c option,
+ their coefficients information to standard error.
+ When specifying --c option,
  {\em mlsacheck} modifies the filter coefficients
  if unstable frame is found.
- With specifying --r option,
- the stable condition can be selected:
+ When specifying --r option,
+ the stable condition can be selected as follows:
  When '--r 0', {\em mlsacheck} keeps the log approximation
  not exceeding 0.24 dB ($Pa=4$) or 0.2735 dB ($Pa=5$),
  where $Pa$ is the order of Pad\'e approximation.
@@ -132,9 +132,9 @@ To construct the exponential transfer function $H(z)$,
  \argm{c}{}{modify MLSA filter coefficients of unstable frames}{N/A}
  \argm{r}{R}{stable condition for MLSA filter\\
             \begin{tabular}{ll} \\[-1ex]
-             $R=0$ & keeping log approximation error not exceeding\\
+             $R=0$ & keep log approximation error not exceeding\\
              & 0.24 dB ($Pa = 4$) or 0.2735 dB ($Pa = 5$) \\
-             $R=1$ & keeping MLSA filter stable\\
+             $R=1$ & keep MLSA filter stable\\
             \end{tabular}\\
             \hspace*{\fill}}{0}
  \argm{P}{Pa}{order of the Pad\'e approximation\\
@@ -148,7 +148,8 @@ read from {\em data.mcep} in float format,
 then the stability of MLSA filter is checked,
  and the results are written to {\em data.mlsachk}.
 \begin{quote}
- \verb! mlsacheck -m 25 -c data.mcep > data.mlsachk !
+ \verb! mlsacheck -m 25 -c data.mcep \! \\
+ \verb! 1> data.mlsachk 2> data.mlsachk.error !
 \end{quote}
 \end{qsection}
 
