@@ -194,27 +194,28 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
       mag[i] = x[i] * x[i] + y[i] * y[i];
       mag[i] = sqrt(mag[i]);
 
-      if (mag[i] > R1 || mag[i] > R2) { /* unstable */
-         ascii_report = TR;
-         if (modify_filter == TR) {     /* -c option */
-            switch (stable_condition) { /* -r option */
-            case STABLE1:
-               if (mag[i] > R1) {
-                  r = R1 / mag[i];
-                  x[i] *= r;
-                  y[i] *= r;
-                  x[fftlen - 1 - i] *= r;
-                  y[fftlen - 1 - i] *= r;
-               }
-               break;
-            case STABLE2:
-               if (mag[i] > R2) {
-                  r = R2 / mag[i];
-                  x[i] *= r;
-                  y[i] *= r;
-                  x[fftlen - 1 - i] *= r;
-                  y[fftlen - 1 - i] *= r;
-               }
+      switch (stable_condition) {
+      case STABLE1:
+         if (mag[i] > R1) {
+            ascii_report = TR;
+            if (modify_filter == TR) {
+               r = R1 / mag[i];
+               x[i] *= r;
+               y[i] *= r;
+               x[fftlen - 1 - i] *= r;
+               y[fftlen - 1 - i] *= r;
+            }
+         }
+         break;
+      case STABLE2:
+         if (mag[i] > R2) {
+            ascii_report = TR;
+            if (modify_filter == TR) {
+               r = R2 / mag[i];
+               x[i] *= r;
+               y[i] *= r;
+               x[fftlen - 1 - i] *= r;
+               y[fftlen - 1 - i] *= r;
             }
          }
       }
