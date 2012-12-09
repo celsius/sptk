@@ -31,7 +31,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -72,12 +72,26 @@
 *****************************************************************/
 
 #define VNUM    1.4 // Current version
+#if 0
+#else
+#if defined(WIN32)
+  #define _USE_MATH_DEFINES
+#endif
+#endif
 
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#if 0
 #include <unistd.h>
+#else
+#if defined(WIN32)
+#  include <windows.h>
+#else
+#  include <unistd.h>
+#endif
+#endif
 #include <limits.h>
 
 #if 0
@@ -167,7 +181,7 @@ void La(matrix L, vector f, vector fERBs,
 
     double* fi_tmp = malloc(sizeof(double) * w2*2);
     double* fo_tmp = malloc(sizeof(double) * w2*2); 
-
+    vector a, a2;
     for(j=0;j<w2 * 2;j++){
       fi_tmp[j] = fi[j];
     }
@@ -180,11 +194,19 @@ void La(matrix L, vector f, vector fERBs,
     }
 
 #endif
+#if 0
     vector a = makev(w2);
+#else
+    a = makev(w2);
+#endif
     for (j = 0; j < w2; j++) { // This iterates over only the first half
         a.v[j] = sqrt(fo[j][0] * fo[j][0] + fo[j][1] * fo[j][1]);
     }
+#if 0
     vector a2 = spline(f, a); // a2 is now the result of the cubic spline
+#else
+    a2 = spline(f, a);
+#endif
     L.m[i][0] = fixnan(sqrt(splinv(f, a, a2, fERBs.v[0], hi)));
     for (j = 1; j < L.y; j++) { // Perform a bisection query at ERB intervals
         hi = bilookv(f, fERBs.v[j], hi); 
@@ -210,15 +232,25 @@ matrix loudness(vector x, vector fERBs, double nyquist, int w, int w2) { // L
 #else
     double* fi = malloc(sizeof(double) * w); 
     out_complex* fo = malloc(sizeof(out_complex) * w);
+    vector f;
+    matrix L;
 #endif
     vector hann = makev(w); // This defines the Hann[ing] window
     for (i = 0; i < w; i++) {
         hann.v[i] = .5 - (.5 * cos(2. * M_PI * ((double) i / w)));
     }
+#if 0
     vector f = makev(w2);
+#else
+    f = makev(w2);
+#endif
     for (i = 0; i < w2; i++) f.v[i] = i * td;
     hi = bisectv(f, fERBs.v[0]); // All calls to La() will begin here
+#if 0
     matrix L = makem(ceil((double) x.x / w2) + 1, fERBs.x); 
+#else
+    L = makem(ceil((double) x.x / w2) + 1, fERBs.x); 
+#endif
     for (j = 0; j < w2; j++) { // Left boundary case
         fi[j] = 0.; // More explicitly, 0. * hann.v[j]
     }
@@ -288,10 +320,23 @@ void Sadd(matrix S, matrix L, vector fERBs, vector pci, vector mu,
     double td; 
     double dtp = w2 / nyquist2;
     matrix Slocal = zerom(psz, L.x);
+#if 0
+#else
+    vector q;
+    vector kernel;
+#endif
     for (i = 0; i < Slocal.x; i++) {
+#if 0
         vector q = makev(fERBs.x);
+#else
+        q = makev(fERBs.x);
+#endif
         for (j = 0; j < q.x; j++) q.v[j] = fERBs.v[j] / pci.v[i];
+#if 0
         vector kernel = zerov(fERBs.x); // A zero-filled kernel vector
+#else
+        kernel = zerov(fERBs.x); // A zero-filled kernel vector
+#endif
         for (j = 0; j < ps.x; j++) {
             if PRIME(ps.v[j]) {
                 for (k = 0; k < kernel.x; k++) {
@@ -423,10 +468,18 @@ vector pitch(matrix S, vector pc, double st) {
     vector coefs;
     vector s = makev(3);
     vector ntc = makev(3);
+#if 0
+#else
+    vector p;
+#endif
     ntc.v[0] = ((1. / pc.v[0]) / tc2 - 1.) * 2. * M_PI; 
     ntc.v[1] = (tc2 / tc2 - 1.) * 2. * M_PI; 
     ntc.v[2] = ((1. / pc.v[2]) / tc2 - 1.) * 2. * M_PI;
+#if 0
     vector p = makev(S.y);  
+#else
+    p = makev(S.y);
+#endif
     for (j = 0; j < S.y; j++) {
         maxv = SHRT_MIN;  
         for (i = 0; i < S.x; i++) {
@@ -484,6 +537,17 @@ vector swipe(int fid, double min, double max, double st, double dt) {
     double dt = (double) frame_shift / samplerate;
     float_list *tmpf;
     vector x = makev(length);
+    intvector ws;
+    vector pc;
+    vector d;
+    vector fERBs;
+    intvector ps;
+    matrix S;
+    vector p;
+    double nyquist = samplerate / 2.;
+    double nyquist2 = samplerate;
+    double nyquist16 = samplerate * 8.;
+
     for (i = 0, tmpf = input; tmpf != NULL; i++, tmpf = tmpf->next) 
       x.v[i] = tmpf->f / 32768.0; // normalized by max_short
 #endif
@@ -492,9 +556,6 @@ vector swipe(int fid, double min, double max, double st, double dt) {
     double nyquist2 = info.samplerate;
     double nyquist16 = info.samplerate * 8.;
 #else
-    double nyquist = samplerate / 2.;
-    double nyquist2 = samplerate;
-    double nyquist16 = samplerate * 8.;
 #endif
     if (max > nyquist) {
         max = nyquist;
@@ -504,13 +565,23 @@ vector swipe(int fid, double min, double max, double st, double dt) {
         dt = nyquist2;
         fprintf(stderr, "Timestep > SR...timestep set to %f.\n", nyquist2);
     }
+#if 0
     intvector ws = makeiv(round(log2((nyquist16) / min) -  
                                 log2((nyquist16) / max)) + 1); 
+#else
+    ws = makeiv(round(log2((nyquist16) / min) -  
+                      log2((nyquist16) / max)) + 1); 
+#endif
     for (i = 0; i < ws.x; i++) {
         ws.v[i] = pow(2, round(log2(nyquist16 / min))) / pow(2, i);
     }
+#if 0
     vector pc = makev(ceil((log2(max) - log2(min)) / DLOG2P));
     vector d = makev(pc.x);
+#else
+    pc = makev(ceil((log2(max) - log2(min)) / DLOG2P));
+    d = makev(pc.x);
+#endif
     for (i = pc.x - 1; i >= 0; i--) { 
         td = log2(min) + (i * DLOG2P);
         pc.v[i] = pow(2, td);
@@ -520,15 +591,26 @@ vector swipe(int fid, double min, double max, double st, double dt) {
     vector x = makev(info.frames); // This reads the signal in
     sf_read_double(source, x.v, x.x);
     sf_close(source); // Takes FILE* wavf with it, too
-#endif
     vector fERBs = makev(ceil((hz2erb(nyquist) - 
                                hz2erb(pow(2, td) / 4)) / DERBS));
+#else
+    fERBs = makev(ceil((hz2erb(nyquist) - 
+                        hz2erb(pow(2, td) / 4)) / DERBS));
+#endif
     td = hz2erb(min / 4.);
     for (i = 0; i < fERBs.x; i++) fERBs.v[i] = erb2hz(td + (i * DERBS));
+#if 0
     intvector ps = onesiv(floor(fERBs.v[fERBs.x - 1] / pc.v[0] - .75));
+#else
+    ps = onesiv(floor(fERBs.v[fERBs.x - 1] / pc.v[0] - .75));
+#endif
     sieve(ps);
     ps.v[0] = P; // Hack to make 1 "act" prime...don't ask 
+#if 0
     matrix S = zerom(pc.x, ceil(((double) x.x / nyquist2) / dt)); // Strength
+#else
+    S = zerom(pc.x, ceil(((double) x.x / nyquist2) / dt)); // Strength
+#endif
     Sfirst(S, x, pc, fERBs, d, ws, ps, nyquist, nyquist2, dt, 0); 
     for (i = 1; i < ws.x - 1; i++) { // S is updated inline here
         Snth(S, x, pc, fERBs, d, ws, ps, nyquist, nyquist2, dt, i);
@@ -539,7 +621,11 @@ vector swipe(int fid, double min, double max, double st, double dt) {
     freeiv(ps);
     freev(d);  
     freev(x);
+#if 0
     vector p = pitch(S, pc, st); // Find pitch using strength matrix
+#else
+    p = pitch(S, pc, st); // Find pitch using strength matrix
+#endif
     freev(pc);
     freem(S);
 #if 0

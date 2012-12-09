@@ -24,7 +24,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -77,7 +77,11 @@
 # define FALSE 0
 #endif
 #ifndef FLT_MAX
+#if 0
 # define FLT_MAX (3.40282347E+38f) 
+#else
+# define FLT_MAX (3.40282346E+38f) 
+#endif
 #endif
 #ifndef M_PI
 # define M_PI (3.1415926536f)

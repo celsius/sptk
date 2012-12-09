@@ -367,10 +367,16 @@ void printm(matrix yr_matrix) {
 
 intmatrix makeim(int xSz, int ySz) {
     intmatrix nw_matrix;
+#if 0
+#else
+    int i;
+#endif
     nw_matrix.x = xSz;
     nw_matrix.y = ySz;
     nw_matrix.m = malloc(sizeof(int) * xSz);
+#if 0
     int i;
+#endif
     for (i = 0; i < nw_matrix.x; i++) {
         nw_matrix.m[i] = malloc(sizeof(int) * ySz);
     }
@@ -591,7 +597,8 @@ vector polyfit(vector A, vector B, int order) {
 #if 0
     int j;
     int info;
-#else 
+#else
+    vector Bp;
 #endif
     order++; // I find it intuitive this way...
 #if 0
@@ -602,7 +609,11 @@ vector polyfit(vector A, vector B, int order) {
         }
     }
 #endif
+#if 0
     vector Bp = makev(order >= B.x ? order : B.x); 
+#else
+    Bp = makev(order >= B.x ? order : B.x); 
+#endif
     for (i = 0; i < B.x; i++) Bp.v[i] = B.v[i];
 #if 0
     i = 1; // nrhs, j is info
