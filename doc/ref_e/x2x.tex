@@ -77,21 +77,22 @@ as described below.
                         f & float (4 bytes) & \quad &
                         d & double (8 bytes) \\
                         de & long double (12 bytes) & \quad &
-                        a & ASCII \\ [1ex] 
+                        a & ASCII \\
+                       aN & ASCII specifying the column number $N$ & \quad & 
+                             & \\ [1ex]
                 \end{tabular} \\
                 data type is converted from $t_1(type_1)$ to $t_2(type_2)$.
                 if $t_2$ is not assigned then no operation is
                 performed, and the output file is equal to the input
                 file.}{type1}
-	\argp{{\bf a}N}{specify the column number $N$}{1}
 	\argm{r}{}{specify rounding off when a real number
                  is substituted for an integer}{FALSE}
 	\argm{o}{}{clip by minimum and maximum of output data type
                  if input data is over the range of output data
                  type. if the -o option is not given, when the data type lengths
  are different, the process will be aborted.}{FALSE}
-	\argh{format}{}{specify output format similar to 'printf()', 
-                        if $type2$ is ASCII.}{$\%g$}
+ \argp{{\bf a}\%format}{specify output format similar to 'printf()', 
+                           only if $type2$ is ASCII.}{$\%g$}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -136,7 +137,7 @@ the output will be:
 \par
 The output uses the printf command \%e format:
 \begin{quote}
-  \verb!x2x +fa %9.4e < data.f!
+  \verb!x2x +fa%9.4e < data.f!
 \end{quote}
 In this example the total number of characters for each number
 is 11, and the number of decimal points assigned to 4.

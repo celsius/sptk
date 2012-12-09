@@ -147,6 +147,7 @@ In the following example,
 read from {\em data.mcep} in float format,
 then the stability of MLSA filter is checked,
  and the results are written to {\em data.mlsachk}.
+The information of unstable frames are written to {\em data.mlsachk.error}.
 \begin{quote}
  \verb! mlsacheck -m 25 -c data.mcep \! \\
  \verb! 1> data.mlsachk 2> data.mlsachk.error !

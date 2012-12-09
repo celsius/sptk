@@ -75,8 +75,8 @@ and sends the result to standard output.
          f & float (4 bytes) & \quad &
                      d & double (8 bytes) \\
 		\end{tabular}\\\hspace*{\fill}}{f}
-        \argh{form}{}{print format(printf style)}{N/A}
-
+ \argh{form}{}{print format (printf style)\\
+ '+' option must be placed in front of '\%' option, without whitespace.}{N/A}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -125,12 +125,12 @@ Print the unit impulse response of a digital filter on the screen:
 \par
 Print a sine wave using the \%e option of {\em printf}:
 \begin{quote}
-  \verb!sin -p 30 | dmp +f %e!
+  \verb!sin -p 30 | dmp +f%e!
 \end{quote}
 \par
 Print the same sine wave represented by three decimal points:
 \begin{quote}
-  \verb!sin -p 30 | dmp +f %.3e!
+  \verb!sin -p 30 | dmp +f%.3e!
 \end{quote}
 \end{qsection}
 

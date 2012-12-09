@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2011  Nagoya Institute of Technology          %
+%                1996-2012  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -45,8 +45,10 @@
 \name{vopr}{execute vector operations}{number operation}
 
 \begin{synopsis}
-\item[vopr] [ --l $L$ ] [ --n $N$ ] [ --i ] [ --a ] [ --s ] [ --m ] [ --d ] 
-\item[\ ~~~~] [ --ATAN2 ][ {\em file1} ] [ {\em infile} ]
+\item[vopr] [ --l $L$ ] [ --n $N$ ] [ --i ] [ --a ] [ --s ] [ --m ] [ --d ]
+ [ --ATAN2 ] [ --AM ] [ --GM ]
+ \item[\ ~~~~] [ --gt ] [--ge ] [ --lt ] [--le] [ --eq ] [ --ne ]
+ [ {\em file1} ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -137,15 +139,25 @@ Input vectors are read from a single file.
 \end{qsection}
 
 \begin{options}
-        \argm{l}{L}{length of vector}{1}
-        \argm{n}{N}{order of vector}{L-1}
-        \argm{i}{}{when a single file file is specified,
-                   the file contains a and b.}{FALSE}
-        \argm{a}{}{addition $y_i=a_i+b_i$}{FALSE}
-        \argm{s}{}{subtraction $y_i=a_i-b_i$}{FALSE}
-        \argm{m}{}{multiplication $y_i=a_i*b_i$}{FALSE}
-        \argm{d}{}{division $y_i=a_i/b_i$}{FALSE}
-        \argm{ATAN2}{}{atan2 $y_i=\atan2(b_i,a_i)$}{FALSE}
+ \argm{l}{L}{length of vector}{1}
+ \argm{n}{N}{order of vector}{L-1}
+ \argm{i}{}{when a single file file is specified,
+ the file contains a and b.}{FALSE}
+ \argm{a}{}{addition $y_i=a_i+b_i$}{FALSE}
+ \argm{s}{}{subtraction $y_i=a_i-b_i$}{FALSE}
+ \argm{m}{}{multiplication $y_i=a_i*b_i$}{FALSE}
+ \argm{d}{}{division $y_i=a_i/b_i$}{FALSE}
+ \argm{ATAN2}{}{atan2 $y_i=\atan2(b_i,a_i)$}{FALSE}
+ \argm{AM}{}{arithmetic mean $y_i=(a_i + b_i) / 2$}{FALSE}
+ \argm{GM}{}{geometric  mean $y_i=\sqrt{a_i * b_i}$}{FALSE}
+ \argm{c}{}{choose smaller value}{FALSE}
+ \argm{f}{}{choose larger value}{FALSE}
+ \argm{gt}{}{decide ``greater than''}{FALSE}
+ \argm{ge}{}{decide ``greater than or equal''}{FALSE}
+ \argm{lt}{}{decide ``less than''}{FALSE}
+ \argm{le}{}{decide ``less than or equal''}{FALSE}
+ \argm{eq}{}{decide ``equal to''}{FALSE}
+ \argm{ne}{}{decide ``not equal to''}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -166,7 +178,52 @@ Similar results as from the above example can be obtained using the following:
 \begin{quote}
   \verb!sin -p 30 -l 1000 | window | fdrw | xgr!
 \end{quote}
+For other examples, suppose {\em data.a} contains
+\begin{displaymath}
+  1, 2, 3, 4, 5, 6, 7
+\end{displaymath}
+in float format and {\em data.b} contains
+\begin{displaymath}
+  3, 2, 1, 0, 5, 6, 7
+\end{displaymath}
+in float format.
+In the following example,
+smaller scalar values can be taken from
+{\em data.a} and {\em data.b}, and
+the result is sent to {\em data.c} in float format.
+\begin{quote}
+  \verb!vopr -c data.b < data.a > data.c !
+\end{quote}
+The output file {\em data.c} contains
+\begin{displaymath}
+  1, 2, 1, 0, 5, 6, 7.
+\end{displaymath}
+When executing following command line,
+\begin{quote}
+  \verb!vopr -ge data.b < data.a > data.c !
+\end{quote}
+the output file {\em data.c} contains:
+\begin{displaymath}
+  0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+\end{displaymath}
+On the other hand, when executing following command line,
+\begin{quote}
+  \verb!vopr -gt data.b < data.a > data.c !
+\end{quote}
+the output file {\em data.c} contains:
+\begin{displaymath}
+  0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0
+\end{displaymath}
+Moreover, when executing following command line,
+\begin{quote}
+  \verb!vopr -eq data.b < data.a > data.c !
+\end{quote}
+the output file {\em data.c} contains:
+\begin{displaymath}
+  0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0
+\end{displaymath}
 \end{qsection}
+
 
 \begin{qsection}{SEE ALSO}
 \hyperlink{sopr}{sopr},
