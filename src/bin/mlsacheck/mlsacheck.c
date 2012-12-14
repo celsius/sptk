@@ -234,11 +234,7 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
 
    /* output ascii report */
    if (ascii_report == TR) {
-      fprintf(stderr, "[ unstable frame number : %d ]\n", frame);
-      for (i = 0; i < m + 1; i++) {
-         fprintf(stderr, "%f\n", mcep[i]);
-      }
-      fprintf(stderr, "\n");
+      fprintf(stderr, "[No. %d] is unstable frame\n", frame);
    }
 }
 
