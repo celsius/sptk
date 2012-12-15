@@ -110,6 +110,13 @@ The order of the output is as follows.
   \overbrace{\mu(1),\dots,\mu(L)}^L, \; \overbrace{u(1),\dots,u(L)}^L,
     \;\overbrace{l(1),\dots,l(L)}^L
  \end{displaymath}
+
+If the --o 4 option is specified, {\em vstat} outputs the median of 
+input vectors of length $L$.
+If the number of vectors is even number, {\em vstat} outputs the
+bigger one of two vectors of center.
+ 
+
 Also, input and output data are in float format.
 \end{qsection}
 
@@ -123,7 +130,8 @@ Also, input and output data are in float format.
                         $O=1$ & mean\\
                         $O=2$ & covariance\\
                         $O=3$ & mean \& upper / lower bound of confidence interval\\
-                                &via Student's t-distribution\\[1ex]
+                                &via Student's t-distribution\\
+                        $O=4$ & median\\[1ex]
                 \end{tabular}\\\hspace*{\fill}}{0}
 	\argm{c}{C}{confidence level of confidence interval (\%)}{95.00}
 	\argm{d}{}{diagonal covariance}{FALSE}
