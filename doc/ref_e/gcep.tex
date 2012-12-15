@@ -47,8 +47,8 @@
 
 \begin{synopsis}
 \item [gcep] [ --m $M$ ] [ --g $G$ ] [ --c $C$ ] [ --l $L$ ] [ --q $Q$ ] [ --n ]
-             [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --e $E$ ]
-\item [\ ~~~~~~~] [ --f $F$ ] [ {\em infile} ]
+             [ --i $I$ ] [ --j $J$ ] [ --d $D$ ]
+\item [\ ~~~~~~~] [ --e $e$ ] [ --E $E$ ] [ --f $F$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -112,7 +112,8 @@ Otherwise, the Newton--Raphson method is applied.
                     the evaluation rate of $\varepsilon^{(i)}$ is
                     $0.001$, that is, when its value changes
                     in a rate smaller than $0.1\%$.}{0.001}
-        \argm{e}{E}{small value added to periodgram}{0}
+        \argm{e}{e}{small value added to periodgram}{0}
+        \argm{E}{E}{floor in db calculated per frame}{N/A} 
         \argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
 
