@@ -431,6 +431,11 @@ int main(int argc, char *argv[])
          rewind(fp);
       }
 
+      if (k % 2 == 0) {
+         fprintf(stderr, "%s : warning: the number of vectors is even!\n",
+                 cmnd);
+      }
+
       mtmp = (double **) getmem(leng, sizeof(*mtmp));
       mtmp[0] = dgetmem(leng * k);
       for (i = 1; i < leng; i++)
