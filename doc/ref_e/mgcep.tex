@@ -48,7 +48,7 @@
 \begin{synopsis}
 \item[mgcep]   [ --a $A$ ] [ --g $G$ ] [ --c $C$ ] [ --m $M$ ] [ --l $L$ ] 
                [ --q $Q$ ] [ --o $O$ ]
-\item[\ ~~~~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --p $P$ ] [ -- e $E$ ] [ --f $F$ ] 
+\item[\ ~~~~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --p $P$ ] [ --e $e$ ] [ --E $E$ ] [ --f $F$ ] 
                  [ {\em infile} ]
 \end{synopsis}
 
@@ -174,7 +174,8 @@ and $\gamma$ (refer to figure \ref{fig:mgcep_overview}).
         \argm{j}{J}{maximum iteration of Newton-Raphson method}{30}
         \argm{d}{D}{end condition of Newton-Raphson method}{0.001}
         \argm{p}{P}{order of recursions}{$L-1$}
-        \argm{e}{E}{small value added to periodogram}{0} 
+        \argm{e}{e}{small value added to periodogram}{0} 
+        \argm{E}{E}{floor in db calculated per frame}{N/A} 
         \argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
 \end{options}
  
