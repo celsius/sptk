@@ -45,7 +45,7 @@
 \name{wav2raw}{wav (RIFF) to raw}{data operation}
 
 \begin{synopsis}
-\item[wav2raw] [ --swab ] [ --d $D$ ] [ --n ] [ --N ] [ {\em +type} ] [ {\em infile} ]
+\item[wav2raw] [ --swab ] [ --d $D$ ] [ --n ] [ --N ] [ --L ] [ --R ] [ {\em +type} ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -61,6 +61,8 @@
                    if max $>$= 255 (8bit), 32767 (16bit), \\
                    8388067 (24bit) or 2147483647 (32bit)}{FALSE}
 	\argm{N}{}{normalization with the maximum value}{FALSE}
+	\argm{L}{L}{convert left sound from stereo wav file}{FALSE}
+	\argm{R}{R}{convert right sound from stereo wav file}{FALSE}
 	\argp{type}{output data type\\ 
 		\begin{tabular}{llcll} \\[-1ex]
          c & char (1 byte) & \quad &
