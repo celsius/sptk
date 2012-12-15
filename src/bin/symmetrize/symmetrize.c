@@ -44,14 +44,14 @@
 
 /*************************************************************************************
 *                                                                                    *
-*    Symmetrize the order of Data in Each Block                                      *
+*    Symmetrize the sequence of data                                                 *
 *                                                                                    *
 *                                        2012.8 T.Okada                              *
 *                                                                                    *
 *     usage:                                                                         *
 *             symmetrize [ options ] [ infile ] > stdout                             *
 *     options:                                                                       *
-*             -l L  : FFT(DFT) size    [256]                                         *
+*             -l L  : frame length   [256]                                           *
 *             -o o  : output format    [0]                                           *
 *     infile:                                                                        *
 *             x(0), x(1),     ..., x(L/2-1)                                          *
@@ -101,12 +101,12 @@ char *cmnd;
 void usage(void)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - symmetrize the order of data\n", cmnd);
+   fprintf(stderr, " %s - symmetrize the sequence of data\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l L  : FFT(DFT) size            [%d]\n", FLENG);
+   fprintf(stderr, "       -l L  : frame length             [%d]\n", FLENG);
    fprintf(stderr, "       -o o  : output format            [%d]\n", OTYPE);
    fprintf(stderr,
            "               0 x(0), x(1),     ..., x(L/2-1), x(L/2-2), ..., x(2), x(1)\n");
