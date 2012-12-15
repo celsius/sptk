@@ -127,11 +127,10 @@ void usage(int status)
            "       -c    : modify MLSA filter coefficients of    [N/A]\n");
    fprintf(stderr, "               unstable frames \n");
    fprintf(stderr,
-           "       -r R  : stable condion for MLSA filter        [%d]\n",
+           "       -r R  : stability condion for MLSA filter        [%d]\n",
            STABLE1);
-   fprintf(stderr, "               filter coef. of unstable frames is \n");
-   fprintf(stderr, "               modified so that following \n");
-   fprintf(stderr, "               condition is satisfied.\n");
+   fprintf(stderr, "               check whether the following stability\n");
+   fprintf(stderr, "               condition is satisfied or not.\n");
    fprintf(stderr, "                 0 : keeping log approximation error\n");
    fprintf(stderr, "                     not exceeding 0.24 dB (P=4)\n");
    fprintf(stderr, "                     or 0.2735 dB (P=5) \n");
