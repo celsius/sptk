@@ -50,8 +50,8 @@
       transpose(float* buf, int m, int n)
 
       float* buf : data seqence (Overwrite)
-      int      m : number of row
-      int      n : number of column      
+      int      m : number of rows
+      int      n : number of columns
 
 ************************************************************************/
 

@@ -51,26 +51,27 @@
 *       usage:                                                          *
 *               transpose [ options ] [ infile ] > stdout               *
 *       options:                                                        *
-*               -m m  : number of row       [N/A]                       *
-*               -n n  : number of column    [N/A]                       *
+*               -m m  : number of rows      [N/A]                       *
+*               -n n  : number of columns   [N/A]                       *
 *       infile:                                                         *
-*                x(0,0), x(0,1), ..., x(0,N),                           *
-*                x(1,0), x(1,1), ..., x(1,N),                           *
+*                x(0,0)  , x(0,1)  , ..., x(0,n-1)  ,                   *
+*                x(1,0)  , x(1,1)  , ..., x(1,n-1)  ,                   *
 *                              .                                        *
 *                              .                                        *
 *                              .                                        *
-*                x(M,0), x(M,1), ..., x(M,N) (real)                     *
+*                x(m-1,0), x(m-1,1), ..., x(m-1,n-1)                    *
 *       stdout:                                                         *
-*                x(0,0), x(1,0), ..., x(M,0),                           *
-*                x(0,1), x(1,1), ..., x(M,1),                           *
+*                x(0,0)  , x(1,0)  , ..., x(m-1,0)  ,                   *
+*                x(0,1)  , x(1,1)  , ..., x(m-1,1)  ,                   *
 *                              .                                        *
 *                              .                                        *
 *                              .                                        *
-*                x(0,N), x(1,N), ..., x(M,N) (real)                     *
+*                x(0,n-1), x(1,n-1), ..., x(m-1,n-1)                    *
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -105,8 +106,8 @@ void usage(void)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : number of row        [N/A]\n");
-   fprintf(stderr, "       -n n  : number of column     [N/A]\n");
+   fprintf(stderr, "       -m m  : number of rows       [N/A]\n");
+   fprintf(stderr, "       -n n  : number of columns    [N/A]\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)      [stdin]\n", FORMAT);
@@ -159,7 +160,7 @@ int main(int argc, char *argv[])
    }
 
    if (m == 0 || n == 0) {
-      fprintf(stderr, "%s : the number of row or column is not defined!!\n",
+      fprintf(stderr, "%s : the number of rows or columns is not defined!!\n",
               cmnd);
       usage();
    }
