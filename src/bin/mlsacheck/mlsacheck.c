@@ -95,8 +95,10 @@ static char *rcs_id = "$Id$";
 #define ALPHA     0.35
 #define PADEORDER 4
 #define FFTLENGTH 256
-#define STABLE1 0
-#define STABLE2 1
+#define THRESH1   4.5
+#define THRESH2   6.2
+#define STABLE1   0
+#define STABLE2   1
 
 char *BOOL[] = { "FALSE", "TRUE" };
 
@@ -160,11 +162,11 @@ void usage(int status)
 }
 
 void mlsacheck(double *mcep, int m, int fftlen, int frame,
-               double a, double R1, double R2,
+               double a, double r1, double r2,
                Boolean modify_filter, int stable_condition)
 {
    int i;
-   double K, r, *x, *y, *mag;
+   double gain, r, *x, *y, *mag;
    Boolean ascii_report = FA;
 
    x = dgetmem(fftlen);
@@ -179,12 +181,12 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
    }
 
    /* calculate gain factor */
-   for (i = 0, K = 0.0; i < m + 1; i++) {
-      K += x[i] * pow(a, i);
+   for (i = 0, gain = 0.0; i < m + 1; i++) {
+      gain += x[i] * pow(a, i);
    }
 
    /* gain normalization */
-   x[0] -= K;
+   x[0] -= gain;
 
    fftr(x, y, fftlen);
 
@@ -195,10 +197,10 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
 
       switch (stable_condition) {
       case STABLE1:
-         if (mag[i] > R1) {
+         if (mag[i] > r1) {
             ascii_report = TR;
             if (modify_filter == TR) {
-               r = R1 / mag[i];
+               r = r1 / mag[i];
                x[i] *= r;
                y[i] *= r;
                x[fftlen - 1 - i] *= r;
@@ -207,10 +209,10 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
          }
          break;
       case STABLE2:
-         if (mag[i] > R2) {
+         if (mag[i] > r2) {
             ascii_report = TR;
             if (modify_filter == TR) {
-               r = R2 / mag[i];
+               r = r2 / mag[i];
                x[i] *= r;
                y[i] *= r;
                x[fftlen - 1 - i] *= r;
@@ -223,7 +225,7 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
    ifft(x, y, fftlen);
 
    /* revert gain factor */
-   x[0] += K;
+   x[0] += gain;
 
    fwritef(x, sizeof(*x), m + 1, stdout);
 
@@ -241,7 +243,7 @@ int main(int argc, char **argv)
 {
    int m = ORDER, pd = PADEORDER, fftlen = FFTLENGTH, stable_condition =
        STABLE1, frame = 0;
-   double *mcep, a = ALPHA, R1, R2;
+   double *mcep, a = ALPHA, r1 = THRESH1, r2 = THRESH2;
    Boolean modify_filter = FA;
    FILE *fp = stdin;
 
@@ -301,12 +303,12 @@ int main(int argc, char **argv)
 
    switch (pd) {
    case 4:
-      R1 = 4.5;
-      R2 = 6.2;
+      r1 = 4.5;
+      r2 = 6.2;
       break;
    case 5:
-      R1 = 6.0;
-      R2 = 7.65;
+      r1 = 6.0;
+      r2 = 7.65;
       break;
    default:
       fprintf(stderr, "%s : Order of Pade approximation should be 4 or 5!\n",
@@ -318,7 +320,7 @@ int main(int argc, char **argv)
 
    /* check stability of MLSA filter and output */
    while (freadf(mcep, sizeof(*mcep), m + 1, fp) == m + 1) {
-      mlsacheck(mcep, m, fftlen, frame, a, R1, R2,
+      mlsacheck(mcep, m, fftlen, frame, a, r1, r2,
                 modify_filter, stable_condition);
       frame++;
    }
