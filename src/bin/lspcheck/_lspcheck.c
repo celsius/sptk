@@ -53,8 +53,8 @@
        double   *lsp  : LSP
        int      ord   : order of LSP
 
-       return   value : 0  -> normal
-                        -1 -> ill condition
+       return   value : 0   -> normal
+                        -1  -> ill condition
 
 *****************************************************************/
 #include<stdio.h>
@@ -66,7 +66,6 @@
 #  include <SPTK.h>
 #endif
 
-#define MIN (1.0E-15)
 #define TH 100
 
 int lspcheck(double *lsp, const int ord)
@@ -96,60 +95,32 @@ int lspcheck(double *lsp, const int ord)
 
        double    *lsp : LSP
        int        ord : order of LSP
-       double   alpha : minimal distance between two consecutive LSPs
-       int      itype : input type
+       double     min : minimal distance between two consecutive LSPs
        int   sampling : sampling frequency
 
 *****************************************************************/
 
-void lsparrange(double *lsp, const int ord, double alpha, int itype,
-                double sampling)
+void lsparrange(double *lsp, int ord, double min, double sampling)
 {
-   int i, count = 0, flag;
+   int i, count, flag;
    double tmp;
-   double min = alpha * PI / ord;
-
-
-   if (itype == 0)
-      min /= PI2;
-   else if (itype == 2 || itype == 3)
-      min /= sampling;
-   if (itype == 3)
-      min /= 1000;
-
-
 
    /* check out of range */
    for (i = 0; i < ord; i++) {
-      if (lsp[i] < 0.0)
-         lsp[i] = -lsp[i];
-      if (lsp[i] > 0.5)
-         lsp[i] = 1.0 - lsp[i];
+      if (lsp[i] < min / 2) {
+         lsp[i] = min / 2;
+      }
+      if (lsp[i] > 0.5 - min / 2) {
+         lsp[i] = 0.5 - min / 2;
+      }
    }
-
-   /* check unmonotonic */
-   for (;;) {
-      flag = 0;
-      for (i = 1; i < ord; i++)
-         if (lsp[i] < lsp[i - 1]) {
-            tmp = lsp[i];
-            lsp[i] = lsp[i - 1];
-            lsp[i - 1] = tmp;
-            flag = 1;
-         }
-      if (!flag)
-         break;
-   }
-
 
    /* check distance between two consecutive LSPs */
-   for (;;) {
-      if (count++ >= TH)
-         break;
+   for (count = 0; count < TH; count++) {
       flag = 0;
       for (i = 1; i < ord; i++) {
          tmp = lsp[i] - lsp[i - 1];
-         if (min - tmp > MIN) {
+         if (min > tmp) {
             lsp[i - 1] -= (min - tmp) / 2;
             lsp[i] += (min - tmp) / 2;
             flag = 1;
