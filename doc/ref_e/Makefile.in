@@ -91,6 +91,7 @@ INC  = cmndref.sty \
 	freqt.tex \
 	gc2gc.tex \
 	gcep.tex \
+	gimp.tex \
 	glogsp.tex \
 	glsadf.tex \
 	gmm.tex \
@@ -152,7 +153,9 @@ INC  = cmndref.sty \
 	spec.tex \
 	step.tex \
 	swab.tex \
+	symmetrize.tex \
 	train.tex \
+	transpose.tex \
 	uels.tex \
 	ulaw.tex \
 	us.tex \
