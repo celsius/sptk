@@ -1,0 +1,120 @@
+% ----------------------------------------------------------------- %
+%             The Speech Signal Processing Toolkit (SPTK)           %
+%             developed by SPTK Working Group                       %
+%             http://sp-tk.sourceforge.net/                         %
+% ----------------------------------------------------------------- %
+%                                                                   %
+%  Copyright (c) 1984-2007  Tokyo Institute of Technology           %
+%                           Interdisciplinary Graduate School of    %
+%                           Science and Engineering                 %
+%                                                                   %
+%                1996-2011  Nagoya Institute of Technology          %
+%                           Department of Computer Science          %
+%                                                                   %
+% All rights reserved.                                              %
+%                                                                   %
+% Redistribution and use in source and binary forms, with or        %
+% without modification, are permitted provided that the following   %
+% conditions are met:                                               %
+%                                                                   %
+% - Redistributions of source code must retain the above copyright  %
+%   notice, this list of conditions and the following disclaimer.   %
+% - Redistributions in binary form must reproduce the above         %
+%   copyright notice, this list of conditions and the following     %
+%   disclaimer in the documentation and/or other materials provided %
+%   with the distribution.                                          %
+% - Neither the name of the SPTK working group nor the names of its %
+%   contributors may be used to endorse or promote products derived %
+%   from this software without specific prior written permission.   %
+%                                                                   %
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            %
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       %
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          %
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          %
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS %
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          %
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   %
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     %
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON %
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   %
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    %
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
+% POSSIBILITY OF SUCH DAMAGE.                                       %
+% ----------------------------------------------------------------- %
+\hypertarget{gimp}{}
+\name{gimp}{draw a impluse response}{plotting graphs}
+
+\begin{synopsis}
+\item[gimp] [ --F $F$] [ --s $S$ ] [ --e $E$ ] [ --n $N$ ] [ --i $I$ ] [ --y $ymax$ ]
+               [ --y2 $ymin$ ] [--m $M$ ] 
+\item[\ ~~~~~~~~] [ --p $P$ ] [ --magic $magic$ ] [ --MAGIC $MAGIC$ ] [ +{\em type} ]  [ {\em infile} ]
+
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em gimp} converts impluse response data 
+from {\em infile} (or standard input) to FP5301 plot format, 
+sending the result to standard output. 
+The output can viewed with \hyperlink{xgr}{xgr}.
+
+{\em gimp} is implemented as a shell script 
+that uses the \hyperlink{fig}{fig} command.
+\end{qsection}
+
+\begin{options}
+        \argm{F}{F}{factor}{1}
+        \argm{s}{S}{start point}{0}
+        \argm{e}{E}{end point}{EOF}
+        \argm{n}{N}{data number of one screen\\
+                    if this option is omitted,
+                    all of the data is plotted on one screen.}{N/A}
+        \argm{i}{I}{number of screen}{5}
+        \argm{y}{ymax}{maximum amplitude\\
+                       if this option is omitted,
+                       ymax is maximum value of the input data.}{N/A}
+        \argm{y2}{ymin}{minimum amplitude}{-YMAX}
+        \argm{m}{M}{mark type}{1}
+        \argm{p}{P}{pen type($1 \sim 10$)}{1}
+        \argm{magic}{magic}{remove magic number}{FALSE}
+        \argm{MAGIC}{MAGIC}{replace magic number by $MAGIC$ \\
+                            if -magic option is not given, return error.\\
+                        if -magic or -MAGIC option is given multiple
+                        times, also return error.}{FALSE}
+        \argp{t}{Input data format\\ 
+                \begin{tabular}{llcll} \\[-1ex]
+                        c & char (1 byte) & \quad &
+                        C & unsigned char (1 byte) \\
+                        s & short (2 bytes) & \quad &
+                        S & unsigned short (2 bytes) \\
+                        i3 & int (3 bytes) & \quad &
+                        I3 & unsigned int (3 bytes) \\
+                        i & int (4 bytes) & \quad &
+                        I & unsigned int (4 bytes) \\
+                        l & long (4 bytes) & \quad &
+                        L & unsigned long (4 bytes) \\
+                        le & long long (8 bytes) & \quad &
+                        LE & unsigned long long (8 bytes) \\
+                        f & float (4 bytes) & \quad &
+                        d & double (8 bytes) \\
+                        de & long double (12 bytes) & \quad &
+                \end{tabular}}{f}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+This example reads impluse response file in float format from
+{\em data.f} and writes the output in Postscript format to
+{\em data.ps}.
+\begin{quote}
+ \verb!gimp +f < data.f | psgr > data.ps!
+ \end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+\hyperlink{fig}{fig},
+\hyperlink{fdrw}{fdrw},
+\hyperlink{xgr}{xgr},
+\hyperlink{psgr}{psgr},
+\hyperlink{glogsp}{glogsp},
+\hyperlink{grlogsp}{grlogsp},
+\hyperlink{gwave}{gwave}
+\end{qsection}
