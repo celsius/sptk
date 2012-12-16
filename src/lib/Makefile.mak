@@ -24,6 +24,7 @@ CORES = agexp.obj \
 	getmem.obj \
 	gexp.obj \
 	glog.obj \
+	invert.obj \
 	matrix.obj \
 	movem.obj \
 	mseq.obj \
@@ -40,7 +41,7 @@ MODULES = ..\bin\acep\_acep.obj \
 	..\bin\c2ir\_c2ir.obj \
 	..\bin\c2sp\_c2sp.obj \
 	..\bin\clip\_clip.obj \
-        ..\bin\dct\_dct.obj \
+	..\bin\dct\_dct.obj \
 	..\bin\df2\_df2.obj \
 	..\bin\dfs\_dfs.obj \
 	..\bin\fft\_fft.obj \
@@ -87,13 +88,12 @@ MODULES = ..\bin\acep\_acep.obj \
 	..\bin\nrand\_nrand.obj \
 	..\bin\par2lpc\_par2lpc.obj \
 	..\bin\phase\_phase.obj \
-	..\bin\pitch\_pitch.obj \
 	..\bin\poledf\_poledf.obj \
 	..\bin\reverse\_reverse.obj \
 	..\bin\rmse\_rmse.obj \
 	..\bin\root_pol\_root_pol.obj \
 	..\bin\smcep\_smcep.obj \
-        ..\bin\transpose/_transpose.obj \
+	..\bin\transpose/_transpose.obj \
 	..\bin\uels\_uels.obj \
 	..\bin\ulaw\_ulaw.obj \
 	..\bin\vq\_vq.obj \
