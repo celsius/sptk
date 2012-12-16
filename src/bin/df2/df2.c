@@ -52,7 +52,7 @@
 *       usage:                                                          *
 *               df2 [ options ] [ infile ] > stdout                     *
 *       options:                                                        *
-*               -f f     :  sampling frequency(kHz)       [10.0]        *
+*               -s s     :  sampling frequency(kHz)       [10.0]        *
 *               -p f b   :  center frequency f(Hz)                      *
 *                            and band width b(Hz) of pole [N/A]         *
 *               -z f b   :  center frequency f(Hz)                      *
@@ -101,7 +101,7 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout \n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -f f   : sampling frequency (kHz)       [%.1f]\n",
+   fprintf(stderr, "       -s s   : sampling frequency (kHz)       [%.1f]\n",
            SAMPLEF);
    fprintf(stderr, "       -p f b : center frequency f(Hz)\n");
    fprintf(stderr, "                 and band width b(Hz) of pole  [N/A]\n");
@@ -142,6 +142,9 @@ int main(int argc, char *argv[])
          argc--;
          switch (*(*argv + 1)) {
          case 'f':
+            sf = atof(*++argv);
+            break;
+         case 's':
             sf = atof(*++argv);
             break;
          case 'z':

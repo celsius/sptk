@@ -60,7 +60,7 @@
 *               -L  L    :  frame length of window               [256]   * 
 *               -m  m    :  order of cepstrum                    [13]    *
 *               -n  n    :  order of channel for mel-filter bank [26]    *
-*               -F  F    :  sampling frequency (kHz)             [16.0]  *
+*               -s  s    :  sampling frequency (kHz)             [16.0]  *
 *               -d       :  without using fft algorithm          [FALSE] *
 *               -w       :  use hamming window                   [FALSE] *
 *               -E       :  use power                            [FALSE] *
@@ -142,7 +142,7 @@ void usage(int status)
    fprintf(stderr, "               in filterbank analysis\n");
    fprintf(stderr, "               if x < e, then x = e\n");
    fprintf(stderr,
-           "       -f f  : sampling frequency (kHz)              [%.1f]\n",
+           "       -s s  : sampling frequency (kHz)              [%.1f]\n",
            SAMPLEFREQ);
    fprintf(stderr,
            "       -l l  : frame length of input                 [%d]\n", WLNG);
@@ -219,6 +219,10 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'f':
+            fs = atof(*++argv);
+            --argc;
+            break;
+         case 's':
             fs = atof(*++argv);
             --argc;
             break;
