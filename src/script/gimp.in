@@ -71,12 +71,18 @@ set pen     = 1
 set F       = 1
 set type    = f
 set mtype   = "\1"
+set magic   = 0
+set MAGIC   = 0
 
 set flagy2      = 0
 set flagfile    = 0
 set flagnumdata = 0
 set flagnumscreen = 0
 set flagy       = 0
+set flagmagic   = 0
+set flagMAGIC   = 0
+set magic_count = 0
+set MAGIC_count = 0
 
 @ i = 0
 while ($i < $#argv)
@@ -122,6 +128,18 @@ while ($i < $#argv)
         case -F:
                 @ i++
                 set F   = $argv[$i]
+                breaksw
+        case -magic:
+                @ i++
+                set magic = $argv[$i]
+                set flagmagic = 1
+                @ magic_count++
+                breaksw
+        case -MAGIC:
+                @ i++
+                set MAGIC = $argv[$i]
+                set flagMAGIC = 1
+                @ MAGIC_count++
                 breaksw
         case +c:
                 set type = c
@@ -184,7 +202,53 @@ while ($i < $#argv)
         endsw
 end
 
-cat $file > /tmp/$$
+if ( $magic_count > 1 || $MAGIC_count > 1 ) then
+        echo2 "${cmnd} : Can't specify -magic or -MAGIC option multiple times\!"
+        set exit_status = 1
+        goto usage
+endif
+
+if ( ($start != 0) || ($term > 0) ) then
+     if ( $flagmagic && (! $flagMAGIC) ) then
+         if ( $term < 0 ) then
+             set wctmp = `x2x +${type}a $file | wc -l`
+               @ wctmp = `echo "$wctmp - 1" | bc -l`
+         else
+             set wctmp = `echo "$term" | bc -l`
+         endif
+        set mwc = `x2x +${type}f $file | bcut -s $start -e $wctmp | sopr -magic $magic | x2x +fa | wc -l` 
+           x2x +${type}f $file | bcut -s $start -e $wctmp | sopr -magic $magic | x2x +f${type} > /tmp/$$
+           @ reduced = `echo "$wctmp + 1 - $start - $mwc" | bc -l`
+           @ term = `echo "$wctmp - $reduced + 1" | bc -l`
+           set mterm = `echo "$mwc - 1" | bc -l`
+           x2x +${type}f /tmp/$$ | bcp -S $start -l $mwc -s 0 -e $mterm -f 0 | x2x +f${type} > /tmp/$$-1
+           cat /tmp/$$-1 > /tmp/$$
+    else
+        if ( $flagmagic && $flagMAGIC ) then
+               x2x +${type}f $file | sopr -magic $magic -MAGIC $MAGIC | x2x +f${type} > /tmp/$$
+        else if ( $flagMAGIC ) then
+               echo2 "${cmnd} : -MAGIC option need magic number\!"
+               set exit_status = 1
+               goto usage
+        else
+            cat $file > /tmp/$$
+        endif
+         
+    endif
+else
+    if ( $flagmagic && $flagMAGIC ) then
+           x2x +${type}f $file | sopr -magic $magic -MAGIC $MAGIC | x2x +f${type} > /tmp/$$
+    else if ( $flagmagic ) then
+           x2x +${type}f $file | sopr -magic $magic | x2x +f${type} > /tmp/$$
+    else if ( $flagMAGIC ) then
+           echo2 "${cmnd} : -MAGIC option need magic number\!"
+           set exit_status = 1
+           goto usage
+    else
+        cat $file > /tmp/$$
+    endif
+endif
+
 set file = /tmp/$$
 
 goto main
@@ -196,16 +260,18 @@ usage:
         echo2 '  usage:'
         echo2 "       $cmnd [ options ] [ infile ] > stdout"
         echo2 '  options:'
-        echo2 '       -F  F         : factor                       [1]'
-        echo2 '       -s  s         : start point                  [0]'
-        echo2 '       -e  e         : end point                    [EOF]'
-        echo2 '       -n  n         : data number of one screen    [N/A]'
-        echo2 '       -i  i         : number of screen             [5]'
-        echo2 '       -y  ymax      : maximum amplitude            [N/A]'
-        echo2 '       -y2 ymin      : minimum amplitude            [-ymax]'
-        echo2 '       -m  mtype     : mark type                    [1]'
-        echo2 '       -p  p         : pen number                   [1]'
-        echo2 '       +type         : input data type              [f]'
+        echo2 '       -F  F         : factor                        [1]'
+        echo2 '       -s  s         : start point                   [0]'
+        echo2 '       -e  e         : end point                     [EOF]'
+        echo2 '       -n  n         : data number of one screen     [N/A]'
+        echo2 '       -i  i         : number of screen              [5]'
+        echo2 '       -y  ymax      : maximum amplitude             [N/A]'
+        echo2 '       -y2 ymin      : minimum amplitude             [-ymax]'
+        echo2 '       -m  mtype     : mark type                     [1]'
+        echo2 '       -p  p         : pen number                    [1]'
+        echo2 '       -magic  magic : remove magic number           [N/A]'
+        echo2 '       -MAGIC  MAGIC : replace magic number by MAGIC [N/A]'
+        echo2 '       +type         : input data type               [f]'
         echo2 '                        c  (char)         C  (unsigned char) '
         echo2 '                        s  (short)        S  (unsigned short)'
         echo2 '                        i3 (int, 3byte)   I3 (unsigned int, 3byte)'
@@ -216,7 +282,7 @@ usage:
         echo2 '                        de (long double)'
         echo2 '       -h            : print this message'
         echo2 '  infile:'
-        echo2 '       impluse response                               [stdin]'
+        echo2 '       impluse response                              [stdin]'
         echo2 '  stdout:'
         echo2 '       XY-plotter command'
         echo2 '  notice:'
@@ -225,6 +291,10 @@ usage:
         echo2 '       If -n option is not used,'
         echo2 '        entire impluse response is displayed.'
         echo2 '       Can not use -n option and -i option.'
+        echo2 '       If -magic option is not given,'
+        echo2 '        return error.'                    
+        echo2 '       If -magic or -MAGIC option is given mutiple times,'
+        echo2 '       return error.'
         echo2 ''
         echo2 " SPTK: version $sptkver"
         echo2 " CVS Info: $cvsid"
@@ -324,6 +394,20 @@ while ( $numscreen > 0 )
                 set xscale = ($xscale $x)
                 @ i++
         end
+        if ( ($numdata < 700) && (($numdata % 10) != 0) ) then
+           if ( $numdata < 20) then
+                @ dx = 1
+                @ i = 10
+              while ( $i < $numdata)
+                @ x = $dx * $i + $xs 
+                set xscale = ($xscale $x)
+                @ i++
+              end
+           else
+                @ x = $dx * 10 + $xs
+                set xscale = ($xscale $x)
+           endif
+        endif    
         set xsw = `echo "$xs - 0.01" | bc -l`
         set xew = `echo "$xe + 0.01" | bc -l`
         
@@ -334,7 +418,7 @@ while ( $numscreen > 0 )
         echo "yscale $ymin $ymax" >> /tmp/$$-$tmp
         echo "ygrid 0" >> /tmp/$$-$tmp
 
-        if( ($numscreen == 1) && ($numdata > ($allnumdata % $numscreentmp)) ) then
+        if ( ($numscreen == 1) && ($numdata > ($allnumdata % $numscreentmp)) ) then
         @ end = $term
         endif
 
