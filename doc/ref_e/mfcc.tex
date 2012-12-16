@@ -45,8 +45,9 @@
 \name{mfcc}{mel-frequency cepstral analysis}{speech analysis}
 
 \begin{synopsis}
-\item[mfcc] [ --a $A$ ] [ --e $E$ ] [ --l $L_1$ ] [ --L $L_2$ ] [ --f $F$ ] [ --m $M$ ]
-\item[\ ~~~][ --n $N$ ] [ --f $F$ ] [ --w $W$] [ --d ] [ -- E ] [ --0 ][ {\em infile} ] 
+\item[mfcc] [ --a $A$ ] [ --e $E$ ] [ --l $L_1$ ] [ --L $L_2$ ]
+ [ --s or --f $F$ ] [ --m $M$ ]
+\item[\ ~~~][ --n $N$ ] [ --s $S$ ] [ --w $W$] [ --d ] [ -- E ] [ --0 ][ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -75,7 +76,7 @@ the MLSA filter.
           satisfies $L_1 \leq 2^n$ }{$2^n$}
 	\argm{m}{M}{order of mfcc}{12}
 	\argm{n}{N}{order of channel for mel-filter bank}{20}
-	\argm{f}{F}{sampling frequency (kHz)}{16.0}
+	\argm{s}{S}{sampling frequency (kHz)}{16.0}
 	\argm{w}{W}{type of window\\
 			\begin{tabular}{ll}\\ [-1ex]
 			 0 & Hamming \\
@@ -105,7 +106,7 @@ cepstral coefficients, together with the energy component, are
 outputted to {\em data.mfc}.
 \begin{quote}
   \verb!frame -l 640 -p 160  data.f |\                        ! \\
-  \verb!mfcc -l 640 -m 12 -f 16 -E > data.mfc                  ! \\
+  \verb!mfcc -l 640 -m 12 -s 16 -E > data.mfc                  ! \\
 \end{quote}
 
 Also, in case we want to calculate the coefficients the same way as in
@@ -127,7 +128,7 @@ differencial coefficients are specified directly using -d option in
 {\em delta} command. 
 \begin{quote}
   \verb!frame -l 640 -p 160  data.f |\                        ! \\
-  \verb!mfcc -l 640 -m 12 -f 16 -E > data.mfc                  ! \\
+  \verb!mfcc -l 640 -m 12 -s 16 -E > data.mfc                  ! \\
   \verb!delta -m 12 -d -0.5 0 0.5 |\ ! \\
   \verb!-d 0.25 0 -0.5 0 0.25 data.mfc > data.mfc.diff! \\
 \end{quote}
@@ -152,7 +153,7 @@ information on extracting mel-frequency cepstrum with HTK.
         pre-emphasis coefficient             & -a (at {\em mfcc} command)& PREEMCOEF \\ \hline
         liftering coefficient                & -c (at {\em mfcc} command) & CEPLIFTER \\ \hline
         small value for calculating log()    & -e (at {\em mfcc} command)& N/A \\ \hline
-        sampling rate                        & -f (at {\em mfcc} command)& SOURCERATE \\ \hline
+        sampling rate                        & -s (at {\em mfcc} command)& SOURCERATE \\ \hline
         frame shift                          & -p (at {\em frame} command) & TARGETRATE \\ \hline
         frame length of input                & -l (at {\em frame} command) & WINDOWSIZE \\ 
                                              & -l (at {\em mfcc} command)&  \\ \hline
