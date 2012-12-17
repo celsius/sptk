@@ -96,11 +96,10 @@ int lspcheck(double *lsp, const int ord)
        double    *lsp : LSP
        int        ord : order of LSP
        double     min : minimal distance between two consecutive LSPs
-       int   sampling : sampling frequency
 
 *****************************************************************/
 
-void lsparrange(double *lsp, int ord, double min, double sampling)
+void lsparrange(double *lsp, int ord, double min)
 {
    int i, count, flag;
    double tmp;
