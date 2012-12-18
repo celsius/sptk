@@ -184,7 +184,7 @@ int jacobi(double **m, int n, double eps, double *e_val, double **e_vec,
    int ret;
    double **a;
    double max_e;
-   int r, c;
+   int r = 0, c = 0;
    double a1, a2, a3;
    double co, si;
    double w1, w2;

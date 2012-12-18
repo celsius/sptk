@@ -304,9 +304,9 @@ void quicksort(double *x, int left, int right)
 int main(int argc, char *argv[])
 {
    FILE *fp = stdin;
-   double *x, *mean, *med, **mtmp, **cov = NULL, **invcov = NULL, *var = NULL,
-       conf = CONFLEV, *upper, *lower, t, err;
-   int leng = LENG, nv = -1, i, j, k, lp, m, outtype = 0, count = 0;
+   double *x, *mean, *med = NULL, **mtmp = NULL, **cov = NULL, **invcov =
+       NULL, *var = NULL, conf = CONFLEV, *upper = NULL, *lower = NULL, t, err;
+   int leng = LENG, nv = -1, i, j, k = 0, lp = 0, m, outtype = 0, count = 0;
    Boolean outmean = OUTMEAN, outcov = OUTCOV, outconf = OUTCONF,
        outmed = OUTMED, diagc = DIAGC, inv = INV, corr = CORR;
 

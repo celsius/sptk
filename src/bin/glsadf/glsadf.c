@@ -169,7 +169,7 @@ int main(int argc, char **argv)
        PADEORD;
    FILE *fp = stdin, *fpc = NULL;
    Boolean norm = NORM, ngain = NGAIN, transpose = TRANSPOSE, inverse = INVERSE;
-   double *c, *inc, *cc, *d, x, gamma;
+   double *c, *inc, *cc, *d, x, gamma = -1 / (double) STAGE;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];

@@ -173,7 +173,7 @@ int main(int argc, char **argv)
    FILE *fp = stdin;
    char *s, c;
    Boolean int3flg = SIGNED_INT3, uint3flg = UNSIGNED_INT3;
-   long int y = 0;
+   long int y = 0, z = 0;
    long double x;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -283,7 +283,8 @@ int main(int argc, char **argv)
       if (freadx(&x, size, 1, fp) != 1)
          break;
       if (int3flg == TR || uint3flg == TR) {
-         y = *(int *) &x & 0x00FFFFFF;
+         z = (int) x;
+         y = z & 0x00FFFFFF;
          if (int3flg == TR && y >> 23 == 1)
             y = y | 0xFF000000;
          fwritex(&y, size, 1, stdout);

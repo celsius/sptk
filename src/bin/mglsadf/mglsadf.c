@@ -168,7 +168,7 @@ int main(int argc, char **argv)
        PADEORDER, i, j;
    Boolean transpose = TRANSPOSE, ngain = NGAIN, inverse = INVERSE;
    FILE *fp = stdin, *fpc = NULL;
-   double alpha = ALPHA, gamma, x, *c, *inc, *cc, *d;
+   double alpha = ALPHA, gamma = -1 / (double) STAGE, x, *c, *inc, *cc, *d;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];

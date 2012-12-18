@@ -170,8 +170,6 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
    int ch = 30, cw = 30;
    float mag = 0.875;           /*  7/8  */
 
-   *xmin = *ymin = 9999;
-   *xmax = *ymax = 0;
    temp_xmin = temp_ymin = 9999;
    temp_xmax = temp_ymax = 0;
    plot_xmin = xleng;
@@ -292,7 +290,7 @@ static void bbox(FILE * fp, int *xmin, int *ymin, int *xmax, int *ymax,
 void epsf_setup(FILE * fp, float shrink, int xoffset, int yoffset,
                 struct bbmargin bbm, int ncopy)
 {
-   int xmin, ymin, xmax, ymax;
+   int xmin = 9999, ymin = 9999, xmax = 0, ymax = 0;
 
    if (!psmode)
       bbox(fp, &xmin, &ymin, &xmax, &ymax, shrink, xoffset, yoffset, bbm);
