@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -56,6 +56,10 @@
 *               -l l  :  length of vector     [1]                       *
 *               -n n  :  order of vector      [l-1]                     *
 *               -b b  :  find n-best values   [1]                       *
+*               -o o  :  output format        [0]                       *
+*                          0 minimum & maximum                          *
+*                          1 minimum                                    *
+*                          2 maximum                                    *
 *               -d d  :  output data number   [FALSE]                   *
 *       infile:                                                         *
 *               data sequence (float)                                   *
@@ -93,6 +97,8 @@ static char *rcs_id = "$Id$";
 #endif
 
 /* Defualt Values */
+#define OUTMIN TR
+#define OUTMAX TR
 #define DIM 1
 #define NBEST 1
 #define FLT_MAX 3.4e+38
@@ -116,6 +122,10 @@ void usage(int status)
    fprintf(stderr, "       -l l  : length of vector   [%d]\n", DIM);
    fprintf(stderr, "       -n n  : order of vector    [l-1]\n");
    fprintf(stderr, "       -b b  : find n-best values [%d]\n", NBEST);
+   fprintf(stderr, "       -o o  : output format      [0]\n");
+   fprintf(stderr, "                 0 minimum & maximum\n");
+   fprintf(stderr, "                 1 minimum\n");
+   fprintf(stderr, "                 2 maximum\n");
    fprintf(stderr, "       -d    : output data number [%s]\n", BOOL[OUTNUM]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -137,9 +147,10 @@ int main(int argc, char *argv[])
 {
    FILE *fp;
    char *s, *infile = NULL, c;
-   Boolean outnum = OUTNUM;
-   int dim = DIM, nbest = NBEST;
-   int minmax(FILE * fp, int dim, int nbest, Boolean outnum);
+   Boolean outnum = OUTNUM, outmin = OUTMIN, outmax = OUTMAX;
+   int dim = DIM, nbest = NBEST, outtype = 0;
+   int minmax(FILE * fp, int dim, int nbest, Boolean outnum, Boolean outmin,
+              Boolean outmax);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -148,7 +159,8 @@ int main(int argc, char *argv[])
    while (--argc) {
       if (*(s = *++argv) == '-') {
          c = *++s;
-         if (*++s == '\0' && ((c == 'l') || (c == 'n') || (c == 'b'))) {
+         if (*++s == '\0'
+             && ((c == 'l') || (c == 'n') || (c == 'b') || (c == 'o'))) {
             s = *++argv;
             --argc;
          }
@@ -161,6 +173,9 @@ int main(int argc, char *argv[])
             break;
          case 'b':
             nbest = atoi(s);
+            break;
+         case 'o':
+            outtype = atoi(s);
             break;
          case 'd':
             outnum = 1 - outnum;
@@ -179,12 +194,21 @@ int main(int argc, char *argv[])
       fp = getfp(infile, "rb");
    } else
       fp = stdin;
-   minmax(fp, dim, nbest, outnum);
+   switch (outtype) {
+   case 1:
+      outmax = FA;
+      break;
+   case 2:
+      outmin = FA;
+      break;
+   }
+   minmax(fp, dim, nbest, outnum, outmin, outmax);
 
    return (0);
 }
 
-int minmax(FILE * fp, int dim, int nbest, Boolean outnum)
+int minmax(FILE * fp, int dim, int nbest, Boolean outnum, Boolean outmin,
+           Boolean outmax)
 {
    double *s;
    int k, n, i, j;
@@ -359,6 +383,36 @@ int minmax(FILE * fp, int dim, int nbest, Boolean outnum)
       }
       if (dim != 1) {
          if (outnum) {
+            if (outmin) {
+               for (i = 0; i < nbest; i++) {
+                  printf("%g:", min[i]);
+                  printf("%d", minpos[i][0]);
+                  for (j = 1; j < nminpos[i]; j++)
+                     printf(",%d", minpos[i][j]);
+                  printf("\n");
+               }
+            }
+            if (outmax) {
+               for (i = 0; i < nbest; i++) {
+                  printf("%g:", max[i]);
+                  printf("%d", maxpos[i][0]);
+                  for (j = 1; j < nmaxpos[i]; j++)
+                     printf(",%d", maxpos[i][j]);
+                  printf("\n");
+               }
+            }
+         } else {
+            if (outmin)
+               fwritef(min, sizeof(*min), nbest, stdout);
+            if (outmax)
+               fwritef(max, sizeof(*max), nbest, stdout);
+         }
+      } else
+         t++;
+   }
+   if (dim == 1) {
+      if (outnum) {
+         if (outmin) {
             for (i = 0; i < nbest; i++) {
                printf("%g:", min[i]);
                printf("%d", minpos[i][0]);
@@ -366,6 +420,8 @@ int minmax(FILE * fp, int dim, int nbest, Boolean outnum)
                   printf(",%d", minpos[i][j]);
                printf("\n");
             }
+         }
+         if (outmax) {
             for (i = 0; i < nbest; i++) {
                printf("%g:", max[i]);
                printf("%d", maxpos[i][0]);
@@ -373,32 +429,12 @@ int minmax(FILE * fp, int dim, int nbest, Boolean outnum)
                   printf(",%d", maxpos[i][j]);
                printf("\n");
             }
-         } else {
-            fwritef(min, sizeof(*min), nbest, stdout);
-            fwritef(max, sizeof(*max), nbest, stdout);
-         }
-      } else
-         t++;
-   }
-   if (dim == 1) {
-      if (outnum) {
-         for (i = 0; i < nbest; i++) {
-            printf("%g:", min[i]);
-            printf("%d", minpos[i][0]);
-            for (j = 1; j < nminpos[i]; j++)
-               printf(",%d", minpos[i][j]);
-            printf("\n");
-         }
-         for (i = 0; i < nbest; i++) {
-            printf("%g:", max[i]);
-            printf("%d", maxpos[i][0]);
-            for (j = 1; j < nmaxpos[i]; j++)
-               printf(",%d", maxpos[i][j]);
-            printf("\n");
          }
       } else {
-         fwritef(min, sizeof(*min), nbest, stdout);
-         fwritef(max, sizeof(*max), nbest, stdout);
+         if (outmin)
+            fwritef(min, sizeof(*min), nbest, stdout);
+         if (outmax)
+            fwritef(max, sizeof(*max), nbest, stdout);
       }
    }
    free(nmaxpos);
