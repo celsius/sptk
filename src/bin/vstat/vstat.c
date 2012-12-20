@@ -589,7 +589,10 @@ int main(int argc, char *argv[])
       } else {
          for (i = 0; i < leng; i++) {
             quicksort(mtmp[i], 0, k - 1);
-            med[i] = mtmp[i][k / 2];
+            if (k % 2 == 1)
+               med[i] = mtmp[i][k / 2];
+            else
+               med[i] = ((mtmp[i][k / 2] + mtmp[i][k / 2 - 1]) / 2);
          }
          fwritef(med, sizeof(*med), leng, stdout);
       }
