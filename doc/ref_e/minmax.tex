@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2011  Nagoya Institute of Technology          %
+%                1996-2012  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -45,7 +45,7 @@
 \name{minmax}{find minimum and maximum values}{data operation}
 
 \begin{synopsis}
- \item [minmax] [ --l $L$ ] [ --n $N$ ] [ --b $B$ ] [ --d ] [ {\em infile} ]
+ \item [minmax] [ --l $L$ ] [ --n $N$ ] [ --b $B$ ] [ --o $O$ ] [ --d ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -53,7 +53,6 @@
 on a frame-by-frame basis, 
 of the data from {\em infile} (or standard input), 
 sending the result to standard output.
-
 If the frame length $L$ is 1, 
 each input number is considered to be both
 the minimum and maximum value for its length-1 frame.
@@ -69,19 +68,28 @@ where the minimum and maximum values occurred, as follows:
 \begin{displaymath}
 value:position_0,position_1,\dots
 \end{displaymath}
+Also, when specifying --o 0, --o 1, and --o 2,
+{\em minmax} output minimum and maximum values, only minimum values, and
+only maximum values, respectively.
 \end{qsection}
 
 \begin{options}
         \argm{l}{L}{length of vector}{1}
         \argm{n}{N}{order of vector}{L-1}
         \argm{b}{B}{find n-best values}{1}
+        \argm{o}{O}{output format \\
+                   \begin{tabular}{lll} \\[-1ex]
+                    $O=0$ & ~~~minimum and maximum\\
+                    $O=1$ & ~~~minimum\\
+                    $O=2$ & ~~~maximum\\
+                   \end{tabular} \\\hspace*{\fill}}{0}
         \argm{d}{}{output data number}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 If, for example, the input data in {\em data.f} in float format
 is given as
-\[1,1,2,3,4,5,6,7,8,9,9,10\],
+\[1,1,2,3,4,5,6,7,8,9,9,10\]
 then the output of the following command
 \begin{quote}
  \verb!minmax data.f -l 6 > data.m!
