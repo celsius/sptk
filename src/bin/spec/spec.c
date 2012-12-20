@@ -162,7 +162,7 @@ int main(int argc, char **argv)
        ORDERAR, no, i;
    char *filema = "", *filear = "";
    FILE *fp = stdin, *fpma = NULL, *fpar = NULL;
-   double eps = EPS, eps2, k, *x, *y, *mag;
+   double eps = EPS, eps2 = 1, k, *x, *y, *mag;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -216,12 +216,12 @@ int main(int argc, char **argv)
 
    if (etype == 1 && eps < 0.0) {
       fprintf(stderr, "scep : value of e must be e>=0!\n");
-      exit(1);
+      usage(1);
    }
 
    if (etype == 2 && eps2 >= 0.0) {
       fprintf(stderr, "scep : value of E must be E<0!\n");
-      exit(1);
+      usage(1);
    }
 
    no = leng / 2 + 1;
