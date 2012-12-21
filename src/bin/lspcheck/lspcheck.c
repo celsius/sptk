@@ -163,7 +163,7 @@ int main(int argc, char **argv)
    int m = ORDER, itype = ITYPE, otype = OTYPE, i, num;
    Boolean arrange = ARRANGE, gain = GAIN;
    FILE *fp = stdin;
-   double *lsp, *lsp1, alpha = ALPHA, sampling = SAMPLING, min;
+   double *lsp, alpha = ALPHA, sampling = SAMPLING, min;
    void lsparrange(double *lsp, const int ord, double min);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -215,55 +215,67 @@ int main(int argc, char **argv)
    if (otype < 0)
       otype = itype;
 
-   lsp = dgetmem(m + m + gain);
-   lsp1 = lsp + m + gain;
+   lsp = dgetmem(m + gain);
    num = 0;
    min = alpha * PI / m;
-   while (freadf(lsp, sizeof(*lsp), m + gain, fp) == m + gain) {
-      if (itype == 0) {
-         for (i = gain; i < m + gain; i++)
-            lsp1[i] = lsp[i] / PI2;
 
-         min /= PI2;
-      } else if (itype == 1) {
-         for (i = gain; i < m + gain; i++)
-            lsp1[i] = lsp[i];
-      } else if (itype == 2 || itype == 3) {
-         for (i = gain; i < m + gain; i++)
-            lsp1[i] = lsp[i] / sampling;
+   switch (itype) {
+   case 0:
+      min /= PI2;
+      break;
+   case 1:
+      break;
+   case 2:
+      min /= sampling;
+      break;
+   case 3:
+      min /= (sampling * 1000);
+      break;
+   }
 
-         min /= sampling;
+   while (freadf(lsp, sizeof(*lsp), m + gain, fp) == m + (int) gain) {
+      switch (itype) {
+      case 0:
+         for (i = gain; i < m + (int) gain; i++)
+            lsp[i] /= PI2;
+         break;
+      case 1:
+         break;
+      case 2:
+         for (i = gain; i < m + (int) gain; i++)
+            lsp[i] /= sampling;
+         break;
+      case 3:
+         for (i = gain; i < m + (int) gain; i++)
+            lsp[i] /= (sampling * 1000);
+         break;
       }
 
-      if (itype == 3) {
-         for (i = gain; i < m + gain; i++)
-            lsp1[i] = lsp[i] / 1000;
-
-         min /= 1000;
-      }
-
-      if (lspcheck(lsp1 + gain, m) == -1) {     /* unstable */
+      if (lspcheck(lsp + gain, m) == -1) {      /* unstable */
          fprintf(stderr, "[No. %d] is unstable frame\n", num);
       }
       if (arrange) {
-         lsparrange(lsp1 + gain, m, min);
+         lsparrange(lsp + gain, m, min);
       }
 
-      if (otype == 0)
-         for (i = gain; i < m + gain; i++)
-            lsp1[i] *= PI2;
-      else if (otype == 2 || otype == 3)
-         for (i = gain; i < m + gain; i++)
-            lsp1[i] *= sampling;
+      switch (otype) {
+      case 0:
+         for (i = gain; i < m + (int) gain; i++)
+            lsp[i] *= PI2;
+         break;
+      case 1:
+         break;
+      case 2:
+         for (i = gain; i < m + (int) gain; i++)
+            lsp[i] *= sampling;
+         break;
+      case 3:
+         for (i = gain; i < m + (int) gain; i++)
+            lsp[i] *= (sampling * 1000);
+         break;
+      }
 
-      if (otype == 3)
-         for (i = gain; i < m + gain; i++)
-            lsp1[i] *= 1000;
-
-      if (gain == 1)
-         lsp1[0] = lsp[0];
-
-      fwritef(lsp1, sizeof(*lsp1), m + gain, stdout);
+      fwritef(lsp, sizeof(*lsp), m + gain, stdout);
       num++;
    }
 

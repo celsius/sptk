@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -72,15 +72,12 @@ int lspcheck(double *lsp, const int ord)
 {
    int i;
 
-   if ((lsp[0] <= 0.0) || (lsp[0] >= 0.5))
-      return (-1);
-
    for (i = 1; i < ord; i++) {
       if (lsp[i] <= lsp[i - 1])
          return (-1);
-      if ((lsp[i] <= 0.0) || (lsp[i] >= 0.5))
-         return (-1);
    }
+   if ((lsp[0] <= 0.0) || (lsp[ord - 1] >= 0.5))
+      return (-1);
 
    return (0);
 }
@@ -91,7 +88,7 @@ int lspcheck(double *lsp, const int ord)
 
     Rearrangement of LSP
 
-       void lsparrange(lsp, ord, alpha, itype, sampling)
+       void lsparrange(lsp, ord, min)
 
        double    *lsp : LSP
        int        ord : order of LSP
@@ -104,16 +101,6 @@ void lsparrange(double *lsp, int ord, double min)
    int i, count, flag;
    double tmp;
 
-   /* check out of range */
-   for (i = 0; i < ord; i++) {
-      if (lsp[i] < min / 2) {
-         lsp[i] = min / 2;
-      }
-      if (lsp[i] > 0.5 - min / 2) {
-         lsp[i] = 0.5 - min / 2;
-      }
-   }
-
    /* check distance between two consecutive LSPs */
    for (count = 0; count < TH; count++) {
       flag = 0;
@@ -125,20 +112,18 @@ void lsparrange(double *lsp, int ord, double min)
             flag = 1;
          }
       }
-      if (lsp[0] < (min / 2.0)) {
-         tmp = (lsp[ord - 1] - (min / 2.0)) / (lsp[ord - 1] - lsp[0]);
-         for (i = 0; i < ord - 1; i++)
-            lsp[i] = lsp[i] * tmp + lsp[ord - 1] * (1 - tmp);
+      if (lsp[0] < 0.0) {
+         lsp[0] = min;
          flag = 1;
       }
-      if (lsp[ord - 1] + (min / 2.0) > 0.5) {
-         tmp = (0.5 - (min / 2.0) - lsp[0]) / (lsp[ord - 1] - lsp[0]);
-         for (i = 1; i < ord; i++)
-            lsp[i] = lsp[i] * tmp + lsp[0] * (1 - tmp);
+      if (lsp[ord - 1] > 0.5) {
+         lsp[ord - 1] = 0.5 - min;
          flag = 1;
       }
+
       if (!flag)
          break;
    }
+
    return;
 }
