@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -169,14 +169,14 @@ int main(int argc, char *argv[])
 
    buf = fgetmem(elnum);
 
-   if (fread(buf, sizeof(float), elnum, fp) < elnum) {
+   if (fread(buf, sizeof(float), elnum, fp) < (size_t) elnum) {
       fprintf(stderr, "%s : input data is smaller than defined!!\n", cmnd);
       usage();
    }
 
    rewind(fp);
 
-   while (fread(buf, sizeof(float), elnum, fp) == elnum) {
+   while (fread(buf, sizeof(float), elnum, fp) == (size_t) elnum) {
       transpose(buf, m, n);
    }
 

@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -101,7 +101,7 @@ static double mlsafir(double x, double *b, const int m, const double a,
    return (y);
 }
 
-static double mlsadf1(double x, double *b, const int m, const double a,
+static double mlsadf1(double x, double *b, const double a,
                       const int pd, double *d)
 {
    double v, out = 0.0, *pt, aa;
@@ -153,7 +153,7 @@ double mlsadf(double x, double *b, const int m, const double a, const int pd,
 {
    ppade = &pade[pd * (pd + 1) / 2];
 
-   x = mlsadf1(x, b, m, a, pd, d);
+   x = mlsadf1(x, b, a, pd, d);
    x = mlsadf2(x, b, m, a, pd, &d[2 * (pd + 1)]);
 
    return (x);
@@ -207,7 +207,7 @@ double mlsadft(double x, double *b, const int m, const double a, const int pd,
 {
    ppade = &pade[pd * (pd + 1) / 2];
 
-   x = mlsadf1(x, b, m, a, pd, d);
+   x = mlsadf1(x, b, a, pd, d);
    x = mlsadf2t(x, b, m, a, pd, &d[2 * (pd + 1)]);
 
    return (x);

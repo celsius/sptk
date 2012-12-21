@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -182,7 +182,7 @@ int main(int argc, char *argv[])
       fprintf(stderr, "%s : value of L must be L>=4!\n", cmnd);
       usage();
    }
-   if (fread(buf, sizeof(float), L, fp) < L) {
+   if (fread(buf, sizeof(float), L, fp) < (size_t) L) {
       fprintf(stderr,
               "%s : the length of input data is smaller than defined!\n", cmnd);
       usage();
@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
 
    rewind(fp);
 
-   while (fread(buf, sizeof(float), L, fp) == L) {
+   while (fread(buf, sizeof(float), L, fp) == (size_t) L) {
 
       if (o == 0) {
          if (L <= 2) {

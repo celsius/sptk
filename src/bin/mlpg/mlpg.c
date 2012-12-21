@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -173,7 +173,7 @@ double *mlpg(PStream * pst);
 int doupdate(PStream * pst, int d);
 void calc_pi(PStream * pst, int d);
 void calc_k(PStream * pst, int d);
-void update_P(PStream * pst, int d);
+void update_P(PStream * pst);
 void update_c(PStream * pst, int d);
 
 
@@ -581,7 +581,7 @@ double *mlpg(PStream * pst)
    int doupdate(PStream *, int);
    void calc_pi(PStream *, int);
    void calc_k(PStream *, int);
-   void update_P(PStream *, int);
+   void update_P(PStream *);
    void update_c(PStream *, int);
    int tcur, tmin, tmax;
    int d, m, u;
@@ -611,7 +611,7 @@ double *mlpg(PStream * pst)
       if (doupdate(pst, d)) {
          calc_pi(pst, d);
          calc_k(pst, d);
-         update_P(pst, d);
+         update_P(pst);
          update_c(pst, d);
       }
    }
@@ -671,7 +671,7 @@ void calc_k(PStream * pst, int d)
 }
 
 
-void update_P(PStream * pst, int d)
+void update_P(PStream * pst)
 {
    int m, u, v;
 

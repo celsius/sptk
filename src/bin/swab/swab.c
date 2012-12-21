@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -266,7 +266,7 @@ void conv(FILE * fp, size_t iosize)
       freadx(ibuf, iosize, 1, fp);
       if (feof(fp))
          break;
-      for (i = 0; i < iosize; ++i)
+      for (i = 0; i < (int) iosize; ++i)
          obuf[i] = ibuf[iosize - 1 - i];
       fwritex(obuf, iosize, 1, stdout);
    }

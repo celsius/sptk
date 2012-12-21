@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -227,7 +227,7 @@ double lmadf(double x, double *c, const int m, const int pd, double *d);
 double lmadft(double x, double *c, const int m, const int pd, double *d);
 double lmadf1(double x, double *c, const int m, double *d, const int m1,
               const int m2, const int pd);
-double lmadf1t(double x, double *b, const int m, const int pd, double *d);
+double lmadf1t(double x, double *b, const int pd, double *d);
 int lpc(double *x, const int flng, double *a, const int m, const double f);
 void lpc2c(double *a, int m1, double *c, const int m2);
 int lpc2lsp(double *lpc, double *lsp, const int order, const int numsp,

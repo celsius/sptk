@@ -8,7 +8,7 @@
 /*                           Interdisciplinary Graduate School of    */
 /*                           Science and Engineering                 */
 /*                                                                   */
-/*                1996-2011  Nagoya Institute of Technology          */
+/*                1996-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -151,7 +151,7 @@ double lmadf1(double x, double *c, const int m, double *d, const int m1,
 
 /* transpose */
 
-double lmadf1t(double x, double *b, const int m, const int pd, double *d)
+double lmadf1t(double x, double *b, const int pd, double *d)
 {
    double v, out = 0.0, *pt;
    int i;
@@ -216,7 +216,7 @@ double lmadft(double x, double *c, const int m, const int pd, double *d)
 {
    ppade = &pade[pd * (pd + 1) / 2];
 
-   x = lmadf1t(x, c, m, pd, d);
+   x = lmadf1t(x, c, pd, d);
    x = lmadf2t(x, c, m, pd, &d[2 * (pd + 1)]);
 
    return (x);
