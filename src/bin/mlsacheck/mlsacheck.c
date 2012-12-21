@@ -91,14 +91,16 @@ static char *rcs_id = "$Id$";
 #endif
 
 /*  Default Values  */
-#define ORDER     25
-#define ALPHA     0.35
-#define PADEORDER 4
-#define FFTLENGTH 256
-#define THRESH1   4.5
-#define THRESH2   6.2
-#define STABLE1   0
-#define STABLE2   1
+#define ORDER         25
+#define ALPHA         0.35
+#define PADEORDER     4
+#define FFTLENGTH     256
+#define PADE4_THRESH1 4.5
+#define PADE4_THRESH2 6.2
+#define PADE5_THRESH1 6.0
+#define PADE5_THRESH2 7.65
+#define STABLE1       0
+#define STABLE2       1
 
 char *BOOL[] = { "FALSE", "TRUE" };
 
@@ -176,12 +178,9 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
    fillz(x, sizeof(*x), fftlen);
    fillz(y, sizeof(*y), fftlen);
 
-   for (i = 0; i < m + 1; i++) {
-      x[i] = mcep[i];
-   }
-
    /* calculate gain factor */
    for (i = 0, gain = 0.0; i < m + 1; i++) {
+      x[i] = mcep[i];
       gain += x[i] * pow(a, i);
    }
 
@@ -243,7 +242,7 @@ int main(int argc, char **argv)
 {
    int m = ORDER, pd = PADEORDER, fftlen = FFTLENGTH, stable_condition =
        STABLE1, frame = 0;
-   double *mcep, a = ALPHA, r1 = THRESH1, r2 = THRESH2;
+   double *mcep, a = ALPHA, r1 = PADE4_THRESH1, r2 = PADE4_THRESH2;
    Boolean modify_filter = FA;
    FILE *fp = stdin;
 
@@ -303,12 +302,12 @@ int main(int argc, char **argv)
 
    switch (pd) {
    case 4:
-      r1 = 4.5;
-      r2 = 6.2;
+      r1 = PADE4_THRESH1;
+      r2 = PADE4_THRESH2;
       break;
    case 5:
-      r1 = 6.0;
-      r2 = 7.65;
+      r1 = PADE5_THRESH1;
+      r2 = PADE5_THRESH2;
       break;
    default:
       fprintf(stderr, "%s : Order of Pade approximation should be 4 or 5!\n",
