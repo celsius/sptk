@@ -212,7 +212,7 @@ usage:
         echo2 '                        a  (ascii)'
         echo2 '       -h            : print this message'
         echo2 '  infile(s):'
-        echo2 '       rawfile                                                   [N/A]'
+        echo2 '       wavfile                                                   [N/A]'
         echo2 '  output:'
         echo2 "       $cmnd removes RIFF header(s) from input wav file(s)."
         echo2 '                                                         '
