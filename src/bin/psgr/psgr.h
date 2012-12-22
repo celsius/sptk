@@ -62,7 +62,7 @@ struct page_media {
 #define SCALE 10
 
 #define MIN_OFFSET 12
-#define MAX_OFFSET 17
+#define MAX_OFFSET 22
 #define CHAR_HEIGHT 10
 
 #define norm(x) (int)(x)
