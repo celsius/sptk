@@ -281,11 +281,18 @@ while ( $numscreen > 0 )
 
         @ i = 0
         set xscale = ()
-        while ( $i < 10 )
-                @ x = $dx * $i + $xs
-                set xscale = ($xscale $x)
-                @ i++
-        end
+        set x = 0
+
+        while (1)
+               @ x = $dx * $i + $xs
+            if ( $x <= $xe - $dx ) then
+                 set xscale = ($xscale $x)
+               @ i++
+            else 
+                 set xscale = ($xscale $x)
+                 break
+            endif
+        end       
 
         fig -o $ox $oy -W $width -H $height -p $pen -F $F<< EOF
                 x      $xs $xe
