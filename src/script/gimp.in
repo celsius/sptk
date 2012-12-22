@@ -209,31 +209,28 @@ if ( $magic_count > 1 || $MAGIC_count > 1 ) then
 endif
 
 if ( ($start != 0) || ($term > 0) ) then
-     if ( $flagmagic && (! $flagMAGIC) ) then
-         if ( $term < 0 ) then
-             set wctmp = `x2x +${type}a $file | wc -l`
-               @ wctmp = `echo "$wctmp - 1" | bc -l`
-         else
-             set wctmp = `echo "$term" | bc -l`
-         endif
-        set mwc = `x2x +${type}f $file | bcut -s $start -e $wctmp | sopr -magic $magic | x2x +fa | wc -l` 
+    if ( $flagmagic && $flagMAGIC ) then
+               x2x +${type}f $file | sopr -magic $magic -MAGIC $MAGIC | x2x +f${type} > /tmp/$$
+    else if ( $flagmagic ) then
+        if ( $term < 0 ) then
+           set wctmp = `x2x +${type}a $file | wc -l`
+             @ wctmp = `echo "$wctmp - 1" | bc -l`
+        else
+           set wctmp = `echo "$term" | bc -l`
+        endif
+           set mwc = `x2x +${type}f $file | bcut -s $start -e $wctmp | sopr -magic $magic | x2x +fa | wc -l` 
            x2x +${type}f $file | bcut -s $start -e $wctmp | sopr -magic $magic | x2x +f${type} > /tmp/$$
            @ reduced = `echo "$wctmp + 1 - $start - $mwc" | bc -l`
            @ term = `echo "$wctmp - $reduced + 1" | bc -l`
            set mterm = `echo "$mwc - 1" | bc -l`
            x2x +${type}f /tmp/$$ | bcp -S $start -l $mwc -s 0 -e $mterm -f 0 | x2x +f${type} > /tmp/$$-1
            cat /tmp/$$-1 > /tmp/$$
-    else
-        if ( $flagmagic && $flagMAGIC ) then
-               x2x +${type}f $file | sopr -magic $magic -MAGIC $MAGIC | x2x +f${type} > /tmp/$$
-        else if ( $flagMAGIC ) then
+    else if ( $flagMAGIC ) then
                echo2 "${cmnd} : -MAGIC option need magic number\!"
                set exit_status = 1
                goto usage
-        else
+    else
             cat $file > /tmp/$$
-        endif
-         
     endif
 else
     if ( $flagmagic && $flagMAGIC ) then
@@ -307,7 +304,7 @@ if ( $flagnumdata && $flagnumscreen ) then
           echo2 "${cmnd} : Cannot use -i and -n at the same time\!"
           set exit_status = 1
           goto usage
-else if ( (! $flagnumdata) && $flagnumscreen ) then
+else if ( $flagnumscreen ) then
         if ( $term > 0 ) then
                 @ wc = $term
         else
@@ -319,7 +316,7 @@ else if ( (! $flagnumdata) && $flagnumscreen ) then
         @ wc /= $numscreen
         if ($rest) @ wc++
         @ numdata = $wc
-else if ( $flagnumdata && (! $flagnumscreen) ) then
+else if ( $flagnumdata ) then
         if ( $term > 0 ) then
                 @ wc = $term
         else
@@ -330,7 +327,7 @@ else if ( $flagnumdata && (! $flagnumscreen) ) then
         @ rest = $wc % $numdata 
         @ numscreen = $wc / $numdata
         if ($rest) @ numscreen++
-else    
+else
         if ( $term > 0 ) then
                 @ wc = $term
         else
@@ -389,25 +386,19 @@ while ( $numscreen > 0 )
 
         @ i = 0
         set xscale = ()
-        while ( $i < 10 )
-                @ x = $dx * $i + $xs
-                set xscale = ($xscale $x)
-                @ i++
+        set x = 0
+
+        while (1)
+               @ x = $dx * $i + $xs
+            if ( $x <= $xe - $dx ) then
+                 set xscale = ($xscale $x)
+               @ i++
+            else 
+                 set xscale = ($xscale $x)
+                 break
+            endif
         end
-        if ( ($numdata < 700) && (($numdata % 10) != 0) ) then
-           if ( $numdata < 20) then
-                @ dx = 1
-                @ i = 10
-              while ( $i < $numdata)
-                @ x = $dx * $i + $xs 
-                set xscale = ($xscale $x)
-                @ i++
-              end
-           else
-                @ x = $dx * 10 + $xs
-                set xscale = ($xscale $x)
-           endif
-        endif    
+
         set xsw = `echo "$xs - 0.01" | bc -l`
         set xew = `echo "$xe + 0.01" | bc -l`
         
