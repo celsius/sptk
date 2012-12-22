@@ -1,3 +1,660 @@
+2012-12-22 20:58  mataki
+
+	* bin/transpose/transpose.c: fix indent.
+
+2012-12-22 18:54  okdtmhr
+
+	* bin/psgr/psgr.h: enlarge the margin of bounding box.
+
+2012-12-22 17:49  okdtmhr
+
+	* script/gwave.in: scale of graph is corrected and problem with
+	  plotting points of nine or less number is corrected.
+
+2012-12-22 17:11  okdtmhr
+
+	* script/gimp.in: refine source code and scale of figure is
+	  corrected
+
+2012-12-22 16:21  mataki
+
+	* NEWS: update NEWS for SPTK-3.6 release.
+
+2012-12-22 15:28  mataki
+
+	* script/wav2raw.in: fix usage.
+
+2012-12-22 10:22  mataki
+
+	* bin/: ifftr/.cvsignore, transpose/.cvsignore: add .cvsignore.
+
+2012-12-21 20:27  mataki
+
+	* COPYING, README, configure.ac, bin/acep/acep.c,
+	  bin/acorr/_acorr.c, bin/acorr/acorr.c, bin/agcep/_agcep.c,
+	  bin/agcep/agcep.c, bin/amcep/_amcep.c, bin/amcep/amcep.c,
+	  bin/average/_average.c, bin/average/average.c, bin/b2mc/_b2mc.c,
+	  bin/b2mc/b2mc.c, bin/bcp/bcp.c, bin/bcut/bcut.c,
+	  bin/c2acr/_c2acr.c, bin/c2acr/c2acr.c, bin/c2ir/_c2ir.c,
+	  bin/c2ir/c2ir.c, bin/c2sp/_c2sp.c, bin/c2sp/c2sp.c,
+	  bin/cat2/cat2.c, bin/cdist/cdist.c, bin/clip/_clip.c,
+	  bin/clip/clip.c, bin/da/da.h, bin/da/da.in, bin/da/dawrite.c,
+	  bin/da/winplay.c, bin/da/winplay.h, bin/dct/_dct.c,
+	  bin/dct/dct.c, bin/decimate/decimate.c, bin/delay/delay.c,
+	  bin/delta/delta.c, bin/df2/_df2.c, bin/df2/df2.c, bin/dfs/_dfs.c,
+	  bin/dfs/dfs.c, bin/dmp/dmp.c, bin/ds/ds.c, bin/echo2/echo2.c,
+	  bin/excite/excite.c, bin/extract/extract.c, bin/fd/fd.c,
+	  bin/fft/_fft.c, bin/fft/fft.c, bin/fft2/_fft2.c, bin/fft2/fft2.c,
+	  bin/fftcep/_fftcep.c, bin/fftcep/fftcep.c, bin/fftr/_fftr.c,
+	  bin/fftr/fftr.c, bin/fftr2/_fftr2.c, bin/fftr2/fftr2.c,
+	  bin/fig+fdrw/fdrw.c, bin/fig+fdrw/fig.c, bin/fig+fdrw/fig.h,
+	  bin/fig+fdrw/fig0.c, bin/fig+fdrw/fig1.c, bin/fig+fdrw/plot.c,
+	  bin/fig+fdrw/plot.h, bin/fig+fdrw/plsub.c, bin/frame/frame.c,
+	  bin/freqt/_freqt.c, bin/freqt/freqt.c, bin/gc2gc/_gc2gc.c,
+	  bin/gc2gc/gc2gc.c, bin/gcep/_gcep.c, bin/gcep/gcep.c,
+	  bin/glsadf/_glsadf.c, bin/glsadf/glsadf.c, bin/gmm/_gmm.c,
+	  bin/gmm/gmm.h, bin/gmm/gmmp.c, bin/gnorm/_gnorm.c,
+	  bin/gnorm/gnorm.c, bin/grpdelay/_grpdelay.c,
+	  bin/grpdelay/grpdelay.c, bin/histogram/_histogram.c,
+	  bin/histogram/histogram.c, bin/idct/idct.c, bin/ifft/_ifft.c,
+	  bin/ifft/ifft.c, bin/ifft2/_ifft2.c, bin/ifft2/ifft2.c,
+	  bin/ifftr/_ifftr.c, bin/ignorm/_ignorm.c, bin/ignorm/ignorm.c,
+	  bin/impulse/impulse.c, bin/imsvq/_imsvq.c, bin/imsvq/imsvq.c,
+	  bin/interpolate/interpolate.c, bin/ivq/_ivq.c, bin/ivq/ivq.c,
+	  bin/lbg/_lbg.c, bin/levdur/_levdur.c, bin/levdur/levdur.c,
+	  bin/linear_intpl/linear_intpl.c, bin/lmadf/_lmadf.c,
+	  bin/lmadf/lmadf.c, bin/lpc/_lpc.c, bin/lpc/lpc.c,
+	  bin/lpc2c/_lpc2c.c, bin/lpc2c/lpc2c.c, bin/lpc2lsp/_lpc2lsp.c,
+	  bin/lpc2lsp/lpc2lsp.c, bin/lpc2par/_lpc2par.c,
+	  bin/lpc2par/lpc2par.c, bin/lsp2lpc/_lsp2lpc.c,
+	  bin/lsp2lpc/lsp2lpc.c, bin/lspdf/_lspdf.c, bin/lspdf/lspdf.c,
+	  bin/ltcdf/_ltcdf.c, bin/ltcdf/ltcdf.c, bin/mc2b/_mc2b.c,
+	  bin/mc2b/mc2b.c, bin/mcep/_mcep.c, bin/mcep/mcep.c,
+	  bin/merge/merge.c, bin/mfcc/_mfcc.c, bin/mfcc/mfcc.c,
+	  bin/mgc2mgc/_mgc2mgc.c, bin/mgc2mgc/mgc2mgc.c,
+	  bin/mgc2sp/_mgc2sp.c, bin/mgc2sp/mgc2sp.c, bin/mgcep/_mgcep.c,
+	  bin/mgcep/mgcep.c, bin/mglsadf/_mglsadf.c, bin/mglsadf/mglsadf.c,
+	  bin/mlpg/_mlpg.c, bin/mlpg/mlpg.c, bin/mlsadf/_mlsadf.c,
+	  bin/mlsadf/mlsadf.c, bin/msvq/_msvq.c, bin/msvq/msvq.c,
+	  bin/nan/nan.c, bin/norm0/_norm0.c, bin/norm0/norm0.c,
+	  bin/nrand/_nrand.c, bin/nrand/nrand.c, bin/par2lpc/_par2lpc.c,
+	  bin/par2lpc/par2lpc.c, bin/pca/pcas.c, bin/phase/_phase.c,
+	  bin/phase/phase.c, bin/pitch/snack/COPYING,
+	  bin/pitch/snack/jkGetF0.h, bin/pitch/snack/sigproc.c,
+	  bin/pitch/swipe/COPYING, bin/pitch/swipe/swipe.c,
+	  bin/pitch/swipe/vector.c, bin/pitch/swipe/vector.h,
+	  bin/poledf/_poledf.c, bin/poledf/poledf.c, bin/psgr/dict.c,
+	  bin/psgr/eps.c, bin/psgr/plot.c, bin/psgr/psgr.c,
+	  bin/psgr/psgr.h, bin/ramp/ramp.c, bin/rawtowav/rawtowav.c,
+	  bin/reverse/_reverse.c, bin/rmse/_rmse.c, bin/rmse/rmse.c,
+	  bin/root_pol/_root_pol.c, bin/root_pol/root_pol.c, bin/sin/sin.c,
+	  bin/smcep/_smcep.c, bin/smcep/smcep.c, bin/snr/snr.c,
+	  bin/sopr/sopr.c, bin/spec/spec.c, bin/step/step.c,
+	  bin/swab/swab.c, bin/symmetrize/symmetrize.c, bin/train/train.c,
+	  bin/transpose/_transpose.c, bin/transpose/transpose.c,
+	  bin/uels/_uels.c, bin/uels/uels.c, bin/ulaw/_ulaw.c,
+	  bin/ulaw/ulaw.c, bin/us/us.c, bin/us/us16.in, bin/us/uscd.in,
+	  bin/vq/_vq.c, bin/vq/vq.c, bin/vstat/vstat.c, bin/vsum/vsum.c,
+	  bin/window/_window.c, bin/window/window.c, bin/x2x/x2x.c,
+	  bin/xgr/config.h, bin/xgr/gcdata.h, bin/xgr/plot.c,
+	  bin/xgr/window.c, bin/xgr/xgr.c, bin/xgr/xgr.h,
+	  bin/zcross/_zcross.c, bin/zcross/zcross.c, bin/zerodf/_zerodf.c,
+	  bin/zerodf/zerodf.c, include/SPTK.h: update copyright and remove
+	  warinings when compiling with CFLAGS='-Wall -O2'.
+
+2012-12-21 19:04  mataki
+
+	* bin/lspcheck/: _lspcheck.c, lspcheck.c: clean source code.
+
+2012-12-21 18:44  mataki
+
+	* script/bell.in, script/gimp.in, script/glogsp.in,
+	  script/grlogsp.in, script/gwave.in, script/mgc2mgclsp.in,
+	  script/mgclsp2mgc.in, script/raw2wav.in, script/wav2raw.in,
+	  lib/agexp.c, lib/cholesky.c, lib/fileio.c, lib/fillz.c,
+	  lib/getfp.c, lib/getmem.c, lib/gexp.c, lib/glog.c, lib/matrix.c,
+	  lib/movem.c, lib/mseq.c, lib/theq.c, lib/toeplitz.c: fix
+	  copyright.
+
+2012-12-21 16:25  mataki
+
+	* bin/mlsacheck/mlsacheck.c: remove redundant for-loop.
+
+2012-12-21 01:59  okdtmhr
+
+	* bin/spec/spec.c: fix sorce code to remove warnings when
+	  CFLAGS='-Wall -O2'. fix sorce code to output usage when value of
+	  -e or -E isn't suitable.
+
+2012-12-20 18:23  okdtmhr
+
+	* bin/vstat/vstat.c: fix -o 4 option so that an arithmetic mean
+	  might be outputted when the number of vectors is even number.
+
+2012-12-18 21:41  mataki
+
+	* bin/: bcut/bcut.c, glsadf/glsadf.c, gmm/gmm.c, mglsadf/mglsadf.c,
+	  pca/pca.c, psgr/eps.c, vstat/vstat.c, x2x/x2x.c: fix source code
+	  to remove warnings when CFLAGS='-Wall -O2'.
+
+2012-12-18 21:06  mataki
+
+	* bin/: bcp/bcp.c, bcut/bcut.c, merge/merge.c, swab/swab.c: fix all
+	  indent in source codes by using 'indent -kr -nut -i 3 -l 80'
+	  command.
+
+2012-12-18 13:24  uratec
+
+	* bin/minmax/minmax.c: Add output format option for minmax.
+
+2012-12-17 14:21  mataki
+
+	* bin/lspcheck/: _lspcheck.c, lspcheck.c: remove unnecessary
+	  argument.
+
+2012-12-17 13:32  mataki
+
+	* bin/: dmp/dmp.c, fd/fd.c, x2x/x2x.c: fix a bug of x2x and modify
+	  source codes to accept string specifying ascii output format
+	  without space in front of '%'.
+
+2012-12-17 13:06  mataki
+
+	* bin/dct/Makefile.am: add _dct.c.
+
+2012-12-16 17:37  okdtmhr
+
+	* bin/: mfcc/mfcc.c, df2/df2.c: change option name which defines
+	  sampling frequency
+
+2012-12-16 15:05  mataki
+
+	* lib/Makefile.mak: add invert.obj and remove _pitch.obj.
+
+2012-12-16 14:46  okdtmhr
+
+	* script/gimp.in: add -magic and -MAGIC option. And scale of figure
+	  is corrected.
+
+2012-12-16 07:56  okdtmhr
+
+	* bin/symmetrize/symmetrize.c: revise usage and description of
+	  command
+
+2012-12-16 07:36  okdtmhr
+
+	* bin/transpose/: _transpose.c, transpose.c: revise usage and
+	  example of output
+
+2012-12-16 05:16  okdtmhr
+
+	* bin/vstat/vstat.c: corrected so that warning might be outputted.
+
+2012-12-15 22:47  mataki
+
+	* bin/mlsacheck/mlsacheck.c: fix source code to remove warning
+	  messages.
+
+2012-12-15 21:46  mataki
+
+	* bin/mlsacheck/mlsacheck.c: fix help message.
+
+2012-12-15 10:56  mataki
+
+	* bin/lspcheck/: _lspcheck.c, lspcheck.c: clean source code and fix
+	  output format of ascii report.
+
+2012-12-14 20:16  mataki
+
+	* bin/mlsacheck/mlsacheck.c: fix source code not to output ascii
+	  report of coefficient values.
+
+2012-12-09 23:57  mataki
+
+	* bin/Makefile.mak: enable to compile on Windows.
+
+2012-12-09 23:56  mataki
+
+	* bin/pitch/: snack/jkGetF0.c, swipe/swipe.c, swipe/vector.c: fix
+	  source code to be enable to compile on Windows.
+
+2012-12-08 15:12  mataki
+
+	* bin/mlsacheck/mlsacheck.c: modify source code not to output
+	  unnecessary ascii report of unstable frame.
+
+2012-11-12 02:26  okdtmhr
+
+	* bin/vstat/vstat.c: add output type(median)
+
+2012-11-12 00:36  okdtmhr
+
+	* script/: Makefile.am, gimp.in: add gimp command
+
+2012-11-12 00:00  okdtmhr
+
+	* bin/smcep/smcep.c: change the name of F option and the specifying
+	  method of T option
+
+2012-11-09 18:22  mataki
+
+	* bin/dtw/dtw.c: remove unnecessary semicolon.
+
+2012-11-08 15:12  mataki
+
+	* bin/vopr/vopr.c: fix usage and comment.
+
+2012-11-07 17:29  mataki
+
+	* bin/vopr/vopr.c: add options for relational opretors,
+	  arithmetic/geometric mean and ceiling/flooring (taking
+	  smaller/bigger value)
+
+2012-11-06 19:17  mataki
+
+	* bin/mlsacheck/mlsacheck.c: fix problem that unnecessary ascii
+	  report for unstable frame is output.
+
+2012-11-06 19:08  mataki
+
+	* bin/mlsacheck/.cvsignore: add .cvsignore.
+
+2012-11-05 12:40  mataki
+
+	* bin/reverse/reverse.c: remove limit of block size.
+
+2012-10-24 18:59  okdtmhr
+
+	* bin/symmetrize/symmetrize.c: modify usage
+
+2012-10-11 08:04  mataki
+
+	* bin/mlsacheck/mlsacheck.c: fix a bug for an infinite loop
+	  suggested by Maria Astrinaki of Faculte Polytechnique de Mons.
+
+2012-10-04 18:46  mataki
+
+	* bin/gmm/gmmp.c: bug fix for checking number of inputs.
+
+2012-10-04 18:15  mataki
+
+	* bin/gmm/gmmp.c: bug fix for checking number of inputs.
+
+2012-10-04 01:29  okdtmhr
+
+	* bin/smcep/smcep.c: add T option and F option
+
+2012-10-04 01:03  okdtmhr
+
+	* configure.ac, bin/Makefile.am, bin/Makefile.mak: add symmetrize
+	  command
+
+2012-10-04 00:55  okdtmhr
+
+	* bin/symmetrize/: .cvsignore, Makefile.am, symmetrize.c: add
+	  symmetrize command
+
+2012-09-13 20:26  mataki
+
+	* bin/mlsacheck/Makefile.am, bin/mlsacheck/mlsacheck.c,
+	  configure.ac, bin/Makefile.am, bin/Makefile.mak,
+	  bin/lspcheck/lspcheck.c: add mlsacheck command.
+
+2012-09-13 14:47  mataki
+
+	* bin/dtw/dtw.c: fix a bug suggested by Takashi Nose of Tokyo
+	  Institute of Technology, Japan.
+
+2012-09-09 18:26  okdtmhr
+
+	* bin/: bcp/bcp.c, bcut/bcut.c, dmp/dmp.c, fd/fd.c, merge/merge.c,
+	  swab/swab.c, x2x/x2x.c: modified usage
+
+2012-09-09 17:50  okdtmhr
+
+	* bin/transpose/: Makefile.am, _transpose.c, transpose.c: add
+	  transpose command
+
+2012-09-09 17:43  okdtmhr
+
+	* bin/Makefile.am, bin/Makefile.mak, lib/Makefile.am,
+	  lib/Makefile.mak, configure.ac: add transpose command
+
+2012-08-23 01:18  uratec
+
+	* bin/pitch/: pitch.c, snack/jkGetF0.c, swipe/swipe.c: Fix the
+	  pitch comand.
+
+2012-08-22 20:14  mataki
+
+	* bin/pitch/: pitch.c, snack/jkGetF0.c: add -T option to specify
+	  voiced/unvoiced threshold for RAPT algorithm.
+
+2012-08-20 21:36  mataki
+
+	* bin/: pca/pca.c, pca/pcas.c, gmm/gmm.c, lbg/lbg.c: modify source
+	  code to read input data from sequencially
+
+2012-08-18 18:24  okdtmhr
+
+	* lib/Makefile.mak: add _dct.obj as a module
+
+2012-08-18 15:18  okdtmhr
+
+	* bin/: bcp/bcp.c, bcut/bcut.c, dmp/dmp.c, fd/fd.c, merge/merge.c,
+	  swab/swab.c, x2x/x2x.c: modified usage
+
+2012-08-13 17:21  mataki
+
+	* ChangeLog, bin/dct/_dct.c, bin/dct/dct.c, bin/delta/delta.c,
+	  bin/dtw/dtw.c, bin/fft/fft.c, bin/fftr/fftr.c, bin/gcep/_gcep.c,
+	  bin/gcep/gcep.c, bin/gmm/_gmm.c, bin/gmm/gmm.c, bin/idct/idct.c,
+	  bin/ifft/ifft.c, bin/ifft2/ifft2.c, bin/lspcheck/lspcheck.c,
+	  bin/mcep/_mcep.c, bin/mcep/mcep.c, bin/mfcc/_mfcc.c,
+	  bin/mfcc/mfcc.c, bin/mgcep/_mgcep.c, bin/mgcep/mgcep.c,
+	  bin/pca/pcas.c, bin/pitch/pitch.c, bin/smcep/_smcep.c,
+	  bin/smcep/smcep.c, bin/snr/snr.c, bin/sopr/sopr.c,
+	  bin/spec/spec.c, bin/uels/_uels.c, bin/uels/uels.c,
+	  bin/vstat/vstat.c, bin/xgr/gcdata.h, bin/xgr/plot.c,
+	  include/SPTK.h, lib/invert.c: Unify linefeed code of all source
+	  code into <LF>.  Fix all indent in all source code by using
+	  'indent -kr -nut -i 3 -l 80' command.
+
+2012-08-13 17:11  mataki
+
+	* configure.ac, bin/Makefile.am, bin/Makefile.mak,
+	  bin/ifftr/Makefile.am, bin/ifftr/_ifftr.c, bin/ifftr/ifftr.c,
+	  lib/Makefile.am, lib/Makefile.mak, lib/ifftr.c: add ifftr
+	  command.
+
+2012-07-13 17:36  okdtmhr
+
+	* bin/sopr/sopr.c, script/mgc2mgclsp.in, script/mgclsp2mgc.in:
+	  Merge patch code by Giulio Paci:Fix -h option
+
+2012-07-09 21:13  mataki
+
+	* bin/pca/: pca.c, pcas.c: fix typo.
+
+2012-07-02 20:36  mataki
+
+	* bin/: da/Makefile.am, ds/Makefile.am, us/Makefile.am: change
+	  install directory for low pass filter coefficients; from
+	  $(DESTDIR)$(libdir) to $(datarootdir)/SPTK
+
+2012-06-27 20:29  mataki
+
+	* bin/: lbg/lbg.c, gmm/gmm.c: change option name for specifying
+	  initial codebook/gmm filename.
+
+2012-06-27 19:56  mataki
+
+	* bin/window/Makefile.am, bin/window/_window.c, lib/Makefile.am,
+	  lib/window.c: move lib/window.c to bin/window/_window.c
+
+2012-06-27 19:16  mataki
+
+	* bin/gmm/_gmm.c: fix memory leak bug when training full covariance
+	  GMM
+
+2012-06-26 11:16  mataki
+
+	* bin/x2x/x2x.c: fix output format for +fa and +da (%f -> %g).
+
+2012-06-11 18:29  okdtmhr
+
+	* bin/: dtw/dtw.c, pitch/pitch.c, psgr/eps.c: A variable is
+	  initialized.
+
+2012-06-09 18:56  okdtmhr
+
+	* include/SPTK.h: change some prototype declarations
+
+2012-06-09 18:54  okdtmhr
+
+	* bin/idct/idct.c: remove definition of dft function
+
+2012-06-09 18:53  okdtmhr
+
+	* bin/dct/: _dct.c, dct.c: change some function to share these
+
+2012-06-09 18:50  okdtmhr
+
+	* bin/pitch/swipe/: swipe.c, vector.c, vector.h: add proto type
+	  declaration, remove unused variables
+
+2012-06-09 18:47  okdtmhr
+
+	* bin/: mcep/_mcep.c, mcep/mcep.c, mgcep/_mgcep.c, mgcep/mgcep.c,
+	  smcep/_smcep.c, smcep/smcep.c, gcep/_gcep.c, gcep/gcep.c,
+	  uels/_uels.c, uels/uels.c, spec/spec.c: change usage
+	  appropriately
+
+2012-06-08 16:34  mataki
+
+	* bin/us/Makefile.am: modify Makefile.am to revert to SPTK-3.5.
+
+2012-06-07 16:02  okdtmhr
+
+	* include/SPTK.h: add proto type declaration of dct function
+
+2012-06-07 16:01  okdtmhr
+
+	* bin/mfcc/_mfcc.c: remove definition of dct function
+
+2012-06-07 16:00  okdtmhr
+
+	* bin/dct/_dct.c: add definition of dct function
+
+2012-06-07 08:36  okdtmhr
+
+	* bin/psgr/plot.c: comment out some functions
+
+2012-06-07 08:08  okdtmhr
+
+	* lib/Makefile.am: add _dct.c to Makefile.am
+
+2012-06-07 08:04  okdtmhr
+
+	* include/SPTK.h: add proto type declaration
+
+2012-06-07 08:00  okdtmhr
+
+	* script/wav2raw.in:  this version can convert left and right sound
+	  from stereo wav file
+
+2012-06-07 07:49  okdtmhr
+
+	* bin/mfcc/: _mfcc.c, mfcc.c:  change dct function,move definition
+	  of function
+
+2012-06-07 07:41  okdtmhr
+
+	* bin/dct/: _dct.c, dct.c: divide dct.c into two files; dct.c
+	  _dct.c
+
+2012-06-07 07:32  okdtmhr
+
+	* bin/idct/idct.c: change dft function to static
+
+2012-06-06 21:10  mataki
+
+	* bin/: acep/Makefile.am, acorr/Makefile.am, agcep/Makefile.am,
+	  amcep/Makefile.am, average/Makefile.am, b2mc/Makefile.am,
+	  bcp/Makefile.am, bcut/Makefile.am, c2acr/Makefile.am,
+	  c2ir/Makefile.am, c2sp/Makefile.am, cat2/Makefile.am,
+	  cdist/Makefile.am, clip/Makefile.am, da/Makefile.am,
+	  dct/Makefile.am, decimate/Makefile.am, delay/Makefile.am,
+	  delta/Makefile.am, df2/Makefile.am, dfs/Makefile.am,
+	  dmp/Makefile.am, ds/Makefile.am, dtw/Makefile.am,
+	  echo2/Makefile.am, excite/Makefile.am, extract/Makefile.am,
+	  fd/Makefile.am, fft/Makefile.am, fft2/Makefile.am,
+	  fftcep/Makefile.am, fftr/Makefile.am, fftr2/Makefile.am,
+	  fig+fdrw/Makefile.am, frame/Makefile.am, freqt/Makefile.am,
+	  gc2gc/Makefile.am, gcep/Makefile.am, glsadf/Makefile.am,
+	  gmm/Makefile.am, gnorm/Makefile.am, grpdelay/Makefile.am,
+	  histogram/Makefile.am, idct/Makefile.am, ifft/Makefile.am,
+	  ifft2/Makefile.am, ignorm/Makefile.am, impulse/Makefile.am,
+	  imsvq/Makefile.am, interpolate/Makefile.am, ivq/Makefile.am,
+	  lbg/Makefile.am, levdur/Makefile.am, linear_intpl/Makefile.am,
+	  lmadf/Makefile.am, lpc/Makefile.am, lpc2c/Makefile.am,
+	  lpc2lsp/Makefile.am, lpc2par/Makefile.am, lsp2lpc/Makefile.am,
+	  lspcheck/Makefile.am, lspdf/Makefile.am, ltcdf/Makefile.am,
+	  mc2b/Makefile.am, mcep/Makefile.am, merge/Makefile.am,
+	  mfcc/Makefile.am, mgc2mgc/Makefile.am, mgc2sp/Makefile.am,
+	  mgcep/Makefile.am, mglsadf/Makefile.am, minmax/Makefile.am,
+	  mlpg/Makefile.am, mlsadf/Makefile.am, msvq/Makefile.am,
+	  nan/Makefile.am, norm0/Makefile.am, nrand/Makefile.am,
+	  par2lpc/Makefile.am, pca/Makefile.am, phase/Makefile.am,
+	  pitch/Makefile.am, poledf/Makefile.am, psgr/Makefile.am,
+	  ramp/Makefile.am, rawtowav/Makefile.am, reverse/Makefile.am,
+	  rmse/Makefile.am, root_pol/Makefile.am, sin/Makefile.am,
+	  smcep/Makefile.am, snr/Makefile.am, sopr/Makefile.am,
+	  spec/Makefile.am, step/Makefile.am, swab/Makefile.am,
+	  train/Makefile.am, uels/Makefile.am, ulaw/Makefile.am,
+	  us/Makefile.am, vopr/Makefile.am, vq/Makefile.am,
+	  vstat/Makefile.am, vsum/Makefile.am, window/Makefile.am,
+	  x2x/Makefile.am, xgr/Makefile.am, zcross/Makefile.am,
+	  zerodf/Makefile.am: change build directory for libSPTK.a
+
+2012-06-05 20:37  mataki
+
+	* bin/x2x/x2x.c: bug fix for +fa, +da, and +dea option.
+
+2012-06-05 18:40  okdtmhr
+
+	* bin/spec/spec.c: add -E option; floor periodgram in db
+
+2012-06-05 18:39  okdtmhr
+
+	* bin/smcep/_smcep.c: change error message
+
+2012-06-05 18:35  okdtmhr
+
+	* bin/uels/: _uels.c, uels.c: add -E option; floor periodgram in db
+
+2012-06-05 18:30  okdtmhr
+
+	* bin/gcep/: _gcep.c, gcep.c: add -E option; floor periodgram in db
+
+2012-06-05 18:25  okdtmhr
+
+	* bin/smcep/: _smcep.c, smcep.c: add -E option; floor periodgram in
+	  db
+
+2012-06-05 18:16  okdtmhr
+
+	* bin/mgcep/: _mgcep.c, mgcep.c: add -E option; floor periodgram in
+	  db
+
+2012-06-05 18:05  okdtmhr
+
+	* include/SPTK.h: change proto type declaration of mcep, mgcep,
+	  gcep, smcep and uels
+
+2012-06-05 17:42  okdtmhr
+
+	* bin/mcep/: _mcep.c, mcep.c: add -E option; floor periodgram in db
+
+2012-06-05 08:46  okdtmhr
+
+	* bin/xgr/: gcdata.h, plot.c: remove unused function and so on
+
+2012-06-05 08:25  okdtmhr
+
+	* bin/: fft/fft.c, fftr/fftr.c, ifft/ifft.c, ifft2/ifft2.c: move
+	  fft function into main function
+
+2012-06-05 08:00  okdtmhr
+
+	* bin/vstat/vstat.c: remove warning in usage
+
+2012-06-05 07:53  okdtmhr
+
+	* bin/: snr/snr.c, sopr/sopr.c, swab/swab.c: remove unused
+	  variables
+
+2012-06-05 07:51  okdtmhr
+
+	* bin/lspcheck/lspcheck.c: add proto type declaration
+
+2012-06-05 07:45  okdtmhr
+
+	* bin/mlpg/mlpg.c: change functions name, remove unused variables
+
+2012-06-05 03:36  okdtmhr
+
+	* bin/pca/pca.c: remove unused variables
+
+2012-06-05 03:30  okdtmhr
+
+	* bin/dtw/dtw.c: change function name, remove unused variables
+
+2012-06-05 03:17  okdtmhr
+
+	* bin/da/winplay.c: comment out "rcs_id"
+
+2012-06-05 03:08  okdtmhr
+
+	* bin/bcut/bcut.c: remove unused variables
+
+2012-06-05 02:49  okdtmhr
+
+	* bin/gmm/_gmm.c: [no log message]
+
+2012-06-03 12:55  mataki
+
+	* bin/mfcc/_mfcc.c: move bin/window/_window.c to lib/window.c
+
+2012-06-03 12:46  mataki
+
+	* bin/mfcc/_mfcc.c, bin/window/Makefile.am, bin/window/_window.c,
+	  lib/Makefile.am, lib/window.c: move bin/window/_window.c to
+	  lib/window.c
+
+2012-05-22 20:41  mataki
+
+	* bin/gmm/gmm.c: add -g option to specify GMM initial parameter
+	  file
+
+2012-05-17 18:52  mataki
+
+	* bin/x2x/x2x.c: Fix a bug suggested by Heiga Zen of Google UK Ltd.
+
+2012-05-17 15:42  mataki
+
+	* bin/delta/delta.c, include/SPTK.h, lib/Makefile.am, lib/invert.c:
+	  add invert.c to calculate inverse matrix
+
+2012-05-17 15:22  mataki
+
+	* bin/mfcc/_mfcc.c: rename function and remove warning messages
+
+2012-05-17 15:16  mataki
+
+	* bin/pca/pcas.c: remove unused variable
+
+2012-05-17 15:09  mataki
+
+	* bin/pitch/: pitch.c, snack/jkGetF0.c, snack/jkGetF0.h,
+	  snack/sigproc.c, swipe/swipe.c, swipe/vector.c: remove specific
+	  algorithm dependent code from pitch.c and remove warnings in
+	  compilation.
+
+2012-05-17 14:02  mataki
+
+	* bin/: gmm/gmmp.c, pca/pcas.c: remove unused variables
+
+2012-05-17 11:59  mataki
+
+	* bin/: gmm/gmmp.c, pca/pcas.c: modify source code to read input
+	  data sequencially
+
+2012-05-07 18:07  mataki
+
+	* bin/mgc2mgc/mgc2mgc.c: Merged patch code by Heiga Zen of Google
+	  UK Ltd.
+
 2011-12-21 00:27  uratec
 
 	* AUTHORS, README, bin/lpc2lsp/lpc2lsp.c, bin/lsp2lpc/lsp2lpc.c,
