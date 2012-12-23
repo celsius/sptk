@@ -283,7 +283,7 @@ int main(int argc, char **argv)
       if (freadx(&x, size, 1, fp) != 1)
          break;
       if (int3flg == TR || uint3flg == TR) {
-         z = (int) x;
+         memcpy(&z, &x, size);
          y = z & 0x00FFFFFF;
          if (int3flg == TR && y >> 23 == 1)
             y = y | 0xFF000000;
