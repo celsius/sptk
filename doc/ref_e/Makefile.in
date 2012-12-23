@@ -103,6 +103,7 @@ INC  = cmndref.sty \
 	histogram.tex \
 	idct.tex \
 	ifft.tex \
+	ifftr.tex \
 	ifft2.tex \
 	ignorm.tex \
 	impulse.tex \
