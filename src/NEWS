@@ -1,16 +1,12 @@
 Version 3.6:
- * add -o option to 'minmax' command, to output maximum, minimum or both values.
- * add -o 4 option to 'vstat' command, to output medians.
- * add options to 'vopr' command, to deal with relational operators, arithmetic/geometric mean, and ceiling/flooring.
- * add -T option to 'smcep' command, to specifiy emphasized frequency.
+ * add -o option to 'minmax' command to output maximum, minimum or both values.
+ * add -o 4 option to 'vstat' command to output medians.
+ * add options to 'vopr' command to deal with relational operators, arithmetic/geometric mean, and ceiling/flooring.
+ * add -T option to 'smcep' command to specifiy emphasized frequency.
  * add -E option to 'gcep', 'mcep', 'mgcep', 'spec', 'smcep' and 'uels' command to specify floor in dB.
- * add -F option to 'gmm' command, to read initial gmm parameter file.
- * add -L and -R option to'wav2raw' command, to deal with stereo wav file.
- * add 'gimp' command.
- * add 'mlsacheck' command.
- * add 'symmetrize' command.
- * add 'transpose' command.
- * add 'ifftr' command.
+ * add -F option to 'gmm' command to read initial GMM parameter file.
+ * add -L and -R option to 'wav2raw' command to deal with stereo wav file.
+ * add 'ifftr', 'transpose', 'symmetrize', 'mlsacheck' and 'gimp' command.
  * change -f option of 'lbg' command into -F option.
  * unify option to specify sampling frequency into -s option.
  * fix 'x2x', 'dmp' and 'fd' command to read format string without space in front of '%'.
