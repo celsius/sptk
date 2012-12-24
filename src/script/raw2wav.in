@@ -66,7 +66,7 @@ set directory
 @ swab		= 0
 @ normalization	= 0
 @ normalization_all = 0
-@ frequency   = 16000
+@ frequency   = 16
 set type1	= s
 set type2	= $type1
 set input = 0
@@ -261,7 +261,7 @@ usage:
 	echo2 "       $cmnd [ options ] [ infile(s) ]"
 	echo2 '  options:'
 	echo2 '       -swab         : change "endian"              [FALSE]'
-	echo2 '       -s s          : sampling frequency           [16000Hz]'
+	echo2 '       -s s          : sampling frequency (kHz)     [16.0]'
 	echo2 '       -d d          : destination directory        [N/A]'
 	echo2 '       -n            : normalization                   '
         echo2 '                       with the maximum value'
@@ -341,6 +341,7 @@ foreach f ($file)
       endif
    endif
 
+   @ frequency = $frequency * 1000
    rawtowav $frequency $bit /tmp/{$f:t}.$$.raw  $outfile
 
    /bin/rm -f /tmp/{$f:t}.$$.raw
