@@ -46,7 +46,7 @@
 
 #########################################################################
 #                                                                       #
-#   Draw a Impluse Response                                             #
+#   Draw a discrete series                                              #
 #                                                                       #
 #                                               2012.11  T.Okada        #
 #                                                                       #
@@ -252,7 +252,7 @@ goto main
 
 usage:
         echo2 ''
-        echo2 " $cmnd - draw a impluse response"
+        echo2 " $cmnd - draw a discrete series"
         echo2 ''
         echo2 '  usage:'
         echo2 "       $cmnd [ options ] [ infile ] > stdout"
@@ -311,7 +311,7 @@ else if ( $flagnumscreen ) then
                 set wc = ` x2x +${type}a $file | wc -l `
         endif
         @ wc = $wc - $start
-        @ allnumdata = $wc        
+        @ allnumdata = $wc
         @ rest = $wc % $numscreen
         @ wc /= $numscreen
         if ($rest) @ wc++
@@ -323,8 +323,8 @@ else if ( $flagnumdata ) then
                 set wc = ` x2x +${type}a $file | wc -l `
         endif
         @ wc = $wc - $start
-        @ allnumdata = $wc        
-        @ rest = $wc % $numdata 
+        @ allnumdata = $wc
+        @ rest = $wc % $numdata
         @ numscreen = $wc / $numdata
         if ($rest) @ numscreen++
 else
@@ -334,7 +334,7 @@ else
                 set wc = ` x2x +${type}a $file | wc -l `
         endif
         @ wc = $wc - $start
-        @ allnumdata = $wc        
+        @ allnumdata = $wc
         @ rest = $wc % $numscreen
         @ wc /= $numscreen
         if ($rest) @ wc++
@@ -401,7 +401,7 @@ while ( $numscreen > 0 )
 
         set xsw = `echo "$xs - 0.01" | bc -l`
         set xew = `echo "$xe + 0.01" | bc -l`
-        
+
         @ tmp = $numscreen % 5
         echo "x $xsw $xew" >! /tmp/$$-$tmp
         echo "y $ymin $ymax" >> /tmp/$$-$tmp
@@ -418,15 +418,15 @@ while ( $numscreen > 0 )
        echo "$count $line $mtype" >> /tmp/$$-$tmp
        @ count += 1
      end
-     
+
         fig -o $ox $oy -W $width -H $height -p $pen -F $F /tmp/$$-$tmp
 
         @ numscreen--
         set oy  =  `echo "$oy - 50 * $F" | bc -l`
-        @ xs    += $numdata 
-        @ xe    += $numdata 
-        @ start += $numdata 
-        @ end   += $numdata 
+        @ xs    += $numdata
+        @ xe    += $numdata
+        @ start += $numdata
+        @ end   += $numdata
 
 end
 

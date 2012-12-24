@@ -91,7 +91,7 @@ INC  = cmndref.sty \
 	freqt.tex \
 	gc2gc.tex \
 	gcep.tex \
-	gimp.tex \
+	gseries.tex \
 	glogsp.tex \
 	glsadf.tex \
 	gmm.tex \
