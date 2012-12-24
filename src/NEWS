@@ -6,7 +6,7 @@ Version 3.6:
  * add -E option to 'gcep', 'mcep', 'mgcep', 'spec', 'smcep' and 'uels' command to specify floor in dB.
  * add -F option to 'gmm' command to read initial GMM parameter file.
  * add -L and -R option to 'wav2raw' command to deal with stereo wav file.
- * add 'ifftr', 'transpose', 'symmetrize', 'mlsacheck' and 'gimp' command.
+ * add 'gseries', 'ifftr', 'mlsacheck', 'symmetrize' and 'transpose' command.
  * change -f option of 'lbg' command into -F option.
  * unify option to specify sampling frequency into -s option.
  * fix 'x2x', 'dmp' and 'fd' command to read format string without space in front of '%'.
