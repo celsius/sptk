@@ -260,7 +260,7 @@ usage:
 	echo2 '  usage:'
 	echo2 "       $cmnd [ options ] [ infile(s) ]"
 	echo2 '  options:'
-	echo2 '       -swab         : change "endian"              [FALSE]'
+	echo2 '       -swab         : change endian                [FALSE]'
 	echo2 '       -s s          : sampling frequency (kHz)     [16.0]'
 	echo2 '       -d d          : destination directory        [N/A]'
 	echo2 '       -n            : normalization                   '

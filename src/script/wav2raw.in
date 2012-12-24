@@ -193,7 +193,7 @@ usage:
         echo2 '  usage:'
         echo2 "       $cmnd [ options ] [ infile(s) ]"
         echo2 '  options:'
-        echo2 '       -swab         : change endian                           [FALSE]'
+        echo2 '       -swab         : change endian                             [FALSE]'
         echo2 '       -d d          : destination directory                     [N/A]'
         echo2 '       -n            : normalization with the maximum value'
         echo2 '                       according to bit/sample of the wav file'
