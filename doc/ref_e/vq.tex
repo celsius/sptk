@@ -79,10 +79,10 @@ the output is the codebook index $i$ in int format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In this example, a sequence of length 25 is read from {\em data.f}
-in float format.
-it is quantized using codebook {\em cbfile},
-and the results are written to {\em data.vq}:
+In this example, a sequence of vectors of length 26 is read from
+{\em data.f} in float format.
+Each vector is quantized using the codebook {\em cbfile},
+and results are written to {\em data.vq}:
 \begin{quote}
  \verb!vq -q cbfile < data.f > data.vq!
 \end{quote} 
