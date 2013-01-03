@@ -182,13 +182,6 @@ int main(int argc, char *argv[])
       fprintf(stderr, "%s : value of L must be L>=4!\n", cmnd);
       usage();
    }
-   if (fread(buf, sizeof(float), L, fp) < (size_t) L) {
-      fprintf(stderr,
-              "%s : the length of input data is smaller than defined!\n", cmnd);
-      usage();
-   }
-
-   rewind(fp);
 
    while (fread(buf, sizeof(float), L, fp) == (size_t) L) {
 
