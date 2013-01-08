@@ -135,28 +135,28 @@ double *read_coeff(int *argc, char ***argv, int *num)
    top = prev = (float_list *) malloc(sizeof(float_list));
    top->f = fgetmem(1);
    while ((*argc - 1) && !isalpha(*(*(*argv + 1) + 1))) {
-       cur = (float_list *) malloc(sizeof(float_list));
-       cur->f = fgetmem(1);
-       cur->f[0] = atof(*++(*argv));
-       prev->next = cur;
-       cur->next = NULL;
-       prev = cur;
-       (*argc)--;
-       (*num)++;
+      cur = (float_list *) malloc(sizeof(float_list));
+      cur->f = fgetmem(1);
+      cur->f[0] = atof(*++(*argv));
+      prev->next = cur;
+      cur->next = NULL;
+      prev = cur;
+      (*argc)--;
+      (*num)++;
    }
    coeff = dgetmem(*num + 1);
    for (i = 0, tmpf = top->next; tmpf != NULL; i++, tmpf = tmpff) {
-       coeff[i] = tmpf->f[0];
-       tmpff = tmpf->next;
-       free(tmpf->f);
-       free(tmpf);
+      coeff[i] = tmpf->f[0];
+      tmpff = tmpf->next;
+      free(tmpf->f);
+      free(tmpf);
    }
    free(top);
 
    return (coeff);
 }
 
-double *read_coeff_file(FILE *fp, int *num)
+double *read_coeff_file(FILE * fp, int *num)
 {
    int i;
    float_list *top, *cur, *prev, *tmpf, *tmpff;
@@ -166,20 +166,20 @@ double *read_coeff_file(FILE *fp, int *num)
    top->f = fgetmem(1);
    dat = dgetmem(1);
    while (freadf(dat, sizeof(*dat), 1, fp) == 1) {
-       cur = (float_list *) malloc(sizeof(float_list));
-       cur->f = fgetmem(1);
-       cur->f[0] = dat[0];
-       prev->next = cur;
-       cur->next = NULL;
-       prev = cur;
-       (*num)++;
+      cur = (float_list *) malloc(sizeof(float_list));
+      cur->f = fgetmem(1);
+      cur->f[0] = dat[0];
+      prev->next = cur;
+      cur->next = NULL;
+      prev = cur;
+      (*num)++;
    }
    coeff = dgetmem(*num + 1);
    for (i = 0, tmpf = top->next; tmpf != NULL; i++, tmpf = tmpff) {
-       coeff[i] = tmpf->f[0];
-       tmpff = tmpf->next;
-       free(tmpf->f);
-       free(tmpf);
+      coeff[i] = tmpf->f[0];
+      tmpff = tmpf->next;
+      free(tmpf->f);
+      free(tmpf);
    }
    free(top);
    free(dat);
@@ -221,8 +221,8 @@ int main(int argc, char *argv[])
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
       } else {
-          fprintf(stderr, "%s : Invalid option!\n", cmnd);
-          usage(1);
+         fprintf(stderr, "%s : Invalid option!\n", cmnd);
+         usage(1);
       }
 
    if (*file_z != '\0') {
