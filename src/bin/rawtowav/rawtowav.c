@@ -71,9 +71,9 @@ void write_file(long fs, char BIT, char *rawfile, char *wavfile)
    char WAVE[] = "WAVE";
    char fmt_chunk[] = "fmt ";
    char data_chunk[] = "data";
-   long file_size, rawfile_size;
-   long chunk_size = BIT;
-   long data_speed;
+   int file_size, rawfile_size;
+   int chunk_size = BIT;
+   int data_speed;
    short formatID = 1;
    short channel = 1;           /* mono:1¡¤stereo:2 */
    short block_size;            /* 16bit, mono => 16bit*1=2byte */
@@ -92,22 +92,22 @@ void write_file(long fs, char BIT, char *rawfile, char *wavfile)
    /* RIFF header */
    fwritex(RIFF, sizeof(char), 4, fpo);
    /* file size */
-   fwritex(&file_size, sizeof(long), 1, fpo);
+   fwritex(&file_size, sizeof(int), 1, fpo);
    /* WAVE header */
    fwritex(WAVE, sizeof(char), 4, fpo);
    /* fmt chunk */
    fwritex(fmt_chunk, sizeof(char), 4, fpo);
    /* chunk size */
-   fwritex(&chunk_size, sizeof(long), 1, fpo);
+   fwritex(&chunk_size, sizeof(int), 1, fpo);
    /* formatID */
    fwritex(&formatID, sizeof(short), 1, fpo);
    /* channel (mono:1¡¤stereo:2) */
    fwritex(&channel, sizeof(short), 1, fpo);
    /* sampling frequency */
-   fwritex(&fs, sizeof(long), 1, fpo);
+   fwritex(&fs, sizeof(int), 1, fpo);
    /* data speed */
    data_speed = fs * BIT / 8 * formatID;
-   fwritex(&data_speed, sizeof(long), 1, fpo);
+   fwritex(&data_speed, sizeof(int), 1, fpo);
    /* block size */
    block_size = BIT / 8 * formatID;
    fwritex(&block_size, sizeof(short), 1, fpo);
@@ -117,7 +117,7 @@ void write_file(long fs, char BIT, char *rawfile, char *wavfile)
    /* data chunk */
    fwritex(data_chunk, sizeof(char), 4, fpo);
    /* file size of data */
-   fwritex(&rawfile_size, sizeof(long), 1, fpo);
+   fwritex(&rawfile_size, sizeof(int), 1, fpo);
 
    while ((c = fgetc(fpi)) != EOF)
       fputc(c, fpo);
