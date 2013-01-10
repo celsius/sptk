@@ -82,6 +82,10 @@ while ($i < $#argv)
 	case -s:
 		@ i++
 		set frequency = $argv[$i]
+        if ( $frequency > 192) then
+            echo2 "$cmnd : sampling frequency must be less than 192 kHz!"
+            exit 1
+        endif
 		breaksw
     case +c:
         if ($input) then
@@ -295,6 +299,8 @@ usage:
 	echo2 '       as the infile.'
 	echo2 '       However, once a destination directory is specified,'
 	echo2 '       all wav files are stored in that directory.'
+	echo2 '  note:'
+	echo2 '       Sampling frequency must be less than 192 kHz.'
 	echo2 ''
         echo2 " SPTK: version $sptkver"
         echo2 " CVS Info: $cvsid"
