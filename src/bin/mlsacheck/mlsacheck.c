@@ -181,7 +181,7 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
    /* calculate gain factor */
    for (i = 0, gain = 0.0; i < m + 1; i++) {
       x[i] = mcep[i];
-      gain += x[i] * pow(a, i);
+      gain += x[i] * pow(-a, i);
    }
 
    /* gain normalization */
