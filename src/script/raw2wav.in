@@ -72,10 +72,20 @@ set type2	= $type1
 set input = 0
 set bit = 16
 
+set _argv
+set white
+set whitespace = 0
+set index
+
 @ i = 0
 while ($i < $#argv)
-	@ i++
-	switch ($argv[$i])
+    @ i++
+    set whitespace = 0
+    set _argv = `echo $argv[$i] | sed -e 's/ /_/g'`
+    if ( "$_argv" != "$argv[$i]" ) then
+       @ whitespace = 1
+    endif
+	switch ($_argv)
 	case -swab:
 		set swab = 1
 		breaksw
@@ -244,12 +254,16 @@ while ($i < $#argv)
 		goto usage
 		breaksw
 	default:
-		set file = ( $file $argv[$i] )
+		set file = ( $file $_argv )
+		set white = ( $white $whitespace )
+		set index = ( $index $i )
 		set flagfile = 1
-		if ( ! -f $argv[$i] ) then
-			echo2 "${cmnd}: Can't open file "'"'"$file"'"'" \!"
-			set exit_status = 1
+		if ( $whitespace == 1 ) then
+			if ( ! -f "$argv[$i]" ) then
+				echo2 "${cmnd}: Can't open file "'"'"$argv[$i]"'"'" \!"
+				set exit_status = 1
 			goto usage
+			endif
 		endif
 		breaksw
 	endsw
@@ -309,7 +323,13 @@ exit $exit_status
 
 main:
 
-foreach f ($file)
+@ i = 1
+while ( $i <= $#file )
+   set f = $file[$i]
+   if ( $white[$i] ) then
+      /bin/ln -f -s "$argv[$index[$i]]" $f
+   endif
+
    if ( $normalization ) then
       if ( $swab ) then
          swab +$type1 < $f |\
@@ -335,20 +355,25 @@ foreach f ($file)
 
    if ( $f:e == "raw" ) then
       if ( $flagdirectory ) then
-         set outfile = $directory/$f:t:r.wav
+         set outfile = $directory/"$argv[$index[$i]]:t:r".wav
       else
-         set outfile = $f:r.wav
+         set outfile = "$argv[$index[$i]]:r".wav
       endif
    else
       if ( $flagdirectory ) then
-         set outfile = $directory/$f:t.wav
+         set outfile = $directory/"$argv[$index[$i]]:t".wav
       else
-         set outfile = $f.wav
+         set outfile = "$argv[$index[$i]]".wav
       endif
    endif
 
    @ frequency = $frequency * 1000
-   rawtowav $frequency $bit /tmp/{$f:t}.$$.raw  $outfile
+   rawtowav $frequency $bit /tmp/{$f:t}.$$.raw /tmp/raw2wav
+   /bin/mv /tmp/raw2wav "$outfile"
+   if ( $white[$i] ) then
+      /bin/rm -f $f
+   endif
+   @ i++
 
    /bin/rm -f /tmp/{$f:t}.$$.raw
 end
