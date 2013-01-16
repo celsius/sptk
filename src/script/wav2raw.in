@@ -313,6 +313,13 @@ while ( $j <= $#file )
 
             @ Current = $Current + 2
 
+            # Extra format bytes
+            if ($ChunkSize != 16) then
+                @ tmp = $Current + 2
+                set ExtraFormatSize = `bcut +c -s $Current -e $tmp $f | x2x +Sa`
+                @ Current = $Current + 2 + $ExtraFormatSize
+            endif
+
             set READfmt = 1 # enable to read "data" chunk
             if ( $ENTERdatachunk == 0) then
                 breaksw
