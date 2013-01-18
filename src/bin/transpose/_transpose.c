@@ -63,15 +63,13 @@
 #  include <SPTK.h>
 #endif
 
-void transpose(float *buf, const int m, const int n)
+void transpose(double *buf, const int m, const int n)
 {
    int i, j;
 
    for (i = 0; i < n; i++) {
       for (j = 0; j < m; j++) {
-
-         fwrite(&buf[i + j * n], sizeof(float), 1, stdout);
-
+         fwritef(&buf[i + j * n], *buf, 1, stdout);
       }
    }
 
