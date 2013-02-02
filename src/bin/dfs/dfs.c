@@ -235,10 +235,12 @@ int main(int argc, char *argv[])
    }
 
    if (na == -1) {
+      a = dgetmem(1);
       na = 0;
       a[0] = 1.0;
    }
    if (nb == -1) {
+      b = dgetmem(1);
       nb = 0;
       b[0] = 1.0;
    }
