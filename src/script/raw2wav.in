@@ -81,9 +81,13 @@ set index
 while ($i < $#argv)
     @ i++
     set whitespace = 0
-    set _argv = `echo $argv[$i] | sed -e 's/ /_/g'`
-    if ( "$_argv" != "$argv[$i]" ) then
-       @ whitespace = 1
+    if ( "$argv[$i]" == '-n') then
+        set _argv = '-n'
+    else
+        set _argv = `echo $argv[$i] | sed -e 's/ /_/g'`
+        if ( "$_argv" != "$argv[$i]" ) then
+            @ whitespace = 1
+        endif
     endif
 	switch ($_argv)
 	case -swab:
@@ -93,7 +97,10 @@ while ($i < $#argv)
 		@ i++
 		set frequency = $argv[$i]
         if ( $frequency > 192) then
-            echo2 "$cmnd : sampling frequency must be less than 192 kHz!"
+            echo2 "$cmnd : sampling frequency exceeds 192 kHz!"
+        endif
+        if ( $frequency > 2147483647) then
+            echo2 "$cmnd : sampling frequency is too large!"
             exit 1
         endif
 		breaksw
@@ -313,8 +320,6 @@ usage:
 	echo2 '       as the infile.'
 	echo2 '       However, once a destination directory is specified,'
 	echo2 '       all wav files are stored in that directory.'
-	echo2 '  note:'
-	echo2 '       Sampling frequency must be less than 192 kHz.'
 	echo2 ''
         echo2 " SPTK: version $sptkver"
         echo2 " CVS Info: $cvsid"
