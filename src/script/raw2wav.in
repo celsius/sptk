@@ -96,10 +96,12 @@ while ($i < $#argv)
 	case -s:
 		@ i++
 		set frequency = $argv[$i]
-        if ( $frequency > 192) then
+        set cond = `echo "$frequency > 192" | bc`
+        if ( $cond == 1 ) then
             echo2 "$cmnd : sampling frequency exceeds 192 kHz!"
         endif
-        if ( $frequency > 2147483647) then
+        set cond = `echo "$frequency > 2147483647" | bc`
+        if ( $cond == 1 ) then
             echo2 "$cmnd : sampling frequency is too large!"
             exit 1
         endif
@@ -372,7 +374,7 @@ while ( $i <= $#file )
       endif
    endif
 
-   @ frequency = $frequency * 1000
+   set frequency = `echo "$frequency * 1000" | bc`
    rawtowav $frequency $bit /tmp/{$f:t}.$$.raw /tmp/raw2wav
    /bin/mv /tmp/raw2wav "$outfile"
    if ( $white[$i] ) then
