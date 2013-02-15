@@ -102,8 +102,6 @@ static char *rcs_id = "$Id$";
 #define STABLE1       0
 #define STABLE2       1
 
-char *BOOL[] = { "FALSE", "TRUE" };
-
 /*  Command Name  */
 char *cmnd;
 
@@ -173,7 +171,7 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
 
    x = dgetmem(fftlen);
    y = dgetmem(fftlen);
-   mag = dgetmem(fftlen / 2);
+   mag = dgetmem(fftlen / 2 + 1);
 
    fillz(x, sizeof(*x), fftlen);
    fillz(y, sizeof(*y), fftlen);
@@ -190,7 +188,7 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
    fftr(x, y, fftlen);
 
    /* check stability */
-   for (i = 0; i < fftlen / 2; i++) {
+   for (i = 0; i < fftlen / 2 + 1; i++) {
       mag[i] = x[i] * x[i] + y[i] * y[i];
       mag[i] = sqrt(mag[i]);
 
@@ -202,8 +200,10 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
                r = r1 / mag[i];
                x[i] *= r;
                y[i] *= r;
-               x[fftlen - 1 - i] *= r;
-               y[fftlen - 1 - i] *= r;
+               if (i != 0 && i != fftlen / 2) {
+                   x[fftlen - i] *= r;
+                   y[fftlen - i] *= r;
+               }
             }
          }
          break;
@@ -214,8 +214,10 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
                r = r2 / mag[i];
                x[i] *= r;
                y[i] *= r;
-               x[fftlen - 1 - i] *= r;
-               y[fftlen - 1 - i] *= r;
+               if (i != 0 && i != fftlen / 2) {
+                   x[fftlen - i] *= r;
+                   y[fftlen - i] *= r;
+               }
             }
          }
       }
@@ -223,7 +225,6 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
 
    ifft(x, y, fftlen);
 
-   /* revert gain factor */
    x[0] += gain;
 
    fwritef(x, sizeof(*x), m + 1, stdout);
