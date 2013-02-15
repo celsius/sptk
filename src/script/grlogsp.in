@@ -116,7 +116,7 @@ set on_x = (25 60 95 130 165 200 235 270 305 340)
 @ i = 0
 while ($i < $#argv)
         @ i++
-        switch ($argv[$i])
+        switch ("$argv[$i]")
         case -t:
                 set trans = 1
                 breaksw
@@ -229,8 +229,8 @@ while ($i < $#argv)
                 goto usage
                 breaksw
         default:
-                set file = $argv[$i]
-                if ( ! -f $file ) then
+                set file = "$argv[$i]"
+                if ( ! -f "$file" ) then
                         echo2 "${cmnd} : Cannot open file ${file}\!"
                         set exit_status = 1
                         goto usage
@@ -238,6 +238,13 @@ while ($i < $#argv)
                 breaksw
         endsw
 end
+
+# when input stream is stdin
+if ("$file" == "") then
+    cat > /tmp/grlogsp
+    set file=/tmp/grlogsp
+endif
+
 goto main
 
 usage:
@@ -292,7 +299,7 @@ if ( $help ) then
         echo2 '       -W   W         : width of the graph  <100mm>  [0.25]'
         echo2 '       -H   H         : height of the graph <100mm>  [1.5]'
         echo2 '       -z   z         : moving width           <mm>  [False]'
-        echo2 '                       (if -z option does not exist, z is the same as F)'                        
+        echo2 '                       (if -z option does not exist, z is the same as F)'
         echo2 '       -o   xo yo     : origin of the graph          [30, 65]'
         echo2 '                       (if -o option exists, -O is not effective)'
         echo2 '       -g   g         : type of the graph            [0]'
@@ -381,8 +388,8 @@ EOF
 endif
 
 fig $T -W $w -H $h -o $xo $yo -g $g -F $F<< EOF
-        x        $xx[$x] 
-        xscale        $xs[$x] 
+        x        $xx[$x]
+        xscale        $xs[$x]
         xname "$xname[$x]"
 EOF
 
@@ -410,6 +417,10 @@ endif
 
 if ($trans) set T = "-t -1"
 
-bcut +f -s $s $ee $file|\
+bcut +f -s $s $ee "$file" |\
 fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z -F $F
 
+# when input stream is stdin
+if ("$file" == "") then
+    /bin/rm -f /tmp/grlogsp
+endif

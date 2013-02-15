@@ -80,7 +80,7 @@ set flagy       = 0
 @ i = 0
 while ($i < $#argv)
         @ i++
-        switch ($argv[$i])
+        switch ("$argv[$i]")
         case -s:
                 @ i++
                 set start = $argv[$i]
@@ -167,9 +167,9 @@ while ($i < $#argv)
                 goto usage
                 breaksw
         default:
-                set file = $argv[$i]
+                set file = "$argv[$i]"
                 set flagfile = 1
-                if ( ! -f $file ) then
+                if ( ! -f "$file" ) then
                         echo2 "${cmnd} : Cannot open file ${file}\!"
                         set exit_status = 1
                         goto usage
@@ -178,7 +178,11 @@ while ($i < $#argv)
         endsw
 end
 
-cat $file > /tmp/$$
+if ("$file" == "") then
+    cat $file > /tmp/$$
+else
+    cat "$file" > /tmp/$$
+endif
 set file = /tmp/$$
 
 goto main

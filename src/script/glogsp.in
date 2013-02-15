@@ -101,7 +101,7 @@ set on_y = (205 205 120 120 35 35)
 @ i = 0
 while ($i < $#argv)
         @ i++
-        switch ($argv[$i])
+        switch ("$argv[$i]")
         case -F:
                 @ i++
                 set F = $argv[$i]
@@ -176,8 +176,8 @@ while ($i < $#argv)
                 goto usage
                 breaksw
         default:
-                set file = $argv[$i]
-                if ( ! -f $file ) then
+                set file = "$argv[$i]"
+                if ( ! -f "$file" ) then
                         echo2 "${cmnd} : Cannot open file ${file}\!"
                         set exit_status = 1
                         goto usage
@@ -185,6 +185,13 @@ while ($i < $#argv)
                 breaksw
         endsw
 end
+
+# when input stream is stdin
+if ("$file" == "") then
+    cat > /tmp/glogsp
+    set file=/tmp/glogsp
+endif
+
 goto main
 
 usage:
@@ -275,7 +282,7 @@ else
         set ee = "-e $e"
 endif
 
-bcut +f -s $s $ee $file |\
+bcut +f -s $s $ee "$file" |\
 fdrw -W $w -H $h -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -F $F
 
 
@@ -304,4 +311,9 @@ EOF
 
 if ($?f) then
         fig $f -W $w -H $h -o $xo $yo -g 0 -F $F
+endif
+
+# when input stream is stdin
+if ("$file" == "") then
+    /bin/rm -f /tmp/glogsp
 endif
