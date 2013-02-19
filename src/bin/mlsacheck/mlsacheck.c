@@ -166,12 +166,11 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
                Boolean modify_filter, int stable_condition)
 {
    int i;
-   double gain, r, *x, *y, *mag;
+   double gain, r, *x, *y, mag;
    Boolean ascii_report = FA;
 
    x = dgetmem(fftlen);
    y = dgetmem(fftlen);
-   mag = dgetmem(fftlen / 2 + 1);
 
    fillz(x, sizeof(*x), fftlen);
    fillz(y, sizeof(*y), fftlen);
@@ -189,34 +188,34 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
 
    /* check stability */
    for (i = 0; i < fftlen / 2 + 1; i++) {
-      mag[i] = x[i] * x[i] + y[i] * y[i];
-      mag[i] = sqrt(mag[i]);
+      mag = x[i] * x[i] + y[i] * y[i];
+      mag = sqrt(mag);
 
       switch (stable_condition) {
       case STABLE1:
-         if (mag[i] > r1) {
+         if (mag > r1) {
             ascii_report = TR;
             if (modify_filter == TR) {
-               r = r1 / mag[i];
+               r = r1 / mag;
                x[i] *= r;
                y[i] *= r;
                if (i != 0 && i != fftlen / 2) {
-                   x[fftlen - i] *= r;
-                   y[fftlen - i] *= r;
+                  x[fftlen - i] *= r;
+                  y[fftlen - i] *= r;
                }
             }
          }
          break;
       case STABLE2:
-         if (mag[i] > r2) {
+         if (mag > r2) {
             ascii_report = TR;
             if (modify_filter == TR) {
-               r = r2 / mag[i];
+               r = r2 / mag;
                x[i] *= r;
                y[i] *= r;
                if (i != 0 && i != fftlen / 2) {
-                   x[fftlen - i] *= r;
-                   y[fftlen - i] *= r;
+                  x[fftlen - i] *= r;
+                  y[fftlen - i] *= r;
                }
             }
          }
@@ -231,7 +230,6 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
 
    free(x);
    free(y);
-   free(mag);
 
    /* output ascii report */
    if (ascii_report == TR) {
