@@ -167,3 +167,29 @@ int freadf(double *ptr, const size_t size, const int nitems, FILE * fp)
    return n;
 }
 #endif                          /* DOUBLE */
+
+void SPTK_byte_swap(void *p, size_t size, size_t num)
+{
+   char *q, tmp;
+   size_t i, j;
+
+   q = (char *) p;
+
+   for (i = 0; i < num; i++) {
+      for (j = 0; j < (size / 2); j++) {
+         tmp = *(q + j);
+         *(q + j) = *(q + (size - 1 - j));
+         *(q + (size - 1 - j)) = tmp;
+      }
+      q += size;
+   }
+}
+
+int fwrite_little_endian(void *buf, const size_t size,
+                         const size_t n, FILE * fp)
+{
+#ifdef WORDS_BIGENDIAN
+   SPTK_byte_swap(buf, size, n);
+#endif
+   return fwrite(buf, size, n, fp);
+}

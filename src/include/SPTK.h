@@ -71,6 +71,12 @@
 #define ABS(x) ((x<0.0) ? -x : x)
 /* #endif */
 
+#ifdef __BIG_ENDIAN
+#  if __BYTE_ORDER == __BIG_ENDIAN
+#    define WORDS_BIGENDIAN
+#  endif
+#endif
+
 /* enum for Boolean */
 typedef enum _Boolean { FA, TR } Boolean;
 
@@ -115,6 +121,8 @@ int fwritex(void *ptr, const size_t size, const int nitems, FILE * fp);
 int freadx(void *ptr, const size_t size, const int nitems, FILE * fp);
 int fwritef(double *ptr, const size_t size, const int nitems, FILE * fp);
 int freadf(double *ptr, const size_t size, const int nitems, FILE * fp);
+int fwrite_little_endian(void *ptr, const size_t size,
+                         const size_t n, FILE * fp);
 void fillz(void *ptr, const size_t size, const int nitem);
 FILE *getfp(char *name, char *opt);
 short *sgetmem(const int leng);
