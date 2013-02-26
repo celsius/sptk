@@ -53,6 +53,7 @@
 *       options:                                                        *
 *               -p p     :  decimation period       [10]                *
 *               -s s     :  start sample            [0]                 *
+*               -l l     :  frame length            [1]                 *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ...                                   *
@@ -88,6 +89,7 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define PERIOD 10
 #define START 0
+#define FLENG 1
 
 /*  Command Name  */
 char *cmnd;
@@ -103,6 +105,7 @@ void usage(int status)
    fprintf(stderr, "  options:\n");
    fprintf(stderr, "       -p p  : decimation period [%d]\n", PERIOD);
    fprintf(stderr, "       -s s  : start sample      [%d]\n", START);
+   fprintf(stderr, "       -l l  : frame length      [%d]\n", FLENG);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)     [stdin]\n", FORMAT);
@@ -120,9 +123,9 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int period = PERIOD, start = START, i;
+   int period = PERIOD, start = START, fleng = FLENG, i;
    FILE *fp = stdin;
-   double x;
+   double *x;
 
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -140,6 +143,10 @@ int main(int argc, char **argv)
             start = atoi(*++argv);
             --argc;
             break;
+         case 'l':
+            fleng = atoi(*++argv);
+            --argc;
+            break;
          case 'h':
             usage(0);
          default:
@@ -149,14 +156,16 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
+   x = dgetmem(fleng);
+
    for (i = 0; i < start; i++)
-      if (freadf(&x, sizeof(x), 1, fp) != 1)
+      if (freadf(x, sizeof(*x), fleng, fp) != fleng)
          return (1);
 
    i = period;
-   while (freadf(&x, sizeof(x), 1, fp) == 1) {
+   while (freadf(x, sizeof(*x), fleng, fp) == fleng) {
       if (i == period)
-         fwritef(&x, sizeof(x), 1, stdout);
+         fwritef(x, sizeof(*x), fleng, stdout);
 
       i--;
       if (i == 0)
