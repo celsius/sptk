@@ -53,6 +53,7 @@
 *       options:                                                        *
 *               -p p     :  interpolation period   [10]                 *
 *               -s s     :  start sample           [0]                  *
+*               -l l     :  frame length           [1]                  *
 *       infile:                                                         *
 *               data sequence                                           *
 *                        , x(0), x(1), ...                              *
@@ -99,6 +100,7 @@ static char *rcs_id =
 #define PERIOD 10
 #define START 0
 #define PADINPUT FA
+#define FLENG 1
 
 char *BOOL[] = { "FALSE", "TRUE" };
 
@@ -117,6 +119,7 @@ void usage(int status)
    fprintf(stderr, "       -p p  : interpolation period         [%d]\n",
            PERIOD);
    fprintf(stderr, "       -s s  : start sample                 [%d]\n", START);
+   fprintf(stderr, "       -l l  : frame length                 [%d]\n", FLENG);
    fprintf(stderr, "       -d    : padding input rather than 0  [%s]\n",
            BOOL[PADINPUT]);
    fprintf(stderr, "       -h    : print this message\n");
@@ -136,7 +139,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int i, period = PERIOD, start = START;
+   int i, j = 0, period = PERIOD, start = START, fleng = FLENG;
    FILE *fp = stdin;
    double *x;
    Boolean padinput = PADINPUT;
@@ -156,6 +159,10 @@ int main(int argc, char **argv)
             start = atoi(*++argv);
             --argc;
             break;
+         case 'l':
+            fleng = atoi(*++argv);
+            --argc;
+            break;
          case 'd':
             padinput = 1 - padinput;
             break;
@@ -168,16 +175,21 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
-   x = dgetmem(period);
+   x = dgetmem(period * fleng);
 
-   fwritef(x, sizeof(*x), start, stdout);
+   fwritef(x, sizeof(*x), start * fleng, stdout);
 
-   while (freadf(x, sizeof(*x), 1, fp) == 1) {
+   while (freadf(x, sizeof(*x), fleng, fp) == fleng) {
       if (padinput) {
-         for (i = 1; i < period; i++)
-            x[i] = x[0];
+         for (i = fleng; i < period * fleng; i++) {
+            if (j >= fleng)
+               j = 0;
+            x[i] = x[j];
+            j++;
+         }
       }
-      fwritef(x, sizeof(*x), period, stdout);
+
+      fwritef(x, sizeof(*x), period * fleng, stdout);
    }
 
    return (0);
