@@ -160,7 +160,7 @@ void usage(int status)
 long start = START, mod = MODULO;
 int is_int = 0, entry = ENTRY, is_char = 1, ff = 0;
 size_t size = sizeof(char);
-char adrsfmt = 'd', format[SIZE], form[SIZE], type = 'f';
+char adrsfmt = 'd', format[SIZE], form[SIZE], type = 'c';
 
 int main(int argc, char **argv)
 {
