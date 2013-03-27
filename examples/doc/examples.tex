@@ -9,7 +9,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2011  Nagoya Institute of Technology          %
+%                1996-2012  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -49,7 +49,7 @@
             bookmarks=true,
             bookmarkstype=toc,
             pdfauthor={SPTK working group},
-            pdftitle={Examples for using SPTK ver. 3.5}]
+            pdftitle={Examples for using SPTK ver. 3.6}]
             {hyperref}
 \usepackage[dvips]{graphicx,color}
 \usepackage{times}
@@ -60,11 +60,11 @@
  
 \title{
   Examples for Using Speech Signal Processing Toolkit\\
-  Ver. 3.5}
+  Ver. 3.6}
 
 \author{SPTK working group}
 
-\date{December 25, 2011}
+\date{December 25, 2012}
 
 \begin{document}
 
@@ -89,7 +89,8 @@ impulse -h
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling, little endian)\\
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}:
+           speech data included in this example (short integer, 16 kHz sampling, little endian)\\
   data.short-b: speech data (short integer, 16 kHz sampling, big endian)
 \end{description}
  
@@ -112,7 +113,8 @@ dmp +s data.short | less
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)\\
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}:
+           speech data included in this example (short integer, 16 kHz sampling)\\
   \includemovie[text={\textcolor[named]{Blue}{\underline{data.float}}}]{}{}{wav/data_float.wav}:
   speech data (float, 16 kHz sampling)\footnote{By clicking links in this PDF file, your PC may play some speech files, which
 were converted from ``float'' format into ``wav'' format
@@ -130,7 +132,7 @@ x2x +sf < data.short > data.float
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)
 \end{description}
 
 \begin{verbatim}
@@ -143,7 +145,7 @@ gwave +s data.short | xgr
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)\\
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)\\
   figure.eps: Encapsulated PostScript file
 \end{description}
 
@@ -155,7 +157,7 @@ gwave +s data.short | psgr > figure.eps
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)
 \item[Note:]
   This works only on Linux, Solaris, and FreeBSD.
 \end{description}
@@ -168,7 +170,7 @@ da +s -s 16 -a 100 data.short
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)
 \end{description}
 
 \begin{verbatim}
@@ -184,7 +186,7 @@ gwave +s | xgr
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)
 \item[Conditions:]
   frame period: 80 points (5 ms)\\
   minimum fundamental frequency for search: 80 Hz\\
@@ -201,7 +203,8 @@ x2x +sf data.short | pitch -a 1 -s 16 -p 80 -L 80 -H 165 > data.pitch
 
 \begin{description}
 \item[Files:]
-  data.pitch: pitch data extracted from speech data "data.short"
+  data.pitch: pitch data extracted from speech data
+           "\includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}" (float)
 \item[Conditions:]
   Minimum value of vertical axis: 0.0\\
   Maximum value of vertical axis: 250.0\\
@@ -221,7 +224,7 @@ fdrw -y 0 250 -W 1.5 -H 0.4 < data.pitch | xgr
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)\\
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)\\
   data.mcep: mel-cepstrum (float)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
@@ -293,9 +296,11 @@ mgc2sp -m 20 -a 0.42 -g 0 -l 512 | glogsp -l 512 -x 8 ) | xgr
 
 \begin{description}
 \item[Files:]
-  data.pitch: pitch data extracted from speech data "data.short"\\
+  data.pitch: pitch data extracted from speech data
+           "\includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}"
+           (float)\\
   data.mcep: mel-cepstrum (float) \\
-  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.syn}}}]{}{}{wav/data_mcep_syn.wav}: 
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.syn}}}]{}{}{wav/data_mcep_syn.wav}:
   synthesized speech (float)
 \item[Conditions:]
   frame period: 80 points (5 ms)\\
@@ -324,7 +329,7 @@ da +f -s 16 data.mcep.syn
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)\\
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)\\
   data.lpc: LPC coefficients (float)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
@@ -390,7 +395,9 @@ spec -l 512 -n 20 -p data.tmp | glogsp -l 512 -x 8 ;\
 
 \begin{description}
 \item[Files:]
-   data.pitch: pitch data extracted from speech data "data"\\
+   data.pitch: pitch data extracted from speech data
+           "\includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}"
+           (float)\\
    data.lpc: LPC coefficients (float)\\
 \includemovie[text={\textcolor[named]{Blue}{\underline{data.lpc.syn}}}]{}{}{wav/data_lpc_syn.wav}: 
    synthesized speech (float)
@@ -430,7 +437,7 @@ lpc2par -m 20 < data.lpc > data.par
 \subsection{Speech synthesis from PARCOR coefficients}
 \begin{description}
 \item[Files:]
-  data.pitch: pitch data extracted from speech data "data" (float)\\
+  data.pitch: pitch data extracted from speech data "\includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}" (float)\\
   data.par: PARCOR coefficients (float)\\
   \includemovie[text={\textcolor[named]{Blue}{\underline{data.par.syn}}}]{}{}{wav/data_par_syn.wav}:
   synthesized speech (float)
@@ -467,7 +474,9 @@ lpc2lsp -m 20 -n 256 < data.lpc > data.lsp
 
 \begin{description}
 \item[Files:]
-  data.pitch: pitch data extracted from speech data "data"\\
+  data.pitch: pitch data extracted from speech data
+           "\includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}"
+           (float)\\
   data.lsp: LSP coefficients (float)\\
   \includemovie[text={\textcolor[named]{Blue}{\underline{data.lsp.syn}}}]{}{}{wav/data_lsp_syn.wav}:
   synthesize speech (float)
@@ -497,7 +506,8 @@ da +f -s 16 data.lsp.syn
 
 \begin{description}
 \item[Files:]
-   speech data: data (short integer, 10 kHz sampling)\\
+   \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}:
+           speech data included in this example (short integer, 16 kHz sampling)\\
    data.mgcep: mel-generalized cepstrum (float)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
@@ -563,7 +573,9 @@ mgc2sp -m 20 -a 0.42 -c 2 -l 512 | glogsp -l 512 -x 8 ) | xgr
 
 \begin{description}
 \item[Files:]
-  data.pitch: pitch data extracted from speech data "data"\\
+  data.pitch: pitch data extracted from speech data
+           "\includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}"
+           (float)\\
   data.mgcep: mel-generalized cepstrum (float)\\
     \includemovie[text={\textcolor[named]{Blue}{\underline{data.mgcep.syn}}}]{}{}{wav/data_mgcep_syn.wav}:
   synthesized speech (float)
@@ -685,7 +697,9 @@ cdist data.mcep.cep -m 255 > data.mcep.vq.cdist
 
 \begin{description}
 \item[Files:]
-  data.pitch: pitch data extracted from speech data "data.short"\\
+  data.pitch: pitch data extracted from speech data
+           "\includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}"
+           (float)\\
   data.mcep.vq: quantized mel-cepstrum (float) \\
   \includemovie[text={\textcolor[named]{Blue}{\underline{data.mcep.vq.syn}}}]{}{}{wav/data_mcep_vq_syn.wav}:
   synthesized speech (float)
@@ -716,7 +730,7 @@ da +f -s 16 data.mcep.vq.syn
 
 \begin{description}
 \item[Files:] 
-  data.short: speech data included in this example (short integer, 16 kHz sampling)
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
   frame period: 80 points (5 ms)\\
@@ -735,7 +749,7 @@ lpc -l 400 -m 12 | lpc2c -m 12 -M 12 > data.lpc.cep
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
   frame period: 80 points (5 ms)\\
@@ -763,7 +777,7 @@ mgc2mgc -m 12 -a 0 -g -1 -n -u -M 12 -A 0.42 -G 0 > data.lpc.mcep
 
 \begin{description}
 \item[Files:]
-  data.short: speech data included in this example (short integer, 16 kHz sampling)\\
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)\\
   data.mcep: mel-cepstrum (float)
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
@@ -783,7 +797,7 @@ mcep -l 512 -m 12 -a 0.42 > data.mcep.mcep
 
 \begin{description}
 \item[Files:]
-   data.short: speech data included in this example (short integer, 10 kHz sampling)\\
+  \includemovie[text={\textcolor[named]{Blue}{\underline{data.short}}}]{}{}{wav/data_short.wav}: speech data included in this example (short integer, 16 kHz sampling)\\
 \item[Conditions:]
   frame length: 400 points (25 ms)\\
   frame period: 80 points (5 ms)\\
