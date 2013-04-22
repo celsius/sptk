@@ -54,9 +54,11 @@
 to calculate the Discrete Fourier Transform (DFT) 
 of real-valued input data in {\em infile} (or standard input), 
 and sends the result to standard output. 
-When the --m option is omitted 
-and the input data sequence length is less than the FFT size, 
-the input data is padded with zeros.
+To specify the FFT size, --l option can be used.
+Also, --m option can be used to pad the input data with zeros.
+When $M + 1 \leq L$,  the input data is padded
+with $L - M - 1$ zeros. When $M + 1 > L$, {\em fftr} terminates
+with error messages.
 The input and output data is in float format, 
 arranged as below.
 \begin{displaymath}
