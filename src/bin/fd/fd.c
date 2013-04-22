@@ -331,8 +331,11 @@ void fdump(FILE * fp)
          for (i = 0; (i < entry) && !feof(fp) && (n < mod); i++, n++) {
             switch (type) {
             case 'c':
-               s[i] = (((u.b & 0x7f) < 32) || (u.b == 0x7f)
-                       || (u.b >= 0xe0)) ? '.' : u.b;
+               if (isprint(u.b)) {
+                  s[i] = u.b;
+               } else {
+                  s[i] = '.';
+               }
                if (is_char)
                   printf("%02x ", u.b);
                else
