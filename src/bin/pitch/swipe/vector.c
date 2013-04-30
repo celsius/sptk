@@ -588,6 +588,7 @@ static void dgels(int n, vector Ap, vector bp)
   LU(n, a.m);
   /* solve linear equation via LU decomposition */
   SOLVE(n, a.m, bp.v);
+  freem(a);
 }
 
 #endif

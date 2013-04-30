@@ -192,6 +192,8 @@ void La(matrix L, vector f, vector fERBs,
       fo[j][0] = fi_tmp[j];
       fo[j][1] = fo_tmp[j];
     }
+    free(fi_tmp);
+    free(fo_tmp);
 
 #endif
 #if 0
