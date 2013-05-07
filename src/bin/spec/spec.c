@@ -215,12 +215,12 @@ int main(int argc, char **argv)
          fp = getfp(*argv, "rb");
 
    if (etype == 1 && eps < 0.0) {
-      fprintf(stderr, "scep : value of e must be e>=0!\n");
+      fprintf(stderr, "%s : value of e must be e >= 0!\n", cmnd);
       usage(1);
    }
 
    if (etype == 2 && eps2 >= 0.0) {
-      fprintf(stderr, "scep : value of E must be E<0!\n");
+      fprintf(stderr, "%s : value of E must be E < 0!\n", cmnd);
       usage(1);
    }
 
