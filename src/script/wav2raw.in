@@ -68,8 +68,9 @@ set normalization_all = 0
 set OutputType = s
 set OutMaxVal = 32767
 set data_position
-set READfmt = 0
-set ENTERdatachunk = 0
+set read_fmt = 0
+set enter_datachunk = 0
+set read_data = 0
 set left = 0
 set right = 0
 set decimate_start = 0
@@ -278,6 +279,7 @@ while ( $j <= $#file )
 
         switch( $ChunkID )
         case 666D7420: #The chunk ID is "fmt " (ASCII code, hexadecimal number)
+            set fmt_start = $Current
             @ tmp = $Current + 1
             set FormatID = `bcut +c -s $Current -e $tmp $f | x2x +Sa`
             @ Current = $Current + 2
@@ -311,17 +313,10 @@ while ( $j <= $#file )
                 breaksw
             endsw
 
-            @ Current = $Current + 2
+            @ Current = $fmt_start + $ChunkSize
 
-            # Extra format bytes
-            if ($ChunkSize != 16) then
-                @ tmp = $Current + 2
-                set ExtraFormatSize = `bcut +c -s $Current -e $tmp $f | x2x +Sa`
-                @ Current = $Current + 2 + $ExtraFormatSize
-            endif
-
-            set READfmt = 1 # enable to read "data" chunk
-            if ( $ENTERdatachunk == 0) then
+            set read_fmt = 1 # enable to read "data" chunk
+            if ( $enter_datachunk == 0) then
                 breaksw
             else
                 # if "data" chunk has been read
@@ -330,8 +325,8 @@ while ( $j <= $#file )
             endif
 
         case 64617461: #The chunk ID is "data" (ASCII code, hexadecimal number)
-            if ( $READfmt == 0 ) then
-                set ENTERdatachunk = 1
+            if ( $read_fmt == 0 ) then
+                set enter_datachunk = 1
                 set data_position = $Current
                 breaksw
             endif
@@ -461,6 +456,8 @@ while ( $j <= $#file )
                 /bin/rm -f $f
             endif
 
+            set read_data = 1
+
             @ Current = $Current + $ChunkSize
             breaksw
 
@@ -469,6 +466,11 @@ while ( $j <= $#file )
             breaksw
 
         endsw # end of switch($ChunkID)
+
+        if (($read_fmt == 1) && ($read_data == 1)) then
+            break
+        endif
+
         @ Rest = $FileSize - $Current
     end # end of while( $Rest > 0 )
     @ j++
