@@ -84,6 +84,7 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
+#include <limits.h>
 
 #if defined(WIN32)
 #  include "SPTK.h"
@@ -167,10 +168,10 @@ void get_coef(double *input, double *output, int dw_num,
               int *position, int TOTAL, int total, int length,
               int *win_size_forward, int *win_size_backward)
 {
-   int i, j, l, t, d, index, width;
+   int i, j, l, t, d, index, width, tmp;
    double T0, T1, T2, T3, T4, b[3], b0, b1, b2;
-   double **Matrix = (double **) malloc(sizeof(double *) * 3),
-       **Inverse = (double **) malloc(sizeof(double) * 3);
+   double **Matrix = (double **) getmem(sizeof(double *), 3),
+       **Inverse = (double **) getmem(sizeof(double *), 3);
    double *tmpMat = dgetmem(3 * 3), *tmpInv = dgetmem(3 * 3);
    Boolean boundary_begin = FA, boundary_end = FA;
 
@@ -184,6 +185,7 @@ void get_coef(double *input, double *output, int dw_num,
          for (t = 0; t < TOTAL; t++) {
             for (l = 0; l < length; l++) {
                if (d == 0) {
+                  output[dw_num * length * t + l] = magic;
                   output[dw_num * length * t + length + l] = magic;
                } else if (d == 1) {
                   output[dw_num * length * t + length * 2 + l] = magic;
@@ -198,10 +200,10 @@ void get_coef(double *input, double *output, int dw_num,
             index = t + i;
             if (index < 0) {
                boundary_begin = TR;
-               width = (int) (-1.0E30); /* point at infinity */
+               width = -SHRT_MAX;
             } else if (index >= total) {
                boundary_end = TR;
-               width = (int) (1.0E30);  /* point at infinity */
+               width = SHRT_MAX;
             } else {
                width = position[index] - position[t];
             }
@@ -226,16 +228,16 @@ void get_coef(double *input, double *output, int dw_num,
             b[1] = 0.0;
             b[2] = 0.0;
             for (i = -win_size_backward[d]; i <= win_size_forward[d]; i++) {
-               int tmp;
-               if (t + i < 0) {
+               index = t + i;
+               if (index < 0) {
                   tmp = position[0];
                   width = position[0] - position[t];
-               } else if (t + i > total) {
+               } else if (index >= total) {
                   tmp = position[total - 1];
                   width = position[total - 1] - position[t];
                } else {
-                  tmp = position[t + i];
-                  width = position[t + i] - position[t];
+                  tmp = position[index];
+                  width = position[index] - position[t];
                }
                b[0] += input[length * (tmp) + l];
                b[1] += width * input[length * (tmp) + l];
@@ -285,15 +287,16 @@ void get_coef(double *input, double *output, int dw_num,
 
 int main(int argc, char *argv[])
 {
-   FILE *fp = stdin, *fpc;
+   FILE *fp = stdin, *fpc = NULL;
    char *coef = NULL;
    double *x = NULL, *dx = NULL, **dw_coef = NULL;
    int i, j, l, d, t, tj, fsize, leng = LENG, total = T;
    int dw_num = 1, **dw_width = NULL, dw_calccoef = -1, dw_coeflen = 1,
        dw_leng = 1;
-   char **dw_fn = (char **) calloc(sizeof(char *), argc);
-   int non_magic_num, win_size_forward[2], win_size_backward[2];
-   float_list *top, *cur, *prev, *tmpf;
+   char **dw_fn = (char **) getmem(argc, sizeof(char *));
+   int non_magic_num, win_size_forward[2] = { 1, 1 }, win_size_backward[2] = {
+   1, 1};
+   float_list *top = NULL, *cur = NULL, *prev = NULL, *tmpf = NULL;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -428,16 +431,16 @@ int main(int argc, char *argv[])
 
    /* parse window files */
    /* memory allocation */
-   if ((dw_width = (int **) calloc(dw_num, sizeof(int *))) == NULL) {
+   if ((dw_width = (int **) getmem(dw_num, sizeof(int *))) == NULL) {
       fprintf(stderr, "%s : Cannot allocate memory!\n", cmnd);
       exit(1);
    }
    for (i = 0; i < dw_num; i++)
-      if ((dw_width[i] = (int *) calloc(2, sizeof(int))) == NULL) {
+      if ((dw_width[i] = (int *) getmem(2, sizeof(int))) == NULL) {
          fprintf(stderr, "%s : Cannot allocate memory!\n", cmnd);
          exit(1);
       }
-   if ((dw_coef = (double **) calloc(dw_num, sizeof(double *))) == NULL) {
+   if ((dw_coef = (double **) getmem(dw_num, sizeof(double *))) == NULL) {
       fprintf(stderr, "%s : Cannot allocate memory!\n", cmnd);
       exit(1);
    }
@@ -508,13 +511,13 @@ int main(int argc, char *argv[])
 
    /* -- Count number of input vectors and read -- */
    x = dgetmem(leng);
-   top = prev = (float_list *) malloc(sizeof(float_list));
-   top->f = (float *) malloc(sizeof(float) * leng);
+   top = prev = (float_list *) getmem(1, sizeof(float_list));
+   top->f = fgetmem(leng);
    total = 0;
    prev->next = NULL;
    while (freadf(x, sizeof(*x), leng, fp) == leng) {
-      cur = (float_list *) malloc(sizeof(float_list));
-      cur->f = (float *) malloc(sizeof(float) * leng);
+      cur = (float_list *) getmem(1, sizeof(float_list));
+      cur->f = fgetmem(leng);
       for (i = 0; i < leng; i++) {
          cur->f[i] = (float) x[i];
       }
@@ -554,7 +557,7 @@ int main(int argc, char *argv[])
       fwritef(dx, sizeof(*dx), dw_num * total * leng, stdout);
 
    } else if (dw_calccoef == 2) {
-      int *position = (int *) malloc(sizeof(int) * total);
+      int *position = (int *) getmem(total, sizeof(int));
 
       /* skip magic number */
       if (MAGIC == TR) {
@@ -581,7 +584,7 @@ int main(int argc, char *argv[])
       get_coef(x, dx, dw_num, position, total, non_magic_num, leng,
                win_size_forward, win_size_backward);
 
-      /* output static, delta, delta-delta */
+      /* output static, delta and delta-delta */
       fwritef(dx, sizeof(*dx), dw_num * total * leng, stdout);
    }
 
