@@ -103,7 +103,7 @@ char *BOOL[] = { "FALSE", "TRUE" };
 char *cmnd;
 
 /* magic number */
-Boolean MAGIC = MAGIC_FLAG;
+Boolean magic_flag = MAGIC_FLAG;
 double magic;
 
 /*  Other Definitions  */
@@ -165,24 +165,24 @@ void usage(int status)
 
 /* calculate regression quadratic polynomial coefficients */
 void get_coef(double *input, double *output, int dw_num,
-              int *position, int TOTAL, int total, int length,
+              int *position, int all_frame, int total, int length,
               int *win_size_forward, int *win_size_backward)
 {
    int i, j, l, t, d, index, width, tmp;
-   double T0, T1, T2, T3, T4, b[3], b0, b1, b2;
-   double **Matrix = (double **) getmem(sizeof(double *), 3),
-       **Inverse = (double **) getmem(sizeof(double *), 3);
+   double t0, t1, t2, t3, t4, b[3], b0, b1, b2;
+   double **matrix = (double **) getmem(sizeof(double *), 3),
+       **inverse = (double **) getmem(sizeof(double *), 3);
    double *tmpMat = dgetmem(3 * 3), *tmpInv = dgetmem(3 * 3);
    Boolean boundary_begin = FA, boundary_end = FA;
 
    for (i = 0, j = 0; i < 3; i++, j += 3) {
-      Matrix[i] = tmpMat + j;
-      Inverse[i] = tmpInv + j;
+      matrix[i] = tmpMat + j;
+      inverse[i] = tmpInv + j;
    }
 
    for (d = 0; d < dw_num - 1; d++) {
-      if (MAGIC == TR) {
-         for (t = 0; t < TOTAL; t++) {
+      if (magic_flag == TR) {
+         for (t = 0; t < all_frame; t++) {
             for (l = 0; l < length; l++) {
                if (d == 0) {
                   output[dw_num * length * t + l] = magic;
@@ -194,7 +194,7 @@ void get_coef(double *input, double *output, int dw_num,
          }
       }
       for (t = 0; t < total; t++) {
-         T0 = T1 = T2 = T3 = T4 = 0.0;
+         t0 = t1 = t2 = t3 = t4 = 0.0;
          boundary_begin = boundary_end = FA;
          for (i = -win_size_backward[d]; i <= win_size_forward[d]; i++) {
             index = t + i;
@@ -207,22 +207,22 @@ void get_coef(double *input, double *output, int dw_num,
             } else {
                width = position[index] - position[t];
             }
-            T0++;
-            T1 += width;
-            T2 += pow(width, 2);
-            T3 += pow(width, 3);
-            T4 += pow(width, 4);
+            t0++;
+            t1 += width;
+            t2 += pow(width, 2);
+            t3 += pow(width, 3);
+            t4 += pow(width, 4);
          }
-         Matrix[0][0] = T0;
-         Matrix[0][1] = T1;
-         Matrix[0][2] = T2;
-         Matrix[1][0] = T1;
-         Matrix[1][1] = T2;
-         Matrix[1][2] = T3;
-         Matrix[2][0] = T2;
-         Matrix[2][1] = T3;
-         Matrix[2][2] = T4;
-         invert(Matrix, Inverse, 3);
+         matrix[0][0] = t0;
+         matrix[0][1] = t1;
+         matrix[0][2] = t2;
+         matrix[1][0] = t1;
+         matrix[1][1] = t2;
+         matrix[1][2] = t3;
+         matrix[2][0] = t2;
+         matrix[2][1] = t3;
+         matrix[2][2] = t4;
+         invert(matrix, inverse, 3);
          for (l = 0; l < length; l++) {
             b[0] = 0.0;
             b[1] = 0.0;
@@ -244,9 +244,9 @@ void get_coef(double *input, double *output, int dw_num,
                b[2] += pow(width, 2) * input[length * (tmp) + l];
             }
             for (i = 0, b0 = 0.0, b1 = 0.0, b2 = 0.0; i < 3; i++) {
-               b0 += Inverse[0][i] * b[i];
-               b1 += Inverse[1][i] * b[i];
-               b2 += Inverse[2][i] * b[i];
+               b0 += inverse[0][i] * b[i];
+               b1 += inverse[1][i] * b[i];
+               b2 += inverse[2][i] * b[i];
             }
             b[0] = b0;
             b[1] = b1;
@@ -416,7 +416,7 @@ int main(int argc, char *argv[])
             break;
          case 'M':
             sscanf(*++argv, "%lf", &magic);
-            MAGIC = TR;
+            magic_flag = TR;
             --argc;
             break;
          case 'h':
@@ -560,7 +560,7 @@ int main(int argc, char *argv[])
       int *position = (int *) getmem(total, sizeof(int));
 
       /* skip magic number */
-      if (MAGIC == TR) {
+      if (magic_flag == TR) {
          for (t = 0, non_magic_num = 0; t < total; t++) {
             for (l = 0; l < leng; l++) {
                if (x[leng * t + l] == magic) {
