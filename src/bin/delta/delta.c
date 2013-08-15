@@ -172,12 +172,12 @@ void get_coef(double *input, double *output, int dw_num,
    double t0, t1, t2, t3, t4, b[3], b0, b1, b2;
    double **matrix = (double **) getmem(sizeof(double *), 3),
        **inverse = (double **) getmem(sizeof(double *), 3);
-   double *tmpMat = dgetmem(3 * 3), *tmpInv = dgetmem(3 * 3);
+   double *tmpmat = dgetmem(3 * 3), *tmpinv = dgetmem(3 * 3);
    Boolean boundary_begin = FA, boundary_end = FA;
 
    for (i = 0, j = 0; i < 3; i++, j += 3) {
-      matrix[i] = tmpMat + j;
-      inverse[i] = tmpInv + j;
+      matrix[i] = tmpmat + j;
+      inverse[i] = tmpinv + j;
    }
 
    for (d = 0; d < dw_num - 1; d++) {
