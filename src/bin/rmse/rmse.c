@@ -101,6 +101,8 @@ static char *rcs_id = "$Id$";
 
 /*  Default Values  */
 #define LENG 0
+#define MAGIC 0
+#define REP 0
 
 /*  Command Name  */
 char *cmnd;
@@ -147,8 +149,8 @@ int main(int argc, char **argv)
    int l = LENG, num = 0, i = 0, break_flag = 0, tv = -1;
    FILE *fp = stdin, *fp1 = NULL;
    double *x, *y, x1, y1, sub, z = 0.0;
-   double magic = 0.0, MAGIC = 0.0;
-   int magic_flag = 0, magic_count = 0, MAGIC_COUNT = 0;
+   double magic = 0.0, rep = 0.0;
+   int magic_flag = 0, magic_count = MAGIC, rep_count = REP;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -202,7 +204,7 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'M':
-            if (MAGIC_COUNT > 0) {
+            if (rep_count > 0) {
                fprintf(stderr,
                        "%s : Cannot specify -MAGIC option multiple times!\n",
                        cmnd);
@@ -232,8 +234,8 @@ int main(int argc, char **argv)
                }
             }
 
-            MAGIC = atof(*++argv);
-            MAGIC_COUNT++;
+            rep = atof(*++argv);
+            rep_count++;
             --argc;
             break;
          default:
@@ -253,14 +255,14 @@ int main(int argc, char **argv)
          break_flag = 0;
          if (magic_count)
             for (i = 0; i < l; i++) {
-               if (MAGIC_COUNT == 0) {
+               if (rep_count == 0) {
                   if (x[i] == magic || y[i] == magic)
                      break_flag = 1;
                } else {
                   if (x[i] == magic)
-                     x[i] = MAGIC;
+                     x[i] = rep;
                   if (y[i] == magic)
-                     y[i] = MAGIC;
+                     y[i] = rep;
                }
             }
          if (break_flag == 1)
@@ -278,11 +280,11 @@ int main(int argc, char **argv)
              freadf(&y1, sizeof(y1), 1, fp1) == 1) {
          if (magic_count)
             if (x1 == magic || y1 == magic) {
-               if (MAGIC_COUNT) {
+               if (rep_count) {
                   if (x1 == magic)
-                     x1 = MAGIC;
+                     x1 = rep;
                   if (y1 == magic)
-                     y1 = MAGIC;
+                     y1 = rep;
                } else {
                   return (0);
                }

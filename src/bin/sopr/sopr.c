@@ -224,7 +224,7 @@ static double mem[MEMSIZE];
 
 int main(int argc, char *argv[])
 {
-   int magic_count = 0, MAGIC_COUNT = 0;
+   int magic_count = 0, rep_count = 0;
    FILE *fp;
    char *s, c;
    char *infile = NULL;
@@ -318,7 +318,7 @@ int main(int argc, char *argv[])
                --argc;
             }
             if (c == 'M') {
-               if (MAGIC_COUNT > 0) {
+               if (rep_count > 0) {
                   fprintf(stderr,
                           "%s : Cannot specify -MAGIC option multiple times!\n",
                           cmnd);
@@ -332,7 +332,7 @@ int main(int argc, char *argv[])
                } else {
                   optbl[nopr].magic = 1 - MAGIC;
                   optbl[nopr].ifrep = 1 - REP;
-                  MAGIC_COUNT++;
+                  rep_count++;
                   s = *++argv;
                   if (s == NULL) {      /* No magic number */
                      fprintf(stderr,
