@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
       usage();
    }
 
-   while (fread(buf, sizeof(float), L, fp) == (size_t) L) {
+   while (freadf(buf, sizeof(*buf), L, fp) == L) {
 
       if (o == 0) {
          if (L <= 2) {
@@ -191,28 +191,28 @@ int main(int argc, char *argv[])
             usage();
          }
          for (i = 0; i < L; i++) {
-            fwrite(&buf[i], sizeof(float), 1, stdout);
+            fwritef(&buf[i], sizeof(*buf), 1, stdout);
          }
          for (i = L - 2; i > 0; i--) {
-            fwrite(&buf[i], sizeof(float), 1, stdout);
+            fwritef(&buf[i], sizeof(*buf), 1, stdout);
          }
       } else if (o == 1) {
          for (i = L - 1; i > 0; i--) {
-            fwrite(&buf[i], sizeof(float), 1, stdout);
+            fwritef(&buf[i], sizeof(*buf), 1, stdout);
          }
          for (i = 0; i < L; i++) {
-            fwrite(&buf[i], sizeof(float), 1, stdout);
+            fwritef(&buf[i], sizeof(*buf), 1, stdout);
          }
       } else if (o == 2) {
          tmp = buf[L - 1] / 2;
-         fwrite(&tmp, sizeof(float), 1, stdout);
+         fwritef(&tmp, sizeof(*buf), 1, stdout);
          for (i = L - 2; i > 0; i--) {
-            fwrite(&buf[i], sizeof(float), 1, stdout);
+            fwritef(&buf[i], sizeof(*buf), 1, stdout);
          }
          for (i = 0; i < L - 1; i++) {
-            fwrite(&buf[i], sizeof(float), 1, stdout);
+            fwritef(&buf[i], sizeof(*buf), 1, stdout);
          }
-         fwrite(&tmp, sizeof(float), 1, stdout);
+         fwritef(&tmp, sizeof(tmp), 1, stdout);
       }
    }
 
