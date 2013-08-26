@@ -85,16 +85,21 @@ and sends the result to standard output.
  This example displays the speech data in ``sample.wav'' with
  the corresponding addresses:
 \begin{quote}
- \verb!fd +c -a 0 sample.wav!
+ \verb!fd +c sample.wav!
 \end{quote}
  Results:\\
 \verb!000000  52 49 46 46 9a 15 00 00 57 41 56 45 66 6d 74 20 |RIFF....WAVEfmt |!\\
 \verb!000010  10 00 00 00 01 00 01 00 40 1f 00 00 40 1f 00 00 |........@...@...|!\\
 \verb!000020  01 00 08 00 64 61 74 61 76 15 00 00 8a 8a 8f 99 |....datav.......|!
-
 \begin{center}
  $\vdots$\\
 \end{center}
+
+ In the following example, {\em fd} reads {\em data.s} in short format and
+ displays it with the corresponding addresses.
+\begin{quote}
+ \verb!fd +s -a 0 data.s!
+\end{quote}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

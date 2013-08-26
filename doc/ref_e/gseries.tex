@@ -101,12 +101,22 @@ that uses the \hyperlink{fig}{fig} command.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the following example, {\em gseries} reads impulse response
+ In the following example, {\em gseries} reads impulse response
  in float format from {\em data.f} and writes the output
  in encapsulated Postscript format to {\em data.eps}.
-\begin{quote}
+ \begin{quote}
  \verb!gseries +f < data.f | psgr > data.eps!
  \end{quote}
+The following example replaces the magic number 0 in {\em data.f} by 1.0 and
+writes the output to {\em data.eps}.
+\begin{quote}
+  \verb!gseriese +f -magic 0 -MAGIC 1.0 < data.f | \!\\
+  \verb!psgr > data.eps!
+\end{quote}
+Also, the following example removes the magic number 0 in {\em data.f}.
+\begin{quote}
+  \verb!gseriese +f -magic 0 < data.f | psgr > data.eps!
+\end{quote}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

@@ -78,8 +78,8 @@ as described below.
                         d & double (8 bytes) \\
                         de & long double (12 bytes) & \quad &
                         a & ASCII \\
-                       aN & ASCII specifying the column number $N$ & \quad & 
-                             & \\ [1ex]
+                       aN & ASCII specifying the & \quad & & \\
+                          & column number $N$  & & & \\ [1ex]
                 \end{tabular} \\
                 data type is converted from $t_1(type_1)$ to $t_2(type_2)$.
                 if $t_2$ is not assigned then no operation is
@@ -147,6 +147,42 @@ is 11, and the number of decimal points assigned to 4.
   \mbox{\hspace{2em}}$\vdots$ \\
   \verb!7.0000e+000!
 \end{quote}
+\par
+By using -r option, the result can be rounded off.
+For example, suppose that the contents of {\em data.f} in float format are
+\begin{displaymath}
+  1.2,\; 2.3,\; 3.4,\; 4.5,\; 5.6,\; 6.7,\; 7.8.
+\end{displaymath}
+By the following command line without -r option,
+\begin{quote}
+  \verb!x2x +fs < data.f!
+\end{quote}
+the result will be
+\begin{displaymath}
+  1,\; 2,\; 3,\; 4,\; 5,\; 6,\; 7.
+\end{displaymath}
+This shows that the decimal points in {\em data.f} is suppressed.
+On the other hand, without -r option,
+\begin{quote}
+  \verb!x2x +fs -r < data.f!
+\end{quote}
+the result will be
+\begin{displaymath}
+  1,\; 2,\; 3,\; 5,\; 6,\; 7,\; 8.
+\end{displaymath}
+This shows that each data in {\em data.f} are rounded off.
+\par
+In the following example, the result can be clipped by -o option.
+\begin{quote}
+  \verb! echo '126 127 128 -127 -128 -129' > data.ascii! \\
+  \verb! x2x +ac -o < data.ascii!
+\end{quote}
+The result will be:
+\begin{displaymath}
+ 126,\; 127,\; 127,\; -127,\; -128,\; -128,
+\end{displaymath}
+where 128 and -129 in {\em data.ascii} are clipped by the maximum and minimum of
+char type, that is, 127 and -128, respectively.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

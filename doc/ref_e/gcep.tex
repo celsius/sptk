@@ -123,7 +123,15 @@ file, and a 15-th order generalized cepstral analysis is applied.
 The results are written to {\em data.gcep}:
 \begin{quote}
  \verb!frame < data.f | window | gcep -m 15 > data.gcep!
-\end{quote} 
+\end{quote}
+The following example shows that speech data read in float format from {\em
+data.f} is analyzed with a 24-th order generalized cepstral analysis.  During
+the analysis, The frame length is 400 points, the frame period is 80 points and
+-30 dB floor value per frame is set.
+\begin{quote}
+ \verb!frame -l 400 -p 80 < data.f | window -l 400 | \! \\
+ \verb!gcep -L -m 24 -E -30 > data.gcep!
+\end{quote}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

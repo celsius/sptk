@@ -143,12 +143,21 @@ To construct the exponential transfer function $H(z)$,
 
 \begin{qsection}{EXAMPLE}
 In the following example,
-25-th order mel-cepstrum coefficients are
+39-th order mel-cepstrum coefficients are
 read from {\em data.mcep} in float format,
 then the stability of MLSA filter is checked,
  and the results are written to {\em data.mlsachk}.
 \begin{quote}
- \verb! mlsacheck -m 25 -c data.mcep > data.mlsachk !
+ \verb! mlsacheck -a 0.48 -m 39 -c data.mcep > data.mlsachk !
+\end{quote}
+ Also, in the following example, the stability of MLSA filter of 49-th order
+ mel-cepstrum coefficients read from {\em data.mcep} is checked
+ under the condition that
+ frequency warping is 0.55, Pad\'e order is 5, and FFT length is 4096.
+ In this example, the coefficients are modified in unstable frames by -r option.
+\begin{quote}
+ \verb! mlsacheck -m 49 -a 0.55 -P 5 -l 4096 -c -r 1 data.mcep | \ !\\
+ \verb! > data.mlsachk!
 \end{quote}
 \end{qsection}
 
