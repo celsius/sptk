@@ -155,6 +155,11 @@ E)$.
  \argm{w}{W}{flooring value for weights (1/M)*W}{0.001}
  \argm{f}{}{full covariance}{FALSE}
  \argm{F}{fn}{GMM initial parameter file}{N/A}
+ \desc[1ex]{(level 2)}
+ \argm{M}{M1~M2~$\ldots$~Mn}{block size in covariance matrix,\\
+                             where $(M1+M2+\ldots+Mn)=L$}{N/A}
+ \argm{c1}{}{inter-block correlation}{N/A}
+ \argm{c2}{}{full covariance in each block}{N/A}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -175,6 +180,67 @@ initial parameter file {\em gmm.init}.
 \verb! gmm -m 8 -f data.f -F gmm.init > gmm.f! 
 \end{quote}
 
+In the followings, 15-dimentional training vectors {\em data.f} can be modeled
+by a GMM with 8 Gaussian components.  If one wants to divide the covariance
+matrix into several blocks, the -M option can be used to specify size of each
+blocks in covariance matrix.  For example, when dividing 15-dimentional vector
+into 3 sub-parts, where each part has 5 dimention, the structure of the
+covariance matrix can be represented by $3 \times 3$ sub-blocks:
+ \begin{quote}
+  \verb! gmm -l 15 -m 8 data.f -M 5 5 5 > gmm.f!
+ \end{quote}
+ Note that without -c1 and -c2 option, a diagonal covariance can be obtained
+ as shown in figure \ref{fig:gmm_c1} (a).
+ An example of the corresponding structure of
+ the covariance matrix is shown in figure \ref{fig:gmm_c1} (a).
+
+ If one wants to turn on inter-block correlation,
+ The -c1 option can be used and corresponding command line is below.
+ \begin{quote}
+  \verb! gmm -l 15 -m 8 data.f -M 5 5 5 -c1 > gmm.f!
+ \end{quote}
+ The corresponding example is shown in figure \ref{fig:gmm_c1} (b).
+
+ If one wants to turn on block-wise full covariance,
+ The -c2 option can be used and the corresponding command line is below.
+ \begin{quote}
+  \verb! gmm -l 15 -m 8 data.f -M 5 5 5 -c2 > gmm.f!
+ \end{quote}
+ The corresponding example is shown in figure \ref{fig:gmm_c1} (c).
+
+ By specifying both -c1 and -c2 option, a full covariance matrix
+ can be obtained as shown in figure \ref{fig:gmm_c1} (d).
+ This case is equivalent to the case that only -f option is specified.
+ \begin{figure}[h]
+ \begin{center}
+  \begin{tabular}{cc}
+   \begin{minipage}[b]{0.45\hsize}
+     \begin{center}
+      \includegraphics[width=0.8\hsize]{fig/GMM_1.eps}
+      \\ (a) diagonal \\(without -c1 and -c2 option)
+     \end{center}
+    \vspace{3mm}
+    \begin{center}
+     \includegraphics[width=0.8\hsize]{fig/GMM_3.eps}
+    \\ (c) block-wise full covariance \\(with -c2 option)
+    \end{center}
+   \end{minipage}
+   \begin{minipage}[b]{0.45\hsize}
+    \begin{center}
+     \includegraphics[width=0.8\hsize]{fig/GMM_2.eps}
+     \\ (b) inter-block correlation \\(with -c1 option)
+    \end{center}
+    \vspace{3mm}
+    \begin{center}
+     \includegraphics[width=0.8\hsize]{fig/GMM_4.eps}
+     \\ (d) full covariance \\(with both -c1 and -c2 option)
+    \end{center}
+   \end{minipage}
+  \end{tabular}
+ \end{center}
+ \caption{Examples of the structure of covariance matrix}
+ \label{fig:gmm_c1}
+ \end{figure}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
