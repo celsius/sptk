@@ -66,7 +66,7 @@ $\alpha$ characterizes the frequency-warping transform,
  while $\gamma$ characterizes the generalized log magnitude transform
 and $K$ represents the gain.
 
-Also, {\em mgclsp2mgc} does not check the stability of MGC-LSPs.
+Also, {\em mgclsp2mgc} does not check the stability of the MGC-LSPs.
  If it is necessary to use the {\em lspcheck} command
 for checking the stability of the input MGC-LSPs and then
  generating the mel-generalized cepstrum coefficients.
@@ -92,14 +92,14 @@ for checking the stability of the input MGC-LSPs and then
 \end{options}
 
 \begin{qsection}{EXAMPLE}
- In the following example, MGC-LSP is read in float format from
+ In the following example, {\em mgclsp2mgc} is read in float format from
  {\em data.mgclsp}, and analyzed with $\alpha = 0.35, \gamma = -1$. The
  mel-generalized cepstrum coefficients are evaluated and written
  to {\em data.mgc}:
 \begin{quote}
 \verb!mgclsp2mgc -a 0.35 -g -1 data.mgclsp > data.mgc!
 \end{quote}
-Also, stability of MGC-LSP's can be checked using the following command:
+Also, the stability of the MGC-LSPs can be checked by using the following command:
 \begin{quote}
 \verb!lspcheck -r 0.01 data.mgclsp | \ ! \\
 \verb!mgclsp2mgc -a 0.35 -g -1 > data.mgc!
