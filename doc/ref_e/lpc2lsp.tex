@@ -45,7 +45,7 @@
 \name{lpc2lsp}{transform LPC to LSP}{speech parameter transformation}
 
 \begin{synopsis}
-\item [lpc2lsp] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --l ] [ --o $O$ ] [ --n $N$ ]
+\item [lpc2lsp] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --L ] [ --o $O$ ] [ --n $N$ ]
 		[ --p $P$ ] [ --q $Q$ ] [ --d $D$ ] 
 \item [\ ~~~~~~~~] [ {\em infile} ] 
 \end{synopsis}
@@ -124,7 +124,7 @@ LSP coefficients.
 	\argm{m}{M}{order of LPC}{25}
 	\argm{s}{S}{sampling frequency (kHz)}{10.0}
 	\argm{k}{}{output gain}{TRUE}
-	\argm{l}{}{output log gain instead of linear gain}{FALSE}
+	\argm{L}{}{output log gain instead of linear gain}{FALSE}
 	\argm{o}{O}{output format \\
 		\begin{tabular}{ll} \\[-1ex]
 			$0$ & normalized frequency $(0 \dots \pi)$ \\
