@@ -45,20 +45,20 @@
 \name{vsum}{summation of vector}{data processing}
 
 \begin{synopsis}
-\item[vsum] [ --l $L$ ] [ --n $N$ ] [ {\em infile} ]
+\item[vsum] [ --l $L$ ] [ --n $N$ ] [ --t $T$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em vsum} calculates the vector sum of groups of $N$ input vectors 
-of length $L$ from {\em infile} (or standard input), 
+{\em vsum} calculates the vector sum of groups of $T$ input vectors 
+of length $L$ or $N$ from {\em infile} (or standard input), 
 sending the result to standard output.
 That is, if the input data is given by
 \begin{displaymath}
 \overbrace{
   \overbrace{a_1(1),\dots,a_1(L)}^{L},
   \overbrace{a_2(1),\dots,a_2(L)}^{L},\dots,
-  \overbrace{a_N(1),\dots,a_N(L)}^{L}
-}^{N \cdot L},\dots
+  \overbrace{a_T(1),\dots,a_T(L)}^{L}
+}^{T \cdot L},\dots
 \end{displaymath}
 then the output is 
 \begin{displaymath}
@@ -66,15 +66,16 @@ then the output is
 \end{displaymath}
 ,where $s(n)$ can be written as
 \begin{displaymath}
-  s(n)=\sum_{k=1}^{N} a_k(n)
+  s(n)=\sum_{k=1}^{T} a_k(n)
 \end{displaymath}
 
 Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-	\argm{l}{L}{order of vector}{1}
-	\argm{n}{N}{number of vector}{EOD}
+	\argm{l}{L}{length of vector}{1}
+	\argm{n}{N}{order of vector}{l-1}
+    \argm{t}{T}{number of vector}{EOD}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -87,14 +88,14 @@ the whole data in file {\em data.f} read in float format:
 In this example, the norm of 10-th order vectors are
 evaluated and written to {\em data.n}:
 \begin{quote}
-  \verb!sopr data.f -P | vsum -n 10 | sopr -R > data.n!
+  \verb!sopr data.f -P | vsum -t 10 | sopr -R > data.n!
 \end{quote}
 \par
 In the next example, 15-th order coefficients vectors are read
 from {\em data.f}, the average for every 3 frames is evaluated,
 and output to {\em data.av}:
 \begin{quote}
-  \verb!vsum -l 15 -n 3 data.f | sopr -d 3 > data.av!
+  \verb!vsum -l 15 -t 3 data.f | sopr -d 3 > data.av!
 \end{quote}
 \end{qsection}
 
