@@ -51,8 +51,9 @@
 *       usage:                                                          *
 *               vsum [ options ] [ infile ] > stdout                    *
 *       options:                                                        *
-*               -l l     :  order of vector    [1]                      *
-*               -n n     :  number of vector   [EOD]                    *
+*               -l l     :  length of vector    [1]                     *
+*               -n n     :  order of vector     [l-1]                   *
+*               -t t     :  number of vector    [EOD]                   *
 *                                                                       *
 ************************************************************************/
 
@@ -95,8 +96,9 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -l l   : order of vector    [%d]\n", LENG);
-   fprintf(stderr, "       -n n   : number of vector   [EOD]\n");
+   fprintf(stderr, "       -l l   : length of vector    [%d]\n", LENG);
+   fprintf(stderr, "       -n n   : order of vector     [l-1]\n");
+   fprintf(stderr, "       -t t   : number of vector    [EOD]\n");
    fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       vectors (%s)             [stdin]\n", FORMAT);
@@ -129,6 +131,10 @@ int main(int argc, char *argv[])
             --argc;
             break;
          case 'n':
+            leng = atoi(*++argv) + 1;
+            --argc;
+            break;
+         case 't':
             nv = atoi(*++argv);
             --argc;
             break;
