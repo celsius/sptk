@@ -136,7 +136,7 @@ int main(int argc, char **argv)
    FILE *fp = stdin, *fgmm = NULL;
    GMM gmm;
    double logp, ave_logp, *x;
-   int m, M = DEF_M, L = DEF_L, T;
+   int M = DEF_M, L = DEF_L, T;
    Boolean aflag = DEF_A;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -174,27 +174,14 @@ int main(int argc, char **argv)
 
    /* Read GMM parameters */
    if (fgmm == NULL) {
-      fprintf(stderr, "%s : GMM file name required !\n", cmnd);
+      fprintf(stderr, "%s: GMM file must be specified!\n", cmnd);
       usage(1);
    }
 
-   gmm.weight = dgetmem(M);
-   gmm.gauss = (Gauss *) getmem(M, sizeof(Gauss));
+   alloc_GMM(&gmm, M, L, 0);
+   load_GMM(&gmm, M, L, 0, fgmm);
 
-   for (m = 0; m < M; m++) {
-      gmm.gauss[m].mean = dgetmem(L);
-      gmm.gauss[m].var = dgetmem(L);
-   }
-
-   freadf(gmm.weight, sizeof(double), M, fgmm);
-   for (m = 0; m < M; m++) {
-      freadf(gmm.gauss[m].mean, sizeof(double), L, fgmm);
-      freadf(gmm.gauss[m].var, sizeof(double), L, fgmm);
-   }
    fclose(fgmm);
-
-   for (m = 0; m < M; m++)
-      gmm.gauss[m].gconst = cal_gconst(gmm.gauss[m].var, L);
 
    /* Calculate and output log-probability */
    T = 0;

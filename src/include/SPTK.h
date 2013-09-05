@@ -204,6 +204,10 @@ double log_wgd(GMM * gmm, const int m, double *dat, const int L);
 double log_wgdf(GMM * gmm, const int m, double *dat, const int L);
 double log_add(double logx, double logy);
 double log_outp(GMM * gmm, double *dat, const int M, const int L);
+int alloc_GMM(GMM * gmm, int M, int L, Boolean full);
+int load_GMM(GMM * gmm, int M, int dim, Boolean full, FILE * fp);
+int save_GMM(GMM * gmm, const int M, const int L, Boolean full, FILE * fp);
+int free_GMM(GMM * gmm, const int M, Boolean full);
 void gnorm(double *c1, double *c2, int m, const double g);
 void grpdelay(double *x, double *gd, const int size, const int is_arma);
 int histogram(double *x, const int size, const double min, const double max,

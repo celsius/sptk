@@ -115,6 +115,7 @@ double cal_gconstf(double **var, const int D)
 
    tmp = cal_det(var, D);
    if (tmp == 0) {
+      fprintf(stderr, "WARNING : det is 0!\n");
       return 0;
    }
    gconst = D * log(M_2PI);
@@ -305,4 +306,109 @@ double log_outp(GMM * gmm, double *dat, const int M, const int L)
       logb = log_add(logb, logwgd);
    }
    return (logb);
+}
+
+double log_outpf(GMM * gmm, double *dat, const int M, const int L)
+{
+   int m;
+   double logwgd, logb;
+
+   for (m = 0, logb = LZERO; m < M; m++) {
+      logwgd = log_wgdf(gmm, m, dat, L);
+      logb = log_add(logb, logwgd);
+   }
+
+   return (logb);
+}
+
+int alloc_GMM(GMM * gmm, int M, int L, Boolean full)
+{
+   int m;
+
+   gmm->weight = dgetmem(M);
+   gmm->gauss = (Gauss *) getmem(sizeof(Gauss), M);
+   for (m = 0; m < M; m++) {
+      gmm->gauss[m].mean = dgetmem(L);
+
+      if (full != 1) {
+         gmm->gauss[m].var = dgetmem(L);
+      } else {
+         gmm->gauss[m].cov = ddgetmem(L, L);
+         gmm->gauss[m].inv = ddgetmem(L, L);
+      }
+   }
+
+   return (0);
+}
+
+int load_GMM(GMM * gmm, int M, int L, Boolean full, FILE * fp)
+{
+   int m, l;
+
+   freadf(gmm->weight, sizeof(*(gmm->weight)), M, fp);
+   for (m = 0; m < M; m++) {
+      freadf(gmm->gauss[m].mean, sizeof(*(gmm->gauss[m].mean)), L, fp);
+
+      if (full != 1) {
+         freadf(gmm->gauss[m].var, sizeof(*(gmm->gauss[m].var)), L, fp);
+         gmm->gauss[m].gconst = cal_gconst(gmm->gauss[m].var, L);
+      } else {
+         for (l = 0; l < L; l++) {
+            freadf(gmm->gauss[m].cov[l],
+                   sizeof(*(gmm->gauss[m].cov[l])), L, fp);
+         }
+         invert(gmm->gauss[m].cov, gmm->gauss[m].inv, L);
+         gmm->gauss[m].gconst = cal_gconstf(gmm->gauss[m].cov, L);
+      }
+   }
+
+   return (0);
+}
+
+int save_GMM(GMM * gmm, const int M, const int L, Boolean full, FILE * fp)
+{
+   int m, i, j, l;
+
+   fwritef(gmm->weight, sizeof(*(gmm->weight)), M, fp);
+   for (m = 0; m < M; m++) {
+      if (full != 1) {
+         fwritef(gmm->gauss[m].mean, sizeof(*(gmm->gauss[m].mean)), L, fp);
+         fwritef(gmm->gauss[m].var, sizeof(*(gmm->gauss[m].var)), L, fp);
+      } else {
+         fwritef(gmm->gauss[m].mean, sizeof(*(gmm->gauss[m].mean)), L, fp);
+         for (i = 0; i < L; i++) {
+            for (j = 0; j < i; j++) {
+               gmm->gauss[m].cov[j][i] = gmm->gauss[m].cov[i][j];
+            }
+         }
+         for (l = 0; l < L; l++) {
+            fwritef(gmm->gauss[m].cov[l],
+                    sizeof(*(gmm->gauss[m].cov[l])), L, fp);
+         }
+      }
+   }
+
+   return (0);
+}
+
+int free_GMM(GMM * gmm, const int M, Boolean full)
+{
+   int m;
+
+   for (m = 0; m < M; m++) {
+      free(gmm->gauss[m].mean);
+
+      if (full != 1) {
+         free(gmm->gauss[m].var);
+      } else {
+         free(gmm->gauss[m].cov[0]);
+         free(gmm->gauss[m].inv[0]);
+         free(gmm->gauss[m].cov);
+         free(gmm->gauss[m].inv);
+      }
+   }
+   free(gmm->gauss);
+   free(gmm->weight);
+
+   return (0);
 }
