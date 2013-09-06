@@ -353,7 +353,7 @@ else
 endif
 
 if ( ! $flagy ) then
-        set val = (`x2x +${type}f < $file | minmax | x2x +fs | x2x +sa`)
+        set val = (`x2x +${type}f < $file | minmax | x2x +fa`)
 
         if ( $val[1] < 0 ) then
                 @ val[1] *= -1
