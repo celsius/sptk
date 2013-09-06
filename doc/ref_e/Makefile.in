@@ -119,6 +119,7 @@ INC  = cmndref.sty \
 	lpc2lsp.tex \
 	lpc2par.tex \
 	lsp2lpc.tex \
+	lsp2sp.tex \
 	lspcheck.tex \
 	lspdf.tex \
 	ltcdf.tex \
