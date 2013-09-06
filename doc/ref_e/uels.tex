@@ -100,6 +100,12 @@ and sends spectrum coefficients to {\em data.cep}:
 \begin{quote}
  \verb!frame < data.f | window | uels -m 15 > data.cep!
 \end{quote} 
+
+Also, in the following example, the floor value is set as -30 dB per frame by using the -E option.
+ \begin{quote}
+ \verb!frame < data.f | window | uels -E -30 > data.cep !
+ \end{quote}
+
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

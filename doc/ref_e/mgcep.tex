@@ -201,7 +201,6 @@ In this case, the linear prediction coefficients are represented as
 \begin{displaymath}
   K, a(1), a(2), \dots, a(M)
 \end{displaymath}
-\end{qsection}
 
 In the following example, speech data in float format is read
 from {\em data.f}, and analyzed with $\gamma=0$, $\alpha=0$
@@ -211,6 +210,14 @@ The resulting cepstral coefficients are written to {\em data.cep}:
   \verb!frame < data.f | window | \! \\
   \verb!fftr -A -H | mgcep -q 3 > data.cep!
 \end{quote}
+
+Also, in the following example, the floor value is set as -30 dB per frame by using the -E option.
+ \begin{quote}
+ \verb!frame < data.f | window | mgcep -E -30 > data.mcep !
+ \end{quote}
+
+\end{qsection}
+
 
 \begin{qsection}{SEE ALSO}
 \hyperlink{uels}{uels},

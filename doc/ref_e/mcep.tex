@@ -117,6 +117,11 @@ analyzed. Then, mel-cepstral coefficients are written to {\em data.mcep}:
 \begin{quote}
  \verb!frame < data.f | window | fftr -A -H | mcep -q 3 > data.mcep !
 \end{quote}
+Also, in the following example, the floor value is set as -30 dB per frame by using the -E option. 
+ \begin{quote}
+ \verb!frame < data.f | window | mcep -E -30 > data.mcep !
+ \end{quote}
+
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
