@@ -131,6 +131,7 @@ double *dgetmem(const int leng);
 float *fgetmem(const int leng);
 /* real *rgetmem (const int leng); */
 float **ffgetmem(const int leng);
+double **ddgetmem(const int leng1, const int leng2);
 char *getmem(const size_t leng, const size_t size);
 double gexp(const double r, const double x);
 double glog(const double r, const double x);

@@ -112,3 +112,17 @@ float **ffgetmem(const int leng)
 {
    return ((float **) getmem((size_t) leng, sizeof(float *)));
 }
+
+double **ddgetmem(const int x, const int y)
+{
+   int i, j;
+   double **tmp, *tmp2;
+   tmp = (double **) getmem(sizeof(double *), x);
+   tmp2 = dgetmem(x * y);
+
+   for (i = 0, j = 0; i < x; i++, j += y) {
+      tmp[i] = tmp2 + j;
+   }
+
+   return (tmp);
+}
