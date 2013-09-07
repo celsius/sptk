@@ -53,6 +53,7 @@
     float  *fgetmem(leng)
     real   *rgetmem(leng)
     float  **fgetmem(leng)
+    double **ddgetmem(leng1, leng2)
 
     int leng : data length
 
@@ -113,14 +114,14 @@ float **ffgetmem(const int leng)
    return ((float **) getmem((size_t) leng, sizeof(float *)));
 }
 
-double **ddgetmem(const int x, const int y)
+double **ddgetmem(const int leng1, const int leng2)
 {
    int i, j;
    double **tmp, *tmp2;
-   tmp = (double **) getmem(sizeof(double *), x);
-   tmp2 = dgetmem(x * y);
+   tmp = (double **) getmem((size_t) leng1, sizeof(double *));
+   tmp2 = dgetmem(leng1 * leng2);
 
-   for (i = 0, j = 0; i < x; i++, j += y) {
+   for (i = 0, j = 0; i < leng1; i++, j += leng2) {
       tmp[i] = tmp2 + j;
    }
 
