@@ -63,6 +63,7 @@ SUBDIRS = acep \
 	lpc2lsp \
 	lpc2par \
 	lsp2lpc \
+	lsp2sp \
 	lspcheck \
 	lspdf \
 	ltcdf \

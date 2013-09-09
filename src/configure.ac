@@ -210,6 +210,7 @@ AC_CONFIG_FILES([Makefile
                  bin/lpc2lsp/Makefile
                  bin/lpc2par/Makefile
                  bin/lsp2lpc/Makefile
+				 bin/lsp2sp/Makefile
                  bin/lspcheck/Makefile
                  bin/lspdf/Makefile
                  bin/ltcdf/Makefile

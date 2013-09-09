@@ -60,6 +60,7 @@ nodist_libSPTK_a_SOURCES = $(top_srcdir)/include/SPTK.h \
 		$(top_srcdir)/bin/lpc2lsp/_lpc2lsp.c \
 		$(top_srcdir)/bin/lpc2par/_lpc2par.c \
 		$(top_srcdir)/bin/lsp2lpc/_lsp2lpc.c \
+		$(top_srcdir)/bin/lsp2sp/_lsp2sp.c \
 		$(top_srcdir)/bin/lspcheck/_lspcheck.c \
 		$(top_srcdir)/bin/lspdf/_lspdf.c \
 		$(top_srcdir)/bin/ltcdf/_ltcdf.c \
