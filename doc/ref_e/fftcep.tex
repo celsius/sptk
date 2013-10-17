@@ -73,10 +73,13 @@ number of iterations $J$ and the acceleration factor $K$ are given.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In the example below, speech data in float format is read from
-{\em data.f} and the cepstral coefficients are output to {\em data.cep}:
+In the example below, speech data in float format is read from {\em data.f}.  The
+frame length and frame period are of 400 and 80, respectively.
+FFT with 512 points is then performed and
+the resultant cepstral coefficients are output to {\em data.cep}:
 \begin{quote}
-  \verb!frame < data.f | window | fftcep > data.cep !
+  \verb! frame -p 80 -l 400 < data.f | window -l 400 -L 512 | \! \\
+  \verb! fftcep -l 512 > data.cep!
 \end{quote}
 \end{qsection}
 

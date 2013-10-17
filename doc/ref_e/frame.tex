@@ -76,13 +76,13 @@ $x(2P-L/2)$&$,$&$x(2P-L/2+1)$&$,$&$\ldots$&$,$&$x(2P)$&$,$&$\ldots$&$,$&$x(2P+L/
 
 
 \begin{qsection}{EXAMPLE}
-In the example below, data is read from {\em data.f} file,
-The frame period is of 80 and Blackman window is used. Also,
-linear prediction analysis is applied. The output is written in
-{\em data.lpc} file:
+In the example below, data is read from {\em data.f} file.  The frame length and
+frame period are of 400 and 80, respectively, and Blackman window is used. Moreover,
+linear prediction analysis is applied. The output is written in {\em data.lpc} file:
 \begin{quote}
- \verb!frame -p 80 < data.f | window | lpc > data.lpc!
-\end{quote} 
+ \verb!frame -l 400 -p 80 < data.f | window -l 400 | \!\\
+ \verb!lpc > data.lpc!
+\end{quote}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
