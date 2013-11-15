@@ -5,7 +5,7 @@ if USEXGR
 bin_PROGRAMS = xgr
 endif
 
-INCLUDES = -I$(top_srcdir)/include 
+AM_CPPFLAGS = -I$(top_srcdir)/include
 xgr_SOURCES = config.h \
 	gcdata.h \
 	plot.c \

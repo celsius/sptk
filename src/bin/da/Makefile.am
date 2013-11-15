@@ -2,7 +2,7 @@
 ##
 ## $Id$
 if USEDA
-INCLUDES = -I$(top_srcdir)/include
+AM_CPPFLAGS = -I$(top_srcdir)/include
 bin_PROGRAMS = dawrite
 bin_SCRIPTS = da.sh
 dawrite_SOURCES = da.h dawrite.c winplay.c winplay.h
