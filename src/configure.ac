@@ -5,7 +5,7 @@ AC_INIT(SPTK, 3.6, http://sourceforge.net/projects/sp-tk/)
 AC_CONFIG_AUX_DIR([config])
 AC_COPYRIGHT(Copyright 1984-2007 Tokyo Institute of Technology)
 AC_COPYRIGHT(Copyright 1996-2012 Nagoya Institute of Technology)
-AM_INIT_AUTOMAKE(SPTK, 3.6, nostdinc no-installinfo no-installman)
+AM_INIT_AUTOMAKE([nostdinc])
 AC_SUBST(PACKAGE_NAME)
 AC_SUBST(PACKAGE_VERSION)
 
