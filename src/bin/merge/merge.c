@@ -309,8 +309,9 @@ int main(int argc, char **argv)
       }
    }
 
-   if (feof(fp1) && feof(fp2))
-      return (0);
-   else
-      return (1);
+   if ((fgetc(fp1) == EOF) && (fgetc(fp2) == EOF)) {
+      if (feof(fp1) && feof(fp2))
+         return (0);
+   }
+   return (1);
 }
