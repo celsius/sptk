@@ -52,7 +52,7 @@
 #                                                                       #
 #########################################################################
 
-set path        = ( @binpath@ $path )
+set path        = ( @binpath@/.bin @binpath@ $path )
 set libpath     = '@libpath@'
 set sptkver     = '@sptk_version@'
 set cvsid       = '$Id$'
