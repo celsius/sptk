@@ -44,7 +44,7 @@
 
 /************************************************************************
 *                                                                       *
-*    IDCT : Inverse Discrete Cosine Transformation                      *
+*    IDCT : Inverse Discrete Cosine Transform                           *
 *                                                                       *
 *                                             2011.4 Akira Tamamori     *
 *                                                                       *
@@ -108,7 +108,7 @@ int size = SIZE;
 int usage(void)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s - Inverse Discrete Cosine Transformation\n", cmnd);
+   fprintf(stderr, " %s - Inverse Discrete Cosine Transform\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);

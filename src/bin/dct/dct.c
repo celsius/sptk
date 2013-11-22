@@ -44,7 +44,7 @@
 
 /************************************************************************
 *                                                                       *
-*    DCT : Discrete Cosine Transformation                               *
+*    DCT : Discrete Cosine Transform                                    *
 *                                                                       *
 *                                                                       *
 *       usage:                                                          *
@@ -99,7 +99,7 @@ char *cmnd;
 int usage(void)
 {
    fprintf(stderr, "\n");
-   fprintf(stderr, " %s -dct: Discrete Cosine Transformation  \n", cmnd);
+   fprintf(stderr, " %s -dct: Discrete Cosine Transform\n", cmnd);
    fprintf(stderr, "\n");
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
