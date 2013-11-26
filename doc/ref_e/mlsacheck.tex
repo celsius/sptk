@@ -129,16 +129,32 @@ To construct the exponential transfer function $H(z)$,
  \argm{m}{M}{order of mel-cepstrum}{25}
  \argm{a}{A}{all-pass constant $\alpha$}{0.35}
  \argm{l}{L}{FFT length}{256}
- \argm{c}{}{modify MLSA filter coefficients of unstable frames}{N/A}
+ \argm{c}{C}{modify MLSA filter coefficients of unstable frames \\
+            \begin{tabular}{ll} \\[-1ex]
+	     $0$ & no modification \\
+	     $1$ & clipping \\
+	     $2$ & scaling \\
+	    \end{tabular}\\
+            \hspace*{\fill}}{0}
  \argm{r}{R}{stable condition for MLSA filter\\
             \begin{tabular}{ll} \\[-1ex]
-             $R=0$ & keep log approximation error not exceeding\\
+             $0$ & keep log approximation error not exceeding\\
              & 0.24 dB ($Pa = 4$) or 0.2735 dB ($Pa = 5$) \\
-             $R=1$ & keep MLSA filter stable\\
+             $1$ & keep MLSA filter stable\\
             \end{tabular}\\
             \hspace*{\fill}}{0}
  \argm{P}{Pa}{order of the Pad\'e approximation\\
                      $Pa$ should be $4$ or $5$}{4}
+ \argm{R}{R}{threshold value for modification \\
+             if this option wasn't specified,\\
+            \begin{tabular}{ll} \\[-1ex]
+             $r=0,P=4$ & $R=4.5$ \\
+	     $r=1,P=4$ & $R=6.2$ \\
+	     $r=0,P=5$ & $R=6.0$ \\
+	     $r=1,P=5$ & $R=7.65$ \\
+            \end{tabular}\\
+            \hspace*{\fill}}{N/A}
+
 \end{options}
 
 \begin{qsection}{EXAMPLE}
