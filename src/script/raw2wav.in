@@ -48,7 +48,7 @@
 
 onintr clean
 
-set path    = ( @binpath@/.bin @binpath@ $path )
+set path    = ( @sharepath@ @binpath@ $path )
 set sptkver = '@sptk_version@'
 set cvsid   = '$Id$'
 
