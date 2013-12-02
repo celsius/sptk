@@ -345,6 +345,7 @@ int load_GMM(GMM * gmm, int M, int L, Boolean full, FILE * fp)
 {
    int m, l;
 
+   gmm->nmix = M;
    freadf(gmm->weight, sizeof(*(gmm->weight)), M, fp);
    for (m = 0; m < M; m++) {
       freadf(gmm->gauss[m].mean, sizeof(*(gmm->gauss[m].mean)), L, fp);
