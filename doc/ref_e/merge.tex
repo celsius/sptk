@@ -93,7 +93,7 @@ from {\em data.f2} will be inserted from the 3rd sample of
 every frame.
 The result is written to {\em data.merge}.
 \begin{quote}
- \verb!merge +f -s 2 -l 3 -L 2 +s data.f2 < data.f1 > data.merge!
+ \verb!merge -s 2 -l 3 -L 2 +s data.f2 < data.f1 > data.merge!
 \end{quote}
 For example, if the {\em data.f1} file is given by
 \[ 1,1,1,2,2,2,\dots \], 
@@ -109,7 +109,7 @@ from {\em data.f2} will be inserted from the 2nd sample of
 every frame.
 The result is {\em data.merge}.
 \begin{quote}
- \verb!merge +f -s 2 -l 4 -L 2 +l -o data.f2 < data.f1 > data.merge!
+ \verb!merge -s 2 -l 4 -L 2 +l -o data.f2 < data.f1 > data.merge!
 \end{quote}
 For example, if the {\em data.f1} file is given by
 \[ 1,1,1,1,2,2,2,2,\dots \], 
