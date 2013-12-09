@@ -377,7 +377,7 @@ int main(int argc, char **argv)
    alloc_GMM(&tgmm, M, L, full);
 
    if (fgmm != NULL) {
-      load_GMM(&gmm, M, L, full, fgmm);
+      load_GMM(&gmm, fgmm);
       fprintf(stderr, "T = %d  L = %d  M = %d\n", T, L, M);
       fclose(fgmm);
    } else {
@@ -532,9 +532,9 @@ int main(int argc, char **argv)
    /* EM training of GMM parameters */
    for (i = 0; (i <= Imax) && ((i <= Imin) || (fabs(change) > E)); i++) {
       if (full != 1)
-         fillz_gmm(&tgmm, M, L);
+         fillz_gmm(&tgmm);
       else
-         fillz_gmmf(&tgmm, M, L);
+         fillz_gmmf(&tgmm);
       fillz(sum, sizeof(double), M);
 
       if (full != 1) {
@@ -564,12 +564,12 @@ int main(int argc, char **argv)
       for (t = 0, ave_logp1 = 0.0, pd = dat; t < T; t++, pd += L) {
          for (m = 0, logb = LZERO; m < M; m++) {
             if (full != 1) {
-               logwgd[m] = log_wgd(&gmm, m, pd, L);
+               logwgd[m] = log_wgd(&gmm, m, pd);
                logb = log_add(logb, logwgd[m]);
             }
             /* full */
             else {
-               logwgd[m] = log_wgdf(&gmm, m, pd, L);
+               logwgd[m] = log_wgdf(&gmm, m, pd);
                logb = log_add(logb, logwgd[m]);
             }
          }
@@ -699,7 +699,7 @@ int main(int argc, char **argv)
    }
 
    /*  Output GMM parameters */
-   save_GMM(&gmm, M, L, full, stdout);
+   save_GMM(&gmm, stdout);
 
    return (0);
 }

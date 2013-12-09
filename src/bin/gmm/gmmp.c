@@ -179,7 +179,7 @@ int main(int argc, char **argv)
    }
 
    alloc_GMM(&gmm, M, L, 0);
-   load_GMM(&gmm, M, L, 0, fgmm);
+   load_GMM(&gmm, fgmm);
 
    fclose(fgmm);
 
@@ -189,10 +189,10 @@ int main(int argc, char **argv)
    x = dgetmem(L);
    while (freadf(x, sizeof(*x), L, fp) == L) {
       if (!aflag) {
-         logp = log_outp(&gmm, x, M, L);
+         logp = log_outp(&gmm, x);
          fwritef(&logp, sizeof(double), 1, stdout);
       } else {
-         ave_logp += log_outp(&gmm, x, M, L);
+         ave_logp += log_outp(&gmm, x);
          T++;
       }
    }
