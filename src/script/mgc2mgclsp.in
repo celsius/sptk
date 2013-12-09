@@ -102,7 +102,8 @@ while ($i < $#argv)
 		set n = $argv[$i]
 		breaksw
 	case -l:
-		set lg = "-l"
+	case -L:
+		set lg = "-L"
 		breaksw
 	case -o:
 		@ i++
@@ -158,7 +159,7 @@ usage:
 	echo2 '                       3 (frequency [Hz])'
 	echo2 '       -s s          : sampling frequency                     [10kHz]'
 	echo2 '       -k            : output gain                            [TRUE]'
-	echo2 '       -l            : output log gain rater than linear gain [FALSE]'
+	echo2 '       -L            : output log gain rater than linear gain [FALSE]'
 	echo2 '    (level 2)'
 	echo2 '       -n n          : split number of unit circle            [128]'
 	echo2 '       -p p          : maximum number of interpolation        [4]'

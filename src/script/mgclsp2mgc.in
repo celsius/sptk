@@ -87,7 +87,8 @@ while ($i < $#argv)
 		set m = $argv[$i]
 		breaksw
 	case -l:
-		set lg = "-l"
+	case -L:
+		set lg = "-L"
 		breaksw
 	case -i:
 		@ i++
@@ -138,7 +139,7 @@ usage:
 	echo2 '                       2 (frequency [kHz])'
 	echo2 '                       3 (frequency [Hz])'
 	echo2 '       -s s          : sampling frequency                              [10kHz]'
-	echo2 '       -l            : regard output aslog gain rater than linear gain [FALSE]'
+	echo2 '       -L            : regard output aslog gain rater than linear gain [FALSE]'
 	echo2 '       -h            : print this message'
 	echo2 '  infile(s):'
 	echo2 "       mgc-lsp (float)                                        [stdin]"
