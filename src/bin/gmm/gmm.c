@@ -271,7 +271,7 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'f':
-            full = 1 - full;
+            full = TR - full;
             full_cov = TR;
             break;
          case 'F':
@@ -294,9 +294,9 @@ int main(int argc, char **argv)
             break;
          case 'c':
             if (strncmp("1", *(argv) + 2, 1) == 0) {
-               block_corr = 1 - block_corr;
+               block_corr = TR - block_corr;
             } else if (strncmp("2", *(argv) + 2, 1) == 0) {
-               block_full = 1 - block_full;
+               block_full = TR - block_full;
             }
             break;
          default:
@@ -316,7 +316,7 @@ int main(int argc, char **argv)
                  cmnd);
          usage(1);
       }
-      full = 1;
+      full = TR;
    } else {
       if (block_corr == TR || block_full == TR) {
          if (full_cov != TR) {
@@ -360,7 +360,7 @@ int main(int argc, char **argv)
    floor.gauss = NULL;
    sum_m = NULL;
    sum_v = NULL;
-   if (full == 1) {
+   if (full == TR) {
       floor.gauss = (Gauss *) getmem(1, sizeof(Gauss));
       floor.gauss[0].cov = (double **) getmem(L, sizeof(double *));
       for (l = 0; l < L; l++)
@@ -428,7 +428,7 @@ int main(int argc, char **argv)
 
 
       /* variance */
-      if (full != 1) {
+      if (full != TR) {
          for (t = 0, pd = dat; t < T; t++, pd += L)
             for (l = 0; l < L; l++) {
                diff = gmm.gauss[tindex[t]].mean[l] - pd[l];
@@ -531,13 +531,10 @@ int main(int argc, char **argv)
 
    /* EM training of GMM parameters */
    for (i = 0; (i <= Imax) && ((i <= Imin) || (fabs(change) > E)); i++) {
-      if (full != 1)
-         fillz_gmm(&tgmm);
-      else
-         fillz_gmmf(&tgmm);
+      fillz_GMM(&tgmm);
       fillz(sum, sizeof(double), M);
 
-      if (full != 1) {
+      if (full != TR) {
          for (m = 0; m < M; m++)
             gmm.gauss[m].gconst = cal_gconst(gmm.gauss[m].var, L);
       } else {
@@ -558,20 +555,13 @@ int main(int argc, char **argv)
             cal_inv(gmm.gauss[m].cov, gmm.gauss[m].inv, L);
          }
       }
-      if (full == 1)
+      if (full == TR)
          fprintf(stderr, "%d cov can't caluculate covdet\n", n1);
 
       for (t = 0, ave_logp1 = 0.0, pd = dat; t < T; t++, pd += L) {
          for (m = 0, logb = LZERO; m < M; m++) {
-            if (full != 1) {
-               logwgd[m] = log_wgd(&gmm, m, pd);
-               logb = log_add(logb, logwgd[m]);
-            }
-            /* full */
-            else {
-               logwgd[m] = log_wgdf(&gmm, m, pd);
-               logb = log_add(logb, logwgd[m]);
-            }
+            logwgd[m] = log_wgd(&gmm, m, L, pd);
+            logb = log_add(logb, logwgd[m]);
          }
          ave_logp1 += logb;
 
@@ -582,7 +572,7 @@ int main(int argc, char **argv)
             for (l = 0; l < L; l++) {
                tmp2 = tmp1 * pd[l];
                tgmm.gauss[m].mean[l] += tmp2;
-               if (full != 1)
+               if (full != TR)
                   tgmm.gauss[m].var[l] += tmp2 * pd[l];
                else {
                   for (j = 0; j <= l; j++) {
@@ -679,7 +669,7 @@ int main(int argc, char **argv)
                }
             }
          } else {
-            if (full != 1) {
+            if (full != TR) {
                for (l = 0; l < L; l++) {
                   gmm.gauss[m].var[l] =
                       tgmm.gauss[m].var[l] / sum[m] - sq(gmm.gauss[m].mean[l]);

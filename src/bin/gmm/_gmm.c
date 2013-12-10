@@ -204,69 +204,56 @@ void cal_inv(double **cov, double **inv, const int L)
    free(S_inv);
 }
 
-void fillz_gmm(GMM * gmm)
-{
-   int m, l;
-
-   for (m = 0; m < gmm->nmix; m++) {
-      gmm->weight[m] = 0.0;
-      for (l = 0; l < gmm->dim; l++) {
-         gmm->gauss[m].mean[l] = 0.0;
-         gmm->gauss[m].var[l] = 0.0;
-      }
-   }
-}
-
-void fillz_gmmf(GMM * gmm)
+void fillz_GMM(GMM * gmm)
 {
    int m, l, ll;
 
    for (m = 0; m < gmm->nmix; m++) {
       gmm->weight[m] = 0.;
-
-      for (l = 0; l < gmm->dim; l++) {
-         gmm->gauss[m].mean[l] = 0.;
-         for (ll = 0; ll < gmm->dim; ll++) {
-            gmm->gauss[m].cov[l][ll] = 0.0;
-            gmm->gauss[m].inv[l][ll] = 0.0;
+      if (gmm->full != TR) {
+         for (l = 0; l < gmm->dim; l++) {
+            gmm->gauss[m].mean[l] = 0.0;
+            gmm->gauss[m].var[l] = 0.0;
+         }
+      } else {
+         for (l = 0; l < gmm->dim; l++) {
+            gmm->gauss[m].mean[l] = 0.0;
+            for (ll = 0; ll < gmm->dim; ll++) {
+               gmm->gauss[m].cov[l][ll] = 0.0;
+               gmm->gauss[m].inv[l][ll] = 0.0;
+            }
          }
       }
    }
 }
 
-double log_wgd(const GMM * gmm, const int m, const double *dat)
-{
-   int l;
-   double sum, diff, lwgd;
-
-   sum = gmm->gauss[m].gconst;
-
-   for (l = 0; l < gmm->dim; l++) {
-      diff = dat[l] - gmm->gauss[m].mean[l];
-      sum += sq(diff) / gmm->gauss[m].var[l];
-   }
-   lwgd = log(gmm->weight[m]) - 0.5 * sum;
-   return (lwgd);
-}
-
-double log_wgdf(const GMM * gmm, const int m, const double *dat)
+double log_wgd(const GMM * gmm, const int m, const int L, const double *dat)
 {
    int l, ll;
-   double sum, *diff, tmp, lwgd;
+   double sum, *diff = NULL, tmp, lwgd;
 
-   diff = dgetmem(gmm->dim);
    sum = gmm->gauss[m].gconst;
 
-   for (l = 0; l < gmm->dim; l++)
-      diff[l] = dat[l] - gmm->gauss[m].mean[l];
-
-   for (l = 0; l < gmm->dim; l++) {
-      for (ll = 0, tmp = 0.; ll < gmm->dim; ll++)
-         tmp += diff[ll] * gmm->gauss[m].inv[ll][l];
-      sum += tmp * diff[l];
+   if (gmm->full != TR) {
+      for (l = 0; l < L; l++) {
+         tmp = dat[l] - gmm->gauss[m].mean[l];
+         sum += sq(tmp) / gmm->gauss[m].var[l];
+      }
+   } else {
+      diff = dgetmem(L);
+      for (l = 0; l < L; l++) {
+         diff[l] = dat[l] - gmm->gauss[m].mean[l];
+      }
+      for (l = 0; l < L; l++) {
+         for (ll = 0, tmp = 0.0; ll < L; ll++) {
+            tmp += diff[ll] * gmm->gauss[m].inv[ll][l];
+         }
+         sum += tmp * diff[l];
+      }
+      free(diff);
    }
+
    lwgd = log(gmm->weight[m]) - 0.5 * sum;
-   free(diff);
    return (lwgd);
 }
 
@@ -291,28 +278,15 @@ double log_add(double logx, double logy)
    }
 }
 
-double log_outp(const GMM * gmm, const double *dat)
+double log_outp(const GMM * gmm, const int L, const double *dat)
 {
    int m;
    double logwgd, logb;
 
    for (m = 0, logb = LZERO; m < gmm->nmix; m++) {
-      logwgd = log_wgd(gmm, m, dat);
+      logwgd = log_wgd(gmm, m, L, dat);
       logb = log_add(logb, logwgd);
    }
-   return (logb);
-}
-
-double log_outpf(const GMM * gmm, const double *dat)
-{
-   int m;
-   double logwgd, logb;
-
-   for (m = 0, logb = LZERO; m < gmm->nmix; m++) {
-      logwgd = log_wgdf(gmm, m, dat);
-      logb = log_add(logb, logwgd);
-   }
-
    return (logb);
 }
 
@@ -327,7 +301,7 @@ int alloc_GMM(GMM * gmm, const int M, const int L, const Boolean full)
    for (m = 0; m < M; m++) {
       gmm->gauss[m].mean = dgetmem(L);
 
-      if (full != 1) {
+      if (full != TR) {
          gmm->gauss[m].var = dgetmem(L);
       } else {
          gmm->gauss[m].cov = ddgetmem(L, L);
@@ -346,7 +320,7 @@ int load_GMM(GMM * gmm, FILE * fp)
    for (m = 0; m < gmm->nmix; m++) {
       freadf(gmm->gauss[m].mean, sizeof(*(gmm->gauss[m].mean)), gmm->dim, fp);
 
-      if (gmm->full != 1) {
+      if (gmm->full != TR) {
          freadf(gmm->gauss[m].var, sizeof(*(gmm->gauss[m].var)), gmm->dim, fp);
          gmm->gauss[m].gconst = cal_gconst(gmm->gauss[m].var, gmm->dim);
       } else {
@@ -368,7 +342,7 @@ int save_GMM(const GMM * gmm, FILE * fp)
 
    fwritef(gmm->weight, sizeof(*(gmm->weight)), gmm->nmix, fp);
    for (m = 0; m < gmm->nmix; m++) {
-      if (gmm->full != 1) {
+      if (gmm->full != TR) {
          fwritef(gmm->gauss[m].mean, sizeof(*(gmm->gauss[m].mean)), gmm->dim,
                  fp);
          fwritef(gmm->gauss[m].var, sizeof(*(gmm->gauss[m].var)), gmm->dim, fp);
@@ -397,7 +371,7 @@ int free_GMM(GMM * gmm)
    for (m = 0; m < gmm->nmix; m++) {
       free(gmm->gauss[m].mean);
 
-      if (gmm->full != 1) {
+      if (gmm->full != TR) {
          free(gmm->gauss[m].var);
       } else {
          free(gmm->gauss[m].cov[0]);

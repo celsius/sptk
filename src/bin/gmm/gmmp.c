@@ -189,10 +189,10 @@ int main(int argc, char **argv)
    x = dgetmem(L);
    while (freadf(x, sizeof(*x), L, fp) == L) {
       if (!aflag) {
-         logp = log_outp(&gmm, x);
+         logp = log_outp(&gmm, L, x);
          fwritef(&logp, sizeof(double), 1, stdout);
       } else {
-         ave_logp += log_outp(&gmm, x);
+         ave_logp += log_outp(&gmm, L, x);
          T++;
       }
    }
