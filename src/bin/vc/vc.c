@@ -212,7 +212,7 @@ int main(int argc, char **argv)
    int j, k, dw_num = 1, dw_calccoef = -1, dw_coeflen = 1, win_max_width = 0;
    double *source = NULL, *target = NULL, *gv_mean = NULL, *gv_vari = NULL;
    FILE *fp = stdin, *fgmm = NULL, *fgv = NULL;
-   Boolean full = TR, dw_isfloat = FA;
+   Boolean full = TR, *dw_isfloat = (Boolean *) getmem(argc, sizeof(*dw_isfloat));
    GMM gmm;
    DELTAWINDOW window;
 
@@ -253,7 +253,7 @@ int main(int argc, char **argv)
             }
             dw_calccoef = 0;
             if (isfloat(*++argv)) {
-               dw_isfloat = TR;
+               dw_isfloat[dw_num] = TR;
                dw_coeflen = 0;
                for (k = 0; (k < argc - 1) && isfloat(argv[k]); k++) {
                   dw_coeflen += strlen(argv[k]) + 1;
@@ -269,6 +269,7 @@ int main(int argc, char **argv)
                   }
                }
             } else {
+               dw_isfloat[dw_num] = FA;
                dw_fn[dw_num] = *argv;
             }
             dw_num++;
@@ -461,13 +462,14 @@ int main(int argc, char **argv)
    free(gv_vari);
    free_GMM(&gmm);
    for (i = 0; i < window.win_size; i++) {
-      if (dw_isfloat == TR) {
-         if (i != 0) {
+      if (i != 0) {
+          if (dw_isfloat[i] == TR) {
             free(dw_fn[i]);
          }
       }
       free(window.win_coefficient[i] + window.win_l_width[i]);
    }
+   free(dw_isfloat);
    free(dw_fn);
    free(window.win_l_width);
    free(window.win_r_width);
