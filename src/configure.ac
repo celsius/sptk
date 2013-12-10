@@ -254,6 +254,7 @@ AC_CONFIG_FILES([Makefile
                  bin/uels/Makefile
                  bin/ulaw/Makefile
                  bin/us/Makefile
+                 bin/vc/Makefile 
                  bin/vopr/Makefile
                  bin/vq/Makefile
                  bin/vstat/Makefile

@@ -116,6 +116,13 @@ typedef struct _GMM {
    Gauss *gauss;
 } GMM;
 
+typedef struct _deltawindow {
+   size_t win_size;
+   size_t win_max_width;
+   int *win_l_width;
+   int *win_r_width;
+   double **win_coefficient;
+} DELTAWINDOW;
 
 /* library routines */
 double agexp(double r, double x, double y);
@@ -313,6 +320,10 @@ int uels(double *xw, const int flng, double *c, const int m, const int itr1,
          const int itype);
 double ulaw_c(const double x, const double max, const double mu);
 double ulaw_d(const double x, const double max, const double mu);
+int vc(const GMM * gmm, const DELTAWINDOW * window, const size_t total_frame,
+       const size_t source_vlen, const size_t target_vlen,
+       const double *gv_mean, const double *gv_vari,
+       const double *source, double *target);
 int vq(double *x, double *cb, const int l, const int cbsize);
 double edist(double *x, double *y, const int m);
 double window(Window type, double *x, const int size, const int nflg);

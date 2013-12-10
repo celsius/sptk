@@ -107,6 +107,7 @@ SUBDIRS = acep \
 	uels \
 	ulaw \
 	us \
+	vc \
 	vopr \
 	vq \
 	vstat \
@@ -117,4 +118,4 @@ SUBDIRS = acep \
 	zcross \
 	zerodf
 
-EXTRA_DIST = pitch/snack/COPYING pitch/swipe/COPYING
+EXTRA_DIST = pitch/snack/COPYING pitch/swipe/COPYING vc/hts_engine_API/COPYING
