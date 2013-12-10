@@ -105,16 +105,16 @@ int vc(const GMM * gmm, const DELTAWINDOW * window, const size_t total_frame,
    /* calculate mean and covariace of conditional distribution
       given source feature and mixture component */
    cond_post_mix = ddgetmem(total_frame, gmm->nmix);
-   cond_mean = (double ***) getmem(sizeof(*(cond_mean)), gmm->nmix);
+   cond_mean = (double ***) getmem(gmm->nmix, sizeof(*(cond_mean)));
    for (m = 0; m < gmm->nmix; m++) {
       cond_mean[m] = ddgetmem(total_frame, tgt_vlen_dyn);
    }
-   cond_vari = (double ***) getmem(sizeof(*(cond_vari)), gmm->nmix);
+   cond_vari = (double ***) getmem(gmm->nmix, sizeof(*(cond_vari)));
    for (m = 0; m < gmm->nmix; m++) {
       cond_vari[m] = ddgetmem(tgt_vlen_dyn, tgt_vlen_dyn);
    }
    cov_xx_inv = ddgetmem(src_vlen_dyn, src_vlen_dyn);
-   cov_yx_xx = (double ***) getmem(sizeof(*(cov_yx_xx)), gmm->nmix);
+   cov_yx_xx = (double ***) getmem(gmm->nmix, sizeof(*(cov_yx_xx)));
    for (m = 0; m < gmm->nmix; m++) {
       cov_yx_xx[m] = ddgetmem(tgt_vlen_dyn, src_vlen_dyn);
    }
@@ -170,16 +170,16 @@ int vc(const GMM * gmm, const DELTAWINDOW * window, const size_t total_frame,
    sss.nstream = 1;
    sss.total_state = total_frame;
    sss.total_frame = total_frame;
-   sss.duration = (size_t *) getmem(sizeof(size_t), total_frame);
+   sss.duration = (size_t *) getmem(total_frame, sizeof(size_t));
    for (i = 0; i < total_frame; i++) {
       sss.duration[i] = 1;
    }
-   sss.sstream = (HTS_SStream *) getmem(sizeof(HTS_SStream), 1);
+   sss.sstream = (HTS_SStream *) getmem(1, sizeof(HTS_SStream));
    sss.sstream->vector_length = target_vlen;
    sss.sstream->mean =
-       (double **) getmem(sizeof(*(sss.sstream->mean)), sss.total_state);
+       (double **) getmem(sss.total_state, sizeof(*(sss.sstream->mean)));
    sss.sstream->vari =
-       (double **) getmem(sizeof(*(sss.sstream->vari)), sss.total_state);
+       (double **) getmem(sss.total_state, sizeof(*(sss.sstream->vari)));
    for (i = 0; i < sss.total_state; i++) {
       sss.sstream->mean[i] = dgetmem(tgt_vlen_dyn);
       sss.sstream->vari[i] = dgetmem(tgt_vlen_dyn);
@@ -187,12 +187,12 @@ int vc(const GMM * gmm, const DELTAWINDOW * window, const size_t total_frame,
    sss.sstream->msd = NULL;     /* no MSD */
    sss.sstream->win_size = window->win_size;
    sss.sstream->win_l_width =
-       (int *) getmem(sizeof(*(sss.sstream->win_l_width)), window->win_size);
+       (int *) getmem(window->win_size, sizeof(*(sss.sstream->win_l_width)));
    sss.sstream->win_r_width =
-       (int *) getmem(sizeof(*(sss.sstream->win_r_width)), window->win_size);
+       (int *) getmem(window->win_size, sizeof(*(sss.sstream->win_r_width)));
    sss.sstream->win_coefficient =
-       (double **) getmem(sizeof(*(sss.sstream->win_coefficient)),
-                          window->win_size);
+       (double **) getmem(window->win_size,
+                          sizeof(*(sss.sstream->win_coefficient)));
    for (i = 0; i < window->win_size; i++) {
       sss.sstream->win_l_width[i] = window->win_l_width[i];
       sss.sstream->win_r_width[i] = window->win_r_width[i];
@@ -223,7 +223,7 @@ int vc(const GMM * gmm, const DELTAWINDOW * window, const size_t total_frame,
       sss.sstream->gv_vari = NULL;
    }
    sss.sstream->gv_switch =
-       (HTS_Boolean *) getmem(sizeof(HTS_Boolean), total_frame);
+       (HTS_Boolean *) getmem(total_frame, sizeof(HTS_Boolean));
    for (i = 0; i < total_frame; i++) {
       sss.sstream->gv_switch[i] = TRUE;
    }

@@ -111,12 +111,12 @@ double *read_input(FILE * fp, size_t dim, size_t * length)
    float_list *top = NULL, *prev = NULL, *cur = NULL, *next = NULL, *tmp = NULL;
 
    input = dgetmem(dim);
-   top = prev = (float_list *) getmem(sizeof(float_list), 1);
+   top = prev = (float_list *) getmem(1, sizeof(float_list));
    *length = 0;
    prev->next = NULL;
 
    while (freadf(input, sizeof(*input), dim, fp) == (int) dim) {
-      cur = (float_list *) getmem(sizeof(float_list), 1);
+      cur = (float_list *) getmem(1, sizeof(float_list));
       cur->f = fgetmem(dim);
       for (i = 0; i < dim; i++) {
          cur->f[i] = (float) input[i];
@@ -212,7 +212,8 @@ int main(int argc, char **argv)
    int j, k, dw_num = 1, dw_calccoef = -1, dw_coeflen = 1, win_max_width = 0;
    double *source = NULL, *target = NULL, *gv_mean = NULL, *gv_vari = NULL;
    FILE *fp = stdin, *fgmm = NULL, *fgv = NULL;
-   Boolean full = TR, *dw_isfloat = (Boolean *) getmem(argc, sizeof(*dw_isfloat));
+   Boolean full = TR, *dw_isfloat =
+       (Boolean *) getmem(argc, sizeof(*dw_isfloat));
    GMM gmm;
    DELTAWINDOW window;
 
@@ -365,11 +366,11 @@ int main(int argc, char **argv)
    /* set window parameters */
    window.win_size = dw_num;
    window.win_l_width =
-       (int *) getmem(sizeof(*(window.win_l_width)), window.win_size);
+       (int *) getmem(window.win_size, sizeof(*(window.win_l_width)));
    window.win_r_width =
-       (int *) getmem(sizeof(*(window.win_r_width)), window.win_size);
+       (int *) getmem(window.win_size, sizeof(*(window.win_r_width)));
    window.win_coefficient =
-       (double **) getmem(sizeof(*(window.win_coefficient)), window.win_size);
+       (double **) getmem(window.win_size, sizeof(*(window.win_coefficient)));
    window.win_l_width[0] = 0;
    window.win_r_width[0] = 0;
    window.win_coefficient[0] = dgetmem(1);
@@ -466,7 +467,7 @@ int main(int argc, char **argv)
    free_GMM(&gmm);
    for (i = 0; i < window.win_size; i++) {
       if (i != 0) {
-          if (dw_isfloat[i] == TR) {
+         if (dw_isfloat[i] == TR) {
             free(dw_fn[i]);
          }
       }
