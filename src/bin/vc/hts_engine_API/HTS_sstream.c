@@ -105,6 +105,7 @@ HTS_SSTREAM_C_START;
 /* hts_engine libraries */
 #include "HTS_hidden.h"
 
+#if 0
 /* HTS_set_duration: set duration from state duration probability distribution */
 static double HTS_set_duration(size_t * duration, double *mean, double *vari, size_t size, double frame_length)
 {
@@ -194,6 +195,8 @@ static double HTS_set_duration(size_t * duration, double *mean, double *vari, si
 
    return (double) target_length;
 }
+#else
+#endif
 
 /* HTS_SStreamSet_initialize: initialize state stream set */
 void HTS_SStreamSet_initialize(HTS_SStreamSet * sss)
@@ -206,6 +209,7 @@ void HTS_SStreamSet_initialize(HTS_SStreamSet * sss)
    sss->total_frame = 0;
 }
 
+#if 0
 /* HTS_SStreamSet_create: parse label and determine state duration */
 HTS_Boolean HTS_SStreamSet_create(HTS_SStreamSet * sss, HTS_ModelSet * ms, HTS_Label * label, HTS_Boolean phoneme_alignment_flag, double speed, double *duration_iw, double **parameter_iw, double **gv_iw)
 {
@@ -373,6 +377,8 @@ HTS_Boolean HTS_SStreamSet_create(HTS_SStreamSet * sss, HTS_ModelSet * ms, HTS_L
 
    return TRUE;
 }
+#else
+#endif
 
 /* HTS_SStreamSet_get_nstream: get number of stream */
 size_t HTS_SStreamSet_get_nstream(HTS_SStreamSet * sss)
