@@ -97,8 +97,6 @@ static char *rcs_id = "$Id$";
 #  include <SPTK.h>
 #endif
 
-#include "gmm.h"
-
 /*  Default Values  */
 #define DEF_L       26
 #define DEF_M       16
@@ -432,7 +430,7 @@ int main(int argc, char **argv)
          for (t = 0, pd = dat; t < T; t++, pd += L)
             for (l = 0; l < L; l++) {
                diff = gmm.gauss[tindex[t]].mean[l] - pd[l];
-               gmm.gauss[tindex[t]].var[l] += sq(diff);
+               gmm.gauss[tindex[t]].var[l] += diff * diff;
             }
 
          for (m = 0; m < M; m++)
@@ -671,8 +669,8 @@ int main(int argc, char **argv)
          } else {
             if (full != TR) {
                for (l = 0; l < L; l++) {
-                  gmm.gauss[m].var[l] =
-                      tgmm.gauss[m].var[l] / sum[m] - sq(gmm.gauss[m].mean[l]);
+                  gmm.gauss[m].var[l] = tgmm.gauss[m].var[l] / sum[m]
+                      - gmm.gauss[m].mean[l] * gmm.gauss[m].mean[l];
                   if (gmm.gauss[m].var[l] < V) {
                      gmm.gauss[m].var[l] = V;
                   }

@@ -60,7 +60,7 @@
 #  include <SPTK.h>
 #endif
 
-#include "gmm.h"
+#define LSMALL (-0.5E10)        /* log values < LSMALL are set to LZERO */
 
 int choleski(double **cov, double **S, const int L);
 
@@ -237,7 +237,7 @@ double log_wgd(const GMM * gmm, const int m, const int L, const double *dat)
    if (gmm->full != TR) {
       for (l = 0; l < L; l++) {
          tmp = dat[l] - gmm->gauss[m].mean[l];
-         sum += sq(tmp) / gmm->gauss[m].var[l];
+         sum += (tmp * tmp) / gmm->gauss[m].var[l];
       }
    } else {
       diff = dgetmem(L);

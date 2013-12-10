@@ -85,8 +85,6 @@ static char *rcs_id = "$Id$";
 #  include <SPTK.h>
 #endif
 
-#include "gmm.h"
-
 /*  Default Values  */
 
 #define DEF_L  26
