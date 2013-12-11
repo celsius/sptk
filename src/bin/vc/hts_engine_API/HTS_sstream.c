@@ -195,7 +195,6 @@ static double HTS_set_duration(size_t * duration, double *mean, double *vari, si
 
    return (double) target_length;
 }
-#else
 #endif
 
 /* HTS_SStreamSet_initialize: initialize state stream set */
@@ -377,7 +376,6 @@ HTS_Boolean HTS_SStreamSet_create(HTS_SStreamSet * sss, HTS_ModelSet * ms, HTS_L
 
    return TRUE;
 }
-#else
 #endif
 
 /* HTS_SStreamSet_get_nstream: get number of stream */
