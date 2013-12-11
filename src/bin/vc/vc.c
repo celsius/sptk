@@ -212,14 +212,11 @@ int main(int argc, char **argv)
    int j, k, dw_num = 1, dw_calccoef = -1, dw_coeflen = 1, win_max_width = 0;
    double *source = NULL, *target = NULL, *gv_mean = NULL, *gv_vari = NULL;
    FILE *fp = stdin, *fgmm = NULL, *fgv = NULL;
-   Boolean full = TR, *dw_isfloat =
-       (Boolean *) getmem(argc, sizeof(*dw_isfloat));
+   Boolean full = TR;
    GMM gmm;
    DELTAWINDOW window;
 
-   for (j = 0; j < argc; j++) {
-      dw_isfloat[j] = FA;
-   }
+   memset(dw_fn, 0, argc * sizeof(*dw_fn));
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL) {
       cmnd = argv[0];
@@ -258,7 +255,6 @@ int main(int argc, char **argv)
             }
             dw_calccoef = 0;
             if (isfloat(*++argv)) {
-               dw_isfloat[dw_num] = TR;
                dw_coeflen = 0;
                for (k = 0; (k < argc - 1) && isfloat(argv[k]); k++) {
                   dw_coeflen += strlen(argv[k]) + 1;
@@ -274,7 +270,8 @@ int main(int argc, char **argv)
                   }
                }
             } else {
-               dw_fn[dw_num] = *argv;
+               dw_fn[dw_num] = getmem(strlen(*argv) + 1, sizeof(**dw_fn));
+               strncpy(dw_fn[dw_num], *argv, strlen(*argv) + 1);
             }
             dw_num++;
             --argc;
@@ -301,7 +298,8 @@ int main(int argc, char **argv)
                        cmnd);
                usage(EXIT_FAILURE);
             }
-            dw_fn[dw_num] = *++argv;
+            dw_fn[dw_num] = getmem(strlen(*++argv) + 1, sizeof(**dw_fn));
+            strncpy(dw_fn[dw_num], *argv, strlen(*argv) + 1);
             dw_num++;
             --argc;
             if (dw_coeflen == 2) {
@@ -311,7 +309,8 @@ int main(int argc, char **argv)
                           cmnd);
                   usage(EXIT_FAILURE);
                }
-               dw_fn[dw_num] = *++argv;
+               dw_fn[dw_num] = getmem(strlen(*++argv) + 1, sizeof(**dw_fn));
+               strncpy(dw_fn[dw_num], *argv, strlen(*argv) + 1);
                dw_num++;
                --argc;
             }
@@ -466,14 +465,11 @@ int main(int argc, char **argv)
    free(gv_vari);
    free_GMM(&gmm);
    for (i = 0; i < window.win_size; i++) {
-      if (i != 0) {
-         if (dw_isfloat[i] == TR) {
-            free(dw_fn[i]);
-         }
+      if (dw_fn[i]) {
+         free(dw_fn[i]);
       }
       free(window.win_coefficient[i] + window.win_l_width[i]);
    }
-   free(dw_isfloat);
    free(dw_fn);
    free(window.win_l_width);
    free(window.win_r_width);
