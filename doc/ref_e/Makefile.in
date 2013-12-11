@@ -163,6 +163,7 @@ INC  = cmndref.sty \
 	us.tex \
 	us16.tex \
 	uscd.tex \
+	vc.tex \
 	vopr.tex \
 	vq.tex \
 	vstat.tex \
