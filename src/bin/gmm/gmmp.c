@@ -90,6 +90,7 @@ static char *rcs_id = "$Id$";
 #define DEF_L  26
 #define DEF_M  16
 #define DEF_A  FA
+#define FULL   FA
 
 char *BOOL[] = { "FALSE", "TRUE" };
 
@@ -109,6 +110,8 @@ void usage(int status)
            DEF_L);
    fprintf(stderr, "       -m m  : number of Gaussian components      [%d]\n",
            DEF_M);
+   fprintf(stderr, "       -f    : full covariance                    [%s]\n",
+           BOOL[FULL]);
    fprintf(stderr, "       -a    : output average log-probability     [%s]\n",
            BOOL[DEF_A]);
    fprintf(stderr, "       -h    : print this message\n");
@@ -135,7 +138,7 @@ int main(int argc, char **argv)
    GMM gmm;
    double logp, ave_logp, *x;
    int M = DEF_M, L = DEF_L, T;
-   Boolean aflag = DEF_A;
+   Boolean aflag = DEF_A, full = FULL;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -157,6 +160,9 @@ int main(int argc, char **argv)
             M = atoi(*++argv);
             --argc;
             break;
+         case 'f':
+            full = TR - full;
+            break;
          case 'a':
             aflag = TR;
             break;
@@ -176,7 +182,7 @@ int main(int argc, char **argv)
       usage(1);
    }
 
-   alloc_GMM(&gmm, M, L, 0);
+   alloc_GMM(&gmm, M, L, full);
    load_GMM(&gmm, fgmm);
 
    fclose(fgmm);
