@@ -356,9 +356,10 @@ covariance matrix $\vec{\Sigma}\dim{\sv\sv}$:
 \begin{qsection}{EXAMPLE}
 In the following example, the source and target features (24-th order Mel-cepstrum
 coefficients) are extracted from the file {\em source.raw} and the file {\em
-target.raw} of raw (short) format.  These extracted features are concatenated by {\em
-dtw} command, which can perform a Dynamic Time Warping.  The GMM {\em
-source\_target.gmm} can be trained by using the joint features.
+target.raw} of raw (short) format.  These extracted features are automatically
+aligned and concatenated by {\em dtw} command, which can carry out dynamic time
+warping.  The GMM can be obtained as {\em source\_target.gmm} by using the joint
+features.
 \begin{quote}
 \verb!x2x +sf < source.raw | frame -l 400 -p 80 | \! \\
 \verb!    window -l 400 -L 1024 -w 0 | \! \\
@@ -371,8 +372,8 @@ source\_target.gmm} can be trained by using the joint features.
 \end{quote}
 Using the {\em source\_target.gmm} and the source features extracted from the file
 {\em source\_test.raw}, under the same analysis condition above, the GMM-based
-spectral parameter conversion can be performed and the converted target static
-features are saved as {\em target\_test.mcep}.
+spectral parameter conversion can be performed by {\em vc} command and the converted
+target static features are saved as {\em target\_test.mcep}.
 \begin{quote}
 \verb!x2x +sf < source_test.raw | frame -l 400 -p 80 | \! \\
 \verb!    window -l 400 -L 1024 -w 0 | \! \\
@@ -387,10 +388,11 @@ Finally, using the {\em target\_test.mcep}, the waveform can be synthesized as {
 \verb!    mlsadf -m 24 -p 80 -a 0.42 -P 5 target_test.mcep | \! \\
 \verb!    x2x +fs -o > target_test.raw!
 \end{quote}
-where the {\em target.pitch} must be prepared in advance.  Usually, the target $F_0$
-can be obtained by a linear transform in a log-domain, from a log-scaled $F_0$ of the
-source speaker~\cite{ref:vc-IEEETASLP}.  This transform can be realized by using {\em
-pitch}, {\em sopr} and {\em vstat} command.
+The {\em target.pitch} must be prepared in advance.  Usually, the target $F_0$ can be
+obtained by a linear transform in a log-domain, from a log-scaled $F_0$ of the source
+speaker~\cite{ref:vc-IEEETASLP}.  This transform can be realized by using {\em
+pitch}, {\em sopr} and {\em vstat} command.  In this example, especially, it can be
+obtained from {\em source\_test.raw}.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
