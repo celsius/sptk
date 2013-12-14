@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
-AC_INIT(SPTK, 3.6, http://sourceforge.net/projects/sp-tk/)
+AC_INIT(SPTK, 3.6, http://sourceforge.net/projects/sp-tk/, SPTK)
 AC_CONFIG_AUX_DIR([config])
 AC_COPYRIGHT(Copyright 1984-2007 Tokyo Institute of Technology)
 AC_COPYRIGHT(Copyright 1996-2012 Nagoya Institute of Technology)
