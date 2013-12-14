@@ -60,8 +60,8 @@
 #  include <SPTK.h>
 #endif
 
-#include "HTS_engine.h"
-#include "HTS_hidden.h"
+#include "hts_engine_API/HTS_engine.h"
+#include "hts_engine_API/HTS_hidden.h"
 
 /* perform conversion */
 int vc(const GMM * gmm, const DELTAWINDOW * window, const size_t total_frame,
