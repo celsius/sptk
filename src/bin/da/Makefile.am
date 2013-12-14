@@ -53,7 +53,7 @@ uninstall-binSCRIPTS:
 
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
-	test -z "$(bindir)" || $(MKDIR_P) "$(datarootdir)"
+	test -z "$(bindir)" || $(MKDIR_P) "$(datarootdir)/SPTK"
 	@list='$(bin_PROGRAMS)'; for p in $$list; do \
 	  p1=`echo $$p|sed 's/$(EXEEXT)$$//'`; \
 	  if test -f $$p \
