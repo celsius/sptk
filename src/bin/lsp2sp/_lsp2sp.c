@@ -66,8 +66,6 @@
 #  include <SPTK.h>
 #endif
 
-#define LZERO  (-1.0E200)       /* ~log(0) */
-#define LSMALL (-0.5E200)       /* log values < LSMALL are set to LZERO */
 #define LOG2 (0.693147180559945)
 
 double log_conv(double x)

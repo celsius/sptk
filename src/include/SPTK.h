@@ -68,6 +68,7 @@
 #define LN_TO_LOG 4.3429448190325182765
 
 #define LZERO (-1.0e+10)
+#define LSMALL (-0.5e+10)
 
 /* #ifndef ABS(x) */
 #define ABS(x) ((x<0.0) ? -x : x)

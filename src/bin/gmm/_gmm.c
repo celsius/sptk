@@ -60,8 +60,6 @@
 #  include <SPTK.h>
 #endif
 
-#define LSMALL (-0.5E10)        /* log values < LSMALL are set to LZERO */
-
 int choleski(double **cov, double **S, const int L);
 
 double cal_det(double **var, const int D)
