@@ -280,12 +280,16 @@ if ( $help ) then
 endif
         echo2 '       -x  x         : x scale                      [1]'
 if ( $help ) then
-        echo2 '                        1  (Normalized frequency <0, 0.5>)'
-        echo2 '                        2  (Normalized frequency <0, pi/2, pi>)'
-        echo2 '                        4  (Frequency <0, 1, 2, 3, 4     kHz>)'
-        echo2 '                        5  (Frequency <0, 1, 2, 3, 4, 5  kHz>)'
-        echo2 '                        8  (Frequency <0, 2, 4, 6, 8     kHz>)'
-        echo2 '                        10 (Frequency <0, 2, 4, 6, 8, 10 kHz>)'
+        echo2 '                       1  (Normalized frequency <0, 0.5>)'
+        echo2 '                       2  (Normalized frequency <0, pi/2, pi>)'
+        echo2 '                       4  (Frequency <0,  1,  2,  3,  4      kHz>)'
+        echo2 '                       5  (Frequency <0,  1,  2,  3,  4,  5  kHz>)'
+        echo2 '                       8  (Frequency <0,  2,  4,  6,  8      kHz>)'
+        echo2 '                       10 (Frequency <0,  2,  4,  6,  8, 10  kHz>)'
+        echo2 '                       16 (Frequency <0,  4,  8, 12, 16      kHz>)'
+        echo2 '                       22 (Frequency <0, 11, 22              kHz>)'
+        echo2 '                       24 (Frequency <0,  6, 12, 18, 24      kHz>)'
+        echo2 '                       48 (Frequency <0, 16, 32, 48          kHz>)'
 endif
         echo2 '       -y  ymin ymax : y scale                      [0 100]'
         echo2 '       -ys ys        : Y-axis scaling factor        [20]'
