@@ -159,11 +159,11 @@ void usage(int status)
    fprintf(stderr, "       return error\n");
    fprintf(stderr, "\n");
    fprintf(stderr,
-           "       if the argument of the above operation option is `dB', `cent'\n");
+           "       if the argument of the above operation option is `dB', `cent',\n");
    fprintf(stderr,
-           "       or `octave', then the value 20/log_e(10), 1200/log_e(2)\n");
+           "       `semitone' or `octave', then the value 20/log_e(10), 1200/log_e(2),\n");
    fprintf(stderr,
-           "       or 1/log_e(2) is assigned, respectively. Also if `pi' or\n");
+           "       12/log_e(2) or 1/log_e(2) is assigned, respectively. Also if `pi' or\n");
    fprintf(stderr,
            "       `ln(x)',`exp(x)',`sqrt(x)' such as `ln2',`exp10',`sqrt30' \n");
    fprintf(stderr,
@@ -348,6 +348,8 @@ int main(int argc, char *argv[])
                optbl[nopr].d = 1200 / log(2.0);
             else if (strncmp("octave", s, 6) == 0)
                optbl[nopr].d = 1.0 / log(2.0);
+            else if (strncmp("semitone", s, 8) == 0)
+               optbl[nopr].d = 12.0 / log(2.0);
             else if (strncmp("pi", s, 2) == 0)
                optbl[nopr].d = PI;
             else if (strncmp("ln", s, 2) == 0)
