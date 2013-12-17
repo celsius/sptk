@@ -51,9 +51,9 @@
 *       usage:                                                          *
 *               decimate [options] [infile] > stdout                    *
 *       options:                                                        *
+*               -l l     :  length of vector        [1]                 *
 *               -p p     :  decimation period       [10]                *
 *               -s s     :  start sample            [0]                 *
-*               -l l     :  frame length            [1]                 *
 *       infile:                                                         *
 *               data sequence                                           *
 *                   , x(0), x(1), ...                                   *
@@ -89,7 +89,7 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define PERIOD 10
 #define START 0
-#define FLENG 1
+#define LENG 1
 
 /*  Command Name  */
 char *cmnd;
@@ -103,9 +103,9 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : length of vector  [%d]\n", LENG);
    fprintf(stderr, "       -p p  : decimation period [%d]\n", PERIOD);
    fprintf(stderr, "       -s s  : start sample      [%d]\n", START);
-   fprintf(stderr, "       -l l  : frame length      [%d]\n", FLENG);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)     [stdin]\n", FORMAT);
@@ -123,7 +123,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int period = PERIOD, start = START, fleng = FLENG, i;
+   int period = PERIOD, start = START, fleng = LENG, i;
    FILE *fp = stdin;
    double *x;
 

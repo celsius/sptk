@@ -51,9 +51,9 @@
 *       usage:                                                          *
 *               interpolate [ options ] [ infile ] > stdout             *
 *       options:                                                        *
+*               -l l     :  length of vector       [1]                  *
 *               -p p     :  interpolation period   [10]                 *
 *               -s s     :  start sample           [0]                  *
-*               -l l     :  frame length           [1]                  *
 *       infile:                                                         *
 *               data sequence                                           *
 *                        , x(0), x(1), ...                              *
@@ -100,7 +100,7 @@ static char *rcs_id =
 #define PERIOD 10
 #define START 0
 #define PADINPUT FA
-#define FLENG 1
+#define LENG 1
 
 char *BOOL[] = { "FALSE", "TRUE" };
 
@@ -116,10 +116,10 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
+   fprintf(stderr, "       -l l  : length of vector             [%d]\n", LENG);
    fprintf(stderr, "       -p p  : interpolation period         [%d]\n",
            PERIOD);
    fprintf(stderr, "       -s s  : start sample                 [%d]\n", START);
-   fprintf(stderr, "       -l l  : frame length                 [%d]\n", FLENG);
    fprintf(stderr, "       -d    : padding input rather than 0  [%s]\n",
            BOOL[PADINPUT]);
    fprintf(stderr, "       -h    : print this message\n");
@@ -139,7 +139,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int i, j = 0, period = PERIOD, start = START, fleng = FLENG;
+   int i, j = 0, period = PERIOD, start = START, fleng = LENG;
    FILE *fp = stdin;
    double *x;
    Boolean padinput = PADINPUT;
