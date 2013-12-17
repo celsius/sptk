@@ -45,7 +45,7 @@
 \name{decimate}{decimation (data skipping)}{signal processing}
 
 \begin{synopsis}
-\item[decimate] [ --p $P$ ] [ --s $S$ ] [ {\em infile} ]
+\item[decimate] [ --p $P$ ] [ --s $S$ ] [ --l $L$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -56,17 +56,18 @@ sending the result to standard output.
 
 If the input data is
 \begin{displaymath}
- x(0), x(1), x(2), \dots
+ \bx(0), \bx(1), \bx(2), \dots
 \end{displaymath}
 then the output data is given by:
 \begin{displaymath}
- x(S), x(S+P), x(S+2P), x(S+3P),\dots
+ \bx(S), \bx(S+P), \bx(S+2P), \bx(S+3P),\dots
 \end{displaymath}
 \par
 Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
+	\argm{l}{L}{length of vector}{1}
 	\argm{p}{P}{decimation period}{10}
 	\argm{s}{S}{start sample}{0}
 \end{options}

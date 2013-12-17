@@ -45,7 +45,7 @@
 \name{interpolate}{interpolation of data sequence}{signal processing}
 
 \begin{synopsis}
-\item[interpolate] [ --p $P$ ] [ --s $S$ ] [ --d ] [ {\em infile} ]
+\item[interpolate] [ --p $P$ ] [ --s $S$ ] [ --l $L$ ] [ --d ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -54,21 +54,22 @@ interval $P$ and start number $S$, and sends the result to standart
 output. The results are as follows:
 
 \begin{displaymath}
- x(0), x(1), x(2), \dots
+ \bx(0), \bx(1), \bx(2), \dots
 \end{displaymath}
 then the output data will be
 \begin{displaymath}
-\underbrace{0, 0, \dots, 0}_{S-1},\underbrace{x(0), 0, 0, \dots, 0}_{P},\underbrace{x(1), 0, 0, \dots, 0}_{P},x(2), \dots
+\underbrace{0, 0, \dots, 0}_{S-1},\underbrace{\bx(0), 0, 0, \dots, 0}_{P},\underbrace{\bx(1), 0, 0, \dots, 0}_{P},\bx(2), \dots
 \end{displaymath}
 If the --d option is given, the output data will be
 \begin{displaymath}
-\underbrace{0, 0, \dots, 0}_{S-1},\underbrace{x(0), x(0), x(0), \dots, x(0)}_{P},\underbrace{x(1), x(1), x(1), \dots, x(1)}_{P},x(2), \dots
+\underbrace{0, 0, \dots, 0}_{S-1},\underbrace{\bx(0), \bx(0), \bx(0), \dots, \bx(0)}_{P},\underbrace{\bx(1), \bx(1), \bx(1), \dots, \bx(1)}_{P},\bx(2), \dots
 \end{displaymath}
 \par
 Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
+        \argm{l}{L}{length of vector}{1}
         \argm{p}{P}{interpolation period}{10}
         \argm{s}{S}{start sample}{0}
         \argm{d}{}{pad input data rather than 0}{FALSE}

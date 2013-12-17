@@ -45,7 +45,7 @@
 \name{rmse}{calculation of root mean squared error}{data processing}
 
 \begin{synopsis}
-\item [rmse] [ --l $L$ ] {\em file1} [ {\em infile} ]
+\item [rmse] [ --l $L$ ] [ --magic $magic$ ] [ --MAGIC $MAGIC$ ] {\em file1} [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -72,8 +72,13 @@ Input and output data are in float format.
 \end{qsection}
 
 \begin{options}
-        \argm{l}{L}{data length to calculate RMSE.\\
-                    If $L=0$, RMSE of whole input data is output.}{0}
+ \argm{l}{L}{data length to calculate RMSE.\\
+             If $L=0$, RMSE of whole input data is output.}{0}
+ \argm{magic}{magic}{remove magic number}{FALSE}
+ \argm{MAGIC}{MAGIC}{replace magic number by $MAGIC$ \\
+                     if -magic option is not given, return error.\\
+                     if -magic or -MAGIC option is given multiple
+                     times, also return error.}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2009  Nagoya Institute of Technology          %
+%                1996-2013  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -47,9 +47,10 @@
 \begin{synopsis}
 \item[sopr] [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [--f $F$]
   [--c C] [ --magic $magic$ ]
-\item[\ ~~~~] [ --MAGIC $MAGIC$ ] [ --ABS ] [ --INV ] [ --P ] [ --R ] [ --SQRT ] [ --LN ]
-\item[\ ~~~~] [ --LOG2 ] [ --LOG10 ] [ --EXP ] [ --POW2 ] [ --POW10 ] [ --FIX ] [ --UNIT ]
-\item[\ ~~~~] [ --CLIP ] [ --SIN ] [ --COS ] [ --TAN ] [ --ATAN ] [ --r m$n$ ] [ --w m$n$ ] [ {\em infile} ]
+\item[\ ~~~~~] [ --MAGIC $MAGIC$ ] [ --ABS ] [ --INV ] [ --P ] [ --R ] [ --SQRT ] [ --LN ]
+\item[\ ~~~~~] [ --LOG2 ] [ --LOG10 ] [ --LOGX $X$ ] [ --EXP ] [ --POW2 ] [ --POW10 ]
+\item[\ ~~~~~] [ --POWX $X$ ] [ --FIX ] [ --UNIT ] [ --CLIP ] [ --SIN ] [ --COS ] [ --TAN ]
+\item[\ ~~~~~] [ --ATAN ] [ --r m$n$ ] [ --w m$n$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -74,8 +75,8 @@ and is performed in the given order.
                         if -magic or -MAGIC option is given multiple
                         times, also return error.}{FALSE}
 	\desc[1ex]{If the argument of the above operation option given is
-               ``{\em dB}'', ``{\em cent}'' or ``{\em octave}''
-               then the values $20/\log_e10$, $1200/\log_e2$ or
+               ``{\em dB}'', ``{\em cent}'', ``{\em semitone}'' or ``{\em octave}''
+               then the values $20/\log_e10$, $1200/\log_e2$, $12/\log_e2$ or
               $1/\log_e2$ are assigned, respectively.
 		Likewise, if ``{\em pi}'' is written after
                 the operation option, then its value will be used.
@@ -90,9 +91,11 @@ and is performed in the given order.
 	\argm{LN}{}{logarithm $y=\log{x}$}{FALSE}
 	\argm{LOG2}{}{logarithm $y=\log_{2}{x}$}{FALSE}
 	\argm{LOG10}{}{logarithm $y=\log_{10}{x}$}{FALSE}
+	\argm{LOGX}{X}{logarithm $y=\log_{X}{x}$}{FALSE}
 	\argm{EXP}{}{exponential $y=\exp{x}$}{FALSE}
 	\argm{POW2}{}{power of 2 $y=2^x$}{FALSE}
 	\argm{POW10}{}{power of 10 $y=10^x$}{FALSE}
+	\argm{POWX}{X}{power of X $y=X^x$}{FALSE}
 	\argm{FIX}{}{round $(int)x$}{FALSE}
 	\argm{UNIT}{}{unit step $u(x)$}{FALSE}
 	\argm{CLIP}{}{clipping $x \ast u(x)$}{FALSE}
