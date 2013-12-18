@@ -4,7 +4,7 @@
 /*           http://hts-engine.sourceforge.net/                      */
 /* ----------------------------------------------------------------- */
 /*                                                                   */
-/*  Copyright (c) 2001-2012  Nagoya Institute of Technology          */
+/*  Copyright (c) 2001-2013  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /*                2001-2008  Tokyo Institute of Technology           */
@@ -69,6 +69,8 @@ HTS_HIDDEN_H_START;
 #undef WORDS_BIGENDIAN
 #endif                          /* WORDS_BIGENDIAN && WORDS_LITTLEENDIAN */
 
+#define MAX_F0    20000.0
+#define MIN_F0    20.0
 #define MAX_LF0   9.9034875525361280454891979401956     /* log(20000.0) */
 #define MIN_LF0   2.9957322735539909934352235761425     /* log(20.0) */
 #define HALF_TONE 0.05776226504666210911810267678818    /* log(2.0) / 12.0 */
@@ -429,7 +431,6 @@ void HTS_GStreamSet_clear(HTS_GStreamSet * gss);
 
 #define RANDMAX 32767
 
-#define IPERIOD 1
 #define SEED    1
 #define B0      0x00000001
 #define B28     0x10000000
@@ -447,9 +448,7 @@ void HTS_GStreamSet_clear(HTS_GStreamSet * gss);
 #define IRLENG    576
 #endif                          /* HTS_EMBEDDED */
 
-#define PULSELISTSIZE 1024
-
-#define CHECK_LSP_STABILITY_MIN 0.1
+#define CHECK_LSP_STABILITY_MIN 0.25
 #define CHECK_LSP_STABILITY_NUM 4
 
 /* for MGLSA filter */
@@ -461,6 +460,7 @@ void HTS_GStreamSet_clear(HTS_GStreamSet * gss);
 
 /* HTS_Vocoder: structure for setting of vocoder */
 typedef struct _HTS_Vocoder {
+   HTS_Boolean is_first;
    size_t stage;                /* Gamma=-1/stage: if stage=0 then Gamma=0 */
    double gamma;                /* Gamma */
    HTS_Boolean use_log_gain;    /* log gain flag (for LSP) */
@@ -468,11 +468,12 @@ typedef struct _HTS_Vocoder {
    unsigned long next;          /* temporary variable for random generator */
    HTS_Boolean gauss;           /* flag to use Gaussian noise */
    double rate;                 /* sampling rate */
-   double p1;                   /* used in excitation generation */
-   double pc;                   /* used in excitation generation */
-   double p;                    /* used in excitation generation */
-   double inc;                  /* used in excitation generation */
-   double *pulse_list;          /* used in excitation generation */
+   double pitch_of_curr_point;  /* used in excitation generation */
+   double pitch_counter;        /* used in excitation generation */
+   double pitch_inc_per_point;  /* used in excitation generation */
+   double *excite_ring_buff;    /* used in excitation generation */
+   size_t excite_buff_size;     /* used in excitation generation */
+   size_t excite_buff_index;    /* used in excitation generation */
    unsigned char sw;            /* switch used in random generator */
    int x;                       /* excitation signal */
    double *freqt_buff;          /* used in freqt */
