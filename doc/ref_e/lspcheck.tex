@@ -45,8 +45,8 @@
 \name{lspcheck}{check stability and rearrange LSP}{speech parameter transformation}
 
 \begin{synopsis}
-\item [lspcheck] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --i $I$ ] [ --o $O$ ]
-		[ --r $R$] [ {\em infile} ] 
+\item [lspcheck] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --l ] [ --i $I$ ] [ --o $O$ ]
+		[ --r $R$] [ --G $G$ ] [ --g ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -67,6 +67,7 @@ is sent to standard error.
 	\argm{m}{M}{order of LPC}{25}
 	\argm{s}{S}{sampling frequency (kHz)}{10.0}
 	\argm{k}{}{input \& output gain}{TRUE}
+    \argm{l}{}{regard input as log gain}{FALSE}
 	\argm{i}{I}{input format}{0}
 	\argm{o}{O}{output format \\
 		\begin{tabular}{ll} \\[-1ex]
@@ -78,8 +79,11 @@ is sent to standard error.
 	\argm{c}{}{rearrange LSP\\
 check the distance between two consecutive LSPs\\
 and extend the distance (if it is smaller than $R\times \pi/M$)}{N/A}
-	\argm{r}{R}{threthold of rearrangement of LSP\\
+	\argm{r}{R}{threshold of rearrangement of LSP\\
     $s.t.\hspace{0.5cm} 0 \leq R \leq 1$}{0.0}
+    \argm{G}{G}{minimum value of gain\\
+                $G$ must be greater than $0$.}{1e-10}
+    \argm{g}{}{modify gain value if gain is less than $G$.}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
