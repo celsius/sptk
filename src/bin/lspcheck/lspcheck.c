@@ -67,7 +67,7 @@
 *               -r R     :  threshold of rearrangement  [0.0]           *
 *               -g       :  modify gain value           [N/A]           *
 *                           check whether gain is less than G or not    *
-*               -l       :  regard input as log gain    [N/A]           *
+*               -L       :  regard input as log gain    [N/A]           *
 *               -G G     :  min. value of gain s.t. G > 0 [1.0E-10]     *
 *       infile:                                                         *
 *               LSP                                                     *
@@ -158,7 +158,7 @@ void usage(int status)
    fprintf(stderr,
            "       -g    : modify gain value if gain is less than G   [N/A]\n");
    fprintf(stderr,
-           "       -l    : regard input as log gain                   [%s]\n",
+           "       -L    : regard input as log gain                   [%s]\n",
            BOOL[LOGGAIN]);
    fprintf(stderr,
            "       -G G  : min. value of gain                         [%g]\n",
@@ -228,7 +228,7 @@ int main(int argc, char **argv)
          case 'k':
             gain = 1 - gain;
             break;
-         case 'l':
+         case 'L':
             loggain = 1 - loggain;
             break;
          case 'g':

@@ -55,7 +55,7 @@
 *               -p p     :  frame period                  [100]         *
 *               -i i     :  interpolation period          [1]           *
 *               -k       :  filtering without gain        [FALSE]       *
-*               -l       :  regard input gain as log gain [FALSE]       *
+*               -L       :  regard input gain as log gain [FALSE]       *
 *       infile:                                                         *
 *               coefficients                                            *
 *                       , K, f(1), ..., f(m),                           *
@@ -124,7 +124,7 @@ void usage(int status)
            IPERIOD);
    fprintf(stderr, "       -k    : filtering without gain        [%s]\n",
            BOOL[NGAIN]);
-   fprintf(stderr, "       -l    : regard input gain as log gain [%s]\n",
+   fprintf(stderr, "       -L    : regard input gain as log gain [%s]\n",
            BOOL[LOGGAIN]);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
@@ -175,7 +175,7 @@ int main(int argc, char **argv)
          case 'k':
             ngain = 1 - ngain;
             break;
-         case 'l':
+         case 'L':
             loggain = 1 - loggain;
             break;
          case 'h':
