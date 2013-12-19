@@ -10,11 +10,11 @@ Version 3.7:
  * add -POWX, -LOGX option, and new constant (semitone) to 'sopr' command.
  * add -l option to 'decimate' and 'interpolate' command to specify length of vector.
  * add -g and -G option to 'lspcheck' command to check value of gain.
- * add -l option to 'lspcheck' command to specify log gain.
+ * add -L option to 'lspcheck' command to specify log gain.
  * add -n option to 'mgc2mgclsp' command to specify split number of unit circle.
  * add -p and -d to 'mgc2mgclsp' command to specify maximum number and end condition of interpolation.
  * add -x 16, 22, 24 and 48 option of 'glogsp' and 'grlogsp' command to specify more x-axis scales.
- * change -l option of 'lpc2lsp' and 'lsp2lpc' command into -L option.
+ * change -l option of 'lpc2lsp', 'lsp2lpc' and 'lspdf' command into -L option to specify log gain.
  * fix -c option of 'mlsacheck' command to specify the type of modification of filter coefficients.
  * bug fixes.
 
