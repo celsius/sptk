@@ -175,6 +175,7 @@ int main(int argc, char **argv)
          case 'k':
             ngain = 1 - ngain;
             break;
+         case 'l':
          case 'L':
             loggain = 1 - loggain;
             break;

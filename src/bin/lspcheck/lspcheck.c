@@ -228,6 +228,7 @@ int main(int argc, char **argv)
          case 'k':
             gain = 1 - gain;
             break;
+         case 'l':
          case 'L':
             loggain = 1 - loggain;
             break;
