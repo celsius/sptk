@@ -118,4 +118,4 @@ SUBDIRS = acep \
 	zcross \
 	zerodf
 
-EXTRA_DIST = pitch/snack/COPYING pitch/swipe/COPYING vc/hts_engine_API/COPYING
+EXTRA_DIST = pitch/snack/COPYING pitch/swipe/COPYING vc/hts_engine_API/COPYING ds/emime/COPYING us/emime/COPYING

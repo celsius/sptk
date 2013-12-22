@@ -59,19 +59,21 @@
 *                           43   down sampling by 4:3                   *
 *                           52   down sampling by 5:2                   *
 *                           54   down sampling by 5:4                   *
+*                           74   down sampling by 7:4                   *
 *       infile:                                                         *
 *               data sequence (float)                   [stdin]         *
 *       stdout:                                                         *
 *               converted data sequence (float)                         *
 *       notice:                                                         *
 *               Default LPF coefficients File                           *
-*                2:1 -> /usr/local/cmnd/lib/lpfcoef.2to1                *
-*                3:2 -> /usr/local/cmnd/lib/lpfcoef.3to2                *
-*                4:3 -> /usr/local/cmnd/lib/lpfcoef.4to3                *
-*                5:2 -> /usr/local/cmnd/lib/lpfcoef.5to2up              *
-*                5:2 -> /usr/local/cmnd/lib/lpfcoef.5to2dn              *
-*                5:4 -> /usr/local/cmnd/lib/lpfcoef.5to2up              *
-*                5:4 -> /usr/local/cmnd/lib/lpfcoef.5to2dn              *
+*                2:1 -> /usr/local/share/SPTK/lpfcoef.2to1              *
+*                3:2 -> /usr/local/share/SPTK/lpfcoef.3to2              *
+*                4:3 -> /usr/local/share/SPTK/lpfcoef.4to3              *
+*                5:2 -> /usr/local/share/SPTK/lpfcoef.5to2up            *
+*                5:2 -> /usr/local/share/SPTK/lpfcoef.5to2dn            *
+*                5:4 -> /usr/local/share/SPTK/lpfcoef.5to2up            *
+*                5:4 -> /usr/local/share/SPTK/lpfcoef.5to2dn            *
+*                7:4 -> /usr/local/share/SPTK/lpfcoef.7to4              *
 *                                                                       *
 ************************************************************************/
 
@@ -97,6 +99,8 @@ static char *rcs_id = "$Id$";
 #endif
 
 /* Default Values */
+#define DECRATE7_4 7
+#define INTRATE7_4 4
 #define DECRATE5 5
 #define INTRATE5 2
 #define DECRATE4_3 4
@@ -111,7 +115,7 @@ static char *rcs_id = "$Id$";
 #define STYPE 21
 
 #ifndef LIB
-#define LIB "/usr/local/SPTK/lib"
+#define LIB "/usr/local/share/SPTK"
 #endif
 
 #define COEF2_1 LIB "/lpfcoef.2to1"
@@ -119,6 +123,7 @@ static char *rcs_id = "$Id$";
 #define COEF4_3 LIB "/lpfcoef.4to3"
 #define COEF5UP LIB "/lpfcoef.5to2up"
 #define COEF5DN LIB "/lpfcoef.5to2dn"
+#define COEF7_4 LIB "/lpfcoef.7to4"
 
 #define mod(x) ((x) & (RBSIZE -1))
 
@@ -139,6 +144,7 @@ void usage(int status)
    fprintf(stderr, "                43  down sampling by 4:3\n");
    fprintf(stderr, "                52  down sampling by 5:2\n");
    fprintf(stderr, "                54  down sampling by 5:4\n");
+   fprintf(stderr, "                74  down sampling by 7:4\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       data sequence (%s)                [stdin]\n",
            FORMAT);
@@ -153,6 +159,7 @@ void usage(int status)
    fprintf(stderr, "        5:2 -> %s\n", COEF5DN);
    fprintf(stderr, "        5:4 -> %s\n", COEF5UP);
    fprintf(stderr, "        5:4 -> %s\n", COEF5DN);
+   fprintf(stderr, "        7:4 -> %s\n", COEF7_4);
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -210,6 +217,11 @@ int main(int argc, char *argv[])
       coef1 = COEF5UP;
       decrate = DECRATE5;
       intrate = INTRATE5;
+      break;
+   case 74:
+      coef = COEF7_4;
+      decrate = DECRATE7_4;
+      intrate = INTRATE7_4;
       break;
    default:
       fprintf(stderr, "%s : Given dec/int rate %d is not supported!\n", cmnd,

@@ -14,6 +14,7 @@ Version 3.7:
  * add -n option to 'mgc2mgclsp' command to specify split number of unit circle.
  * add -p and -d to 'mgc2mgclsp' command to specify maximum number and end condition of interpolation.
  * add -x 16, 22, 24 and 48 option of 'glogsp' and 'grlogsp' command to specify more x-axis scales.
+ * add filter coefficients for 7:4 down-sampling, 3:5 and 7:8 up-sampling.
  * unify option to specify log gain into -L option.
  * fix -c option of 'mlsacheck' command to specify the type of modification of filter coefficients.
  * bug fixes.

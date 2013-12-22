@@ -75,7 +75,7 @@ IO_FORMAT='float'
 AC_ARG_ENABLE(double,
 	      [  --enable-double         deal with data in double (default=no)],
 	      [ if test "$enable_double" = "yes"; then
-	       		use_double=yes
+			use_double=yes
 			IO_SYMBOL='d'
 			IO_FORMAT='double'
 			AC_DEFINE(DOUBLE)
@@ -210,7 +210,7 @@ AC_CONFIG_FILES([Makefile
                  bin/lpc2lsp/Makefile
                  bin/lpc2par/Makefile
                  bin/lsp2lpc/Makefile
-				 bin/lsp2sp/Makefile
+                 bin/lsp2sp/Makefile
                  bin/lspcheck/Makefile
                  bin/lspdf/Makefile
                  bin/ltcdf/Makefile
