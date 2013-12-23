@@ -60,9 +60,11 @@ The following filter coefficients can be used.
 	$S=23F$ & \$SPTK/share/SPTK/lpfcoef.2to3f \\
 	$S=23S$ & \$SPTK/share/SPTK/lpfcoef.2to3s \\
 	$S=34$ & \$SPTK/share/SPTK/lpfcoef.3to4 \\
+	$S=35$ & \$SPTK/share/SPTK/lpfcoef.3to5 \\
 	$S=45$ & \$SPTK/share/SPTK/lpfcoef.4to5 \\
 	$S=57$ & \$SPTK/share/SPTK/lpfcoef.5to7 \\
 	$S=58$ & \$SPTK/share/SPTK/lpfcoef.5to8 \\
+	$S=78$ & \$SPTK/share/SPTK/lpfcoef.7to8 \\
         &(\$SPTK is the directory where toolkit was installed.)
 \end{tabular}
 
@@ -86,9 +88,11 @@ Filter coefficients are in ASCII format.
 			$S=23F$ & up-sampling by $2 : 3$\\
 			$S=23S$ & up-sampling by $2 : 3$\\
 			$S=34$ & up-sampling by $3 : 4$\\
+			$S=34$ & up-sampling by $3 : 5$\\
 			$S=45$ & up-sampling by $4 : 5$\\
 			$S=57$ & up-sampling by $5 : 7$\\
-			$S=58$ & up-sampling by $5 : 8$
+			$S=58$ & up-sampling by $5 : 8$ \\
+			$S=78$ & up-sampling by $7 : 8$
 		\end{tabular}\\}{58}
 	\argm{c}{\mbox{\em file}}{filename of low pass filter coefficients}{Default}
 	\argm{u}{U}{up-sampling ratio}{N/A}
