@@ -78,10 +78,10 @@ justify ourselves to our various sponsors. We also strongly encourage you to
 See also "COPYING" files in following directories for details.
 
  ./
- ./bin/ds/emime
+ ./bin/ds/titech
  ./bin/pitch/snack
  ./bin/pitch/swipe
- ./bin/us/emime
+ ./bin/us/titech
  ./bin/vc/hts_engine_API
 
 *******************************************************************************

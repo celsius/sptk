@@ -13,4 +13,4 @@ dist_lpcoef_DATA = lpfcoef.2to1 \
 	lpfcoef.4to3 \
 	lpfcoef.5to2dn \
 	lpfcoef.5to2up \
-	emime/lpfcoef.7to4
+	titech/lpfcoef.7to4
