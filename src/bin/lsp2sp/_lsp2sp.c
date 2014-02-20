@@ -49,8 +49,8 @@
 
         void   lsp2sp(lsp, m, x, l)
 
-        double   *lsp  : cepstrum
-        int      m   : order of cepstrum
+        double   *lsp  : LSP
+        int      m   : order of LSP
         double   *x  : real part of spectrum
         double   l   : FFT length
 

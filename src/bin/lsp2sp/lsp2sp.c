@@ -265,5 +265,8 @@ int main(int argc, char **argv)
       fwritef(x, sizeof(*x), no, stdout);
    }
 
+   free(x);
+   free(lsp);
+
    return (0);
 }
