@@ -184,8 +184,8 @@ double *read_input(FILE * fp, int dim, int *length)
       cur = tmp;
       next = tmp->next;
       free(cur->f);
-      free(cur);
       cur->f = NULL;
+      free(cur);
       cur = NULL;
    }
    free(top);
