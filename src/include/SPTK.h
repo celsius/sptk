@@ -175,6 +175,7 @@ void vaverage(double *x, const int l, const int num, double *ave);
 void b2mc(double *b, double *mc, int m, const double a);
 void c2acr(double *c, const int m1, double *r, const int m2, const int flng);
 void c2ir(double *c, const int nc, double *h, const int leng);
+void c2ndps(double *c, const int m, double *n, const int l);
 void ic2ir(double *h, const int leng, double *c, const int nc);
 void c2sp(double *c, const int m, double *x, double *y, const int l);
 void clip(double *x, const int l, const double min, const double max,
@@ -297,6 +298,7 @@ double mlsadft(double x, double *b, const int m, const double a, const int pd,
                double *d);
 void msvq(double *x, double *cb, const int l, int *cbsize, const int stage,
           int *index);
+void ndps2c(double *n, const int l, double *c, const int m);
 void norm0(double *x, double *y, int m);
 int nrand(double *p, const int leng, const int seed);
 double nrandom(unsigned long *next);
