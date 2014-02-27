@@ -46,59 +46,71 @@
 \begin{synopsis}
 \item[dtw] [ --m $M$ ]  [ --l $L$ ]  [ --t $T$ ]  [ --r $R$ ]
            [ --n $N$ ]  [ --p $P$ ]
- \item [\ ~~~~~~~] [ --s $Scorefile$ ]  [ --v $Vitfile$ ]
+ \item [\ ~~~~~~~] [ --s $Scorefile$ ]  [ --v $OutVitfile$ ] [ --V $InVitfile$ ]
  {\em reffile} [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
- {\em dtw} carries out dynamic time warping (DTW) between
- the test data vectors from {\em infile} (or standard input)
- and the reference data vectors from {\em reffile},
- and sends the result to standard output.
- The result is the concatenated sequence
- of the test and the reference data vectors
- along the Viterbi path.
- If --s option is specified,
- the score calculated by dynamic time warping,
- that is, the distance between the test data and the reference data
- is output and sent to {\em Scorefile}.
- If --v option is specified,
- the concatenated frame number sequence
- along the Viterbi path
- is output and sent to {\em Vitfile}.
+ {\em dtw} carries out dynamic time warping (DTW) between the test data vectors from
+ {\em infile} (or standard input) and the reference data vectors from {\em reffile},
+ and sends the result to standard output.  The result is the concatenated sequence of
+ the test and the reference data vectors along the Viterbi path.  If --s option is
+ specified, the score calculated by dynamic time warping, that is, the distance
+ between the test data and the reference data is output and sent to {\em Scorefile}.
+ If --v option is specified, the concatenated frame number sequence along the Viterbi
+ path is output and sent to {\em OutVitfile}.  On the other hand, if --V option is
+ specified, the concatenated vector sequence of the test and reference data vectors
+ is output based on the content of {\em InVitfile}, where the correspondence of the
+ frame numbers between the test and reference data along the Viterbi path is written.
+ The format of {\em InVitfile} is the same as {\em OutVitfile}.  The --V option can
+ be used to improve the conversion accuracy of \hyperlink{vc}{vc} command.
 
  For example, suppose that the sequences of the test and the reference data vectors are
  \begin{align}
-  \mathrm{test} :\;\; & \bx(0), \bx(1), \dots, \bx(T_x - 1), \bx(T_x), \notag \\
-  \mathrm{reference}  :\;\; & \by(0), \by(1), \dots, \by(T_y - 1), \by(T_y), \notag
+  \mathrm{test} :\;\; & \bx(1), \bx(2), \dots, \bx(T_x - 1), \bx(T_x), \notag \\
+  \mathrm{reference}  :\;\; & \by(1), \by(2), \dots, \by(T_y - 1), \by(T_y), \notag
  \end{align}
  where $T_x$ and $T_y$ are the length of the sequence of the test and reference data
  vectors, respectively. After performing DTW, the following Viterbi sequences
  \begin{align}
-  \mathrm{test} :\;\; & \bx(\phi_x(0)), \bx(\phi_x(1)), \dots, \bx(\phi_x(T - 1)),
+  \mathrm{test} :\;\; & \bx(\phi_x(1)), \bx(\phi_x(2)), \dots, \bx(\phi_x(T - 1)),
   \bx(\phi_{x}(T)), \notag \\
-  \mathrm{reference}  :\;\; & \by(\phi_y(0)), \by(\phi_y(1)), \dots,
+  \mathrm{reference}  :\;\; & \by(\phi_y(1)), \by(\phi_y(2)), \dots,
   \by(\phi_y(T - 1)), \by(\phi_y(T)), \notag
  \end{align}
  can be obtained, where $\phi_x(\cdot)$ and $\phi_x(\cdot)$ are the function which
  maps the Viterbi frame number into the corresponding frame number of test/reference
  data, respectively.  Then, the following sequence
  \begin{align}
-  \bx(\phi_x(0)), \by(\phi_y(0)),
   \bx(\phi_x(1)), \by(\phi_y(1)),
+  \bx(\phi_x(2)), \by(\phi_y(2)),
   \dots, \bx(\phi_{x}(T)), \by(\phi_y(T)) \notag
  \end{align}
- are sent to the standard output.
+ is sent to the standard output.
  If --v option is specified, the following sequence
  \begin{align}
-  \phi_x(0), \phi_y(0),
   \phi_x(1), \phi_y(1),
+  \phi_x(2), \phi_y(2),
   \dots, \phi_{x}(T), \phi_y(T) \notag
  \end{align}
- are sent to the {\em Vitfile}.
+ is sent to the {\em OutVitfile}.
+ On the other hand, if --V option is specified, according to the following sequence
+ written in {\em InVitfile}
+ \begin{align}
+  \phi_x(1), \phi_y(1),
+  \phi_x(2), \phi_y(2),
+  \dots, \phi_{x}(T), \phi_y(T), \notag
+ \end{align}
+ the following concatenated vector sequence
+ \begin{align}
+  \bx(\phi_x(1)), \by(\phi_y(1)),
+  \bx(\phi_x(2)), \by(\phi_y(2)),
+  \dots, \bx(\phi_{x}(T)), \by(\phi_y(T)) \notag
+ \end{align}
+ can be obtained and sent to the standard output.
 
  Both input and output files are in float format. However,
- the {\em Vitfile} which contains the Viterbi frame number
+ {\em InVitfile} and {\em OutVitfile} which contains the Viterbi frame number
  sequence is in int format.
 \end{qsection}
 \begin{options}
@@ -115,8 +127,10 @@
  candidates of constraint are shown in figure \ref{fig:dtw_cand}.}{5}
  \argm{s}{Scorefile}{output score of the dynamic time warping
  to ${Scorefile}$. }{FALSE}
- \argm{v}{Vitfile}{output frame number sequence along the Viterbi
- path to ${Vitfile}$.}{FALSE}
+ \argm{v}{OutVitfile}{output frame number sequence along the Viterbi
+ path to ${OutVitfile}$.}{FALSE}
+ \argm{V}{InVitfile}{concatenate test and reference vectors along the Viterbi
+ path information written in ${InVitfile}$.}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -151,7 +165,6 @@
  \label{fig:dtw_cand}
 \end{figure}
 
-% \begin{qsection}{SEE ALSO}
-% \hyperlink{vc}{vc}
-% \end{qsection}
-
+\begin{qsection}{SEE ALSO}
+\hyperlink{vc}{vc}
+\end{qsection}
