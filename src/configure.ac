@@ -162,6 +162,7 @@ AC_CONFIG_FILES([Makefile
                  bin/bcut/Makefile
                  bin/c2acr/Makefile
                  bin/c2ir/Makefile
+		 bin/c2ndps/Makefile
                  bin/c2sp/Makefile
                  bin/cat2/Makefile
                  bin/cdist/Makefile
@@ -231,6 +232,7 @@ AC_CONFIG_FILES([Makefile
                  bin/mlsadf/Makefile
                  bin/msvq/Makefile
                  bin/nan/Makefile
+		 bin/ndps2c/Makefile
                  bin/norm0/Makefile
                  bin/nrand/Makefile
                  bin/par2lpc/Makefile

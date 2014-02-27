@@ -12,6 +12,7 @@ SUBDIRS = acep \
 	bcut \
 	c2acr \
 	c2ir \
+	c2ndps \
 	c2sp \
 	cat2 \
 	cdist \
@@ -81,6 +82,7 @@ SUBDIRS = acep \
 	mlsadf \
 	msvq \
 	nan \
+	ndps2c \
 	norm0 \
 	nrand \
 	par2lpc \
