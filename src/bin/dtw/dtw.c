@@ -42,38 +42,41 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/***************************************************************************
-*                                                                          *
-*    Dynamic Time Warping                                                  *
-*                                                                          *
-*                                      2011.12 Akira Tamamori              *
-*       usage:                                                             *
-*               dtw [ options ] reffile [ infile ] > stdout                *
-*       options:                                                           *
-*               -m M      : order of vector                        [24]    *
-*               -l L      : dimension of vector                    [m+1]   *
-*               -t T      : number of test vectors                 [N/A]   *
-*               -r R      : number of reference vectors            [N/A]   *
-*               -n N      : type of norm used for calculation      [2]     *
-*                           of local distance                              *
-*                             1 : L1-norm                                  *
-*                             2 : L2-norm                                  *
-*               -p P      : local path constraint                  [5]     *
-*               -s sfile  : output score of dynamic time warping   [FALSE] *
-*               -v vfile  : output concatenated test/reference     [FALSE] *
-*                           data sequence along the Vitebi path            *
-*       infile:                                                            *
-*              test vector sequence                                        *
-*                  x_1(1), ..., x_1(L), x_2(1), ..., x_2(L), ...           *
-*       reffile:                                                           *
-*              reference vector sequence                                   *
-*                  y_1(1), ..., y_1(L), y_2(1), ..., y_2(L), ...           *
-*       stdout:                                                            *
-*              concatenated test/reference vector sequence                 *
-*              along the Vitebi path                                       *
-*                  x_1(1), ..., x_1(L), y_1(1), ..., y_1(L), ...           *
-*                                                                          *
-***************************************************************************/
+/*******************************************************************************
+*                                                                              *
+*    Dynamic Time Warping                                                      *
+*                                                                              *
+*                                      2011.12 Akira Tamamori                  *
+*       usage:                                                                 *
+*               dtw [ options ] reffile [ infile ] > stdout                    *
+*       options:                                                               *
+*               -m M          : order of vector                        [24]    *
+*               -l L          : dimension of vector                    [m+1]   *
+*               -t T          : number of test vectors                 [N/A]   *
+*               -r R          : number of reference vectors            [N/A]   *
+*               -n N          : type of norm used for calculation      [2]     *
+*                               of local distance                              *
+*                                 1 : L1-norm                                  *
+*                                 2 : L2-norm                                  *
+*               -p P          : local path constraint                  [5]     *
+*               -s sfile      : output score of dynamic time warping   [FALSE] *
+*               -v out_vfile  : output concatenated test/reference     [FALSE] *
+*                               data sequence along the Vitebi path            *
+*               -V in_vfile   : concatenate test and reference vectors [FALSE] *
+*                               in accordance with the Vitebi path             *
+*                               information written in in_vfile                *
+*       infile:                                                                *
+*              test vector sequence                                            *
+*                  x_1(1), ..., x_1(L), x_2(1), ..., x_2(L), ...               *
+*       reffile:                                                               *
+*              reference vector sequence                                       *
+*                  y_1(1), ..., y_1(L), y_2(1), ..., y_2(L), ...               *
+*       stdout:                                                                *
+*              concatenated test/reference vector sequence                     *
+*              along the Vitebi path                                           *
+*                  x_1(1), ..., x_1(L), y_1(1), ..., y_1(L), ...               *
+*                                                                              *
+*******************************************************************************/
 
 static char *rcs_id = "$Id$";
 
@@ -670,7 +673,7 @@ void check_enabled_region_type_7(DTW_Table * table)
    }
 }
 
-void recursive_calc_type_1(DTW_Table * table)
+void calc_global_cost_type_1(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    double local, path1, path2;
@@ -708,7 +711,7 @@ void recursive_calc_type_1(DTW_Table * table)
    cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void recursive_calc_type_2(DTW_Table * table)
+void calc_global_cost_type_2(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    double local, min, path1, path2, path3;
@@ -754,7 +757,7 @@ void recursive_calc_type_2(DTW_Table * table)
    cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void recursive_calc_type_3(DTW_Table * table)
+void calc_global_cost_type_3(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    double local, min = 0.0, path1, path2;
@@ -806,7 +809,7 @@ void recursive_calc_type_3(DTW_Table * table)
    cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void recursive_calc_type_4(DTW_Table * table)
+void calc_global_cost_type_4(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    double local = 0.0, min = 0.0, path1, path2, path3;
@@ -909,10 +912,10 @@ void recursive_calc_type_4(DTW_Table * table)
    cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void recursive_calc_type_5(DTW_Table * table)
+void calc_global_cost_type_5(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
-   double local = 0.0, min = 0.0, path1, path2, path3;
+   double min = 0.0, path1, path2, path3;
    DTW_Cell **cell = table->cell;
    WEIGHT weight = table->weight;
 
@@ -932,7 +935,6 @@ void recursive_calc_type_5(DTW_Table * table)
 
    for (j = 2; j < Ty - 1; j++) {
       for (i = 2; i < Tx - 1; i++) {
-         local = cell[i][j].local;
          if (cell[i][j].is_region == PATH_OK) {
             path1 = cell[i - 2][j - 1].global +
                 weight.val[0] * cell[i - 1][j].local +
@@ -1008,7 +1010,7 @@ void recursive_calc_type_5(DTW_Table * table)
    cell[Tx - 1][Ty - 1].global = cell[Tx - 2][Ty - 2].global /(Tx + Ty);
 }
 
-void recursive_calc_type_6(DTW_Table * table)
+void calc_global_cost_type_6(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    double local = 0.0, min = 0.0, path1, path2, path3;
@@ -1098,7 +1100,7 @@ void recursive_calc_type_6(DTW_Table * table)
    cell[Tx - 1][Ty - 1].global /=(Tx + Ty);
 }
 
-void recursive_calc_type_7(DTW_Table * table)
+void calc_global_cost_type_7(DTW_Table * table)
 {
    int i, j, Tx = table->data[0].total, Ty = table->data[1].total;
    double local = 0.0, min = 0.0, path1, path2, path3, path4;
@@ -1314,7 +1316,7 @@ void calc_local_cost(DTW_Table * table)
 }
 
 /* Calculate global cost recursively */
-void recursive_calc(DTW_Table * table)
+void calc_global_cost(DTW_Table * table)
 {
    table->cell[0][0].global = table->cell[0][0].local;
    table->cell[0][0].backptr[0] = -1;
@@ -1322,25 +1324,25 @@ void recursive_calc(DTW_Table * table)
 
    switch (table->path) {
    case I:
-      recursive_calc_type_1(table);
+      calc_global_cost_type_1(table);
       break;
    case II:
-      recursive_calc_type_2(table);
+      calc_global_cost_type_2(table);
       break;
    case III:
-      recursive_calc_type_3(table);
+      calc_global_cost_type_3(table);
       break;
    case IV:
-      recursive_calc_type_4(table);
+      calc_global_cost_type_4(table);
       break;
    case V:
-      recursive_calc_type_5(table);
+      calc_global_cost_type_5(table);
       break;
    case VI:
-      recursive_calc_type_6(table);
+      calc_global_cost_type_6(table);
       break;
    case VII:
-      recursive_calc_type_7(table);
+      calc_global_cost_type_7(table);
       break;
    default:
       break;
@@ -1348,7 +1350,7 @@ void recursive_calc(DTW_Table * table)
 }
 
 /* Obtain Viterbi path */
-void back_trace(DTW_Table * table)
+void get_viterbi_path(DTW_Table * table)
 {
    int k, l, Tx = table->data[0].total, Ty = table->data[1].total,
        *back_x, *back_y, *phi_x, *phi_y;
@@ -1472,10 +1474,10 @@ void dtw(DTW_Table * table, double **output)
    calc_local_cost(table);
 
    /* Calculate global cost recursively */
-   recursive_calc(table);
+   calc_global_cost(table);
 
    /* Obtain Viterbi path */
-   back_trace(table);
+   get_viterbi_path(table);
 
    /* Concatenate two input vectors along Viterbi path */
    *output = concat(table);
@@ -1490,32 +1492,39 @@ void usage(int status)
    fprintf(stderr, "       %s [ options ] reffile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
    fprintf(stderr,
-           "       -m M      : order of vector                      [%d]\n",
+           "       -m M         : order of vector                      [%d]\n",
            LENG);
    fprintf(stderr,
-           "       -l L      : dimension of vector                  [m+1]\n");
+           "       -l L         : dimension of vector                  [m+1]\n");
    fprintf(stderr,
-           "       -t T      : number of test vectors               [N/A]\n");
+           "       -t T         : number of test vectors               [N/A]\n");
    fprintf(stderr,
-           "       -r R      : number of reference vectors          [N/A]\n");
+           "       -r R         : number of reference vectors          [N/A]\n");
    fprintf(stderr,
-           "       -n N      : type of norm used for calculation    [%d]\n",
+           "       -n N         : type of norm used for calculation    [%d]\n",
            L2);
-   fprintf(stderr, "                   of local cost\n");
+   fprintf(stderr, "                      of local cost\n");
    fprintf(stderr, "                      N = 1 : L1-norm\n");
    fprintf(stderr, "                      N = 2 : L2-norm\n");
    fprintf(stderr,
-           "       -p P      : local path constraint                [%d]\n", V);
+           "       -p P         : local path constraint                [%d]\n",
+           V);
    fprintf(stderr,
-           "       -s sfile  : output score of dynamic time warping [FALSE]\n");
-   fprintf(stderr, "                   to sfile \n");
+           "       -s sfile     : output score of dynamic time warping [FALSE]\n");
+   fprintf(stderr, "                      to sfile \n");
    fprintf(stderr,
-           "       -v vfile  : output frame number sequence         [FALSE]\n");
-   fprintf(stderr, "                   along the Viterbi path\n");
-   fprintf(stderr, "       -h        : print this message\n");
+           "       -v out_vfile : output frame number sequence         [FALSE]\n");
+   fprintf(stderr, "                      along the Viterbi path\n");
+   fprintf(stderr,
+           "       -V in_vfile  : concatenate test and reference       [FALSE]\n");
+   fprintf(stderr, "                      vectors in accordance with the\n");
+   fprintf(stderr,
+           "                      Viterbi path information written in\n");
+   fprintf(stderr, "                      in_vfile\n");
+   fprintf(stderr, "       -h           : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,
-           "       test vector sequence (%s)                     [stdin]\n",
+           "       test vector sequence (%s)                        [stdin]\n",
            FORMAT);
    fprintf(stderr, "  reffile:\n");
    fprintf(stderr,
@@ -1534,13 +1543,16 @@ void usage(int status)
 
 int main(int argc, char *argv[])
 {
-   char *infile2 = NULL, *Scorefile = NULL, *Viterbifile = NULL;
-   int i, dim = LENG, num_test, num_ref, length_test = 0, length_ref = 0;
+   char *infile2 = NULL, *Scorefile = NULL, *Viterbi_file =
+       NULL, *Viterbi_file2 = NULL;
+   int i, dim = LENG, num_test, num_ref, length_test = 0, length_ref =
+       0, total, *viterbi = NULL;
    double *x = NULL, *y = NULL, *z = NULL;
    enum Norm norm_type = L2;
    enum PATH path_type = V;
-   FILE *fp = stdin, *fp2 = NULL, *fpScore = NULL, *fpViterbi = NULL;
-   Boolean outscore = FA, outViterbi = FA;
+   FILE *fp = stdin, *fp2 = NULL, *fpScore = NULL, *fpViterbi =
+       NULL, *fpViterbi2 = NULL;
+   Boolean outscore = FA, outViterbi = FA, joint = FA;
    DTW_Table table;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL) {
@@ -1582,9 +1594,15 @@ int main(int argc, char *argv[])
             --argc;
             break;
          case 'v':
-            Viterbifile = *++argv;
-            fpViterbi = getfp(Viterbifile, "wb");
+            Viterbi_file = *++argv;
+            fpViterbi = getfp(Viterbi_file, "wb");
             outViterbi = TR;
+            --argc;
+            break;
+         case 'V':
+            Viterbi_file2 = *++argv;
+            fpViterbi2 = getfp(Viterbi_file2, "rb");
+            joint = TR;
             --argc;
             break;
          case 'h':
@@ -1619,29 +1637,45 @@ int main(int argc, char *argv[])
    x = read_input(fp, dim, &num_test);  /* test vectors */
    y = read_input(fp2, dim, &num_ref);  /* reference vectors */
 
-   if (length_test != 0) {      /* if -t option is specified */
-      num_test = length_test;
-   }
-   if (length_ref != 0) {       /* if -r option is specified */
-      num_ref = length_ref;
-   }
+   if (joint == TR) {
+      fseek(fpViterbi2, 0, SEEK_END);
+      total = (int) ((double) ftell(fpViterbi2) / (double) sizeof(total));
+      rewind(fpViterbi2);
+      viterbi = (int *) getmem(total, sizeof(*viterbi));
+      freadx(viterbi, total, sizeof(*viterbi), fpViterbi2);
+      fclose(fpViterbi2);
 
-   /* Initialize */
-   init_dtw(&table, dim, x, y, num_test, num_ref, path_type, norm_type);
+      /* make joint vector sequence along Viterbi path */
+      for (i = 0; i < total / 2; i++) {
+         fwritef(x + dim * viterbi[2 * i], sizeof(*x), dim, stdout);
+         fwritef(y + dim * viterbi[2 * i + 1], sizeof(*y), dim, stdout);
+      }
+      free(viterbi);
+   } else {
+      if (length_test != 0) {   /* if -t option is specified */
+         num_test = length_test;
+      }
+      if (length_ref != 0) {    /* if -r option is specified */
+         num_ref = length_ref;
+      }
 
-   /* Perform dynamic time warping */
-   dtw(&table, &z);
+      /* Initialize */
+      init_dtw(&table, dim, x, y, num_test, num_ref, path_type, norm_type);
 
-   /* output */
-   fwritef(z, sizeof(*z), table.vit_leng * 2 * dim, stdout);
-   if (outscore == TR) {
-      fwritef(&table.cell[num_test - 1][num_ref - 1].global,
-              sizeof(double), 1, fpScore);
-   }
-   if (outViterbi == TR) {
-      for (i = 0; i < table.vit_leng; i++) {
-         fwrite(table.data[0].viterbi + i, sizeof(int), 1, fpViterbi);
-         fwrite(table.data[1].viterbi + i, sizeof(int), 1, fpViterbi);
+      /* Perform dynamic time warping */
+      dtw(&table, &z);
+
+      /* output */
+      fwritef(z, sizeof(*z), table.vit_leng * 2 * dim, stdout);
+      if (outscore == TR) {
+         fwritef(&table.cell[num_test - 1][num_ref - 1].global,
+                 sizeof(double), 1, fpScore);
+      }
+      if (outViterbi == TR) {
+         for (i = 0; i < table.vit_leng; i++) {
+            fwrite(table.data[0].viterbi + i, sizeof(int), 1, fpViterbi);
+            fwrite(table.data[1].viterbi + i, sizeof(int), 1, fpViterbi);
+         }
       }
    }
 
