@@ -1,0 +1,8 @@
+Makefile
+<<<<<<< .cvsignore
+ndps2c
+=======
+c2ndps
+>>>>>>> 1.2
+Makefile.in
+.deps
