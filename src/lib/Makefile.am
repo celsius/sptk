@@ -2,7 +2,7 @@
 ## Process this file with automake to produce Makefile.in
 ##
 ## $Id$
-INCLUDES=-I$(top_srcdir)/include
+AM_CPPFLAGS = -I$(top_srcdir)/include
 lib_LIBRARIES = libSPTK.a
 libSPTK_a_SOURCES = agexp.c \
 	      cholesky.c \

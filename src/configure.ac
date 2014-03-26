@@ -5,7 +5,7 @@ AC_INIT(SPTK, 3.7, http://sourceforge.net/projects/sp-tk/, SPTK)
 AC_CONFIG_AUX_DIR([config])
 AC_COPYRIGHT(Copyright 1984-2007 Tokyo Institute of Technology)
 AC_COPYRIGHT(Copyright 1996-2013 Nagoya Institute of Technology)
-AM_INIT_AUTOMAKE([nostdinc])
+AM_INIT_AUTOMAKE([nostdinc subdir-objects])
 AC_SUBST(PACKAGE_NAME)
 AC_SUBST(PACKAGE_VERSION)
 
@@ -131,6 +131,14 @@ AC_MSG_CHECKING(audio device)
 				[AC_DEFINE(FreeBSD)],
 				[AC_MSG_ERROR([sys/soundcard.h is not found])])
 		AM_CONDITIONAL( USEDA, true)
+		;;
+	*win32* | *wince* | *cygwin* | *mingw* )
+		AC_MSG_RESULT([windows])
+		AC_CHECK_HEADER([windows.h],
+				[AC_DEFINE(WIN32)],
+				[AC_MSG_ERROR([windows.h is not found])])
+		AM_CONDITIONAL( USEDA, true)
+		AC_HAVE_LIBRARY([winmm],,AC_MSG_ERROR(No winmm))
 		;;
 	*)
 		AC_MSG_WARN([not found])

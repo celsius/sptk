@@ -1,4 +1,4 @@
-#! @cshpath@ -f
+#!@csh@ -f
 # ----------------------------------------------------------------- #
 #             The Speech Signal Processing Toolkit (SPTK)           #
 #             developed by SPTK Working Group                       #
@@ -43,7 +43,6 @@
 # POSSIBILITY OF SUCH DAMAGE.                                       #
 # ----------------------------------------------------------------- #
 
-
 #########################################################################
 #                                                                       #
 #   Draw a Waveform                                                     #
@@ -55,8 +54,8 @@
 
 onintr clean
 
-set path    = ( @binpath@ $path )
-set sptkver = '@sptk_version@'
+set path    = ( @bindir@ $path )
+set sptkver = '@package_version@'
 set cvsid   = '$Id$'
 
 set cmnd = $0

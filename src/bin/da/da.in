@@ -1,4 +1,4 @@
-#! @cshpath@ -f
+#!@csh@ -f
 # ----------------------------------------------------------------- #
 #             The Speech Signal Processing Toolkit (SPTK)           #
 #             developed by SPTK Working Group                       #
@@ -43,7 +43,6 @@
 # POSSIBILITY OF SUCH DAMAGE.                                       #
 # ----------------------------------------------------------------- #
 
-
 #########################################################################
 #                                                                       #
 #   play 16-bit linear PCM                                              #
@@ -52,9 +51,9 @@
 #                                                                       #
 #########################################################################
 
-set path        = ( @sharepath@ @binpath@ $path )
-set libpath     = '@libpath@'
-set sptkver     = '@sptk_version@'
+set path        = ( @bindir@ $path )
+set libpath     = '@pkgdatadir@'
+set sptkver     = '@package_version@'
 set cvsid       = '$Id$'
 
 set cmnd        = $0
