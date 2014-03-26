@@ -119,7 +119,8 @@ void usage(int status)
    fprintf(stderr, "       Negative Derivative of Phase Spectrum (NDPS)(%s)\n",
            FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       The output NDPS doesn't have the information of c(0).");
+   fprintf(stderr,
+           "       The output NDPS doesn't have the information of c(0).");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -169,8 +170,7 @@ int main(int argc, char **argv)
          case 'z':
             if (pz != 0) {
                fprintf(stderr,
-                       "%s : make a choice between -p and -z option !\n", cmnd,
-                       *argv);
+                       "%s : make a choice between -p and -z option !\n", cmnd);
                usage(1);
             } else if ((*(*argv + 1)) == 'p')
                pz = 1;
