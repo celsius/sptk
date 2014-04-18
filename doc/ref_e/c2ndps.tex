@@ -47,7 +47,7 @@
 {speech parameter transformation}
 
 \begin{synopsis}
- \item[c2ndps] [ --l $L$ ] [ --m $M$ ] [ {\em infile} ]
+ \item[c2ndps] [ --l $L$ ] [ --m $M$ ] [ --p ] [ --z ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -76,26 +76,26 @@ $\ln S(\omega)$ can be decomposed into the real part and imaginary part, that is
 \end{displaymath}
  From the above derivation, NDPS is also equivalent to the real part of DFT of $mc(m)$:
 \begin{displaymath}
- NDPS = Re\left[ \sum^{M}_{m=0}mc(m)\mathrm{e}^{-j\omega m} \right] .
+ n(k) = Re\left[ \sum^{M}_{m=0}mc(m)\mathrm{e}^{-j\frac{2\pi km}{N}} \right]\hspace{10mm} (k=0,\cdots,N-1).
 \end{displaymath}
-Both input and output files are in float format.
+Both input and output files are in float format. The output file contains the $n(k)$ in the range $k=0,\cdots,N/2$.
 
 Additionally, the -p or -z option can be used to output NDPS as follows.
 If the -p option is specified,
 \begin{align}
-n(i) = \begin{cases} \;\; \displaystyle
-	n(i), & n(i) > 0 \\
-	\;\;\displaystyle 0 & n(i) < 0
+n(k) = \begin{cases} \;\; \displaystyle
+	n(k), & n(k) > 0 \\
+	\;\;\displaystyle 0 & n(k) < 0
        \end{cases}. \notag
 \end{align}
 If the -z option is specified,
 \begin{align}
-n(i) = \begin{cases} \;\; \displaystyle
-	0, & n(i) > 0 \\
-	\;\;\displaystyle n(i) & n(i) < 0
+n(k) = \begin{cases} \;\; \displaystyle
+	0, & n(k) > 0 \\
+	\;\;\displaystyle n(k) & n(k) < 0
        \end{cases}. \notag
 \end{align}
-$n(i)$ doesn't have the information of c(0).
+$n(k)$ doesn't comprehend the c(0).
 \end{qsection}
 
 \begin{options}
@@ -107,8 +107,8 @@ $n(i)$ doesn't have the information of c(0).
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-The output file {\em data.ir} contains the NDPS
-in the range $n = 0 \sim 1024$ obtained from the 30-th order cepstral
+The output file {\em data.ir} contains the $n(k)$
+in the range $k = 0,\cdots,1024$ obtained from the 30-th order cepstral
 coefficients file {\em data.cep}, in float format:
  \begin{quote}
   \verb!c2ndps -l 2048 -m 30 data.cep > data.ndps!
