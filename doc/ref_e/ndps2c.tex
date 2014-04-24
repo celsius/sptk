@@ -47,7 +47,7 @@
 {speech parameter transformation}
 
 \begin{synopsis}
- \item[ndps2c] [ --l $L$ ] [ --m $M$ ] [ --p ] [ --z ] [ {\em infile} ]
+ \item[ndps2c] [ --l $L$ ] [ --m $M$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -59,9 +59,9 @@ For example, if the input sequence is
 \begin{displaymath}
    n(0),n(1),n(2),\dots,n(L/2)
 \end{displaymath}
-then the cepstrum is calculated from
+then the cepstrum $c(m)$is calculated from
 \begin{displaymath}
- n(\omega) = Re \left[ \sum^{M}_{m=0}mc(m)\mathrm{e}^{-j\omega m} \right].
+ n(k) = Re \left[ \sum^{M}_{m=0}mc(m)\mathrm{e}^{-j\frac{2\pi km}{N}} \right]\hspace{10mm} (k=0,\cdots,N-1).
 \end{displaymath}
 
 Both input and output files are is float format.
