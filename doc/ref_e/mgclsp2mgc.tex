@@ -45,7 +45,7 @@
 \name{mgclsp2mgc}{transform MGC-LSP to MGC}{speech parameter transformation}
 
 \begin{synopsis}
-\item [mgclsp2mgc] [ --a $A$ ] [ --g $G$ ] [ --m $M$ ] [ --i $I$ ]
+\item [mgclsp2mgc] [ --a $A$ ] [ --g $G$ ] [ --m $M$ ] [ --q $Q$ ]
  [ --s $S$ ] [ --L ] [ {\em infile} ]
 \end{synopsis}
 
@@ -80,7 +80,7 @@ for checking the stability of the input MGC-LSPs and then
                         $\gamma =-1 / $(int)$ C$\\
                         $C$ must be $C \geq 1$}{}
 	\argm{m}{M}{order of mel-generalized cepstrum}{25}
-        \argm{i}{I}{input format\\
+        \argm{q}{Q}{input format\\
                 \begin{tabular}{ll} \\[-1ex]
                         $0$ & normalized frequency $(0 \dots \pi)$ \\
                         $1$ & normalized frequency $(0 \dots 0.5)$ \\

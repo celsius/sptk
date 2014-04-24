@@ -56,7 +56,7 @@
 *               -k       :  input & output gain         [TRUE]          *
 *               -L       :  regard input as log gain    [FALSE]         *
 *                           and output linear one                       *
-*               -i i     :  input format                [0]             *
+*               -q q     :  input format                [0]             *
 *                             0 (normalized frequency <0...pi>)         *
 *                             1 (normalized frequency <0...0.5>)        *
 *                             2 (frequency (kHz))                       *
@@ -129,7 +129,7 @@ void usage(int status)
            "       -L    : regard input as log gain and output linear one [%s]\n",
            BOOL[LOGGAIN]);
    fprintf(stderr,
-           "       -i i  : input format                                   [%d]\n",
+           "       -q q  : input format                                   [%d]\n",
            ITYPE);
    fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
    fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
@@ -182,6 +182,7 @@ int main(int argc, char **argv)
             loggain = TR;
             break;
          case 'i':
+	 case 'q':
             itype = atoi(*++argv);
             --argc;
             break;

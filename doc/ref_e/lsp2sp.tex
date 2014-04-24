@@ -46,7 +46,7 @@
 {speech parameter transformation}
 
 \begin{synopsis}
-\item[lsp2sp] [ --m $M$ ] [ --s $S$ ] [ --l $L$ ] [ --L ] [ --k ] [ --i $I$ ] [ --o $O$ ] [ {\em infile} ]
+\item[lsp2sp] [ --m $M$ ] [ --s $S$ ] [ --l $L$ ] [ --L ] [ --k ] [ --q $Q$ ] [ --o $O$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -81,7 +81,7 @@ When the order of LSP is odd,
  \argm{s}{S}{sampling frequency (kHz)}{10.0}
 	\argm{l}{L}{frame length}{256}
  \argm{L}{}{regard input log gain as linear one}{FALSE}
-	\argm{i}{I}{input format\\
+	\argm{q}{Q}{input format\\
         \begin{tabular}{ll} \\[-1ex]
             $0$ & normalized frequency $(0 \dots \pi)$ \\
             $1$ & normalized frequency $(0 \dots 0.5)$ \\

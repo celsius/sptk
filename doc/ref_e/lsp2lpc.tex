@@ -45,7 +45,7 @@
 \name{lsp2lpc}{transform LSP to LPC}{speech parameter transformation}
 
 \begin{synopsis}
-\item [lsp2lpc] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --L ] [ --i $I$ ] [ {\em infile} ] 
+\item [lsp2lpc] [ --m $M$ ] [ --s $S$ ] [ --k ] [ --L ] [ --q $Q$ ] [ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -76,7 +76,7 @@ and it sets $K$ to $1.0$ in the LPC output vectors.
 	\argm{s}{S}{sampling frequency (kHz)}{10.0}
 	\argm{k}{}{input \& output gain}{TRUE}
 	\argm{L}{}{regard input as log gain and output linear gain}{FALSE}
-	\argm{i}{I}{input format\\
+	\argm{q}{Q}{input format\\
 		\begin{tabular}{ll} \\[-1ex]
 			$0$ & normalized frequency $(0 \dots \pi)$ \\
 			$1$ & normalized frequency $(0 \dots 0.5)$ \\

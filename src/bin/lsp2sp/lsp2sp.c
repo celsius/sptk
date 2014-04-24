@@ -56,7 +56,7 @@
 *               -l l     :  frame length                [256]           *
 *               -L       :  regard input log gain as linear one  [FALSE]*
 *               -k       :  input gain                  [TRUE]          *
-*               -i i     :  input format                [0]             *
+*               -q q     :  input format                [0]             *
 *                             0 (normalized frequency <0...pi)>         *
 *                             1 (normalized frequency <0...0.5>)        *
 *                             2 (frequency (kHz))                       *
@@ -137,7 +137,7 @@ void usage(int status)
    fprintf(stderr,
            "       -k    : input gain                            [TRUE]\n");
    fprintf(stderr,
-           "       -i i  : input format                          [%d]\n",
+           "       -q q  : input format                          [%d]\n",
            ITYPE);
    fprintf(stderr, "                 0 (normalized frequency <0...pi>)\n");
    fprintf(stderr, "                 1 (normalized frequency <0...0.5>)\n");
@@ -184,6 +184,7 @@ int main(int argc, char **argv)
          case 's':
          case 'l':
          case 'i':
+	 case 'q':
          case 'o':
             if (isdigit(**(argv + 1)) == 0) {
                if ((**(argv + 1)) != '+') {
@@ -205,7 +206,7 @@ int main(int argc, char **argv)
                sampling = atof(*++argv);
             else if ((*(*argv + 1)) == 'l')
                leng = atoi(*++argv);
-            else if ((*(*argv + 1)) == 'i')
+            else if ((*(*argv + 1)) == 'i' || (*(*argv + 1)) == 'q')
                itype = atoi(*++argv);
             else if ((*(*argv + 1)) == 'o')
                otype = atoi(*++argv);

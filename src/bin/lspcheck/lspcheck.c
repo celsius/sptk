@@ -54,7 +54,7 @@
 *               -m m     :  order of LSP                [25]            *
 *               -s s     :  sampling frequency          [10]            *
 *               -k       :  input & output gain         [FALSE]         *
-*               -i i     :  input format                [0]             *
+*               -q q     :  input format                [0]             *
 *               -o o     :  output format               [i]             *
 *                             0 (normalized frequency <0...pi>)         *
 *                             1 (normalized frequency <0...0.5>)        *
@@ -138,7 +138,7 @@ void usage(int status)
            "       -k    : input & output gain                        [%s]\n",
            BOOL[GAIN]);
    fprintf(stderr,
-           "       -i i  : input format                               [%d]\n",
+           "       -q q  : input format                               [%d]\n",
            ITYPE);
    fprintf(stderr,
            "       -o o  : output format                              [i]\n");
@@ -210,6 +210,7 @@ int main(int argc, char **argv)
             --argc;
             break;
          case 'i':
+	 case 'q':
             itype = atoi(*++argv);
             --argc;
             break;
