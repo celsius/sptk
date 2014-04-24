@@ -1,0 +1,135 @@
+% ----------------------------------------------------------------- %
+%             The Speech Signal Processing Toolkit (SPTK)           %
+%             developed by SPTK Working Group                       %
+%             http://sp-tk.sourceforge.net/                         %
+% ----------------------------------------------------------------- %
+%                                                                   %
+%  Copyright (c) 1984-2007  Tokyo Institute of Technology           %
+%                           Interdisciplinary Graduate School of    %
+%                           Science and Engineering                 %
+%                                                                   %
+%                1996-2014  Nagoya Institute of Technology          %
+%                           Department of Computer Science          %
+%                                                                   %
+% All rights reserved.                                              %
+%                                                                   %
+% Redistribution and use in source and binary forms, with or        %
+% without modification, are permitted provided that the following   %
+% conditions are met:                                               %
+%                                                                   %
+% - Redistributions of source code must retain the above copyright  %
+%   notice, this list of conditions and the following disclaimer.   %
+% - Redistributions in binary form must reproduce the above         %
+%   copyright notice, this list of conditions and the following     %
+%   disclaimer in the documentation and/or other materials provided %
+%   with the distribution.                                          %
+% - Neither the name of the SPTK working group nor the names of its %
+%   contributors may be used to endorse or promote products derived %
+%   from this software without specific prior written permission.   %
+%                                                                   %
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            %
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       %
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          %
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          %
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS %
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          %
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   %
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     %
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON %
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   %
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    %
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
+% POSSIBILITY OF SUCH DAMAGE.                                       %
+% ----------------------------------------------------------------- %
+\hypertarget{mgclsp2sp}{}
+\name{mgclsp2sp}{transform MGC-LSP to spectrum}{speech parameter transformation}
+
+\begin{synopsis}
+\item [mgclsp2sp] [ --a $A$ ] [ --g $G$ ] [ --m $M$ ] [ --l $L$] [ --q $Q$ ] 
+ [ --s $S$ ] [ --o $O$] \newline [ --k ] [ --L ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em mgclsp2sp} calculates the spectrum from the line spectral pair coefficients (MGC-LSPs).
+The MGC-LSPs is input from {\em infile} (or standard input), and the result sends to standard output.
+Input and output data are in float format.
+
+The MGC-LSPs input format is
+\begin{displaymath}
+ [ \tilde{K} ], l(1), \dots, l(M).
+\end{displaymath}
+The spectrum can be obtained by
+\begin{displaymath}
+ \mid H(\mathrm{e}^{-j\omega}) \mid = \frac{\tilde{K}}{\mid A_p(\mathrm{e}^{-j\omega}) \mid}.
+\end{displaymath}
+When the generalized logarithmic function is defined by
+\begin{displaymath}
+ s_{\gamma}^{-1}(\hat{\omega}) = \left\{
+                    \begin{array}{ll}
+                     (1 + \gamma \hat{\omega})^{1/\gamma } & 0<|\gamma|\le 1 \\
+                     \exp \hat{\omega} & \gamma = 0
+                    \end{array}
+                   \right. ,
+\end{displaymath}
+When the order of MGC-LSP is even, $\mid A_p(\mathrm{e}^{-j\omega}) \mid$ is given as
+\begin{displaymath}
+ \mid A_p(\mathrm{e}^{-j\tilde{\omega}}) \mid =  \left\{ 2^M \left\{ \cos^2 \frac{\tilde{\omega}}{2}\prod_{i=1,3,\cdots,M-1}(\cos \tilde{\omega} - \cos l(i))^2 + \sin^2 \frac{\tilde{\omega}}{2}\prod_{i=2,4,\cdots,M}(\cos \tilde{\omega} - \cos l(i))^2 \right\} \right\}^{-\frac{1}{2\gamma }}.
+\end{displaymath}
+When the order of MGC-LSP is odd, $\mid A_p(\mathrm{e}^{-j\omega}) \mid$ is given as
+\begin{displaymath}
+\mid A_p(\mathrm{e}^{-j\tilde{\omega}}) \mid = \left\{ 2^{M-1} \left\{ \prod_{i=1,3,\cdots,M}(\cos \tilde{\omega} - \cos l(i))^2 + \sin^2 \tilde{\omega} \prod_{i=2,4,\cdots,M-1}(\cos \tilde{\omega} - \cos l(i))^2 \right\} \right\}^{-\frac{1}{2\gamma }} ,
+\end{displaymath}
+where $\tilde{\omega}$ is obtained by
+\begin{displaymath}
+ \tilde{\omega} = \omega + 2\tan^{-1}(\alpha \sin \omega / (1 - \alpha \cos \omega))
+\end{displaymath}
+and $\omega$ is angular frequency.
+
+Also, {\em mgclsp2sp} does not check the stability of the MGC-LSPs.
+It is necessary to use the {\em lspcheck} command
+for checking the stability of the input MGC-LSPs . 
+\end{qsection}
+
+\begin{options}
+	\argm{a}{A}{alpha of mel-generalized cepstrum}{0.35}
+        \argm{g}{G_1}{gamma of mel-generalized cepstrum \\
+                        $\gamma = G$}{$-1$}
+        \argm{c}{C_1}{gamma of mel-generalized cepstrum (input)\\
+                        $\gamma =-1 / $(int)$ C$\\
+                        $C$ must be $C \geq 1$}{}
+	\argm{m}{M}{order of mel-generalized cepstrum}{25}
+        \argm{s}{S}{sampling frequency}{10.0}
+        \argm{l}{L}{frame length}{256}
+        \argm{k}{}{input gain}{FALSE}
+        \argm{L}{}{regard input log gain as linear gain}{FALSE}
+        \argm{q}{Q}{input format\\
+                \begin{tabular}{ll} \\[-1ex]
+                        $0$ & normalized frequency $(0 \sim \pi)$ \\
+                        $1$ & normalized frequency $(0 \sim 0.5)$ \\
+                        $2$ & frequency (kHz) \\
+                        $3$ & frequency (Hz)  \\
+                \end{tabular}\\\hspace*{\fill}}{0}
+        \argm{o}{O}{output format\\
+                \begin{tabular}{ll} \\[-1ex]
+                        $0$ & $(20*log|H(z)|)$ \\
+                        $1$ & $(ln|H(z)|)$ \\
+                        $2$ & $(|H(z)|)$ \\
+                        $3$ & $(|H(z)|^2)$ \\
+                \end{tabular}\\\hspace*{\fill}}{0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+ In the following example, MGC-LSPs is read in float format from
+ {\em data.mgclsp}, that is  analyzed with $\alpha = 0.35, \gamma = -1$. The
+ spectrum are calculated and written
+ to {\em data.sp}:
+\begin{quote}
+\verb!mgclsp2sp -a 0.35 -g -1 data.mgclsp > data.sp!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+\hyperlink{lsp2lpc}{lsp2lpc},
+\hyperlink{lspcheck}{lspcheck},
+\hyperlink{mgc2mgclsp}{mgc2mgclsp}
+\end{qsection}
