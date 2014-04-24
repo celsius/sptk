@@ -74,6 +74,7 @@ SUBDIRS = acep \
 	mfcc \
 	mgc2mgc \
 	mgc2sp \
+	mgclsp2sp \
 	mgcep \
 	mglsadf \
 	minmax \

@@ -128,6 +128,7 @@ INC  = cmndref.sty \
 	merge.tex \
 	mgc2mgc.tex \
 	mgc2sp.tex \
+	mgclsp2sp.tex \
 	mgcep.tex \
 	mglsadf.tex \
 	minmax.tex \

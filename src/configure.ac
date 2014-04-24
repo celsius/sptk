@@ -232,6 +232,7 @@ AC_CONFIG_FILES([Makefile
                  bin/mfcc/Makefile
                  bin/mgc2mgc/Makefile
                  bin/mgc2sp/Makefile
+		 bin/mgclsp2sp/Makefile
                  bin/mgcep/Makefile
                  bin/mglsadf/Makefile
                  bin/minmax/Makefile
