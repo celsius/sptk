@@ -50,7 +50,7 @@
 		[ --r $N_R$ $W_1$ [$W_2$] ]
  \item [\ ~~~~~~~]
  [ --R $N_R$ ${W_F}_{1}$ ${W_B}_{1}$ [${W_F}_{2}$ ${W_B}_{2}$]]
- [ --M $magic$ ] [ --n $N$ ] [ {\em infile} ]
+ [ --M $magic$ ] [ --n $N$ ] [ --e $e$ ][ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -144,6 +144,9 @@ coefficients will be evaluated by regression. $N_{R}$ can be made equal
  \argm{n}{N}{$N$ is the order of regression polynomial.
  Note that $N$ must be less than or equal to $\mathop{\rm max}\limits_{i=1,2}
  \left(W_{Fi} + W_{Bi}\right)$.}{N/A}
+ \argm{e}{e}{
+ small value added to diagonal component for calculating inverse matrix
+ }{0.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
