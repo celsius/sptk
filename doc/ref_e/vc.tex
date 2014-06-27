@@ -62,7 +62,7 @@
 \begin{synopsis}
 \item[vc] [ --l $L_1$ ]  [ --n $N_1$ ]  [ --L $L_2$ ]  [ --N $N_2$ ]
            [ --m $M$ ]  [ --d ($fn$ $|$ $d_0$ [$d_1$ $\dots$]) ]
-\item [\ ~~~~] [ --r $N_R$ $W_1$ [$W_2$] ] [ --g $gvfile$ ] {\em gmmfile}
+\item [\ ~~~~] [ --r $N_R$ $W_1$ [$W_2$] ] [ --g $gvfile$ ] [ --e $e$ ]{\em gmmfile}
  [ {\em infile} ]
 \end{synopsis}
 
@@ -352,6 +352,10 @@ covariance matrix $\vec{\Sigma}\dim{\sv\sv}$:
  \argm{g}{gvfile}{$gvfile$ is the file name of GV statistics of the target static
  feature vectors. $gvfile$ must contain the mean vector and diagonal components of
  covariance matrix of the Gaussian distribution of the GV.  }{N/A}
+
+ \argm{e}{e}{
+ small value added to diagonal component of covariance
+ }{0.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
