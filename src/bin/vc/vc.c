@@ -59,6 +59,8 @@
 *            -d coef [coef...]  : delta coefficients                  [N/A]   *
 *            -r n w1 [w2]       : order and width of regression       [N/A]   *
 *            -g fn              : filename of GV statistics           [N/A]   *
+*            -e e               : small value added to                [0.0]   *
+*                                 diagonal component of covariance            *
 *    infile:                                                                  *
 *            sequence of source static feature vectors                        *
 *    gmmfile:                                                                 *
@@ -95,6 +97,7 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define DEF_L       25
 #define DEF_M       16
+#define FLOOR       0.0
 
 /*  Command Name  */
 char *cmnd;
@@ -178,6 +181,10 @@ void usage(int status)
            "                           fn must contain mean vector and diagonal\n");
    fprintf(stderr,
            "                           components of covariance matrix of GV\n");
+   fprintf(stderr,
+           "       -e e              : small value added to                       [%g]\n",
+           FLOOR);
+   fprintf(stderr, "                           diagonal component of covariance\n");
    fprintf(stderr, "       -h                : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,
@@ -210,6 +217,7 @@ int main(int argc, char **argv)
        DEF_M, total_frame = 0;
    char *coef = NULL, **dw_fn = (char **) getmem(argc, sizeof(*(dw_fn)));
    int j, k, dw_num = 1, dw_calccoef = -1, dw_coeflen = 1, win_max_width = 0;
+   double floor = FLOOR;
    double *source = NULL, *target = NULL, *gv_mean = NULL, *gv_vari = NULL;
    FILE *fp = stdin, *fgmm = NULL, *fgv = NULL;
    Boolean full = TR;
@@ -319,6 +327,16 @@ int main(int argc, char **argv)
             fgv = getfp(*++argv, "rb");
             --argc;
             break;
+         case 'e':
+            floor = atof(*++argv);
+            if (floor < 0.0 || isdigit(**argv) == 0) {
+               fprintf(stderr,
+                       "%s : '-e' option must be specified with positive value.\n",
+                       cmnd);
+               usage(1);
+            }
+            --argc;
+            break;
          case 'h':
             usage(EXIT_SUCCESS);
          default:
@@ -352,6 +370,15 @@ int main(int argc, char **argv)
    alloc_GMM(&gmm, num_mix, len_total, full);
    load_GMM(&gmm, fgmm);
    fclose(fgmm);
+
+   /* flooring for diagonal component of covariance */
+   if (floor != 0.0) {
+      for (i = 0; i < num_mix; i++) {
+         for (j = 0; j < len_total; j++) {
+            gmm.gauss[i].cov[j][j] += floor;
+         }
+      }
+   }
 
    /* load GV parameters */
    if (fgv != NULL) {
