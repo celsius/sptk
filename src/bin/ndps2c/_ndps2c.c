@@ -75,6 +75,10 @@ void ndps2c(double *n, const int l, double *c, const int m)
    nx = dgetmem(l);
    ny = dgetmem(l);
 
+   for (i = 0; i <= no; i++) {
+      nx[i] = n[i];
+   }
+
    for (i = 1; i < no; i++) {
       nx[l - i] = nx[i];
    }
