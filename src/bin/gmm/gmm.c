@@ -553,8 +553,6 @@ int main(int argc, char **argv)
             cal_inv(gmm.gauss[m].cov, gmm.gauss[m].inv, L);
          }
       }
-      if (full == TR)
-         fprintf(stderr, "%d cov can't caluculate covdet\n", n1);
 
       for (t = 0, ave_logp1 = 0.0, pd = dat; t < T; t++, pd += L) {
          for (m = 0, logb = LZERO; m < M; m++) {
