@@ -83,10 +83,10 @@ Filter coefficients are in ASCII format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In this example, the speech data in the input file {\em data.16},
-which was sampled at 16 kHz in float format, is downsampled to 8 kHz:
+The following example shows that the speech data sampled at 32 kHz is
+downsampled to 24 kHz.
 \begin{quote}
-\verb! ds data.16 > data.8 !
+\verb! ds -s 43 data.32 > data.24 !
 \end{quote}
 \end{qsection}
 
