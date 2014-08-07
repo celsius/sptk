@@ -75,15 +75,15 @@ The input and output data is in float format, arranged as follows.
 		   As in --c option, boundary data is compensated and 
 		   data whose size is $(\frac{L}{2}+1)\times(\frac{L}{2}+1)$ is output
 		   (see also \hyperlink{fft2}{fft2}).}{FALSE}
-	\argm{A}{}{amplitude}{FALSE}
-	\argm{R}{}{real part}{FALSE}
-	\argm{I}{}{imaginary part}{FALSE}
+	\argm{A}{}{output amplitude}{FALSE}
+	\argm{R}{}{output only real part}{FALSE}
+	\argm{I}{}{output only imaginary part}{FALSE}
 	\argm{P}{}{output power spectrum}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
 This example reads a sequence of 2-dimensional real numbers in float format
-from {\em data.f} file, evaluates its 2-dimensional DFT and outputs results to {\em
+from {\em data.f} file, evaluates its 2-dimensional DFT and outputs results to {\em 
 data.dft} file:
 \begin{quote}
   \verb!fftr2 -A data.f > data.dft!
