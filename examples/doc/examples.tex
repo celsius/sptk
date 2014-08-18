@@ -555,7 +555,7 @@ mgc2sp -m 20 -a 0.42 -c 2 -l 512 | grlogsp -l 512 -x 8 | xgr
   plotted frame: 65-th\\
   sampling frequency: 16 kHz
 \end{description}
-
+vvvv
 \begin{verbatim}
 ( x2x +sf < data.short | frame -l 400 -p 80 | \
 bcut +f -l 400 -s 65 -e 65 |\
@@ -1120,5 +1120,86 @@ gwave +f sample.mcep.wo-dyn.syn | xgr
 \begin{verbatim}
 da +f -s 16 sample.mcep.wo-dyn.syn sample.mcep.syn
 \end{verbatim}
+
+\section{Voice Conversion based on GMM}
+Voice conversion from speaker maleA to speaker maleB
+\subsection{Minimum configuration of voice conversion}
+\begin{description}
+ \item[Files:]
+   \includemovie[text={\textcolor[named]{Blue}{\underline{source\_maleA.short}}}]{}{}{wav/source_maleA.wav}: 
+	    original speech signal spoken by maleA (short integer, 16 kHz sampling, little endian) \\
+   \includemovie[text={\textcolor[named]{Blue}{\underline{target\_maleB.short}}}]{}{}{wav/target_maleB.wav}: 
+	    target speech signal spoken by maleB (short integer, 16 kHz sampling, little endian) \\
+   \includemovie[text={\textcolor[named]{Blue}{\underline{test\_maleA.short}}}]{}{}{wav/test_maleA.wav}: 
+	    test speech signal spoken by maleA (short integer, 16 kHz sampling, little endian) \\
+   \includemovie[text={\textcolor[named]{Blue}{\underline{converted\_maleB.syn}}}]{}{}{wav/converted_maleB.wav}: 
+	    converted speech signal (float)
+ \item[Conditions:] 
+   frame length: 400 points(25ms) \\
+   frame period: 80 points(5ms) \\
+   window: Blackman window \\
+   analysis order: 24 \\
+   frequency warping parameter: $\alpha$=0.42 \\
+   the number of GMM mixture: 2
+\end{description}
+\subsubsection{Training GMM}
+\begin{verbatim}
+x2x +sf < source_maleA.raw | frame -l 400 -p 80 | window -l 400 -L 1024 |\
+    mcep -l 1024 -m 24 -a 0.42 > source_maleA.mcep
+x2x +sf < target_maleB.raw | frame -l 400 -p 80 | window -l 400 -L 1024 |\
+    mcep -l 1024 -m 24 -a 0.42 > target_maleB.mcep
+dtw -m 24 target_maleB.mcep < source_maleA.mcep | gmm -l 50 -m 2 -f > maleA_maleB.gmm
+\end{verbatim}
+\subsubsection{Voice conversion}
+\begin{verbatim}
+x2x +sf < test_maleA.raw | frame -l 400 -p 80 | window -l 400 -L 1024 |\
+    mcep -l 1024 -m 24 -a 0.42 > test_maleA.mcep
+x2x +sf < test_maleA.raw | pitch -s 16 -p 80 > test_maleA.pitch
+vc -n 24 -m 2 maleA_maleB.gmm < test_maleA.mcep > converted_maleB.mcep
+excite -p 80 test_maleA.pitch |\
+    mlsadf -m 24 -p 80 -a 0.42 converted_maleB.mcep > converted_maleB.syn
+\end{verbatim}
+
+\subsection{Voice conversion using iterative alignment}
+\begin{description}
+ \item[Files:]
+   \includemovie[text={\textcolor[named]{Blue}{\underline{source\_maleA.short}}}]{}{}{wav/source_maleA.wav}: 
+	    original speech signal spoken by maleA (short integer, 16 kHz sampling, little endian) \\
+   \includemovie[text={\textcolor[named]{Blue}{\underline{target\_maleB.short}}}]{}{}{wav/target_maleB.wav}: 
+	    target speech signal spoken by maleB (short integer, 16 kHz sampling, little endian) \\
+   \includemovie[text={\textcolor[named]{Blue}{\underline{test\_maleA.short}}}]{}{}{wav/test_maleA.wav}: 
+	    test speech signal spoken by maleA (short integer, 16 kHz sampling, little endian) \\
+   \includemovie[text={\textcolor[named]{Blue}{\underline{converted\_maleB\_1.syn}}}]{}{}{wav/converted_maleB_1.wav}:
+	    converted speech signal (float)
+ \item[Conditions:]
+   frame length: 400 points(25ms) \\
+   frame period: 80 points(5ms) \\
+   window : Blackman window \\
+   analysis order: 24 \\
+   sampling frequency: 16kHz \\
+   frequency warping parameter: $\alpha$=0.42 \\
+   the number of GMM mixture: 2
+\end{description} 
+\subsubsection{Training initial GMM}
+\begin{verbatim}
+dtw -m 24 target_maleB.mcep < source_maleA.mcep > maleA_maleB_0.dtw
+gmm -l 50 -m 2 -f < maleA_maleB_0.dtw > maleA_maleB_0.gmm
+\end{verbatim}
+\subsubsection{GMM estimation using iterative alignment}
+\begin{verbatim}
+x2x +sf < source_maleA.raw | frame -l 400 -p 80 | window -l 400 -L 1024 |\
+    mcep -l 1024 -m 24 -a 0.42 |\
+    vc -n 24 -m 2 maleA_maleB_0.gmm |\
+    dtw -m 24 target_maleB.mcep -v maleA_maleB.viterbi > /dev/null
+dtw -m 24 -V maleA_maleB.viterbi target_maleB.mcep < source_maleA.mcep > maleA_maleB_1.dtw
+gmm -l 50 -m 2 -f < maleA_maleB_1.dtw > maleA_maleB_1.gmm
+\end{verbatim}
+\subsubsection{Voice conversion}
+\begin{verbatim}
+vc -n 24 -m 2 maleA_maleB_1.gmm < test_maleA.mcep > converted_maleB_1.mcep
+excite -p 80 test_maleA.pitch |\
+    mlsadf -m 24 -p 80 -a 0.42 converted_maleB_1.mcep > converted_maleB_1.syn
+\end{verbatim}
+
 
 \end{document}
