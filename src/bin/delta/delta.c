@@ -60,7 +60,7 @@
 *               -M magic               : magic number                                 [N/A]  *
 *               -n N                   : order of regression polynomial               [N/A]  *
 *               -e e                   : small value added to diagonal component      [0.0]  *
-*                                        for calculating inverse matrix                      *
+*                                        for calculating regression coefficients             *
 *       infile:                                                                              *
 *              static feature sequence                                                       *
 *                      x_1(1), ..., x_1(L), x_2(1), ..., x_2(L), x_3(1), ...                 *
@@ -175,7 +175,7 @@ void usage(int status)
    fprintf(stderr,
            "                                    diagonal component for  \n");
    fprintf(stderr,
-           "                                    calculating inverse matrix \n");
+           "                                    calculating regression coefficients \n");
    fprintf(stderr, "       -h                         : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,
