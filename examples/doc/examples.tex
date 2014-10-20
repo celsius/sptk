@@ -1201,5 +1201,39 @@ excite -p 80 test_maleA.pitch |\
     mlsadf -m 24 -p 80 -a 0.42 converted_maleB_1.mcep > converted_maleB_1.syn
 \end{verbatim}
 
+\section{Speaker Identification Based on GMM}
+
+identification of speaker maleB from speaker maleA, maleB and maleC
+
+\begin{description}
+\item[Files:]
+data\_male\{A,B,C\}.short: speech signal spoken by maleA,B and C
+(short integer, 16 kHz sampling, little endian)\\
+test\_maleB.short:
+test speech signal spoken by maleB (short integer, 16 kHz
+           sampling, little endian)
+\item[Conditions:]
+  order of mfcc: 12
+\end{description}
+
+\subsection{GMM training}
+
+\begin{verbatim}
+x2x +sf < data_maleA.short | frame | mfcc | gmm -l 12 > maleA.gmm
+x2x +sf < data_maleB.short | frame | mfcc | gmm -l 12 > maleB.gmm
+x2x +sf < data_maleC.short | frame | mfcc | gmm -l 12 > maleC.gmm
+\end{verbatim}
+
+\subsection{Speaker identification}
+
+\begin{verbatim}
+x2x +sf < test_maleB.short | frame | mfcc > test_maleB.mfcc
+gmmp -a -l 12 maleA.gmm test_maleB.mfcc > result_maleA.score
+gmmp -a -l 12 maleB.gmm test_maleB.mfcc > result_maleB.score
+gmmp -a -l 12 maleC.gmm test_maleB.mfcc > result_maleC.score
+\end{verbatim}
+
+The recognized speaker's score is the largest value for the test
+speech signal.
 
 \end{document}
