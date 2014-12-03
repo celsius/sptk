@@ -243,6 +243,21 @@ covariance matrix can be represented by $3 \times 3$ sub-blocks:
  \end{figure}
 \end{qsection}
 
+\newpage
+
+\begin{qsection}{NOTICE}
+\begin{itemize}
+\item The -e option specifies a threshold for the change of average
+ log-likelihood for training data at each iteration.
+\item The -F option specifies a GMM initial parameter file in which
+weight, mean, and variance parameters must be aligned in the same
+order as output.
+\item The -B option specifies the size of each blocks in covariance matrix.
+\item The -c1 and -c2 option must be used with -B option. Without -c1 and
+-c2 option, a diagonal covariance can be obtained.
+\end{itemize}
+\end{qsection}
+
 \begin{qsection}{SEE ALSO}
 \hyperlink{gmmp}{gmmp},
 \hyperlink{lbg}{lbg}
