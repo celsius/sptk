@@ -69,7 +69,7 @@
 *               data sequence                                   [stdin] *
 *       stdout:                                                         *
 *               cut data sequence                                       *
-*       note:                                                           *
+*       notice:                                                         *
 *               When both -l and -n are specified,                      *
 *               latter argument is adopted.                             *
 *                                                                       *
@@ -153,7 +153,7 @@ void usage(int status)
    fprintf(stderr, "       data sequence        [stdin]\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       cut data sequence\n");
-   fprintf(stderr, "  note:\n");
+   fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       When both -l and -n are specified,\n");
    fprintf(stderr, "       latter argument is adopted.\n");
 #ifdef PACKAGE_VERSION

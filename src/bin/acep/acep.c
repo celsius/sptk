@@ -69,7 +69,7 @@
 *       output:                                                         *
 *               prediction error (if pefile is specified)               *
 *                   , e(0), e(1), ...                                   *
-*       note:                                                           *
+*       notice:                                                         *
 *               P = 4 or 5                                              *
 *       require:                                                        *
 *               lmadf()                                                 *
@@ -140,7 +140,7 @@ void usage(const int status)
    fprintf(stderr, "       cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  pefile:\n");
    fprintf(stderr, "       prediction error (%s)\n", FORMAT);
-   fprintf(stderr, "  note:\n");
+   fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       P = 4 or 5\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");

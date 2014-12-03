@@ -69,7 +69,7 @@
 *        stdout:                                                        *
 *               filtered sequence                                       *
 *                   , y(0), y(1), ...,                                  *
-*        note:                                                          *
+*        notice:                                                        *
 *               if c==0, LMA filter is used, P should be 4 or 5         *
 *        require:                                                       *
 *               glsadf(), lmadf(), iglsadf(), glsadft(), iglsadft()     *

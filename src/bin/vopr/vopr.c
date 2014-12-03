@@ -168,7 +168,7 @@ void usage(int status)
    fprintf(stderr, "       data vectors (%s)\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       data vectors after operations (float)\n");
-   fprintf(stderr, "  note:\n");
+   fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       When both -l and -n are specified,\n");
    fprintf(stderr, "       latter argument is adopted.\n");
    fprintf(stderr, "\n");

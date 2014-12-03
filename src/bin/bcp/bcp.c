@@ -73,7 +73,7 @@
 *               data sequence                                   [stdin] *
 *       stdout:                                                         *
 *               copied data sequence                                    *
-*       note:                                                           *
+*       notice:                                                         *
 *               When both (-L and -N) or (-l and -n) are specified,     *
 *               latter argument is adopted.                             *
 *                                                                       *
@@ -177,7 +177,7 @@ void usage(int status)
            "       data sequence                                  [stdin]\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       copied data sequence\n");
-   fprintf(stderr, "  note:\n");
+   fprintf(stderr, "  notice:\n");
    fprintf(stderr,
            "       When both (-L and -N) or (-l and -n) are specified,\n");
    fprintf(stderr, "       latter argument is adopted.\n");

@@ -67,7 +67,7 @@
 *            GMM trained from joint features of source and target             *
 *    stdout:                                                                  *
 *            sequence of converted static feature vectors                     *
-*    note:                                                                    *
+*    notice:                                                                  *
 *            When using -d option to specify filename of delta coefficients,  *
 *            the number of coefficients must be odd.                          *
 *                                                                             *
@@ -200,7 +200,7 @@ void usage(int status)
    fprintf(stderr,
            "       sequence of converted target static feature vectors (%s)\n",
            FORMAT);
-   fprintf(stderr, "  note:\n");
+   fprintf(stderr, "  notice:\n");
    fprintf(stderr,
            "       When using -d option to specify filename of delta coefficients, \n");
    fprintf(stderr, "       the number of coefficients must be odd. \n");

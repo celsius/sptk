@@ -67,7 +67,7 @@
 *       stdout:                                                         *
 *               filtered sequence                                       *
 *                       , y(0), y(1), ...,                              *
-*       note:                                                           *
+*       notice:                                                         *
 *               P = 4 or 5                                              *
 *       require:                                                        *
 *               lmadf()                                                 *
@@ -141,7 +141,7 @@ void usage(int status)
    fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  cfile:\n");
    fprintf(stderr, "       cepstrum (%s)\n", FORMAT);
-   fprintf(stderr, "  note:\n");
+   fprintf(stderr, "  notice:\n");
    fprintf(stderr, "       P = 4 or 5\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");

@@ -79,7 +79,7 @@
 *              upper/lower bound of confidence interval                 *
 *                      upper(1), ..., upper(L),                         *
 *                      lower(1), ..., lower(L)                          *
-*       note:                                                           *
+*       notice:                                                         *
 *              if '-d' is specified,                                    *
 *              off-diagonal elements are suppressed.                    *
 *              '-d' and '-r' are exclusive                              *
@@ -165,7 +165,7 @@ void usage(int status)
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       mean(s) and covariance(s) of input vectors (%s)\n",
            FORMAT);
-   fprintf(stderr, "  note:\n");
+   fprintf(stderr, "  notice:\n");
    fprintf(stderr,
            "       if '-d' is specified, off-diagonal elements are suppressed.\n");
    fprintf(stderr,

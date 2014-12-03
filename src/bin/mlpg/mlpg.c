@@ -212,7 +212,7 @@ void usage(int status)
            "       PDF sequence                                                     [stdin]\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       parameter sequence\n");
-   fprintf(stderr, "  note:\n");
+   fprintf(stderr, "  notice:\n");
    fprintf(stderr,
            "       1) Option '-d' may be repeated to use multiple delta parameters.\n");
    fprintf(stderr,
