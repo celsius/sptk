@@ -1,0 +1,88 @@
+% ----------------------------------------------------------------- %
+%             The Speech Signal Processing Toolkit (SPTK)           %
+%             developed by SPTK Working Group                       %
+%             http://sp-tk.sourceforge.net/                         %
+% ----------------------------------------------------------------- %
+%                                                                   %
+%  Copyright (c) 1984-2007  Tokyo Institute of Technology           %
+%                           Interdisciplinary Graduate School of    %
+%                           Science and Engineering                 %
+%                                                                   %
+%                1996-2013  Nagoya Institute of Technology          %
+%                           Department of Computer Science          %
+%                                                                   %
+% All rights reserved.                                              %
+%                                                                   %
+% Redistribution and use in source and binary forms, with or        %
+% without modification, are permitted provided that the following   %
+% conditions are met:                                               %
+%                                                                   %
+% - Redistributions of source code must retain the above copyright  %
+%   notice, this list of conditions and the following disclaimer.   %
+% - Redistributions in binary form must reproduce the above         %
+%   copyright notice, this list of conditions and the following     %
+%   disclaimer in the documentation and/or other materials provided %
+%   with the distribution.                                          %
+% - Neither the name of the SPTK working group nor the names of its %
+%   contributors may be used to endorse or promote products derived %
+%   from this software without specific prior written permission.   %
+%                                                                   %
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            %
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       %
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          %
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          %
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS %
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          %
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   %
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     %
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON %
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   %
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    %
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
+% POSSIBILITY OF SUCH DAMAGE.                                       %
+% ----------------------------------------------------------------- %
+\hypertarget{wavsplit}{}
+\name{wavsplit}{split a stereo WAV file}{data operation}
+
+\begin{synopsis}
+\item[wavsplit] [ --i $I$ ][ --o $O$ ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em wavsplit} splits a stereo WAV file into two monaural WAV files.
+
+\end{qsection}
+
+\begin{options}
+	\argm{i}{I}{Input WAV file or directory}{}
+	\argm{o}{O}{Output WAV files or directories}{}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+ In the following command, the stereo wav file {\em file.wav} is split into
+ two monaural WAV files {\em file\_channel0.wav} and {\em file\_channel1.wav}.
+\begin{quote}
+ \verb!wavsplit -i file.wav -o file_channel0.wav file_channel1.wav!
+\end{quote}
+ If an input directory is specified, {\em wavsplit} splits all the WAV files in the directory.
+ When the two output directories are given as follows, {\em wavsplit} outputs the monaural wav files separately for each channel.
+ The output file names are the same as the input one.
+ \begin{quote}
+  \verb!wavsplit -i input_directory -o output_directory0 output_directory1!
+ \end{quote}
+ If an output directory is specified, {\em wavsplit} suffixes a channel number to the output file name.
+ For example, {\em file.wav} in {\em input\_directory} is split into two WAV files {\em file\_0.wav} and {\em file\_1.wav} in {\em output\_directory}
+\begin{quote}
+  \verb!wavsplit -i input_directory -o output_directory!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{NOTICE}
+ {\em wavsplit} does not distinguish between small and capital letters of the file extension.
+ The first output WAV file or directory is related to channel 0, and the other is related to channel 1.
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+\hyperlink{raw2wav}{raw2wav},
+\hyperlink{wavjoin}{wavjoin}
+\end{qsection}

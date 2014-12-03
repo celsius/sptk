@@ -115,6 +115,8 @@ SUBDIRS = acep \
 	vq \
 	vstat \
 	vsum \
+	wavjoin \
+	wavsplit \
 	window \
 	x2x \
 	xgr \

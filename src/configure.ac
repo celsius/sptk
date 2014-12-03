@@ -273,6 +273,8 @@ AC_CONFIG_FILES([Makefile
                  bin/vq/Makefile
                  bin/vstat/Makefile
                  bin/vsum/Makefile
+		 bin/wavjoin/Makefile
+		 bin/wavsplit/Makefile
                  bin/window/Makefile
                  bin/x2x/Makefile
                  bin/xgr/Makefile

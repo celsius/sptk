@@ -170,6 +170,8 @@ INC  = cmndref.sty \
 	vstat.tex \
 	vsum.tex \
 	wav2raw.tex \
+	wavjoin.tex \
+	wavsplit.tex \
 	window.tex \
 	x2x.tex \
 	xgr.tex \
