@@ -9,9 +9,6 @@ AM_INIT_AUTOMAKE([nostdinc subdir-objects])
 AC_SUBST(PACKAGE_NAME)
 AC_SUBST(PACKAGE_VERSION)
 
-AC_PREFIX_DEFAULT(/usr/local/SPTK)
-AC_CONFIG_SRCDIR([bin/acep/acep.c])
-
 # Checks for programs.
 AC_PROG_CC
 AM_PROG_CC_C_O

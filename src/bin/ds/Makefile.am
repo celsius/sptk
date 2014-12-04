@@ -1,10 +1,7 @@
-## Process this file with automake to produce Makefile.in
-##
-## $Id$
-AM_CPPFLAGS = -I$(top_srcdir)/include -DLIB=\"$(pkgdatadir)\"
+AM_CPPFLAGS = -I @top_srcdir@/include -DLIB=\"$(pkgdatadir)\"
 bin_PROGRAMS = ds
 ds_SOURCES = ds.c 
-ds_LDADD = $(top_builddir)/lib/libSPTK.a
+ds_LDADD = @top_builddir@/lib/libSPTK.a
 
 dist_pkgdata_DATA = lpfcoef.2to1 \
                     lpfcoef.3to2 \

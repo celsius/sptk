@@ -1,7 +1,4 @@
-## Process this file with automake to produce Makefile.in
-##
-## $Id$
-AM_CPPFLAGS = -I$(top_srcdir)/include
+AM_CPPFLAGS = -I @top_srcdir@/include
 bin_PROGRAMS = mgc2mgc
 mgc2mgc_SOURCES = _mgc2mgc.c mgc2mgc.c 
-mgc2mgc_LDADD = $(top_builddir)/lib/libSPTK.a
+mgc2mgc_LDADD = @top_builddir@/lib/libSPTK.a

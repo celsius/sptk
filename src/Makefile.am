@@ -1,6 +1,3 @@
-## Process this file with automake to produce Makefile.in
-##
-## $Id$
 SUBDIRS = include lib bin script
 
 # Header files to be included in the distribution.

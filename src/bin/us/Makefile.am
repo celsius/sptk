@@ -1,10 +1,7 @@
-## Process this file with automake to produce Makefile.in
-##
-## $Id$
-AM_CPPFLAGS = -I$(top_srcdir)/include -DLIB=\"$(pkgdatadir)\"
+AM_CPPFLAGS = -I @top_srcdir@/include -DLIB=\"$(pkgdatadir)\"
 bin_PROGRAMS = us
 us_SOURCES = us.c 
-us_LDADD = $(top_builddir)/lib/libSPTK.a
+us_LDADD = @top_builddir@/lib/libSPTK.a
 
 bin_SCRIPTS = us16 uscd
 EXTRA_DIST = us16.in uscd.in
