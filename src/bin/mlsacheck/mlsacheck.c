@@ -188,7 +188,7 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
                double a, double r, int c)
 {
    int i;
-   double gain, *x, *y, *mag, max = 0.0;
+   double gain, *x, *y, *mag = NULL, max = 0.0;
 
    x = dgetmem(fftlen);
    y = dgetmem(fftlen);
