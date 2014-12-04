@@ -373,7 +373,11 @@ intmatrix makeim(int xSz, int ySz) {
 #endif
     nw_matrix.x = xSz;
     nw_matrix.y = ySz;
+#if 1
+    nw_matrix.m = malloc(sizeof(int*) * xSz);
+#else
     nw_matrix.m = malloc(sizeof(int) * xSz);
+#endif
 #if 0
     int i;
 #endif
