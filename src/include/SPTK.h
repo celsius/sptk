@@ -246,6 +246,10 @@ int alloc_GMM(GMM * gmm, const int M, const int L, const Boolean full);
 int load_GMM(GMM * gmm, FILE * fp);
 int save_GMM(const GMM * gmm, FILE * fp);
 int free_GMM(GMM * gmm);
+int prepareCovInv_GMM(GMM *gmm);
+int prepareGconst_GMM(GMM *gmm);
+int floorWeight_GMM(GMM *gmm, double floor);
+int floorVar_GMM(GMM *gmm, double floor);
 void gnorm(double *c1, double *c2, int m, const double g);
 void grpdelay(double *x, double *gd, const int size, const int is_arma);
 int histogram(double *x, const int size, const double min, const double max,

@@ -326,8 +326,6 @@ int load_GMM(GMM * gmm, FILE * fp)
             freadf(gmm->gauss[m].cov[l],
                    sizeof(*(gmm->gauss[m].cov[l])), gmm->dim, fp);
          }
-         invert(gmm->gauss[m].cov, gmm->gauss[m].inv, gmm->dim);
-         gmm->gauss[m].gconst = cal_gconstf(gmm->gauss[m].cov, gmm->dim);
       }
    }
 
@@ -355,6 +353,80 @@ int save_GMM(const GMM * gmm, FILE * fp)
          for (i = 0; i < gmm->dim; i++) {
             fwritef(gmm->gauss[m].cov[i],
                     sizeof(*(gmm->gauss[m].cov[i])), gmm->dim, fp);
+         }
+      }
+   }
+
+   return (0);
+}
+
+int prepareCovInv_GMM(GMM * gmm)
+{
+   int m;
+   for (m = 0; m < gmm->nmix; m++) {
+      cal_inv(gmm->gauss[m].cov, gmm->gauss[m].inv, gmm->dim);
+   }
+
+   return (0);
+}
+
+int prepareGconst_GMM(GMM * gmm)
+{
+   int m;
+
+   for (m = 0; m < gmm->nmix; m++) {
+      if (gmm->full == FA) {
+         gmm->gauss[m].gconst = cal_gconst(gmm->gauss[m].var, gmm->dim);
+      } else {
+         gmm->gauss[m].gconst = cal_gconstf(gmm->gauss[m].cov, gmm->dim);
+      }
+      if (gmm->gauss[m].gconst == 0) {
+         return -1;
+      }
+   }
+
+   return (0);
+}
+
+int floorWeight_GMM(GMM * gmm, double floor)
+{
+   int m;
+   double sum_w = 0.0, sum_floor = floor * gmm->nmix;
+
+   for (m = 0; m < gmm->nmix; m++) {
+      if (gmm->weight[m] < floor) {
+         gmm->weight[m] = floor;
+      }
+      sum_w += gmm->weight[m];
+   }
+   if (sum_w != 1.0) {
+      for (m = 0; m < gmm->nmix; m++) {
+         gmm->weight[m] =
+             (1.0 - sum_floor) / (sum_w - sum_floor) * (gmm->weight[m] -
+                                                        floor) + floor;
+      }
+   }
+
+   return (0);
+}
+
+int floorVar_GMM(GMM * gmm, double floor)
+{
+   int m, l;
+   if (gmm->full == FA) {
+      for (m = 0; m < gmm->nmix; m++) {
+         for (l = 0; l < gmm->dim; l++) {
+            if (gmm->gauss[m].var[l] < floor) {
+               gmm->gauss[m].var[l] = floor;
+            }
+         }
+      }
+   } else {
+      for (m = 0; m < gmm->nmix; m++) {
+         for (l = 0; l < gmm->dim; l++) {
+            if (gmm->gauss[m].cov[l][l] < floor) {
+               gmm->gauss[m].cov[l][l] = floor;
+            }
          }
       }
    }
