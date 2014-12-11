@@ -126,29 +126,28 @@ typedef struct _deltawindow {
 } DELTAWINDOW;
 
 /* structure for wavsplit and wavjoin */
-typedef struct _wavfile
-{
-  int file_size;              /* file size */
-  int fmt_chunk_size;         /* size of 'fmt ' chunk (byte) */
-  int data_chunk_size;        /* size of 'data' chunk (byte) */
-  short format_id;            /* format ID (PCM(1) or IEEE float(3)) */
-  short channel_num;          /* mono:1¡¤stereo:2 */
-  int sample_freq;            /* sampling frequency (Hz) */
-  int byte_per_sec;           /* byte per second */
-  short block_size;           /* 16bit, mono => 16bit*1=2byte */
-  short bit_per_sample;       /* bit per sample */
-  short extended_size;        /* size of 'extension' */
-  
-  char input_data_type;
-  char format_type;
-  
-  char *data;                 /* waveform data */
+typedef struct _wavfile {
+   int file_size;               /* file size */
+   int fmt_chunk_size;          /* size of 'fmt ' chunk (byte) */
+   int data_chunk_size;         /* size of 'data' chunk (byte) */
+   short format_id;             /* format ID (PCM(1) or IEEE float(3)) */
+   short channel_num;           /* mono:1¡¤stereo:2 */
+   int sample_freq;             /* sampling frequency (Hz) */
+   int byte_per_sec;            /* byte per second */
+   short block_size;            /* 16bit, mono => 16bit*1=2byte */
+   short bit_per_sample;        /* bit per sample */
+   short extended_size;         /* size of 'extension' */
+
+   char input_data_type;
+   char format_type;
+
+   char *data;                  /* waveform data */
 
 } Wavfile;
 
 typedef struct _filelist {
-  int num;
-  char **name;
+   int num;
+   char **name;
 } Filelist;
 
 /* library routines */
@@ -246,10 +245,10 @@ int alloc_GMM(GMM * gmm, const int M, const int L, const Boolean full);
 int load_GMM(GMM * gmm, FILE * fp);
 int save_GMM(const GMM * gmm, FILE * fp);
 int free_GMM(GMM * gmm);
-int prepareCovInv_GMM(GMM *gmm);
-int prepareGconst_GMM(GMM *gmm);
-int floorWeight_GMM(GMM *gmm, double floor);
-int floorVar_GMM(GMM *gmm, double floor);
+int prepareCovInv_GMM(GMM * gmm);
+int prepareGconst_GMM(GMM * gmm);
+int floorWeight_GMM(GMM * gmm, double floor);
+int floorVar_GMM(GMM * gmm, double floor);
 void gnorm(double *c1, double *c2, int m, const double g);
 void grpdelay(double *x, double *gd, const int size, const int is_arma);
 int histogram(double *x, const int size, const double min, const double max,
@@ -369,13 +368,13 @@ double zerodf1(double x, double *b, int m, double *d);
 double zerodf1t(double x, double *b, const int m, double *d);
 
 /* wavsplit and wavjoin */
-void copy_wav_header(Wavfile *dest_wav, const Wavfile *source_wav);
-void separate_path(char **dir, char **name, char* path);
-Boolean get_wav_list(Filelist *filelist, const char *dirname);
-Boolean wavread(Wavfile *wavfile, const char *fullpath);
-Boolean wavwrite(Wavfile *wavfile, const char *outpath);
-void wavsplit(Wavfile *wavout, const Wavfile *wavin);
-void free_wav_list(Filelist *filelist);
-void free_wav_data(Wavfile *wavfile);
-void wavjoin(Wavfile *wavout, const Wavfile *wavin);
-int search_wav_list(Filelist *filelist, char *key);
+void copy_wav_header(Wavfile * dest_wav, const Wavfile * source_wav);
+void separate_path(char **dir, char **name, char *path);
+Boolean get_wav_list(Filelist * filelist, const char *dirname);
+Boolean wavread(Wavfile * wavfile, const char *fullpath);
+Boolean wavwrite(Wavfile * wavfile, const char *outpath);
+void wavsplit(Wavfile * wavout, const Wavfile * wavin);
+void free_wav_list(Filelist * filelist);
+void free_wav_data(Wavfile * wavfile);
+void wavjoin(Wavfile * wavout, const Wavfile * wavin);
+int search_wav_list(Filelist * filelist, char *key);

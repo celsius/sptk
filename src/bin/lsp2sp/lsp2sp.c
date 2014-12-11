@@ -184,7 +184,7 @@ int main(int argc, char **argv)
          case 's':
          case 'l':
          case 'i':
-	 case 'q':
+         case 'q':
          case 'o':
             if (isdigit(**(argv + 1)) == 0) {
                if ((**(argv + 1)) != '+') {

@@ -72,7 +72,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -182,7 +183,7 @@ int main(int argc, char **argv)
             loggain = TR;
             break;
          case 'i':
-	 case 'q':
+         case 'q':
             itype = atoi(*++argv);
             --argc;
             break;
