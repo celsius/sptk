@@ -184,6 +184,8 @@ int main(int argc, char **argv)
 
    alloc_GMM(&gmm, M, L, full);
    load_GMM(&gmm, fgmm);
+   prepareCovInv_GMM(&gmm);
+   prepareGconst_GMM(&gmm);
 
    fclose(fgmm);
 

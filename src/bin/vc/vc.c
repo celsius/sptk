@@ -371,6 +371,8 @@ int main(int argc, char **argv)
    /* load GMM parameters */
    alloc_GMM(&gmm, num_mix, len_total, full);
    load_GMM(&gmm, fgmm);
+   prepareCovInv_GMM(&gmm);
+   prepareGconst_GMM(&gmm);
    fclose(fgmm);
 
    /* flooring for diagonal component of covariance */
