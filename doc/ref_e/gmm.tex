@@ -42,17 +42,18 @@
 % POSSIBILITY OF SUCH DAMAGE.                                       %
 % ----------------------------------------------------------------- %
 \hypertarget{gmm}{}
-\name{gmm}{GMM parameter estimation}{model training}
+\name[ref:GMMMAP-IEEE]{gmm}{GMM parameter estimation}{model training}
 
 \begin{synopsis}
 \item [gmm] [ --l $L$ ] [ --m $M$ ] [ --t $T$ ] [ --s $S$ ] [ --a $A$ ] [ --b $B$ ]
         [ --e $E$ ] [ --v $V$ ] [ --w $W$ ] [ --f ]
-\item [\ ~~~~]  [ --F $gmmfile$ ] [ {\em infile} ]
+\item [\ ~~~~]  [ --M $W_{MAP}$ ][ --F $gmmfile$ ] [ --B $B1,B2,...$ ] [ --c1 ] [ --c2 ] [ {\em infile} ]
 \end{synopsis}
 
 \newfont{\bggg}{cmr10 scaled\magstep3}
 \newcommand{\bigzerol}{\smash{\hbox{\bggg 0}}}
 \newcommand{\bigzerou}{\smash{\lower1.3ex\hbox{\bggg 0}}}
+\newcommand{\argmax}{\mathop{\rm argmax}\limits}
 
 \begin{qsection}{DESCRIPTION}
 {\em gmm} uses the expectation maximization (EM) algorithm to estimate
@@ -131,16 +132,49 @@ and $\Sigma(m)$ is a diagonal matrix with diagonal elements
 
 Also, the Average log-likelihood for training data $X$
 \begin{displaymath}
-  \log P(\bX)
+  \log p(\bX | \lambda)
  =\frac{1}{T}\sum_{t=0}^{T-1}
  \log\sum_{m=0}^{M-1}w(m){\cal N}(\bx(t)\mid\bmu(m),\bv(m))
 \end{displaymath}
 is increased by iterating the above steps. The average log-probability $\log
-P(\bX)$ at each iterative step is printed on the standard error output.
+p(\bX|\lambda)$ at each iterative step is printed on the standard error output.
 The EM steps are iterated at least $A$ times and stopped at the $B$-th
-iteration or when there is a small absolute change in $\log P(\bX)~(\leq
+iteration or when there is a small absolute change in $\log p(\bX|\lambda)~(\leq
 E)$.
 
+If the -M option is specified, {\em gmm} estimates parameters using Maximum a Posteriori (MAP) method. The parameters $\lambda_{MAP}$ are defined as the mode of the posterior probability density function of $\lambda$ denoted as $p(\lambda|\bX)$, i.e.
+\begin{align}
+ \lambda_{MAP} &= \argmax_{\lambda} p(\lambda | \bX) \notag \\
+               &= \argmax_{\lambda} p(\bX | \lambda) p(\lambda). \notag
+\end{align}
+The joint prior density $p(\lambda)$ is the product of Dirichlet and normal-Wishart densities as follows:
+\begin{displaymath}
+ p(\lambda) = g(w(0),\cdots,w(M-1))\prod^{M-1}_{m=0} g(\bmu(m),\bnu(m))
+\end{displaymath}
+where 
+\begin{align}
+ &g(w(0),\cdots,w(M-1)|\beta(0),\cdots,\beta(M-1)) \propto \prod^{M-1}_{m=0} w(m)^{\beta(m)-1} \, , \notag \\
+ &g(\bmu(m),\bnu(m)|\tau(m),\bmu'(m),\alpha(m),\bu(m)) \propto \mid \bSigma(m) \mid^{-\frac{\alpha(m)-L}{2}} \notag \\
+ &\cdot \exp \left\{ -\frac{\tau(m)}{2}(\bmu(m)-\bmu'(m))^\top \bSigma(m)^{-1} (\bmu(m)-\bmu'(m)) \right\} \exp \left\{ -\frac{1}{2}\mathrm{Tr}\left( \bu(m) \bSigma(m)^{-1} \right) \right\}. \notag
+\end{align}
+Then the updated parameters are derived from:
+\begin{align}
+ \hat{w}(m)&=\frac{(\beta(m)-1)+\sum^{T-1}_{t=0}c_{mt}}{\sum^{M-1}_{m=0}(\beta(m)-1) + \sum^{M-1}_{m=0}\sum^{T-1}_{t=0}c_{mt}} \, ,\notag \\
+ \hat{\bmu}(m)&=\frac{\tau(m)\bmu'(m)+\sum^{T-1}_{t=0}c_{mt}\bx(t)}{\tau(m)+\sum^{T-1}_{t=0}c_{mt}} \, ,\notag \\
+ \hat{\bSigma}(m)&=\frac{\bu(m)+\sum^{T-1}_{t=0}c_{mt}(\bx(t)-\hat{\bmu}(m))(\bx(t)-\hat{\bmu}(m))^\top + \tau(m)(\bmu'(m)-\hat{\bmu}(m))(\bmu'(m)-\hat{\bmu}(m))^\top}{(\alpha(m)-L) + \sum^{T-1}_{t=0}c_{mt}} \, . \notag
+\end{align}
+where
+\begin{align}
+ c_{mt} &= p(m|\bx(t),\lambda) \, , \notag \\
+ \beta(m)-1 &= \tau(m) = W_{MAP} w'(m) \, , \notag \\ 
+ \alpha(m) &= \tau(m) + L \notag \, , \\
+ \bu(m) &= \tau(m) \bSigma'(m) \, . \notag
+\end{align}
+The parameters 
+ \begin{displaymath}
+  \lambda'=(w'(0),\cdots,w'(M-1), \bmu'(0),\cdots,\bmu'(M-1), \bnu'(0),\cdots,\bnu'(M-1))
+ \end{displaymath}
+are obtained from the pre-estimated universal background model (UBM).
 \end{qsection}
 
 \begin{options}
@@ -154,10 +188,15 @@ E)$.
  \argm{v}{V}{flooring value for variances}{0.001}
  \argm{w}{W}{flooring value for weights (1/M)*W}{0.001}
  \argm{f}{}{full covariance}{FALSE}
- \argm{F}{fn}{GMM initial parameter file}{N/A}
+ \argm{M}{W_{MAP}}{using maximum a posteriori(MAP) estimation,\\
+                             where $W_{MAP}$ is the parameter for\\
+                             Dirichlet and normal-Wishart densities.}{0.0}
+ \argm{F}{fn}{GMM initial parameter file\\
+                             If -M option is specified,\\
+                             fn is regarded as the parameter for UBM.}{N/A}
  \desc[1ex]{(level 2)}
- \argm{M}{M1~M2~$\ldots$~Mn}{block size in covariance matrix,\\
-                             where $(M1+M2+\ldots+Mn)=L$}{N/A}
+ \argm{B}{B1~B2~$\ldots$~Bn}{block size in covariance matrix,\\
+                             where $(B1+B2+\ldots+Bn)=L$}{N/A}
  \argm{c1}{}{inter-block correlation}{N/A}
  \argm{c2}{}{full covariance in each block}{N/A}
 \end{options}
@@ -180,14 +219,19 @@ initial parameter file {\em gmm.init}.
 \verb! gmm -m 8 -f data.f -F gmm.init > gmm.f! 
 \end{quote}
 
+If the -M option is specified as follows, the MAP estimates of the GMM parameters {\em map.gmm} are obtained using universal background model {\em ubm.gmm}.
+\begin{quote}
+ \verb! gmm -l 15 -m 8 -M 1.0 -F ubm.gmm data.f > map.gmm !
+\end{quote}
+
 In the followings, 15-dimentional training vectors {\em data.f} can be modeled
 by a GMM with 8 Gaussian components.  If one wants to divide the covariance
-matrix into several blocks, the -M option can be used to specify size of each
+matrix into several blocks, the -B option can be used to specify size of each
 blocks in covariance matrix.  For example, when dividing 15-dimentional vector
 into 3 sub-parts, where each part has 5 dimention, the structure of the
 covariance matrix can be represented by $3 \times 3$ sub-blocks:
  \begin{quote}
-  \verb! gmm -l 15 -m 8 data.f -M 5 5 5 > gmm.f!
+  \verb! gmm -l 15 -m 8 data.f -B 5 5 5 > gmm.f!
  \end{quote}
  Note that without -c1 and -c2 option, a diagonal covariance can be obtained
  as shown in figure \ref{fig:gmm_c1} (a).
@@ -197,14 +241,14 @@ covariance matrix can be represented by $3 \times 3$ sub-blocks:
  If one wants to turn on inter-block correlation,
  The -c1 option can be used and corresponding command line is below.
  \begin{quote}
-  \verb! gmm -l 15 -m 8 data.f -M 5 5 5 -c1 > gmm.f!
+  \verb! gmm -l 15 -m 8 data.f -B 5 5 5 -c1 > gmm.f!
  \end{quote}
  The corresponding example is shown in figure \ref{fig:gmm_c1} (b).
 
  If one wants to turn on block-wise full covariance,
  The -c2 option can be used and the corresponding command line is below.
  \begin{quote}
-  \verb! gmm -l 15 -m 8 data.f -M 5 5 5 -c2 > gmm.f!
+  \verb! gmm -l 15 -m 8 data.f -B 5 5 5 -c2 > gmm.f!
  \end{quote}
  The corresponding example is shown in figure \ref{fig:gmm_c1} (c).
 
