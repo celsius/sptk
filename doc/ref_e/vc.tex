@@ -359,20 +359,23 @@ covariance matrix $\vec{\Sigma}\dim{\sv\sv}$:
 
 \begin{qsection}{EXAMPLE}
 In the following example, the source and target features (24-th order Mel-cepstrum
-coefficients) are extracted from the file {\em source.raw} and the file {\em
-target.raw} of raw (short) format.  These extracted features are automatically
-aligned and concatenated by {\em dtw} command, which can carry out dynamic time
-warping.  The GMM of the joint features is trained and its parameters are saved
+coefficients) and dynamic features are extracted from 
+the file {\em source.raw} and the file {\em target.raw} of raw (short) format.  
+These extracted features are automatically aligned and concatenated 
+by {\em dtw} command, which can carry out dynamic time warping.  
+The GMM of the joint features is trained and its parameters are saved
 as {\em source\_target.gmm}.
 \begin{quote}
 \verb!x2x +sf < source.raw | frame -l 400 -p 80 | \! \\
 \verb!    window -l 400 -L 1024 -w 0 | \! \\
-\verb!    mcep -l 1024 -m 24 -a 0.42 > source.mcep ! \\
+\verb!    mcep -l 1024 -m 24 -a 0.42 | \! \\
+\verb!    delta -m 24 -r 1 1 > source.mcep.delta !  \\
 \verb!x2x +sf < target.raw | frame -l 400 -p 80 | \! \\
 \verb!    window -l 400 -L 1024 -w 0 | \! \\
-\verb!    mcep -l 1024 -m 24 -a 0.42 > target.mcep ! \\
-\verb!dtw -l 25 -p 5 -n 2 target.mcep < source.mcep | \! \\
-\verb!    gmm -l 50 -m 2 -f > source_target.gmm!
+\verb!    mcep -l 1024 -m 24 -a 0.42 | \! \\
+\verb!    delta -m 24 -r 1 1 > target.mcep.delta ! \\
+\verb!dtw -l 50 -p 5 -n 2 target.mcep.delta < source.mcep.delta | \! \\
+\verb!    gmm -l 100 -m 2 -f > source_target.gmm!
 \end{quote}
 Using the {\em source\_target.gmm} and the source features extracted from the file
 {\em source\_test.raw}, under the same analysis condition above, the GMM-based
@@ -405,6 +408,7 @@ number of coefficients must be odd.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
+\hyperlink{delta}{delta},
 \hyperlink{dtw}{dtw},
 \hyperlink{gmm}{gmm},
 \hyperlink{pitch}{pitch},
