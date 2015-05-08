@@ -48,7 +48,7 @@
 *                                                                       *
 *                                       2009.9 A.Saito modified         *
 *       usage:                                                          *
-*               rawtowav [ fs(Hz) ] [ infile ] [ outfile ]              *
+*               rawtowav [ fs(Hz) ] [ bit ] [ infile ] [ outfile ]      *
 *       infile:                                                         *
 *               raw file format                                         *
 *       outfile:                                                        *
@@ -59,9 +59,9 @@
 #include<stdlib.h>
 
 #if defined(WIN32)
-#  include "SPTK.h"
+#include "SPTK.h"
 #else
-#  include <SPTK.h>
+#include <SPTK.h>
 #endif
 
 void write_file(long fs, char BIT, char *rawfile, char *wavfile)
@@ -137,7 +137,7 @@ int main(int argc, char **argv)
       printf("error : failed to convert raw to wav\n\n");
       printf("rawtowav : convert raw to wav\n");
       printf("usage:\n");
-      printf("        rawtowav [ fs(Hz) ] [ infile ] [ outfile ]\n");
+      printf("        rawtowav [ fs(Hz) ] [ bit ] [ infile ] [ outfile ]\n");
       exit(0);
    }
 
