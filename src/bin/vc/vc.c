@@ -81,18 +81,18 @@ static char *rcs_id = "$Id$";
 #include <math.h>
 
 #ifdef HAVE_STRING_H
-#  include <string.h>
+#include <string.h>
 #else
-#  include <strings.h>
-#  ifndef HAVE_STRRCHR
-#     define strrchr rindex
-#  endif
+#include <strings.h>
+#ifndef HAVE_STRRCHR
+#define strrchr rindex
+#endif
 #endif
 
 #if defined(WIN32)
-#  include "SPTK.h"
+#include "SPTK.h"
 #else
-#  include <SPTK.h>
+#include <SPTK.h>
 #endif
 
 /*  Default Values  */
@@ -218,7 +218,7 @@ int main(int argc, char **argv)
    size_t i, source_vlen = DEF_L, target_vlen = 0, len_total = 0, num_mix =
        DEF_M, total_frame = 0;
    char *coef = NULL, **dw_fn = (char **) getmem(argc, sizeof(*(dw_fn)));
-   int j, k, dw_num = 1, dw_calccoef = -1, dw_coeflen = 1, win_max_width = 0;
+   int j, k, m, dw_num = 1, dw_calccoef = -1, dw_coeflen = 1, win_max_width = 0;
    double floor = FLOOR;
    double *source = NULL, *target = NULL, *gv_mean = NULL, *gv_vari = NULL;
    FILE *fp = stdin, *fgmm = NULL, *fgv = NULL;
@@ -481,6 +481,17 @@ int main(int argc, char **argv)
       }
    }
    window.win_max_width = win_max_width;
+
+   for (m = 0; m < gmm.nmix; m++) {
+      invert(gmm.gauss[m].cov, gmm.gauss[m].inv, source_vlen * window.win_size);
+      if (full) {
+         gmm.gauss[m].gconst =
+             cal_gconstf(gmm.gauss[m].cov, source_vlen * window.win_size);
+      } else {
+         gmm.gauss[m].gconst =
+             cal_gconst(gmm.gauss[m].var, source_vlen * window.win_size);
+      }
+   }
 
    /* perform conversion */
    vc(&gmm, &window, total_frame, source_vlen, target_vlen, gv_mean, gv_vari,
