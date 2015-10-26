@@ -254,8 +254,9 @@ end
 
 # when input stream is stdin
 if ("$file" == "") then
-    cat > /tmp/glogsp
-    set file=/tmp/glogsp
+    rm -fr /tmp/sptk-glogsp-$uid-$$
+    cat > /tmp/sptk-glogsp-$uid-$$
+    set file=/tmp/sptk-glogsp-$uid-$$
 endif
 
 goto main
@@ -383,7 +384,4 @@ if ($?f) then
         fig $f -W $w -H $h -o $xo $yo -g 0 -F $F
 endif
 
-# when input stream is stdin
-if ("$file" == "") then
-    /bin/rm -f /tmp/glogsp
-endif
+rm -fr /tmp/sptk-glogsp-$uid-$$

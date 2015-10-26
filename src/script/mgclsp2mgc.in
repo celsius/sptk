@@ -117,8 +117,9 @@ end
 
 # when input stream is stdin
 if ("$file" == "") then
-    cat > /tmp/mgclsp2mgc
-    set file=/tmp/mgclsp2mgc
+    rm -fr /tmp/sptk-mgclsp2mgc-$uid-$$
+    cat > /tmp/sptk-mgclsp2mgc-$uid-$$
+    set file=/tmp/sptk-mgclsp2mgc-$uid-$$
 endif
 
 goto main
@@ -162,7 +163,4 @@ else
         mgc2mgc -m $m -M $m -a $a -A $a -g $g -G $g -n -u
 endif
 
-# when input stream is stdin
-if ("$file" == "") then
-    /bin/rm -f /tmp/mgclsp2mgc
-endif
+rm -fr /tmp/sptk-mgclsp2mgc-$uid-$$

@@ -135,8 +135,9 @@ end
 
 # when input stream is stdin
 if ("$file" == "") then
-    cat > /tmp/mgc2mgclsp
-    set file=/tmp/mgc2mgclsp
+    rm -fr /tmp/sptk-mgc2mgclsp-$uid-$$
+    cat > /tmp/sptk-mgc2mgclsp-$uid-$$
+    set file=/tmp/sptk-mgc2mgclsp-$uid-$$
 endif
 
 goto main
@@ -184,7 +185,4 @@ else
         lpc2lsp -m $m -s $s -o $o $k $lg -n $n -p $p -d $d
 endif
 
-# when input stream is stdin
-if ("$file" == "") then
-    /bin/rm -f /tmp/mgc2mgclsp
-endif
+rm -fr /tmp/sptk-mgc2mgclsp-$uid-$$

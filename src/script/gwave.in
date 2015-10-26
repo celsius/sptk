@@ -177,12 +177,12 @@ while ($i < $#argv)
         endsw
 end
 
+# when input stream is stdin
 if ("$file" == "") then
-    cat $file > /tmp/$$
-else
-    cat "$file" > /tmp/$$
+    rm -fr /tmp/sptk-gwave-$uid-$$
+    cat > /tmp/sptk-gwave-$uid-$$
+    set file=/tmp/sptk-gwave-$uid-$$
 endif
-set file = /tmp/$$
 
 goto main
 
@@ -308,5 +308,5 @@ EOF
 
 end
 clean:
-/bin/rm -f /tmp/$$
 
+rm -fr /tmp/sptk-gwave-$uid-$$

@@ -336,102 +336,102 @@ while ( $j <= $#file )
                     if ( $swab ) then
                        if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
                         bcut +c -s $Current -e $tmp $f | swab | decimate -p 2 -s $decimate_start |\
-                        sopr -m ${OutMaxVal} > /tmp/{$f:t}.$$.tmp
+                        sopr -m ${OutMaxVal} > /tmp/sptk-wav2raw-$uid-$$.tmp
                        else
                         bcut +c -s $Current -e $tmp $f | swab |\
-                        sopr -m ${OutMaxVal} > /tmp/{$f:t}.$$.tmp
+                        sopr -m ${OutMaxVal} > /tmp/sptk-wav2raw-$uid-$$.tmp
                        endif
                     else
                        if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
                         bcut +c -s $Current -e $tmp $f | decimate -p 2 -s $decimate_start |\
-                        sopr -m ${OutMaxVal} > /tmp/{$f:t}.$$.tmp
+                        sopr -m ${OutMaxVal} > /tmp/sptk-wav2raw-$uid-$$.tmp
                        else
                         bcut +c -s $Current -e $tmp $f |\
-                        sopr -m ${OutMaxVal} > /tmp/{$f:t}.$$.tmp
+                        sopr -m ${OutMaxVal} > /tmp/sptk-wav2raw-$uid-$$.tmp
                        endif
                     endif
 
-                    set max = `minmax < /tmp/{$f:t}.$$.tmp | sopr -ABS |\
+                    set max = `minmax < /tmp/sptk-wav2raw-$uid-$$.tmp | sopr -ABS |\
                                minmax | bcut -s 1 | x2x +fa %.100f`
 
                     if ( $normalization_all || `echo "$max > ${OutMaxVal}" | bc -l` ) then
-                        sopr -m ${OutMaxVal} -d $max < /tmp/{$f:t}.$$.tmp |\
-                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                        sopr -m ${OutMaxVal} -d $max < /tmp/sptk-wav2raw-$uid-$$.tmp |\
+                        x2x -r +f${OutputType} > /tmp/sptk-wav2raw-$uid-$$.raw
                     else
-                        x2x -r +f${OutputType} < /tmp/{$f:t}.$$.tmp \
-                            > /tmp/{$f:t}.$$.raw
+                        x2x -r +f${OutputType} < /tmp/sptk-wav2raw-$uid-$$.tmp \
+                            > /tmp/sptk-wav2raw-$uid-$$.raw
                     endif
                 else #FormatID is not 3
                     if ( $swab ) then
                       if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
                         bcut +c -s $Current -e $tmp $f | swab +$InputType |\
-                        x2x +${InputType}f | decimate -p 2 -s $decimate_start > /tmp/{$f:t}.$$.tmp
+                        x2x +${InputType}f | decimate -p 2 -s $decimate_start > /tmp/sptk-wav2raw-$uid-$$.tmp
                       else
                         bcut +c -s $Current -e $tmp $f | swab +$InputType |\
-                        x2x +${InputType}f > /tmp/{$f:t}.$$.tmp
+                        x2x +${InputType}f > /tmp/sptk-wav2raw-$uid-$$.tmp
                       endif
                     else
                       if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
                         bcut +c -s $Current -e $tmp $f |\
-                        x2x +${InputType}f | decimate -p 2 -s $decimate_start > /tmp/{$f:t}.$$.tmp
+                        x2x +${InputType}f | decimate -p 2 -s $decimate_start > /tmp/sptk-wav2raw-$uid-$$.tmp
                       else
                         bcut +c -s $Current -e $tmp $f |\
-                        x2x +${InputType}f > /tmp/{$f:t}.$$.tmp
+                        x2x +${InputType}f > /tmp/sptk-wav2raw-$uid-$$.tmp
                       endif
                     endif
 
-                    set max = `minmax < /tmp/{$f:t}.$$.tmp | sopr -ABS |\
+                    set max = `minmax < /tmp/sptk-wav2raw-$uid-$$.tmp | sopr -ABS |\
                                minmax | bcut -s 1 | x2x +fa %.100f`
 
                     if ( $normalization_all || `echo "$max > ${OutMaxVal}" | bc -l` ) then
-                        sopr -m ${OutMaxVal} -d $max < /tmp/{$f:t}.$$.tmp |\
-                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                        sopr -m ${OutMaxVal} -d $max < /tmp/sptk-wav2raw-$uid-$$.tmp |\
+                        x2x -r +f${OutputType} > /tmp/sptk-wav2raw-$uid-$$.raw
                     else
-                        x2x -r +f${OutputType} < /tmp/{$f:t}.$$.tmp \
-                            > /tmp/{$f:t}.$$.raw
+                        x2x -r +f${OutputType} < /tmp/sptk-wav2raw-$uid-$$.tmp \
+                            > /tmp/sptk-wav2raw-$uid-$$.raw
                     endif
                 endif
 
-                /bin/rm -f /tmp/{$f:t}.$$.tmp
+                rm -fr /tmp/sptk-wav2raw-$uid-$$.tmp
             else #No normalization
                 if ( $FormatID == 3) then
                     if ( $swab ) then
                       if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
                         bcut +c -s $Current -e $tmp $f | swab | decimate -p 2 -s $decimate_start |\
                         sopr -m ${OutMaxVal} |\
-                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                        x2x -r +f${OutputType} > /tmp/sptk-wav2raw-$uid-$$.raw
                       else
                         bcut +c -s $Current -e $tmp $f | swab |\
                         sopr -m ${OutMaxVal} |\
-                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                        x2x -r +f${OutputType} > /tmp/sptk-wav2raw-$uid-$$.raw
                       endif
                     else
                       if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
                         bcut +c -s $Current -e $tmp $f | decimate -p 2 -s $decimate_start |\
                         sopr -m ${OutMaxVal} |\
-                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                        x2x -r +f${OutputType} > /tmp/sptk-wav2raw-$uid-$$.raw
                       else
                         bcut +c -s $Current -e $tmp $f |\
                         sopr -m ${OutMaxVal} |\
-                        x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                        x2x -r +f${OutputType} > /tmp/sptk-wav2raw-$uid-$$.raw
                       endif
                     endif
                 else #FormatID is not 3
                     if ( $swab ) then
                       if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
                         bcut +c -s $Current -e $tmp $f | swab +$InputType | x2x +${InputType}f |\
-                        decimate -p 2 -s $decimate_start | x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                        decimate -p 2 -s $decimate_start | x2x -r +f${OutputType} > /tmp/sptk-wav2raw-$uid-$$.raw
                       else
                         bcut +c -s $Current -e $tmp $f | swab +$InputType |\
-                        x2x -r +${InputType}${OutputType} > /tmp/{$f:t}.$$.raw
+                        x2x -r +${InputType}${OutputType} > /tmp/sptk-wav2raw-$uid-$$.raw
                       endif
                     else
                       if ( $Channels == 2 && ( $left == 1 || $right == 1 ) ) then
                         bcut +c -s $Current -e $tmp $f | x2x +${InputType}f |\
-                        decimate -p 2 -s $decimate_start | x2x -r +f${OutputType} > /tmp/{$f:t}.$$.raw
+                        decimate -p 2 -s $decimate_start | x2x -r +f${OutputType} > /tmp/sptk-wav2raw-$uid-$$.raw
                       else
                         bcut +c -s $Current -e $tmp $f |\
-                        x2x -r +${InputType}${OutputType} > /tmp/{$f:t}.$$.raw
+                        x2x -r +${InputType}${OutputType} > /tmp/sptk-wav2raw-$uid-$$.raw
                       endif
                     endif
                 endif
@@ -451,7 +451,7 @@ while ( $j <= $#file )
                 endif
             endif
 
-            /bin/mv /tmp/{$f:t}.$$.raw "$outfile"
+            /bin/mv /tmp/sptk-wav2raw-$uid-$$.raw "$outfile"
             if ( $white[$j] ) then
                 /bin/rm -f $f
             endif
@@ -477,4 +477,4 @@ while ( $j <= $#file )
 end # end of while ($j <= $#file)
 
 clean:
-/bin/rm -f /tmp/{$f:t}.$$.raw /tmp/{$f:t}.$$.tmp
+rm -fr /tmp/sptk-wav2raw-$uid-$$.raw /tmp/sptk-wav2raw-$uid-$$.tmp

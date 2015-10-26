@@ -340,23 +340,23 @@ while ( $i <= $#file )
    if ( $normalization ) then
       if ( $swab ) then
          swab +$type1 < $f |\
-         x2x +{$type1}f > /tmp/{$f:t}.$$.tmp
+         x2x +{$type1}f > /tmp/sptk-raw2wav-$uid-$$.tmp
       else
-         x2x +{$type1}f < $f > /tmp/{$f:t}.$$.tmp
+         x2x +{$type1}f < $f > /tmp/sptk-raw2wav-$uid-$$.tmp
       endif
-      set max = `minmax < /tmp/{$f:t}.$$.tmp | sopr -ABS | minmax | bcut -s 1 | x2x +fa %.100f`
+      set max = `minmax < /tmp/sptk-raw2wav-$uid-$$.tmp | sopr -ABS | minmax | bcut -s 1 | x2x +fa %.100f`
       if ( $normalization_all || `echo "$max < 0" | bc -l` ) then
-         sopr -m 32767 -d $max < /tmp/{$f:t}.$$.tmp |\
-         x2x +f{$type2} > /tmp/{$f:t}.$$.raw
+         sopr -m 32767 -d $max < /tmp/sptk-raw2wav-$uid-$$.tmp |\
+         x2x +f{$type2} > /tmp/sptk-raw2wav-$uid-$$.raw
       else
-         x2x +f{$type2} < /tmp/{$f:t}.$$.tmp > /tmp/{$f:t}.$$.raw
+         x2x +f{$type2} < /tmp/sptk-raw2wav-$uid-$$.tmp > /tmp/sptk-raw2wav-$uid-$$.raw
       endif
    else
       if ( $swab ) then
          swab +$type1 < $f |\
-         x2x +{$type1}{$type2} > /tmp/{$f:t}.$$.raw
+         x2x +{$type1}{$type2} > /tmp/sptk-raw2wav-$uid-$$.raw
       else
-         x2x +{$type1}{$type2} < $f > /tmp/{$f:t}.$$.raw
+         x2x +{$type1}{$type2} < $f > /tmp/sptk-raw2wav-$uid-$$.raw
       endif
    endif
 
@@ -375,15 +375,15 @@ while ( $i <= $#file )
    endif
 
    set frequency = `echo "$frequency * 1000" | bc`
-   rawtowav $frequency $bit /tmp/{$f:t}.$$.raw /tmp/raw2wav
+   rawtowav $frequency $bit /tmp/sptk-raw2wav-$uid-$$.raw /tmp/raw2wav
    /bin/mv /tmp/raw2wav "$outfile"
    if ( $white[$i] ) then
       /bin/rm -f $f
    endif
    @ i++
 
-   /bin/rm -f /tmp/{$f:t}.$$.raw
+   rm -fr /tmp/sptk-raw2wav-$uid-$$.raw
 end
 
 clean:
-/bin/rm -f /tmp/{$f:t}.$$.raw /tmp/{$f:t}.$$.tmp /tmp/{$f:t}.$$.max
+rm -fr /tmp/sptk-raw2wav-$uid-$$.raw /tmp/sptk-raw2wav-$uid-$$.tmp

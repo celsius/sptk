@@ -302,8 +302,9 @@ end
 
 # when input stream is stdin
 if ("$file" == "") then
-    cat > /tmp/grlogsp
-    set file=/tmp/grlogsp
+    rm -fr /tmp/sptk-grlogsp-$uid-$$
+    cat > /tmp/sptk-grlogsp-$uid-$$
+    set file=/tmp/sptk-grlogsp-$uid-$$
 endif
 
 goto main
@@ -485,7 +486,4 @@ if ($trans) set T = "-t -1"
 bcut +f -s $s $ee "$file" |\
 fdrw $T -W $ww -o $xo $yo -g 0 -y $yy -n $lhi -p $p -m $ln -z $z -F $F
 
-# when input stream is stdin
-if ("$file" == "") then
-    /bin/rm -f /tmp/grlogsp
-endif
+rm -fr /tmp/sptk-grlogsp-$uid-$$

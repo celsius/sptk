@@ -209,8 +209,9 @@ endif
 
 # when input stream is stdin
 if ("$file" == "") then
-    cat > /tmp/gseries
-    set file=/tmp/gseries
+    rm -fr /tmp/sptk-gseries-$uid-$$
+    cat > /tmp/sptk-gseries-$uid-$$
+    set file=/tmp/sptk-gseries-$uid-$$
 endif
 
 if ( ($start != 0) || ($term > 0) ) then
@@ -251,10 +252,7 @@ else
     endif
 endif
 
-# when input stream is stdin
-if ("$file" == "") then
-    /bin/rm -f /tmp/gseries
-endif
+rm -fr /tmp/sptk-gseries-$uid-$$
 
 set file = /tmp/$$
 
