@@ -55,9 +55,9 @@
 #include <math.h>
 
 #if defined(WIN32)
-#  include "SPTK.h"
+#include "SPTK.h"
 #else
-#  include <SPTK.h>
+#include <SPTK.h>
 #endif
 
 int choleski(double **cov, double **S, const int L);
@@ -224,6 +224,76 @@ void fillz_GMM(GMM * gmm)
       }
    }
 }
+
+void maskCov_GMM(GMM * gmm, const int *dim_list, const int cov_dim,
+                 const Boolean block_full, const Boolean block_corr)
+{
+
+   int row, col, i, k, l, m, *offset;
+
+   offset = (int *) malloc(sizeof(int) * cov_dim + 1);
+
+   offset[0] = 0;
+   for (i = 1; i < cov_dim + 1; i++) {
+      offset[i] = offset[i - 1] + dim_list[i - 1];
+   }
+
+   for (m = 0; m < gmm->nmix; m++) {
+      if (block_full == FA && block_corr == FA) {       /* without -c1 and -c2 */
+         for (k = 0; k < gmm->dim; k++) {
+            for (l = 0; l < gmm->dim; l++) {
+               if (k != l) {
+                  gmm->gauss[m].cov[k][l] = 0.0;
+               }
+            }
+         }
+      } else if (block_full == FA && block_corr == TR) {        /* with -c1 */
+         for (row = 0; row < cov_dim; row++) {
+            for (col = 0; col < cov_dim; col++) {
+               for (k = offset[row]; k < offset[row] + dim_list[row]; k++) {
+                  for (l = offset[col]; l < offset[col] + dim_list[col]; l++) {
+                     if (dim_list[row] != dim_list[col]) {
+                        gmm->gauss[m].cov[k][l] = 0.0;
+                     } else {
+                        if (offset[row + 1] - k != offset[col + 1] - l) {
+                           gmm->gauss[m].cov[k][l] = 0.0;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      } else if (block_full == TR && block_corr == FA) {        /* with -c2 */
+         for (row = 0; row < cov_dim; row++) {
+            for (col = 0; col < cov_dim; col++) {
+               if (row != col) {
+                  for (k = offset[row]; k < offset[row] + dim_list[row]; k++) {
+                     for (l = offset[col]; l < offset[col] + dim_list[col]; l++) {
+                        gmm->gauss[m].cov[k][l] = 0.0;
+                     }
+                  }
+               }
+            }
+         }
+      } else {                  /* with -c1 and -c2 */
+         for (row = 0; row < cov_dim; row++) {
+            for (col = 0; col < cov_dim; col++) {
+               if (dim_list[row] != dim_list[col]) {
+                  for (k = offset[row]; k < offset[row] + dim_list[row]; k++) {
+                     for (l = offset[col]; l < offset[col] + dim_list[col]; l++) {
+                        gmm->gauss[m].cov[k][l] = 0.0;
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+
+   free(offset);
+
+}
+
 
 double log_wgd(const GMM * gmm, const int m, const int L, const double *dat)
 {

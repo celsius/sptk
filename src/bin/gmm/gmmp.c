@@ -51,11 +51,17 @@
  *       usage:                                                          *
  *               gmmp [options] gmmfile [infile] > stdout                *
  *       options:                                                        *
- *               -l l  :  length of vector                    [26]       *
- *               -m m  :  number of Gaussian components       [16]       *
- *               -a    :  output average log-probability      [FALSE]    *
+ *               -l l  :  length of vector                      [26]     *
+ *               -m m  :  number of Gaussian components         [16]     *
+ *               -f    :  full covariance                       [FALSE]  *
+ *               -a    :  output average log-probability        [FALSE]  *
+ *             (level 2)                                                 *
+ *               -B B1 ... Bb : block size in covariance matrix [FALSE]  *
+ *                              where (B1 + B2 + ... + Bb) = l           *
+ *               -c1   : inter-block correlation                [FALSE]  *
+ *               -c2   : full covariance in each block          [FALSE]  *
  *       infile:                                                         *
- *               input vector sequence                        [stdin]    *
+ *               input vector sequence                          [stdin]  *
  *       stdout:                                                         *
  *               sequence of frame log-probabilities                     *
  *               average log-probability (if -a is used)                 *
@@ -69,20 +75,20 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 
 #ifdef HAVE_STRING_H
-#  include <string.h>
+#include <string.h>
 #else
-#  include <strings.h>
-#  ifndef HAVE_STRRCHR
-#     define strrchr rindex
-#  endif
+#include <strings.h>
+#ifndef HAVE_STRRCHR
+#define strrchr rindex
+#endif
 #endif
 
 #include <math.h>
 
 #if defined(WIN32)
-#  include "SPTK.h"
+#include "SPTK.h"
 #else
-#  include <SPTK.h>
+#include <SPTK.h>
 #endif
 
 /*  Default Values  */
@@ -106,23 +112,41 @@ void usage(int status)
    fprintf(stderr, "       %s [ options ] gmmfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
 
-   fprintf(stderr, "       -l l  : dimensionality of vectors          [%d]\n",
+   fprintf(stderr,
+           "       -l l  : dimensionality of vectors                   [%d]\n",
            DEF_L);
-   fprintf(stderr, "       -m m  : number of Gaussian components      [%d]\n",
+   fprintf(stderr,
+           "       -m m  : number of Gaussian components               [%d]\n",
            DEF_M);
-   fprintf(stderr, "       -f    : full covariance                    [%s]\n",
+   fprintf(stderr,
+           "       -f    : full covariance                             [%s]\n",
            BOOL[FULL]);
-   fprintf(stderr, "       -a    : output average log-probability     [%s]\n",
+   fprintf(stderr,
+           "       -a    : output average log-probability              [%s]\n",
            BOOL[DEF_A]);
    fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "     (level 2)\n");
+   fprintf(stderr,
+           "       -B B1 B2 ... Bb : block size in covariance matrix,  [FALSE]\n");
+   fprintf(stderr, "                         where (B1 + B2 + ... + Bb) = l\n");
+   fprintf(stderr,
+           "       -c1   : inter-block correlation                     [FALSE]\n");
+   fprintf(stderr,
+           "       -c2   : full covariance in each block               [FALSE]\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,
-           "       input data sequence (float)                [stdin]\n");
+           "       input data sequence (float)                         [stdin]\n");
    fprintf(stderr, "  gmmfile:\n");
    fprintf(stderr, "       GMM parameters (float)\n");
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr,
            "       log-probabilities or average log-probability (float)\n");
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr,
+           "       -B option specifies the size of each blocks in covariance matrix.\n");
+   fprintf(stderr, "       -c1 and -c2 option must be used with -B option.\n");
+   fprintf(stderr,
+           "         Without -c1 and -c2 option, a diagonal covariance can be obtained.\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -139,6 +163,8 @@ int main(int argc, char **argv)
    double logp, ave_logp, *x;
    int M = DEF_M, L = DEF_L, T;
    Boolean aflag = DEF_A, full = FULL;
+   int cov_dim = 0, dim_list[1024], i, j;
+   Boolean block_full = FA, block_corr = FA, multiple_dim = FA;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -166,6 +192,27 @@ int main(int argc, char **argv)
          case 'a':
             aflag = TR;
             break;
+            /* level 2 */
+         case 'B':
+            multiple_dim = TR;
+            dim_list[0] = atoi(*++argv);
+            i = 1;
+            argc--;
+            while ((**(argv + 1) != '\0') && isdigit(**(argv + 1))) {
+               dim_list[i++] = atoi(*++argv);
+               if (--argc <= 1) {
+                  break;
+               }
+            }
+            cov_dim = i;
+            break;
+         case 'c':
+            if (strncmp("1", *(argv) + 2, 1) == 0) {
+               block_corr = TR - block_corr;
+            } else if (strncmp("2", *(argv) + 2, 1) == 0) {
+               block_full = TR - block_full;
+            }
+            break;
          default:
             fprintf(stderr, "%s: Illegal option \"%s\".\n", cmnd, *argv);
             usage(1);
@@ -175,6 +222,27 @@ int main(int argc, char **argv)
       else
          fp = getfp(*argv, "rb");
 
+   if (multiple_dim == TR) {
+      for (i = 0, j = 0; i < cov_dim; i++) {
+         j += dim_list[i];
+      }
+      if (j != L) {
+         fprintf(stderr,
+                 "%s: block size must be coincided with dimention of vector\n",
+                 cmnd);
+         usage(1);
+      }
+      full = TR;
+   } else {
+      if (block_corr == TR || block_full == TR) {
+         if (full != TR) {
+            fprintf(stderr,
+                    "%s: -c1 and -c2 option must be specified with -B option!\n",
+                    cmnd);
+            usage(1);
+         }
+      }
+   }
 
    /* Read GMM parameters */
    if (fgmm == NULL) {
@@ -184,10 +252,24 @@ int main(int argc, char **argv)
 
    alloc_GMM(&gmm, M, L, full);
    load_GMM(&gmm, fgmm);
-   prepareCovInv_GMM(&gmm);
-   prepareGconst_GMM(&gmm);
 
    fclose(fgmm);
+
+   if (gmm.full != TR && full == TR) {
+      fprintf(stderr,
+              "%s: GMM is diagonal covariance, so -f or -B option is inappropriate!\n",
+              cmnd);
+      usage(1);
+   }
+
+   if (full == TR && multiple_dim == TR) {
+      maskCov_GMM(&gmm, dim_list, cov_dim, block_full, block_corr);
+   }
+
+   if (gmm.full == TR) {
+      prepareCovInv_GMM(&gmm);
+      prepareGconst_GMM(&gmm);
+   }
 
    /* Calculate and output log-probability */
    T = 0;

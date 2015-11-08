@@ -87,21 +87,21 @@ static char *rcs_id = "$Id$";
 #include <stdlib.h>
 
 #ifdef HAVE_STRING_H
-#  include <string.h>
+#include <string.h>
 #else
-#  include <strings.h>
-#  ifndef HAVE_STRRCHR
-#     define strrchr rindex
-#  endif
+#include <strings.h>
+#ifndef HAVE_STRRCHR
+#define strrchr rindex
+#endif
 #endif
 
 #include <math.h>
 #include <ctype.h>
 
 #if defined(WIN32)
-#  include "SPTK.h"
+#include "SPTK.h"
 #else
-#  include <SPTK.h>
+#include <SPTK.h>
 #endif
 
 /*  Default Values  */
@@ -525,42 +525,7 @@ int main(int argc, char **argv)
 
          /* masking */
          if (multiple_dim == TR) {
-            for (m = 0; m < M; m++) {
-               offset_row = 0;
-               for (row = 0; row < cov_dim; row++) {    /* row */
-                  offset_col = 0;
-                  for (col = 0; col <= row; col++) {    /* column */
-                     for (k = offset_row; k < offset_row + dim_list[row]; k++) {
-                        for (l = offset_col; l < offset_col + dim_list[col];
-                             l++) {
-                           if (dim_list[row] != dim_list[col]) {
-                              gmm.gauss[m].cov[k][l] = 0.0;
-                           } else {
-                              if (block_full == FA && block_corr == FA) {
-                                 if (row != col) {
-                                    gmm.gauss[m].cov[k][l] = 0.0;
-                                 } else {
-                                    if (k - offset_row != l - offset_col) {
-                                       gmm.gauss[m].cov[k][l] = 0.0;
-                                    }
-                                 }
-                              } else if (block_full == FA && block_corr == TR) {
-                                 if (k - offset_row != l - offset_col) {
-                                    gmm.gauss[m].cov[k][l] = 0.0;
-                                 }
-                              } else if (block_full == TR && block_corr == FA) {
-                                 if (row != col) {
-                                    gmm.gauss[m].cov[k][l] = 0.0;
-                                 }
-                              }
-                           }
-                        }
-                     }
-                     offset_col += dim_list[col];
-                  }
-                  offset_row += dim_list[row];
-               }
-            }
+            maskCov_GMM(&gmm, dim_list, cov_dim, block_full, block_corr);
          }
       }
       floorVar_GMM(&gmm, V);
