@@ -1,4 +1,4 @@
-% ----------------------------------------------------------------- %
+0% ----------------------------------------------------------------- %
 %             The Speech Signal Processing Toolkit (SPTK)           %
 %             developed by SPTK Working Group                       %
 %             http://sp-tk.sourceforge.net/                         %
@@ -45,7 +45,8 @@
 \name{gmmp}{calculation of GMM log-probability}{probability calculation}
 
 \begin{synopsis}
-\item [gmmp] [ --l $L$ ] [ --m $M$ ] [ --a ] {\em gmmfile} [ {\em infile} ]
+\item [gmmp] [ --l $L$ ] [ --m $M$ ] [ --a ] [ --f ] [ --B $B1,B2,...$
+] [ --c1 ] [ --c2 ] {\em gmmfile} [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -98,6 +99,11 @@ where
  \argm{m}{M}{number of Gaussian components}{16}
  \argm{f}{}{full covariance}{FALSE}
  \argm{a}{}{print average log-probability}{FALSE}
+ \desc[1ex]{(level 2)}
+ \argm{B}{B1~B2~$\ldots$~Bn}{block size in covariance matrix,\\
+                             where $(B1+B2+\ldots+Bn)=L$}{N/A}
+ \argm{c1}{}{inter-block correlation}{N/A}
+ \argm{c2}{}{full covariance in each block}{N/A}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
