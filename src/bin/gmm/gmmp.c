@@ -73,6 +73,7 @@ static char *rcs_id = "$Id$";
 /*  Standard C Libraries  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #ifdef HAVE_STRING_H
 #include <string.h>

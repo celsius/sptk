@@ -180,7 +180,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int m = ORDER, flng = FLENG, ilng = FLENG, itr1 = MINITR, itr2 =
-       MAXITR, itype = ITYPE, etype = ETYPE, flag = 0;
+       MAXITR, itype = ITYPE, etype = ETYPE;
    FILE *fp = stdin;
    double *mc, *x, a = ALPHA, end = END, e = EPS, f = MINDET;
 
@@ -251,7 +251,7 @@ int main(int argc, char **argv)
    mc = x + flng;
 
    while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
-      flag = mcep(x, flng, mc, m, a, itr1, itr2, end, etype, e, f, itype);
+      mcep(x, flng, mc, m, a, itr1, itr2, end, etype, e, f, itype);
       fwritef(mc, sizeof(*mc), m + 1, stdout);
    }
 

@@ -130,7 +130,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, flag;
+   int m = ORDER;
    FILE *fp = stdin;
    double *r, *a, f = MINDET;
 
@@ -162,7 +162,7 @@ int main(int argc, char **argv)
    r = a + m + 1;
 
    while (freadf(r, sizeof(*r), m + 1, fp) == m + 1) {
-      flag = levdur(r, a, m, f);
+      levdur(r, a, m, f);
       fwritef(a, sizeof(*a), m + 1, stdout);
    }
 

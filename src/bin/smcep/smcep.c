@@ -199,7 +199,7 @@ void usage(int status)
 int main(int argc, char **argv)
 {
    int m = ORDER, flng = FLENG, ilng = FLENG, itype = ITYPE, etype = ETYPE,
-       fftsz = FFTSZ, itr1 = MINITR, itr2 = MAXITR, flag = 0;
+       fftsz = FFTSZ, itr1 = MINITR, itr2 = MAXITR;
    FILE *fp = stdin;
    double *mc, *x, a = ALPHA, t = THETA, end = END, e = EPS, f = MINDET, s =
        SAMPLEF, T = EMPHHZ;
@@ -301,11 +301,7 @@ int main(int argc, char **argv)
    mc = x + flng;
 
    while (freadf(x, sizeof(*x), ilng, fp) == ilng) {
-
-      flag =
-          smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, etype, e, f,
-                itype);
-
+      smcep(x, flng, mc, m, fftsz, a, t, itr1, itr2, end, etype, e, f, itype);
       fwritef(mc, sizeof(*mc), m + 1, stdout);
    }
 

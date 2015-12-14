@@ -156,7 +156,6 @@ int main(int argc, char **argv)
    char *s, c, cc = 'f';
    char format[SIZE], form[SIZE];
    int ff = 0;
-   Boolean int3flg = FA, uint3flg = FA;
    union u {
       char c;
       short s;
@@ -220,7 +219,6 @@ int main(int argc, char **argv)
          case 'i':
             if (*(s + 1) == '3') {
                size = 3;
-               int3flg = TR;
                cc = 't';
                (*argv)++;
             } else {
@@ -249,7 +247,6 @@ int main(int argc, char **argv)
          case 'I':
             if (*(s + 1) == '3') {
                size = 3;
-               uint3flg = TR;
                cc = 'T';
                (*argv)++;
             } else {

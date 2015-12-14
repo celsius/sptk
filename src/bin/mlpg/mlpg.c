@@ -583,11 +583,10 @@ double *mlpg(PStream * pst)
    void calc_k(PStream *, int);
    void update_P(PStream *);
    void update_c(PStream *, int);
-   int tcur, tmin, tmax;
+   int tmin, tmax;
    int d, m, u;
 
    pst->sm.t++;
-   tcur = pst->sm.t & pst->sm.mask;
    tmin = (pst->sm.t - pst->range) & pst->sm.mask;
    tmax = (pst->sm.t + pst->dw.maxw[WRIGHT]) & pst->sm.mask;
 

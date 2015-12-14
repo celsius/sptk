@@ -90,7 +90,6 @@ static char *rcs_id = "$Id$";
 /*  Default Values  */
 #define LENG 10
 #define INDEX 0
-#define SIZE 256
 
 /*  Command Name  */
 char *cmnd;
@@ -125,7 +124,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int l = LENG, index = INDEX, size = SIZE, i;
+   int l = LENG, index = INDEX, i;
    FILE *fp = stdin, *fpi = NULL;
    double *x;
 
@@ -142,10 +141,6 @@ int main(int argc, char **argv)
             break;
          case 'i':
             index = atoi(*++argv);
-            --argc;
-            break;
-         case 's':
-            size = atoi(*++argv);
             --argc;
             break;
          case 'h':

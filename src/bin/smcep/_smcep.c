@@ -240,7 +240,7 @@ static void freqt2(double *c1, const int m1, double *c2, const int m2,
 {
    int i, j;
    double w, b, *ww, *dw, *f, *re, *im, *pf, *pg, *next;
-   int size_g, size_f, fftsz2, fftszh;
+   int size_g, size_f, fftsz2;
    static double *g = NULL;
    static int size2, flag_g = 1;
 
@@ -264,8 +264,6 @@ static void freqt2(double *c1, const int m1, double *c2, const int m2,
    if (flag_g == 0) {
       ww = dgetmem(fftsz);
       dw = dgetmem(fftsz);
-
-      fftszh = (int) (fftsz / 2.);
 
       for (j = 0, w = 0.0; j < fftsz; j++, w += b)
          ww[j] = warp(w, a, t);
