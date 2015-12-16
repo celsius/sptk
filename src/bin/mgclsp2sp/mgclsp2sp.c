@@ -160,6 +160,8 @@ void usage(int status)
    fprintf(stderr, "       mgc-lsp (%s)             [stdin]\n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       spectrum (%s)\n", FORMAT);
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr, "       Value of gamma must be -1 <= gamma < 0\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
