@@ -62,7 +62,7 @@
 
 int choleski(double **cov, double **S, const int L);
 
-double cal_det(double **var, const int D)
+double cal_ldet(double **var, const int D)
 {
    int i, j, l;
    double ldet = 0.0, **tri;
@@ -91,7 +91,7 @@ double cal_det(double **var, const int D)
       }
       free(tri);
 
-      return 0;
+      return LZERO;
    }
 }
 
@@ -111,10 +111,10 @@ double cal_gconstf(double **var, const int D)
 {
    double gconst, tmp;
 
-   tmp = cal_det(var, D);
-   if (tmp == 0) {
+   tmp = cal_ldet(var, D);
+   if (tmp == LZERO) {
       fprintf(stderr, "WARNING : det is 0!\n");
-      return 0;
+      return LZERO;
    }
    gconst = D * log(M_2PI);
    gconst += tmp;
@@ -450,7 +450,7 @@ int prepareGconst_GMM(GMM * gmm)
       } else {
          gmm->gauss[m].gconst = cal_gconstf(gmm->gauss[m].cov, gmm->dim);
       }
-      if (gmm->gauss[m].gconst == 0) {
+      if (gmm->gauss[m].gconst == LZERO) {
          return -1;
       }
    }
