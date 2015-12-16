@@ -542,7 +542,7 @@ int main(int argc, char **argv)
       } else {
          for (m = 0; m < M; m++) {
             gmm.gauss[m].gconst = cal_gconstf(gmm.gauss[m].cov, L);
-            if (gmm.gauss[m].gconst == 0) {
+            if (gmm.gauss[m].gconst == LZERO) {
                fprintf(stderr, "ERROR : Can't caluculate covdet\n");
                exit(EXIT_FAILURE);
             }
@@ -582,7 +582,7 @@ int main(int argc, char **argv)
 
       /* Output average log likelihood at each iteration */
       ave_logp1 /= (double) T;
-      if (i == 1 && m == 1)
+      if (i == 1 && M == 1)
          ave_logp0 = ave_logp1;
 
       fprintf(stderr, "iter %3d : ", i);
