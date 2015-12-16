@@ -93,5 +93,5 @@ double edist(double *x, double *y, const int m)
       dist += sub * sub;
    }
 
-   return (dist / (double) m);
+   return (dist);
 }
