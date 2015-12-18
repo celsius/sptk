@@ -72,7 +72,7 @@ void write_file(long fs, char BIT, char *rawfile, char *wavfile)
    char fmt_chunk[] = "fmt ";
    char data_chunk[] = "data";
    int file_size, rawfile_size;
-   int chunk_size = BIT;
+   int chunk_size = 16;
    int data_speed;
    short formatID = 1;
    short channel = 1;           /* mono:1¡¤stereo:2 */
