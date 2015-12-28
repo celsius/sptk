@@ -73,7 +73,7 @@ void fftcep(double *sp, const int flng, double *c, const int m, int itr,
 {
    double temp;
    static double *x = NULL, *y;
-   static double size;
+   static int size;
    int k;
 
    if (x == NULL) {
