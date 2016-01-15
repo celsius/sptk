@@ -83,6 +83,15 @@ set flagMAGIC   = 0
 set magic_count = 0
 set MAGIC_count = 0
 
+if ($?uid) then
+else
+    if ($?UID) then
+        set uid = $UID
+    else
+        set uid
+    endif
+endif
+
 @ i = 0
 while ($i < $#argv)
         @ i++

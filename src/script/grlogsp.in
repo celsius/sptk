@@ -174,6 +174,15 @@ set xl = ( 0.5 \
 
 set on_x = (25 60 95 130 165 200 235 270 305 340)
 
+if ($?uid) then
+else
+    if ($?UID) then
+        set uid = $UID
+    else
+        set uid
+    endif
+endif
+
 @ i = 0
 while ($i < $#argv)
         @ i++
