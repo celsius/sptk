@@ -268,8 +268,8 @@ double t_percent(const double p, const int df)
 void quicksort(double *x, int left, int right)
 {
    int i, j;
-   int pivot;
-   int tmp;
+   double pivot;
+   double tmp;
 
    i = left;
    j = right;
