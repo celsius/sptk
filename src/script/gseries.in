@@ -225,7 +225,7 @@ endif
 
 if ( ($start != 0) || ($term > 0) ) then
     if ( $flagmagic && $flagMAGIC ) then
-               x2x +${type}f "$file" | sopr -magic $magic -MAGIC $MAGIC | x2x +f${type} > /tmp/$$
+               x2x +${type}f "$file" | sopr -magic $magic -MAGIC $MAGIC | x2x +f${type} > /tmp/sptk-gseries-$uid-$$-5
     else if ( $flagmagic ) then
         if ( $term < 0 ) then
            set wctmp = `x2x +${type}a "$file" | wc -l`
@@ -234,36 +234,35 @@ if ( ($start != 0) || ($term > 0) ) then
            set wctmp = `echo "$term" | bc -l`
         endif
            set mwc = `x2x +${type}f "$file" | bcut -s $start -e $wctmp | sopr -magic $magic | x2x +fa | wc -l` 
-           x2x +${type}f "$file" | bcut -s $start -e $wctmp | sopr -magic $magic | x2x +f${type} > /tmp/$$
+           x2x +${type}f "$file" | bcut -s $start -e $wctmp | sopr -magic $magic | x2x +f${type} > /tmp/sptk-gseries-$uid-$$-5
            @ reduced = `echo "$wctmp + 1 - $start - $mwc" | bc -l`
            @ term = `echo "$wctmp - $reduced + 1" | bc -l`
            set mterm = `echo "$mwc - 1" | bc -l`
-           x2x +${type}f /tmp/$$ | bcp -S $start -l $mwc -s 0 -e $mterm -f 0 | x2x +f${type} > /tmp/$$-1
-           cat /tmp/$$-1 > /tmp/$$
+           x2x +${type}f /tmp/sptk-gseries-$uid-$$-5 | bcp -S $start -l $mwc -s 0 -e $mterm -f 0 | x2x +f${type} >> /tmp/sptk-gseries-$uid-$$-5
     else if ( $flagMAGIC ) then
                echo2 "${cmnd} : -MAGIC option need magic number\!"
                set exit_status = 1
                goto usage
     else
-        cat "$file" > /tmp/$$
+        cat "$file" > /tmp/sptk-gseries-$uid-$$-5
     endif
 else
     if ( $flagmagic && $flagMAGIC ) then
-           x2x +${type}f "$file" | sopr -magic $magic -MAGIC $MAGIC | x2x +f${type} > /tmp/$$
+           x2x +${type}f "$file" | sopr -magic $magic -MAGIC $MAGIC | x2x +f${type} > /tmp/sptk-gseries-$uid-$$-5
     else if ( $flagmagic ) then
-           x2x +${type}f "$file" | sopr -magic $magic | x2x +f${type} > /tmp/$$
+           x2x +${type}f "$file" | sopr -magic $magic | x2x +f${type} > /tmp/sptk-gseries-$uid-$$-5
     else if ( $flagMAGIC ) then
            echo2 "${cmnd} : -MAGIC option need magic number\!"
            set exit_status = 1
            goto usage
     else
-        cat "$file" > /tmp/$$
+        cat "$file" > /tmp/sptk-gseries-$uid-$$-5
     endif
 endif
 
 rm -fr /tmp/sptk-gseries-$uid-$$
 
-set file = /tmp/$$
+set file = /tmp/sptk-gseries-$uid-$$-5
 
 goto main
 
@@ -411,23 +410,23 @@ while ( $numscreen > 0 )
         set xew = `echo "$xe + 0.01" | bc -l`
 
         @ tmp = $numscreen % 5
-        echo "x $xsw $xew" >! /tmp/$$-$tmp
-        echo "y $ymin $ymax" >> /tmp/$$-$tmp
-        echo "xscale $xscale" >> /tmp/$$-$tmp
-        echo "yscale $ymin $ymax" >> /tmp/$$-$tmp
-        echo "ygrid 0" >> /tmp/$$-$tmp
+        echo "x $xsw $xew" >! /tmp/sptk-gseries-$uid-$$-$tmp
+        echo "y $ymin $ymax" >> /tmp/sptk-gseries-$uid-$$-$tmp
+        echo "xscale $xscale" >> /tmp/sptk-gseries-$uid-$$-$tmp
+        echo "yscale $ymin $ymax" >> /tmp/sptk-gseries-$uid-$$-$tmp
+        echo "ygrid 0" >> /tmp/sptk-gseries-$uid-$$-$tmp
 
         if ( ($numscreen == 1) && ($numdata > ($allnumdata % $numscreentmp)) ) then
         @ end = $term
         endif
 
      foreach line (`x2x +${type}f < $file | bcut -s $start -e $end | x2x +fa`)
-       echo "box $count 0 $count $line" >> /tmp/$$-$tmp
-       echo "$count $line $mtype" >> /tmp/$$-$tmp
+       echo "box $count 0 $count $line" >> /tmp/sptk-gseries-$uid-$$-$tmp
+       echo "$count $line $mtype" >> /tmp/sptk-gseries-$uid-$$-$tmp
        @ count += 1
      end
 
-        fig -o $ox $oy -W $width -H $height -p $pen -F $F /tmp/$$-$tmp
+        fig -o $ox $oy -W $width -H $height -p $pen -F $F /tmp/sptk-gseries-$uid-$$-$tmp
 
         @ numscreen--
         set oy  =  `echo "$oy - 50 * $F" | bc -l`
@@ -440,10 +439,8 @@ end
 
 clean:
 
-/bin/rm -f /tmp/$$
-
-set i = 4
+set i = 5
 while ( $i >= 0 )
-/bin/rm -f /tmp/$$-$i
+/bin/rm -f /tmp/sptk-gseries-$uid-$$-$i
 @ i--
 end

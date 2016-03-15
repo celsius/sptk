@@ -384,8 +384,7 @@ while ( $i <= $#file )
    endif
 
    set frequency = `echo "$frequency * 1000" | bc`
-   rawtowav $frequency $bit /tmp/sptk-raw2wav-$uid-$$.raw /tmp/raw2wav
-   /bin/mv /tmp/raw2wav "$outfile"
+   rawtowav $frequency $bit /tmp/sptk-raw2wav-$uid-$$.raw $outfile
    if ( $white[$i] ) then
       /bin/rm -f $f
    endif
