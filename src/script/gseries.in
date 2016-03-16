@@ -238,7 +238,8 @@ if ( ($start != 0) || ($term > 0) ) then
            @ reduced = `echo "$wctmp + 1 - $start - $mwc" | bc -l`
            @ term = `echo "$wctmp - $reduced + 1" | bc -l`
            set mterm = `echo "$mwc - 1" | bc -l`
-           x2x +${type}f /tmp/sptk-gseries-$uid-$$-5 | bcp -S $start -l $mwc -s 0 -e $mterm -f 0 | x2x +f${type} >> /tmp/sptk-gseries-$uid-$$-5
+           x2x +${type}f /tmp/sptk-gseries-$uid-$$-5 | bcp -S $start -l $mwc -s 0 -e $mterm -f 0 | x2x +f${type} > /tmp/sptk-gseries-$uid-$$-6
+           cat /tmp/sptk-gseries-$uid-$$-6 > /tmp/sptk-gseries-$uid-$$-5
     else if ( $flagMAGIC ) then
                echo2 "${cmnd} : -MAGIC option need magic number\!"
                set exit_status = 1
@@ -439,7 +440,7 @@ end
 
 clean:
 
-set i = 5
+set i = 6
 while ( $i >= 0 )
 /bin/rm -f /tmp/sptk-gseries-$uid-$$-$i
 @ i--
