@@ -184,7 +184,7 @@ void usage(int status)
    exit(status);
 }
 
-void mlsacheck(double *mcep, int m, int fftlen, int frame,
+double mlsacheck(double *in, double *out, int m, int fftlen,
                double a, double r, int c)
 {
    int i;
@@ -198,7 +198,7 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
 
    /* calculate gain factor */
    for (i = 0, gain = 0.0; i <= m; i++) {
-      x[i] = mcep[i];
+      x[i] = in[i];
       gain += x[i] * pow(-a, i);
    }
 
@@ -220,14 +220,8 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
          max += x[i];
    }
 
-   /* modification MLSA filter coefficients */
+   /* modify MLSA filter coefficients */
    if (max > r) {
-      /* output ascii report */
-      fprintf(stderr,
-              "[No. %d] is unstable frame (maximum = %f, threshold = %f)\n",
-              frame, max, r);
-
-      /* modification */
       if (c == 2) {             /* clipping */
          for (i = 0; i < fftlen; i++) {
             if (mag[i] > r) {
@@ -246,27 +240,29 @@ void mlsacheck(double *mcep, int m, int fftlen, int frame,
       }
    }
 
-   /* output MLSA filter coefficients */
+   /* store MLSA filter coefficients */
    if (c == 0 || c == 1 || max <= r) {  /* no modification */
-      fwritef(mcep, sizeof(*mcep), m + 1, stdout);
+      memcpy(out, in, sizeof(*out) * (m + 1));
    } else {
       if (c == 2 || c == 3)
          ifft(x, y, fftlen);
       x[0] += gain;
-      fwritef(x, sizeof(*x), m + 1, stdout);
+      memcpy(out, x, sizeof(*out) * (m + 1));
    }
 
    free(x);
    free(y);
    if (c == 0 || c == 2 || c == 3)
       free(mag);
+
+   return max;
 }
 
 int main(int argc, char **argv)
 {
    int m = ORDER, pd = PADEORDER, fftlen = FFTLENGTH, stable_condition =
        STABLE1, frame = 0, c = 0;
-   double *mcep, a = ALPHA, r = PADE4_THRESH1, R = 0.0;
+   double *in, *out, max, a = ALPHA, r = PADE4_THRESH1, R = 0.0;
    FILE *fp = stdin;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL) {
@@ -356,11 +352,21 @@ int main(int argc, char **argv)
    if (R != 0.0)
       r = R;
 
-   mcep = dgetmem(m + 1);
+   in = dgetmem(m + 1);
+   out = dgetmem(m + 1);
 
    /* check stability of MLSA filter and output */
-   while (freadf(mcep, sizeof(*mcep), m + 1, fp) == m + 1) {
-      mlsacheck(mcep, m, fftlen, frame, a, r, c);
+   while (freadf(in, sizeof(*in), m + 1, fp) == m + 1) {
+      max = mlsacheck(in, out, m, fftlen, a, r, c);
+
+      /* output ascii report */
+      if (max > r) {
+         fprintf(stderr,
+                 "[No. %d] is unstable frame (maximum = %f, threshold = %f)\n",
+                 frame, max, r);
+      }
+
+      fwritef(out, sizeof(*out), m + 1, stdout);
       frame++;
    }
 
