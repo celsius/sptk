@@ -172,8 +172,7 @@ int main(int argc, char **argv)
    FILE *fp = stdin, *fpe = NULL;
    Boolean ave = AVERAGE, norm = NORM;
    double lambda = LAMBDA, step = STEP, eps = EPS,
-       *c, *cc, *eg, *ep, *d, *avec, tau = TAU,
-       x, ee, ll, gg, mu, gamma, tt, ttx;
+       *c, *cc, *avec, tau = TAU, x, mu, gamma;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];

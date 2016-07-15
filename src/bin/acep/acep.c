@@ -158,7 +158,7 @@ int main(int argc, char **argv)
    FILE *fp = stdin, *fpe = NULL;
    Boolean aveflag = AVEFLAG;
    double lambda = LAMBDA, step = STEP, tau = TAU, eps = EPS,
-     *c, *e, *ep, *cc, *d, *avec, x, ll, gg, tt, mu, ttx;
+     *c, *avec, x;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];

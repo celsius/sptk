@@ -164,7 +164,7 @@ int main(int argc, char **argv)
    FILE *fp = stdin, *fpe = NULL;
    Boolean aveflag = AVEFLAG;
    double alpha = ALPHA, lambda = LAMBDA, tau = TAU, step = STEP, eps = EPS,
-       *mc, *b, *ep, *e, *bb, *d, *avemc, x, xx, ll, tt, gg, mu, ttx;
+       *mc, *b, *avemc, x, mu;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
