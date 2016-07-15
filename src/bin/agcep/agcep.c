@@ -231,38 +231,15 @@ int main(int argc, char **argv)
    }
    gamma = -1.0 / (double) stage;
 
-   c = dgetmem(5 * (m + 1) + m * stage);
+   c = dgetmem(2 * (m + 1) + m * stage);
    cc = c + m + 1;
-   eg = cc + m + 1;
-   ep = eg + m + 1;
-   avec = ep + m + 1;
-   d = avec + m + 1;
+   avec = cc + m + 1;
 
    j = period;
-   ll = 1.0 - lambda;
-   gg = 1.0;
-   ee = 1.0;
-   step /= (double) m;
-   tt = 2 * (1.0 - tau);
 
    while (freadf(&x, sizeof(x), 1, fp) == 1) {
-      eg[m] = d[stage * m - 1];
-      x = iglsadf1(x, c, m, stage, d);
 
-      movem(d + (stage - 1) * m, eg, sizeof(*d), m);
-
-      gg = lambda * gg + ll * eg[0] * eg[0];
-      gg = (gg < eps) ? eps : gg;
-      mu = step / gg;
-      ttx = tt * x;
-
-      for (i = 1; i <= m; i++) {
-         ep[i] = tau * ep[i] - ttx * eg[i];
-         c[i] -= mu * ep[i];
-      }
-
-      ee = lambda * ee + ll * x * x;
-      c[0] = sqrt(ee);
+      x = agcep(x, c, m, stage, lambda, step, tau, eps);
 
       if (ave)
          for (i = 0; i <= m; i++)

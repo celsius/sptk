@@ -223,40 +223,15 @@ int main(int argc, char **argv)
       return (1);
    }
 
-   mc = dgetmem(6 * (m + 1) + 3 * (pd + 1) + pd * (m + 2));
+   mc = dgetmem(2 * (m + 1) + 3 * (pd + 1) + pd * (m + 2));
    b = mc + m + 1;
-   bb = b + m + 1;
-   e = bb + m + 1;
-   ep = e + m + 1;
-   avemc = ep + m + 1;
-   d = avemc + m + 1;
+   avemc = b + m + 1;
 
    j = period;
-   ll = 1.0 - lambda;
-   gg = 1.0;
-   tt = 2 * (1.0 - tau);
-   step /= (double) m;
-   xx = 0.0;
 
    while (freadf(&x, sizeof(x), 1, fp) == 1) {
-      for (i = 1; i <= m; i++)
-         bb[i] = -b[i];
 
-      x = mlsadf(x, bb, m, alpha, pd, d);
-      phidf(xx, m, alpha, e);
-      xx = x;
-
-      gg = gg * lambda + ll * x * x;
-      gg = (gg < eps) ? eps : gg;
-      b[0] = 0.5 * log(gg);
-
-      mu = step / gg;
-      ttx = tt * x;
-
-      for (i = 1; i <= m; i++) {
-         ep[i] = tau * ep[i] - ttx * e[i];
-         b[i] -= mu * ep[i];
-      }
+      x = amcep(x, b, m, alpha, lambda, step, tau, pd, eps);
 
       b2mc(b, mc, m, alpha);
 

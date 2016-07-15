@@ -158,7 +158,7 @@ int main(int argc, char **argv)
    FILE *fp = stdin, *fpe = NULL;
    Boolean aveflag = AVEFLAG;
    double lambda = LAMBDA, step = STEP, tau = TAU, eps = EPS,
-       *c, *e, *ep, *cc, *d, *avec, x, ll, gg, tt, mu, ttx;
+     *c, *e, *ep, *cc, *d, *avec, x, ll, gg, tt, mu, ttx;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -214,40 +214,14 @@ int main(int argc, char **argv)
       return (1);
    }
 
-   c = dgetmem(5 * (m + 1) + (m + 1) * pd * 2);
-   cc = c + m + 1;
-   e = cc + m + 1;
-   ep = e + m + 1;
-   avec = ep + m + 1;
-   d = avec + m + 1;
+   c = dgetmem(m + 1 + (m + 1) * pd * 2);
+   avec = c + m + 1;
 
    j = period;
-   ll = 1.0 - lambda;
-   gg = 1.0;
-   step /= (double) m;
-   tt = 2 * (1.0 - tau);
 
    while (freadf(&x, sizeof(x), 1, fp) == 1) {
-      for (i = 1; i <= m; i++)
-         cc[i] = -c[i];
 
-      x = lmadf(x, cc, m, pd, d);
-
-      for (i = m; i >= 1; i--)
-         e[i] = e[i - 1];
-      e[0] = x;
-
-      gg = gg * lambda + ll * e[0] * e[0];
-      c[0] = 0.5 * log(gg);
-
-      gg = (gg < eps) ? eps : gg;
-      mu = step / gg;
-      ttx = tt * e[0];
-
-      for (i = 1; i <= m; i++) {
-         ep[i] = tau * ep[i] - ttx * e[i];
-         c[i] -= mu * ep[i];
-      }
+      x = acep(x, c, m, lambda, step, tau, pd, eps);
 
       if (aveflag)
          for (i = 0; i <= m; i++)
