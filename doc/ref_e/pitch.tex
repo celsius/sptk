@@ -45,15 +45,15 @@
 \name{pitch}{pitch extraction}{signal processing,speech analysis and synthesis}
 
 \begin{synopsis}
- \item[pitch] [ --a $A$ ] [ --s $S$ ] [ --p $P$ ] [ --T $T$ ] [ --t $t$ ]
- [ --L $Lo$ ] [ --H $Hi$ ] [ --o $O$ ][ {\em infile} ]
+ \item[pitch] [ --a $A$ ] [ --s $S$ ] [ --p $P$ ] [ --t0 $t0$ ] [ --t1 $t1$ ] [ --t2 $t2$ ]
+ [ --L $Lo$ ] [ --H $Hi$ ] 
+\item[\ ~~~~~][ --o $O$ ][ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
 {\em pitch} extracts the pitch values from {\em infile} (or standard input),
 sending the result to standard output.
-The RAPT \cite{ref:pitch-RAPT} and SWIPE' \cite{ref:pitch-SWIPE}
- algorithm are adopted for pitch extraction.
+The RAPT \cite{ref:pitch-RAPT} , SWIPE' \cite{ref:pitch-SWIPE} and REAPER algorithm are adopted for pitch extraction.
 They can be specified by --a option.
 The output format (pitch, F0 or log(F0)) can be specified by --o option.
 
@@ -66,11 +66,16 @@ Both input and output files are in float format.
  \begin{tabular}{ll} \\[-1ex]
   $A=0$ & ~~~RAPT\\
   $A=1$ & ~~~SWIPE'\\
+  $A=2$ & ~~~REAPER\\
  \end{tabular}\\\hspace*{\fill}}{0}
  \argm{s}{S}{sampling frequency (kHz)}{16.0}
  \argm{p}{P}{frame shift}{80}
- \argm{T}{T}{voiced/unvoiced threshold (used only for RAPT algorithm)}{0.0}
- \argm{t}{t}{voiced/unvoiced threshold (used only for SWIPE' algorithm)}{0.3}
+ \argm{t0}{t0}{voiced/unvoiced threshold (used only for RAPT algorithm)\\
+    value of $t0$ should be $-0.6 < t0 < 0.7$}{0.0}
+ \argm{t1}{t1}{voiced/unvoiced threshold (used only for SWIPE' algorithm)\\
+    value of $t1$ should be $0.2 < t1 < 0.5$}{0.3}
+ \argm{t2}{t2}{voiced/unvoiced threshold (used only for REAPER algorithm)\\
+    value of $t2$ should be $-0.5 < t2 < 1.6$}{0.9}
  \argm{L}{Lo}{minimum fundamental frequency to search for (Hz)}{60.0}
  \argm{H}{Hi}{maximum fundamental frequency to search for (Hz)}{240.0}
  \argm{o}{O}{output format\\
@@ -92,6 +97,13 @@ Both input and output files are in float format.
  \begin{quote}
   \verb!pitch -a 1 -s 16 -p 80 -L 80 -H 165 data.f > data.pitch!
  \end{quote}
+\end{qsection}
+
+\begin{qsection}{NOTICE}
+\begin{itemize}
+\item Regarding -t0 and -t2 option, when the threshold is raised, the number of voiced component increases.
+\item Regarding -t1 option, when the threshold is raised, the number of voiced component decreases.
+\end{itemize}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

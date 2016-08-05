@@ -60,10 +60,15 @@
 *                              1 (SWIPE')                               *
 *               -s  s     :  sampling frequency (Hz)       [16]         *
 *               -p  p     :  frame shift                   [80]         *
-*               -T  T     :  voiced/unvoiced threshold     [0.0]        *
+*               -t0 t0    :  voiced/unvoiced threshold     [0.0]        *
 *                            (used only for RAPT algorithm)             *
-*               -t  t     :  voiced/unvoiced threshold     [0.3]        *
+*                            value of t0 should be -0.6 < t0 < 0.7      *
+*               -t1 t1    :  voiced/unvoiced threshold     [0.3]        *
 *                            (used only for SWIPE' algorithm)           *
+*                            value of t1 should be  0.2 < t1 < 0.5      * 
+*               -t2 t2    :  voiced/unvoiced threshold     [0.9]        *
+*                            (used only for REAPER algorithm)           *
+*                            value of t2 should be -0.5 < t2 < 1.6      *
 *               -L  L     :  minimum fundamental frequency [60]         *
 *                            to search for (Hz)                         *
 *               -H  H     :  maximum fundamental frequency [240]        *
@@ -114,6 +119,7 @@ static char *rcs_id = "$Id$";
 #define STR_LEN 255
 #define THRESH_RAPT 0.0
 #define THRESH_SWIPE 0.3
+#define THRESH_REAPER 0.9
 #define NOISEMASK 50.0
 #define SEED 1
 #define RND_MAX 32767
@@ -139,37 +145,53 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -a a  : algorithm used for pitch        [%d]\n",
+   fprintf(stderr, "       -a a   : algorithm used for pitch              [%d]\n",
            ATYPE);
-   fprintf(stderr, "               estimation\n");
-   fprintf(stderr, "                 0 (RAPT)\n");
-   fprintf(stderr, "                 1 (SWIPE')\n");
-   fprintf(stderr, "       -s s  : sampling frequency (kHz)        [%.1f]\n",
+   fprintf(stderr, "                estimation\n");
+   fprintf(stderr, "                  0 (RAPT)\n");
+   fprintf(stderr, "                  1 (SWIPE')\n");
+   fprintf(stderr, "                  2 (REAPER)\n");
+   fprintf(stderr, "       -s s   : sampling frequency (kHz)              [%.1f]\n",
            SAMPLE_FREQ);
-   fprintf(stderr, "       -p p  : frame shift                     [%d]\n",
+   fprintf(stderr, "       -p p   : frame shift                           [%d]\n",
            FRAME_SHIFT);
-   fprintf(stderr, "       -T T  : voiced/unvoiced threshold       [%.1f]\n",
+   fprintf(stderr, "       -t0 t0 : voiced/unvoiced threshold             [%.1f]\n",
            THRESH_RAPT);
-   fprintf(stderr, "               (used only for RAPT algorithm)\n");
-   fprintf(stderr, "       -t t  : voiced/unvoiced threshold       [%g]\n",
+   fprintf(stderr, "                (used only for RAPT algorithm)\n");
+   fprintf(stderr, "                value of t0 should be -0.6 < t0 < 0.7\n");
+   fprintf(stderr, "       -t1 t1 : voiced/unvoiced threshold             [%g]\n",
            THRESH_SWIPE);
-   fprintf(stderr, "               (used only for SWIPE' algorithm)\n");
-   fprintf(stderr, "       -L L  : minimum fundamental             [%g]\n",
+   fprintf(stderr, "                (used only for SWIPE' algorithm)\n");
+   fprintf(stderr, "                value of t1 should be  0.2 < t1 < 0.5\n");
+   fprintf(stderr, "       -t2 t2 : voiced/unvoiced threshold             [%.1f]\n",
+           THRESH_REAPER);
+   fprintf(stderr, "                (used only for REAPER algorithm)\n");
+   fprintf(stderr, "                value of t2 should be -0.5 < t2 < 1.6\n");
+   fprintf(stderr, "       -L L   : minimum fundamental                   [%g]\n",
            LOW);
-   fprintf(stderr, "               frequency to search for (Hz)\n");
-   fprintf(stderr, "       -H H  : maximum fundamental             [%g]\n",
+   fprintf(stderr, "                frequency to search for (Hz)\n");
+   fprintf(stderr, "       -H H   : maximum fundamental                   [%g]\n",
            HIGH);
-   fprintf(stderr, "               frequency to search for (Hz)\n");
-   fprintf(stderr, "       -o o  : output format                   [%d]\n",
+   fprintf(stderr, "                frequency to search for (Hz)\n");
+   fprintf(stderr, "       -o o   : output format                         [%d]\n",
            OTYPE);
-   fprintf(stderr, "                 0 (pitch)\n");
-   fprintf(stderr, "                 1 (f0)\n");
-   fprintf(stderr, "                 2 (log(f0))\n");
-   fprintf(stderr, "       -h    : print this message\n");
+   fprintf(stderr, "                  0 (pitch)\n");
+   fprintf(stderr, "                  1 (f0)\n");
+   fprintf(stderr, "                  2 (log(f0))\n");
+   fprintf(stderr, "       -h     : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       waveform (%s)             \n", FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       pitch, f0 or log(f0) (%s)\n", FORMAT);
+   fprintf(stderr, "  notice:\n");
+   fprintf(stderr,
+           "       Regarding -t0 and -t2 option, when the threshold is raised,\n");
+   fprintf(stderr,
+           "         the number of voiced component increases.\n");
+   fprintf(stderr,
+           "       Regarding -t1 option, when the threshold is raised,\n");
+   fprintf(stderr,
+           "         the number of voiced component decreases.\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -184,7 +206,8 @@ int main(int argc, char **argv)
 {
    int length, frame_shift = FRAME_SHIFT, atype = ATYPE, otype = OTYPE;
    double *x, thresh_rapt = THRESH_RAPT, thresh_swipe =
-       THRESH_SWIPE, sample_freq = SAMPLE_FREQ, L = LOW, H = HIGH;
+       THRESH_SWIPE, thresh_reaper = THRESH_REAPER, sample_freq = SAMPLE_FREQ,
+       L = LOW, H = HIGH;
    FILE *fp = stdin;
    float_list *top, *cur, *prev;
    void rapt(float_list * flist, int length, double sample_freq,
@@ -193,6 +216,9 @@ int main(int argc, char **argv)
    void swipe(float_list * input, int length, double sample_freq,
               int frame_shift, double min, double max, double threshold,
               int otype);
+   void reaper(float_list * input, int length, double sample_freq,
+               int frame_shift, double min, double max, double threshold,
+               int otype);
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
@@ -213,13 +239,17 @@ int main(int argc, char **argv)
             frame_shift = atoi(*++argv);
             --argc;
             break;
-         case 'T':
-            thresh_rapt = atof(*++argv);
-            --argc;
-            break;
          case 't':
-            thresh_swipe = atof(*++argv);
-            --argc;
+            if ((*(*argv + 2)) == '0') {
+               thresh_rapt = atof(*++argv);
+               --argc;
+            } else if ((*(*argv + 2)) == '1') {
+               thresh_swipe = atof(*++argv);
+               --argc;
+            } else {
+               thresh_reaper = atof(*++argv);
+               --argc;
+            }
             break;
          case 'L':
             L = atof(*++argv);
@@ -260,9 +290,12 @@ int main(int argc, char **argv)
    if (atype == 0) {
       rapt(top->next, length, sample_freq, frame_shift, L, H, thresh_rapt,
            otype);
-   } else {
+   } else if (atype == 1) {
       swipe(top->next, length, sample_freq, frame_shift, L, H, thresh_swipe,
             otype);
+   } else {
+      reaper(top->next, length, sample_freq, frame_shift, L, H, thresh_reaper,
+             otype);
    }
 
    return (0);
