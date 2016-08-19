@@ -162,7 +162,7 @@ void usage(int status)
    fprintf(stderr, "       -t1 t1 : voiced/unvoiced threshold             [%g]\n",
            THRESH_SWIPE);
    fprintf(stderr, "                (used only for SWIPE' algorithm)\n");
-   fprintf(stderr, "                value of t1 should be  0.2 < t1 < 0.5\n");
+   fprintf(stderr, "                value of t1 should be  0.5 > t1 > 0.2\n");
    fprintf(stderr, "       -t2 t2 : voiced/unvoiced threshold             [%.1f]\n",
            THRESH_REAPER);
    fprintf(stderr, "                (used only for REAPER algorithm)\n");
