@@ -65,7 +65,7 @@
 *                            value of t0 should be -0.6 < t0 < 0.7      *
 *               -t1 t1    :  voiced/unvoiced threshold     [0.3]        *
 *                            (used only for SWIPE' algorithm)           *
-*                            value of t1 should be  0.2 < t1 < 0.5      * 
+*                            value of t1 should be  0.5 > t1 > 0.2      * 
 *               -t2 t2    :  voiced/unvoiced threshold     [0.9]        *
 *                            (used only for REAPER algorithm)           *
 *                            value of t2 should be -0.5 < t2 < 1.6      *
