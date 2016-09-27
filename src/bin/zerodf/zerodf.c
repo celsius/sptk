@@ -138,7 +138,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER, fprd = FPERIOD, iprd = IPERIOD, i, j;
+   int m = ORDER, fprd = FPERIOD, iprd = IPERIOD, i, j, k;
    FILE *fp = stdin, *fpc = NULL;
    double *c, *inc, *cc, *d, x;
    Boolean tp = TRANSPOSE, ngain = NGAIN;
@@ -204,8 +204,8 @@ int main(int argc, char **argv)
             return (0);
 
          if (ngain)
-            for (i = m; i >= 0; i--)
-               c[i] /= c[0];
+            for (k = m; k >= 0; k--)
+               c[k] /= c[0];
 
          if (!tp)
             x = zerodf(x, c, m, d);
