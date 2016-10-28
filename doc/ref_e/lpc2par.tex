@@ -72,7 +72,7 @@ The transformation from LPC coefficients to PARCOR coefficients
 is undertaken as follows:
 \begin{align} 
 k(m) &= a^{(m)}(m) \notag \\
-a^{(m-1)}(i) &= \frac{a^{(m)}(i)+a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)}, \notag
+a^{(m-1)}(i) &= \frac{a^{(m)}(i)-a^{(m)}(m)a^{(m)}(m-i)}{1-k^2(m)}, \notag
 \end{align}
 where $1 \leq i \leq m-1$, $m=p, p-1, \dots, 1$.
 The initial condition is
@@ -103,7 +103,7 @@ If this condition satisfy then the filter is stable.
 \begin{options}
         \argm{m}{M}{order of LPC}{25}
         \argm{g}{G}{gamma of generalized cepstrum\\
-                         $\gamma=G$}{0}
+                         $\gamma=G$}{1}
         \argm{c}{C}{gamma of generalized cepstrum\\
                         $\gamma =-1 / $(int)$ C$\\
                         $C$ must be $C \geq 1$}{}
