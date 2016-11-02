@@ -277,10 +277,11 @@ void lbg(double *x, const int l, const int tnum, double *icb, int icbsize,
          const double end);
 int levdur(double *r, double *a, const int m, double eps);
 double lmadf(double x, double *c, const int m, const int pd, double *d);
-double lmadft(double x, double *c, const int m, const int pd, double *d);
-double lmadf1(double x, double *c, const int m, double *d, const int m1,
-              const int m2, const int pd);
-double lmadf1t(double x, double *b, const int pd, double *d);
+double cascade_lmadf(double x, double *c, const int m, const int pd, double *d, const int block_num, int *block_size);
+double lmadft(double x, double *c, const int m, const int pd, double *d, const int block_num, int *block_size);
+double lmadf1(double x, double *c, const int m, double *d, const int pd, 
+	      const int m1, const int m2);
+double lmadf2t(double x, double *b, const int m, const int pd, double *d, const int m1, const int m2);
 int lpc(double *x, const int flng, double *a, const int m, const double f);
 void lpc2c(double *a, int m1, double *c, const int m2);
 int lpc2lsp(double *lpc, double *lsp, const int order, const int numsp,

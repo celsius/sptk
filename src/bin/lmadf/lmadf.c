@@ -42,37 +42,40 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/************************************************************************
-*                                                                       *
-*    LMA Digital Filter for Speech Synthesis                            *
-*                                                                       *
-*                                      1986.6  K.Tokuda                 *
-*                                      1996.1  K.Koishida               *
-*                                                                       *
-*       usage:                                                          *
-*               lmadf [ options ] cfile [ infile ] > stdout             *
-*       options:                                                        *
-*               -m m     :  order of cepstrum             [25]          *
-*               -p p     :  frame period                  [100]         *
-*               -i i     :  interpolation period          [1]           *
-*               -P P     :  order of Pade approximation   [4]           *
-*               -k       :  filtering without gain        [FALSE]       *
-*               -v       :  inverse filter                [FALSE]       *
-*               -t       :  transpose filter              [FALSE]       *
-*       infile:                                                         *
-*               cepstral coefficients                                   *
-*                       , c~(0), c~(1), ..., c~(M),                     *
-*               excitation sequence                                     *
-*                        , x(0), x(1), ...,                             *
-*       stdout:                                                         *
-*               filtered sequence                                       *
-*                       , y(0), y(1), ...,                              *
-*       notice:                                                         *
-*               P = 4 or 5                                              *
-*       require:                                                        *
-*               lmadf()                                                 *
-*                                                                       *
-************************************************************************/
+/*****************************************************************************
+*                                                                            *
+*    LMA Digital Filter for Speech Synthesis                                 *
+*                                                                            *
+*                                      1986.6  K.Tokuda                      *
+*                                      1996.1  K.Koishida                    *
+*                                                                            *
+*       usage:                                                               *
+*               lmadf [ options ] cfile [ infile ] > stdout                  *
+*       options:                                                             *
+*               -m m     :  order of cepstrum                   [25]         *
+*               -p p     :  frame period                        [100]        *
+*               -i i     :  interpolation period                [1]          *
+*               -P P     :  order of Pade approximation         [4]          *
+*               -k       :  filtering without gain              [FALSE]      *
+*               -v       :  inverse filter                      [FALSE]      *
+*               -t       :  transpose filter                    [FALSE]      *
+*             (level 2)                                                      *
+*               -B B1 B2 ... Bn : block size of cascaded filter [FALSE]      *
+*                                 where (|B1|+...+|Bn|) = m                  *
+*       infile:                                                              *
+*               cepstral coefficients                                        *
+*                       , c~(0), c~(1), ..., c~(M),                          *
+*               excitation sequence                                          *
+*                        , x(0), x(1), ...,                                  *
+*       stdout:                                                              *
+*               filtered sequence                                            *
+*                       , y(0), y(1), ...,                                   *
+*       notice:                                                              *
+*               P = 4 or 5                                                   *
+*       require:                                                             *
+*               lmadf()                                                      *
+*                                                                            *
+*****************************************************************************/
 
 static char *rcs_id = "$Id$";
 
@@ -106,6 +109,7 @@ static char *rcs_id = "$Id$";
 #define NGAIN FA
 #define INVERSE   FA
 #define TRANSPOSE FA
+#define BLOCK FA
 
 char *BOOL[] = { "FALSE", "TRUE" };
 
@@ -121,22 +125,36 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] cfile [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of cepstrum           [%d]\n", ORDER);
-   fprintf(stderr, "       -p p  : frame period                [%d]\n",
+   fprintf(stderr,
+           "       -m m  : order of cepstrum                       [%d]\n",
+           ORDER);
+   fprintf(stderr,
+           "       -p p  : frame period                            [%d]\n",
            FPERIOD);
-   fprintf(stderr, "       -i i  : interpolation period        [%d]\n",
+   fprintf(stderr,
+           "       -i i  : interpolation period                    [%d]\n",
            IPERIOD);
-   fprintf(stderr, "       -P P  : order of Pade approximation [%d]\n",
+   fprintf(stderr,
+           "       -P P  : order of Pade approximation             [%d]\n",
            PADEORD);
-   fprintf(stderr, "       -v    : inverse filter              [%s]\n",
+   fprintf(stderr,
+           "       -v    : inverse filter                          [%s]\n",
            BOOL[INVERSE]);
-   fprintf(stderr, "       -t    : transpose filter            [%s]\n",
+   fprintf(stderr,
+           "       -t    : transpose filter                        [%s]\n",
            BOOL[TRANSPOSE]);
-   fprintf(stderr, "       -k    : filtering without gain      [%s]\n",
+   fprintf(stderr,
+           "       -k    : filtering without gain                  [%s]\n",
            BOOL[NGAIN]);
+   fprintf(stderr, "     (level 2)\n");
+   fprintf(stderr,
+           "       -B B1 B2 ... Bn : block size of cascaded filter [%s]\n",
+           BOOL[BLOCK]);
+   fprintf(stderr, "                         where (|B1|+ ... +|Bn|) = m \n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
-   fprintf(stderr, "       filter input (%s)                [stdin]\n", FORMAT);
+   fprintf(stderr, "       filter input (%s)                       [stdin]\n",
+           FORMAT);
    fprintf(stderr, "  stdout:\n");
    fprintf(stderr, "       filter output (%s)\n", FORMAT);
    fprintf(stderr, "  cfile:\n");
@@ -158,13 +176,16 @@ int main(int argc, char **argv)
    int m = ORDER, fprd = FPERIOD, iprd = IPERIOD, i, j, pd = PADEORD;
    FILE *fp = stdin, *fpc = NULL;
    double *c, *inc, *cc, *d, x;
-   Boolean ngain = NGAIN, inverse = INVERSE, transpose = TRANSPOSE;
+   Boolean ngain = NGAIN, inverse = INVERSE, transpose = TRANSPOSE, block =
+       BLOCK;
+   int block_num = 0, block_sum = 0, *block_size;
+   char **pt_block;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];
    else
       cmnd++;
-   while (--argc)
+   while (--argc) {
       if (**++argv == '-') {
          switch (*(*argv + 1)) {
          case 'm':
@@ -192,17 +213,41 @@ int main(int argc, char **argv)
          case 'v':
             inverse = 1 - inverse;
             break;
+         case 'B':
+            block = TR;
+            i = 0;
+            pt_block = argv;
+            while (*(*argv++) != '\0') {
+               if (!isdigit(**argv)
+                   && !((**argv == '-') && isdigit(*(*argv + 1)))) {
+                  break;
+               }
+               i++;
+               if (--argc <= 1) {
+                  break;
+               }
+            }
+            argv = pt_block;
+            block_num = i;
+            block_sum = 0;
+            block_size = (int *) malloc(sizeof(int) * block_num);
+            for (i = 0; i < block_num; i++) {
+               block_size[i] = atoi(*++argv);
+               block_sum += abs(block_size[i]);
+            }
+            break;
          case 'h':
             usage(0);
          default:
             fprintf(stderr, "%s : Invalid option '%c'!\n", cmnd, *(*argv + 1));
             usage(1);
          }
-      } else if (fpc == NULL)
+      } else if (fpc == NULL) {
          fpc = getfp(*argv, "rb");
-      else
+      } else {
          fp = getfp(*argv, "rb");
-
+      }
+   }
    if ((pd < 4) || (pd > 5)) {
       fprintf(stderr, "%s : Order of Pade approximation should be 4 or 5!\n",
               cmnd);
@@ -213,8 +258,25 @@ int main(int argc, char **argv)
       fprintf(stderr, "%s : Cannot open cepstrum file!\n", cmnd);
       return (1);
    }
+   if (block == TR && block_sum != m) {
+      fprintf(stderr, "%s : block size must coincide with the value of m !\n",
+              cmnd);
+      return (1);
+   }
 
-   c = dgetmem(m + m + m + 3 + (m + 1) * pd * 2);
+   if (!transpose) {
+      if (block_num == 0) {
+         c = dgetmem(m + m + m + 3 + (m + 1) * pd * 2);
+      } else {
+         c = dgetmem(m + m + m + 3 + ((m + 1) * pd) * block_num);
+      }
+   } else {
+      if (block_num == 0) {
+         c = dgetmem(m + m + m + 3 + ((m + 1) * pd + (pd + 1)) * 2);
+      } else {
+         c = dgetmem(m + m + m + 3 + ((m + 1) * pd + (pd + 1)) * block_num);
+      }
+   }
    cc = c + m + 1;
    inc = cc + m + 1;
    d = inc + m + 1;
@@ -254,10 +316,21 @@ int main(int argc, char **argv)
 
          if (!ngain)
             x *= exp(c[0]);
-         if (transpose)
-            x = lmadft(x, c, m, pd, d);
-         else
-            x = lmadf(x, c, m, pd, d);
+         if (transpose) {
+            if (block_num == 0) {
+               block_num = 2;
+               block_size = (int *) malloc(sizeof(int) * block_num);
+               block_size[0] = 1;
+               block_size[1] = m - 1;
+            }
+            x = lmadft(x, c, m, pd, d, block_num, block_size);
+         } else {
+            if (block_num == 0) {
+               x = lmadf(x, c, m, pd, d);
+            } else {
+               x = cascade_lmadf(x, c, m, pd, d, block_num, block_size);
+            }
+         }
          fwritef(&x, sizeof(x), 1, stdout);
 
          if (!--i) {
