@@ -116,18 +116,9 @@ static char *rcs_id = "$Id$";
 #define SAMPLE_FREQ 16.0
 #define ATYPE 0
 #define OTYPE 0
-#define STR_LEN 255
 #define THRESH_RAPT 0.0
 #define THRESH_SWIPE 0.3
 #define THRESH_REAPER 0.9
-#define NOISEMASK 50.0
-#define SEED 1
-#define RND_MAX 32767
-#define FSP 10.0
-#define ALPHA 0.00275
-#define BETA_1 9600.0
-#define BETA_2 168.0
-#define BETA_3 96000.0
 
 /*  Command Name  */
 char *cmnd;
