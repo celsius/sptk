@@ -185,7 +185,7 @@ void usage(int status)
 }
 
 double mlsacheck(double *in, double *out, int m, int fftlen,
-               double a, double r, int c)
+                 double a, double r, int c)
 {
    int i;
    double gain, *x, *y, *mag = NULL, max = 0.0;
@@ -206,7 +206,7 @@ double mlsacheck(double *in, double *out, int m, int fftlen,
    x[0] -= gain;
 
    /* check stability */
-   if (c == 0 || c == 2 || c == 3) {    /* usual mode */
+   if (c != 1 && c != 4) {      /* usual mode */
       mag = dgetmem(fftlen);
       fillz(mag, sizeof(*mag), fftlen);
       fftr(x, y, fftlen);
@@ -221,7 +221,9 @@ double mlsacheck(double *in, double *out, int m, int fftlen,
    }
 
    /* modify MLSA filter coefficients */
-   if (max > r) {
+   if (c == 0 || c == 1 || max <= r) {
+      memcpy(out, in, sizeof(*out) * (m + 1));
+   } else {
       if (c == 2) {             /* clipping */
          for (i = 0; i < fftlen; i++) {
             if (mag[i] > r) {
@@ -229,31 +231,30 @@ double mlsacheck(double *in, double *out, int m, int fftlen,
                y[i] *= r / mag[i];
             }
          }
+         ifft(x, y, fftlen);
+         x[0] += gain;
+         memcpy(out, x, sizeof(*out) * (m + 1));
       } else if (c == 3) {      /* scaling */
          for (i = 0; i < fftlen; i++) {
             x[i] *= r / max;
             y[i] *= r / max;
          }
+         ifft(x, y, fftlen);
+         x[0] += gain;
+         memcpy(out, x, sizeof(*out) * (m + 1));
       } else if (c == 4) {      /* fast mode */
          for (i = 0; i <= m; i++)
             x[i] *= r / max;
+         x[0] += gain;
+         memcpy(out, x, sizeof(*out) * (m + 1));
       }
-   }
-
-   /* store MLSA filter coefficients */
-   if (c == 0 || c == 1 || max <= r) {  /* no modification */
-      memcpy(out, in, sizeof(*out) * (m + 1));
-   } else {
-      if (c == 2 || c == 3)
-         ifft(x, y, fftlen);
-      x[0] += gain;
-      memcpy(out, x, sizeof(*out) * (m + 1));
    }
 
    free(x);
    free(y);
-   if (c == 0 || c == 2 || c == 3)
+   if (c != 1 && c != 4) {
       free(mag);
+   }
 
    return max;
 }
