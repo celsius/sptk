@@ -63,8 +63,8 @@ where
 then the LPC cepstral coefficients are evaluated as follows.
 \begin{displaymath}
    c(n) = \begin{cases}
- \;\; \ln(h),&n=0\\
- \;\; \displaystyle -a(n)=-\sum^{n-1}_{k=1}\frac{k}{n}c(k) a(n-k),&1\leq n\leq P\\ 
+ \;\; \ln(\sigma),&n=0\\
+ \;\; \displaystyle -a(n)-\sum^{n-1}_{k=1}\frac{k}{n}c(k) a(n-k),&1\leq n\leq P\\ 
  \;\; \displaystyle -\sum_{k=n-P}^{n-1}\frac{k}{n}c(k) a(n-k),& n>P
 \end{cases}
 \end{displaymath}
