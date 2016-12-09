@@ -254,7 +254,7 @@ int main(int argc, char **argv)
 
       if (!norm2)
          ignorm(gc2, gc2, m2, g2);
-      else if (mulg1)
+      else if (mulg2)
          gc2[0] = gc2[0] * g2 + 1.0;
 
       if (mulg2)

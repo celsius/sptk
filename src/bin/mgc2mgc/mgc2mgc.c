@@ -283,7 +283,7 @@ int main(int argc, char **argv)
       if (norm2)
          gnorm(c2, c2, m2, g2);
       else if (mulg2)
-         c1[0] = c1[0] * g2 + 1.0;
+         c2[0] = c2[0] * g2 + 1.0;
 
       if (mulg2)
          for (i = m2; i >= 1; i--)
