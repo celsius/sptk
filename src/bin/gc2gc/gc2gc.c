@@ -241,10 +241,11 @@ int main(int argc, char **argv)
    gc2 = gc1 + m1 + 1;
 
    while (freadf(gc1, sizeof(*gc1), m1 + 1, fp) == m1 + 1) {
-      if (!norm1)
+      if (!norm1) {
          gnorm(gc1, gc1, m1, g1);
-      else if (mulg1)
-         gc1[0] = (gc1[0] - 1.0) / g1;
+         if (mulg1)
+            gc1[0] = (gc1[0] - 1.0) / g1;
+      }
 
       if (mulg1)
          for (i = m1; i >= 1; i--)
@@ -252,10 +253,11 @@ int main(int argc, char **argv)
 
       gc2gc(gc1, m1, g1, gc2, m2, g2);
 
-      if (!norm2)
+      if (!norm2) {
          ignorm(gc2, gc2, m2, g2);
-      else if (mulg2)
-         gc2[0] = gc2[0] * g2 + 1.0;
+         if (mulg2)
+            gc2[0] = gc2[0] * g2 + 1.0;
+      }
 
       if (mulg2)
          for (i = m2; i >= 1; i--)
