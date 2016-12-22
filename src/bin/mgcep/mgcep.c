@@ -154,7 +154,7 @@ void usage(const int status)
            FLENG);
    fprintf(stderr, "       -q q  : input format                      [%d]\n",
            ITYPE);
-   fprintf(stderr, "                 0 (windowed sequence\n");
+   fprintf(stderr, "                 0 (windowed sequence)\n");
    fprintf(stderr, "                 1 (20*log|f(w)|)\n");
    fprintf(stderr, "                 2 (ln|f(w)|)\n");
    fprintf(stderr, "                 3 (|f(w)|)\n");
