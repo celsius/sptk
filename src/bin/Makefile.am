@@ -86,6 +86,7 @@ SUBDIRS = acep \
 	pca \
 	phase \
 	pitch \
+	pitch_mark \
 	poledf \
 	psgr \
 	ramp \

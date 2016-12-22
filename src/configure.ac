@@ -246,6 +246,7 @@ AC_CONFIG_FILES([Makefile
                  bin/pca/Makefile
                  bin/phase/Makefile
                  bin/pitch/Makefile
+                 bin/pitch_mark/Makefile
                  bin/poledf/Makefile
                  bin/psgr/Makefile
                  bin/ramp/Makefile
