@@ -58,8 +58,9 @@
  *             (level 2)                                                 *
  *               -B B1 ... Bb : block size in covariance matrix [FALSE]  *
  *                              where (B1 + B2 + ... + Bb) = l           *
- *               -c1   : inter-block correlation                [FALSE]  *
- *               -c2   : full covariance in each block          [FALSE]  *
+ *               -c1   :  inter-block correlation               [FALSE]  *
+ *               -c2   :  full covariance in each block         [FALSE]  *
+ *               -D    :  print log-probability of each block   [FALSE]  *
  *       infile:                                                         *
  *               input vector sequence                          [stdin]  *
  *       stdout:                                                         *
@@ -97,6 +98,7 @@ static char *rcs_id = "$Id$";
 #define DEF_L  26
 #define DEF_M  16
 #define DEF_A  FA
+#define DEF_D  FA
 #define FULL   FA
 
 char *BOOL[] = { "FALSE", "TRUE" };
@@ -134,6 +136,9 @@ void usage(int status)
            "       -c1   : inter-block correlation                     [FALSE]\n");
    fprintf(stderr,
            "       -c2   : full covariance in each block               [FALSE]\n");
+   fprintf(stderr,
+           "       -D    : print log-probablity of each block          [%s]\n",
+           BOOL[DEF_D]);
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,
            "       input data sequence (float)                         [stdin]\n");
@@ -161,10 +166,10 @@ int main(int argc, char **argv)
 {
    FILE *fp = stdin, *fgmm = NULL;
    GMM gmm;
-   double logp, ave_logp, *x;
+   double logp, *ave_logp, *x;
    int M = DEF_M, L = DEF_L, T;
-   Boolean aflag = DEF_A, full = FULL;
-   int cov_dim = 0, dim_list[1024], i, j;
+   Boolean aflag = DEF_A, Dflag = DEF_D, full = FULL;
+   int cov_dim = 0, dim_list[1024], i, j, l1, l2;
    Boolean block_full = FA, block_corr = FA, multiple_dim = FA;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
@@ -213,6 +218,9 @@ int main(int argc, char **argv)
             } else if (strncmp("2", *(argv) + 2, 1) == 0) {
                block_full = TR - block_full;
             }
+            break;
+         case 'D':
+            Dflag = TR;
             break;
          default:
             fprintf(stderr, "%s: Illegal option \"%s\".\n", cmnd, *argv);
@@ -274,26 +282,53 @@ int main(int argc, char **argv)
 
    /* Calculate and output log-probability */
    T = 0;
-   ave_logp = 0.0;
    x = dgetmem(L);
+   ave_logp = dgetmem(cov_dim);
    while (freadf(x, sizeof(*x), L, fp) == L) {
-      if (!aflag) {
-         logp = log_outp(&gmm, L, x);
-         fwritef(&logp, sizeof(double), 1, stdout);
+      if (Dflag == TR) {
+         l1 = 0;
+         l2 = 0;
+         if (multiple_dim != TR) {
+            fprintf(stderr,
+                    "%s: -D option must be specified with -B option!\n", cmnd);
+            usage(1);
+         }
+         for (i = 0; i < cov_dim; i++) {
+            l2 = l2 + dim_list[i];
+            if (aflag == TR) {
+               ave_logp[i] += log_outp(&gmm, l1, l2, x);
+            } else {
+               logp = log_outp(&gmm, l1, l2, x);
+               fwritef(&logp, sizeof(double), 1, stdout);
+            }
+            l1 = l2;
+         }
       } else {
-         ave_logp += log_outp(&gmm, L, x);
-         T++;
+         if (aflag == TR) {
+            ave_logp[0] += log_outp(&gmm, 0, L, x);
+         } else {
+            logp = log_outp(&gmm, 0, L, x);
+            fwritef(&logp, sizeof(double), 1, stdout);
+         }
       }
+      T++;
    }
    fclose(fp);
 
-   if (aflag) {
+   if (aflag == TR) {
       if (T == 0) {
          fprintf(stderr, "%s: No input data!\n", cmnd);
          usage(1);
       } else {
-         ave_logp /= (double) T;
-         fwritef(&ave_logp, sizeof(double), 1, stdout);
+         if (Dflag == TR) {
+            for (i = 0; i < cov_dim; i++) {
+               ave_logp[i] /= (double) T;
+               fwritef(&ave_logp[i], sizeof(double), 1, stdout);
+            }
+         } else {
+            ave_logp[0] /= (double) T;
+            fwritef(&ave_logp[0], sizeof(double), 1, stdout);
+         }
       }
    }
 

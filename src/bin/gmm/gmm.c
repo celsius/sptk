@@ -554,7 +554,7 @@ int main(int argc, char **argv)
 
       for (t = 0, ave_logp1 = 0.0, pd = dat; t < T; t++, pd += L) {
          for (m = 0, logb = LZERO; m < M; m++) {
-            logwgd[m] = log_wgd(&gmm, m, L, pd);
+            logwgd[m] = log_wgd(&gmm, m, 0, L, pd);
             logb = log_add(logb, logwgd[m]);
          }
          ave_logp1 += logb;

@@ -295,7 +295,8 @@ void maskCov_GMM(GMM * gmm, const int *dim_list, const int cov_dim,
 }
 
 
-double log_wgd(const GMM * gmm, const int m, const int L, const double *dat)
+double log_wgd(const GMM * gmm, const int m, const int l1, const int l2,
+               const double *dat)
 {
    int l, ll;
    double sum, *diff = NULL, tmp, lwgd;
@@ -303,17 +304,17 @@ double log_wgd(const GMM * gmm, const int m, const int L, const double *dat)
    sum = gmm->gauss[m].gconst;
 
    if (gmm->full != TR) {
-      for (l = 0; l < L; l++) {
+      for (l = l1; l < l2; l++) {
          tmp = dat[l] - gmm->gauss[m].mean[l];
          sum += (tmp * tmp) / gmm->gauss[m].var[l];
       }
    } else {
-      diff = dgetmem(L);
-      for (l = 0; l < L; l++) {
+      diff = dgetmem(l2);
+      for (l = l1; l < l2; l++) {
          diff[l] = dat[l] - gmm->gauss[m].mean[l];
       }
-      for (l = 0; l < L; l++) {
-         for (ll = 0, tmp = 0.0; ll < L; ll++) {
+      for (l = l1; l < l2; l++) {
+         for (ll = l1, tmp = 0.0; ll < l2; ll++) {
             tmp += diff[ll] * gmm->gauss[m].inv[ll][l];
          }
          sum += tmp * diff[l];
@@ -322,6 +323,7 @@ double log_wgd(const GMM * gmm, const int m, const int L, const double *dat)
    }
 
    lwgd = log(gmm->weight[m]) - 0.5 * sum;
+
    return (lwgd);
 }
 
@@ -346,13 +348,13 @@ double log_add(double logx, double logy)
    }
 }
 
-double log_outp(const GMM * gmm, const int L, const double *dat)
+double log_outp(const GMM * gmm, const int l1, const int l2, const double *dat)
 {
    int m;
    double logwgd, logb;
 
    for (m = 0, logb = LZERO; m < gmm->nmix; m++) {
-      logwgd = log_wgd(gmm, m, L, dat);
+      logwgd = log_wgd(gmm, m, l1, l2, dat);
       logb = log_add(logb, logwgd);
    }
    return (logb);
