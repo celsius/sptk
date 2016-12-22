@@ -143,6 +143,7 @@ INC  = cmndref.sty \
 	pcas.tex \
 	phase.tex \
 	pitch.tex \
+	pitch_mark.tex \
 	poledf.tex \
 	psgr.tex \
 	ramp.tex \
