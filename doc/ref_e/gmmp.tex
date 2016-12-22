@@ -46,7 +46,7 @@
 
 \begin{synopsis}
 \item [gmmp] [ --l $L$ ] [ --m $M$ ] [ --a ] [ --f ] [ --B $B1,B2,...$
-] [ --c1 ] [ --c2 ] {\em gmmfile} [ {\em infile} ]
+] [ --c1 ] [ --c2 ] [ --D ] {\em gmmfile} [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -101,9 +101,10 @@ where
  \argm{a}{}{print average log-probability}{FALSE}
  \desc[1ex]{(level 2)}
  \argm{B}{B1~B2~$\ldots$~Bn}{block size in covariance matrix,\\
-                             where $(B1+B2+\ldots+Bn)=L$}{N/A}
- \argm{c1}{}{inter-block correlation}{N/A}
- \argm{c2}{}{full covariance in each block}{N/A}
+                             where $(B1+B2+\ldots+Bn)=L$}{FALSE}
+ \argm{c1}{}{inter-block correlation}{FALSE}
+ \argm{c2}{}{full covariance in each block}{FALSE}
+ \argm{D}{}{print log-probability of each block}{FALSE}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
