@@ -572,8 +572,9 @@ int main(int argc, char **argv)
                   for (j = 0; j <= l; j++) {
                      tgmm.gauss[m].cov[l][j] +=
                          tmp1 * (pd[l] - gmm.gauss[m].mean[l]) * (pd[j] -
-                                                                  gmm.gauss[m].
-                                                                  mean[j]);
+                                                                  gmm.
+                                                                  gauss[m].mean
+                                                                  [j]);
                   }
                }
             }
@@ -710,8 +711,8 @@ int main(int argc, char **argv)
                                               +
                                               xi[m] * bgmgmm.gauss[m].cov[k][l]
                                               + xi[m] * (gmm.gauss[m].mean[k] -
-                                                         bgmgmm.
-                                                         gauss[m].mean[k]) *
+                                                         bgmgmm.gauss[m].
+                                                         mean[k]) *
                                               (gmm.gauss[m].mean[l] -
                                                bgmgmm.gauss[m].mean[l]);
                                           gmm.gauss[m].cov[k][l] /= (sum[m] +
@@ -735,8 +736,8 @@ int main(int argc, char **argv)
                                               +
                                               xi[m] * bgmgmm.gauss[m].cov[k][l]
                                               + xi[m] * (gmm.gauss[m].mean[k] -
-                                                         bgmgmm.
-                                                         gauss[m].mean[k]) *
+                                                         bgmgmm.gauss[m].
+                                                         mean[k]) *
                                               (gmm.gauss[m].mean[l] -
                                                bgmgmm.gauss[m].mean[l]);
                                           gmm.gauss[m].cov[k][l] /= (sum[m] +

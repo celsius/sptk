@@ -157,8 +157,7 @@ int main(int argc, char **argv)
    int m = ORDER, period = PERIOD, i, j, pd = PADEORD;
    FILE *fp = stdin, *fpe = NULL;
    Boolean aveflag = AVEFLAG;
-   double lambda = LAMBDA, step = STEP, tau = TAU, eps = EPS,
-     *c, *avec, x;
+   double lambda = LAMBDA, step = STEP, tau = TAU, eps = EPS, *c, *avec, x;
 
    if ((cmnd = strrchr(argv[0], '/')) == NULL)
       cmnd = argv[0];

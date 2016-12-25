@@ -73,7 +73,8 @@
 *                                                                       *
 ************************************************************************/
 
-static char *rcs_id = "$Id$";
+static char *rcs_id =
+    "$Id$";
 
 
 /*  Standard C Libraries  */
@@ -92,9 +93,9 @@ static char *rcs_id = "$Id$";
 
 
 #if defined(WIN32)
-#  include "SPTK.h" 
+#include "SPTK.h"
 #else
-#  include <SPTK.h>
+#include <SPTK.h>
 #endif
 
 /*  Default Values  */
@@ -133,11 +134,14 @@ void usage(int status)
    fprintf(stderr, "               frequency to search for (Hz)\n");
    fprintf(stderr, "       -o o  : output format                   [%d]\n",
            OTYPE);
-   fprintf(stderr, "                 0 pulse sequence: if a current sample is a pitch mark,\n");
-   fprintf(stderr, "                   1 or -1 is outputted considering polarity,\n");
+   fprintf(stderr,
+           "                 0 pulse sequence: if a current sample is a pitch mark,\n");
+   fprintf(stderr,
+           "                   1 or -1 is outputted considering polarity,\n");
    fprintf(stderr, "                   otherwise 0 is outputted.\n");
    fprintf(stderr, "                 1 second when a pitch mark appears\n");
-   fprintf(stderr, "                 2 sample number when a pitch mark appears\n");
+   fprintf(stderr,
+           "                 2 sample number when a pitch mark appears\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       waveform (%s)             \n", FORMAT);
@@ -146,8 +150,7 @@ void usage(int status)
    fprintf(stderr, "  notice:\n");
    fprintf(stderr,
            "       Regarding -t option, when the threshold is raised,\n");
-   fprintf(stderr,
-           "         the number of pitch marks increases.\n");
+   fprintf(stderr, "         the number of pitch marks increases.\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);

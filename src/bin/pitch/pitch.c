@@ -136,35 +136,43 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -a a   : algorithm used for pitch              [%d]\n",
+   fprintf(stderr,
+           "       -a a   : algorithm used for pitch              [%d]\n",
            ATYPE);
    fprintf(stderr, "                estimation\n");
    fprintf(stderr, "                  0 (RAPT)\n");
    fprintf(stderr, "                  1 (SWIPE')\n");
    fprintf(stderr, "                  2 (REAPER)\n");
-   fprintf(stderr, "       -s s   : sampling frequency (kHz)              [%.1f]\n",
+   fprintf(stderr,
+           "       -s s   : sampling frequency (kHz)              [%.1f]\n",
            SAMPLE_FREQ);
-   fprintf(stderr, "       -p p   : frame shift                           [%d]\n",
+   fprintf(stderr,
+           "       -p p   : frame shift                           [%d]\n",
            FRAME_SHIFT);
-   fprintf(stderr, "       -t0 t0 : voiced/unvoiced threshold             [%.1f]\n",
+   fprintf(stderr,
+           "       -t0 t0 : voiced/unvoiced threshold             [%.1f]\n",
            THRESH_RAPT);
    fprintf(stderr, "                (used only for RAPT algorithm)\n");
    fprintf(stderr, "                value of t0 should be -0.6 < t0 < 0.7\n");
-   fprintf(stderr, "       -t1 t1 : voiced/unvoiced threshold             [%g]\n",
+   fprintf(stderr,
+           "       -t1 t1 : voiced/unvoiced threshold             [%g]\n",
            THRESH_SWIPE);
    fprintf(stderr, "                (used only for SWIPE' algorithm)\n");
    fprintf(stderr, "                value of t1 should be  0.5 > t1 > 0.2\n");
-   fprintf(stderr, "       -t2 t2 : voiced/unvoiced threshold             [%.1f]\n",
+   fprintf(stderr,
+           "       -t2 t2 : voiced/unvoiced threshold             [%.1f]\n",
            THRESH_REAPER);
    fprintf(stderr, "                (used only for REAPER algorithm)\n");
    fprintf(stderr, "                value of t2 should be -0.5 < t2 < 1.6\n");
-   fprintf(stderr, "       -L L   : minimum fundamental                   [%g]\n",
-           LOW);
+   fprintf(stderr,
+           "       -L L   : minimum fundamental                   [%g]\n", LOW);
    fprintf(stderr, "                frequency to search for (Hz)\n");
-   fprintf(stderr, "       -H H   : maximum fundamental                   [%g]\n",
+   fprintf(stderr,
+           "       -H H   : maximum fundamental                   [%g]\n",
            HIGH);
    fprintf(stderr, "                frequency to search for (Hz)\n");
-   fprintf(stderr, "       -o o   : output format                         [%d]\n",
+   fprintf(stderr,
+           "       -o o   : output format                         [%d]\n",
            OTYPE);
    fprintf(stderr, "                  0 (pitch)\n");
    fprintf(stderr, "                  1 (f0)\n");
@@ -177,12 +185,10 @@ void usage(int status)
    fprintf(stderr, "  notice:\n");
    fprintf(stderr,
            "       Regarding -t0 and -t2 option, when the threshold is raised,\n");
-   fprintf(stderr,
-           "         the number of voiced component increases.\n");
+   fprintf(stderr, "         the number of voiced component increases.\n");
    fprintf(stderr,
            "       Regarding -t1 option, when the threshold is raised,\n");
-   fprintf(stderr,
-           "         the number of voiced component decreases.\n");
+   fprintf(stderr, "         the number of voiced component decreases.\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
