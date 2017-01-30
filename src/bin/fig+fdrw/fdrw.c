@@ -118,7 +118,7 @@ int drw(FILE * fp);
 #define CTYPE  0
 #define YMIN  -1.0
 #define YMAX  1.0
-#define BUF_LNG  5000
+#define BUF_LNG  1000000
 #define H  2.5
 #define SC  1.5
 
