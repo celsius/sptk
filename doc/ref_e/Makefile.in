@@ -179,36 +179,6 @@ INC  = cmndref.sty \
 	zcross.tex \
 	zerodf.tex \
 	ref.tex
-EPSF = fig/bcp.eps \
-	fig/box.eps \
-	fig/circle.eps \
-	fig/clip.eps \
-	fig/dct.eps \
-	fig/df2.eps \
-	fig/fft2-comp.eps \
-	fig/fft2-quad.eps \
-	fig/fft2-trans.eps \
-	fig/fft2.eps \
-	fig/fftr2.eps \
-	fig/fig-print1.eps \
-	fig/fig-print2.eps \
-	fig/g0.eps \
-	fig/g1.eps \
-	fig/g2.eps \
-	fig/glogsp-on.eps \
-	fig/glogsp-sample.eps \
-	fig/grid.eps \
-	fig/grlogsp-on.eps \
-	fig/idct.eps \
-	fig/ifft.eps \
-	fig/ifft2.eps \
-	fig/join-type.eps \
-	fig/mark.eps \
-	fig/merge.eps \
-	fig/paint.eps \
-	fig/pen-line.eps \
-	fig/scale.eps \
-	fig/sptk_sigproc.eps
 
 
 ############################################################
@@ -280,15 +250,15 @@ TOUCH = touch
 
 all: $(TARGET)
 
-$(PS): $(DVI) $(EPSF)
+$(PS): $(DVI)
 
-$(DVI): $(AUX) $(IND) $(EPSF)
+$(DVI): $(AUX) $(IND)
 
 $(IND): $(AUX)
 
 $(AUX): $(INC)
 
-$(PDF): $(DVI) $(EPSF)
+$(PDF): $(DVI)
 
 ############################################################
 #### Directory Cleaning ####################################
