@@ -93,6 +93,7 @@ static char *rcs_id = "$Id$";
 #endif
 #endif
 
+#include <ctype.h>
 #include <math.h>
 
 #if defined(WIN32)
