@@ -543,10 +543,9 @@ static void get_cand(cross,peak,loc,nlags,ncand,cand_thresh)
 {
   register int i, lastl, *t;
   register float o, p, q, *r, *s, clip;
-  int start, ncan, maxl;
+  int start, ncan;
 
   clip = (float) (cand_thresh * cross->maxval);
-  maxl = cross->maxloc;
   lastl = nlags - 2;
   start = cross->firstlag;
 
@@ -1862,7 +1861,7 @@ void rapt(float_list *input, int length, double sample_freq, int frame_shift, do
   float *fdata;
   int done;
   long buff_size, actsize;
-  double sf, start_time;
+  double sf;
   F0_params *par, *read_f0_params();
   float *f0p, *vuvp, *rms_speech, *acpkp;
   int i, vecsize;
@@ -1966,7 +1965,6 @@ void rapt(float_list *input, int length, double sample_freq, int frame_shift, do
 
   if (framestep > 0)  /* If a value was specified with -S, use it. */
     par->frame_step = (float) (framestep / sf);
-  start_time = 0.0f;
   if(check_f0_params(interp, par, sf)){
     Tcl_AppendResult(interp, "invalid/inconsistent parameters -- exiting.", NULL);
     return TCL_ERROR;
@@ -1998,7 +1996,6 @@ void rapt(float_list *input, int length, double sample_freq, int frame_shift, do
 
     if (framestep > 0)          /* If a value was specified with -S, use it. */
         par->frame_step = (float) (framestep / sf);
-    start_time = 0.0f;
 
     if (check_f0_params(par, sf)) {
 #endif /* 0 */
