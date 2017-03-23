@@ -242,7 +242,11 @@ int main(int argc, char **argv)
             lsp[i] = lsp[i] / sampling * PI2;
       }
 
-      if (loggain == 0)
+      if (itype == 3)
+         for (i = gain; i < m + gain; i++)
+            lsp[i] /= 1000;
+
+      if (gain == 1 && loggain == 0)
          *lsp = log(*lsp);
 
       lsp2sp(lsp, m, x, no, gain);
