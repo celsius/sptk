@@ -79,6 +79,7 @@ void fftcep(double *sp, const int flng, double *c, const int m, int itr,
    if (x == NULL) {
       x = dgetmem(flng + flng);
       y = x + flng;
+      size = flng;
    }
    if (flng > size) {
       free(x);

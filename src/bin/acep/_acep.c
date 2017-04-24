@@ -75,26 +75,27 @@
 double acep(double x, double *c, const int m, const double lambda,
             const double step, const double tau, const int pd, const double eps)
 {
-   int i;
+   int i, memory_size;
    static double *cc = NULL, *e, *ep, *d, gg = 1.0;
    static int size;
    double mu, tx;
 
+   memory_size = m + m + m + 3 + (m + 1) * pd * 2;
    if (cc == NULL) {
-      cc = dgetmem(m + m + m + 3 + (m + 1) * pd * 2);
+      cc = dgetmem(memory_size);
       e = cc + m + 1;
       ep = e + m + 1;
       d = ep + m + 1;
-      size = m;
+      size = memory_size;
    }
 
-   if (m > size) {
+   if (memory_size > size) {
       free(cc);
-      cc = dgetmem(m + m + m + 3 + (m + 1) * pd * 2);
+      cc = dgetmem(memory_size);
       e = cc + m + 1;
       ep = e + m + 1;
       d = ep + m + 1;
-      size = m;
+      size = memory_size;
    }
 
    for (i = 1; i <= m; i++)
