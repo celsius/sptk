@@ -210,20 +210,20 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha,
    int k;
 
    if (x == NULL) {
-      x = dgetmem(wlng + wlng + flng + flng + n + 1 + m + 1);
+      x = dgetmem(wlng + wlng + flng + flng + 2 * n + 1 + m);
       px = x + wlng;
       wx = px + wlng;
       sp = wx + flng;
       fb = sp + flng;
-      dc = fb + n + 1;
+      dc = fb + 2 * n + 1;
    } else {
       free(x);
-      x = dgetmem(wlng + wlng + flng + flng + n + 1 + m + 1);
+      x = dgetmem(wlng + wlng + flng + flng + 2 * n + 1 + m);
       px = x + wlng;
       wx = px + wlng;
       sp = wx + flng;
       fb = sp + flng;
-      dc = fb + n + 1;
+      dc = fb + 2 * n + 1;
    }
 
    movem(in, x, sizeof(*in), wlng);
@@ -236,6 +236,7 @@ void mfcc(double *in, double *mc, const double sampleFreq, const double alpha,
    for (k = 0; k < wlng; k++)
       wx[k] = px[k];
    spec(wx, sp, flng);
+   fillz(fb + 1, 2 * n, sizeof(*fb));
    fbank(sp, fb, eps, sampleFreq, flng, n);
    /* calculate 0'th coefficient */
    for (k = 1; k <= n; k++)
