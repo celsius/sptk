@@ -45,9 +45,9 @@
 \name{mfcc}{mel-frequency cepstral analysis}{speech analysis}
 
 \begin{synopsis}
-\item[mfcc] [ --a $A$ ] [ --e $E$ ] [ --l $L_1$ ] [ --L $L_2$ ]
- [ --s or --f $F$ ] [ --m $M$ ]
-\item[\ ~~~][ --n $N$ ] [ --s $S$ ] [ --w $W$] [ --d ] [ -- E ] [ --0 ][ {\em infile} ] 
+\item[mfcc] [ --a $A$ ] [ --c $C$ ] [ --e $E$ ] [ --s $S$ ] [ --l $L_1$ ] [ --L $L_2$ ]
+ [ --m $M$ ]
+\item[\ ~~~][ --n $N$ ] [ --w $W$] [ --d ] [ --E ] [ --0 ][ {\em infile} ] 
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -71,12 +71,12 @@ the MLSA filter.
 	\argm{e}{E}{flooring value for calculating $\log(x)$ in filterbank
         analysis \\
         if $x < E$ then return $x = E$}{1.0}
+	\argm{s}{S}{sampling frequency (kHz)}{16.0}
 	\argm{l}{L_1}{frame length of input}{256}
 	\argm{L}{L_2}{frame length for fft. default value $2^n$
           satisfies $L_1 < 2^n$ }{$2^n$}
 	\argm{m}{M}{order of mfcc}{12}
 	\argm{n}{N}{order of channel for mel-filter bank}{20}
-	\argm{s}{S}{sampling frequency (kHz)}{16.0}
 	\argm{w}{W}{type of window\\
 			\begin{tabular}{ll}\\ [-1ex]
 			 0 & Hamming \\

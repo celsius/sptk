@@ -45,8 +45,8 @@
 \name{sopr}{execute scalar operations}{number operation}
 
 \begin{synopsis}
-\item[sopr] [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [--f $F$]
-  [--c C] [ --magic $magic$ ]
+\item[sopr] [ --a $A$ ] [ --s $S$ ] [ --m $M$ ] [ --d $D$ ] [ --p $P$ ] [ --f $F$ ]
+  [ --c $C$ ] [ --magic $magic$ ]
 \item[\ ~~~~~] [ --MAGIC $MAGIC$ ] [ --ABS ] [ --INV ] [ --P ] [ --R ] [ --SQRT ] [ --LN ]
 \item[\ ~~~~~] [ --LOG2 ] [ --LOG10 ] [ --LOGX $X$ ] [ --EXP ] [ --POW2 ] [ --POW10 ]
 \item[\ ~~~~~] [ --POWX $X$ ] [ --FIX ] [ --UNIT ] [ --CLIP ] [ --SIN ] [ --COS ] [ --TAN ]
@@ -67,6 +67,7 @@ and is performed in the given order.
 	\argm{s}{S}{subtraction $y=x-S$}{FALSE}
 	\argm{m}{M}{multiplication $y=x\ast M$}{FALSE}
 	\argm{d}{D}{division $y=x/D$}{FALSE}
+	\argm{p}{P}{power $y=x^P$}{FALSE}
 	\argm{f}{F}{flooring $y=F$ if $x < F$}{FALSE}
 	\argm{c}{C}{ceiling $y=C$ if $x > C$}{FALSE}
 	\argm{magic}{magic}{remove magic number}{FALSE}

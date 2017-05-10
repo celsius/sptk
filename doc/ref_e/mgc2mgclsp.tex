@@ -45,7 +45,7 @@
 \name{mgc2mgclsp}{transform MGC to MGC-LSP}{speech parameter transformation}
 
 \begin{synopsis}
-\item [mgc2mgclsp] [ --a $A$] [ --g $G$ ] [ --m $M$ ] [ --o $O$ ]
+\item [mgc2mgclsp] [ --m $M$ ] [ --a $A$] [ --g $G$ ] [ --c $C$ ] [ --o $O$ ]
  [ --s $S$ ] [ --k ] [ --L ] [ {\em infile} ]
 \end{synopsis}
 
@@ -67,13 +67,13 @@ MGC-LSPs.
 \end{qsection}
 
 \begin{options}
+	\argm{m}{M}{order of mel-generalized cepstrum}{25}
 	\argm{a}{A}{alpha of mel-generalized cepstrum}{0.35}
         \argm{g}{G_1}{gamma of mel-generalized cepstrum \\
                         $\gamma = G$}{-1}
         \argm{c}{C_1}{gamma of mel-generalized cepstrum (input)\\
                         $\gamma =-1 / $(int)$ C$\\
                         $C$ must be $C \geq 1$}{}
-	\argm{m}{M}{order of mel-generalized cepstrum}{25}
         \argm{o}{O}{output format \\
                 \begin{tabular}{ll} \\[-1ex]
                         $0$ & normalized frequency $(0 \dots \pi)$ \\
@@ -82,7 +82,7 @@ MGC-LSPs.
                         $3$ & frequency (Hz)  \\
                 \end{tabular}\\\hspace*{\fill}}{0}
 	\argm{s}{S}{sampling frequency (kHz)}{10}
-        \argm{k}{}{do not output gain}{FALSE}
+        \argm{k}{}{output gain}{TRUE}
         \argm{L}{}{output log gain instead of linear gain}{FALSE}
   	\desc[0.6ex]{Usually, the options below do not need to be assigned.}
 	\argm{n}{N}{split number of unit circle}{128}

@@ -94,7 +94,6 @@ Otherwise, the Newton--Raphson method is applied.
                         $\gamma =-1 / $(int)$ C$\\
                         $C$ must be $C \geq 1$}{}
         \argm{l}{L}{frame length}{256}
-        \argm{n}{}{output normalized cepstrum}{FALSE}
         \argm{q}{Q}{input data style\\
         \begin{tabular}{ll} \\[-1ex]
             $Q=0$ & windowed data sequence \\
@@ -103,6 +102,7 @@ Otherwise, the Newton--Raphson method is applied.
             $Q=3$ & $|f(w)|$ \\
             $Q=4$ & $|f(w)|^2$ \\[1ex]
         \end{tabular}\\\hspace*{\fill}}{0}
+        \argm{n}{}{output normalized cepstrum}{FALSE}
         \desc[1ex]{Usually, the options below do not need to be assigned.}
         \argm{i}{I}{minimum iteration}{2}
         \argm{j}{J}{maximum iteration}{30}

@@ -45,8 +45,8 @@
 \name{mgclsp2sp}{transform MGC-LSP to spectrum}{speech parameter transformation}
 
 \begin{synopsis}
-\item [mgclsp2sp] [ --a $A$ ] [ --g $G$ ] [ --m $M$ ] [ --l $L$] [ --q $Q$ ] 
- [ --s $S$ ] [ --o $O$] \newline [ --k ] [ --L ] [ {\em infile} ]
+\item [mgclsp2sp] [ --a $A$ ] [ --g $G$ ] [ --c $C$ ] [ --m $M$ ] [ --s $S$] [ --l $L$ ] 
+ [ --L ] [ --k ] \newline [ --q $Q$ ] [ --o $O$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -100,8 +100,8 @@ for checking the stability of the input MGC-LSPs .
 	\argm{m}{M}{order of mel-generalized cepstrum}{25}
         \argm{s}{S}{sampling frequency}{10.0}
         \argm{l}{L}{frame length}{256}
-        \argm{k}{}{input gain}{FALSE}
         \argm{L}{}{regard input log gain as linear gain}{FALSE}
+        \argm{k}{}{input gain}{FALSE}
         \argm{q}{Q}{input format\\
                 \begin{tabular}{ll} \\[-1ex]
                         $0$ & normalized frequency $(0 \sim \pi)$ \\

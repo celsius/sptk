@@ -47,8 +47,8 @@
 {LMA digital filter for speech synthesis}{filters for speech synthesis}
 
 \begin{synopsis}
-\item [lmadf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --P $Pa$ ] [ --k ]
-  [ --v ] [ --t ] [ --B $B1,B2,...$ ] 
+\item [lmadf] [ --m $M$ ] [ --p $P$ ] [ --i $I$ ] [ --P $Pa$ ] [ --v ]
+  [ --t ] [ --k ] [ --B $B1,B2,...$ ] 
 \item [\ ~~~~]{\em cfile} [ {\em infile} ]
 \end{synopsis}
 
@@ -245,9 +245,9 @@ in table \ref{tbl:lmadflt_pade}.
 	\argm{i}{I}{interpolation period}{1}
 	\argm{P}{Pa}{order of the Pad\'e approximation\\
                      $Pa$ should be $4$ or $5$}{4}
-	\argm{k}{}{filtering without gain}{FALSE}
 	\argm{v}{}{inverse filter}{FALSE}
 	\argm{t}{}{transpose filter}{FALSE}
+	\argm{k}{}{filtering without gain}{FALSE}
         \desc[1ex]{(level 2)}
         \argm{B}{B1~B2~$\ldots$~Bn}{block size of cascaded filter,\\
         	                     where $(|B1|+\ldots+|Bn|)=m$}{FALSE}

@@ -45,7 +45,7 @@
 \name{lbg}{LBG algorithm for vector quantizer design}{vector quantization}
 
 \begin{synopsis}
-\item [lbg] [ --l $L$ ] [ --n $N$ ] [ --t $T$ ] [ --s $S$ ] [ --e $E$ ]
+\item [lbg] [ --l $L$ ] [ --n $N$ ] [ --s $S$ ] [ --e $E$ ]
         [ --F $F$ ] [ --i $I$ ] [ --m $M$ ] [ --S $s$ ] 
 \item [\ ~~~~~] [ --c $C$ ] [ --d $D$ ] [ --r $R$ ] [ {\em indexfile} ] $<$ {\em infile}
 \end{synopsis}
@@ -237,7 +237,6 @@ If not, then make $S$ = $2S$ and go back to {\bf step.1}.
 \begin{options}
         \argm{l}{L}{length of vector}{26}
         \argm{n}{N}{order of vector}{L$-$1}
-        \argm{t}{T}{number of training vector}{N/A}
         \argm{s}{S}{initial codebook size}{1}
         \argm{e}{E}{final codebook size}{256}
         \argm{F}{F}{initial codebook filename}{NULL}

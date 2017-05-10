@@ -44,9 +44,9 @@
 \hypertarget{da}{}
 \name{da}{play 16-bit linear PCM data}{DA transformation}
 \begin{synopsis}
-\item [da] [ --s $S$ ] [ --c $C$ ] [ --g $G$ ] [ --a $A$ ] [ --o $O$ ] 
-	   [ --w ] [ --H $H$ ]
-\item [\ ~~~] [ --v ] [ +$type$ ] [ {\em infile1} ] [ {\em infile2} ] ...
+\item [da] [ --s $S$ ] [ --g $G$ ] [ --a $A$ ] [ --o $O$ ] 
+	   [ --H $H$ ] [ --v ]
+\item [\ ~~~] [ --w ] [ +$type$ ] [ {\em infile1} ] [ {\em infile2} ] ...
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
@@ -76,9 +76,9 @@ DA\_FLOAT & set the input data to float\\
 	\argm{g}{G}{gain}{0}
 	\argm{a}{A}{amplitude gain(0..100)}{N/A}
 	\argm{o}{O}{output port(s : speaker, h : headphone)}{s}
-	\argm{w}{}{execute byte swap}{FALSE}
 	\argm{H}{H}{header size in byte}{0}
 	\argm{v}{}{display filename}{FALSE}
+	\argm{w}{}{execute byte swap}{FALSE}
 	\argp{type}{input data format\\ 
 		\begin{tabular}{llcll} \\[-1ex]
          c & char (1 byte) & \quad &
@@ -95,7 +95,7 @@ DA\_FLOAT & set the input data to float\\
                      LE & unsigned long long (8 bytes) \\
          f & float (4 bytes) & \quad &
                      d & double (8 bytes)
-		\end{tabular}}{f}
+		\end{tabular}}{s}
 \end{options}
 
 \begin{qsection}{EXAMPLE}

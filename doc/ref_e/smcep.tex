@@ -46,7 +46,7 @@
 {mel-cepstral analysis using 2nd order all-pass filter}{speech analysis}
  
 \begin{synopsis}
-\item [smcep] [ --a $A$ ] [ --t $t$ ] [ --T $T$ ] [ --s $s$ ] [ --m $M$ ] [ --l $L$ ] [ --q $Q$ ]
+\item [smcep] [ --a $A$ ] [ --t $t$ ] [ --T $T$ ] [ --m $M$ ] [ --l $L$ ] [ --s $s$ ] [ --L $L$ ] [ --q $Q$ ]
 \item [\ ~~~~~~~~~~] [ --i $I$ ] [ --j $J$ ] [ --d $D$ ] [ --e $e$ ] [ --E $E$ ] [ --f $F$ ] [ {\em infile} ]
 \end{synopsis}
 
@@ -89,9 +89,9 @@ of the cost function.
 	\argm{a}{A}{all-pass constant $\alpha$}{0.35}
 	\argm{t}{t}{emphasized frequency $\theta*\pi$ (rad)}{0}
 	\argm{T}{T}{emphasized frequency (Hz)}{0}
-	\argm{s}{s}{sampling frequency (kHz)}{10}
 	\argm{m}{M}{order of mel cepstrum}{25}
 	\argm{l}{L_1}{frame length}{256}
+	\argm{s}{s}{sampling frequency (kHz)}{10}
 	\argm{L}{L_2}{ifft size for making matrices}{1024}
 	\argm{q}{Q}{input data style\\
         \begin{tabular}{ll} \\[-1ex]

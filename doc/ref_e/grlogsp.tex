@@ -45,7 +45,7 @@
 \name{grlogsp}{draw a running log spectrum graph}{plotting graphs}
 
 \begin{synopsis}
-\item[grlogsp] [ --t ] [ --F $F$] [ --O $O$ ] [ --x $X$ ] [ --y $ymin$ ] [ --yy $YY$ ]
+\item[grlogsp] [ --F $F$] [ --t ] [ --O $O$ ] [ --x $X$ ] [ --y $ymin$ ] [ --yy $YY$ ]
 	       [ --yo $YO$ ] [ --p $P$ ] 
 \item[\ ~~~~~~~~] [ --ln $LN$ ] [ --s $S$ ] [ --e $E$ ] [ --n $N$ ] [ --l $L$ ] 
 \item[\ ~~~~~~~~] [ --c $comment1$ ] [ --c2 $comment2$ ] [ --c3 $comment3$ ]
@@ -64,8 +64,8 @@ that uses the \hyperlink{fig}{fig} and \hyperlink{fdrw}{fdrw} commands.
 \end{qsection}
 
 \begin{options}
-	\argm{t}{}{transpose x and y axes}{FALSE}
         \argm{F}{F}{factor}{1}
+	\argm{t}{}{transpose x and y axes}{FALSE}
 	\argm{O}{O}{origin of graph\\
                     if $O$ is more than 6, drawing area is over A4 range\\
 		      \begin{minipage}{4cm}
@@ -85,7 +85,7 @@ that uses the \hyperlink{fig}{fig} and \hyperlink{fdrw}{fdrw} commands.
 		      \begin{minipage}{4cm}
 			    \includegraphics{fig/grlogsp-on.pdf}
 		      \end{minipage}\\\hspace*{\fill}\\
-		    $(YO + 100 , X)$ [mm] if -t is specified.}{1}
+		    $(YO + 100 , X)$ [mm] if -t is specified.}{6}
 	\argm{x}{X}{ $x$ scale\\
 		       \begin{tabular}{cl}
 			1 & normalized frequency ($0 \sim 0.5$) \\
@@ -122,8 +122,8 @@ that uses the \hyperlink{fig}{fig} and \hyperlink{fdrw}{fdrw} commands.
                     two graphs in the $y$ axis are given by $Z$. \\
                     If Z is not given, Z is as same as F}{}
 	\argm{o}{xo \; yo}{origin of the graph.
-                      if -o option exists, -O is not effective.}{95 30}
-	\argm{g}{G}{type of frame of the graph ($0 \sim 2$) (see also \hyperlink{fig}{fig})}{2}
+                      if -o option exists, -O is not effective.}{30 65}
+	\argm{g}{G}{type of frame of the graph ($0 \sim 2$) (see also \hyperlink{fig}{fig})}{0}
 	\argm{cy}{cy}{first comment position}{-8}
 	\argm{cy2}{cy2}{second comment position}{-14}
 	\argm{cy3}{cy3}{third comment position}{-20}
