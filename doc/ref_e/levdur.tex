@@ -116,7 +116,7 @@ K = \sqrt{E^{(M)}}
 
 \begin{options}
 	\argm{m}{M}{order of correlation}{25}
-	\argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.000001}
+	\argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
@@ -126,6 +126,11 @@ to {\em data.lpc}:
 \begin{quote}
  \verb!frame < data.f | window | acorr -m 25 | levdur > data.lpc!
 \end{quote} 
+\end{qsection}
+
+\begin{qsection}{NOTICE}
+The default value for -f option is zero as a trial. In the previous version, the 
+default value is 1.0E-6.
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

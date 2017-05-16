@@ -55,7 +55,7 @@
 *       options:                                                        *
 *               -m m  :  order of correlation              [25]         *
 *               -f f  :  mimimum value of the determinant               *
-*                        of the normal matrix              [0.000001]   *
+*                        of the normal matrix              [0.0]        *
 *       infile:                                                         *
 *               autocorrelation                                         *
 *                        , r(0), r(1), ..., r(m),                       *
@@ -93,7 +93,7 @@ static char *rcs_id =
 
 /*  Default Values  */
 #define ORDER  25
-#define MINDET 0.000001
+#define MINDET 0.0
 
 /*  Command Name  */
 char *cmnd;

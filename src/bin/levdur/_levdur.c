@@ -54,7 +54,7 @@
        double  *r    : autocorrelation sequence
        double  *a    : LP coefficients
        int     m     : order of LPC
-       double  eps   : singular check (eps(if -1., 1.0e-6 is assumed))
+       double  eps   : singular check (eps(if -1., 0.0 is assumed))
 
        return  value :  0  -> normally completed
                         -1 -> abnormally completed
@@ -91,7 +91,7 @@ int levdur(double *r, double *a, const int m, double eps)
    }
 
    if (eps < 0.0)
-      eps = 1.0e-6;
+      eps = 0.0;
    rmd = r[0];
 #ifdef WIN32
    if ((((rmd < 0.0) ? -rmd : rmd) <= eps) || _isnan(rmd))
