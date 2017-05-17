@@ -79,6 +79,8 @@ void c2ndps(double *c, const int m, double *n, const int l)
       n[i] = c[i] * i / 2.0;
       n[l - i] = n[i];
    }
+   if (m == l / 2)
+      n[m] = n[m] * 2.0;
 
    fftr(n, tmp, l);
 

@@ -89,7 +89,7 @@ void ndps2c(double *n, const int l, double *c, const int m)
    for (i = 1; i <= m; i++)
       c[i] = nx[i] / (i * l / 2.0);
    if (m == l / 2)
-      c[m] = nx[m] / 2.0;
+      c[m] = c[m] / 2.0;
 
    free(nx);
    free(ny);
