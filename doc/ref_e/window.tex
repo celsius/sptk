@@ -103,6 +103,9 @@ with period 20 after windowing it with a Blackman window:
 \begin{quote}
   \verb!sin -p 20 | window | fdrw | xgr !
 \end{quote}
+\begin{center}
+\includegraphics[width=6cm]{fig/window_1.pdf}
+\end{center}
 \par
 This example passes the excitation generated through a train pulse
 by a digital filter, applies a Blackman windowing function to it,
@@ -112,6 +115,9 @@ and plots the results on the screen:
 \verb!train -p 50 | dfs -a 1 0.9 | window -l 50 -L 512 |\! \\
 \verb!spec -l 512 | fdrw | xgr!
 \end{quote}
+\begin{center}
+\includegraphics[width=6cm]{fig/window_2.pdf}
+\end{center}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

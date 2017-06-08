@@ -150,6 +150,9 @@ on the screen:
 \begin{quote}
   \verb!train -p 50 | dfs -a 1 0.9 | window | spec | fdrw | xgr !
 \end{quote}
+\begin{center}
+\includegraphics[width=4cm]{fig/spec_1.pdf}
+\end{center}
 \par
 This example evaluates the frequency response of
 a digital filter with coefficients specified in {\em data.p and data.z}
@@ -157,16 +160,25 @@ in float format:
 \begin{quote}
   \verb!spec -p data.p -z data.z | fdrw | xgr !
 \end{quote}
+\begin{center}
+\includegraphics[width=4cm]{fig/spec_2.pdf}
+\end{center}
+
 A similar result can be obtained with the following command,
  for a stable filter:
 \begin{quote}
   \verb!impulse | dfs -p data.p -z data.z | spec | fdrw | xgr !
 \end{quote}
-
+\begin{center}
+\includegraphics[width=4cm]{fig/spec_3.pdf}
+\end{center}
 Also, in the following example, the floor value is set as -30 dB per frame by using the -E option.
  \begin{quote}
  \verb! spec -E -30 data.f | fdrw | xgr !
  \end{quote}
+\begin{center}
+\includegraphics[width=4cm]{fig/spec_4.pdf}
+\end{center}
 
 
 \end{qsection}

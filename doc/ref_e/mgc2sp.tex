@@ -125,8 +125,11 @@ in float format are read from {\em data.mgcep}
 ($M=12, \alpha=0.35, \gamma=-0.5$)
 and the log magnitude spectrum is evaluated and plotted:
 \begin{quote}
- \verb!mgc2sp -m 12 -a 0.35 -c 2 < data.mgcep | glogsp | xgr!
+ \verb!mgc2sp -m 12 -a 0.35 -c 2 < data.mgcep | glogsp -x 5 | xgr!
 \end{quote} 
+\begin{center}
+\includegraphics[width=6cm]{fig/mgc2sp.pdf}
+\end{center}
 \end{qsection}
 
 \begin{qsection}{NOTICE}

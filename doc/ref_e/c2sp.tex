@@ -82,8 +82,11 @@ The example below takes the 15-th order cepstrum from the file
  {\em data.cep} in float format, evaluates the running spectrum,
  and presents it in the screen:
 \begin{quote}
- \verb! c2sp -m 15 data.cep | grlogsp | xgr ! 
+ \verb! c2sp -m 15 data.cep | grlogsp -x 5 | xgr ! 
 \end{quote}
+\begin{center}
+\includegraphics[width=3cm]{fig/c2sp.pdf}
+\end{center}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

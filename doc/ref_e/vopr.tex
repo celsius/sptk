@@ -173,11 +173,17 @@ a window with length 256 and coefficients given from
 \begin{quote}
   \verb!sin -p 30 -l 1000 | vopr data.w -l 256 -m | fdrw | xgr!
 \end{quote}
+\begin{center}
+\includegraphics[width=6cm]{fig/vopr_1.pdf}
+\end{center}
 Similar results as from the above example can be obtained using the following:
  Here, it is considered that the contents of {\em data.w} correspond to a Blackman window:
 \begin{quote}
   \verb!sin -p 30 -l 1000 | window | fdrw | xgr!
 \end{quote}
+\begin{center}
+\includegraphics[width=6cm]{fig/vopr_2.pdf}
+\end{center}
 For other examples, suppose {\em data.a} contains
 \begin{displaymath}
   1, 2, 3, 4, 5, 6, 7

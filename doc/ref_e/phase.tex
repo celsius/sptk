@@ -133,11 +133,17 @@ in float format can be displayed by:
 \begin{quote}
   \verb!phase -p data.p -z data.z | fdrw | xgr !
 \end{quote}
+\begin{center}
+\includegraphics[width=6cm]{fig/phase_1.pdf}
+\end{center}
 If the filter defined by {\em data.p}, {\em data.z} is stable
 then the following command will give a similar result:
 \begin{quote}
   \verb!impulse | dfs -p data.p -z data.z | phase | fdrw | xgr !
 \end{quote}
+\begin{center}
+\includegraphics[width=6cm]{fig/phase_2.pdf}
+\end{center}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

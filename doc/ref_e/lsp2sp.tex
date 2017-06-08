@@ -100,11 +100,14 @@ When the order of LSP is odd,
 
 \begin{qsection}{EXAMPLE}
 The example below takes the 15-th order LSP from the file
- {\em data.cep} in float format, evaluates the spectrum,
+ {\em data.lsp} in float format, evaluates the spectrum,
  and presents it in the screen:
 \begin{quote}
- \verb! lsp2sp -m 15 data.lsp | glogsp | xgr ! 
+ \verb! lsp2sp -m 15 data.lsp | glogsp -x 5 | xgr ! 
 \end{quote}
+\begin{center}
+\includegraphics[width=6cm]{fig/lsp2sp.pdf}
+\end{center}
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
