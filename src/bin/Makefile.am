@@ -13,6 +13,7 @@ SUBDIRS = acep \
 	cat2 \
 	cdist \
 	clip \
+	csm2lpc \
 	da \
 	dct \
 	decimate \

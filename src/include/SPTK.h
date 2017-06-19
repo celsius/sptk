@@ -205,6 +205,7 @@ void ic2ir(double *h, const int leng, double *c, const int nc);
 void c2sp(double *c, const int m, double *x, double *y, const int l);
 void clip(double *x, const int l, const double min, const double max,
           double *y);
+void csm2lpc(double *csm, double *a, const int m, const double f);
 int dft(double *pReal, double *pImag, const int nDFTLength);
 void dct(double *in, double *out, const int size, const int m,
          const Boolean dftmode, const Boolean compmode);
