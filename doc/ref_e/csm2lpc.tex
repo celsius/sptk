@@ -1,0 +1,89 @@
+% ----------------------------------------------------------------- %
+%             The Speech Signal Processing Toolkit (SPTK)           %
+%             developed by SPTK Working Group                       %
+%             http://sp-tk.sourceforge.net/                         %
+% ----------------------------------------------------------------- %
+%                                                                   %
+%  Copyright (c) 1984-2007  Tokyo Institute of Technology           %
+%                           Interdisciplinary Graduate School of    %
+%                           Science and Engineering                 %
+%                                                                   %
+%                1996-2016  Nagoya Institute of Technology          %
+%                           Department of Computer Science          %
+%                                                                   %
+% All rights reserved.                                              %
+%                                                                   %
+% Redistribution and use in source and binary forms, with or        %
+% without modification, are permitted provided that the following   %
+% conditions are met:                                               %
+%                                                                   %
+% - Redistributions of source code must retain the above copyright  %
+%   notice, this list of conditions and the following disclaimer.   %
+% - Redistributions in binary form must reproduce the above         %
+%   copyright notice, this list of conditions and the following     %
+%   disclaimer in the documentation and/or other materials provided %
+%   with the distribution.                                          %
+% - Neither the name of the SPTK working group nor the names of its %
+%   contributors may be used to endorse or promote products derived %
+%   from this software without specific prior written permission.   %
+%                                                                   %
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            %
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       %
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          %
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          %
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS %
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          %
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   %
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     %
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON %
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   %
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    %
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
+% POSSIBILITY OF SUCH DAMAGE.                                       %
+% ----------------------------------------------------------------- %
+\hypertarget{csm2lpc}{}
+\name{csm2lpc}{transform CSM to LPC}{speech parameter transformation}
+
+\begin{synopsis}
+\item [csm2lpc] [ --m $M$ ] [ --f $F$ ] [ {\em infile} ] 
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em csm2lpc} calculates linear prediction coefficients (LPC) 
+from $M$-th order composite sinusoidal modeling (CSM) parameters 
+from {\em infile} (or standard input),
+sending the result to standard output.
+
+The CSM input format is
+\begin{displaymath}
+   \omega(1), \dots , \omega\biggl(\frac{M+1}{2}\biggr), m(1), \dots , m\biggl(\frac{M+1}{2}\biggr).
+\end{displaymath}
+The autocorrelation function $v(l)$ is obtained from the CSM parameters:
+\begin{displaymath}
+   v(l)=\sum_{i=1}^{\frac{M+1}{2}}m(i)\cos(l\cdot\omega(i)), \qquad l=0,1,\dots,M,
+\end{displaymath}
+By solving the autocorrelation matrix consists of $v(l)$ using the
+Levinson-Durbin algorithm (see \hyperlink{levdur}{levdur}), the corresponding LPC are obtained as
+\begin{displaymath}
+   K , a(1), \dots , a(M).
+\end{displaymath}
+
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{order of LPC}{25}
+	\argm{f}{F}{minimum value of the determinant of the normal matrix}{0}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+In the example below, 15-th order CSM coefficients in float format
+are read from {\em data.csm}, and then the LPC are written to {\em data.lpc}:
+\begin{quote}
+\verb! csm2lpc -m 15 data.csm > data.lpc!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+\hyperlink{lpc}{lpc},
+\hyperlink{levdur}{levdur}
+\end{qsection}
