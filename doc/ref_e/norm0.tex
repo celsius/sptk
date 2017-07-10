@@ -53,13 +53,25 @@
 by dividing vector components by the zero-order component, 
 sending the result to standard output.
 
-For the input sequence
+If the input data is a set of coefficients
+$b(0), b(1), \dots, b(M)$ of an all zero digital filter, 
 \begin{displaymath}
-x(0), x(1), \dots, x(M), 
+H(z) = \sum_{m=0}^{M} b(m) z^{-m},
 \end{displaymath}
-the normalized output sequence is
+the output data will be a set of coefficients
+$K, a(1), \dots, a(M)$ of an all pole digital filter:
+\begin{align}
+H(z) &= \frac{\displaystyle{\frac{1}{b(0)}}}{\displaystyle{1+\sum_{m=1}^{M}\frac{b(m)}{b(0)}z^{-m}}}  \notag \\
+     &\equiv \frac{K}{\displaystyle{1+\sum_{m=1}^{M}a(m)z^{-m}}} \notag
+\end{align}
+Conversely, when a set of coefficients of an all pole digital filter is inputted, a set of coefficients of an all zero digital filter will be outputted. 
+In this case, the input sequence
 \begin{displaymath}
-1/x(0), x(1)/x(0), \dots, x(M)/x(0). 
+K, a(1), \dots, a(M)
+\end{displaymath}
+is normalized as follows.
+\begin{displaymath}
+1/K, a(1)/K, \dots, a(M)/K
 \end{displaymath}
 
 Input and output data are in float format.
@@ -70,12 +82,9 @@ Input and output data are in float format.
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-Speech data is read from {\em data.f} in float format,
-the 15-th order autocorrelation coefficients are evaluated
-and normalized, and the results is written to {\em data.nacorr}:
+In the example below, 15-th order coefficients of an all zero digital filter in float format are read from {\em data.z}, and then the coefficients of an all pole digital filter are written to {\em data.p}:
 \begin{quote}
-  \verb!frame < data.f | window | acorr -m 15 |\ !\\
-  \verb!norm0 -m 15 > data.nacorr!
+  \verb!norm0 -m 15 data.z > data.p!
 \end{quote}
 \end{qsection}
 
