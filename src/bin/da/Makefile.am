@@ -17,7 +17,7 @@ replace_path = sed \
                -e 's,[@]io_symbol[@],$(IO_SYMBOL),g' \
                -e 's,[@]io_format[@],$(IO_FORMAT),g'
 
-da: da.in
-	$(replace_path) < da.in > $@
+da: @srcdir@/da.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
 endif

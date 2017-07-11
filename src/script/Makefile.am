@@ -10,38 +10,38 @@ replace_path = sed \
                -e 's,[@]io_symbol[@],$(IO_SYMBOL),g' \
                -e 's,[@]io_format[@],$(IO_FORMAT),g'
 
-bell:
-	$(replace_path) < bell.in > $@
+bell: @srcdir@/bell.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
 
-gseries:
-	$(replace_path) < gseries.in > $@
+gseries: @srcdir@/gseries.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
 
-glogsp:
-	$(replace_path) < glogsp.in > $@
+glogsp: @srcdir@/glogsp.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
 
-grlogsp:
-	$(replace_path) < grlogsp.in > $@
+grlogsp: @srcdir@/grlogsp.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
 
-gwave:
-	$(replace_path) < gwave.in > $@
+gwave: @srcdir@/gwave.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
 
-mgc2mgclsp:
-	$(replace_path) < mgc2mgclsp.in > $@
+mgc2mgclsp: @srcdir@/mgc2mgclsp.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
 
-mgclsp2mgc:
-	$(replace_path) < mgclsp2mgc.in > $@
+mgclsp2mgc: @srcdir@/mgclsp2mgc.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
 
-raw2wav:
-	$(replace_path) < raw2wav.in > $@
+raw2wav: @srcdir@/raw2wav.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
 
-wav2raw:
-	$(replace_path) < wav2raw.in > $@
+wav2raw: @srcdir@/wav2raw.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@

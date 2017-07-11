@@ -25,10 +25,10 @@ replace_path = sed \
                -e 's,[@]io_symbol[@],$(IO_SYMBOL),g' \
                -e 's,[@]io_format[@],$(IO_FORMAT),g'
 
-us16: us16.in
-	$(replace_path) < us16.in > $@
+us16: @srcdir@/us16.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
 
-uscd: uscd.in
-	$(replace_path) < uscd.in > $@
+uscd: @srcdir@/uscd.in
+	$(replace_path) < "$<" > $@
 	chmod +x $@
