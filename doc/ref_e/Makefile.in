@@ -67,7 +67,7 @@ INC  = cmndref.sty \
 	cat2.tex \
 	cdist.tex \
 	clip.tex \
-	csm2lpc.tex \
+	csm2acr.tex \
 	da.tex \
 	dct.tex \
 	decimate.tex \
