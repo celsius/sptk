@@ -173,7 +173,7 @@ AC_CONFIG_FILES([Makefile
                  bin/cat2/Makefile
                  bin/cdist/Makefile
                  bin/clip/Makefile
-                 bin/csm2lpc/Makefile
+                 bin/csm2acr/Makefile
                  bin/da/Makefile
                  bin/dct/Makefile
                  bin/decimate/Makefile
