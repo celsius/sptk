@@ -43,8 +43,8 @@
 /* ----------------------------------------------------------------- */
 
 /***********************************************************
-   $Id$ 
-   
+   $Id$
+
    Speech Signal Processing Toolkit
    SPTK.h
 ***********************************************************/
@@ -188,6 +188,7 @@ double acep(double x, double *c, const int m, const double lambda,
             const double step, const double tau, const int pd,
             const double eps);
 void acorr(double *x, int l, double *r, const int np);
+int acr2csm(double *r, double *csm, const int m);
 double agcep(double x, double *c, const int m, const int stage,
              const double lambda, const double step, const double tau,
              const double eps);

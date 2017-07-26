@@ -69,7 +69,7 @@ if test "$find_strrchr" != "yes"; then
 	AC_MSG_ERROR("Cannot find strrchr() or rindex()")
 fi
 
-# Checks for double 
+# Checks for double
 use_double=no
 IO_SYMBOL='f'
 IO_FORMAT='float'
@@ -160,6 +160,7 @@ AC_CONFIG_FILES([Makefile
                  bin/Makefile
                  bin/acep/Makefile
                  bin/acorr/Makefile
+                 bin/acr2csm/Makefile
                  bin/agcep/Makefile
                  bin/amcep/Makefile
                  bin/average/Makefile
@@ -268,7 +269,7 @@ AC_CONFIG_FILES([Makefile
                  bin/uels/Makefile
                  bin/ulaw/Makefile
                  bin/us/Makefile
-                 bin/vc/Makefile 
+                 bin/vc/Makefile
                  bin/vopr/Makefile
                  bin/vq/Makefile
                  bin/vstat/Makefile

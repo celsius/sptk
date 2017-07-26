@@ -1,5 +1,6 @@
 SUBDIRS = acep \
 	acorr \
+	acr2csm \
 	agcep \
 	amcep \
 	average \
