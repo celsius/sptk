@@ -44,8 +44,8 @@
 \documentclass[12pt]{book}
 \usepackage[dvipdfmx]{graphicx}
 \usepackage{fleqn}
-\usepackage{makeidx} 
-\usepackage[square,sort,comma,numbers]{natbib} 
+\usepackage{makeidx}
+\usepackage[square,sort,comma,numbers]{natbib}
 \usepackage{cmndref}
 \usepackage[dvipdfmx,
         dvipdfm,
@@ -55,13 +55,13 @@
         pdfauthor={SPTK working group},
         pdftitle={SPTK-3.10 Reference Manual}]
         {hyperref}
-\usepackage{times} 
-\usepackage{amsmath} 
-\usepackage{txfonts} 
-\usepackage{bm} 
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{txfonts}
+\usepackage{bm}
 
 \setlength{\textwidth}{6.5in}
-\setlength{\textheight}{9in} 
+\setlength{\textheight}{9in}
 \setlength{\oddsidemargin}{0mm}
 \setlength{\evensidemargin}{-8mm}
 \setlength{\topmargin}{0in}
@@ -70,7 +70,7 @@
 \renewcommand{\bottomfraction}{1}
 \renewcommand{\textfraction}{0}
 \renewcommand{\dbltopfraction}{1}
- 
+
 \makeindex
 
 \setcategoryorder{%
@@ -90,13 +90,13 @@
     vector quantization,%
     parameter generation,%
     others%
-} 
+}
 
 \begin{document}
 
 \input{bmdefines}
 
-\begin{titlepage} 
+\begin{titlepage}
 \vspace*{\fill}
  \begin{center}
         \LARGE
@@ -113,16 +113,16 @@
 \noindent
 The help message for every command can be obtained
 with the option ``-h''.
-The help message brings explanation of the command, how to use, 
+The help message brings explanation of the command, how to use,
 as well as its options.
 
 \begin{quote}
  Example:~for the command \verb!mcep! (\verb!%! is the shell prompt)
  \begin{verbatim}
 > % mcep -h
-> 
+>
 >  mcep - mel cepstral analysis
-> 
+>
 >   usage:
 >        mcep [ options ] [ infile ] > stdout
 >   options:
@@ -168,7 +168,8 @@ We will try to answer every question, but we cannot guarantee it.
 
 %BEGIN COMMANDS
 \include{acep}
-\include{acorr} 
+\include{acorr}
+\include{acr2csm}
 \include{agcep}
 \include{amcep}
 \include{average}
@@ -190,7 +191,7 @@ We will try to answer every question, but we cannot guarantee it.
 \include{delay}
 \include{delta}
 \include{df2}
-\include{dfs} 
+\include{dfs}
 \include{dmp}
 \include{dtw}
 \include{ds}
@@ -203,7 +204,7 @@ We will try to answer every question, but we cannot guarantee it.
 \include{fft2}
 \include{fftcep}
 \include{fftr}
-\include{fftr2} 
+\include{fftr2}
 \include{fig}
 \include{frame}
 \include{freqt}

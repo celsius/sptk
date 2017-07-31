@@ -1,0 +1,93 @@
+% ----------------------------------------------------------------- %
+%             The Speech Signal Processing Toolkit (SPTK)           %
+%             developed by SPTK Working Group                       %
+%             http://sp-tk.sourceforge.net/                         %
+% ----------------------------------------------------------------- %
+%                                                                   %
+%  Copyright (c) 1984-2007  Tokyo Institute of Technology           %
+%                           Interdisciplinary Graduate School of    %
+%                           Science and Engineering                 %
+%                                                                   %
+%                1996-2016  Nagoya Institute of Technology          %
+%                           Department of Computer Science          %
+%                                                                   %
+% All rights reserved.                                              %
+%                                                                   %
+% Redistribution and use in source and binary forms, with or        %
+% without modification, are permitted provided that the following   %
+% conditions are met:                                               %
+%                                                                   %
+% - Redistributions of source code must retain the above copyright  %
+%   notice, this list of conditions and the following disclaimer.   %
+% - Redistributions in binary form must reproduce the above         %
+%   copyright notice, this list of conditions and the following     %
+%   disclaimer in the documentation and/or other materials provided %
+%   with the distribution.                                          %
+% - Neither the name of the SPTK working group nor the names of its %
+%   contributors may be used to endorse or promote products derived %
+%   from this software without specific prior written permission.   %
+%                                                                   %
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND            %
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,       %
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          %
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          %
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS %
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,          %
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED   %
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,     %
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON %
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   %
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY    %
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
+% POSSIBILITY OF SUCH DAMAGE.                                       %
+% ----------------------------------------------------------------- %
+\hypertarget{acr2csm}{}
+\name{acr2csm}{transform autocorrelation to CSM}{speech parameter transformation}
+
+\begin{synopsis}
+\item [acr2csm] [ --m $M$ ] [ {\em infile} ]
+\end{synopsis}
+
+\begin{qsection}{DESCRIPTION}
+{\em acr2csm} calculates composite sinusoidal modeling (CSM) parameters
+from $M$-th order autocorrelation coefficients
+from {\em infile} (or standard input),
+sending the result to standard output.
+
+The input is the following autocorrelation coefficients,
+\begin{displaymath}
+   r(0) , r(1), \dots , r(M).
+\end{displaymath}
+The CSM parameters $\omega(i)$ and $m(i)$ are obtained from
+autocorrelation function $r(k)$ based on the following equation:
+\begin{displaymath}
+   r(k)=\sum_{i=1}^{\frac{M+1}{2}}m(i)\cos(k\cdot\omega(i)), \qquad k=0,1,\dots,M,
+\end{displaymath}
+And the CSM output format is
+\begin{displaymath}
+   \omega(1), \dots , \omega\biggl(\frac{M+1}{2}\biggr), m(1), \dots , m\biggl(\frac{M+1}{2}\biggr).
+\end{displaymath}
+Both input and output files are in float format.
+\end{qsection}
+
+\begin{options}
+	\argm{m}{M}{order of CSM}{25}
+\end{options}
+
+\begin{qsection}{EXAMPLE}
+In the example below, the 15-th order autocorrelation coefficients in
+float format are read from {\em data.acorr}, and then the CSM
+coefficients are written to {\em data.csm}:
+\begin{quote}
+\verb! acr2csm -m 15 data.acorr > data.csm!
+\end{quote}
+\end{qsection}
+
+\begin{qsection}{NOTICE}
+ If $M > 30$, cannot compute reliable CSM due to computational accuracy.
+\end{qsection}
+
+\begin{qsection}{SEE ALSO}
+\hyperlink{acorr}{acorr},
+\hyperlink{csm2acr}{csm2acr}
+\end{qsection}

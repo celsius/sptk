@@ -54,6 +54,7 @@ SRC  = main.tex
 INC  = cmndref.sty \
 	acep.tex \
 	acorr.tex \
+	acr2csm.tex \
 	agcep.tex \
 	amcep.tex \
 	average.tex \
