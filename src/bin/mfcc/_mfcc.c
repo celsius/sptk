@@ -105,16 +105,6 @@ double cal_energy(double *x, const int leng)
    return ((energy <= 0) ? EZERO : log(energy));
 }
 
-void hamming(double *x, const int leng)
-{
-   int k;
-   double arg;
-
-   arg = M_2PI / (leng - 1);
-   for (k = 0; k < leng; k++)
-      x[k] *= (0.54 - 0.46 * cos(k * arg));
-}
-
 void pre_emph(double *x, double *y, const double alpha, const int leng)
 {
    int k;
