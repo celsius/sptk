@@ -254,6 +254,7 @@ AC_CONFIG_FILES([Makefile
                  bin/ramp/Makefile
                  bin/rawtowav/Makefile
                  bin/reverse/Makefile
+                 bin/rlevdur/Makefile
                  bin/rmse/Makefile
                  bin/root_pol/Makefile
                  bin/sin/Makefile

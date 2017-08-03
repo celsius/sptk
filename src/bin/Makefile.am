@@ -94,6 +94,7 @@ SUBDIRS = acep \
 	ramp \
 	rawtowav \
 	reverse \
+	rlevdur \
 	rmse \
 	root_pol \
 	sin \

@@ -349,6 +349,7 @@ void phase(double *p, const int mp, double *z, const int mz, double *ph,
 double poledf(double x, double *a, int m, double *d);
 double poledft(double x, double *a, int m, double *d);
 void reverse(double *x, const int l);
+int rlevdur(double *a, double *r, const int m, double eps);
 double rmse(double *x, double *y, const int n);
 void output_root_pol(complex * x, int odr, int form);
 void root_pol(double *a, const int odr, complex * x, const int a_zero,
