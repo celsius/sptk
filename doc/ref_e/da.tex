@@ -105,6 +105,11 @@ The sampling frequency is 8 kHz, and the input data is in short format.
 \begin{quote}
 \verb! da +s -s 8 -o h data.s!
 \end{quote}
+If you get the error that /dev/dsp is not exist,
+please use padsp command as follows.
+\begin{quote}
+\verb! padsp da +s -s 8 -o h data.s!
+\end{quote}
 \end{qsection}
 
 \begin{qsection}{NOTICE}
