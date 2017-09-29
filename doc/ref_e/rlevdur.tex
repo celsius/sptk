@@ -8,7 +8,7 @@
 %                           Interdisciplinary Graduate School of    %
 %                           Science and Engineering                 %
 %                                                                   %
-%                1996-2016  Nagoya Institute of Technology          %
+%                1996-2017  Nagoya Institute of Technology          %
 %                           Department of Computer Science          %
 %                                                                   %
 % All rights reserved.                                              %
@@ -41,36 +41,35 @@
 % OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE           %
 % POSSIBILITY OF SUCH DAMAGE.                                       %
 % ----------------------------------------------------------------- %
-\hypertarget{levdur}{}
-\name{levdur}{solve an autocorrelation normal equation
-                    using Levinson-Durbin method}{signal processing}
-
+\hypertarget{rlevdur}{}
+\name{rlevdur}{solve an autocorrelation normal equation using reverse Levinson-Durbin method}{signal processing}
 
 \begin{synopsis}
- \item [levdur] [ --m $M$ ] [ --f $F$ ] [ {\em infile} ]
+\item [rlevdur] [ --m $M$ ] [ {\em infile} ]
 \end{synopsis}
 
 \begin{qsection}{DESCRIPTION}
-{\em levdur} calculates linear prediction coefficients (LPC)
-from the autocorrelation matrix from {\em infile} (or standard input),
+{\em rlevdur} calculates the autocorrelation matrix from the linear
+prediction coefficients (LPC) from {\em infile} (or standard input),
 sending the result to standard output.
 
-The input is the $M$-th order autocorrelation matrix
-\begin{displaymath}
-  r(0),r(1),\dots,r(M).
-\end{displaymath}
-{\em levdur} uses the Levinson-Durbin algorithm
-to solve a system of linear equations
-obtained from the autocorrelation matrix.
-
-Input and output data are in float format.
-\par
-The linear prediction coefficients are the set of coefficients
-$K, a(1), \dots, a(M)$ of an all-pole digital filter
+The input is the $M$-th order linear prediction coefficients which are
+the set of coefficients $K, a(1), \dots, a(M)$ of an all-pole digital filter
 \begin{displaymath}
 H(z) = \frac{K}{\displaystyle{1+\sum_{i=1}^{M}a(i)z^{-i}}}.
 \end{displaymath}
-The linear prediction coefficients are evaluated by solving
+
+{\em rlevdur} uses the reverse Levinson-Durbin algorithm
+to solve a system of linear equations
+obtained from linear prediction coefficients.
+
+Input and output data are in float format.
+
+The output is the $M$-th order autocorrelation matrix
+\begin{displaymath}
+  r(0),r(1),\dots,r(M).
+\end{displaymath}
+The autocorrelation matrix are evaluated by solving
 the following set of linear equations, which were obtained
 through the autocorrelation method,
 \begin{displaymath}
@@ -96,45 +95,24 @@ through the autocorrelation method,
 \end{displaymath}
 The Durbin iterative and efficient algorithm is used
 to solve the system above. It takes advantage of the Toeplitz characteristic
-of the autocorrelation matrix:
-\begin{align}
-E^{(0)}    &= r(0) \notag \\
-k(i)       &= \frac{\displaystyle{-r(i)-\sum_{j=1}^i a^{(i-1)}(j)r(i-j)}}
-		{E^{(i-1)}} \label{eqn:lev_dur_k}\notag\\
-a^{(i)}(i) &= k(i) \notag\\
-a^{(i)}(j) &=  a^{(i-1)}(j) + k(i) a^{(i-1)}(i-j),
-		\qquad 1\leq j \leq i-1\\
-E^{(i)}    &= (1-k^2(i)) E^{(i-1)} \label{eqn:lev_dur_E}
-\end{align}
-Also, for $i=1,2,\ldots,M$, equations (\ref{eqn:lev_dur_k}) and
- (\ref{eqn:lev_dur_E}) are applied recursively,
-and the gain $K$ is calculated as follows.
-\begin{displaymath}
-K = \sqrt{E^{(M)}}
-\end{displaymath}
+of the autocorrelation matrix.
 \end{qsection}
 
 \begin{options}
 	\argm{m}{M}{order of correlation}{25}
-	\argm{f}{F}{mimimum value of the determinant of the normal matrix}{0.0}
 \end{options}
 
 \begin{qsection}{EXAMPLE}
-In this example, input data is read in float format from
-{\em data.f} and linear prediction coefficients are written
-to {\em data.lpc}:
+In this example, the linear prediction coefficients in float format
+are read from {\em data.lpc} and the CSM coefficients are written to
+{\em data.csm}:
 \begin{quote}
- \verb!frame < data.f | window | acorr -m 25 | levdur > data.lpc!
+ \verb!lpc < data.lpc | rlevdur | acr2csm > data.csm!
 \end{quote}
 \end{qsection}
 
-\begin{qsection}{NOTICE}
-The default value for -f option is zero as a trial. In the previous version, the
-default value is 1.0E-6.
-\end{qsection}
-
 \begin{qsection}{SEE ALSO}
-\hyperlink{acorr}{acorr},
 \hyperlink{lpc}{lpc},
-\hyperlink{rlevdur}{rlevdur}
+\hyperlink{acr2csm}{acr2csm},
+\hyperlink{levdur}{levdur}
 \end{qsection}

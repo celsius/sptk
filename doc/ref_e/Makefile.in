@@ -150,6 +150,7 @@ INC  = cmndref.sty \
 	psgr.tex \
 	ramp.tex \
 	reverse.tex \
+	rlevdur.tex \
 	rmse.tex \
 	root_pol.tex \
 	sin.tex \
