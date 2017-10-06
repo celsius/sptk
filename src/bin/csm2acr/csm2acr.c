@@ -51,13 +51,13 @@
 *       usage:                                                          *
 *               csm2acr [ options ] [ infile ] > stdout                 *
 *       options:                                                        *
-*               -m M  :  order of autocorrelation          [25]         *
+*               -m M  :  number of sine waves              [13]         *
 *       infile:                                                         *
 *               Composite Sinusoidal Modeling                           *
-*                   , w(1), ..., w((M+1)/2), m(1), ..., m((M+1)/2),     *
+*                   , w(1), ..., w(M), m(1), ..., m(M),                 *
 *       stdout:                                                         *
 *               autocorrelation coefficeints                            *
-*                   , r(0), r(1), ..., r(M),                            *
+*                   , r(0), r(1), ..., r(2M-1),                         *
 *       require:                                                        *
 *               csm2acr()                                               *
 *                                                                       *
@@ -85,7 +85,7 @@ static char *rcs_id = "$Id$";
 #endif
 
 /*  Default Values  */
-#define ORDER  25
+#define DEF_M  13
 
 /*  Command Name  */
 char *cmnd;
@@ -99,8 +99,8 @@ void usage(int status)
    fprintf(stderr, "  usage:\n");
    fprintf(stderr, "       %s [ options ] [ infile ] > stdout\n", cmnd);
    fprintf(stderr, "  options:\n");
-   fprintf(stderr, "       -m m  : order of autocorrelation         [%d]\n",
-           ORDER);
+   fprintf(stderr, "       -m m  : number of sine waves             [%d]\n",
+           DEF_M);
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr, "       CSM (%s)                              [stdin]\n",
@@ -118,7 +118,7 @@ void usage(int status)
 
 int main(int argc, char **argv)
 {
-   int m = ORDER;
+   int m = DEF_M;
    FILE *fp = stdin;
    double *csm, *r;
 
@@ -142,17 +142,12 @@ int main(int argc, char **argv)
       } else
          fp = getfp(*argv, "rb");
 
-   if (m % 2 == 0) {
-      fprintf(stderr, "%s : Order of autocorrelation must be odd!\n", cmnd);
-      return 1;
-   }
+   csm = dgetmem(2 * m + 2 * m);
+   r = csm + 2 * m;
 
-   csm = dgetmem(m + 1 + m + 1);
-   r = csm + m + 1;
-
-   while (freadf(csm, sizeof(*csm), m + 1, fp) == m + 1) {
+   while (freadf(csm, sizeof(*csm), 2 * m, fp) == 2 * m) {
       csm2acr(csm, r, m);
-      fwritef(r, sizeof(*r), m + 1, stdout);
+      fwritef(r, sizeof(*r), 2 * m, stdout);
    }
 
    return 0;

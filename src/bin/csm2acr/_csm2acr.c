@@ -52,7 +52,7 @@
 
        double  *csm   : CSM parameters
        double  *r     : autocorrelation coefficients
-       int      m     : order of autocorrelation
+       int      m     : number of sine waves
 
 ****************************************************************/
 
@@ -71,14 +71,14 @@ void csm2acr(double *csm, double *r, const int m)
    int i, l, n;
    double *frequencies, *intensities;
 
-   n = (m + 1) / 2;
+   n = 2 * m - 1;
 
    frequencies = csm;
-   intensities = csm + n;
+   intensities = csm + m;
 
-   for (l = 0; l <= m; l++) {
+   for (l = 0; l <= n; l++) {
       r[l] = 0.0;
-      for (i = 0; i < n; i++) {
+      for (i = 0; i < m; i++) {
          r[l] += intensities[i] * cos(l * frequencies[i]);
       }
    }
