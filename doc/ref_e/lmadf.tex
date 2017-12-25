@@ -244,7 +244,7 @@ in table \ref{tbl:lmadflt_pade}.
 	\argm{p}{P}{frame period}{100}
 	\argm{i}{I}{interpolation period}{1}
 	\argm{P}{Pa}{order of the Pad\'e approximation\\
-                     $Pa$ should be $4$ or $5$}{4}
+                     $Pa$ should be $4$, $5$, $6$, or $7$}{4}
 	\argm{v}{}{inverse filter}{FALSE}
 	\argm{t}{}{transpose filter}{FALSE}
 	\argm{k}{}{filtering without gain}{FALSE}
@@ -278,7 +278,8 @@ block is not used.
 \end{qsection}
 
 \begin{qsection}{NOTICE}
-$Pa$ = 4 or 5.\\
+$Pa$ = $4$, $5$, $6$, or $7$.\\
+The 6th- and 7th-order of modified Pad\'e approximation were calculated by Cassia Valentini (The University of Edinburgh).
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}

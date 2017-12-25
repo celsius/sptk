@@ -70,7 +70,7 @@
 *               filtered sequence                                       *
 *                   , y(0), y(1), ...,                                  *
 *        notice:                                                        *
-*               if c==0, LMA filter is used, P should be 4 or 5         *
+*               if c==0, LMA filter is used, P should be 4, 5, 6, or 7  *
 *        require:                                                       *
 *               glsadf(), lmadf(), iglsadf(), glsadft(), iglsadft()     *
 *                                                                       *
@@ -154,7 +154,7 @@ void usage(int status)
    fprintf(stderr, "  gcfile:\n");
    fprintf(stderr, "       generalized cepstrum (%s)\n", FORMAT);
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       if c==0, LMA filter is used, P should be 4 or 5\n");
+   fprintf(stderr, "       if c==0, LMA filter is used, P should be 4, 5, 6, or 7\n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -231,8 +231,8 @@ int main(int argc, char **argv)
    if (stage != 0) {            /* GLSA */
       gamma = -1 / (double) stage;
    } else {                     /* LMA */
-      if ((pd < 4) || (pd > 5)) {
-         fprintf(stderr, "%s : Order of Pade approximation should be 4 or 5!\n",
+      if ((pd < 4) || (pd > 7)) {
+         fprintf(stderr, "%s : Order of Pade approximation should be an integer in the rage of 4 to 7!\n",
                  cmnd);
          return (1);
       }
