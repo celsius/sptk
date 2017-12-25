@@ -1,3 +1,9 @@
+Version 3.11:
+ * add 'acr2csm' and 'csm2acr' commands to transform autocorrelation and CSM (composite sinusoidal modeling).
+ * add 'rlevdur' command for reverse Levinson-Durbin method.
+ * support 6th- and 7th-order of modified Pade approximation calculated by Cassia Valentini (The University of Edinburgh).
+ * bug fixes.
+
 Version 3.10:
  * add 'pitch_mark' command to extract pitch mark.
  * add 'REAPER' algorithm to 'pitch' command.
