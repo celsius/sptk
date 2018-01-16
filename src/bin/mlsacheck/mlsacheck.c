@@ -63,8 +63,9 @@
 *                             4 : check and modification (fast mode)    *
 *               -r r     :  stable condition for MLSA filter    [0]     *
 *                             0 : keeping log approximation error       *
-*                                 not exceeding 0.24 dB (P=4)           *
-*                                 or 0.2735 dB (P=5)                    *
+*                                 not exceeding 0.24 dB (P=4),          *
+*                                 0.2735 dB (P=5), 0.25 dB (P=6),       *
+*                                 or 0.26 dB (P=7)                      *
 *                             1 : keeing MLSA filter stable             *
 *               -P P     :  order of Pade approximation         [4]     *
 *               -R R     :  threshold value for modification    [N/A]   *
@@ -73,12 +74,16 @@
 *                             r=1,P=4 : R=6.2                           *
 *                             r=0,P=5 : R=6.0                           *
 *                             r=1,P=5 : R=7.65                          *
+*                             r=0,P=6 : R=7.4                           *
+*                             r=1,P=6 : R=9.13                          *
+*                             r=0,P=7 : R=8.9                           *
+*                             r=1,P=7 : R=10.6                          *
 *       infile:                                                         *
 *               mel cepstral coefficients                               *
 *       stdout:                                                         *
 *               mel-cepstrums satisfying stability condition            *
 *       notice:                                                         *
-*               P = 4 or 5                                              *
+*               P = 4, 5, 6, or 7                                       *
 *                                                                       *
 ************************************************************************/
 
@@ -117,6 +122,10 @@ static char *rcs_id =
 #define PADE4_THRESH2 6.2
 #define PADE5_THRESH1 6.0
 #define PADE5_THRESH2 7.65
+#define PADE6_THRESH1 7.4
+#define PADE6_THRESH2 9.13
+#define PADE7_THRESH1 8.9
+#define PADE7_THRESH2 10.6
 #define STABLE1       0
 #define STABLE2       1
 
@@ -152,8 +161,9 @@ void usage(int status)
            "       -r r  : stability condition for MLSA      [%d]\n", STABLE1);
    fprintf(stderr, "               filter \n");
    fprintf(stderr, "                 0 keeping log approximation error\n");
-   fprintf(stderr, "                   not exceeding 0.24 dB (P=4)\n");
-   fprintf(stderr, "                   or 0.2735 dB (P=5) \n");
+   fprintf(stderr, "                   not exceeding 0.24 dB (P=4),\n");
+   fprintf(stderr, "                   0.2735 dB (P=5), 0.25 dB (P=6),\n");
+   fprintf(stderr, "                   or 0.26 dB (P=7)\n");
    fprintf(stderr, "                 1 keeping MLSA filter stable\n");
    fprintf(stderr,
            "       -P P  : order of Pade approximation       [%d]\n",
@@ -164,6 +174,10 @@ void usage(int status)
    fprintf(stderr, "                 r=1,P=4 : R=6.2\n");
    fprintf(stderr, "                 r=0,P=5 : R=6.0\n");
    fprintf(stderr, "                 r=1,P=5 : R=7.65\n");
+   fprintf(stderr, "                 r=0,P=6 : R=7.4\n");
+   fprintf(stderr, "                 r=1,P=6 : R=9.13\n");
+   fprintf(stderr, "                 r=0,P=7 : R=8.9\n");
+   fprintf(stderr, "                 r=1,P=7 : R=10.6\n");
    fprintf(stderr, "       -h    : print this message\n");
    fprintf(stderr, "  infile:\n");
    fprintf(stderr,
@@ -174,7 +188,7 @@ void usage(int status)
    fprintf(stderr, "  stderr:\n");
    fprintf(stderr, "       ascii report of unstable frame\n");
    fprintf(stderr, "  notice:\n");
-   fprintf(stderr, "       P = 4 or 5 \n");
+   fprintf(stderr, "       P = 4, 5, 6, or 7 \n");
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
@@ -345,8 +359,20 @@ int main(int argc, char **argv)
       else
          r = PADE5_THRESH2;
       break;
+   case 6:
+      if (stable_condition == STABLE1)
+         r = PADE6_THRESH1;
+      else
+         r = PADE6_THRESH2;
+      break;
+   case 7:
+      if (stable_condition == STABLE1)
+         r = PADE7_THRESH1;
+      else
+         r = PADE7_THRESH2;
+      break;
    default:
-      fprintf(stderr, "%s : Order of Pade approximation should be 4 or 5!\n",
+      fprintf(stderr, "%s : Order of Pade approximation should be an integer in the range of 4 to 7!\n",
               cmnd);
       usage(1);
    }

@@ -104,11 +104,27 @@ To construct the exponential transfer function $H(z)$,
  The corresponding synthesis filter
  \begin{math} R_{L}(F(z))\simeq \exp(F(z))=D(z)\end{math}
  is stable when \begin{math} |F(e^{j\omega})| < r_{max} = 6.2 \end{math}.
- Also, the log approximation error does not exceed 0.2735 dB
- when \begin{math} r = 6.0 \end{math} and
- \begin{math}L = 5 \end{math}.
- The corresponding synthesis filter is stable
- when \begin{math}r_{max} = 7.65 \end{math}.
+ Table\ref{tbl:mlsacheck_table} shows the relationship between
+ \begin{math} L, r, r_{max}\end{math}, and the maximum log approximation error.
+
+ \setcounter{table}{2}
+ \begin{table}
+        \caption{The relationship between $L$, $r$, $r_{max}$, and the maximum log approximation error}
+        \label{tbl:mlsacheck_table}
+        \setlength{\arrayrulewidth}{0.5pt}
+        \renewcommand{\arraystretch}{1.2}
+        \begin{center}
+        \begin{tabular}{|c|c|c|c|} \hline
+        $L$ & $r$   & $r_{max}$ & maximum log approximation error \\ \hline\hline
+        4   & 4.5   & 6.2       & 0.24 dB                         \\ \hline
+        5   & 6.0   & 7.65      & 0.2735 dB                       \\ \hline
+        6   & 7.4   & 9.13      & 0.25 dB                         \\ \hline
+        7   & 8.9   & 10.6      & 0.26 dB                         \\
+        \hline
+        \end{tabular}
+        \end{center}
+ \label{tbl:mlsacheck_table}
+ \end{table}
 
  In spite of whether specifying --c option or not,
  {\em mlsacheck} tests the stability and sends
@@ -119,7 +135,8 @@ To construct the exponential transfer function $H(z)$,
  When specifying --r option,
  the stable condition can be selected as follows:
  When '--r 0', {\em mlsacheck} keeps the log approximation
- not exceeding 0.24 dB ($Pa=4$) or 0.2735 dB ($Pa=5$),
+ not exceeding 0.24 dB ($Pa=4$), 0.2735 dB ($Pa=5$), 0.25 dB ($Pa=6$),
+ or 0.26 dB ($Pa=7$),
  where $Pa$ is the order of Pad\'e approximation.
  When '--r 1', {\em mlsacheck} keeps the MLSA filter stable
  although the accuracy of log approximation is lost.
@@ -145,12 +162,13 @@ To construct the exponential transfer function $H(z)$,
  \argm{r}{R}{stable condition for MLSA filter\\
             \begin{tabular}{ll} \\[-1ex]
              $0$ & keep log approximation error not exceeding\\
-             & 0.24 dB ($Pa = 4$) or 0.2735 dB ($Pa = 5$) \\
+             & 0.24 dB ($Pa = 4$), 0.2735 dB ($Pa = 5$), \\
+             & 0.25 dB ($Pa = 6$), or 0.26 dB ($Pa = 7$) \\
              $1$ & keep MLSA filter stable\\
             \end{tabular}\\
             \hspace*{\fill}}{0}
  \argm{P}{Pa}{order of the Pad\'e approximation\\
-                     $Pa$ should be $4$ or $5$}{4}
+                     $Pa$ should be $4$, $5$, $6$, or $7$}{4}
  \argm{R}{R}{threshold value for modification \\
              If this option wasn't specified, R is set as follows : \\
             \begin{tabular}{ll} \\[-1ex]
@@ -158,6 +176,10 @@ To construct the exponential transfer function $H(z)$,
 	     when $r=1$ and $P=4$ & ,$R=6.2$ \\
 	     when $r=0$ and $P=5$ & ,$R=6.0$ \\
 	     when $r=1$ and $P=5$ & ,$R=7.65$ \\
+	     when $r=0$ and $P=6$ & ,$R=7.4$ \\
+	     when $r=1$ and $P=6$ & ,$R=9.13$ \\
+	     when $r=0$ and $P=7$ & ,$R=8.9$ \\
+	     when $r=1$ and $P=7$ & ,$R=10.6$ \\
             \end{tabular}\\
             \hspace*{\fill}}{N/A}
 
@@ -184,7 +206,7 @@ then the stability of MLSA filter is checked,
 \end{qsection}
 
 \begin{qsection}{NOTICE}
-$Pa$ = 4 or 5. 
+$Pa$ = 4, 5, 6, or 7. 
 \end{qsection}
 
 \begin{qsection}{SEE ALSO}
