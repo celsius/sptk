@@ -181,6 +181,12 @@ void pitch_mark(float_list *input, int length, double samplerate,
     fprintf(stderr, "Failed to initialize variables\n");
     return;
   }
+  // Compute polarity.
+  int Polarity;
+  if (!et.ComputePolarity(&Polarity)) {
+    fprintf(stderr, "Failed to compute polarity\n");
+    return;
+  }
   // Compute f0 and pitchmarks.
   Track *f0 = NULL;
   Track *pm = NULL;
@@ -189,17 +195,11 @@ void pitch_mark(float_list *input, int length, double samplerate,
     fprintf(stderr, "Failed to compute epochs\n");
     return;
   }
-  // Compute polarity.
-  int Polarity;
-  if (!et.ComputePolarity(&Polarity)) {
-    fprintf(stderr, "Failed to compute polarity\n");
-    return;
-  }
 
   // Save outputs.
   float pitchmark;
-  int current_pitchmark;
-  int past_pitchmark = 0;
+  float current_pitchmark;
+  float past_pitchmark = -1.0;
   int distance;
   float zero = 0.0;
   float polarity = static_cast<float>(Polarity);
@@ -222,8 +222,8 @@ void pitch_mark(float_list *input, int length, double samplerate,
       default: {
         if (pm->v(i)) {
           pitchmark = pm->t(i) * sample_rate;
-          current_pitchmark = static_cast<int>(pitchmark);
-          distance = current_pitchmark - past_pitchmark;
+          current_pitchmark = pitchmark;
+          distance = static_cast<int>(current_pitchmark - past_pitchmark);
           past_pitchmark = current_pitchmark;
           for (int j = 1; j < distance; ++j) {
             fwrite(&zero, sizeof(zero), 1, stdout);
