@@ -55,7 +55,6 @@
 set path    = ( @bindir@ $path )
 set libpath = '@pkgdatadir@'
 set sptkver = '@package_version@'
-set cvsid   = '$Id$'
 
 set cmnd = $0
 set cmnd = $cmnd:t
@@ -174,7 +173,6 @@ cat2 <<EOF
   notice:
 
  SPTK: version $sptkver
- CVS Info: $cvsid
   
 EOF
 exit 1

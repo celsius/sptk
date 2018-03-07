@@ -44,7 +44,6 @@
 
 /************************************************************************
 
-  $Id$
 
   Transpose a matrix
       transpose(float* buf, int m, int n)

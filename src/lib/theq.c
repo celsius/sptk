@@ -44,7 +44,6 @@
 
 /******************************************************************
 
-    $Id$
 
     Subroutine for Solving a Toeplitz plus Hankel
     Coefficient Matrix System of Equations  ( T + H ) a = b

@@ -44,7 +44,6 @@
 
 /***********************************************************************
 
-    $Id$
 
     Frequency and Generalized Cepstral Transformation
 

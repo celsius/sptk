@@ -44,7 +44,6 @@
 
 /************************************************************************
 
-  $Id$
 
   Reverse the order of data in sequence
       reverse(real* p, int l)

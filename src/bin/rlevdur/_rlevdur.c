@@ -44,7 +44,6 @@
 
 /****************************************************************
 
-    $Id$
 
     Solve an Autocorrelation Normal Equation
     Using Reverse Levinson-Durbin Method

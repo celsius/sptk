@@ -44,7 +44,6 @@
 
 /***************************************************************
 
-    $Id$
 
     Transformation Autocorrelation to CSM
 

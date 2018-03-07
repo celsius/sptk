@@ -42,7 +42,6 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /* ----------------------------------------------------------------- */
 
-/* $Id$ */
 
 #include <stdio.h>
 #include <fcntl.h>

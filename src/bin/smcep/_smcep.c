@@ -44,7 +44,6 @@
 
 /****************************************************************
 
-    $Id$
 
     Mel-Cepstral Analysis (2nd order all-pass filter)
 

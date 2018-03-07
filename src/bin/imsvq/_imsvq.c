@@ -44,7 +44,6 @@
 
 /****************************************************************
 
-    $Id$
 
     Decoder of Multi Stage Vector Quantization
 

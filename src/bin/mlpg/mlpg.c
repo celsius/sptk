@@ -72,7 +72,6 @@
 *                                                                                       *
 ****************************************************************************************/
 
-static char *rcs_id = "$Id$";
 
 
 /* Standard C Libraries */
@@ -220,7 +219,6 @@ void usage(int status)
 #ifdef PACKAGE_VERSION
    fprintf(stderr, "\n");
    fprintf(stderr, " SPTK: version %s\n", PACKAGE_VERSION);
-   fprintf(stderr, " CVS Info: %s", rcs_id);
 #endif
    fprintf(stderr, "\n");
    exit(status);

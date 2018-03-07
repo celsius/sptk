@@ -44,7 +44,6 @@
 
 /****************************************************************
 
-    $Id$
 
     Transformation Cepstrum to Autocorrelation
 

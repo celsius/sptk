@@ -53,7 +53,6 @@
 
 set path    = ( @bindir@ $path )
 set sptkver = '@package_version@'
-set cvsid   = '$Id$'
 
 set cmnd    = $0
 set cmnd    = $cmnd:t
@@ -87,7 +86,6 @@ usage:
         echo2 '       num : number of bell      [1]'
         echo2 ''
         echo2 " SPTK: version $sptkver"
-        echo2 " CVS Info: $cvsid"
 exit $exit_status
 
 main:

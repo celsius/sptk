@@ -44,7 +44,6 @@
 
 /****************************************************************
 
-    $Id$
 
     LPC Analysis Using Levinson-Durbin method
 

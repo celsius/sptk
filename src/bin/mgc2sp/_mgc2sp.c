@@ -44,7 +44,6 @@
 
 /***********************************************************************
 
-    $Id$
 
     Transformation mel-generalized cepstrum to log spectrum
 
