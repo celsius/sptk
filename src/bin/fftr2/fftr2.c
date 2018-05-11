@@ -222,12 +222,6 @@ int main(int argc, char *argv[])
    x = dgetmem(2 * size2);
    y = x + size2;
 
-
-   size2 = size * size;
-
-   x = dgetmem(2 * size2);
-   y = x + size2;
-
    while (!feof(fp)) {
       if (n1) {
          for (xp = x, k = n2; --k >= 0; xp += size) {
@@ -264,12 +258,13 @@ int main(int argc, char *argv[])
       } else if (out == 'A') {
          for (k = 0; k < size2; k++)
             x[k] = sqrt(x[k] * x[k] + y[k] * y[k]);
-         if (out != 'I') {
-            if (outopt)
-               trans(x);
-            else
-               fwritef(x, sizeof(*x), size2, stdout);
-         }
+      }
+      
+      if (out != 'I') {
+        if (outopt)
+          trans(x);
+        else
+          fwritef(x, sizeof(*x), size2, stdout);
       }
 
       if (out == ' ' || out == 'I') {
